@@ -101,6 +101,7 @@ public class SecuredUpload {
     private static final String MODULE = SecuredUpload.class.getName();
     private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
     private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
+    private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
         return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
@@ -114,6 +115,13 @@ public class SecuredUpload {
 
         // Prevent double extensions
         if (StringUtils.countMatches(fileToCheck, ".") > 1) {
+            Debug.logError("Double extensions are not allowed for security reason", MODULE);
+            return false;
+        }
+
+        // Check max line length, default 10000
+        if (!checkMaxLinesLength(fileToCheck)) {
+            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
             return false;
         }
 
@@ -646,6 +654,10 @@ public class SecuredUpload {
             }
         }
         String content = new String(bytesFromFile);
+        if (content.toLowerCase().contains("xlink:href")) {
+            Debug.logError("Linked images inside SVG are not allowed for security reason", MODULE);
+            return false;
+        }
         ArrayList<String> allowed = new ArrayList<>();
         return isValidText(content, allowed);
     }
@@ -670,5 +682,20 @@ public class SecuredUpload {
     private static List<String> deniedWebShellTokens() {
         String deniedTokens = UtilProperties.getPropertyValue("security", "deniedWebShellTokens");
         return UtilValidate.isNotEmpty(deniedTokens) ? StringUtil.split(deniedTokens, ",") : new ArrayList<>();
+    }
+
+    private static boolean checkMaxLinesLength(String fileToCheck) {
+        try {
+            File file = new File(fileToCheck);
+            List<String> lines = FileUtils.readLines(file, Charset.defaultCharset());
+            for (String line : lines) {
+                if (line.length() > MAXLINELENGTH) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 }
