@@ -101,7 +101,7 @@ public class SecuredUpload {
     private static final String MODULE = SecuredUpload.class.getName();
     private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
     private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
-    private static final Integer maxLineLength = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
+    private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
         return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
@@ -121,7 +121,7 @@ public class SecuredUpload {
 
         // Check max line length, default 10000
         if (!checkMaxLinesLength(fileToCheck)) {
-            Debug.logError("For security reason lines over " + maxLineLength.toString() + " are not allowed", MODULE);
+            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
             return false;
         }
 
@@ -689,7 +689,7 @@ public class SecuredUpload {
             File file = new File(fileToCheck);
             List<String> lines = FileUtils.readLines(file, Charset.defaultCharset());
             for (String line : lines) {
-                if (line.length() > maxLineLength) {
+                if (line.length() > MAXLINELENGTH) {
                     return false;
                 }
             }
