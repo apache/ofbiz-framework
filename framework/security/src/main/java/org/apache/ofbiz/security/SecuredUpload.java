@@ -113,11 +113,12 @@ public class SecuredUpload {
             return true;
         }
 
-        // Prevent double extensions
+        // Prevents double extensions
         if (StringUtils.countMatches(fileToCheck, ".") > 1) {
             Debug.logError("Double extensions are not allowed for security reason", MODULE);
             return false;
         }
+
 
         // Check max line length, default 10000
         if (!checkMaxLinesLength(fileToCheck)) {
@@ -132,6 +133,17 @@ public class SecuredUpload {
         // Check extensions
         if (p != null && p.getFileName() != null) {
             String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
+            // Prevents null byte in filename
+            if (fileName.contains("%00")
+                    || fileName.contains("%0a")
+                    || fileName.contains("%20")
+                    || fileName.contains("%0d%0a")
+                    || fileName.contains("/")
+                    || fileName.contains("./")
+                    || fileName.contains(".")) {
+                Debug.logError("Special bytes in filename are not allowed for security reason", MODULE);
+                return false;
+            }
             if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck).toLowerCase())) {
                 Debug.logError("This file extension is not allowed for security reason", MODULE);
                 deleteBadFile(fileToCheck);
