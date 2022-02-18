@@ -657,7 +657,7 @@ public class SecuredUpload {
         }
         }
         String content = new String(bytesFromFile);
-        if (content.toLowerCase().contains("xlink:href")) {
+        if (content.toLowerCase().contains("xlink:href=\"http")) {
             Debug.logError("Linked images inside SVG are not allowed for security reason", MODULE);
             return false;
         }
