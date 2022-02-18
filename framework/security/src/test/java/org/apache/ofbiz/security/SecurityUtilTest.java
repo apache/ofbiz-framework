@@ -63,7 +63,7 @@ public class SecurityUtilTest {
         // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
         // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,\
         // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,\
-        // ifconfig,route,crontab,netstat,uname,hostname,iptables,whoami
+        // ifconfig,route,crontab,netstat,uname,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|
 
         try {
             List<String> allowed = new ArrayList<>();
@@ -122,11 +122,15 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("route", allowed));
             assertFalse(SecuredUpload.isValidText("crontab", allowed));
             assertFalse(SecuredUpload.isValidText("netstat", allowed));
-            assertFalse(SecuredUpload.isValidText("uname", allowed)); // found 1 image (on 33 600) with this token in
+            assertFalse(SecuredUpload.isValidText("uname", allowed)); // found 1 image (on 33 600, ~3GB) with this token in
             assertFalse(SecuredUpload.isValidText("hostname", allowed));
             assertFalse(SecuredUpload.isValidText("iptables", allowed));
             assertFalse(SecuredUpload.isValidText("whoami", allowed));
             // ip, ls, nc, ip, cat and pwd can'tbe used, too short
+            assertFalse(SecuredUpload.isValidText("\"cmd\"", allowed));
+            assertFalse(SecuredUpload.isValidText("*cmd|", allowed));
+            assertFalse(SecuredUpload.isValidText("+cmd|", allowed));
+            assertFalse(SecuredUpload.isValidText("=cmd|", allowed));
 
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
