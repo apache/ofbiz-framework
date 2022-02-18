@@ -657,8 +657,9 @@ public class SecuredUpload {
         }
         }
         String content = new String(bytesFromFile);
-        if (content.toLowerCase().contains("xlink:href=\"http")) {
-            Debug.logError("Linked images inside SVG are not allowed for security reason", MODULE);
+        if (content.toLowerCase().contains("xlink:href=\"http")
+                || content.toLowerCase().contains("<!ENTITY ")) { // Billions laugh attack
+            Debug.logError("Linked images inside or Entity in SVG are not allowed for security reason", MODULE);
             return false;
         }
         ArrayList<String> allowed = new ArrayList<>();
