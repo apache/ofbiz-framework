@@ -101,19 +101,19 @@ public class SecuredUpload {
     private static final String MODULE = SecuredUpload.class.getName();
     private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
     private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
-    private static final Integer maxLineLength = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
+    private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
         return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
     }
 
-    private static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
+    public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
         // Allow all
         if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
             return true;
         }
 
-        // Prevent double extensions
+        // Prevents double extensions
         if (StringUtils.countMatches(fileToCheck, ".") > 1) {
             Debug.logError("Double extensions are not allowed for security reason", MODULE);
             return false;
@@ -121,17 +121,30 @@ public class SecuredUpload {
 
         // Check max line length, default 10000
         if (!checkMaxLinesLength(fileToCheck)) {
-            Debug.logError("For security reason lines over " + maxLineLength.toString() + " are not allowed", MODULE);
+            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
             return false;
         }
 
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
-        String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
-        
+
         // Check extensions
-        if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
+        if (p != null && p.getFileName() != null) {
+            String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
+            String extension = FilenameUtils.getExtension(fileToCheck).toLowerCase();
+            // Prevents null byte in filename
+            if (extension.contains("%00")
+                    || extension.contains("%0a")
+                    || extension.contains("%20")
+                    || extension.contains("%0d%0a")
+                    || extension.contains("/")
+                    || extension.contains("./")
+                    || extension.contains(".")) {
+                Debug.logError("Special bytes in extension are not allowed for security reason", MODULE);
+                return false;
+            }
+            if (DENIEDFILEEXTENSIONS.contains(extension)) {
             Debug.logError("This file extension is not allowed for security reason", MODULE);
             deleteBadFile(fileToCheck);
             return false;
@@ -139,7 +152,8 @@ public class SecuredUpload {
 
             // Check the file and path names
         if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            if (fileToCheck.length() > 259) { // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+            // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+            if (fileToCheck.length() > 259) {
                 Debug.logError("Uploaded file name too long", MODULE);
             } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
                     // TODO check this is still useful in at least 1 case
@@ -161,6 +175,7 @@ public class SecuredUpload {
                 wrongFile = false;
             }
         }
+    }
 
         if (wrongFile) {
             Debug.logError("Uploaded file "
@@ -289,8 +304,9 @@ public class SecuredUpload {
         File file = new File(fileName);
         boolean safeState = false;
         boolean fallbackOnApacheCommonsImaging;
-        try {
+
             if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
+                try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE)) {
                 // Get the image format
                 String formatName;
                 ImageInputStream iis = ImageIO.createImageInputStream(file);
@@ -340,7 +356,7 @@ public class SecuredUpload {
                 Graphics bg = sanitizedImage.getGraphics();
                 bg.drawImage(initialSizedImage, 0, 0, null);
                 bg.dispose();
-                OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE);
+
                 if (!fallbackOnApacheCommonsImaging) {
                     ImageIO.write(sanitizedImage, formatName, fos);
                 } else {
@@ -348,36 +364,29 @@ public class SecuredUpload {
                     // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
                     // the image format. See reference link in the class header
                     switch (formatName) {
-                    case "TIFF": {
+                    case "TIFF":
                         imageParser = new TiffImageParser();
                         break;
-                    }
-                    case "GIF": {
+                    case "GIF":
                         imageParser = new GifImageParser();
                         break;
-                    }
-                    case "PNG": {
+                    case "PNG":
                         imageParser = new PngImageParser();
                         break;
-                    }
-                    case "JPEG": {
+                    case "JPEG":
                         imageParser = new JpegImageParser();
                         break;
-                    }
-                    default: {
+                    default:
                         throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
-                    }
                     }
                     imageParser.writeImage(sanitizedImage, fos, new HashMap<>());
                 }
                 // Set state flag
-                fos.close(); // This was not correctly handled in the document-upload-protection example, and I did not spot it :/
                 safeState = true;
-            }
         } catch (IOException | ImageReadException | ImageWriteException e) {
-            safeState = false;
             Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
         }
+    }
         return safeState;
     }
 
@@ -693,7 +702,7 @@ public class SecuredUpload {
             File file = new File(fileToCheck);
             List<String> lines = FileUtils.readLines(file, Charset.defaultCharset());
             for (String line : lines) {
-                if (line.length() > maxLineLength) {
+                if (line.length() > MAXLINELENGTH) {
                     return false;
                 }
             }
