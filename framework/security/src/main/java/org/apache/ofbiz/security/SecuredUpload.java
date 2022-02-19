@@ -107,7 +107,7 @@ public class SecuredUpload {
         return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
     }
 
-    private static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
+    public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
         // Allow all
         if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
             return true;
@@ -118,7 +118,6 @@ public class SecuredUpload {
             Debug.logError("Double extensions are not allowed for security reason", MODULE);
             return false;
         }
-
 
         // Check max line length, default 10000
         if (!checkMaxLinesLength(fileToCheck)) {
@@ -133,18 +132,19 @@ public class SecuredUpload {
         // Check extensions
         if (p != null && p.getFileName() != null) {
             String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
+            String extension = FilenameUtils.getExtension(fileToCheck).toLowerCase();
             // Prevents null byte in filename
-            if (fileName.contains("%00")
-                    || fileName.contains("%0a")
-                    || fileName.contains("%20")
-                    || fileName.contains("%0d%0a")
-                    || fileName.contains("/")
-                    || fileName.contains("./")
-                    || fileName.contains(".")) {
-                Debug.logError("Special bytes in filename are not allowed for security reason", MODULE);
+            if (extension.contains("%00")
+                    || extension.contains("%0a")
+                    || extension.contains("%20")
+                    || extension.contains("%0d%0a")
+                    || extension.contains("/")
+                    || extension.contains("./")
+                    || extension.contains(".")) {
+                Debug.logError("Special bytes in extension are not allowed for security reason", MODULE);
                 return false;
             }
-            if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck).toLowerCase())) {
+            if (DENIEDFILEEXTENSIONS.contains(extension)) {
                 Debug.logError("This file extension is not allowed for security reason", MODULE);
                 deleteBadFile(fileToCheck);
                 return false;
