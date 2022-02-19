@@ -145,7 +145,6 @@ public class SecuredUpload {
                 return false;
             }
             if (DENIEDFILEEXTENSIONS.contains(extension)) {
-<<<<<<< HEAD
                 Debug.logError("This file extension is not allowed for security reason", MODULE);
                 deleteBadFile(fileToCheck);
                 return false;
@@ -157,37 +156,23 @@ public class SecuredUpload {
                 if (fileToCheck.length() > 259) {
                     Debug.logError("Uploaded file name too long", MODULE);
                 } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
-=======
-            Debug.logError("This file extension is not allowed for security reason", MODULE);
-            deleteBadFile(fileToCheck);
-            return false;
-        }
-
-            // Check the file and path names
-        if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
-            if (fileToCheck.length() > 259) {
-                Debug.logError("Uploaded file name too long", MODULE);
-            } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
->>>>>>> 668e801ada (Improved: Secure the uploads (OFBIZ-12080))
                     // TODO check this is still useful in at least 1 case
                     if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
-                        wrongFile = false;
-                    }
-                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
                     wrongFile = false;
                 }
-            } else { // Suppose a *nix system
-                if (fileToCheck.length() > 4096) {
-                    Debug.logError("Uploaded file name too long", MODULE);
-                } else if (p.toString().contains(imageServerUrl)) {
+            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
+                wrongFile = false;
+            }
+        } else { // Suppose a *nix system
+            if (fileToCheck.length() > 4096) {
+                Debug.logError("Uploaded file name too long", MODULE);
+            } else if (p.toString().contains(imageServerUrl)) {
                     // TODO check this is still useful in at least 1 case
-                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
-                        wrongFile = false;
-                    }
-                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                     wrongFile = false;
                 }
+            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                wrongFile = false;
             }
         }
     }
@@ -320,13 +305,8 @@ public class SecuredUpload {
         boolean safeState = false;
         boolean fallbackOnApacheCommonsImaging;
 
-<<<<<<< HEAD
         if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
             try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE)) {
-=======
-            if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
-                try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE)) {
->>>>>>> 668e801ada (Improved: Secure the uploads (OFBIZ-12080))
                 // Get the image format
                 String formatName;
                 ImageInputStream iis = ImageIO.createImageInputStream(file);
@@ -403,16 +383,10 @@ public class SecuredUpload {
                 }
                 // Set state flag
                 safeState = true;
-<<<<<<< HEAD
             } catch (IOException | ImageReadException | ImageWriteException e) {
                 Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
-            }
-=======
-        } catch (IOException | ImageReadException | ImageWriteException e) {
-            Debug.logWarning(e, "Error during Image file " + fileName + " processing !", MODULE);
->>>>>>> 668e801ada (Improved: Secure the uploads (OFBIZ-12080))
         }
-    }
+        }
         return safeState;
     }
 
