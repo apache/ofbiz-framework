@@ -49,6 +49,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
@@ -195,7 +196,15 @@ public class DataServices {
         return createFileMethod(dctx, context);
     }
 
-    public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+    public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws IOException,
+            ImageReadException {
+        String originalFileName = (String) rcontext.get("dataResourceName");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) rcontext.get("locale");
+        if (!SecuredUpload.isValidFile(originalFileName, "All", delegator)) {
+            String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
+            return ServiceUtil.returnError(errorMessage);
+        }
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("skipPermissionCheck", "true");
         return createFileMethod(dctx, context);
@@ -254,7 +263,9 @@ public class DataServices {
         if (UtilValidate.isNotEmpty(textData)) {
             try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                 out.write(textData);
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
+                // Check if a webshell is not uploaded
+                // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
+                if (!SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
@@ -265,10 +276,11 @@ public class DataServices {
             }
         } else if (binData != null) {
             try {
-                // Check if a webshell is not uploaded
                 Path tempFile = Files.createTempFile(null, null);
                 Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "All", delegator)) {
+                // Check if a webshell is not uploaded
+                // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
+                if (!SecuredUpload.isValidFile(tempFile.toString(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
@@ -461,7 +473,8 @@ public class DataServices {
                 try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);) {
                     out.write(textData);
                     // Check if a webshell is not uploaded
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
+                    // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
+                    if (!SecuredUpload.isValidFile(file.getAbsolutePath(), "Text", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
@@ -473,9 +486,10 @@ public class DataServices {
             } else if (binData != null) {
                 try {
                     // Check if a webshell is not uploaded
+                    // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
                     Path tempFile = Files.createTempFile(null, null);
                     Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
+                    if (!SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
@@ -648,7 +662,8 @@ public class DataServices {
             try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
                 // Check if a webshell is not uploaded
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
+                if (!SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
@@ -707,7 +722,8 @@ public class DataServices {
             try (FileOutputStream out = new FileOutputStream(file);) {
                 out.write(imageData);
                 // Check if a webshell is not uploaded
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
+                // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
+                if (!SecuredUpload.isValidFile(file.getAbsolutePath(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
