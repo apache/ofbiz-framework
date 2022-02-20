@@ -199,12 +199,27 @@ public class DataServices {
     public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws IOException,
             ImageReadException {
         String originalFileName = (String) rcontext.get("dataResourceName");
+        String fileNameAndPath = (String) rcontext.get("objectInfo");
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) rcontext.get("locale");
-        if (!SecuredUpload.isValidFile(originalFileName, "All", delegator)) {
-            String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedTextFileFormats", locale);
-            return ServiceUtil.returnError(errorMessage);
+        File file = new File(fileNameAndPath);
+        if (!originalFileName.isEmpty()) {
+            // Check the file name
+            if (!org.apache.ofbiz.security.SecuredUpload.isValidFileName(originalFileName, delegator)) {
+                String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                return ServiceUtil.returnError(errorMessage);
+            }
+            // TODO we could verify the file type (here "All") with dataResourceTypeId. Anyway it's done with isValidFile()
+            // We would just have a better error message
+            if (file.exists()) {
+                // Check if a webshell is not uploaded
+                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileNameAndPath, "All", delegator)) {
+                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                    return ServiceUtil.returnError(errorMessage);
+                }
+            }
         }
+
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("skipPermissionCheck", "true");
         return createFileMethod(dctx, context);
