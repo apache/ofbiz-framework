@@ -119,7 +119,6 @@ public class SecuredUpload {
             return false;
         }
 
-
         // Check max line length, default 10000
         if (!checkMaxLinesLength(fileToCheck)) {
             Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
