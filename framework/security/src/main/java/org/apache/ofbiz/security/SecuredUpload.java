@@ -108,20 +108,9 @@ public class SecuredUpload {
     }
 
     public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
-        // Allow all
-        if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
-            return true;
-        }
-
         // Prevents double extensions
         if (StringUtils.countMatches(fileToCheck, ".") > 1) {
             Debug.logError("Double extensions are not allowed for security reason", MODULE);
-            return false;
-        }
-
-        // Check max line length, default 10000
-        if (!checkMaxLinesLength(fileToCheck)) {
-            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
             return false;
         }
 
@@ -197,12 +186,24 @@ public class SecuredUpload {
      * @throws ImageReadException
      */
     public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+        // Allow all
+        if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
+            return true;
+        }
 
+        // Check the file name
         if (!isValidFileName(fileToCheck, delegator)) {
             return false;
         }
 
-        // Check the the file content
+        // Check the file content
+
+        // Check max line length, default 10000
+        if (!checkMaxLinesLength(fileToCheck)) {
+            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
+            return false;
+        }
+
         if (isExecutable(fileToCheck)) {
             deleteBadFile(fileToCheck);
             return false;
