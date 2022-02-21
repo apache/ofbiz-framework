@@ -205,7 +205,7 @@ public class DataServices {
         File file = new File(fileNameAndPath);
         if (!originalFileName.isEmpty()) {
             // Check the file name
-            if (!org.apache.ofbiz.security.SecuredUpload.isValidFileName(originalFileName, delegator)) {
+            if (!SecuredUpload.isValidFileName(originalFileName, delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                 return ServiceUtil.returnError(errorMessage);
             }
@@ -213,7 +213,7 @@ public class DataServices {
             // We would just have a better error message
             if (file.exists()) {
                 // Check if a webshell is not uploaded
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileNameAndPath, "All", delegator)) {
+                if (!SecuredUpload.isValidFile(fileNameAndPath, "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
