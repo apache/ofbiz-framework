@@ -20,6 +20,7 @@ import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.security.SecuredUpload
 
 import org.w3c.dom.Document
 
@@ -73,7 +74,9 @@ def shell = new GroovyShell(loader, binding, configuration)
 
 if (UtilValidate.isNotEmpty(groovyProgram)) {
     try {
-        if (!org.apache.ofbiz.security.SecuredUpload.isValidText(groovyProgram,["import"])) {
+        // Check if a webshell is not uploaded but allow "import"
+        if (!SecuredUpload.isValidText(groovyProgram, ["import"])) {
+            logError("================== Not executed for security reason ==================")
             request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
             return
         }
