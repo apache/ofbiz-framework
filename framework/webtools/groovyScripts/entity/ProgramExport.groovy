@@ -17,6 +17,7 @@
  * under the License.
  */
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.security.SecuredUpload
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.MultipleCompilationErrorsException
 import org.codehaus.groovy.control.customizers.ImportCustomizer
@@ -78,7 +79,7 @@ def shell = new GroovyShell(loader, binding, configuration)
 if (groovyProgram) {
     try {
         // Check if a webshell is not uploaded but allow "import"
-        if (!org.apache.ofbiz.security.SecuredUpload.isValidText(groovyProgram,["import"])) {
+        if (!SecuredUpload.isValidText(groovyProgram, ["import"])) {
             logError("================== Not executed for security reason ==================")
             request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
             return
