@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -49,6 +50,7 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -142,6 +144,20 @@ public class ContentManagementServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Locale locale = (Locale) context.get("locale");
+
+        // Check if a webshell is not uploaded
+        String textData = (String) context.get("textData");
+        if (UtilValidate.isNotEmpty(textData)) {
+            try {
+                if (!SecuredUpload.isValidText(textData, Collections.emptyList())) {
+                    Debug.logError("================== Not saved for security reason ==================", module);
+                    return ServiceUtil.returnError("================== Not saved for security reason ==================");
+                }
+            } catch (IOException e) {
+                Debug.logError("================== Not saved for security reason ==================", module);
+                return ServiceUtil.returnError("================== Not saved for security reason ==================");
+            }
+        }
 
         // Knowing why a request fails permission check is one of the more difficult
         // aspects of content management. Setting "displayFailCond" to true will
