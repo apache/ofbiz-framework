@@ -104,7 +104,7 @@ public class SecuredUpload {
     private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
+        return content != null ? DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed)) : false;
     }
 
     public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
