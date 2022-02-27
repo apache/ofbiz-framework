@@ -21,6 +21,7 @@ package org.apache.ofbiz.content.data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -82,10 +84,16 @@ public class DataEvents {
         // get the permission service required for streaming data; default is always the genericContentPermission
         String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service", "genericContentPermission", delegator);
 
-        // This is counterintuitive but it works, for OFBIZ-11840
-        // It could be improved by checking for possible events associated with svg
-        // As listed at https://portswigger.net/web-security/cross-site-scripting/cheat-sheet
-        if (contentId.contains("<svg")) {
+        // For OFBIZ-11840, checks if a webshell is not uploaded
+        // It's counterintuitive to return success but it makes sense if you thing about it.
+        // It simply returns a blank screen.
+        try {
+            if (!SecuredUpload.isValidText(contentId, Collections.emptyList())) {
+                Debug.logError("================== Not saved for security reason ==================", MODULE);
+                return "success";
+            }
+        } catch (IOException e) {
+            Debug.logError("================== Not saved for security reason ==================", MODULE);
             return "success";
         }
 
