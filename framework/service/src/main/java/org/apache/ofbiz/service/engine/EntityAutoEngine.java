@@ -76,7 +76,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (!isValidText(parameters)) {
             return ServiceUtil.returnError("Not saved for security reason!");
         }
-        DispatchContext dctx = getDispatcher().getLocalContext(localName);
+        DispatchContext dctx = dispatcher.getLocalContext(localName);
         Locale locale = (Locale) parameters.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
@@ -591,11 +591,11 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (parameter != null) {
             try {
                 if (!SecuredUpload.isValidText(parameter, Collections.emptyList())) {
-                    Debug.logError("================== Not saved for security reason ==================", MODULE);
+                    Debug.logError("================== Not saved for security reason ==================", module);
                     return false;
                 }
             } catch (IOException e) {
-                Debug.logError("================== Not saved for security reason ==================", MODULE);
+                Debug.logError("================== Not saved for security reason ==================", module);
                 return false;
             }
         }

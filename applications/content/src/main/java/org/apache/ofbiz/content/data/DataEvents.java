@@ -89,11 +89,11 @@ public class DataEvents {
         // It simply returns a blank screen.
         try {
             if (!SecuredUpload.isValidText(contentId, Collections.emptyList())) {
-                Debug.logError("================== Not saved for security reason ==================", MODULE);
+                Debug.logError("================== Not saved for security reason ==================", module);
                 return "success";
             }
         } catch (IOException e) {
-            Debug.logError("================== Not saved for security reason ==================", MODULE);
+            Debug.logError("================== Not saved for security reason ==================", module);
             return "success";
         }
 
