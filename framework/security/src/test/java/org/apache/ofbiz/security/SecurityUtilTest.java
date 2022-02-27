@@ -59,9 +59,9 @@ public class SecurityUtilTest {
     @Test
     public void webShellTokensTesting() {
         // Currently used
-        // java.,beans,freemarker,<script,javascript,<body,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,\
+        // java.,beans,freemarker,<script,javascript,<body,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,alert(,\
         // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
-        // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,\
+        // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,<svg ,\
         // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,\
         // ifconfig,route,crontab,netstat,uname,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost
 
