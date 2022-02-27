@@ -64,6 +64,9 @@ public class SecurityUtilTest {
         // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,<svg ,\
         // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,\
         // ifconfig,route,crontab,netstat,uname,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost
+        // ",","+",',','+'
+        // Last line is a non satisfying (because images may contain those strings) temporary solution before looking at
+        // Freemarker::WhitelistMemberAccessPolicy
 
         try {
             List<String> allowed = new ArrayList<>();
@@ -136,6 +139,10 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("=cmd|", allowed));
             assertFalse(SecuredUpload.isValidText("localhost", allowed));
 
+            assertFalse(SecuredUpload.isValidText("\",\"", allowed));
+            assertFalse(SecuredUpload.isValidText("\"+\"", allowed));
+            assertFalse(SecuredUpload.isValidText("','", allowed));
+            assertFalse(SecuredUpload.isValidText("'+'", allowed));
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
         }
