@@ -99,8 +99,8 @@ public class SecuredUpload {
     // Supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio, Video, Text, and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
-    private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
-    private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
+    private static final List<String> DENIEDFILEEXTENSIONS = getDeniedFileExtensions();
+    private static final List<String> DENIEDWEBSHELLTOKENS = getDeniedWebShellTokens();
     private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
@@ -688,12 +688,12 @@ public class SecuredUpload {
         }
     }
 
-    private static List<String> deniedFileExtensions() {
+    private static List<String> getDeniedFileExtensions() {
         String deniedExtensions = UtilProperties.getPropertyValue("security", "deniedFileExtensions");
         return UtilValidate.isNotEmpty(deniedExtensions) ? StringUtil.split(deniedExtensions, ",") : new ArrayList<>();
     }
 
-    private static List<String> deniedWebShellTokens() {
+    private static List<String> getDeniedWebShellTokens() {
         String deniedTokens = UtilProperties.getPropertyValue("security", "deniedWebShellTokens");
         return UtilValidate.isNotEmpty(deniedTokens) ? StringUtil.split(deniedTokens, ",") : new ArrayList<>();
     }
