@@ -501,7 +501,7 @@ public class RequestHandler {
                     requestMap = ccfg.getRequestMapMap().getFirst("ajaxCheckLogin");
                 }
             }
-        } else {
+        } else if (requestUri != null) {
             String[] loginUris = EntityUtilProperties.getPropertyValue("security", "login.uris", delegator).split(",");
             boolean removePreviousRequest = true;
             for (int i = 0; i < loginUris.length; i++) {
