@@ -62,7 +62,7 @@ public class SecurityUtilTest {
         // java.,beans,freemarker,<script,javascript,<body,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,alert(,\
         // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
         // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,onload,build\
-        // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,\
+        // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,assign,webappPath,\
         // ifconfig,route,crontab,netstat,uname ,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost,\
 
         try {
@@ -125,6 +125,8 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("class", allowed));
             assertFalse(SecuredUpload.isValidText("wget ", allowed));
             assertFalse(SecuredUpload.isValidText("static", allowed));
+            assertFalse(SecuredUpload.isValidText("assign", allowed));
+            assertFalse(SecuredUpload.isValidText("webappPath", allowed));
 
             assertFalse(SecuredUpload.isValidText("ifconfig", allowed));
             assertFalse(SecuredUpload.isValidText("route", allowed));
