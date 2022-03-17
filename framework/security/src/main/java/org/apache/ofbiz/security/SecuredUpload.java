@@ -677,7 +677,11 @@ public class SecuredUpload {
     }
 
     private static boolean isValid(String content, String string, List<String> allowed) {
-        return !content.toLowerCase().contains(string) || allowed.contains(string);
+        boolean isOK = !content.toLowerCase().contains(string) || allowed.contains(string);
+        if (!isOK) {
+            Debug.logInfo("############### BEWARE, Image contains " + string, MODULE);
+        }
+        return isOK;
     }
 
     private static void deleteBadFile(String fileToCheck) {
