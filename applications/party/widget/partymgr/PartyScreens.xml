@@ -640,7 +640,7 @@ under the License.
                         <screenlet id="AddUserLoginSecurityGroupsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                        <include-grid name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
