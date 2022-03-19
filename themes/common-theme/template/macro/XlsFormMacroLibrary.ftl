@@ -34,7 +34,7 @@ under the License.
 
 <#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="" disabled=""></#macro>
 
-<#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled="">
+<#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest="">
 <#if dateType=="time" ><@renderItemField value "tf" className/>
 <#elseif dateType=="date"><@renderItemField value "dt" className/>
 <#else><@renderItemField value "dtf" className/></#if>
