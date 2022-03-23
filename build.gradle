@@ -167,7 +167,11 @@ dependencies {
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20180219.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
     compile 'com.ibm.icu:icu4j:63.1'
-    compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
+    compile('com.lowagie:itext:2.1.7') { // Don't update due to license change in newer versions, see OFBIZ-10455
+        exclude module: 'bcmail-jdk14'
+        exclude module: 'bcprov-jdk14'
+        exclude module: 'bctsp-jdk14'
+    }
     compile 'com.sun.mail:javax.mail:1.6.2'
     compile 'com.rometools:rome:1.16.0'
     compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
@@ -190,8 +194,8 @@ dependencies {
     compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.6'
-    compile 'org.apache.logging.log4j:log4j-api:2.17.1' // the API of log4j 2
-    compile 'org.apache.logging.log4j:log4j-web:2.17.1' //???
+    compile 'org.apache.logging.log4j:log4j-api:2.17.2' // the API of log4j 2
+    compile 'org.apache.logging.log4j:log4j-web:2.17.2' //???
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.pdfbox:pdfbox:2.0.24'
     compile 'org.apache.shiro:shiro-core:1.4.0'
@@ -232,11 +236,11 @@ dependencies {
     runtime 'org.apache.axis2:axis2-transport-local:1.7.8'
     runtime 'org.apache.derby:derby:10.14.2.0'
     runtime 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.17.1' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-core:2.17.1' // the implementation of the log4j 2 API
-    runtime 'org.apache.logging.log4j:log4j-jul:2.17.1' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1' // for external jars using slf4j: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-jcl:2.17.1' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
+    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.17.2' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-core:2.17.2' // the implementation of the log4j 2 API
+    runtime 'org.apache.logging.log4j:log4j-jul:2.17.2' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2' // for external jars using slf4j: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-jcl:2.17.2' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // plugin libs
