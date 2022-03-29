@@ -29,3 +29,6 @@ github:
     - https
     - content
     - geospatial
+
+notifications:
+  jobs:  dev@ofbiz.apache.org
