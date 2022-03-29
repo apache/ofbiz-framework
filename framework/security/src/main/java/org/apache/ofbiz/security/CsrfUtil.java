@@ -24,7 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -68,9 +67,11 @@ public final class CsrfUtil {
         try {
             String className = UtilProperties.getPropertyValue("security", "csrf.defense.strategy",
                     NoCsrfDefenseStrategy.class.getCanonicalName());
-            Class<?> c = Class.forName(className);
+            Class<? extends ICsrfDefenseStrategy> c =
+                    Class.forName(className).asSubclass(
+                            ICsrfDefenseStrategy.class);
             strategyCanonicalName = c.getCanonicalName();
-            setStrategy((ICsrfDefenseStrategy) c.newInstance());
+            setStrategy(c.getConstructor().newInstance());
         } catch (Exception e) {
             Debug.logError(e, MODULE);
             setStrategy(new NoCsrfDefenseStrategy());
