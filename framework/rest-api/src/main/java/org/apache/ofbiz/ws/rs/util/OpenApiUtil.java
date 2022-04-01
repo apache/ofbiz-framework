@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -298,8 +299,9 @@ public final class OpenApiUtil {
             return null;
         }
         try {
-            schema = (Schema<?>) schemaClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                | SecurityException e) {
             e.printStackTrace();
         }
 
@@ -377,8 +379,9 @@ public final class OpenApiUtil {
                 continue;
             }
             try {
-                schema = (Schema<?>) schemaClass.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
+                schema = (Schema<?>) schemaClass.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException e) {
                 e.printStackTrace();
             }
             if (schemaClass != null) {
