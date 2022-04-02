@@ -31,4 +31,4 @@ github:
     - geospatial
 
 notifications:
-  jobs:  dev@ofbiz.apache.org
+  jobs:  notifications@ofbiz.apache.org
