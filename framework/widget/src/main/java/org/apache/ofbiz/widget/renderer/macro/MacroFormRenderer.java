@@ -2915,7 +2915,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 writer.append(hiddenFormElement.outerHtml());
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
                         encodedDescription, confirmation, modelFormField, request, context);
-                if(anchorElement != null) {
+                if (anchorElement != null) {
                     writer.append(anchorElement.outerHtml());
                 }
             }
