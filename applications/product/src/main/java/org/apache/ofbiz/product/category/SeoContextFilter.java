@@ -48,11 +48,12 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.security.SecurityUtil;
+import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ControlFilter;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
-import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 
@@ -113,6 +114,10 @@ public final class SeoContextFilter implements Filter {
             });
             String queryString = URLEncodedUtils.format(params, Charset.forName("UTF-8"));
             uri = uri + "?" + queryString;
+        }
+
+        if (SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, uri)) {
+            return;
         }
 
         boolean forwarded = forwardUri(httpResponse, uri);

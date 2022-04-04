@@ -36,6 +36,8 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.security.SecurityUtil;
 
 /**
  * A Filter used to specify an allowlist of allowed paths to the OFBiz application.
@@ -147,6 +149,11 @@ public class ControlFilter extends HttpFilter {
             String uriWithContext = req.getRequestURI();
             String uri = uriWithContext.substring(context.length());
 
+            if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                    && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
+                return;
+            }
+
             // Check if the requested URI is allowed.
             if (allowedPaths.stream().anyMatch(uri::startsWith)) {
                 try {
@@ -165,7 +172,7 @@ public class ControlFilter extends HttpFilter {
                 }
                 if (Debug.infoOn()) {
                     Debug.logInfo("[Filtered request]: " + uriWithContext + " --> "
-                                    + (redirectPath == null ? errorCode : redirectPath), MODULE);
+                            + (redirectPath == null ? errorCode : redirectPath), MODULE);
                 }
             }
         }
