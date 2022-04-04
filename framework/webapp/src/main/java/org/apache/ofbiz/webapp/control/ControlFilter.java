@@ -32,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.security.SecurityUtil;
 
 /*
  * A Filter used to specify a whitelist of allowed paths to the OFBiz application.
@@ -132,6 +134,11 @@ public class ControlFilter implements Filter {
             if (offset == -1) {
                 offset = requestUri.length();
             }
+            if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                    && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
+                return;
+            }
+
             while (!allowedPaths.contains(requestUri.substring(0, offset))) {
                 offset = requestUri.indexOf("/", offset + 1);
                 if (offset == -1) {

@@ -48,6 +48,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ControlFilter;
@@ -112,7 +113,11 @@ public class SeoContextFilter implements Filter {
             String queryString = URLEncodedUtils.format(params, Charset.forName("UTF-8"));
             uri = uri + "?" + queryString;
         }
-        
+
+        if (SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, uri)) {
+            return;
+        }
+
         boolean forwarded = forwardUri(httpResponse, uri);
         if (forwarded) {
             return;
@@ -167,7 +172,7 @@ public class SeoContextFilter implements Filter {
             if (pathItemList != null) {
                 viewName = pathItemList.get(0);
             }
-            
+
             String requestUri = UtilHttp.getRequestUriFromTarget(httpRequest.getRequestURI());
 
             // check to make sure the requested url is allowed
@@ -231,7 +236,6 @@ public class SeoContextFilter implements Filter {
 
     /**
      * Forward a uri according to forward pattern regular expressions. Note: this is developed for Filter usage.
-     * 
      * @param uri String to reverse transform
      * @return String
      */
