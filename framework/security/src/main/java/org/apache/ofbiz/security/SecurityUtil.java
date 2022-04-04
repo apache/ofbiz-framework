@@ -231,7 +231,7 @@ public final class SecurityUtil {
                 || stringToCheck.contains("%5B%23") || stringToCheck.contains("[#")) { // not used OOTB in OFBiz, but possible
 
             Debug.logError("===== Not saved for security reason, strings '${', '<#', '#{', '[=' or '[#' not accepted in fields! =====",
-                    MODULE);
+                    module);
             resp.sendError(HttpServletResponse.SC_FORBIDDEN,
                     "Not saved for security reason, strings '${', '<#', '#{', '[=' or '[#' not accepted in fields!");
             return true;
