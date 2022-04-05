@@ -19,7 +19,7 @@
 package org.apache.ofbiz.accounting
 
 import javax.servlet.http.HttpSession
-import org.apache.ofbiz.base.util.UtilProperties
+
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.CheckOutEvents
@@ -142,48 +142,42 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
     }
     void testInvoicePerShipmentSetFalse() {
         /* Test Invoice Per Shipment
-            Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
-            Step 2) Create order and approve order.
-            Step 3) Pack Shipment For Ship Group.
-            Step 4) Check invoice should not created.
-        */
-        UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "N")
-        logInfo("===== >>> Set Accounting.properties / create.invoice.per.shipment = N")
-
-        List invoices = testInvoicePerShipment("GZ-1000", null)
+         Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
+         Step 2) Create order and approve order.
+         Step 3) Pack Shipment For Ship Group.
+         Step 4) Check invoice should not created.
+         */
+        List invoices = testInvoicePerShipment("GZ-1000", "N")
         assert UtilValidate.isEmpty(invoices)
     }
 
     void testInvoicePerShipmentSetTrue() {
         /* Test Invoice Per Shipment
-             Step 1) Set create.invoice.per.shipment=Y in accounting.properties file.
-             Step 2) Create order and approve order.
-             Step 3) Pack Shipment For Ship Group.
-             Step 4) Check invoice should be created.
+         Step 1) Set create.invoice.per.shipment=Y in accounting.properties file.
+         Step 2) Create order and approve order.
+         Step 3) Pack Shipment For Ship Group.
+         Step 4) Check invoice should be created.
          */
-        UtilProperties.setPropertyValueInMemory("accounting", "create.invoice.per.shipment", "Y")
-        logInfo("===== >>> Set Accounting.properties / create.invoice.per.shipment = Y")
-
-        List invoices = testInvoicePerShipment("GZ-1000", null)
+        List invoices = testInvoicePerShipment("GZ-1000", "Y")
         assert UtilValidate.isNotEmpty(invoices)
     }
 
     void testInvoicePerShipmentSetOrderFalse() {
         /* Test Invoice Per Shipment
-            Step 1) Create order and set invoicePerShipment=N.
-            Step 2) Pack Shipment For Ship Group.
-            Step 3) Check invoice should not be created.
-        */
+         Step 1) Create order and set invoicePerShipment=N.
+         Step 2) Pack Shipment For Ship Group.
+         Step 3) Check invoice should not be created.
+         */
         List invoices = testInvoicePerShipment("GZ-2644", "N")
         assert UtilValidate.isEmpty(invoices)
     }
 
     void testInvoicePerShipmentSetOrderTrue() {
         /* Test Invoice Per Shipment
-            Step 1) Create order and set invoicePerShipment=Y
-            Step 2) Pack Shipment For Ship Group.
-            Step 3) Check invoice should be created.
-        */
+         Step 1) Create order and set invoicePerShipment=Y
+         Step 2) Pack Shipment For Ship Group.
+         Step 3) Check invoice should be created.
+         */
         List invoices = testInvoicePerShipment("GZ-2644", "Y")
         assert UtilValidate.isNotEmpty(invoices)
     }

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-<!-- 
+<!--
 # what should the default of the payment to invoice processing be?
 # paymentProcessing by invoice or paymentprocessing by invoiceitem?
 # there is still a box on the menu to change this option by the user.
@@ -27,27 +27,27 @@ under the License.
 #value YY: do not show the option box to the user and do only invoice processing
 #value NN: do not show the option box to the user and do only invoiceitem processing
 -->
-    <SystemProperty systemResourceId="accounting" systemPropertyId="invoiceProcessing" 
+    <SystemProperty systemResourceId="accounting" systemPropertyId="invoiceProcessing"
     systemPropertyValue="YY"
     description="Options are: Y, N, YY, NN"
     />
 
-    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.fixedasset.autocreate" 
+    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.fixedasset.autocreate"
     systemPropertyValue="Y"
     description="Create a fixed asset when an 'asset usage' type product is created. Options: Y, N"/>
 
-    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.application.autocreate" 
+    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.application.autocreate"
     systemPropertyValue="Y"
     description="Create a payment application when a payment is received/sent or invoice is approved (take the oldest not closed one). Options: Y, N"/>
 
-   <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.purchaseorder.autocreate" 
+   <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.purchaseorder.autocreate"
     systemPropertyValue="Y"
     description="Create a 'not-paid' payment record if the purchase order is approved. Options: Y, N"/>
 
-    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.salesorder.autocreate" 
+    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.salesorder.autocreate"
     systemPropertyValue="Y"
     description="Create a 'not-paid' payment record if the sales order is completed and no payment exist yet. Options:: Y, N"/>
 
-    <!-- <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" systemPropertyValue="Y"
-    description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/> -->
+    <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" systemPropertyValue="Y"
+    description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/>
 </entity-engine-xml>
