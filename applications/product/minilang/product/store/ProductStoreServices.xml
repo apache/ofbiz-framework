@@ -177,7 +177,7 @@ under the License.
                 </else>
                 </if-compare>
             <else>
-                <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
+                <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" filter-by-date="true" use-cache="true">
                     <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
@@ -188,24 +188,23 @@ under the License.
                         <!-- Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order. -->
                         <set from-field="parameters.productId" field="callServiceMap.productId"/>
                         <set from-field="productStoreFacility.facilityId" field="callServiceMap.facilityId"/>
-                        <log level="info" message="ProductStoreService:In productStoreFacilities loop: [${parameters.facilityId}]"/>
+                        <log level="info" message="ProductStoreService:In productStoreFacilities loop: [${productStoreFacility.facilityId}]"/>
                         <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
                             <result-to-field result-name="availableToPromiseTotal"/>
                         </call-service>
                         <clear-field field="callServiceMap"/>
-
                         <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="BigDecimal">
                             <set field="storeFound" from-field="productStoreFacility"/>
                         </if-compare-field>
                         <clear-field field="availableToPromiseTotal"/>
                     </if-empty>
                 </iterate>
-
                 <!-- didn't find anything? Take the first facility from list -->
                 <if-empty field="storeFound">
                     <first-from-list list="productStoreFacilities" entry="storeFound"/>
+                    <get-related-one value-field="productStore" relation-name="Facility" to-value-field="defaultStoreFound" />
                 </if-empty>
-                <set from-field="storeFound.facilityId" field="facilityId" default-value=""/>
+                <set from-field="storeFound.facilityId" field="facilityId" default-value="defaultStoreFound.facilityId"/>
                 <set-service-fields service-name="reserveProductInventoryByFacility" map="parameters" to-map="callServiceMap"/>
                 <set from-field="facilityId" field="callServiceMap.facilityId"/>
                 <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
@@ -213,11 +212,11 @@ under the License.
                 <call-service service-name="reserveProductInventoryByFacility" in-map-name="callServiceMap">
                     <result-to-field result-name="quantityNotReserved"/>
                 </call-service>
-                <log level="info" message="Inventory IS reserved in facility with id [${storeFound.facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
+                <log level="warning" message="Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
             </else>
             </if-compare>
         <else>
-            <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
+            <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" filter-by-date="true" use-cache="true">
                 <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
                 <field-map field-name="facilityId" from-field="facilityId"/>
                 <order-by field-name="sequenceNum"/>
@@ -350,7 +349,7 @@ under the License.
             </else>
             </if-compare-field>
         <else>
-            <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
+            <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" filter-by-date="true" use-cache="true">
                 <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
                 <order-by field-name="sequenceNum"/>
             </entity-and>
