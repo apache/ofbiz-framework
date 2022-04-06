@@ -150,7 +150,8 @@ public class ControlFilter extends HttpFilter {
             String uri = uriWithContext.substring(context.length());
 
             if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                    && !System.getProperty("java.class.path").contains("--test component=solr") // Allows Solr tests
+                    && !(System.getProperty("java.class.path").contains("--test component=solr") // Allows Solr tests
+                            || System.getProperty("java.class.path").contains("ofbiz --test_ManifestJar.jar")) // Allows Solr tests in testIntegration
                     && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
                 return;
             }
