@@ -135,7 +135,9 @@ public class ControlFilter implements Filter {
                 offset = requestUri.length();
             }
             if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                    && !System.getProperty("java.class.path").contains("--test component=solr") // Allows Solr tests
+                    && !(System.getProperty("java.class.path").contains("--test component=solr") // Allows Solr tests
+                            || System.getProperty("java.class.path").contains("ofbiz --test_ManifestJar.jar") // Allows Solr tests in testIntegration
+                            || System.getProperty("java.class.path").contains("ofbiz.jar")) // Allows Solr tests in testIntegration in 18.12
                     && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
                 return;
             }
