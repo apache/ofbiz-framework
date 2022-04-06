@@ -135,6 +135,7 @@ public class ControlFilter implements Filter {
                 offset = requestUri.length();
             }
             if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                    && !System.getProperty("java.class.path").contains("--test component=solr") // Allows Solr tests
                     && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
                 return;
             }
