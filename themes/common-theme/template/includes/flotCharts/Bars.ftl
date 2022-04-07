@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/node_modules/flot/dist/es5/jquery.flot.js</@ofbizContentUrl>"></script>
+<script type="application/javascript" src="<@ofbizContentUrl>/common/js/node_modules/flot/dist/es5/jquery.flot.min.js</@ofbizContentUrl>"></script>
 
 <div id="${chartId}Div" style="width:600px;height:300px;"></div>
 

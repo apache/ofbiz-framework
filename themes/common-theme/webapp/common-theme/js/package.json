@@ -12,6 +12,10 @@
         "jquery-ui-dist": "^1.13.0",
         "trumbowyg": "^2.25.1",
         "flot": "^4.2.2",
-        "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3"
+        "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
+        "uglify-js": "latest"
+    },
+    "scripts": {
+        "uglify": "uglifyjs node_modules/flot/dist/es5/jquery.flot.js -c -m -o node_modules/flot/dist/es5/jquery.flot.min.js"
     }
 }
