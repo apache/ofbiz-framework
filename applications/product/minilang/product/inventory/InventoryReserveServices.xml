@@ -163,7 +163,14 @@ under the License.
                 -->
                 <if-compare field="parameters.quantityNotReserved" operator="not-equals" value="0" type="BigDecimal">
                     <if-compare field="parameters.requireInventory" operator="equals" value="Y">
-                        <!-- use this else pattern to accomplish the anything but Y logic, ie if not specified default to inventory NOT required -->
+                        <!-- if there is still quantity not reserved but ProductStore is configured to require inventory, we can 
+                            assume here that also reserveInventory is set to Y (reserveInventory is checked by caller services).
+                           In such a scenario we return an error and avoid order creation. 
+                       -->
+                        <add-error>
+                            <fail-property resource="ProductUiLabels" property="ProductCannotReserveInventoryNotEnoughStock"/>
+                        </add-error>
+                        <check-errors/>
                     <else>
                         <if-not-empty field="lastNonSerInventoryItem">
                             <!-- subtract from quantityNotReserved from the availableToPromise of existing inventory item -->

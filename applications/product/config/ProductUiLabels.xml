@@ -20446,6 +20446,10 @@
         <value xml:lang="zh">这个明细缺货</value>
         <value xml:lang="zh-TW">這個細項缺貨</value>
     </property>
+    <property key="ProductCannotReserveInventoryNotEnoughStock">
+    	<value xml:lang="it">Impossibile riservare l'articolo ${parameters.productId}: quantità in stock non sufficiente nel deposito ${parameters.facilityId}. Quantità  non riservata è ${parameters.quantityNotReserved}</value>
+        <value xml:lang="en">Cannot reserve product ${parameters.productId}: not enough quantity left in stock for facility ${parameters.facilityId}. Quantity not reserved is ${parameters.quantityNotReserved}</value>
+     </property>
     <property key="ProductItemPrc">
         <value xml:lang="de">Position Preis</value>
         <value xml:lang="en">Item Prc</value>
