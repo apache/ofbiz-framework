@@ -149,9 +149,9 @@ public class ControlFilter extends HttpFilter {
             String uriWithContext = req.getRequestURI();
             String uri = uriWithContext.substring(context.length());
 
+
             if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                    && !(System.getProperty("java.class.path").contains("--test component=solr") // Allows Solr tests
-                            || System.getProperty("java.class.path").contains("ofbiz --test_ManifestJar.jar")) // Allows Solr tests in testIntegration
+                    && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
                     && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
                 return;
             }
