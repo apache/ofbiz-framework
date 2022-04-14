@@ -80,6 +80,9 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 
 import com.ibm.icu.util.Calendar;
 
+import com.google.re2j.Matcher;
+import com.google.re2j.Pattern;
+
 /**
  * HttpUtil - Misc HTTP Utility Functions
  */
@@ -1715,7 +1718,7 @@ public final class UtilHttp {
     public static List<String> extractUrls(String input) {
         List<String> result = new ArrayList<String>();
 
-        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+        Pattern pattern = Pattern.compile(
                 "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" +
                         "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" +
                         "|mil|biz|info|mobi|name|aero|jobs|museum" +
@@ -1735,7 +1738,7 @@ public final class UtilHttp {
         }
 
         if (result.isEmpty()) {
-            java.util.regex.Matcher matcher = pattern.matcher(input);
+            Matcher matcher = pattern.matcher(input);
             while (matcher.find()) {
                 result.add(matcher.group());
             }
