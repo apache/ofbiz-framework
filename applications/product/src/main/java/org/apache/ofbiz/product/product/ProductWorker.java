@@ -34,6 +34,7 @@ import java.util.Set;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.geo.GeoWorker;
@@ -50,6 +51,7 @@ import org.apache.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * Product Worker class to reduce code in JSPs.
@@ -1317,17 +1319,51 @@ public final class ProductWorker {
                         productsInStock.add(genericRecord);
                     }
                 } else {
-                    List<GenericValue> facilities = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId).queryList();
-                    BigDecimal availableInventory = BigDecimal.ZERO;
-                    if (UtilValidate.isNotEmpty(facilities)) {
-                        for (GenericValue facility : facilities) {
-                            BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
-                            if (lastInventoryCount != null) {
-                                availableInventory = lastInventoryCount.add(availableInventory);
+                    if ("Y".equals(product.getString("isVirtual"))) {
+                        BigDecimal availableInventory = BigDecimal.ZERO;
+                        try {
+                            Map<String, Object> variantResultOutput = dispatcher.runSync("getAllProductVariants",
+                                    UtilMisc.toMap("productId", productId));
+                            if (ServiceUtil.isError(variantResultOutput)) {
+                                Debug.logError("Error in retrieving all product variants for productId " + productId
+                                        + " Skip this product. Error is : " + ServiceUtil.getErrorMessage(variantResultOutput), MODULE);
+                                continue;
                             }
+                            List<GenericValue> productVariants = UtilGenerics.cast(variantResultOutput.get("assocProducts"));
+                            for (GenericValue productVariant : productVariants) {
+                                List<GenericValue> facilities = EntityQuery.use(delegator)
+                                        .from("ProductFacility")
+                                        .where("productId", productVariant.getString("productIdTo"))
+                                        .queryList();
+                                if (UtilValidate.isNotEmpty(facilities)) {
+                                    for (GenericValue facility : facilities) {
+                                        BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
+                                        if (lastInventoryCount != null) {
+                                            availableInventory = lastInventoryCount.add(availableInventory);
+                                        }
+                                    }
+                                }
+                            }
+                            if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
+                                productsInStock.add(genericRecord);
+                            }
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "Error getting all product variants for productId " + productId
+                                    + ", while filtering out of stock products.", MODULE);
                         }
-                        if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
-                            productsInStock.add(genericRecord);
+                    } else {
+                        List<GenericValue> facilities = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId).queryList();
+                        BigDecimal availableInventory = BigDecimal.ZERO;
+                        if (UtilValidate.isNotEmpty(facilities)) {
+                            for (GenericValue facility : facilities) {
+                                BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
+                                if (lastInventoryCount != null) {
+                                    availableInventory = lastInventoryCount.add(availableInventory);
+                                }
+                            }
+                            if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
+                                productsInStock.add(genericRecord);
+                            }
                         }
                     }
                 }
