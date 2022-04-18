@@ -38,5 +38,5 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew pullAllPluginsSource check
+    - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
+      run: ./gradlew pullAllPluginsSource check loadAll testIntegration
