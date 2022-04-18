@@ -40,6 +40,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew pullAllPluginsSource check      
-# Below does not work      
+# Below does not work, see see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
 #     - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
 #       run: ./gradlew pullAllPluginsSource check loadAll testIntegration
