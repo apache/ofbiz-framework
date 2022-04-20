@@ -149,11 +149,14 @@ public class ControlFilter extends HttpFilter {
             String uriWithContext = req.getRequestURI();
             String uri = uriWithContext.substring(context.length());
 
+            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-            if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                    && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
-                    && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
-                return;
+            if (!LoginWorker.hasBasePermission(userLogin, req)) { // Allows UEL and FlexibleString (OFBIZ-12602)
+                if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                        && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
+                        && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
+                    return;
+                }
             }
 
             // Check if the requested URI is allowed.
