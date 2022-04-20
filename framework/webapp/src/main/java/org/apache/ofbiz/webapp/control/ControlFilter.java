@@ -134,10 +134,14 @@ public class ControlFilter implements Filter {
             if (offset == -1) {
                 offset = requestUri.length();
             }
-            if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                    && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
-                    && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
-                return;
+
+            GenericValue userLogin = (GenericValue) httpRequest.getSession().getAttribute("userLogin");
+            if (!LoginWorker.hasBasePermission(userLogin, httpRequest)) { // Allows UEL and FlexibleString (OFBIZ-12602)
+                if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                        && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
+                        && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
+                    return;
+                }
             }
 
             while (!allowedPaths.contains(requestUri.substring(0, offset))) {
