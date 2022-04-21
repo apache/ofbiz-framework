@@ -16309,4 +16309,8 @@
         <value xml:lang="en">Lookup Return Header</value>
         <value xml:lang="nl">Retouren zoeken/vinden</value>
     </property>
+    <property key="ItemAddedSuccessfully">
+       <value xml:lang="en">Item ${productId} added successfully</value>
+       <value xml:lang="it">Articolo ${productId} aggiunto con successo</value>
+    </property>
 </resource>
