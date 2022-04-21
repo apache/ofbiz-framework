@@ -37,6 +37,7 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
 }
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
@@ -51,10 +52,11 @@ apply from: 'common.gradle'
 ext.os = System.getProperty('os.name').toLowerCase()
 ext.pluginsDir = "${rootDir}/plugins"
 
-// java settings
-List jvmArguments = ['-Xms128M', '-Xmx1024M']
-if (project.hasProperty('jvmArgs')) {
-    jvmArguments = jvmArgs.tokenize()
+application {
+    // jdk.serialFilter is to "Prevent possible DOS attack done using Java deserialisation" (OFBIZ-12592)
+    applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
+            ? jvmArgs.tokenize()
+            : ['-Xms128M','-Xmx1024M','-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
 }
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
