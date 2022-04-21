@@ -42,7 +42,7 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: "at.bxm.svntools"
+apply plugin: 'at.bxm.svntools'
 apply plugin: 'org.asciidoctor.convert'
 apply plugin: 'checkstyle'
 
@@ -51,14 +51,19 @@ apply from: 'common.gradle'
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
 ext.pluginsDir = "${rootDir}/plugins"
+ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
+
+// java settings
+List jvmArguments = ['-Xms128M', '-Xmx1024M', '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
+if (project.hasProperty('jvmArgs')) {
+    jvmArguments = jvmArgs.tokenize()
+}
 
 application {
+    mainClassName = 'org.apache.ofbiz.base.start.Start'
     // jdk.serialFilter is to "Prevent possible DOS attack done using Java deserialisation" (OFBIZ-12592)
-    applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
-            ? jvmArgs.tokenize()
-            : ['-Xms128M','-Xmx1024M','-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
+    applicationDefaultJvmArgs = ['-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
 }
-ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
 javadoc {
     title='OFBiz R18.12 API'
