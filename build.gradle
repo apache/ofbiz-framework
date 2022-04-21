@@ -80,9 +80,10 @@ ext.pluginsDir = "${rootDir}/plugins"
 
 application {
     mainClassName = 'org.apache.ofbiz.base.start.Start'
+    // jdk.serialFilter is to "Prevent possible DOS attack done using Java deserialisation" (OFBIZ-12592)
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
             ? jvmArgs.tokenize()
-            : ['-Xms128M', '-Xmx1024M']
+            : ['-Xms128M','-Xmx1024M','-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
 }
 
 distributions.main.contents.from(rootDir) {
@@ -1148,7 +1149,6 @@ tasks.startScripts {
                 unixScript.text.replace('CLASSPATH=$APP_HOME/lib','CLASSPATH=$APP_HOME/config/:$APP_HOME/lib-extra/*:$APP_HOME/lib')
         // Alter the start script for Windows systems.
         windowsScript.text =
-                windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib',
- 'CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
+                windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib','CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
     }
 }
