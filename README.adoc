@@ -25,10 +25,11 @@ image:https://ci2.apache.org/badges/ofbiz18Framework.svg[link=https://ci2.apache
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=release18.12[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg?branch=release18.12[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 //image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status&branch=release18.12[link=notReadyYet]
+image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 
 If you are reading this file in AsciiDoc format you may want to see it in
 https://nightlies.apache.org/ofbiz/stable/readme/html5/[HTML]
-//or https://nightlies.apache.org/ofbiz/stable/readme/pdf/[HTML] +[PDF] format Not Ready Yet see 
+//or https://nightlies.apache.org/ofbiz/stable/readme/pdf/[HTML] +[PDF] format Not Ready Yet see
 or https://ci.apache.org/projects/ofbiz/site/stable/readme/pdf/README.pdf[PDF] format
 
 ---
@@ -98,7 +99,7 @@ the command line at the OFBiz top level directory (folder).
 MS Windows: `init-gradle-wrapper`
 [IMPORTANT]
 ====
-* If you cross the error 
+* If you cross the error
 [quote]
 ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
@@ -676,7 +677,7 @@ If you need username and password to access the custom repository:
 [[pull-an-official-plugin-from-source-control]]
 === Pull an official plugin from source control
 
-Download an official plugin from source control and place it in the plugins directory. 
+Download an official plugin from source control and place it in the plugins directory.
 In addition, this task also executes the "install" task if it is defined for the plugin being downloaded.
 
 This task is mostly useful when working on the trunk branch as it pulls in the
