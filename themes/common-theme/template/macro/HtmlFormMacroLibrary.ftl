@@ -28,7 +28,7 @@ under the License.
     <img src="${imageLocation}" alt=""><#lt/>
   <#else>
     <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true" || title?has_content>
-      <span data-inplace-editor-url="${inPlaceEditorUrl}" data-inplace-editor-params="${inPlaceEditorParams}" <#if idName?has_content>id="cc_${idName}"</#if> <#if title?has_content>title="${title}"</#if> <@renderClass class alert />><#t/>
+      <span <#if inPlaceEditorUrl?has_content>data-inplace-editor-url="${inPlaceEditorUrl}" data-inplace-editor-params="${inPlaceEditorParams}"</#if> <#if idName?has_content>id="cc_${idName}"</#if> <#if title?has_content>title="${title}"</#if> <@renderClass class alert />><#t/>
     </#if>
 
     <#if description?has_content>
