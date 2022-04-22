@@ -39,7 +39,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew pullAllPluginsSource check      
-# Below does not work, see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
+      run: ./gradlew pullAllPluginsSource check javadoc
+# Below does not work, see see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
 #     - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
-#       run: ./gradlew pullAllPluginsSource check loadAll testIntegration
+#       run: ./gradlew pullAllPluginsSource check javadoc loadAll testIntegration
