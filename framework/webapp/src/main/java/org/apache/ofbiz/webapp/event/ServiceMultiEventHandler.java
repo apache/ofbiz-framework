@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
+* Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -47,11 +47,8 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.ServiceValidationException;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
-import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
  * ServiceMultiEventHandler - Event handler for running a service multiple times; for bulk forms
@@ -63,6 +60,7 @@ public class ServiceMultiEventHandler implements EventHandler {
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
 
+    @SuppressWarnings("unused")
     private ServletContext servletContext;
 
     @Override
