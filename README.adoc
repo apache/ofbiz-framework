@@ -26,6 +26,7 @@ image:https://ci2.apache.org/badges/ofbizBranch22Framework.svg[link=https://ci2.
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=release22.01[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 
 If you are reading this file in AsciiDoc format you may want to see it at
 https://nightlies.apache.org/ofbiz/next/readme/html5/[HTML]
@@ -96,7 +97,7 @@ the command line at the OFBiz top level directory (folder).
 MS Windows: `init-gradle-wrapper`
 [IMPORTANT]
 ====
-* If you cross the error 
+* If you cross the error
 [quote]
 ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
