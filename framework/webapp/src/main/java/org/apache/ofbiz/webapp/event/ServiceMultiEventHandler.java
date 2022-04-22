@@ -158,16 +158,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         List<Object> errorMessages = new LinkedList<>();
         List<String> successMessages = new LinkedList<>();
 
-        // Check the global-transaction attribute of the event from the controller to see if the
-        //  event should be wrapped in a transaction
-        String requestUri = RequestHandler.getRequestUri(request.getPathInfo());
-        ConfigXMLReader.ControllerConfig controllerConfig;
-        try {
-            controllerConfig = ConfigXMLReader.getControllerConfig(ConfigXMLReader.getControllerConfigURL(servletContext));
-        } catch (WebAppConfigurationException e) {
-            throw new EventHandlerException(e);
-        }
-        boolean eventGlobalTransaction = controllerConfig.getRequestMapMap().get(requestUri).getEvent().isGlobalTransaction();
+        boolean eventGlobalTransaction = event.isGlobalTransaction();
 
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
