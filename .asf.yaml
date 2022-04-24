@@ -29,6 +29,9 @@ github:
     - https
     - content
     - geospatial
-
+ dependabot_alerts:  true
+ dependabot_updates: false
+ 
 notifications:
   jobs:  notifications@ofbiz.apache.org
+  jira_options: link label
