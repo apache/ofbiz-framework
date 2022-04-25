@@ -59,11 +59,11 @@ public class SecurityUtilTest {
     @Test
     public void webShellTokensTesting() {
         // Currently used
-        // java.,beans,freemarker,<script,javascript,<body,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,alert(,\
+        // java.,beans,freemarker,<script,javascript,<body,body <form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,alert(,\
         // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
         // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,onload,build\
         // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,assign,webappPath,\
-        // ifconfig,route,crontab,netstat,uname ,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost
+        // ifconfig,route,crontab,netstat,uname ,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost,thread,require,gzdeflate
 
         try {
             List<String> allowed = new ArrayList<>();
@@ -78,6 +78,7 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("<script", allowed));
             assertFalse(SecuredUpload.isValidText("javascript", allowed));
             assertFalse(SecuredUpload.isValidText("<body", allowed));
+            assertFalse(SecuredUpload.isValidText("body ", allowed));
             assertFalse(SecuredUpload.isValidText("<form", allowed));
             assertFalse(SecuredUpload.isValidText("<jsp:", allowed));
             assertFalse(SecuredUpload.isValidText("<c:out", allowed));
@@ -142,6 +143,9 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("+cmd|", allowed));
             assertFalse(SecuredUpload.isValidText("=cmd|", allowed));
             assertFalse(SecuredUpload.isValidText("localhost", allowed));
+            assertFalse(SecuredUpload.isValidText("thread", allowed));
+            assertFalse(SecuredUpload.isValidText("require", allowed));
+            assertFalse(SecuredUpload.isValidText("gzdeflate", allowed));
 
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
