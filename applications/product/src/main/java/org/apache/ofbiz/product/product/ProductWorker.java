@@ -72,12 +72,10 @@ public final class ProductWorker {
                 // don't charge shipping on services or digital goods
                 return false;
             }
-            Boolean chargeShipping = product.getBoolean("chargeShipping");
-
-            if (chargeShipping == null) {
+            if (product.get("chargeShipping") == null) {
                 return true;
             }
-            return chargeShipping;
+            return product.getBoolean("chargeShipping");
         }
         throw new IllegalArgumentException(errMsg);
     }
