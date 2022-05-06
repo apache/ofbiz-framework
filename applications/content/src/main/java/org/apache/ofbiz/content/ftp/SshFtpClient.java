@@ -28,7 +28,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.sshd.client.SshClient;
 import org.apache.sshd.client.session.ClientSession;
-import org.apache.sshd.client.subsystem.sftp.SftpClient;
+import org.apache.sshd.sftp.client.SftpClient;
+import org.apache.sshd.sftp.client.SftpClientFactory;
 
 /**
  * Basic client to copy files to an ssh ftp server
@@ -37,12 +38,12 @@ public class SshFtpClient implements FtpClientInterface {
 
     private static final String MODULE = SshFtpClient.class.getName();
 
-    private SshClient client;
+    private final SshClient client;
     private SftpClient sftp;
+    private ClientSession session;
 
     public SshFtpClient() {
-        client = SshClient.setUpDefaultClient();
-        client.start();
+        client = SshClientHelper.getSshClient();
     }
 
     @Override
@@ -50,11 +51,10 @@ public class SshFtpClient implements FtpClientInterface {
         if (port == null) port = 22L;
         if (timeout == null) timeout = 10000L;
 
-        if (sftp != null) return;
-        ClientSession session = client.connect(username, hostname, port.intValue()).verify(timeout.intValue()).getSession();
+        session = client.connect(username, hostname, port.intValue()).verify(timeout.intValue()).getSession();
         session.addPasswordIdentity(password);
-        session.auth().verify(timeout.intValue());
-        sftp = session.createSftpClient();
+        session.auth().verify();
+        sftp = SftpClientFactory.instance().createSftpClient(session).singleSessionInstance();
     }
 
     @Override
@@ -83,10 +83,8 @@ public class SshFtpClient implements FtpClientInterface {
     }
 
     @Override
-    public void closeConnection() {
-        if (sftp != null) {
-            client.stop();
-            sftp = null;
-        }
+    public void closeConnection() throws IOException {
+        if (sftp != null) sftp.close();
+        if (session != null) session.close();
     }
 }
