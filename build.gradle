@@ -223,7 +223,8 @@ dependencies {
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
     implementation 'org.apache.pdfbox:pdfbox:2.0.24'
     implementation 'org.apache.shiro:shiro-core:1.8.0'
-    implementation 'org.apache.sshd:sshd-core:1.7.0' // So far we did not update from 1.7.0 because of a compile issue. You may try w/ a newer version than  2.4.0
+    implementation 'org.apache.sshd:sshd-core:2.8.0'
+    implementation 'org.apache.sshd:sshd-sftp:2.8.0'
     implementation 'org.apache.tika:tika-core:1.28.1' //  2.1.0 does not work
     implementation 'org.apache.tika:tika-parsers:1.28.1' //  2.1.0 does not work
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.60' // Remember to change the version number (9 now) in javadoc block if needed.
