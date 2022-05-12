@@ -241,7 +241,7 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator">
                     <decorator-section name="body">
                         <screenlet title="${groovy: parameters.quoteId ? uiLabelMap.OrderOrderQuoteEdit : uiLabelMap.OrderNewQuote}">
                             <include-form name="EditQuote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
