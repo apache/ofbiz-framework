@@ -89,7 +89,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindProduct">
         <section>
             <actions>
@@ -1049,10 +1049,10 @@ under the License.
                                     <screenlet title="${assocSection.sectionTitle}">
                                         <include-grid name="ListProductAssocs" location="component://product/widget/catalog/ProductForms.xml"/>
                                     </screenlet>
-                                    <label style="tooltip">${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
+                                    <label>${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
                                 </widgets>
                             </section>
-                        </iterate-section>  
+                        </iterate-section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1260,7 +1260,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleEditProductParties}">
                             <include-grid name="UpdateProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
-                        
+
                         <screenlet title="${uiLabelMap.ProductAssociatePartyToProduct}">
                             <include-form name="AddProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
@@ -1388,7 +1388,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ProductPriceHistory">
         <section>
             <actions>
