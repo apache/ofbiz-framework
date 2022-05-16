@@ -72,7 +72,7 @@
                             <include-form name="EditProductFeature" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditFeaturePrice}">
-                            <include-form name="ListFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
+                            <include-grid name="ListFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddFeaturePrice}">
                             <include-form name="CreateFeaturePrice" location="component://product/widget/catalog/FeatureForms.xml"/>
