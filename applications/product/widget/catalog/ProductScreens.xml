@@ -1048,8 +1048,8 @@ under the License.
                                 <widgets>
                                     <screenlet title="${assocSection.sectionTitle}">
                                         <include-grid name="ListProductAssocs" location="component://product/widget/catalog/ProductForms.xml"/>
+                                        <label style="help-note">${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
                                     </screenlet>
-                                    <label>${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
                                 </widgets>
                             </section>
                         </iterate-section>
