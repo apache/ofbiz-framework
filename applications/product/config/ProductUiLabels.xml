@@ -52,10 +52,29 @@
         <value xml:lang="zh">网站分析类型</value>
         <value xml:lang="zh-TW">網站分析型態</value>
     </property>
+    <property key="CreateCountSession">
+        <value xml:lang="en">Create Session</value>
+    </property>
+    <property key="CreateNewProductFeatureType">
+        <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
+        <value xml:lang="en">Create New Product Feature Type</value>
+        <value xml:lang="es">Crear nuevo tipo de característica de producto</value>
+        <value xml:lang="ja">新規製品機能種類を作成</value>
+        <value xml:lang="nl">Aanmaken Soort productfeature</value>
+        <value xml:lang="vi">Tạo mới kiểu Đặc tính SP gia tăng</value>
+        <value xml:lang="zh">新建产品特征类型</value>
+        <value xml:lang="zh-TW">新建產品特色類型</value>
+    </property>
     <property key="CreateSalesAgreement">
         <value xml:lang="en">Create Sales Agreement</value>
         <value xml:lang="es">Crear Acuerdo de Ventas</value>
         <value xml:lang="nl">Contract aanmaken</value>
+    </property>
+    <property key="CountedInventoryItems">
+        <value xml:lang="en">Counted Inventory Items</value>
+    </property>
+    <property key="CountProgress">
+        <value xml:lang="en">Count Progress</value>
     </property>
     <property key="FacilityActualShippingCharges">
         <value xml:lang="de">Aktuelle Lieferkosten</value>
@@ -408,6 +427,9 @@
         <value xml:lang="vi">Đã thử nhận sê-ri kho chứa với mã serial ${parameters.serialNumber} hoặc mã kho chứa ${parameters.currentInventoryItemId} đạt tiêu chuẩn ${parameters.quantityAccepted} đã có nhiều hơn 1; chúng tôi không biết phải làm gì với nó</value>
         <value xml:lang="zh">尝试接收一个已经序列化的库存明细，序列号（serialNumber）${parameters.serialNumber}或者传入的库存明细标识（inventoryItemId）${parameters.currentInventoryItemId}，并且已接受数量 ${parameters.quantityAccepted} 大于1；我们不知道要做什么！</value>
         <value xml:lang="zh-TW">嘗試接收一個已經序列化的庫存細項,序號(serialNumber)${parameters.serialNumber}或者傳入的庫存細項標識(inventoryItemId)${parameters.currentInventoryItemId},並且已接受數量 ${parameters.quantityAccepted} 大於1;我們不知道要做什麼！</value>
+    </property>
+    <property key="FacilityRecordCount">
+        <value xml:lang="en">Record Count</value>
     </property>
     <property key="FacilityReturnHeaderTypeNotSupported">
         <value xml:lang="de">${returnHeader.returnHeaderTypeId} wird nicht unterstützt</value>
@@ -3675,6 +3697,9 @@
         <value xml:lang="vi">Đang có quá nhiều sự khác biệt tại Chi phí chuyển hàng</value>
         <value xml:lang="zh">送货费差异太大</value>
         <value xml:lang="zh-TW">送貨費差異太大</value>
+    </property>
+    <property key="FindSession">
+        <value xml:lang="en">Find Session</value>
     </property>
     <property key="FormFieldTitle_abbrev">
         <value xml:lang="de">Abkürzung</value>
@@ -9167,7 +9192,13 @@
         <value xml:lang="es">"Identificación de la instalación de inventario requerida"</value>
         <value xml:lang="zh">必须有库存场所标识</value>
     </property>
-    
+    <property key="InventoryItemsCounted">
+        <value xml:lang="en">Inventory Items Counted</value>
+    </property>
+    <property key="ItemVariance">
+        <value xml:lang="en">Item Variance</value>
+    </property>
+
     <property key="lotIdFilledInAllowed">
         <value xml:lang="de">Erlaubt</value>
         <value xml:lang="en">Allowed</value>
@@ -9197,6 +9228,15 @@
         <value xml:lang="vi">Bắt buộc</value>
         <value xml:lang="zh">必须</value>
         <value xml:lang="zh-TW">必須</value>
+    </property>
+    <property key="LocationCounted">
+        <value xml:lang="en">Location Counted</value>
+    </property>
+    <property key="LocationNotScanned">
+        <value xml:lang="en">Locations not scanned in last</value>
+    </property>
+    <property key="LocationScheduledForScanning">
+        <value xml:lang="en">Location scheduled for scanning in next</value>
     </property>
     <property key="MetaDescription">
         <value xml:lang="de">Meta Beschreibung</value>
@@ -13336,6 +13376,12 @@
         <value xml:lang="zh">合同</value>
         <value xml:lang="zh-TW">合約</value>
     </property>
+    <property key="FindPendingLocations">
+        <value xml:lang="en">Find Pending Locations</value>
+    </property>
+    <property key="PendingLocations">
+        <value xml:lang="en">Pending Locations</value>
+    </property>
     <property key="ProductAgreements">
         <value xml:lang="de">Verträge</value>
         <value xml:lang="en">Agreements</value>
@@ -13875,7 +13921,7 @@
         <value xml:lang="zh">关联</value>
         <value xml:lang="zh-TW">結合</value>
     </property>
-    
+
     <property key="ProductOrderReturnStatus">
         <value xml:lang="de">Zurück Sendungsstatus</value>
         <value xml:lang="en">Return Shipment Status</value>
@@ -16136,6 +16182,9 @@
         <value xml:lang="zh">没有找到货运——标识</value>
         <value xml:lang="zh-TW">沒有找到貨運識別</value>
     </property>
+    <property key="ProductCountReport">
+        <value xml:lang="en">Count Report</value>
+    </property>
     <property key="ProductCountryOfOrigin">
         <value xml:lang="en">Country of Origin</value>
         <value xml:lang="es">País de Origen</value>
@@ -16710,6 +16759,9 @@
         <value xml:lang="zh">客户评级</value>
         <value xml:lang="zh-TW">客戶評級</value>
     </property>
+    <property key="ProductCycleCount">
+        <value xml:lang="en">Cycle Count</value>
+    </property>
     <property key="ProductDL">
         <value xml:lang="en">DL</value>
         <value xml:lang="es">DL</value>
@@ -16753,6 +16805,12 @@
         <value xml:lang="vi">Ngày nhận</value>
         <value xml:lang="zh">接收日期</value>
         <value xml:lang="zh-TW">接收日期</value>
+    </property>
+    <property key="ProductDaysSinceLastCount">
+        <value xml:lang="en">Days since last count</value>
+    </property>
+    <property key="ProductDaysToNextCount">
+        <value xml:lang="en">Days to next count</value>
     </property>
     <property key="ProductDaysToShip">
         <value xml:lang="de">Tage bis zur Lieferung</value>
@@ -21099,6 +21157,9 @@
         <value xml:lang="zh">大图</value>
         <value xml:lang="zh-TW">大圖</value>
     </property>
+    <property key="ProductLastCountedOn">
+        <value xml:lang="en">Last counted on</value>
+    </property>
     <property key="ProductLastCreatedBy">
         <value xml:lang="de">Letzte Erstellung von</value>
         <value xml:lang="en">Last Created By</value>
@@ -22799,6 +22860,9 @@
         <value xml:lang="vi">Thêm mới phương thức</value>
         <value xml:lang="zh">新建方法</value>
         <value xml:lang="zh-TW">新建方法</value>
+    </property>
+    <property key="ProductNextCountDate">
+        <value xml:lang="en">Next count date</value>
     </property>
     <property key="ProductNextPackage">
         <value xml:lang="de">Nächstes Paket</value>
@@ -27239,6 +27303,9 @@
         <value xml:lang="zh">现货数量</value>
         <value xml:lang="zh-TW">現貨數量</value>
     </property>
+    <property key="ProductQtyCounted">
+        <value xml:lang="en">Qty Counted</value>
+    </property>
     <property key="ProductQtyOffset">
         <value xml:lang="de">Vorhandene Menge minus Minimalbestand</value>
         <value xml:lang="en">Qty Offset</value>
@@ -27338,6 +27405,9 @@
         <value xml:lang="th">ปฏิเสธจำนวน</value>
         <value xml:lang="zh">已拒绝的数量</value>
         <value xml:lang="zh-TW">已拒絕的數量</value>
+    </property>
+    <property key="ProductQtyVariance">
+        <value xml:lang="en">Qty Variance</value>
     </property>
     <property key="ProductQuantity">
         <value xml:lang="de">Menge</value>
@@ -28626,6 +28696,9 @@
         <value xml:lang="zh">评价这个产品！</value>
         <value xml:lang="zh-TW">評論這個產品！</value>
     </property>
+    <property key="ProductReviewCountSession">
+        <value xml:lang="en">Review Count Session</value>
+    </property>
     <property key="ProductReviews">
         <value xml:lang="de">Bewertungen</value>
         <value xml:lang="en">Reviews</value>
@@ -28825,6 +28898,9 @@
         <value xml:lang="vi">SRCH</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh-TW">搜尋</value>
+    </property>
+    <property key="ProductSessionId">
+        <value xml:lang="en">Session ID</value>
     </property>
     <property key="ProductST">
         <value xml:lang="en">ST</value>
@@ -30960,7 +31036,7 @@
         <value xml:lang="vi">Để kiểm soát cách nhìn và cảm quan và cửa hàng trực tuyến</value>
         <value xml:lang="zh">用于控制一个网店的外观感受。</value>
         <value xml:lang="zh-TW">用於控制一個網店的外觀感受.</value>
-    </property>        
+    </property>
     <property key="ProductStoresFor">
         <value xml:lang="de">Läden für</value>
         <value xml:lang="en">Stores For</value>
@@ -33184,6 +33260,12 @@
         <value xml:lang="zh">搜索结果</value>
         <value xml:lang="zh-TW">搜尋結果</value>
     </property>
+    <property key="Results">
+        <value xml:lang="en">Results</value>
+    </property>
+    <property key="ReviewSession">
+        <value xml:lang="en">Review Session</value>
+    </property>
     <property key="SearchTracking">
         <value xml:lang="de">Suche Lieferverfolgung</value>
         <value xml:lang="en">Search of a tracking</value>
@@ -33192,6 +33274,12 @@
         <value xml:lang="ja">追跡の検索</value>
         <value xml:lang="zh">搜索一个跟踪</value>
         <value xml:lang="zh-TW">搜尋一個追蹤</value>
+    </property>
+    <property key="ToDate">
+        <value xml:lang="en">To Date</value>
+    </property>
+    <property key="TotalProjectedCounts">
+        <value xml:lang="en">Total Projected Counts</value>
     </property>
     <property key="Tracking">
         <value xml:lang="de">Lieferverfolgung</value>
