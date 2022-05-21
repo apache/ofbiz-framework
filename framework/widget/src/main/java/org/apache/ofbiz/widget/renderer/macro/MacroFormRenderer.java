@@ -323,9 +323,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     private boolean shouldApplyRequiredField(ModelFormField modelFormField) {
-        return ("single".equals(modelFormField.getModelForm().getType()) ||
-             "upload".equals(modelFormField.getModelForm().getType()))
-             && modelFormField.getRequiredField();
+        return ("single".equals(modelFormField.getModelForm().getType())
+                || "upload".equals(modelFormField.getModelForm().getType()))
+                && modelFormField.getRequiredField();
     }
 
     @Override
