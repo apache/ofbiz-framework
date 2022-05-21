@@ -3141,7 +3141,7 @@
         <value xml:lang="zh-TW">你沒有檢視本頁面的權限.(需要具備"CONTENTMGR_UPDATE"或"CONTENTMGR_ADMIN")</value>
     </property>
     <property key="ContentUploadFileTypeNotMatch">
-        <value xml:lang="en">Upload file type not match your selected.</value>
+        <value xml:lang="en">Upload file type not match your selection.</value>
         <value xml:lang="fr">Le type de fichier chargé ne correspond pas avec votre selection.</value>
         <value xml:lang="it">Tipo file da caricare non corrisponde alla tua selezione.</value>
         <value xml:lang="ja">選択したアップロードファイルの種類が一致しません。</value>
