@@ -460,7 +460,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -529,6 +529,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    private boolean shouldApplyRequiredField(ModelFormField modelFormField) {
+        return ("single".equals(modelFormField.getModelForm().getType()) ||
+             "upload".equals(modelFormField.getModelForm().getType()))
+             && modelFormField.getRequiredField();
+    }
+
+    @Override
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
@@ -681,7 +688,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -817,7 +824,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -1339,7 +1346,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (!sb.toString().isEmpty()) {
             //check for required field style on single forms
-            if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+            if (shouldApplyRequiredField(modelFormField)) {
                 String requiredStyle = modelFormField.getRequiredFieldStyle();
                 if (UtilValidate.isNotEmpty(requiredStyle)) {
                     style = requiredStyle;
@@ -2145,7 +2152,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -2634,7 +2641,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
 
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
