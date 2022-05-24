@@ -201,7 +201,7 @@ under the License.
     <FacilityLocation facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
     <FacilityLocation facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
 
-    <ProductStore productStoreId="9000" storeName="OFBiz E-Commerce Store" companyName="Open For Business" title="Open For Commerce"
+<!--     <ProductStore productStoreId="9000" storeName="OFBiz E-Commerce Store" companyName="Open For Business" title="Open For Commerce"
                   subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
                   inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
                   defaultLocaleString="en_US" defaultCurrencyUomId="USD" defaultSalesChannelEnumId="WEB_SALES_CHANNEL" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y" reqReturnInventoryReceive="N"
@@ -212,7 +212,7 @@ under the License.
                   authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
                   storeCreditValidDays="90" storeCreditAccountEnumId="FIN_ACCOUNT"
                   visualThemeId="EC_DEFAULT" prodSearchExcludeVariants="Y" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y" showOutOfStockProducts="Y"/>
-
+ -->
     <!-- <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="testRandomAuthorize"/> -->
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
