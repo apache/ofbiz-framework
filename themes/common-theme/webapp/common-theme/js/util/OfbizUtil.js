@@ -23,6 +23,9 @@ var LAST_AUTOCOMP_REF = null;
 //default ajax request timeout in milliseconds
 var AJAX_REQUEST_TIMEOUT = 5000;
 
+// Search param : id of a link to be clicked right away
+var SP_CLICK_ON = 'clickOn';
+
 // Add observers on DOM ready.
 $(document).ready(function() {
     // add CSRF token to jQuery AJAX calls to the same domain
@@ -77,6 +80,14 @@ $(document).ready(function() {
     jQuery(document).ajaxSuccess(function () {
         initNamedBorders();
     });
+
+    // if clickOn search parameter is present, click on a#SP_CLICK_ON
+    const currentUrl = new URL(window.location.href);
+    const openModal = currentUrl.searchParams.get(SP_CLICK_ON);
+    const modalLink = jQuery(`#${openModal}`);
+    if (openModal && modalLink.length) {
+        modalLink.first().click();
+    }
 });
 
 /* bindObservers function contains the code of adding observers and it can be called for specific section as well
@@ -205,6 +216,17 @@ function bindObservers(bind_element) {
                     success: function(data) {
                         dialogContainer.html(data);
                         bindObservers(dialogContainer);
+                    },
+                    error: (xhr) => {
+                        // unauthorized user, reload page with the link id so we can reopen the modal
+                        if (xhr.status === 401) {
+                            const url = new URL(window.location.href);
+                            url.searchParams.append(SP_CLICK_ON, element.attr('id'));
+                            window.location.replace(url.toString());
+                        } else {
+                            // display some feedback in the modal body
+                            dialogContainer.text(`An unexpected server error occurred (status : ${xhr.status}).`);
+                        }
                     }
                 });
             }
