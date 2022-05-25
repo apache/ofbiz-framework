@@ -461,23 +461,47 @@ public final class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getJSONAttributeMap(HttpServletRequest request) {
+        return parseJSONAttributeMap(getAttributeMap(request));
+    }
+
+    /**
+     * For a map analyse each object to prepare a Json response
+     * @param attrMap
+     * @return
+     */
+    private static Map<String, Object> parseJSONAttributeMap(Map<String, Object> attrMap) {
         Map<String, Object> returnMap = new HashMap<>();
-        Map<String, Object> attrMap = getAttributeMap(request);
         for (Map.Entry<String, Object> entry : attrMap.entrySet()) {
-            String key = entry.getKey();
-            Object val = entry.getValue();
-            if (val instanceof java.sql.Timestamp) {
-                val = val.toString();
-            }
-            if (val instanceof String || val instanceof Number || val instanceof Map<?, ?> || val instanceof List<?> || val instanceof Boolean) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Adding attribute to JSON output: " + key, MODULE);
-                }
-                returnMap.put(key, val);
+            Object val = parseJSONAttributeValue(entry.getValue());
+            if (val != null) {
+                returnMap.put(entry.getKey(), val);
             }
         }
-
         return returnMap;
+    }
+
+    /**
+     * For a value analyse the object type to prepare a Json response
+     * @param val
+     * @return
+     */
+    private static Object parseJSONAttributeValue(Object val) {
+        if (val == null) {
+            return null;
+        }
+        if (val instanceof java.sql.Timestamp) {
+            val = val.toString();
+        }
+        if (val instanceof String
+                || val instanceof Number
+                || val instanceof Boolean) {
+            return val;
+        } else if (val instanceof Map<?, ?>) {
+            return parseJSONAttributeMap(UtilGenerics.cast(val));
+        } else if (val instanceof List<?>) {
+            return ((List) val).stream().map(UtilHttp::parseJSONAttributeValue).collect(Collectors.toList());
+        }
+        return null;
     }
 
     /**
