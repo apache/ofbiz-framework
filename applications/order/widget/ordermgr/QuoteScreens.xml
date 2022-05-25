@@ -160,8 +160,22 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <!-- generate a PDF for the quote -->
     <screen name="QuoteReport">
+          <section>
+             <actions>
+                <set field="defaultTemplateLocation" value="component://order/widget/ordermgr/QuoteScreens.xml"/>
+                <set field="defaultTemplateName" value="DefaultQuotePDF"/>
+                <script location="component://commonext/groovyScripts/template/DocTypeTemplate.groovy"/>
+            </actions>
+            <widgets>
+                <include-screen name="${templateName}" location="${templateLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="DefaultQuotePDF">
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteReport"/>

@@ -2600,5 +2600,15 @@ under the License.
     <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="9000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
     <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
     <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
+    
+    <CustomScreen customScreenId="DEFAULT_ORD_TPL" customScreenTypeId="CST_ORDER_TPL" customScreenName="DefaultOrderPDF" customScreenLocation="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="OrdTplSales" partyId="Company" fromDate="2001-05-13 00:00:00" orderTypeId="SALES_ORDER" customScreenId="DEFAULT_ORD_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="OrdTplPurchase" partyId="Company" fromDate="2001-05-13 00:00:00" orderTypeId="PURCHASE_ORDER" customScreenId="DEFAULT_ORD_TPL"/>
+    
+    <CustomScreen customScreenId="DEFAULT_QUOTE_TPL" customScreenTypeId="CST_QUOTE_TPL" customScreenName="DefaultQuotePDF" customScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplOther" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="OTHER_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplProposal" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PROPOSAL" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplProduct" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PRODUCT_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplPurchase" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PURCHASE_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
 
 </entity-engine-xml>
