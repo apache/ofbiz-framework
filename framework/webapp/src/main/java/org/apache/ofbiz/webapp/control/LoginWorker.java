@@ -45,6 +45,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
 
+import org.apache.http.HttpStatus;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.util.Debug;
@@ -362,6 +363,7 @@ public final class LoginWorker {
                 if (UtilValidate.isNotEmpty(formParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
+                response.setStatus(HttpStatus.SC_UNAUTHORIZED);
                 return "error";
             }
         }
