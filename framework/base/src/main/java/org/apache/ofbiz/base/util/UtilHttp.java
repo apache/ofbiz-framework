@@ -499,7 +499,7 @@ public final class UtilHttp {
         } else if (val instanceof Map<?, ?>) {
             return parseJSONAttributeMap(UtilGenerics.cast(val));
         } else if (val instanceof List<?>) {
-            return ((List) val).stream().map(UtilHttp::parseJSONAttributeValue).collect(Collectors.toList());
+            return ((List<?>) val).stream().map(UtilHttp::parseJSONAttributeValue).collect(Collectors.toList());
         }
         return null;
     }
