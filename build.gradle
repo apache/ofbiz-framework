@@ -28,6 +28,7 @@ plugins {
     id 'groovy'
     id 'eclipse'
     id 'checkstyle'
+    id 'codenarc'
     id 'maven-publish'
     id 'at.bxm.svntools' version '3.1'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
@@ -380,6 +381,11 @@ checkstyle {
 }
 gitHooks {
     hooks = ['pre-push': 'checkstyleMain']
+}
+
+// Checks OFBiz Groovy coding conventions.
+codenarc {
+    setConfigFile(new File('config/codenarc/codenarc.groovy'))
 }
 
 // Eclipse plugin settings
