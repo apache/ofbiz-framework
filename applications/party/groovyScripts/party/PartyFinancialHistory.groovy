@@ -56,7 +56,8 @@ invExprs =
 
 invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (invoice = invIterator.next()) {
+while (invIterator.hasNext()) {
+    invoice = invIterator.next()
     Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", invoice.getString("invoiceTypeId"), "parentTypeId", "PURCHASE_INVOICE")
     Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.getString("invoiceTypeId"), "parentTypeId", "SALES_INVOICE")
     if (isPurchaseInvoice) {
@@ -98,7 +99,8 @@ payExprs =
 
 payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payment = payIterator.next()) {
+while (payIterator.hasNext()) {
+    payment = payIterator.next()
     if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
         totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)

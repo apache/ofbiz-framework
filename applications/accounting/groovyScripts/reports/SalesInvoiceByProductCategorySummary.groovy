@@ -106,7 +106,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
 
     productResultListIterator = select("productId", "quantityTotal", "amountTotal").from("InvoiceItemProductSummary").where(productAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
     productResultMap = [:]
-    while ((productResult = productResultListIterator.next())) {
+    while (productResultListIterator.hasNext()) {
+        productResult = productResultListIterator.next()
         productResultMap[productResult.productId] = productResult
         monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.productId)
         UtilMisc.addToBigDecimalInMap(monthProductResult, "quantityTotal", productResult.getBigDecimal("quantityTotal"))
@@ -123,7 +124,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
 
     categoryResultListIterator = select("productCategoryId", "quantityTotal", "amountTotal").from("InvoiceItemCategorySummary").where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
     categoryResultMap = [:]
-    while ((categoryResult = categoryResultListIterator.next())) {
+    while (categoryResultListIterator.hasNext()) {
+        categoryResult = categoryResultListIterator.next()
         categoryResultMap[categoryResult.productCategoryId] = categoryResult
         monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.productCategoryId)
         UtilMisc.addToBigDecimalInMap(monthCategoryResult, "quantityTotal", categoryResult.getBigDecimal("quantityTotal"))
