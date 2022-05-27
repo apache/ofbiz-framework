@@ -29,7 +29,7 @@ log = ServiceDispatcher.getServiceLogMap()
 serviceList = []
 log.each { rs, value ->
     service = [:]
-    service.serviceName = rs.getModelService().getName()
+    service.serviceName = rs.getModelService().name
     service.localName = rs.getLocalName()
     service.startTime = rs.getStartStamp()
     service.endTime = rs.getEndStamp()
