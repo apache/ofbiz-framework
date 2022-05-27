@@ -367,7 +367,8 @@ def createFuturePeriod() {
     grain = null
     intermediate = null
     parties = from('PartyAcctgPreference').where('enableAccounting','Y').queryIterator()
-    while (party = parties.next()){
+    while (parties.hasNext()){
+        party = parties.next()
         parameters.organizationPartyId = party.partyId
         createCustomTimePeriod = from('SystemProperty')
             .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.create').queryOne()

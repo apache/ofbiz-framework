@@ -149,7 +149,8 @@ def createContentAlternativeUrl() {
             .queryIterator()
 
     GenericValue content
-    while (content = contents.next()) {
+    while (contents.hasNext()) {
+        content = contents.next()
         String localeString = content.localeString ?: defaultLocaleString
         List contentAssocDataResources = select("contentIdStart", "dataResourceId", "localeString", "drObjectInfo", "caFromDate", "caThruDate")
                 .from("ContentAssocDataResourceViewTo")

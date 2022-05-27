@@ -46,7 +46,8 @@ payExprs =
 paymentList = []
 payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payment = payIterator.next()) {
+while (payIterator.hasNext()) {
+    payment = payIterator.next()
     unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency.equals(true) && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
