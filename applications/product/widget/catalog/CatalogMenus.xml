@@ -45,7 +45,7 @@ under the License.
             </condition>
             <link target="EditProduct"/>
         </menu-item>
-        <menu-item name="newStore" title="${uiLabelMap.CommonNew} ${uiLabelMap.ProductStore}">
+        <menu-item name="newStore" title="${uiLabelMap.ProductCreateNewProductStore}">
             <condition>
                 <and>
                     <or>
@@ -55,7 +55,7 @@ under the License.
             </condition>
             <link target="EditProductStore"/>
         </menu-item>
-        <menu-item name="newCatalog" title="${uiLabelMap.CommonNew} ${uiLabelMap.ProductCatalog}">
+        <menu-item name="newCatalog" title="${uiLabelMap.ProductCreateNewCatalog}">
             <condition>
                 <and>
                     <or>

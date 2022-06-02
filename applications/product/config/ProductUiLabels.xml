@@ -9167,7 +9167,7 @@
         <value xml:lang="es">"Identificación de la instalación de inventario requerida"</value>
         <value xml:lang="zh">必须有库存场所标识</value>
     </property>
-    
+
     <property key="lotIdFilledInAllowed">
         <value xml:lang="de">Erlaubt</value>
         <value xml:lang="en">Allowed</value>
@@ -11198,6 +11198,7 @@
         <value xml:lang="zh-TW">尋找分類</value>
     </property>
     <property key="PageTitleFindCatalog">
+        <value xml:lang="de">Katalog suchen</value>
         <value xml:lang="en">Find Catalog</value>
         <value xml:lang="es">Buscar Catálogo</value>
         <value xml:lang="fr">Recherche de catalogues</value>
@@ -13875,7 +13876,7 @@
         <value xml:lang="zh">关联</value>
         <value xml:lang="zh-TW">結合</value>
     </property>
-    
+
     <property key="ProductOrderReturnStatus">
         <value xml:lang="de">Zurück Sendungsstatus</value>
         <value xml:lang="en">Return Shipment Status</value>
@@ -14749,7 +14750,7 @@
         <value xml:lang="de">Katalogname [ID]</value>
         <value xml:lang="en">Catalog Name [Id]</value>
         <value xml:lang="es">Nombre de Catálogo [Código]</value>
-        <value xml:lang="fr">Catalogue ; Nom ; [Réf.]</value>
+        <value xml:lang="fr">Nom de Catalogue [Réf.]</value>
         <value xml:lang="it">Nome catalogo [Codice]</value>
         <value xml:lang="ja">カタログ名称 [ID]</value>
         <value xml:lang="nl">Catalogusnaam [ID]</value>
@@ -20867,7 +20868,7 @@
         <value xml:lang="zh-TW">這個細項缺貨</value>
     </property>
     <property key="ProductCannotReserveInventoryNotEnoughStock">
-    	<value xml:lang="it">Impossibile riservare l'articolo ${parameters.productId}: quantità in stock non sufficiente nel deposito ${parameters.facilityId}. Quantità  non riservata è ${parameters.quantityNotReserved}</value>
+        <value xml:lang="it">Impossibile riservare l'articolo ${parameters.productId}: quantità in stock non sufficiente nel deposito ${parameters.facilityId}. Quantità  non riservata è ${parameters.quantityNotReserved}</value>
         <value xml:lang="en">Cannot reserve product ${parameters.productId}: not enough quantity left in stock for facility ${parameters.facilityId}. Quantity not reserved is ${parameters.quantityNotReserved}</value>
      </property>
     <property key="ProductItemPrc">
@@ -30960,7 +30961,7 @@
         <value xml:lang="vi">Để kiểm soát cách nhìn và cảm quan và cửa hàng trực tuyến</value>
         <value xml:lang="zh">用于控制一个网店的外观感受。</value>
         <value xml:lang="zh-TW">用於控制一個網店的外觀感受.</value>
-    </property>        
+    </property>
     <property key="ProductStoresFor">
         <value xml:lang="de">Läden für</value>
         <value xml:lang="en">Stores For</value>
