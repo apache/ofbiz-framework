@@ -10956,6 +10956,7 @@
         <value xml:lang="zh-TW">尋找庫存細項標籤</value>
     </property>
     <property key="PageTitleFindProduct">
+        <value xml:lang="de">Produkt suchen</value>
         <value xml:lang="en">Find Product</value>
         <value xml:lang="fr">Recherche d'articles</value>
         <value xml:lang="it">Ricerca prodotti</value>
@@ -12741,7 +12742,7 @@
     </property>
     <property key="ProductAddProductsUsingDefaultQuantities">
         <value xml:lang="cs">Přidat výrobky této skupiny do košíku v přednastaveném možství</value>
-        <value xml:lang="de">Produkte dieser Produktgruppe in der vorgegebenen Menge in den Warenkorb legen</value>
+        <value xml:lang="de">Produkte dieser Produktkategorie in der vorgegebenen Menge in den Warenkorb legen</value>
         <value xml:lang="en">Add Products in this Category to the Cart using Default Quantities</value>
         <value xml:lang="en-GB">Add Products in this Category to the basket using default quantities</value>
         <value xml:lang="es">Agregue los productos en esta categoría al carro usando cantidades predeterminadas</value>
@@ -12979,7 +12980,7 @@
     </property>
     <property key="ProductAdvancedSearchInCategory">
         <value xml:lang="cs">Rozšířené hledání ve skupině výrobků</value>
-        <value xml:lang="de">Erweiterte Suche in der Produktgruppe</value>
+        <value xml:lang="de">Erweiterte Suche in der Produktkategorie</value>
         <value xml:lang="en">Advanced Search in Category</value>
         <value xml:lang="es">Búsqueda Avanzada en las Categorías</value>
         <value xml:lang="fr">Recherche avancée dans la catégorie</value>
@@ -14082,7 +14083,7 @@
     </property>
     <property key="ProductBrowseCategories">
         <value xml:lang="cs">Výběr skupiny výrobků</value>
-        <value xml:lang="de">Produktgruppen durchsuchen</value>
+        <value xml:lang="de">Produktkategorien durchsuchen</value>
         <value xml:lang="en">Browse Categories</value>
         <value xml:lang="es">Hojear Categorías</value>
         <value xml:lang="fr">Parcourir les catégories</value>
@@ -14562,7 +14563,7 @@
     </property>
     <property key="ProductCategory">
         <value xml:lang="cs">Skupina výrobků</value>
-        <value xml:lang="de">Produktgruppe</value>
+        <value xml:lang="de">Kategorie</value>
         <value xml:lang="en">Category</value>
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>
@@ -14678,7 +14679,7 @@
     </property>
     <property key="ProductCategoryNotFoundForCategoryID">
         <value xml:lang="cs">Skupina výrobků nenalezena</value>
-        <value xml:lang="de">Produktgruppe wurde nicht gefunden mit ID</value>
+        <value xml:lang="de">Kategorie wurde nicht gefunden mit ID</value>
         <value xml:lang="en">Category not found for Category ID</value>
         <value xml:lang="es">Categoría no encontrada por ID</value>
         <value xml:lang="fr">Aucune catégorie pour cet réf.</value>
@@ -14695,11 +14696,11 @@
         <value xml:lang="zh-TW">沒有找到分類識別</value>
     </property>
     <property key="ProductCategoryAttrAlreadyExists">
-        <value xml:lang="de">Eine Attribut mit diesem Namen existiert bereits für die Produktgruppe mit dieser ID.</value>
+        <value xml:lang="de">Eine Attribut mit diesem Namen existiert bereits für die Kategorie mit dieser ID.</value>
         <value xml:lang="en">There already is an attribute with this name for a group with this ID.</value>
     </property>
     <property key="ProductCategoryAlreadyExists">
-        <value xml:lang="de">Eine Produktgruppe mit dieser ID existiert bereits.</value>
+        <value xml:lang="de">Eine Kategorie mit dieser ID existiert bereits.</value>
         <value xml:lang="en">There already is a Category with this ID.</value>
     </property>
     <property key="ProductCategoryNoVariants">
@@ -15058,7 +15059,7 @@
     </property>
     <property key="ProductChooseQuickAddCategory">
         <value xml:lang="cs">Výběr zrychleným zadáním produktové skupiny</value>
-        <value xml:lang="de">Auswahl einer Produktgruppe für Schnelleingabe</value>
+        <value xml:lang="de">Auswahl einer Produktkategorie für Schnelleingabe</value>
         <value xml:lang="en">Choose QuickAdd Category</value>
         <value xml:lang="es">Elegir la categoría Añadir-Rápido</value>
         <value xml:lang="fr">Choisir une catégorie d'ajout-rapide</value>
@@ -22820,7 +22821,7 @@
     </property>
     <property key="ProductNoProductsInThisCategory">
         <value xml:lang="cs">V této skupině nejsou žádné výrobky</value>
-        <value xml:lang="de">Es gibt keine Produkte in dieser Produktgruppe</value>
+        <value xml:lang="de">Es gibt keine Produkte in dieser Produktkategorie</value>
         <value xml:lang="en">There are no products in this category</value>
         <value xml:lang="es">No hay productos en esta categoría</value>
         <value xml:lang="fr">Aucun article dans cette catégorie</value>
@@ -28488,7 +28489,7 @@
     </property>
     <property key="ProductSearchInCategory">
         <value xml:lang="cs">Hledání ve skupině výrobků</value>
-        <value xml:lang="de">Suche in Produktgruppe</value>
+        <value xml:lang="de">Suche in Produktkategorie</value>
         <value xml:lang="en">Search in Category</value>
         <value xml:lang="es">Buscar en la Categoría</value>
         <value xml:lang="fr">Rechercher dans la catégorie</value>
