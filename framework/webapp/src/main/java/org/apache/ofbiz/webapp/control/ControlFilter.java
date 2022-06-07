@@ -150,7 +150,6 @@ public class ControlFilter extends HttpFilter {
             String uri = uriWithContext.substring(context.length());
 
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-
             if (!LoginWorker.hasBasePermission(userLogin, req)) { // Allows UEL and FlexibleString (OFBIZ-12602)
                 if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
                         && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests

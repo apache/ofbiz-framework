@@ -1375,7 +1375,7 @@ public final class LoginWorker {
                 }
             }
         } else {
-            if (Debug.warningOn()) {
+            if (Debug.warningOn() && !GenericValue.getStackTraceAsString().contains("ControlFilter")) {
                 Debug.logWarning("Received a null Security object from HttpServletRequest", MODULE);
             }
         }
