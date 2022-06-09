@@ -41,6 +41,7 @@ under the License.
                 <xs:element minOccurs="0" ref="description"/>
                 <xs:element minOccurs="0" ref="namespace"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="deprecated"/>
+                <xs:element minOccurs="0" ref="notification"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="permission-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="required-permissions"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="implements"/>
