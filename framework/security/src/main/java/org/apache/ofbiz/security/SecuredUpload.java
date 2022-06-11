@@ -455,7 +455,7 @@ public class SecuredUpload {
             }
         } catch (Exception e) {
             safeState = false;
-            Debug.logError(e, "for security reason the PDF file " + file.getAbsolutePath() + "can't be uploaded !", MODULE);
+            Debug.logError(e, "for security reason the PDF file " + file.getAbsolutePath() + " can't be uploaded !", MODULE);
         }
         return safeState;
     }
@@ -493,14 +493,14 @@ public class SecuredUpload {
         try (CSVParser parser = new CSVParser(in, cvsFormat)) {
             parser.getRecords();
         }
-        return true;
+        return isValidTextFile(fileName, false); // Validate content to prevent webshell
     }
 
     private static boolean isExecutable(String fileName) throws IOException {
         String mimeType = getMimeTypeFromFileName(fileName);
         // Check for Windows executable. Neglect .bat and .ps1: https://s.apache.org/c8sim
         if ("application/x-msdownload".equals(mimeType) || "application/x-ms-installer".equals(mimeType)) {
-            Debug.logError("The file" + fileName + " is a Windows executable, for security reason it's not accepted :", MODULE);
+            Debug.logError("The file" + fileName + " is a Windows executable, for security reason it's not accepted", MODULE);
             return true;
         }
         // Check for ELF (Linux) and scripts
@@ -509,7 +509,7 @@ public class SecuredUpload {
                 || "application/text/x-perl".equals(mimeType)
                 || "application/text/x-ruby".equals(mimeType)
                 || "application/text/x-python".equals(mimeType)) {
-            Debug.logError("The file" + fileName + " is a Linux executable, for security reason it's not accepted :", MODULE);
+            Debug.logError("The file" + fileName + " is a Linux executable, for security reason it's not accepted", MODULE);
             return true;
         }
         return false;
@@ -661,7 +661,7 @@ public class SecuredUpload {
                 || "audio/x-flac".equals(mimeType)) {
             return true;
         }
-        Debug.logInfo("The file" + fileName + " is not a valid audio file, for security reason it's not accepted :", MODULE);
+        Debug.logInfo("The file" + fileName + " is not a valid audio file. For security reason it's not accepted as a such file", MODULE);
         return false;
     }
 
@@ -686,7 +686,7 @@ public class SecuredUpload {
                 || "video/x-ms-wmx".equals(mimeType)) {
             return true;
         }
-        Debug.logInfo("The file" + fileName + " is not a valid video file, for security reason it's not accepted :", MODULE);
+        Debug.logInfo("The file" + fileName + " is not a valid video file. For security reason it's not accepted as a such file", MODULE);
         return false;
     }
 
@@ -720,7 +720,7 @@ public class SecuredUpload {
     private static boolean isValid(String content, String string, List<String> allowed) {
         boolean isOK = !content.toLowerCase().contains(string) || allowed.contains(string);
         if (!isOK) {
-            Debug.logInfo("############### BEWARE, Image contains " + string, MODULE);
+            Debug.logInfo("The uploaded file contains the string '" + string + "'. It can't be uploaded for security reason", MODULE);
         }
         return isOK;
     }
