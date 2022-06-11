@@ -27,6 +27,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -49,6 +51,8 @@ import javax.imageio.stream.ImageInputStream;
 
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.imaging.ImageFormat;
 import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.ImageInfo;
@@ -192,7 +196,7 @@ public class SecuredUpload {
         }
 
         // Check the file name
-        if (!isValidFileName(fileToCheck, delegator)) {
+        if (!isValidFileName(fileToCheck, delegator)) { // Useless when the file is internally generated, but not sure for all cases
             return false;
         }
 
@@ -268,6 +272,7 @@ public class SecuredUpload {
                     || isValidCompressedFile(fileToCheck, delegator)
                     || isValidAudioFile(fileToCheck)
                     || isValidVideoFile(fileToCheck)
+                    || isValidCsvFile(fileToCheck)
                     || isValidPdfFile(fileToCheck)) {
                 return true;
             }
@@ -455,6 +460,42 @@ public class SecuredUpload {
         return safeState;
     }
 
+    /**
+     * Is it a CVS file?
+     * @param fileName
+     * @return true if it's a valid CVS file
+     * @throws IOException
+     */
+    private static boolean isValidCsvFile(String fileName) throws IOException {
+        Path filePath = Paths.get(fileName);
+        String content = new String(Files.readAllBytes(filePath));
+        Reader in = new StringReader(content);
+        String cvsFormatString = UtilProperties.getPropertyValue("security", "csvformat");
+        CSVFormat cvsFormat = CSVFormat.DEFAULT;
+        switch (cvsFormatString) {
+        case "EXCEL":
+            cvsFormat = CSVFormat.EXCEL;
+            break;
+        case "MYSQL":
+            cvsFormat = CSVFormat.MYSQL;
+            break;
+        case "ORACLE":
+            cvsFormat = CSVFormat.ORACLE;
+            break;
+        case "POSTGRESQL_CSV":
+            cvsFormat = CSVFormat.POSTGRESQL_CSV;
+            break;
+        default:
+            cvsFormat = CSVFormat.DEFAULT;
+        }
+
+        // cf. https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVFormat.html
+        try (CSVParser parser = new CSVParser(in, cvsFormat)) {
+            parser.getRecords();
+        }
+        return true;
+    }
+
     private static boolean isExecutable(String fileName) throws IOException {
         String mimeType = getMimeTypeFromFileName(fileName);
         // Check for Windows executable. Neglect .bat and .ps1: https://s.apache.org/c8sim
@@ -620,7 +661,7 @@ public class SecuredUpload {
                 || "audio/x-flac".equals(mimeType)) {
             return true;
         }
-        Debug.logError("The file" + fileName + " is not a valid audio file, for security reason it's not accepted :", MODULE);
+        Debug.logInfo("The file" + fileName + " is not a valid audio file, for security reason it's not accepted :", MODULE);
         return false;
     }
 
@@ -645,7 +686,7 @@ public class SecuredUpload {
                 || "video/x-ms-wmx".equals(mimeType)) {
             return true;
         }
-        Debug.logError("The file" + fileName + " is not a valid video file, for security reason it's not accepted :", MODULE);
+        Debug.logInfo("The file" + fileName + " is not a valid video file, for security reason it's not accepted :", MODULE);
         return false;
     }
 
@@ -669,7 +710,7 @@ public class SecuredUpload {
         String content = new String(bytesFromFile);
         if (content.toLowerCase().contains("xlink:href=\"http")
                 || content.toLowerCase().contains("<!ENTITY ")) { // Billions laugh attack
-            Debug.logError("Linked images inside or Entity in SVG are not allowed for security reason", MODULE);
+            Debug.logInfo("Linked images inside or Entity in SVG are not allowed for security reason", MODULE);
             return false;
         }
         ArrayList<String> allowed = new ArrayList<>();
