@@ -944,8 +944,8 @@ under the License.
         </group>
     </service>
 
-    <service name="updateContentSEOForCategory" engine="simple"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="updateContentSEOForCategory" auth="true">
+    <service name="updateContentSEOForCategory" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateContentSEOForCategory" auth="true">
         <description>Update SEO Content For Product Category</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
