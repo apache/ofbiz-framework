@@ -265,6 +265,11 @@ public class SecuredUpload {
                 return true;
             }
             break;
+        case "CSV":
+            if (isValidCsvFile(fileToCheck)) {
+                return true;
+            }
+            break;
 
         default: // All
             if (isValidTextFile(fileToCheck, true)
