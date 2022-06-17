@@ -47,9 +47,10 @@ def getNextOrderId() {
         customMethodName = 'orderSequence_enforced'
     }
 
+    String orderIdTemp
     if (customMethodName) {
-        Map customMethodMap = [*: parameters]
-        Map result = run service: customMethodName, with: customMethodMap
+        parameters.partyAcctgPreference = partyAcctgPreference
+        Map result = run service: customMethodName, with: parameters
         orderIdTemp = result.orderId
     } else {
         logInfo 'In getNextOrderId sequence by Standard'
@@ -68,10 +69,7 @@ def getNextOrderId() {
     if (partyAcctgPreference) orderId += partyAcctgPreference.orderIdPrefix ?: ""
     orderId += orderIdTemp.toString()
 
-    Map result = success()
-    result.orderId = orderId
-
-    return result
+    return success([orderId: orderId])
 }
 
 /**
