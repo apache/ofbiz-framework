@@ -64,20 +64,17 @@ public final class ProductWorker {
     private ProductWorker() { }
 
     public static boolean shippingApplies(GenericValue product) {
-        String errMsg = "";
         if (product != null) {
             String productTypeId = product.getString("productTypeId");
-            if ("SERVICE".equals(productTypeId) || "SERVICE_PRODUCT".equals(productTypeId) || (ProductWorker.isDigital(product)
-                    && !ProductWorker.isPhysical(product))) {
+            if ("SERVICE".equals(productTypeId) || "SERVICE_PRODUCT".equals(productTypeId)
+                    || (ProductWorker.isDigital(product) && !ProductWorker.isPhysical(product))) {
                 // don't charge shipping on services or digital goods
                 return false;
             }
-            if (product.get("chargeShipping") == null) {
-                return true;
-            }
-            return product.getBoolean("chargeShipping");
+            return product.get("chargeShipping") == null
+                    || product.getBoolean("chargeShipping");
         }
-        throw new IllegalArgumentException(errMsg);
+        throw new IllegalArgumentException("No product given to analyze if it needed to ship it");
     }
 
     public static boolean isBillableToAddress(GenericValue product, GenericValue postalAddress) {
