@@ -490,8 +490,11 @@ public class UtilCodec {
         }
 
         if (value != null) {
+            value = value.replaceAll("<br>", "<br />"); // Both are OK, so <br> is accepted, see OFBIZ-12653
             String filtered = policy.sanitize(value);
-            if (filtered != null && !value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(filtered)))) {
+            String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
+            String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
+            if (filtered != null && !value.equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
