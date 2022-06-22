@@ -225,8 +225,10 @@ dependencies {
     implementation 'org.apache.shiro:shiro-core:1.8.0'
     implementation 'org.apache.sshd:sshd-core:2.8.0'
     implementation 'org.apache.sshd:sshd-sftp:2.8.0'
-    implementation 'org.apache.tika:tika-core:1.28.3' // version 2 needs more work, see OFBIZ-12572
-    implementation 'org.apache.tika:tika-parsers:1.28.1' //  2.1.0 does not work
+    // Note: The Apache Tika PMC has set September 30, 2022 as the End Of Life for the Tika 1.x branch.
+    //       The PMC will make security fixes for the 1.x branch until that date.
+    implementation 'org.apache.tika:tika-core:1.28.4' // version 2 needs more work, see OFBIZ-12572
+    implementation 'org.apache.tika:tika-parsers:1.28.4' //  2.1.0 does not work,
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.60' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.60'
     implementation 'org.apache.axis2:axis2-kernel:1.7.9' // Above: SOAPEventHandler.java:42: error: package org.apache.axiom.om.impl.builder does not exist
