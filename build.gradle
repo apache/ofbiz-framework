@@ -235,7 +235,7 @@ dependencies {
     // Note: The Apache Tika PMC has set September 30, 2022 as the End Of Life for the Tika 1.x branch.
     //       The PMC will make security fixes for the 1.x branch until that date.
     implementation 'org.apache.tika:tika-core:2.4.1'
-    implementation 'org.apache.tika:tika-parsers:1.28.4' //  2.1.0 does not work,
+    implementation 'org.apache.tika:tika-parsers:1.28.4' //  2.4.1 does not work,
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.60' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.60'
     implementation 'org.apache.axis2:axis2-kernel:1.8.1'
