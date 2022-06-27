@@ -38,7 +38,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -61,7 +60,6 @@ import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.ImageWriteException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.formats.gif.GifImageParser;
-import org.apache.commons.imaging.formats.jpeg.JpegImageParser;
 import org.apache.commons.imaging.formats.png.PngImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
@@ -371,7 +369,7 @@ public class SecuredUpload {
                 if (!fallbackOnApacheCommonsImaging) {
                     ImageIO.write(sanitizedImage, formatName, fos);
                 } else {
-                    ImageParser imageParser;
+                    ImageParser<?> imageParser;
                     // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
                     // the image format. See reference link in the class header
                     switch (formatName) {
@@ -384,13 +382,13 @@ public class SecuredUpload {
                     case "PNG":
                         imageParser = new PngImageParser();
                         break;
-                    case "JPEG":
-                        imageParser = new JpegImageParser();
-                        break;
+                    // case "JPEG":
+                    // imageParser = new JpegImageParser(); // Does not provide imageParser.writeImage used below
+                    // break;
                     default:
                         throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
                     }
-                    imageParser.writeImage(sanitizedImage, fos, new HashMap<>());
+                    imageParser.writeImage(sanitizedImage, fos, null);
                 }
                 // Set state flag
                 safeState = true;
