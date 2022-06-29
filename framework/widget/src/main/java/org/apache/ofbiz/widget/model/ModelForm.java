@@ -436,7 +436,15 @@ public abstract class ModelForm extends ModelWidget {
                 } else {
                     onPaginateUpdateAreas.add(updateArea);
                 }
-            } else if ("submit".equals(updateArea.getEventType())) {
+            } else if ("submit".equals(updateArea.getEventType())
+                     ||"post".equals(updateArea.getEventType())
+                     ||"set-area".equals(updateArea.getEventType())
+                     ||"refresh-area".equals(updateArea.getEventType())
+                     ||"set-watcher".equals(updateArea.getEventType())
+                     ||"refresh-watcher".equals(updateArea.getEventType())
+                     ||"collapse".equals(updateArea.getEventType())
+                     ||"close-modal".equals(updateArea.getEventType())
+                      ) {
                 int index = onSubmitUpdateAreas.indexOf(updateArea);
                 if (index != -1) {
                     onSubmitUpdateAreas.set(index, updateArea);
@@ -1244,6 +1252,14 @@ public abstract class ModelForm extends ModelWidget {
     public List<UpdateArea> getOnPaginateUpdateAreas() {
         return this.onPaginateUpdateAreas;
     }
+    /**
+     * Returns the list of ModelForm.UpdateArea objects to activate on a pagination event and which have no use-when or use-when = true.
+     * @param context
+     * @return
+     */
+    public List<UpdateArea> getOnPaginateUpdateAreas(Map<String, Object> context) {
+        return getValidUpdateAreas(this.onPaginateUpdateAreas, context);
+    }
 
     /**
      * Gets on sort column update areas.
@@ -1252,11 +1268,27 @@ public abstract class ModelForm extends ModelWidget {
     public List<UpdateArea> getOnSortColumnUpdateAreas() {
         return this.onSortColumnUpdateAreas;
     }
+    /**
+     * Returns the list of ModelForm.UpdateArea objects to activate on a column sort event and which have no use-when or use-when = true.
+     * @param context
+     * @return
+     */
+    public List<UpdateArea> getOnSortColumnUpdateAreas(Map<String, Object> context) {
+        return getValidUpdateAreas(this.onSortColumnUpdateAreas, context);
+    }
 
     /** Returns the list of ModelForm.UpdateArea objects.
      */
     public List<UpdateArea> getOnSubmitUpdateAreas() {
         return this.onSubmitUpdateAreas;
+    }
+    /**
+     * Returns the list of ModelForm.UpdateArea objects to activate on a submit event and which have no use-when or use-when = true.
+     * @param context
+     * @return
+     */
+    public List<UpdateArea> getOnSubmitUpdateAreas(Map<String, Object> context) {
+        return getValidUpdateAreas(this.onSubmitUpdateAreas, context);
     }
 
     /**
@@ -2288,6 +2320,7 @@ public abstract class ModelForm extends ModelWidget {
         private final String eventType;
         private final String areaId;
         private final String areaTarget;
+        private final String useWhen;
         private final String defaultServiceName;
         private final String defaultEntityName;
         private final CommonWidgetModels.AutoEntityParameters autoEntityParameters;
@@ -2306,15 +2339,24 @@ public abstract class ModelForm extends ModelWidget {
             this.eventType = updateAreaElement.getAttribute("event-type");
             this.areaId = updateAreaElement.getAttribute("area-id");
             this.areaTarget = updateAreaElement.getAttribute("area-target");
+            this.useWhen = updateAreaElement.getAttribute("use-when");
             this.defaultServiceName = defaultServiceName;
             this.defaultEntityName = defaultEntityName;
             List<? extends Element> parameterElementList = UtilXml.childElementList(updateAreaElement, "parameter");
-            if (parameterElementList.isEmpty()) {
+            boolean autoPortletParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-portlet") == null ? false : true;
+            if (parameterElementList.isEmpty() && ! autoPortletParamsElement) {
                 this.parameterList = Collections.emptyList();
             } else {
-                List<CommonWidgetModels.Parameter> parameterList = new ArrayList<>(parameterElementList.size());
+                int paramListSize = parameterElementList.size() + (autoPortletParamsElement ? 4 : 0);
+                List<CommonWidgetModels.Parameter> parameterList = new ArrayList<>(paramListSize);
                 for (Element parameterElement : parameterElementList) {
                     parameterList.add(new CommonWidgetModels.Parameter(parameterElement));
+                }
+                if (autoPortletParamsElement) {
+                    parameterList.add(new CommonWidgetModels.Parameter("portalPageId",    "parameters.portalPageId",    true));
+                    parameterList.add(new CommonWidgetModels.Parameter("portalPortletId", "parameters.portalPortletId", true));
+                    parameterList.add(new CommonWidgetModels.Parameter("portletSeqId",    "parameters.portletSeqId",    true));
+                    parameterList.add(new CommonWidgetModels.Parameter("currentAreaId",   "parameters.currentAreaId",   true));
                 }
                 this.parameterList = Collections.unmodifiableList(parameterList);
             }
@@ -2340,6 +2382,7 @@ public abstract class ModelForm extends ModelWidget {
             this.eventType = eventType;
             this.areaId = areaId;
             this.areaTarget = areaTarget;
+            this.useWhen = null;
             this.defaultServiceName = null;
             this.defaultEntityName = null;
             this.parameterList = Collections.emptyList();
@@ -2357,6 +2400,7 @@ public abstract class ModelForm extends ModelWidget {
             this.eventType = eventType;
             this.areaId = areaId;
             this.areaTarget = areaTarget;
+            this.useWhen = null;
             this.defaultServiceName = null;
             this.defaultEntityName = null;
             this.parameterList = parameterList;
@@ -2382,6 +2426,10 @@ public abstract class ModelForm extends ModelWidget {
          * @param context the context
          * @return the area target
          */
+        public String getAreaId(Map<String, ? extends Object> context) {
+            return FlexibleStringExpander.expandString(areaId, context);
+        }
+
         public String getAreaTarget(Map<String, ? extends Object> context) {
             return FlexibleStringExpander.expandString(areaTarget, context);
         }
@@ -2392,6 +2440,14 @@ public abstract class ModelForm extends ModelWidget {
          */
         public String getEventType() {
             return eventType;
+        }
+
+        /**
+         * Gets useWhen condition.
+         * @return the useWhen expression
+         */
+        public String getUseWhen() {
+            return useWhen;
         }
 
         /**
@@ -2535,5 +2591,41 @@ public abstract class ModelForm extends ModelWidget {
                             .collect(Collectors.toList())
                             : new ArrayList<>());
         }
+        public Map<String, Object> toMap(Map<String, Object> context) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("eventType",    this.getEventType());
+            map.put("areaId",       FlexibleStringExpander.expandString(this.getAreaId(), context));
+            map.put("areaTarget",   FlexibleStringExpander.expandString(this.getAreaTarget(), context));
+            map.put("parameterMap", this.getParameterMap(context));
+            return map;
+        }
+    }
+
+    static protected List<UpdateArea> getValidUpdateAreas(List<UpdateArea> updateAreas, Map<String, Object> context) {
+        if (updateAreas == null) return null;
+        ArrayList<UpdateArea> updateAreasValid = new ArrayList<>();
+        try {
+            for (ModelForm.UpdateArea updateArea : updateAreas) {
+                    String useWhen = FlexibleStringExpander.expandString(updateArea.getUseWhen(), context);
+                    if (useWhen != null && !useWhen.isEmpty()) {
+                        Object retVal = GroovyUtil.eval(StringUtil.convertOperatorSubstitutions(useWhen),context);
+                        // retVal should be a Boolean, if not something weird is up...
+                        if (retVal instanceof Boolean) {
+                            Boolean boolVal = (Boolean) retVal;
+                            if (boolVal) updateAreasValid.add(updateArea);
+                        } else {
+                            throw new IllegalArgumentException("Return value from updateArea condition eval was not a Boolean: "
+                                    + retVal.getClass().getName() + " [" + retVal + "] of updateArea " + updateArea.toString());
+                        }
+                    } else {
+                        updateAreasValid.add(updateArea);
+                    }
+            }
+        } catch (CompilationFailedException e) {
+            String errmsg = "Error evaluating Groovy target conditions on updateArea ";
+            Debug.logError(e, errmsg, MODULE);
+            throw new IllegalArgumentException(errmsg);
+        }
+        return updateAreasValid;
     }
 }

@@ -217,6 +217,19 @@ public class ModelFormFieldBuilder {
                     onChangeUpdateAreas.add(updateArea);
                 } else if ("click".equals(updateArea.getEventType())) {
                     onClickUpdateAreas.add(updateArea);
+                } else if ("post".equals(updateArea.getEventType())
+                        || "put".equals(updateArea.getEventType())
+                        || "delete".equals(updateArea.getEventType())
+                        || "set-area".equals(updateArea.getEventType())
+                        || "refresh-area".equals(updateArea.getEventType())
+                        || "set-watcher".equals(updateArea.getEventType())
+                        || "refresh-watcher".equals(updateArea.getEventType())
+                        || "submit".equals(updateArea.getEventType())
+                        || "set-field-in-form".equals(updateArea.getEventType())
+                        || "collapse".equals(updateArea.getEventType())
+                        || "close-modal".equals(updateArea.getEventType())
+                        ) {
+                    onClickUpdateAreas.add(updateArea);
                 }
             } else {
                 if (this.fieldType != null) {
@@ -524,6 +537,14 @@ public class ModelFormFieldBuilder {
     public List<UpdateArea> getOnChangeUpdateAreas() {
         return onChangeUpdateAreas;
     }
+    /**
+     * Returns the list of ModelForm.UpdateArea objects to activate on a change event and which have no use-when or use-when = true.
+     * @param context
+     * @return
+     */
+    public List<UpdateArea> getOnChangeUpdateAreas(Map<String, Object> context) {
+        return ModelForm.getValidUpdateAreas(onChangeUpdateAreas, context);
+    }
 
     /**
      * Gets on click update areas.*
@@ -531,6 +552,14 @@ public class ModelFormFieldBuilder {
      */
     public List<UpdateArea> getOnClickUpdateAreas() {
         return onClickUpdateAreas;
+    }
+    /**
+     * Returns the list of ModelForm.UpdateArea objects to activate on a click event and which have no use-when or use-when = true.
+     * @param context
+     * @return
+     */
+    public List<UpdateArea> getOnClickUpdateAreas(Map<String, Object> context) {
+        return ModelForm.getValidUpdateAreas(onClickUpdateAreas, context);
     }
 
     /**

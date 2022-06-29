@@ -252,6 +252,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         parameters.put("style", label.getStyle(context));
         executeMacro(writer, "renderLabel", parameters);
     }
+    @Override
+    public void renderVueJs(Appendable writer, Map<String, Object> context, ModelScreenWidget.VueJs vuejs) throws IOException {
+        //TODO should be implemented
+    }
 
     @Override
     public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator)

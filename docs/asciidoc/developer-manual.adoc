@@ -254,6 +254,8 @@ https://cwiki.apache.org/confluence/display/OFBIZ/Service+Engine+Guide[OFBiz wik
 
 include::../../themes/docs/themes.adoc[leveloffset=+2]
 
+include::../../plugins/vuejs/src/docs/asciidoc/frontJs-vuejs.adoc[leveloffset=+2]
+
 == Core APIs
 
 == Development environment

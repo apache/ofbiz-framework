@@ -522,6 +522,13 @@ under the License.
             <xs:attribute name="send-if-empty" type="xs:boolean" default="true"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="auto-parameters-portlet">
+        <xs:annotation>
+            <xs:documentation>Generate 4 parameters : portalPageId, portalPortletId, portletSeqId and currentAreaId update from-field parameters.xxx</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="exclude">
         <xs:complexType>
             <xs:attribute name="field-name" type="xs:string" use="required" />
@@ -532,6 +539,7 @@ under the License.
             <xs:element minOccurs="0" ref="auto-parameters-service"/>
             <xs:element minOccurs="0" ref="auto-parameters-entity"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+            <xs:element minOccurs="0" ref="auto-parameters-portlet"/>
             <xs:element minOccurs="0" name="image" type="image" />
             <xs:element minOccurs="0" ref="set-callback"/>
         </xs:sequence>
@@ -574,6 +582,20 @@ under the License.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="set-area" >
+                        <xs:annotation>
+                            <xs:documentation>
+                                Usable only in menu link, for FrontJs action, target and target-windows are used.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="set-watcher" >
+                        <xs:annotation>
+                            <xs:documentation>
+                                Usable only in menu link, for FrontJs action, only target-windows is used (as watcherName).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -581,6 +603,9 @@ under the License.
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="intra-app" />
+                    <xs:enumeration value="intra-post" />
+                    <xs:enumeration value="intra-put" />
+                    <xs:enumeration value="intra-delete" />
                     <xs:enumeration value="inter-app" />
                     <xs:enumeration value="content" />
                     <xs:enumeration value="plain" />

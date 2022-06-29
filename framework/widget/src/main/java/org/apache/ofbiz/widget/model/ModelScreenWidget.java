@@ -453,6 +453,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         private final FlexibleStringExpander styleExdr;
         private final FlexibleStringExpander autoUpdateTargetExdr;
         private final FlexibleStringExpander autoUpdateInterval;
+        private final FlexibleStringExpander watcherNameExdr;
         private final List<ModelScreenWidget> subWidgets;
 
         public Container(ModelScreen modelScreen, Element containerElement) {
@@ -461,6 +462,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.typeExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("type"));
             this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
             this.autoUpdateTargetExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("auto-update-target"));
+            this.watcherNameExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("watcher-name"));
             String autoUpdateInterval = containerElement.getAttribute("auto-update-interval");
             if (autoUpdateInterval.isEmpty()) {
                 autoUpdateInterval = "2";
@@ -502,6 +504,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getAutoUpdateTargetExdr(Map<String, Object> context) {
             return this.autoUpdateTargetExdr.expandString(context);
+        }
+
+        public String getWatcherNameExdr(Map<String, Object> context) {
+            return this.watcherNameExdr.expandString(context);
         }
 
         public String getAutoUpdateInterval(Map<String, Object> context) {
@@ -1059,6 +1065,71 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public FlexibleStringExpander getStyleExdr() {
             return styleExdr;
+        }
+    }
+    public static final class VueJs extends ModelScreenWidget {
+        public static final String TAG_NAME = "vuejs";
+        private final FlexibleStringExpander componentNameExdr;
+        private final List<Parameter> parameterList;
+
+        public VueJs(ModelScreen modelScreen, Element vueJsElement) {
+            super(modelScreen, vueJsElement);
+
+            this.componentNameExdr = FlexibleStringExpander.getInstance(vueJsElement.getAttribute("component-name"));
+            List<? extends Element> parameterElementList = UtilXml.childElementList(vueJsElement, "parameter");
+            if (parameterElementList.isEmpty() ) {
+                this.parameterList = Collections.emptyList();
+            } else {
+                List<Parameter> parameterList = new ArrayList<>(parameterElementList.size());
+                for (Element parameterElement : parameterElementList) {
+                    parameterList.add(new Parameter(parameterElement));
+                }
+                this.parameterList = Collections.unmodifiableList(parameterList);
+            }
+
+        }
+
+        @Override
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+            try {
+                screenStringRenderer.renderVueJs(writer, context, this);
+            } catch (IOException e) {
+                String errMsg = "Error rendering vue-js in screen named [" + getModelScreen().getName() + "]: " + e.toString();
+                Debug.logError(e, errMsg, MODULE);
+                throw new RuntimeException(errMsg);
+            }
+        }
+
+        public Map<String, Object> getParameterMap(Map<String, Object> context) {
+            Map<String, Object> fullParameterMap = new HashMap<>();
+            for (Parameter parameter : this.parameterList) {
+                Object retVal = null;
+                if (parameter.getValue() != null) {
+                    retVal = parameter.getValue(context);
+                } else if (parameter.getFromField() != null && parameter.getFromField().get(context) != null) {
+                    retVal = parameter.getFromField().get(context);
+                } else {
+                    retVal = context.get(parameter.getName());
+                }
+                fullParameterMap.put(parameter.getName(), retVal);
+            }
+            return fullParameterMap;
+        }
+
+        public String getComponentName(Map<String, Object> context) {
+            return this.componentNameExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getComponentNameExdr() {
+            return componentNameExdr;
+        }
+        public List<Parameter> getParameterList() {
+            return parameterList;
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
+            visitor.visit(this);
         }
     }
 
