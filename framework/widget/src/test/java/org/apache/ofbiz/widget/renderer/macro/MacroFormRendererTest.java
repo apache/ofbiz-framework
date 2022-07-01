@@ -145,7 +145,7 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void displayFieldRendersFieldWithTooltip(@Mocked ModelFormField.DisplayField displayField) {
+    public void displayFieldRendersFieldWithTooltip(@Mocked ModelFormField.DisplayField displayField) throws IOException {
         new Expectations() {
             {
                 renderableFtlFormElementsBuilder.displayField(withNotNull(), withNotNull(), anyBoolean);
@@ -163,7 +163,7 @@ public class MacroFormRendererTest {
     @Test
     public void displayEntityFieldRendersFieldWithLinkAndTooltip(
             @Mocked ModelFormField.DisplayEntityField displayEntityField,
-            @Mocked ModelFormField.SubHyperlink subHyperlink) {
+            @Mocked ModelFormField.SubHyperlink subHyperlink) throws IOException {
         new Expectations() {
             {
                 renderableFtlFormElementsBuilder.displayField(withNotNull(), withNotNull(), anyBoolean);

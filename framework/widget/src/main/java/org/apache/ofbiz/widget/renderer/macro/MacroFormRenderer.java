@@ -183,14 +183,21 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) {
-        writeFtlElement(writer,
-                renderableFtlFormElementsBuilder.displayField(context, displayField, this.javaScriptEnabled));
+    public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField)
+            throws IOException {
+        if (displayField instanceof DisplayEntityField
+                && ((DisplayEntityField) displayField).needConvertAsHyperlink(context)) {
 
-        if (displayField instanceof DisplayEntityField) {
+            // When we have a subHyperlink on a display entity, display all as a hyperlink
+            renderHyperlinkField(writer, context, ((DisplayEntityField) displayField).asHyperlink(context));
+        } else {
             writeFtlElement(writer,
-                    renderableFtlFormElementsBuilder.makeHyperlinkString(((DisplayEntityField) displayField).getSubHyperlink(),
-                            context));
+                    renderableFtlFormElementsBuilder.displayField(context, displayField, this.javaScriptEnabled));
+            if (displayField instanceof DisplayEntityField) {
+                writeFtlElement(writer,
+                        renderableFtlFormElementsBuilder.makeHyperlinkString(((DisplayEntityField) displayField).getSubHyperlink(),
+                                context));
+            }
         }
 
         final ModelFormField modelFormField = displayField.getModelFormField();
@@ -198,7 +205,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
+    public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField)
+            throws IOException {
         this.request.setAttribute("image", hyperlinkField.getImageLocation(context));
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         String encodedAlternate = encode(hyperlinkField.getAlternate(context), modelFormField, context);
