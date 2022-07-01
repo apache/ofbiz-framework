@@ -559,20 +559,27 @@
         <attribute name="fieldValue0" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="resequence" auth="true" engine="java" validate="true" transaction-timeout="7200"
-        location="org.apache.ofbiz.content.ContentManagementServices" invoke="resequence">
+    <service name="resequence" auth="true" engine="group">
+        <deprecated use-instead="resequenceContentAssocChildren" since="release22.01"/>
+        <group>
+            <invoke name="resequenceContentAssocChildren"/>
+        </group>
+    </service>
+    <service name="resequenceContentAssocChildren" auth="true" engine="java" transaction-timeout="7200"
+             location="org.apache.ofbiz.content.ContentManagementServices" invoke="resequence">
         <description>Reorder sequence numbers in ContentAssoc entities for a given parent id</description>
-        <attribute mode="IN" name="contentIdTo" optional="false" type="String">
+        <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdTo"/>
+                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
             </type-validate>
         </attribute>
-        <attribute mode="IN" name="seqInc" optional="true" type="Integer"/>
+        <attribute mode="IN" name="seqInc" optional="true" type="Integer" default-value="10"/>
         <attribute mode="IN" name="typeList" optional="true" type="List"/>
-        <attribute mode="IN" name="contentId" optional="true" type="String"/>
+        <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentAssocTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="dir" optional="true" type="String"/>
     </service>
+
     <service name="changeLeafToNode" validate="true" auth="true" engine="java" transaction-timeout="7200"
         location="org.apache.ofbiz.content.ContentManagementServices" invoke="changeLeafToNode">
         <description>Moves dataResource to separate content associated with current content so that node can have only children, no content of its own</description>
