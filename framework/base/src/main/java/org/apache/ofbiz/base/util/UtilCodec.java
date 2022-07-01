@@ -40,9 +40,13 @@ import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.PercentCodec;
 import org.owasp.esapi.codecs.XMLEntityCodec;
+import org.owasp.html.Handler;
 import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.HtmlSanitizer;
+import org.owasp.html.HtmlStreamRenderer;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
+import org.owasp.html.TagBalancingHtmlStreamEventReceiver;
 
 @SuppressWarnings("rawtypes")
 public class UtilCodec {
@@ -490,7 +494,34 @@ public class UtilCodec {
         }
 
         if (value != null) {
-            value = value.replaceAll("<br>", "<br />"); // Both are OK, so <br> is accepted, see OFBIZ-12653
+          //Create valid HTML from input with empty sanitizer. Compare the result with the sanitized result.
+            StringBuilder htmlOutput = new StringBuilder();
+            HtmlStreamRenderer renderer = HtmlStreamRenderer.create(htmlOutput, Handler.DO_NOTHING);
+            TagBalancingHtmlStreamEventReceiver balancer = new TagBalancingHtmlStreamEventReceiver(renderer);
+            HtmlSanitizer.sanitize(value, new HtmlSanitizer.Policy() {
+                @Override
+                public void openDocument() {
+                    balancer.openDocument();
+                }
+                @Override
+                public void openTag(String tagName, List<String> attrs) {
+                    balancer.openTag(tagName, attrs);
+                }
+                @Override
+                public void text(String text) {
+                    balancer.text(text);
+                }
+                @Override
+                public void closeTag(String tagName) {
+                    balancer.closeTag(tagName);
+                }
+                @Override
+                public void closeDocument() {
+                    balancer.closeDocument();
+                }
+            });
+
+            value = htmlOutput.toString();
             String filtered = policy.sanitize(value);
             String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
