@@ -62,9 +62,7 @@ if (artifactInfo) {
         recentArtifactInfoList = []
         session.setAttribute("recentArtifactInfoList", recentArtifactInfoList)
     }
-    if (recentArtifactInfoList && recentArtifactInfoList.get(0).equals(artifactInfoMap)) {
-        // hmmm, I guess do nothing if it's already there
-    } else {
+    if (!recentArtifactInfoList.contains(artifactInfoMap)) {
         recentArtifactInfoList.add(0, artifactInfoMap)
     }
 }
