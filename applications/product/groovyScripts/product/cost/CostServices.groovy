@@ -222,7 +222,7 @@ def getTaskCost() {
     for (GenericValue wecc : weccs) {
         GenericValue costComponentCalc = delegator.getRelatedOne("CostComponentCalc", wecc, false)
         GenericValue customMethod = delegator.getRelatedOne("CustomMethod", costComponentCalc, false)
-        if (!customMethod) {
+        if (!customMethod) { // FIXME: formulas are still not supported for standard costs (else part)
             if (costComponentCalc.perMilliSecond) {
                 if (costComponentCalc.perMilliSecond != (BigDecimal) 0) {
                     BigDecimal totalCostComponentTime = totalEstimatedTaskTime / costComponentCalc.perMilliSecond
@@ -233,8 +233,6 @@ def getTaskCost() {
                     costsByType."${wecc.costComponentTypeId}" = totalCostComponentCost
                 }
             }
-        } else {
-            // FIXME: formulas are still not supported for standard costs
         }
     }
     result.taskCost = taskCost

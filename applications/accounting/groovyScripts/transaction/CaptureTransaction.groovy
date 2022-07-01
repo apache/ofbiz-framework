@@ -50,10 +50,8 @@ if (orderPaymentPreference) {
     gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, ["transactionDate DESC"], false)
     EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"))
 
-    if (gatewayResponses) {
+    if (gatewayResponses) { // TODO: some kind of error telling user to re-authorize (else part)
         latestAuth = gatewayResponses[0]
         context.captureAmount = latestAuth.getBigDecimal("amount")
-    } else {
-        // todo: some kind of error telling user to re-authorize
     }
 }
