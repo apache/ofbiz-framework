@@ -257,7 +257,6 @@ def getAssociatedPriceRulesConds() {
 
         default:
             return success()
-            break
     }
 
     result.productPriceRulesCondValues = []
