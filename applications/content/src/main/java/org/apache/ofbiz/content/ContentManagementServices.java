@@ -851,15 +851,23 @@ public class ContentManagementServices {
         return results;
     }
 
+    /**
+     * Reorder sequence numbers in ContentAssoc entities for a given parent id
+     * if variable dir contains the string up or down, realize for the given contentIdTo switch
+     * with the previous or the next
+     * @param dctx
+     * @param context
+     * @return
+     * @throws GenericServiceException
+     */
     public static Map<String, Object> resequence(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
-        String contentIdTo = (String) context.get("contentIdTo");
-        Integer seqInc = (Integer) context.get("seqInc");
-        if (seqInc == null) {
-            seqInc = 100;
-        }
-        int seqIncrement = seqInc;
+        String contentId = (String) context.get("contentId");
+
+        int seqStep = (Integer) context.get("seqInc");
+
+        // Resolve the association type to use for resolve content's child
         List<String> typeList = UtilGenerics.cast(context.get("typeList"));
         if (typeList == null) {
             typeList = new LinkedList<>();
@@ -871,60 +879,45 @@ public class ContentManagementServices {
         if (UtilValidate.isEmpty(typeList)) {
             typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
         }
-        EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
-        EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("contentIdTo",
-                EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
+
+        // Resolve all content assoc to resequence from the content
         try {
-            List<GenericValue> listAll = EntityQuery.use(delegator).from("ContentAssoc")
-                    .where(conditionMain)
+            List<GenericValue> contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
+                    .where(List.of(
+                            EntityCondition.makeCondition("contentId", contentId),
+                            EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList)))
                     .orderBy("sequenceNum", "fromDate", "createdDate")
-                    .filterByDate().queryList();
-            String contentId = (String) context.get("contentId");
+                    .filterByDate()
+                    .queryList();
+            String contentIdTo = (String) context.get("contentIdTo");
             String dir = (String) context.get("dir");
-            int seqNum = seqIncrement;
-            String thisContentId = null;
-            for (int i = 0; i < listAll.size(); i++) {
-                GenericValue contentAssoc = listAll.get(i);
-                if (UtilValidate.isNotEmpty(contentId) && UtilValidate.isNotEmpty(dir)) {
-                    // move targeted entry up or down
-                    thisContentId = contentAssoc.getString("contentId");
-                    if (contentId.equals(thisContentId)) {
-                        if (dir.startsWith("up")) {
-                            if (i > 0) {
-                                // Swap with previous entry
-                                try {
-                                    GenericValue prevValue = listAll.get(i - 1);
-                                    Long prevSeqNum = (Long) prevValue.get("sequenceNum");
-                                    prevValue.put("sequenceNum", (long) seqNum);
-                                    prevValue.store();
-                                    contentAssoc.put("sequenceNum", prevSeqNum);
-                                    contentAssoc.store();
-                                } catch (GenericEntityException e) {
-                                    return ServiceUtil.returnError(e.toString());
-                                }
-                            }
-                        } else {
-                            if (i < listAll.size()) {
-                                // Swap with next entry
-                                GenericValue nextValue = listAll.get(i + 1);
-                                nextValue.put("sequenceNum", (long) seqNum);
-                                nextValue.store();
-                                seqNum += seqIncrement;
-                                contentAssoc.put("sequenceNum", (long) seqNum);
-                                contentAssoc.store();
-                                i++; // skip next one
-                            }
-                        }
-                    } else {
-                        contentAssoc.put("sequenceNum", (long) seqNum);
-                        contentAssoc.store();
-                    }
-                } else {
-                    contentAssoc.put("sequenceNum", (long) seqNum);
-                    contentAssoc.store();
+            int seqNum = seqStep;
+            boolean switchSequence = UtilValidate.isNotEmpty(contentIdTo) && UtilValidate.isNotEmpty(dir);
+            boolean switchModeUp = switchSequence && dir.startsWith("up");
+            int changePosition = -1;
+
+            // update the sequence for all element and check if we need switch two element
+            for (int i = 0; i < contentAssocs.size(); i++) {
+                boolean stopLimit = ((i <= 0 && switchModeUp) || (i + 1 >= contentAssocs.size() && !switchModeUp));
+                GenericValue contentAssoc = contentAssocs.get(i);
+                contentAssoc.put("sequenceNum", (long) seqNum);
+                seqNum += seqStep;
+                if (switchSequence
+                        && contentIdTo.equals(contentAssoc.getString("contentIdTo"))
+                        && !stopLimit) {
+                    changePosition = i;
                 }
-                seqNum += seqIncrement;
             }
+
+            // We need to switch, do it
+            if (changePosition >= 0) {
+                GenericValue currentContent = contentAssocs.get(changePosition);
+                GenericValue destinationContent = contentAssocs.get(changePosition + (switchModeUp ? -1 : +1));
+                long switchSeqNum = currentContent.getLong("sequenceNum");
+                currentContent.put("sequenceNum", destinationContent.getLong("sequenceNum"));
+                destinationContent.put("sequenceNum", switchSeqNum);
+            }
+            delegator.storeAll(contentAssocs);
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.toString());
