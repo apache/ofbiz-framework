@@ -33,14 +33,7 @@ passedEntityNames = null
 if (parameters.entityName) passedEntityNames = parameters.entityName instanceof Collection ? parameters.entityName as TreeSet : [parameters.entityName] as TreeSet
 
 // get the max records per file setting and convert to a int
-maxRecordsPerFile = 0
-if (maxRecStr) {
-    try {
-        maxRecordsPerFile = Integer.parseInt(maxRecStr)
-    }
-    catch (Exception e) {
-    }
-}
+int maxRecordsPerFile = maxRecStr?(maxRecStr as int):0
 
 preConfiguredSetName = parameters.preConfiguredSetName
 if ("Product1".equals(preConfiguredSetName)) {
