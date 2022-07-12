@@ -23,12 +23,12 @@ import org.apache.ofbiz.base.util.UtilMisc
 // Allow containing screens to specify URL parameters to be included in calendar navigation links
 List urlParameterNames = context.urlParameterNames
 if (urlParameterNames == null) {
-    urlParameterNames = UtilMisc.toList("fixedAssetId", "partyId", "workEffortTypeId", "calendarType", "hideEvents", "portalPageId")
+    urlParameterNames = UtilMisc.toList('fixedAssetId', 'partyId', 'workEffortTypeId', 'calendarType', 'hideEvents', 'portalPageId')
 }
 StringBuilder sb = new StringBuilder()
 for (entry in parameters.entrySet()) {
     if (urlParameterNames.contains(entry.getKey())) {
-        sb.append("&").append(entry.getKey()).append("=").append(entry.getValue())
+        sb.append('&').append(entry.getKey()).append('=').append(entry.getValue())
     }
 }
-context.put("urlParam", sb.toString())
+context.put('urlParam', sb.toString())

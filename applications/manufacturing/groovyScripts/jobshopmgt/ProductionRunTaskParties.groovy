@@ -28,7 +28,7 @@ if (productionRunId) {
         if (productionRunTasks) {
             productionRunTasks.each { prodRunTask ->
                 prodRunTaskId = prodRunTask.workEffortId
-                taskPartyAssocs = from("WorkEffortPartyAssignment").where("workEffortId", prodRunTaskId).queryList()
+                taskPartyAssocs = from('WorkEffortPartyAssignment').where('workEffortId', prodRunTaskId).queryList()
                 if (taskPartyAssocs) {
                     taskPartyAssocs.each { taskPartyAssoc ->
                         taskPartyAssocList.add(taskPartyAssoc)

@@ -26,17 +26,17 @@ import java.sql.Timestamp
 
 if (parameters.get('ApplicationDecorator|organizationPartyId')) {
     onlyIncludePeriodTypeIdList = []
-    onlyIncludePeriodTypeIdList.add("FISCAL_YEAR")
+    onlyIncludePeriodTypeIdList.add('FISCAL_YEAR')
     customTimePeriodResults = runService('findCustomTimePeriods', [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin])
     customTimePeriodList = customTimePeriodResults.customTimePeriodList
     if (customTimePeriodList) {
         context.timePeriod = customTimePeriodList.first().customTimePeriodId
     }
-    decimals = UtilNumber.getBigDecimalScale("ledger.decimals")
-    rounding = UtilNumber.getBigDecimalRoundingMode("ledger.rounding")
-    context.currentOrganization = from("PartyNameView").where("partyId", parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
+    decimals = UtilNumber.getBigDecimalScale('ledger.decimals')
+    rounding = UtilNumber.getBigDecimalRoundingMode('ledger.rounding')
+    context.currentOrganization = from('PartyNameView').where('partyId', parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
     if (parameters.glAccountId) {
-        glAccount = from("GlAccount").where("glAccountId", parameters.glAccountId).queryOne()
+        glAccount = from('GlAccount').where('glAccountId', parameters.glAccountId).queryOne()
         isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
         context.isDebitAccount = isDebitAccount
         context.glAccount = glAccount
@@ -46,11 +46,11 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
     BigDecimal balanceOfTheAcctgForYear = BigDecimal.ZERO
 
     if (parameters.timePeriod) {
-        currentTimePeriod = from("CustomTimePeriod").where("customTimePeriodId", parameters.timePeriod).queryOne()
+        currentTimePeriod = from('CustomTimePeriod').where('customTimePeriodId', parameters.timePeriod).queryOne()
         previousTimePeriodResult = runService('getPreviousTimePeriod', [customTimePeriodId : parameters.timePeriod, userLogin : userLogin])
         previousTimePeriod = previousTimePeriodResult.previousTimePeriod
         if (previousTimePeriod) {
-            glAccountHistory = from("GlAccountHistory").where("customTimePeriodId", previousTimePeriod.customTimePeriodId, "glAccountId", parameters.glAccountId, "organizationPartyId", parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
+            glAccountHistory = from('GlAccountHistory').where('customTimePeriodId', previousTimePeriod.customTimePeriodId, 'glAccountId', parameters.glAccountId, 'organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
             if (glAccountHistory && glAccountHistory.endingBalance != null) {
                 context.openingBalance = glAccountHistory.endingBalance
                 balanceOfTheAcctgForYear = glAccountHistory.endingBalance
@@ -72,8 +72,8 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
         isPosted = parameters.isPosted
 
         while (customTimePeriodEndDate <= currentTimePeriod.thruDate) {
-            if ("ALL".equals(isPosted)) {
-                isPosted = ""
+            if ('ALL'.equals(isPosted)) {
+                isPosted = ''
             }
             acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal', 
                     [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin])

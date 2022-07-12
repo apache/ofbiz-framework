@@ -29,5 +29,5 @@ context.componentNamesFound = factory.getComponentNamesFound()
 
 if (parameters.sourceKey && parameters.sourceFileName) {
     context.label = context.labels.get(parameters.sourceKey + LabelManagerFactory.KEY_SEPARATOR + parameters.sourceFileName)
-    context.titleProperty = "WebtoolsLabelManagerUpdate"
+    context.titleProperty = 'WebtoolsLabelManagerUpdate'
 }

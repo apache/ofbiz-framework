@@ -32,7 +32,7 @@ context.currencyUomId = cart.getCurrency()
 context.productStore = ProductStoreWorker.getProductStore(request)
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_")
+request.removeAttribute('_EVENT_MESSAGE_')
 
 orderItems = cart.makeOrderItems(dispatcher)
 context.orderItems = orderItems
@@ -42,7 +42,7 @@ orderAdjustments = cart.makeAllAdjustments()
 orderItemShipGroupInfo = cart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
-        if ("OrderAdjustment".equals(osiInfo.getEntityName())) {
+        if ('OrderAdjustment'.equals(osiInfo.getEntityName())) {
             // shipping / tax adjustment(s)
             orderAdjustments.add(osiInfo)
         }
@@ -59,7 +59,7 @@ context.headerAdjustmentsToShow = OrderReadHelper.filterOrderAdjustments(orderHe
 
 orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments)
 context.orderSubTotal = orderSubTotal
-context.placingCustomerPerson = userLogin?.getRelatedOne("Person", false)
+context.placingCustomerPerson = userLogin?.getRelatedOne('Person', false)
 context.shippingAddress = cart.getShippingAddress()
 
 paymentMethods = cart.getPaymentMethods()
@@ -69,12 +69,12 @@ if (paymentMethods) {
     context.paymentMethod = paymentMethod
 }
 
-if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
-    creditCard = paymentMethod.getRelatedOne("CreditCard", true)
+if ('CREDIT_CARD'.equals(paymentMethod?.paymentMethodTypeId)) {
+    creditCard = paymentMethod.getRelatedOne('CreditCard', true)
     context.creditCard = creditCard
     context.formattedCardNumber = ContactHelper.formatCreditCard(creditCard)
-} else if ("EFT_ACCOUNT".equals(paymentMethod?.paymentMethodTypeId)) {
-    eftAccount = paymentMethod.getRelatedOne("EftAccount", true)
+} else if ('EFT_ACCOUNT'.equals(paymentMethod?.paymentMethodTypeId)) {
+    eftAccount = paymentMethod.getRelatedOne('EftAccount', true)
     context.eftAccount = eftAccount
 }
 
@@ -83,7 +83,7 @@ paymentMethodType = null
 paymentMethodTypeId = null
 if (paymentMethodTypeIds) {
     paymentMethodTypeId = paymentMethodTypeIds.get(0)
-    paymentMethodType = from("PaymentMethodType").where("paymentMethodTypeId", paymentMethodTypeId).queryOne()
+    paymentMethodType = from('PaymentMethodType').where('paymentMethodTypeId', paymentMethodTypeId).queryOne()
     context.paymentMethodType = paymentMethodType
 }
 
@@ -98,12 +98,12 @@ if (productStore) {
 
 billingAddress = null
 if (paymentMethod) {
-    creditCard = paymentMethod.getRelatedOne("CreditCard", false)
-    billingAddress = creditCard?.getRelatedOne("PostalAddress", false)
+    creditCard = paymentMethod.getRelatedOne('CreditCard', false)
+    billingAddress = creditCard?.getRelatedOne('PostalAddress', false)
 }
 if (billingAddress) context.billingAddress = billingAddress
 
-billingAccount = cart.getBillingAccountId() ? from("BillingAccount").where("billingAccountId", cart.getBillingAccountId()).queryOne() : null
+billingAccount = cart.getBillingAccountId() ? from('BillingAccount').where('billingAccountId', cart.getBillingAccountId()).queryOne() : null
 if (billingAccount) context.billingAccount = billingAccount
 
 context.customerPoNumber = cart.getPoNumber()
@@ -117,7 +117,7 @@ context.shipBeforeDate = cart.getShipBeforeDate()
 context.shipAfterDate = cart.getShipAfterDate()
 context.defaultReserveAfterDate = cart.getDefaultReserveAfterDate()
 
-shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", cart.getShipmentMethodTypeId()).queryOne()
+shipmentMethodType = from('ShipmentMethodType').where('shipmentMethodTypeId', cart.getShipmentMethodTypeId()).queryOne()
 if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description
 
 orh = new OrderReadHelper(orderAdjustments, orderItems)
@@ -136,7 +136,7 @@ context.orderName = orderName
 
 orderPartyId = cart.getPartyId()
 if (orderPartyId) {
-    partyMap = PartyWorker.getPartyOtherValues(request, orderPartyId, "orderParty", "orderPerson", "orderPartyGroup")
+    partyMap = PartyWorker.getPartyOtherValues(request, orderPartyId, 'orderParty', 'orderPerson', 'orderPartyGroup')
     if (partyMap) {
         partyMap.each { key, value ->
             context[key] = value

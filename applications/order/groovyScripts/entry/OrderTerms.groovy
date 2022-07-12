@@ -45,10 +45,10 @@ if (request.getParameter('createNew') == 'Y') {
 
         } catch (NumberFormatException nfe) {
             Debug.log("Error parsing termIndex: ${termIndexStr}")
-            request.setAttribute("_ERROR_MESSAGE", "Error parsing termIndex: ${termIndexStr}")
+            request.setAttribute('_ERROR_MESSAGE', "Error parsing termIndex: ${termIndexStr}")
         }
     }
 
 }
 
-context.termTypes = from("TermType").queryList();
+context.termTypes = from('TermType').queryList();

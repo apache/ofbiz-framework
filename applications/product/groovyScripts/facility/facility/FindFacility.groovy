@@ -18,15 +18,15 @@
  */
  import org.apache.ofbiz.base.util.*
 
-findResult = from("Facility").queryList()
+findResult = from('Facility').queryList()
 findResultSize = findResult.size()
 if (findResultSize == 1) {
-    context.showScreen = "one"
+    context.showScreen = 'one'
     context.facility = findResult.get(0)
     context.parameters.facilityId = context.facility.facilityId
 }
 if ((findResultSize > 1 ) && (findResultSize <= 10)) {
-    context.showScreen = "ten"
+    context.showScreen = 'ten'
 } else if ((findResultSize > 10 ) || (findResultSize <= 0)) {
-    context.showScreen = "more"
+    context.showScreen = 'more'
 }

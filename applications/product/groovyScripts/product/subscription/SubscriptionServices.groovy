@@ -109,8 +109,8 @@ def updateSubscriptionAttribute() {
  * @return
  */
 def subscriptionPermissionCheck() {
-    parameters.primaryPermission = "CATALOG"
-    Map result = run service: "genericBasePermissionCheck", with: parameters
+    parameters.primaryPermission = 'CATALOG'
+    Map result = run service: 'genericBasePermissionCheck', with: parameters
     // Backwards compatibility - check for non-existent CATALOG_READ permission
     result.hasPermission = result.hasPermission ||
             (parameters.mainAction == 'VIEW' &&

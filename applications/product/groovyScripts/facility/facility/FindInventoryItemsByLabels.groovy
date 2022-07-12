@@ -36,21 +36,21 @@ try {
 }
 
 inventoryItemAndLabelsView = new DynamicViewEntity()
-inventoryItemAndLabelsView.addMemberEntity("II", "InventoryItem")
-inventoryItemAndLabelsView.addAliasAll("II", null, null)
+inventoryItemAndLabelsView.addMemberEntity('II', 'InventoryItem')
+inventoryItemAndLabelsView.addAliasAll('II', null, null)
 for (int i = 1; i <= numberOfFields; i++) {
-    inventoryItemLabelId = parameters.get("inventoryItemLabelId_" + i)
+    inventoryItemLabelId = parameters.get('inventoryItemLabelId_' + i)
     if (inventoryItemLabelId) {
-        inventoryItemAndLabelsView.addMemberEntity("IL" + i, "InventoryItemLabelAppl")
-        inventoryItemAndLabelsView.addViewLink("II", "IL" + i, new Boolean(false), ModelKeyMap.makeKeyMapList("inventoryItemId"))
+        inventoryItemAndLabelsView.addMemberEntity('IL' + i, 'InventoryItemLabelAppl')
+        inventoryItemAndLabelsView.addViewLink('II', 'IL' + i, new Boolean(false), ModelKeyMap.makeKeyMapList('inventoryItemId'))
     }
 }
-andCondition = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)]
+andCondition = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId)]
 for (int i = 1; i <= numberOfFields; i++) {
-    inventoryItemLabelId = parameters.get("inventoryItemLabelId_" + i)
+    inventoryItemLabelId = parameters.get('inventoryItemLabelId_' + i)
     if (inventoryItemLabelId) {
-        inventoryItemAndLabelsView.addAlias("IL" + i, "inventoryItemLabelId" + i, "inventoryItemLabelId", null, null, null, null)
-        andCondition.add(EntityCondition.makeCondition("inventoryItemLabelId" + i, EntityOperator.EQUALS, inventoryItemLabelId))
+        inventoryItemAndLabelsView.addAlias('IL' + i, 'inventoryItemLabelId' + i, 'inventoryItemLabelId', null, null, null, null)
+        andCondition.add(EntityCondition.makeCondition('inventoryItemLabelId' + i, EntityOperator.EQUALS, inventoryItemLabelId))
     }
 }
 EntityListIterator inventoryItemsEli = null
@@ -82,13 +82,13 @@ if (andCondition.size() > 1) {
         // close the list iterator
         inventoryItemsEli.close()
     } catch (GenericEntityException e) {
-        errMsg = "Failure in operation, rolling back transaction"
+        errMsg = 'Failure in operation, rolling back transaction'
         logError(e, errMsg)
         try {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            logError(e2, "Could not rollback transaction: " + e2.toString())
+            logError(e2, 'Could not rollback transaction: ' + e2.toString())
         }
         // after rolling back, rethrow the exception
         throw e

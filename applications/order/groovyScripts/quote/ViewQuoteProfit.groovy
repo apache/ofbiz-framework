@@ -47,8 +47,8 @@ quoteItems.each { quoteItem ->
 
     try {
         if (currency && quoteItem.productId) {
-            productPrice = from("ProductPrice")
-                              .where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : "AVERAGE_COST")
+            productPrice = from('ProductPrice')
+                              .where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : 'AVERAGE_COST')
                               .filterByDate(issueDate)
                               .queryFirst()
             if (productPrice?.price != null) {
@@ -58,7 +58,7 @@ quoteItems.each { quoteItem ->
         totalCost += (averageCost * quantity)
         totalPrice += (unitPrice * quantity * selectedAmount)
     } catch (Exception exc) {
-        logError("Problems getting the averageCost for quoteItem: " + quoteItem)
+        logError('Problems getting the averageCost for quoteItem: ' + quoteItem)
     }
     profit = unitPrice - averageCost
     percProfit = averageCost != 0 ? (profit / unitPrice) * 100.00 : 0.00

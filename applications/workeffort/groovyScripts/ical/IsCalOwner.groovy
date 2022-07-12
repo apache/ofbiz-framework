@@ -21,9 +21,9 @@ import java.util.*
 import org.apache.ofbiz.entity.util.*
 
 boolean isCalOwner = false
-List partyAssignments = from("WorkEffortPartyAssignment").where("workEffortId", parameters.workEffortId, "partyId", parameters.userLogin.partyId).filterByDate().queryList()
+List partyAssignments = from('WorkEffortPartyAssignment').where('workEffortId', parameters.workEffortId, 'partyId', parameters.userLogin.partyId).filterByDate().queryList()
 for (partyAssign in partyAssignments) {
-    if ("CAL_OWNER".equals(partyAssign.roleTypeId) || "CAL_DELEGATE".equals(partyAssign.roleTypeId)) {
+    if ('CAL_OWNER'.equals(partyAssign.roleTypeId) || 'CAL_DELEGATE'.equals(partyAssign.roleTypeId)) {
         isCalOwner = true
         break
     }

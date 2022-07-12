@@ -23,21 +23,21 @@ import org.apache.ofbiz.base.util.UtilNumber
 
 import java.text.DateFormat
 
-invoiceId = parameters.get("invoiceId")
+invoiceId = parameters.get('invoiceId')
 
 invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
 context.invoice = invoice
 
 currency = parameters.currency // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
-BigDecimal conversionRate = new BigDecimal("1")
-decimals = UtilNumber.getBigDecimalScale("invoice.decimals")
-rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding")
+BigDecimal conversionRate = new BigDecimal('1')
+decimals = UtilNumber.getBigDecimalScale('invoice.decimals')
+rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')
 
 if (invoice) {
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
     // home of the customer.)
-    if ("PURCHASE_INVOICE".equals(invoice.invoiceTypeId)) {
+    if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
         billingAddress = InvoiceWorker.getSendFromAddress(invoice)
     } else {
         billingAddress = InvoiceWorker.getBillToAddress(invoice)
@@ -52,30 +52,30 @@ if (invoice) {
     shippingAddress = InvoiceWorker.getShippingAddress(invoice)
     context.shippingAddress = shippingAddress
 
-    if (currency && !invoice.getString("currencyUomId").equals(currency)) {
+    if (currency && !invoice.getString('currencyUomId').equals(currency)) {
         conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)
         invoice.currencyUomId = currency
-        invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding)
+        invoice.invoiceMessage = ' converted from original with a rate of: ' + conversionRate.setScale(8, rounding)
     }
 
-    invoiceItems = invoice.getRelated("InvoiceItem", null, ["invoiceItemSeqId"], false)
+    invoiceItems = invoice.getRelated('InvoiceItem', null, ['invoiceItemSeqId'], false)
     invoiceItemsConv = []
     vatTaxesByType = [:]
     invoiceItems.each { invoiceItem ->
-        invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)
+        invoiceItem.amount = invoiceItem.getBigDecimal('amount').multiply(conversionRate).setScale(decimals, rounding)
         invoiceItemsConv.add(invoiceItem)
         // get party tax id for VAT taxes: they are required in invoices by EU
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
-        taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)
-        if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
-            taxInfo = from("PartyTaxAuthInfo")
+        taxRate = invoiceItem.getRelatedOne('TaxAuthorityRateProduct', false)
+        if (taxRate && 'VAT_TAX'.equals(taxRate.taxAuthorityRateTypeId)) {
+            taxInfo = from('PartyTaxAuthInfo')
                 .where('partyId', billToParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
                 .filterByDate(invoice.invoiceDate)
                 .queryFirst()
             if (taxInfo) {
                 context.billToPartyTaxId = taxInfo.partyTaxId
             }
-            taxInfo = from("PartyTaxAuthInfo")
+            taxInfo = from('PartyTaxAuthInfo')
                 .where('partyId', sendingParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
                 .filterByDate(invoice.invoiceDate)
                 .queryFirst()
@@ -101,8 +101,8 @@ if (invoice) {
 
                 //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
 
-               sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false)
-               billingTaxInfos = billToParty.getRelated("PartyTaxAuthInfo", null, null, false)
+               sendingTaxInfos = sendingParty.getRelated('PartyTaxAuthInfo', null, null, false)
+               billingTaxInfos = billToParty.getRelated('PartyTaxAuthInfo', null, null, false)
                sendingPartyTaxId = null
                billToPartyTaxId = null
 
@@ -127,25 +127,25 @@ if (invoice) {
                //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
 
 
-    terms = invoice.getRelated("InvoiceTerm", null, null, false)
+    terms = invoice.getRelated('InvoiceTerm', null, null, false)
     context.terms = terms
 
-    paymentAppls = from("PaymentApplication").where('invoiceId', invoiceId).queryList()
+    paymentAppls = from('PaymentApplication').where('invoiceId', invoiceId).queryList()
     context.payments = paymentAppls
 
-    orderItemBillings = from("OrderItemBilling").where('invoiceId', invoiceId).orderBy('orderId').queryList()
+    orderItemBillings = from('OrderItemBilling').where('invoiceId', invoiceId).orderBy('orderId').queryList()
     orders = new LinkedHashSet()
     orderItemBillings.each { orderIb ->
         orders.add(orderIb.orderId)
     }
     context.orders = orders
 
-    invoiceStatus = invoice.getRelatedOne("StatusItem", false)
+    invoiceStatus = invoice.getRelatedOne('StatusItem', false)
     context.invoiceStatus = invoiceStatus
 
     edit = parameters.editInvoice
-    if ("true".equalsIgnoreCase(edit)) {
-        invoiceItemTypes = from("InvoiceItemType").queryList()
+    if ('true'.equalsIgnoreCase(edit)) {
+        invoiceItemTypes = from('InvoiceItemType').queryList()
         context.invoiceItemTypes = invoiceItemTypes
         context.editInvoice = true
     }
@@ -155,6 +155,6 @@ if (invoice) {
         invoiceDate = DateFormat.getDateInstance(DateFormat.LONG).format(invoice.invoiceDate)
         context.invoiceDate = invoiceDate
     } else {
-        context.invoiceDate = "N/A"
+        context.invoiceDate = 'N/A'
     }
 }

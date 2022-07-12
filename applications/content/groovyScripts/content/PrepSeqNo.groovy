@@ -21,7 +21,7 @@ seqNo = context.caSequenceNum
 if (!seqNo) {
     seqNo = context.sequenceNum
 }
-logInfo("caSequenceNum:" + seqNo)
+logInfo('caSequenceNum:' + seqNo)
 
 if (seqNo) {
     seqNumBefore = seqNo - 1

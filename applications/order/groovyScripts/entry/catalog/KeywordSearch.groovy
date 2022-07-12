@@ -25,10 +25,10 @@
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.product.ProductSearchSession
 
-module = "KeywordSearch.groovy"
+module = 'KeywordSearch.groovy'
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
-request.getSession().setAttribute("dispatcher",dispatcher)
+request.getSession().setAttribute('dispatcher',dispatcher)
 ProductSearchSession.processSearchParameters(parameters, request)
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request)
 result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId)

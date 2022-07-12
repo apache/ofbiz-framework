@@ -25,19 +25,19 @@ import org.apache.ofbiz.entity.GenericValue
  * @return
  */
 def issueImmediatelyFulfilledOrder() {
-    GenericValue orderHeader = from("OrderHeader").where(parameters).queryOne()
+    GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
 
     if (orderHeader) {
-        GenericValue productStore = from("ProductStore").where(productStoreId: orderHeader.productStoreId).queryOne()
+        GenericValue productStore = from('ProductStore').where(productStoreId: orderHeader.productStoreId).queryOne()
 
-        if (orderHeader.needsInventoryIssuance == "Y") {
-            List orderItemList = orderHeader.getRelated("OrderItem")
+        if (orderHeader.needsInventoryIssuance == 'Y') {
+            List orderItemList = orderHeader.getRelated('OrderItem')
             /*
              * before issuing inventory, check to see if there is inventory information in this database
              * if inventory info is not available for all of the products, then don't do the issuance,
              * ie there has to be at least SOME inventory info in the database to facilitate inventory-less cases
              */
-            long iiCount = from("InventoryItem").where(facilityId: orderHeader.originFacilityId).queryCount()
+            long iiCount = from('InventoryItem').where(facilityId: orderHeader.originFacilityId).queryCount()
 
             // now go through each order item and call a service to issue the inventory
             if (iiCount > 0l) {
@@ -47,16 +47,16 @@ def issueImmediatelyFulfilledOrder() {
                         callSvcMap.orderHeader = orderHeader
                         callSvcMap.orderItem = orderItem
                         callSvcMap.productStore = productStore
-                        run service: "issueImmediatelyFulfilledOrderItem", with: callSvcMap
+                        run service: 'issueImmediatelyFulfilledOrderItem', with: callSvcMap
                     }
                 }
                 // now that the issuance is done, set the needsInventoryIssuance=N
-                orderHeader.needsInventoryIssuance = "N"
+                orderHeader.needsInventoryIssuance = 'N'
                 orderHeader.store()
                 logInfo("Issued inventory for orderId ${orderHeader.orderId}.")
             } else {
                 logInfo("Not issuing inventory for orderId ${orderHeader.orderId}," +
-                        " no inventory information available.")
+                        ' no inventory information available.')
             }
         }
     }
@@ -70,37 +70,37 @@ def issueImmediatelyFulfilledOrder() {
 def issueImmediatelyFulfilledOrderItem() {
     GenericValue lastNonSerInventoryItem
     GenericValue orderItem = parameters.orderItem ?:
-            from("OrderItem").where(parameters).queryOne()
+            from('OrderItem').where(parameters).queryOne()
 
     // kind of like the inventory reservation routine (with a few variations...), find InventoryItems to issue from,
     // but instead of doing the reservation just create an issuance and an inventory item detail for the change
     if (orderItem.productId) {
         // NOTE: the inventory will be issued from the OrderHeader.originFacilityId
         GenericValue orderHeader = parameters.orderHeader ?:
-                from("OrderHeader").where(parameters).queryOne()
+                from('OrderHeader').where(parameters).queryOne()
 
         // get the ProductStore to fund the reserveOrderEnumId
         GenericValue productStore = parameters.productStore ?:
-                from("ProductStore").where(productStoreId: orderHeader.productStoreId).queryOne()
+                from('ProductStore').where(productStoreId: orderHeader.productStoreId).queryOne()
 
         // before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified
-        String orderBy = "+datetimeReceived"
+        String orderBy = '+datetimeReceived'
         switch (productStore.reserveOrderEnumId) {
-            case "INVRO_FIFO_EXP":
-                orderBy = "+expireDate"
+            case 'INVRO_FIFO_EXP':
+                orderBy = '+expireDate'
                 break
-            case "INVRO_LIFO_EXP":
-                orderBy = "-expireDate"
+            case 'INVRO_LIFO_EXP':
+                orderBy = '-expireDate'
                 break
-            case "INVRO_LIFO_REC":
-                orderBy = "-datetimeReceived"
+            case 'INVRO_LIFO_REC':
+                orderBy = '-datetimeReceived'
                 break
             default:
                 break
         }
         Map lookupFieldMap = [productId: orderItem.productId,
                               facilityId: orderHeader.originFacilityId]
-        from("InventoryItem")
+        from('InventoryItem')
                 .where(lookupFieldMap)
                 .orderBy(orderBy)
                 .queryList()
@@ -121,7 +121,7 @@ def issueImmediatelyFulfilledOrderItem() {
             BigDecimal quantityOnHandDiff = - parameters.quantityNotIssued
             if (lastNonSerInventoryItem) {
                 // create ItemIssuance record
-                Map serviceResult = run service: "createItemIssuance",
+                Map serviceResult = run service: 'createItemIssuance',
                         with: [orderId: parameters.orderId,
                                orderItemSeqId: parameters.orderItemSeqId,
                                inventoryItemId: lastNonSerInventoryItem.inventoryItemId,
@@ -130,7 +130,7 @@ def issueImmediatelyFulfilledOrderItem() {
 
                 // subtract from quantityNotIssued from the availableToPromise and quantityOnHand of existing inventory item
                 // instead of updating InventoryItem, add an InventoryItemDetail
-                run service: "createInventoryItemDetail",
+                run service: 'createInventoryItemDetail',
                         with: [inventoryItemId: lastNonSerInventoryItem.inventoryItemId,
                                orderId: parameters.orderId,
                                orderItemSeqId: parameters.orderItemSeqId,
@@ -139,14 +139,14 @@ def issueImmediatelyFulfilledOrderItem() {
                                quantityOnHandDiff: quantityOnHandDiff.setScale(6)]
             } else {
                 // no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued
-                Map serviceResult = run service: "createInventoryItem",
+                Map serviceResult = run service: 'createInventoryItem',
                         with: [productId: orderItem.productId,
                                facilityId: orderHeader.originFacilityId,
-                               inventoryItemTypeId: "NON_SERIAL_INV_ITEM"]
+                               inventoryItemTypeId: 'NON_SERIAL_INV_ITEM']
                 String newInventoryItemId = serviceResult.inventoryItemId
 
                 // create ItemIssuance record
-                serviceResult = run service: "createItemIssuance",
+                serviceResult = run service: 'createItemIssuance',
                         with: [inventoryItemId: newInventoryItemId,
                                orderId: parameters.orderId,
                                orderItemSeqId: parameters.orderItemSeqId,
@@ -154,7 +154,7 @@ def issueImmediatelyFulfilledOrderItem() {
                 String itemIssuanceId = serviceResult.itemIssuanceId
 
                 // also create a detail record with the quantities
-                run service: "createInventoryItemDetail",
+                run service: 'createInventoryItemDetail',
                         with: [inventoryItemId: newInventoryItemId,
                                orderId: parameters.orderId,
                                orderItemSeqId: parameters.orderItemSeqId,
@@ -176,14 +176,14 @@ def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
     GenericValue lastNonSerInventoryItem
     // only do something with this inventoryItem if there is more inventory to issue
     if (parameters.quantityNotIssued > (BigDecimal.ZERO)) {
-        if ("SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId) {
-            if ("INV_AVAILABLE" == inventoryItem.statusId) {
+        if ('SERIALIZED_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
+            if ('INV_AVAILABLE' == inventoryItem.statusId) {
                 // change status on inventoryItem
-                inventoryItem.statusId = "INV_DELIVERED"
-                run service: "updateInventoryItem", with: inventoryItem.getAllFields()
+                inventoryItem.statusId = 'INV_DELIVERED'
+                run service: 'updateInventoryItem', with: inventoryItem.getAllFields()
 
                 // create ItemIssuance record
-                run service: "createItemIssuance", with: [orderId: parameters.orderId,
+                run service: 'createItemIssuance', with: [orderId: parameters.orderId,
                                                           orderItemSeqId: parameters.orderItemSeqId,
                                                           inventoryItemId: inventoryItem.inventoryItemId,
                                                           quantity: BigDecimal.ONE]
@@ -191,10 +191,10 @@ def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
                 parameters.quantityNotIssued -= BigDecimal.ONE
             }
         }
-        if (inventoryItem.inventoryItemTypeId == "NON_SERIAL_INV_ITEM") {
+        if (inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
             // reduce atp on inventoryItem if availableToPromise greater than 0,
             // if not the code at the end of this method will handle it
-            if ((!inventoryItem.statusId || inventoryItem.statusId == "INV_AVAILABLE") &&
+            if ((!inventoryItem.statusId || inventoryItem.statusId == 'INV_AVAILABLE') &&
                     inventoryItem.availableToPromiseTotal &&
                     inventoryItem.availableToPromiseTotal > BigDecimal.ZERO) {
                 parameters.deductAmount = parameters.quantityNotIssued > inventoryItem.availableToPromiseTotal ?
@@ -202,7 +202,7 @@ def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
                         parameters.quantityNotIssued
 
                 // create ItemIssuance record
-                Map serviceResult = run service: "createItemIssuance",
+                Map serviceResult = run service: 'createItemIssuance',
                         with: [orderId: parameters.orderId,
                                orderitemSeqId: parameters.orderItemSeqId,
                                inventoryItemId: inventoryItem.inventoryItemId,
@@ -213,7 +213,7 @@ def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
                 // update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance
                 BigDecimal availableToPromiseDiff = - parameters.deductAmount
                 BigDecimal quantityOnHandDiff = - parameters.deductAmount
-                run service: "createInventoryItemDetail",
+                run service: 'createInventoryItemDetail',
                         with: [inventoryItemId: inventoryItem.inventoryItemId,
                                orderId: parameters.orderId,
                                orderItemSeqId: parameters.orderItemSeqId,

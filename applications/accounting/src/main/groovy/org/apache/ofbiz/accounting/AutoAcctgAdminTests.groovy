@@ -33,7 +33,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 uomIdTo: 'USD',
                 userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync("getFXConversion", serviceCtx)
+        Map serviceResult = dispatcher.runSync('getFXConversion', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
 

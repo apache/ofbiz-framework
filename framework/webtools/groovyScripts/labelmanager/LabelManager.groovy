@@ -22,7 +22,7 @@ import org.apache.ofbiz.webtools.labelmanager.*
 
 LabelManagerFactory factory = LabelManagerFactory.getInstance()
 context.factory = factory
-factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.labelKey, parameters.labelLocaleName, "Y".equals(parameters.onlyNotUsedLabels))
+factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.labelKey, parameters.labelLocaleName, 'Y'.equals(parameters.onlyNotUsedLabels))
 context.labels = factory.getLabels()
 allLabels = factory.getLabelsList();
 context.labelsList = allLabels;
@@ -32,7 +32,7 @@ context.componentNamesFound = factory.getComponentNamesFound()
 context.duplicatedLocalesLabels = factory.getDuplicatedLocalesLabels()
 context.duplicatedLocalesLabelsList = factory.getDuplicatedLocalesLabelsList()
 context.keySeparator = factory.KEY_SEPARATOR
-if ("Y".equals(parameters.onlyNotUsedLabels)) {
+if ('Y'.equals(parameters.onlyNotUsedLabels)) {
     LabelReferences refsObject = new LabelReferences(delegator, factory)
     Map references = refsObject.getLabelReferences()
     context.references = references

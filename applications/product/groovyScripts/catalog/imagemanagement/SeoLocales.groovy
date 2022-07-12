@@ -26,39 +26,39 @@ import javax.servlet.http.*
 
 Locale locale = UtilHttp.getLocale(request)
 String serverName = request.getServerName()
-String serverLocal = serverName.substring(serverName.lastIndexOf(".") + 1)
+String serverLocal = serverName.substring(serverName.lastIndexOf('.') + 1)
 
 def nameLocal
 def productTextData
 contentAssocs.each { contentAssoc ->
 
-content = from("Content").where("contentId", contentAssoc.contentIdTo).queryOne()
+content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
 localeString = content.localeString
 
-    if ("au" == serverLocal) {
-        nameLocal = "en_AU"
-    } else if ("ca" == serverLocal) {
-        nameLocal = "en_CA"
-    } else if ("de" == serverLocal) {
-        nameLocal = "de"
-    } else if ("ie" == serverLocal) {
-        nameLocal = "en_IE"
-    } else if ("fr" == serverLocal) {
-        nameLocal = "fr"
-    } else if ("es" == serverLocal) {
-        nameLocal = "es"
-    } else if ("it" == serverLocal) {
-        nameLocal = "it"
-    } else if ("uk" == serverLocal) {
-        nameLocal = "en_GB"
-    } else if ("sg" == serverLocal) {
-        nameLocal = "en_SG"
+    if ('au' == serverLocal) {
+        nameLocal = 'en_AU'
+    } else if ('ca' == serverLocal) {
+        nameLocal = 'en_CA'
+    } else if ('de' == serverLocal) {
+        nameLocal = 'de'
+    } else if ('ie' == serverLocal) {
+        nameLocal = 'en_IE'
+    } else if ('fr' == serverLocal) {
+        nameLocal = 'fr'
+    } else if ('es' == serverLocal) {
+        nameLocal = 'es'
+    } else if ('it' == serverLocal) {
+        nameLocal = 'it'
+    } else if ('uk' == serverLocal) {
+        nameLocal = 'en_GB'
+    } else if ('sg' == serverLocal) {
+        nameLocal = 'en_SG'
     } else {
-        nameLocal = "en_US"
+        nameLocal = 'en_US'
     }
     
     if (localeString == nameLocal) {
-            electronicText = from("ElectronicText").where("dataResourceId", content.dataResourceId).queryOne()
+            electronicText = from('ElectronicText').where('dataResourceId', content.dataResourceId).queryOne()
             productTextData = electronicText.textData
     }
 

@@ -34,8 +34,8 @@ catalogName = CatalogWorker.getCatalogName(request)
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 requestParams = UtilHttp.getParameterMap(request)
 
-detailScreen = "productdetail"
-productId = requestParams.product_id ?: request.getAttribute("product_id")
+detailScreen = 'productdetail'
+productId = requestParams.product_id ?: request.getAttribute('product_id')
 
 pageTitle = null
 metaDescription = null
@@ -43,14 +43,14 @@ metaKeywords = null
 
 // get the product entity
 if (productId) {
-    product = from("Product").where("productId", productId).cache(true).queryOne()
+    product = from('Product').where('productId', productId).cache(true).queryOne()
     if (product) {
         // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
-        if("Y".equals(product.isVirtual) && "Y".equals(product.isVariant)){
-            virtualVariantProductAssocs = from("ProductAssoc").where("productId", productId, "productAssocTypeId", "ALTERNATIVE_PACKAGE").orderBy("-fromDate").filterByDate().cache(true).queryList()
+        if('Y'.equals(product.isVirtual) && 'Y'.equals(product.isVariant)){
+            virtualVariantProductAssocs = from('ProductAssoc').where('productId', productId, 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').orderBy('-fromDate').filterByDate().cache(true).queryList()
             if (virtualVariantProductAssocs) {
                 productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs)
-                product = productAssoc.getRelatedOne("AssocProduct", true)
+                product = productAssoc.getRelatedOne('AssocProduct', true)
             }
         }
     }
@@ -59,20 +59,20 @@ if (productId) {
     virtualProductId = ProductWorker.getVariantVirtualId(product)
     if (virtualProductId) {
         productId = virtualProductId
-        product = from("Product").where("productId", productId).cache(true).queryOne()
+        product = from('Product').where('productId', productId).cache(true).queryOne()
     }
 
-    productPageTitle = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "PAGE_TITLE").cache(true).queryList()
+    productPageTitle = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'PAGE_TITLE').cache(true).queryList()
     if (productPageTitle) {
-        pageTitle = from("ElectronicText").where("dataResourceId", productPageTitle.get(0).dataResourceId).cache(true).queryOne()
+        pageTitle = from('ElectronicText').where('dataResourceId', productPageTitle.get(0).dataResourceId).cache(true).queryOne()
     }
-    productMetaDescription = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "META_DESCRIPTION").cache(true).queryList()
+    productMetaDescription = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'META_DESCRIPTION').cache(true).queryList()
     if (productMetaDescription) {
-        metaDescription = from("ElectronicText").where("dataResourceId", productMetaDescription.get(0).dataResourceId).cache(true).queryOne()
+        metaDescription = from('ElectronicText').where('dataResourceId', productMetaDescription.get(0).dataResourceId).cache(true).queryOne()
     }
-    productMetaKeywords = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "META_KEYWORD").cache(true).queryList()
+    productMetaKeywords = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'META_KEYWORD').cache(true).queryList()
     if (productMetaKeywords) {
-        metaKeywords = from("ElectronicText").where("dataResourceId", productMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
+        metaKeywords = from('ElectronicText').where('dataResourceId', productMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
     }
 
     context.productId = productId
@@ -95,37 +95,37 @@ if (productId) {
         if (pageTitle) {
             context.title = pageTitle.textData
         } else {
-            context.put("title", contentWrapper.get("PRODUCT_NAME", "html"))
+            context.put('title', contentWrapper.get('PRODUCT_NAME', 'html'))
         }
 
         if (metaDescription) {
             context.metaDescription = metaDescription.textData
         } else {
-            context.put("metaDescription", contentWrapper.get("DESCRIPTION", "html"))
+            context.put('metaDescription', contentWrapper.get('DESCRIPTION', 'html'))
         }
 
         if (metaKeywords) {
             context.metaKeywords = metaKeywords.textData
         } else {
             keywords = []
-            keywords.add(contentWrapper.get("PRODUCT_NAME", "html"))
+            keywords.add(contentWrapper.get('PRODUCT_NAME', 'html'))
             keywords.add(catalogName)
-            members = from("ProductCategoryMember").where("productId", productId).cache(true).queryList()
+            members = from('ProductCategoryMember').where('productId', productId).cache(true).queryList()
             members.each { member ->
-                category = member.getRelatedOne("ProductCategory", true)
+                category = member.getRelatedOne('ProductCategory', true)
                 if (category.description) {
                     categoryContentWrapper = new CategoryContentWrapper(category, request)
-                    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html")
+                    categoryDescription = categoryContentWrapper.get('DESCRIPTION', 'html')
                     if (categoryDescription) {
                             keywords.add(categoryDescription)
                     }
                 }
             }
-            context.metaKeywords = StringUtil.join(keywords, ", ")
+            context.metaKeywords = StringUtil.join(keywords, ', ')
         }
 
         // Set the default template for aggregated product (product component configurator ui)
-        if (product.productTypeId && ("AGGREGATED".equals(product.productTypeId) || "AGGREGATED_SERVICE".equals(product.productTypeId)) && context.configproductdetailScreen) {
+        if (product.productTypeId && ('AGGREGATED'.equals(product.productTypeId) || 'AGGREGATED_SERVICE'.equals(product.productTypeId)) && context.configproductdetailScreen) {
             detailScreen = context.configproductdetailScreen
         }
 

@@ -109,13 +109,13 @@ class ContentTests extends OFBizTestCase {
 
         serviceCtx.partyId = 'admin'
         serviceCtx.roleTypeId = 'OWNER'
-        serviceCtx.fromDate = UtilDateTime.toTimestamp("11/03/2016 00:00:00")
+        serviceCtx.fromDate = UtilDateTime.toTimestamp('11/03/2016 00:00:00')
         serviceResult = dispatcher.runSync('createDataResourceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue dataResourceRole = from('DataResourceRole')
                 .where('dataResourceId', 'TEST_DATA_RESOURCE_1', 'partyId', 'admin', 'roleTypeId', 'OWNER',
-                'fromDate', UtilDateTime.toTimestamp("11/03/2016 00:00:00"))
+                'fromDate', UtilDateTime.toTimestamp('11/03/2016 00:00:00'))
                 .queryOne()
         assert dataResourceRole
     }
@@ -129,7 +129,7 @@ class ContentTests extends OFBizTestCase {
 
         serviceCtx.partyId = 'admin'
         serviceCtx.roleTypeId = 'OWNER'
-        serviceCtx.fromDate = UtilDateTime.toTimestamp("11/03/2016 00:00:00")
+        serviceCtx.fromDate = UtilDateTime.toTimestamp('11/03/2016 00:00:00')
         serviceResult = dispatcher.runSync('createDataResourceRole', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
@@ -172,7 +172,7 @@ class ContentTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
 
         dataResourceRole = from('DataResourceRole')
-                .where('dataResourceId', 'TEST_DATA_RESOURCE_3', "partyId", "admin")
+                .where('dataResourceId', 'TEST_DATA_RESOURCE_3', 'partyId', 'admin')
                 .queryFirst()
         assert !dataResourceRole
     }

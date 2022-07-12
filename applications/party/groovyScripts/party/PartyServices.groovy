@@ -70,9 +70,9 @@ def savePartyNameChange() {
 def getPartyNameForDate() {
     Map resultMap = success()
 
-    List<GenericValue> partyNameHistoryList = from("PartyNameHistory")
-        .where("partyId", parameters.partyId)
-        .orderBy("-changeDate")
+    List<GenericValue> partyNameHistoryList = from('PartyNameHistory')
+        .where('partyId', parameters.partyId)
+        .orderBy('-changeDate')
         .queryList()
 
     GenericValue person = from('Person').where(parameters).queryOne()
@@ -106,7 +106,7 @@ def getPartyNameForDate() {
         if (person.suffix) resultMap.suffix = person.suffix
         if (!partyNameHistoryCurrent && person.gender) resultMap.gender = person.gender
 
-        resultMap.fullName = PartyHelper.getPartyName(person, parameters.lastNameFirst == "Y")
+        resultMap.fullName = PartyHelper.getPartyName(person, parameters.lastNameFirst == 'Y')
     } else if (partyGroup) {
         resultMap.groupName = partyGroup.groupName
         resultMap.fullName = partyGroup.groupName
@@ -141,7 +141,7 @@ def createPartyIdentifications() {
 
     for (Map.Entry<String, String> entry : parameters.identifications.entrySet()) {
         GenericValue identificationType = from('PartyIdentificationType')
-            .where("partyIdentificationTypeId", entry.getValue())
+            .where('partyIdentificationTypeId', entry.getValue())
             .queryOne()
         if (identificationType) {
             String idValue = parameters.identifications[identificationType.partyIdentificationTypeId]
@@ -207,7 +207,7 @@ def getParentOrganizations() {
     Map resultMap = success()
 
     List relatedPartyIdList = [parameters.organizationPartyId]
-    String recurse = "Y"
+    String recurse = 'Y'
     if (parameters.getParentsOfParents) recurse = parameters.getParentsOfParents
 
     Map res = followPartyRelationshipsInline(relatedPartyIdList,'GROUP_ROLLUP',
@@ -251,21 +251,21 @@ def getPartyEmail () {
 
     // First try to find primary email Address when not found get other email
     Timestamp searchTimestamp = UtilDateTime.nowTimestamp()
-    GenericValue emailAddress = from("PartyContactWithPurpose")
+    GenericValue emailAddress = from('PartyContactWithPurpose')
         .where(partyId: parameters.partyId, contactMechPurposeTypeId: parameters.contactMechPurposeTypeId)
         .filterByDate(searchTimestamp, 'purposeFromDate', 'purposeThruDate', 'contactFromDate', 'contactThruDate')
         .queryFirst()
     // Any other email
     if (!emailAddress) {
-        emailAddress = from("PartyAndContactMech")
-        .where(partyId: parameters.partyId, contactMechTypeId: "EMAIL_ADDRESS")
+        emailAddress = from('PartyAndContactMech')
+        .where(partyId: parameters.partyId, contactMechTypeId: 'EMAIL_ADDRESS')
         .filterByDate(searchTimestamp)
         .queryFirst()
     }
     // Any other electronic address
     if (!emailAddress) {
-        emailAddress = from("PartyAndContactMech")
-        .where(partyId: parameters.partyId, contactMechTypeId: "ELECTRONIC_ADDRESS")
+        emailAddress = from('PartyAndContactMech')
+        .where(partyId: parameters.partyId, contactMechTypeId: 'ELECTRONIC_ADDRESS')
         .filterByDate(searchTimestamp)
         .queryFirst()
     }
@@ -284,7 +284,7 @@ def getPartyTelephone () {
     Timestamp searchTimestamp = UtilDateTime.nowTimestamp()
     GenericValue telephone = null
 
-    List<GenericValue> telephoneList = from("PartyContactDetailByPurpose")
+    List<GenericValue> telephoneList = from('PartyContactDetailByPurpose')
         .where(partyId: parameters.partyId, contactMechTypeId: 'TELECOM_NUMBER')
         .filterByDate(searchTimestamp, 'purposeFromDate', 'purposeThruDate', 'fromDate', 'thruDate')
         .queryList()
@@ -300,12 +300,12 @@ def getPartyTelephone () {
         }
 
         telephone = EntityUtil.getFirst(EntityUtil.filterByCondition(telephoneList,
-                EntityCondition.makeCondition("contactMechPurposeTypeId", EntityJoinOperator.IN, types)))
+                EntityCondition.makeCondition('contactMechPurposeTypeId', EntityJoinOperator.IN, types)))
         if (telephone) {
             resultMap.contactMechPurposeTypeId = telephone.contactMechPurposeTypeId
         }
     } else {
-        telephone = from("PartyAndContactMech")
+        telephone = from('PartyAndContactMech')
             .where(partyId: parameters.partyId, contactMechTypeId: 'TELECOM_NUMBER')
             .filterByDate(searchTimestamp)
             .queryFirst()
@@ -342,7 +342,7 @@ def getPartyPostalAddress () {
     GenericValue address = null
     Timestamp searchTimestamp = UtilDateTime.nowTimestamp()
 
-    List<GenericValue> addressList = from("PartyContactDetailByPurpose")
+    List<GenericValue> addressList = from('PartyContactDetailByPurpose')
         .where(partyId: parameters.partyId, contactMechTypeId: 'POSTAL_ADDRESS')
         .filterByDate(searchTimestamp, 'purposeFromDate', 'purposeThruDate', 'fromDate', 'thruDate')
         .queryList()
@@ -355,13 +355,13 @@ def getPartyPostalAddress () {
             types << parameters.contactMechPurposeTypeId
         }
         addressList = EntityUtil.filterByCondition(addressList,
-                EntityCondition.makeCondition("contactMechPurposeTypeId", EntityJoinOperator.IN, types))
+                EntityCondition.makeCondition('contactMechPurposeTypeId', EntityJoinOperator.IN, types))
         if (addressList) {
             address = addressList[0]
             resultMap.contactMechPurposeTypeId = address.contactMechPurposeTypeId
         }
     } else {
-        address = from("PartyAndContactMech")
+        address = from('PartyAndContactMech')
             .where(partyId: parameters.partyId, contactMechTypeId: 'POSTAL_ADDRESS')
             .filterByDate(searchTimestamp)
             .queryFirst()
@@ -369,7 +369,7 @@ def getPartyPostalAddress () {
 
     if (address) {
         resultMap.contactMechId = address.contactMechId
-        if (address.containsKey("address1")) {
+        if (address.containsKey('address1')) {
             if (address.address1)           resultMap.address1 = address.address1
             if (address.address2)           resultMap.address2 = address.address2
             if (address.directions)         resultMap.directions = address.directions
@@ -378,7 +378,7 @@ def getPartyPostalAddress () {
             if (address.stateProvinceGeoId) resultMap.stateProvinceGeoId = address.stateProvinceGeoId
             if (address.countyGeoId)        resultMap.countyGeoId = address.countyGeoId
             if (address.countryGeoId)       resultMap.countryGeoId = address.countryGeoId
-        } else if (address.containsKey("paAddress1")) {
+        } else if (address.containsKey('paAddress1')) {
             if (address.paAddress1)           resultMap.address1 = address.paAddress1
             if (address.paAddress2)           resultMap.address2 = address.paAddress2
             if (address.paDirections)         resultMap.directions = address.paDirections
@@ -422,7 +422,7 @@ def createPartyRelationship() {
     if (!parameters.partyIdFrom)    parameters.partyIdFrom = userLogin.partyId
 
     // check if not already exist
-    List<GenericValue> partyRels = from("PartyRelationship")
+    List<GenericValue> partyRels = from('PartyRelationship')
         .where(partyIdFrom: parameters.partyIdFrom,
                partyIdTo: parameters.partyIdTo,
                roleTypeIdFrom: parameters.roleTypeIdFrom,
@@ -739,14 +739,14 @@ def quickCreateCustomer() {
 def getPartyMainRole() {
     Map resultMap = success()
 
-    List<GenericValue> partyRoles = from("PartyRole")
+    List<GenericValue> partyRoles = from('PartyRole')
         .where(partyId: parameters.partyId)
         .queryList()
     // find the role in the list
     String mainRoleTypeId = null
     for (GenericValue partyRole : partyRoles) {
         if (!mainRoleTypeId) {
-            List<GenericValue> roleTypeIn3Levels = from("RoleTypeIn3Levels")
+            List<GenericValue> roleTypeIn3Levels = from('RoleTypeIn3Levels')
                     .where(topRoleTypeId: 'MAIN_ROLE', lowRoleTypeId: partyRole.roleTypeId)
                     .queryList()
             if (roleTypeIn3Levels) {
@@ -788,7 +788,7 @@ def followPartyRelationshipsInline(List relatedPartyIdList,String partyRelations
 
     List roleTypeIdFromList = null
     if (roleTypeIdFrom) roleTypeIdFromList = [roleTypeIdFrom]
-    if ("Y" == roleTypeIdFromIncludeAllChildTypes) {
+    if ('Y' == roleTypeIdFromIncludeAllChildTypes) {
         List roleTypeIdListName = roleTypeIdFromList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
         roleTypeIdFromList = res.childRoleTypeIdList
@@ -796,7 +796,7 @@ def followPartyRelationshipsInline(List relatedPartyIdList,String partyRelations
 
     List roleTypeIdToList = null
     if (roleTypeIdTo) roleTypeIdToList = [roleTypeIdTo]
-    if ("Y" == roleTypeIdToInclueAllChildTypes) {
+    if ('Y' == roleTypeIdToInclueAllChildTypes) {
         List roleTypeIdListName = roleTypeIdToList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
         roleTypeIdToList = res.childRoleTypeIdList
@@ -826,14 +826,14 @@ def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
          if (!relatedPartyIdAlreadySearchedList.contains(relatedPartyId)) {
              relatedPartyIdAlreadySearchedList.add(relatedPartyId)
 
-             List<EntityCondition> entityConditionList = [EntityCondition.makeCondition("partyIdFrom", relatedPartyId)]
-             if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition("roleTypeIdFrom", EntityOperator.IN, roleTypeIdFromList)
-             if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.IN, roleTypeIdToList)
-             if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)
+             List<EntityCondition> entityConditionList = [EntityCondition.makeCondition('partyIdFrom', relatedPartyId)]
+             if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdFromList)
+             if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdToList)
+             if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
              EntityCondition condition = EntityCondition.makeCondition(entityConditionList)
 
              // get the newest (highest date) first
-             List PartyRelationshipList = from("PartyRelationship")
+             List PartyRelationshipList = from('PartyRelationship')
                      .where(condition)
                      .orderBy('-fromDate')
                      .filterByDate(searchTimestamp)
@@ -847,14 +847,14 @@ def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
              }
 
              if ('Y' == includeFromToSwitched) {
-                 entityConditionList = [EntityCondition.makeCondition("partyIdTo", relatedPartyId)]
+                 entityConditionList = [EntityCondition.makeCondition('partyIdTo', relatedPartyId)]
                  // The roles are reversed
-                 if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition("roleTypeIdFrom", EntityOperator.IN, roleTypeIdToList)
-                 if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.IN, roleTypeIdFromList)
-                 if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)
+                 if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdToList)
+                 if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdFromList)
+                 if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
                  condition = EntityCondition.makeCondition(entityConditionList)
 
-                PartyRelationshipList = from("PartyRelationship")
+                PartyRelationshipList = from('PartyRelationship')
                         .where(condition)
                         .orderBy('-fromDate')
                         .filterByDate(searchTimestamp)
@@ -900,7 +900,7 @@ def getChildRoleTypesInline (List roleTypeIdListName) {
         if (!roleTypeIdAlreadySearchedList.contains(roleTypeId)) {
             roleTypeIdAlreadySearchedList << roleTypeId
 
-            List RoleTypeList = from("RoleType").where(parentTypeId: roleTypeId).cache().queryList()
+            List RoleTypeList = from('RoleType').where(parentTypeId: roleTypeId).cache().queryList()
             for (GenericValue newRoleType : RoleTypeList) {
                 if ( !roleTypeIdListName.contains(newRoleType.roleTypeId) &&
                      !newRoleTypeIdList.contains(newRoleType.roleTypeId)) {

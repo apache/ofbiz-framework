@@ -20,10 +20,10 @@
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-prepare = runService('prepareFind', [inputFields : parameters, entityName : "Requirement"])
+prepare = runService('prepareFind', [inputFields : parameters, entityName : 'Requirement'])
 statusCondition = EntityCondition.makeCondition([
-                                              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
-                                              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")],
+                                              EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'REQ_CREATED'),
+                                              EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'REQ_PROPOSED')],
                                           EntityOperator.OR)
 ecl = null
 if (prepare.entityConditionList) {
@@ -31,5 +31,5 @@ if (prepare.entityConditionList) {
 } else {
     ecl = statusCondition
 }
-results = runService('executeFind', [entityConditionList : ecl, entityName : "Requirement"])
+results = runService('executeFind', [entityConditionList : ecl, entityName : 'Requirement'])
 context.requirements = results.listIt

@@ -30,7 +30,7 @@ import org.apache.ofbiz.party.party.PartyWorker
 
 import java.sql.Timestamp
 
-uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)
+uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
 
 if (!thruDate) {
     thruDate = UtilDateTime.nowTimestamp()
@@ -50,23 +50,23 @@ partyIds.add(organizationPartyId)
 
 
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
-GenericValue assetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "ASSET").cache(true).queryOne()
+GenericValue assetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'ASSET').cache(true).queryOne()
 List assetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(assetGlAccountClass)
-GenericValue contraAssetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CONTRA_ASSET").cache(true).queryOne()
+GenericValue contraAssetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CONTRA_ASSET').cache(true).queryOne()
 List contraAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(contraAssetGlAccountClass)
-GenericValue liabilityGlAccountClass = from("GlAccountClass").where("glAccountClassId", "LIABILITY").cache(true).queryOne()
+GenericValue liabilityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'LIABILITY').cache(true).queryOne()
 List liabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(liabilityGlAccountClass)
-GenericValue equityGlAccountClass = from("GlAccountClass").where("glAccountClassId", "EQUITY").cache(true).queryOne()
+GenericValue equityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'EQUITY').cache(true).queryOne()
 List equityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(equityGlAccountClass)
-GenericValue currentAssetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CURRENT_ASSET").cache(true).queryOne()
+GenericValue currentAssetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CURRENT_ASSET').cache(true).queryOne()
 List currentAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentAssetGlAccountClass)
-GenericValue longtermAssetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "LONGTERM_ASSET").cache(true).queryOne()
+GenericValue longtermAssetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'LONGTERM_ASSET').cache(true).queryOne()
 List longtermAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(longtermAssetGlAccountClass)
-GenericValue currentLiabilityGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CURRENT_LIABILITY").cache(true).queryOne()
+GenericValue currentLiabilityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CURRENT_LIABILITY').cache(true).queryOne()
 List currentLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentLiabilityGlAccountClass)
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": organizationPartyId, "findDate": thruDate,"userLogin": userLogin])
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ['organizationPartyId': organizationPartyId, 'findDate': thruDate,'userLogin': userLogin])
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!fromDate) {
     return
@@ -311,9 +311,9 @@ def currentLiabilityBalanceTotal = sumAccountBalances(currentLiabilityAccountBal
 def equityAccountBalances = calculateBalances(equityOpeningBalances, equityAccountClassIds, RootClass.CREDIT)
 
 // Add the "retained earnings" account
-Map netIncomeResult = runService('prepareIncomeStatement', ["organizationPartyId": organizationPartyId, "glFiscalTypeId": glFiscalTypeId, "fromDate": fromDate, "thruDate": thruDate, "userLogin": userLogin])
+Map netIncomeResult = runService('prepareIncomeStatement', ['organizationPartyId': organizationPartyId, 'glFiscalTypeId': glFiscalTypeId, 'fromDate': fromDate, 'thruDate': thruDate, 'userLogin': userLogin])
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome
-GenericValue retainedEarningsAccount = from("GlAccountTypeDefault").where("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", organizationPartyId).cache(true).queryOne()
+GenericValue retainedEarningsAccount = from('GlAccountTypeDefault').where('glAccountTypeId', 'RETAINED_EARNINGS', 'organizationPartyId', organizationPartyId).cache(true).queryOne()
 if (retainedEarningsAccount) {
     GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne("GlAccount", false)
 

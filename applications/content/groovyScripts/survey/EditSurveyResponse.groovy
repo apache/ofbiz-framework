@@ -24,7 +24,7 @@ surveyResponseId = parameters.surveyResponseId
 partyId = null
 
 if (!surveyId && surveyResponseId) {
-   surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne()
+   surveyResponse = from('SurveyResponse').where('surveyResponseId', surveyResponseId).queryOne()
    surveyId = surveyResponse.surveyId
    context.surveyPartyId = surveyResponse.partyId
    context.surveyId = surveyId
@@ -32,7 +32,7 @@ if (!surveyId && surveyResponseId) {
 surveyWrapper = new SurveyWrapper(delegator, surveyResponseId, partyId, surveyId, null)
 surveyWrapper.setEdit(true)
 
-templateUrl = UtilURL.fromOfbizHomePath("applications/content/template/survey/GenericSurvey.ftl")
+templateUrl = UtilURL.fromOfbizHomePath('applications/content/template/survey/GenericSurvey.ftl')
 if (templateUrl) {
     writer = new StringWriter()
     surveyWrapper.render(templateUrl, writer)

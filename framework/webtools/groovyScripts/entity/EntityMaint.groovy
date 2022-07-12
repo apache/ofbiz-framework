@@ -34,13 +34,13 @@ if (delegator.getDelegatorTenantId() == null) {
     entityGroups = mgr.getGroupNames(delegator.getDelegatorName()).toArray().sort()
 } else {
     Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName())
-    entityGroups = EntityUtil.getFieldListFromEntityList(baseDelegator.findList("TenantDataSource", EntityCondition.makeCondition("tenantId", EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()), ['entityGroupName'] as Set, ['entityGroupName'], null, false), 'entityGroupName', false)
+    entityGroups = EntityUtil.getFieldListFromEntityList(baseDelegator.findList('TenantDataSource', EntityCondition.makeCondition('tenantId', EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()), ['entityGroupName'] as Set, ['entityGroupName'], null, false), 'entityGroupName', false)
 }
 
 context.entityGroups = []
-context.entityGroups.add(["name" : UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsAll", locale), "value" : ""])
+context.entityGroups.add(['name' : UtilProperties.getMessage('WebtoolsUiLabels', 'WebtoolsAll', locale), 'value' : ''])
 for (String entityGroup : entityGroups) {
-    context.entityGroups.add(["name" : entityGroup, "value" : entityGroup])
+    context.entityGroups.add(['name' : entityGroup, 'value' : entityGroup])
 }
 
 filterByGroupName = parameters.filterByGroupName
@@ -54,7 +54,7 @@ entities = new TreeSet(reader.getEntityNames())
 
 entitiesList = []
 firstChars = []
-firstChar = ""
+firstChar = ''
 entities.each { entityName ->
     entity = reader.getModelEntity(entityName)
     entityGroupName = delegator.getEntityGroupName(entity.getEntityName())
@@ -65,22 +65,22 @@ entities.each { entityName ->
     if (filterByGroupName && !filterByGroupName.equals(entityGroupName)) {
         return
     }
-    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase().replace(" ", ""))) {
+    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase().replace(' ', ''))) {
         return
     }
-    viewEntity = "N"
+    viewEntity = 'N'
     if (entity instanceof ModelViewEntity) {
-        viewEntity = "Y"
+        viewEntity = 'Y'
     }
 
-    entityPermissionView = "N"
-    if (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(entity.getPlainTableName(), "_VIEW", session)) {
-        entityPermissionView = "Y"
+    entityPermissionView = 'N'
+    if (security.hasEntityPermission('ENTITY_DATA', '_VIEW', session) || security.hasEntityPermission(entity.getPlainTableName(), '_VIEW', session)) {
+        entityPermissionView = 'Y'
     }
 
-    entityPermissionCreate = "N"
-    if (security.hasEntityPermission("ENTITY_DATA", "_CREATE", session) || security.hasEntityPermission(entity.getPlainTableName(), "_CREATE", session)) {
-        entityPermissionCreate = "Y"
+    entityPermissionCreate = 'N'
+    if (security.hasEntityPermission('ENTITY_DATA', '_CREATE', session) || security.hasEntityPermission(entity.getPlainTableName(), '_CREATE', session)) {
+        entityPermissionCreate = 'Y'
     }
 
     entityMap = [:]

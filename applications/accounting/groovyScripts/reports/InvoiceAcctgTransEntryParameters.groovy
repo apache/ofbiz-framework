@@ -23,42 +23,42 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 
 invoiceId = parameters.invoiceId
 userLoginId = userLogin.userLoginId
-userLogin = from("UserLogin").where("userLoginId", userLoginId).queryOne();
-userLoginNameView = from("PartyNameView").where("partyId", userLogin.get("partyId")).queryOne();
-userLoginName = userLoginNameView.getString("firstName") + " " + userLoginNameView.getString("lastName")
-dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy")
+userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne();
+userLoginNameView = from('PartyNameView').where('partyId', userLogin.get('partyId')).queryOne();
+userLoginName = userLoginNameView.getString('firstName') + ' ' + userLoginNameView.getString('lastName')
+dateFormatter = new java.text.SimpleDateFormat('dd MMMMM yyyy')
 
-invoice = from("Invoice").where("invoiceId", invoiceId).queryOne();
+invoice = from('Invoice').where('invoiceId', invoiceId).queryOne();
 if (invoice) {
-    context.invoiceDescription = invoice.get("description")
-    context.invoiceTypeDescription = invoice.getRelatedOne("InvoiceType", false).get("description")
-    context.statusDescription = invoice.getRelatedOne("StatusItem", false).get("description")
-    context.invoiceDate = invoice.get("invoiceDate")
-    context.referenceNumber = invoice.get("referenceNumber")
+    context.invoiceDescription = invoice.get('description')
+    context.invoiceTypeDescription = invoice.getRelatedOne('InvoiceType', false).get('description')
+    context.statusDescription = invoice.getRelatedOne('StatusItem', false).get('description')
+    context.invoiceDate = invoice.get('invoiceDate')
+    context.referenceNumber = invoice.get('referenceNumber')
 }
 partyId = null
-if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType", false).get("parentTypeId"))) {
-    partyId = invoice.get("partyIdFrom")
+if ('PURCHASE_INVOICE'.equals(invoice.get('invoiceTypeId')) || 'PURCHASE_INVOICE'.equals(invoice.getRelatedOne('InvoiceType', false).get('parentTypeId'))) {
+    partyId = invoice.get('partyIdFrom')
 } else {
-    partyId = invoice.get("partyId")
+    partyId = invoice.get('partyId')
 }
-partyName = ""
-partyNameView = from("PartyNameView").where("partyId", partyId).queryOne();
-if (partyNameView.get("firstName")) {
-    partyName += partyNameView.get("firstName") + " "
+partyName = ''
+partyNameView = from('PartyNameView').where('partyId', partyId).queryOne();
+if (partyNameView.get('firstName')) {
+    partyName += partyNameView.get('firstName') + ' '
 }
-if (partyNameView.get("lastName")) {
-    partyName += partyNameView.get("lastName") + " "
+if (partyNameView.get('lastName')) {
+    partyName += partyNameView.get('lastName') + ' '
 }
-if (partyNameView.get("groupName")) {
-    partyName += partyNameView.get("groupName") + " "
+if (partyNameView.get('groupName')) {
+    partyName += partyNameView.get('groupName') + ' '
 }
 
-orderBy = UtilMisc.toList("acctgTransId", "acctgTransEntrySeqId")
+orderBy = UtilMisc.toList('acctgTransId', 'acctgTransEntrySeqId')
 conds = []
-conds.add(EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, invoiceId))
-conds.add(EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, null))
-invoiceAcctgTransAndEntries = delegator.findList("AcctgTransAndEntries", EntityCondition.makeCondition(conds), null, orderBy, null, false)
+conds.add(EntityCondition.makeCondition('invoiceId', EntityOperator.EQUALS, invoiceId))
+conds.add(EntityCondition.makeCondition('paymentId', EntityOperator.EQUALS, null))
+invoiceAcctgTransAndEntries = delegator.findList('AcctgTransAndEntries', EntityCondition.makeCondition(conds), null, orderBy, null, false)
 context.invoiceAcctgTransAndEntries = invoiceAcctgTransAndEntries
 context.partyName = partyName
 context.partyId = partyId

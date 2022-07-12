@@ -90,7 +90,7 @@ def getNextQuoteId() {
                 }
             }
         } else {
-            quoteId = delegator.getNextSeqId("Quote")
+            quoteId = delegator.getNextSeqId('Quote')
         }
     }
 
@@ -138,7 +138,7 @@ def createQuote() {
         Map serviceResult = run service: 'getNextQuoteId', with: [partyId: productStore.payToPartyId]
         newEntity.quoteId = serviceResult.quoteId
     } else {
-        newEntity.quoteId = delegator.getNextSeqId("Quote")
+        newEntity.quoteId = delegator.getNextSeqId('Quote')
     }
 
     // Finally create the record (should not exist already).
@@ -185,7 +185,7 @@ def updateQuote() {
 
     if (parameters.statusId != quote.statusId) {
         // Check if the status change is a valid change.
-        GenericValue validChange = from("StatusValidChange").where('statusId', quote.statusId, 'statusIdTo', parameters.statusId).queryOne()
+        GenericValue validChange = from('StatusValidChange').where('statusId', quote.statusId, 'statusIdTo', parameters.statusId).queryOne()
 
         if (!validChange) {
             logError("The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change")
@@ -704,7 +704,7 @@ def createQuoteNote() {
  */
 def createQuoteAdjustment() {
     GenericValue quoteAdjustment = makeValue('QuoteAdjustment', parameters)
-    quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId("QuoteAdjustment")
+    quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
     quoteAdjustment.createdByUserLogin = userLogin.userLoginId
     quoteAdjustment.createdDate = UtilDateTime.nowTimestamp()
     quoteAdjustment.create()

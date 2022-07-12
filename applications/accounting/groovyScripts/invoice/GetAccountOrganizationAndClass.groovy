@@ -25,51 +25,51 @@ exprBldr =  new EntityConditionBuilder()
 invoice = context.invoice
 if (!invoice) return
 glAccountOrganizationAndClassList = null
-if ("SALES_INVOICE".equals(invoice.invoiceTypeId)) {
+if ('SALES_INVOICE'.equals(invoice.invoiceTypeId)) {
     itemTypesCond = exprBldr.OR() {
-        EQUALS(invoiceItemTypeId: "SINVOICE_ADJ")
-        EQUALS(parentTypeId: "SINVOICE_ADJ")
-        EQUALS(invoiceItemTypeId: "SINVOICE_ITM_ADJ")
-        EQUALS(parentTypeId: "SINVOICE_ITM_ADJ")
-        EQUALS(invoiceItemTypeId: "INV_PROD_ITEM")
-        EQUALS(parentTypeId: "INV_PROD_ITEM")
+        EQUALS(invoiceItemTypeId: 'SINVOICE_ADJ')
+        EQUALS(parentTypeId: 'SINVOICE_ADJ')
+        EQUALS(invoiceItemTypeId: 'SINVOICE_ITM_ADJ')
+        EQUALS(parentTypeId: 'SINVOICE_ITM_ADJ')
+        EQUALS(invoiceItemTypeId: 'INV_PROD_ITEM')
+        EQUALS(parentTypeId: 'INV_PROD_ITEM')
     }
-    invoiceItemTypes = from("InvoiceItemType").where(itemTypesCond).orderBy(["parentTypeId", "invoiceItemTypeId"]).queryList()
-    glAccountOrganizationAndClassList = from("GlAccountOrganizationAndClass").where('organizationPartyId', invoice.partyIdFrom).queryList()
-} else if ("PURCHASE_INVOICE".equals(invoice.invoiceTypeId)) {
+    invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
+    glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyIdFrom).queryList()
+} else if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
     itemTypesCond = exprBldr.OR() {
-        EQUALS(invoiceItemTypeId: "PINVOICE_ADJ")
-        EQUALS(parentTypeId: "PINVOICE_ADJ")
-        EQUALS(invoiceItemTypeId: "PINVOICE_ITM_ADJ")
-        EQUALS(parentTypeId: "PINVOICE_ITM_ADJ")
-        EQUALS(invoiceItemTypeId: "PINV_PROD_ITEM")
-        EQUALS(parentTypeId: "PINV_PROD_ITEM")
+        EQUALS(invoiceItemTypeId: 'PINVOICE_ADJ')
+        EQUALS(parentTypeId: 'PINVOICE_ADJ')
+        EQUALS(invoiceItemTypeId: 'PINVOICE_ITM_ADJ')
+        EQUALS(parentTypeId: 'PINVOICE_ITM_ADJ')
+        EQUALS(invoiceItemTypeId: 'PINV_PROD_ITEM')
+        EQUALS(parentTypeId: 'PINV_PROD_ITEM')
     }
-    invoiceItemTypes = from("InvoiceItemType").where(itemTypesCond).orderBy(["parentTypeId", "invoiceItemTypeId"]).queryList()
-    glAccountOrganizationAndClassList = from("GlAccountOrganizationAndClass").where('organizationPartyId', invoice.partyId).queryList()
-} else if ("PAYROL_INVOICE".equals(invoice.invoiceTypeId)) {
+    invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
+    glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyId).queryList()
+} else if ('PAYROL_INVOICE'.equals(invoice.invoiceTypeId)) {
     itemTypesCond = exprBldr.OR() {
-        EQUALS(invoiceItemTypeId: "PAYROL_EARN_HOURS")
-        EQUALS(parentTypeId: "PAYROL_EARN_HOURS")
-        EQUALS(invoiceItemTypeId: "PAYROL_DD_FROM_GROSS")
-        EQUALS(parentTypeId: "PAYROL_DD_FROM_GROSS")
-        EQUALS(invoiceItemTypeId: "PAYROL_TAXES")
-        EQUALS(parentTypeId: "PAYROL_TAXES")
+        EQUALS(invoiceItemTypeId: 'PAYROL_EARN_HOURS')
+        EQUALS(parentTypeId: 'PAYROL_EARN_HOURS')
+        EQUALS(invoiceItemTypeId: 'PAYROL_DD_FROM_GROSS')
+        EQUALS(parentTypeId: 'PAYROL_DD_FROM_GROSS')
+        EQUALS(invoiceItemTypeId: 'PAYROL_TAXES')
+        EQUALS(parentTypeId: 'PAYROL_TAXES')
     }
-    invoiceItemTypes = from("InvoiceItemType").where(itemTypesCond).orderBy(["parentTypeId", "invoiceItemTypeId"]).queryList()
-    glAccountOrganizationAndClassList = from("GlAccountOrganizationAndClass").where('organizationPartyId', invoice.partyId).queryList()
-} else if ("COMMISSION_INVOICE".equals(invoice.invoiceTypeId)) {
+    invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
+    glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyId).queryList()
+} else if ('COMMISSION_INVOICE'.equals(invoice.invoiceTypeId)) {
     itemTypesCond = exprBldr.OR() {
-        EQUALS(invoiceItemTypeId: "COMM_INV_ITEM")
-        EQUALS(parentTypeId: "COMM_INV_ITEM")
-        EQUALS(invoiceItemTypeId: "COMM_INV_ADJ")
-        EQUALS(parentTypeId: "COMM_INV_ADJ")
+        EQUALS(invoiceItemTypeId: 'COMM_INV_ITEM')
+        EQUALS(parentTypeId: 'COMM_INV_ITEM')
+        EQUALS(invoiceItemTypeId: 'COMM_INV_ADJ')
+        EQUALS(parentTypeId: 'COMM_INV_ADJ')
     }
-    invoiceItemTypes = from("InvoiceItemType").where(itemTypesCond).orderBy(["parentTypeId", "invoiceItemTypeId"]).queryList()
-    glAccountOrganizationAndClassList = from("GlAccountOrganizationAndClass").where('organizationPartyId', invoice.partyId).queryList()
+    invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
+    glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyId).queryList()
 } else {
-    map = from("InvoiceItemTypeMap").where('invoiceTypeId', invoice.invoiceTypeId).cache(true).queryList()
-    invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", null, map, false)
+    map = from('InvoiceItemTypeMap').where('invoiceTypeId', invoice.invoiceTypeId).cache(true).queryList()
+    invoiceItemTypes = EntityUtil.getRelated('InvoiceItemType', null, map, false)
 }
 context.invoiceItemTypes = invoiceItemTypes
 

@@ -29,7 +29,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
 
     void testPartyContactMechResolution() {
         //control for the DemoCustomer that postal, email, telecom and ftp contact are present and return correct information
-        List partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, "DemoCustomer", true)
+        List partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer', true)
         assert partyContactMechValueMaps
         assert partyContactMechValueMaps.size() == 7
         boolean foundPostalAddress, foundTelecom, foundEmailAddress, foundFtpAddress = false
@@ -74,14 +74,14 @@ class ContactMechWorkerTests extends OFBizTestCase {
                         assert partyContactMechValueMap.contactMechType
                         assert !partyContactMechValueMap.partyContactMechPurposes
                         assert partyContactMechValueMap.ftpAddress
-                        assert partyContactMechValueMap.ftpAddress.hostname == "ftp://apacheofbiz.foo.com"
+                        assert partyContactMechValueMap.ftpAddress.hostname == 'ftp://apacheofbiz.foo.com'
                         break
                 }
         }
         assert foundPostalAddress && foundTelecom && foundEmailAddress && foundFtpAddress
 
         //Restart a search at now, the email 9126 need to have only one purpose
-        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, "DemoCustomer", false, "EMAIL_ADDRESS")
+        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer', false, 'EMAIL_ADDRESS')
         partyContactMechValueMaps.forEach {
             Map partyContactMechValueMap ->
                 switch (partyContactMechValueMap?.contactMech?.contactMechId) {
@@ -92,7 +92,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
         }
 
         //Restart a search at 05/13/2001 10:00:00.000, the email 9126 need to have two purposes
-        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, "DemoCustomer", UtilDateTime.toTimestamp("05/13/2001 10:00:00"), "EMAIL_ADDRESS")
+        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer', UtilDateTime.toTimestamp('05/13/2001 10:00:00'), 'EMAIL_ADDRESS')
         partyContactMechValueMaps.forEach {
             Map partyContactMechValueMap ->
                 switch (partyContactMechValueMap?.contactMech?.contactMechId) {
@@ -104,7 +104,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
     }
 
     void testOrderContactMechResolution() {
-        List orderContactMechValueMaps = ContactMechWorker.getOrderContactMechValueMaps(delegator, "Demo1002")
+        List orderContactMechValueMaps = ContactMechWorker.getOrderContactMechValueMaps(delegator, 'Demo1002')
         assert orderContactMechValueMaps
         assert orderContactMechValueMaps.size() == 3
 
@@ -139,7 +139,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
     }
 
     void testWorkEffortContactMechResolution() {
-        List workEffortContactMechValueMaps = ContactMechWorker.getWorkEffortContactMechValueMaps(delegator, "TEST_CM_WORKER")
+        List workEffortContactMechValueMaps = ContactMechWorker.getWorkEffortContactMechValueMaps(delegator, 'TEST_CM_WORKER')
         assert workEffortContactMechValueMaps
         assert workEffortContactMechValueMaps.size() == 3
 

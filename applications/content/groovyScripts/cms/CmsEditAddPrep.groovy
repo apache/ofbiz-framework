@@ -23,37 +23,37 @@ import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
-contentAssocDataResourceViewFrom = makeValue("ContentAssocDataResourceViewFrom")
+contentAssocDataResourceViewFrom = makeValue('ContentAssocDataResourceViewFrom')
 
 contentId = context.contentId
 
-contentAssocPK = makeValue("ContentAssoc")
-contentAssocPK.setAllFields(context, false, "ca", new Boolean(true))
-logInfo("in cmseditaddprep, contentAssocPK:" + contentAssocPK)
+contentAssocPK = makeValue('ContentAssoc')
+contentAssocPK.setAllFields(context, false, 'ca', new Boolean(true))
+logInfo('in cmseditaddprep, contentAssocPK:' + contentAssocPK)
 
 contentAssoc = null
 if (contentAssocPK.isPrimaryKey()) {
-    contentAssoc = from("ContentAssoc").where(contentAssocPK).queryOne()
+    contentAssoc = from('ContentAssoc').where(contentAssocPK).queryOne()
 }
 
 if (contentAssoc) {
-    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
+    SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml', 'contentAssocOut', contentAssoc, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
 } else {
-    contentAssocPK.setAllFields(context, false, "ca", null) //set all field, pk and non
-    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssocPK, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
+    contentAssocPK.setAllFields(context, false, 'ca', null) //set all field, pk and non
+    SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml', 'contentAssocOut', contentAssocPK, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
 }
-logInfo("in cmseditaddprep, contentAssocDataResourceViewFrom:" + contentAssocDataResourceViewFrom)
+logInfo('in cmseditaddprep, contentAssocDataResourceViewFrom:' + contentAssocDataResourceViewFrom)
 
-dataResourceId = ""
-textData = ""
+dataResourceId = ''
+textData = ''
 content = null
 if (contentId) {
-    content = from("Content").where("contentId", contentId).cache(true).queryOne()
+    content = from('Content').where('contentId', contentId).cache(true).queryOne()
     if (content) {
         contentAssocDataResourceViewFrom.setAllFields(content, false, null, null)
     }
 } else {
-    contentAssocDataResourceViewFrom.set("contentTypeId", "DOCUMENT")
+    contentAssocDataResourceViewFrom.set('contentTypeId', 'DOCUMENT')
 }
 
 if (content) {
@@ -66,27 +66,27 @@ if (!dataResourceId) {
     }
 }
 if (dataResourceId) {
-    dataResource = from("DataResource").where("dataResourceId", dataResourceId).cache(true).queryOne()
-    SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
+    dataResource = from('DataResource').where('dataResourceId', dataResourceId).cache(true).queryOne()
+    SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml', 'dataResourceOut', dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
     templateRoot = [:]
     FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response)
-    txt = DataResourceWorker.getDataResourceText(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator, true)
+    txt = DataResourceWorker.getDataResourceText(dataResource, 'text/html', Locale.getDefault(), templateRoot, delegator, true)
 
     if (txt) {
         textData = UtilFormatOut.encodeXmlValue(txt)
     }
 }
-logInfo("in cmseditaddprep, textData:" + textData)
+logInfo('in cmseditaddprep, textData:' + textData)
 
 currentValue = new HashMap(contentAssocDataResourceViewFrom)
 currentValue.textData = textData
 currentValue.nowTimestamp = UtilDateTime.nowTimestamp()
 context.currentValue = currentValue
 
-request.setAttribute("previousParams", currentValue)
+request.setAttribute('previousParams', currentValue)
 
 persistAction = context.persistAction
 if (!persistAction) {
-    persistAction = "persistContent"
+    persistAction = 'persistContent'
 }
 context.persistAction = persistAction;

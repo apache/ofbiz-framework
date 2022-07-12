@@ -115,7 +115,7 @@ javadoc {
 
 node {
     download = true
-    version = "16.13.1"
+    version = '16.13.1'
     // npmVersion will be the one that comes default with node
 
     // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
@@ -123,7 +123,7 @@ node {
     nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common-theme/js")
     // If you set a "CI" env var then ci only will be used:
     // https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/faq.md#how-do-i-use-npm-ci-instead-of-npm-install
-    npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
+    npmInstallCommand = System.getenv('CI') ? 'ci' : 'install'
 }
 
 tasks.getByName("distTar") {
@@ -143,9 +143,9 @@ java {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     if (!project.hasProperty('Xlint:none')) {
-    options.compilerArgs << "-Xlint:all"
+    options.compilerArgs << '-Xlint:all'
     // Exclude varargs warnings which are not silenced by @SafeVarargs.
-        options.compilerArgs << "-Xlint:-varargs"
+        options.compilerArgs << '-Xlint:-varargs'
     }
     // Executes on each compilation so that if dependencies are not downloaded yet or some new dependencies are added they get automatically downloaded
     if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
@@ -170,11 +170,11 @@ allprojects {
         // on mavenCentral directly
         maven {
             // org.restlet and org.restlet.ext.servlet
-            url "https://maven.restlet.talend.com"
+            url 'https://maven.restlet.talend.com'
         }
         maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url "https://packages.atlassian.com/maven-3rdparty/"
+            url 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
@@ -187,7 +187,7 @@ allprojects {
             }
         }
         maven {
-            url "https://clojars.org/repo"
+            url 'https://clojars.org/repo'
         }
         maven {
             // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
@@ -408,11 +408,11 @@ eclipse.classpath.file.whenMerged { classpath ->
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def fileSep = System.getProperty("file.separator")
+    def fileSep = System.getProperty('file.separator')
 
     activeComponents().each { component ->
         def componentName = component.toString() - rootDir.toString() - fileSep
-        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", "/") : componentName
+        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", '/') : componentName
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
@@ -430,7 +430,7 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
-    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
 /* ========================================================
@@ -765,7 +765,7 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         def gitFolder = rootProject.file('.git')
 
         if (!gitFolder.exists()) {
-          println ("Git is not used")
+          println ('Git is not used')
           return
         }
 
@@ -1136,7 +1136,7 @@ def createOfbizBackgroundCommandTask(taskName) {
 
     task (taskName) {
         doLast {
-            spawnProcess([gradlew, "--no-daemon", serverCommand])
+            spawnProcess([gradlew, '--no-daemon', serverCommand])
         }
     }
 }
@@ -1159,7 +1159,7 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
 
 def deleteAllInDirWithExclusions(dirName, exclusions) {
     ant.delete (includeEmptyDirs: 'true', verbose: 'on') {
-        fileset(dir: dirName, includes: '**/*', erroronmissingdir: "false") {
+        fileset(dir: dirName, includes: '**/*', erroronmissingdir: 'false') {
             exclusions.each { exclusion ->
                 exclude name: exclusion
             }
@@ -1195,7 +1195,7 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 }
 
 def gradlewSubprocess(commandList) {
-    exec { commandLine(gradlew, "--no-daemon", *commandList) }
+    exec { commandLine(gradlew, '--no-daemon', *commandList) }
 }
 
 

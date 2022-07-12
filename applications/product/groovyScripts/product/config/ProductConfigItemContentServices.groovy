@@ -28,13 +28,13 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 def createProductConfigItemContent() {
     Map result = success()
-    GenericValue newEntity = makeValue("ProdConfItemContent", parameters)
+    GenericValue newEntity = makeValue('ProdConfItemContent', parameters)
     if (!newEntity.fromDate) {
         newEntity.fromDate = UtilDateTime.getTimestamp(System.currentTimeSeconds() * 1000)
     }
     newEntity.create()
 
-    run service: "updateContent", with: parameters
+    run service: 'updateContent', with: parameters
 
     result.contentId = newEntity.contentId
     result.configItemId = newEntity.configItemId
@@ -47,14 +47,14 @@ def createProductConfigItemContent() {
  * Update Content For ProductConfigItem
  */
 def updateProductConfigItemContent() {
-    GenericValue pkParameters = makeValue("ProdConfItemContent")
+    GenericValue pkParameters = makeValue('ProdConfItemContent')
     pkParameters.setPKFields(parameters)
 
-    GenericValue lookedUpValue = from("ProdConfItemContent").where(pkParameters).queryOne()
+    GenericValue lookedUpValue = from('ProdConfItemContent').where(pkParameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
 
-    run service: "updateContent", with: parameters
+    run service: 'updateContent', with: parameters
 
     return success()
 }
@@ -65,12 +65,12 @@ def updateProductConfigItemContent() {
  */
 def createSimpleTextContentForProductConfigItem() {
     Map createProductConfigItemContent = parameters
-    Map serviceResult = run service: "createSimpleTextContent", with: parameters
+    Map serviceResult = run service: 'createSimpleTextContent', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
     createProductConfigItemContent.contentId = serviceResult.contentId
-    run service: "createProductConfigItemContent", with: createProductConfigItemContent
+    run service: 'createProductConfigItemContent', with: createProductConfigItemContent
 
     return success()
 }

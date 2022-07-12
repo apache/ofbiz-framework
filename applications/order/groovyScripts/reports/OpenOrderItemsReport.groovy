@@ -28,53 +28,53 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.base.util.ObjectType
 
-productStoreId = ObjectType.simpleTypeOrObjectConvert(parameters.productStoreId, "List", null, null)
-orderTypeId = ObjectType.simpleTypeOrObjectConvert(parameters.orderTypeId, "List", null, null)
-orderStatusId = ObjectType.simpleTypeOrObjectConvert(parameters.orderStatusId, "List", null, null)
+productStoreId = ObjectType.simpleTypeOrObjectConvert(parameters.productStoreId, 'List', null, null)
+orderTypeId = ObjectType.simpleTypeOrObjectConvert(parameters.orderTypeId, 'List', null, null)
+orderStatusId = ObjectType.simpleTypeOrObjectConvert(parameters.orderStatusId, 'List', null, null)
 
 
 // search by orderTypeId is mandatory
-conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.IN, orderTypeId)]
+conditions = [EntityCondition.makeCondition('orderTypeId', EntityOperator.IN, orderTypeId)]
 
 if (fromOrderDate) {
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate))
+    conditions.add(EntityCondition.makeCondition('orderDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate))
 }
 if (thruOrderDate) {
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate))
+    conditions.add(EntityCondition.makeCondition('orderDate', EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate))
 }
 
 if (productStoreId) {
-    conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.IN, productStoreId))
+    conditions.add(EntityCondition.makeCondition('productStoreId', EntityOperator.IN, productStoreId))
     // for generating a title (given product store)
-    context.productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne()
+    context.productStore = from('ProductStore').where('productStoreId', productStoreId).cache(true).queryOne()
 } else {
     // for generating a title (all stores)  TODO: use UtilProperties to internationalize
-    context.productStore = [storeName : "All Stores"]
+    context.productStore = [storeName : 'All Stores']
 }
 if (orderStatusId) {
-    conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.IN, orderStatusId))
+    conditions.add(EntityCondition.makeCondition('orderStatusId', EntityOperator.IN, orderStatusId))
 } else {
     // search all orders that are not completed, cancelled or rejected
     conditions.add(
             EntityCondition.makeCondition([
-                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
+                    EntityCondition.makeCondition('orderStatusId', EntityOperator.NOT_EQUAL, 'ORDER_COMPLETED'),
+                    EntityCondition.makeCondition('orderStatusId', EntityOperator.NOT_EQUAL, 'ORDER_CANCELLED'),
+                    EntityCondition.makeCondition('orderStatusId', EntityOperator.NOT_EQUAL, 'ORDER_REJECTED')
                     ], EntityOperator.AND)
             )
 }
 
 // item conditions
-conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"))
-conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"))
-conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"))
+conditions.add(EntityCondition.makeCondition('orderItemStatusId', EntityOperator.NOT_EQUAL, 'ITEM_COMPLETED'))
+conditions.add(EntityCondition.makeCondition('orderItemStatusId', EntityOperator.NOT_EQUAL, 'ITEM_CANCELLED'))
+conditions.add(EntityCondition.makeCondition('orderItemStatusId', EntityOperator.NOT_EQUAL, 'ITEM_REJECTED'))
 
 // get the results as an entity list iterator
 try {
-    listIt = select("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen", "shipBeforeDate", "shipAfterDate", "itemDescription")
-                .from("OrderItemQuantityReportGroupByItem")
+    listIt = select('orderId', 'orderDate', 'productId', 'quantityOrdered', 'quantityIssued', 'quantityOpen', 'shipBeforeDate', 'shipAfterDate', 'itemDescription')
+                .from('OrderItemQuantityReportGroupByItem')
                 .where(conditions)
-                .orderBy("orderDate DESC")
+                .orderBy('orderDate DESC')
                 .cursorScrollInsensitive()
                 .distinct()
                 .queryIterator()
@@ -97,18 +97,18 @@ try {
         itemDescription = listValue.itemDescription
         shipAfterDate = listValue.shipAfterDate
         shipBeforeDate = listValue.shipBeforeDate
-        productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)]
-        productPrices = select("price","productPriceTypeId").from("ProductPrice").where(productIdCondExpr).queryList()
+        productIdCondExpr =  [EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId)]
+        productPrices = select('price','productPriceTypeId').from('ProductPrice').where(productIdCondExpr).queryList()
         costPrice = 0.0
         retailPrice = 0.0
         listPrice = 0.0
     
         productPrices.each { productPriceMap ->
-            if ("AVERAGE_COST".equals(productPriceMap.productPriceTypeId)) {
+            if ('AVERAGE_COST'.equals(productPriceMap.productPriceTypeId)) {
                 costPrice = productPriceMap.price
-            } else if ("DEFAULT_PRICE".equals(productPriceMap.productPriceTypeId)) {
+            } else if ('DEFAULT_PRICE'.equals(productPriceMap.productPriceTypeId)) {
                 retailPrice = productPriceMap.price
-            } else if ("LIST_PRICE".equals(productPriceMap.productPriceTypeId)) {
+            } else if ('LIST_PRICE'.equals(productPriceMap.productPriceTypeId)) {
                 listPrice = productPriceMap.price
             }
         }
@@ -122,7 +122,7 @@ try {
         if (costPriceDividendValue) {
             percentMarkup = ((retailPrice - costPrice)/costPrice)*100
         } else{
-            percentMarkup = ""
+            percentMarkup = ''
         }
         orderItemMap = [orderDate : orderDate,
                         orderId : orderId,
@@ -142,7 +142,7 @@ try {
         orderItemList.add(orderItemMap)
     }
 } catch (GenericEntityException e) {
-    logError(e, "Failure in " + module)
+    logError(e, 'Failure in ' + module)
 } finally {
     listIt.close()
 }
@@ -153,7 +153,7 @@ if (orderItemList) {
     if (totalCostPriceDividendValue) {
         totalPercentMarkup = ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100 
     } else{
-        totalPercentMarkup = ""
+        totalPercentMarkup = ''
     }
     totalAmountMap = [totalCostPrice : totalCostPrice,
                       totalListPrice : totalListPrice,

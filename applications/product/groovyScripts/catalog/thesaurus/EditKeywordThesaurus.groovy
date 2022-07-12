@@ -19,12 +19,12 @@
 
 import org.apache.ofbiz.entity.condition.*
 
-relationshipEnums = from("Enumeration").where("enumTypeId", "KW_THES_REL").orderBy("sequenceId").cache(true).queryList()
+relationshipEnums = from('Enumeration').where('enumTypeId', 'KW_THES_REL').orderBy('sequenceId').cache(true).queryList()
 
-keywordThesauruses = from("KeywordThesaurus").orderBy("enteredKeyword").queryList()
+keywordThesauruses = from('KeywordThesaurus').orderBy('enteredKeyword').queryList()
 
 //if no param sent in make firstLetter 'a' else use firstLetter passed in
-firstLetterString = request.getParameter("firstLetter")
+firstLetterString = request.getParameter('firstLetter')
 if (!firstLetterString) {
     firstLetter = 'a'
 }
@@ -41,14 +41,14 @@ currentLetter = firstLetter
 if (keywordThesaurusIter) {
     while (keywordThesaurusIter) {
         keywordThesaurus = keywordThesaurusIter.next()
-        if (keywordThesaurus.get("enteredKeyword").charAt(0)<'a' ||
-                keywordThesaurus.get("enteredKeyword").charAt(0)>'z') {
+        if (keywordThesaurus.get('enteredKeyword').charAt(0)<'a' ||
+                keywordThesaurus.get('enteredKeyword').charAt(0)>'z') {
             specialCharKeywordThesaurus.add(keywordThesaurus)
-        } else if (keywordThesaurus.get("enteredKeyword").charAt(0) >= firstLetter) {
-            if (keywordThesaurus.get("enteredKeyword").charAt(0) == currentLetter ||
+        } else if (keywordThesaurus.get('enteredKeyword').charAt(0) >= firstLetter) {
+            if (keywordThesaurus.get('enteredKeyword').charAt(0) == currentLetter ||
                     newKeywordThesaurus.size()<20) {
                 newKeywordThesaurus.add(keywordThesaurus)
-                currentLetter = keywordThesaurus.get("enteredKeyword").charAt(0)
+                currentLetter = keywordThesaurus.get('enteredKeyword').charAt(0)
             }
         }
     }

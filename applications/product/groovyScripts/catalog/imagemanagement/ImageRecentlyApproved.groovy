@@ -32,9 +32,9 @@ import java.util.List
 import java.util.Set
 
 def limit = 13 // set number of days
-def sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-def sdf2 = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy", locale);
-def sdfTime = new SimpleDateFormat("HH:mm")
+def sdf = DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss')
+def sdf2 = DateTimeFormatter.ofPattern('EEEE dd/MM/yyyy', locale);
+def sdfTime = new SimpleDateFormat('HH:mm')
 def today = LocalDateTime.now()
 
 for (i in 0..limit){
@@ -42,15 +42,15 @@ for (i in 0..limit){
     def timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
     // make condition for distinct productId
     def exprs = []
-    exprs.add(EntityCondition.makeCondition("productContentTypeId",EntityOperator.EQUALS, "IMAGE"))
-    exprs.add(EntityCondition.makeCondition("statusId",EntityOperator.EQUALS, "IM_APPROVED"))
-    exprs.add(EntityCondition.makeCondition("purchaseFromDate", EntityOperator.GREATER_THAN_EQUAL_TO, timeStampDate1))
-    exprs.add(EntityCondition.makeCondition("purchaseFromDate", EntityOperator.LESS_THAN, timeStampDate2))
+    exprs.add(EntityCondition.makeCondition('productContentTypeId',EntityOperator.EQUALS, 'IMAGE'))
+    exprs.add(EntityCondition.makeCondition('statusId',EntityOperator.EQUALS, 'IM_APPROVED'))
+    exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.GREATER_THAN_EQUAL_TO, timeStampDate1))
+    exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.LESS_THAN, timeStampDate2))
     // query result
-    def productContentAndInfoList = select("productId").from("ProductContentAndInfo").where(exprs).distinct().queryList()
+    def productContentAndInfoList = select('productId').from('ProductContentAndInfo').where(exprs).distinct().queryList()
     
     // finding time
-    def timeList = from("ProductContentAndInfo").where(exprs).orderBy("productId").queryList()
+    def timeList = from('ProductContentAndInfo').where(exprs).orderBy('productId').queryList()
     def groupByTimeList =  timeList.groupBy{it.productId}
     def tempTimeList = []
     groupByTimeList.each() {
@@ -94,6 +94,6 @@ for (i in 0..limit){
             context.timeStampDate1_12 = timeStampDate1; context.timeStampDate2_12 = timeStampDate2; break
         case 13: context.approved_13 = productContentAndInfoList; context.time_13 = time; context.date13 = showDate
             context.timeStampDate1_13 = timeStampDate1; context.timeStampDate2_13 = timeStampDate2; break
-        default: context.error = "error"
+        default: context.error = 'error'
     }
 }

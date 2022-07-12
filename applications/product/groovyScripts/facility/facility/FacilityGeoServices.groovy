@@ -26,7 +26,7 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createUpdateFacilityGeoPoint() {
     if (!parameters.geoPointId) {
-        Map serviceResult = run service: "createGeoPoint", with: parameters
+        Map serviceResult = run service: 'createGeoPoint', with: parameters
         if (!ServiceUtil.isSuccess(serviceResult)) {
             return serviceResult
         }
@@ -36,7 +36,7 @@ Map createUpdateFacilityGeoPoint() {
         facility.store()
         return success();
     } else {
-        Map serviceResult = run service: "updateGeoPoint", with: parameters
+        Map serviceResult = run service: 'updateGeoPoint', with: parameters
         return serviceResult
     }
 }

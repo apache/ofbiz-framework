@@ -20,16 +20,16 @@
 import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.entity.util.*
 
-facilityId = request.getParameter("facilityId")
+facilityId = request.getParameter('facilityId')
 
-inventoryTransferId = request.getParameter("inventoryTransferId")
+inventoryTransferId = request.getParameter('inventoryTransferId')
 context.inventoryTransferId = inventoryTransferId
 
-inventoryItemId = request.getParameter("inventoryItemId")
+inventoryItemId = request.getParameter('inventoryItemId')
 inventoryTransfer = null
 
 if (inventoryTransferId) {
-    inventoryTransfer = from("InventoryTransfer").where("inventoryTransferId", inventoryTransferId).queryOne()
+    inventoryTransfer = from('InventoryTransfer').where('inventoryTransferId', inventoryTransferId).queryOne()
     if (inventoryTransfer) {
         context.inventoryTransfer = inventoryTransfer
         if (!facilityId) {
@@ -42,31 +42,31 @@ if (inventoryTransferId) {
     }
 }
 
-facility = from("Facility").where("facilityId", facilityId).queryOne()
+facility = from('Facility').where('facilityId', facilityId).queryOne()
 context.facilityId = facilityId
 context.facility = facility
 context.inventoryItemId = inventoryItemId
 
 if (facilityId) {
-    facility = from("Facility").where("facilityId", facilityId).queryOne()
+    facility = from('Facility').where('facilityId', facilityId).queryOne()
 }
 
 String illegalInventoryItem = null
 if (inventoryItemId) {
-    inventoryItem = from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne()
+    inventoryItem = from('InventoryItem').where('inventoryItemId', inventoryItemId).queryOne()
     if (facilityId && inventoryItem && inventoryItem.facilityId && !inventoryItem.facilityId.equals(facilityId)) {
-        illegalInventoryItem = "Inventory item not found for this facility."
+        illegalInventoryItem = 'Inventory item not found for this facility.'
         inventoryItem = null
     }
     if (inventoryItem) {
         context.inventoryItem = inventoryItem
-        inventoryItemType = inventoryItem.getRelatedOne("InventoryItemType", false)
+        inventoryItemType = inventoryItem.getRelatedOne('InventoryItemType', false)
 
         if (inventoryItemType) {
             context.inventoryItemType = inventoryItemType
         }
         if (inventoryItem.statusId) {
-            inventoryStatus = inventoryItem.getRelatedOne("StatusItem", false)
+            inventoryStatus = inventoryItem.getRelatedOne('StatusItem', false)
             if (inventoryStatus) {
                 context.inventoryStatus = inventoryStatus
             }
@@ -75,15 +75,15 @@ if (inventoryItemId) {
 }
 
 // facilities
-context.facilities = from("Facility").queryList()
+context.facilities = from('Facility').queryList()
 
 // status items
 if (inventoryTransfer && inventoryTransfer.statusId) {
-    statusChange = from("StatusValidChange").where("statusId", inventoryTransfer.statusId).queryList()
+    statusChange = from('StatusValidChange').where('statusId', inventoryTransfer.statusId).queryList()
     if (statusChange) {
         statusItems = [] as ArrayList
         statusChange.each { curStatusChange ->
-            curStatusItem = from("StatusItem").where("statusId", curStatusChange.statusIdTo).queryOne()
+            curStatusItem = from('StatusItem').where('statusId', curStatusChange.statusIdTo).queryOne()
             if (curStatusItem) {
                 statusItems.add(curStatusItem)
             }
@@ -92,7 +92,7 @@ if (inventoryTransfer && inventoryTransfer.statusId) {
         context.statusItems = statusItems
     }
 } else {
-    statusItems = from("StatusItem").where("statusTypeId", "INVENTORY_XFER_STTS").orderBy("sequenceId").queryList()
+    statusItems = from('StatusItem').where('statusTypeId', 'INVENTORY_XFER_STTS').orderBy('sequenceId').queryList()
     if (statusItems) {
         context.statusItems = statusItems
     }

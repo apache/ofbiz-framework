@@ -232,7 +232,7 @@ class ProductTest extends OFBizTestCase {
         String productStoreGroupId = 'Test_group'
         String currencyUomId = 'USD'
         BigDecimal price = new BigDecimal('30')
-        Timestamp fromDate = UtilDateTime.toTimestamp("04/07/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
 
         Map serviceCtx = [
                 productId: productId,
@@ -266,7 +266,7 @@ class ProductTest extends OFBizTestCase {
         String productStoreGroupId = 'Test_group'
         String currencyUomId = 'USD'
         BigDecimal price = new BigDecimal('50')
-        Timestamp fromDate = UtilDateTime.toTimestamp("07/04/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
 
         Map serviceCtx = [
                 productId: productId,
@@ -317,7 +317,7 @@ class ProductTest extends OFBizTestCase {
         String productPricePurposeId = 'COMPONENT_PRICE'
         String productStoreGroupId = 'Test_group'
         String currencyUomId = 'USD'
-        Timestamp fromDate = UtilDateTime.toTimestamp("07/04/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
 
         Map serviceCtx = [
                 productId: productId,

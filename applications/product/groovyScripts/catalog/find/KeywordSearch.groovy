@@ -21,20 +21,20 @@ import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.product.catalog.*
 import org.apache.ofbiz.product.product.*
 
-module = "KeywordSearch.groovy"
+module = 'KeywordSearch.groovy'
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
-request.getSession().setAttribute("dispatcher",dispatcher)
+request.getSession().setAttribute('dispatcher',dispatcher)
 ProductSearchSession.processSearchParameters(parameters, request)
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request)
 result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId)
 
-applicationTypes = from("ProductFeatureApplType").orderBy("description").queryList()
+applicationTypes = from('ProductFeatureApplType').orderBy('description').queryList()
 
-expr = EntityCondition.makeCondition(EntityCondition.makeCondition("showInSelect", EntityOperator.EQUALS, null),
+expr = EntityCondition.makeCondition(EntityCondition.makeCondition('showInSelect', EntityOperator.EQUALS, null),
                                      EntityOperator.OR,
-                                     EntityCondition.makeCondition("showInSelect", EntityOperator.NOT_EQUAL, "N"))
-productCategories = from("ProductCategory").where(expr).orderBy("description").queryList()
+                                     EntityCondition.makeCondition('showInSelect', EntityOperator.NOT_EQUAL, 'N'))
+productCategories = from('ProductCategory').where(expr).orderBy('description').queryList()
 
 context.applicationTypes = applicationTypes
 context.productCategories = productCategories

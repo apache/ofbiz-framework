@@ -27,7 +27,7 @@ public class FileUtilTests {
      */
     @Test
     void zipReadme() {
-        String zipFilePath = UtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp")
+        String zipFilePath = UtilProperties.getPropertyValue('general', 'http.upload.tmprepository', 'runtime/tmp')
         String zipName = 'README.adoc.zip'
         String fileName = 'README.adoc'
         File originalReadme = new File(fileName)

@@ -25,22 +25,22 @@ context.userLogin = userLogin
 
 // create the sort order
 sort = parameters.sort
-sortOrder = ["currentStatusId", "-priority", "orderDate"]
+sortOrder = ['currentStatusId', '-priority', 'orderDate']
 if (sort) {
-    if ("name".equals(sort)) {
-        sortOrder.add(0, "firstName")
-        sortOrder.add(0, "lastName")
-    } else if ("grandTotal".equals(sort)) {
-        sortOrder.add(0, "-grandTotal")
+    if ('name'.equals(sort)) {
+        sortOrder.add(0, 'firstName')
+        sortOrder.add(0, 'lastName')
+    } else if ('grandTotal'.equals(sort)) {
+        sortOrder.add(0, '-grandTotal')
     } else {
         sortOrder.add(0, sort)
     }
 }
 
-partyBase = [EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CAL_ACCEPTED"), EntityCondition.makeCondition("wepaPartyId", EntityOperator.EQUALS, userLogin.partyId)]
-partyRole = [EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT")]
+partyBase = [EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'CAL_ACCEPTED'), EntityCondition.makeCondition('wepaPartyId', EntityOperator.EQUALS, userLogin.partyId)]
+partyRole = [EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'SUPPLIER_AGENT')]
 partyExpr = [EntityCondition.makeCondition(partyBase, EntityOperator.AND), EntityCondition.makeCondition(partyRole, EntityOperator.OR)]
-partyTasks = from("OrderTaskList").where(partyExpr).orderBy(sortOrder).queryList()
+partyTasks = from('OrderTaskList').where(partyExpr).orderBy(sortOrder).queryList()
 
 if (partyTasks) partyTasks = EntityUtil.filterByDate(partyTasks)
 context.partyTasks = partyTasks
@@ -48,36 +48,36 @@ context.partyTasks = partyTasks
 // Build a map of orderId and currency
 orderCurrencyMap = [:]
 partyTasks.each { ptItem ->
-    orderHeader = from("OrderHeader").where("orderId", ptItem.orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', ptItem.orderId).queryOne()
     orderCurrencyMap[ptItem.orderId] = orderHeader.currencyUom
 }
 
 // get this user's roles
-partyRoles = from("PartyRole").where("partyId", userLogin.partyId).queryList()
+partyRoles = from('PartyRole').where('partyId', userLogin.partyId).queryList()
 
 // build the role list
 pRolesList = []
 partyRoles.each { partyRole ->
-    if (!"_NA_".equals(partyRole.roleTypeId))
-        pRolesList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, partyRole.roleTypeId))
+    if (!'_NA_'.equals(partyRole.roleTypeId))
+        pRolesList.add(EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, partyRole.roleTypeId))
 }
 
-custList = [EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT")]
-baseList = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED")]
+custList = [EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'SUPPLIER_AGENT')]
+baseList = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_CANCELLED'), EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_COMPLETED'), EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_DELEGATED')]
 expressions = []
 expressions.add(EntityCondition.makeCondition(custList, EntityOperator.OR))
 if (pRolesList) expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR))
 expressions.add(EntityCondition.makeCondition(baseList, EntityOperator.AND))
 
 // invoke the query
-roleTasks = from("OrderTaskList").where(expressions).orderBy(sortOrder).queryList()
+roleTasks = from('OrderTaskList').where(expressions).orderBy(sortOrder).queryList()
 roleTasks = EntityUtil.filterByAnd(roleTasks, baseList)
 roleTasks = EntityUtil.filterByDate(roleTasks)
 context.roleTasks = roleTasks
 
 // Add to the map of orderId and currency
 roleTasks.each { rtItem ->
-    orderHeader = from("OrderHeader").where("orderId", rtItem.orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', rtItem.orderId).queryOne()
     orderCurrencyMap[rtItem.orderId] = orderHeader.currencyUom
 }
 context.orderCurrencyMap = orderCurrencyMap
@@ -85,7 +85,7 @@ context.orderCurrencyMap = orderCurrencyMap
 context.now = nowTimestamp
 
 // purchase order schedule
-poList = from("OrderHeaderAndRoles").where("partyId", userLogin.partyId, "orderTypeId", "PURCHASE_ORDER").queryList()
+poList = from('OrderHeaderAndRoles').where('partyId', userLogin.partyId, 'orderTypeId', 'PURCHASE_ORDER').queryList()
 poIter = poList.iterator()
 listedPoIds = new HashSet()
 while (poIter.hasNext()) {

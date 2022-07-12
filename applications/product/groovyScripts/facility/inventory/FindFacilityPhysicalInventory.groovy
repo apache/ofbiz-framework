@@ -27,18 +27,18 @@ productId = parameters.productId ? parameters.productId.trim() : null
 internalName = parameters.internalName ? parameters.internalName.trim() : null
 
 // build conditions
-conditions = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-              EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM")
+conditions = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
+              EntityCondition.makeCondition('inventoryItemTypeId', EntityOperator.EQUALS, 'NON_SERIAL_INV_ITEM')
              ]
 if (productId) {
-    conditions.add(EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId + "%"))
+    conditions.add(EntityCondition.makeCondition('productId', EntityOperator.LIKE, productId + '%'))
 }
 if (internalName) {
-    conditions.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, internalName + "%"))
+    conditions.add(EntityCondition.makeCondition('internalName', EntityOperator.LIKE, internalName + '%'))
 }
 
 if (conditions.size() > 2) {
-    physicalInventory = from("ProductInventoryItem").where(conditions).orderBy("productId").queryList()
+    physicalInventory = from('ProductInventoryItem').where(conditions).orderBy('productId').queryList()
 
     // also need the overal product QOH and ATP for each product
     atpMap = [:]

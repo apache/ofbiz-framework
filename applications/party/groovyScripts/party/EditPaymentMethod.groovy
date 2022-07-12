@@ -53,7 +53,7 @@ checkAccountData = paymentResults.checkAccount
 if (!tryEntity) checkAccountData = parameters
 context.checkAccountData = checkAccountData ?: [:]
 
-context.donePage = parameters.DONE_PAGE ?:"viewprofile"
+context.donePage = parameters.DONE_PAGE ?:'viewprofile'
 
 paymentMethodData = paymentResults.paymentMethod
 if (!tryEntity.booleanValue()) paymentMethodData = parameters

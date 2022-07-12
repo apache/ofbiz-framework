@@ -23,18 +23,18 @@ partyId = parameters.partyId
 productId = parameters.productId
 
 if (orderId && productId) {
-    shipmentReceiptAndItems = from("ShipmentReceiptAndItem").where("orderId", orderId, "productId", productId).queryList()
+    shipmentReceiptAndItems = from('ShipmentReceiptAndItem').where('orderId', orderId, 'productId', productId).queryList()
     context.inventoryItemsForPo = shipmentReceiptAndItems
     context.orderId = orderId
 }
-exprList = [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-		EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.GREATER_THAN, BigDecimal.ZERO)]
+exprList = [EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId),
+		EntityCondition.makeCondition('availableToPromiseTotal', EntityOperator.GREATER_THAN, BigDecimal.ZERO)]
 if (partyId && productId) {
-    orderRoles = from("OrderRole").where("partyId", partyId, "roleTypeId", "BILL_FROM_VENDOR").queryList()
+    orderRoles = from('OrderRole').where('partyId', partyId, 'roleTypeId', 'BILL_FROM_VENDOR').queryList()
     inventoryItemsForSupplier = []
     orderRoles.each { orderRole ->
-        shipmentReceiptAndItems = from("ShipmentReceiptAndItem").where(EntityCondition.makeCondition(exprList, EntityOperator.AND),
-			EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderRole.orderId)).queryList()
+        shipmentReceiptAndItems = from('ShipmentReceiptAndItem').where(EntityCondition.makeCondition(exprList, EntityOperator.AND),
+			EntityCondition.makeCondition('orderId', EntityOperator.EQUALS, orderRole.orderId)).queryList()
         inventoryItemsForSupplier.addAll(shipmentReceiptAndItems)
     }
     context.inventoryItemsForSupplier = inventoryItemsForSupplier
@@ -42,9 +42,9 @@ if (partyId && productId) {
 }
 
 if (productId) {
-    inventoryItems = from("InventoryItem").where(EntityCondition.makeCondition(exprList, EntityOperator.AND)).queryList()
+    inventoryItems = from('InventoryItem').where(EntityCondition.makeCondition(exprList, EntityOperator.AND)).queryList()
     context.inventoryItemsForProduct = inventoryItems
     context.productId = productId
-    product = from("Product").where("productId", productId).queryOne()
+    product = from('Product').where('productId', productId).queryOne()
     context.internalName = product.internalName
 }

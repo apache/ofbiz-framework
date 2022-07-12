@@ -60,16 +60,16 @@ if (toPrintOrders) {
                     orderMap.orderId = orderId
                     orderMap.orderDate = orderHeader.orderDate
                     billingOrderContactMechs = []
-                    billingOrderContactMechs = from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION").queryList()
+                    billingOrderContactMechs = from('OrderContactMech').where('orderId', orderId, 'contactMechPurposeTypeId', 'BILLING_LOCATION').queryList()
                     if (billingOrderContactMechs.size() > 0) {
                         billingContactMechId = EntityUtil.getFirst(billingOrderContactMechs).contactMechId
-                        billingAddress = from("PostalAddress").where("contactMechId", billingContactMechId).queryOne()
+                        billingAddress = from('PostalAddress').where('contactMechId', billingContactMechId).queryOne()
                     }
-                    shippingContactMechId = from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION").queryFirst().contactMechId
-                    shippingAddress = from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne()
+                    shippingContactMechId = from('OrderContactMech').where('orderId', orderId, 'contactMechPurposeTypeId', 'SHIPPING_LOCATION').queryFirst().contactMechId
+                    shippingAddress = from('PostalAddress').where('contactMechId', shippingContactMechId).queryOne()
                     orderItemShipGroups.each { orderItemShipGroup ->
                         if (orderItemShipGroup.orderId == orderId) {
-                            orderMap.shipmentMethodType = EntityUtil.getFirst(orderItemShipGroup.getRelated("ShipmentMethodType", null, null, false)).description
+                            orderMap.shipmentMethodType = EntityUtil.getFirst(orderItemShipGroup.getRelated('ShipmentMethodType', null, null, false)).description
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId
                             orderMap.shipGroupSeqId = orderItemShipGroup.shipGroupSeqId
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId
@@ -83,13 +83,13 @@ if (toPrintOrders) {
                         orderInfoMap = [:]
                         orderInfoMap.(orderHeader.orderId) = orderMap
                     }
-                    addInMap = "true"
+                    addInMap = 'true'
                     orderItemMap = [:]
                     orderItemShipGrpInvResInfoList.each { orderItemShipGrpInvResInfos ->
                         orderItemShipGrpInvResInfos.each { orderItemShipGrpInvResInfo ->
-                            if (orderItemShipGrpInvResInfo.orderItemShipGrpInvRes.orderId == orderId && "true" == addInMap) {
+                            if (orderItemShipGrpInvResInfo.orderItemShipGrpInvRes.orderId == orderId && 'true' == addInMap) {
                                 orderItemMap.(orderHeader.orderId) = orderItemShipGrpInvResInfos
-                                addInMap = "false"
+                                addInMap = 'false'
                             }
                         }
                     }
@@ -127,5 +127,5 @@ if (toPrintOrders) {
             }
         }
     }
-    UtilHttp.setContentDisposition(response, "orderPickSheet.pdf")
+    UtilHttp.setContentDisposition(response, 'orderPickSheet.pdf')
 }

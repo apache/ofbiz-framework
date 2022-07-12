@@ -33,12 +33,12 @@ import org.apache.ofbiz.party.party.PartyHelper
  */
 def createProductPrice() {
     Map result = success()
-    if (!security.hasPermission("CATALOG_PRICE_MAINT", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceMaintPermissionError", locale))
+    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
     }
     inlineHandlePriceWithTaxIncluded()
 
-    GenericValue newEntity = makeValue("ProductPrice", parameters)
+    GenericValue newEntity = makeValue('ProductPrice', parameters)
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     if (!newEntity.fromDate) {
@@ -60,12 +60,12 @@ def createProductPrice() {
  */
 def updateProductPrice() {
     Map result = success()
-    if (!security.hasPermission("CATALOG_PRICE_MAINT", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceMaintPermissionError", locale))
+    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
     }
     inlineHandlePriceWithTaxIncluded()
 
-    GenericValue lookedUpValue = from("ProductPrice").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('ProductPrice').where(parameters).queryOne()
     // grab the old price value before setting nonpk parameter fields
     result.oldPrice = lookedUpValue.price
     lookedUpValue.setNonPKFields(parameters)
@@ -82,10 +82,10 @@ def updateProductPrice() {
  */
 def deleteProductPrice() {
     Map result = success()
-    if (!security.hasPermission("CATALOG_PRICE_MAINT", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceMaintPermissionError", locale))
+    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
     }
-    GenericValue lookedUpValue = from("ProductPrice").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('ProductPrice').where(parameters).queryOne()
     // grab the old price value before setting nonpk parameter fields
     result.oldPrice = lookedUpValue.price
     lookedUpValue.remove()
@@ -105,15 +105,15 @@ def inlineHandlePriceWithTaxIncluded() {
         if (!parameters.taxPercentage) {
             // we only have basic data to constrain by here, so assume that if it is a VAT tax setup it should be pretty simple
             EntityCondition condition = EntityCondition.makeCondition([
-                EntityCondition.makeCondition("taxAuthGeoId", parameters.taxAuthGeoId),
-                EntityCondition.makeCondition("taxAuthPartyId", parameters.taxAuthPartyId),
-                EntityCondition.makeCondition("taxAuthorityRateTypeId", EntityOperator.IN, ["SALES_TAX", "VAT_TAX"])
+                EntityCondition.makeCondition('taxAuthGeoId', parameters.taxAuthGeoId),
+                EntityCondition.makeCondition('taxAuthPartyId', parameters.taxAuthPartyId),
+                EntityCondition.makeCondition('taxAuthorityRateTypeId', EntityOperator.IN, ['SALES_TAX', 'VAT_TAX'])
             ])
-            GenericValue taxAuthorityRateProduct = from("TaxAuthorityRateProduct").where(condition).filterByDate().queryFirst()
+            GenericValue taxAuthorityRateProduct = from('TaxAuthorityRateProduct').where(condition).filterByDate().queryFirst()
             parameters.taxPercentage = taxAuthorityRateProduct?.taxPercentage
         }
         if (!parameters.taxPercentage) {
-            return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceTaxPercentageNotFound", locale))
+            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceTaxPercentageNotFound', locale))
         }
         // in short the formula is: taxAmount = priceWithTax - (priceWithTax/(1+taxPercentage/100))
         BigDecimal taxAmount = parameters.priceWithTax - (parameters.priceWithTax / (1 + parameters.taxPercentage/100))
@@ -122,7 +122,7 @@ def inlineHandlePriceWithTaxIncluded() {
         BigDecimal priceWithoutTax = parameters.priceWithTax - parameters.taxAmount
         parameters.priceWithoutTax = priceWithoutTax.setScale(3, RoundingMode.HALF_UP)
 
-        parameters.price = parameters.taxInPrice == "Y" ?
+        parameters.price = parameters.taxInPrice == 'Y' ?
                 parameters.priceWithTax: // the price passed in has tax included, and we want to store it with tax included
                 parameters.priceWithoutTax // the price passed in has tax included, but we want to store it without tax included
     }
@@ -137,17 +137,17 @@ def inlineHandlePriceWithTaxIncluded() {
  */
 def createProductPriceCond() {
     Map result = success()
-    if (!security.hasEntityPermission("CATALOG", "_CREATE", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogCreatePermissionError", locale))
+    if (!security.hasEntityPermission('CATALOG', '_CREATE', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', locale))
     }
-    if (!security.hasPermission("CATALOG_PRICE_MAINT", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceMaintPermissionError", locale))
+    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
     }
     if (parameters.condValueInput) {
         parameters.condValue = parameters.condValueInput
     }
-    GenericValue newEntity = makeValue("ProductPriceCond", parameters)
-    delegator.setNextSubSeqId(newEntity, "productPriceCondSeqId", 2, 1)
+    GenericValue newEntity = makeValue('ProductPriceCond', parameters)
+    delegator.setNextSubSeqId(newEntity, 'productPriceCondSeqId', 2, 1)
     result.productPriceCondSeqId = newEntity.productPriceCondSeqId
     newEntity.create()
     return result
@@ -158,16 +158,16 @@ def createProductPriceCond() {
  * @return
  */
 def updateProductPriceCond() {
-    if (!security.hasEntityPermission("CATALOG", "_UPDATE", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogUpdatePermissionError", locale))
+    if (!security.hasEntityPermission('CATALOG', '_UPDATE', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', locale))
     }
-    if (!security.hasPermission("CATALOG_PRICE_MAINT", userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductPriceMaintPermissionError", locale))
+    if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
     }
-    if (["PRIP_QUANTITY", "PRIP_LIST_PRICE"].contains(parameters.inputParamEnumId)) {
+    if (['PRIP_QUANTITY', 'PRIP_LIST_PRICE'].contains(parameters.inputParamEnumId)) {
         parameters.condValue = parameters.condValueInput
     }
-    GenericValue lookedUpValue = from("ProductPriceCond").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('ProductPriceCond').where(parameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
     return success()
@@ -184,72 +184,72 @@ def getAssociatedPriceRulesConds() {
     // May prove more useful rather than an entity-and in custom cases, set limit to not return too huge element
     int sizeLimit = 200
     switch (parameters.inputParamEnumId) {
-        case "PRIP_PRODUCT_ID":
-            from("Product").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PRODUCT_ID':
+            from('Product').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.productId,
                                                 description: it.internalName ?: '[' + it.productId + ']']
             }
             break
 
-        case "PRIP_PROD_CAT_ID":
-            from("ProductCategory").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PROD_CAT_ID':
+            from('ProductCategory').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.productCategoryId,
                                                 description: it.categoryName ?: '[' + it.productCategoryId + ']']
             }
             break
 
-        case "PRIP_PROD_FEAT_ID":
-            from("ProductFeatureType").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PROD_FEAT_ID':
+            from('ProductFeatureType').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.productFeatureTypeId,
                                                 description: it.description ?: '[' + it.productFeatureTypeId + ']']
             }
             break
 
-        case "PRIP_PARTY_ID":
-        case "PRIP_PARTY_GRP_MEM":
-            from("PartyNameView").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PARTY_ID':
+        case 'PRIP_PARTY_GRP_MEM':
+            from('PartyNameView').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.partyId,
                                                 description: PartyHelper.getPartyName(it)]
             }
             break
 
-        case "PRIP_PARTY_CLASS":
-            from("PartyClassificationGroup").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PARTY_CLASS':
+            from('PartyClassificationGroup').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.partyClassificationGroupId,
                                                 description: it.description ?: '[' + it.partyClassificationGroupId + ']']
             }
             break
 
-        case "PRIP_ROLE_TYPE":
-            from("RoleType").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_ROLE_TYPE':
+            from('RoleType').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.roleTypeId,
                                                 description: it.description ?: '[' + it.roleTypeId + ']']
             }
             break
 
-        case "PRIP_WEBSITE_ID":
-            from("WebSite").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_WEBSITE_ID':
+            from('WebSite').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.webSiteId,
                                                 description: it.siteName ?: '[' + it.webSiteId + ']']
             }
             break
 
-        case "PRIP_PROD_SGRP_ID":
-            from("ProductStoreGroup").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PROD_SGRP_ID':
+            from('ProductStoreGroup').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.productStoreGroupId,
                                                 description: it.productStoreGroupName ?: '[' + it.productStoreGroupId + ']']
             }
             break
 
-        case "PRIP_PROD_CLG_ID":
-            from("ProdCatalog").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_PROD_CLG_ID':
+            from('ProdCatalog').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.prodCatalogId,
                                                 description: it.catalogName ?: '[' + it.prodCatalogId + ']']
             }
             break
 
-        case "PRIP_CURRENCY_UOMID":
-            from("Uom").limit(sizeLimit).queryList()?.each {
+        case 'PRIP_CURRENCY_UOMID':
+            from('Uom').limit(sizeLimit).queryList()?.each {
                 productPriceRulesCondValues << [key: it.uomId,
                                                 description: it.abbreviation ?: '[' + it.uomId + ']']
             }
@@ -261,10 +261,10 @@ def getAssociatedPriceRulesConds() {
 
     result.productPriceRulesCondValues = []
     if (!productPriceRulesCondValues) {
-        result.productPriceRulesCondValues << UtilProperties.getMessage("CommonUiLabels", "CommonNoOptions", locale)
+        result.productPriceRulesCondValues << UtilProperties.getMessage('CommonUiLabels', 'CommonNoOptions', locale)
     } else {
         productPriceRulesCondValues.each {
-            result.productPriceRulesCondValues << it.description + ": " + it.key
+            result.productPriceRulesCondValues << it.description + ': ' + it.key
         }
     }
     return result

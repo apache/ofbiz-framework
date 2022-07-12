@@ -28,22 +28,22 @@ import org.apache.ofbiz.service.ServiceUtil
  * @return
  */
 def createOrderDeliverySchedule() {
-    String checkAction = "CREATE"
-    Map serviceResult = checkSupplierRelatedPermission("createOrderDeliverySchedule", checkAction, parameters.orderId)
+    String checkAction = 'CREATE'
+    Map serviceResult = checkSupplierRelatedPermission('createOrderDeliverySchedule', checkAction, parameters.orderId)
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
 
-    GenericValue schedule = makeValue("OrderDeliverySchedule")
+    GenericValue schedule = makeValue('OrderDeliverySchedule')
     schedule.setPKFields(parameters)
     if(!schedule.orderItemSeqId) {
-        schedule.orderItemSeqId = "_NA_"
+        schedule.orderItemSeqId = '_NA_'
     }
     // only set statusId if hasScheduleAdminRelatedPermission
     schedule.setNonPKFields(parameters)
-    if (!security.hasEntityPermission("ORDERMGR", ("_" + checkAction), parameters.userLogin)) {
+    if (!security.hasEntityPermission('ORDERMGR', ('_' + checkAction), parameters.userLogin)) {
         // no permission, set to initial
-        schedule.statusId = "ODS_SUBMITTED"
+        schedule.statusId = 'ODS_SUBMITTED'
     }
     schedule.create()
     return success()
@@ -55,19 +55,19 @@ def createOrderDeliverySchedule() {
  */
 def updateOrderDeliverySchedule() {
     // Verify the user is allowed to edit the fields
-    String checkAction = "UPDATE"
-    Map serviceResult = checkSupplierRelatedPermission("updateOrderDeliverySchedule", checkAction, parameters.orderId)
+    String checkAction = 'UPDATE'
+    Map serviceResult = checkSupplierRelatedPermission('updateOrderDeliverySchedule', checkAction, parameters.orderId)
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
 
     // Lookup the existing schedule to modify
-    GenericValue schedule = from("OrderDeliverySchedule").where(parameters).queryOne()
+    GenericValue schedule = from('OrderDeliverySchedule').where(parameters).queryOne()
 
     // only set statusId if hasScheduleAdminRelatedPermission
     String saveStatusId = schedule.statusId
     schedule.setNonPKFields(parameters)
-    if (!security.hasEntityPermission("ORDERMGR", ("_" + checkAction), parameters.userLogin)) {
+    if (!security.hasEntityPermission('ORDERMGR', ('_' + checkAction), parameters.userLogin)) {
         schedule.statusId = saveStatusId
     }
     // Update the actual schedule
@@ -76,57 +76,57 @@ def updateOrderDeliverySchedule() {
 }
 
 def sendOrderDeliveryScheduleNotification() {
-    String checkAction = "UPDATE"
-    Map serviceResult = checkSupplierRelatedPermission("sendOrderDeliveryScheduleNotification", checkAction, parameters.orderId)
+    String checkAction = 'UPDATE'
+    Map serviceResult = checkSupplierRelatedPermission('sendOrderDeliveryScheduleNotification', checkAction, parameters.orderId)
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
     if (!parameters.orderItemSeqId) {
-        parameters.orderItemSeqId = "_NA_"
+        parameters.orderItemSeqId = '_NA_'
     }
-    GenericValue orderDeliverySchedule = from("OrderDeliverySchedule").where(parameters).queryOne()
+    GenericValue orderDeliverySchedule = from('OrderDeliverySchedule').where(parameters).queryOne()
     // find email address for currently logged in user, set as sendFrom
-    Map curUserPcmFindMap = [partyId: userLogin.partyId, contactMechTypeId: "EMAIL_ADDRESS"]
-    GenericValue curUserPartyAndContactMech = from("PartyAndContactMech").where(curUserPcmFindMap).queryFirst()
-    Map sendEmailMap = [sendFrom: ("," + curUserPartyAndContactMech.infoString)]
+    Map curUserPcmFindMap = [partyId: userLogin.partyId, contactMechTypeId: 'EMAIL_ADDRESS']
+    GenericValue curUserPartyAndContactMech = from('PartyAndContactMech').where(curUserPcmFindMap).queryFirst()
+    Map sendEmailMap = [sendFrom: (',' + curUserPartyAndContactMech.infoString)]
 
     // find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo
-    Map shipmentClerkFindMap = [roleTypeId: "SHIPMENT_CLERK"]
-    List shipmentClerkRoles = from("PartyRole").where(shipmentClerkFindMap).queryList()
+    Map shipmentClerkFindMap = [roleTypeId: 'SHIPMENT_CLERK']
+    List shipmentClerkRoles = from('PartyRole').where(shipmentClerkFindMap).queryList()
     Map sendToPartyIdMap = [:]
     for (GenericValue shipmentClerkRole : shipmentClerkRoles) {
         sendToPartyIdMap[shipmentClerkRole.partyId] = shipmentClerkRole.partyId
     }
     // go through all send to parties and get email addresses
     for (Map.Entry entry : sendToPartyIdMap) {
-        Map sendToPartyPcmFindMap = [partyId: entry.getKey(), contactMechTypeId: "EMAIL_ADDRESS"]
-        List sendToPartyPartyAndContactMechs = from("PartyAndContactMech").where(sendToPartyPcmFindMap).queryList()
+        Map sendToPartyPcmFindMap = [partyId: entry.getKey(), contactMechTypeId: 'EMAIL_ADDRESS']
+        List sendToPartyPartyAndContactMechs = from('PartyAndContactMech').where(sendToPartyPcmFindMap).queryList()
         for (GenericValue sendToPartyPartyAndContactMech : sendToPartyPartyAndContactMechs) {
             StringBuilder newContact = new StringBuilder();
             if (sendEmailMap.sendTo) {
                 newContact.append(sendEmailMap.sendTo)
             }
-            newContact.append(",").append(sendToPartyPartyAndContactMech.infoString)
+            newContact.append(',').append(sendToPartyPartyAndContactMech.infoString)
             sendEmailMap.sendTo = newContact.toString()
         }
     }
     // set subject, contentType, templateName, templateData
-    sendEmailMap.subject = "Delivery Information Updated for Order #" + orderDeliverySchedule.orderId
-    if (orderDeliverySchedule.orderItemSeqId != "_NA_") {
+    sendEmailMap.subject = 'Delivery Information Updated for Order #' + orderDeliverySchedule.orderId
+    if (orderDeliverySchedule.orderItemSeqId != '_NA_') {
         StringBuilder newSubject = new StringBuilder()
         newSubject.append(sendEmailMap.subject)
-        newSubject.append(" Item #" + orderDeliverySchedule.orderItemSeqId)
+        newSubject.append(' Item #' + orderDeliverySchedule.orderItemSeqId)
         sendEmailMap.subject = newSubject.toString()
     }
-    sendEmailMap.contentType = "text/html"
-    sendEmailMap.templateName = "component://order/template/email/OrderDeliveryUpdatedNotice.ftl"
+    sendEmailMap.contentType = 'text/html'
+    sendEmailMap.templateName = 'component://order/template/email/OrderDeliveryUpdatedNotice.ftl'
     Map templateData = [orderDeliverySchedule: orderDeliverySchedule]
     sendEmailMap.templateData = templateData
 
     // call sendGenericNotificationEmail service, if enough information was found
     logInfo("Sending generic notification email (if all info is in place): ${sendEmailMap}")
     if (sendEmailMap.sendTo && sendEmailMap.sendFrom) {
-        run service:"sendGenericNotificationEmail", with: sendEmailMap
+        run service:'sendGenericNotificationEmail', with: sendEmailMap
     } else {
         logError("Insufficient data to send notice email: ${sendEmailMap}")
     }
@@ -153,17 +153,17 @@ def checkSupplierRelatedOrderPermissionService() {
 def checkSupplierRelatedPermission(String callingMethodName, String checkAction, String orderId) {
     Map result = success()
     if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage("CommonUiLabels", "CommonPermissionThisOperation", locale)
+        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
     }
     if (!checkAction) {
-        checkAction = "UPDATE"
+        checkAction = 'UPDATE'
     }
     result.hasSupplierRelatedPermission = false
-    if (security.hasEntityPermission("ORDERMGR", ("_" + checkAction), userLogin)) {
+    if (security.hasEntityPermission('ORDERMGR', ('_' + checkAction), userLogin)) {
         result.hasSupplierRelatedPermission = true
     } else {
-        Map lookupOrderRoleMap = [orderId: orderId, partyId: userLogin.partyId, roleTypeId: "SUPPLIER_AGENT"]
-        GenericValue permOrderRole = from("OrderRole").where(lookupOrderRoleMap).queryOne()
+        Map lookupOrderRoleMap = [orderId: orderId, partyId: userLogin.partyId, roleTypeId: 'SUPPLIER_AGENT']
+        GenericValue permOrderRole = from('OrderRole').where(lookupOrderRoleMap).queryOne()
         if (!permOrderRole) {
             result = error("ERROR: You do not have permission to ${checkAction} Delivery Schedule Information; you must be associated with this order as a Supplier Agent or have the ORDERMGR_${checkAction} permission.")
             result.hasSupplierRelatedPermission = false
@@ -171,6 +171,6 @@ def checkSupplierRelatedPermission(String callingMethodName, String checkAction,
             result.hasSupplierRelatedPermission = true
         }
     }
-    logInfo("hasSupplierRelatedPermission is: " + result.hasSupplierRelatedPermission)
+    logInfo('hasSupplierRelatedPermission is: ' + result.hasSupplierRelatedPermission)
     return result
 }

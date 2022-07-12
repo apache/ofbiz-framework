@@ -26,32 +26,32 @@ context.returnId = returnId
 orderId = parameters.orderId
 context.orderId = orderId
 
-returnHeader = from("ReturnHeader").where("returnId", returnId).queryOne()
+returnHeader = from('ReturnHeader').where('returnId', returnId).queryOne()
 context.returnHeader = returnHeader
 
 returnHeaderTypeId = returnHeader.returnHeaderTypeId
 context.toPartyId = returnHeader.toPartyId
 
-returnItems = from("ReturnItem").where("returnId", returnId).queryList()
+returnItems = from('ReturnItem').where('returnId', returnId).queryList()
 context.returnItems = returnItems
 
 // these are just the adjustments not associated directly with a return item--the rest are gotten with a .getRelated on the returnItems in the .FTL
-returnAdjustments = from("ReturnAdjustment").where("returnId", returnId, "returnItemSeqId", "_NA_").orderBy("returnItemSeqId", "returnAdjustmentTypeId").queryList()
+returnAdjustments = from('ReturnAdjustment').where('returnId', returnId, 'returnItemSeqId', '_NA_').orderBy('returnItemSeqId', 'returnAdjustmentTypeId').queryList()
 context.returnAdjustments = returnAdjustments
 
-returnTypes = from("ReturnType").orderBy("sequenceId").queryList()
+returnTypes = from('ReturnType').orderBy('sequenceId').queryList()
 context.returnTypes = returnTypes
 
-itemStatus = from("StatusItem").where("statusTypeId", "INV_SERIALIZED_STTS").orderBy("statusId", "description").queryList()
+itemStatus = from('StatusItem').where('statusTypeId', 'INV_SERIALIZED_STTS').orderBy('statusId', 'description').queryList()
 context.itemStatus = itemStatus
 
-returnReasons = from("ReturnReason").orderBy("sequenceId").queryList()
+returnReasons = from('ReturnReason').orderBy('sequenceId').queryList()
 context.returnReasons = returnReasons
 
-itemStts = from("StatusItem").where("statusTypeId", "INV_SERIALIZED_STTS").orderBy("sequenceId").queryList()
+itemStts = from('StatusItem').where('statusTypeId', 'INV_SERIALIZED_STTS').orderBy('sequenceId').queryList()
 context.itemStts = itemStts
 
-returnItemTypeMap = from("ReturnItemTypeMap").where("returnHeaderTypeId", returnHeaderTypeId).queryList()
+returnItemTypeMap = from('ReturnItemTypeMap').where('returnHeaderTypeId', returnHeaderTypeId).queryList()
 typeMap = [:]
 returnItemTypeMap.each { value ->
     typeMap[value.returnItemMapKey] = value.returnItemTypeId
@@ -59,7 +59,7 @@ returnItemTypeMap.each { value ->
 context.returnItemTypeMap = typeMap
 
 if (orderId) {
-    order = from("OrderHeader").where("orderId", orderId).queryOne()
+    order = from('OrderHeader').where('orderId', orderId).queryOne()
     returnRes = runService('getReturnableItems', [orderId : orderId])
     context.returnableItems = returnRes.returnableItems
 
@@ -72,16 +72,16 @@ if (orderId) {
     shippingAmount = shipRes.shippingAmount
     context.shippingAmount = shippingAmount
 }
-roleTypeId = "PLACING_CUSTOMER"
+roleTypeId = 'PLACING_CUSTOMER'
 partyId = returnHeader.fromPartyId
-if ("VENDOR_RETURN" == returnHeaderTypeId) {
-    roleTypeId = "BILL_FROM_VENDOR"
+if ('VENDOR_RETURN' == returnHeaderTypeId) {
+    roleTypeId = 'BILL_FROM_VENDOR'
     partyId = returnHeader.toPartyId
 }
-partyOrders = select("orderId","orderDate").from("OrderHeaderItemAndRoles").where("roleTypeId", roleTypeId, "partyId", partyId, "orderItemStatusId", "ITEM_COMPLETED").orderBy("orderId").distinct().queryList()
+partyOrders = select('orderId','orderDate').from('OrderHeaderItemAndRoles').where('roleTypeId', roleTypeId, 'partyId', partyId, 'orderItemStatusId', 'ITEM_COMPLETED').orderBy('orderId').distinct().queryList()
 context.partyOrders = partyOrders
 context.partyId = partyId
 
 // get the list of return shipments associated to the return
-returnShipmentIds = select("shipmentId").from("ReturnItemShipment").where("returnId", returnId).distinct().cache(true).queryList()
+returnShipmentIds = select('shipmentId').from('ReturnItemShipment').where('returnId', returnId).distinct().cache(true).queryList()
 context.returnShipmentIds = returnShipmentIds

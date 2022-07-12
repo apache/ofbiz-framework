@@ -45,57 +45,57 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         MockHttpServletResponse response = new MockHttpServletResponse()
 
         Security security = SecurityFactory.getInstance(delegator)
-        request.setAttribute("security", security)
-        request.setAttribute("delegator", delegator)
-        request.setAttribute("dispatcher", dispatcher)
+        request.setAttribute('security', security)
+        request.setAttribute('delegator', delegator)
+        request.setAttribute('dispatcher', dispatcher)
         HttpSession session = request.getSession()
-        session.setAttribute("orderMode", null)
+        session.setAttribute('orderMode', null)
 
         String result = ShoppingCartEvents.routeOrderEntry(request, response)
-        logInfo("===== >>> Event : routeOrderEntry, Response : " + result)
+        logInfo('===== >>> Event : routeOrderEntry, Response : ' + result)
 
-        request.setParameter("orderMode", "SALES_ORDER")
-        request.setParameter("productStoreId", "9000")
-        request.setParameter("partyId", "DemoCustomer")
-        request.setParameter("currencyUom", "USD")
-        session.setAttribute("userLogin", userLogin)
+        request.setParameter('orderMode', 'SALES_ORDER')
+        request.setParameter('productStoreId', '9000')
+        request.setParameter('partyId', 'DemoCustomer')
+        request.setParameter('currencyUom', 'USD')
+        session.setAttribute('userLogin', userLogin)
 
         result = ShoppingCartEvents.initializeOrderEntry(request, response)
-        logInfo("===== >>> Event : initializeOrderEntry, Response : " + result)
+        logInfo('===== >>> Event : initializeOrderEntry, Response : ' + result)
 
         result = ShoppingCartEvents.setOrderCurrencyAgreementShipDates(request, response)
-        logInfo("===== >>> Event : setOrderCurrencyAgreementShipDates, Response : " + result)
+        logInfo('===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ' + result)
 
-        request.setParameter("add_product_id", productId)
+        request.setParameter('add_product_id', productId)
 
         result = ShoppingCartEvents.addToCart(request, response)
-        logInfo("===== >>> Event : addToCart, Response : " + result)
+        logInfo('===== >>> Event : addToCart, Response : ' + result)
 
-        request.setParameter("checkoutpage", "quick")
-        request.setParameter("shipping_contact_mech_id", "9015")
-        request.setParameter("shipping_method", "GROUND@UPS")
-        request.setParameter("checkOutPaymentId", "EXT_COD")
-        request.setParameter("is_gift", "false")
-        request.setParameter("may_split", "false")
-        request.setAttribute("shoppingCart", null)
+        request.setParameter('checkoutpage', 'quick')
+        request.setParameter('shipping_contact_mech_id', '9015')
+        request.setParameter('shipping_method', 'GROUND@UPS')
+        request.setParameter('checkOutPaymentId', 'EXT_COD')
+        request.setParameter('is_gift', 'false')
+        request.setParameter('may_split', 'false')
+        request.setAttribute('shoppingCart', null)
 
         result = CheckOutEvents.setQuickCheckOutOptions(request, response)
-        logInfo("===== >>> Event : setQuickCheckOutOptions, Response : " + result)
+        logInfo('===== >>> Event : setQuickCheckOutOptions, Response : ' + result)
 
         result = CheckOutEvents.createOrder(request, response)
-        logInfo("===== >>> Event : createOrder, Response : " + result)
+        logInfo('===== >>> Event : createOrder, Response : ' + result)
 
         result = CheckOutEvents.processPayment(request, response)
-        logInfo("===== >>> Event : processPayment, Response : " + result)
+        logInfo('===== >>> Event : processPayment, Response : ' + result)
 
-        dispatcher.runAsync("sendOrderConfirmation", null)
+        dispatcher.runAsync('sendOrderConfirmation', null)
 
         result = ShoppingCartEvents.destroyCart(request, response)
-        logInfo("===== >>> Event : destroyCart, Response = " + result)
+        logInfo('===== >>> Event : destroyCart, Response = ' + result)
 
         // Step 3
-        GenericValue orderHeader = from("OrderHeader").where("orderTypeId", "SALES_ORDER").orderBy("-entryDate").queryFirst()
-        logInfo("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : " + orderHeader)
+        GenericValue orderHeader = from('OrderHeader').where('orderTypeId', 'SALES_ORDER').orderBy('-entryDate').queryFirst()
+        logInfo('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : ' + orderHeader)
 
         if (invoicePerShipment) {
             // if this value is available that means we need to set this on the order
@@ -103,42 +103,42 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
             orderInput.orderId = orderHeader.orderId
             orderInput.invoicePerShipment = invoicePerShipment
             orderInput.userLogin = userLogin
-            Map serviceResult = dispatcher.runSync("updateOrderHeader", orderInput)
-            logInfo("===== >>> Service : updateOrderHeader / invoicePerShipment = N,  Response = " + serviceResult.responseMessage)
+            Map serviceResult = dispatcher.runSync('updateOrderHeader', orderInput)
+            logInfo('===== >>> Service : updateOrderHeader / invoicePerShipment = N,  Response = ' + serviceResult.responseMessage)
         }
 
         PackingSession packingSession = new PackingSession(dispatcher, userLogin)
-        session.setAttribute("packingSession", packingSession)
+        session.setAttribute('packingSession', packingSession)
         packingSession.setPrimaryOrderId(orderHeader.orderId)
-        packingSession.setPrimaryShipGroupSeqId("00001")
+        packingSession.setPrimaryShipGroupSeqId('00001')
 
         Map packInput = [:]
         packInput.orderId = orderHeader.orderId
-        packInput.shipGroupSeqId = "00001"
+        packInput.shipGroupSeqId = '00001'
         packInput.packingSession = packingSession
         packInput.nextPackageSeq = 1
         packInput.userLogin = userLogin
 
         // Items
-        packInput.selInfo = [_1: "Y"]
-        packInput.pkgInfo = [_1: "1"]
-        packInput.qtyInfo = [_1: "1"]
+        packInput.selInfo = [_1: 'Y']
+        packInput.pkgInfo = [_1: '1']
+        packInput.qtyInfo = [_1: '1']
         packInput.prdInfo = [_1: productId]
-        packInput.iteInfo = [_1: "00001"]
-        packInput.wgtInfo = [_1: "0"]
-        packInput.numPackagesInfo = [_1: "1"]
+        packInput.iteInfo = [_1: '00001']
+        packInput.wgtInfo = [_1: '0']
+        packInput.numPackagesInfo = [_1: '1']
 
-        Map serviceResult = dispatcher.runSync("packBulkItems", packInput)
+        Map serviceResult = dispatcher.runSync('packBulkItems', packInput)
         assert ServiceUtil.isSuccess(serviceResult)
-        logInfo("===== >>> Service: packBulkItems, Response = " + serviceResult.responseMessage)
+        logInfo('===== >>> Service: packBulkItems, Response = ' + serviceResult.responseMessage)
 
-        Map completePackInput = dispatcher.getDispatchContext().makeValidContext("completePack", ModelService.IN_PARAM, packInput)
-        serviceResult = dispatcher.runSync("completePack", completePackInput)
+        Map completePackInput = dispatcher.getDispatchContext().makeValidContext('completePack', ModelService.IN_PARAM, packInput)
+        serviceResult = dispatcher.runSync('completePack', completePackInput)
         assert ServiceUtil.isSuccess(serviceResult)
-        logInfo("===== >>> Service: completePack, shipmentId = " + serviceResult.shipmentId)
+        logInfo('===== >>> Service: completePack, shipmentId = ' + serviceResult.shipmentId)
 
         // Step 4
-        List invoices = from("OrderItemBillingAndInvoiceAndItem").where("orderId", orderHeader.orderId).queryList()
+        List invoices = from('OrderItemBillingAndInvoiceAndItem').where('orderId', orderHeader.orderId).queryList()
         return invoices
     }
     void testInvoicePerShipmentSetFalse() {
@@ -148,7 +148,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
          Step 3) Pack Shipment For Ship Group.
          Step 4) Check invoice should not created.
          */
-        List invoices = testInvoicePerShipment("GZ-1000", "N")
+        List invoices = testInvoicePerShipment('GZ-1000', 'N')
         assert UtilValidate.isEmpty(invoices)
     }
 
@@ -159,7 +159,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
          Step 3) Pack Shipment For Ship Group.
          Step 4) Check invoice should be created.
          */
-        List invoices = testInvoicePerShipment("GZ-1000", "Y")
+        List invoices = testInvoicePerShipment('GZ-1000', 'Y')
         assert UtilValidate.isNotEmpty(invoices)
     }
 
@@ -169,7 +169,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
          Step 2) Pack Shipment For Ship Group.
          Step 3) Check invoice should not be created.
          */
-        List invoices = testInvoicePerShipment("GZ-2644", "N")
+        List invoices = testInvoicePerShipment('GZ-2644', 'N')
         assert UtilValidate.isEmpty(invoices)
     }
 
@@ -179,7 +179,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
          Step 2) Pack Shipment For Ship Group.
          Step 3) Check invoice should be created.
          */
-        List invoices = testInvoicePerShipment("GZ-2644", "Y")
+        List invoices = testInvoicePerShipment('GZ-2644', 'Y')
         assert UtilValidate.isNotEmpty(invoices)
     }
 }

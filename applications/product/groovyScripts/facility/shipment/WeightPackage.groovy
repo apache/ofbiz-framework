@@ -25,16 +25,16 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.shipment.weightPackage.WeightPackageSession
 
-weightPackageSession = session.getAttribute("weightPackageSession")
+weightPackageSession = session.getAttribute('weightPackageSession')
 if (!weightPackageSession) {
     weightPackageSession = new WeightPackageSession(dispatcher, userLogin)
-    session.setAttribute("weightPackageSession", weightPackageSession)
+    session.setAttribute('weightPackageSession', weightPackageSession)
 }
 context.weightPackageSession = weightPackageSession
 
 showWarningForm = parameters.showWarningForm
 if (!showWarningForm) {
-    showWarningForm = request.getAttribute("showWarningForm")
+    showWarningForm = request.getAttribute('showWarningForm')
     if (!showWarningForm) {
         showWarningForm = false
     }
@@ -44,40 +44,40 @@ context.showWarningForm = showWarningForm
 orderId = parameters.orderId
 shipGroupSeqId = parameters.shipGroupSeqId
 
-shipment = from("Shipment").where("primaryOrderId", orderId, "statusId", "SHIPMENT_PICKED").queryFirst()
+shipment = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryFirst()
 context.shipment = shipment
 if (shipment) {
-    invoice = from("ShipmentItemBilling").where("shipmentId", shipment.shipmentId).queryFirst()
+    invoice = from('ShipmentItemBilling').where('shipmentId', shipment.shipmentId).queryFirst()
     context.invoice = invoice
 } else {
     context.invoice = null
 }
 actualCost = null
 if (shipment) {
-    shipmentRouteSegment = from("ShipmentRouteSegment").where("shipmentId", shipment.shipmentId).queryFirst()
+    shipmentRouteSegment = from('ShipmentRouteSegment').where('shipmentId', shipment.shipmentId).queryFirst()
     actualCost = shipmentRouteSegment.actualCost
     if (actualCost) {
-        context.shipmentPackages = from("ShipmentPackage").where("shipmentId", shipment.shipmentId).queryList()
+        context.shipmentPackages = from('ShipmentPackage').where('shipmentId', shipment.shipmentId).queryList()
     }
 }
 
 facilityId = parameters.facilityId
 if (facilityId) {
-    facility = from("Facility").where("facilityId", facilityId).queryOne()
+    facility = from('Facility').where('facilityId', facilityId).queryOne()
     context.facility = facility
 }
 
-if (orderId && !shipGroupSeqId && orderId.indexOf("/") > -1) {
-    idSplit = orderId.split("\\/")
+if (orderId && !shipGroupSeqId && orderId.indexOf('/') > -1) {
+    idSplit = orderId.split('\\/')
     orderId = idSplit[0]
     shipGroupSeqId = idSplit[1]
 } else if (orderId && !shipGroupSeqId) {
-    shipGroupSeqId = "00001"
+    shipGroupSeqId = '00001'
 }
 
 picklistBinId = parameters.picklistBinId
 if (picklistBinId) {
-    picklistBin = from("PicklistBin").where("picklistBinId", picklistBinId).queryOne()
+    picklistBin = from('PicklistBin').where('picklistBinId', picklistBinId).queryOne()
     if (picklistBin) {
         orderId = picklistBin.primaryOrderId
         shipGroupSeqId = picklistBin.primaryShipGroupSeqId
@@ -88,7 +88,7 @@ if (picklistBinId) {
 
 shipmentId = parameters.shipmentId
 if (!shipmentId) {
-    shipmentId = request.getAttribute("shipmentId")
+    shipmentId = request.getAttribute('shipmentId')
 }
 if (!shipmentId && shipment) {
     shipmentId = shipment.shipmentId
@@ -96,19 +96,19 @@ if (!shipmentId && shipment) {
 context.shipmentId = shipmentId
 if (shipmentId) {
     // Get the primaryOrderId from the shipment
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+    shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
     if (shipment && shipment.primaryOrderId) {
-        orderItemBillingList = from("OrderItemBilling").where("orderId", shipment.primaryOrderId).orderBy("invoiceId").queryList()
-        invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, "invoiceId", true)
+        orderItemBillingList = from('OrderItemBilling').where('orderId', shipment.primaryOrderId).orderBy('invoiceId').queryList()
+        invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, 'invoiceId', true)
         if (invoiceIds) {
             context.invoiceIds = invoiceIds
             
         }
     }
-    if (shipment.statusId && "SHIPMENT_PACKED" == shipment.statusId) {
+    if (shipment.statusId && 'SHIPMENT_PACKED' == shipment.statusId) {
         orderId = null
     }
-    shipmentPackageRouteSegs = from("ShipmentPackageRouteSeg").where("shipmentId", shipmentId).queryList()
+    shipmentPackageRouteSegs = from('ShipmentPackageRouteSeg').where('shipmentId', shipmentId).queryList()
     shipmentPackageRouteSegList = []
     shipmentPackageRouteSegs.each { shipmentPackageRouteSeg ->
         if (shipmentPackageRouteSeg.labelImage) {
@@ -127,17 +127,17 @@ context.primaryOrderId = orderId
 
 carrierPartyId = null
 if (orderId) {
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     if (orderHeader) {
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader)
         GenericValue orderItemShipGroup = orderReadHelper.getOrderItemShipGroup(shipGroupSeqId)
         carrierPartyId = orderItemShipGroup.carrierPartyId
-        if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
+        if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
             if (shipment) {
                 productStoreId = orderReadHelper.getProductStoreId()
                 shippableItemInfo = orderReadHelper.getOrderItemAndShipGroupAssoc(shipGroupSeqId)
-                shippableItems = from("OrderItemAndShipGrpInvResAndItemSum").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryList()
+                shippableItems = from('OrderItemAndShipGrpInvResAndItemSum').where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId).queryList()
                 shippableTotal = orderReadHelper.getShippableTotal(shipGroupSeqId)
                 shippableWeight = orderReadHelper.getShippableWeight(shipGroupSeqId)
                 shippableQuantity = orderReadHelper.getShippableQuantity(shipGroupSeqId)
@@ -150,19 +150,19 @@ if (orderId) {
                 context.productStoreId = productStoreId
                 context.estimatedShippingCost = estimatedShippingCost
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotVerified", ["orderId" : orderId], locale))
+                request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId' : orderId], locale))
                 orderId = null
             }
             } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoShipGroupSequenceIdFoundCannotProcess", locale))
+                request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('ProductErrorUiLabels', 'ProductErrorNoShipGroupSequenceIdFoundCannotProcess', locale))
                 orderId = null
             }
         } else {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotApprovedForPacking", [orderId : orderId], locale))
+            request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPacking', [orderId : orderId], locale))
             orderId = null
         }
     } else {
-        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderIdNotFound", [orderId : orderId], locale))
+        request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId : orderId], locale))
         orderId = null
     }
     context.orderedQuantity = weightPackageSession.getOrderedQuantity(orderId)
@@ -173,10 +173,10 @@ context.shipGroupSeqId = shipGroupSeqId
 context.picklistBinId = picklistBinId
 
 if (carrierPartyId) {
-    carrierShipmentBoxTypes = from("CarrierShipmentBoxType").where("partyId", carrierPartyId).queryList()
+    carrierShipmentBoxTypes = from('CarrierShipmentBoxType').where('partyId', carrierPartyId).queryList()
     shipmentBoxTypes = []
     carrierShipmentBoxTypes.each { carrierShipmentBoxType ->
-        shipmentBoxTypes.add(from("ShipmentBoxType").where("shipmentBoxTypeId", carrierShipmentBoxType.shipmentBoxTypeId).queryOne())
+        shipmentBoxTypes.add(from('ShipmentBoxType').where('shipmentBoxTypeId', carrierShipmentBoxType.shipmentBoxTypeId).queryOne())
         context.shipmentBoxTypes = shipmentBoxTypes
     }
 }
@@ -190,9 +190,9 @@ if (facility) {
     defaultDimensionUomId = facility.defaultDimensionUomId
 }
 if (!defaultDimensionUomId) {
-    defaultDimensionUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.dimension.uom", "LEN_in", delegator)
+    defaultDimensionUomId = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.dimension.uom', 'LEN_in', delegator)
 }
-context.defaultDimensionUom = from("Uom").where("uomId", defaultDimensionUomId).cache().queryOne()
+context.defaultDimensionUom = from('Uom').where('uomId', defaultDimensionUomId).cache().queryOne()
 context.defaultDimensionUomId = defaultDimensionUomId
 
 defaultWeightUomId = null
@@ -200,8 +200,8 @@ if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId
 }
 if (!defaultWeightUomId) {
-    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", "WT_kg", delegator)
+    defaultWeightUomId = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', 'WT_kg', delegator)
 }
 
-context.defaultWeightUom = from("Uom").where("uomId", defaultWeightUomId).cache().queryOne()
+context.defaultWeightUom = from('Uom').where('uomId', defaultWeightUomId).cache().queryOne()
 context.defaultWeightUomId = defaultWeightUomId

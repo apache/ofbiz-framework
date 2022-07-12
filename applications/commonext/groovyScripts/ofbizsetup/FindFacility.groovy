@@ -18,40 +18,40 @@
  */
  import org.apache.ofbiz.entity.util.EntityUtil
 
-findResult = from("Facility").where("ownerPartyId", partyId).queryList();
+findResult = from('Facility').where('ownerPartyId', partyId).queryList();
 findResultSize = findResult.size()
 if (findResultSize == 1) {
-    context.showScreen = "one"
+    context.showScreen = 'one'
     facility = findResult.get(0)
     context.facility = facility
     context.parameters.facilityId = context.facility.facilityId
 }
 if ((findResultSize > 1 ) && (findResultSize <= 10)) {
-    context.showScreen = "ten"
+    context.showScreen = 'ten'
 } else if ((findResultSize > 10 ) || (findResultSize <= 0)) {
-    context.showScreen = "more"
+    context.showScreen = 'more'
 }
 
-listPartyPostalAddress = from("PartyAndPostalAddress").where("partyId", partyId).queryList();
+listPartyPostalAddress = from('PartyAndPostalAddress').where('partyId', partyId).queryList();
 partyPostalAddress = EntityUtil.getFirst(EntityUtil.filterByDate(listPartyPostalAddress))
 context.partyPostalAddress = partyPostalAddress
 
-if("productstore".equals(tabButtonItemTop)){
+if('productstore'.equals(tabButtonItemTop)){
     if(findResultSize == 0){
-        request.setAttribute("_ERROR_MESSAGE_", "Facility not set!")
-        context.showScreen = "message"
+        request.setAttribute('_ERROR_MESSAGE_', 'Facility not set!')
+        context.showScreen = 'message'
         return
     }else{
-        context.showScreen = "origin"
+        context.showScreen = 'origin'
     }
-}else if("facility".equals(tabButtonItemTop)){
+}else if('facility'.equals(tabButtonItemTop)){
     facilityId = parameters.facilityId
-    if (!facilityId && request.getAttribute("facilityId")) {
-      facilityId = request.getAttribute("facilityId")
+    if (!facilityId && request.getAttribute('facilityId')) {
+      facilityId = request.getAttribute('facilityId')
     }
-    facility = from("Facility").where("facilityId", facilityId).queryOne();
+    facility = from('Facility').where('facilityId', facilityId).queryOne();
     if(facility){
-        facilityType = facility.getRelatedOne("FacilityType", false)
+        facilityType = facility.getRelatedOne('FacilityType', false)
         context.facilityType = facilityType
     }
     context.facility = facility

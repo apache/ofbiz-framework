@@ -34,7 +34,7 @@ fromDate = parameters.fromDate
 if (!fromDate) {
     fromDate = null
 } else {
-    fromDate = ObjectType.simpleTypeOrObjectConvert(fromDate, "Timestamp", null, null, false)
+    fromDate = ObjectType.simpleTypeOrObjectConvert(fromDate, 'Timestamp', null, null, false)
 }
 
 
@@ -43,7 +43,7 @@ if (!description) {
     description = null
 }
 
-productContent = from("ProductContent").where("contentId", contentId, "productId", productId, "productContentTypeId", productContentTypeId, "fromDate", fromDate).queryOne()
+productContent = from('ProductContent').where('contentId', contentId, 'productId', productId, 'productContentTypeId', productContentTypeId, 'fromDate', fromDate).queryOne()
 if (!productContent) {
     productContent = [:]
     productContent.productId = productId
@@ -66,7 +66,7 @@ productContentData.putAll(productContent)
 content = [:]
 context.contentId = contentId
 if (contentId) {
-    content = from("Content").where("contentId", contentId).queryOne()
+    content = from('Content').where('contentId', contentId).queryOne()
     context.content = content
 } else {
     if (description) {
@@ -75,72 +75,72 @@ if (contentId) {
 }
 
 //Email
-if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
+if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
     emailData = [:]
     if (contentId && content) {
-        subjectDr = content.getRelatedOne("DataResource", false)
+        subjectDr = content.getRelatedOne('DataResource', false)
         if (subjectDr) {
-            subject = subjectDr.getRelatedOne("ElectronicText", false)
+            subject = subjectDr.getRelatedOne('ElectronicText', false)
             emailData.subject = subject.textData
             emailData.subjectDataResourceId = subject.dataResourceId
         }
         result = runService('findAssocContent', [userLogin : userLogin, contentId : contentId, mapKeys : ['plainBody', 'htmlBody']])
-        contentAssocs = result.get("contentAssocs")
+        contentAssocs = result.get('contentAssocs')
         if (contentAssocs) {
             contentAssocs.each { contentAssoc ->
-                bodyContent = contentAssoc.getRelatedOne("ToContent", false)
-                bodyDr = bodyContent.getRelatedOne("DataResource", false)
-                body = bodyDr.getRelatedOne("ElectronicText", false)
+                bodyContent = contentAssoc.getRelatedOne('ToContent', false)
+                bodyDr = bodyContent.getRelatedOne('DataResource', false)
+                body = bodyDr.getRelatedOne('ElectronicText', false)
                 emailData.put(contentAssoc.mapKey, body.textData)
-                emailData.put(contentAssoc.get("mapKey")+"DataResourceId", body.dataResourceId)
+                emailData.put(contentAssoc.get('mapKey')+'DataResourceId', body.dataResourceId)
             }
         }
     }
 
-    context.contentFormName = "EditProductContentEmail"
+    context.contentFormName = 'EditProductContentEmail'
     context.emailData = emailData
-} else if ("DIGITAL_DOWNLOAD".equals(productContentTypeId)) {
+} else if ('DIGITAL_DOWNLOAD'.equals(productContentTypeId)) {
     downloadData = [:]
     if (contentId && content) {
-        downloadDr = content.getRelatedOne("DataResource", false)
+        downloadDr = content.getRelatedOne('DataResource', false)
         if (downloadDr) {
-            download = downloadDr.getRelatedOne("OtherDataResource", false)
+            download = downloadDr.getRelatedOne('OtherDataResource', false)
             if (download) {
                 downloadData.file = download.dataResourceContent
                 downloadData.fileDataResourceId = download.dataResourceId
             }
         }
     }
-    context.contentFormName = "EditProductContentDownload"
+    context.contentFormName = 'EditProductContentDownload'
     context.downloadData = downloadData
-} else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
-    context.contentFormName = "EditProductContentExternal"
-} else if (productContentTypeId && productContentTypeId.indexOf("_IMAGE") > -1) {
-    context.contentFormName = "EditProductContentImage"
+} else if ('FULFILLMENT_EXTERNAL'.equals(productContentTypeId)) {
+    context.contentFormName = 'EditProductContentExternal'
+} else if (productContentTypeId && productContentTypeId.indexOf('_IMAGE') > -1) {
+    context.contentFormName = 'EditProductContentImage'
 } else {
     //Assume it is a generic simple text content
     textData = [:]
     if (contentId && content) {
-        textDr = content.getRelatedOne("DataResource", false)
+        textDr = content.getRelatedOne('DataResource', false)
         if (textDr) {
-            text = textDr.getRelatedOne("ElectronicText", false)
+            text = textDr.getRelatedOne('ElectronicText', false)
             if (text) {
                 textData.text = text.textData
                 textData.textDataResourceId = text.dataResourceId
             }
         }
     }
-    context.contentFormName = "EditProductContentSimpleText"
+    context.contentFormName = 'EditProductContentSimpleText'
     context.textData = textData
 }
 if (productContentTypeId) {
-    productContentType = from("ProductContentType").where("productContentTypeId", productContentTypeId).queryOne()
-    if (productContentType && "DIGITAL_DOWNLOAD".equals(productContentType.parentTypeId)) {
-        context.contentFormName = "EditProductContentDownload"
+    productContentType = from('ProductContentType').where('productContentTypeId', productContentTypeId).queryOne()
+    if (productContentType && 'DIGITAL_DOWNLOAD'.equals(productContentType.parentTypeId)) {
+        context.contentFormName = 'EditProductContentDownload'
     }
 }
-if (("PAGE_TITLE".equals(productContentTypeId))||("META_KEYWORD".equals(productContentTypeId))||("META_DESCRIPTION".equals(productContentTypeId))) {
-    context.contentFormName = "EditProductContentSEO"
+if (('PAGE_TITLE'.equals(productContentTypeId))||('META_KEYWORD'.equals(productContentTypeId))||('META_DESCRIPTION'.equals(productContentTypeId))) {
+    context.contentFormName = 'EditProductContentSEO'
 }
 
 context.productContentData = productContentData

@@ -29,33 +29,33 @@ sortField = parameters.sortField
 
 List exprs = []
 if (planId) {
-    exprs.add(EntityCondition.makeCondition("planId", EntityOperator.EQUALS, planId))
+    exprs.add(EntityCondition.makeCondition('planId', EntityOperator.EQUALS, planId))
 }
 if (planName) {
-    exprs.add(EntityCondition.makeCondition("planName", EntityOperator.LIKE, planName))
+    exprs.add(EntityCondition.makeCondition('planName', EntityOperator.LIKE, planName))
 }
 if (planTypeId) {
-    exprs.add(EntityCondition.makeCondition("planTypeId", EntityOperator.EQUALS, planTypeId))
+    exprs.add(EntityCondition.makeCondition('planTypeId', EntityOperator.EQUALS, planTypeId))
 }
 if (statusId) {
     if (statusId instanceof String) {
-        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId))
+        exprs.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, statusId))
     } else {
-        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, statusId))
+        exprs.add(EntityCondition.makeCondition('statusId', EntityOperator.IN, statusId))
     }
 }
 if (productId) {
-    exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+    exprs.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
 }
 if (orderId) {
-    exprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId))
+    exprs.add(EntityCondition.makeCondition('orderId', EntityOperator.EQUALS, orderId))
 }
 ecl = EntityCondition.makeCondition(exprs, EntityOperator.OR)
 
 if (sortField) {
-    allocationPlanItems = from("AllocationPlanAndItem").where(ecl).orderBy(sortField).queryList()
+    allocationPlanItems = from('AllocationPlanAndItem').where(ecl).orderBy(sortField).queryList()
 } else {
-    allocationPlanItems = from("AllocationPlanAndItem").where(ecl).queryList()
+    allocationPlanItems = from('AllocationPlanAndItem').where(ecl).queryList()
 }
 
 allocationPlans = []

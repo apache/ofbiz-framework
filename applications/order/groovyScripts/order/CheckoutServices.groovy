@@ -52,22 +52,22 @@ def createUpdateCustomerAndShippingAddress() {
     Map createUpdatePersonCtx = parameters
     createUpdatePersonCtx.userLogin = userLogin
     createUpdatePersonCtx.partyId = partyId
-    Map serviceResultCUP = run service: "createUpdatePerson", with: createUpdatePersonCtx
+    Map serviceResultCUP = run service: 'createUpdatePerson', with: createUpdatePersonCtx
     partyId = serviceResultCUP.partyId
 
-    Map partyRoleCtx = [partyId: partyId, roleTypeId: "CUSTOMER"]
+    Map partyRoleCtx = [partyId: partyId, roleTypeId: 'CUSTOMER']
     if (userLogin) {
-        if (userLogin.userLoginId == "anonymos") {
+        if (userLogin.userLoginId == 'anonymos') {
             userLogin.partyId = partyId
         }
         partyRoleCtx.userLogin = userLogin
     }
-    run service: "ensurePartyRole", with: partyRoleCtx
+    run service: 'ensurePartyRole', with: partyRoleCtx
 
     // Create Update Shipping address
     Map shipToAddressCtx = parameters
     shipToAddressCtx.userLogin = userLogin
-    Map serviceResultCUSA = run service: "createUpdateShippingAddress", with: shipToAddressCtx
+    Map serviceResultCUSA = run service: 'createUpdateShippingAddress', with: shipToAddressCtx
     parameters.shipToContactMechId = serviceResultCUSA.contactMechId
     result.contactMechId = serviceResultCUSA.contactMechId
 
@@ -75,30 +75,30 @@ def createUpdateCustomerAndShippingAddress() {
     Map createUpdatePartyTelecomNumberCtx = shipToPhoneCtx
     createUpdatePartyTelecomNumberCtx.userLogin = userLogin
     createUpdatePartyTelecomNumberCtx.partyId = partyId
-    createUpdatePartyTelecomNumberCtx.roleTypeId = "CUSTOMER"
-    createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId = "PHONE_SHIPPING"
+    createUpdatePartyTelecomNumberCtx.roleTypeId = 'CUSTOMER'
+    createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId = 'PHONE_SHIPPING'
     createUpdatePartyTelecomNumberCtx.contactMechId = parameters.shipToPhoneContactMechId
-    Map serviceResultCUPTN = run service: "createUpdatePartyTelecomNumber", with: createUpdatePartyTelecomNumberCtx
+    Map serviceResultCUPTN = run service: 'createUpdatePartyTelecomNumber', with: createUpdatePartyTelecomNumberCtx
     String shipToPhoneContactMechId = serviceResultCUPTN.contactMechId
     result.shipToPhoneContactMechId = serviceResultCUPTN.contactMechId
 
     if (shipToPhoneContactMechId) {
-        shoppingCart.addContactMech("PHONE_SHIPPING", shipToPhoneContactMechId)
+        shoppingCart.addContactMech('PHONE_SHIPPING', shipToPhoneContactMechId)
     }
     // Create Update email address
     Map createUpdatePartyEmailCtx = emailAddressCtx
-    createUpdatePartyEmailCtx.contactMechPurposeTypeId = "PRIMARY_EMAIL"
+    createUpdatePartyEmailCtx.contactMechPurposeTypeId = 'PRIMARY_EMAIL'
     createUpdatePartyEmailCtx.userLogin = userLogin
     createUpdatePartyEmailCtx.partyId = partyId
-    Map serviceResultCUPEM = run service: "createUpdatePartyEmailAddress", with: createUpdatePartyEmailCtx
+    Map serviceResultCUPEM = run service: 'createUpdatePartyEmailAddress', with: createUpdatePartyEmailCtx
     parameters.emailContactMechId = serviceResultCUPEM.contactMechId
     result.emailContactMechId = serviceResultCUPEM.contactMechId
     result.partyId = partyId
     if (parameters.emailContactMechId) {
-        shoppingCart.addContactMech("ORDER_EMAIL", parameters.emailContactMechId)
+        shoppingCart.addContactMech('ORDER_EMAIL', parameters.emailContactMechId)
     }
     shoppingCart.setUserLogin(userLogin, dispatcher)
-    shoppingCart.addContactMech("SHIPPING_LOCATION", parameters.shipToContactMechId)
+    shoppingCart.addContactMech('SHIPPING_LOCATION', parameters.shipToContactMechId)
     shoppingCart.setAllShippingContactMechId(parameters.shipToContactMechId)
     shoppingCart.setOrderPartyId(partyId)
     return result
@@ -134,39 +134,39 @@ def createUpdateBillingAddressAndPaymentMethod() {
         }
     }
     if (partyId) {
-        if (userLogin.userLoginId == "anonymous") {
+        if (userLogin.userLoginId == 'anonymous') {
             userLogin.partyId = partyId
         }
     }
     // Create Update Billing address
     Map billToAddressCtx = parameters
     billToAddressCtx.userLogin = userLogin
-    Map serviceResultCUBA = run service: "createUpdateBillingAddress", with: billToAddressCtx
+    Map serviceResultCUBA = run service: 'createUpdateBillingAddress', with: billToAddressCtx
     if (ServiceUtil.isError(serviceResultCUBA)) return serviceResultCUBA
     parameters.billToContactMechId = serviceResultCUBA.contactMechId
     result.contactMechId = serviceResultCUBA.contactMechId
     if (parameters.billToContactMechId) {
-        shoppingCart.addContactMech("BILLING_LOCATION", parameters.billToContactMechId)
+        shoppingCart.addContactMech('BILLING_LOCATION', parameters.billToContactMechId)
     }
     // Create Update Billing Telecom Number
     Map createUpdatePartyTelecomNumberCtx = billToPhoneContext
     createUpdatePartyTelecomNumberCtx.userLogin = userLogin
     createUpdatePartyTelecomNumberCtx.partyId = partyId
-    createUpdatePartyTelecomNumberCtx.roleTypeId = "CUSTOMER"
-    createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId = "PHONE_BILLING"
+    createUpdatePartyTelecomNumberCtx.roleTypeId = 'CUSTOMER'
+    createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId = 'PHONE_BILLING'
     createUpdatePartyTelecomNumberCtx.contactMechId = parameters.billToPhoneContactMechId
-    Map serviceResultCUPTN = run service: "createUpdatePartyTelecomNumber", with: createUpdatePartyTelecomNumberCtx
+    Map serviceResultCUPTN = run service: 'createUpdatePartyTelecomNumber', with: createUpdatePartyTelecomNumberCtx
     if (ServiceUtil.isError(serviceResultCUPTN)) return serviceResultCUPTN
     String billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     result.billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     if (billToPhoneContactMechId) {
-        shoppingCart.addContactMech("PHONE_BILLING", billToPhoneContactMechId)
+        shoppingCart.addContactMech('PHONE_BILLING', billToPhoneContactMechId)
     }
     // Create Update credit card
     Map creditCartCtx = parameters
     creditCartCtx.contactMechId = parameters.billToContactMechId
     creditCartCtx.userLogin = userLogin
-    Map serviceResultCUCC = run service: "createUpdateCreditCard", with: creditCartCtx
+    Map serviceResultCUCC = run service: 'createUpdateCreditCard', with: creditCartCtx
     if (ServiceUtil.isError(serviceResultCUCC)) return serviceResultCUCC
     String paymentMethodId = serviceResultCUCC.paymentMethodId
     result.paymentMethodId = serviceResultCUCC.paymentMethodId
@@ -187,10 +187,10 @@ def setAnonUserLogin() {
     ShoppingCart shoppingCart = parameters.shoppingCart
     GenericValue userLogin = shoppingCart.getUserLogin()
     if (!userLogin) {
-        userLogin = from("UserLogin").where(userLoginId: "anonymous").queryOne()
+        userLogin = from('UserLogin').where(userLoginId: 'anonymous').queryOne()
     } else {
         // If an anonymous user is coming back, update the party id in the userLogin object
-        if (userLogin.userLoginId == "anonymous" && parameters.partyId) {
+        if (userLogin.userLoginId == 'anonymous' && parameters.partyId) {
             userLogin.partyId = parameters.partyId
         }
     }

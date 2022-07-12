@@ -20,10 +20,10 @@
 import org.apache.ofbiz.base.util.Debug
 
 session = context.session
-menuContext = session.getAttribute("menuContext")
+menuContext = session.getAttribute('menuContext')
 
 if (!menuContext) {
     menuContext = [:]
-    session.setAttribute("menuContext", menuContext)
+    session.setAttribute('menuContext', menuContext)
 }
 context.menuContext = menuContext;

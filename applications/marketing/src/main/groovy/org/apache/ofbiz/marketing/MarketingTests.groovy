@@ -49,34 +49,34 @@ class MarketingTests extends OFBizTestCase {
 
         //create contact list
         Map serviceCtx = [
-                contactListTypeId: "ANNOUNCEMENT",
-                contactListName: "Announcement List",
-                contactMechTypeId: "EMAIL_ADDRESS",
+                contactListTypeId: 'ANNOUNCEMENT',
+                contactListName: 'Announcement List',
+                contactMechTypeId: 'EMAIL_ADDRESS',
                 userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync("createContactList", serviceCtx)
+        Map serviceResult = dispatcher.runSync('createContactList', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         String contactListId = serviceResult.contactListId
 
-        GenericValue contactList = from("ContactList").where("contactListId", contactListId).queryOne()
+        GenericValue contactList = from('ContactList').where('contactListId', contactListId).queryOne()
         assert contactList != null
-        assert contactList.contactMechTypeId == "EMAIL_ADDRESS"
+        assert contactList.contactMechTypeId == 'EMAIL_ADDRESS'
 
         //update contact list
         serviceCtx = [
-                contactListTypeId: "ANNOUNCEMENT",
-                contactListName: "Announcement Records",
-                contactMechTypeId: "POSTAL_ADDRESS",
+                contactListTypeId: 'ANNOUNCEMENT',
+                contactListName: 'Announcement Records',
+                contactMechTypeId: 'POSTAL_ADDRESS',
                 contactListId: contactListId,
                 userLogin: userLogin
         ]
-        serviceResult = dispatcher.runSync("updateContactList", serviceCtx)
+        serviceResult = dispatcher.runSync('updateContactList', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         contactList.refresh()
 
         assert contactList != null
-        assert contactList.contactMechTypeId == "POSTAL_ADDRESS"
+        assert contactList.contactMechTypeId == 'POSTAL_ADDRESS'
     }
 
 }

@@ -22,20 +22,20 @@ import org.apache.ofbiz.entity.util.*
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.base.util.*
 
-shipmentId = request.getParameter("shipmentId")
-orderId = request.getParameter("purchaseOrderId")
-shipGroupSeqId = request.getParameter("shipGroupSeqId")
+shipmentId = request.getParameter('shipmentId')
+orderId = request.getParameter('purchaseOrderId')
+shipGroupSeqId = request.getParameter('shipGroupSeqId')
 context.shipmentId = shipmentId
 context.shipGroupSeqId = shipGroupSeqId
 
 // Retrieve the map resident in session which stores order item quantities to receive
-itemQuantitiesToReceive = session.getAttribute("purchaseOrderItemQuantitiesToReceive")
+itemQuantitiesToReceive = session.getAttribute('purchaseOrderItemQuantitiesToReceive')
 if (itemQuantitiesToReceive) {
     sessionShipmentId = itemQuantitiesToReceive._shipmentId
     sessionOrderId = itemQuantitiesToReceive._orderId
     if ((sessionShipmentId && !sessionShipmentId.equals(shipmentId)) ||
         ((sessionOrderId && !sessionOrderId.equals(orderId)))        ||
-         "Y".equals(request.getParameter("clearAll"))) {
+         'Y'.equals(request.getParameter('clearAll'))) {
 
              // Clear the map if the shipmentId or orderId are different than the current ones, or
              // if the clearAll parameter is present
@@ -43,19 +43,19 @@ if (itemQuantitiesToReceive) {
     }
 }
 
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 context.shipment = shipment
 if (!shipment) {
     return
 }
 
-isPurchaseShipment = "PURCHASE_SHIPMENT".equals(shipment.shipmentTypeId)
+isPurchaseShipment = 'PURCHASE_SHIPMENT'.equals(shipment.shipmentTypeId)
 context.isPurchaseShipment = isPurchaseShipment
 if (!isPurchaseShipment) {
     return
 }
 
-facility = shipment.getRelatedOne("DestinationFacility", false)
+facility = shipment.getRelatedOne('DestinationFacility', false)
 context.facility = facility
 context.facilityId = shipment.destinationFacilityId
 context.now = UtilDateTime.nowTimestamp()
@@ -72,13 +72,13 @@ if (!orderId) {
     return
 }
 
-orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
 context.orderHeader = orderHeader
 if (!orderHeader) {
     return
 }
 
-isPurchaseOrder = "PURCHASE_ORDER".equals(orderHeader.orderTypeId)
+isPurchaseOrder = 'PURCHASE_ORDER'.equals(orderHeader.orderTypeId)
 context.isPurchaseOrder = isPurchaseOrder
 if (!isPurchaseOrder) {
     return
@@ -87,9 +87,9 @@ if (!isPurchaseOrder) {
 // Get the base currency from the facility owner, for currency conversions
 baseCurrencyUomId = null
 if (facility) {
-    owner = facility.getRelatedOne("OwnerParty", false)
+    owner = facility.getRelatedOne('OwnerParty', false)
     if (owner) {
-        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")])
+        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute('userLogin')])
         if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
@@ -99,7 +99,7 @@ if (facility) {
     }
 }
 
-inventoryItemTypes = from("InventoryItemType").queryList()
+inventoryItemTypes = from('InventoryItemType').queryList()
 context.inventoryItemTypes = inventoryItemTypes
 
 // Populate the tracking map with shipment and order IDs
@@ -112,33 +112,33 @@ orderItemDatas = [:] as TreeMap
 totalAvailableToReceive = 0
 
 // Populate the order item data for the FTL
-orderItems = from("OrderItemAndShipGroupAssoc").where("shipGroupSeqId", shipGroupSeqId, "orderId", orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+orderItems = from('OrderItemAndShipGroupAssoc').where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
 orderItems.each { orderItemAndShipGroupAssoc ->
-    product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false)
+    product = orderItemAndShipGroupAssoc.getRelatedOne('Product', false)
 
     // Get the order item, since the orderItemAndShipGroupAssoc's quantity field is manipulated in some cases
-    orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemAndShipGroupAssoc.orderItemSeqId).queryOne()
+    orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemAndShipGroupAssoc.orderItemSeqId).queryOne()
     orderItemData = [:]
 
     // Get the item's ordered quantity
     totalOrdered = 0
-    ordered = orderItem.getDouble("quantity")
+    ordered = orderItem.getDouble('quantity')
     if (ordered) {
         totalOrdered += ordered.doubleValue()
     }
-    cancelled = orderItem.getDouble("cancelQuantity")
+    cancelled = orderItem.getDouble('cancelQuantity')
     if (cancelled) {
         totalOrdered -= cancelled.doubleValue()
     }
 
     // Get the item quantity received from all shipments via the ShipmentReceipt entity
     totalReceived = 0.0
-    receipts = from("ShipmentReceipt").where("orderId", orderId, "orderItemSeqId", orderItem.orderItemSeqId).queryList()
+    receipts = from('ShipmentReceipt').where('orderId', orderId, 'orderItemSeqId', orderItem.orderItemSeqId).queryList()
     fulfilledReservations = [] as ArrayList
     if (receipts) {
         receipts.each { rec ->
-            accepted = rec.getDouble("quantityAccepted")
-            rejected = rec.getDouble("quantityRejected")
+            accepted = rec.getDouble('quantityAccepted')
+            rejected = rec.getDouble('quantityRejected')
             if (accepted) {
                 totalReceived += accepted.doubleValue()
             }
@@ -146,7 +146,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
                 totalReceived += rejected.doubleValue()
             }
             // Get the reservations related to this receipt
-            oisgirs = from("OrderItemShipGrpInvRes").where("inventoryItemId", rec.inventoryItemId).queryList()
+            oisgirs = from('OrderItemShipGrpInvRes').where('inventoryItemId', rec.inventoryItemId).queryList()
             if (oisgirs) {
                 fulfilledReservations.addAll(oisgirs)
             }
@@ -166,12 +166,12 @@ orderItems.each { orderItemAndShipGroupAssoc ->
 
     // Retrieve the backordered quantity
     // TODO: limit to a facility? The shipment destination facility is not necessarily the same facility as the inventory
-    conditions = [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.productId),
-                  EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, BigDecimal.ZERO)]
-    negativeInventoryItems = from("InventoryItem").where(conditions).queryList()
+    conditions = [EntityCondition.makeCondition('productId', EntityOperator.EQUALS, product.productId),
+                  EntityCondition.makeCondition('availableToPromiseTotal', EntityOperator.LESS_THAN, BigDecimal.ZERO)]
+    negativeInventoryItems = from('InventoryItem').where(conditions).queryList()
     backOrderedQuantity = 0
     negativeInventoryItems.each { negativeInventoryItem ->
-        backOrderedQuantity += negativeInventoryItem.getDouble("availableToPromiseTotal").doubleValue()
+        backOrderedQuantity += negativeInventoryItem.getDouble('availableToPromiseTotal').doubleValue()
     }
     orderItemData.backOrderedQuantity = Math.abs(backOrderedQuantity)
 
@@ -188,8 +188,8 @@ orderItems.each { orderItemAndShipGroupAssoc ->
 context.orderItemDatas = orderItemDatas.values()
 
 // Handle any item product quantities to receive by adding to the map in session
-productIdToReceive = request.getParameter("productId")
-productQtyToReceive = request.getParameter("quantity")
+productIdToReceive = request.getParameter('productId')
+productQtyToReceive = request.getParameter('quantity')
 context.newQuantity = productQtyToReceive
 
 if (productIdToReceive) {
@@ -197,7 +197,7 @@ if (productIdToReceive) {
 
     // If the productId as given isn't found in the order, try any goodIdentifications and use the first match
     if (!candidateOrderItems) {
-        goodIdentifications = from("GoodIdentification").where("idValue", productIdToReceive).queryList()
+        goodIdentifications = from('GoodIdentification').where('idValue', productIdToReceive).queryList()
         if (goodIdentifications) {
             giit = goodIdentifications.iterator()
             while (giit.hasNext()) {
@@ -217,8 +217,8 @@ if (productIdToReceive) {
             try {
                 quantity = Double.parseDouble(productQtyToReceive)
             } catch (NumberFormatException nfe) {
-                logError(nfe, "Caught an exception : " + nfe.toString())
-                request.setAttribute("_ERROR_MESSAGE", "The quantity to update seems non-numeric")
+                logError(nfe, 'Caught an exception : ' + nfe.toString())
+                request.setAttribute('_ERROR_MESSAGE', 'The quantity to update seems non-numeric')
                 return
             }
         }
@@ -266,6 +266,6 @@ if (productIdToReceive) {
 }
 
 // Put the tracking map back into the session, in case it has been reconstructed
-session.setAttribute("purchaseOrderItemQuantitiesToReceive", itemQuantitiesToReceive)
+session.setAttribute('purchaseOrderItemQuantitiesToReceive', itemQuantitiesToReceive)
 context.itemQuantitiesToReceive = itemQuantitiesToReceive
 context.totalAvailableToReceive = totalAvailableToReceive

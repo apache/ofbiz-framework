@@ -61,17 +61,17 @@ if (product) {
 
 // Add imports for script.
 def importCustomizer = new ImportCustomizer()
-importCustomizer.addImport("org.apache.ofbiz.entity.GenericValue")
-importCustomizer.addImport("org.apache.ofbiz.entity.model.ModelEntity")
-importCustomizer.addImport("org.apache.ofbiz.entity.condition.EntityCondition")
-importCustomizer.addImport("org.apache.ofbiz.entity.condition.EntityOperator")
-importCustomizer.addImport("org.apache.ofbiz.entity.util.EntityQuery")
+importCustomizer.addImport('org.apache.ofbiz.entity.GenericValue')
+importCustomizer.addImport('org.apache.ofbiz.entity.model.ModelEntity')
+importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityCondition')
+importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityOperator')
+importCustomizer.addImport('org.apache.ofbiz.entity.util.EntityQuery')
 def configuration = new CompilerConfiguration()
 configuration.addCompilationCustomizers(importCustomizer)
 
 Binding binding = new Binding()
-binding.setVariable("delegator", delegator)
-binding.setVariable("recordValues", recordValues)
+binding.setVariable('delegator', delegator)
+binding.setVariable('recordValues', recordValues)
 
 ClassLoader loader = Thread.currentThread().getContextClassLoader()
 def shell = new GroovyShell(loader, binding, configuration)
@@ -79,30 +79,30 @@ def shell = new GroovyShell(loader, binding, configuration)
 if (groovyProgram) {
     try {
         // Check if a webshell is not uploaded but allow "import"
-        if (!SecuredUpload.isValidText(groovyProgram, ["import"])) {
-            logError("================== Not executed for security reason ==================")
-            request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
+        if (!SecuredUpload.isValidText(groovyProgram, ['import'])) {
+            logError('================== Not executed for security reason ==================')
+            request.setAttribute('_ERROR_MESSAGE_', 'Not executed for security reason')
             return
         }
         shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)
-        recordValues = shell.getVariable("recordValues")
+        recordValues = shell.getVariable('recordValues')
         xmlDoc = GenericValue.makeXmlDocument(recordValues)
-        context.put("xmlDoc", xmlDoc)
+        context.put('xmlDoc', xmlDoc)
     } catch(MultipleCompilationErrorsException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
     } catch(groovy.lang.MissingPropertyException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
     } catch(IllegalArgumentException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
     } catch(NullPointerException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
     } catch(Exception e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
     }
 }

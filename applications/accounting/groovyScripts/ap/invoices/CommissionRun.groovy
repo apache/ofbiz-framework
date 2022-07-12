@@ -26,21 +26,21 @@ thruDate = parameters.thruDate
 
 if (fromDate) {
     List invoiceCond = []
-    invoiceCond.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, parameters.invoiceTypeId))
-    invoiceCond.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameters.statusId))
-    invoiceCond.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
-    invoiceCond.add(EntityCondition.makeCondition("invoiceRoleTypeId", EntityOperator.EQUALS, "SALES_REP"))
+    invoiceCond.add(EntityCondition.makeCondition('invoiceTypeId', EntityOperator.EQUALS, parameters.invoiceTypeId))
+    invoiceCond.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, parameters.statusId))
+    invoiceCond.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
+    invoiceCond.add(EntityCondition.makeCondition('invoiceRoleTypeId', EntityOperator.EQUALS, 'SALES_REP'))
     if (thruDate) {
-        invoiceCond.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
+        invoiceCond.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
     }
     if (context.salesRepPartyList) {
-        invoiceCond.add(EntityCondition.makeCondition("invoiceRolePartyId", EntityOperator.IN, context.salesRepPartyList))
+        invoiceCond.add(EntityCondition.makeCondition('invoiceRolePartyId', EntityOperator.IN, context.salesRepPartyList))
     }
-    invoiceList = from("InvoiceAndRole").where(invoiceCond).queryList()
+    invoiceList = from('InvoiceAndRole').where(invoiceCond).queryList()
 
     List invoices = []
     if (invoiceList) {
-        resultMap = runService('getInvoicesFilterByAssocType', [invoiceItemAssocTypeId : "COMMISSION_INVOICE", invoiceList : invoiceList, userLogin : userLogin])
+        resultMap = runService('getInvoicesFilterByAssocType', [invoiceItemAssocTypeId : 'COMMISSION_INVOICE', invoiceList : invoiceList, userLogin : userLogin])
         invoices = resultMap.filteredInvoiceList
         context.invoices = invoices
     }

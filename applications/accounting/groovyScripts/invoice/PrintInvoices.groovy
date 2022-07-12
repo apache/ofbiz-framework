@@ -26,27 +26,27 @@ import java.text.DateFormat
 invoiceDetailList = []
 invoiceIds.each { invoiceId ->
     invoicesMap = [:]
-    invoice = from("Invoice").where('invoiceId', invoiceId).queryOne()
+    invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
     invoicesMap.invoice = invoice
     
     currency = parameters.currency // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
-    BigDecimal conversionRate = new BigDecimal("1")
+    BigDecimal conversionRate = new BigDecimal('1')
     ZERO = BigDecimal.ZERO
-    decimals = UtilNumber.getBigDecimalScale("invoice.decimals")
-    rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding")
+    decimals = UtilNumber.getBigDecimalScale('invoice.decimals')
+    rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')
     
     if (invoice) {
-        if (currency && !invoice.getString("currencyUomId").equals(currency)) {
+        if (currency && !invoice.getString('currencyUomId').equals(currency)) {
             conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)
             invoice.currencyUomId = currency
-            invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding)
+            invoice.invoiceMessage = ' converted from original with a rate of: ' + conversionRate.setScale(8, rounding)
         }
     
-        invoiceItems = invoice.getRelated("InvoiceItem", null, ["invoiceItemSeqId"], false)
+        invoiceItems = invoice.getRelated('InvoiceItem', null, ['invoiceItemSeqId'], false)
         invoiceItemsConv = []
         invoiceItems.each { invoiceItem ->
           if (invoiceItem.amount) {
-              invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)
+              invoiceItem.amount = invoiceItem.getBigDecimal('amount').multiply(conversionRate).setScale(decimals, rounding)
               invoiceItemsConv.add(invoiceItem)
           }
         }
@@ -58,7 +58,7 @@ invoiceIds.each { invoiceId ->
         invoicesMap.invoiceTotal = invoiceTotal
         invoicesMap.invoiceNoTaxTotal = invoiceNoTaxTotal
     
-        if ("PURCHASE_INVOICE".equals(invoice.invoiceTypeId)) {
+        if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
             billingAddress = InvoiceWorker.getSendFromAddress(invoice)
         } else {
             billingAddress = InvoiceWorker.getBillToAddress(invoice)
@@ -72,8 +72,8 @@ invoiceIds.each { invoiceId ->
         invoicesMap.sendingParty = sendingParty
 
         // This snippet was added for adding Tax ID in invoice header if needed 
-        sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false)
-        billingTaxInfos = billToParty.getRelated("PartyTaxAuthInfo", null, null, false)
+        sendingTaxInfos = sendingParty.getRelated('PartyTaxAuthInfo', null, null, false)
+        billingTaxInfos = billToParty.getRelated('PartyTaxAuthInfo', null, null, false)
         sendingPartyTaxId = null
         billToPartyTaxId = null
 
@@ -96,25 +96,25 @@ invoiceIds.each { invoiceId ->
             invoicesMap.billToPartyTaxId = billToPartyTaxId
         }
     
-        terms = invoice.getRelated("InvoiceTerm", null, null, false)
+        terms = invoice.getRelated('InvoiceTerm', null, null, false)
         invoicesMap.terms = terms
     
-        paymentAppls = from("PaymentApplication").where('invoiceId', invoiceId).queryList()
+        paymentAppls = from('PaymentApplication').where('invoiceId', invoiceId).queryList()
         invoicesMap.payments = paymentAppls
     
-        orderItemBillings = from("OrderItemBilling").where('invoiceId', invoiceId).orderBy("orderId").queryList()
+        orderItemBillings = from('OrderItemBilling').where('invoiceId', invoiceId).orderBy('orderId').queryList()
         orders = new LinkedHashSet()
         orderItemBillings.each { orderIb ->
             orders.add(orderIb.orderId)
         }
         invoicesMap.orders = orders
     
-        invoiceStatus = invoice.getRelatedOne("StatusItem", false)
+        invoiceStatus = invoice.getRelatedOne('StatusItem', false)
         invoicesMap.invoiceStatus = invoiceStatus
     
         edit = parameters.editInvoice
-        if ("true".equalsIgnoreCase(edit)) {
-            invoiceItemTypes = from("InvoiceItemType").queryList()
+        if ('true'.equalsIgnoreCase(edit)) {
+            invoiceItemTypes = from('InvoiceItemType').queryList()
             invoicesMap.invoiceItemTypes = invoiceItemTypes
             invoicesMap.editInvoice = true
         }
@@ -124,7 +124,7 @@ invoiceIds.each { invoiceId ->
             invoiceDate = DateFormat.getDateInstance(DateFormat.LONG).format(invoice.invoiceDate)
             invoicesMap.invoiceDate = invoiceDate
         } else {
-            invoicesMap.invoiceDate = "N/A"
+            invoicesMap.invoiceDate = 'N/A'
         }
     }
     invoiceDetailList.add(invoicesMap)

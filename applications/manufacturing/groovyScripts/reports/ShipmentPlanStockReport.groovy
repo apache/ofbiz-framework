@@ -20,16 +20,16 @@
 
 inventoryStock = [:]
 shipmentId = parameters.shipmentId
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 context.shipmentIdPar = shipment.shipmentId
 context.estimatedReadyDatePar = shipment.estimatedReadyDate
 context.estimatedShipDatePar = shipment.estimatedShipDate
 records = []
 if (shipment) {
-    shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList()
+    shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList()
     shipmentPlans.each { shipmentPlan ->
-        orderLine = from("OrderItem").where("orderId", shipmentPlan.orderId , "orderItemSeqId", shipmentPlan.orderItemSeqId).queryOne()
+        orderLine = from('OrderItem').where('orderId', shipmentPlan.orderId , 'orderItemSeqId', shipmentPlan.orderItemSeqId).queryOne()
         recordGroup = [:]
         recordGroup.ORDER_ID = shipmentPlan.orderId
         recordGroup.ORDER_ITEM_SEQ_ID = shipmentPlan.orderItemSeqId
@@ -38,18 +38,18 @@ if (shipment) {
 
         recordGroup.PRODUCT_ID = orderLine.productId
         recordGroup.QUANTITY = shipmentPlan.quantity
-        product = from("Product").where("productId", orderLine.productId).queryOne()
+        product = from('Product').where('productId', orderLine.productId).queryOne()
         recordGroup.PRODUCT_NAME = product.internalName
 
         inputPar = [productId : orderLine.productId,
                                      quantity : shipmentPlan.quantity,
-                                     fromDate : "" + new Date(),
+                                     fromDate : '' + new Date(),
                                      userLogin: userLogin]
 
         result = [:]
         result = runService('getNotAssembledComponents',inputPar)
         if (result) {
-            components = (List)result.get("notAssembledComponents")
+            components = (List)result.get('notAssembledComponents')
         }
         components.each { oneComponent ->
             record = new HashMap(recordGroup)
@@ -83,10 +83,10 @@ if (shipment) {
 
     // check permission
     hasPermission = false
-    if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+    if (security.hasEntityPermission('MANUFACTURING', '_VIEW', session)) {
         hasPermission = true
     }
     context.hasPermission = hasPermission
 }
 
-return "success"
+return 'success'

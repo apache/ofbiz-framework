@@ -22,12 +22,12 @@ import org.apache.ofbiz.entity.jdbc.DatabaseUtil
 
 controlPath = parameters._CONTROL_PATH_
 
-if (security.hasPermission("ENTITY_MAINT", session)) {
-    addMissing = "true".equals(parameters.addMissing)
-    checkFkIdx = "true".equals(parameters.checkFkIdx)
-    checkFks = "true".equals(parameters.checkFks)
-    checkPks = "true".equals(parameters.checkPks)
-    repair = "true".equals(parameters.repair)
+if (security.hasPermission('ENTITY_MAINT', session)) {
+    addMissing = 'true'.equals(parameters.addMissing)
+    checkFkIdx = 'true'.equals(parameters.checkFkIdx)
+    checkFks = 'true'.equals(parameters.checkFks)
+    checkPks = 'true'.equals(parameters.checkPks)
+    repair = 'true'.equals(parameters.repair)
     option = parameters.option
     groupName = parameters.groupName
     entityName = parameters.entityName
@@ -41,7 +41,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
         modelEntities = delegator.getModelEntityMapByGroup(groupName)
         modelEntityNames = new TreeSet(modelEntities.keySet())
 
-        if ("checkupdatetables".equals(option)) {
+        if ('checkupdatetables'.equals(option)) {
             fieldsToRepair = null
             if (repair) {
                 fieldsToRepair = []
@@ -50,61 +50,61 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
             if (fieldsToRepair) {
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages)
             }
-        } else if ("removetables".equals(option)) {
+        } else if ('removetables'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.deleteTable(modelEntity, messages)
             }
-        } else if ("removetable".equals(option)) {
+        } else if ('removetable'.equals(option)) {
             modelEntity = modelEntities[entityName]
             dbUtil.deleteTable(modelEntity, messages)
-        } else if ("removepks".equals(option)) {
+        } else if ('removepks'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.deletePrimaryKey(modelEntity, messages)
             }
-        } else if ("removepk".equals(option)) {
+        } else if ('removepk'.equals(option)) {
             modelEntity = modelEntities[entityName]
             dbUtil.deletePrimaryKey(modelEntity, messages)
-        } else if ("createpks".equals(option)) {
+        } else if ('createpks'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.createPrimaryKey(modelEntity, messages)
             }
-        } else if ("createpk".equals(option)) {
+        } else if ('createpk'.equals(option)) {
             modelEntity = modelEntities[entityName]
             dbUtil.createPrimaryKey(modelEntity, messages)
-        } else if ("createfkidxs".equals(option)) {
+        } else if ('createfkidxs'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.createForeignKeyIndices(modelEntity, messages)
             }
-        } else if ("removefkidxs".equals(option)) {
+        } else if ('removefkidxs'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.deleteForeignKeyIndices(modelEntity, messages)
             }
-        } else if ("createfks".equals(option)) {
+        } else if ('createfks'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.createForeignKeys(modelEntity, modelEntities, messages)
             }
-        } else if ("removefks".equals(option)) {
+        } else if ('removefks'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages)
             }
-        } else if ("createidx".equals(option)) {
+        } else if ('createidx'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.createDeclaredIndices(modelEntity, messages)
             }
-        } else if ("removeidx".equals(option)) {
+        } else if ('removeidx'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.deleteDeclaredIndices(modelEntity, messages)
             }
-        } else if ("updateCharsetCollate".equals(option)) {
+        } else if ('updateCharsetCollate'.equals(option)) {
             modelEntityNames.each { modelEntityName ->
                 modelEntity = modelEntities[modelEntityName]
                 dbUtil.updateCharacterSetAndCollation(modelEntity, messages)
@@ -113,7 +113,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
         miter = messages.iterator()
         context.miters = miter
     }
-    context.checkDbURL = "view/checkdb"
-    context.groupName = groupName ?: "org.apache.ofbiz"
-    context.entityName = entityName ?: ""
+    context.checkDbURL = 'view/checkdb'
+    context.groupName = groupName ?: 'org.apache.ofbiz'
+    context.entityName = entityName ?: ''
 }

@@ -27,7 +27,7 @@ def createOrderConversation() {
     Map<String, Object> createCommunicationEventMap = dispatcher.getDispatchContext()
             .makeValidContext('createCommunicationEvent', 'IN', parameters)
     createCommunicationEventMap.entryDate = UtilDateTime.nowTimestamp()
-    createCommunicationEventMap.statusId = "COM_ENTERED"
+    createCommunicationEventMap.statusId = 'COM_ENTERED'
     def result = dispatcher.runSync('createCommunicationEvent', createCommunicationEventMap)
     if (ServiceUtil.isError(result)) return result
 

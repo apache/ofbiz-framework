@@ -20,7 +20,7 @@
 
 custRequestId = parameters.custRequestId
 if (custRequestId) {
-    requestQuote = from("QuoteItem").where("custRequestId", custRequestId).queryFirst()
+    requestQuote = from('QuoteItem').where('custRequestId', custRequestId).queryFirst()
     if (requestQuote) {
         context.quoteId = requestQuote.quoteId
     }

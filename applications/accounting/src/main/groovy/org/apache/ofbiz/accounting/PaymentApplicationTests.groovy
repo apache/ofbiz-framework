@@ -35,8 +35,8 @@ class PaymentApplicationTests extends OFBizTestCase {
     void testInvoiceAppl() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.invoiceId = "appltest10000"
-        serviceInMap.paymentId = "appltest10000"
+        serviceInMap.invoiceId = 'appltest10000'
+        serviceInMap.paymentId = 'appltest10000'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -63,8 +63,8 @@ class PaymentApplicationTests extends OFBizTestCase {
 
     void testToPayment() {
         Map serviceInMap = [:]
-        serviceInMap.paymentId = "appltest10000"
-        serviceInMap.toPaymentId = "appltest10001"
+        serviceInMap.paymentId = 'appltest10000'
+        serviceInMap.toPaymentId = 'appltest10001'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -94,8 +94,8 @@ class PaymentApplicationTests extends OFBizTestCase {
     void testBillingAppl() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.paymentId = "appltest10000"
-        serviceInMap.billingAccountId = "appltest10000"
+        serviceInMap.paymentId = 'appltest10000'
+        serviceInMap.billingAccountId = 'appltest10000'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -127,8 +127,8 @@ class PaymentApplicationTests extends OFBizTestCase {
     void testTaxGeoId () {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.paymentId = "appltest10000"
-        serviceInMap.taxAuthGeoId = "UT"
+        serviceInMap.paymentId = 'appltest10000'
+        serviceInMap.taxAuthGeoId = 'UT'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)

@@ -22,12 +22,12 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.base.util.UtilGenerics
 import org.apache.ofbiz.entity.serialize.XmlSerializer
 
-GenericValue job = ((Delegator)delegator).findOne("JobSandbox", [jobId:parameters.jobId], false)
+GenericValue job = ((Delegator)delegator).findOne('JobSandbox', [jobId:parameters.jobId], false)
 context.job = job
 if (job) {
-    GenericValue runtimeData = job.getRelatedOne("RuntimeData", false)
+    GenericValue runtimeData = job.getRelatedOne('RuntimeData', false)
     if (runtimeData) {
-        runtimeInfoMap = UtilGenerics.checkMap(XmlSerializer.deserialize(runtimeData.getString("runtimeInfo"), delegator), String.class, Object.class)
+        runtimeInfoMap = UtilGenerics.checkMap(XmlSerializer.deserialize(runtimeData.getString('runtimeInfo'), delegator), String.class, Object.class)
         runtimeInfoList = []
         runtimeInfoMap.each { key, value ->
             valueMap = [key : key, value : value.toString()]

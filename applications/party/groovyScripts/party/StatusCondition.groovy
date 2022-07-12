@@ -20,8 +20,8 @@
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
  
-exprList = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED"), 
-            EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, null)]
+exprList = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PARTY_DISABLED'), 
+            EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, null)]
 condList = EntityCondition.makeCondition(exprList, EntityOperator.AND)
-context.andCondition = EntityCondition.makeCondition([condList, EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null)], EntityOperator.OR)
+context.andCondition = EntityCondition.makeCondition([condList, EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, null)], EntityOperator.OR)
  

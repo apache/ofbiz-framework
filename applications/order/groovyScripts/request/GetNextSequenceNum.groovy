@@ -21,7 +21,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 
 long nextSequenceNum = 10
 if (!custRequestItem && custRequest) {
-    items = custRequest.getRelated("CustRequestItem", null, ["-sequenceNum"], false)
+    items = custRequest.getRelated('CustRequestItem', null, ['-sequenceNum'], false)
     lastItem = EntityUtil.getFirst(items)
     if (lastItem?.sequenceNum) {
         lastSequenceNum = lastItem.sequenceNum

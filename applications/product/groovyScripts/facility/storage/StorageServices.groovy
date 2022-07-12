@@ -25,13 +25,13 @@ import org.apache.ofbiz.entity.GenericValue
  * @return
  */
 def createFacilityLocation() {
-    GenericValue newEntity = makeValue("FacilityLocation", parameters)
+    GenericValue newEntity = makeValue('FacilityLocation', parameters)
 
     String locationSeqId = "${parameters.areaId ?: ''}${parameters.aisleId ?: ''}${parameters.sectionId ?: ''}${parameters.levelId ?: ''}${parameters.positionId ?: ''}"
     if (locationSeqId) {
         int i = 1
         String nextLocationSeqId = locationSeqId
-        while (from("FacilityLocation")
+        while (from('FacilityLocation')
                 .where([locationSeqId: nextLocationSeqId,
                         facilityId: parameters.facilityId])
                 .queryOne()) {
@@ -39,7 +39,7 @@ def createFacilityLocation() {
         }
         locationSeqId = nextLocationSeqId
     } else {
-        locationSeqId = delegator.getNextSeqId("FacilityLocation")
+        locationSeqId = delegator.getNextSeqId('FacilityLocation')
     }
 
     newEntity.locationSeqId = locationSeqId

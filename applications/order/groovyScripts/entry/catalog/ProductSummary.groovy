@@ -34,9 +34,9 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker
 import java.text.NumberFormat
 
 //either optProduct, optProductId or productId must be specified
-product = request.getAttribute("optProduct")
-optProductId = request.getAttribute("optProductId")
-productId = product?.productId ?: optProductId ?: request.getAttribute("productId")
+product = request.getAttribute('optProduct')
+optProductId = request.getAttribute('optProductId')
+productId = product?.productId ?: optProductId ?: request.getAttribute('productId')
 
 webSiteId = WebSiteWorker.getWebSiteId(request)
 catalogId = CatalogWorker.getCurrentCatalogId(request)
@@ -52,23 +52,23 @@ if (cart.isSalesOrder()) {
 }
 
 if (!facilityId) {
-    productStoreFacility = select("facilityId").from("ProductStoreFacility").where("productStoreId", productStoreId).queryFirst()
+    productStoreFacility = select('facilityId').from('ProductStoreFacility').where('productStoreId', productStoreId).queryFirst()
     if (productStoreFacility) {
         facilityId = productStoreFacility.facilityId
     }
 }
 
-autoUserLogin = session.getAttribute("autoUserLogin")
-userLogin = session.getAttribute("userLogin")
+autoUserLogin = session.getAttribute('autoUserLogin')
+userLogin = session.getAttribute('userLogin')
 
-context.remove("daysToShip")
-context.remove("averageRating")
-context.remove("numRatings")
-context.remove("totalPrice")
+context.remove('daysToShip')
+context.remove('averageRating')
+context.remove('numRatings')
+context.remove('totalPrice')
 
 // get the product entity
 if (!product && productId) {
-    product = from("Product").where("productId", productId).cache(true).queryOne()
+    product = from('Product').where('productId', productId).cache(true).queryOne()
 }
 if (product) {
     //if order is purchase then don't calculate available inventory for product.
@@ -76,13 +76,13 @@ if (product) {
         resultOutput = runService('getInventoryAvailableByFacility', [productId : product.productId, facilityId : facilityId, useCache : true])
         totalAvailableToPromise = resultOutput.availableToPromiseTotal
         if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
-            productFacility = from("ProductFacility").where("productId", product.productId, "facilityId", facilityId).cache(true).queryOne()
+            productFacility = from('ProductFacility').where('productId', product.productId, 'facilityId', facilityId).cache(true).queryOne()
             if (productFacility?.daysToShip != null) {
                 context.daysToShip = productFacility.daysToShip
             }
         }
     } else {
-       supplierProduct = from("SupplierProduct").where("productId", product.productId).orderBy("-availableFromDate").cache(true).queryFirst()
+       supplierProduct = from('SupplierProduct').where('productId', product.productId).orderBy('-availableFromDate').cache(true).queryFirst()
        if (supplierProduct?.standardLeadTimeDays != null) {
            standardLeadTimeDays = supplierProduct.standardLeadTimeDays
            daysToShip = standardLeadTimeDays + 1
@@ -98,7 +98,7 @@ categoryId = null
 reviews = null
 if (product) {
     numberFormat = NumberFormat.getCurrencyInstance(locale)
-    categoryId = parameters.category_id ?: request.getAttribute("productCategoryId")
+    categoryId = parameters.category_id ?: request.getAttribute('productCategoryId')
 
     variantInfoJS = new StringBuffer()
     variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
@@ -113,7 +113,7 @@ if (product) {
         priceContext.productStoreId = productStoreId
         priceContext.agreementId = cart.getAgreementId()
         priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
-        priceContext.checkIncludeVat = "Y"
+        priceContext.checkIncludeVat = 'Y'
         priceMap = runService('calculateProductPrice', priceContext)
 
         context.price = priceMap
@@ -127,7 +127,7 @@ if (product) {
     }
 
     // get aggregated product totalPrice
-    if ("AGGREGATED".equals(product.productTypeId)||"AGGREGATED_SERVICE".equals(product.productTypeId)) {
+    if ('AGGREGATED'.equals(product.productTypeId)||'AGGREGATED_SERVICE'.equals(product.productTypeId)) {
         configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, cart.getCurrency(), request)
         if (configWrapper) {
             configWrapper.setDefaultConfig()
@@ -136,19 +136,19 @@ if (product) {
     }
 
     // get the product review(s)
-    reviews = product.getRelated("ProductReview", null, ["-postedDateTime"], true)
+    reviews = product.getRelated('ProductReview', null, ['-postedDateTime'], true)
     
     // get product variant for Box/Case/Each
     productVariants = []
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
     mainProducts = []
     if(isAlternativePacking){
-        productVirtualVariants = from("ProductAssoc").where("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").cache(true).queryList()
+        productVirtualVariants = from('ProductAssoc').where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:]
-                mainProduct = virtualVariantKey.getRelatedOne("MainProduct", true)
-                quantityUom = mainProduct.getRelatedOne("QuantityUom", true)
+                mainProduct = virtualVariantKey.getRelatedOne('MainProduct', true)
+                quantityUom = mainProduct.getRelatedOne('QuantityUom', true)
                 mainProductMap.productId = mainProduct.productId
                 mainProductMap.piecesIncluded = mainProduct.piecesIncluded
                 mainProductMap.uomDesc = quantityUom.description
@@ -161,7 +161,7 @@ if (product) {
         jsBuf.append("<script type=\"application/javascript\">")
         
         // make a list of variant sku with requireAmount
-        virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId])
+        virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : categoryId])
         virtualVariants = virtualVariantsRes.assocProducts
         // Format to apply the currency code to the variant price in the javascript
         if (productStore) {
@@ -176,16 +176,16 @@ if (product) {
             amt = new StringBuffer()
             // Create the javascript to return the price for each variant
             variantPriceJS = new StringBuffer()
-            variantPriceJS.append("function getVariantPrice(sku) { ")
+            variantPriceJS.append('function getVariantPrice(sku) { ')
             
             virtualVariants.each { virtualAssoc ->
-                virtual = virtualAssoc.getRelatedOne("MainProduct", false)
+                virtual = virtualAssoc.getRelatedOne('MainProduct', false)
                 // Get price from a virtual product
                 priceContext.product = virtual
                 if (cart.isSalesOrder()) {
                     // sales order: run the "calculateProductPrice" service
                     virtualPriceMap = runService('calculateProductPrice', priceContext)
-                    BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price")
+                    BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get('price')
                     // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                     variantPriceList.add(virtualPriceMap)
                 } else {
@@ -194,22 +194,22 @@ if (product) {
                 if (virtualPriceMap.price) {
                     price = numberFormat.format(virtualPriceMap.price)
                 } else {
-                    price = UtilProperties.getResourceBundleMap("CommonUiLabels", locale).get("CommonNA")
+                    price = UtilProperties.getResourceBundleMap('CommonUiLabels', locale).get('CommonNA')
                 }
                 variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + price + "\"; ")
                 variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + price + "';\n")
             }
-            variantPriceJS.append(" } ")
+            variantPriceJS.append(' } ')
             
             context.variantPriceList = variantPriceList
             jsBuf.append(amt.toString())
             jsBuf.append(variantPriceJS.toString())
-            jsBuf.append("</script>")
+            jsBuf.append('</script>')
             context.virtualJavaScript = jsBuf
         }
     }
     variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + numberFormat.format(priceMap.price) + "';\n")
-    variantInfoJS.append("    });\n</script>\n")
+    variantInfoJS.append('    });\n</script>\n')
     context.variantInfoJavaScript = variantInfoJS
 
     context.mainProducts = mainProducts
@@ -233,7 +233,7 @@ if (reviews) {
 }
 
 // an example of getting features of a certain type to show
-sizeProductFeatureAndAppls = from("ProductFeatureAndAppl").where("productId", productId, "productFeatureTypeId", "SIZE").orderBy("sequenceNum", "defaultSequenceNum").cache(true).queryList()
+sizeProductFeatureAndAppls = from('ProductFeatureAndAppl').where('productId', productId, 'productFeatureTypeId', 'SIZE').orderBy('sequenceNum', 'defaultSequenceNum').cache(true).queryList()
 
 context.product = product
 context.categoryId = categoryId

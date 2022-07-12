@@ -27,14 +27,14 @@ def getTotalIssuedQuantityForOrderItem() {
     Map result = success()
     GenericValue orderItem = parameters.orderItem
     BigDecimal totalIssuedQuantity = 0.0
-    List orderShipments = from("OrderShipment").where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
+    List orderShipments = from('OrderShipment').where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
     if (orderShipments) {
         for (GenericValue orderShipment : orderShipments) {
             totalIssuedQuantity +=  orderShipment.quantity
         }
     } else {
         // This is here for backward compatibility only: ItemIssuances are no more created for purchase orders
-        List allItemIssuances = from("ItemIssuance").where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
+        List allItemIssuances = from('ItemIssuance').where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
         for (GenericValue itemIssuance : allItemIssuances) {
             totalIssuedQuantity += itemIssuance.quantity
         }

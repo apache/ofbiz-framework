@@ -29,20 +29,20 @@ context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator)
-imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context)
-imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), context)
-imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
-imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
+imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.server.path', delegator), context)
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator), context)
+imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
+imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
 context.imageFilenameFormat = imageFilenameFormat
 context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
 
 filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
-context.imageNameSmall  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'small' , id : productId])
-context.imageNameMedium = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'medium', id : productId])
-context.imageNameLarge  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'large' , id : productId])
-context.imageNameDetail = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'detail', id : productId])
-context.imageNameOriginal = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'original', id : productId])
+context.imageNameSmall  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'small' , id : productId])
+context.imageNameMedium = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'medium', id : productId])
+context.imageNameLarge  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'large' , id : productId])
+context.imageNameDetail = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'detail', id : productId])
+context.imageNameOriginal = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'original', id : productId])
 
 // Start ProductContent stuff
 productContent = null
@@ -53,14 +53,14 @@ context.productContent = productContent
 // End ProductContent stuff
 
 tryEntity = true
-if (request.getAttribute("_ERROR_MESSAGE_")) {
+if (request.getAttribute('_ERROR_MESSAGE_')) {
     tryEntity = false
 }
 if (!product) {
     tryEntity = false
 }
 
-if ("true".equalsIgnoreCase((String) request.getParameter("tryEntity"))) {
+if ('true'.equalsIgnoreCase((String) request.getParameter('tryEntity'))) {
     tryEntity = true
 }
 context.tryEntity = tryEntity
@@ -68,36 +68,36 @@ context.tryEntity = tryEntity
 // UPLOADING STUFF
 forLock = new Object()
 contentType = null
-String fileType = request.getParameter("upload_file_type")
+String fileType = request.getParameter('upload_file_type')
 if (fileType) {
 
     context.fileType = fileType
 
     fileLocation = filenameExpander.expandString([location : 'products', type : fileType, id : productId])
-    filePathPrefix = ""
+    filePathPrefix = ''
     filenameToUse = fileLocation
-    if (fileLocation.lastIndexOf("/") != -1) {
-        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1) // adding 1 to include the trailing slash
-        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1)
+    if (fileLocation.lastIndexOf('/') != -1) {
+        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1) // adding 1 to include the trailing slash
+        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1)
     }
 
     int i1
-    if (contentType && (i1 = contentType.indexOf("boundary=")) != -1) {
+    if (contentType && (i1 = contentType.indexOf('boundary=')) != -1) {
         contentType = contentType.substring(i1 + 9)
-        contentType = "--" + contentType
+        contentType = '--' + contentType
     }
 
-    defaultFileName = filenameToUse + "_temp"
+    defaultFileName = filenameToUse + '_temp'
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)
-    uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
-    if (!uploadObject.doUpload(request, "Image")) {
+    uploadObject.setSavePath(imageServerPath + '/' + filePathPrefix)
+    if (!uploadObject.doUpload(request, 'Image')) {
         try {
-            (new File(imageServerPath + "/" + filePathPrefix, defaultFileName)).delete()
+            (new File(imageServerPath + '/' + filePathPrefix, defaultFileName)).delete()
         } catch (Exception e) {
             logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
         }
-        String errorMessage = UtilProperties.getMessage("SecurityUiLabels","SupportedImageFormats", locale)
+        String errorMessage = UtilProperties.getMessage('SecurityUiLabels','SupportedImageFormats', locale)
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -108,21 +108,21 @@ if (fileType) {
     }
 
     if (clientFileName && clientFileName.length() > 0) {
-        if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
-            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."))
+        if (clientFileName.lastIndexOf('.') > 0 && clientFileName.lastIndexOf('.') < clientFileName.length()) {
+            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf('.'))
         } else {
-            filenameToUse += ".jpg"
+            filenameToUse += '.jpg'
         }
 
         context.clientFileName = clientFileName
         context.filenameToUse = filenameToUse
 
         characterEncoding = request.getCharacterEncoding()
-        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
+        imageUrl = imageUrlPrefix + '/' + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
 
         try {
-            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName)
-            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse)
+            file = new File(imageServerPath + '/' + filePathPrefix, defaultFileName)
+            file1 = new File(imageServerPath + '/' + filePathPrefix, filenameToUse)
             try {
                 file1.delete()
             } catch (Exception e) {
@@ -135,17 +135,17 @@ if (fileType) {
 
         if (imageUrl && imageUrl.length() > 0) {
             context.imageUrl = imageUrl
-            product.set(fileType + "ImageUrl", imageUrl)
+            product.set(fileType + 'ImageUrl', imageUrl)
 
             // call scaleImageInAllSize
-            if ("original".equals(fileType)) {
+            if ('original'.equals(fileType)) {
                 context.delegator = delegator
-                result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0")
+                result = ScaleImage.scaleImageInAllSize(context, filenameToUse, 'main', '0')
 
-                if (result.containsKey("responseMessage") && "success".equals(result.get("responseMessage"))) {
-                    imgMap = result.get("imageUrlMap")
+                if (result.containsKey('responseMessage') && 'success'.equals(result.get('responseMessage'))) {
+                    imgMap = result.get('imageUrlMap')
                     imgMap.each() { key, value ->
-                        product.set(key + "ImageUrl", value)
+                        product.set(key + 'ImageUrl', value)
                     }
                 }
             }
@@ -155,4 +155,4 @@ if (fileType) {
     }
 }
 
-context.productFeatures = from("ProductFeature").where("productFeatureTypeId", "SIZE", "productFeatureCategoryId", "IMAGE").queryList()
+context.productFeatures = from('ProductFeature').where('productFeatureTypeId', 'SIZE', 'productFeatureCategoryId', 'IMAGE').queryList()

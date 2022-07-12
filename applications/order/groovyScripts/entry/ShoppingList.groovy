@@ -18,11 +18,11 @@
  */
 
 
-shoppingCart = session.getAttribute("shoppingCart")
+shoppingCart = session.getAttribute('shoppingCart')
 partyId = shoppingCart.getPartyId()
 
 // Get the party's collection of Shopping Lists
-shoppingLists = from("ShoppingList").where("partyId", partyId).cache(true).queryList()
+shoppingLists = from('ShoppingList').where('partyId', partyId).cache(true).queryList()
 if (shoppingLists) {
     context.shoppingLists = shoppingLists
 }

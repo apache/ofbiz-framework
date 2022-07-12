@@ -49,7 +49,7 @@ List getEcaListForService(String selectedService) {
             curRuleClass = curRule.getClass()
 
             //event name for rule
-            eventName = curRuleClass.getDeclaredField("eventName")
+            eventName = curRuleClass.getDeclaredField('eventName')
             eventName.setAccessible(true)
             eventNameVal = eventName.get(curRule)
             if (eventNameVal) {
@@ -58,7 +58,7 @@ List getEcaListForService(String selectedService) {
             eventName.setAccessible(false)
 
             //runOnError
-            runOnError = curRuleClass.getDeclaredField("runOnError")
+            runOnError = curRuleClass.getDeclaredField('runOnError')
             runOnError.setAccessible(true)
             runOnErrorVal = runOnError.get(curRule)
             if (runOnErrorVal) {
@@ -67,7 +67,7 @@ List getEcaListForService(String selectedService) {
             runOnError.setAccessible(false)
 
             //runOnFailure
-            runOnFailure = curRuleClass.getDeclaredField("runOnFailure")
+            runOnFailure = curRuleClass.getDeclaredField('runOnFailure')
             runOnFailure.setAccessible(true)
             runOnFailureVal = runOnFailure.get(curRule)
             if (runOnFailureVal) {
@@ -76,7 +76,7 @@ List getEcaListForService(String selectedService) {
             runOnFailure.setAccessible(false)
 
             //extract actions
-            actions = curRuleClass.getDeclaredField("actionsAndSets")
+            actions = curRuleClass.getDeclaredField('actionsAndSets')
             actions.setAccessible(true)
             actionsVal = actions.get(curRule)
             if (actionsVal) {
@@ -88,7 +88,7 @@ List getEcaListForService(String selectedService) {
                         actionMap = [:]
 
                         //eventName
-                        eventName = actionClass.getDeclaredField("eventName")
+                        eventName = actionClass.getDeclaredField('eventName')
                         eventName.setAccessible(true)
                         eventNameVal = eventName.get(curAction)
                         if (eventNameVal) {
@@ -97,7 +97,7 @@ List getEcaListForService(String selectedService) {
                         eventName.setAccessible(false)
 
                         //ignoreError
-                        ignoreError = actionClass.getDeclaredField("ignoreError")
+                        ignoreError = actionClass.getDeclaredField('ignoreError')
                         ignoreError.setAccessible(true)
                         ignoreErrorVal = ignoreError.get(curAction)
                         if (ignoreErrorVal) {
@@ -106,7 +106,7 @@ List getEcaListForService(String selectedService) {
                         ignoreError.setAccessible(false)
 
                         //ignoreFailure
-                        ignoreFailure = actionClass.getDeclaredField("ignoreFailure")
+                        ignoreFailure = actionClass.getDeclaredField('ignoreFailure')
                         ignoreFailure.setAccessible(true)
                         ignoreFailureVal = ignoreFailure.get(curAction)
                         if (ignoreFailureVal) {
@@ -115,7 +115,7 @@ List getEcaListForService(String selectedService) {
                         ignoreFailure.setAccessible(false)
 
                         //persist
-                        persist = actionClass.getDeclaredField("persist")
+                        persist = actionClass.getDeclaredField('persist')
                         persist.setAccessible(true)
                         persistVal = persist.get(curAction)
                         if (persistVal) {
@@ -124,7 +124,7 @@ List getEcaListForService(String selectedService) {
                         persist.setAccessible(false)
 
                         //resultMapName
-                        resultMapName = actionClass.getDeclaredField("resultMapName")
+                        resultMapName = actionClass.getDeclaredField('resultMapName')
                         resultMapName.setAccessible(true)
                         resultMapNameVal = resultMapName.get(curAction)
                         if (resultMapNameVal) {
@@ -133,7 +133,7 @@ List getEcaListForService(String selectedService) {
                         resultMapName.setAccessible(false)
 
                         //resultToContext
-                        resultToContext = actionClass.getDeclaredField("resultToContext")
+                        resultToContext = actionClass.getDeclaredField('resultToContext')
                         resultToContext.setAccessible(true)
                         resultToContextVal = resultToContext.get(curAction)
                         if (resultToContextVal) {
@@ -142,7 +142,7 @@ List getEcaListForService(String selectedService) {
                         resultToContext.setAccessible(false)
 
                         //resultToResult
-                        resultToResult = actionClass.getDeclaredField("resultToResult")
+                        resultToResult = actionClass.getDeclaredField('resultToResult')
                         resultToResult.setAccessible(true)
                         resultToResultVal = resultToResult.get(curAction)
                         if (resultToResultVal) {
@@ -151,7 +151,7 @@ List getEcaListForService(String selectedService) {
                         resultToResult.setAccessible(false)
 
                         //serviceMode
-                        serviceMode = actionClass.getDeclaredField("serviceMode")
+                        serviceMode = actionClass.getDeclaredField('serviceMode')
                         serviceMode.setAccessible(true)
                         serviceModeVal = serviceMode.get(curAction)
                         if (serviceModeVal) {
@@ -160,7 +160,7 @@ List getEcaListForService(String selectedService) {
                         serviceMode.setAccessible(false)
 
                         //serviceName
-                        serviceName = actionClass.getDeclaredField("serviceName")
+                        serviceName = actionClass.getDeclaredField('serviceName')
                         serviceName.setAccessible(true)
                         serviceNameVal = serviceName.get(curAction)
                         if (serviceNameVal) {
@@ -174,7 +174,7 @@ List getEcaListForService(String selectedService) {
                         setMap = [:]
 
                         // fieldName
-                        fieldName = actionClass.getDeclaredField("fieldName")
+                        fieldName = actionClass.getDeclaredField('fieldName')
                         fieldName.setAccessible(true)
                         fieldNameVal = fieldName.get(curAction)
                         if (fieldNameVal) {
@@ -183,7 +183,7 @@ List getEcaListForService(String selectedService) {
                         fieldName.setAccessible(false)
 
                         // envName
-                        envName = actionClass.getDeclaredField("envName")
+                        envName = actionClass.getDeclaredField('envName')
                         envName.setAccessible(true)
                         envNameVal = envName.get(curAction)
                         if (envNameVal) {
@@ -192,7 +192,7 @@ List getEcaListForService(String selectedService) {
                         envName.setAccessible(false)
 
                         // value
-                        value = actionClass.getDeclaredField("value")
+                        value = actionClass.getDeclaredField('value')
                         value.setAccessible(true)
                         valueVal = value.get(curAction)
                         if (valueVal) {
@@ -201,7 +201,7 @@ List getEcaListForService(String selectedService) {
                         value.setAccessible(false)
 
                         // format
-                        format = actionClass.getDeclaredField("format")
+                        format = actionClass.getDeclaredField('format')
                         format.setAccessible(true)
                         formatVal = format.get(curAction)
                         if (formatVal) {
@@ -219,7 +219,7 @@ List getEcaListForService(String selectedService) {
             actions.setAccessible(true)
 
             //extract conditions
-            conditions = curRuleClass.getDeclaredField("conditions")
+            conditions = curRuleClass.getDeclaredField('conditions')
             conditions.setAccessible(true)
             conditionsVal = conditions.get(curRule)
             if (conditionsVal) {
@@ -230,7 +230,7 @@ List getEcaListForService(String selectedService) {
                     condMap = [:]
 
                     //compareType
-                    compareType = condValClass.getDeclaredField("compareType")
+                    compareType = condValClass.getDeclaredField('compareType')
                     compareType.setAccessible(true)
                     compareTypeVal = compareType.get(condVal)
                     if (compareTypeVal) {
@@ -239,7 +239,7 @@ List getEcaListForService(String selectedService) {
                     compareType.setAccessible(false)
 
                     //conditionService
-                    conditionService = condValClass.getDeclaredField("conditionService")
+                    conditionService = condValClass.getDeclaredField('conditionService')
                     conditionService.setAccessible(true)
                     conditionServiceVal = conditionService.get(condVal)
                     if (conditionServiceVal) {
@@ -248,7 +248,7 @@ List getEcaListForService(String selectedService) {
                     conditionService.setAccessible(false)
 
                     //format
-                    format = condValClass.getDeclaredField("format")
+                    format = condValClass.getDeclaredField('format')
                     format.setAccessible(true)
                     formatVal = format.get(condVal)
                     if (formatVal) {
@@ -257,7 +257,7 @@ List getEcaListForService(String selectedService) {
                     format.setAccessible(false)
 
                     //isConstant
-                    isConstant = condValClass.getDeclaredField("isConstant")
+                    isConstant = condValClass.getDeclaredField('isConstant')
                     isConstant.setAccessible(true)
                     isConstantVal = isConstant.get(condVal)
                     if (isConstantVal) {
@@ -266,7 +266,7 @@ List getEcaListForService(String selectedService) {
                     isConstant.setAccessible(false)
 
                     //isService
-                    isService = condValClass.getDeclaredField("isService")
+                    isService = condValClass.getDeclaredField('isService')
                     isService.setAccessible(true)
                     isServiceVal = isService.get(condVal)
                     if (isServiceVal) {
@@ -275,7 +275,7 @@ List getEcaListForService(String selectedService) {
                     isService.setAccessible(false)
 
                     //lhsMapName
-                    lhsMapName = condValClass.getDeclaredField("lhsMapName")
+                    lhsMapName = condValClass.getDeclaredField('lhsMapName')
                     lhsMapName.setAccessible(true)
                     lhsMapNameVal = lhsMapName.get(condVal)
                     if (lhsMapNameVal) {
@@ -284,7 +284,7 @@ List getEcaListForService(String selectedService) {
                     lhsMapName.setAccessible(false)
 
                     //lhsValueName
-                    lhsValueName = condValClass.getDeclaredField("lhsValueName")
+                    lhsValueName = condValClass.getDeclaredField('lhsValueName')
                     lhsValueName.setAccessible(true)
                     lhsValueNameVal = lhsValueName.get(condVal)
                     if (lhsValueNameVal) {
@@ -293,7 +293,7 @@ List getEcaListForService(String selectedService) {
                     lhsValueName.setAccessible(false)
 
                     //operator
-                    operator = condValClass.getDeclaredField("operator")
+                    operator = condValClass.getDeclaredField('operator')
                     operator.setAccessible(true)
                     operatorVal = operator.get(condVal)
                     if (operatorVal) {
@@ -302,7 +302,7 @@ List getEcaListForService(String selectedService) {
                     operator.setAccessible(false)
 
                     //rhsMapName
-                    rhsMapName = condValClass.getDeclaredField("rhsMapName")
+                    rhsMapName = condValClass.getDeclaredField('rhsMapName')
                     rhsMapName.setAccessible(true)
                     rhsMapNameVal = rhsMapName.get(condVal)
                     if (rhsMapNameVal) {
@@ -311,7 +311,7 @@ List getEcaListForService(String selectedService) {
                     rhsMapName.setAccessible(false)
 
                     //rhsValueName
-                    rhsValueName = condValClass.getDeclaredField("rhsValueName")
+                    rhsValueName = condValClass.getDeclaredField('rhsValueName')
                     rhsValueName.setAccessible(true)
                     rhsValueNameVal = rhsValueName.get(condVal)
                     if (rhsValueNameVal) {
@@ -337,8 +337,8 @@ dispArrList = new TreeSet()
 dispArrList.addAll(ServiceContainer.getAllDispatcherNames())
 context.dispArrList = dispArrList
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
-uiLabelMap.addBottomResourceBundle("CommonUiLabels")
+uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
+uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 curDispatchContext = dispatcher.getDispatchContext()
 context.dispatcherName = dispatcher.getName()
@@ -353,12 +353,12 @@ if (selectedService) {
 
     if (curServiceModel != null) {
         curServiceMap.description = curServiceModel.getDescription()
-        engineName = curServiceModel.getEngineName() ?: "NA"
-        defaultEntityName = curServiceModel.getDefaultEntityName() ?: "NA"
+        engineName = curServiceModel.getEngineName() ?: 'NA'
+        defaultEntityName = curServiceModel.getDefaultEntityName() ?: 'NA'
         export = curServiceModel.isExport() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
-        exportBool = curServiceModel.isExport() ? "true" : "false"
-        permissionGroups = curServiceModel.getPermissionGroups() ?: "NA"
-        implServices = curServiceModel.getImplServices() ?: "NA"
+        exportBool = curServiceModel.isExport() ? 'true' : 'false'
+        permissionGroups = curServiceModel.getPermissionGroups() ?: 'NA'
+        implServices = curServiceModel.getImplServices() ?: 'NA'
         overrideParameters = curServiceModel.getOverrideParameters()
         useTrans = curServiceModel.isUseTransaction() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
         maxRetry = curServiceModel.getMaxRetry()
@@ -370,20 +370,20 @@ if (selectedService) {
         }
         //End Test for ECA's
 
-        invoke = curServiceModel.getInvoke() ?: "NA"
-        location = curServiceModel.getLocation() ?: "NA"
+        invoke = curServiceModel.getInvoke() ?: 'NA'
+        location = curServiceModel.getLocation() ?: 'NA'
         requireNewTransaction = curServiceModel.isRequireNewTransaction() ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse
 
         curServiceMap.engineName = engineName
         curServiceMap.defaultEntityName = defaultEntityName
         curServiceMap.invoke = invoke
         curServiceMap.location = location
-        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), "file:/" + System.getProperty("ofbiz.home") + "/", "")
+        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), 'file:/' + System.getProperty('ofbiz.home') + '/', '')
         curServiceMap.requireNewTransaction = requireNewTransaction
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
 
-        if (permissionGroups && !"NA".equals(permissionGroups)) {
+        if (permissionGroups && !'NA'.equals(permissionGroups)) {
             permList = new ArrayList(permissionGroups.size())
             permissionGroups.each { curPerm ->  //This is a ModelPermGroup
                 curPerm.permissions.each { curPermObj ->
@@ -391,11 +391,11 @@ if (selectedService) {
                     permObj.action = curPermObj.action
                     permType = curPermObj.permissionType
                     if (permType == 1) {
-                        permType = "Simple Permission"
+                        permType = 'Simple Permission'
                     } else if (permType == 2) {
-                        permType = "Entity Permission"
+                        permType = 'Entity Permission'
                     } else if (permType == 3) {
-                        permType = "Role Member"
+                        permType = 'Role Member'
                     }
                     permObj.permType = permType
                     permObj.nameOrRole = curPermObj.nameOrRole
@@ -471,7 +471,7 @@ if (selectedService) {
                 ovrPrmList.add(curOvrPrm)
             }
             ovrParamMap = [:]
-            ovrParamMap.title = "Override parameters"
+            ovrParamMap.title = 'Override parameters'
             ovrParamMap.paramList = ovrPrmList
             allParamsList.add(ovrParamMap)
         }
@@ -480,9 +480,9 @@ if (selectedService) {
 
     showWsdl = parameters.show_wsdl
 
-    if ("true".equals(showWsdl)) {
+    if ('true'.equals(showWsdl)) {
         try {
-            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue("url", "port.http", "80", delegator)}${parameters._CONTROL_PATH_}/SOAPService")
+            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue('url', 'port.http', '80', delegator)}${parameters._CONTROL_PATH_}/SOAPService")
             curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl)
         } catch (WSDLException ex) {
             curServiceMap.wsdl = ex.getLocalizedMessage()
@@ -518,55 +518,55 @@ if (!selectedService) {
 
         canIncludeService = true
         if (constraint && curServiceModel != null) {
-            consArr = constraint.split("@")
+            consArr = constraint.split('@')
             constraintName = consArr[0]
             constraintVal = consArr[1]
 
-            if ("engine_name".equals(constraintName)) {
+            if ('engine_name'.equals(constraintName)) {
                 canIncludeService = curServiceModel.getEngineName().equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if ('NA'.equals(constraintVal)) {
                     canIncludeService = curServiceModel.getEngineName() ? false : true
                 }
             }
 
-            if (canIncludeService && "default_entity_name".equals(constraintName)) {
+            if (canIncludeService && 'default_entity_name'.equals(constraintName)) {
                 canIncludeService = curServiceModel.getDefaultEntityName().equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if ('NA'.equals(constraintVal)) {
                     canIncludeService = curServiceModel.getDefaultEntityName() ? false : true
                 }
             }
 
-            if (canIncludeService && "location".equals(constraintName)) {
+            if (canIncludeService && 'location'.equals(constraintName)) {
                 canIncludeService = curServiceModel.getLocation().equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if ('NA'.equals(constraintVal)) {
                     canIncludeService = curServiceModel.getLocation() ? false : true
                 }
             }
 
-            if (canIncludeService && "definitionLocation".equals(constraintName)) {
+            if (canIncludeService && 'definitionLocation'.equals(constraintName)) {
                 canIncludeService = curServiceModel.getDefinitionLocation().equals(constraintVal)
             }
 
-            if (canIncludeService && "alpha".equals(constraintName)) {
+            if (canIncludeService && 'alpha'.equals(constraintName)) {
                 canIncludeService = (serviceName[0]).equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if ('NA'.equals(constraintVal)) {
                     canIncludeService = true
                 }
             }
         }
 
         if (curServiceModel != null && canIncludeService) {
-            engineName = curServiceModel.getEngineName() ?: "NA"
-            defaultEntityName = curServiceModel.getDefaultEntityName() ?: "NA"
-            invoke = curServiceModel.getInvoke() ?: "NA"
-            location = curServiceModel.getLocation() ?: "NA"
+            engineName = curServiceModel.getEngineName() ?: 'NA'
+            defaultEntityName = curServiceModel.getDefaultEntityName() ?: 'NA'
+            invoke = curServiceModel.getInvoke() ?: 'NA'
+            location = curServiceModel.getLocation() ?: 'NA'
             requireNewTransaction = curServiceModel.isRequireNewTransaction()
 
             curServiceMap.engineName = engineName
             curServiceMap.defaultEntityName = defaultEntityName
             curServiceMap.invoke = invoke
             curServiceMap.location = location
-            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), "file:/" + System.getProperty("ofbiz.home") + "/", "")
+            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), 'file:/' + System.getProperty('ofbiz.home') + '/', '')
             curServiceMap.requireNewTransaction = requireNewTransaction
             curServiceMap.deprecated = curServiceModel.getDeprecatedUseInstead()
 

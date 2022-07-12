@@ -44,29 +44,29 @@ def createCommunicationEvent() {
         newCommEvent.remove('messageId')
         newCommEvent.remove('partyIdTo')
         newCommEvent.partyIdFrom = parameters.partyIdTo
-        String forwardLabel = UtilProperties.getPropertyValue("PartyUiLabels", "PartyForward")
+        String forwardLabel = UtilProperties.getPropertyValue('PartyUiLabels', 'PartyForward')
         newCommEvent.subject = "${forwardLabel}: ${newCommEvent.subject}"
         newCommEvent.origCommEventId = parameters.origCommEventId
     }
 
     // init communication event fields
     if (! newCommEvent) {
-        newCommEvent = makeValue("CommunicationEvent")
+        newCommEvent = makeValue('CommunicationEvent')
     }
     newCommEvent.setNonPKFields(parameters)
     newCommEvent.communicationEventId = parameters.communicationEventId ?:
-            delegator.getNextSeqId("CommunicationEvent")
+            delegator.getNextSeqId('CommunicationEvent')
 
     // check for reply or reply all
     GenericValue parentCommEvent
     if (parameters.parentCommEventId
             && (parameters.action == 'REPLY'
             || parameters.action == 'REPLYALL')) {
-        parentCommEvent = from("CommunicationEvent")
-                .where("communicationEventId", parameters.parentCommEventId)
+        parentCommEvent = from('CommunicationEvent')
+                .where('communicationEventId', parameters.parentCommEventId)
                 .queryOne()
-        GenericValue party = from("Party")
-                .where("partyId", parameters.partyIdFrom)
+        GenericValue party = from('Party')
+                .where('partyId', parameters.partyIdFrom)
                 .queryOne()
         newCommEvent.communicationEventTypeId = parentCommEvent.communicationEventTypeId
         if (newCommEvent.communicationEventTypeId == 'AUTO_EMAIL_COMM') {
@@ -75,36 +75,36 @@ def createCommunicationEvent() {
         newCommEvent.partyIdFrom = parameters.partyIdFrom ?: parameters.userLogin.partyId
         newCommEvent.partyIdTo = parentCommEvent.partyIdFrom
         newCommEvent.parentCommEventId = parentCommEvent.communicationEventId
-        newCommEvent.subject = "RE: " + parentCommEvent.subject
+        newCommEvent.subject = 'RE: ' + parentCommEvent.subject
         newCommEvent.contentMimeTypeId = parentCommEvent.contentMimeTypeId
 
         //create the content as response
         String localContent = parentCommEvent.content
-        String resultLine = ""
+        String resultLine = ''
         if (localContent) {
             resultLine = PartyHelper.getPartyName(party) +
-                    "\n\n > " +
-                    localContent.substring(0, localContent.indexOf("\n", 0) == -1
+                    '\n\n > ' +
+                    localContent.substring(0, localContent.indexOf('\n', 0) == -1
                             ? localContent.length()
-                            : localContent.indexOf("\n", 0))
-            int startChar = localContent.indexOf("\n", 0);
-            while (startChar != -1 && (startChar = localContent.indexOf("\n", startChar) + 1) != 0) {
-                resultLine += "\n > " + localContent.substring(startChar,
-                        localContent.indexOf("\n", startChar) == -1
+                            : localContent.indexOf('\n', 0))
+            int startChar = localContent.indexOf('\n', 0);
+            while (startChar != -1 && (startChar = localContent.indexOf('\n', startChar) + 1) != 0) {
+                resultLine += '\n > ' + localContent.substring(startChar,
+                        localContent.indexOf('\n', startChar) == -1
                                 ? localContent.length()
-                                : localContent.indexOf("\n", startChar))
+                                : localContent.indexOf('\n', startChar))
             }
         }
         newCommEvent.content = resultLine.toString()
 
         // set role status from the parent commevent to completed
-        GenericValue role = from("CommunicationEventRole")
+        GenericValue role = from('CommunicationEventRole')
                 .where([communicationEventId: parentCommEvent.communicationEventId,
                         partyId             : newCommEvent.partyIdFrom])
                 .queryFirst()
         if (role) {
             Map setCommEventRoleStatusMap = [*: role]
-            setCommEventRoleStatusMap.statusId = "COM_ROLE_COMPLETED"
+            setCommEventRoleStatusMap.statusId = 'COM_ROLE_COMPLETED'
             run service: 'setCommunicationEventRoleStatus', with: setCommEventRoleStatusMap
         }
     }
@@ -113,7 +113,7 @@ def createCommunicationEvent() {
 
     if (newCommEvent.communicationEventTypeId == 'EMAIL_COMMUNICATION') {
 
-        ["From", "To"].each {
+        ['From', 'To'].each {
             // if only contactMechId[From/To] and no partyId[From/To] is provided for creation email address find the related part
             if (!newCommEvent."partyId${it}"
                     && newCommEvent."contactMechId${it}") {
@@ -140,7 +140,7 @@ def createCommunicationEvent() {
     newCommEvent.create()
 
     if (parentCommEvent && parameters.action == 'REPLYALL') {
-        List<GenericValue> roles = from("CommunicationEventRole")
+        List<GenericValue> roles = from('CommunicationEventRole')
                 .where([EntityCondition.makeCondition('communicationEventId', parentCommEvent.communicationEventId),
                         EntityCondition.makeCondition('partyId', EntityOperator.NOT_IN,
                                 [newCommEvent.partyIdFrom, newCommEvent.partyIdTo])])
@@ -205,7 +205,7 @@ def createCommunicationEvent() {
  * @return
  */
 def createCommunicationEventWithoutPermission() {
-    GenericValue system = from("UserLogin").where(userLoginId: 'system').cache().queryOne()
+    GenericValue system = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
     Map result = run service: 'createCommunicationEvent', with: [*:parameters,
                                                                  userLogin: system]
     return result
@@ -216,7 +216,7 @@ def createCommunicationEventWithoutPermission() {
  */
 def updateCommunicationEvent() {
 
-    GenericValue event = from("CommunicationEvent")
+    GenericValue event = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
 
@@ -230,7 +230,7 @@ def updateCommunicationEvent() {
     // get partyId from email address if required
     if (!parameters.partyIdTo && parameters.contactMechIdTo) {
 
-        GenericValue partyContactMech = from("PartyAndContactMech")
+        GenericValue partyContactMech = from('PartyAndContactMech')
                 .where(contactMechId: parameters.contactMechIdTo)
                 .filterByDate()
                 .queryFirst()
@@ -245,24 +245,24 @@ def updateCommunicationEvent() {
 
         // updating partyId from old:
         if (event.partyIdFrom) {
-            GenericValue roleFrom = from("CommunicationEventRole")
+            GenericValue roleFrom = from('CommunicationEventRole')
                     .where([communicationEventId: event.communicationEventId,
                             partyId: event.partyIdFrom,
-                            roleTypeId: "ORIGINATOR"])
+                            roleTypeId: 'ORIGINATOR'])
                     .queryOne()
             roleFrom?.remove()
         }
 
         // add new role
         Map createCommEventRoleMap = [partyId: parameters.partyIdFrom]
-        createCommEventRoleMap.contactMechPurposeTypeIdFrom = parameters.contactMechPurposeTypeIdFrom ?: ""
+        createCommEventRoleMap.contactMechPurposeTypeIdFrom = parameters.contactMechPurposeTypeIdFrom ?: ''
 
-        Map getPartyEmailFrom = run service: "getPartyEmail", with: createCommEventRoleMap
+        Map getPartyEmailFrom = run service: 'getPartyEmail', with: createCommEventRoleMap
         createCommEventRoleMap.contactMechId = getPartyEmailFrom.contactMechId
         createCommEventRoleMap.communicationEventId = event.communicationEventId
-        createCommEventRoleMap.roleTypeId = "ORIGINATOR"
+        createCommEventRoleMap.roleTypeId = 'ORIGINATOR'
 
-        run service: "createCommunicationEventRole", with: createCommEventRoleMap
+        run service: 'createCommunicationEventRole', with: createCommEventRoleMap
         fieldsMap.contactMechIdFrom = createCommEventRoleMap.contactMechId
     }
 
@@ -270,21 +270,21 @@ def updateCommunicationEvent() {
     if (parameters.partyIdTo
             && parameters.partyIdTo != event.partyIdTo) {
         if (event.partyIdTo) {
-            GenericValue roleTo = from("CommunicationEventRole")
+            GenericValue roleTo = from('CommunicationEventRole')
                     .where([communicationEventId: event.communicationEventId,
                             partyId: event.partyIdto,
-                            roleTypeId: "ADDRESSEE"])
+                            roleTypeId: 'ADDRESSEE'])
                     .queryOne()
             roleTo?.remove()
         }
         // add new role
         Map createCommEventRoleMap = [partyId: parameters.partyIdTo]
-        Map getPartyEmailTo = run service: "getPartyEmail", with: createCommEventRoleMap
+        Map getPartyEmailTo = run service: 'getPartyEmail', with: createCommEventRoleMap
         createCommEventRoleMap.contactMechId = getPartyEmailTo.contactMechId
         createCommEventRoleMap.communicationEventId = event.communicationEventId
-        createCommEventRoleMap.roleTypeId = "ADDRESSEE"
+        createCommEventRoleMap.roleTypeId = 'ADDRESSEE'
 
-        run service: "createCommunicationEventRole", with: createCommEventRoleMap
+        run service: 'createCommunicationEventRole', with: createCommEventRoleMap
         fieldsMap.contactMechIdTo = createCommEventRoleMap.contactMechId
     }
 
@@ -293,7 +293,7 @@ def updateCommunicationEvent() {
 
     if (newStatusId) {
         fieldsMap.statusId = newStatusId
-        run service: "setCommunicationEventStatus", with: fieldsMap
+        run service: 'setCommunicationEventStatus', with: fieldsMap
     }
 
     return success()
@@ -304,7 +304,7 @@ def updateCommunicationEvent() {
  */
 def deleteCommunicationEvent() {
 
-    GenericValue event = from("CommunicationEvent")
+    GenericValue event = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
 
@@ -315,49 +315,49 @@ def deleteCommunicationEvent() {
     }
 
     // remove related links to work effort and product
-    event.removeRelated("CommunicationEventWorkEff")
-    event.removeRelated("CommunicationEventProduct")
+    event.removeRelated('CommunicationEventWorkEff')
+    event.removeRelated('CommunicationEventProduct')
 
-    List<GenericValue> contentAssocs = event.getRelated("CommEventContentAssoc", null, null, false)
+    List<GenericValue> contentAssocs = event.getRelated('CommEventContentAssoc', null, null, false)
     contentAssocs.each { contentAssoc ->
         contentAssoc.remove()
         //Delete content and dataresource too if requested
-        if ("Y" == parameters.delContentDataResource) {
-            List<GenericValue> contents = contentAssoc.getRelated("FromContent", null, null, false)
+        if ('Y' == parameters.delContentDataResource) {
+            List<GenericValue> contents = contentAssoc.getRelated('FromContent', null, null, false)
             contents.each { content ->
-                content.removeRelated("ContentRole")
-                content.removeRelated("ContentKeyword")
+                content.removeRelated('ContentRole')
+                content.removeRelated('ContentKeyword')
 
-                List<GenericValue> relatedFromContentassocs = content.getRelated("FromContentAssoc", null, null, false)
+                List<GenericValue> relatedFromContentassocs = content.getRelated('FromContentAssoc', null, null, false)
                 relatedFromContentassocs.each { relatedFromContentassoc ->
                     Map removeContentAndRelatedInmap = [contentId: relatedFromContentassoc.contentIdTo]
-                    run service: "removeContentAndRelated", with: removeContentAndRelatedInmap
+                    run service: 'removeContentAndRelated', with: removeContentAndRelatedInmap
                 }
-                content.removeRelated("FromContentAssoc")
+                content.removeRelated('FromContentAssoc')
 
-                List<GenericValue> relatedToContentassocs = content.getRelated("ToContentAssoc", null, null, false)
+                List<GenericValue> relatedToContentassocs = content.getRelated('ToContentAssoc', null, null, false)
                 relatedToContentassocs.each { relatedFromContentassoc ->
                     Map removeContentAndRelatedInmap = [contentId: relatedFromContentassoc.contentIdFrom]
-                    run service: "removeContentAndRelated", with: removeContentAndRelatedInmap
+                    run service: 'removeContentAndRelated', with: removeContentAndRelatedInmap
                 }
-                content.removeRelated("ToContentAssoc")
+                content.removeRelated('ToContentAssoc')
                 content.remove()
 
                 // check first if the content is used on any other communication event if yes, only delete link
-                List<GenericValue> commEvents = from("CommEventContentAssoc")
-                        .where("contentId", content.contentId)
+                List<GenericValue> commEvents = from('CommEventContentAssoc')
+                        .where('contentId', content.contentId)
                         .queryList()
 
                 if (commEvents && commEvents.size() == 1) {
                     Map removeContentAndRelatedInmap = [contentId: content.contentId]
-                    run service: "removeContentAndRelated", with: removeContentAndRelatedInmap
+                    run service: 'removeContentAndRelated', with: removeContentAndRelatedInmap
                 }
             }
         }
     }
 
     //delete the roles when exist and the event itself
-    event.removeRelated("CommunicationEventRole")
+    event.removeRelated('CommunicationEventRole')
     event.remove()
 
     return success()
@@ -368,28 +368,28 @@ def deleteCommunicationEvent() {
  */
 def deleteCommunicationEventWorkEffort() {
 
-    GenericValue event = from("CommunicationEvent")
+    GenericValue event = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
 
     // remove related workeffort when this is the only communicationevent connected to it
-    List<GenericValue> workEffortComs = event.getRelated("CommunicationEventWorkEff", null, null, false)
+    List<GenericValue> workEffortComs = event.getRelated('CommunicationEventWorkEff', null, null, false)
 
     workEffortComs.each { workEffortCom ->
         workEffortCom.remove()
-        GenericValue workEffort = workEffortCom.getRelatedOne("WorkEffort", false)
+        GenericValue workEffort = workEffortCom.getRelatedOne('WorkEffort', false)
 
-        List<GenericValue> otherComs = workEffort.getRelated("CommunicationEventWorkEff", null, null, false)
+        List<GenericValue> otherComs = workEffort.getRelated('CommunicationEventWorkEff', null, null, false)
 
         if (!otherComs) {
             logInfo("remove workeffort ${workEffort.workEffortId} and related parties and status")
-            workEffort.removeRelated("WorkEffortPartyAssignment")
-            workEffort.removeRelated("WorkEffortStatus")
-            workEffort.removeRelated("WorkEffortKeyword")
+            workEffort.removeRelated('WorkEffortPartyAssignment')
+            workEffort.removeRelated('WorkEffortStatus')
+            workEffort.removeRelated('WorkEffortKeyword')
             workEffort.remove()
         }
     }
-    run service: "deleteCommunicationEvent", with: parameters
+    run service: 'deleteCommunicationEvent', with: parameters
     return success()
 }
 
@@ -400,18 +400,18 @@ def createCommunicationEventRole() {
 
     // check if role already exist, then ignore
     GenericValue communicationEventRole =
-            from("CommunicationEventRole")
+            from('CommunicationEventRole')
                     .where(parameters)
                     .queryOne()
 
     if (!communicationEventRole) {
-        GenericValue sysUserLogin = from("UserLogin").where(userLoginId: "system").queryOne()
+        GenericValue sysUserLogin = from('UserLogin').where(userLoginId: 'system').queryOne()
 
         def partyRole = parameters
         partyRole.userLogin= sysUserLogin
-        run service: "ensurePartyRole", with: partyRole
+        run service: 'ensurePartyRole', with: partyRole
 
-        GenericValue newEntity = makeValue("CommunicationEventRole")
+        GenericValue newEntity = makeValue('CommunicationEventRole')
         newEntity.setPKFields(parameters)
         newEntity.setNonPKFields(parameters)
         newEntity.statusId = parameters.statusId ?: 'COM_ROLE_CREATED'
@@ -419,14 +419,14 @@ def createCommunicationEventRole() {
         // if not provided get the latest contact mech id
         if (!newEntity.contactMechId) {
             GenericValue communicationEvent =
-                    from("CommunicationEvent").where(communicationEventId: context.communicationEventId)
+                    from('CommunicationEvent').where(communicationEventId: context.communicationEventId)
                             .queryOne()
-            GenericValue communicationEventType = communicationEvent.getRelatedOne("CommunicationEventType")
+            GenericValue communicationEventType = communicationEvent.getRelatedOne('CommunicationEventType')
             if (communicationEventType.contactMechTypeId) {
-                GenericValue contactMech = from("PartyAndContactMech")
-                        .where("partyId", newEntity.partyId,
-                                "contactMechTypeId", communicationEventType.contactMechTypeId)
-                        .orderBy("-fromDate")
+                GenericValue contactMech = from('PartyAndContactMech')
+                        .where('partyId', newEntity.partyId,
+                                'contactMechTypeId', communicationEventType.contactMechTypeId)
+                        .orderBy('-fromDate')
                         .queryFirst()
 
                 if (contactMech) {
@@ -445,18 +445,18 @@ def createCommunicationEventRole() {
  */
 def removeCommunicationEventRole() {
 
-    GenericValue eventRole = from("CommunicationEventRole")
+    GenericValue eventRole = from('CommunicationEventRole')
             .where(parameters)
             .queryOne()
 
     if (eventRole) {
         eventRole.remove()
 
-        if ("Y" == parameters.deleteCommEventIfLast
-                && from("CommunicationEventRole")
-                    .where("communicationEventId", eventRole.communicationEventId)
+        if ('Y' == parameters.deleteCommEventIfLast
+                && from('CommunicationEventRole')
+                    .where('communicationEventId', eventRole.communicationEventId)
                     .queryCount() == 0) {
-                run service: "deleteCommunicationEvent", with: parameters
+                run service: 'deleteCommunicationEvent', with: parameters
         }
     }
     return success()
@@ -469,18 +469,18 @@ def removeCommunicationEventRole() {
 def sendEmailDated() {
     Timestamp nowDate = UtilDateTime.nowTimestamp()
     EntityCondition conditions = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("statusId", "COM_IN_PROGRESS"),
+            EntityCondition.makeCondition('statusId', 'COM_IN_PROGRESS'),
             EntityCondition.makeCondition(EntityOperator.OR,
-                    "communicationEventTypeId", "EMAIL_COMMUNICATION",
-                    "communicationEventTypeId", "AUTO_EMAIL_COMM"),
+                    'communicationEventTypeId', 'EMAIL_COMMUNICATION',
+                    'communicationEventTypeId', 'AUTO_EMAIL_COMM'),
             EntityCondition.makeCondition([
-                    EntityCondition.makeCondition("datetimeStarted", EntityOperator.LESS_THAN, nowDate),
-                    EntityCondition.makeCondition("datetimeStarted", EntityOperator.EQUALS, null),
+                    EntityCondition.makeCondition('datetimeStarted', EntityOperator.LESS_THAN, nowDate),
+                    EntityCondition.makeCondition('datetimeStarted', EntityOperator.EQUALS, null),
             ], EntityOperator.OR)
     ])
 
-    Map serviceContext = dispatcher.getDispatchContext().makeValidContext("sendCommEventAsEmail", ModelService.IN_PARAM, parameters)
-    List<GenericValue> communicationEvents = from("CommunicationEvent").where(conditions).queryList()
+    Map serviceContext = dispatcher.getDispatchContext().makeValidContext('sendCommEventAsEmail', ModelService.IN_PARAM, parameters)
+    List<GenericValue> communicationEvents = from('CommunicationEvent').where(conditions).queryList()
     communicationEvents.each { communicationEvent ->
         // run service don't cover the new transaction need
         serviceContext.communicationEventId = communicationEvent.communicationEventId
@@ -489,32 +489,32 @@ def sendEmailDated() {
 
     // sending of internal notes of a contactlist
     conditions = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("communicationEventTypeId", "COMMENT_NOTE"),
-            EntityCondition.makeCondition("contactListId", EntityOperator.NOT_EQUAL, null),
-            EntityCondition.makeCondition("statusId", "COM_IN_PROGRESS"),
+            EntityCondition.makeCondition('communicationEventTypeId', 'COMMENT_NOTE'),
+            EntityCondition.makeCondition('contactListId', EntityOperator.NOT_EQUAL, null),
+            EntityCondition.makeCondition('statusId', 'COM_IN_PROGRESS'),
             EntityCondition.makeCondition([
-                    EntityCondition.makeCondition("datetimeStarted", EntityOperator.LESS_THAN, nowDate),
-                    EntityCondition.makeCondition("datetimeStarted", EntityOperator.EQUALS, null),
+                    EntityCondition.makeCondition('datetimeStarted', EntityOperator.LESS_THAN, nowDate),
+                    EntityCondition.makeCondition('datetimeStarted', EntityOperator.EQUALS, null),
             ], EntityOperator.OR)
     ])
 
-    communicationEvents = from("CommunicationEvent").where(conditions).queryList()
+    communicationEvents = from('CommunicationEvent').where(conditions).queryList()
     communicationEvents.each { communicationEvent ->
 
-        List<GenericValue> contactListParties = from("ContactListParty")
+        List<GenericValue> contactListParties = from('ContactListParty')
                 .where(contactListId: communicationEvent.contactListId)
                 .queryList()
 
         contactListParties.each { contactListParty ->
             Map communicationEventRole = [communicationEventId: communicationEvent.communicationEventId,
-                                          roleTypeId: "ADDRESSEE",
+                                          roleTypeId: 'ADDRESSEE',
                                           partyId: contactListParty.partyId]
-            run service: "createCommunicationEventRole", with: communicationEventRole
+            run service: 'createCommunicationEventRole', with: communicationEventRole
         }
 
         Map updCommEventStatusMap = [*:communicationEvent]
-        updCommEventStatusMap.statusId = "COM_COMPLETE"
-        run service: "setCommunicationEventStatus", with: updCommEventStatusMap
+        updCommEventStatusMap.statusId = 'COM_COMPLETE'
+        run service: 'setCommunicationEventStatus', with: updCommEventStatusMap
         return success()
     }
 }
@@ -524,33 +524,33 @@ def sendEmailDated() {
  */
 def setCommunicationEventStatus() {
 
-    GenericValue communicationEvent = from("CommunicationEvent")
+    GenericValue communicationEvent = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
     oldStatusId = communicationEvent.statusId
 
     if (parameters.statusId != communicationEvent.statusId) {
 
-        GenericValue statusChange = from("StatusValidChange")
+        GenericValue statusChange = from('StatusValidChange')
                 .where(statusId: communicationEvent.statusId,
                         statusIdTo: parameters.statusId)
                 .queryOne()
         if (!statusChange) {
             logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}")
-            return error(UtilProperties.getMessage("ProductUiLabels",
-                            "commeventservices.communication_event_status", parameters.locale as Locale))
+            return error(UtilProperties.getMessage('ProductUiLabels',
+                            'commeventservices.communication_event_status', parameters.locale as Locale))
         } else {
             communicationEvent.statusId = parameters.statusId
             communicationEvent.store()
-            if ("COM_COMPLETE" == parameters.statusId) {
-                if ("Y" == parameters.setRoleStatusToComplete) {
+            if ('COM_COMPLETE' == parameters.statusId) {
+                if ('Y' == parameters.setRoleStatusToComplete) {
                     //if the status of the communicationevent is set to complete, all roles need to be set to complete,
                     //which means the commevent was dealt with and no further action is required by any
                     // of the other participants/addressees
-                    List<GenericValue> roles = communicationEvent.getRelated("CommunicationEventRole", null, null, false)
+                    List<GenericValue> roles = communicationEvent.getRelated('CommunicationEventRole', null, null, false)
                     roles.each { role ->
-                        if ("COM_ROLE_COMPLETED" != role.statusId) {
-                            role.statusId = "COM_ROLE_COMPLETED"
+                        if ('COM_ROLE_COMPLETED' != role.statusId) {
+                            role.statusId = 'COM_ROLE_COMPLETED'
                             role.store()
                         }
                     }
@@ -558,17 +558,17 @@ def setCommunicationEventStatus() {
             } else { //make sure at least the senders role is set to complete
 
                 GenericValue communicationEventRole =
-                        from("CommunicationEventRole").where(
+                        from('CommunicationEventRole').where(
                                 communicationEventId: communicationEvent.communicationEventId,
                                 partyId: communicationEvent.partyIdFrom,
-                                roleTypeId: "ORIGINATOR")
+                                roleTypeId: 'ORIGINATOR')
                                 .queryOne()
                 //found a mispelling in minilang so ...
                 if (communicationEventRole
-                        && !"COM_ROLE_COMPLETED" == communicationEventRole.statusId) {
+                        && !'COM_ROLE_COMPLETED' == communicationEventRole.statusId) {
                     Map updateRoleMap = [*:communicationEventRole]
-                    updateRoleMap.statusId = "COM_ROLE_COMPLETED"
-                    run service: "updateCommunicationEventRole", with: updateRoleMap
+                    updateRoleMap.statusId = 'COM_ROLE_COMPLETED'
+                    run service: 'updateCommunicationEventRole', with: updateRoleMap
                 }
             }
         }
@@ -584,25 +584,25 @@ def setCommEventRoleToRead() {
 
     GenericValue eventRole
     if (!parameters.roleTypeId) {
-        eventRole = from("CommunicationEventRole")
+        eventRole = from('CommunicationEventRole')
                 .where(communicationEventId: parameters.communicationEventId,
                        partyId: parameters.partyId)
                 .queryFirst()
             parameters.roleTypeId = eventRole.roleTypeId
     } else {
-        eventRole = from("CommunicationEventRole")
+        eventRole = from('CommunicationEventRole')
                 .where(parameters)
                 .queryOne()
     }
 
     if (eventRole
-            && "COM_ROLE_CREATED" == eventRole.statusId) {
-        GenericValue userLogin = from("UserLogin").where(userLoginId: "system").queryOne()
+            && 'COM_ROLE_CREATED' == eventRole.statusId) {
+        GenericValue userLogin = from('UserLogin').where(userLoginId: 'system').queryOne()
 
         Map updStatMap = [*:parameters]
-        updStatMap.statusId = "COM_ROLE_READ"
+        updStatMap.statusId = 'COM_ROLE_READ'
         updStatMap.userLogin = userLogin
-        run service: "setCommunicationEventRoleStatus", with: updStatMap
+        run service: 'setCommunicationEventRoleStatus', with: updStatMap
     }
 
     return success()
@@ -611,21 +611,21 @@ def setCommEventRoleToRead() {
 //Set The Communication Event Status for a specific role
 def setCommunicationEventRoleStatus() {
 
-    GenericValue communicationEventRole = from("CommunicationEventRole")
+    GenericValue communicationEventRole = from('CommunicationEventRole')
             .where(parameters)
             .queryOne()
 
     oldStatusId = communicationEventRole.statusId
     if (parameters.statusId != communicationEventRole.statusId) {
-        GenericValue statusChange = from("StatusValidChange")
+        GenericValue statusChange = from('StatusValidChange')
                 .where(statusId: communicationEventRole.statusId,
                         statusIdTo: parameters.statusId)
                 .cache()
                 .queryOne()
         if (!statusChange) {
             logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}")
-            return error(UtilProperties.getMessage("ProductUiLabels",
-                            "commeventservices.communication_event_status", parameters.locale as Locale))
+            return error(UtilProperties.getMessage('ProductUiLabels',
+                            'commeventservices.communication_event_status', parameters.locale as Locale))
         } else {
             communicationEventRole.statusId = parameters.statusId
             communicationEventRole.store()
@@ -637,15 +637,15 @@ def setCommunicationEventRoleStatus() {
 //Create communication event and send mail to company
 def sendContactUsEmailToCompany() {
 
-    GenericValue systemUserLogin = from("UserLogin").where('userLoginId', 'system').cache().queryOne()
+    GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').cache().queryOne()
     Map contactUsMap = [*:parameters]
     contactUsMap.userLogin = systemUserLogin
-    run service: "createCommunicationEventWithoutPermission", with: contactUsMap
+    run service: 'createCommunicationEventWithoutPermission', with: contactUsMap
 
     Map getPartyEmailMap = [partyId: parameters.partyIdTo, userLogin: systemUserLogin]
-    Map getPartyEmailResult = run service: "getPartyEmail", with: getPartyEmailMap
+    Map getPartyEmailResult = run service: 'getPartyEmail', with: getPartyEmailMap
 
-    GenericValue productStoreEmailSetting = from("ProductStoreEmailSetting")
+    GenericValue productStoreEmailSetting = from('ProductStoreEmailSetting')
             .where(parameters)
             .queryOne()
 
@@ -667,7 +667,7 @@ def sendContactUsEmailToCompany() {
         emailParams.contentType = productStoreEmailSetting.contentType
         emailParams.bodyScreenUri = productStoreEmailSetting.bodyScreenLocation
 
-        run service: "sendMailFromScreen", with: emailParams
+        run service: 'sendMailFromScreen', with: emailParams
     }
 
     return success()

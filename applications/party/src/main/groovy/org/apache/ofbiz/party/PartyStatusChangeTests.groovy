@@ -42,7 +42,7 @@ class PartyStatusChangeTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setPartyStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue party = from("Party")
+        GenericValue party = from('Party')
                 .where('partyId', partyId)
                 .queryOne()
         assert party
@@ -64,7 +64,7 @@ class PartyStatusChangeTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setPartyStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue party = from("Party")
+        GenericValue party = from('Party')
                 .where('partyId', partyId)
                 .queryOne()
         assert party

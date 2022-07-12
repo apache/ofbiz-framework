@@ -27,31 +27,31 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId
 if ((!orderId) || (!orderPaymentPreferenceId)) return
 
 if (orderId) {
-   orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+   orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
    context.orderHeader = orderHeader
 }
 
 if (orderPaymentPreferenceId) {
-   orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne()
+   orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()
    context.orderPaymentPreference = orderPaymentPreference
 }
 
 if (orderPaymentPreference) {
-   paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", true)
+   paymentMethodType = orderPaymentPreference.getRelatedOne('PaymentMethodType', true)
    context.paymentMethodType = paymentMethodType
 }
 
 if (orderPaymentPreference) {
-    context.paymentTypeId = "CUSTOMER_PAYMENT"
+    context.paymentTypeId = 'CUSTOMER_PAYMENT'
 }
 
 if (orderPaymentPreference) {
     // we retrieve the captureAmount by looking at the latest authorized gateway response for this orderPaymentPreference
-    gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, ["transactionDate DESC"], false)
-    EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"))
+    gatewayResponses = orderPaymentPreference.getRelated('PaymentGatewayResponse', null, ['transactionDate DESC'], false)
+    EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition('transCodeEnumId', EntityOperator.EQUALS, 'PGT_AUTHORIZE'))
 
     if (gatewayResponses) { // TODO: some kind of error telling user to re-authorize (else part)
         latestAuth = gatewayResponses[0]
-        context.captureAmount = latestAuth.getBigDecimal("amount")
+        context.captureAmount = latestAuth.getBigDecimal('amount')
     }
 }

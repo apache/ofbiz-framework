@@ -19,13 +19,13 @@
 
 if (billingAccountId) {
     orderPaymentPreferencesList = []
-    orderList = from("OrderHeader").where('billingAccountId', billingAccountId).queryList()
+    orderList = from('OrderHeader').where('billingAccountId', billingAccountId).queryList()
     if (orderList) {
         orderList.each { orderHeader ->
             orderId = orderHeader.orderId
-            orderBillingAcc = from("OrderHeaderAndPaymentPref").where("orderId", orderId).queryFirst()
+            orderBillingAcc = from('OrderHeaderAndPaymentPref').where('orderId', orderId).queryFirst()
             orderBillingAccMap = [:]
-            if ("EXT_BILLACT".equals(orderBillingAcc.paymentMethodTypeId) && "PAYMENT_NOT_RECEIVED".equals(orderBillingAcc.paymentStatusId)) {
+            if ('EXT_BILLACT'.equals(orderBillingAcc.paymentMethodTypeId) && 'PAYMENT_NOT_RECEIVED'.equals(orderBillingAcc.paymentStatusId)) {
                 orderBillingAccMap.putAll(orderBillingAcc)
                 orderId = orderBillingAcc.orderId
                 orderBillingAccMap.orderId = orderId

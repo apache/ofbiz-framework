@@ -26,48 +26,48 @@ def checkAndCreateWorkEffort() {
      * estimatedShipDate: estimatedShipWorkEffId
      * estimatedArrivalDate: estimatedArrivalWorkEffId
      */
-    GenericValue lookedUpValue = from("Shipment").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('Shipment').where(parameters).queryOne()
     if (parameters.estimatedShipDate) {
         Map shipWorkEffortMap = [workEffortName: "Shipment #${parameters.shipmentId} ${parameters.primaryOrderId} Ship",
-                                 currentStatusId: "CAL_TENTATIVE",
-                                 workEffortPurposeTypeId: "WEPT_WAREHOUSING",
+                                 currentStatusId: 'CAL_TENTATIVE',
+                                 workEffortPurposeTypeId: 'WEPT_WAREHOUSING',
                                  estimatedStartDate: parameters.estimatedShipDate,
                                  estimatedCompletionDate: parameters.estimatedShipDate,
                                  facilityId: parameters.originFacilityId,
                                  quickAssignPartyId: userLogin.partyId]
-        if (["OUTGOING_SHIPMENT", "SALES_SHIPMENT", "PURCHASE_RETURN"].contains(shipmentTypeId)) {
-            shipWorkEffortMap.workEffortTypeId = "SHIPMENT_OUTBOUND"
+        if (['OUTGOING_SHIPMENT', 'SALES_SHIPMENT', 'PURCHASE_RETURN'].contains(shipmentTypeId)) {
+            shipWorkEffortMap.workEffortTypeId = 'SHIPMENT_OUTBOUND'
         }
-        Map serviceResult = run service: "createWorkEffort", with: shipWorkEffortMap
+        Map serviceResult = run service: 'createWorkEffort', with: shipWorkEffortMap
         if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         lookedUpValue.estimatedShipWorkEffId = serviceResult.workEffortId
         if (parameters.partyIdFrom) {
-            serviceResult = run service: "assignPartyToWorkEffort", with: [workEffortId: lookedUpValue.estimatedShipWorkEffId,
+            serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedShipWorkEffId,
                                                            partyId: parameters.partyIdFrom,
-                                                           roleTypeId: "CAL_ATTENDEE",
-                                                           statusId: "CAL_SENT"]
+                                                           roleTypeId: 'CAL_ATTENDEE',
+                                                           statusId: 'CAL_SENT']
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         }
     }
     if (parameters.estimatedArrivalDate) {
         Map arrivalWorkEffortMap = [workEffortName: "Shipment #${parameters.shipmentId} ${parameters.primaryOrderId} Arrival",
-                                    currentStatusId: "CAL_TENTATIVE",
-                                    workEffortPurposeTypeId: "WEPT_WAREHOUSING",
+                                    currentStatusId: 'CAL_TENTATIVE',
+                                    workEffortPurposeTypeId: 'WEPT_WAREHOUSING',
                                     estimatedStartDate: parameters.estimatedArrivalDate,
                                     estimatedCompletionDate: parameters.estimatedArrivalDate,
                                     facilityId: parameters.destinationFacilityId,
                                     quickAssignPartyId: userLogin.partyId]
-        if (["INCOMING_SHIPMENT", "PURCHASE_SHIPMENT", "SALES_RETURN"].contains(shipmentTypeId)) {
-            arrivalWorkEffortMap.workEffortTypeId = "SHIPMENT_INBOUND"
+        if (['INCOMING_SHIPMENT', 'PURCHASE_SHIPMENT', 'SALES_RETURN'].contains(shipmentTypeId)) {
+            arrivalWorkEffortMap.workEffortTypeId = 'SHIPMENT_INBOUND'
         }
-        Map serviceResult = run service: "createWorkEffort", with: arrivalWorkEffortMap
+        Map serviceResult = run service: 'createWorkEffort', with: arrivalWorkEffortMap
         if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         lookedUpValue.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
         if (parameters.partyIdTo) {
-            serviceResult = run service: "assignPartyToWorkEffort", with: [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
+            serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
                                                            partyId: parameters.partyIdTo,
-                                                           roleTypeId: "CAL_ATTENDEE",
-                                                           statusId: "CAL_SENT"]
+                                                           roleTypeId: 'CAL_ATTENDEE',
+                                                           statusId: 'CAL_SENT']
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         }
     }
@@ -76,31 +76,31 @@ def checkAndCreateWorkEffort() {
 }
 def checkAndUpdateWorkEffort() {
     Map result = success()
-    GenericValue lookedUpValue = from("Shipment").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('Shipment').where(parameters).queryOne()
     // Check the pickup and delivery dates for changes and update the corresponding WorkEfforts
     if ((parameters.estimatedShipDate && parameters.estimatedShipDate != lookedUpValue.estimatedShipDate)
             || (parameters.originFacilityId && parameters.originFacilityId != lookedUpValue.originFacilityId)
             || (parameters.statusId && parameters.statusId != lookedUpValue.statusId
-            && ["SHIPMENT_CANCELLED", "SHIPMENT_PACKED", "SHIPMENT_SHIPPED"].contains(parameters.statusId))) {
-        GenericValue estShipWe = from("WorkEffort").where(workEffortId: lookedUpValue.estimatedShipWorkEffId).queryOne()
+            && ['SHIPMENT_CANCELLED', 'SHIPMENT_PACKED', 'SHIPMENT_SHIPPED'].contains(parameters.statusId))) {
+        GenericValue estShipWe = from('WorkEffort').where(workEffortId: lookedUpValue.estimatedShipWorkEffId).queryOne()
         if (estShipWe) {
             estShipWe.estimatedStartDate = parameters.estimatedShipDate
             estShipWe.estimatedCompletionDate = parameters.estimatedShipDate
             estShipWe.facilityId = parameters.originFacilityId
             if ((parameters.statusId) && (parameters.statusId != lookedUpValue.statusId)) {
-                if (parameters.statusId == "SHIPMENT_CANCELLED") {
-                    estShipWe.currentStatusId = "CAL_CANCELLED"
+                if (parameters.statusId == 'SHIPMENT_CANCELLED') {
+                    estShipWe.currentStatusId = 'CAL_CANCELLED'
                 }
-                if (parameters.statusId == "SHIPMENT_PACKED") {
-                    estShipWe.currentStatusId = "CAL_CONFIRMED"
+                if (parameters.statusId == 'SHIPMENT_PACKED') {
+                    estShipWe.currentStatusId = 'CAL_CONFIRMED'
                 }
-                if (parameters.statusId == "SHIPMENT_SHIPPED") {
-                    estShipWe.currentStatusId = "CAL_COMPLETED"
+                if (parameters.statusId == 'SHIPMENT_SHIPPED') {
+                    estShipWe.currentStatusId = 'CAL_COMPLETED'
                 }
             }
             Map estShipWeUpdMap = [:]
             estShipWeUpdMap << estShipWe
-            Map serviceResult = run service: "updateWorkEffort", with: estShipWeUpdMap
+            Map serviceResult = run service: 'updateWorkEffort', with: estShipWeUpdMap
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
 
         }
@@ -109,14 +109,14 @@ def checkAndUpdateWorkEffort() {
             && parameters.estimatedArrivalDate != lookedUpValue.estimatedArrivalDate)
             || (parameters.destinationFacilityId
             && parameters.destinationFacilityId != lookedUpValue.destinationFacilityId)) {
-        GenericValue estimatedArrivalWorkEffort = from("WorkEffort")
+        GenericValue estimatedArrivalWorkEffort = from('WorkEffort')
                 .where(workEffortId: lookedUpValue.estimatedArrivalWorkEffId)
                 .queryOne()
         if (estimatedArrivalWorkEffort) {
             estimatedArrivalWorkEffort.estimatedStartDate = parameters.estimatedArrivalDate
             estimatedArrivalWorkEffort.estimatedCompletionDate = parameters.estimatedArrivalDate
             estimatedArrivalWorkEffort.facilityId = parameters.destinationFacilityId
-            Map serviceResult = run service: "updateWorkEffort", with: estimatedArrivalWorkEffort
+            Map serviceResult = run service: 'updateWorkEffort', with: estimatedArrivalWorkEffort
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         }
     }
@@ -127,14 +127,14 @@ def checkAndUpdateWorkEffort() {
             && lookedUpValue.estimatedShipWorkEffId) {
         Map assignPartyToWorkEffortShip = [workEffortId: lookedUpValue.estimatedShipWorkEffId,
                                            partyId: parameters.partyIdFrom]
-        List existingShipWepas = from("WorkEffortPartyAssignment")
+        List existingShipWepas = from('WorkEffortPartyAssignment')
                 .where(assignPartyToWorkEffortShip)
                 .filterByDate()
                 .queryList()
         if (!existingShipWepas) {
-            assignPartyToWorkEffortShip.roleTypeId = "CAL_ATTENDEE"
-            assignPartyToWorkEffortShip.statusId = "CAL_SENT"
-            Map serviceResult = run service: "assignPartyToWorkEffort", with: assignPartyToWorkEffortShip
+            assignPartyToWorkEffortShip.roleTypeId = 'CAL_ATTENDEE'
+            assignPartyToWorkEffortShip.statusId = 'CAL_SENT'
+            Map serviceResult = run service: 'assignPartyToWorkEffort', with: assignPartyToWorkEffortShip
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         }
     }
@@ -143,14 +143,14 @@ def checkAndUpdateWorkEffort() {
             && lookedUpValue.estimatedArrivalWorkEffId) {
         Map assignPartyToWorkEffortArrival = [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
                                               partyId: parameters.partyIdTo]
-        List existingArrivalWepas = from("WorkEffortPartyAssignment")
+        List existingArrivalWepas = from('WorkEffortPartyAssignment')
                 .where(assignPartyToWorkEffortArrival)
                 .filterByDate()
                 .queryList()
         if (!existingArrivalWepas) {
-            assignPartyToWorkEffortArrival.roleTypeId = "CAL_ATTENDEE"
-            assignPartyToWorkEffortArrival.statusId = "CAL_SENT"
-            serviceResult = run service: "assignPartyToWorkEffort", with: assignPartyToWorkEffortArrival
+            assignPartyToWorkEffortArrival.roleTypeId = 'CAL_ATTENDEE'
+            assignPartyToWorkEffortArrival.statusId = 'CAL_SENT'
+            serviceResult = run service: 'assignPartyToWorkEffort', with: assignPartyToWorkEffortArrival
             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
         }
     }

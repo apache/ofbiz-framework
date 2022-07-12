@@ -23,11 +23,11 @@ import org.apache.ofbiz.entity.util.*
 
 messageList = []
 
-messageList.add("Loading Categories...")
+messageList.add('Loading Categories...')
 UtilTimer ctimer = new UtilTimer()
-messageList.add(ctimer.timerString("Before category find"))
-categories = from("ProductCategory").queryIterator()
-messageList.add(ctimer.timerString("Before load all categories into cache"))
+messageList.add(ctimer.timerString('Before category find'))
+categories = from('ProductCategory').queryIterator()
+messageList.add(ctimer.timerString('Before load all categories into cache'))
 
 category = null
 long numCategories = 0
@@ -38,16 +38,16 @@ while (categories.hasNext()) {
 }
 categories.close()
 
-messageList.add(ctimer.timerString("Finished Categories"))
-messageList.add("Loaded " + numCategories + " Categories")
+messageList.add(ctimer.timerString('Finished Categories'))
+messageList.add('Loaded ' + numCategories + ' Categories')
 
-messageList.add("&nbsp;")
+messageList.add('&nbsp;')
 
-messageList.add("Loading Products...")
+messageList.add('Loading Products...')
 UtilTimer ptimer = new UtilTimer()
-messageList.add(ptimer.timerString("Before product find"))
-products = from("Product").queryIterator()
-messageList.add(ptimer.timerString("Before load all products into cache"))
+messageList.add(ptimer.timerString('Before product find'))
+products = from('Product').queryIterator()
+messageList.add(ptimer.timerString('Before load all products into cache'))
 product = null
 long numProducts = 0
 while (products.hasNext()) {
@@ -57,7 +57,7 @@ while (products.hasNext()) {
 }
 products.close()
 
-messageList.add(ptimer.timerString("Finished Products"))
-messageList.add("Loaded " + numProducts + " products")
+messageList.add(ptimer.timerString('Finished Products'))
+messageList.add('Loaded ' + numProducts + ' products')
 
 context.messageList = messageList

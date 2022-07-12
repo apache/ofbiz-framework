@@ -21,26 +21,26 @@ import java.sql.Timestamp
 import org.apache.ofbiz.party.contact.ContactHelper
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
-cart = session.getAttribute("shoppingCart")
+cart = session.getAttribute('shoppingCart')
 context.cart = cart
 
 productStore = ProductStoreWorker.getProductStore(request)
 if (productStore) {
     context.productStore = productStore
-    context.carrierShipmentMethodList = from("ProductStoreShipmentMethView").where("productStoreId", productStore.productStoreId).orderBy("sequenceNumber").cache(true).queryList()
+    context.carrierShipmentMethodList = from('ProductStoreShipmentMethView').where('productStoreId', productStore.productStoreId).orderBy('sequenceNumber').cache(true).queryList()
 }
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_")
+request.removeAttribute('_EVENT_MESSAGE_')
 
 party = null
 orderPartyIdId = cart.getPartyId()
 if (orderPartyIdId) {
-    orderPartyId = from("Party").where("partyId", orderPartyIdId).queryOne()
+    orderPartyId = from('Party').where('partyId', orderPartyIdId).queryOne()
     context.orderPartyId = orderPartyId
 }
 
-context.emailList = ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false)
+context.emailList = ContactHelper.getContactMechByType(orderPartyId, 'EMAIL_ADDRESS', false)
 
 // create the beforeDate for calendar
 fromCal = Calendar.getInstance()

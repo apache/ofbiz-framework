@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 if (! context.noConditionFind) {
     context.noConditionFind = parameters.noConditionFind ?:
-            EntityUtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind", delegator)
+            EntityUtilProperties.getPropertyValue('widget', 'widget.defaultNoConditionFind', delegator)
 }
 Map prepareResult = runService('prepareFind', [entityName: context.entityName,
                                                orderBy: context.orderBy,
@@ -33,13 +33,13 @@ Map prepareResult = runService('prepareFind', [entityName: context.entityName,
                                                userLogin: context.userLogin])
 
 EntityCondition statusPartyDisable = EntityCondition.makeCondition(
-        [EntityCondition.makeCondition("statusId", null),
-         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")],
+        [EntityCondition.makeCondition('statusId', null),
+         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PARTY_DISABLED')],
         EntityOperator.OR)
 EntityCondition entityConditionList = null
 if (prepareResult.entityConditionList) {
     entityConditionList = EntityCondition.makeCondition([prepareResult.entityConditionList, statusPartyDisable])
-} else if ("Y" == context.noConditionFind) {
+} else if ('Y' == context.noConditionFind) {
     entityConditionList = statusPartyDisable
 }
 

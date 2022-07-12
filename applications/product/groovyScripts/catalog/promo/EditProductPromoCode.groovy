@@ -17,29 +17,29 @@
  * under the License.
  */
 
-productPromoCodeId = request.getParameter("productPromoCodeId")
+productPromoCodeId = request.getParameter('productPromoCodeId')
 if (!productPromoCodeId) {
-    productPromoCodeId = request.getAttribute("productPromoCodeId")
+    productPromoCodeId = request.getAttribute('productPromoCodeId')
 }
-productPromoCode = from("ProductPromoCode").where("productPromoCodeId", productPromoCodeId).queryOne()
+productPromoCode = from('ProductPromoCode').where('productPromoCodeId', productPromoCodeId).queryOne()
 
 productPromoId = null
 if (productPromoCode) {
     productPromoId = productPromoCode.productPromoId
 } else {
-    productPromoId = request.getParameter("productPromoId")
+    productPromoId = request.getParameter('productPromoId')
 }
 
 productPromo = null
 if (productPromoId) {
-    productPromo = from("ProductPromo").where("productPromoId", productPromoId).queryOne()
+    productPromo = from('ProductPromo').where('productPromoId', productPromoId).queryOne()
 }
 
 productPromoCodeEmails = null
 productPromoCodeParties = null
 if (productPromoCode) {
-    productPromoCodeEmails = productPromoCode.getRelated("ProdPromoCodeContactMech", null, null, false)
-    productPromoCodeParties = productPromoCode.getRelated("ProductPromoCodeParty", null, null, false)
+    productPromoCodeEmails = productPromoCode.getRelated('ProdPromoCodeContactMech', null, null, false)
+    productPromoCodeParties = productPromoCode.getRelated('ProductPromoCodeParty', null, null, false)
 }
 
 context.productPromoId = productPromoId

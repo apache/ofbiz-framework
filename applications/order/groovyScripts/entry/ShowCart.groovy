@@ -54,7 +54,7 @@ orderAdjustments = shoppingCart.makeAllAdjustments()
 orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
-        if ("OrderAdjustment".equals(osiInfo.getEntityName())) {
+        if ('OrderAdjustment'.equals(osiInfo.getEntityName())) {
             // shipping / tax adjustment(s)
             orderAdjustments.add(osiInfo)
         }
@@ -69,7 +69,7 @@ taxAmount = OrderReadHelper.getOrderTaxByTaxAuthGeoAndParty(orderAdjustments).ta
 context.orderTaxTotal = taxAmount
 
 // get all the possible gift wrap options
-allgiftWraps = from("ProductFeature").where("productFeatureTypeId", "GIFT_WRAP").orderBy("defaultSequenceNum").queryList()
+allgiftWraps = from('ProductFeature').where('productFeatureTypeId', 'GIFT_WRAP').orderBy('defaultSequenceNum').queryList()
 context.allgiftWraps = allgiftWraps
 
 context.contentPathPrefix = CatalogWorker.getContentPathPrefix(request)
@@ -79,31 +79,31 @@ productStoreId = shoppingCart.getProductStoreId()
 context.productStoreId = productStoreId
 
 partyId = shoppingCart.getPartyId()
-if ("_NA_".equals(partyId)) partyId = null
+if ('_NA_'.equals(partyId)) partyId = null
 context.partyId = partyId
 
 defaultDesiredDeliveryDate = shoppingCart.getDefaultItemDeliveryDate()
 if (!defaultDesiredDeliveryDate) {
     defaultDesiredDeliveryDate = (new java.sql.Date(System.currentTimeMillis())).toString()
 } else {
-    context.useAsDefaultDesiredDeliveryDate =  "true"
+    context.useAsDefaultDesiredDeliveryDate =  'true'
 }
 context.defaultDesiredDeliveryDate = defaultDesiredDeliveryDate
 
 defaultComment = shoppingCart.getDefaultItemComment()
 if (defaultComment) {
-    context.useAsDefaultComment = "true"
+    context.useAsDefaultComment = 'true'
 }
 context.defaultComment = defaultComment
 
 // get all party shopping lists
 if (partyId) {
-  shoppingLists = from("ShoppingList").where("partyId", partyId).queryList()
+  shoppingLists = from('ShoppingList').where('partyId', partyId).queryList()
   context.shoppingLists = shoppingLists
 }
 
 // get product inventory summary for each shopping cart item
-productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne()
+productStore = from('ProductStore').where('productStoreId', productStoreId).cache(true).queryOne()
 context.productStore = productStore
 productStoreFacilityId = null
 if (productStore) {
@@ -117,5 +117,5 @@ context.mktgPkgATPMap = inventorySummary.mktgPkgATPMap
 context.mktgPkgQOHMap = inventorySummary.mktgPkgQOHMap
 
 // get purchase order item types
-purchaseOrderItemTypeList = from("OrderItemType").where("parentTypeId", "PURCHASE_SPECIFIC").cache(true).queryList()
+purchaseOrderItemTypeList = from('OrderItemType').where('parentTypeId', 'PURCHASE_SPECIFIC').cache(true).queryList()
 context.purchaseOrderItemTypeList = purchaseOrderItemTypeList

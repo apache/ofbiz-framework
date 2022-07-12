@@ -39,10 +39,10 @@ class PartyTests extends OFBizTestCase {
                 postalCode: '90000',
                 userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync("createPartyPostalAddress", serviceCtx)
+        Map serviceResult = dispatcher.runSync('createPartyPostalAddress', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue postalAddress = from("PostalAddress").where('contactMechId', serviceResult.contactMechId).queryOne()
+        GenericValue postalAddress = from('PostalAddress').where('contactMechId', serviceResult.contactMechId).queryOne()
         assert postalAddress != null
         postalAddress.city = 'City of Industry'
     }

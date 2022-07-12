@@ -54,17 +54,17 @@ compareList.each { product ->
     priceContext.productStoreId = productStoreId
     priceContext.agreementId = cart.getAgreementId()
     priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
-    priceContext.checkIncludeVat = "Y"
+    priceContext.checkIncludeVat = 'Y'
     productData.priceMap = runService('calculateProductPrice', priceContext)
     
     condList = [
-                EntityCondition.makeCondition("productId", product.productId),
+                EntityCondition.makeCondition('productId', product.productId),
                 EntityUtil.getFilterByDateExpr(),
-                EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.IN, ["STANDARD_FEATURE", "DISTINGUISHING_FEAT", "SELECTABLE_FEATURE"])
+                EntityCondition.makeCondition('productFeatureApplTypeId', EntityOperator.IN, ['STANDARD_FEATURE', 'DISTINGUISHING_FEAT', 'SELECTABLE_FEATURE'])
                ]
-    productFeatureAppls = from("ProductFeatureAppl").where(condList).orderBy("sequenceNum").cache(true).queryList()
+    productFeatureAppls = from('ProductFeatureAppl').where(condList).orderBy('sequenceNum').cache(true).queryList()
     productFeatureAppls.each { productFeatureAppl ->
-        productFeature = productFeatureAppl.getRelatedOne("ProductFeature", true)
+        productFeature = productFeatureAppl.getRelatedOne('ProductFeature', true)
         if (!productData[productFeature.productFeatureTypeId]) {
             productData[productFeature.productFeatureTypeId] = [:]
         }
@@ -76,5 +76,5 @@ compareList.each { product ->
     } 
 }
 productFeatureTypeIds.each { productFeatureTypeId ->
-    productFeatureTypeMap[productFeatureTypeId] = from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeId).cache(true).queryOne()
+    productFeatureTypeMap[productFeatureTypeId] = from('ProductFeatureType').where('productFeatureTypeId', productFeatureTypeId).cache(true).queryOne()
 }

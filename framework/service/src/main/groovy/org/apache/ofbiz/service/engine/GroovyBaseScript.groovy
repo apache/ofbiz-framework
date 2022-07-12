@@ -53,22 +53,22 @@ abstract class GroovyBaseScript extends Script {
                     ? this.binding.getVariable('locale')
                     : this.binding.getVariable('parameters').locale
         }
-        if (serviceName.equals("createAnonFile")) {
-            String fileName = inputMap.get("dataResourceName")
-            String fileNameAndPath = inputMap.get("objectInfo")
+        if (serviceName.equals('createAnonFile')) {
+            String fileName = inputMap.get('dataResourceName')
+            String fileNameAndPath = inputMap.get('objectInfo')
             File file = new File(fileNameAndPath)
             if (!fileName.isEmpty()) {
                 // Check the file name
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFileName(fileName, delegator)) {
-                    String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", inputMap.locale)
+                    String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedFileFormatsIncludingSvg', inputMap.locale)
                     throw new ExecutionServiceException(errorMessage)
                 }
                 // TODO we could verify the file type (here "All") with dataResourceTypeId. Anyway it's done with isValidFile()
                 // We would just have a better error message
                 if (file.exists()) {
                     // Check if a webshell is not uploaded
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileNameAndPath, "All", delegator)) {
-                        String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", inputMap.locale)
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileNameAndPath, 'All', delegator)) {
+                        String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedFileFormatsIncludingSvg', inputMap.locale)
                         throw new ExecutionServiceException(errorMessage)
                     }
                 }
@@ -125,7 +125,7 @@ abstract class GroovyBaseScript extends Script {
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
-                this.binding.getVariable('request').setAttribute("_EVENT_MESSAGE_", message)
+                this.binding.getVariable('request').setAttribute('_EVENT_MESSAGE_', message)
             }
             if (returnValues) {
                 returnValues.each {
@@ -155,7 +155,7 @@ abstract class GroovyBaseScript extends Script {
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
             if (message) {
-                this.binding.getVariable('request').setAttribute("_ERROR_MESSAGE_", message)
+                this.binding.getVariable('request').setAttribute('_ERROR_MESSAGE_', message)
             }
             return 'error'
         } else {

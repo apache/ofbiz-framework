@@ -26,11 +26,11 @@ import org.apache.ofbiz.product.catalog.CatalogWorker
 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId)
-otherSearchProdCatalogCategories = CatalogWorker.getProdCatalogCategories(request, currentCatalogId, "PCCT_OTHER_SEARCH")
+otherSearchProdCatalogCategories = CatalogWorker.getProdCatalogCategories(request, currentCatalogId, 'PCCT_OTHER_SEARCH')
 
-searchOperator = request.getParameter("SEARCH_OPERATOR")
-if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR"
+searchOperator = request.getParameter('SEARCH_OPERATOR')
+if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
+  searchOperator = 'OR'
 }
 
 context.currentCatalogId = currentCatalogId

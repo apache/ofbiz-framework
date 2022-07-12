@@ -33,12 +33,12 @@ import org.apache.ofbiz.product.image.ScaleImage
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
-imageManagementPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context)
+imageManagementPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.management.path', delegator), context)
 
-String fileType = "original"
-String productId = request.getParameter("productId")
+String fileType = 'original'
+String productId = request.getParameter('productId')
 
-productContentList = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "DEFAULT_IMAGE").queryList()
+productContentList = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'DEFAULT_IMAGE').queryList()
 if (productContentList) {
     dataResourceName = productContentList.get(0).drDataResourceName
 }
@@ -46,24 +46,24 @@ if (productContentList) {
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator)
-imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context)
-imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), context)
-imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
-imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
+imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.server.path', delegator), context)
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator), context)
+imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
+imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
 context.imageFilenameFormat = imageFilenameFormat
 context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
 
 filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
-context.imageNameSmall  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', id : productId, type : 'small'])
-context.imageNameMedium = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', id : productId, type : 'medium'])
-context.imageNameLarge  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', id : productId, type : 'large'])
-context.imageNameDetail = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', id : productId, type : 'detail'])
-context.imageNameOriginal = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', id : productId, type : 'original'])
+context.imageNameSmall  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'small'])
+context.imageNameMedium = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'medium'])
+context.imageNameLarge  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'large'])
+context.imageNameDetail = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'detail'])
+context.imageNameOriginal = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'original'])
 
 // Start ProductContent stuff
 if (productId) {
-    product = from("Product").where("productId", productId).queryOne()
+    product = from('Product').where('productId', productId).queryOne()
     context.productId = productId
 }
 
@@ -75,14 +75,14 @@ context.productContent = productContent
 // End ProductContent stuff
 
 tryEntity = true
-if (request.getAttribute("_ERROR_MESSAGE_")) {
+if (request.getAttribute('_ERROR_MESSAGE_')) {
     tryEntity = false
 }
 if (!product) {
     tryEntity = false
 }
 
-if ("true".equalsIgnoreCase((String) request.getParameter("tryEntity"))) {
+if ('true'.equalsIgnoreCase((String) request.getParameter('tryEntity'))) {
     tryEntity = true
 }
 context.tryEntity = tryEntity
@@ -95,27 +95,27 @@ if (fileType) {
     context.fileType = fileType
 
     fileLocation = filenameExpander.expandString([location : 'products', id : productId, type : fileType])
-    filePathPrefix = ""
+    filePathPrefix = ''
     filenameToUse = fileLocation
-    if (fileLocation.lastIndexOf("/") != -1) {
-        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1) // adding 1 to include the trailing slash
-        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1)
+    if (fileLocation.lastIndexOf('/') != -1) {
+        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1) // adding 1 to include the trailing slash
+        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1)
     }
 
     int i1
-    if (contentType && (i1 = contentType.indexOf("boundary=")) != -1) {
+    if (contentType && (i1 = contentType.indexOf('boundary=')) != -1) {
         contentType = contentType.substring(i1 + 9)
-        contentType = "--" + contentType
+        contentType = '--' + contentType
     }
 
-    defaultFileName = "temp_" + dataResourceName
-    checkPathFile = imageManagementPath + "/" + productId + "/" + dataResourceName
+    defaultFileName = 'temp_' + dataResourceName
+    checkPathFile = imageManagementPath + '/' + productId + '/' + dataResourceName
     if (checkPathFile.equals(productContentList.get(0).drObjectInfo)) {
-        BufferedImage bufImg = ImageIO.read(new File(imageManagementPath + "/" + productId + "/" + dataResourceName))
+        BufferedImage bufImg = ImageIO.read(new File(imageManagementPath + '/' + productId + '/' + dataResourceName))
     } else {
         BufferedImage bufImg = ImageIO.read(new File(productContentList.get(0).drObjectInfo))
     }
-    ImageIO.write((RenderedImage) bufImg, "jpg", new File(imageManagementPath + "/" + productId + "/" + defaultFileName))
+    ImageIO.write((RenderedImage) bufImg, 'jpg', new File(imageManagementPath + '/' + productId + '/' + defaultFileName))
 
     clientFileName = dataResourceName
     if (clientFileName) {
@@ -123,26 +123,26 @@ if (fileType) {
     }
 
     if (clientFileName && clientFileName.length() > 0) {
-        if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
-            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."))
+        if (clientFileName.lastIndexOf('.') > 0 && clientFileName.lastIndexOf('.') < clientFileName.length()) {
+            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf('.'))
         } else {
-            filenameToUse += ".jpg"
+            filenameToUse += '.jpg'
         }
 
         context.clientFileName = clientFileName
         context.filenameToUse = filenameToUse
 
         characterEncoding = request.getCharacterEncoding()
-        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
+        imageUrl = imageUrlPrefix + '/' + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
 
         try {
-            file = new File(imageManagementPath + "/" + productId + "/" + defaultFileName)
-            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse)
+            file = new File(imageManagementPath + '/' + productId + '/' + defaultFileName)
+            file1 = new File(imageServerPath + '/' + filePathPrefix, filenameToUse)
             try {
                 // Delete existing image files
-                File targetDir = new File(imageServerPath + "/" + filePathPrefix)
+                File targetDir = new File(imageServerPath + '/' + filePathPrefix)
                 // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
-                if (!filenameToUse.startsWith(productId + ".")) {
+                if (!filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
                         if (file.isFile() && !file.getName().equals(defaultFileName)) file.delete()
@@ -151,7 +151,7 @@ if (fileType) {
                 } else {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + ".")) file.delete()
+                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + '.')) file.delete()
                     }
                 }
             } catch (Exception e) {
@@ -164,17 +164,17 @@ if (fileType) {
 
         if (imageUrl && imageUrl.length() > 0) {
             context.imageUrl = imageUrl
-            product.set(fileType + "ImageUrl", imageUrl)
+            product.set(fileType + 'ImageUrl', imageUrl)
 
             // call scaleImageInAllSize
-            if ("original".equals(fileType)) {
+            if ('original'.equals(fileType)) {
                 context.delegator = delegator
-                result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0")
+                result = ScaleImage.scaleImageInAllSize(context, filenameToUse, 'main', '0')
 
-                if (result.containsKey("responseMessage") && "success".equals(result.get("responseMessage"))) {
-                    imgMap = result.get("imageUrlMap")
+                if (result.containsKey('responseMessage') && 'success'.equals(result.get('responseMessage'))) {
+                    imgMap = result.get('imageUrlMap')
                     imgMap.each() { key, value ->
-                        product.set(key + "ImageUrl", value)
+                        product.set(key + 'ImageUrl', value)
                     }
                 }
             }

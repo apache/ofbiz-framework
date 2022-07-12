@@ -27,14 +27,14 @@ partyIdTo = parameters.partyIdTo
 if (partyIdFrom && partyIdTo) {
     partyList = [partyIdTo, partyIdFrom]
     partyList.each { partyId ->
-        party = from("Party").where("partyId", partyId).queryOne()
-        person =  party.getRelatedOne("Person", false)
+        party = from('Party').where('partyId', partyId).queryOne()
+        person =  party.getRelatedOne('Person', false)
         contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName]
 
-        generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false))
+        generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, 'GENERAL_LOCATION', 'POSTAL_ADDRESS', false))
         if (generalContactMech) {
             contactDetailMap.addrContactMechId = generalContactMech.contactMechId
-            postalAddress = generalContactMech.getRelatedOne("PostalAddress", false)
+            postalAddress = generalContactMech.getRelatedOne('PostalAddress', false)
             if (postalAddress) {
                 contactDetailMap.address1 = postalAddress.address1
                 contactDetailMap.city = postalAddress.city
@@ -42,22 +42,22 @@ if (partyIdFrom && partyIdTo) {
                 if (address2) {
                     contactDetailMap.address2 = address2
                 }
-                geo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne()
+                geo = from('Geo').where('geoId', postalAddress.stateProvinceGeoId).queryOne()
                 contactDetailMap.state = geo.geoName
 
-                geo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne()
+                geo = from('Geo').where('geoId', postalAddress.countryGeoId).queryOne()
                 contactDetailMap.country = geo.geoName
             }
         }
-        emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false))
+        emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, 'PRIMARY_EMAIL', 'EMAIL_ADDRESS', false))
         if (emailContactMech) {
             contactDetailMap.primaryEmail = emailContactMech.infoString
             contactDetailMap.emailContactMechId = emailContactMech.contactMechId
         }
-        phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false))
+        phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, 'PRIMARY_PHONE', 'TELECOM_NUMBER', false))
         if (phoneContactMech) {
             contactDetailMap.phoneContactMechId = phoneContactMech.contactMechId
-            telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber", false)
+            telecomNumber = phoneContactMech.getRelatedOne('TelecomNumber', false)
             if (telecomNumber) {
                 countryCode = telecomNumber.countryCode
                 if (countryCode) {

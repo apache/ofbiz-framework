@@ -32,9 +32,9 @@ List separateRootType(roots) {
         prodRootTypeTree = []
         roots.each { root ->
             prodCateMap = [:]
-            productCategory = root.getRelatedOne("ProductCategory", false)
-            prodCateMap.productCategoryId = productCategory.getString("productCategoryId")
-            prodCateMap.categoryName = productCategory.getString("categoryName")
+            productCategory = root.getRelatedOne('ProductCategory', false)
+            prodCateMap.productCategoryId = productCategory.getString('productCategoryId')
+            prodCateMap.categoryName = productCategory.getString('categoryName')
             prodCateMap.isCatalog = false
             prodCateMap.isCategoryType = true
             prodRootTypeTree.add(prodCateMap)
@@ -45,15 +45,15 @@ List separateRootType(roots) {
 
 completedTree =  []
 // Get the Catalogs
-prodCatalogs = from("ProdCatalog").queryList()
+prodCatalogs = from('ProdCatalog').queryList()
 if (prodCatalogs) {
     prodCatalogs.each { prodCatalog ->
         prodCatalogMap = [:]
-        prodCatalogMap.productCategoryId = prodCatalog.getString("prodCatalogId")
-        prodCatalogMap.categoryName = prodCatalog.getString("catalogName")
+        prodCatalogMap.productCategoryId = prodCatalog.getString('prodCatalogId')
+        prodCatalogMap.categoryName = prodCatalog.getString('catalogName')
         prodCatalogMap.isCatalog = true
         prodCatalogMap.isCategoryType = false
-        prodCatalogCategories = from("ProdCatalogCategory").where("prodCatalogId", prodCatalog.prodCatalogId).filterByDate().queryList()
+        prodCatalogCategories = from('ProdCatalogCategory').where('prodCatalogId', prodCatalog.prodCatalogId).filterByDate().queryList()
         if (prodCatalogCategories) {
             prodCatalogMap.child = separateRootType(prodCatalogCategories)
         }

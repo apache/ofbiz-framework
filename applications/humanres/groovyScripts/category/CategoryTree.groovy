@@ -27,15 +27,15 @@ List completedTreeContext = []
 List subTopList = []
 
 //internalOrg list
-List partyRelationships = from("PartyRelationship")
+List partyRelationships = from('PartyRelationship')
         .where(partyIdFrom: partyId,
-                partyRelationshipTypeId: "GROUP_ROLLUP")
+                partyRelationshipTypeId: 'GROUP_ROLLUP')
         .filterByDate()
         .cache()
         .queryList()
 if (partyRelationships) {
     //root
-    GenericValue partyRoot = from("PartyGroup").where(partyId: partyId).cache().queryOne()
+    GenericValue partyRoot = from('PartyGroup').where(partyId: partyId).cache().queryOne()
     Map partyRootMap = [partyId  : partyId,
                         groupName: partyRoot.groupName]
 

@@ -42,7 +42,7 @@ if (searchValueFieldName) {
     fieldValue = searchValueFieldName
 } else if (parameters.searchValueFieldName) { // This is to find the description of a lookup value on initialization.
     fieldValue = parameters.get(parameters.searchValueFieldName)
-    context.description = "true"
+    context.description = 'true'
 }
 
 def searchType = context.searchType
@@ -60,8 +60,8 @@ if (conditionDates) {
     thruDateName = conditionDates.thruDateName ?: null
     //if the field filterByDate is present, init default value for fromDate and thruDate
     if (!fromDateName && !thruDateName) {
-        fromDateName = "fromDate"
-        thruDateName = "thruDate"
+        fromDateName = 'fromDate'
+        thruDateName = 'thruDate'
     }
 }
 
@@ -76,15 +76,15 @@ if (searchFields && fieldValue) {
     }
     context.returnField = returnField
     context.displayFieldsSet = displayFieldsSet
-    if ("STARTS_WITH".equals(searchType)) {
-        searchValue = fieldValue.toUpperCase() + "%"
-    } else if ("EQUALS".equals(searchType)) {
+    if ('STARTS_WITH'.equals(searchType)) {
+        searchValue = fieldValue.toUpperCase() + '%'
+    } else if ('EQUALS'.equals(searchType)) {
         searchValue = fieldValue
     } else {//default is CONTAINS
-        searchValue = "%" + fieldValue.toUpperCase() + "%"
+        searchValue = '%' + fieldValue.toUpperCase() + '%'
     }
     searchFieldsList.each { fieldName ->
-        if ("EQUALS".equals(searchType)) {
+        if ('EQUALS'.equals(searchType)) {
             orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue))
             return //in case of EQUALS, we search only a match for the returned field
         } else {

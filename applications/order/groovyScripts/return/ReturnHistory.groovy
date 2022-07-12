@@ -20,17 +20,17 @@
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-commonReturnHistoryCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "ReturnItem"),
-                           EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, entityField),
-                           EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, returnId + "%"),
-                           EntityCondition.makeCondition("newValueText", EntityOperator.NOT_EQUAL, null),
-                           EntityCondition.makeCondition("oldValueText", EntityOperator.NOT_EQUAL, null)]
+commonReturnHistoryCond = [EntityCondition.makeCondition('changedEntityName', EntityOperator.EQUALS, 'ReturnItem'),
+                           EntityCondition.makeCondition('changedFieldName', EntityOperator.EQUALS, entityField),
+                           EntityCondition.makeCondition('pkCombinedValueText', EntityOperator.LIKE, returnId + '%'),
+                           EntityCondition.makeCondition('newValueText', EntityOperator.NOT_EQUAL, null),
+                           EntityCondition.makeCondition('oldValueText', EntityOperator.NOT_EQUAL, null)]
 
-returnHistoryList = from("EntityAuditLog").where(commonReturnHistoryCond).queryList()
+returnHistoryList = from('EntityAuditLog').where(commonReturnHistoryCond).queryList()
 
 orderReturnItemHistories = []
 returnHistoryList.each { returnHistory ->
-    if ("returnTypeId".equals(entityField) || "returnReasonId".equals(entityField)) {
+    if ('returnTypeId'.equals(entityField) || 'returnReasonId'.equals(entityField)) {
         if (returnHistory.newValueText.toString() != returnHistory.oldValueText.toString()) {
             orderReturnItemHistories.add(returnHistory)
         }
