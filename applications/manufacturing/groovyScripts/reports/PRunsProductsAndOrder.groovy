@@ -25,11 +25,11 @@ import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 import org.apache.ofbiz.order.order.OrderReadHelper
 
 if (productCategoryIdPar) {
-    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
+    category = from('ProductCategory').where('productCategoryId', productCategoryIdPar).queryOne()
     context.category = category
 }
 
-allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV").orderBy("productId").queryList()
+allProductionRuns = from('WorkEffortAndGoods').where('workEffortName', planName, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV').orderBy('productId').queryList()
 productionRuns = []
 
 if (allProductionRuns) {
@@ -41,12 +41,12 @@ if (allProductionRuns) {
                 return
             }
         }
-        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne()
+        productionRunProduct = from('Product').where('productId', productionRun.productId).queryOne()
         String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId)
 
-        productionRunOrder = from("WorkOrderItemFulfillment").where("workEffortId", rootProductionRunId).queryFirst()
+        productionRunOrder = from('WorkOrderItemFulfillment').where('workEffortId', rootProductionRunId).queryFirst()
         OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId)
-        location = from("ProductFacilityLocation").where("productId", productionRun.productId, "facilityId", productionRun.facilityId).queryFirst()
+        location = from('ProductFacilityLocation').where('productId', productionRun.productId, 'facilityId', productionRun.facilityId).queryFirst()
 
         productionRunMap = [productionRun : productionRun,
                                           product : productionRunProduct,

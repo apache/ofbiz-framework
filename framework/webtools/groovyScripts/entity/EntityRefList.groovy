@@ -24,8 +24,8 @@ import org.apache.ofbiz.entity.model.ModelEntity
 controlPath = parameters._CONTROL_PATH_
 context.controlPath = controlPath
 
-if (security.hasPermission("ENTITY_MAINT", session)) {
-    forstatic = "true".equals(parameters.forstatic)
+if (security.hasPermission('ENTITY_MAINT', session)) {
+    forstatic = 'true'.equals(parameters.forstatic)
     context.forstatic = forstatic
 
     reader = delegator.getModelReader()
@@ -44,7 +44,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     entities.each { entityName ->
         entityMap = [:]
         if (!search || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1 ) {
-            url = search ? "?search=$search" : ""
+            url = search ? "?search=$search" : ''
             entityMap.url = url
         }
         entityMap.entityName = entityName

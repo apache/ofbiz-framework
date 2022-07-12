@@ -30,31 +30,31 @@ if (!shipment) {
 }
 
 // get the packages related to this shipment in order of packages
-shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false)
+shipmentPackages = shipment.getRelated('ShipmentPackage', null, ['shipmentPackageSeqId'], false)
 
 // first we scan the shipment items and count the quantity of each product that is being shipped
 quantityShippedByProduct = [:]
 quantityInShipmentByProduct = [:]
-shipmentItems = shipment.getRelated("ShipmentItem", null, null, false)
+shipmentItems = shipment.getRelated('ShipmentItem', null, null, false)
 shipmentItems.each { shipmentItem ->
     productId = shipmentItem.productId
     shipped = quantityShippedByProduct.get(productId)
     if (!shipped) {
         shipped = 0 as Double
     }
-    shipped += shipmentItem.getDouble("quantity").doubleValue()
+    shipped += shipmentItem.getDouble('quantity').doubleValue()
     quantityShippedByProduct.put(productId, shipped)
     quantityInShipmentByProduct.put(productId, shipped)
 }
 
 // Add in the total of all previously shipped items
-previousShipmentIter = from("Shipment")
+previousShipmentIter = from('Shipment')
                             .where(EntityCondition.makeCondition(
                                             UtilMisc.toList(
-                                                EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, shipment.getString("primaryOrderId")),
-                                                EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "SALES_SHIPMENT"),
-                                                EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN_EQUAL_TO,
-                                                    ObjectType.simpleTypeOrObjectConvert(shipment.getString("createdDate"), "Timestamp", null, null))
+                                                EntityCondition.makeCondition('primaryOrderId', EntityOperator.EQUALS, shipment.getString('primaryOrderId')),
+                                                EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'SALES_SHIPMENT'),
+                                                EntityCondition.makeCondition('createdDate', EntityOperator.LESS_THAN_EQUAL_TO,
+                                                    ObjectType.simpleTypeOrObjectConvert(shipment.getString('createdDate'), 'Timestamp', null, null))
                                             ),
                                         EntityOperator.AND))
                             .queryIterator()
@@ -62,14 +62,14 @@ previousShipmentIter = from("Shipment")
 while (previousShipmentIter.hasNext()) {
     previousShipmentItem = previousShipmentIter.next()
     if (!previousShipmentItem.shipmentId.equals(shipment.shipmentId)) {
-        previousShipmentItems = previousShipmentItem.getRelated("ShipmentItem", null, null, false)
+        previousShipmentItems = previousShipmentItem.getRelated('ShipmentItem', null, null, false)
         previousShipmentItems.each { shipmentItem ->
             productId = shipmentItem.productId
             shipped = quantityShippedByProduct.get(productId)
             if (!shipped) {
                 shipped = new Double(0)
             }
-            shipped += shipmentItem.getDouble("quantity").doubleValue()
+            shipped += shipmentItem.getDouble('quantity').doubleValue()
             quantityShippedByProduct.put(productId, shipped)
         }
     }
@@ -79,10 +79,10 @@ previousShipmentIter.close()
 // next scan the order items (via issuances) to count the quantity of each product requested
 quantityRequestedByProduct = [:]
 countedOrderItems = [:] // this map is only used to keep track of the order items already counted
-order = shipment.getRelatedOne("PrimaryOrderHeader", false)
-issuances = order.getRelated("ItemIssuance", null, null, false)
+order = shipment.getRelatedOne('PrimaryOrderHeader', false)
+issuances = order.getRelated('ItemIssuance', null, null, false)
 issuances.each { issuance ->
-    orderItem = issuance.getRelatedOne("OrderItem", false)
+    orderItem = issuance.getRelatedOne('OrderItem', false)
     productId = orderItem.productId
     if (!countedOrderItems.containsKey(orderItem.orderId + orderItem.orderItemSeqId)) {
         countedOrderItems.put(orderItem.orderId + orderItem.orderItemSeqId, null)
@@ -90,8 +90,8 @@ issuances.each { issuance ->
         if (!requested) {
             requested = new Double(0)
         }
-        cancelQuantity = orderItem.getDouble("cancelQuantity")
-        quantity = orderItem.getDouble("quantity")
+        cancelQuantity = orderItem.getDouble('cancelQuantity')
+        quantity = orderItem.getDouble('quantity')
         requested += quantity.doubleValue() - (cancelQuantity ? cancelQuantity.doubleValue() : 0)
         quantityRequestedByProduct.put(productId, requested)
     }
@@ -100,28 +100,28 @@ issuances.each { issuance ->
 // for each package, we want to list the quantities and details of each product
 packages = [] // note we assume that the package number is simply the index + 1 of this list
 shipmentPackages.each { shipmentPackage ->
-    contents = shipmentPackage.getRelated("ShipmentPackageContent", null, ['shipmentItemSeqId'], false)
+    contents = shipmentPackage.getRelated('ShipmentPackageContent', null, ['shipmentItemSeqId'], false)
 
     // each line is one logical Product and the quantities associated with it
     lines = []
     contents.each { content ->
-        shipmentItem = content.getRelatedOne("ShipmentItem", false)
-        product = shipmentItem.getRelatedOne("Product", false)
-        productTypeId = product.get("productTypeId")
+        shipmentItem = content.getRelatedOne('ShipmentItem', false)
+        product = shipmentItem.getRelatedOne('Product', false)
+        productTypeId = product.get('productTypeId')
 
         line = [:]
         line.product = product
         line.quantityRequested = quantityRequestedByProduct.get(product.productId)
         line.quantityInPackage = content.quantity
-        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityInPackage > line.quantityRequested) {
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK') && line.quantityInPackage > line.quantityRequested) {
             line.quantityInPackage = line.quantityRequested
         }
         line.quantityInShipment = quantityInShipmentByProduct.get(product.productId)
-        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityInShipment > line.quantityRequested) {
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK') && line.quantityInShipment > line.quantityRequested) {
             line.quantityInShipment = line.quantityRequested
         }
         line.quantityShipped = quantityShippedByProduct.get(product.productId)
-        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", productTypeId, "parentTypeId", "MARKETING_PKG_PICK") && line.quantityShipped > line.quantityRequested) {
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK') && line.quantityShipped > line.quantityRequested) {
             line.quantityShipped = line.quantityRequested
         }
         lines.add(line)

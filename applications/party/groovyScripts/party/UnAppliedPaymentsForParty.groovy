@@ -29,22 +29,22 @@ findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE
 
 payExprs =
     EntityCondition.makeCondition([
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_NOTPAID'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_CANCELLED'),
         EntityCondition.makeCondition([
                EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
                 ], EntityOperator.AND),
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
                 ], EntityOperator.AND)
             ], EntityOperator.OR)
         ], EntityOperator.AND)
 
 paymentList = []
-payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
+payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
 while (payIterator.hasNext()) {
     payment = payIterator.next()

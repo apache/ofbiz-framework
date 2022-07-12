@@ -25,19 +25,19 @@ def genericBasePermissionCheck() {
     // allow mainAction to be set from outside methods or direct to the service
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage("CommonUiLabels","CommonPermissionMainActionAttributeMissing", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels','CommonPermissionMainActionAttributeMissing', parameters.locale))
     }
 
     // allow primary permission to be set from outside methods or direct to the service
     String primaryPermission = parameters.primaryPermission
     if (!primaryPermission) {
-        return error(UtilProperties.getMessage("CommonUiLabels","CommonPermissionPrimaryPermissionMissing", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels','CommonPermissionPrimaryPermissionMissing', parameters.locale))
     }
     logVerbose("Checking for primary permission ${primaryPermission}_${mainAction}")
 
     // allow alt permission to be set from outside methods or direct to the service
     String altPermission = parameters.altPermission
-    String altPermissionList = ""
+    String altPermissionList = ''
     if (altPermission) {
         logInfo("Checking for alternate permission ${altPermission}_${mainAction}")
         altPermissionList = ", ${altPermission}_${mainAction}, ${altPermission}_ADMIN"
@@ -47,7 +47,7 @@ def genericBasePermissionCheck() {
     // set up called service name
     String resourceDescription = parameters.resourceDescription
     if (!resourceDescription) {
-        resourceDescription = UtilProperties.getMessage("CommonUiLabels", "CommonPermissionThisOperation", parameters.locale)
+        resourceDescription = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
 
     // check permission, permission checks include _ADMIN
@@ -60,7 +60,7 @@ def genericBasePermissionCheck() {
                           primaryPermission: primaryPermission,
                           mainAction: mainAction,
                           altPermissionList: altPermissionList]
-        result.failMessage = UtilProperties.getMessage("CommonUiLabels", "CommonGenericPermissionError", messageContext, parameters.locale)
+        result.failMessage = UtilProperties.getMessage('CommonUiLabels', 'CommonGenericPermissionError', messageContext, parameters.locale)
     }
     return result
 }
@@ -76,7 +76,7 @@ def getAllCrudPermissions() {
     result.hasViewPermission = false
     def primaryPermission = parameters.primaryPermission
     if (!primaryPermission) {
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonPermissionPrimaryPermissionMissing", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
     }
     logInfo("Getting all CRUD permissions for ${primaryPermission}")
     result = hasCrudPermission(primaryPermission, result)
@@ -90,16 +90,16 @@ def getAllCrudPermissions() {
 }
 
 def hasCrudPermission(String perm, Map resultMap) {
-    if (security.hasEntityPermission(perm, "_CREATE", parameters.userLogin)) {
+    if (security.hasEntityPermission(perm, '_CREATE', parameters.userLogin)) {
         resultMap.hasCreatePermission = true
     }
-    if (security.hasEntityPermission(perm, "_UPDATE", parameters.userLogin)) {
+    if (security.hasEntityPermission(perm, '_UPDATE', parameters.userLogin)) {
         resultMap.hasUpdatePermission = true
     }
-    if (security.hasEntityPermission(perm, "_DELETE", parameters.userLogin)) {
+    if (security.hasEntityPermission(perm, '_DELETE', parameters.userLogin)) {
         resultMap.hasDeletePermission = true
     }
-    if (security.hasEntityPermission(perm, "_VIEW", parameters.userLogin)) {
+    if (security.hasEntityPermission(perm, '_VIEW', parameters.userLogin)) {
         resultMap.hasViewPermission = true
     }
     return resultMap
@@ -109,7 +109,7 @@ def hasCrudPermission(String perm, Map resultMap) {
  * Visual Theme permission logic
  */
 def visualThemePermissionCheck() {
-    parameters.primaryPermission = "VISUAL_THEME"
-    Map result = run service: "genericBasePermissionCheck", with: parameters
+    parameters.primaryPermission = 'VISUAL_THEME'
+    Map result = run service: 'genericBasePermissionCheck', with: parameters
     return result
 }

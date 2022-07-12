@@ -24,26 +24,26 @@ import org.apache.ofbiz.entity.util.EntityUtil
 
 import java.sql.Timestamp
 
-if ("Y".equals(parameters.isSearch)) {
+if ('Y'.equals(parameters.isSearch)) {
     fromDate = parameters.fromDate
     thruDate = parameters.thruDate
     partyId = parameters.partyId
     productId = parameters.productId
     invoiceItemAndAssocProductCond = []
     if (productId) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
     }
     if (partyId) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, partyId))
     }
     if (fromDate) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('fromDate', EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
     }
     if (thruDate) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('thruDate', EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
     }
     invoiceItemAndAssocProductList = []
-    invoiceItemAndAssocProductList = from("InvoiceItemAndAssocProduct").where(invoiceItemAndAssocProductCond).queryList()
+    invoiceItemAndAssocProductList = from('InvoiceItemAndAssocProduct').where(invoiceItemAndAssocProductCond).queryList()
 
     //filtering invoiceItemAndAssocProductList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
     totalQuantity = BigDecimal.ZERO
@@ -52,7 +52,7 @@ if ("Y".equals(parameters.isSearch)) {
     totalNetSales = BigDecimal.ZERO
     commissionReportList = []
     if (invoiceItemAndAssocProductList) {
-        productIds = EntityUtil.getFieldListFromEntityList(invoiceItemAndAssocProductList, "productId", true)
+        productIds = EntityUtil.getFieldListFromEntityList(invoiceItemAndAssocProductList, 'productId', true)
         productIds.each { productId ->
             quantity = BigDecimal.ZERO
             commissionAmount = BigDecimal.ZERO

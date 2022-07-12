@@ -35,7 +35,7 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSui
     for (Element testCaseElement : getTestCaseResultsForSuite(suiteName)) {
         List<Element> children = UtilXml.childElementList(testCaseElement)
         Element child = children ? children[0] : null
-        String details = ""
+        String details = ''
         if (child) {
              details = UtilXml.getAttributeValueIgnorePrefix(child, 'message') ?: child.getNodeValue()
         }
@@ -51,16 +51,16 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSui
 context.results = testList
 
 private List<? extends Element> getTestCaseResultsForSuite(String suiteName) {
-    File xmlFile = new File(TestRunContainer.LOG_DIR + suiteName + ".xml")
+    File xmlFile = new File(TestRunContainer.LOG_DIR + suiteName + '.xml')
     if (xmlFile.exists()) {
         Document results = UtilXml.readXmlDocument(xmlFile.getText())
         Element resultElement = results.getDocumentElement()
-        return UtilXml.childElementList(resultElement, ["testcase"] as Set)
+        return UtilXml.childElementList(resultElement, ['testcase'] as Set)
     }
     return new ArrayList<Element>()
 }
 
 private String getTestSuiteName(ComponentConfig.TestSuiteInfo testSuiteInfo) {
     Element documentElement = testSuiteInfo.createResourceHandler().getDocument().getDocumentElement()
-    return documentElement.getAttribute("suite-name")
+    return documentElement.getAttribute('suite-name')
 }

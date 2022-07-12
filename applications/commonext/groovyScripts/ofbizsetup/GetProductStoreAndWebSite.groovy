@@ -20,20 +20,20 @@
  
  productStoreId = null
  
-productStore = from("ProductStore").where("payToPartyId", partyId).queryFirst();
+productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();
 if(productStore){
     productStoreId = productStore.productStoreId
 }
 context.productStoreId = productStoreId
 context.productStore = productStore
 
-if("website".equals(tabButtonItemTop)){
+if('website'.equals(tabButtonItemTop)){
     if(productStoreId != null){
-        webSite = from("WebSite").where("productStoreId", productStoreId).queryFirst();
-        context.showScreen = "origin"
+        webSite = from('WebSite').where('productStoreId', productStoreId).queryFirst();
+        context.showScreen = 'origin'
     }else{
-        request.setAttribute("_ERROR_MESSAGE_", "Product Store not set!")
-        context.showScreen = "message"
+        request.setAttribute('_ERROR_MESSAGE_', 'Product Store not set!')
+        context.showScreen = 'message'
         return
     }
     context.webSite = webSite

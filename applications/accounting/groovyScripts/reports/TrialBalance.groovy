@@ -29,12 +29,12 @@ parties.each { party ->
 context.partyNameList = partyNameList
 
 if (parameters.customTimePeriodId) {
-    customTimePeriod = from("CustomTimePeriod").where("customTimePeriodId", parameters.customTimePeriodId).cache(true).queryOne()
+    customTimePeriod = from('CustomTimePeriod').where('customTimePeriodId', parameters.customTimePeriodId).cache(true).queryOne()
     exprList = []
     exprList.add(EntityCondition.makeCondition('organizationPartyId', EntityOperator.IN, partyIds))
     exprList.add(EntityCondition.makeCondition('fromDate', EntityOperator.LESS_THAN, customTimePeriod.getTimestamp('thruDate')))
     exprList.add(EntityCondition.makeCondition(EntityCondition.makeCondition('thruDate', EntityOperator.GREATER_THAN_EQUAL_TO, customTimePeriod.getTimestamp('fromDate')), EntityOperator.OR, EntityCondition.makeCondition('thruDate', EntityOperator.EQUALS, null)))
-    List organizationGlAccounts = from("GlAccountOrganizationAndClass").where(exprList).orderBy("accountCode").queryList()
+    List organizationGlAccounts = from('GlAccountOrganizationAndClass').where(exprList).orderBy('accountCode').queryList()
 
     accountBalances = []
     postedDebitsTotal = 0

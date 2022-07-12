@@ -20,8 +20,8 @@
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 // Optional prefix parameter to filter InvoiceItemTypes by (i.e. "INV" or "PINV") defaults to INV
-invItemTypePrefix = context.invItemTypePrefix ?: "INV"
-invItemTypePrefix += "_%"
+invItemTypePrefix = context.invItemTypePrefix ?: 'INV'
+invItemTypePrefix += '_%'
 
 organizationPartyId = parameters.organizationPartyId
 exprBldr = new EntityConditionBuilder()
@@ -30,19 +30,19 @@ invoiceItemTypes = from('InvoiceItemType').where(exprBldr.LIKE(invoiceItemTypeId
 context.invoiceItemTypes = invoiceItemTypes.collect { invoiceItemType ->
     defaultAccount = true
     glAccount = null
-    invoiceItemTypeOrgs = invoiceItemType.getRelated("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId], null, false)
+    invoiceItemTypeOrgs = invoiceItemType.getRelated('InvoiceItemTypeGlAccount', [organizationPartyId : organizationPartyId], null, false)
     overrideGlAccountId = null
     if (invoiceItemTypeOrgs) {
         invoiceItemTypeOrg = invoiceItemTypeOrgs[0]
         overrideGlAccountId = invoiceItemTypeOrg.glAccountId
 
-        glAccounts = invoiceItemTypeOrg.getRelated("GlAccount", null, null, false)
+        glAccounts = invoiceItemTypeOrg.getRelated('GlAccount', null, null, false)
         if (glAccounts) {
             glAccount = glAccounts[0]
             defaultAccount = false
         }
     } else {
-        glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount", false)
+        glAccount = invoiceItemType.getRelatedOne('DefaultGlAccount', false)
     }
 
     return [invoiceItemTypeId : invoiceItemType.invoiceItemTypeId,

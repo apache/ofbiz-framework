@@ -19,7 +19,7 @@
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
-cart = session.getAttribute("shoppingCart")
+cart = session.getAttribute('shoppingCart')
 productStoreId = ProductStoreWorker.getProductStoreId(request)
 if (productStoreId == null) {
     productStoreId = cart.getProductStoreId()
@@ -27,14 +27,14 @@ if (productStoreId == null) {
 
 // Get Gift cards availbale in data
 
-giftCardCategories = from("ProductCategory").where("productCategoryTypeId", "GIFT_CARD_CATEGORY").queryList()
+giftCardCategories = from('ProductCategory').where('productCategoryTypeId', 'GIFT_CARD_CATEGORY').queryList()
 giftCardProductList = []
 if (giftCardCategories) {
     giftCardCategories.each { giftCardCategory -> 
-        giftCardCategoryMembers = from("ProductCategoryMember").where("productCategoryId", giftCardCategory.productCategoryId).queryList()
+        giftCardCategoryMembers = from('ProductCategoryMember').where('productCategoryId', giftCardCategory.productCategoryId).queryList()
         if (giftCardCategoryMembers) {
             giftCardCategoryMembers.each { giftCardCategoryMember -> 
-                giftCardProducts = from("ProductAndPriceView").where("productId", giftCardCategoryMember.productId).queryList()
+                giftCardProducts = from('ProductAndPriceView').where('productId', giftCardCategoryMember.productId).queryList()
                 if (giftCardProducts) {
                     giftCardProducts.each { giftCardProduct ->
                         giftCardProductList.add(giftCardProduct)
@@ -48,6 +48,6 @@ context.giftCardProductList = giftCardProductList
 
 // Get Survey Id for Gift Certificates
 
-productStoreFinActSetting = from("ProductStoreFinActSetting").where("productStoreId", productStoreId, "finAccountTypeId", "GIFTCERT_ACCOUNT").queryOne()
+productStoreFinActSetting = from('ProductStoreFinActSetting').where('productStoreId', productStoreId, 'finAccountTypeId', 'GIFTCERT_ACCOUNT').queryOne()
 context.surveyId = productStoreFinActSetting?.purchaseSurveyId
 

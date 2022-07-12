@@ -22,7 +22,7 @@ import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.security.Security
 
-context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session)
+context.hasUtilCacheEdit = security.hasEntityPermission('UTIL_CACHE', '_EDIT', session)
 
 cacheName = parameters.UTIL_CACHE_NAME
 context.cacheName = cacheName

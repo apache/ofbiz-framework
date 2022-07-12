@@ -22,23 +22,23 @@
  * create Account Group
  */
 def createAccount() {
-    parameters.roleTypeId = "ACCOUNT"
+    parameters.roleTypeId = 'ACCOUNT'
 
-    Map serviceResult = run service: "createPartyGroupRoleAndContactMechs", with: parameters
+    Map serviceResult = run service: 'createPartyGroupRoleAndContactMechs', with: parameters
     String partyId = serviceResult.partyId
 
     Map result = success()
     result.successMessage = serviceResult.successMessage
     result.partyId = partyId
 
-    run service: "ensurePartyRole", with: [partyId: userLogin.partyId,
-                                           roleTypeId: "OWNER"]
+    run service: 'ensurePartyRole', with: [partyId: userLogin.partyId,
+                                           roleTypeId: 'OWNER']
 
-    run service: "createPartyRelationship", with: [partyIdFrom: userLogin.partyId,
+    run service: 'createPartyRelationship', with: [partyIdFrom: userLogin.partyId,
                                                    partyIdTo: partyId,
-                                                   roleTypeIdFrom: "OWNER",
-                                                   roleTypeIdTo: "ACCOUNT",
-                                                   partyRelationshipTypeId: "ACCOUNT"]
+                                                   roleTypeIdFrom: 'OWNER',
+                                                   roleTypeIdTo: 'ACCOUNT',
+                                                   partyRelationshipTypeId: 'ACCOUNT']
 
     return result
 }

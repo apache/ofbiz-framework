@@ -36,11 +36,11 @@ context.viewIndexFirst = 0
 context.viewIndex = viewIndex
 context.viewIndexPrevious = viewIndex-1
 context.viewIndexNext = viewIndex+1
-String curFindString=""
+String curFindString=''
 
 ModelReader reader = delegator.getModelReader()
-ModelEntity modelEntity = reader.getModelEntity("ContentAssocViewTo")
-GenericEntity findByEntity = makeValue("ContentAssocViewTo")
+ModelEntity modelEntity = reader.getModelEntity('ContentAssocViewTo')
+GenericEntity findByEntity = makeValue('ContentAssocViewTo')
 List errMsgList = new ArrayList()
 Iterator fieldIterator = modelEntity.getFieldsIterator()
 while (fieldIterator.hasNext()) {
@@ -48,18 +48,18 @@ while (fieldIterator.hasNext()) {
     String fval = parameters.get(field.getName())
     if (fval != null) {
         if (fval.length() > 0) {
-            curFindString = curFindString + "&" + field.getName() + "=" + fval
+            curFindString = curFindString + '&' + field.getName() + '=' + fval
             try {
                 findByEntity.setString(field.getName(), fval)
             } catch (NumberFormatException nfe) {
-                logError(nfe, "Caught an exception : " + nfe.toString())
-                errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
+                logError(nfe, 'Caught an exception : ' + nfe.toString())
+                errMsgList.add('Entered value is non-numeric for numeric field: ' + field.getName())
             }
         }
     }
 }
 if (errMsgList) {
-    request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList)
+    request.setAttribute('_ERROR_MESSAGE_LIST_', errMsgList)
 }
 
 curFindString = UtilFormatOut.encodeQuery(curFindString)
@@ -74,7 +74,7 @@ if ((highIndex - lowIndex + 1) > 0) {
     boolean beganTransaction = false
     try {
         beganTransaction = TransactionUtil.begin()
-        listIt = from("ContentAssocViewTo").where("contentIdStart", (String)parameters.get("contentId")).orderBy("contentId ASC").cursorScrollInsensitive().cache(true).queryIterator()
+        listIt = from('ContentAssocViewTo').where('contentIdStart', (String)parameters.get('contentId')).orderBy('contentId ASC').cursorScrollInsensitive().cache(true).queryIterator()
         resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
         
         arraySize = listIt.getResultsSizeAfterPartialList()
@@ -82,12 +82,12 @@ if ((highIndex - lowIndex + 1) > 0) {
             highIndex = arraySize
         }
     } catch (GenericEntityException e) {
-        logError(e, "Failure in operation, rolling back transaction")
+        logError(e, 'Failure in operation, rolling back transaction')
         try {
             // only rollback the transaction if we started one...
-            TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e)
+            TransactionUtil.rollback(beganTransaction, 'Error looking up entity values in WebTools Entity Data Maintenance', e)
         } catch (GenericEntityException e2) {
-            logError(e2, "Could not rollback transaction: " + e2.toString())
+            logError(e2, 'Could not rollback transaction: ' + e2.toString())
         }
         // after rolling back, rethrow the exception
         throw e

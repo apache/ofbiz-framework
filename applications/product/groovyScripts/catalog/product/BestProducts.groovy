@@ -24,21 +24,21 @@ import org.apache.ofbiz.product.product.ProductContentWrapper
 
 bestSellingProducts = []
 exprList = []
-exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)))
-exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.getDayEnd(filterDate)))
-exprList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"))
-exprList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"))
+exprList.add(EntityCondition.makeCondition('orderDate', EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.getDayStart(filterDate)))
+exprList.add(EntityCondition.makeCondition('orderDate', EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.getDayEnd(filterDate)))
+exprList.add(EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER'))
+exprList.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ORDER_CANCELLED'))
 
-orderHeaderList = from("OrderHeader").where(exprList).queryList()
+orderHeaderList = from('OrderHeader').where(exprList).queryList()
 
 orderHeaderList.each { orderHeader ->
     exprList.clear()
-    exprList.add(EntityCondition.makeCondition("orderId", orderHeader.orderId))
-    exprList.add(EntityCondition.makeCondition("orderItemTypeId", "PRODUCT_ORDER_ITEM"))
-    exprList.add(EntityCondition.makeCondition("isPromo", "N"))
-    exprList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"))
+    exprList.add(EntityCondition.makeCondition('orderId', orderHeader.orderId))
+    exprList.add(EntityCondition.makeCondition('orderItemTypeId', 'PRODUCT_ORDER_ITEM'))
+    exprList.add(EntityCondition.makeCondition('isPromo', 'N'))
+    exprList.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ITEM_CANCELLED'))
 
-    orderItemList = from("OrderItem").where(exprList).queryList()
+    orderItemList = from('OrderItem').where(exprList).queryList()
 
     orderItemList.each { orderItem ->
         orderItemDetail = [:]
@@ -61,9 +61,9 @@ orderHeaderList.each { orderHeader ->
         
         if (inListFlag == false) {
             orderItemDetail.productId = orderItem.productId
-            product = from("Product").where("productId", orderItem.productId).queryOne()
+            product = from('Product').where('productId', orderItem.productId).queryOne()
             contentWrapper = new ProductContentWrapper(product, request)
-            orderItemDetail.productName = contentWrapper.get("PRODUCT_NAME", "html")
+            orderItemDetail.productName = contentWrapper.get('PRODUCT_NAME', 'html')
             orderItemDetail.amount = amount
             orderItemDetail.qtyOrdered = qtyOrdered
             orderItemDetail.currencyUom = orderHeader.currencyUom

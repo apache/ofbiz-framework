@@ -22,10 +22,10 @@ import org.apache.ofbiz.entity.util.*
 import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.service.ServiceUtil
 
-facilityId = request.getParameter("facilityId")
-purchaseOrderId = request.getParameter("purchaseOrderId")
-productId = request.getParameter("productId")
-shipmentId = request.getParameter("shipmentId")
+facilityId = request.getParameter('facilityId')
+purchaseOrderId = request.getParameter('purchaseOrderId')
+productId = request.getParameter('productId')
+shipmentId = request.getParameter('shipmentId')
 
 partialReceive = parameters.partialReceive
 if (partialReceive) {
@@ -34,14 +34,14 @@ if (partialReceive) {
 
 facility = null
 if (facilityId) {
-    facility = from("Facility").where("facilityId", facilityId).queryOne()
+    facility = from('Facility').where('facilityId', facilityId).queryOne()
 }
 
 ownerAcctgPref = null
 if (facility) {
-    owner = facility.getRelatedOne("OwnerParty", false)
+    owner = facility.getRelatedOne('OwnerParty', false)
     if (owner) {
-        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")])
+        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute('userLogin')])
         if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
@@ -50,40 +50,40 @@ if (facility) {
 
 purchaseOrder = null
 if (purchaseOrderId) {
-    purchaseOrder = from("OrderHeader").where("orderId", purchaseOrderId).queryOne()
-    if (purchaseOrder && !"PURCHASE_ORDER".equals(purchaseOrder.orderTypeId)) {
+    purchaseOrder = from('OrderHeader').where('orderId', purchaseOrderId).queryOne()
+    if (purchaseOrder && !'PURCHASE_ORDER'.equals(purchaseOrder.orderTypeId)) {
         purchaseOrder = null
     }
 }
 
 product = null
 if (productId) {
-    product = from("Product").where("productId", productId).queryOne()
-    context.supplierPartyIds = EntityUtil.getFieldListFromEntityList(from("SupplierProduct").where("productId", productId).orderBy("partyId").filterByDate(nowTimestamp, "availableFromDate", "availableThruDate").queryList(), "partyId", true)
+    product = from('Product').where('productId', productId).queryOne()
+    context.supplierPartyIds = EntityUtil.getFieldListFromEntityList(from('SupplierProduct').where('productId', productId).orderBy('partyId').filterByDate(nowTimestamp, 'availableFromDate', 'availableThruDate').queryList(), 'partyId', true)
 }
 
 shipments = null
 if (purchaseOrder && !shipmentId) {
-    orderShipments = from("OrderShipment").where("orderId", purchaseOrderId).queryList()
+    orderShipments = from('OrderShipment').where('orderId', purchaseOrderId).queryList()
     if (orderShipments) {
         shipments = [] as TreeSet
         orderShipments.each { orderShipment ->
-            shipment = orderShipment.getRelatedOne("Shipment", false)
-            if (!"PURCH_SHIP_RECEIVED".equals(shipment.statusId) &&
-                !"SHIPMENT_CANCELLED".equals(shipment.statusId) &&
+            shipment = orderShipment.getRelatedOne('Shipment', false)
+            if (!'PURCH_SHIP_RECEIVED'.equals(shipment.statusId) &&
+                !'SHIPMENT_CANCELLED'.equals(shipment.statusId) &&
                 (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {
                 shipments.add(shipment)
             }
         }
     }
     // This is here for backward compatibility: ItemIssuances are no more created for purchase shipments.
-    issuances = from("ItemIssuance").where("orderId", purchaseOrderId).queryList()
+    issuances = from('ItemIssuance').where('orderId', purchaseOrderId).queryList()
     if (issuances) {
         shipments = [] as TreeSet
         issuances.each { issuance ->
-            shipment = issuance.getRelatedOne("Shipment", false)
-            if (!"PURCH_SHIP_RECEIVED".equals(shipment.statusId) &&
-                !"SHIPMENT_CANCELLED".equals(shipment.statusId) &&
+            shipment = issuance.getRelatedOne('Shipment', false)
+            if (!'PURCH_SHIP_RECEIVED'.equals(shipment.statusId) &&
+                !'SHIPMENT_CANCELLED'.equals(shipment.statusId) &&
                 (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {
                 shipments.add(shipment)
             }
@@ -92,23 +92,23 @@ if (purchaseOrder && !shipmentId) {
 }
 
 shipment = null
-if (shipmentId && !"_NA_".equals(shipmentId)) {
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+if (shipmentId && !'_NA_'.equals(shipmentId)) {
+    shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 }
 
 shippedQuantities = [:]
 purchaseOrderItems = null
 if (purchaseOrder) {
     if (product) {
-        purchaseOrderItems = purchaseOrder.getRelated("OrderItem", [productId : productId], null, false)
+        purchaseOrderItems = purchaseOrder.getRelated('OrderItem', [productId : productId], null, false)
     } else if (shipment) {
-        orderItems = purchaseOrder.getRelated("OrderItem", null, null, false)
+        orderItems = purchaseOrder.getRelated('OrderItem', null, null, false)
         exprs = [] as ArrayList
-        orderShipments = shipment.getRelated("OrderShipment", [orderId : purchaseOrderId], null, false)
+        orderShipments = shipment.getRelated('OrderShipment', [orderId : purchaseOrderId], null, false)
         if (orderShipments) {
             orderShipments.each { orderShipment ->
-                exprs.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderShipment.orderItemSeqId))
-                double orderShipmentQty = orderShipment.getDouble("quantity").doubleValue()
+                exprs.add(EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, orderShipment.orderItemSeqId))
+                double orderShipmentQty = orderShipment.getDouble('quantity').doubleValue()
                 if (shippedQuantities.containsKey(orderShipment.orderItemSeqId)) {
                     orderShipmentQty += ((Double)shippedQuantities.get(orderShipment.orderItemSeqId)).doubleValue()
                 }
@@ -116,10 +116,10 @@ if (purchaseOrder) {
             }
         } else {
             // this is here for backward compatibility only: ItemIssuances are no more created for purchase shipments.
-            issuances = shipment.getRelated("ItemIssuance", [orderId : purchaseOrderId], null, false)
+            issuances = shipment.getRelated('ItemIssuance', [orderId : purchaseOrderId], null, false)
             issuances.each { issuance ->
-                exprs.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, issuance.orderItemSeqId))
-                double issuanceQty = issuance.getDouble("quantity").doubleValue()
+                exprs.add(EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, issuance.orderItemSeqId))
+                double issuanceQty = issuance.getDouble('quantity').doubleValue()
                 if (shippedQuantities.containsKey(issuance.orderItemSeqId)) {
                     issuanceQty += ((Double)shippedQuantities.get(issuance.orderItemSeqId)).doubleValue()
                 }
@@ -128,9 +128,9 @@ if (purchaseOrder) {
         }
         purchaseOrderItems = EntityUtil.filterByOr(orderItems, exprs)
     } else {
-        purchaseOrderItems = purchaseOrder.getRelated("OrderItem", null, null, false)
+        purchaseOrderItems = purchaseOrder.getRelated('OrderItem', null, null, false)
     }
-    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, ["ITEM_CANCELLED", "ITEM_COMPLETED"])])
+    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition('statusId', EntityOperator.NOT_IN, ['ITEM_CANCELLED', 'ITEM_COMPLETED'])])
 }
 // convert the unit prices to that of the facility owner's currency
 orderCurrencyUnitPriceMap = [:]
@@ -144,7 +144,7 @@ if (purchaseOrder && facility) {
                 serviceResults = runService('convertUom',
                         [uomId : orderCurrencyUomId, uomIdTo : ownerCurrencyUomId, originalValue : item.unitPrice])
                 if (ServiceUtil.isError(serviceResults)) {
-                    request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(serviceResults))
+                    request.setAttribute('_ERROR_MESSAGE_', ServiceUtil.getErrorMessage(serviceResults))
                     return
                 } else {
                     convertedValue = serviceResults.convertedValue
@@ -159,7 +159,7 @@ if (purchaseOrder && facility) {
         context.currencyUomId = ownerCurrencyUomId
         context.orderCurrencyUomId = orderCurrencyUomId
     } else {
-        request.setAttribute("_ERROR_MESSAGE_", "Either no owner party was set for this facility, or no accounting preferences were set for this owner party.")
+        request.setAttribute('_ERROR_MESSAGE_', 'Either no owner party was set for this facility, or no accounting preferences were set for this owner party.')
     }
 }
 context.orderCurrencyUnitPriceMap = orderCurrencyUnitPriceMap
@@ -171,12 +171,12 @@ if (purchaseOrderItems) {
     context.purchaseOrderItemsSize = purchaseOrderItems.size()
     purchaseOrderItems.each { thisItem ->
         totalReceived = 0.0
-        receipts = thisItem.getRelated("ShipmentReceipt", null, null, false)
+        receipts = thisItem.getRelated('ShipmentReceipt', null, null, false)
         if (receipts) {
             receipts.each { rec ->
                 if (!shipment || (rec.shipmentId && rec.shipmentId.equals(shipment.shipmentId))) {
-                    accepted = rec.getDouble("quantityAccepted")
-                    rejected = rec.getDouble("quantityRejected")
+                    accepted = rec.getDouble('quantityAccepted')
+                    rejected = rec.getDouble('quantityRejected')
                     if (accepted) {
                         totalReceived += accepted.doubleValue()
                     }
@@ -188,7 +188,7 @@ if (purchaseOrderItems) {
         }
         receivedQuantities.put(thisItem.orderItemSeqId, new Double(totalReceived))
         //----------------------
-        salesOrderItemAssocs = from("OrderItemAssoc").where(orderItemAssocTypeId : 'PURCHASE_ORDER', toOrderId : thisItem.orderId, toOrderItemSeqId : thisItem.orderItemSeqId).queryList()
+        salesOrderItemAssocs = from('OrderItemAssoc').where(orderItemAssocTypeId : 'PURCHASE_ORDER', toOrderId : thisItem.orderId, toOrderItemSeqId : thisItem.orderItemSeqId).queryList()
         if (salesOrderItemAssocs) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs)
             salesOrderItems.put(thisItem.orderItemSeqId, salesOrderItem)
@@ -198,24 +198,24 @@ if (purchaseOrderItems) {
 
 receivedItems = null
 if (purchaseOrder) {
-    receivedItems = from("ShipmentReceiptAndItem").where("orderId", purchaseOrderId, "facilityId", facilityId).queryList()
+    receivedItems = from('ShipmentReceiptAndItem').where('orderId', purchaseOrderId, 'facilityId', facilityId).queryList()
     context.receivedItems = receivedItems
 }
 
 invalidProductId = null
 if (productId && !product) {
-    invalidProductId = "No product found with product ID: [" + productId + "]"
+    invalidProductId = 'No product found with product ID: [' + productId + ']'
     context.invalidProductId = invalidProductId
 }
 
 // reject reasons
-rejectReasons = from("RejectionReason").queryList()
+rejectReasons = from('RejectionReason').queryList()
 
 // inv item types
-inventoryItemTypes = from("InventoryItemType").queryList()
+inventoryItemTypes = from('InventoryItemType').queryList()
 
 // facilities
-facilities = from("Facility").queryList()
+facilities = from('Facility').queryList()
 
 // default per unit cost for both shipment or individual product
 standardCosts = [:]
@@ -227,7 +227,7 @@ if (ownerAcctgPref) {
             productId = orderItem.productId
             if (productId) {
                 result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
-                                                               costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")])
+                                                               costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute('userLogin')])
                 if (ServiceUtil.isSuccess(result)) {
                     standardCosts.put(productId, result.productCost)
                 }
@@ -238,7 +238,7 @@ if (ownerAcctgPref) {
     // get the unit cost of a single product
     if (productId) {
         result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
-                                                       costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")])
+                                                       costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute('userLogin')])
         if (ServiceUtil.isSuccess(result)) {
             standardCosts.put(productId, result.productCost)
         }

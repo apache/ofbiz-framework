@@ -23,18 +23,18 @@ import org.apache.ofbiz.security.*
 import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.datafile.*
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
+uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
 messages = []
 
-dataFileSave = request.getParameter("DATAFILE_SAVE")
+dataFileSave = request.getParameter('DATAFILE_SAVE')
 
-entityXmlFileSave = request.getParameter("ENTITYXML_FILE_SAVE")
+entityXmlFileSave = request.getParameter('ENTITYXML_FILE_SAVE')
 
-dataFileLoc = request.getParameter("DATAFILE_LOCATION")
-definitionLoc = request.getParameter("DEFINITION_LOCATION")
-definitionName = request.getParameter("DEFINITION_NAME")
-dataFileIsUrl = null != request.getParameter("DATAFILE_IS_URL")
-definitionIsUrl = null != request.getParameter("DEFINITION_IS_URL")
+dataFileLoc = request.getParameter('DATAFILE_LOCATION')
+definitionLoc = request.getParameter('DEFINITION_LOCATION')
+definitionName = request.getParameter('DEFINITION_NAME')
+dataFileIsUrl = null != request.getParameter('DATAFILE_IS_URL')
+definitionIsUrl = null != request.getParameter('DEFINITION_IS_URL')
 
 try {
     dataFileUrl = dataFileIsUrl?new URL(dataFileLoc):UtilURL.fromFilename(dataFileLoc)
@@ -56,7 +56,7 @@ if (definitionUrl) {
         ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl)
         if (reader) {
             definitionNames = ((Collection)reader.getDataFileNames()).iterator()
-            context.put("definitionNames", definitionNames)
+            context.put('definitionNames', definitionNames)
         }
     }
     catch (Exception e) {
@@ -68,7 +68,7 @@ dataFile = null
 if (dataFileUrl && definitionUrl && definitionNames) {
     try {
         dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName)
-        context.put("dataFile", dataFile)
+        context.put('dataFile', dataFile)
     }
     catch (Exception e) {
         messages.add(e.toString()); Debug.log(e)
@@ -77,7 +77,7 @@ if (dataFileUrl && definitionUrl && definitionNames) {
 
 if (dataFile) {
     modelDataFile = dataFile.getModelDataFile()
-    context.put("modelDataFile", modelDataFile)
+    context.put('modelDataFile', modelDataFile)
 }
 
 if (dataFile && dataFileSave) {

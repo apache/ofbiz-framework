@@ -20,5 +20,5 @@
 import org.apache.ofbiz.party.contact.ContactMechWorker
 
 partyId = partyId ?: parameters.partyId
-showOld = "true".equals(parameters.SHOW_OLD)
+showOld = 'true'.equals(parameters.SHOW_OLD)
 context.contactMeches = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld)

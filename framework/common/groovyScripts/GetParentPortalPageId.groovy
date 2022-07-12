@@ -27,23 +27,23 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
     // look for system page according the current securitygroup
     //get the security group
     condSec = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
-            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
-            EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
+            EntityCondition.makeCondition('portalPageId', EntityOperator.LIKE, parameters.parentPortalPageId + '%'),
+            EntityCondition.makeCondition('parentPortalPageId', EntityOperator.EQUALS, null),
+            EntityCondition.makeCondition('userLoginId', EntityOperator.EQUALS, userLogin.userLoginId)
             ],EntityOperator.AND)
-    portalMainPages = EntityUtil.filterByDate(delegator.findList("PortalPageAndUserLogin", condSec, null, null, null, false))
+    portalMainPages = EntityUtil.filterByDate(delegator.findList('PortalPageAndUserLogin', condSec, null, null, null, false))
     if (!portalMainPages) { // look for a null securityGroup if not found
         condSec = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, null),
-            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
-            EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%")
+            EntityCondition.makeCondition('securityGroupId', EntityOperator.EQUALS, null),
+            EntityCondition.makeCondition('parentPortalPageId', EntityOperator.EQUALS, null),
+            EntityCondition.makeCondition('portalPageId', EntityOperator.LIKE, parameters.parentPortalPageId + '%')
             ],EntityOperator.AND)
-        portalMainPages = delegator.findList("PortalPage", condSec, null, null, null, false)
+        portalMainPages = delegator.findList('PortalPage', condSec, null, null, null, false)
     }
     if (portalMainPages) {
         portalPageId = portalMainPages.get(0).portalPageId
         // check if overridden with a privat page
-        privatMainPages = from("PortalPage").where("originalPortalPageId", portalPageId, "ownerUserLoginId", userLogin.userLoginId).queryList();
+        privatMainPages = from('PortalPage').where('originalPortalPageId', portalPageId, 'ownerUserLoginId', userLogin.userLoginId).queryList();
         if (privatMainPages) {
             context.parameters.portalPageId = privatMainPages.get(0).portalPageId
         } else {
@@ -53,12 +53,12 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
 }
 // Debug.log('======portalPageId: ' + parameters.portalPageId)
 if (userLogin && parameters.portalPageId) {
-    portalPage = from("PortalPage").where("portalPageId", parameters.portalPageId).queryOne();
+    portalPage = from('PortalPage').where('portalPageId', parameters.portalPageId).queryOne();
     if (portalPage) {
         if (portalPage.parentPortalPageId) {
             context.parameters.parentPortalPageId = portalPage.parentPortalPageId
         } else {
-            if ("_NA_".equals(portalPage.ownerUserLoginId)) {
+            if ('_NA_'.equals(portalPage.ownerUserLoginId)) {
                 context.parameters.parentPortalPageId = portalPage.portalPageId
             } else {
                 context.parameters.parentPortalPageId = portalPage.originalPortalPageId

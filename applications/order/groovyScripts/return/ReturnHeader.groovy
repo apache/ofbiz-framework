@@ -37,12 +37,12 @@ if (parameters.returnHeader) {
     returnId = parameters.returnId
 }
 if (returnId) {
-    returnHeader = from("ReturnHeader").where("returnId", returnId).queryOne()
+    returnHeader = from('ReturnHeader').where('returnId', returnId).queryOne()
     if (returnHeader) {
         partyId = returnHeader.fromPartyId
         toPartyId = parameters.toPartyId
 
-        context.currentStatus = returnHeader.getRelatedOne("StatusItem", true)
+        context.currentStatus = returnHeader.getRelatedOne('StatusItem', true)
     }
 }
 context.returnHeader = returnHeader
@@ -51,14 +51,14 @@ context.returnId = returnId
 //fin account info
 finAccounts = null
 if (partyId) {
-    finAccounts = from("FinAccountAndRole").where("partyId", partyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE").filterByDate().queryList()
+    finAccounts = from('FinAccountAndRole').where('partyId', partyId, 'finAccountTypeId', 'STORE_CREDIT_ACCT', 'roleTypeId', 'OWNER', 'statusId', 'FNACT_ACTIVE').filterByDate().queryList()
 }
 context.finAccounts = finAccounts
 
 // billing account info
 billingAccountList = null
 if (partyId) {
-    billingAccountList = from("BillingAccountAndRole").where("partyId", partyId).filterByDate().queryList()
+    billingAccountList = from('BillingAccountAndRole').where('partyId', partyId).filterByDate().queryList()
 }
 context.billingAccountList = billingAccountList
 
@@ -66,8 +66,8 @@ context.billingAccountList = billingAccountList
 List creditCardList = null
 List eftAccountList = null
 if (partyId) {
-    creditCardList = from("PaymentMethodAndCreditCard").where("partyId", partyId).filterByDate().queryList()
-    eftAccountList = from("PaymentMethodAndEftAccount").where("partyId", partyId).filterByDate().queryList()
+    creditCardList = from('PaymentMethodAndCreditCard').where('partyId', partyId).filterByDate().queryList()
+    eftAccountList = from('PaymentMethodAndEftAccount').where('partyId', partyId).filterByDate().queryList()
 }
 context.creditCardList = creditCardList
 context.eftAccountList = eftAccountList
@@ -75,8 +75,8 @@ context.eftAccountList = eftAccountList
 orderRole = null
 orderHeader = null
 if (orderId) {
-    orderRole = from("OrderRole").where("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER").queryFirst()
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    orderRole = from('OrderRole').where('orderId', orderId, 'roleTypeId', 'BILL_TO_CUSTOMER').queryFirst()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
 }
 context.orderRole = orderRole
 context.orderHeader = orderHeader
@@ -85,22 +85,22 @@ context.orderHeader = orderHeader
 // from address
 addresses = null
 if (context.request) {
-    addresses = ContactMechWorker.getPartyPostalAddresses(request, partyId, "_NA_")
+    addresses = ContactMechWorker.getPartyPostalAddresses(request, partyId, '_NA_')
 }
 context.addresses = addresses
 
 if (returnHeader) {
-    contactMechTo = ContactMechWorker.getFacilityContactMechByPurpose(delegator, returnHeader.destinationFacilityId, ["PUR_RET_LOCATION", "SHIPPING_LOCATION", "PRIMARY_LOCATION"])
+    contactMechTo = ContactMechWorker.getFacilityContactMechByPurpose(delegator, returnHeader.destinationFacilityId, ['PUR_RET_LOCATION', 'SHIPPING_LOCATION', 'PRIMARY_LOCATION'])
     if (contactMechTo) {
-        postalAddressTo = from("PostalAddress").where("contactMechId", contactMechTo.contactMechId).cache(true).queryOne()
+        postalAddressTo = from('PostalAddress').where('contactMechId', contactMechTo.contactMechId).cache(true).queryOne()
         context.postalAddressTo = postalAddressTo
     }
     
-    party = from("Party").where("partyId", partyId).cache(true).queryOne()
+    party = from('Party').where('partyId', partyId).cache(true).queryOne()
     if (party) {
-        shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+        shippingContactMechList = ContactHelper.getContactMech(party, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)
         if (shippingContactMechList) {
-            context.postalAddressFrom = from("PostalAddress").where("contactMechId", EntityUtil.getFirst(shippingContactMechList).contactMechId).cache(true).queryOne()
+            context.postalAddressFrom = from('PostalAddress').where('contactMechId', EntityUtil.getFirst(shippingContactMechList).contactMechId).cache(true).queryOne()
         }
     }
 }

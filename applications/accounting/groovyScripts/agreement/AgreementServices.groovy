@@ -43,7 +43,7 @@ def copyAgreement() {
             agreementTerms.each { agreementTerm ->
                 Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm', ModelService.IN_PARAM, agreementTerm)
                 createAgreementTermInMap.agreementId = agreementIdTo
-                createAgreementTermInMap.remove("agreementTermId")
+                createAgreementTermInMap.remove('agreementTermId')
                 result = run service: 'createAgreementTerm', with: createAgreementTermInMap
             }
         }

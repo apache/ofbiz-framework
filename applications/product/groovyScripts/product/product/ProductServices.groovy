@@ -35,22 +35,22 @@ import java.sql.Timestamp
  */
 def createProduct() {
     Map result = success()
-    if (!(security.hasEntityPermission("CATALOG", "_CREATE", parameters.userLogin)
-            || security.hasEntityPermission("CATALOG_ROLE", "_CREATE", parameters.userLogin))) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogCreatePermissionError", parameters.locale))
+    if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
+            || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
     }
 
-    GenericValue newEntity = makeValue("Product", parameters)
+    GenericValue newEntity = makeValue('Product', parameters)
     if (!newEntity.productId) {
-        newEntity.productId = delegator.getNextSeqId("Product")
+        newEntity.productId = delegator.getNextSeqId('Product')
     } else {
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productId)
         if (errorMessage) {
             return error(errorMessage)
         }
-        GenericValue dummyProduct = from("Product").where(parameters).queryOne()
+        GenericValue dummyProduct = from('Product').where(parameters).queryOne()
         if (dummyProduct) {
-            return error(UtilProperties.getMessage("CommonErrorUiLabels", "CommonErrorDuplicateKey", parameters.locale))
+            return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
         }
     }
     result.productId = newEntity.productId
@@ -61,8 +61,8 @@ def createProduct() {
     newEntity.lastModifiedDate = nowTimestamp
     newEntity.lastModifiedByUserLogin = userLogin.userLoginId
     newEntity.createdByUserLogin = userLogin.userLoginId
-    newEntity.isVariant = newEntity.isVariant ?: "N"
-    newEntity.isVirtual = newEntity.isVirtual ?: "N"
+    newEntity.isVariant = newEntity.isVariant ?: 'N'
+    newEntity.isVirtual = newEntity.isVirtual ?: 'N'
     newEntity.billOfMaterialLevel = newEntity.billOfMaterialLevel ?: 0l
     newEntity.create()
 
@@ -81,14 +81,14 @@ def createProduct() {
 
     // if the user has the role limited position, add this product to the limit category/ies
 
-    if (security.hasEntityPermission("CATALOG_ROLE", "_CREATE", parameters.userLogin)) {
-        List productCategoryRoles = from("ProductCategoryRole")
-                .where(partyId: userLogin.partyId, roleTypeId: "LTD_ADMIN")
+    if (security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin)) {
+        List productCategoryRoles = from('ProductCategoryRole')
+                .where(partyId: userLogin.partyId, roleTypeId: 'LTD_ADMIN')
                 .queryList()
 
         for (GenericValue productCategoryRole : productCategoryRoles) {
             // add this new product to the category
-            GenericValue newLimitMember = makeValue("ProductCategoryMember")
+            GenericValue newLimitMember = makeValue('ProductCategoryMember')
             newLimitMember.productId = newEntity.productId
             newLimitMember.productCategoryId = productCategoryRole.productCategoryId
             newLimitMember.fromDate = nowTimestamp
@@ -104,11 +104,11 @@ def createProduct() {
  * Update a product
  */
 def updateProduct() {
-    Map res = checkProductRelatedPermission("updateProduct", "UPDATE")
+    Map res = checkProductRelatedPermission('updateProduct', 'UPDATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from("Product").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('Product').where(parameters).queryOne()
 
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.lastModifiedDate = UtilDateTime.nowTimestamp()
@@ -122,15 +122,15 @@ def updateProduct() {
  * Update a Product Name from quick admin
  */
 def updateProductQuickAdminName() {
-    Map res = checkProductRelatedPermission("updateQuickAdminName", "UPDATE")
+    Map res = checkProductRelatedPermission('updateQuickAdminName', 'UPDATE')
 
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
 
-    GenericValue lookedUpValue = from("Product").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('Product').where(parameters).queryOne()
     lookedUpValue.productName = parameters.productName
-    if ("Y" == lookedUpValue.isVirtual) {
+    if ('Y' == lookedUpValue.isVirtual) {
         lookedUpValue.internalName = lookedUpValue.productName
     }
 
@@ -139,17 +139,17 @@ def updateProductQuickAdminName() {
 
     lookedUpValue.store()
 
-    if ("Y" == lookedUpValue.isVirtual) {
+    if ('Y' == lookedUpValue.isVirtual) {
         // get all variant products, to update their productNames
-        Map variantProductAssocMap = [productId: parameters.productId, productAssocTypeId: "PRODUCT_VARIANT"]
+        Map variantProductAssocMap = [productId: parameters.productId, productAssocTypeId: 'PRODUCT_VARIANT']
 
         // get all productAssocs, then get the actual product to update
-        List variantProductAssocs = from("ProductAssoc")
+        List variantProductAssocs = from('ProductAssoc')
                 .where(variantProductAssocMap)
                 .filterByDate()
                 .queryList()
         for (GenericValue variantProductAssoc : variantProductAssocs) {
-            GenericValue variantProduct = from("Product").where(productId: variantProductAssoc.productIdTo).queryOne()
+            GenericValue variantProduct = from('Product').where(productId: variantProductAssoc.productIdTo).queryOne()
 
             variantProduct.productName = parameters.productName
             variantProduct.lastModifiedDate = UtilDateTime.nowTimestamp()
@@ -164,22 +164,22 @@ def updateProductQuickAdminName() {
  * Duplicate a Product
  */
 def duplicateProduct() {
-    String callingMethodName = "duplicateProduct"
-    Map res = checkProductRelatedPermission(callingMethodName, "CREATE")
+    String callingMethodName = 'duplicateProduct'
+    Map res = checkProductRelatedPermission(callingMethodName, 'CREATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    res = checkProductRelatedPermission(callingMethodName, "DELETE")
+    res = checkProductRelatedPermission(callingMethodName, 'DELETE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue dummyProduct = from("Product").where(parameters).queryOne()
+    GenericValue dummyProduct = from('Product').where(parameters).queryOne()
     if (dummyProduct) {
-        return error(UtilProperties.getMessage("CommonErrorUiLabels", "CommonErrorDuplicateKey", parameters.locale))
+        return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
     }
 
     // look up the old product and clone it
-    GenericValue oldProduct = from("Product").where(productId: parameters.oldProductId).queryOne()
+    GenericValue oldProduct = from('Product').where(productId: parameters.oldProductId).queryOne()
     GenericValue newProduct = oldProduct.clone()
 
     // set the productId, and write it to the datasource
@@ -212,17 +212,17 @@ def duplicateProduct() {
 
     // if requested, duplicate related data as well
     List relationToDuplicate = []
-    if (parameters.duplicatePrices) relationToDuplicate << "ProductPrice"
-    if (parameters.duplicateIDs) relationToDuplicate << "GoodIdentification"
-    if (parameters.duplicateContent) relationToDuplicate << "ProductContent"
-    if (parameters.duplicateCategoryMembers) relationToDuplicate << "ProductCategoryMember"
-    if (parameters.duplicateAttributes) relationToDuplicate << "ProductAttribute"
-    if (parameters.duplicateFeatureAppls) relationToDuplicate << "ProductFeatureAppl"
+    if (parameters.duplicatePrices) relationToDuplicate << 'ProductPrice'
+    if (parameters.duplicateIDs) relationToDuplicate << 'GoodIdentification'
+    if (parameters.duplicateContent) relationToDuplicate << 'ProductContent'
+    if (parameters.duplicateCategoryMembers) relationToDuplicate << 'ProductCategoryMember'
+    if (parameters.duplicateAttributes) relationToDuplicate << 'ProductAttribute'
+    if (parameters.duplicateFeatureAppls) relationToDuplicate << 'ProductFeatureAppl'
     if (parameters.duplicateAssocs) {
-        relationToDuplicate << "ProductAssoc"
+        relationToDuplicate << 'ProductAssoc'
 
         // small difference here, also do the reverse assocs...
-        List foundValues = from("ProductAssoc").where(reverseProductFindContext).queryList()
+        List foundValues = from('ProductAssoc').where(reverseProductFindContext).queryList()
         for (GenericValue foundValue : foundValues) {
             GenericValue newTempValue = foundValue.clone()
             newTempValue.productIdTo = parameters.productId
@@ -240,7 +240,7 @@ def duplicateProduct() {
     }
 
     if (parameters.duplicateInventoryItems) {
-        List foundValues = from("InventoryItem").where(productFindContext).queryList()
+        List foundValues = from('InventoryItem').where(productFindContext).queryList()
         for (GenericValue foundValue : foundValues) {
             /*
              *      NOTE: new inventory items should always be created calling the
@@ -254,24 +254,24 @@ def duplicateProduct() {
             GenericValue newTempValue = foundValue.clone()
             newTempValue.productId = parameters.productId
             // this one is slightly different because it needs a new sequenced inventoryItemId
-            newTempValue.inventoryItemId = delegator.getNextSeqId("InventoryItem")
+            newTempValue.inventoryItemId = delegator.getNextSeqId('InventoryItem')
             newTempValue.create()
         }
     }
 
     // if requested, remove related data as well
     List relationToRemove = []
-    if (parameters.removePrices) relationToRemove << "ProductPrice"
-    if (parameters.removeIDs) relationToRemove << "GoodIdentification"
-    if (parameters.removeContent) relationToRemove << "ProductContent"
-    if (parameters.removeCategoryMembers) relationToRemove << "ProductCategoryMember"
-    if (parameters.removeAttributes) relationToRemove << "ProductAttribute"
-    if (parameters.removeFeatureAppls) relationToRemove << "ProductFeatureAppl"
-    if (parameters.removeInventoryItems) relationToRemove << "InventoryItem"
+    if (parameters.removePrices) relationToRemove << 'ProductPrice'
+    if (parameters.removeIDs) relationToRemove << 'GoodIdentification'
+    if (parameters.removeContent) relationToRemove << 'ProductContent'
+    if (parameters.removeCategoryMembers) relationToRemove << 'ProductCategoryMember'
+    if (parameters.removeAttributes) relationToRemove << 'ProductAttribute'
+    if (parameters.removeFeatureAppls) relationToRemove << 'ProductFeatureAppl'
+    if (parameters.removeInventoryItems) relationToRemove << 'InventoryItem'
     if (parameters.removeAssocs) {
-        relationToRemove << "ProductAssoc"
+        relationToRemove << 'ProductAssoc'
         // small difference here, also do the reverse assocs...
-        delegator.removeByAnd("ProductAssoc", reverseProductFindContext)
+        delegator.removeByAnd('ProductAssoc', reverseProductFindContext)
     }
     relationToRemove.each {
         delegator.removeByAnd(it, productFindContext)
@@ -285,7 +285,7 @@ def duplicateProduct() {
  * induce all the keywords of a product
  */
 def forceIndexProductKeywords() {
-    GenericValue product = from("Product").where(parameters).cache().queryOne()
+    GenericValue product = from('Product').where(parameters).cache().queryOne()
     KeywordIndex.forceIndexKeywords(product)
     return success()
 }
@@ -294,8 +294,8 @@ def forceIndexProductKeywords() {
  * delete all the keywords of a produc
  */
 def deleteProductKeywords() {
-    GenericValue product = from("Product").where(parameters).cache().queryOne()
-    product.removeRelated("ProductKeyword")
+    GenericValue product = from('Product').where(parameters).cache().queryOne()
+    product.removeRelated('ProductKeyword')
     return success()
 }
 
@@ -308,10 +308,10 @@ def indexProductKeywords() {
     //will be passed and we can save a few cycles looking that up
     GenericValue productInstance = parameters.productInstance
     if (!productInstance) {
-        productInstance = from("Product").where(parameters).queryOne()
+        productInstance = from('Product').where(parameters).queryOne()
     }
     //induce keywords if autoCreateKeywords is empty or Y
-    if (!productInstance.autoCreateKeywords || "Y" == productInstance.autoCreateKeywords) {
+    if (!productInstance.autoCreateKeywords || 'Y' == productInstance.autoCreateKeywords) {
         KeywordIndex.indexKeywords(productInstance)
     }
     return success()
@@ -324,7 +324,7 @@ def indexProductKeywords() {
 def discontinueProductSales() {
     // set sales discontinuation date to now 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    GenericValue product = from("Product").where(parameters).queryOne()
+    GenericValue product = from('Product').where(parameters).queryOne()
     product.salesDiscontinuationDate = nowTimestamp
     product.store()
 
@@ -335,10 +335,10 @@ def discontinueProductSales() {
         EQUALS(productId: product.productId)
         EQUALS(thruDate: null)
     }
-    delegator.storeByCondition("ProductCategoryMember",
+    delegator.storeByCondition('ProductCategoryMember',
             [thruDate: nowTimestamp], condition)
     // expire product from all associations going to it
-    delegator.storeByCondition("ProductAssoc",
+    delegator.storeByCondition('ProductAssoc',
             [thruDate: nowTimestamp], condition)
     return success()
 }
@@ -347,10 +347,10 @@ def discontinueProductSales() {
 def countProductView() {
     long weight = parameters.weight ?: 1l
 
-    GenericValue productCalculatedInfo = from("ProductCalculatedInfo").where(parameters).queryOne()
+    GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
     if (!productCalculatedInfo) {
         // go ahead and create it
-        productCalculatedInfo = makeValue("ProductCalculatedInfo")
+        productCalculatedInfo = makeValue('ProductCalculatedInfo')
         productCalculatedInfo.productId = parameters.productId
         productCalculatedInfo.totalTimesViewed = weight
         productCalculatedInfo.create()
@@ -360,11 +360,11 @@ def countProductView() {
     }
 
     // do the same for the virtual product...
-    GenericValue product = from("Product").where(parameters).cache().queryOne()
+    GenericValue product = from('Product').where(parameters).cache().queryOne()
     ProductWorker productWorker = new ProductWorker()
     String virtualProductId = productWorker.getVariantVirtualId(product)
     if (virtualProductId) {
-        run service: "countProductView", with: [productId: virtualProductId, weight: weight]
+        run service: 'countProductView', with: [productId: virtualProductId, weight: weight]
     }
     return success()
 }
@@ -373,18 +373,18 @@ def countProductView() {
  * Create a ProductReview
  */
 def createProductReview() {
-    GenericValue newEntity = makeValue("ProductReview", parameters)
+    GenericValue newEntity = makeValue('ProductReview', parameters)
     newEntity.userLoginId = userLogin.userLoginId
-    newEntity.statusId = "PRR_PENDING"
+    newEntity.statusId = 'PRR_PENDING'
 
     // code to check for auto-approved reviews (store setting)
-    GenericValue productStore = from("ProductStore").where(parameters).cache().queryOne()
-    if (productStore && "Y" == productStore.autoApproveReviews) {
-        newEntity.statusId = "PRR_APPROVED"
+    GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
+    if (productStore && 'Y' == productStore.autoApproveReviews) {
+        newEntity.statusId = 'PRR_APPROVED'
     }
 
     // create the new ProductReview
-    newEntity.productReviewId = delegator.getNextSeqId("ProductReview")
+    newEntity.productReviewId = delegator.getNextSeqId('ProductReview')
     Map result = success()
     result.productReviewId = newEntity.productReviewId
 
@@ -394,8 +394,8 @@ def createProductReview() {
     newEntity.create()
 
     String productId = newEntity.productId
-    String successMessage = UtilProperties.getMessage("ProductUiLabels",
-            "ProductCreateProductReviewSuccess", parameters.locale)
+    String successMessage = UtilProperties.getMessage('ProductUiLabels',
+            'ProductCreateProductReviewSuccess', parameters.locale)
     updateProductWithReviewRatingAvg(productId)
 
     return result
@@ -405,11 +405,11 @@ def createProductReview() {
  *  Update ProductReview
  */
 def updateProductReview() {
-    Map res = checkProductRelatedPermission("updateProductReview", "UPDATE")
+    Map res = checkProductRelatedPermission('updateProductReview', 'UPDATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = from("ProductReview").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('ProductReview').where(parameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
 
@@ -423,17 +423,17 @@ def updateProductReview() {
  * change the product review Status
  */
 def setProductReviewStatus() {
-    Map res = checkProductRelatedPermission("setProductReviewStatus", "UPDATE")
+    Map res = checkProductRelatedPermission('setProductReviewStatus', 'UPDATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
 
-    GenericValue productReview = from("ProductReview").where(parameters).queryOne()
+    GenericValue productReview = from('ProductReview').where(parameters).queryOne()
     if (productReview && productReview.statusId != parameters.statusId) {
-        if (from("StatusValidChange")
+        if (from('StatusValidChange')
                 .where(statusId: productReview.statusId, statusIdTo: parameters.statusId)
                 .queryCount() == 0) {
-            String errorMessage = UtilProperties.getMessage("ProductErrorUiLabels",
+            String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels',
                     ProductReviewErrorCouldNotChangeOrderStatusFromTo, parameters.locale)
             logError(errorMessage)
             return error(errorMessage)
@@ -455,17 +455,17 @@ def setProductReviewStatus() {
 def updateProductWithReviewRatingAvg(String productId) {
     ProductWorker productWorker = new ProductWorker()
     BigDecimal averageCustomerRating = productWorker.getAverageProductRating(delegator, productId)
-    logInfo("Got new average customer rating " + averageCustomerRating)
+    logInfo('Got new average customer rating ' + averageCustomerRating)
 
     if (averageCustomerRating == 0) {
         return success()
     }
 
     // update the review average on the ProductCalculatedInfo entity
-    GenericValue productCalculatedInfo = from("ProductCalculatedInfo").where(parameters).queryOne()
+    GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
     if (!productCalculatedInfo) {
         // go ahead and create it
-        productCalculatedInfo = makeValue("ProductCalculatedInfo")
+        productCalculatedInfo = makeValue('ProductCalculatedInfo')
         productCalculatedInfo.productId = productId
         productCalculatedInfo.averageCustomerRating = averageCustomerRating
         productCalculatedInfo.create()
@@ -481,21 +481,21 @@ def updateProductWithReviewRatingAvg(String productId) {
  * Updates the Product's Variants
  */
 def copyToProductVariants() {
-    String callingMethodName = "copyToProductVariants"
-    Map res = checkProductRelatedPermission(callingMethodName, "CREATE")
+    String callingMethodName = 'copyToProductVariants'
+    Map res = checkProductRelatedPermission(callingMethodName, 'CREATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    res = checkProductRelatedPermission(callingMethodName, "DELETE")
+    res = checkProductRelatedPermission(callingMethodName, 'DELETE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
 
     Map productFindContext = [productId: parameters.virtualProductId]
-    GenericValue oldProduct = findOne("Product", productFindContext, false)
+    GenericValue oldProduct = findOne('Product', productFindContext, false)
 
-    Map variantsFindContext = [productId: parameters.virtualProductId, productAssocTypeId: "PRODUCT_VARIANT"]
-    List variants = from("ProductAssoc")
+    Map variantsFindContext = [productId: parameters.virtualProductId, productAssocTypeId: 'PRODUCT_VARIANT']
+    List variants = from('ProductAssoc')
             .where(variantsFindContext)
             .filterByDate()
             .queryList()
@@ -504,13 +504,13 @@ def copyToProductVariants() {
 
         // if requested, duplicate related data
         List relationToDuplicate = []
-        if (parameters.duplicatePrices) relationToDuplicate << "ProductPrice"
-        if (parameters.duplicateIDs) relationToDuplicate << "GoodIdentification"
-        if (parameters.duplicateContent) relationToDuplicate << "ProductContent"
-        if (parameters.duplicateCategoryMembers) relationToDuplicate << "ProductCategoryMember"
-        if (parameters.duplicateAttributes) relationToDuplicate << "ProductAttribute"
-        if (parameters.duplicateFacilities) relationToDuplicate << "ProductFacility"
-        if (parameters.duplicateLocations) relationToDuplicate << "ProductFacilityLocation"
+        if (parameters.duplicatePrices) relationToDuplicate << 'ProductPrice'
+        if (parameters.duplicateIDs) relationToDuplicate << 'GoodIdentification'
+        if (parameters.duplicateContent) relationToDuplicate << 'ProductContent'
+        if (parameters.duplicateCategoryMembers) relationToDuplicate << 'ProductCategoryMember'
+        if (parameters.duplicateAttributes) relationToDuplicate << 'ProductAttribute'
+        if (parameters.duplicateFacilities) relationToDuplicate << 'ProductFacility'
+        if (parameters.duplicateLocations) relationToDuplicate << 'ProductFacilityLocation'
         relationToDuplicate.each {
             if (parameters.removeBefore) {
                 delegator.removeByCondition(it, productVariantContext)
@@ -532,29 +532,29 @@ def copyToProductVariants() {
  */
 def checkProductRelatedPermission(String callingMethodName, String checkAction) {
     if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage("CommonUiLabels", "CommonPermissionThisOperation", parameters.locale)
+        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
     if (UtilValidate.isEmpty(checkAction)) {
-        checkAction = "UPDATE"
+        checkAction = 'UPDATE'
     }
     List roleCategories = []
     // find all role-categories that this product is a member of
-    if (parameters.productId && !security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)) {
+    if (parameters.productId && !security.hasEntityPermission('CATALOG', "_${checkAction}", parameters.userLogin)) {
         Map lookupRoleCategoriesMap = [productId : parameters.productId,
                                        partyId   : userLogin.partyId,
-                                       roleTypeId: "LTD_ADMIN"]
-        roleCategories = from("ProductCategoryMemberAndRole")
+                                       roleTypeId: 'LTD_ADMIN']
+        roleCategories = from('ProductCategoryMemberAndRole')
                 .where(lookupRoleCategoriesMap)
-                .filterByDate("roleFromDate", "roleThruDate")
+                .filterByDate('roleFromDate', 'roleThruDate')
                 .queryList()
     }
 
-    if (!(security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)
-            || (roleCategories && security.hasEntityPermission("CATALOG_ROLE", "_${checkAction}", parameters.userLogin))
+    if (!(security.hasEntityPermission('CATALOG', "_${checkAction}", parameters.userLogin)
+            || (roleCategories && security.hasEntityPermission('CATALOG_ROLE', "_${checkAction}", parameters.userLogin))
             || (parameters.alternatePermissionRoot &&
             security.hasEntityPermission(parameters.alternatePermissionRoot, "_${checkAction}", parameters.userLogin)))) {
         String checkActionLabel = "ProductCatalog${checkAction.charAt(0)}${checkAction.substring(1).toLowerCase()}PermissionError"
-        return error(UtilProperties.getMessage("ProductUiLabels", checkActionLabel,
+        return error(UtilProperties.getMessage('ProductUiLabels', checkActionLabel,
                 [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
     }
     return success()
@@ -576,15 +576,15 @@ def checkProductRelatedPermissionService() {
 def productGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage("ProductUiLabels",
-                "ProductMissingMainActionInPermissionService", parameters.locale))
+        return error(UtilProperties.getMessage('ProductUiLabels',
+                'ProductMissingMainActionInPermissionService', parameters.locale))
     }
 
     Map result = success()
     result.hasPermission = ServiceUtil.isSuccess(
             checkProductRelatedPermission(parameters.resourceDescription, parameters.mainAction))
     if (!result.hasPermission) {
-        result = fail(UtilProperties.getMessage("ProductUiLabels", "ProductPermissionError", parameters.locale))
+        result = fail(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
     }
     return result
 }
@@ -595,18 +595,18 @@ def productGenericPermission() {
 def productPriceGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage("ProductUiLabels",
-                "ProductMissingMainActionInPermissionService", parameters.locale))
+        return error(UtilProperties.getMessage('ProductUiLabels',
+                'ProductMissingMainActionInPermissionService', parameters.locale))
     }
 
     Map result = success()
-    if (!security.hasPermission("CATALOG_PRICE_MAINT", parameters.userLogin)) {
-        result = error(UtilProperties.getMessage("ProductUiLabels",
-                "ProductPriceMaintPermissionError", parameters.locale))
+    if (!security.hasPermission('CATALOG_PRICE_MAINT', parameters.userLogin)) {
+        result = error(UtilProperties.getMessage('ProductUiLabels',
+                'ProductPriceMaintPermissionError', parameters.locale))
     }
     result.hasPermission = ServiceUtil.isSuccess(result) && checkProductRelatedPermission(parameters.resourceDescription, mainAction)
     if (!result.hasPermission) {
-        result = fail(UtilProperties.getMessage("ProductUiLabels", "ProductPermissionError", parameters.locale))
+        result = fail(UtilProperties.getMessage('ProductUiLabels', 'ProductPermissionError', parameters.locale))
     }
     return result
 }
@@ -622,11 +622,11 @@ def productPriceGenericPermission() {
  */
 def addPartyToProduct() {
     //TODO convert to entity-auto
-    Map result = checkProductRelatedPermission("addPartyToProduct", "CREATE")
+    Map result = checkProductRelatedPermission('addPartyToProduct', 'CREATE')
     if (!ServiceUtil.isSuccess(result)) {
         return result
     }
-    GenericValue newEntity = makeValue("ProductRole", parameters)
+    GenericValue newEntity = makeValue('ProductRole', parameters)
 
     if (!newEntity.fromDate) {
         newEntity.fromDate = UtilDateTime.nowTimestamp()
@@ -640,13 +640,13 @@ def addPartyToProduct() {
  */
 def updatePartyToProduct() {
     //TODO convert to entity-auto
-    Map result = checkProductRelatedPermission("updatePartyToProduct", "UPDATE")
+    Map result = checkProductRelatedPermission('updatePartyToProduct', 'UPDATE')
     if (!ServiceUtil.isSuccess(result)) {
         return result
     }
-    GenericValue lookupPKMap = makeValue("ProductRole")
+    GenericValue lookupPKMap = makeValue('ProductRole')
     lookupPKMap.setPKFields(parameters)
-    GenericValue lookedUpValue = findOne("ProductRole", lookupPKMap, false)
+    GenericValue lookedUpValue = findOne('ProductRole', lookupPKMap, false)
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
     return success()
@@ -657,13 +657,13 @@ def updatePartyToProduct() {
  */
 def removePartyFromProduct() {
     //TODO convert to entity-auto
-    Map res = checkProductRelatedPermission("removePartyFromProduct", "DELETE")
+    Map res = checkProductRelatedPermission('removePartyFromProduct', 'DELETE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    Map lookupPKMap = makeValue("ProductRole")
+    Map lookupPKMap = makeValue('ProductRole')
     lookupPKMap.setPKFields(parameters)
-    GenericValue lookedUpValue = findOne("ProductRole", lookupPKMap, false)
+    GenericValue lookedUpValue = findOne('ProductRole', lookupPKMap, false)
     lookedUpValue.remove()
 
     return success()
@@ -675,12 +675,12 @@ def removePartyFromProduct() {
  */
 def createProductCategoryGlAccount() {
     //TODO convert to entity-auto
-    Map res = checkProductRelatedPermission("createProductCategoryGlAccount", "CREATE")
+    Map res = checkProductRelatedPermission('createProductCategoryGlAccount', 'CREATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
 
-    GenericValue newEntity = makeValue("ProductCategoryGlAccount", parameters)
+    GenericValue newEntity = makeValue('ProductCategoryGlAccount', parameters)
     newEntity.create()
 
     return success()
@@ -691,12 +691,12 @@ def createProductCategoryGlAccount() {
  */
 def updateProductCategoryGlAccount() {
     //TODO convert to entity-auto
-    Map res = checkProductRelatedPermission("updateProductCategoryGlAccount", "UPDATE")
+    Map res = checkProductRelatedPermission('updateProductCategoryGlAccount', 'UPDATE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
 
-    GenericValue lookedUpValue = findOne("ProductCategoryGlAccount", parameters, false)
+    GenericValue lookedUpValue = findOne('ProductCategoryGlAccount', parameters, false)
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
 
@@ -708,11 +708,11 @@ def updateProductCategoryGlAccount() {
  */
 def deleteProductCategoryGlAccount() {
     //TODO convert to entity-auto
-    Map res = checkProductRelatedPermission("deleteProductCategorGLAccount", "DELETE")
+    Map res = checkProductRelatedPermission('deleteProductCategorGLAccount', 'DELETE')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
-    GenericValue lookedUpValue = findOne("ProductCategoryGlAccount", parameters, false)
+    GenericValue lookedUpValue = findOne('ProductCategoryGlAccount', parameters, false)
     lookedUpValue.remove()
 
     return success()
@@ -725,8 +725,8 @@ def deleteProductCategoryGlAccount() {
  */
     //TODO convert to entity-auto
 def createProductGroupOrder() {
-    GenericValue newEntity = makeValue("ProductGroupOrder")
-    delegator.setNextSubSeqId(newEntity, "groupOrderId", 5, 1)
+    GenericValue newEntity = makeValue('ProductGroupOrder')
+    delegator.setNextSubSeqId(newEntity, 'groupOrderId', 5, 1)
     Map result = success()
     result.groupOrderId = newEntity.groupOrderId
     newEntity.setNonPKFields(parameters)
@@ -739,12 +739,12 @@ def createProductGroupOrder() {
  * Update ProductGroupOrder
  */
 def updateProductGroupOrder() {
-    GenericValue productGroupOrder = from("ProductGroupOrder").where(parameters).queryOne()
+    GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
     productGroupOrder.setNonPKFields(parameters)
     productGroupOrder.store()
 
-    if ("GO_CREATED" == productGroupOrder.statusId) {
-        GenericValue jobSandbox = from("JobSandbox").where(jobId: productGroupOrder.jobId).queryOne()
+    if ('GO_CREATED' == productGroupOrder.statusId) {
+        GenericValue jobSandbox = from('JobSandbox').where(jobId: productGroupOrder.jobId).queryOne()
         if (jobSandbox) {
             jobSandbox.runTime = parameters.thruDate
             jobSandbox.store()
@@ -757,14 +757,14 @@ def updateProductGroupOrder() {
  * Delete ProductGroupOrder
  */
 def deleteProductGroupOrder() {
-    GenericValue productGroupOrder = from("ProductGroupOrder").where(parameters).queryOne()
+    GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
     productGroupOrder.remove()
-    productGroupOrder.removeRelated("OrderItemGroupOrder")
+    productGroupOrder.removeRelated('OrderItemGroupOrder')
 
-    GenericValue jobSandbox = from("JobSandbox").where(jobId: productGroupOrder.jobId).queryOne()
+    GenericValue jobSandbox = from('JobSandbox').where(jobId: productGroupOrder.jobId).queryOne()
     if (jobSandbox) {
         jobSandbox.remove()
-        jobSandbox.removeRelated("RuntimeData")
+        jobSandbox.removeRelated('RuntimeData')
     }
     return success()
 }
@@ -773,32 +773,32 @@ def deleteProductGroupOrder() {
  * Create ProductGroupOrder
  */
 def createJobForProductGroupOrder() {
-    GenericValue productGroupOrder = from("ProductGroupOrder").where(parameters).queryOne()
+    GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
     if (productGroupOrder.jobId) {
         // Create RuntimeData For ProductGroupOrder
         Map runtimeDataMap = [groupOrderId: parameters.groupOrderId]
         XmlSerializer xmlSerializer = new XmlSerializer()
         String runtimeInfo = xmlSerializer.serialize(runtimeDataMap)
 
-        GenericValue runtimeData = makeValue("RuntimeData")
-        runtimeData.runtimeDataId = delegator.getNextSeqId("RuntimeData")
+        GenericValue runtimeData = makeValue('RuntimeData')
+        runtimeData.runtimeDataId = delegator.getNextSeqId('RuntimeData')
         String runtimeDataId = runtimeData.runtimeDataId
         runtimeData.runtimeInfo = runtimeInfo
         runtimeData.create()
 
         // Create Job For ProductGroupOrder
         // FIXME: Jobs should not be manually created
-        Map jobFields = [jobId             : delegator.getNextSeqId("JobSandbox"),
-                         jobName           : "Check ProductGroupOrder Expired",
+        Map jobFields = [jobId             : delegator.getNextSeqId('JobSandbox'),
+                         jobName           : 'Check ProductGroupOrder Expired',
                          runTime           : parameters.thruDate,
-                         poolId            : "pool",
-                         statusId          : "SERVICE_PENDING",
-                         serviceName       : "checkProductGroupOrderExpired",
-                         runAsUser         : "system",
+                         poolId            : 'pool',
+                         statusId          : 'SERVICE_PENDING',
+                         serviceName       : 'checkProductGroupOrderExpired',
+                         runAsUser         : 'system',
                          runtimeDataId     : runtimeDataId,
                          maxRecurrenceCount: 1l,
                          priority          : 50l]
-        delegator.create("JobSandbox", jobFields)
+        delegator.create('JobSandbox', jobFields)
 
         productGroupOrder.jobId = jobFields.jobId
         productGroupOrder.store()
@@ -810,18 +810,18 @@ def createJobForProductGroupOrder() {
  * Check OrderItem For ProductGroupOrder
  */
 def checkOrderItemForProductGroupOrder() {
-    List orderItems = from("OrderItem").where(orderId: parameters.orderId).queryList()
+    List orderItems = from('OrderItem').where(orderId: parameters.orderId).queryList()
     for (GenericValue orderItem : orderItems) {
         String productId = orderItem.productId
-        GenericValue product = from("Product").where(productId: orderItem.productId).queryOne()
-        if ("Y" == product.isVariant) {
-            GenericValue variantProductAssoc = from("ProductAssoc")
-                    .where(productIdTo: orderItem.productId, productAssocTypeId: "PRODUCT_VARIANT")
+        GenericValue product = from('Product').where(productId: orderItem.productId).queryOne()
+        if ('Y' == product.isVariant) {
+            GenericValue variantProductAssoc = from('ProductAssoc')
+                    .where(productIdTo: orderItem.productId, productAssocTypeId: 'PRODUCT_VARIANT')
                     .filterByDate()
                     .queryFirst()
             productId = variantProductAssoc.productId
         }
-        GenericValue productGroupOrder = from("ProductGroupOrder")
+        GenericValue productGroupOrder = from('ProductGroupOrder')
                 .where(productId: productId)
                 .filterByDate()
                 .queryFirst()
@@ -830,7 +830,7 @@ def checkOrderItemForProductGroupOrder() {
             productGroupOrder.soldOrderQty += orderItem.quantity
             productGroupOrder.store()
 
-            run service: "createOrderItemGroupOrder", with: [orderId       : orderItem.orderId,
+            run service: 'createOrderItemGroupOrder', with: [orderId       : orderItem.orderId,
                                                              orderItemSeqId: orderItem.orderItemSeqId,
                                                              groupOrderId  : productGroupOrder.groupOrderId]
         }
@@ -844,19 +844,19 @@ def checkOrderItemForProductGroupOrder() {
 def cancleOrderItemGroupOrder() {
     Map orderItemCond = [orderId: parameters.orderId]
     if (parameters.orderItemSeqId) orderItemCond.orderItemSeqId = parameters.orderItemSeqId
-    List orderItems = from("OrderItem")
+    List orderItems = from('OrderItem')
             .where(orderItemCond)
             .queryList()
     for (GenericValue orderItem : orderItems) {
-        GenericValue orderItemGroupOrder = from("OrderItemGroupOrder")
+        GenericValue orderItemGroupOrder = from('OrderItemGroupOrder')
                 .where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId)
                 .queryFirst()
         if (orderItemGroupOrder) {
-            GenericValue productGroupOrder = from("ProductGroupOrder")
+            GenericValue productGroupOrder = from('ProductGroupOrder')
                     .where(groupOrderId: orderItemGroupOrder.groupOrderId).queryOne()
             if (productGroupOrder) {
-                if ("GO_CREATED" == productGroupOrder.statusId) {
-                    if ("ITEM_CANCELLED" == orderItem.statusId) {
+                if ('GO_CREATED' == productGroupOrder.statusId) {
+                    if ('ITEM_CANCELLED' == orderItem.statusId) {
                         BigDecimal cancelQuantity = orderItem.cancelQuantity ?: orderItem.quantity
                         productGroupOrder.soldOrderQty -= cancelQuantity
                     }
@@ -873,25 +873,25 @@ def cancleOrderItemGroupOrder() {
  * Check ProductGroupOrder Expired
  */
 def checkProductGroupOrderExpired() {
-    GenericValue productGroupOrder = from("ProductGroupOrder").where(parameters).queryOne()
+    GenericValue productGroupOrder = from('ProductGroupOrder').where(parameters).queryOne()
     if (productGroupOrder) {
         String groupOrderStatusId
         String newItemStatusId
         if (productGroupOrder.soldOrderQty >= productGroupOrder.reqOrderQty) {
-            newItemStatusId = "ITEM_APPROVED"
-            groupOrderStatusId = "GO_SUCCESS"
+            newItemStatusId = 'ITEM_APPROVED'
+            groupOrderStatusId = 'GO_SUCCESS'
         } else {
-            newItemStatusId = "ITEM_CANCELLED"
-            groupOrderStatusId = "GO_CANCELLED"
+            newItemStatusId = 'ITEM_CANCELLED'
+            groupOrderStatusId = 'GO_CANCELLED'
         }
-        run service: "updateProductGroupOrder", with: [groupOrderId: productGroupOrder.groupOrderId,
+        run service: 'updateProductGroupOrder', with: [groupOrderId: productGroupOrder.groupOrderId,
                                                        statusId    : groupOrderStatusId]
 
-        List orderItemGroupOrders = from("OrderItemGroupOrder")
+        List orderItemGroupOrders = from('OrderItemGroupOrder')
                 .where(groupOrderId: productGroupOrder.groupOrderId)
                 .queryList()
         for (GenericValue orderItemGroupOrder : orderItemGroupOrders) {
-            run service: "changeOrderItemStatus", with: [orderId       : orderItemGroupOrder.orderId,
+            run service: 'changeOrderItemStatus', with: [orderId       : orderItemGroupOrder.orderId,
                                                          orderItemSeqId: orderItemGroupOrder.orderItemSeqId,
                                                          statusId      : newItemStatusId]
         }

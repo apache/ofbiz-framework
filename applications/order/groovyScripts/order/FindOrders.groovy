@@ -20,97 +20,97 @@
 import java.util.*
 import java.sql.Timestamp
 
-module = "FindOrders.groovy"
+module = 'FindOrders.groovy'
 
 // get the order types
-orderTypes = from("OrderType").orderBy("description").queryList()
+orderTypes = from('OrderType').orderBy('description').queryList()
 context.orderTypes = orderTypes
 
 // get the role types
-roleTypes = from("RoleType").orderBy("description").queryList()
+roleTypes = from('RoleType').orderBy('description').queryList()
 context.roleTypes = roleTypes
 
 // get the order statuses
-orderStatuses = from("StatusItem").where("statusTypeId", "ORDER_STATUS").orderBy("sequenceId", "description").queryList()
+orderStatuses = from('StatusItem').where('statusTypeId', 'ORDER_STATUS').orderBy('sequenceId', 'description').queryList()
 context.orderStatuses = orderStatuses
 
 // get websites
-websites = from("WebSite").orderBy("siteName").queryList()
+websites = from('WebSite').orderBy('siteName').queryList()
 context.webSites = websites
 
 // get the stores
-stores = from("ProductStore").orderBy("storeName").queryList()
+stores = from('ProductStore').orderBy('storeName').queryList()
 context.productStores = stores
 
 // get the channels
-channels = from("Enumeration").where("enumTypeId", "ORDER_SALES_CHANNEL").orderBy("sequenceId").queryList()
+channels = from('Enumeration').where('enumTypeId', 'ORDER_SALES_CHANNEL').orderBy('sequenceId').queryList()
 context.salesChannels = channels
 
 // get the Shipping Methods
-carrierShipmentMethods = from("CarrierShipmentMethod").queryList()
+carrierShipmentMethods = from('CarrierShipmentMethod').queryList()
 context.carrierShipmentMethods = carrierShipmentMethods
 
 // get the Payment Status
-paymentStatusList = from("StatusItem").where("statusTypeId", "PAYMENT_PREF_STATUS").orderBy("description").queryList()
+paymentStatusList = from('StatusItem').where('statusTypeId', 'PAYMENT_PREF_STATUS').orderBy('description').queryList()
 context.paymentStatusList = paymentStatusList
 
 // get the good identification types
-goodIdentificationTypes = from("GoodIdentificationType").orderBy("goodIdentificationTypeId", "description").queryList()
+goodIdentificationTypes = from('GoodIdentificationType').orderBy('goodIdentificationTypeId', 'description').queryList()
 context.goodIdentificationTypes = goodIdentificationTypes
 
 // current role type
-currentRoleTypeId = request.getParameter("roleTypeId")
+currentRoleTypeId = request.getParameter('roleTypeId')
 if (currentRoleTypeId) {
-    currentRole = from("RoleType").where("roleTypeId", currentRoleTypeId).cache(true).queryOne()
+    currentRole = from('RoleType').where('roleTypeId', currentRoleTypeId).cache(true).queryOne()
     context.currentRole = currentRole
 }
 
 // current selected type
-currentTypeId = request.getParameter("orderTypeId")
+currentTypeId = request.getParameter('orderTypeId')
 if (currentTypeId) {
-    currentType = from("OrderType").where("orderTypeId", currentTypeId).cache(true).queryOne()
+    currentType = from('OrderType').where('orderTypeId', currentTypeId).cache(true).queryOne()
     context.currentType = currentType
 }
 // current selected status
-currentStatusIds = request.getParameter("orderStatusId")
+currentStatusIds = request.getParameter('orderStatusId')
 context.currentStatuses = currentStatusIds
 
 // current website
-currentWebSiteId = request.getParameter("orderWebSiteId")
+currentWebSiteId = request.getParameter('orderWebSiteId')
 if (currentWebSiteId) {
-    currentWebSite = from("WebSite").where("webSiteId", currentWebSiteId).cache(true).queryOne()
+    currentWebSite = from('WebSite').where('webSiteId', currentWebSiteId).cache(true).queryOne()
     context.currentWebSite = currentWebSite
 }
 
 // current store
-currentProductStoreId = request.getParameter("productStoreId")
+currentProductStoreId = request.getParameter('productStoreId')
 if (currentProductStoreId) {
-    currentProductStore = from("ProductStore").where("productStoreId", currentProductStoreId).cache(true).queryOne()
+    currentProductStore = from('ProductStore').where('productStoreId', currentProductStoreId).cache(true).queryOne()
     context.currentProductStore = currentProductStore
 }
 
 // current Shipping Method
-shipmentMethod = request.getParameter("shipmentMethod")
+shipmentMethod = request.getParameter('shipmentMethod')
 if (shipmentMethod) {
-    carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"))
-    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1)
+    carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf('@'))
+    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@')+1)
     if (carrierPartyId && shipmentMethodTypeId) {
-        currentCarrierShipmentMethod = from("CarrierShipmentMethod").where("partyId", carrierPartyId, "shipmentMethodTypeId", shipmentMethodTypeId).queryFirst()
+        currentCarrierShipmentMethod = from('CarrierShipmentMethod').where('partyId', carrierPartyId, 'shipmentMethodTypeId', shipmentMethodTypeId).queryFirst()
         context.currentCarrierShipmentMethod = currentCarrierShipmentMethod
     }
 }
 
 // current channel
-currentSalesChannelId = request.getParameter("salesChannelEnumId")
+currentSalesChannelId = request.getParameter('salesChannelEnumId')
 if (currentSalesChannelId) {
-    currentSalesChannel = from("Enumeration").where("enumId", currentSalesChannelId).queryOne()
+    currentSalesChannel = from('Enumeration').where('enumId', currentSalesChannelId).queryOne()
     context.currentSalesChannel = currentSalesChannel
 }
 
 // current good identification type
-currentGoodIdentificationTypeId = request.getParameter("goodIdentificationTypeId")
+currentGoodIdentificationTypeId = request.getParameter('goodIdentificationTypeId')
 if (currentGoodIdentificationTypeId) {
-    currentGoodIdentificationType = from("GoodIdentificationType").where("goodIdentificationTypeId", currentGoodIdentificationTypeId).queryOne()
+    currentGoodIdentificationType = from('GoodIdentificationType').where('goodIdentificationTypeId', currentGoodIdentificationTypeId).queryOne()
     context.currentGoodIdentificationType = currentGoodIdentificationType
 }
 
@@ -143,37 +143,37 @@ toStr = toTs.toString()
 context.thruDateStr = toStr
 
 // set the page parameters
-viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParameter("viewIndex")) : 1
+viewIndex = request.getParameter('viewIndex') ? Integer.valueOf(request.getParameter('viewIndex')) : 1
 context.viewIndex = viewIndex
 
-viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : modelTheme.getDefaultViewSize()?:20
+viewSize = request.getParameter('viewSize') ? Integer.valueOf(request.getParameter('viewSize')) : modelTheme.getDefaultViewSize()?:20
 context.viewSize = viewSize
 
 // get the lookup flag
-lookupFlag = request.getParameter("lookupFlag")
+lookupFlag = request.getParameter('lookupFlag')
 
 // fields from the service call
-paramList = request.getAttribute("paramList") ?: ""
+paramList = request.getAttribute('paramList') ?: ''
 context.paramList = paramList
 
 if (paramList) {
-    paramIds = paramList.split("&amp;")
+    paramIds = paramList.split('&amp;')
     context.paramIdList = Arrays.asList(paramIds)
 }
 
-orderList = request.getAttribute("orderList")
+orderList = request.getAttribute('orderList')
 context.orderList = orderList
 
-orderListSize = request.getAttribute("orderListSize")
+orderListSize = request.getAttribute('orderListSize')
 context.orderListSize = orderListSize
 
-context.filterInventoryProblems = request.getAttribute("filterInventoryProblemsList")
-context.filterPOsWithRejectedItems = request.getAttribute("filterPOsWithRejectedItemsList")
-context.filterPOsOpenPastTheirETA = request.getAttribute("filterPOsOpenPastTheirETAList")
-context.filterPartiallyReceivedPOs = request.getAttribute("filterPartiallyReceivedPOsList")
+context.filterInventoryProblems = request.getAttribute('filterInventoryProblemsList')
+context.filterPOsWithRejectedItems = request.getAttribute('filterPOsWithRejectedItemsList')
+context.filterPOsOpenPastTheirETA = request.getAttribute('filterPOsOpenPastTheirETAList')
+context.filterPartiallyReceivedPOs = request.getAttribute('filterPartiallyReceivedPOsList')
 
-lowIndex = request.getAttribute("lowIndex")
+lowIndex = request.getAttribute('lowIndex')
 context.lowIndex = lowIndex
 
-highIndex = request.getAttribute("highIndex")
+highIndex = request.getAttribute('highIndex')
 context.highIndex = highIndex

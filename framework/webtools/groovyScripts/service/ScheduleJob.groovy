@@ -35,8 +35,8 @@ import org.apache.ofbiz.service.engine.GenericEngine
 import org.apache.ofbiz.service.config.ServiceConfigUtil
 
 savedSyncResult = null
-if (session.getAttribute("_SAVED_SYNC_RESULT_") != null) {
-    savedSyncResult = session.getAttribute("_SAVED_SYNC_RESULT_")
+if (session.getAttribute('_SAVED_SYNC_RESULT_') != null) {
+    savedSyncResult = session.getAttribute('_SAVED_SYNC_RESULT_')
 }
 
 serviceName = parameters.SERVICE_NAME
@@ -69,9 +69,9 @@ if (serviceName) {
             }
             serviceParam = null
             if (savedSyncResult?.get(par.name)) {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)]
+                serviceParam = [name : par.name, type : par.type, optional : par.optional ? 'Y' : 'N', defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)]
             } else {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue]
+                serviceParam = [name : par.name, type : par.type, optional : par.optional ? 'Y' : 'N', defaultValue : par.defaultValue]
             }
             serviceParameters.add(serviceParam)
         }

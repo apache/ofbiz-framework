@@ -20,22 +20,22 @@
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.base.util.*
 
-uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale)
+uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
 
-product = from("Product").where("productId", parameters.productId).queryOne()
+product = from('Product').where('productId', parameters.productId).queryOne()
 
 fromDate = UtilDateTime.nowTimestamp()
 if (parameters.fromDate) {
-    fromDate = ObjectType.simpleTypeOrObjectConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false)
+    fromDate = ObjectType.simpleTypeOrObjectConvert(parameters.fromDate, 'Timestamp', null, timeZone, locale, false)
 }
 
-productAssoc = from("ProductAssoc").where("productId", parameters.productId, "productIdTo", parameters.productIdTo, "productAssocTypeId", parameters.productAssocTypeId, "fromDate", fromDate).queryOne()
+productAssoc = from('ProductAssoc').where('productId', parameters.productId, 'productIdTo', parameters.productIdTo, 'productAssocTypeId', parameters.productAssocTypeId, 'fromDate', fromDate).queryOne()
 context.productAssoc = productAssoc
 
 if (product) {
-    assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum'], false)
-    assocToProducts = product.getRelated("AssocProductAssoc", null, null, false)
-    assocFromMap = ["assocProducts" : assocFromProducts, "sectionTitle" : uiLabelMap.ProductAssociationsFromProduct]
-    assocToMap = ["assocProducts" : assocToProducts, "sectionTitle" : uiLabelMap.ProductAssociationsToProduct]
+    assocFromProducts = product.getRelated('MainProductAssoc', null, ['sequenceNum'], false)
+    assocToProducts = product.getRelated('AssocProductAssoc', null, null, false)
+    assocFromMap = ['assocProducts' : assocFromProducts, 'sectionTitle' : uiLabelMap.ProductAssociationsFromProduct]
+    assocToMap = ['assocProducts' : assocToProducts, 'sectionTitle' : uiLabelMap.ProductAssociationsToProduct]
     context.assocSections = [assocFromMap, assocToMap]
 }

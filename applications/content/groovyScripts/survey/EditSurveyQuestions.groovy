@@ -22,7 +22,7 @@ import org.apache.ofbiz.entity.GenericEntityException
 surveyQuestionId = parameters.surveyQuestionId
 context.surveyQuestionId = surveyQuestionId
 
-surveyQuestion = from("SurveyQuestion").where("surveyQuestionId", surveyQuestionId).queryOne()
+surveyQuestion = from('SurveyQuestion').where('surveyQuestionId', surveyQuestionId).queryOne()
 
 viewIndex = parameters.VIEW_INDEX ? Integer.valueOf(parameters.VIEW_INDEX) : 0
 viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : 20
@@ -39,9 +39,9 @@ context.lowIndex = lowIndex
 int listSize = 0
 
 try {
-    listIt = from("SurveyQuestionAndAppl")
-                .where("surveyId", surveyId)
-                .orderBy("sequenceNum")
+    listIt = from('SurveyQuestionAndAppl')
+                .where('surveyId', surveyId)
+                .orderBy('sequenceNum')
                 .cursorScrollInsensitive()
                 .cache(true)
                 .queryIterator()
@@ -56,23 +56,23 @@ try {
     context.highIndex = highIndex
     context.listSize = listSize
 } catch (GenericEntityException e) {
-    logError(e,  "Failure in " + module)
+    logError(e,  'Failure in ' + module)
 } finally {
     listIt.close()
 }
-surveyPageList = from("SurveyPage").where("surveyId", surveyId).orderBy("sequenceNum").queryList()
-surveyMultiRespList = from("SurveyMultiResp").where("surveyId", surveyId).orderBy("multiRespTitle").queryList()
+surveyPageList = from('SurveyPage').where('surveyId', surveyId).orderBy('sequenceNum').queryList()
+surveyMultiRespList = from('SurveyMultiResp').where('surveyId', surveyId).orderBy('multiRespTitle').queryList()
 
-if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(surveyQuestion.surveyQuestionTypeId)) {
+if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && 'OPTION'.equals(surveyQuestion.surveyQuestionTypeId)) {
     // get the options
-    questionOptions = from("SurveyQuestionOption").where("surveyQuestionId", surveyQuestionId).orderBy("sequenceNum").queryList()
+    questionOptions = from('SurveyQuestionOption').where('surveyQuestionId', surveyQuestionId).orderBy('sequenceNum').queryList()
     context.questionOptions = questionOptions
 
     // survey question option
     optionSeqId = parameters.surveyOptionSeqId
     surveyQuestionOption = null
     if (optionSeqId) {
-        surveyQuestionOption = from("SurveyQuestionOption").where("surveyQuestionId", surveyQuestionId, "surveyOptionSeqId", optionSeqId).queryOne()
+        surveyQuestionOption = from('SurveyQuestionOption').where('surveyQuestionId', surveyQuestionId, 'surveyOptionSeqId', optionSeqId).queryOne()
     }
     context.surveyQuestionOption = surveyQuestionOption
 }
@@ -80,13 +80,13 @@ if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(sur
 surveyQuestionCategoryId = parameters.surveyQuestionCategoryId
 surveyQuestionCategory = null
 categoryQuestions = null
-if (surveyQuestionCategoryId && "Y".equals(parameters.applyQuestionFromCategory)) {
-    surveyQuestionCategory = from("SurveyQuestionCategory").where("surveyQuestionCategoryId", surveyQuestionCategoryId).queryOne()
+if (surveyQuestionCategoryId && 'Y'.equals(parameters.applyQuestionFromCategory)) {
+    surveyQuestionCategory = from('SurveyQuestionCategory').where('surveyQuestionCategoryId', surveyQuestionCategoryId).queryOne()
     if (surveyQuestionCategory) {
-        categoryQuestions = surveyQuestionCategory.getRelated("SurveyQuestion", null, null, false)
+        categoryQuestions = surveyQuestionCategory.getRelated('SurveyQuestion', null, null, false)
     }
 }
-questionCategories = from("SurveyQuestionCategory").orderBy("description").queryList()
+questionCategories = from('SurveyQuestionCategory').orderBy('description').queryList()
 context.surveyQuestion = surveyQuestion
 
 context.surveyQuestionAndApplList = surveyQuestionAndApplList

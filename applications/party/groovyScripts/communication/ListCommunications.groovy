@@ -23,26 +23,26 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 partyId = parameters.partyId
 context.partyId = partyId
 
-party = from("Party").where("partyId", partyId).queryOne()
+party = from('Party').where('partyId', partyId).queryOne()
 context.party = party
 
 // get the sort field
-sortField = parameters.sort ?: "entryDate"
+sortField = parameters.sort ?: 'entryDate'
 context.previousSort = sortField
 
 // previous sort field
 previousSort = parameters.previousSort
 if (previousSort?.equals(sortField)) {
-    sortField = "-" + sortField
+    sortField = '-' + sortField
 }
 
 List eventExprs = []
-expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId)
+expr = EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, partyId)
 eventExprs.add(expr)
-expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId)
+expr = EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, partyId)
 eventExprs.add(expr)
 ecl = EntityCondition.makeCondition(eventExprs, EntityOperator.OR)
-events = from("CommunicationEvent").where(ecl).orderBy(sortField).queryList()
+events = from('CommunicationEvent').where(ecl).orderBy(sortField).queryList()
 
 context.eventList = events
 context.eventListSize = events.size()

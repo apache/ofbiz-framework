@@ -36,9 +36,9 @@ def updateContactMech() {
             DOMAIN_NAME: 'DomainName',
             default: 'ContactMechanism'
     ]
-    String successMessage = "Party" +
+    String successMessage = 'Party' +
             (successMessageMap."${parameters.contactMechTypeId}" ?: successMessageMap.default) +
-            "SuccessfullyUpdated"
+            'SuccessfullyUpdated'
     GenericValue lookedValue = from('ContactMech').where(parameters).queryOne()
     if (! lookedValue) {
         return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
@@ -313,7 +313,7 @@ def sendVerifyEmailAddressNotification() {
             contentType: storeEmail.contentType,
             bodyParameters: [verifyHash: emailAddressVerification.verifyHash],
             bodyScreenUri: storeEmail.bodyScreenLocation]
-        GenericValue webSite = from("WebSite")
+        GenericValue webSite = from('WebSite')
                 .where(productStoreId: storeEmail.productStoreId)
                 .cache()
                 .queryFirst()

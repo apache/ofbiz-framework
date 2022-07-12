@@ -25,23 +25,23 @@ import org.apache.ofbiz.base.util.*
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
-productFeatureCategoryId = request.getParameter("productFeatureCategoryId")
+productFeatureCategoryId = request.getParameter('productFeatureCategoryId')
 context.productFeatureCategoryId = productFeatureCategoryId
 
-context.selFeatureApplTypeId = request.getParameter("productFeatureApplTypeId")
+context.selFeatureApplTypeId = request.getParameter('productFeatureApplTypeId')
 
-context.curProductFeatureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureCategoryId).queryOne()
+context.curProductFeatureCategory = from('ProductFeatureCategory').where('productFeatureCategoryId', productFeatureCategoryId).queryOne()
 
-context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList()
+context.productFeatureTypes = from('ProductFeatureType').orderBy('description').queryList()
 
-context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList()
+context.productFeatureCategories = from('ProductFeatureCategory').orderBy('description').queryList()
 
 //we only need these if we will be showing the apply feature to category forms
 if (productId) {
-    context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").queryList()
+    context.productFeatureApplTypes = from('ProductFeatureApplType').orderBy('description').queryList()
 }
 
-productFeaturesSize = from("ProductFeature").where("productFeatureCategoryId", productFeatureCategoryId).queryCount()
+productFeaturesSize = from('ProductFeature').where('productFeatureCategoryId', productFeatureCategoryId).queryCount()
 
 highIndex = 0
 lowIndex = 0
@@ -66,9 +66,9 @@ boolean beganTransaction = false
 try {
     beganTransaction = TransactionUtil.begin()
 
-    productFeaturesEli = from("ProductFeature")
-        .where("productFeatureCategoryId", productFeatureCategoryId)
-        .orderBy("productFeatureTypeId", "defaultSequenceNum", "description")
+    productFeaturesEli = from('ProductFeature')
+        .where('productFeatureCategoryId', productFeatureCategoryId)
+        .orderBy('productFeatureTypeId', 'defaultSequenceNum', 'description')
         .distinct()
         .cursorScrollInsensitive()
         .maxRows(highIndex)
@@ -76,13 +76,13 @@ try {
     productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex)
     productFeaturesEli.close()
 } catch (GenericEntityException e) {
-    String errMsg = "Failure in operation, rolling back transaction"
+    String errMsg = 'Failure in operation, rolling back transaction'
     logError(e, errMsg)
     try {
         // only rollback the transaction if we started one...
         TransactionUtil.rollback(beganTransaction, errMsg, e)
     } catch (GenericEntityException e2) {
-        logError(e2, "Could not rollback transaction: " + e2.toString())
+        logError(e2, 'Could not rollback transaction: ' + e2.toString())
     }
     // after rolling back, rethrow the exception
     throw e
@@ -99,7 +99,7 @@ productFeatureIter = productFeatures.iterator()
 productFeatureApplIter = null
 while (productFeatureIter) {
     productFeature = productFeatureIter.next()
-    productFeatureAppls = from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeature.productFeatureId).queryList()
+    productFeatureAppls = from('ProductFeatureAppl').where('productId', productId, 'productFeatureId', productFeature.productFeatureId).queryList()
     productFeatureApplIter = productFeatureAppls.iterator()
     while (productFeatureApplIter) {
         productFeatureAppl = productFeatureApplIter.next()

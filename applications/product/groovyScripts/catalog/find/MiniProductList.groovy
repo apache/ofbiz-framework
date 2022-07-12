@@ -19,15 +19,15 @@
 
 import org.apache.ofbiz.base.util.*
 
-state = request.getParameter("CategoryProductsState")
+state = request.getParameter('CategoryProductsState')
 isOpen = true
 if (state) {
-    session.setAttribute("CategoryProductsState", state)
-    isOpen = "open".equals(state)
+    session.setAttribute('CategoryProductsState', state)
+    isOpen = 'open'.equals(state)
 } else {
-    state = (String) session.getAttribute("CategoryProductsState")
+    state = (String) session.getAttribute('CategoryProductsState')
     if (state) {
-        isOpen = "open".equals(state)
+        isOpen = 'open'.equals(state)
     }
 }
 context.isOpen = isOpen
@@ -35,7 +35,7 @@ context.isOpen = isOpen
 // Get a list of all products in the current category
 if (isOpen) {
     paramInMap = [:]
-    paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter("productCategoryId"))
+    paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter('productCategoryId'))
     paramInMap.defaultViewSize = 30
     paramInMap.limitView = true
     paramInMap.useCacheForMembers = false

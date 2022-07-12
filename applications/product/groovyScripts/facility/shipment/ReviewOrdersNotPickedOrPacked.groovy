@@ -24,18 +24,18 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import java.text.SimpleDateFormat
 
 condList = []
-condList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"))
-condList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"))
-condList.add(EntityCondition.makeCondition("pickSheetPrintedDate", EntityOperator.NOT_EQUAL, null))
-orderHeaders = from("OrderHeader").where(condList).queryList()
+condList.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'ORDER_APPROVED'))
+condList.add(EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER'))
+condList.add(EntityCondition.makeCondition('pickSheetPrintedDate', EntityOperator.NOT_EQUAL, null))
+orderHeaders = from('OrderHeader').where(condList).queryList()
 orders = []
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a")
 orderHeaders.each { orderHeader ->
-    itemIssuanceList = from("ItemIssuance").where("orderId", orderHeader.orderId).queryList()
+    itemIssuanceList = from('ItemIssuance').where('orderId', orderHeader.orderId).queryList()
     if (itemIssuanceList) {
-        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "Y"])
+        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : 'Y'])
     } else {
-        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "N"])
+        orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : 'N'])
     }
 }
 context.orders = orders

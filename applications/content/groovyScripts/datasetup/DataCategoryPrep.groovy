@@ -26,7 +26,7 @@ import org.apache.ofbiz.content.data.DataResourceWorker
 
 dataCategoryTrail = [] as ArrayList
 rootNode = [:]
-rootNode.id = "ROOT"
+rootNode.id = 'ROOT'
 DataResourceWorker.getDataCategoryMap(delegator, 0, rootNode, dataCategoryTrail, true)
 
 dataCategoryList = [] as ArrayList

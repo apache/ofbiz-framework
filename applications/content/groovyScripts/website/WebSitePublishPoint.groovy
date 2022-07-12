@@ -17,25 +17,25 @@
  * under the License.
  */
 
-webSiteContent = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT").orderBy("-fromDate").cache().filterByDate().queryFirst()
+webSiteContent = from('WebSiteContent').where('webSiteId', webSiteId, 'webSiteContentTypeId', 'PUBLISH_POINT').orderBy('-fromDate').cache().filterByDate().queryFirst()
 if (webSiteContent) {
-    content = webSiteContent.getRelatedOne("Content", false)
+    content = webSiteContent.getRelatedOne('Content', false)
     contentRoot = content.contentId
     context.content = content
     context.contentRoot = contentRoot
 }
 
-webSiteMenu = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MENU_ROOT").orderBy("-fromDate").cache().queryFirst()
+webSiteMenu = from('WebSiteContent').where('webSiteId', webSiteId, 'webSiteContentTypeId', 'MENU_ROOT').orderBy('-fromDate').cache().queryFirst()
 if (webSiteMenu) {
-    menu = webSiteMenu.getRelatedOne("Content", false)
+    menu = webSiteMenu.getRelatedOne('Content', false)
     menuRoot = menu.contentId
     context.menu = menu
     context.menuRoot = menuRoot
 }
 
-webSiteError = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "ERROR_ROOT").orderBy("-fromDate").cache().queryFirst()
+webSiteError = from('WebSiteContent').where('webSiteId', webSiteId, 'webSiteContentTypeId', 'ERROR_ROOT').orderBy('-fromDate').cache().queryFirst()
 if (webSiteError) {
-    error = webSiteError.getRelatedOne("Content", false)
+    error = webSiteError.getRelatedOne('Content', false)
     errorRoot = error.contentId
     context.error = error
     context.errorRoot = errorRoot

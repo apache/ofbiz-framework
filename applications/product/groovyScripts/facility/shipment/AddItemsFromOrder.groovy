@@ -21,16 +21,16 @@ import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.util.*
 import org.apache.ofbiz.entity.condition.EntityCondition
 
-shipmentId = request.getParameter("shipmentId")
-orderId = request.getParameter("orderId")
-shipGroupSeqId = request.getParameter("shipGroupSeqId")
-selectFromShipmentPlan = request.getParameter("selectFromShipmentPlan")
+shipmentId = request.getParameter('shipmentId')
+orderId = request.getParameter('orderId')
+shipGroupSeqId = request.getParameter('shipGroupSeqId')
+selectFromShipmentPlan = request.getParameter('selectFromShipmentPlan')
 
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 if (shipment) {
-    context.originFacility = shipment.getRelatedOne("OriginFacility", false)
-    context.destinationFacility = shipment.getRelatedOne("DestinationFacility", false)
+    context.originFacility = shipment.getRelatedOne('OriginFacility', false)
+    context.destinationFacility = shipment.getRelatedOne('DestinationFacility', false)
 }
 
 if (!orderId && shipment && !selectFromShipmentPlan) {
@@ -41,36 +41,36 @@ if (!shipGroupSeqId && shipment) {
 }
 
 if (orderId && shipment) {
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     context.orderHeader = orderHeader
 
     if (orderHeader) {
-        context.orderHeaderStatus = orderHeader.getRelatedOne("StatusItem", false)
-        context.orderType = orderHeader.getRelatedOne("OrderType", false)
+        context.orderHeaderStatus = orderHeader.getRelatedOne('StatusItem', false)
+        context.orderType = orderHeader.getRelatedOne('OrderType', false)
 
-        isSalesOrder = "SALES_ORDER".equals(orderHeader.orderTypeId)
+        isSalesOrder = 'SALES_ORDER'.equals(orderHeader.orderTypeId)
         context.isSalesOrder = isSalesOrder
 
         orderItemShipGroup = null
         if (shipGroupSeqId) {
-            orderItemShipGroup = from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne()
+            orderItemShipGroup = from('OrderItemShipGroup').where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId).queryOne()
             context.orderItemShipGroup = orderItemShipGroup
         }
 
-        orderItems = from("OrderItemAndShipGroupAssoc").where("shipGroupSeqId", shipGroupSeqId, "orderId", orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+        orderItems = from('OrderItemAndShipGroupAssoc').where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
         orderItemDatas = [] as LinkedList
         orderItems.each { orderItemAndShipGroupAssoc ->
             orderItemData = [:]
-            product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false)
+            product = orderItemAndShipGroupAssoc.getRelatedOne('Product', false)
 
-            itemIssuances = orderItemAndShipGroupAssoc.getRelated("ItemIssuance", null, null, false)
+            itemIssuances = orderItemAndShipGroupAssoc.getRelated('ItemIssuance', null, null, false)
             totalQuantityIssued = 0
             itemIssuances.each { itemIssuance ->
                 if (itemIssuance.quantity) {
-                    totalQuantityIssued += itemIssuance.getDouble("quantity")
+                    totalQuantityIssued += itemIssuance.getDouble('quantity')
                 }
                 if (itemIssuance.cancelQuantity) {
-                    totalQuantityIssued -= itemIssuance.getDouble("cancelQuantity")
+                    totalQuantityIssued -= itemIssuance.getDouble('cancelQuantity')
                 }
             }
 
@@ -79,19 +79,19 @@ if (orderId && shipment) {
                 if (orderItemShipGroup) {
                     oisgirLimitMap = [shipGroupSeqId : shipGroupSeqId]
                 }
-                orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated("OrderItemShipGrpInvRes", oisgirLimitMap, ['reservedDatetime'], false)
+                orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvRes', oisgirLimitMap, ['reservedDatetime'], false)
                 orderItemShipGrpInvResDatas = [] as LinkedList
                 totalQuantityReserved = 0
                 orderItemShipGrpInvResList.each { orderItemShipGrpInvRes ->
-                    inventoryItem = orderItemShipGrpInvRes.getRelatedOne("InventoryItem", false)
+                    inventoryItem = orderItemShipGrpInvRes.getRelatedOne('InventoryItem', false)
                     orderItemShipGrpInvResData = [:]
                     orderItemShipGrpInvResData.orderItemShipGrpInvRes = orderItemShipGrpInvRes
                     orderItemShipGrpInvResData.inventoryItem = inventoryItem
-                    orderItemShipGrpInvResData.inventoryItemFacility = inventoryItem.getRelatedOne("Facility", false)
+                    orderItemShipGrpInvResData.inventoryItemFacility = inventoryItem.getRelatedOne('Facility', false)
                     orderItemShipGrpInvResDatas.add(orderItemShipGrpInvResData)
 
                     if (orderItemShipGrpInvRes.quantity) {
-                        totalQuantityReserved += orderItemShipGrpInvRes.getDouble("quantity")
+                        totalQuantityReserved += orderItemShipGrpInvRes.getDouble('quantity')
                     }
                 }
 
@@ -110,17 +110,17 @@ if (orderId && shipment) {
     }
 }
 if (shipment && selectFromShipmentPlan) {
-    shipmentPlans = from("OrderShipment").where("shipmentId", shipment.shipmentId).orderBy("orderId", "orderItemSeqId").queryList()
+    shipmentPlans = from('OrderShipment').where('shipmentId', shipment.shipmentId).orderBy('orderId', 'orderItemSeqId').queryList()
     orderItemDatas = [] as LinkedList
 
     context.isSalesOrder = true
     shipmentPlans.each { shipmentPlan ->
         orderItemData = [:]
-        orderItem = shipmentPlan.getRelatedOne("OrderItem", false)
+        orderItem = shipmentPlan.getRelatedOne('OrderItem', false)
 
         orderItemShipGroup = null
         if (shipGroupSeqId) {
-            orderItemShipGroup = from("OrderItemShipGroup").where("orderId", orderItem.orderId, "shipGroupSeqId", shipGroupSeqId).queryOne()
+            orderItemShipGroup = from('OrderItemShipGroup').where('orderId', orderItem.orderId, 'shipGroupSeqId', shipGroupSeqId).queryOne()
             context.orderItemShipGroup = orderItemShipGroup
         }
 
@@ -130,53 +130,53 @@ if (shipment && selectFromShipmentPlan) {
         }
 
         orderItemShipGroupAssoc = null
-        orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", oiasgaLimitMap, null, false)
+        orderItemShipGroupAssocs = orderItem.getRelated('OrderItemShipGroupAssoc', oiasgaLimitMap, null, false)
         if (orderItemShipGroupAssocs) {
             orderItemShipGroupAssoc = EntityUtil.getFirst(orderItemShipGroupAssocs)
         }
-        plannedQuantity = shipmentPlan.getDouble("quantity")
+        plannedQuantity = shipmentPlan.getDouble('quantity')
         totalProposedQuantity = 0.0
 
-        product = orderItem.getRelatedOne("Product", false)
+        product = orderItem.getRelatedOne('Product', false)
 
-        itemIssuances = orderItem.getRelated("ItemIssuance", null, null, false)
+        itemIssuances = orderItem.getRelated('ItemIssuance', null, null, false)
         totalQuantityIssued = 0
         totalQuantityIssuedInShipment = 0
         itemIssuances.each { itemIssuance ->
             if (itemIssuance.quantity) {
-                totalQuantityIssued += itemIssuance.getDouble("quantity")
+                totalQuantityIssued += itemIssuance.getDouble('quantity')
             }
             if (itemIssuance.cancelQuantity) {
-                totalQuantityIssued -= itemIssuance.getDouble("cancelQuantity")
+                totalQuantityIssued -= itemIssuance.getDouble('cancelQuantity')
             }
             if (itemIssuance.shipmentId && itemIssuance.shipmentId.equals(shipmentId)) {
-                totalQuantityIssuedInShipment += itemIssuance.getDouble("quantity")
+                totalQuantityIssuedInShipment += itemIssuance.getDouble('quantity')
                 if (itemIssuance.cancelQuantity) {
-                    totalQuantityIssuedInShipment -= itemIssuance.getDouble("cancelQuantity")
+                    totalQuantityIssuedInShipment -= itemIssuance.getDouble('cancelQuantity')
                 }
             }
         }
 
-        orderItemShipGrpInvResList = orderItem.getRelated("OrderItemShipGrpInvRes", null, ['reservedDatetime'], false)
+        orderItemShipGrpInvResList = orderItem.getRelated('OrderItemShipGrpInvRes', null, ['reservedDatetime'], false)
         orderItemShipGrpInvResDatas = [] as LinkedList
         totalQuantityReserved = 0
         orderItemShipGrpInvResList.each { orderItemShipGrpInvRes ->
-            inventoryItem = orderItemShipGrpInvRes.getRelatedOne("InventoryItem", false)
+            inventoryItem = orderItemShipGrpInvRes.getRelatedOne('InventoryItem', false)
             orderItemShipGrpInvResData = [:]
             orderItemShipGrpInvResData.orderItemShipGrpInvRes = orderItemShipGrpInvRes
             orderItemShipGrpInvResData.inventoryItem = inventoryItem
-            orderItemShipGrpInvResData.inventoryItemFacility = inventoryItem.getRelatedOne("Facility", false)
+            orderItemShipGrpInvResData.inventoryItemFacility = inventoryItem.getRelatedOne('Facility', false)
             orderItemShipGrpInvResDatas.add(orderItemShipGrpInvResData)
 
             reservedQuantity = 0.0
             quantityNotAvailable = 0.0
             proposedQuantity = 0.0
             if (orderItemShipGrpInvRes.quantity) {
-                reservedQuantity = orderItemShipGrpInvRes.getDouble("quantity")
+                reservedQuantity = orderItemShipGrpInvRes.getDouble('quantity')
                 totalQuantityReserved += reservedQuantity
             }
             if (orderItemShipGrpInvRes.quantityNotAvailable) {
-                quantityNotAvailable = orderItemShipGrpInvRes.getDouble("quantityNotAvailable")
+                quantityNotAvailable = orderItemShipGrpInvRes.getDouble('quantityNotAvailable')
             }
             proposedQuantity = reservedQuantity - quantityNotAvailable
             if (plannedQuantity - totalProposedQuantity < proposedQuantity) {
@@ -190,7 +190,7 @@ if (shipment && selectFromShipmentPlan) {
         }
 
         orderItemShipGroupAssocMap = new HashMap(orderItemShipGroupAssoc)
-        orderItemShipGroupAssocMap.quantity = orderItemShipGroupAssoc.getDouble("quantity")
+        orderItemShipGroupAssocMap.quantity = orderItemShipGroupAssoc.getDouble('quantity')
         orderItemData.orderItemAndShipGroupAssoc = orderItemShipGroupAssocMap
         orderItemData.orderItemShipGrpInvResDatas = orderItemShipGrpInvResDatas
         orderItemData.totalQuantityReserved = totalQuantityReserved

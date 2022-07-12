@@ -23,19 +23,19 @@
 import org.apache.ofbiz.entity.util.EntityUtil
 
 if (productCategoryIdPar) {
-    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
+    category = from('ProductCategory').where('productCategoryId', productCategoryIdPar).queryOne()
     context.category = category
 }
 if (productFeatureTypeIdPar) {
-    featureType = from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeIdPar).queryOne()
+    featureType = from('ProductFeatureType').where('productFeatureTypeId', productFeatureTypeIdPar).queryOne()
     context.featureType = featureType
 }
 
-allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName).orderBy("productId").queryList()
+allProductionRuns = from('WorkEffortAndGoods').where('workEffortName', planName).orderBy('productId').queryList()
 productionRuns = [:]
 features = []
 if (!productFeatureTypeIdPar) {
-    features.put(null, UtilMisc.toMap("productFeature", null, "productionRuns", productionRuns))
+    features.put(null, UtilMisc.toMap('productFeature', null, 'productionRuns', productionRuns))
 }
 
 if (allProductionRuns) {
@@ -47,11 +47,11 @@ if (allProductionRuns) {
                 return
             }
         }
-        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne()
+        productionRunProduct = from('Product').where('productId', productionRun.productId).queryOne()
 
         // group by standard feature of type productFeatureTypeIdPar
         if (productFeatureTypeIdPar) {
-            standardFeature = from("ProductFeatureAndAppl").where("productFeatureTypeId", productFeatureTypeIdPar, "productId", productionRun.productId, "productFeatureApplTypeId", "STANDARD_FEATURE").filterByDate().queryFirst()
+            standardFeature = from('ProductFeatureAndAppl').where('productFeatureTypeId', productFeatureTypeIdPar, 'productId', productionRun.productId, 'productFeatureApplTypeId', 'STANDARD_FEATURE').filterByDate().queryFirst()
             standardFeatureId = null
             if (standardFeature) {
                 standardFeatureId = standardFeature.productFeatureId
@@ -64,7 +64,7 @@ if (allProductionRuns) {
         }
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTask = from("WorkEffort").where("workEffortParentId", productionRun.workEffortId, "workEffortName", taskNamePar).queryFirst()
+        productionRunTask = from('WorkEffort').where('workEffortParentId', productionRun.workEffortId, 'workEffortName', taskNamePar).queryFirst()
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             return

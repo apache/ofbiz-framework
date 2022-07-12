@@ -29,17 +29,17 @@ shipGroupSeqId = parameters.shipGroupSeqId
 findMap = [orderId: orderId]
 if (shipGroupSeqId) findMap.shipGroupSeqId = shipGroupSeqId
 
-shipGroups = from("OrderItemShipGroup").where(findMap).orderBy("shipGroupSeqId").queryList()
+shipGroups = from('OrderItemShipGroup').where(findMap).orderBy('shipGroupSeqId').queryList()
 context.shipGroups = shipGroups
 
 // method to expand the marketing packages
 LinkedList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
     sublines = []
-    associations = product.getRelated("MainProductAssoc", [productAssocTypeId : assocType], null, false)
+    associations = product.getRelated('MainProductAssoc', [productAssocTypeId : assocType], null, false)
     associations = EntityUtil.filterByDate(associations)
     associations.each { association ->
         line = [:]
-        line.product = association.getRelatedOne("AssocProduct", false)
+        line.product = association.getRelatedOne('AssocProduct', false)
 
         // determine the quantities
         quantityComposed = association.quantity ?: 0
@@ -56,26 +56,26 @@ groupData = [:]
 shipGroups.each { shipGroup ->
     data = [:]
 
-    address = shipGroup.getRelatedOne("PostalAddress", false)
+    address = shipGroup.getRelatedOne('PostalAddress', false)
     data.address = address
 
-    phoneNumber = shipGroup.getRelatedOne("TelecomTelecomNumber", false)
+    phoneNumber = shipGroup.getRelatedOne('TelecomTelecomNumber', false)
     data.phoneNumber = phoneNumber
 
-    carrierShipmentMethod = shipGroup.getRelatedOne("CarrierShipmentMethod", false)
+    carrierShipmentMethod = shipGroup.getRelatedOne('CarrierShipmentMethod', false)
     if (carrierShipmentMethod) {
         data.carrierShipmentMethod = carrierShipmentMethod
-        data.shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", true)
+        data.shipmentMethodType = carrierShipmentMethod.getRelatedOne('ShipmentMethodType', true)
     }
 
     // the lines in a page, each line being a row of data to display
     lines = []
 
     // process the order item to ship group associations, each being a line item for the group
-    orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", null, ["orderItemSeqId"], false)
+    orderItemAssocs = shipGroup.getRelated('OrderItemShipGroupAssoc', null, ['orderItemSeqId'], false)
     orderItemAssocs.each { orderItemAssoc ->
-        orderItem = orderItemAssoc.getRelatedOne("OrderItem", false)
-        product = orderItem.getRelatedOne("Product", false)
+        orderItem = orderItemAssoc.getRelatedOne('OrderItem', false)
+        product = orderItem.getRelatedOne('Product', false)
         line = [:]
 
         // the quantity in group
@@ -86,7 +86,7 @@ shipGroups.each { shipGroup ->
 
         // the quantity shipped
         quantityShipped = 0.0
-        issuances = from("ItemIssuance").where("orderId", orderItem.orderId, "orderItemSeqId", orderItem.orderItemSeqId, "shipGroupSeqId", orderItemAssoc.shipGroupSeqId).queryList()
+        issuances = from('ItemIssuance').where('orderId', orderItem.orderId, 'orderItemSeqId', orderItem.orderItemSeqId, 'shipGroupSeqId', orderItemAssoc.shipGroupSeqId).queryList()
         issuances.each { issuance ->
             quantityShipped += issuance.quantity
         }
@@ -104,8 +104,8 @@ shipGroups.each { shipGroup ->
         line.quantityShipped = quantityShipped
         line.quantityOpen = quantityOpen
 
-        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")) {
-            assocType = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG_AUTO") ? "MANUF_COMPONENT" : "PRODUCT_COMPONENT"
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')) {
+            assocType = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO') ? 'MANUF_COMPONENT' : 'PRODUCT_COMPONENT'
             sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType)
             line.expandedList = sublines
         }

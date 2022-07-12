@@ -67,14 +67,14 @@ class AutoAcctgFixedAssetTests extends OFBizTestCase {
         Map serviceCtx = [
                         fixedAssetId: '1000',
                         fixedAssetStdCostTypeId: 'SETUP_COST',
-                        fromDate: UtilDateTime.toTimestamp("11/03/2016 00:00:00"),
+                        fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                         userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('cancelFixedAssetStdCost', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetStdCost = from('FixedAssetStdCost')
-                .where('fixedAssetId', '1000', 'fixedAssetStdCostTypeId', 'SETUP_COST', 'fromDate', UtilDateTime.toTimestamp("11/03/2016 00:00:00"))
+                .where('fixedAssetId', '1000', 'fixedAssetStdCostTypeId', 'SETUP_COST', 'fromDate', UtilDateTime.toTimestamp('11/03/2016 00:00:00'))
                 .queryFirst()
 
         assert fixedAssetStdCost

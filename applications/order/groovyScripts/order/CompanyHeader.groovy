@@ -42,24 +42,24 @@ quoteId = parameters.quoteId
 fromPartyId = parameters.fromPartyId
 
 if (!orderHeader && orderId) {
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     try {
         if (parameters.facilityId) {
-            UtilHttp.setContentDisposition(response, "PickSheet" + orderId + ".pdf")
+            UtilHttp.setContentDisposition(response, 'PickSheet' + orderId + '.pdf')
         } else {
-            UtilHttp.setContentDisposition(response, orderId + ".pdf")
+            UtilHttp.setContentDisposition(response, orderId + '.pdf')
         }
     } catch (MissingPropertyException ignored) {
         // This hack for OFBIZ-6792 to avoid "groovy.lang.MissingPropertyException:
         // No such property: response for class: CompanyHeader" when response does not exist (in sendOrderConfirmation service)
     }
 } else if (shipmentId) {
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
-    orderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false)
+    shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
+    orderHeader = shipment.getRelatedOne('PrimaryOrderHeader', false)
 }
 
 if (!invoice && invoiceId)    {
-    invoice = from("Invoice").where("invoiceId", invoiceId).queryOne()
+    invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
     try {
         UtilHttp.setContentDisposition(response, invoiceId + '.pdf')
     } catch (MissingPropertyException ignored) {
@@ -69,11 +69,11 @@ if (!invoice && invoiceId)    {
 }
 
 if (!returnHeader && returnId) {
-    returnHeader = from("ReturnHeader").where("returnId", returnId).queryOne()
+    returnHeader = from('ReturnHeader').where('returnId', returnId).queryOne()
 }
 
 if (quoteId) {
-    quote = from("Quote").where("quoteId", quoteId).queryOne()
+    quote = from('Quote').where('quoteId', quoteId).queryOne()
 }
 
 // defaults:
@@ -86,22 +86,22 @@ if (orderHeader) {
     orh = new OrderReadHelper(orderHeader)
     referenceDate = orderHeader.orderDate
     // for sales order, the logo party is the "BILL_FROM_VENDOR" of the order.  If that's not available, we'll use the OrderHeader's ProductStore's payToPartyId
-    if ("SALES_ORDER".equals(orderHeader.orderTypeId)) {
+    if ('SALES_ORDER'.equals(orderHeader.orderTypeId)) {
         if (orh.getBillFromParty()) {
             partyId = orh.getBillFromParty().partyId
         } else {
-            productStore = orderHeader.getRelatedOne("ProductStore", false)
-            if ("SALES_ORDER".equals(orderHeader.orderTypeId) && productStore?.payToPartyId) {
+            productStore = orderHeader.getRelatedOne('ProductStore', false)
+            if ('SALES_ORDER'.equals(orderHeader.orderTypeId) && productStore?.payToPartyId) {
                 partyId = productStore.payToPartyId
             }
         }
     // purchase orders - use the BILL_TO_CUSTOMER of the order
-    } else if ("PURCHASE_ORDER".equals(orderHeader.orderTypeId)) {
+    } else if ('PURCHASE_ORDER'.equals(orderHeader.orderTypeId)) {
         def billToParty = orh.getBillToParty()
         if (billToParty) {
             partyId = billToParty.partyId
         } else {
-            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelated("OrderRole", [roleTypeId : "BILL_TO_CUSTOMER"], null, false))
+            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelated('OrderRole', [roleTypeId : 'BILL_TO_CUSTOMER'], null, false))
             if (billToCustomer) {
                 partyId = billToCustomer.partyId
             }
@@ -109,20 +109,20 @@ if (orderHeader) {
     }
 } else if (invoice) {
     referenceDate = invoice.invoiceDate
-    if ("SALES_INVOICE".equals(invoice.invoiceTypeId) && invoice.partyIdFrom) {
+    if ('SALES_INVOICE'.equals(invoice.invoiceTypeId) && invoice.partyIdFrom) {
         partyId = invoice.partyIdFrom
     }
-    if ("PURCHASE_INVOICE".equals(invoice.invoiceTypeId) || "CUST_RTN_INVOICE".equals(invoice.invoiceTypeId) && invoice.partyId) {
+    if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId) || 'CUST_RTN_INVOICE'.equals(invoice.invoiceTypeId) && invoice.partyId) {
         partyId = invoice.partyId
     }
 } else if (returnHeader) {
-    if ("CUSTOMER_RETURN".equals(returnHeader.returnHeaderTypeId) && returnHeader.toPartyId) {
+    if ('CUSTOMER_RETURN'.equals(returnHeader.returnHeaderTypeId) && returnHeader.toPartyId) {
         partyId = returnHeader.toPartyId
-    } else if ("VENDOR_RETURN".equals(returnHeader.returnHeaderTypeId) && returnHeader.fromPartyId) {
+    } else if ('VENDOR_RETURN'.equals(returnHeader.returnHeaderTypeId) && returnHeader.fromPartyId) {
         partyId = returnHeader.fromPartyId
     }
 } else if (quote) {
-    productStore = quote.getRelatedOne("ProductStore", false)
+    productStore = quote.getRelatedOne('ProductStore', false)
     if (productStore?.payToPartyId) {
         partyId = productStore.payToPartyId
     }
@@ -138,27 +138,27 @@ if (!partyId) {
 }
 
 // the logo
-GenericValue partyGroup = from("PartyGroup").where("partyId", partyId).queryOne()
+GenericValue partyGroup = from('PartyGroup').where('partyId', partyId).queryOne()
 if (partyGroup) {
-    GenericValue partyContent = PartyContentWrapper.getFirstPartyContentByType(partyId, partyGroup, "LGOIMGURL", delegator)
-    GenericValue dataResource = partyContent?.getRelatedOne("Content", true)
-            ?.getRelatedOne("DataResource", true)
+    GenericValue partyContent = PartyContentWrapper.getFirstPartyContentByType(partyId, partyGroup, 'LGOIMGURL', delegator)
+    GenericValue dataResource = partyContent?.getRelatedOne('Content', true)
+            ?.getRelatedOne('DataResource', true)
 
     if (dataResource) {
-        String dataResourceTypeId = dataResource.getString("dataResourceTypeId")
-        if (dataResourceTypeId.contains("_FILE")) {
-            File logoFile = DataResourceWorker.getContentFile(dataResource.getString("dataResourceTypeId"),
-                    dataResource.getString("objectInfo"), "")
+        String dataResourceTypeId = dataResource.getString('dataResourceTypeId')
+        if (dataResourceTypeId.contains('_FILE')) {
+            File logoFile = DataResourceWorker.getContentFile(dataResource.getString('dataResourceTypeId'),
+                    dataResource.getString('objectInfo'), '')
             if (logoFile.exists()) {
                 def logoFileBase64 = logoFile.bytes.encodeBase64()
-                logoImageUrl = "data:" + dataResource.mimeTypeId + ";base64," + logoFileBase64
+                logoImageUrl = 'data:' + dataResource.mimeTypeId + ';base64,' + logoFileBase64
             }
         }
     }
 
     if (!logoImageUrl) {
         if (partyContent) {
-            logoImageUrl = "/content/control/stream?contentId=" + partyContent.contentId
+            logoImageUrl = '/content/control/stream?contentId=' + partyContent.contentId
         } else {
             logoImageUrl = partyGroup?.logoImageUrl
         }
@@ -170,28 +170,28 @@ if (logoImageUrl) {
 }
 
 // the company name
-companyName = "Default Company"
+companyName = 'Default Company'
 if (partyGroup?.groupName) {
     companyName = partyGroup.groupName
 }
 context.companyName = companyName
 
 // the address
-addresses = from("PartyContactWithPurpose")
-                .where("partyId", partyId, "contactMechPurposeTypeId", "GENERAL_LOCATION")
-                .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+addresses = from('PartyContactWithPurpose')
+                .where('partyId', partyId, 'contactMechPurposeTypeId', 'GENERAL_LOCATION')
+                .filterByDate(referenceDate, 'contactFromDate', 'contactThruDate', 'purposeFromDate', 'purposeThruDate')
                 .queryList()
 address = null
 if (addresses) {
-    address = from("PostalAddress").where("contactMechId", addresses[0].contactMechId).queryOne()
+    address = from('PostalAddress').where('contactMechId', addresses[0].contactMechId).queryOne()
 }
 if (address)    {
    // get the country name and state/province abbreviation
-   country = address.getRelatedOne("CountryGeo", true)
+   country = address.getRelatedOne('CountryGeo', true)
    if (country) {
-      context.countryName = country.get("geoName", locale)
+      context.countryName = country.get('geoName', locale)
    }
-   stateProvince = address.getRelatedOne("StateProvinceGeo", true)
+   stateProvince = address.getRelatedOne('StateProvinceGeo', true)
    if (stateProvince) {
        context.stateProvinceAbbr = stateProvince.abbreviation
    }
@@ -199,39 +199,39 @@ if (address)    {
 context.postalAddress = address
 
 //telephone
-phones = from("PartyContactWithPurpose")
-             .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_PHONE")
-             .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+phones = from('PartyContactWithPurpose')
+             .where('partyId', partyId, 'contactMechPurposeTypeId', 'PRIMARY_PHONE')
+             .filterByDate(referenceDate, 'contactFromDate', 'contactThruDate', 'purposeFromDate', 'purposeThruDate')
              .queryList()
 if (phones) {
-    context.phone = from("TelecomNumber").where("contactMechId", phones[0].contactMechId).queryOne()
+    context.phone = from('TelecomNumber').where('contactMechId', phones[0].contactMechId).queryOne()
 }
 
 // Fax
-faxNumbers = from("PartyContactWithPurpose")
-                 .where("partyId", partyId, "contactMechPurposeTypeId", "FAX_NUMBER")
-                 .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+faxNumbers = from('PartyContactWithPurpose')
+                 .where('partyId', partyId, 'contactMechPurposeTypeId', 'FAX_NUMBER')
+                 .filterByDate(referenceDate, 'contactFromDate', 'contactThruDate', 'purposeFromDate', 'purposeThruDate')
                  .queryList()
 if (faxNumbers) {
-    context.fax = from("TelecomNumber").where("contactMechId", faxNumbers[0].contactMechId).queryOne()
+    context.fax = from('TelecomNumber').where('contactMechId', faxNumbers[0].contactMechId).queryOne()
 }
 
 //Email
-emails = from("PartyContactWithPurpose")
-             .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_EMAIL")
-             .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+emails = from('PartyContactWithPurpose')
+             .where('partyId', partyId, 'contactMechPurposeTypeId', 'PRIMARY_EMAIL')
+             .filterByDate(referenceDate, 'contactFromDate', 'contactThruDate', 'purposeFromDate', 'purposeThruDate')
              .queryList()
 if (emails) {
-    context.email = from("ContactMech").where("contactMechId", emails[0].contactMechId).queryOne()
+    context.email = from('ContactMech').where('contactMechId', emails[0].contactMechId).queryOne()
 } else {    //get email address from party contact mech
-    selContacts = from("PartyContactMech")
-                      .where("partyId", partyId).filterByDate(referenceDate, "fromDate", "thruDate")
+    selContacts = from('PartyContactMech')
+                      .where('partyId', partyId).filterByDate(referenceDate, 'fromDate', 'thruDate')
                       .queryList()
     if (selContacts) {
         i = selContacts.iterator()
         while (i.hasNext())    {
-            email = i.next().getRelatedOne("ContactMech", false)
-            if ("ELECTRONIC_ADDRESS".equals(email.contactMechTypeId))    {
+            email = i.next().getRelatedOne('ContactMech', false)
+            if ('ELECTRONIC_ADDRESS'.equals(email.contactMechTypeId))    {
                 context.email = email
                 break
             }
@@ -240,23 +240,23 @@ if (emails) {
 }
 
 // website
-websiteUrls = from("PartyContactWithPurpose")
-                  .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_WEB_URL")
-                  .filterByDate(referenceDate, "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+websiteUrls = from('PartyContactWithPurpose')
+                  .where('partyId', partyId, 'contactMechPurposeTypeId', 'PRIMARY_WEB_URL')
+                  .filterByDate(referenceDate, 'contactFromDate', 'contactThruDate', 'purposeFromDate', 'purposeThruDate')
                   .queryList()
 if (websiteUrls) {
     websiteUrl = EntityUtil.getFirst(websiteUrls)
-    context.website = from("ContactMech").where("contactMechId", websiteUrl.contactMechId).queryOne()
+    context.website = from('ContactMech').where('contactMechId', websiteUrl.contactMechId).queryOne()
 } else { //get web address from party contact mech
-    selContacts = from("PartyContactMech")
-                      .where("partyId", partyId)
-                      .filterByDate(referenceDate, "fromDate", "thruDate")
+    selContacts = from('PartyContactMech')
+                      .where('partyId', partyId)
+                      .filterByDate(referenceDate, 'fromDate', 'thruDate')
                       .queryList()
     if (selContacts) {
         Iterator i = selContacts.iterator()
         while (i.hasNext())    {
-            website = i.next().getRelatedOne("ContactMech", false)
-            if ("WEB_ADDRESS".equals(website.contactMechTypeId)) {
+            website = i.next().getRelatedOne('ContactMech', false)
+            if ('WEB_ADDRESS'.equals(website.contactMechTypeId)) {
                 context.website = website
                 break
             }
@@ -265,17 +265,17 @@ if (websiteUrls) {
 }
 
 //Bank account
-selPayments = from("PaymentMethod")
-              .where("partyId", partyId, "paymentMethodTypeId", "EFT_ACCOUNT")
-              .filterByDate(referenceDate, "fromDate", "thruDate")
+selPayments = from('PaymentMethod')
+              .where('partyId', partyId, 'paymentMethodTypeId', 'EFT_ACCOUNT')
+              .filterByDate(referenceDate, 'fromDate', 'thruDate')
               .queryList()
 if (selPayments) {
-    context.eftAccount = from("EftAccount").where("paymentMethodId", selPayments[0].paymentMethodId).queryOne()
+    context.eftAccount = from('EftAccount').where('paymentMethodId', selPayments[0].paymentMethodId).queryOne()
 }
 
 // Tax ID Info
-partyTaxAuthInfoList = from("PartyTaxAuthInfo").where("partyId", partyId)
-                        .filterByDate(referenceDate, "fromDate", "thruDate")
+partyTaxAuthInfoList = from('PartyTaxAuthInfo').where('partyId', partyId)
+                        .filterByDate(referenceDate, 'fromDate', 'thruDate')
                         .queryList()
 if (partyTaxAuthInfoList) {
     if (address?.countryGeoId) {

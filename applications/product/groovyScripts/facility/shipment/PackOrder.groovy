@@ -26,7 +26,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 
 facilityId = parameters.facilityId
 if (facilityId) {
-    facility = from("Facility").where("facilityId", facilityId).queryOne()
+    facility = from('Facility').where('facilityId', facilityId).queryOne()
     context.facilityId = facilityId
     context.facility = facility
 }
@@ -36,7 +36,7 @@ orderId = parameters.orderId
 shipGroupSeqId = parameters.shipGroupSeqId
 shipmentId = parameters.shipmentId
 if (!shipmentId) {
-    shipmentId = request.getAttribute("shipmentId")
+    shipmentId = request.getAttribute('shipmentId')
 }
 context.shipmentId = shipmentId
 
@@ -44,10 +44,10 @@ context.shipmentId = shipmentId
 invoiceIds = null
 if (shipmentId) {
     // Get the primaryOrderId from the shipment
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+    shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
     if (shipment && shipment.primaryOrderId) {
-        orderItemBillingList = from("OrderItemBilling").where("orderId", shipment.primaryOrderId).orderBy("invoiceId").queryList()
-        invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, "invoiceId", true)
+        orderItemBillingList = from('OrderItemBilling').where('orderId', shipment.primaryOrderId).orderBy('invoiceId').queryList()
+        invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, 'invoiceId', true)
         if (invoiceIds) {
             context.invoiceIds = invoiceIds
         }
@@ -55,22 +55,22 @@ if (shipmentId) {
 }
 
 // validate order information
-if (orderId && !shipGroupSeqId && orderId.indexOf("/") > -1) {
+if (orderId && !shipGroupSeqId && orderId.indexOf('/') > -1) {
     // split the orderID/shipGroupSeqID
-    idSplit = orderId.split("\\/")
+    idSplit = orderId.split('\\/')
     orderId = idSplit[0]
     shipGroupSeqId = idSplit[1]
 } else if (orderId && !shipGroupSeqId) {
-    shipGroupSeqId = "00001"
+    shipGroupSeqId = '00001'
 }
 
 // setup the packing session
-packSession = session.getAttribute("packingSession")
+packSession = session.getAttribute('packingSession')
 clear = parameters.clear
 if (!packSession) {
     packSession = new org.apache.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin)
-    session.setAttribute("packingSession", packSession)
-    Debug.log("Created NEW packing session!!")
+    session.setAttribute('packingSession', packSession)
+    Debug.log('Created NEW packing session!!')
 } else {
     if (packSession.getStatus() == 0) {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId)
@@ -95,11 +95,11 @@ if (!picklistBinId) {
     picklistBinId = packSession.getPicklistBinId()
 }
 if (picklistBinId) {
-    bin = from("PicklistBin").where("picklistBinId", picklistBinId).queryOne()
+    bin = from('PicklistBin').where('picklistBinId', picklistBinId).queryOne()
     if (bin) {
         orderId = bin.primaryOrderId
         shipGroupSeqId = bin.primaryShipGroupSeqId
-        packSession.addItemInfo(bin.getRelated("PicklistItem", [itemStatusId : 'PICKITEM_PENDING'], null, false))
+        packSession.addItemInfo(bin.getRelated('PicklistItem', [itemStatusId : 'PICKITEM_PENDING'], null, false))
     }
 } else {
     picklistBinId = null
@@ -114,7 +114,7 @@ packSession.setFacilityId(facilityId)
 if (invoiceIds) {
     orderId = null
 }
-shipment = from("Shipment").where("primaryOrderId", orderId, "statusId", "SHIPMENT_PICKED").queryFirst()
+shipment = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryFirst()
 context.shipment = shipment
 
 context.packingSession = packSession
@@ -124,7 +124,7 @@ context.picklistBinId = picklistBinId
 
 // grab the order information
 if (orderId) {
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     if (orderHeader) {
         OrderReadHelper orh = new OrderReadHelper(orderHeader)
         context.orderId = orderId
@@ -133,19 +133,19 @@ if (orderId) {
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId)
         context.orderItemShipGroup = orderItemShipGroup
         carrierPartyId = orderItemShipGroup.carrierPartyId
-            carrierShipmentBoxTypes = from("CarrierShipmentBoxType").where("partyId", carrierPartyId).queryList()
+            carrierShipmentBoxTypes = from('CarrierShipmentBoxType').where('partyId', carrierPartyId).queryList()
             if (carrierShipmentBoxTypes) {
             context.carrierShipmentBoxTypes = carrierShipmentBoxTypes
             }
 
-        if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
+        if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
                 if (!shipment) {
     
                     // Generate the shipment cost estimate for the ship group
                     productStoreId = orh.getProductStoreId()
                     shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId)
-                    shippableItems = from("OrderItemAndShipGrpInvResAndItemSum").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryList()
+                    shippableItems = from('OrderItemAndShipGrpInvResAndItemSum').where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId).queryList()
                     shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue())
                     shippableWeight = new Double(orh.getShippableWeight(shipGroupSeqId).doubleValue())
                     shippableQuantity = new Double(orh.getShippableQuantity(shipGroupSeqId).doubleValue())
@@ -159,16 +159,16 @@ if (orderId) {
                         packSession.addItemInfo(shippableItems)
                     }
                 } else {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderHasBeenAlreadyVerified", [orderId : orderId], locale))
+                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderHasBeenAlreadyVerified', [orderId : orderId], locale))
                 }
             } else {
-                request.setAttribute("errorMessageList", ['No ship group sequence ID. Cannot process.'])
+                request.setAttribute('errorMessageList', ['No ship group sequence ID. Cannot process.'])
             }
         } else {
-            request.setAttribute("errorMessageList", ["Order #" + orderId + " is not approved for packing."])
+            request.setAttribute('errorMessageList', ['Order #' + orderId + ' is not approved for packing.'])
         }
     } else {
-        request.setAttribute("errorMessageList", ["Order #" + orderId + " cannot be found."])
+        request.setAttribute('errorMessageList', ['Order #' + orderId + ' cannot be found.'])
     }
 }
 
@@ -178,7 +178,7 @@ if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId
 }
 if (!defaultWeightUomId) {
-    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", "WT_kg", delegator)
+    defaultWeightUomId = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', 'WT_kg', delegator)
 }
-context.defaultWeightUom = from("Uom").where("uomId", defaultWeightUomId).cache().queryOne()
+context.defaultWeightUom = from('Uom').where('uomId', defaultWeightUomId).cache().queryOne()
 context.defaultWeightUomId = defaultWeightUomId

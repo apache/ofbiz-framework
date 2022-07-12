@@ -39,27 +39,27 @@ totalInvPuNotApplied = BigDecimal.ZERO
 
 invExprs =
     EntityCondition.makeCondition([
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_IN_PROCESS"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_WRITEOFF"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_IN_PROCESS'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_WRITEOFF'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_CANCELLED'),
         EntityCondition.makeCondition([
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
                 ],EntityOperator.AND),
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
                 ],EntityOperator.AND)
             ],EntityOperator.OR)
         ],EntityOperator.AND)
 
-invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
+invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 
 while (invIterator.hasNext()) {
     invoice = invIterator.next()
-    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", invoice.getString("invoiceTypeId"), "parentTypeId", "PURCHASE_INVOICE")
-    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.getString("invoiceTypeId"), "parentTypeId", "SALES_INVOICE")
+    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')
+    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', (String) invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')
     if (isPurchaseInvoice) {
         totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
@@ -69,7 +69,7 @@ while (invIterator.hasNext()) {
         totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE")
+        logError('InvoiceType: ' + invoice.invoiceTypeId + ' without a valid parentTypeId: ' + invoice.parentTypeId + ' !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE')
     }
 }
 
@@ -83,34 +83,34 @@ totalPayOutNotApplied = BigDecimal.ZERO
 
 payExprs =
     EntityCondition.makeCondition([
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_NOTPAID'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_CANCELLED'),
         EntityCondition.makeCondition([
                EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
                 ], EntityOperator.AND),
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
                 ], EntityOperator.AND)
             ], EntityOperator.OR)
         ], EntityOperator.AND)
 
-payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
+payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
 while (payIterator.hasNext()) {
     payment = payIterator.next()
-    if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
+    if ('DISBURSEMENT'.equals(payment.parentTypeId) || 'TAX_PAYMENT'.equals(payment.parentTypeId)) {
         totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
-    else if ("RECEIPT".equals(payment.parentTypeId)) {
+    else if ('RECEIPT'.equals(payment.parentTypeId)) {
         totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT")
+        logError('PaymentTypeId: ' + payment.paymentTypeId + ' without a valid parentTypeId: ' + payment.parentTypeId + ' !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT')
     }
 }
 payIterator.close()

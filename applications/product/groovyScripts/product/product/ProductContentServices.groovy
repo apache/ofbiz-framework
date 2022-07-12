@@ -26,9 +26,9 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 def createProductContent() {
     Map result = success()
-    GenericValue newEntity = makeValue("ProductContent", parameters)
+    GenericValue newEntity = makeValue('ProductContent', parameters)
     newEntity.create()
-    run service: "updateContent", with: parameters
+    run service: 'updateContent', with: parameters
     result.contentId = newEntity.contentId
     result.productId = newEntity.productId
     result.productContentTypeId = newEntity.productContentTypeId
@@ -40,10 +40,10 @@ def createProductContent() {
  * @return
  */
 def updateProductContent() {
-    GenericValue lookedUpValue = from("ProductContent").where(parameters).queryOne()
+    GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
-    run service: "updateContent", with: parameters
+    run service: 'updateContent', with: parameters
     return success()
 }
 
@@ -54,12 +54,12 @@ def updateProductContent() {
 def createEmailContentForProduct() {
     Map result = success()
     Map createProductContent = parameters
-    Map serviceResult = run service: "createEmailContent", with: parameters
+    Map serviceResult = run service: 'createEmailContent', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
     createProductContent.contentId = serviceResult.contentId
-    run service: "createProductContent", with: createProductContent
+    run service: 'createProductContent', with: createProductContent
     return result
 }
 
@@ -70,17 +70,17 @@ def createEmailContentForProduct() {
 def createDownloadContentForProduct() {
     Map createProductContent = parameters
     Map persistContentAndAssoc = parameters
-    persistContentAndAssoc.contentTypeId = "DOCUMENT"
-    persistContentAndAssoc.dataResourceTypeId = "IMAGE_OBJECT"
+    persistContentAndAssoc.contentTypeId = 'DOCUMENT'
+    persistContentAndAssoc.dataResourceTypeId = 'IMAGE_OBJECT'
     persistContentAndAssoc.contentName = parameters._imageData_fileName
     persistContentAndAssoc.mimeTypeId = parameters._imageData_contentType
     
-    Map serviceResult = run service: "persistContentAndAssoc", with: persistContentAndAssoc
+    Map serviceResult = run service: 'persistContentAndAssoc', with: persistContentAndAssoc
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
     createProductContent.contentId = serviceResult.contentId
-    run service: "createProductContent", with: createProductContent
+    run service: 'createProductContent', with: createProductContent
     return success()
 }
 
@@ -90,10 +90,10 @@ def createDownloadContentForProduct() {
  * @return
  */
 def createSimpleTextContentForProduct() {
-    Map serviceResult = run service: "createSimpleTextContent", with: parameters
+    Map serviceResult = run service: 'createSimpleTextContent', with: parameters
     Map createProductContentMap = parameters
     createProductContentMap.contentId = serviceResult.contentId
-    run service: "createProductContent", with: createProductContentMap
+    run service: 'createProductContent', with: createProductContentMap
     return success()
 }
 
@@ -102,11 +102,11 @@ def createSimpleTextContentForProduct() {
  * @return
  */
 def createSimpleTextContentForAlternateLocale() {
-    Map serviceResult = run service: "createSimpleTextContent", with: parameters
+    Map serviceResult = run service: 'createSimpleTextContent', with: parameters
     Map createContentAssocMap = [contentIdTo: serviceResult.contentId,
                                  contentId: parameters.mainContentId,
-                                 contentAssocTypeId: "ALTERNATE_LOCALE"]
-    run service: "createContentAssoc", with: createContentAssocMap
+                                 contentAssocTypeId: 'ALTERNATE_LOCALE']
+    run service: 'createContentAssoc', with: createContentAssocMap
     return success()
 }
 
@@ -119,31 +119,31 @@ def uploadProductAdditionalViewImages() {
     Map addAdditionalViewForProductMap = [productId: parameters.productId]
     if (parameters.additionalImageOne) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageOne
-        addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_1"
+        addAdditionalViewForProductMap.productContentTypeId = 'ADDITIONAL_IMAGE_1'
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageOne_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageOne_contentType
-        run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
+        run service: 'addAdditionalViewForProduct', with: addAdditionalViewForProductMap
     }
     if (parameters.additionalImageTwo) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageTwo
-        addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_2"
+        addAdditionalViewForProductMap.productContentTypeId = 'ADDITIONAL_IMAGE_2'
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageTwo_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageTwo_contentType
-        run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
+        run service: 'addAdditionalViewForProduct', with: addAdditionalViewForProductMap
     }
     if (parameters.additionalImageThree) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageThree
-        addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_3"
+        addAdditionalViewForProductMap.productContentTypeId = 'ADDITIONAL_IMAGE_3'
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageThree_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageThree_contentType
-        run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
+        run service: 'addAdditionalViewForProduct', with: addAdditionalViewForProductMap
     }
     if (parameters.additionalImageFour) {
         addAdditionalViewForProductMap.uploadedFile = parameters.additionalImageFour
-        addAdditionalViewForProductMap.productContentTypeId = "ADDITIONAL_IMAGE_4"
+        addAdditionalViewForProductMap.productContentTypeId = 'ADDITIONAL_IMAGE_4'
         addAdditionalViewForProductMap._uploadedFile_fileName = parameters._additionalImageFour_fileName
         addAdditionalViewForProductMap._uploadedFile_contentType = parameters._additionalImageFour_contentType
-        run service: "addAdditionalViewForProduct", with: addAdditionalViewForProductMap
+        run service: 'addAdditionalViewForProduct', with: addAdditionalViewForProductMap
     }
     result.productId = parameters.productId
     return result
@@ -156,12 +156,12 @@ def uploadProductAdditionalViewImages() {
 def updateContentSEOForProduct() {
     GenericValue productContent
     if (parameters.title) {
-        productContent = from("ProductContentAndInfo")
+        productContent = from('ProductContentAndInfo')
                 .where(productId: parameters.productId,
-                        productContentTypeId: "PAGE_TITLE")
+                        productContentTypeId: 'PAGE_TITLE')
                 .queryFirst()
         if (productContent) {
-            GenericValue electronicText = from("ElectronicText")
+            GenericValue electronicText = from('ElectronicText')
                     .where(dataResourceId: productContent.dataResourceId)
                     .queryOne()
             if (electronicText) {
@@ -170,18 +170,18 @@ def updateContentSEOForProduct() {
             }
         } else {
             Map createTextContentMap = [productId: parameters.productId,
-                                        productContentTypeId: "PAGE_TITLE",
+                                        productContentTypeId: 'PAGE_TITLE',
                                         text: parameters.title]
-            run service: "createSimpleTextContentForProduct", with: createTextContentMap
+            run service: 'createSimpleTextContentForProduct', with: createTextContentMap
         }
     }
     if (parameters.metaKeyword) {
-        productContent = from("ProductContentAndInfo")
+        productContent = from('ProductContentAndInfo')
                 .where(productId: parameters.productId,
-                        productContentTypeId: "META_KEYWORD")
+                        productContentTypeId: 'META_KEYWORD')
                 .queryFirst()
         if (productContent) {
-            GenericValue electronicText = from("ElectronicText")
+            GenericValue electronicText = from('ElectronicText')
                     .where(dataResourceId: productContent.dataResourceId)
                     .queryOne()
             if (electronicText) {
@@ -190,18 +190,18 @@ def updateContentSEOForProduct() {
             }
         } else {
             Map createTextContentMap = [productId: parameters.productId,
-                                        productContentTypeId: "META_KEYWORD",
+                                        productContentTypeId: 'META_KEYWORD',
                                         text: parameters.metaKeyword]
-            run service: "createSimpleTextContentForProduct", with: createTextContentMap
+            run service: 'createSimpleTextContentForProduct', with: createTextContentMap
         }
     }
     if (parameters.metaDescription) {
-        productContent = from("ProductContentAndInfo")
+        productContent = from('ProductContentAndInfo')
                 .where(productId: parameters.productId,
-                        productContentTypeId: "META_DESCRIPTION")
+                        productContentTypeId: 'META_DESCRIPTION')
                 .queryFirst()
         if (productContent) {
-            GenericValue electronicText = from("ElectronicText")
+            GenericValue electronicText = from('ElectronicText')
                     .where(dataResourceId: productContent.dataResourceId)
                     .queryOne()
             if (electronicText) {
@@ -210,9 +210,9 @@ def updateContentSEOForProduct() {
             }
         } else {
             Map createTextContentMap = [productId: parameters.productId,
-                                        productContentTypeId: "META_DESCRIPTION",
+                                        productContentTypeId: 'META_DESCRIPTION',
                                         text: parameters.metaDescription]
-            run service: "createSimpleTextContentForProduct", with: createTextContentMap
+            run service: 'createSimpleTextContentForProduct', with: createTextContentMap
         }
     }
     return success()

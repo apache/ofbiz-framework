@@ -29,10 +29,10 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
 conditions = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"),
-            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED"),
-            EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
+            EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'SUPPLIER'),
+            EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'REQ_APPROVED'),
+            EntityCondition.makeCondition('requirementTypeId', EntityOperator.EQUALS, 'PRODUCT_REQUIREMENT'),
             EntityUtil.getFilterByDateExpr()
             ], EntityOperator.AND)
-requirements = select("partyId", "productId").from("RequirementPartyProductCount").where(conditions).orderBy("partyId").cursorScrollInsensitive().distinct().queryIterator()
+requirements = select('partyId', 'productId').from('RequirementPartyProductCount').where(conditions).orderBy('partyId').cursorScrollInsensitive().distinct().queryIterator()
 context.requirements = requirements

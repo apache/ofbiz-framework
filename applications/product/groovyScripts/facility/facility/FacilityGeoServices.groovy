@@ -25,17 +25,17 @@ import org.apache.ofbiz.entity.GenericValue
  */
 Map createUpdateFacilityGeoPoint() {
     if (!parameters.geoPointId) {
-        Map serviceResult = run service: "createGeoPoint", with: parameters
+        Map serviceResult = run service: 'createGeoPoint', with: parameters
         if (!ServiceUtil.isSuccess(serviceResult)) {
             return serviceResult
         }
         String geoPointId = result.geoPointId
-        GenericValue facility = from("Facility").where(parameters).queryOne()
+        GenericValue facility = from('Facility').where(parameters).queryOne()
         facility.geoPointId = geoPointId
         facility.store()
         return success();
     } else {
-        Map serviceResult = run service: "updateGeoPoint", with: parameters
+        Map serviceResult = run service: 'updateGeoPoint', with: parameters
         return serviceResult
     }
 }

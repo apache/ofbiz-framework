@@ -18,15 +18,15 @@
  */
 
 def entitySyncPermissionCheck() {
-    parameters.primaryPermission = "ENTITY_SYNC"
-    Map serviceResult = run service: "genericBasePermissionCheck", with: parameters
+    parameters.primaryPermission = 'ENTITY_SYNC'
+    Map serviceResult = run service: 'genericBasePermissionCheck', with: parameters
     return serviceResult
 }
 
 def resetEntitySyncStatus() {
-	entitySyncRecord = from("EntitySync").where("entitySyncId", parameters.entitySyncId).queryOne()
-    if(entitySyncRecord && "ESR_RUNNING".equals(entitySyncRecord.runStatusId)) {
-        entitySyncRecord.runStatusId = "ESR_NOT_STARTED"
+	entitySyncRecord = from('EntitySync').where('entitySyncId', parameters.entitySyncId).queryOne()
+    if(entitySyncRecord && 'ESR_RUNNING'.equals(entitySyncRecord.runStatusId)) {
+        entitySyncRecord.runStatusId = 'ESR_NOT_STARTED'
         entitySyncRecord.store()
     }
 }

@@ -23,9 +23,9 @@ import org.apache.ofbiz.service.ServiceUtil
 
 //Create a new Invoice Item with Payrol Item Type
 def createInvoiceItemPayrol() {
-    List<GenericValue> payRolList = from("InvoiceItemType").queryList()
-    from("InvoiceItemType")
-            .where("parentTypeId", "PAYROL")
+    List<GenericValue> payRolList = from('InvoiceItemType').queryList()
+    from('InvoiceItemType')
+            .where('parentTypeId', 'PAYROL')
             .queryList()
             .each { payRolGroup ->
                 payRolList.each { payRol ->
@@ -38,7 +38,7 @@ def createInvoiceItemPayrol() {
 
                         if (parameters."${payRol.invoiceItemTypeId}_Quantity" ||
                                 parameters."${payRol.invoiceItemTypeId}_Amount") {
-                            if ("PAYROL_EARN_HOURS" != payRolGroup.invoiceItemTypeId) {
+                            if ('PAYROL_EARN_HOURS' != payRolGroup.invoiceItemTypeId) {
                                 createInvoiceItem.amount = createInvoiceItem.amount.negate()
                             }
                             Map serviceResult = run service: 'createInvoiceItem', with: createInvoiceItem

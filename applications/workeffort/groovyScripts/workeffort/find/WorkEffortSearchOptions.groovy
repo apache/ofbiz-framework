@@ -20,9 +20,9 @@
 import java.sql.Timestamp
 import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession
 
-searchOperator = parameters.get("SEARCH_OPERATOR")
-if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR"
+searchOperator = parameters.get('SEARCH_OPERATOR')
+if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
+  searchOperator = 'OR'
 }
 
 //create the fromDate for calendar
@@ -35,7 +35,7 @@ fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND)
 fromTs = new Timestamp(fromCal.getTimeInMillis())
 fromStr = fromTs.toString()
 fromStr = fromStr.substring(0, fromStr.indexOf('.'))
-context.put("fromDateStr", fromStr)
+context.put('fromDateStr', fromStr)
 
 // create the thruDate for calendar
 toCal = Calendar.getInstance()
@@ -46,15 +46,15 @@ toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND))
 toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND))
 toTs = new Timestamp(toCal.getTimeInMillis())
 toStr = toTs.toString()
-context.put("thruDateStr", toStr)
+context.put('thruDateStr', toStr)
 
 searchConstraintStrings = WorkEffortSearchSession.searchGetConstraintStrings(false, session, delegator)
 searchSortOrderString = WorkEffortSearchSession.searchGetSortOrderString(false, request)
-workEffortAssocTypes = from("WorkEffortAssocType").queryList()
-roleTypes = from("RoleType").queryList()
+workEffortAssocTypes = from('WorkEffortAssocType').queryList()
+roleTypes = from('RoleType').queryList()
 
-context.put("searchOperator", searchOperator)
-context.put("searchConstraintStrings", searchConstraintStrings)
-context.put("searchSortOrderString", searchSortOrderString)
-context.put("workEffortAssocTypes", workEffortAssocTypes)
-context.put("roleTypes", roleTypes)
+context.put('searchOperator', searchOperator)
+context.put('searchConstraintStrings', searchConstraintStrings)
+context.put('searchSortOrderString', searchSortOrderString)
+context.put('workEffortAssocTypes', workEffortAssocTypes)
+context.put('roleTypes', roleTypes)

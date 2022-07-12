@@ -103,7 +103,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
                 finAccountId: '1004',
                 partyId: 'DEMO_COMPANY',
                 roleTypeId: 'SUPPLIER',
-                fromDate: UtilDateTime.toTimestamp("11/03/2016 00:00:00"),
+                fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                 thruDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -122,7 +122,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
                 finAccountId: '1004',
                 partyId: 'DEMO_COMPANY',
                 roleTypeId: 'SUPPLIER',
-                fromDate: UtilDateTime.toTimestamp("11/03/2016 00:00:00"),
+                fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deleteFinAccountRole', serviceCtx)

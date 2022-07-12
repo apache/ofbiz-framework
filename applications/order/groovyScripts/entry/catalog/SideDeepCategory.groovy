@@ -25,12 +25,12 @@
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.category.CategoryWorker
 
-CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true)
-curCategoryId = parameters.category_id ?: parameters.CATEGORY_ID ?: ""
-request.setAttribute("curCategoryId", curCategoryId)
+CategoryWorker.getRelatedCategories(request, 'topLevelList', CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true)
+curCategoryId = parameters.category_id ?: parameters.CATEGORY_ID ?: ''
+request.setAttribute('curCategoryId', curCategoryId)
 CategoryWorker.setTrail(request, curCategoryId)
 
-categoryList = request.getAttribute("topLevelList")
+categoryList = request.getAttribute('topLevelList')
 if (categoryList) {
     catContentWrappers = [:]
     CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request)

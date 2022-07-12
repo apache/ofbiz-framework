@@ -30,36 +30,36 @@ if (orderHeader) {
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
     hasPermission = false
     canViewInternalDetails = false
-    if (("SALES_ORDER".equals(orderHeader.orderTypeId) && security.hasEntityPermission("ORDERMGR", "_VIEW", session))
-        || ("PURCHASE_ORDER".equals(orderHeader.orderTypeId) && security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))) {
+    if (('SALES_ORDER'.equals(orderHeader.orderTypeId) && security.hasEntityPermission('ORDERMGR', '_VIEW', session))
+        || ('PURCHASE_ORDER'.equals(orderHeader.orderTypeId) && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session))) {
         hasPermission = true
         canViewInternalDetails = true
-    } else if (security.hasEntityPermission("ORDERMGR_ROLE", "_VIEW", session)) {
-        currentUserOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId], null, false)
+    } else if (security.hasEntityPermission('ORDERMGR_ROLE', '_VIEW', session)) {
+        currentUserOrderRoles = orderHeader.getRelated('OrderRole', [partyId : userLogin.partyId], null, false)
         if (currentUserOrderRoles) {
             hasPermission = true
             canViewInternalDetails = true
         }
     } else {
         // regardless of permission, allow if this is the supplier
-        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null, false)
+        currentUserSupplierOrderRoles = orderHeader.getRelated('OrderRole', [partyId : userLogin.partyId, roleTypeId : 'SUPPLIER_AGENT'], null, false)
         if (currentUserSupplierOrderRoles) {
             hasPermission = true
         }
     }
     // This is related with OFBIZ-11836 "IDOR vulnerability in the order processing feature"
-    if (parameters.localDispatcherName.equals("ecommerce")) {
+    if (parameters.localDispatcherName.equals('ecommerce')) {
         List errMsgList = []
         if (orderHeader.createdBy.equals(person.partyId)
-        || ("anonymous".equals(orderHeader.createdBy) && "Y".equals(allowAnonymousView))) {
+        || ('anonymous'.equals(orderHeader.createdBy) && 'Y'.equals(allowAnonymousView))) {
             hasPermission = true
             canViewInternalDetails = true
         } else {
             hasPermission = false
             canViewInternalDetails = false
             errMsgList.add("It's not an error : you are not allowed to view this!")
-            showErrorMsg = "Y"
-            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList)
+            showErrorMsg = 'Y'
+            request.setAttribute('_ERROR_MESSAGE_LIST_', errMsgList)
             context.showErrorMsg = showErrorMsg
         }
     }

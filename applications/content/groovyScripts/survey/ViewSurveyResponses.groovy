@@ -22,11 +22,11 @@ import org.apache.ofbiz.content.survey.SurveyWrapper
 if (!survey) {
     surveyResponseId = parameters.surveyResponseId
     if (surveyResponseId) {
-        surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne()
+        surveyResponse = from('SurveyResponse').where('surveyResponseId', surveyResponseId).queryOne()
         if (surveyResponse) {
             surveyId = surveyResponse.surveyId
             if (surveyId) {
-                survey = from("Survey").where("surveyId", surveyId).queryOne()
+                survey = from('Survey').where('surveyId', surveyId).queryOne()
                 context.survey = survey
                 context.surveyId = surveyId
             }

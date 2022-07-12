@@ -147,7 +147,7 @@ def getRateAmount() {
     shows up when there are rateAmounts corresponding to the input parameters without the rateCurrencyUomId and
     the periodTypeId.*/
     String serviceName = null
-    String level = "rateTypeId"
+    String level = 'rateTypeId'
     if (parameters.workEffortId && parameters.workEffortId != '_NA_') {
         // workeffort level
         level = 'workEffortId'

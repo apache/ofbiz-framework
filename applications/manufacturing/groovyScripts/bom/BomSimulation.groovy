@@ -19,7 +19,7 @@
 
 import org.apache.ofbiz.manufacturing.bom.BOMNode
 
-tree = request.getAttribute("tree")
+tree = request.getAttribute('tree')
 currencyUomId = parameters.currencyUomId
 facilityId = parameters.facilityId
 
@@ -45,7 +45,7 @@ if (tree) {
             if (currencyUomId) {
                 outMap = runService('getProductCost', [productId : node.getProduct().productId,
                                                                              currencyUomId : currencyUomId,
-                                                                             costComponentTypePrefix : "EST_STD",
+                                                                             costComponentTypePrefix : 'EST_STD',
                                                                              userLogin : userLogin])
                 unitCost = outMap.productCost
                 totalCost = unitCost * node.getQuantity()
@@ -58,7 +58,7 @@ if (tree) {
                 qoh = outMap.quantityOnHandTotal
             }
         } catch (Exception e) {
-            logError("Error retrieving bom simulation data: " + e.getMessage())
+            logError('Error retrieving bom simulation data: ' + e.getMessage())
         }
         productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh])
     }

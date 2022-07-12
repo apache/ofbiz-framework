@@ -24,19 +24,19 @@ import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory
 name = parameters.name
 location = parameters.location
 if (UtilURL.fromUrlString(location)) {
-    Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12306", "ArtifactInfo.groovy")
+    Debug.logError('For security reason HTTP URLs are not accepted, see OFBIZ-12306', 'ArtifactInfo.groovy')
     return
 }
 type = parameters.type
 uniqueId = parameters.uniqueId
 delegatorName = delegator.getDelegatorName()
-if (delegatorName.contains("default#")) {
-    delegatorName = "default"
+if (delegatorName.contains('default#')) {
+    delegatorName = 'default'
 }
 aif = ArtifactInfoFactory.getArtifactInfoFactory(delegatorName)
 context.aif = aif
 artifactInfo = null
-if ("search".equals(parameters.findType)) {
+if ('search'.equals(parameters.findType)) {
     artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type)
     if (artifactInfoSet.size() == 1) {
         artifactInfo = artifactInfoSet.iterator().next()
@@ -57,10 +57,10 @@ if ("search".equals(parameters.findType)) {
 if (artifactInfo) {
     artifactInfoMap = [type : artifactInfo.getType(), uniqueId : artifactInfo.getUniqueId(), displayName : artifactInfo.getDisplayName()]
     // add to the recently viewed list
-    recentArtifactInfoList = session.getAttribute("recentArtifactInfoList")
+    recentArtifactInfoList = session.getAttribute('recentArtifactInfoList')
     if (!recentArtifactInfoList) {
         recentArtifactInfoList = []
-        session.setAttribute("recentArtifactInfoList", recentArtifactInfoList)
+        session.setAttribute('recentArtifactInfoList', recentArtifactInfoList)
     }
     if (!recentArtifactInfoList.contains(artifactInfoMap)) {
         recentArtifactInfoList.add(0, artifactInfoMap)

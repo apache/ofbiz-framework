@@ -24,15 +24,15 @@
 
 import org.apache.ofbiz.entity.*
 
-productFeatureGroupId = parameters.get("productFeatureGroupId")
+productFeatureGroupId = parameters.get('productFeatureGroupId')
 if (productFeatureGroupId) {
-    productFeatureGroup = from("ProductFeatureGroup").where("productFeatureGroupId", productFeatureGroupId).queryOne()
+    productFeatureGroup = from('ProductFeatureGroup').where('productFeatureGroupId', productFeatureGroupId).queryOne()
     productFeatures = []
-    productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", null, ['sequenceNum'], false)
+    productFeatureGroupAppls = productFeatureGroup.getRelated('ProductFeatureGroupAppl', null, ['sequenceNum'], false)
     for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi;) {
         productFeatureGroupAppl = (GenericEntity)pFGAi.next()
-        productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature", false)
-        productFeature.set("defaultSequenceNum", productFeatureGroupAppl.getLong("sequenceNum"))
+        productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne('ProductFeature', false)
+        productFeature.set('defaultSequenceNum', productFeatureGroupAppl.getLong('sequenceNum'))
         productFeatures.add(productFeature)
     }
     context.productFeatureGroup = productFeatureGroup

@@ -27,11 +27,11 @@ productId = parameters.productId
 lookupFlag = parameters.lookupFlag
 
 // blank param list
-paramList = ""
+paramList = ''
 inventoryList = []
 
 if (lookupFlag) {
-    paramList = paramList + "&lookupFlag=" + lookupFlag
+    paramList = paramList + '&lookupFlag=' + lookupFlag
     andExprs = []
 
     //define main condition
@@ -42,24 +42,24 @@ if (lookupFlag) {
     eventDate = parameters.eventDate
     if (eventDate?.length() > 8) {
     eventDate = eventDate.trim()
-    if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000"
-    paramList = paramList + "&eventDate=" + eventDate
-        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeOrObjectConvert(eventDate, "Timestamp", null, null)))
+    if (eventDate.length() < 14) eventDate = eventDate + ' ' + '00:00:00.000'
+    paramList = paramList + '&eventDate=' + eventDate
+        andExprs.add(EntityCondition.makeCondition('eventDate', EntityOperator.GREATER_THAN, ObjectType.simpleTypeOrObjectConvert(eventDate, 'Timestamp', null, null)))
     }
 
     if (productId) {
-        paramList = paramList + "&productId=" + productId
-        andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+        paramList = paramList + '&productId=' + productId
+        andExprs.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
     }
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"))
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"))
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"))
+    andExprs.add(EntityCondition.makeCondition('mrpEventTypeId', EntityOperator.NOT_EQUAL, 'INITIAL_QOH'))
+    andExprs.add(EntityCondition.makeCondition('mrpEventTypeId', EntityOperator.NOT_EQUAL, 'ERROR'))
+    andExprs.add(EntityCondition.makeCondition('mrpEventTypeId', EntityOperator.NOT_EQUAL, 'REQUIRED_MRP'))
 
     mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
 
     if ( mainCond) {
     // do the lookup
-        inventoryList = from("MrpEvent").where(mainCond).orderBy("productId", "eventDate").queryList()
+        inventoryList = from('MrpEvent').where(mainCond).orderBy('productId', 'eventDate').queryList()
     }
 
     context.inventoryList = inventoryList

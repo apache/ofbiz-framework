@@ -28,7 +28,7 @@ if ((!searchCategoryId || searchCategoryId.length() == 0) && !productStoreId) {
     currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
     searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId)
 }
-searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne()
+searchCategory = from('ProductCategory').where('productCategoryId', searchCategoryId).queryOne()
 
 if (searchCategoryId) {
     productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator, 2000)
@@ -38,18 +38,18 @@ if (searchCategoryId) {
 productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()))
 
 searchOperator = parameters.SEARCH_OPERATOR
-if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR"
+if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
+  searchOperator = 'OR'
 }
 
 searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator)
 searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request)
 
 // get suppliers in system
-supplerPartyRoleAndPartyDetails = from("PartyRoleAndPartyDetail").where(roleTypeId : "SUPPLIER").orderBy("groupName", "firstName").queryList()
+supplerPartyRoleAndPartyDetails = from('PartyRoleAndPartyDetail').where(roleTypeId : 'SUPPLIER').orderBy('groupName', 'firstName').queryList()
 
 // get the GoodIdentification types
-goodIdentificationTypes = from("GoodIdentificationType").orderBy("description").queryList()
+goodIdentificationTypes = from('GoodIdentificationType').orderBy('description').queryList()
 
 context.searchCategoryId = searchCategoryId
 context.searchCategory = searchCategory

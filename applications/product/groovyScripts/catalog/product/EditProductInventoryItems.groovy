@@ -22,10 +22,10 @@ import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.product.inventory.InventoryWorker
 
 if (product) {
-    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")
-    context.isMarketingPackage = (isMarketingPackage? "true": "false")
+    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
+    context.isMarketingPackage = (isMarketingPackage? 'true': 'false')
     //If product is virtual gather summary data from variants
-    if (product.isVirtual && "Y".equals(product.isVirtual)) {
+    if (product.isVirtual && 'Y'.equals(product.isVirtual)) {
         //Get the virtual product feature types
         result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE'])
         featureTypeIds = result.productFeatureTypes
@@ -67,13 +67,13 @@ if (product) {
         manufacturingOutQuantitySummaryByFacility = [:]
         // The warehouse list is selected
         showAllFacilities = parameters.showAllFacilities
-        if (showAllFacilities && "Y".equals(showAllFacilities)) {
-            facilityList = from("Facility").queryList()
+        if (showAllFacilities && 'Y'.equals(showAllFacilities)) {
+            facilityList = from('Facility').queryList()
         } else {
-            facilityList = from("ProductFacility").where("productId", productId).queryList()
+            facilityList = from('ProductFacility').where('productId', productId).queryList()
         }
         facilityIterator = facilityList.iterator()
-        dispatcher = request.getAttribute("dispatcher")
+        dispatcher = request.getAttribute('dispatcher')
         Map contextInput = null
         Map resultOutput = null
     
@@ -99,7 +99,7 @@ if (product) {
             quantitySummaryByFacility.put(facility.facilityId, quantitySummary)
         }
         
-        productInventoryItems = from("InventoryItem").where("productId", productId).orderBy("facilityId", "-datetimeReceived", "-inventoryItemId").queryList()
+        productInventoryItems = from('InventoryItem').where('productId', productId).orderBy('facilityId', '-datetimeReceived', '-inventoryItemId').queryList()
     
         // TODO: get all incoming shipments not yet arrived coming into each facility that this product is in, use a view entity with ShipmentAndItem
         findIncomingShipmentsConds = []
@@ -107,19 +107,19 @@ if (product) {
         findIncomingShipmentsConds.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
     
         findIncomingShipmentsTypeConds = []
-        findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "INCOMING_SHIPMENT"))
-        findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "PURCHASE_SHIPMENT"))
-        findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "SALES_RETURN"))
+        findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'INCOMING_SHIPMENT'))
+        findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'PURCHASE_SHIPMENT'))
+        findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'SALES_RETURN'))
         findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsTypeConds, EntityOperator.OR))
     
         findIncomingShipmentsStatusConds = []
-        findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"))
-        findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED"))
-        findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PURCH_SHIP_RECEIVED"))
+        findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'SHIPMENT_DELIVERED'))
+        findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'SHIPMENT_CANCELLED'))
+        findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PURCH_SHIP_RECEIVED'))
         findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsStatusConds, EntityOperator.AND))
     
         findIncomingShipmentsStatusCondition = EntityCondition.makeCondition(findIncomingShipmentsConds, EntityOperator.AND)
-        incomingShipmentAndItems = from("ShipmentAndItem").where(findIncomingShipmentsStatusCondition).orderBy("-estimatedArrivalDate").queryList()
+        incomingShipmentAndItems = from('ShipmentAndItem').where(findIncomingShipmentsStatusCondition).orderBy('-estimatedArrivalDate').queryList()
         incomingShipmentAndItemIter = incomingShipmentAndItems.iterator()
         while (incomingShipmentAndItemIter) {
             incomingShipmentAndItem = incomingShipmentAndItemIter.next()
@@ -150,7 +150,7 @@ if (product) {
         // outgoing products (materials)
         manufacturingOutQuantitySummaryByFacility = resultOutput.summaryOutByFacility
     
-        showEmpty = "true".equals(request.getParameter("showEmpty"))
+        showEmpty = 'true'.equals(request.getParameter('showEmpty'))
     
         // Find oustanding purchase orders for this item.
         purchaseOrders = InventoryWorker.getOutstandingPurchaseOrders(productId, delegator)

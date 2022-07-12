@@ -33,7 +33,7 @@ class FixedAssetTests extends OFBizTestCase {
                 fixedAssetId           : 'DEMO_VEHICLE_01',
                 licenseNumber          : '123456',
                 registrationNumber     : 'abcdef',
-                registrationDate       : UtilDateTime.toTimestamp("01/01/2020 00:00:00"),
+                registrationDate       : UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
                 fromDate               : UtilDateTime.nowTimestamp(),
                 userLogin              : userLogin
         ]
@@ -46,12 +46,12 @@ class FixedAssetTests extends OFBizTestCase {
         assert fixedAssetRegistration
     }
     void testUpdateFixedAssetRegistration() {
-        Timestamp fromDate = UtilDateTime.toTimestamp("04/01/2020 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
                 fixedAssetId           : 'DEMO_VEHICLE_01',
                 licenseNumber          : 'updated-123456',
                 registrationNumber     : 'updated-abcdef',
-                registrationDate       : UtilDateTime.toTimestamp("01/01/2020 00:00:00"),
+                registrationDate       : UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
                 fromDate               : fromDate,
                 thruDate               : UtilDateTime.nowTimestamp(),
                 userLogin              : userLogin
@@ -65,7 +65,7 @@ class FixedAssetTests extends OFBizTestCase {
         assert fixedAssetRegistration == null
     }
     void testDeleteFixedAssetRegistration() {
-        Timestamp fromDate = UtilDateTime.toTimestamp("04/01/2020 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
                 fixedAssetId           : 'DEMO_VEHICLE_01',
                 fromDate               : fromDate,
@@ -96,7 +96,7 @@ class FixedAssetTests extends OFBizTestCase {
         assert fixedAssetMeter
     }
     void testUpdateFixedAssetMeter() {
-        Timestamp readingDate = UtilDateTime.toTimestamp("04/01/2020 00:00:00")
+        Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
                 fixedAssetId           : 'DEMO_VEHICLE_01',
                 productMeterTypeId     : 'ODOMETER',
@@ -113,7 +113,7 @@ class FixedAssetTests extends OFBizTestCase {
         assert fixedAssetMeter
     }
     void testDeleteFixedAssetMeter() {
-        Timestamp readingDate = UtilDateTime.toTimestamp("04/01/2020 00:00:00")
+        Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
                 fixedAssetId           : 'DEMO_VEHICLE_01',
                 productMeterTypeId     : 'ODOMETER',

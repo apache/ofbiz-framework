@@ -25,7 +25,7 @@ import org.apache.ofbiz.party.party.PartyHelper
 
 planId = parameters.planId
 allocationPlanInfo = [:]
-allocationPlanHeader = from("AllocationPlanHeader").where("planId", planId).queryFirst()
+allocationPlanHeader = from('AllocationPlanHeader').where('planId', planId).queryFirst()
 if (allocationPlanHeader) {
     allocationPlanInfo.planId = planId
     allocationPlanInfo.planName = allocationPlanHeader.planName
@@ -35,7 +35,7 @@ if (allocationPlanHeader) {
     allocationPlanInfo.createdDate = allocationPlanHeader.createdStamp
 
     //Get product information
-    product = from("Product").where("productId", allocationPlanHeader.productId).queryOne()
+    product = from('Product').where('productId', allocationPlanHeader.productId).queryOne()
     if (product) {
         allocationPlanInfo.productName = product.internalName
     }
@@ -44,7 +44,7 @@ if (allocationPlanHeader) {
     // are obtained (calling the "getInventoryAvailableByFacility" service)
     totalATP = 0
     totalQOH = 0
-    facilityList = from("ProductFacility").where("productId", allocationPlanHeader.productId).queryList()
+    facilityList = from('ProductFacility').where('productId', allocationPlanHeader.productId).queryList()
     facilityIterator = facilityList.iterator()
     while (facilityIterator) {
         facility = facilityIterator.next()
@@ -63,7 +63,7 @@ if (allocationPlanHeader) {
     allocatedQuantityTotal = 0.0
     allocatedValueTotal = 0.0
 
-    allocationPlanItems = from("AllocationPlanAndItem").where("planId", planId, "productId", allocationPlanInfo.productId).orderBy("prioritySeqId").queryList()
+    allocationPlanItems = from('AllocationPlanAndItem').where('planId', planId, 'productId', allocationPlanInfo.productId).orderBy('prioritySeqId').queryList()
     allocationPlanItems.each { allocationPlanItem ->
         newSummaryMap = [:]
         itemMap = [:]
@@ -76,10 +76,10 @@ if (allocationPlanHeader) {
         itemMap.productId = allocationPlanItem.productId
         itemMap.statusId = allocationPlanItem.planItemStatusId
 
-        orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+        orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
         if (orderHeader) {
             salesChannelEnumId = orderHeader.salesChannelEnumId
-            salesChannel = from("Enumeration").where("enumId", salesChannelEnumId).queryOne()
+            salesChannel = from('Enumeration').where('enumId', salesChannelEnumId).queryOne()
             if (salesChannel) {
                 itemMap.salesChannel = salesChannel.description
                 newSummaryMap.salesChannel = salesChannel.description
@@ -91,7 +91,7 @@ if (allocationPlanHeader) {
                 itemMap.partyName = PartyHelper.getPartyName(placingParty)
             }
 
-            orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne()
+            orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
             unitPrice = 0
             orderedQuantity = 0
             if (orderItem) {
@@ -113,7 +113,7 @@ if (allocationPlanHeader) {
 
                 // Reserved quantity
                 reservedQuantity = 0
-                reservations = orderItem.getRelated("OrderItemShipGrpInvRes", null, null, false)
+                reservations = orderItem.getRelated('OrderItemShipGrpInvRes', null, null, false)
                 reservations.each { reservation ->
                     quantityAvailable = reservation.quantity?reservation.quantity:0.0
                     quantityNotAvailable = reservation.quantityNotAvailable?reservation.quantityNotAvailable:0.0

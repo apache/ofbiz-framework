@@ -20,8 +20,8 @@
 import org.apache.ofbiz.party.contact.ContactHelper
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
-cart = session.getAttribute("shoppingCart")
-party = userLogin.getRelatedOne("Party", false)
+cart = session.getAttribute('shoppingCart')
+party = userLogin.getRelatedOne('Party', false)
 partyId = party.partyId
 productStoreId = ProductStoreWorker.getProductStoreId(request)
 
@@ -31,15 +31,15 @@ if (productStoreId) {
     payToPartyId = productStore.payToPartyId
 }
 
-shippingContactMechId = request.getParameter("shipping_contact_mech_id")
+shippingContactMechId = request.getParameter('shipping_contact_mech_id')
 for (shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
     supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)
-    context[shipGroupIndex + "_supplierPartyId"] = supplierPartyId
+    context[shipGroupIndex + '_supplierPartyId'] = supplierPartyId
 }
-agreements = from("Agreement").where("partyIdTo", payToPartyId, "partyIdFrom", partyId).filterByDate().cache(true).queryList()
+agreements = from('Agreement').where('partyIdTo', payToPartyId, 'partyIdFrom', partyId).filterByDate().cache(true).queryList()
 context.agreements = agreements
 
 context.shoppingCart = cart
 context.userLogin = userLogin
 context.productStoreId = productStoreId
-context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+context.shippingContactMechList = ContactHelper.getContactMech(party, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)

@@ -46,28 +46,28 @@ List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, o
 partyIds.add(organizationPartyId)
 
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
-GenericValue revenueGlAccountClass = from("GlAccountClass").where("glAccountClassId", "REVENUE").cache(true).queryOne()
+GenericValue revenueGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'REVENUE').cache(true).queryOne()
 List revenueAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(revenueGlAccountClass)
-GenericValue contraRevenueGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CONTRA_REVENUE").cache(true).queryOne()
+GenericValue contraRevenueGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CONTRA_REVENUE').cache(true).queryOne()
 List contraRevenueAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(contraRevenueGlAccountClass)
-GenericValue incomeGlAccountClass = from("GlAccountClass").where("glAccountClassId", "INCOME").cache(true).queryOne()
+GenericValue incomeGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'INCOME').cache(true).queryOne()
 List incomeAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(incomeGlAccountClass)
-GenericValue expenseGlAccountClass = from("GlAccountClass").where("glAccountClassId", "EXPENSE").cache(true).queryOne()
+GenericValue expenseGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'EXPENSE').cache(true).queryOne()
 List expenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(expenseGlAccountClass)
-GenericValue cogsExpenseGlAccountClass = from("GlAccountClass").where("glAccountClassId", "COGS_EXPENSE").cache(true).queryOne()
+GenericValue cogsExpenseGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'COGS_EXPENSE').cache(true).queryOne()
 List cogsExpenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(cogsExpenseGlAccountClass)
-GenericValue sgaExpenseGlAccountClass = from("GlAccountClass").where("glAccountClassId", "SGA_EXPENSE").cache(true).queryOne()
+GenericValue sgaExpenseGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'SGA_EXPENSE').cache(true).queryOne()
 List sgaExpenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(sgaExpenseGlAccountClass)
-GenericValue depreciationGlAccountClass = from("GlAccountClass").where("glAccountClassId", "DEPRECIATION").cache(true).queryOne()
+GenericValue depreciationGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'DEPRECIATION').cache(true).queryOne()
 List depreciationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(depreciationGlAccountClass)
 
 List mainAndExprs = []
-mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds))
-mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"))
-mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId))
-mainAndExprs.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"))
-mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
-mainAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate))
+mainAndExprs.add(EntityCondition.makeCondition('organizationPartyId', EntityOperator.IN, partyIds))
+mainAndExprs.add(EntityCondition.makeCondition('isPosted', EntityOperator.EQUALS, 'Y'))
+mainAndExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUALS, glFiscalTypeId))
+mainAndExprs.add(EntityCondition.makeCondition('acctgTransTypeId', EntityOperator.NOT_EQUAL, 'PERIOD_CLOSING'))
+mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
+mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, thruDate))
 
 List balanceTotalList = []
 
@@ -77,8 +77,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List revenueAndExprs = mainAndExprs as LinkedList
-revenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, revenueAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(revenueAndExprs).orderBy("glAccountId").queryList()
+revenueAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, revenueAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(revenueAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -87,31 +87,31 @@ if (transactionTotals) {
         Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(transactionTotal)
-            accountMap.remove("debitCreditFlag")
-            accountMap.remove("amount")
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
-            accountMap.put("balance", BigDecimal.ZERO)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         // revenues are accounts of class CREDIT: the balance is given by credits minus debits
         BigDecimal balance = creditAmount.subtract(debitAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // revenues are accounts of class CREDIT: the balance is given by credits minus debits
     balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit)
 }
 context.revenueAccountBalanceList = accountBalanceList
-context.revenueAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL REVENUES", "balance", balanceTotal))
+context.revenueAccountBalanceList.add(UtilMisc.toMap('accountName', 'TOTAL REVENUES', 'balance', balanceTotal))
 context.revenueBalanceTotal = balanceTotal
 
 // CONTRA REVENUE
@@ -120,8 +120,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List contraRevenueAndExprs = mainAndExprs as LinkedList
-contraRevenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, contraRevenueAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(contraRevenueAndExprs).orderBy("glAccountId").queryList()
+contraRevenueAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, contraRevenueAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(contraRevenueAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -130,31 +130,31 @@ if (transactionTotals) {
         Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(transactionTotal)
-            accountMap.remove("debitCreditFlag")
-            accountMap.remove("amount")
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
-            accountMap.put("balance", BigDecimal.ZERO)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         // contra revenues are accounts of class DEBIT: the balance is given by debits minus credits
         BigDecimal balance = debitAmount.subtract(creditAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // contra revenues are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
 context.contraRevenueBalanceTotal = balanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "TOTAL CONTRA REVENUE", "balance", balanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'TOTAL CONTRA REVENUE', 'balance', balanceTotal))
 
 // EXPENSE
 // account balances
@@ -162,8 +162,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List expenseAndExprs = mainAndExprs as LinkedList
-expenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, expenseAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(expenseAndExprs).queryList()
+expenseAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, expenseAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(expenseAndExprs).queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -172,31 +172,31 @@ if (transactionTotals) {
         Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(transactionTotal)
-            accountMap.remove("debitCreditFlag")
-            accountMap.remove("amount")
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
-            accountMap.put("balance", BigDecimal.ZERO)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         // expenses are accounts of class DEBIT: the balance is given by debits minus credits
         BigDecimal balance = debitAmount.subtract(creditAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
 context.expenseAccountBalanceList = accountBalanceList
-context.expenseAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL EXPENSES", "balance", balanceTotal))
+context.expenseAccountBalanceList.add(UtilMisc.toMap('accountName', 'TOTAL EXPENSES', 'balance', balanceTotal))
 context.expenseBalanceTotal = balanceTotal
 
 // COST OF GOODS SOLD (COGS_EXPENSE)
@@ -205,8 +205,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List cogsExpenseAndExprs = mainAndExprs as LinkedList
-cogsExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, cogsExpenseAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(cogsExpenseAndExprs).orderBy("glAccountId").queryList()
+cogsExpenseAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, cogsExpenseAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(cogsExpenseAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -215,31 +215,31 @@ if (transactionTotals) {
         Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(transactionTotal)
-            accountMap.remove("debitCreditFlag")
-            accountMap.remove("amount")
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
-            accountMap.put("balance", BigDecimal.ZERO)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         // expenses are accounts of class DEBIT: the balance is given by debits minus credits
         BigDecimal balance = debitAmount.subtract(creditAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
 context.cogsExpense = balanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingCostOfGoodsSold", "balance", balanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingCostOfGoodsSold', 'balance', balanceTotal))
 
 // OPERATING EXPENSES (SGA_EXPENSE)
 // account balances
@@ -247,8 +247,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List sgaExpenseAndExprs = mainAndExprs as LinkedList
-sgaExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, sgaExpenseAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(sgaExpenseAndExprs).orderBy("glAccountId").queryList()
+sgaExpenseAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, sgaExpenseAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(sgaExpenseAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -257,26 +257,26 @@ if (transactionTotals) {
         Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(transactionTotal)
-            accountMap.remove("debitCreditFlag")
-            accountMap.remove("amount")
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
-            accountMap.put("balance", BigDecimal.ZERO)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         // expenses are accounts of class DEBIT: the balance is given by debits minus credits
         BigDecimal balance = debitAmount.subtract(creditAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -288,8 +288,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List depreciationAndExprs = mainAndExprs as LinkedList
-depreciationAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, depreciationAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(depreciationAndExprs).orderBy("glAccountId").queryList()
+depreciationAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, depreciationAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(depreciationAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
 Map transactionTotalsMap = [:]
 balanceTotalCredit = BigDecimal.ZERO
@@ -298,26 +298,26 @@ transactionTotals.each { transactionTotal ->
    Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
    if (!accountMap) {
        accountMap = UtilMisc.makeMapWritable(transactionTotal)
-       accountMap.remove("debitCreditFlag")
-       accountMap.remove("amount")
-       accountMap.put("D", BigDecimal.ZERO)
-       accountMap.put("C", BigDecimal.ZERO)
-       accountMap.put("balance", BigDecimal.ZERO)
+       accountMap.remove('debitCreditFlag')
+       accountMap.remove('amount')
+       accountMap.put('D', BigDecimal.ZERO)
+       accountMap.put('C', BigDecimal.ZERO)
+       accountMap.put('balance', BigDecimal.ZERO)
    }
    UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-   if ("D".equals(transactionTotal.debitCreditFlag)) {
+   if ('D'.equals(transactionTotal.debitCreditFlag)) {
        balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
    } else {
        balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
    }
-   BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-   BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+   BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+   BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
    // expenses are accounts of class DEBIT: the balance is given by debits minus credits
    BigDecimal balance = debitAmount.subtract(creditAmount)
-   accountMap.put("balance", balance)
+   accountMap.put('balance', balance)
    transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
 }
-accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
 // expenses are accounts of class DEBIT: the balance is given by debits minus credits
 balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -329,8 +329,8 @@ accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List incomeAndExprs = mainAndExprs as LinkedList
-incomeAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, incomeAccountClassIds))
-transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(incomeAndExprs).orderBy("glAccountId").queryList()
+incomeAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, incomeAccountClassIds))
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(incomeAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -339,50 +339,50 @@ if (transactionTotals) {
         Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(transactionTotal)
-            accountMap.remove("debitCreditFlag")
-            accountMap.remove("amount")
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
-            accountMap.put("balance", BigDecimal.ZERO)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ("D".equals(transactionTotal.debitCreditFlag)) {
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         // income are accounts of class CREDIT: the balance is given by credits minus debits
         BigDecimal balance = creditAmount.subtract(debitAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // incomes are accounts of class CREDIT: the balance is given by credits minus debits
     balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit)
 }
 context.incomeAccountBalanceList = accountBalanceList
-context.incomeAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL INCOME", "balance", balanceTotal))
+context.incomeAccountBalanceList.add(UtilMisc.toMap('accountName', 'TOTAL INCOME', 'balance', balanceTotal))
 context.incomeBalanceTotal = balanceTotal
 
 // NET SALES = REVENUES - CONTRA REVENUES
 context.netSales = (context.revenueBalanceTotal).subtract(context.contraRevenueBalanceTotal)
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalNetSales", "balance", context.netSales))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalNetSales', 'balance', context.netSales))
 // GROSS MARGIN = NET SALES - COSTS OF GOODS SOLD
 context.grossMargin = (context.netSales).subtract(context.cogsExpense)
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingGrossMargin", "balance", context.grossMargin))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingGrossMargin', 'balance', context.grossMargin))
 // OPERATING EXPENSES
 context.sgaExpense = sgaExpense
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingOperatingExpenses", "balance", context.sgaExpense))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingOperatingExpenses', 'balance', context.sgaExpense))
 // DEPRECIATION
 context.depreciation = depreciation
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingDepreciation", "balance", context.depreciation))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingDepreciation', 'balance', context.depreciation))
 // INCOME FROM OPERATIONS = GROSS MARGIN - OPERATING EXPENSES
 context.incomeFromOperations = (context.grossMargin).subtract(context.sgaExpense)
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingIncomeFromOperations", "balance", context.incomeFromOperations))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingIncomeFromOperations', 'balance', context.incomeFromOperations))
 // NET INCOME
 context.netIncome = (context.netSales).add(context.incomeBalanceTotal).subtract(context.expenseBalanceTotal)
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingNetIncome", "balance", context.netIncome))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingNetIncome', 'balance', context.netIncome))
 
 context.balanceTotalList = balanceTotalList

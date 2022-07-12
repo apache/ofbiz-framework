@@ -28,23 +28,23 @@ import org.apache.ofbiz.service.ModelService
 
 def createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
-    partyRole = select().from('PartyRole').where([partyId:parameters.partyId,roleTypeId:"INTERNAL_ORGANIZATIO"]).queryOne()
+    partyRole = select().from('PartyRole').where([partyId:parameters.partyId,roleTypeId:'INTERNAL_ORGANIZATIO']).queryOne()
     if (!partyRole) {
-        String errorMessage = UtilProperties.getMessage("AccountingUiLabels","AccountingPartyMustBeInternalOrganization", locale)
+        String errorMessage = UtilProperties.getMessage('AccountingUiLabels','AccountingPartyMustBeInternalOrganization', locale)
         logError(errorMessage)
         return error(errorMessage)
     }
     //Does not check if the Party is actually a company because real people have to pay taxes too
 
     //TODO: maybe check to make sure that all fields are not null
-    newEntity = delegator.makeValidValue("PartyAcctgPreference", parameters)
+    newEntity = delegator.makeValidValue('PartyAcctgPreference', parameters)
     delegator.create(newEntity)
     return success()
 }
 
 def getPartyAccountingPreferences() {
     Map result = success()
-    GenericValue aggregatedPartyAcctgPref = delegator.makeValidValue("PartyAcctgPreference", parameters)
+    GenericValue aggregatedPartyAcctgPref = delegator.makeValidValue('PartyAcctgPreference', parameters)
     String currentOrganizationPartyId = parameters.organizationPartyId
     Boolean containsEmptyFields = true
 
@@ -63,7 +63,7 @@ def getPartyAccountingPreferences() {
         } else {
             containsEmptyFields = true
         }
-        List<GenericValue> parentPartyRelationships = select().from('PartyRelationship').where([partyIdTo:currentOrganizationPartyId, partyRelationshipTypeId:"GROUP_ROLLUP", roleTypeIdFrom:"_NA_", roleTypeIdTo:"_NA_"]).filterByDate().queryList()
+        List<GenericValue> parentPartyRelationships = select().from('PartyRelationship').where([partyIdTo:currentOrganizationPartyId, partyRelationshipTypeId:'GROUP_ROLLUP', roleTypeIdFrom:'_NA_', roleTypeIdTo:'_NA_']).filterByDate().queryList()
         if (parentPartyRelationships) {
             GenericValue parentPartyRelationship = EntityUtil.getFirst(parentPartyRelationships)
             currentOrganizationPartyId = parentPartyRelationship.partyIdFrom
@@ -73,8 +73,8 @@ def getPartyAccountingPreferences() {
     }
 
     if (aggregatedPartyAcctgPref) {
-        aggregatedPartyAcctgPref.put("partyId",parameters.organizationPartyId)
-        result.put("partyAccountingPreference", aggregatedPartyAcctgPref)
+        aggregatedPartyAcctgPref.put('partyId',parameters.organizationPartyId)
+        result.put('partyAccountingPreference', aggregatedPartyAcctgPref)
     }
     return result
 }
@@ -84,9 +84,9 @@ def setAcctgCompany() {
     //Set user preference
     GenericValue partyAcctgPreference = select().from('PartyAcctgPreference').where([partyId: parameters.organizationPartyId]).queryOne()
     if (partyAcctgPreference) {
-        result = runService("setUserPreference", [userPrefValue: parameters.organizationPartyId, userPrefGroupTypeId: "GLOBAL_PREFERENCES", userPrefTypeId: "ORGANIZATION_PARTY"])
+        result = runService('setUserPreference', [userPrefValue: parameters.organizationPartyId, userPrefGroupTypeId: 'GLOBAL_PREFERENCES', userPrefTypeId: 'ORGANIZATION_PARTY'])
     }
-    result.put("organizationPartyId", parameters.organizationPartyId)
+    result.put('organizationPartyId', parameters.organizationPartyId)
 
     return result
 }
@@ -109,24 +109,24 @@ def updateFXConversion() {
             EQUALS(purposeEnumId: parameters.purposeEnumId)
         }
     }
-    List<GenericValue> uomConversions = select().from('UomConversionDated').where(condition).orderBy("-fromDate").filterByDate().queryList()
+    List<GenericValue> uomConversions = select().from('UomConversionDated').where(condition).orderBy('-fromDate').filterByDate().queryList()
 
     //expire all of them
     for (GenericValue uomConversion : uomConversions) {
         if (!parameters.fromDate) {
-            uomConversion.put("thruDate", nowTimestamp)
+            uomConversion.put('thruDate', nowTimestamp)
         } else {
-            uomConversion.put("thruDate", parameters.fromDate)
+            uomConversion.put('thruDate', parameters.fromDate)
         }
     }
     delegator.storeAll(uomConversions)
 
     //now create a new conversion relationship
-    Map createParams = dispatcher.getDispatchContext().makeValidContext("createUomConversionDated", ModelService.IN_PARAM, parameters)
+    Map createParams = dispatcher.getDispatchContext().makeValidContext('createUomConversionDated', ModelService.IN_PARAM, parameters)
     if (!parameters.fromDate) {
-        createParams.put("fromDate", nowTimestamp)
+        createParams.put('fromDate', nowTimestamp)
     }
-    result = runService("createUomConversionDated", createParams)
+    result = runService('createUomConversionDated', createParams)
 
     return success()
 }
@@ -154,20 +154,20 @@ def getFXConversion() {
             EQUALS(purposeEnumId: parameters.purposeEnumId)
         }
     }
-    List<GenericValue> rates = select().from('UomConversionDated').where(condition).orderBy("-fromDate").filterByDate().queryList()
+    List<GenericValue> rates = select().from('UomConversionDated').where(condition).orderBy('-fromDate').filterByDate().queryList()
 
     BigDecimal conversionRate
     int decimalScale = 2
     int roundingMode = BigDecimal.ROUND_HALF_UP
     if (rates) {
-        conversionFactor = EntityUtil.getFirst(rates).getBigDecimal("conversionFactor")
+        conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE
         conversionRate = originalValue.divide(conversionFactor, decimalScale, roundingMode)
     } else {
-        String errorMessage = "Could not find conversion rate"
+        String errorMessage = 'Could not find conversion rate'
         logError(errorMessage)
         return error(errorMessage)
     }
-    result.put("conversionRate",conversionRate)
+    result.put('conversionRate',conversionRate)
     return result
 }

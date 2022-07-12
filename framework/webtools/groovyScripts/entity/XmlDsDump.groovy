@@ -36,106 +36,106 @@ if (parameters.entityName) passedEntityNames = parameters.entityName instanceof 
 int maxRecordsPerFile = maxRecStr?(maxRecStr as int):0
 
 preConfiguredSetName = parameters.preConfiguredSetName
-if ("Product1".equals(preConfiguredSetName)) {
+if ('Product1'.equals(preConfiguredSetName)) {
     passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add("DataResource")
-    passedEntityNames.add("Facility")
-    passedEntityNames.add("ProdCatalog")
-    passedEntityNames.add("Product")
-    passedEntityNames.add("ProductCategory")
-    passedEntityNames.add("ProductFeatureCategory")
-    passedEntityNames.add("ProductFeatureType")
-    passedEntityNames.add("ProductPriceRule")
-    passedEntityNames.add("ProductPromo")
-} else if ("Product2".equals(preConfiguredSetName)) {
+    passedEntityNames.add('DataResource')
+    passedEntityNames.add('Facility')
+    passedEntityNames.add('ProdCatalog')
+    passedEntityNames.add('Product')
+    passedEntityNames.add('ProductCategory')
+    passedEntityNames.add('ProductFeatureCategory')
+    passedEntityNames.add('ProductFeatureType')
+    passedEntityNames.add('ProductPriceRule')
+    passedEntityNames.add('ProductPromo')
+} else if ('Product2'.equals(preConfiguredSetName)) {
     passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add("Content")
-    passedEntityNames.add("ElectronicText")
-    passedEntityNames.add("FacilityLocation")
-    passedEntityNames.add("ProdCatalogCategory")
-    passedEntityNames.add("ProdCatalogRole")
-    passedEntityNames.add("ProductAssoc")
-    passedEntityNames.add("ProductAttribute")
-    passedEntityNames.add("ProductCategoryMember")
-    passedEntityNames.add("ProductCategoryRollup")
-    passedEntityNames.add("ProductFacility")
-    passedEntityNames.add("ProductFeature")
-    passedEntityNames.add("ProductFeatureCategoryAppl")
-    passedEntityNames.add("ProductKeyword")
-    passedEntityNames.add("ProductPrice")
-    passedEntityNames.add("ProductPriceAction")
-    passedEntityNames.add("ProductPriceCond")
-    passedEntityNames.add("ProductPromoCode")
-    passedEntityNames.add("ProductPromoCategory")
-    passedEntityNames.add("ProductPromoProduct")
-    passedEntityNames.add("ProductPromoRule")
-} else if ("Product3".equals(preConfiguredSetName)) {
+    passedEntityNames.add('Content')
+    passedEntityNames.add('ElectronicText')
+    passedEntityNames.add('FacilityLocation')
+    passedEntityNames.add('ProdCatalogCategory')
+    passedEntityNames.add('ProdCatalogRole')
+    passedEntityNames.add('ProductAssoc')
+    passedEntityNames.add('ProductAttribute')
+    passedEntityNames.add('ProductCategoryMember')
+    passedEntityNames.add('ProductCategoryRollup')
+    passedEntityNames.add('ProductFacility')
+    passedEntityNames.add('ProductFeature')
+    passedEntityNames.add('ProductFeatureCategoryAppl')
+    passedEntityNames.add('ProductKeyword')
+    passedEntityNames.add('ProductPrice')
+    passedEntityNames.add('ProductPriceAction')
+    passedEntityNames.add('ProductPriceCond')
+    passedEntityNames.add('ProductPromoCode')
+    passedEntityNames.add('ProductPromoCategory')
+    passedEntityNames.add('ProductPromoProduct')
+    passedEntityNames.add('ProductPromoRule')
+} else if ('Product3'.equals(preConfiguredSetName)) {
     passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add("ProdCatalogInvFacility")
-    passedEntityNames.add("ProductContent")
-    passedEntityNames.add("ProductFacilityLocation")
-    passedEntityNames.add("ProductFeatureAppl")
-    passedEntityNames.add("ProductFeatureDataResource")
-    passedEntityNames.add("ProductFeatureGroup")
-    passedEntityNames.add("ProductPriceChange")
-    passedEntityNames.add("ProductPromoAction")
-    passedEntityNames.add("ProdPromoCodeContactMech")
-    passedEntityNames.add("ProductPromoCodeParty")
-    passedEntityNames.add("ProductPromoCond")
-} else if ("Product4".equals(preConfiguredSetName)) {
+    passedEntityNames.add('ProdCatalogInvFacility')
+    passedEntityNames.add('ProductContent')
+    passedEntityNames.add('ProductFacilityLocation')
+    passedEntityNames.add('ProductFeatureAppl')
+    passedEntityNames.add('ProductFeatureDataResource')
+    passedEntityNames.add('ProductFeatureGroup')
+    passedEntityNames.add('ProductPriceChange')
+    passedEntityNames.add('ProductPromoAction')
+    passedEntityNames.add('ProdPromoCodeContactMech')
+    passedEntityNames.add('ProductPromoCodeParty')
+    passedEntityNames.add('ProductPromoCond')
+} else if ('Product4'.equals(preConfiguredSetName)) {
     passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add("InventoryItem")
-    passedEntityNames.add("ProductFeatureCatGrpAppl")
-    passedEntityNames.add("ProductFeatureGroupAppl")
-} else if ("CatalogExport".equals(preConfiguredSetName)) {
+    passedEntityNames.add('InventoryItem')
+    passedEntityNames.add('ProductFeatureCatGrpAppl')
+    passedEntityNames.add('ProductFeatureGroupAppl')
+} else if ('CatalogExport'.equals(preConfiguredSetName)) {
     passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add("ProdCatalogCategoryType")
-    passedEntityNames.add("ProdCatalog")
-    passedEntityNames.add("ProductCategoryType")
-    passedEntityNames.add("ProductCategory")
-    passedEntityNames.add("ProductCategoryRollup")
-    passedEntityNames.add("ProdCatalogCategory")
-    passedEntityNames.add("ProductFeatureType")
-    passedEntityNames.add("ProductFeatureCategory")
+    passedEntityNames.add('ProdCatalogCategoryType')
+    passedEntityNames.add('ProdCatalog')
+    passedEntityNames.add('ProductCategoryType')
+    passedEntityNames.add('ProductCategory')
+    passedEntityNames.add('ProductCategoryRollup')
+    passedEntityNames.add('ProdCatalogCategory')
+    passedEntityNames.add('ProductFeatureType')
+    passedEntityNames.add('ProductFeatureCategory')
 
-    passedEntityNames.add("DataResource")
-    passedEntityNames.add("Content")
-    passedEntityNames.add("ElectronicText")
+    passedEntityNames.add('DataResource')
+    passedEntityNames.add('Content')
+    passedEntityNames.add('ElectronicText')
 
-    passedEntityNames.add("ProductType")
-    passedEntityNames.add("Product")
-    passedEntityNames.add("ProductAttribute")
-    passedEntityNames.add("GoodIdentificationType")
-    passedEntityNames.add("GoodIdentification")
-    passedEntityNames.add("ProductPriceType")
-    passedEntityNames.add("ProductPrice")
+    passedEntityNames.add('ProductType')
+    passedEntityNames.add('Product')
+    passedEntityNames.add('ProductAttribute')
+    passedEntityNames.add('GoodIdentificationType')
+    passedEntityNames.add('GoodIdentification')
+    passedEntityNames.add('ProductPriceType')
+    passedEntityNames.add('ProductPrice')
 
-    passedEntityNames.add("ProductPriceRule")
-    passedEntityNames.add("ProductPriceCond")
-    passedEntityNames.add("ProductPriceAction")
+    passedEntityNames.add('ProductPriceRule')
+    passedEntityNames.add('ProductPriceCond')
+    passedEntityNames.add('ProductPriceAction')
     //passedEntityNames.add("ProductPriceChange")
 
-    passedEntityNames.add("ProductPromo")
-    passedEntityNames.add("ProductPromoCode")
-    passedEntityNames.add("ProductPromoCategory")
-    passedEntityNames.add("ProductPromoProduct")
-    passedEntityNames.add("ProductPromoRule")
-    passedEntityNames.add("ProductPromoAction")
-    passedEntityNames.add("ProdPromoCodeContactMech")
-    passedEntityNames.add("ProductPromoCodeParty")
-    passedEntityNames.add("ProductPromoCond")
+    passedEntityNames.add('ProductPromo')
+    passedEntityNames.add('ProductPromoCode')
+    passedEntityNames.add('ProductPromoCategory')
+    passedEntityNames.add('ProductPromoProduct')
+    passedEntityNames.add('ProductPromoRule')
+    passedEntityNames.add('ProductPromoAction')
+    passedEntityNames.add('ProdPromoCodeContactMech')
+    passedEntityNames.add('ProductPromoCodeParty')
+    passedEntityNames.add('ProductPromoCond')
 
-    passedEntityNames.add("ProductCategoryMember")
-    passedEntityNames.add("ProductAssoc")
-    passedEntityNames.add("ProductContent")
+    passedEntityNames.add('ProductCategoryMember')
+    passedEntityNames.add('ProductAssoc')
+    passedEntityNames.add('ProductContent')
 
-    passedEntityNames.add("ProductFeature")
-    passedEntityNames.add("ProductFeatureCategoryAppl")
-    passedEntityNames.add("ProductFeatureAppl")
-    passedEntityNames.add("ProductFeatureDataResource")
-    passedEntityNames.add("ProductFeatureGroup")
-    passedEntityNames.add("ProductFeatureCatGrpAppl")
-    passedEntityNames.add("ProductFeatureGroupAppl")
+    passedEntityNames.add('ProductFeature')
+    passedEntityNames.add('ProductFeatureCategoryAppl')
+    passedEntityNames.add('ProductFeatureAppl')
+    passedEntityNames.add('ProductFeatureDataResource')
+    passedEntityNames.add('ProductFeatureGroup')
+    passedEntityNames.add('ProductFeatureCatGrpAppl')
+    passedEntityNames.add('ProductFeatureGroupAppl')
 
     //passedEntityNames.add("ProductKeyword")
 }
@@ -143,7 +143,7 @@ if ("Product1".equals(preConfiguredSetName)) {
 if (entitySyncId) {
     passedEntityNames = org.apache.ofbiz.entityext.synchronization.EntitySyncContext.getEntitySyncModelNamesToUse(dispatcher, entitySyncId)
 }
-checkAll = "true".equals(parameters.checkAll)
+checkAll = 'true'.equals(parameters.checkAll)
 tobrowser = parameters.tobrowser != null
 context.tobrowser = tobrowser
 
@@ -151,10 +151,10 @@ entityFromCond = null
 entityThruCond = null
 entityDateCond = null
 if (entityFrom) {
-    entityFromCond = EntityCondition.makeCondition("lastUpdatedTxStamp", EntityComparisonOperator.GREATER_THAN, entityFrom)
+    entityFromCond = EntityCondition.makeCondition('lastUpdatedTxStamp', EntityComparisonOperator.GREATER_THAN, entityFrom)
 }
 if (entityThru) {
-    entityThruCond = EntityCondition.makeCondition("lastUpdatedTxStamp", EntityComparisonOperator.LESS_THAN, entityThru)
+    entityThruCond = EntityCondition.makeCondition('lastUpdatedTxStamp', EntityComparisonOperator.LESS_THAN, entityThru)
 }
 if (entityFromCond && entityThruCond) {
     entityDateCond = EntityCondition.makeCondition(entityFromCond, EntityJoinOperator.AND, entityThruCond)
@@ -170,8 +170,8 @@ context.modelEntities = modelEntities
 
 if (passedEntityNames) {
     if (tobrowser) {
-        session.setAttribute("xmlrawdump_entitylist", passedEntityNames)
-        session.setAttribute("entityDateCond", entityDateCond)
+        session.setAttribute('xmlrawdump_entitylist', passedEntityNames)
+        session.setAttribute('entityDateCond', entityDateCond)
     } else {
         efo = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false)
         numberOfEntities = passedEntityNames?.size() ?: 0
@@ -180,12 +180,12 @@ if (passedEntityNames) {
     
         // single file
         if (filename && numberOfEntities) {
-            if (outpath && !(filename.contains("/") && filename.contains("\\"))) {
+            if (outpath && !(filename.contains('/') && filename.contains("\\"))) {
                 filename = outpath + File.separator + filename;
             }
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")))
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), 'UTF-8')))
             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-            writer.println("<entity-engine-xml>")
+            writer.println('<entity-engine-xml>')
     
             passedEntityNames.each { curEntityName ->
                 if (entityFrom) {
@@ -207,7 +207,7 @@ if (passedEntityNames) {
                     curNumberWritten = 0
                     while (values.hasNext()) {
                         value = values.next()
-                        value.writeXmlText(writer, "")
+                        value.writeXmlText(writer, '')
                         numberWritten++
                         curNumberWritten++
                         if (curNumberWritten % 500 == 0 || curNumberWritten == 1) {
@@ -218,12 +218,12 @@ if (passedEntityNames) {
                     Debug.log("Wrote [$curNumberWritten] from entity : $curEntityName")
                     TransactionUtil.commit(beganTransaction)
                 } catch (Exception e) {
-                    errMsg = "Error reading data for XML export:"
+                    errMsg = 'Error reading data for XML export:'
                     logError(e, errMsg)
                     TransactionUtil.rollback(beganTransaction, errMsg, e)
                 }
             }
-            writer.println("</entity-engine-xml>")
+            writer.println('</entity-engine-xml>')
             writer.close()
             Debug.log("Total records written from all entities: $numberWritten")
             context.numberWritten = numberWritten
@@ -241,7 +241,7 @@ if (passedEntityNames) {
             if (outdir.isDirectory() && outdir.canWrite()) {
                 passedEntityNames.each { curEntityName ->
                     numberWritten = 0
-                    fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + "_" : ""
+                    fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + '_' : ''
                     fileName = fileName + curEntityName
     
                     values = null
@@ -267,26 +267,26 @@ if (passedEntityNames) {
                             //Don't bother writing the file if there's nothing
                             //to put into it
                             if (isFirst) {
-                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +".xml")), "UTF-8")))
+                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +'.xml')), 'UTF-8')))
                                 writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                                writer.println("<entity-engine-xml>")
+                                writer.println('<entity-engine-xml>')
                                 isFirst = false
                             }
-                            value.writeXmlText(writer, "")
+                            value.writeXmlText(writer, '')
                             numberWritten++
     
                             // split into small files
                             if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
                                 fileSplitNumber++
                                 // close the file
-                                writer.println("</entity-engine-xml>")
+                                writer.println('</entity-engine-xml>')
                                 writer.close()
     
                                 // create a new file
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
-                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + "_" + splitNumStr +".xml")), "UTF-8")))
+                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr +'.xml')), 'UTF-8')))
                                 writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                                writer.println("<entity-engine-xml>")
+                                writer.println('<entity-engine-xml>')
                             }
     
                             if (numberWritten % 500 == 0 || numberWritten == 1) {
@@ -295,7 +295,7 @@ if (passedEntityNames) {
     
                         }
                         if (writer) {
-                            writer.println("</entity-engine-xml>")
+                            writer.println('</entity-engine-xml>')
                             writer.close()
                             String thisResult = "[$fileNumber] [$numberWritten] $curEntityName wrote $numberWritten records"
                             Debug.log(thisResult)

@@ -28,14 +28,14 @@ if (invoiceTypeId) {
         EQUALS(invoiceTypeId: invoiceTypeId)
         LESS_THAN(dueDate: UtilDateTime.nowTimestamp())
     }
-    if ("PURCHASE_INVOICE".equals(invoiceTypeId)) {
-        invoiceStatusesCondition = exprBldr.IN(statusId: ["INVOICE_RECEIVED", "INVOICE_IN_PROCESS", "INVOICE_READY"])
-    } else if ("SALES_INVOICE".equals(invoiceTypeId)) {
-        invoiceStatusesCondition = exprBldr.IN(statusId: ["INVOICE_SENT", "INVOICE_APPROVED", "INVOICE_READY"])
+    if ('PURCHASE_INVOICE'.equals(invoiceTypeId)) {
+        invoiceStatusesCondition = exprBldr.IN(statusId: ['INVOICE_RECEIVED', 'INVOICE_IN_PROCESS', 'INVOICE_READY'])
+    } else if ('SALES_INVOICE'.equals(invoiceTypeId)) {
+        invoiceStatusesCondition = exprBldr.IN(statusId: ['INVOICE_SENT', 'INVOICE_APPROVED', 'INVOICE_READY'])
     }
     expr = exprBldr.AND([expr, invoiceStatusesCondition])
 
-    PastDueInvoices = from("Invoice").where(expr).orderBy("dueDate DESC").queryList()
+    PastDueInvoices = from('Invoice').where(expr).orderBy('dueDate DESC').queryList()
     if (PastDueInvoices) {
         invoiceIds = PastDueInvoices.invoiceId
         totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId])
@@ -49,7 +49,7 @@ if (invoiceTypeId) {
         EQUALS(invoiceTypeId: invoiceTypeId)
         GREATER_THAN_EQUAL_TO(dueDate: UtilDateTime.nowTimestamp())
     }
-    InvoicesDueSoon = from("Invoice").where(invoicesCond).orderBy("dueDate ASC").maxRows(10).queryList()
+    InvoicesDueSoon = from('Invoice').where(invoicesCond).orderBy('dueDate ASC').maxRows(10).queryList()
     if (InvoicesDueSoon) {
         invoiceIds = InvoicesDueSoon.invoiceId
         totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId])

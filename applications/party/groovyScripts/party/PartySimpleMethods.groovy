@@ -35,8 +35,8 @@ def createPartyGroupRoleAndContactMechs() {
         return error(e.toString())
     }
 
-    parameters.partyGroupContext.partyTypeId = "PARTY_GROUP"
-    Map serviceResult = run service: "createPartyGroup", with: parameters.partyGroupContext
+    parameters.partyGroupContext.partyTypeId = 'PARTY_GROUP'
+    Map serviceResult = run service: 'createPartyGroup', with: parameters.partyGroupContext
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
     }
@@ -45,7 +45,7 @@ def createPartyGroupRoleAndContactMechs() {
     parameters.partyId = serviceResult.partyId
     
     if (parameters.roleTypeId) {
-        Map serviceResultCPR = run service: "createPartyRole", with: [partyId: serviceResult.partyId,
+        Map serviceResultCPR = run service: 'createPartyRole', with: [partyId: serviceResult.partyId,
                                                                      roleTypeId: parameters.roleTypeId]
         if (ServiceUtil.isError(serviceResultCPR)) {
             return serviceResultCPR
@@ -70,22 +70,22 @@ def createPartyGroupRoleAndContactMechs() {
     }
     
 
-    run service: "createPartyContactMechs", with: parameters
+    run service: 'createPartyContactMechs', with: parameters
     return result
 }
 
 // TODO need to convert from MapProcessor
 def resolvePartyGroupMap() {
-    return resolvePartyProcessMap("party/minilang/party/PartyMapProcs.xml", 'partyGroup')
+    return resolvePartyProcessMap('party/minilang/party/PartyMapProcs.xml', 'partyGroup')
 }
 def resolvePostalAddressMap() {
-    return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'postalAddress')
+    return resolvePartyProcessMap('party/minilang/contact/PartyContactMechMapProcs.xml', 'postalAddress')
 }
 def resolveTelecomNumberMap() {
-    return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'telecomNumber')
+    return resolvePartyProcessMap('party/minilang/contact/PartyContactMechMapProcs.xml', 'telecomNumber')
 }
 def resolveEmailAddressMap() {
-    return resolvePartyProcessMap("party/minilang/contact/PartyContactMechMapProcs.xml", 'emailAddress')
+    return resolvePartyProcessMap('party/minilang/contact/PartyContactMechMapProcs.xml', 'emailAddress')
 }
 def resolvePartyProcessMap(String mapProcessorPath, String processMapName) {
     List messages = []

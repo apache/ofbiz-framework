@@ -28,14 +28,14 @@ import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.entity.util.*
 
 productImageList = []
-productContentAndInfoImageManamentList = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED").orderBy("sequenceNum").queryList()
+productContentAndInfoImageManamentList = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'IMAGE', 'statusId', 'IM_APPROVED').orderBy('sequenceNum').queryList()
 if(productContentAndInfoImageManamentList) {
     productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
-        contentAssocThumb = from("ContentAssoc").where("contentId", productContentAndInfoImageManament.contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL").queryFirst()
+        contentAssocThumb = from('ContentAssoc').where('contentId', productContentAndInfoImageManament.contentId, 'contentAssocTypeId', 'IMAGE_THUMBNAIL').queryFirst()
         if(contentAssocThumb) {
-            imageContentThumb = from("Content").where("contentId", contentAssocThumb.contentIdTo).queryOne()
+            imageContentThumb = from('Content').where('contentId', contentAssocThumb.contentIdTo).queryOne()
             if(imageContentThumb) {
-                productImageThumb = from("ContentDataResourceView").where("contentId", imageContentThumb.contentId, "drDataResourceId", imageContentThumb.dataResourceId).queryOne()
+                productImageThumb = from('ContentDataResourceView').where('contentId', imageContentThumb.contentId, 'drDataResourceId', imageContentThumb.dataResourceId).queryOne()
                 productImageMap = [:]
                 productImageMap.contentId = productContentAndInfoImageManament.contentId
                 productImageMap.dataResourceId = productContentAndInfoImageManament.dataResourceId

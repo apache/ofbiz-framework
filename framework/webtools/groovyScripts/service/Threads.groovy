@@ -30,8 +30,8 @@ import org.apache.ofbiz.service.engine.GenericEngine
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilProperties
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
-uiLabelMap.addBottomResourceBundle("CommonUiLabels")
+uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
+uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 threads = []
 poolState = dispatcher.getJobManager().getPoolState()

@@ -24,7 +24,7 @@ import org.apache.ofbiz.security.Security
 import org.apache.ofbiz.webapp.stats.*
 
 clearBins = parameters.clear
-if ("true".equals(clearBins)) {
+if ('true'.equals(clearBins)) {
     ServerHitBin.requestSinceStarted.clear()
     ServerHitBin.eventSinceStarted.clear()
     ServerHitBin.viewSinceStarted.clear()

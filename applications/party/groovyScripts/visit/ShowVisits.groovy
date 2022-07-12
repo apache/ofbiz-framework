@@ -23,14 +23,14 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 partyId = parameters.partyId
 context.partyId = partyId
 
-showAll = parameters.showAll ?:"false"
+showAll = parameters.showAll ?:'false'
 context.showAll = showAll
 
 sort = parameters.sort
 context.sort = sort
 
 visitListIt = null
-sortList = ["-fromDate"]
+sortList = ['-fromDate']
 if (sort) sortList.add(0, sort)
 
 boolean beganTransaction = false
@@ -47,12 +47,12 @@ try {
     highIndex = viewIndex * viewSize
 
     if (partyId) {
-        visitListIt = from("Visit").where("partyId", partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
-    } else if (showAll.equalsIgnoreCase("true")) {
-        visitListIt = from("Visit").orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
+        visitListIt = from('Visit').where('partyId', partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
+    } else if (showAll.equalsIgnoreCase('true')) {
+        visitListIt = from('Visit').orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     } else {
         // show active visits
-        visitListIt = from("Visit").where("thruDate", null).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
+        visitListIt = from('Visit').where('thruDate', null).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     }
 
     // get the partial list for this page
@@ -68,13 +68,13 @@ try {
     context.visitSize = visitListSize
 
 } catch (Exception e) {
-    String errMsg = "Failure in operation, rolling back transaction"
+    String errMsg = 'Failure in operation, rolling back transaction'
     logError(e, errMsg)
     try {
         // only rollback the transaction if we started one...
         TransactionUtil.rollback(beganTransaction, errMsg, e)
     } catch (Exception e2) {
-        logError(e2, "Could not rollback transaction: " + e2.toString())
+        logError(e2, 'Could not rollback transaction: ' + e2.toString())
     }
     // after rolling back, rethrow the exception
     throw e

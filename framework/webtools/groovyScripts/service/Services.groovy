@@ -22,8 +22,8 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.service.ServiceDispatcher
 import org.apache.ofbiz.service.engine.GenericEngine
 
-uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale)
-uiLabelMap.addBottomResourceBundle("CommonUiLabels")
+uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
+uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 log = ServiceDispatcher.getServiceLogMap()
 serviceList = []

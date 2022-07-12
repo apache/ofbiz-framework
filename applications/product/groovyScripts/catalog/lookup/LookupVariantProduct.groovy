@@ -19,12 +19,12 @@
 
 import org.apache.ofbiz.base.util.*
 
-productId = request.getParameter("productId")
-productVariantId = productId + "_"
-productFeatureIds = ""
-product = from("Product").where("productId", productId).queryOne()
+productId = request.getParameter('productId')
+productVariantId = productId + '_'
+productFeatureIds = ''
+product = from('Product').where('productId', productId).queryOne()
 
-result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : "SELECTABLE_FEATURE"])
+result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE'])
 featureTypes = result.productFeatureTypes
 featuresByTypes = result.productFeaturesByType
 searchFeatures = []
@@ -39,9 +39,9 @@ if (featureTypes) {
         if (selectedFeatureTypeValue) {
             featureTypeAndValues.selectedFeatureId = selectedFeatureTypeValue
             selectedFeatureTypeValues.add(selectedFeatureTypeValue)
-            feature = from("ProductFeature").where("productFeatureId", selectedFeatureTypeValue).cache(true).queryOne()
-            productVariantId += feature.getString("idCode") ?: ""
-            productFeatureIds += "|" + selectedFeatureTypeValue
+            feature = from('ProductFeature').where('productFeatureId', selectedFeatureTypeValue).cache(true).queryOne()
+            productVariantId += feature.getString('idCode') ?: ''
+            productFeatureIds += '|' + selectedFeatureTypeValue
         }
     }
 }
@@ -51,8 +51,8 @@ variants = []
     variants = result.variantProductIds
 
 // Quick Add Variant
-productFeatureIdsPar = request.getParameter("productFeatureIds")
-productVariantIdPar = request.getParameter("productVariantId")
+productFeatureIdsPar = request.getParameter('productFeatureIds')
+productVariantIdPar = request.getParameter('productVariantId')
 if (productVariantIdPar && productFeatureIdsPar) {
     result = runService('quickAddVariant', [productId : productId, productFeatureIds : productFeatureIdsPar, productVariantId : productVariantIdPar])
 }
@@ -64,11 +64,11 @@ context.variants = variants
 // also need the variant products themselves
 variantProducts = []
 variants.each { variantId ->
-    variantProducts.add(from("Product").where("productId", variantId).cache(true).queryOne())
+    variantProducts.add(from('Product').where('productId', variantId).cache(true).queryOne())
 }
 context.variantProducts = variantProducts
 
-if (security.hasEntityPermission("CATALOG", "_CREATE", session)) {
+if (security.hasEntityPermission('CATALOG', '_CREATE', session)) {
     if (selectedFeatureTypeValues.size() == featureTypes.size() && variants.size() == 0) {
         context.productFeatureIds = productFeatureIds
         context.productVariantId = productVariantId

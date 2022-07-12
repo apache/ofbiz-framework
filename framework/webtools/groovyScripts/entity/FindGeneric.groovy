@@ -34,7 +34,7 @@ ModelEntity modelEntity = null
 try {
     modelEntity = delegator.getModelEntity(parameters.entityName)
 } catch(GenericEntityException e) {
-    logError("The entityName ${parameters.entityName} isn't found", "FindGeneric.groovy")
+    logError("The entityName ${parameters.entityName} isn't found", 'FindGeneric.groovy')
 }
 
 if (modelEntity) {
@@ -80,7 +80,7 @@ if (modelEntity) {
         modelForm = entry.getValue()
     }
 
-    String formRendererLocationTheme = context.visualTheme.getModelTheme().getFormRendererLocation("screen")
+    String formRendererLocationTheme = context.visualTheme.getModelTheme().getFormRendererLocation('screen')
     MacroFormRenderer renderer = new MacroFormRenderer(formRendererLocationTheme, request, response)
     FormRenderer dynamicAutoEntitySearchFormRenderer = new FormRenderer(modelForm, renderer)
     Writer writer = new StringWriter()

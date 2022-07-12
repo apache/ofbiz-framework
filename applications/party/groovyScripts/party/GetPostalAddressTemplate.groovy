@@ -21,11 +21,11 @@ postalAddressForTemplate = context.postalAddress
 postalAddressTemplateSuffix = context.postalAddressTemplateSuffix
 
 if (!postalAddressTemplateSuffix) {
-  postalAddressTemplateSuffix = ".ftl"
+  postalAddressTemplateSuffix = '.ftl'
 }
-context.postalAddressTemplate = "PostalAddress" + postalAddressTemplateSuffix
+context.postalAddressTemplate = 'PostalAddress' + postalAddressTemplateSuffix
 if (postalAddressForTemplate && postalAddressForTemplate.countryGeoId) {
-    postalAddressTemplate = "PostalAddress_" + postalAddressForTemplate.countryGeoId + postalAddressTemplateSuffix
+    postalAddressTemplate = 'PostalAddress_' + postalAddressForTemplate.countryGeoId + postalAddressTemplateSuffix
     file = new File(addressTemplatePath + postalAddressTemplate)
     if (file.exists()) {                
         context.postalAddressTemplate = postalAddressTemplate

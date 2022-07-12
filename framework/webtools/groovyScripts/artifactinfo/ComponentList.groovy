@@ -34,7 +34,7 @@ components.each { component ->
          componentMap = [:]
          componentMap.compName = component.getComponentName()
          componentMap.rootLocation =  component.rootLocation().toString()
-         componentMap.enabled = (component.enabled() == true? "Y" : "N")
+         componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
          componentMap.webAppName = webApp.getName()
          componentMap.contextRoot = webApp.getContextRoot()
          componentMap.webAppName = webApp.getName()
@@ -46,28 +46,28 @@ components.each { component ->
          componentMap = [:]
          componentMap.compName = component.getComponentName()
          componentMap.rootLocation =  component.rootLocation().toString()
-         componentMap.enabled = (component.enabled() == true? "Y" : "N")
+         componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
          componentList.add(componentMap)
-         componentMap.webAppName = ""
-         componentMap.contextRoot = ""
-         componentMap.location = ""
-         componentMap.webAppName = ""
-         componentMap.contextRoot = ""
-         componentMap.location = ""
+         componentMap.webAppName = ''
+         componentMap.contextRoot = ''
+         componentMap.location = ''
+         componentMap.webAppName = ''
+         componentMap.contextRoot = ''
+         componentMap.location = ''
      }
 }
 
 // sort the entries
-componentList = UtilMisc.sortMaps(componentList, UtilMisc.toList("+compName"))
+componentList = UtilMisc.sortMaps(componentList, UtilMisc.toList('+compName'))
 
 // make the list more readable
 lastComp = null
 for (int entry = 0; entry < componentList.size(); entry++) {
     compSave = componentList[entry].compName
     if (lastComp != null && compSave.equals(lastComp)) {
-        componentList[entry].compName = ""
-        componentList[entry].rootLocation = ""
-        componentList[entry].enabled = ""
+        componentList[entry].compName = ''
+        componentList[entry].rootLocation = ''
+        componentList[entry].enabled = ''
     }    
     lastComp = compSave
 }

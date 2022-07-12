@@ -18,22 +18,22 @@
  */
 
 roleTypeId = parameters.roleTypeId
-roleTypeAndParty = from("RoleTypeAndParty").where("partyId", parameters.partyId, "roleTypeId", roleTypeId).queryFirst()
+roleTypeAndParty = from('RoleTypeAndParty').where('partyId', parameters.partyId, 'roleTypeId', roleTypeId).queryFirst()
 if (roleTypeAndParty) {
-    if ("ACCOUNT".equals(roleTypeId)) {
+    if ('ACCOUNT'.equals(roleTypeId)) {
         context.accountDescription = roleTypeAndParty.description
-    } else if ("CONTACT".equals(roleTypeId)) {
+    } else if ('CONTACT'.equals(roleTypeId)) {
         context.contactDescription = roleTypeAndParty.description
-    } else if ("LEAD".equals(roleTypeId)) {
+    } else if ('LEAD'.equals(roleTypeId)) {
         context.leadDescription = roleTypeAndParty.description
-        partyRelationships = from("PartyRelationship").where("partyIdTo", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryFirst()
+        partyRelationships = from('PartyRelationship').where('partyIdTo', parameters.partyId, 'roleTypeIdFrom', 'ACCOUNT_LEAD', 'roleTypeIdTo', 'LEAD', 'partyRelationshipTypeId', 'EMPLOYMENT').filterByDate().queryFirst()
         if (partyRelationships) {
             context.partyGroupId = partyRelationships.partyIdFrom
             context.partyId = parameters.partyId
         }
-    } else if ("ACCOUNT_LEAD".equals(roleTypeId)) {
+    } else if ('ACCOUNT_LEAD'.equals(roleTypeId)) {
         context.accountLeadDescription = roleTypeAndParty.description
-        partyRelationships = from("PartyRelationship").where("partyIdFrom", parameters.partyId, "roleTypeIdFrom", "ACCOUNT_LEAD", "roleTypeIdTo", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT").filterByDate().queryFirst()
+        partyRelationships = from('PartyRelationship').where('partyIdFrom', parameters.partyId, 'roleTypeIdFrom', 'ACCOUNT_LEAD', 'roleTypeIdTo', 'LEAD', 'partyRelationshipTypeId', 'EMPLOYMENT').filterByDate().queryFirst()
         if (partyRelationships) {
             context.partyGroupId = parameters.partyId
             context.partyId = partyRelationships.partyIdTo

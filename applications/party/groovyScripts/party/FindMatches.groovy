@@ -29,15 +29,15 @@ if (match) {
     address2 = parameters.address2 ?: null
     city = parameters.city ?: null
     state = parameters.stateProvinceGeoId ?: null
-    if ("ANY".equals(state)) state = null
+    if ('ANY'.equals(state)) state = null
     postalCode = parameters.postalCode ?: null
 
     if (state) {
-        context.currentStateGeo = from("Geo").where("geoId", state).queryOne()
+        context.currentStateGeo = from('Geo').where('geoId', state).queryOne()
     }
 
     if (!firstName || !lastName || !address1 || !city || !postalCode) {
-        request.setAttribute("_ERROR_MESSAGE_", "Required fields not set!")
+        request.setAttribute('_ERROR_MESSAGE_', 'Required fields not set!')
         return
     }
 

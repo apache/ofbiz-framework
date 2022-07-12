@@ -20,18 +20,18 @@
 import org.apache.ofbiz.base.util.*
 
 //default this to true, ie only show active
-activeOnly = !"false".equals(request.getParameter("activeOnly"))
+activeOnly = !'false'.equals(request.getParameter('activeOnly'))
 context.activeOnly = activeOnly
 
 paramInMap = [:]
-paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter("productCategoryId"))
+paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter('productCategoryId'))
 paramInMap.defaultViewSize = 20
 paramInMap.limitView = true
 paramInMap.useCacheForMembers = true
 paramInMap.checkViewAllow = false
 paramInMap.activeOnly = activeOnly
-paramInMap.viewIndexString = parameters.get("VIEW_INDEX")
-paramInMap.viewSizeString = parameters.get("VIEW_SIZE")
+paramInMap.viewIndexString = parameters.get('VIEW_INDEX')
+paramInMap.viewSizeString = parameters.get('VIEW_SIZE')
 
 // Returns: viewIndex, viewSize, lowIndex, highIndex, listSize, productCategory, productCategoryMembers
 outMap = runService('getProductCategoryAndLimitedMembers', paramInMap)

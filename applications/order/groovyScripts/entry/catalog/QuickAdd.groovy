@@ -42,6 +42,6 @@ if (categoryId) {
             context[key] = value
         }
     }
-    productCategory = from("ProductCategory").where("productCategoryId", categoryId).queryOne()
+    productCategory = from('ProductCategory').where('productCategoryId', categoryId).queryOne()
     context.productCategory = productCategory
 }

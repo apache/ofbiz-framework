@@ -28,7 +28,7 @@ import org.apache.ofbiz.entity.GenericValue
  */
 def applyFeatureToProductFromTypeAndCode() {
     // find the ProductFeatures by type and id code
-    List productFeatures = from("ProductFeature")
+    List productFeatures = from('ProductFeature')
             .where(productFeatureTypeId: parameters.productFeatureTypeId,
                     idCode: parameters.idCode)
             .queryList()
@@ -38,7 +38,7 @@ def applyFeatureToProductFromTypeAndCode() {
         if (! applyFeatureContext.sequenceNum) {
             applyFeatureContext.sequenceNum = productFeature.defaultSequenceNum
         }
-        run service: "applyFeatureToProduct", with: applyFeatureContext
+        run service: 'applyFeatureToProduct', with: applyFeatureContext
     }
     return success()
 }
@@ -49,17 +49,17 @@ def applyFeatureToProductFromTypeAndCode() {
  */
 def createProductFeatureType() {
     Map result = success()
-    if (!security.hasEntityPermission("CATALOG", "_CREATE", parameters.userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels",
-                "ProductCatalogCreatePermissionError", parameters.locale))
+    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels',
+                'ProductCatalogCreatePermissionError', parameters.locale))
     }
     if (! parameters.productFeatureTypeId) {
-        parameters.productFeatureTypeId = delegator.getNextSeqId("ProductFeatureType")
+        parameters.productFeatureTypeId = delegator.getNextSeqId('ProductFeatureType')
     } else if (!Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId)) {
-        return error(UtilProperties.getMessage("ProductErrorUiLabels",
-                "ProductFeatureTypeIdMustContainsLettersAndDigits", parameters.locale))
+        return error(UtilProperties.getMessage('ProductErrorUiLabels',
+                'ProductFeatureTypeIdMustContainsLettersAndDigits', parameters.locale))
     }
-    GenericValue newEntity = makeValue("ProductFeatureType", parameters)
+    GenericValue newEntity = makeValue('ProductFeatureType', parameters)
     newEntity.create()
     result.productFeatureTypeId = newEntity.productFeatureTypeId
     return result
@@ -70,15 +70,15 @@ def createProductFeatureType() {
  * @return
  */
 def createProductFeatureApplAttr() {
-    if (!security.hasEntityPermission("CATALOG", "_CREATE", parameters.userLogin)) {
-        return error(UtilProperties.getMessage("ProductUiLabels",
-                "ProductCatalogCreatePermissionError", parameters.locale))
+    if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
+        return error(UtilProperties.getMessage('ProductUiLabels',
+                'ProductCatalogCreatePermissionError', parameters.locale))
     }
-    GenericValue newEntity = makeValue("ProductFeatureApplAttr", parameters)
+    GenericValue newEntity = makeValue('ProductFeatureApplAttr', parameters)
     if (! newEntity.fromDate) {
-        GenericValue productFeatureAppl = from("ProductFeatureAppl")
+        GenericValue productFeatureAppl = from('ProductFeatureAppl')
                 .where(productId: newEntity.productId, productFeatureId: newEntity.productFeatureId)
-                .filterByDate().orderBy("-fromDate").queryFirst()
+                .filterByDate().orderBy('-fromDate').queryFirst()
         if (productFeatureAppl) {
             newEntity.fromDate = productFeatureAppl.fromDate
         }

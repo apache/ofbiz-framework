@@ -30,7 +30,7 @@ if (!thruDate) {
     thruDate = UtilDateTime.nowTimestamp()
 }
 if (!parameters.glFiscalTypeId) {
-    parameters.glFiscalTypeId = "ACTUAL"
+    parameters.glFiscalTypeId = 'ACTUAL'
 }
 
 // POSTED
@@ -38,36 +38,36 @@ if (!parameters.glFiscalTypeId) {
 postedTotalDebit = BigDecimal.ZERO
 postedTotalCredit = BigDecimal.ZERO
 andExprs = []
-andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds))
-andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"))
-andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId))
-andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
-andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
+andExprs.add(EntityCondition.makeCondition('organizationPartyId', EntityOperator.IN, partyIds))
+andExprs.add(EntityCondition.makeCondition('isPosted', EntityOperator.EQUALS, 'Y'))
+andExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUALS, parameters.glFiscalTypeId))
+andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
+andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
-List postedTransactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(andCond).orderBy("glAccountId").queryList()
+List postedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(andCond).orderBy('glAccountId').queryList()
 if (postedTransactionTotals) {
-    glAccountCategories = from("GlAccountCategory").where("glAccountCategoryTypeId", "COST_CENTER").orderBy("glAccountCategoryId").queryList()
+    glAccountCategories = from('GlAccountCategory').where('glAccountCategoryTypeId', 'COST_CENTER').orderBy('glAccountCategoryId').queryList()
     context.glAccountCategories = glAccountCategories
     Map postedTransactionTotalsMap = [:]
     postedTransactionTotals.each { postedTransactionTotal ->
         Map accountMap = (Map)postedTransactionTotalsMap.get(postedTransactionTotal.glAccountId)
         if (!accountMap) {
             accountMap = UtilMisc.makeMapWritable(postedTransactionTotal)
-            accountMap.put("D", BigDecimal.ZERO)
-            accountMap.put("C", BigDecimal.ZERO)
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, postedTransactionTotal.debitCreditFlag, postedTransactionTotal.amount)
         postedTransactionTotalsMap.put(postedTransactionTotal.glAccountId, accountMap)
-        BigDecimal debitAmount = (BigDecimal)accountMap.get("D")
-        BigDecimal creditAmount = (BigDecimal)accountMap.get("C")
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
         BigDecimal balance = debitAmount.subtract(creditAmount)
-        accountMap.put("balance", balance)
+        accountMap.put('balance', balance)
         glAccountCategories.each { glAccountCategory ->
-            glAccountCategoryMember = from("GlAccountCategoryMember").where("glAccountCategoryId", glAccountCategory.glAccountCategoryId, "glAccountId", postedTransactionTotal.glAccountId).orderBy("glAccountCategoryId").filterByDate().queryFirst()
+            glAccountCategoryMember = from('GlAccountCategoryMember').where('glAccountCategoryId', glAccountCategory.glAccountCategoryId, 'glAccountId', postedTransactionTotal.glAccountId).orderBy('glAccountCategoryId').filterByDate().queryFirst()
             if (glAccountCategoryMember) {
                 BigDecimal glAccountCategorySharePercentage = glAccountCategoryMember.amountPercentage
                 if (glAccountCategorySharePercentage && glAccountCategorySharePercentage != BigDecimal.ZERO ) {
-                    glAccountCategoryShareFraction = glAccountCategorySharePercentage.divide(new BigDecimal("100.00"))
+                    glAccountCategoryShareFraction = glAccountCategorySharePercentage.divide(new BigDecimal('100.00'))
                     BigDecimal glAccountCategoryShare = balance.multiply(glAccountCategoryShareFraction)
                     accountMap.put(glAccountCategory.glAccountCategoryId,glAccountCategoryShare)
                 }

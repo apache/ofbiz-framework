@@ -41,14 +41,14 @@ if (productionRunId) {
         productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate()
         productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate()
 
-		manufacturer = from("WorkEffortPartyAssignment").where("workEffortId", productionRunId, "roleTypeId", "MANUFACTURER").filterByDate().queryFirst()
+		manufacturer = from('WorkEffortPartyAssignment').where('workEffortId', productionRunId, 'roleTypeId', 'MANUFACTURER').filterByDate().queryFirst()
         if (manufacturer){
             productionRunData.manufacturerId = manufacturer.partyId
         }
         context.productionRunData = productionRunData
 
         // Find all the order items to which this production run is linked.
-        orderItems = from("WorkOrderItemFulfillment").where("workEffortId", productionRunId).queryList()
+        orderItems = from('WorkOrderItemFulfillment').where('workEffortId', productionRunId).queryList()
         if (orderItems) {
             context.orderItems = orderItems
         }
@@ -59,7 +59,7 @@ if (productionRunId) {
         context.productionRunComponents = productionRun.getProductionRunComponents()
 
         // Find all the notes linked to this production run.
-        productionRunNoteData = from("WorkEffortNoteAndData").where("workEffortId", productionRunId).queryList()
+        productionRunNoteData = from('WorkEffortNoteAndData').where('workEffortId', productionRunId).queryList()
         if (productionRunNoteData) {
             context.productionRunNoteData = productionRunNoteData
         }

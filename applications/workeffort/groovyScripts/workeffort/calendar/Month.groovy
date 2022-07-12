@@ -48,7 +48,7 @@ tempCal.add(Calendar.DATE, -prevMonthDays)
 numDays += prevMonthDays
 getFrom = new Timestamp(tempCal.getTimeInMillis())
 firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR)
-context.put("firstWeekNum", firstWeekNum)
+context.put('firstWeekNum', firstWeekNum)
 // also get days until the end of the week at the end of the month
 lastWeekCal = UtilDateTime.toCalendar(end, timeZone, locale)
 monthEndDay = lastWeekCal.get(Calendar.DAY_OF_WEEK)
@@ -59,15 +59,15 @@ if (followingMonthDays < 0) {
     followingMonthDays += 7
 }
 numDays += followingMonthDays
-Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", ModelService.IN_PARAM, parameters)
-serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "calendarType", "VOID", "numPeriods", numDays, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone))
+Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('getWorkEffortEventsByPeriod', ModelService.IN_PARAM, parameters)
+serviceCtx.putAll(UtilMisc.toMap('userLogin', userLogin, 'start', getFrom, 'calendarType', 'VOID', 'numPeriods', numDays, 'periodType', Calendar.DATE, 'locale', locale, 'timeZone', timeZone))
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList
 }
 result = runService('getWorkEffortEventsByPeriod', serviceCtx)
-context.put("periods",result.get("periods"))
-context.put("maxConcurrentEntries", result.get("maxConcurrentEntries"))
-context.put("start", start)
-context.put("end", end)
-context.put("prev", prev)
-context.put("next", next)
+context.put('periods',result.get('periods'))
+context.put('maxConcurrentEntries', result.get('maxConcurrentEntries'))
+context.put('start', start)
+context.put('end', end)
+context.put('prev', prev)
+context.put('next', next)

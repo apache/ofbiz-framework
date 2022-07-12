@@ -23,17 +23,17 @@ shoppingCart = ShoppingCartEvents.getCartObject(request)
 orderType = shoppingCart.getOrderType()
 context.orderType = orderType
 
-if (!request.getParameterValues("additionalRoleTypeId")) {
-    partyType = request.getParameter("additionalPartyType")
+if (!request.getParameterValues('additionalRoleTypeId')) {
+    partyType = request.getParameter('additionalPartyType')
     context.additionalPartyType = partyType
 
-    additionalPartyId = request.getParameter("additionalPartyId")
+    additionalPartyId = request.getParameter('additionalPartyId')
     context.additionalPartyId = additionalPartyId
 
-    roles = from("PartyRole").where("partyId", additionalPartyId).queryList()
+    roles = from('PartyRole').where('partyId', additionalPartyId).queryList()
     roleData = []
     roles.each { role ->
-        roleData.add(role.getRelatedOne("RoleType", false))
+        roleData.add(role.getRelatedOne('RoleType', false))
     }
     context.roles = roleData
 }

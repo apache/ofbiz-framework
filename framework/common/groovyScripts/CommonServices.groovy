@@ -36,8 +36,8 @@ import org.apache.ofbiz.webapp.event.FileUploadProgressListener
  * Main permission logic
  */
 def commonGenericPermission() {
-    parameters.primaryPermission = "COMMON"
-    Map result = run service: "genericBasePermissionCheck", with: parameters
+    parameters.primaryPermission = 'COMMON'
+    Map result = run service: 'genericBasePermissionCheck', with: parameters
     return result
 }
 
@@ -76,9 +76,9 @@ def convertUom() {
     }
 
     // sort by descending fromDate to get newest (biggest) first
-    uomConversion = from("UomConversionDated")
+    uomConversion = from('UomConversionDated')
             .where(condition)
-            .orderBy("-fromDate")
+            .orderBy('-fromDate')
             .filterByDate(asOfDate)
             .cache()
             .queryFirst()
@@ -86,10 +86,10 @@ def convertUom() {
     // if no conversion found with specified purpose, try w/o purpose
     if (!uomConversion) {
         if (parameters.purposeEnumId) {
-            uomConversion = from("UomConversionDated")
+            uomConversion = from('UomConversionDated')
                     .where(uomId: parameters.uomId,
                             uomIdTo: parameters.uomIdTo)
-                    .orderBy("-fromDate")
+                    .orderBy('-fromDate')
                     .filterByDate(asOfDate)
                     .cache()
                     .queryFirst()
@@ -98,13 +98,13 @@ def convertUom() {
 
     // if not found, try the uom conversion entity
     if (!uomConversion) {
-        uomConversion = from("UomConversion").where(parameters).cache().queryOne()
+        uomConversion = from('UomConversion').where(parameters).cache().queryOne()
     }
     logVerbose("using conversion factor=${uomConversion.conversionFactor}")
 
     if (!uomConversion) {
         // if still no uom conversion entity, then no conversion is possible
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonNoUomConversionFound", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoUomConversionFound', parameters.locale))
     }
     else {
         // Do custom conversion, if we have customMethodId
@@ -112,7 +112,7 @@ def convertUom() {
             logVerbose("using custom conversion customMethodId=${uomConversion.customMethodId}")
             Map customParms = parameters.convertUom
             customParms.uomConversion = uomConversion
-            Map serviceResult = run service: "convertUomCustom", with: customParms
+            Map serviceResult = run service: 'convertUomCustom', with: customParms
             convertedValue = serviceResult.convertedValue
 
             logVerbose("Custom UoM conversion returning convertedValue=${convertedValue}")
@@ -150,11 +150,11 @@ def convertUomCustom() {
     Map result = success()
     Map uomConversion = parameters.uomConversion
     String customMethodId = uomConversion.customMethodId
-    GenericValue customMethod = from("CustomMethod").where(customMethodId: customMethodId).cache().queryOne()
+    GenericValue customMethod = from('CustomMethod').where(customMethodId: customMethodId).cache().queryOne()
     if (!customMethod?.customMethodName) {
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonNoCustomMethodName", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoCustomMethodName', parameters.locale))
     } else {
-        logVerbose("calling custom method" + customMethod.customMethodName)
+        logVerbose('calling custom method' + customMethod.customMethodName)
         Map serviceResult = run service: customMethod.customMethodName, with: [arguments: parameters]
         result.convertedValue = serviceResult.convertedValue
     }
@@ -184,29 +184,29 @@ def getVisualThemeResources() {
     Map result = success()
     String visualThemeId = parameters.visualThemeId
     Map themeResources = parameters.themeResources ?: [:]
-    List resourceList = from("VisualThemeResource")
+    List resourceList = from('VisualThemeResource')
             .where(visualThemeId: visualThemeId)
-            .orderBy("resourceTypeEnumId", "sequenceId")
+            .orderBy('resourceTypeEnumId', 'sequenceId')
             .cache()
             .queryList()
     if (!resourceList) {
         // if not found use the good old initial ofbiz theme so the system will at least start up and will be usable
         logWarning("Could not find the ${visualThemeId} theme, reverting back to the good old OFBiz theme...")
-        visualThemeId = UtilProperties.getPropertyValue("general", "VISUAL_THEME", "FLAT_GREY")
-        resourceList = from("VisualThemeResource")
+        visualThemeId = UtilProperties.getPropertyValue('general', 'VISUAL_THEME', 'FLAT_GREY')
+        resourceList = from('VisualThemeResource')
             .where(visualThemeId: visualThemeId)
-            .orderBy("resourceTypeEnumId", "sequenceId")
+            .orderBy('resourceTypeEnumId', 'sequenceId')
             .cache()
             .queryList()
     }
     if (!resourceList) {
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonVisualThemeResourcesNotFound", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeResourcesNotFound', parameters.locale))
     }
     for (GenericValue resourceRecord : resourceList) {
         String resourceTypeEnumId = resourceRecord.resourceTypeEnumId
         String resourceValue = resourceRecord.resourceValue
         if (!resourceValue) {
-            logWarning(UtilProperties.getMessage("CommonUiLabels", "CommonVisualThemeInvalidRecord", parameters.locale))
+            logWarning(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeInvalidRecord', parameters.locale))
         }
         else {
             themeResources[resourceTypeEnumId] = [resouceTypeEnumId: resourceValue]
@@ -224,7 +224,7 @@ def getCountryList() {
     List countryList = []
     List geoList = CommonWorkers.getCountryList(delegator)
     for (GenericValue countryGeo : geoList) {
-        countryList << countryGeo.geoName + ": " + countryGeo.geoId
+        countryList << countryGeo.geoName + ': ' + countryGeo.geoId
     }
     result.countryList = countryList
     return result
@@ -239,11 +239,11 @@ def getAssociatedStateList() {
 
     List geoList = CommonWorkers.getAssociatedStateList(delegator, parameters.countryGeoId, parameters.listOrderBy)
     for (GenericValue stateGeo : geoList) {
-        String stateName = stateGeo.geoName + ": " + stateGeo.geoId
+        String stateName = stateGeo.geoName + ': ' + stateGeo.geoId
         stateList << stateName
     }
     if (!stateList) {
-        stateList << UtilProperties.getMessage("CommonUiLabels", "CommonNoStatesProvinces", parameters.locale)
+        stateList << UtilProperties.getMessage('CommonUiLabels', 'CommonNoStatesProvinces', parameters.locale)
     }
     result.stateList = stateList
     return result
@@ -253,7 +253,7 @@ def getAssociatedStateList() {
  * Link Geos to another Geo
  */
 def linkGeos() {
-    List oldGeoIds = from("GeoAssoc")
+    List oldGeoIds = from('GeoAssoc')
             .where(geoId: parameters.geoId,
                     geoAssocTypeId: parameters.geoAssocTypeId)
             .cache()
@@ -262,10 +262,10 @@ def linkGeos() {
     for (String geoIdTo : parameters.geoIds) {
         if (!oldGeoIds?.contains(geoIdTo)) {
             // If it already exist, nothing to do and we keep it
-            GenericValue oldGeoAssoc = from("GeoAssoc").where(geoId: parameters.geoId, geoIdTo: geoIdTo).queryOne()
+            GenericValue oldGeoAssoc = from('GeoAssoc').where(geoId: parameters.geoId, geoIdTo: geoIdTo).queryOne()
             if (!oldGeoAssoc) {
                 // Add as it does not exist
-                GenericValue newGeoAssoc = makeValue("GeoAssoc", [
+                GenericValue newGeoAssoc = makeValue('GeoAssoc', [
                     geoId : parameters.geoId,
                     geoIdTo : geoIdTo,
                     geoAssocTypeId : parameters.geoAssocTypeId
@@ -283,11 +283,11 @@ def linkGeos() {
  */
 def getRelatedGeos() {
     Map result = success()
-    List geoList = from("GeoAssoc")
+    List geoList = from('GeoAssoc')
             .where(geoId: parameters.geoId, geoAssocTypeId: parameters.geoAssocTypeId)
             .getFieldList('geoIdTo')
     if (!geoList) {
-        geoList << "____"
+        geoList << '____'
     }
     result.geoList = geoList
     return result
@@ -298,7 +298,7 @@ def getRelatedGeos() {
  */
 def checkUomConversion() {
     Map result = success()
-    result.exist = from("UomConversion").where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() == 1
+    result.exist = from('UomConversion').where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() == 1
     return result
 }
 
@@ -314,7 +314,7 @@ def checkUomConversionDated() {
     if (parameters.purposeEnumId) {
         condition.purposeEnumId = parameters.purposeEnumId
     }
-    result.exist = from("UomConversion").where(condition).filterByDate().queryCount() == 1
+    result.exist = from('UomConversion').where(condition).filterByDate().queryCount() == 1
     return result
 }
 
@@ -341,7 +341,7 @@ def getServerTimestampAsLong() {
  * @return
  */
 def createKeywordThesaurus() {
-    GenericValue newEntity = makeValue("KeywordThesaurus", parameters)
+    GenericValue newEntity = makeValue('KeywordThesaurus', parameters)
     newEntity.enteredKeyword = newEntity.enteredKeyword.toLowerCase()
     newEntity.alternateKeyword = newEntity.alternateKeyword.toLowerCase()
     newEntity.create()
@@ -353,12 +353,12 @@ def createKeywordThesaurus() {
  * @return
  */
 def deleteKeywordThesaurus() {
-    GenericValue newEntity = makeValue("KeywordThesaurus")
+    GenericValue newEntity = makeValue('KeywordThesaurus')
     newEntity.enteredKeyword = parameters.enteredKeyword
     if (parameters.alternateKeyword) {
         newEntity.alternateKeyword = parameters.alternateKeyword
     }
-    delegator.removeByAnd("KeywordThesaurus", newEntity)
+    delegator.removeByAnd('KeywordThesaurus', newEntity)
     return success()
 }
 
@@ -372,45 +372,45 @@ def createFuturePeriod() {
         parameters.organizationPartyId = party.partyId
         createCustomTimePeriod = from('SystemProperty')
             .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.create').queryOne()
-        if ("Y".equals(createCustomTimePeriod.systemPropertyValue)) {
+        if ('Y'.equals(createCustomTimePeriod.systemPropertyValue)) {
             // get list of CustomTypePeriod types
             applTypes = from('SystemProperty')
                 .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.applType').queryOne()
-            List types = Arrays.asList(applTypes.systemPropertyValue.split("\\s*,\\s*"))
+            List types = Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*'))
             types.each{periodTypeId ->
                 Calendar periodCal = Calendar.getInstance();
-                systemPropertyId = "CustomTimePeriod." + periodTypeId + ".intermediate"
+                systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.intermediate'
                 applTypeInter = from('SystemProperty')
                     .where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
                 if (applTypeInter) {
                     intermediate = applTypeInter.systemPropertyValue
                 }
                 // get grain for application type
-                systemPropertyId = "CustomTimePeriod." + periodTypeId + ".grain"
+                systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.grain'
                 applTypeGrain = from('SystemProperty')
                     .where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
                 if (applTypeGrain) {
                     grain = applTypeGrain.systemPropertyValue
-                    if ("MONTH".equals(grain)) {
+                    if ('MONTH'.equals(grain)) {
                         periodCal.add(Calendar.MONTH, 1)
-                        monthName = new SimpleDateFormat("MMM").format(periodCal.getTime())
+                        monthName = new SimpleDateFormat('MMM').format(periodCal.getTime())
                         year = periodCal.get(Calendar.YEAR)
                         month = (periodCal.get(Calendar.MONTH) + 1).toString()
                         if ( 1 == month.length()) {
-                            month = "0" + month
+                            month = '0' + month
                         }
                         periodCal.set(Calendar.DATE, 1)
                         periodStart = new java.sql.Date(periodCal.getTimeInMillis())
-                        periodStartDate = periodStart.toString() +" 00:00:00.000"
+                        periodStartDate = periodStart.toString() +' 00:00:00.000'
                         lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH); 
                         periodCal.set(Calendar.DATE, lastPeriodDay)
                         periodEnd = new java.sql.Date(periodCal.getTimeInMillis())
-                        periodEndDate = periodEnd.toString() + " 23:59:59.999"
-                        parameters.isClosed = "N"
+                        periodEndDate = periodEnd.toString() + ' 23:59:59.999'
+                        parameters.isClosed = 'N'
                         // check whether the period for the year exists
-                        yearStartDate = Timestamp.valueOf(year + "-01-01 00:00:00.000")
-                        yearEndDate = Timestamp.valueOf(year + "-12-31 23:59:59.999")
-                        yearPeriodType = periodTypeId + "_YEAR"
+                        yearStartDate = Timestamp.valueOf(year + '-01-01 00:00:00.000')
+                        yearEndDate = Timestamp.valueOf(year + '-12-31 23:59:59.999')
+                        yearPeriodType = periodTypeId + '_YEAR'
                         existingYear = from('CustomTimePeriod')
                             .where('fromDate',yearStartDate, 'thruDate',yearEndDate,'organizationPartyId',parameters.organizationPartyId, 'periodTypeId',yearPeriodType).queryFirst()
                         if (existingYear) {
@@ -419,11 +419,11 @@ def createFuturePeriod() {
                             parameters.fromDate = yearStartDate
                             parameters.thruDate = yearEndDate
                             parameters.periodTypeId = yearPeriodType
-                            parameters.periodNum = year + "00"
+                            parameters.periodNum = year + '00'
                             parameters.periodName = year.toString()
                             // persist the future period
-                            inMap = dispatcher.getDispatchContext().makeValidContext("createCustomTimePeriod", ModelService.IN_PARAM, parameters)
-                            serviceResult = run service: "createCustomTimePeriod", with: inMap
+                            inMap = dispatcher.getDispatchContext().makeValidContext('createCustomTimePeriod', ModelService.IN_PARAM, parameters)
+                            serviceResult = run service: 'createCustomTimePeriod', with: inMap
                             if (!ServiceUtil.isSuccess(serviceResult)) {
                                 return error(serviceResult.errorMessage)
                             } else {
@@ -433,21 +433,21 @@ def createFuturePeriod() {
                         // check whether the future period exists
                         parameters.customTimePeriodId = year + month
                         parameters.periodNum = year + month
-                        parameters.periodName = (year + "-" + monthName).toUpperCase()
+                        parameters.periodName = (year + '-' + monthName).toUpperCase()
                         fromDate = Timestamp.valueOf(periodStartDate)
                         thruDate = Timestamp.valueOf(periodEndDate)
-                        parameters.periodTypeId = periodTypeId + "_" + grain
+                        parameters.periodTypeId = periodTypeId + '_' + grain
                         existingPeriod = from('CustomTimePeriod')
                             .where('fromDate',fromDate, 'thruDate',thruDate,'organizationPartyId',parameters.organizationPartyId, 'periodTypeId',parameters.periodTypeId).queryFirst()
                         if (!existingPeriod) {
                             parameters.fromDate = periodStartDate
                             parameters.thruDate = periodEndDate
                             // persist the future period
-                            inMap = dispatcher.getDispatchContext().makeValidContext("createCustomTimePeriod", ModelService.IN_PARAM, parameters)
-                            serviceResult = run service: "createCustomTimePeriod", with: inMap
+                            inMap = dispatcher.getDispatchContext().makeValidContext('createCustomTimePeriod', ModelService.IN_PARAM, parameters)
+                            serviceResult = run service: 'createCustomTimePeriod', with: inMap
                             if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
                         }
-                        parameters.parentPeriodId = ""
+                        parameters.parentPeriodId = ''
                     }
                 }
             }

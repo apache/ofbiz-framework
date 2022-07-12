@@ -21,10 +21,10 @@ import org.apache.ofbiz.party.contact.ContactHelper;
 import org.apache.ofbiz.product.store.ProductStoreWorker
 import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
 
-shoppingCart = session.getAttribute("shoppingCart")
+shoppingCart = session.getAttribute('shoppingCart')
 currencyUomId = shoppingCart.getCurrency()
 partyId = shoppingCart.getPartyId()
-party = from("Party").where("partyId", partyId).cache(true).queryOne()
+party = from('Party').where('partyId', partyId).cache(true).queryOne()
 productStore = ProductStoreWorker.getProductStore(request)
 
 shippingEstWpr = null
@@ -34,23 +34,23 @@ if (shoppingCart) {
     context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods()
     // Reassign items requiring drop-shipping to new or existing drop-ship groups
     Map<String, Object> createDropShipGroupResult = shoppingCart.createDropShipGroups(dispatcher)
-    if ("error".equals(createDropShipGroupResult.get("responseMessage"))) {
-        Debug.logError((String)createDropShipGroupResult.get("errorMessage"), module)
-        request.setAttribute("_ERROR_MESSAGE_", (String)createDropShipGroupResult.get("errorMessage"))
-        return "error"
+    if ('error'.equals(createDropShipGroupResult.get('responseMessage'))) {
+        Debug.logError((String)createDropShipGroupResult.get('errorMessage'), module)
+        request.setAttribute('_ERROR_MESSAGE_', (String)createDropShipGroupResult.get('errorMessage'))
+        return 'error'
     }
 }
 
-profiledefs = from("PartyProfileDefault").where("partyId", userLogin.partyId, "productStoreId", productStoreId).queryOne()
+profiledefs = from('PartyProfileDefault').where('partyId', userLogin.partyId, 'productStoreId', productStoreId).queryOne()
 context.profiledefs = profiledefs
 
 context.shoppingCart = shoppingCart
 context.userLogin = userLogin
-context.productStoreId = productStore.get("productStoreId")
+context.productStoreId = productStore.get('productStoreId')
 context.productStore = productStore
-shipToParty = from("Party").where("partyId", shoppingCart.getShipToCustomerPartyId()).cache(true).queryOne()
-context.shippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
-context.emailList = ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false)
+shipToParty = from('Party').where('partyId', shoppingCart.getShipToCustomerPartyId()).cache(true).queryOne()
+context.shippingContactMechList = ContactHelper.getContactMech(shipToParty, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)
+context.emailList = ContactHelper.getContactMechByType(party, 'EMAIL_ADDRESS', false)
 
 if (shoppingCart.getShipmentMethodTypeId() && shoppingCart.getCarrierPartyId()) {
     context.chosenShippingMethod = shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId()

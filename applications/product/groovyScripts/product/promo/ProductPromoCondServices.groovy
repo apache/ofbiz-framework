@@ -46,7 +46,7 @@ import java.sql.Timestamp
 def productAmount() {
     Map result = success()
     int compareBase = -1
-    result.operatorEnumId = "PPC_EQ"
+    result.operatorEnumId = 'PPC_EQ'
 
     GenericValue productPromoCond = parameters.productPromoCond
     ShoppingCart cart = parameters.shoppingCart
@@ -152,7 +152,7 @@ def productQuant() {
 
     if (!operatorEnumId) {
         // if the operator is not specified in the condition, then assume as default PPC_EQ (for backward compatibility)
-        operatorEnumId = "PPC_EQ"
+        operatorEnumId = 'PPC_EQ'
     }
     BigDecimal quantityNeeded = BigDecimal.ONE
     if (condValue) {
@@ -173,7 +173,7 @@ def productQuant() {
                 (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId))) &&
                 (!product || 'N' != product.includeInPromotions)) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
-            quantityNeeded = quantityNeeded.subtract(cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, "PPC_EQ" != operatorEnumId))
+            quantityNeeded = quantityNeeded.subtract(cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, 'PPC_EQ' != operatorEnumId))
         }
     }
 
@@ -253,7 +253,7 @@ def productPartyGM() {
         } else {
             // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
             // and from/thru date within range
-            List<GenericValue> partyRelationshipList = from("PartyRelationship").where("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate().queryList()
+            List<GenericValue> partyRelationshipList = from('PartyRelationship').where('partyIdFrom', groupPartyId, 'partyIdTo', partyId, 'partyRelationshipTypeId', 'GROUP_ROLLUP').cache(true).filterByDate().queryList()
 
             if (partyRelationshipList) {
                 compareBase = 0
@@ -283,7 +283,7 @@ def productPartyClass() {
         String partyClassificationGroupId = condValue
         // find any PartyClassification
         // and from/thru date within range
-        List<GenericValue> partyClassificationList = from("PartyClassification").where("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId).cache(true).filterByDate().queryList()
+        List<GenericValue> partyClassificationList = from('PartyClassification').where('partyId', partyId, 'partyClassificationGroupId', partyClassificationGroupId).cache(true).filterByDate().queryList()
         // then 0 (equals), otherwise 1 (not equals)
         compareBase = partyClassificationList? 0: 1
     }
@@ -306,7 +306,7 @@ def productRoleType() {
     int compareBase = 1
     if (partyId && condValue) {
         // if a PartyRole exists for this partyId and the specified roleTypeId
-        GenericValue partyRole = from("PartyRole").where("partyId", partyId, "roleTypeId", condValue).cache(true).queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', condValue).cache(true).queryOne()
         // then 0 (equals), otherwise 1 (not equals)
         compareBase = partyRole? 0: 1
     }
@@ -334,7 +334,7 @@ def productGeoID() {
                 || condValue == shippingAddress.stateProvinceGeoId) {
             compareBase = 0
         } else {
-            List<GenericValue> geoAssocList = from("GeoAssoc").where("geoIdTo", condValue).queryList()
+            List<GenericValue> geoAssocList = from('GeoAssoc').where('geoIdTo', condValue).queryList()
             for (GenericValue geo : geoAssocList) {
                 if (geo.geoId == shippingAddress.countryGeoId
                         || geo.geoId == shippingAddress.countyGeoId
@@ -364,7 +364,7 @@ def productOrderTotal() {
 
     if (condValue) {
         BigDecimal orderSubTotal = cart.getSubTotalForPromotions()
-        if (Debug.infoOn()) logInfo("Doing order total compare: orderSubTotal=" + orderSubTotal)
+        if (Debug.infoOn()) logInfo('Doing order total compare: orderSubTotal=' + orderSubTotal)
         compareBase = orderSubTotal.compareTo(new BigDecimal(condValue))
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -385,7 +385,7 @@ def productOrderHist() {
     GenericValue userLogin = cart.getUserLogin()
     Map result = success()
     int compareBase = -1
-    result.operatorEnumId = "PPC_GTE"
+    result.operatorEnumId = 'PPC_GTE'
 
     if (partyId && userLogin && condValue) {
         // call the getOrderedSummaryInformation service to get the sub-total
@@ -393,22 +393,22 @@ def productOrderHist() {
         if (otherValue != null) {
             monthsToInclude = Integer.parseInt(otherValue)
         }
-        Map<String, Object> serviceIn = [partyId: partyId, roleTypeId: "PLACING_CUSTOMER", orderTypeId: "SALES_ORDER", statusId: "ORDER_COMPLETED",
+        Map<String, Object> serviceIn = [partyId: partyId, roleTypeId: 'PLACING_CUSTOMER', orderTypeId: 'SALES_ORDER', statusId: 'ORDER_COMPLETED',
                                          monthsToInclude: Integer.valueOf(monthsToInclude), userLogin: userLogin]
         try {
-            Map<String, Object> serviceResult = run service: "getOrderedSummaryInformation", with: serviceIn
+            Map<String, Object> serviceResult = run service: 'getOrderedSummaryInformation', with: serviceIn
             if (ServiceUtil.isError(serviceResult)) {
-                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
+                logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: ' + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             } else {
-                BigDecimal orderSubTotal = serviceResult.get("totalSubRemainingAmount")
+                BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
                 BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
-                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.")
+                if (Debug.verboseOn()) logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last ' + monthsToInclude + ' months.')
                 compareBase = orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue))
             }
         } catch (GenericServiceException e) {
-            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
-            return ServiceUtil.returnError("Error getting order history")
+            logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
+            return ServiceUtil.returnError('Error getting order history')
         }
     }
     result.compareBase = compareBase
@@ -435,26 +435,26 @@ def productOrderYear() {
         Calendar calendar = Calendar.getInstance()
         calendar.setTime(nowTimestamp)
         int monthsToInclude = calendar.get(Calendar.MONTH) + 1
-        Map<String, Object> serviceIn = UtilMisc.<String, Object> toMap("partyId", partyId,
-                "roleTypeId", "PLACING_CUSTOMER",
-                "orderTypeId", "SALES_ORDER",
-                "statusId", "ORDER_COMPLETED",
-                "monthsToInclude", Integer.valueOf(monthsToInclude),
-                "userLogin", userLogin)
+        Map<String, Object> serviceIn = UtilMisc.<String, Object> toMap('partyId', partyId,
+                'roleTypeId', 'PLACING_CUSTOMER',
+                'orderTypeId', 'SALES_ORDER',
+                'statusId', 'ORDER_COMPLETED',
+                'monthsToInclude', Integer.valueOf(monthsToInclude),
+                'userLogin', userLogin)
         try {
-            Map<String, Object> serviceResult = dispatcher.runSync("getOrderedSummaryInformation", serviceIn)
+            Map<String, Object> serviceResult = dispatcher.runSync('getOrderedSummaryInformation', serviceIn)
             if (ServiceUtil.isError(result)) {
-                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
+                logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: ' + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             } else {
-                BigDecimal orderSubTotal = result.get("totalSubRemainingAmount")
-                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.")
+                BigDecimal orderSubTotal = result.get('totalSubRemainingAmount')
+                if (Debug.verboseOn()) logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last ' + monthsToInclude + ' months.')
                 compareBase = orderSubTotal.compareTo(new BigDecimal((condValue)))
 
             }
         } catch (GenericServiceException e) {
-            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
-            return ServiceUtil.returnError("Error getting order history")
+            logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
+            return ServiceUtil.returnError('Error getting order history')
         }
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -488,26 +488,26 @@ def productOrderLastYear() {
         Calendar thruDateCalendar = Calendar.getInstance()
         thruDateCalendar.set(lastYear, 12, 0, 0, 0)
         Timestamp thruDate = new Timestamp(thruDateCalendar.getTime().getTime())
-        Map<String, Object> serviceIn = UtilMisc.toMap("partyId", partyId,
-                "roleTypeId", "PLACING_CUSTOMER",
-                "orderTypeId", "SALES_ORDER",
-                "statusId", "ORDER_COMPLETED",
-                "fromDate", fromDate,
-                "thruDate", thruDate,
-                "userLogin", userLogin)
+        Map<String, Object> serviceIn = UtilMisc.toMap('partyId', partyId,
+                'roleTypeId', 'PLACING_CUSTOMER',
+                'orderTypeId', 'SALES_ORDER',
+                'statusId', 'ORDER_COMPLETED',
+                'fromDate', fromDate,
+                'thruDate', thruDate,
+                'userLogin', userLogin)
         try {
-            Map<String, Object> serviceResult = dispatcher.runSync("getOrderedSummaryInformation", serviceIn)
+            Map<String, Object> serviceResult = dispatcher.runSync('getOrderedSummaryInformation', serviceIn)
             if (ServiceUtil.isError(serviceResult)) {
-                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
+                logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: ' + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             } else {
-                Double orderSubTotal = (Double) result.get("totalSubRemainingAmount")
-                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for last year.")
+                Double orderSubTotal = (Double) result.get('totalSubRemainingAmount')
+                if (Debug.verboseOn()) logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
                 compareBase = orderSubTotal.compareTo(Double.valueOf(condValue))
             }
         } catch (GenericServiceException e) {
-            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
-            return ServiceUtil.returnError("Error getting order history")
+            logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
+            return ServiceUtil.returnError('Error getting order history')
         }
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -525,7 +525,7 @@ def productPromoRecurrence() {
     String condValue = productPromoCond.condValue
 
     if (condValue) {
-        GenericValue recurrenceInfo = from("RecurrenceInfo").where("recurrenceInfoId", condValue).cache().queryOne();
+        GenericValue recurrenceInfo = from('RecurrenceInfo').where('recurrenceInfoId', condValue).cache().queryOne();
         if (recurrenceInfo) {
             RecurrenceInfo recurrence = null
             try {
@@ -560,7 +560,7 @@ def productShipTotal() {
     if (condValue) {
         BigDecimal orderTotalShipping = cart.getTotalShipping()
         if (Debug.verboseOn()) {
-            logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping)
+            logVerbose('Doing order total Shipping compare: ordertotalShipping=' + orderTotalShipping)
         }
         compareBase = orderTotalShipping.compareTo(new BigDecimal(condValue))
     }

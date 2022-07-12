@@ -18,22 +18,22 @@
  */
 import org.apache.ofbiz.common.email.NotificationServices
 
-orderId = request.getParameter("orderId") ?: parameters.get("orderId")
+orderId = request.getParameter('orderId') ?: parameters.get('orderId')
 context.orderId = orderId
 
-partyId = request.getParameter("partyId")
-sendTo = request.getParameter("sendTo")
+partyId = request.getParameter('partyId')
+sendTo = request.getParameter('sendTo')
 
 context.partyId = partyId
 context.sendTo = sendTo
 
-donePage = request.getParameter("DONE_PAGE") ?: "orderview"
+donePage = request.getParameter('DONE_PAGE') ?: 'orderview'
 context.donePage = donePage
 
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
-orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
 if (orderHeader.productStoreId) {
-    productStoreEmailSetting = from("ProductStoreEmailSetting").where("productStoreId", orderHeader.productStoreId, "emailType", emailType).queryOne()
+    productStoreEmailSetting = from('ProductStoreEmailSetting').where('productStoreId', orderHeader.productStoreId, 'emailType', emailType).queryOne()
     if (productStoreEmailSetting) {
         context.productStoreEmailSetting = productStoreEmailSetting
     }

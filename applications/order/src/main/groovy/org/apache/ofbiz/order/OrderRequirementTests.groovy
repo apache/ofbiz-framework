@@ -87,7 +87,7 @@ class OrderRequirementTests extends OFBizTestCase {
             workEffortId: '9000',
             userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync("addRequirementTask", serviceCtx)
+        Map serviceResult = dispatcher.runSync('addRequirementTask', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
 }

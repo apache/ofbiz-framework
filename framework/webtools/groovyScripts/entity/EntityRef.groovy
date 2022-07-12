@@ -31,8 +31,8 @@ if (search) {
     list = "$list?forstatic=$forstatic"
     main = "$main?forstatic=$forstatic"
 }
-tokenList = CsrfUtil.generateTokenForNonAjax(request, "view/entityref_list")
-tokenMain = CsrfUtil.generateTokenForNonAjax(request, "view/entityref_main")
+tokenList = CsrfUtil.generateTokenForNonAjax(request, 'view/entityref_list')
+tokenMain = CsrfUtil.generateTokenForNonAjax(request, 'view/entityref_main')
 list = CsrfUtil.addOrUpdateTokenInUrl(list, tokenList)
 main = CsrfUtil.addOrUpdateTokenInUrl(main, tokenMain)
 context.encodeUrlList = response.encodeURL(list)

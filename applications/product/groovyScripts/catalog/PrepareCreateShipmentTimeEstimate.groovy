@@ -17,18 +17,18 @@
  * under the License.
  */
 
-String carrierShipmentString = request.getParameter("carrierShipmentString")
+String carrierShipmentString = request.getParameter('carrierShipmentString')
 if (carrierShipmentString) {
-    StringTokenizer st = new StringTokenizer(carrierShipmentString, "|")
+    StringTokenizer st = new StringTokenizer(carrierShipmentString, '|')
     if (st.countTokens() != 3) {
-        return "error"
+        return 'error'
     }
-    request.setAttribute("addShipmentMethodEstimate", "Y")
-    request.setAttribute("partyId", st.nextToken())
-    request.setAttribute("roleTypeId", st.nextToken())
-    request.setAttribute("shipmentMethodTypeId", st.nextToken())
-    return "success"
+    request.setAttribute('addShipmentMethodEstimate', 'Y')
+    request.setAttribute('partyId', st.nextToken())
+    request.setAttribute('roleTypeId', st.nextToken())
+    request.setAttribute('shipmentMethodTypeId', st.nextToken())
+    return 'success'
 } else {
-    return "error"
+    return 'error'
 }
 

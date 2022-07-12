@@ -17,4 +17,4 @@
  * under the License.
  */
 
-context.inducedText = request.getAttribute("inducedText")
+context.inducedText = request.getAttribute('inducedText')
