@@ -146,7 +146,7 @@ if (orderPartyId) {
 
 orderTerms = cart.getOrderTerms()
 if (orderTerms) {
-   context.orderTerms = orderTerms
+    context.orderTerms = orderTerms
 }
 
 orderType = cart.getOrderType()

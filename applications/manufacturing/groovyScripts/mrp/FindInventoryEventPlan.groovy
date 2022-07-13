@@ -41,9 +41,9 @@ if (lookupFlag) {
 
     eventDate = parameters.eventDate
     if (eventDate?.length() > 8) {
-    eventDate = eventDate.trim()
-    if (eventDate.length() < 14) eventDate = eventDate + ' ' + '00:00:00.000'
-    paramList = paramList + '&eventDate=' + eventDate
+        eventDate = eventDate.trim()
+        if (eventDate.length() < 14) eventDate = eventDate + ' ' + '00:00:00.000'
+        paramList = paramList + '&eventDate=' + eventDate
         andExprs.add(EntityCondition.makeCondition('eventDate', EntityOperator.GREATER_THAN, ObjectType.simpleTypeOrObjectConvert(eventDate, 'Timestamp', null, null)))
     }
 
@@ -58,7 +58,7 @@ if (lookupFlag) {
     mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
 
     if ( mainCond) {
-    // do the lookup
+        // do the lookup
         inventoryList = from('MrpEvent').where(mainCond).orderBy('productId', 'eventDate').queryList()
     }
 

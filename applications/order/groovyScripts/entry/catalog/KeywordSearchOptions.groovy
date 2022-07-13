@@ -30,7 +30,7 @@ otherSearchProdCatalogCategories = CatalogWorker.getProdCatalogCategories(reques
 
 searchOperator = request.getParameter('SEARCH_OPERATOR')
 if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
-  searchOperator = 'OR'
+    searchOperator = 'OR'
 }
 
 context.currentCatalogId = currentCatalogId

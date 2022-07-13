@@ -29,32 +29,32 @@ Collection <ComponentConfig> components = ComponentConfig.getAllComponents()
 List componentList = []
 
 components.each { component ->
-     List<WebappInfo> webApps = component.getWebappInfos()
-     webApps.each { webApp ->
-         componentMap = [:]
-         componentMap.compName = component.getComponentName()
-         componentMap.rootLocation =  component.rootLocation().toString()
-         componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
-         componentMap.webAppName = webApp.getName()
-         componentMap.contextRoot = webApp.getContextRoot()
-         componentMap.webAppName = webApp.getName()
-         componentMap.contextRoot = webApp.getContextRoot()
-         componentMap.location = webApp.location().toString()
-         componentList.add(componentMap)
-     }
-     if (!webApps) {
-         componentMap = [:]
-         componentMap.compName = component.getComponentName()
-         componentMap.rootLocation =  component.rootLocation().toString()
-         componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
-         componentList.add(componentMap)
-         componentMap.webAppName = ''
-         componentMap.contextRoot = ''
-         componentMap.location = ''
-         componentMap.webAppName = ''
-         componentMap.contextRoot = ''
-         componentMap.location = ''
-     }
+    List<WebappInfo> webApps = component.getWebappInfos()
+    webApps.each { webApp ->
+        componentMap = [:]
+        componentMap.compName = component.getComponentName()
+        componentMap.rootLocation =  component.rootLocation().toString()
+        componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
+        componentMap.webAppName = webApp.getName()
+        componentMap.contextRoot = webApp.getContextRoot()
+        componentMap.webAppName = webApp.getName()
+        componentMap.contextRoot = webApp.getContextRoot()
+        componentMap.location = webApp.location().toString()
+        componentList.add(componentMap)
+    }
+    if (!webApps) {
+        componentMap = [:]
+        componentMap.compName = component.getComponentName()
+        componentMap.rootLocation =  component.rootLocation().toString()
+        componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
+        componentList.add(componentMap)
+        componentMap.webAppName = ''
+        componentMap.contextRoot = ''
+        componentMap.location = ''
+        componentMap.webAppName = ''
+        componentMap.contextRoot = ''
+        componentMap.location = ''
+    }
 }
 
 // sort the entries

@@ -22,8 +22,8 @@ partyAcctgPrefAndGroupList = []
 partyAcctgPrefAndGroup = delegator.findList('PartyAcctgPrefAndGroup', null, null, null, null, false)
 iter = partyAcctgPrefAndGroup.iterator()
 while (iter.hasNext()) {
-   group = iter.next()
-   partyAcctgPrefAndGroupList.add(['key':group.partyId,'value':group.groupName])
+    group = iter.next()
+    partyAcctgPrefAndGroupList.add(['key':group.partyId,'value':group.groupName])
 }
 globalContext.PartyAcctgPrefAndGroupList = partyAcctgPrefAndGroupList
 globalContext.companyListSize = partyAcctgPrefAndGroupList.size()

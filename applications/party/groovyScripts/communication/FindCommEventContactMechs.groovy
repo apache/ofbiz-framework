@@ -30,11 +30,11 @@ partyIdFrom = context.partyIdFrom
 partyIdTo = context.partyIdTo
 
 if (parameters.communicationEventTypeId) {
-   if ('EMAIL_COMMUNICATION'.equals(parameters.communicationEventTypeId)) {
-      userEmailAddresses = from('PartyContactWithPurpose').where('contactMechTypeId', 'EMAIL_ADDRESS' , 'partyId', partyIdFrom).filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate').queryList()
-      context.userEmailAddresses = userEmailAddresses
+    if ('EMAIL_COMMUNICATION'.equals(parameters.communicationEventTypeId)) {
+        userEmailAddresses = from('PartyContactWithPurpose').where('contactMechTypeId', 'EMAIL_ADDRESS' , 'partyId', partyIdFrom).filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate').queryList()
+        context.userEmailAddresses = userEmailAddresses
 
-      targetEmailAddresses = from('PartyContactWithPurpose').where('contactMechTypeId', 'EMAIL_ADDRESS', 'partyId', partyIdTo).filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate').queryList()
-      context.targetEmailAddresses = targetEmailAddresses
-   }
+        targetEmailAddresses = from('PartyContactWithPurpose').where('contactMechTypeId', 'EMAIL_ADDRESS', 'partyId', partyIdTo).filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate').queryList()
+        context.targetEmailAddresses = targetEmailAddresses
+    }
 }

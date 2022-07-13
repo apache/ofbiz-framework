@@ -258,13 +258,13 @@ def saveLocalFileDataResource(String mode) {
     switch (mode) {
         case ['LOCAL_FILE', 'LOCAL_FILE_BIN']:
             uploadPath = DataResourceWorker.getDataResourceContentUploadPath(delegator, true)
-			break
+            break
         case ['OFBIZ_FILE', 'OFBIZ_FILE_BIN']:
             uploadPath = DataResourceWorker.getDataResourceContentUploadPath(delegator, false)
-			break
+            break
         case ['CONTEXT_FILE', 'CONTEXT_FILE_BIN']:
             uploadPath = parameters.rootDir
-			break
+            break
     }
     if (!uploadPath) {
         errorList.add(UtilProperties.getMessage('ContentErrorUiLabels', 'uploadContentAndImage.noRootDirProvided', parameters.locale))

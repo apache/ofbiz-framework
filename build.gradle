@@ -50,7 +50,7 @@ plugins {
  * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
  */
 if (project.hasProperty('enableOwasp')) {
-     apply plugin: 'org.owasp.dependencycheck'
+    apply plugin: 'org.owasp.dependencycheck'
 }
 
 /* DependencyUpdates plugin
@@ -69,8 +69,8 @@ if (project.hasProperty('enableOwasp')) {
  *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
  */
 if (project.hasProperty('enableDependencyUpdates')) {
-     apply plugin: 'com.github.ben-manes.versions'
-     apply plugin: 'se.patrikerdes.use-latest-versions'
+    apply plugin: 'com.github.ben-manes.versions'
+    apply plugin: 'se.patrikerdes.use-latest-versions'
 }
 
 apply from: 'common.gradle'
@@ -135,8 +135,8 @@ java {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     if (!project.hasProperty('Xlint:none')) {
-    options.compilerArgs << '-Xlint:all'
-    // Exclude varargs warnings which are not silenced by @SafeVarargs.
+        options.compilerArgs << '-Xlint:all'
+        // Exclude varargs warnings which are not silenced by @SafeVarargs.
         options.compilerArgs << '-Xlint:-varargs'
     }
     // Executes on each compilation so that if dependencies are not downloaded yet or some new dependencies are added they get automatically downloaded
@@ -639,7 +639,7 @@ task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}"
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
-      }
+    }
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
@@ -656,9 +656,9 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}/docs/asciidoc"
     outputDir file("${buildDir}/asciidoc/ofbiz")
     doLast {
-      activeComponents().each { component ->
-          delete "${rootDir}/docs/asciidoc/images/${component.name}"
-      }
+        activeComponents().each { component ->
+            delete "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
     }
 }
 
@@ -679,10 +679,10 @@ task generatePluginDocumentation(group: docsGroup) {
                     outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                     doLast { println "Documentation generated for plugin ${component.name}" }
                 } else {
-                      println "No documentation found for plugin ${component.name}"
-                  }
-            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-            mustRunAfter deletePluginDocumentation
+                    println "No documentation found for plugin ${component.name}"
+                }
+                doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
             doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
@@ -748,8 +748,8 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         def gitFolder = rootProject.file('.git')
 
         if (!gitFolder.exists()) {
-          println ('Git is not used')
-          return
+            println ('Git is not used')
+            return
         }
 
         def branchOutput = new ByteArrayOutputStream()

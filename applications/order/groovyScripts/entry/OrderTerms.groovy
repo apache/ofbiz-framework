@@ -34,13 +34,13 @@ if (request.getParameter('createNew') == 'Y') {
 
             orderTerm = orderTerms[termIndex]
             if (orderTerm) {
-               context.termTypeId = orderTerm.termTypeId
-               context.termValue = orderTerm.termValue
-               context.termDays = orderTerm.termDays
-               context.textValue = orderTerm.textValue
-               context.description = orderTerm.description
+                context.termTypeId = orderTerm.termTypeId
+                context.termValue = orderTerm.termValue
+                context.termDays = orderTerm.termDays
+                context.textValue = orderTerm.textValue
+                context.description = orderTerm.description
 
-               context.termIndex = termIndexStr
+                context.termIndex = termIndexStr
             }
 
         } catch (NumberFormatException nfe) {

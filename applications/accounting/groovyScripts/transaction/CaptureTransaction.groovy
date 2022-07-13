@@ -27,18 +27,18 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId
 if ((!orderId) || (!orderPaymentPreferenceId)) return
 
 if (orderId) {
-   orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
-   context.orderHeader = orderHeader
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
+    context.orderHeader = orderHeader
 }
 
 if (orderPaymentPreferenceId) {
-   orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()
-   context.orderPaymentPreference = orderPaymentPreference
+    orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()
+    context.orderPaymentPreference = orderPaymentPreference
 }
 
 if (orderPaymentPreference) {
-   paymentMethodType = orderPaymentPreference.getRelatedOne('PaymentMethodType', true)
-   context.paymentMethodType = paymentMethodType
+    paymentMethodType = orderPaymentPreference.getRelatedOne('PaymentMethodType', true)
+    context.paymentMethodType = paymentMethodType
 }
 
 if (orderPaymentPreference) {

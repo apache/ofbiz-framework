@@ -163,11 +163,11 @@ if (shipmentPlans) {
         if (product.getDouble('productHeight') &&
             product.getDouble('productWidth') &&
             product.getDouble('productDepth')) {
-                // TODO: check if uom conversion is needed
-                volume = product.getDouble('productHeight') *
-                         product.getDouble('productWidth') *
-                         product.getDouble('productDepth') *
-                         quantity
+            // TODO: check if uom conversion is needed
+            volume = product.getDouble('productHeight') *
+                product.getDouble('productWidth') *
+                product.getDouble('productDepth') *
+                quantity
         }
         oneRow.volume = volume
         if (product.heightUomId && product.widthUomId && product.depthUomId) {
@@ -260,8 +260,8 @@ if (orderItemShipGroupAssocs) {
         }
         volume = 0.0
         if (product.getDouble('productHeight') && product.getDouble('productWidth') && product.getDouble('productDepth')) {
-                // TODO: check if uom conversion is needed
-                volume = product.getDouble('productHeight') *
+            // TODO: check if uom conversion is needed
+            volume = product.getDouble('productHeight') *
                          product.getDouble('productWidth') *
                          product.getDouble('productDepth')
         }

@@ -24,7 +24,7 @@ ppCond = EntityCondition.makeCondition('portletCategoryId', EntityOperator.EQUAL
 categories = delegator.findList('PortletPortletCategory', ppCond, null, null, null, false)
 
 portalPortlets = []
-    categories.each { category ->
+categories.each { category ->
     pCond = EntityCondition.makeCondition('portalPortletId', EntityOperator.EQUALS, category.get('portalPortletId'))
     listPortalPortlets = delegator.findList('PortalPortlet', pCond, null, null, null, false)
 

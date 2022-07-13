@@ -74,32 +74,32 @@ def issueProductionRunTask() {
                 .filterByDate()
                 .queryList()
                 .each { component ->
-                    if (component.productId) {
-                        Map callSvcMap = component.getAllFields()
-                        BigDecimal totalIssuance = 0.0
-                        from('WorkEffortAndInventoryAssign')
-                                .where(workEffortId: workEffort.workEffortId,
-                                        productId: component.productId)
-                                .queryList()
-                                .each { issuance ->
-                                    if (issuance.quantity) {
-                                        totalIssuance += issuance.quantity
-                                    }
+                if (component.productId) {
+                    Map callSvcMap = component.getAllFields()
+                    BigDecimal totalIssuance = 0.0
+                    from('WorkEffortAndInventoryAssign')
+                            .where(workEffortId: workEffort.workEffortId,
+                                    productId: component.productId)
+                            .queryList()
+                            .each { issuance ->
+                                if (issuance.quantity) {
+                                    totalIssuance += issuance.quantity
                                 }
-                        if (totalIssuance != 0) {
-                            callSvcMap.quantity = component.estimatedQuantity - totalIssuance
-                        }
-                        callSvcMap.reserveOrderEnumId = parameters.reserveOrderEnumId
-                        callSvcMap.description = 'BOM Part'
-                        callSvcMap.failIfItemsAreNotAvailable = parameters.failIfItemsAreNotAvailable
-                        callSvcMap.failIfItemsAreNotOnHand = parameters.failIfItemsAreNotOnHand
-
-                        Map serviceResult = run service: 'issueProductionRunTaskComponent', with: callSvcMap
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return serviceResult
-                        }
+                            }
+                    if (totalIssuance != 0) {
+                        callSvcMap.quantity = component.estimatedQuantity - totalIssuance
                     }
-                    logInfo("Issued inventory for workEffortId ${workEffort.workEffortId}")
+                    callSvcMap.reserveOrderEnumId = parameters.reserveOrderEnumId
+                    callSvcMap.description = 'BOM Part'
+                    callSvcMap.failIfItemsAreNotAvailable = parameters.failIfItemsAreNotAvailable
+                    callSvcMap.failIfItemsAreNotOnHand = parameters.failIfItemsAreNotOnHand
+
+                    Map serviceResult = run service: 'issueProductionRunTaskComponent', with: callSvcMap
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return serviceResult
+                    }
+                }
+                logInfo("Issued inventory for workEffortId ${workEffort.workEffortId}")
                 }
     }
     return success()
@@ -146,11 +146,11 @@ def issueProductionRunTaskComponent() {
             }
         }
 
-    // kind of like the inventory reservation routine, find InventoryItems to issue from,
-    // but instead of doing the reservation just create an issuance and an inventory item detail for the change
-    if (productId) {
-        String orderBy = '+datetimeReceived'
-        nowTimestamp = UtilDateTime.nowTimestamp()
+        // kind of like the inventory reservation routine, find InventoryItems to issue from,
+        // but instead of doing the reservation just create an issuance and an inventory item detail for the change
+        if (productId) {
+            String orderBy = '+datetimeReceived'
+            nowTimestamp = UtilDateTime.nowTimestamp()
 
             // before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified
             switch (parameters.reserveOrderEnumId) {

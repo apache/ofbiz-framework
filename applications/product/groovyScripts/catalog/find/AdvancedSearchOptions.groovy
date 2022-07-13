@@ -39,7 +39,7 @@ productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMa
 
 searchOperator = parameters.SEARCH_OPERATOR
 if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
-  searchOperator = 'OR'
+    searchOperator = 'OR'
 }
 
 searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator)

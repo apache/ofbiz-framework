@@ -140,7 +140,7 @@ if (purchaseOrder && facility) {
         orderCurrencyUomId = purchaseOrder.currencyUom
         if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
             purchaseOrderItems.each { item ->
-            orderCurrencyUnitPriceMap.(item.orderItemSeqId) = item.unitPrice
+                orderCurrencyUnitPriceMap.(item.orderItemSeqId) = item.unitPrice
                 serviceResults = runService('convertUom',
                         [uomId : orderCurrencyUomId, uomIdTo : ownerCurrencyUomId, originalValue : item.unitPrice])
                 if (ServiceUtil.isError(serviceResults)) {

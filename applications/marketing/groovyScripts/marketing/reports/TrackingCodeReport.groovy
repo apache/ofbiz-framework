@@ -31,12 +31,12 @@ if (fromDate) {
     orderConditionList.add(EntityCondition.makeCondition('orderDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 }
 if (thruDate) {
-     visitConditionList.add(EntityCondition.makeCondition('fromDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
-     orderConditionList.add(EntityCondition.makeCondition('orderDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
+    visitConditionList.add(EntityCondition.makeCondition('fromDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
+    orderConditionList.add(EntityCondition.makeCondition('orderDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 }
 if (trackingCodeId) {
-     visitConditionList.add(EntityCondition.makeCondition('trackingCodeId', EntityOperator.EQUALS, trackingCodeId))
-     orderConditionList.add(EntityCondition.makeCondition('trackingCodeId', EntityOperator.EQUALS, trackingCodeId))
+    visitConditionList.add(EntityCondition.makeCondition('trackingCodeId', EntityOperator.EQUALS, trackingCodeId))
+    orderConditionList.add(EntityCondition.makeCondition('trackingCodeId', EntityOperator.EQUALS, trackingCodeId))
 }
 
 visits = select('trackingCodeId', 'visitId').from('TrackingCodeAndVisit').where(visitConditionList).orderBy('trackingCodeId').queryList()

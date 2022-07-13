@@ -60,21 +60,21 @@ if (payments)    {
     basePaymentToApply = basePaymentAmount.subtract(basePaymentApplied)
     payments.each { payment ->
         if (PaymentWorker.getPaymentNotApplied(payment).signum() == 1) {  // positiv not applied amount?
-           // yes, put in the map
-           paymentMap = [:]
-           paymentMap.paymentId = basePaymentId
-           paymentMap.toPaymentId = payment.paymentId
-           paymentMap.currencyUomId = payment.currencyUomId
-           paymentMap.effectiveDate = payment.effectiveDate.toString().substring(0,10) // list as YYYY-MM-DD
-           paymentMap.amount = payment.getBigDecimal('amount')
-           paymentMap.amountApplied = PaymentWorker.getPaymentApplied(payment)
-           paymentToApply = PaymentWorker.getPaymentNotApplied(payment)
-           if (paymentToApply.compareTo(basePaymentToApply) < 0 ) {
+            // yes, put in the map
+            paymentMap = [:]
+            paymentMap.paymentId = basePaymentId
+            paymentMap.toPaymentId = payment.paymentId
+            paymentMap.currencyUomId = payment.currencyUomId
+            paymentMap.effectiveDate = payment.effectiveDate.toString().substring(0,10) // list as YYYY-MM-DD
+            paymentMap.amount = payment.getBigDecimal('amount')
+            paymentMap.amountApplied = PaymentWorker.getPaymentApplied(payment)
+            paymentToApply = PaymentWorker.getPaymentNotApplied(payment)
+            if (paymentToApply.compareTo(basePaymentToApply) < 0 ) {
                 paymentMap.amountToApply = paymentToApply
            } else {
                 paymentMap.amountToApply = basePaymentToApply
-           }
-           paymentsMapList.add(paymentMap)
+            }
+            paymentsMapList.add(paymentMap)
         }
     }
 }

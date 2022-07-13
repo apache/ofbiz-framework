@@ -186,15 +186,15 @@ if (addresses) {
     address = from('PostalAddress').where('contactMechId', addresses[0].contactMechId).queryOne()
 }
 if (address)    {
-   // get the country name and state/province abbreviation
-   country = address.getRelatedOne('CountryGeo', true)
-   if (country) {
-      context.countryName = country.get('geoName', locale)
-   }
-   stateProvince = address.getRelatedOne('StateProvinceGeo', true)
-   if (stateProvince) {
-       context.stateProvinceAbbr = stateProvince.abbreviation
-   }
+    // get the country name and state/province abbreviation
+    country = address.getRelatedOne('CountryGeo', true)
+    if (country) {
+        context.countryName = country.get('geoName', locale)
+    }
+    stateProvince = address.getRelatedOne('StateProvinceGeo', true)
+    if (stateProvince) {
+        context.stateProvinceAbbr = stateProvince.abbreviation
+    }
 }
 context.postalAddress = address
 

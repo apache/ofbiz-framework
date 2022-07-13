@@ -37,45 +37,45 @@ class ContactMechWorkerTests extends OFBizTestCase {
             Map partyContactMechValueMap ->
                 switch (partyContactMechValueMap?.contactMech?.contactMechId) {
                     case '9015':
-                        foundPostalAddress = true
-                        assert partyContactMechValueMap.contactMech.contactMechTypeId == 'POSTAL_ADDRESS'
-                        assert partyContactMechValueMap.partyContactMech
-                        assert partyContactMechValueMap.contactMechType
-                        assert partyContactMechValueMap.partyContactMechPurposes
-                        assert partyContactMechValueMap.partyContactMechPurposes.size() == 3
-                        assert partyContactMechValueMap.postalAddress
-                        assert partyContactMechValueMap.postalAddress.contactMechId == '9015'
-                        assert partyContactMechValueMap.postalAddress.address1 == '2004 Factory Blvd'
-                        break
+                    foundPostalAddress = true
+                    assert partyContactMechValueMap.contactMech.contactMechTypeId == 'POSTAL_ADDRESS'
+                    assert partyContactMechValueMap.partyContactMech
+                    assert partyContactMechValueMap.contactMechType
+                    assert partyContactMechValueMap.partyContactMechPurposes
+                    assert partyContactMechValueMap.partyContactMechPurposes.size() == 3
+                    assert partyContactMechValueMap.postalAddress
+                    assert partyContactMechValueMap.postalAddress.contactMechId == '9015'
+                    assert partyContactMechValueMap.postalAddress.address1 == '2004 Factory Blvd'
+                    break
                     case '9027':
-                        foundTelecom = true
-                        assert partyContactMechValueMap.contactMech.contactMechTypeId == 'TELECOM_NUMBER'
-                        assert partyContactMechValueMap.partyContactMech
-                        assert partyContactMechValueMap.contactMechType
-                        assert partyContactMechValueMap.partyContactMechPurposes
-                        assert partyContactMechValueMap.partyContactMechPurposes.size() == 1
-                        assert partyContactMechValueMap.telecomNumber
-                        assert partyContactMechValueMap.telecomNumber.contactMechId == '9027'
-                        assert partyContactMechValueMap.telecomNumber.contactNumber == '444-4444'
-                        break
+                    foundTelecom = true
+                    assert partyContactMechValueMap.contactMech.contactMechTypeId == 'TELECOM_NUMBER'
+                    assert partyContactMechValueMap.partyContactMech
+                    assert partyContactMechValueMap.contactMechType
+                    assert partyContactMechValueMap.partyContactMechPurposes
+                    assert partyContactMechValueMap.partyContactMechPurposes.size() == 1
+                    assert partyContactMechValueMap.telecomNumber
+                    assert partyContactMechValueMap.telecomNumber.contactMechId == '9027'
+                    assert partyContactMechValueMap.telecomNumber.contactNumber == '444-4444'
+                    break
                     case '9126':
-                        foundEmailAddress = true
-                        assert partyContactMechValueMap.contactMech.contactMechTypeId == 'EMAIL_ADDRESS'
-                        assert partyContactMechValueMap.contactMech.infoString == 'ofbiztest@foo.com'
-                        assert partyContactMechValueMap.partyContactMech
-                        assert partyContactMechValueMap.contactMechType
-                        assert partyContactMechValueMap.partyContactMechPurposes
-                        assert partyContactMechValueMap.partyContactMechPurposes.size() == 2
-                        break
+                    foundEmailAddress = true
+                    assert partyContactMechValueMap.contactMech.contactMechTypeId == 'EMAIL_ADDRESS'
+                    assert partyContactMechValueMap.contactMech.infoString == 'ofbiztest@foo.com'
+                    assert partyContactMechValueMap.partyContactMech
+                    assert partyContactMechValueMap.contactMechType
+                    assert partyContactMechValueMap.partyContactMechPurposes
+                    assert partyContactMechValueMap.partyContactMechPurposes.size() == 2
+                    break
                     case '9127':
-                        foundFtpAddress = true
-                        assert partyContactMechValueMap.contactMech.contactMechTypeId == 'FTP_ADDRESS'
-                        assert partyContactMechValueMap.partyContactMech
-                        assert partyContactMechValueMap.contactMechType
-                        assert !partyContactMechValueMap.partyContactMechPurposes
-                        assert partyContactMechValueMap.ftpAddress
-                        assert partyContactMechValueMap.ftpAddress.hostname == 'ftp://apacheofbiz.foo.com'
-                        break
+                    foundFtpAddress = true
+                    assert partyContactMechValueMap.contactMech.contactMechTypeId == 'FTP_ADDRESS'
+                    assert partyContactMechValueMap.partyContactMech
+                    assert partyContactMechValueMap.contactMechType
+                    assert !partyContactMechValueMap.partyContactMechPurposes
+                    assert partyContactMechValueMap.ftpAddress
+                    assert partyContactMechValueMap.ftpAddress.hostname == 'ftp://apacheofbiz.foo.com'
+                    break
                 }
         }
         assert foundPostalAddress && foundTelecom && foundEmailAddress && foundFtpAddress

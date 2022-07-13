@@ -34,10 +34,10 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId
 
 // first purpose: retrieve orderId and paymentPreferenceId
 if (!orderPaymentPreferenceId) {
-  paymentGatewayResponse = context.paymentGatewayResponse
-  orderPaymentPreference = paymentGatewayResponse.getRelatedOne('OrderPaymentPreference', false)
-  context.orderId = orderPaymentPreference.orderId
-  context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
+    paymentGatewayResponse = context.paymentGatewayResponse
+    orderPaymentPreference = paymentGatewayResponse.getRelatedOne('OrderPaymentPreference', false)
+    context.orderId = orderPaymentPreference.orderId
+    context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
 } else {
     // second purpose: grab the latest gateway response of the orderpaymentpreferenceId
     orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()

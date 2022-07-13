@@ -456,7 +456,7 @@ def removeCommunicationEventRole() {
                 && from('CommunicationEventRole')
                     .where('communicationEventId', eventRole.communicationEventId)
                     .queryCount() == 0) {
-                run service: 'deleteCommunicationEvent', with: parameters
+            run service: 'deleteCommunicationEvent', with: parameters
         }
     }
     return success()
@@ -588,7 +588,7 @@ def setCommEventRoleToRead() {
                 .where(communicationEventId: parameters.communicationEventId,
                        partyId: parameters.partyId)
                 .queryFirst()
-            parameters.roleTypeId = eventRole.roleTypeId
+        parameters.roleTypeId = eventRole.roleTypeId
     } else {
         eventRole = from('CommunicationEventRole')
                 .where(parameters)

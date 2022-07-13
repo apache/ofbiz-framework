@@ -47,7 +47,7 @@ if('productstore'.equals(tabButtonItemTop)){
 }else if('facility'.equals(tabButtonItemTop)){
     facilityId = parameters.facilityId
     if (!facilityId && request.getAttribute('facilityId')) {
-      facilityId = request.getAttribute('facilityId')
+        facilityId = request.getAttribute('facilityId')
     }
     facility = from('Facility').where('facilityId', facilityId).queryOne();
     if(facility){
