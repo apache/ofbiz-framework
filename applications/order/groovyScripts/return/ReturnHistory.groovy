@@ -35,7 +35,7 @@ returnHistoryList.each { returnHistory ->
             orderReturnItemHistories.add(returnHistory)
         }
     } else if ((Float.valueOf(returnHistory.oldValueText)).compareTo(Float.valueOf(returnHistory.newValueText)) != 0) {
-            orderReturnItemHistories.add(returnHistory)
+        orderReturnItemHistories.add(returnHistory)
     }
 }
 context.orderReturnItemHistories = orderReturnItemHistories

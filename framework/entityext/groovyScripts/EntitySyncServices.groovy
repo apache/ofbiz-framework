@@ -24,7 +24,7 @@ def entitySyncPermissionCheck() {
 }
 
 def resetEntitySyncStatus() {
-	entitySyncRecord = from('EntitySync').where('entitySyncId', parameters.entitySyncId).queryOne()
+    entitySyncRecord = from('EntitySync').where('entitySyncId', parameters.entitySyncId).queryOne()
     if(entitySyncRecord && 'ESR_RUNNING'.equals(entitySyncRecord.runStatusId)) {
         entitySyncRecord.runStatusId = 'ESR_NOT_STARTED'
         entitySyncRecord.store()

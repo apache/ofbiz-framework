@@ -37,7 +37,7 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSui
         Element child = children ? children[0] : null
         String details = ''
         if (child) {
-             details = UtilXml.getAttributeValueIgnorePrefix(child, 'message') ?: child.getNodeValue()
+            details = UtilXml.getAttributeValueIgnorePrefix(child, 'message') ?: child.getNodeValue()
         }
         testList << [testName        : testCaseElement.getAttribute('name'),
                      success         : child == null,

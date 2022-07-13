@@ -24,10 +24,10 @@ surveyResponseId = parameters.surveyResponseId
 partyId = null
 
 if (!surveyId && surveyResponseId) {
-   surveyResponse = from('SurveyResponse').where('surveyResponseId', surveyResponseId).queryOne()
-   surveyId = surveyResponse.surveyId
-   context.surveyPartyId = surveyResponse.partyId
-   context.surveyId = surveyId
+    surveyResponse = from('SurveyResponse').where('surveyResponseId', surveyResponseId).queryOne()
+    surveyId = surveyResponse.surveyId
+    context.surveyPartyId = surveyResponse.partyId
+    context.surveyId = surveyId
 }
 surveyWrapper = new SurveyWrapper(delegator, surveyResponseId, partyId, surveyId, null)
 surveyWrapper.setEdit(true)

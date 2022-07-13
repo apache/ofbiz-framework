@@ -32,8 +32,8 @@ def nameLocal
 def productTextData
 contentAssocs.each { contentAssoc ->
 
-content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
-localeString = content.localeString
+    content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
+    localeString = content.localeString
 
     if ('au' == serverLocal) {
         nameLocal = 'en_AU'
@@ -58,8 +58,8 @@ localeString = content.localeString
     }
     
     if (localeString == nameLocal) {
-            electronicText = from('ElectronicText').where('dataResourceId', content.dataResourceId).queryOne()
-            productTextData = electronicText.textData
+        electronicText = from('ElectronicText').where('dataResourceId', content.dataResourceId).queryOne()
+        productTextData = electronicText.textData
     }
 
 }

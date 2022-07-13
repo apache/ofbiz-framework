@@ -22,7 +22,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession
 
 searchOperator = parameters.get('SEARCH_OPERATOR')
 if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
-  searchOperator = 'OR'
+    searchOperator = 'OR'
 }
 
 //create the fromDate for calendar

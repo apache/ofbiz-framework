@@ -27,24 +27,24 @@ cacheList = []
 totalCacheMemory = 0.0
 names = new TreeSet(UtilCache.getUtilCacheTableKeySet())
 names.each { cacheName ->
-        utilCache = UtilCache.findCache(cacheName)
-        cache = [:]
+    utilCache = UtilCache.findCache(cacheName)
+    cache = [:]
 
-        cache.cacheName = utilCache.getName()
-        cache.cacheSize = UtilFormatOut.formatQuantity(utilCache.size())
-        cache.hitCount = UtilFormatOut.formatQuantity(utilCache.getHitCount())
-        cache.missCountTot = UtilFormatOut.formatQuantity(utilCache.getMissCountTotal())
-        cache.missCountNotFound = UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound())
-        cache.missCountExpired = UtilFormatOut.formatQuantity(utilCache.getMissCountExpired())
-        cache.missCountSoftRef = UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef())
-        cache.removeHitCount = UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount())
-        cache.removeMissCount = UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount())
-        cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory())
-        cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime())
-        cache.useSoftReference = utilCache.getUseSoftReference().toString()
-        cache.cacheMemory = utilCache.getSizeInBytes()
-        totalCacheMemory += cache.cacheMemory
-        cacheList.add(cache)
+    cache.cacheName = utilCache.getName()
+    cache.cacheSize = UtilFormatOut.formatQuantity(utilCache.size())
+    cache.hitCount = UtilFormatOut.formatQuantity(utilCache.getHitCount())
+    cache.missCountTot = UtilFormatOut.formatQuantity(utilCache.getMissCountTotal())
+    cache.missCountNotFound = UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound())
+    cache.missCountExpired = UtilFormatOut.formatQuantity(utilCache.getMissCountExpired())
+    cache.missCountSoftRef = UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef())
+    cache.removeHitCount = UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount())
+    cache.removeMissCount = UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount())
+    cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory())
+    cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime())
+    cache.useSoftReference = utilCache.getUseSoftReference().toString()
+    cache.cacheMemory = utilCache.getSizeInBytes()
+    totalCacheMemory += cache.cacheMemory
+    cacheList.add(cache)
 }
 sortField = parameters.sortField
 if (sortField) { 

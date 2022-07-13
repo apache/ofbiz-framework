@@ -227,12 +227,12 @@ if (product) {
             context.daysToShip = productFacility?.daysToShip
         }
     } else {
-       supplierProduct = from('SupplierProduct').where('productId', productId).orderBy('-availableFromDate').cache(true).queryFirst()
-       if (supplierProduct?.standardLeadTimeDays) {
-           standardLeadTimeDays = supplierProduct.standardLeadTimeDays
-           daysToShip = standardLeadTimeDays + 1
-           context.daysToShip = daysToShip
-       }
+        supplierProduct = from('SupplierProduct').where('productId', productId).orderBy('-availableFromDate').cache(true).queryFirst()
+        if (supplierProduct?.standardLeadTimeDays) {
+            standardLeadTimeDays = supplierProduct.standardLeadTimeDays
+            daysToShip = standardLeadTimeDays + 1
+            context.daysToShip = daysToShip
+        }
     }
 
     // get the product distinguishing features

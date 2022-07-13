@@ -26,10 +26,10 @@ facilityId = parameters.facilityId
 facility = from('Facility').where('facilityId', facilityId).queryOne()
 facilityType = null
 if (!facility) {
-  context.facility = makeValue('Facility', null)
-  context.facilityType = makeValue('FacilityType', null)
+    context.facility = makeValue('Facility', null)
+    context.facilityType = makeValue('FacilityType', null)
 } else {
-  facilityType = facility.getRelatedOne('FacilityType', false)
+    facilityType = facility.getRelatedOne('FacilityType', false)
 }
 context.facility = facility
 context.facilityType = facilityType

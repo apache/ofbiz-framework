@@ -291,35 +291,35 @@ List depreciationAndExprs = mainAndExprs as LinkedList
 depreciationAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, depreciationAccountClassIds))
 transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(depreciationAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
-Map transactionTotalsMap = [:]
-balanceTotalCredit = BigDecimal.ZERO
-balanceTotalDebit = BigDecimal.ZERO
-transactionTotals.each { transactionTotal ->
-   Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
-   if (!accountMap) {
-       accountMap = UtilMisc.makeMapWritable(transactionTotal)
-       accountMap.remove('debitCreditFlag')
-       accountMap.remove('amount')
-       accountMap.put('D', BigDecimal.ZERO)
-       accountMap.put('C', BigDecimal.ZERO)
-       accountMap.put('balance', BigDecimal.ZERO)
-   }
-   UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-   if ('D'.equals(transactionTotal.debitCreditFlag)) {
-       balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
+    Map transactionTotalsMap = [:]
+    balanceTotalCredit = BigDecimal.ZERO
+    balanceTotalDebit = BigDecimal.ZERO
+    transactionTotals.each { transactionTotal ->
+        Map accountMap = (Map)transactionTotalsMap.get(transactionTotal.glAccountId)
+        if (!accountMap) {
+            accountMap = UtilMisc.makeMapWritable(transactionTotal)
+            accountMap.remove('debitCreditFlag')
+            accountMap.remove('amount')
+            accountMap.put('D', BigDecimal.ZERO)
+            accountMap.put('C', BigDecimal.ZERO)
+            accountMap.put('balance', BigDecimal.ZERO)
+        }
+        UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
+        if ('D'.equals(transactionTotal.debitCreditFlag)) {
+            balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
    } else {
-       balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
-   }
-   BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
-   BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
-   // expenses are accounts of class DEBIT: the balance is given by debits minus credits
-   BigDecimal balance = debitAmount.subtract(creditAmount)
-   accountMap.put('balance', balance)
-   transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
-}
-accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
-// expenses are accounts of class DEBIT: the balance is given by debits minus credits
-balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
+            balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
+        }
+        BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
+        BigDecimal creditAmount = (BigDecimal)accountMap.get('C')
+        // expenses are accounts of class DEBIT: the balance is given by debits minus credits
+        BigDecimal balance = debitAmount.subtract(creditAmount)
+        accountMap.put('balance', balance)
+        transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
+    }
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    // expenses are accounts of class DEBIT: the balance is given by debits minus credits
+    balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
 depreciation = balanceTotal
 

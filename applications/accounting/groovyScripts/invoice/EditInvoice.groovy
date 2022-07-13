@@ -99,32 +99,32 @@ if (invoice) {
     context.invoiceTotal = invoiceTotal
     context.invoiceNoTaxTotal = invoiceNoTaxTotal
 
-                //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
+    //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
 
-               sendingTaxInfos = sendingParty.getRelated('PartyTaxAuthInfo', null, null, false)
-               billingTaxInfos = billToParty.getRelated('PartyTaxAuthInfo', null, null, false)
-               sendingPartyTaxId = null
-               billToPartyTaxId = null
+    sendingTaxInfos = sendingParty.getRelated('PartyTaxAuthInfo', null, null, false)
+    billingTaxInfos = billToParty.getRelated('PartyTaxAuthInfo', null, null, false)
+    sendingPartyTaxId = null
+    billToPartyTaxId = null
 
-               if (billingAddress) {
-                   sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
-                       if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                            sendingPartyTaxId = sendingTaxInfos[i-1].partyTaxId
-                       }
-                   }
-                   billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
-                       if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                            billToPartyTaxId = billingTaxInfos[i-1].partyTaxId
-                       }
-                   }
-               }
-               if (sendingPartyTaxId) {
-                   context.sendingPartyTaxId = sendingPartyTaxId
-               }
-               if (billToPartyTaxId && !context.billToPartyTaxId) {
-                   context.billToPartyTaxId = billToPartyTaxId
-               }
-               //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
+    if (billingAddress) {
+        sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
+            if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+                sendingPartyTaxId = sendingTaxInfos[i-1].partyTaxId
+            }
+        }
+        billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
+            if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+                billToPartyTaxId = billingTaxInfos[i-1].partyTaxId
+            }
+        }
+    }
+    if (sendingPartyTaxId) {
+        context.sendingPartyTaxId = sendingPartyTaxId
+    }
+    if (billToPartyTaxId && !context.billToPartyTaxId) {
+        context.billToPartyTaxId = billToPartyTaxId
+    }
+    //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
 
 
     terms = invoice.getRelated('InvoiceTerm', null, null, false)

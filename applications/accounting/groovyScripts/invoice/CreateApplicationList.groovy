@@ -47,11 +47,11 @@ invoiceAppls.each { invoiceAppl ->
 invoice.getRelated('InvoiceItem', null, null, false).each { item ->
     BigDecimal itemTotal = null
     if (item.amount != null) {
-          if (!item.quantity) {
-              itemTotal = item.getBigDecimal('amount')
+        if (!item.quantity) {
+            itemTotal = item.getBigDecimal('amount')
           } else {
-              itemTotal = item.getBigDecimal('amount').multiply(item.getBigDecimal('quantity'))
-          }
+            itemTotal = item.getBigDecimal('amount').multiply(item.getBigDecimal('quantity'))
+        }
     }
     // get relation payment applications for every item(can be more than 1 per item number)
     item.getRelated('PaymentApplication', null, null, false).each { paymentApplication ->

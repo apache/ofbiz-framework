@@ -117,7 +117,7 @@ if (productId) {
                     categoryContentWrapper = new CategoryContentWrapper(category, request)
                     categoryDescription = categoryContentWrapper.get('DESCRIPTION', 'html')
                     if (categoryDescription) {
-                            keywords.add(categoryDescription)
+                        keywords.add(categoryDescription)
                     }
                 }
             }

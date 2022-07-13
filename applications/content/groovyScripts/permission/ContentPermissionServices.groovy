@@ -308,26 +308,26 @@ def updateContentPermission(Boolean hasPermission, String contentId, String owne
                 checkId = ownerContentId
                 parameters.checkId = checkId
                 Map serviceResultCO = run service: 'checkOwnership', with: parameters
-                    hasPermission = serviceResultCO.hasPermission ?: false
-                }
-                if (!hasPermission) {
-                    // no permission on this parent; check the parent's parent(s)
-                    while (!hasPermission && checkId) {
-                        // iterate until either we have permission or there are no more parents
-                        GenericValue currentContent = from('Content').where(contentId: checkId).cache().queryOne()
-                        if (currentContent?.ownerContentId) {
-                            checkId = currentContent.ownerContentId
-                            parameters.checkId = checkId
-                            Map serviceResCO = run service: 'checkOwnership', with: parameters
-                            hasPermission = serviceResCO.hasPermission ?: false
+                hasPermission = serviceResultCO.hasPermission ?: false
+            }
+            if (!hasPermission) {
+                // no permission on this parent; check the parent's parent(s)
+                while (!hasPermission && checkId) {
+                    // iterate until either we have permission or there are no more parents
+                    GenericValue currentContent = from('Content').where(contentId: checkId).cache().queryOne()
+                    if (currentContent?.ownerContentId) {
+                        checkId = currentContent.ownerContentId
+                        parameters.checkId = checkId
+                        Map serviceResCO = run service: 'checkOwnership', with: parameters
+                        hasPermission = serviceResCO.hasPermission ?: false
                         } else {
-                            // no parent record found; time to stop recursion
-                            checkId = null
-                        }
+                        // no parent record found; time to stop recursion
+                        checkId = null
                     }
                 }
             }
         }
+    }
     return success(hasPermission: hasPermission)
 }
 

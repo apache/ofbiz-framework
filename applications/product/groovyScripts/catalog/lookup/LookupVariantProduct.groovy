@@ -47,8 +47,8 @@ if (featureTypes) {
 }
 
 variants = []
-    result = runService('getAllExistingVariants', [productId : productId, productFeatureAppls : selectedFeatureTypeValues])
-    variants = result.variantProductIds
+result = runService('getAllExistingVariants', [productId : productId, productFeatureAppls : selectedFeatureTypeValues])
+variants = result.variantProductIds
 
 // Quick Add Variant
 productFeatureIdsPar = request.getParameter('productFeatureIds')

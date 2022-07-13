@@ -21,14 +21,14 @@ import org.apache.ofbiz.entity.condition.*
 
 facilityId = parameters.facilityId
 if (!facilityId && request.getAttribute('facilityId')) {
-  facilityId = request.getAttribute('facilityId')
+    facilityId = request.getAttribute('facilityId')
 }
 facility = from('Facility').where('facilityId', facilityId).queryOne()
 if (!facility) {
-  facility = makeValue('Facility')
-  facilityType = makeValue('FacilityType')
+    facility = makeValue('Facility')
+    facilityType = makeValue('FacilityType')
 } else {
-  facilityType = facility.getRelatedOne('FacilityType', false)
+    facilityType = facility.getRelatedOne('FacilityType', false)
 }
 context.facility = facility
 context.facilityType = facilityType
@@ -37,7 +37,7 @@ context.facilityId = facilityId
 //Facility types
 facilityTypes = from('FacilityType').queryList()
 if (facilityTypes) {
-  context.facilityTypes = facilityTypes
+    context.facilityTypes = facilityTypes
 }
 
 // all possible inventory item types

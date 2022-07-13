@@ -98,8 +98,8 @@ context.defaultComment = defaultComment
 
 // get all party shopping lists
 if (partyId) {
-  shoppingLists = from('ShoppingList').where('partyId', partyId).queryList()
-  context.shoppingLists = shoppingLists
+    shoppingLists = from('ShoppingList').where('partyId', partyId).queryList()
+    context.shoppingLists = shoppingLists
 }
 
 // get product inventory summary for each shopping cart item

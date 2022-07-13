@@ -131,7 +131,7 @@ if (action) {
         searchParameterString = searchParameterString + '&statusId=' + statusId;
     }
     
-        whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND)
+    whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND)
 
     beganTransaction = false
     // get the indexes for the partial list

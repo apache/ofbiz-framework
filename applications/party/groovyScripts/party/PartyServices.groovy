@@ -823,36 +823,36 @@ def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
     List newRelatedPartyIdList = []
     List relatedPartyIdAlreadySearchedList = []
     for (String relatedPartyId : relatedPartyIdList) {
-         if (!relatedPartyIdAlreadySearchedList.contains(relatedPartyId)) {
-             relatedPartyIdAlreadySearchedList.add(relatedPartyId)
+        if (!relatedPartyIdAlreadySearchedList.contains(relatedPartyId)) {
+            relatedPartyIdAlreadySearchedList.add(relatedPartyId)
 
-             List<EntityCondition> entityConditionList = [EntityCondition.makeCondition('partyIdFrom', relatedPartyId)]
-             if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdFromList)
-             if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdToList)
-             if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
-             EntityCondition condition = EntityCondition.makeCondition(entityConditionList)
+            List<EntityCondition> entityConditionList = [EntityCondition.makeCondition('partyIdFrom', relatedPartyId)]
+            if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdFromList)
+            if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdToList)
+            if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
+            EntityCondition condition = EntityCondition.makeCondition(entityConditionList)
 
-             // get the newest (highest date) first
-             List PartyRelationshipList = from('PartyRelationship')
+            // get the newest (highest date) first
+            List PartyRelationshipList = from('PartyRelationship')
                      .where(condition)
                      .orderBy('-fromDate')
                      .filterByDate(searchTimestamp)
                      .cache('Y' == useCache)
                      .queryList()
-             for (GenericValue PartyRelationship : PartyRelationshipList) {
-                 if ( !relatedPartyIdList.contains(PartyRelationship.partyIdTo) &&
+            for (GenericValue PartyRelationship : PartyRelationshipList) {
+                if ( !relatedPartyIdList.contains(PartyRelationship.partyIdTo) &&
                       !newRelatedPartyIdList.contains(PartyRelationship.partyIdTo)) {
-                      newRelatedPartyIdList << PartyRelationship.partyIdTo
-                 }
-             }
+                    newRelatedPartyIdList << PartyRelationship.partyIdTo
+                      }
+            }
 
-             if ('Y' == includeFromToSwitched) {
-                 entityConditionList = [EntityCondition.makeCondition('partyIdTo', relatedPartyId)]
-                 // The roles are reversed
-                 if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdToList)
-                 if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdFromList)
-                 if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
-                 condition = EntityCondition.makeCondition(entityConditionList)
+            if ('Y' == includeFromToSwitched) {
+                entityConditionList = [EntityCondition.makeCondition('partyIdTo', relatedPartyId)]
+                // The roles are reversed
+                if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdToList)
+                if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdFromList)
+                if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
+                condition = EntityCondition.makeCondition(entityConditionList)
 
                 PartyRelationshipList = from('PartyRelationship')
                         .where(condition)
@@ -863,11 +863,11 @@ def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                 for (GenericValue PartyRelationship : PartyRelationshipList) {
                     if ( !relatedPartyIdList.contains(PartyRelationship.partyIdFrom) &&
                          !newRelatedPartyIdList.contains(PartyRelationship.partyIdFrom)) {
-                         newRelatedPartyIdList << PartyRelationship.partyIdFrom
-                    }
+                        newRelatedPartyIdList << PartyRelationship.partyIdFrom
+                         }
                 }
-             }
-         }
+            }
+        }
     }
 
     // if we found new ones, add them to the master list and if recurse=Y then recurse
@@ -879,7 +879,7 @@ def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                 partyRelationshipTypeId, includeFromToSwitched, recurse, searchTimestamp, useCache)
             for (String newPartyId : res.NewRelatedPartyIdList) {
                 if ( !newRelatedPartyIdList.contains(newPartyId)) {
-                     newRelatedPartyIdList << newPartyId
+                    newRelatedPartyIdList << newPartyId
                 }
             }
         }
@@ -903,8 +903,8 @@ def getChildRoleTypesInline (List roleTypeIdListName) {
             List RoleTypeList = from('RoleType').where(parentTypeId: roleTypeId).cache().queryList()
             for (GenericValue newRoleType : RoleTypeList) {
                 if ( !roleTypeIdListName.contains(newRoleType.roleTypeId) &&
-                     !newRoleTypeIdList.contains(newRoleType.roleTypeId)) {
-                     newRoleTypeIdList << newRoleType.roleTypeId
+                        !newRoleTypeIdList.contains(newRoleType.roleTypeId)) {
+                    newRoleTypeIdList << newRoleType.roleTypeId
                 }
             }
         }
@@ -917,7 +917,7 @@ def getChildRoleTypesInline (List roleTypeIdListName) {
         Map res = getChildRoleTypesInline(roleTypeIdListName)
         for (String childRoleTypeId : res.childRoleTypeIdList) {
             if ( !newRoleTypeIdList.contains(childRoleTypeId)) {
-                 newRoleTypeIdList << childRoleTypeId
+                newRoleTypeIdList << childRoleTypeId
             }
         }
     }

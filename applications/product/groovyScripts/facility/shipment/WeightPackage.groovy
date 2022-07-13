@@ -134,25 +134,25 @@ if (orderId) {
         carrierPartyId = orderItemShipGroup.carrierPartyId
         if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
-            if (shipment) {
-                productStoreId = orderReadHelper.getProductStoreId()
-                shippableItemInfo = orderReadHelper.getOrderItemAndShipGroupAssoc(shipGroupSeqId)
-                shippableItems = from('OrderItemAndShipGrpInvResAndItemSum').where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId).queryList()
-                shippableTotal = orderReadHelper.getShippableTotal(shipGroupSeqId)
-                shippableWeight = orderReadHelper.getShippableWeight(shipGroupSeqId)
-                shippableQuantity = orderReadHelper.getShippableQuantity(shipGroupSeqId)
-                estimatedShippingCost = weightPackageSession.getShipmentCostEstimate(orderItemShipGroup, orderId, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity)
-                if (weightPackageSession.getPackedLines(orderId)) {
-                    shipWeight = weightPackageSession.getShippableWeight(orderId)
-                    newEstimatedShippingCost = weightPackageSession.getShipmentCostEstimate(orderItemShipGroup, orderId, productStoreId, shippableItemInfo, shippableTotal, shipWeight, shippableQuantity)
-                    context.newEstimatedShippingCost = newEstimatedShippingCost
+                if (shipment) {
+                    productStoreId = orderReadHelper.getProductStoreId()
+                    shippableItemInfo = orderReadHelper.getOrderItemAndShipGroupAssoc(shipGroupSeqId)
+                    shippableItems = from('OrderItemAndShipGrpInvResAndItemSum').where('orderId', orderId, 'shipGroupSeqId', shipGroupSeqId).queryList()
+                    shippableTotal = orderReadHelper.getShippableTotal(shipGroupSeqId)
+                    shippableWeight = orderReadHelper.getShippableWeight(shipGroupSeqId)
+                    shippableQuantity = orderReadHelper.getShippableQuantity(shipGroupSeqId)
+                    estimatedShippingCost = weightPackageSession.getShipmentCostEstimate(orderItemShipGroup, orderId, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity)
+                    if (weightPackageSession.getPackedLines(orderId)) {
+                        shipWeight = weightPackageSession.getShippableWeight(orderId)
+                        newEstimatedShippingCost = weightPackageSession.getShipmentCostEstimate(orderItemShipGroup, orderId, productStoreId, shippableItemInfo, shippableTotal, shipWeight, shippableQuantity)
+                        context.newEstimatedShippingCost = newEstimatedShippingCost
+                    }
+                    context.productStoreId = productStoreId
+                    context.estimatedShippingCost = estimatedShippingCost
+                } else {
+                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId' : orderId], locale))
+                    orderId = null
                 }
-                context.productStoreId = productStoreId
-                context.estimatedShippingCost = estimatedShippingCost
-            } else {
-                request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId' : orderId], locale))
-                orderId = null
-            }
             } else {
                 request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('ProductErrorUiLabels', 'ProductErrorNoShipGroupSequenceIdFoundCannotProcess', locale))
                 orderId = null

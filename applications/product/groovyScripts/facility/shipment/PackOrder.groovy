@@ -133,10 +133,10 @@ if (orderId) {
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId)
         context.orderItemShipGroup = orderItemShipGroup
         carrierPartyId = orderItemShipGroup.carrierPartyId
-            carrierShipmentBoxTypes = from('CarrierShipmentBoxType').where('partyId', carrierPartyId).queryList()
-            if (carrierShipmentBoxTypes) {
+        carrierShipmentBoxTypes = from('CarrierShipmentBoxType').where('partyId', carrierPartyId).queryList()
+        if (carrierShipmentBoxTypes) {
             context.carrierShipmentBoxTypes = carrierShipmentBoxTypes
-            }
+        }
 
         if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {

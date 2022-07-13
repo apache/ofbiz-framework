@@ -126,12 +126,12 @@ if (shipmentPlans) {
         if (product.productHeight &&
             product.productWidth &&
             product.productDepth) {
-                // TODO: check if uom conversion is needed
-                volume = product.productHeight *
+            // TODO: check if uom conversion is needed
+            volume = product.productHeight *
                          product.productWidth *
                          product.productDepth *
                          quantity
-        }
+            }
         oneRow.volume = volume
         if (product.heightUomId &&
             product.widthUomId &&

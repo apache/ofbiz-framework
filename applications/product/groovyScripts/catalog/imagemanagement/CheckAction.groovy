@@ -26,7 +26,7 @@ if (rowCount > 1) {
     for (int i = 0; i < rowCount; i++) {
         String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i
         if(paramMap.get('action' +thisSuffix)){
-                result = paramMap.get('action' +thisSuffix)
+            result = paramMap.get('action' +thisSuffix)
         }
     }
 }

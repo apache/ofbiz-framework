@@ -206,20 +206,20 @@ def createContentAlternativeUrl() {
             if (contentAssocDataResources
                     && contentAssocDataResources[0].drObjectInfo
                     && content.contentName) {
-                    String uri = UrlServletHelper.invalidCharacter(content.contentName)
-                    if (uri) {
-                        try {
-                            serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
-                                                                                      objectInfo: "/${uri}'${content.contentId}-content"]
-                            if (ServiceUtil.isSuccess(serviceResult)) {
-                                contentIdTo = serviceResult.contentId
-                            }
-                        } catch (GenericServiceException e) {
-                            logError(e.getMessage())
+                String uri = UrlServletHelper.invalidCharacter(content.contentName)
+                if (uri) {
+                    try {
+                        serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
+                                      objectInfo: "/${uri}'${content.contentId}-content"]
+                        if (ServiceUtil.isSuccess(serviceResult)) {
+                            contentIdTo = serviceResult.contentId
                         }
-                        contentCreated = 'Y'
+                    } catch (GenericServiceException e) {
+                        logError(e.getMessage())
                     }
+                    contentCreated = 'Y'
                 }
+            }
         }
     }
     return [*: success(),

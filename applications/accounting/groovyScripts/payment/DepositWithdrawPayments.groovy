@@ -34,7 +34,7 @@ if ('Y'.equals(parameters.noConditionFind)) {
                                                 EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'PMNT_SENT')], EntityOperator.OR)
 
     if (paymentMethodTypeId) {
-    exprListForParameters.add(EntityCondition.makeCondition('paymentMethodTypeId', EntityOperator.EQUALS, paymentMethodTypeId))
+        exprListForParameters.add(EntityCondition.makeCondition('paymentMethodTypeId', EntityOperator.EQUALS, paymentMethodTypeId))
     }
     if (fromDate) {
         exprListForParameters.add(EntityCondition.makeCondition('effectiveDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))

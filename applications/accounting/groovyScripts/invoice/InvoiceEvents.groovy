@@ -28,25 +28,25 @@ def createInvoiceItemPayrol() {
             .where('parentTypeId', 'PAYROL')
             .queryList()
             .each { payRolGroup ->
-                payRolList.each { payRol ->
-                    if (payRol.parentTypeId == payRolGroup.invoiceItemTypeId) {
-                        Map createInvoiceItem = [invoiceId        : parameters.invoiceId,
-                            invoiceItemTypeId: payRol.invoiceItemTypeId,
-                            description      : "${payRolGroup.description}: ${payRol.description}",
-                            quantity         : parameters."${payRol.invoiceItemTypeId}_Quantity" ?: 1d,
-                            amount           : parameters."${payRol.invoiceItemTypeId}_Amount" ?: 0d]
+            payRolList.each { payRol ->
+                if (payRol.parentTypeId == payRolGroup.invoiceItemTypeId) {
+                    Map createInvoiceItem = [invoiceId        : parameters.invoiceId,
+                        invoiceItemTypeId: payRol.invoiceItemTypeId,
+                        description      : "${payRolGroup.description}: ${payRol.description}",
+                        quantity         : parameters."${payRol.invoiceItemTypeId}_Quantity" ?: 1d,
+                        amount           : parameters."${payRol.invoiceItemTypeId}_Amount" ?: 0d]
 
-                        if (parameters."${payRol.invoiceItemTypeId}_Quantity" ||
-                                parameters."${payRol.invoiceItemTypeId}_Amount") {
-                            if ('PAYROL_EARN_HOURS' != payRolGroup.invoiceItemTypeId) {
-                                createInvoiceItem.amount = createInvoiceItem.amount.negate()
-                            }
-                            Map serviceResult = run service: 'createInvoiceItem', with: createInvoiceItem
-                            if (ServiceUtil.isError(serviceResult)) {
-                                return serviceResult
-                            }
+                    if (parameters."${payRol.invoiceItemTypeId}_Quantity" ||
+                            parameters."${payRol.invoiceItemTypeId}_Amount") {
+                        if ('PAYROL_EARN_HOURS' != payRolGroup.invoiceItemTypeId) {
+                            createInvoiceItem.amount = createInvoiceItem.amount.negate()
+                        }
+                        Map serviceResult = run service: 'createInvoiceItem', with: createInvoiceItem
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return serviceResult
                         }
                     }
+                }
                 }
             }
 

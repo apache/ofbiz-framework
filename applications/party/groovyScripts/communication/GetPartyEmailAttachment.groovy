@@ -26,7 +26,7 @@ if (communicationEventId) {
     List<GenericValue> attachedContents = delegator.findByAnd('CommEventContentDataResource',
             [communicationEventId : communicationEventId], null, true)
     List<String> attachedContentNames = []
-        attachedContents.each { GenericValue attachedContent ->
+    attachedContents.each { GenericValue attachedContent ->
         attachedContentNames << attachedContent.contentName as String
     }
 

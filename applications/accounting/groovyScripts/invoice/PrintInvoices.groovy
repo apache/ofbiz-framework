@@ -45,10 +45,10 @@ invoiceIds.each { invoiceId ->
         invoiceItems = invoice.getRelated('InvoiceItem', null, ['invoiceItemSeqId'], false)
         invoiceItemsConv = []
         invoiceItems.each { invoiceItem ->
-          if (invoiceItem.amount) {
-              invoiceItem.amount = invoiceItem.getBigDecimal('amount').multiply(conversionRate).setScale(decimals, rounding)
-              invoiceItemsConv.add(invoiceItem)
-          }
+            if (invoiceItem.amount) {
+                invoiceItem.amount = invoiceItem.getBigDecimal('amount').multiply(conversionRate).setScale(decimals, rounding)
+                invoiceItemsConv.add(invoiceItem)
+            }
         }
     
         invoicesMap.invoiceItems = invoiceItemsConv
@@ -80,12 +80,12 @@ invoiceIds.each { invoiceId ->
         if (billingAddress) {
             sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
                 if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                     sendingPartyTaxId = sendingTaxInfos[i-1].partyTaxId
+                    sendingPartyTaxId = sendingTaxInfos[i-1].partyTaxId
                 }
             }
             billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
                 if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                     billToPartyTaxId = billingTaxInfos[i-1].partyTaxId
+                    billToPartyTaxId = billingTaxInfos[i-1].partyTaxId
                 }
             }
         }

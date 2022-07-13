@@ -55,19 +55,19 @@ if (modelEntity) {
     //call modelEntity to complete information on the field type
     modelEntity.getFieldsUnmodifiable().each {
         modelField ->
-            if (! modelEntity.getAutomaticFieldNames().contains(modelField.name)) {
-                ModelFieldType type = delegator.getEntityFieldType(modelEntity, modelField.getType())
-                dynamicAutoEntityFieldSearchForm +=
-                        "<field name=\"${modelField.name}\" tooltip=\"${modelField.getName()}" +
-                                (modelField.getIsPk() ? '* ': ' ') +
-                                " / ${modelField.getType()} (${type.getJavaType()} - ${type.getSqlType()})\">"
+        if (! modelEntity.getAutomaticFieldNames().contains(modelField.name)) {
+            ModelFieldType type = delegator.getEntityFieldType(modelEntity, modelField.getType())
+            dynamicAutoEntityFieldSearchForm +=
+            "<field name=\"${modelField.name}\" tooltip=\"${modelField.getName()}" +
+            (modelField.getIsPk() ? '* ': ' ') +
+            " / ${modelField.getType()} (${type.getJavaType()} - ${type.getSqlType()})\">"
 
-                //In general when your research some entity on the pk field, you check on element, so help by set as default equals comparison
-                if (modelField.getIsPk() && type.getJavaType() == 'String') {
-                    dynamicAutoEntityFieldSearchForm += '<text-find default-option="equals"/>'
-                }
-                dynamicAutoEntityFieldSearchForm += '</field>'
+            //In general when your research some entity on the pk field, you check on element, so help by set as default equals comparison
+            if (modelField.getIsPk() && type.getJavaType() == 'String') {
+                dynamicAutoEntityFieldSearchForm += '<text-find default-option="equals"/>'
             }
+            dynamicAutoEntityFieldSearchForm += '</field>'
+        }
     }
     dynamicAutoEntityFieldSearchForm = dynamicAutoEntityFieldSearchForm + '</form></forms>'
     logVerbose(dynamicAutoEntityFieldSearchForm)
@@ -96,7 +96,7 @@ if (modelEntity) {
                     <field-map field-name="inputFields" from-field="parameters"/>
                     <field-map field-name="entityName" value="${entityName}"/>"""
     if (fieldsToSelect) {
-    dynamicAutoEntityFieldListForm += """
+        dynamicAutoEntityFieldListForm += """
                     <field-map field-name="fieldList" value="${fieldsToSelect}"/>"""
     }
     dynamicAutoEntityFieldListForm += """
@@ -108,7 +108,7 @@ if (modelEntity) {
             <field name="entityName"><hidden value="${entityName}"/></field>"""
     modelEntity.getFieldsUnmodifiable().each {
         modelField ->
-            dynamicAutoEntityFieldListForm +=
+        dynamicAutoEntityFieldListForm +=
                     "<field name=\"${modelField.name}\" sort-field=\"true\"/>"
     }
     dynamicAutoEntityFieldListForm += """

@@ -82,12 +82,12 @@ if (product) {
             }
         }
     } else {
-       supplierProduct = from('SupplierProduct').where('productId', product.productId).orderBy('-availableFromDate').cache(true).queryFirst()
-       if (supplierProduct?.standardLeadTimeDays != null) {
-           standardLeadTimeDays = supplierProduct.standardLeadTimeDays
-           daysToShip = standardLeadTimeDays + 1
-           context.daysToShip = daysToShip
-       }
+        supplierProduct = from('SupplierProduct').where('productId', product.productId).orderBy('-availableFromDate').cache(true).queryFirst()
+        if (supplierProduct?.standardLeadTimeDays != null) {
+            standardLeadTimeDays = supplierProduct.standardLeadTimeDays
+            daysToShip = standardLeadTimeDays + 1
+            context.daysToShip = daysToShip
+        }
     }
     // make the productContentWrapper
     productContentWrapper = new ProductContentWrapper(product, request)

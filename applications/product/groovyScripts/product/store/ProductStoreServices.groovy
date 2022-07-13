@@ -79,9 +79,8 @@ def updateProductStore() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', parameters.locale))
     }
-    if ('Y' == parameters.oneInventoryFacility
-        && !parameters.inventoryFacilityId) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
+    if ('Y' == parameters.oneInventoryFacility && !parameters.inventoryFacilityId) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
     }
     GenericValue store = from('ProductStore').where(productStoreId: parameters.productStoreId).queryOne()
     String oldFacilityId = store.inventoryFacilityId

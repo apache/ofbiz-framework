@@ -37,9 +37,9 @@ if (itemQuantitiesToReceive) {
         ((sessionOrderId && !sessionOrderId.equals(orderId)))        ||
          'Y'.equals(request.getParameter('clearAll'))) {
 
-             // Clear the map if the shipmentId or orderId are different than the current ones, or
-             // if the clearAll parameter is present
-             itemQuantitiesToReceive.clear()
+        // Clear the map if the shipmentId or orderId are different than the current ones, or
+        // if the clearAll parameter is present
+        itemQuantitiesToReceive.clear()
     }
 }
 

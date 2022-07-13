@@ -325,8 +325,8 @@ private List<GenericValue> linkProductToShoppingList(String productId, String sh
                     productAssocTypeId: 'PRODUCT_COMPLEMENT')
             .filterByDate()
             .queryList().each {
-        run service: 'addDistinctShoppingListItem', with: [productId     : it.productIdTo,
-                                                           shoppingListId: shoppingListId,
-                                                           quantity      : (BigDecimal) 1]
+                run service: 'addDistinctShoppingListItem', with: [productId     : it.productIdTo,
+                                                                   shoppingListId: shoppingListId,
+                                                                   quantity      : (BigDecimal) 1]
     }
 }

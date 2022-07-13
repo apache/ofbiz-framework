@@ -21,7 +21,7 @@ postalAddressForTemplate = context.postalAddress
 postalAddressTemplateSuffix = context.postalAddressTemplateSuffix
 
 if (!postalAddressTemplateSuffix) {
-  postalAddressTemplateSuffix = '.ftl'
+    postalAddressTemplateSuffix = '.ftl'
 }
 context.postalAddressTemplate = 'PostalAddress' + postalAddressTemplateSuffix
 if (postalAddressForTemplate && postalAddressForTemplate.countryGeoId) {

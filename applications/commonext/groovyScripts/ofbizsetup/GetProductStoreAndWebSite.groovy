@@ -18,7 +18,7 @@
  */
  import org.apache.ofbiz.entity.util.EntityUtil
  
- productStoreId = null
+productStoreId = null
  
 productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();
 if(productStore){
