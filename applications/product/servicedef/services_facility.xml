@@ -917,18 +917,17 @@ under the License.
         <auto-attributes mode="IN" entity-name="FacilityAttribute" include="pk" optional="false"/>
     </service>
 
-    <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="simple"
-                location="component://product/minilang/product/storage/StorageServices.xml" invoke="createFacilityLocation" auth="true">
+    <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="groovy" invoke="createFacilityLocation"
+             location="component://product/groovyScripts/facility/storage/StorageServices.groovy" auth="true">
         <description>Create a Facility Location</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
+        <attribute name="facilityId" type="String" mode="IN">
             <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
             </type-validate>
         </attribute>
-
-        <attribute name="locationSeqId" type="String" mode="OUT" optional="false"/>
+        <attribute name="locationSeqId" type="String" mode="OUT"/>
     </service>
     <service name="updateFacilityLocation" default-entity-name="FacilityLocation" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Facility Location</description>
