@@ -693,7 +693,7 @@ public class ModelMenuItem extends ModelWidget {
             this.linkMenuItem = parentMenuItem;
             this.link = originLink != null
                     ? originLink.link
-                    : null;
+                    : new Link();
         }
 
         public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
