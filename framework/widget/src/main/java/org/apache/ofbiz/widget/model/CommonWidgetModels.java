@@ -444,6 +444,32 @@ public final class CommonWidgetModels {
             this.height = "";
         }
 
+        // Empty link constructor
+        public Link() {
+            this.autoEntityParameters = null;
+            this.autoServiceParameters = null;
+            this.callback = null;
+            this.encode = false;
+            this.fullPath = false;
+            this.idExdr = FlexibleStringExpander.getInstance("");
+            this.image = null;
+            this.linkType = "";
+            this.nameExdr = FlexibleStringExpander.getInstance("");
+            this.parameterList = Collections.emptyList();
+            this.prefixExdr = FlexibleStringExpander.getInstance("");
+            this.secure = false;
+            this.styleExdr = FlexibleStringExpander.getInstance("");
+            this.targetExdr = FlexibleStringExpander.getInstance("");
+            this.targetWindowExdr = FlexibleStringExpander.getInstance("");
+            this.textExdr = FlexibleStringExpander.getInstance("");
+            this.urlMode = "intra-app";
+            this.size = null;
+            this.requestConfirmation = false;
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
+            this.width = "";
+            this.height = "";
+        }
+
         public AutoEntityParameters getAutoEntityParameters() {
             return autoEntityParameters;
         }
