@@ -56,6 +56,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -825,6 +826,9 @@ public final class RequestHandler {
                     + eventReturn + "].");
         }
 
+        // before follow, analyze if a have a specific event message to return on the request.
+        setUserMessageResponseToRequest(request, nextRequestResponse);
+
         if (Debug.verboseOn()) {
             Debug.logVerbose("[Event Response Selected]  type=" + nextRequestResponse.getType() + ", value=" + nextRequestResponse.getValue()
                     + ". " + showSessionId(request), MODULE);
@@ -1014,6 +1018,54 @@ public final class RequestHandler {
         }
         if (originalRequestMap.getMetrics() != null) {
             originalRequestMap.getMetrics().recordServiceRate(1, System.currentTimeMillis() - startTime);
+        }
+    }
+
+    /**
+     * Before return to end user the response, analyse if in this place we need override the event message
+     * 1. Check if the request response have a dedicated response user message
+     * 2. Check if a custom message is present on the context like _CUSTOM_ERROR_MESSAGE_ and _CUSTOM_EVENT_MESSAGE_
+     * @param request
+     * @param requestResponse
+     */
+    private void setUserMessageResponseToRequest(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
+        final String fieldMessageName = requestResponse.getName() == "error"
+                ? "_ERROR_MESSAGE_"
+                : "_EVENT_MESSAGE_";
+        final String customMessageField = "_CUSTOM" + fieldMessageName;
+        Map<String, Object> context = UtilHttp.getCombinedMap(request);
+        String userMessage = null;
+
+        if (requestResponse.getResponseMessage() != null) {
+            ConfigXMLReader.RequestResponseUserMessage responseMessage = requestResponse.getResponseMessage();
+
+            // Check if the response user message come from labelling ressource
+            String value = responseMessage.getValue(context);
+            if (UtilValidate.isNotEmpty(value)) {
+                userMessage = responseMessage.getRessource() != null
+                        ? UtilProperties.getMessage(
+                        responseMessage.getRessource(), value,
+                        context, UtilHttp.getLocale(request))
+                        : value;
+            } else if (responseMessage.getFromField() != null
+                    && context.containsKey(responseMessage.getFromField())) {
+
+                // now analyze each field to found a flexible string to expand
+                userMessage = FlexibleStringExpander.getInstance(
+                                (String) context.get(responseMessage.getFromField()))
+                        .expandString(context);
+            }
+
+            if (UtilValidate.isNotEmpty(userMessage)) {
+                request.setAttribute(fieldMessageName, userMessage);
+                return;
+            }
+
+            if (context.containsKey(customMessageField)) {
+
+                //This field from the request so for security reason do not expand it to exclude any code injection
+                request.setAttribute(fieldMessageName, context.get(customMessageField));
+            }
         }
     }
 

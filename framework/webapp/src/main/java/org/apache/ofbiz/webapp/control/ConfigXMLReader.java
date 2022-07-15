@@ -876,6 +876,7 @@ public final class ConfigXMLReader {
         private boolean saveHomeView = false;
         private Map<String, String> redirectParameterMap = new HashMap<>();
         private Map<String, String> redirectParameterValueMap = new HashMap<>();
+        private RequestResponseUserMessage responseMessage = null;
 
         /**
          * Gets status code.
@@ -899,6 +900,14 @@ public final class ConfigXMLReader {
          */
         public Map<String, String> getRedirectParameterValueMap() {
             return redirectParameterValueMap;
+        }
+
+        /**
+         * return the response user message element linked to this
+         * @return
+         */
+        public RequestResponseUserMessage getResponseMessage() {
+            return responseMessage;
         }
 
         /**
@@ -938,6 +947,57 @@ public final class ConfigXMLReader {
                     this.redirectParameterMap.put(redirectParameterElement.getAttribute("name"), from);
                 }
             }
+            Element messageElement = UtilXml.firstChildElement(responseElement, "return-user-message");
+            if (messageElement != null) {
+                this.responseMessage = new RequestResponseUserMessage(this, messageElement);
+            }
+        }
+    }
+
+    public static class RequestResponseUserMessage {
+        private RequestResponse requestResponse;
+        private String ressource;
+        private String value;
+        private String fromField;
+
+        public RequestResponseUserMessage() {
+        }
+
+        public RequestResponseUserMessage(RequestResponse requestResponse, Element responseElement) {
+            this.requestResponse = requestResponse;
+            ressource = UtilValidate.isNotEmpty(responseElement.getAttribute("ressource"))
+                    ? responseElement.getAttribute("ressource")
+                    : null;
+            value = UtilValidate.isNotEmpty(responseElement.getAttribute("value"))
+                    ? responseElement.getAttribute("value")
+                    : null;
+            fromField = UtilValidate.isNotEmpty(responseElement.getAttribute("from-field"))
+                    ? responseElement.getAttribute("from-field")
+                    : null;
+        }
+
+        /**
+         * Return the ressource to use
+         * @return
+         */
+        public String getRessource() {
+            return ressource;
+        }
+
+        /**
+         * Return the value
+         * @return
+         */
+        public String getValue(Map<String, Object> context) {
+            return value;
+        }
+
+        /**
+         * Return the fromField
+         * @return
+         */
+        public String getFromField() {
+            return fromField;
         }
     }
 

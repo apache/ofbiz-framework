@@ -382,6 +382,40 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+    <xs:element name="return-user-message">
+        <xs:annotation>
+            <xs:documentation>
+                Before return a response to the end user, we can override the event message from different origin.
+                Hard coded, from the labelling system or from a given field
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="ressource" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Properties ressource to use for resolve the message, if you set a value here, indicate the key on value attribute
+                        otherwise this attribute will be ignored.
+                        'like: CommonUiLabels'
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="value" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Value to use to display the response user message.
+                        You can set a plain text, a flexible string or use a key from the property file give in ressource attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="from-field" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Set from what field in context we can found the response user message. This field can contain a flexible string
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="event">
         <xs:annotation>
             <xs:documentation>
@@ -469,6 +503,7 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element minOccurs="0" ref="return-user-message"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.response"/>
         </xs:complexType>
