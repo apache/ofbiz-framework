@@ -41,19 +41,19 @@ currentLetter = firstLetter
 if (keywordThesaurusIter) {
     while (keywordThesaurusIter) {
         keywordThesaurus = keywordThesaurusIter.next()
-        if (keywordThesaurus.get('enteredKeyword').charAt(0)<'a' ||
-                keywordThesaurus.get('enteredKeyword').charAt(0)>'z') {
+        if (keywordThesaurus.get('enteredKeyword').charAt(0) < 'a' ||
+                keywordThesaurus.get('enteredKeyword').charAt(0) > 'z') {
             specialCharKeywordThesaurus.add(keywordThesaurus)
         } else if (keywordThesaurus.get('enteredKeyword').charAt(0) >= firstLetter) {
             if (keywordThesaurus.get('enteredKeyword').charAt(0) == currentLetter ||
-                    newKeywordThesaurus.size()<20) {
+                    newKeywordThesaurus.size() < 20) {
                 newKeywordThesaurus.add(keywordThesaurus)
                 currentLetter = keywordThesaurus.get('enteredKeyword').charAt(0)
             }
         }
     }
 }
-if ((specialCharKeywordThesaurus.size() > 0 && newKeywordThesaurus.size()<20) || firstLetter=='z') {
+if ((specialCharKeywordThesaurus.size() > 0 && newKeywordThesaurus.size() < 20) || firstLetter == 'z') {
     specialCharKeywordThesaurusIter = specialCharKeywordThesaurus.iterator()
     while (specialCharKeywordThesaurusIter) {
         keywordThesaurus = specialCharKeywordThesaurusIter.next()
@@ -63,7 +63,7 @@ if ((specialCharKeywordThesaurus.size() > 0 && newKeywordThesaurus.size()<20) ||
 
 //create list for a-z
 letterList = []
-for (i='a'; i<='z'; i++) {
+for (i = 'a'; i<= 'z'; i++) {
     letterList.add(i)
 }
 

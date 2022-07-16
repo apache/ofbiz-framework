@@ -154,7 +154,7 @@ def getRateAmount() {
         serviceName = 'getRatesAmountsFromWorkEffortId'
     } else if (parameters.partyId && parameters.partyId != '_NA_') {
         // party level
-        level='partyId'
+        level = 'partyId'
         serviceName = 'getRatesAmountsFromPartyId'
     } else if (parameters.emplPositionTypeId && parameters.emplPositionTypeId != '_NA_') {
         // party level

@@ -315,13 +315,13 @@ def issueProductionRunTaskComponentInline(Map parameters,
         if ((!inventoryItem.statusId || 'INV_AVAILABLE' == inventoryItem.statusId) &&
                 'NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
             BigDecimal inventoryItemQuantity = 'Y' != parameters.useReservedItems ?
-                    inventoryItem.availableToPromiseTotal:
+                    inventoryItem.availableToPromiseTotal :
                     inventoryItem.quantityOnHandTotal
 
             // reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it
             if (inventoryItemQuantity && inventoryItemQuantity > 0) {
                 parameters.deductAmount = parameters.quantityNotIssued > inventoryItemQuantity ?
-                        inventoryItemQuantity:
+                        inventoryItemQuantity :
                         parameters.quantityNotIssued
                 Map serviceResult = run service: 'assignInventoryToWorkEffort', with: [workEffortId: parameters.workEffortId,
                                                                                    inventoryItemId: inventoryItem.inventoryItemId,
@@ -373,7 +373,7 @@ def issueInventoryItemToWorkEffort() {
             inventoryItem.availableToPromiseTotal > 0) {
 
         quantityIssued = !parameters.quantity || parameters.quantity > inventoryItem.availableToPromiseTotal ?
-                parameters.quantity:
+                parameters.quantity :
                 inventoryItem.availableToPromiseTotal
         Map serviceResult = run service: 'assignInventoryToWorkEffort', with: [workEffortId: parameters.workEffortId,
                                                                                inventoryItemId: inventoryItem.inventoryItemId,

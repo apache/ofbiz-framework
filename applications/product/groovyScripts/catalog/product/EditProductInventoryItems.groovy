@@ -23,7 +23,7 @@ import org.apache.ofbiz.product.inventory.InventoryWorker
 
 if (product) {
     boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
-    context.isMarketingPackage = (isMarketingPackage? 'true': 'false')
+    context.isMarketingPackage = (isMarketingPackage ? 'true' : 'false')
     //If product is virtual gather summary data from variants
     if (product.isVirtual && 'Y'.equals(product.isVirtual)) {
         //Get the virtual product feature types

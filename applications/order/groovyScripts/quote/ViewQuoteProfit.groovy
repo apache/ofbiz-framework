@@ -77,4 +77,4 @@ context.quoteItemAndCostInfos = quoteItemAndCostInfos
 context.totalCost = totalCost
 context.totalPrice = totalPrice
 context.totalProfit = totalProfit
-context.totalPercProfit = totalCost != 0 ? (totalProfit / totalPrice) * 100.00: 0.00
+context.totalPercProfit = totalCost != 0 ? (totalProfit / totalPrice) * 100.00 : 0.00

@@ -116,14 +116,14 @@ def inlineHandlePriceWithTaxIncluded() {
             return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceTaxPercentageNotFound', locale))
         }
         // in short the formula is: taxAmount = priceWithTax - (priceWithTax/(1+taxPercentage/100))
-        BigDecimal taxAmount = parameters.priceWithTax - (parameters.priceWithTax / (1 + parameters.taxPercentage/100))
+        BigDecimal taxAmount = parameters.priceWithTax - (parameters.priceWithTax / (1 + parameters.taxPercentage / 100))
         parameters.taxAmount = taxAmount.setScale(3, RoundingMode.HALF_UP)
 
         BigDecimal priceWithoutTax = parameters.priceWithTax - parameters.taxAmount
         parameters.priceWithoutTax = priceWithoutTax.setScale(3, RoundingMode.HALF_UP)
 
         parameters.price = parameters.taxInPrice == 'Y' ?
-                parameters.priceWithTax: // the price passed in has tax included, and we want to store it with tax included
+                parameters.priceWithTax : // the price passed in has tax included, and we want to store it with tax included
                 parameters.priceWithoutTax // the price passed in has tax included, but we want to store it without tax included
     }
     return success()

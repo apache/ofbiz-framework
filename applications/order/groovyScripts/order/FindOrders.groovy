@@ -93,7 +93,7 @@ if (currentProductStoreId) {
 shipmentMethod = request.getParameter('shipmentMethod')
 if (shipmentMethod) {
     carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf('@'))
-    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@')+1)
+    shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@') + 1)
     if (carrierPartyId && shipmentMethodTypeId) {
         currentCarrierShipmentMethod = from('CarrierShipmentMethod').where('partyId', carrierPartyId, 'shipmentMethodTypeId', shipmentMethodTypeId).queryFirst()
         context.currentCarrierShipmentMethod = currentCarrierShipmentMethod
@@ -146,7 +146,7 @@ context.thruDateStr = toStr
 viewIndex = request.getParameter('viewIndex') ? Integer.valueOf(request.getParameter('viewIndex')) : 1
 context.viewIndex = viewIndex
 
-viewSize = request.getParameter('viewSize') ? Integer.valueOf(request.getParameter('viewSize')) : modelTheme.getDefaultViewSize()?:20
+viewSize = request.getParameter('viewSize') ? Integer.valueOf(request.getParameter('viewSize')) : modelTheme.getDefaultViewSize() ?: 20
 context.viewSize = viewSize
 
 // get the lookup flag

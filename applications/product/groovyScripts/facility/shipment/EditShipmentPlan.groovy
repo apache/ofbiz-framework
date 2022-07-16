@@ -243,7 +243,7 @@ if (orderItemShipGroupAssocs) {
         oneRow.plannedQuantity = plannedQuantity
 
         // (default) quantity for plan
-        planQuantity = (orderedQuantity - plannedQuantity - issuedQuantity > 0? orderedQuantity - plannedQuantity - issuedQuantity: 0)
+        planQuantity = (orderedQuantity - plannedQuantity - issuedQuantity > 0 ? orderedQuantity - plannedQuantity - issuedQuantity : 0)
         oneRow.quantity = planQuantity
 
         // Planned (unitary) Weight and Volume

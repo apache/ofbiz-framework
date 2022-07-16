@@ -34,7 +34,7 @@ components.each { component ->
         componentMap = [:]
         componentMap.compName = component.getComponentName()
         componentMap.rootLocation =  component.rootLocation().toString()
-        componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
+        componentMap.enabled = (component.enabled() == true ? 'Y' : 'N')
         componentMap.webAppName = webApp.getName()
         componentMap.contextRoot = webApp.getContextRoot()
         componentMap.webAppName = webApp.getName()
@@ -46,7 +46,7 @@ components.each { component ->
         componentMap = [:]
         componentMap.compName = component.getComponentName()
         componentMap.rootLocation =  component.rootLocation().toString()
-        componentMap.enabled = (component.enabled() == true? 'Y' : 'N')
+        componentMap.enabled = (component.enabled() == true ? 'Y' : 'N')
         componentList.add(componentMap)
         componentMap.webAppName = ''
         componentMap.contextRoot = ''

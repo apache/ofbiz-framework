@@ -214,7 +214,7 @@ List getEcaListForService(String selectedService) {
                 }
 
                 curRuleMap.actions = actionsList
-                curRuleMap.sets= setsList
+                curRuleMap.sets = setsList
             }
             actions.setAccessible(true)
 

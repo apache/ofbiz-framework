@@ -33,7 +33,7 @@ prodCatContentTypeId = parameters.prodCatContentTypeId
 context.contentFormName = 'EditCategoryContentSimpleText'
 context.contentFormTitle = "${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
 
-if (('PAGE_TITLE'.equals(prodCatContentTypeId))||('META_KEYWORD'.equals(prodCatContentTypeId))||('META_DESCRIPTION'.equals(prodCatContentTypeId))) {
+if (('PAGE_TITLE'.equals(prodCatContentTypeId)) || ('META_KEYWORD'.equals(prodCatContentTypeId)) || ('META_DESCRIPTION'.equals(prodCatContentTypeId))) {
     context.contentFormName = 'EditCategoryContentSEO'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateSEOContentCategory}"
 }

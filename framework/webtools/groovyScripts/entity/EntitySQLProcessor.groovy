@@ -62,7 +62,7 @@ if (sqlCommand && selGroup) {
                     }
                     records.add(record)
                 }
-                resultMessage = 'Returned ' + (rowLimitReached? 'top ' + rowLimit : '' + records.size()) + ' rows.'
+                resultMessage = 'Returned ' + (rowLimitReached ? 'top ' + rowLimit : '' + records.size()) + ' rows.'
                 rs.close()
             }
         } else {

@@ -25,8 +25,8 @@ int rowCount = UtilHttp.getMultiFormRowCount(paramMap)
 if (rowCount > 1) {
     for (int i = 0; i < rowCount; i++) {
         String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i
-        if(paramMap.get('checkStatusId' +thisSuffix)){
-            def temp = paramMap.get('checkStatusId' +thisSuffix)
+        if(paramMap.get('checkStatusId' + thisSuffix)){
+            def temp = paramMap.get('checkStatusId' + thisSuffix)
             def splitTemp = temp.split('/')
             if('IM_REJECTED'.equals(splitTemp[0])){
                 rejected = true

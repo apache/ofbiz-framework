@@ -30,7 +30,7 @@ webSiteId = WebSiteWorker.getWebSiteId(request)
 currencyUomId = parameters.currencyUomId ?: UtilHttp.getCurrencyUom(request)
 context.currencyUomId = currencyUomId
 
-partyId = parameters.partyId ?:request.getAttribute('partyId')
+partyId = parameters.partyId ?: request.getAttribute('partyId')
 
 party = from('Party').where('partyId', partyId).queryOne()
 context.party = party
@@ -104,7 +104,7 @@ if (shoppingListId) {
             context.shoppingListItemDatas = shoppingListItemDatas
             // pagination for the shopping list
             viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0)
-            viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
+            viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : modelTheme.getDefaultViewSize() ?: 20
             listSize = shoppingListItemDatas ? shoppingListItemDatas.size() : 0
 
             lowIndex = (viewIndex * viewSize) + 1

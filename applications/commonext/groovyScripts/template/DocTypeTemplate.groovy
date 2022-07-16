@@ -59,7 +59,7 @@ if (parameters.orderId) {
     entityName = 'OrderHeader'
     entityTypeName = 'OrderType'
 } else if (parameters.invoiceId) {
-    entityName ='Invoice'
+    entityName = 'Invoice'
 } else if (parameters.quoteId) {
     entityName = 'Quote'
 }

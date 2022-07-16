@@ -59,7 +59,7 @@ if (modelEntity) {
             ModelFieldType type = delegator.getEntityFieldType(modelEntity, modelField.getType())
             dynamicAutoEntityFieldSearchForm +=
             "<field name=\"${modelField.name}\" tooltip=\"${modelField.getName()}" +
-            (modelField.getIsPk() ? '* ': ' ') +
+            (modelField.getIsPk() ? '* ' : ' ') +
             " / ${modelField.getType()} (${type.getJavaType()} - ${type.getSqlType()})\">"
 
             //In general when your research some entity on the pk field, you check on element, so help by set as default equals comparison

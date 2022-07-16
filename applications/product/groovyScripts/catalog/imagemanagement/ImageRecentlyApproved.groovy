@@ -38,7 +38,7 @@ def sdfTime = new SimpleDateFormat('HH:mm')
 def today = LocalDateTime.now()
 
 for (i in 0..limit){
-    def timeStampDate1 = Timestamp.valueOf(today.minusDays(i+1).format(sdf).toString())
+    def timeStampDate1 = Timestamp.valueOf(today.minusDays(i + 1).format(sdf).toString())
     def timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
     // make condition for distinct productId
     def exprs = []
@@ -59,11 +59,11 @@ for (i in 0..limit){
 
     def time = []
     if(tempTimeList.size > 0){
-        for(j in 0..tempTimeList.size-1){
+        for(j in 0..tempTimeList.size - 1){
             time.add(sdfTime.format(tempTimeList.get(j).get(0)))
         }
     }
-    def showDate = sdf2.format(today-i)
+    def showDate = sdf2.format(today - i)
     
     switch (i) {
         case 0: context.approved_0 = productContentAndInfoList; context.time_0 = time; context.date0 = showDate

@@ -344,7 +344,7 @@ class QuoteTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync('quoteSequenceEnforced', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.quoteId == lastQuoteNumber +1L
+        assert serviceResult.quoteId == lastQuoteNumber + 1L
     }
 
     // Copy Quote Item

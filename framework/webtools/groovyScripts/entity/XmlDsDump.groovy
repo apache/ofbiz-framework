@@ -33,7 +33,7 @@ passedEntityNames = null
 if (parameters.entityName) passedEntityNames = parameters.entityName instanceof Collection ? parameters.entityName as TreeSet : [parameters.entityName] as TreeSet
 
 // get the max records per file setting and convert to a int
-int maxRecordsPerFile = maxRecStr?(maxRecStr as int):0
+int maxRecordsPerFile = maxRecStr ? (maxRecStr as int) : 0
 
 preConfiguredSetName = parameters.preConfiguredSetName
 if ('Product1'.equals(preConfiguredSetName)) {
@@ -267,7 +267,7 @@ if (passedEntityNames) {
                             //Don't bother writing the file if there's nothing
                             //to put into it
                             if (isFirst) {
-                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName +'.xml')), 'UTF-8')))
+                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '.xml')), 'UTF-8')))
                                 writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
                                 writer.println('<entity-engine-xml>')
                                 isFirst = false
@@ -284,7 +284,7 @@ if (passedEntityNames) {
     
                                 // create a new file
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
-                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr +'.xml')), 'UTF-8')))
+                                writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
                                 writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
                                 writer.println('<entity-engine-xml>')
                             }

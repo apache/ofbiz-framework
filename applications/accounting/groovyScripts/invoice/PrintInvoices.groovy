@@ -80,12 +80,12 @@ invoiceIds.each { invoiceId ->
         if (billingAddress) {
             sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
                 if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                    sendingPartyTaxId = sendingTaxInfos[i-1].partyTaxId
+                    sendingPartyTaxId = sendingTaxInfos[i - 1].partyTaxId
                 }
             }
             billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
                 if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                    billToPartyTaxId = billingTaxInfos[i-1].partyTaxId
+                    billToPartyTaxId = billingTaxInfos[i - 1].partyTaxId
                 }
             }
         }

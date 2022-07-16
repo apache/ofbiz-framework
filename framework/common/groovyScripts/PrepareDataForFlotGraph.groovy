@@ -43,7 +43,7 @@ else if('Bars' == chartType){
     labels = ''
     while(iter.hasNext()){
         entry = iter.next()
-        if(i!=1){
+        if(i != 1){
             dataText = dataText + ','
             labels = labels + ','
         }

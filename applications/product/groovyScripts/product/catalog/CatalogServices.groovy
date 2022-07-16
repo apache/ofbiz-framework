@@ -50,7 +50,7 @@ def getRelatedCategories() {
             subCategories << parent.getRelatedOne('CurrentProductCategory', true)
         }
         if (subCategories) {
-            Set distinctCategories = categories? [*categories] as Set: [] as Set
+            Set distinctCategories = categories ? [*categories] as Set : [] as Set
             Map relatedCategoryContext = [categories: subCategories]
             for (Map subCategory: subCategories) {
                 relatedCategoryContext.parentProductCategoryId = subCategory.productCategoryId
@@ -261,8 +261,7 @@ def checkImageUrl() {
     boolean httpFlag = imageUrl.startsWith('http')
     boolean ftpFlag = imageUrl.startsWith('ftp')
     String url = httpFlag || ftpFlag
-        ? UtilURL.fromUrlString(imageUrl)
-        : UtilURL.fromOfbizHomePath('/themes/common-theme/webapp' + imageUrl)
+        ? UtilURL.fromUrlString(imageUrl) : UtilURL.fromOfbizHomePath('/themes/common-theme/webapp' + imageUrl)
     Map result = success()
     result.isExists = url ? 'Y' : 'N'
     return result

@@ -153,9 +153,9 @@ if (productionRunId) {
             }
         }
         context.productionRunRoutingTasks = productionRunRoutingTasks
-        context.startTaskId = (startTaskId ? startTaskId: 'null')
-        context.issueTaskId = (issueTaskId? issueTaskId: 'null')
-        context.completeTaskId = (completeTaskId != null? completeTaskId: 'null')
+        context.startTaskId = (startTaskId ? startTaskId : 'null')
+        context.issueTaskId = (issueTaskId ? issueTaskId : 'null')
+        context.completeTaskId = (completeTaskId != null ? completeTaskId : 'null')
 
         //  Product components list
         productionRunComponents = productionRun.getProductionRunComponents()

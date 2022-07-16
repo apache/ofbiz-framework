@@ -37,7 +37,7 @@ tempCal = UtilDateTime.toCalendar(start, timeZone, locale)
 numDays = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH)
 prev = UtilDateTime.getMonthStart(start, -1, timeZone, locale)
 context.prevMillis = new Long(prev.getTime()).toString()
-next = UtilDateTime.getDayStart(start, numDays+1, timeZone, locale)
+next = UtilDateTime.getDayStart(start, numDays + 1, timeZone, locale)
 context.nextMillis = new Long(next.getTime()).toString()
 end = UtilDateTime.getMonthEnd(start, timeZone, locale)
 //Find out what date to get from

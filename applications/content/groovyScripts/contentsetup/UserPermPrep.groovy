@@ -27,7 +27,7 @@ blogRoles = from('RoleType').where('parentTypeId', 'BLOG').cache(true).queryList
 
 if (forumId) {
     siteRoleMap = [:]
-    for (int i=0; i < blogRoles.size(); i++) {
+    for (int i = 0; i < blogRoles.size(); i++) {
         roleType = blogRoles.get(i)
         roleTypeId = roleType.roleTypeId
         filteredRoleList = from('ContentRole').where('contentId', forumId, 'roleTypeId', roleTypeId).filterByDate().queryList()

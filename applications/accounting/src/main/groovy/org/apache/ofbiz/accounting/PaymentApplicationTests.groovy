@@ -109,7 +109,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
         assert payment
 
-        assert paymentApplication !=null
+        assert paymentApplication != null
         assert paymentApplication.billingAccountId == serviceInMap.billingAccountId
         assert paymentApplication.paymentId == serviceInMap.paymentId
         assert paymentApplication.amountApplied == payment.amount
@@ -117,7 +117,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         notAppliedPayment = PaymentWorker.getPaymentNotApplied(delegator, serviceInMap.paymentId)
 
         GenericValue billingAccount = from('BillingAccount').where('billingAccountId', serviceInMap.billingAccountId).queryOne()
-        BigDecimal appliedBillling= OrderReadHelper.getBillingAccountBalance(billingAccount)
+        BigDecimal appliedBillling = OrderReadHelper.getBillingAccountBalance(billingAccount)
         assert appliedBillling
 
         assert notAppliedPayment == BigDecimal.ZERO

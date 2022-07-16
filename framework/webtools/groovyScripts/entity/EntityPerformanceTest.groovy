@@ -36,7 +36,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
         dummy = from('JobSandbox').where('jobId', 'PURGE_OLD_JOBS').queryOne();
     }
     totalTime = System.currentTimeMillis() - startTime
-    callsPerSecond = calls / (totalTime/1000)
+    callsPerSecond = calls / (totalTime / 1000)
 
     perfRow = [:]
     perfRow.operation = 'findOne(false)'
@@ -83,7 +83,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
 
     calls = 10000
     startTime = System.currentTimeMillis()
-    for (int i=0; i < calls; i++) {
+    for (int i = 0; i < calls; i++) {
         dummy = from('DataSourceType').where('dataSourceTypeId', 'ADMIN_ENTRY').cache().queryOne()
     }
     totalTime = System.currentTimeMillis() - startTime
@@ -217,7 +217,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
         utilCache.get(testPk)
     }
     totalTime = System.currentTimeMillis() - startTime
-    callsPerSecond = calls / (totalTime/1000)
+    callsPerSecond = calls / (totalTime / 1000)
 
     perfRow = [:]
     perfRow.operation = 'UtilCache.get(GenericPK) - basic settings'

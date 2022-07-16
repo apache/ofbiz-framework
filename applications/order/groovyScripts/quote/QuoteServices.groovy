@@ -95,7 +95,7 @@ def getNextQuoteId() {
     }
 
     if (partyAcctgPreference) {
-        quoteId = "${partyAcctgPreference.quoteIdPrefix?:''}${quoteId}"
+        quoteId = "${partyAcctgPreference.quoteIdPrefix ?: ''}${quoteId}"
     }
     return [successMessage: null, quoteId: quoteId]
 }
@@ -108,7 +108,7 @@ def quoteSequenceEnforced() {
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     // This is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 
-    partyAcctgPreference.lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ? partyAcctgPreference.lastQuoteNumber + 1: new Long('1')
+    partyAcctgPreference.lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ? partyAcctgPreference.lastQuoteNumber + 1 : new Long('1')
 
     partyAcctgPreference.store()
     return [successMessage: null, quoteId: partyAcctgPreference.lastQuoteNumber]
