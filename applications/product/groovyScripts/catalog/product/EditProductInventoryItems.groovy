@@ -29,7 +29,7 @@ if (product) {
         //Get the virtual product feature types
         result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE'])
         featureTypeIds = result.productFeatureTypes
-    
+
         //Get the variants
         result = runService('getAllProductVariants', [productId : productId])
         variants = result.assocProducts
@@ -37,15 +37,15 @@ if (product) {
         variantInventorySummaries = []
         while (variantIterator) {
             variant = variantIterator.next()
-    
+
             //create a map of each variant id and inventory summary (all facilities)
             inventoryAvailable = runService('getProductInventoryAvailable', [productId : variant.productIdTo])
-    
+
             variantInventorySummary = [productId : variant.productIdTo,
                                        availableToPromiseTotal : inventoryAvailable.availableToPromiseTotal,
                                        accountingQuantityTotal : inventoryAvailable.accountingQuantityTotal,
                                        quantityOnHandTotal : inventoryAvailable.quantityOnHandTotal]
-    
+
             //add the applicable features to the map
             featureTypeIdsIterator = featureTypeIds.iterator()
             while (featureTypeIdsIterator) {
@@ -76,71 +76,71 @@ if (product) {
         dispatcher = request.getAttribute('dispatcher')
         Map contextInput = null
         Map resultOutput = null
-    
+
         // inventory quantity summary by facility: For every warehouse the product's atp and qoh
         // are obtained (calling the "getInventoryAvailableByFacility" service)
         while (facilityIterator) {
             facility = facilityIterator.next()
             resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facility.facilityId])
-    
+
             quantitySummary = [:]
             quantitySummary.facilityId = facility.facilityId
             quantitySummary.totalQuantityOnHand = resultOutput.quantityOnHandTotal
             quantitySummary.totalAvailableToPromise = resultOutput.availableToPromiseTotal
             quantitySummary.accountingQuantityTotal = resultOutput.accountingQuantityTotal
-    
+
             // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
             if (isMarketingPackage) {
                 resultOutput = runService('getMktgPackagesAvailable', [productId : productId, facilityId : facility.facilityId])
                 quantitySummary.mktgPkgQOH = resultOutput.quantityOnHandTotal
                 quantitySummary.mktgPkgATP = resultOutput.availableToPromiseTotal
             }
-    
+
             quantitySummaryByFacility.put(facility.facilityId, quantitySummary)
         }
-        
+
         productInventoryItems = from('InventoryItem').where('productId', productId).orderBy('facilityId', '-datetimeReceived', '-inventoryItemId').queryList()
-    
+
         // TODO: get all incoming shipments not yet arrived coming into each facility that this product is in, use a view entity with ShipmentAndItem
         findIncomingShipmentsConds = []
-    
+
         findIncomingShipmentsConds.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
-    
+
         findIncomingShipmentsTypeConds = []
         findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'INCOMING_SHIPMENT'))
         findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'PURCHASE_SHIPMENT'))
         findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'SALES_RETURN'))
         findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsTypeConds, EntityOperator.OR))
-    
+
         findIncomingShipmentsStatusConds = []
         findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'SHIPMENT_DELIVERED'))
         findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'SHIPMENT_CANCELLED'))
         findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PURCH_SHIP_RECEIVED'))
         findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsStatusConds, EntityOperator.AND))
-    
+
         findIncomingShipmentsStatusCondition = EntityCondition.makeCondition(findIncomingShipmentsConds, EntityOperator.AND)
         incomingShipmentAndItems = from('ShipmentAndItem').where(findIncomingShipmentsStatusCondition).orderBy('-estimatedArrivalDate').queryList()
         incomingShipmentAndItemIter = incomingShipmentAndItems.iterator()
         while (incomingShipmentAndItemIter) {
             incomingShipmentAndItem = incomingShipmentAndItemIter.next()
             facilityId = incomingShipmentAndItem.destinationFacilityId
-    
+
             quantitySummary = quantitySummaryByFacility.get(facilityId)
             if (!quantitySummary) {
                 quantitySummary = [:]
                 quantitySummary.facilityId = facilityId
                 quantitySummaryByFacility.facilityId = quantitySummary
             }
-    
+
             incomingShipmentAndItemList = quantitySummary.incomingShipmentAndItemList
             if (!incomingShipmentAndItemList) {
                 incomingShipmentAndItemList = []
                 quantitySummary.incomingShipmentAndItemList = incomingShipmentAndItemList
             }
-    
+
             incomingShipmentAndItemList.add(incomingShipmentAndItem)
         }
-    
+
         // --------------------
         // Production Runs
         resultOutput = runService('getProductManufacturingSummaryByFacility',
@@ -149,12 +149,12 @@ if (product) {
         manufacturingInQuantitySummaryByFacility = resultOutput.summaryInByFacility
         // outgoing products (materials)
         manufacturingOutQuantitySummaryByFacility = resultOutput.summaryOutByFacility
-    
+
         showEmpty = 'true'.equals(request.getParameter('showEmpty'))
-    
+
         // Find oustanding purchase orders for this item.
         purchaseOrders = InventoryWorker.getOutstandingPurchaseOrders(productId, delegator)
-    
+
         context.productInventoryItems = productInventoryItems
         context.quantitySummaryByFacility = quantitySummaryByFacility
         context.manufacturingInQuantitySummaryByFacility = manufacturingInQuantitySummaryByFacility

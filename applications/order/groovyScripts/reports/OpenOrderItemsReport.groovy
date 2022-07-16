@@ -102,7 +102,7 @@ try {
         costPrice = 0.0
         retailPrice = 0.0
         listPrice = 0.0
-    
+
         productPrices.each { productPriceMap ->
             if ('AVERAGE_COST'.equals(productPriceMap.productPriceTypeId)) {
                 costPrice = productPriceMap.price
@@ -112,7 +112,7 @@ try {
                 listPrice = productPriceMap.price
             }
         }
-    
+
         totalListPrice += listPrice
         totalRetailPrice += retailPrice
         totalCostPrice += costPrice

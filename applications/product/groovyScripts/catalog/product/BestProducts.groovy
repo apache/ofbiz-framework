@@ -50,7 +50,7 @@ orderHeaderList.each { orderHeader ->
         amount = BigDecimal.ZERO
         amount = qtyOrdered * orderItem.unitPrice
         inListFlag = false
-        
+
         bestSellingProducts.each { bestSellingProduct ->
             if ((bestSellingProduct.productId).equals(orderItem.productId) && (bestSellingProduct.currencyUom).equals(orderHeader.currencyUom)) {
                 inListFlag = true
@@ -58,7 +58,7 @@ orderHeaderList.each { orderHeader ->
                 bestSellingProduct.qtyOrdered += qtyOrdered
             }
         }
-        
+
         if (inListFlag == false) {
             orderItemDetail.productId = orderItem.productId
             product = from('Product').where('productId', orderItem.productId).queryOne()

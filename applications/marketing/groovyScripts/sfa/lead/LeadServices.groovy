@@ -165,20 +165,20 @@ def convertLeadToContact() {
                                                    roleTypeIdFrom: 'OWNER',
                                                    roleTypeIdTo: 'ACCOUNT',
                                                    partyRelationshipTypeId: 'ACCOUNT']
-    
+
     run service: 'setPartyStatus', with: [partyId: partyGroupId,
                                           statusId: 'LEAD_CONVERTED']
-    
+
     run service: 'createPartyRole', with: [partyId: partyId,
                                            roleTypeId: 'CONTACT']
-    
+
     // create new relationship between new account and contact person there
     run service: 'createPartyRelationship', with: [partyIdFrom: partyGroupId,
                                                    roleTypeIdFrom: 'ACCOUNT',
                                                    partyIdTo: partyId,
                                                    roleTypeIdTo: 'CONTACT',
                                                    partyRelationshipTypeId: 'EMPLOYMENT']
-    
+
     run service: 'setPartyStatus', with: [partyId: partyId,
                                           statusId: 'LEAD_CONVERTED']
 

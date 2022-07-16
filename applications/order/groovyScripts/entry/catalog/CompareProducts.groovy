@@ -44,7 +44,7 @@ context.productFeatureTypeMap = productFeatureTypeMap
 compareList.each { product ->
     productData = [:]
     productDataMap[product.productId] = productData
-    
+
     productData.productContentWrapper = ProductContentWrapper.makeProductContentWrapper(product, request)
 
     priceContext = [product : product, currencyUomId : cart.getCurrency(),
@@ -56,7 +56,7 @@ compareList.each { product ->
     priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
     priceContext.checkIncludeVat = 'Y'
     productData.priceMap = runService('calculateProductPrice', priceContext)
-    
+
     condList = [
                 EntityCondition.makeCondition('productId', product.productId),
                 EntityUtil.getFilterByDateExpr(),
@@ -73,7 +73,7 @@ compareList.each { product ->
         }
         productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] << productFeature
         productFeatureTypeIds << productFeature.productFeatureTypeId
-    } 
+    }
 }
 productFeatureTypeIds.each { productFeatureTypeId ->
     productFeatureTypeMap[productFeatureTypeId] = from('ProductFeatureType').where('productFeatureTypeId', productFeatureTypeId).cache(true).queryOne()

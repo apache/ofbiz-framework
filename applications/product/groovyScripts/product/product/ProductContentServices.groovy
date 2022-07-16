@@ -74,7 +74,7 @@ def createDownloadContentForProduct() {
     persistContentAndAssoc.dataResourceTypeId = 'IMAGE_OBJECT'
     persistContentAndAssoc.contentName = parameters._imageData_fileName
     persistContentAndAssoc.mimeTypeId = parameters._imageData_contentType
-    
+
     Map serviceResult = run service: 'persistContentAndAssoc', with: persistContentAndAssoc
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult

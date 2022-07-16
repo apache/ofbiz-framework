@@ -28,7 +28,7 @@ if (contactList) {
         if (!contactMechs) {
             contactMechs = ownerParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId : 'PRIMARY_EMAIL'], null, false)
         }
-        
+
         if (contactMechs) {
             context.marketingEmail = contactMechs.get(0)
         }

@@ -60,7 +60,7 @@ if (allProductionRuns) {
                                           customer : orh.getPlacingParty(),
                                           address : orh.getShippingAddress()]
         allProductionComponents = from('WorkEffortAndGoods').where('workEffortId', productionRunTask.workEffortId, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').orderBy('productId').queryList()
-        
+
         componentList = []
 
         if (allProductionComponents) {

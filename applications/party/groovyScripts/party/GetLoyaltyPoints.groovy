@@ -17,7 +17,7 @@
  * under the License.
  */
 
-partyId = parameters.partyId ? parameters.partyId : userLogin.partyId 
+partyId = parameters.partyId ? parameters.partyId : userLogin.partyId
 
 if (partyId) {
     // get the system user

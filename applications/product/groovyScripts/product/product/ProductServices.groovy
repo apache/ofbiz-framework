@@ -67,7 +67,7 @@ def createProduct() {
     newEntity.create()
 
 /*
- *  if setting the primaryProductCategoryId create a member entity too 
+ *  if setting the primaryProductCategoryId create a member entity too
  *  THIS IS REMOVED BECAUSE IT CAUSES PROBLEMS FOR WORKING ON PRODUCTION SITES
  *  <if-not-empty field="newEntity.primaryProductCategoryId">
  *  <make-value entity-name="ProductCategoryMember" value-field="newMember"/>
@@ -322,7 +322,7 @@ def indexProductKeywords() {
  *  set sales discontinuation date to now
  */
 def discontinueProductSales() {
-    // set sales discontinuation date to now 
+    // set sales discontinuation date to now
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     GenericValue product = from('Product').where(parameters).queryOne()
     product.salesDiscontinuationDate = nowTimestamp

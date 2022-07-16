@@ -75,7 +75,7 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
             if ('ALL'.equals(isPosted)) {
                 isPosted = ''
             }
-            acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal', 
+            acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal',
                     [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin])
             totalOfYearToDateDebit = totalOfYearToDateDebit + acctgTransEntriesAndTransTotal.debitTotal
             acctgTransEntriesAndTransTotal.totalOfYearToDateDebit = totalOfYearToDateDebit.setScale(decimals, rounding)

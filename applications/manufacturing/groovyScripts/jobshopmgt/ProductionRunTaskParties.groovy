@@ -24,7 +24,7 @@ if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher)
     if (productionRun.exist()) {
         productionRunTasks = productionRun.getProductionRunRoutingTasks()
-        
+
         if (productionRunTasks) {
             productionRunTasks.each { prodRunTask ->
                 prodRunTaskId = prodRunTask.workEffortId
@@ -36,7 +36,7 @@ if (productionRunId) {
                 }
             }
         }
-        
+
     }
 }
 context.productionRunTaskParties = taskPartyAssocList

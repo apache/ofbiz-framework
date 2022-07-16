@@ -24,7 +24,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 
 if ('Y'.equals(parameters.noConditionFind)) {
     List exprListForParameters = []
-    
+
     finAccountRoles = from('FinAccountRole').where('finAccountId', finAccountId, 'roleTypeId', 'DIVISION').filterByDate().queryList()
     finAccountPartyIds = EntityUtil.getFieldListFromEntityList(finAccountRoles, 'partyId', true)
     finAccountPartyIds.add(organizationPartyId)

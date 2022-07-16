@@ -52,7 +52,7 @@ if (orderId) {
     orderItemShipGroup = from('OrderItemShipGroup').orderBy('orderId').queryFirst()
     orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     supplier = from('OrderHeaderAndRoles').where('orderId', orderId, 'roleTypeId', 'BILL_FROM_VENDOR').queryFirst()
-    context.shipGroupSeqId =  orderItemShipGroup.shipGroupSeqId 
+    context.shipGroupSeqId =  orderItemShipGroup.shipGroupSeqId
     context.orderHeader = orderHeader
 }
 
@@ -115,20 +115,20 @@ for (supplierProduct in supplierProducts) {
             result = runService('getInventoryAvailableByFacility', ['productId' : productId, 'facilityId' : productFacility.facilityId])
             qohAtp = result.quantityOnHandTotal.toPlainString() + '/' + result.availableToPromiseTotal.toPlainString()
             productInfoMap = [:]
-            
+
             productInfoMap.internalName = product.internalName
-    
+
             productInfoMap.productId = productId
             productInfoMap.qohAtp = qohAtp
             productInfoMap.quantityOnOrder = quantityOnOrder
-    
+
             productInfoMap.supplierProductId = supplierProduct.supplierProductId
             productInfoMap.lastPrice = supplierProduct.lastPrice
             productInfoMap.orderQtyIncrements = supplierProduct.orderQtyIncrements
             productInfoMap.minimumOrderQuantity = supplierProduct.minimumOrderQuantity
 
             productInfoMap.minimumStock = productFacility.minimumStock
-    
+
             newProductList.add(productInfoMap)
         }
     }

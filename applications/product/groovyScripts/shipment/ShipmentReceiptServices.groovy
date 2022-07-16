@@ -70,10 +70,10 @@ def createShipmentReceipt() {
 def receiveInventoryProduct () {
     /*
      * NOTES
-     * 
+     *
      * - for serialized items with a serial number passed in: the quantityAccepted _should_ always be 1
      * - if the type is SERIALIZED_INV_ITEM but there is not serial number (which is weird...) we'll create a bunch of individual InventoryItems
-     * - DEJ20070822: something to consider for the future: 
+     * - DEJ20070822: something to consider for the future:
      *  maybe instead of this funny looping maybe for serialized items we should only allow a quantity of 1, ie return an error if it is not 1
      */
     Map result = success()

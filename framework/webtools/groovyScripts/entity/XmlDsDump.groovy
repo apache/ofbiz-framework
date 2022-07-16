@@ -177,7 +177,7 @@ if (passedEntityNames) {
         numberOfEntities = passedEntityNames?.size() ?: 0
         context.numberOfEntities = numberOfEntities
         numberWritten = 0
-    
+
         // single file
         if (filename && numberOfEntities) {
             if (outpath && !(filename.contains('/') && filename.contains("\\"))) {
@@ -186,7 +186,7 @@ if (passedEntityNames) {
             writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), 'UTF-8')))
             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
             writer.println('<entity-engine-xml>')
-    
+
             passedEntityNames.each { curEntityName ->
                 if (entityFrom) {
                     curModelEntity = reader.getModelEntity(curEntityName)
@@ -194,7 +194,7 @@ if (passedEntityNames) {
                         return
                     }
                 }
-    
+
                 beganTransaction = TransactionUtil.begin(3600)
                 try {
                     me = reader.getModelEntity(curEntityName)
@@ -203,7 +203,7 @@ if (passedEntityNames) {
                     } else {
                         values = delegator.find(curEntityName, entityDateCond, null, null, null, efo)
                     }
-    
+
                     curNumberWritten = 0
                     while (values.hasNext()) {
                         value = values.next()
@@ -228,7 +228,7 @@ if (passedEntityNames) {
             Debug.log("Total records written from all entities: $numberWritten")
             context.numberWritten = numberWritten
         }
-    
+
         // multiple files in a directory
         results = []
         fileNumber = 1
@@ -243,12 +243,12 @@ if (passedEntityNames) {
                     numberWritten = 0
                     fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + '_' : ''
                     fileName = fileName + curEntityName
-    
+
                     values = null
                     beganTransaction = false
                     try {
                         beganTransaction = TransactionUtil.begin(3600)
-    
+
                         me = delegator.getModelEntity(curEntityName)
                         if (me instanceof ModelViewEntity) {
                             results.add("[$fileNumber] [vvv] $curEntityName skipping view entity")
@@ -274,25 +274,25 @@ if (passedEntityNames) {
                             }
                             value.writeXmlText(writer, '')
                             numberWritten++
-    
+
                             // split into small files
                             if (maxRecordsPerFile > 0 && (numberWritten % maxRecordsPerFile == 0)) {
                                 fileSplitNumber++
                                 // close the file
                                 writer.println('</entity-engine-xml>')
                                 writer.close()
-    
+
                                 // create a new file
                                 splitNumStr = UtilFormatOut.formatPaddedNumber((long) fileSplitNumber, 3)
                                 writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
                                 writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
                                 writer.println('<entity-engine-xml>')
                             }
-    
+
                             if (numberWritten % 500 == 0 || numberWritten == 1) {
                                 Debug.log("Records written [$curEntityName]: $numberWritten")
                             }
-    
+
                         }
                         if (writer) {
                             writer.println('</entity-engine-xml>')

@@ -50,6 +50,6 @@ for (ComponentConfig cc: allComponentConfigs) {
             }
         stores.add(store)
     }
-    
+
 }
 context.stores = stores

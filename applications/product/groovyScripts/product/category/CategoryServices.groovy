@@ -203,7 +203,7 @@ def removePartyFromCategory() {
  */
 
 /**
- * Add ProductCategory to Category 
+ * Add ProductCategory to Category
  */
 def addProductCategoryToCategory() {
     Map res = checkCategoryRelatedPermission('addProductCategoryToCategory', 'CREATE', null, 'parentProductCategoryId')
@@ -532,7 +532,7 @@ def duplicateProductCategory() {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
                 [resourceDescription: resourceDescription], parameters.locale))
     }
-    
+
     if (findOne('ProductCategory', [productCategoryId: parameters.productCategoryId], false)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCategoryAlreadyExists',
             [resourceDescription: resourceDescription], parameters.locale))
@@ -604,13 +604,13 @@ def duplicateProductCategory() {
  * Create an attribute for a product category
  */
 def createProductCategoryAttribute() {
- 
+
     def resourceDescription = parameters.resourceDescription ?: 'createProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
             [resourceDescription: resourceDescription], parameters.locale))
     }
-    
+
     // check if the new attribute-name is unique to the product-category-id
     exprBldr = new EntityConditionBuilder()
     condition = exprBldr.AND() {

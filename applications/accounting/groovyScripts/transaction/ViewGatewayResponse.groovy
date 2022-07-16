@@ -43,12 +43,12 @@ if (!orderPaymentPreferenceId) {
     orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()
     gatewayResponses = orderPaymentPreference.getRelated('PaymentGatewayResponse', null, ['transactionDate DESC'], false)
     EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition('transCodeEnumId', EntityOperator.EQUALS, 'PGT_AUTHORIZE'))
-    
+
     if (gatewayResponses) {  // TODO: some kind of error telling user to re-authorize (else part)
         latestAuth = gatewayResponses[0]
         context.paymentGatewayResponse = latestAuth
     }
-    
+
     context.orderId = orderPaymentPreference.orderId
 }
 // get the list of payments associated to gateway response

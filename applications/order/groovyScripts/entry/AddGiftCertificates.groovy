@@ -30,10 +30,10 @@ if (productStoreId == null) {
 giftCardCategories = from('ProductCategory').where('productCategoryTypeId', 'GIFT_CARD_CATEGORY').queryList()
 giftCardProductList = []
 if (giftCardCategories) {
-    giftCardCategories.each { giftCardCategory -> 
+    giftCardCategories.each { giftCardCategory ->
         giftCardCategoryMembers = from('ProductCategoryMember').where('productCategoryId', giftCardCategory.productCategoryId).queryList()
         if (giftCardCategoryMembers) {
-            giftCardCategoryMembers.each { giftCardCategoryMember -> 
+            giftCardCategoryMembers.each { giftCardCategoryMember ->
                 giftCardProducts = from('ProductAndPriceView').where('productId', giftCardCategoryMember.productId).queryList()
                 if (giftCardProducts) {
                     giftCardProducts.each { giftCardProduct ->

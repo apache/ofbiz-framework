@@ -45,7 +45,7 @@ context.suppliers = suppliers
 organizations = from('PartyAcctgPrefAndGroup').queryList()
 context.organizations = organizations
 
-// Set Shipping From the Party 
+// Set Shipping From the Party
 partyId = parameters.partyId
 if (partyId) {
     party = from('Person').where('partyId', partyId).queryOne()

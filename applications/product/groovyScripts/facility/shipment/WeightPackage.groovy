@@ -102,7 +102,7 @@ if (shipmentId) {
         invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, 'invoiceId', true)
         if (invoiceIds) {
             context.invoiceIds = invoiceIds
-            
+
         }
     }
     if (shipment.statusId && 'SHIPMENT_PACKED' == shipment.statusId) {

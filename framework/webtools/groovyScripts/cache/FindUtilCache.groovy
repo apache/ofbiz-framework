@@ -47,7 +47,7 @@ names.each { cacheName ->
     cacheList.add(cache)
 }
 sortField = parameters.sortField
-if (sortField) { 
+if (sortField) {
     context.cacheList = UtilMisc.sortMaps(cacheList, UtilMisc.toList(sortField))
 } else {
     context.cacheList = cacheList

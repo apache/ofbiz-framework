@@ -97,7 +97,7 @@ if (orderId) {
         context.orderId = orderId
         context.orderHeader = orderHeader
         context.orderReadHelper = orh
-        
+
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId)
         context.orderItemShipGroup = orderItemShipGroup
         List exprs = UtilMisc.toList(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'ITEM_APPROVED'))

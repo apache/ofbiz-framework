@@ -52,7 +52,7 @@ List glAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(glAccount
 
 List cashFlowBalanceTotalList = []
 
-// Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period 
+// Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
 Map lastClosedTimePeriodResult = runService('findLastClosedDate', ['organizationPartyId':parameters.get('ApplicationDecorator|organizationPartyId'), 'findDate': parametersFromDate,'userLogin':userLogin])
 Timestamp periodClosingFromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!periodClosingFromDate) {
@@ -79,7 +79,7 @@ mainAndExprs.add(EntityCondition.makeCondition('isPosted', EntityOperator.EQUALS
 mainAndExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUALS, parameters.glFiscalTypeId))
 mainAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, glAccountClassIds))
 
-// All GlAccount's transactions (from last closing period to parameter's fromDate) 
+// All GlAccount's transactions (from last closing period to parameter's fromDate)
 accountBalanceList = []
 transactionTotals = []
 balanceTotal = BigDecimal.ZERO
@@ -123,7 +123,7 @@ context.openingCashBalanceList = accountBalanceList
 cashFlowBalanceTotalList.add('totalName':'AccountingOpeningCashBalance', 'balance':balanceTotal)
 openingTransactionKeySet = transactionTotalsMap.keySet()
 
-// PERIOD CASH BALANCE 
+// PERIOD CASH BALANCE
 // GlAccounts from parameter's fromDate to parameter's thruDate.
 accountBalanceList = []
 transactionTotals = []
@@ -166,7 +166,7 @@ context.periodCashBalanceList = accountBalanceList
 context.periodCashBalanceList.add('accountName':uiLabelMap.AccountingTotalPeriodCashBalance, 'balance':balanceTotal)
 cashFlowBalanceTotalList.add('totalName':'AccountingPeriodCashBalance', 'balance':balanceTotal)
 
-// CLOSING BALANCE 
+// CLOSING BALANCE
 // GlAccounts from parameter's fromDate to parameter's thruDate.
 accountBalanceList = []
 balanceTotal = BigDecimal.ZERO
@@ -216,7 +216,7 @@ if (closingTransactionKeySet) {
 context.openingCashBalanceList.add(['accountName':uiLabelMap.AccountingTotalOpeningCashBalance, 'balance':openingCashBalanceTotal])
 
 // CASH FLOW STATEMENT ENDING BALANCE
-// ENDING BALANCE = OPENING CASH BALANCE + PERIOD CASH BALANCE 
+// ENDING BALANCE = OPENING CASH BALANCE + PERIOD CASH BALANCE
 endingCashBalanceTotal = openingCashBalanceTotal.add(periodCashBalanceTotal)
 cashFlowBalanceTotalList.add('totalName':'AccountingEndingCashBalance', 'balance':endingCashBalanceTotal)
 context.cashFlowBalanceTotalList = cashFlowBalanceTotalList
