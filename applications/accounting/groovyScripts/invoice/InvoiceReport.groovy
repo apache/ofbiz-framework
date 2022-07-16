@@ -24,7 +24,7 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder()
 
 if (invoiceTypeId) {
-    expr = exprBldr.AND() {
+    expr = exprBldr.AND {
         EQUALS(invoiceTypeId: invoiceTypeId)
         LESS_THAN(dueDate: UtilDateTime.nowTimestamp())
     }

@@ -54,7 +54,7 @@ def createTextAndUploadedContent() {
 }
 
 def findAssocContent() {
-    EntityCondition condition = new EntityConditionBuilder().AND() {
+    EntityCondition condition = new EntityConditionBuilder().AND {
         EQUALS(contentId: parameters.contentId)
         IN(mapKey: parameters.mapKeys)
     }

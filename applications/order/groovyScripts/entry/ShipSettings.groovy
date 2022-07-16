@@ -70,7 +70,7 @@ if (cart) {
 
         //resolve Purchase agreements
         EntityConditionBuilder conditionBuilder = new EntityConditionBuilder()
-        EntityCondition agreementCond = conditionBuilder.AND() {
+        EntityCondition agreementCond = conditionBuilder.AND {
             IN(partyIdTo: EntityUtil.getFieldListFromEntityList(suppliers, 'partyId', true))
             EQUALS(agreementTypeId: 'PURCHASE_AGREEMENT')
         }

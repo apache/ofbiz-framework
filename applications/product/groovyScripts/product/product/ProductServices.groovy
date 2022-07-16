@@ -331,7 +331,7 @@ def discontinueProductSales() {
 
     // expire product from all categories
     exprBldr = new EntityConditionBuilder()
-    condition = exprBldr.AND() {
+    condition = exprBldr.AND {
         EQUALS(productId: product.productId)
         EQUALS(thruDate: null)
     }

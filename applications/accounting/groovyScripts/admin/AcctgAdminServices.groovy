@@ -100,7 +100,7 @@ def updateFXConversion() {
 
     //find the existing exchange rates for this currency pair
     exprBldr = new EntityConditionBuilder()
-    condition = exprBldr.AND() {
+    condition = exprBldr.AND {
         EQUALS(uomId: parameters.uomId)
         EQUALS(uomIdTo: parameters.uomIdTo)
     }
@@ -140,7 +140,7 @@ def getFXConversion() {
 
     //find the existing exchange rates
     exprBldr = new EntityConditionBuilder()
-    thruDateCondition = exprBldr.OR() {
+    thruDateCondition = exprBldr.OR {
         EQUALS(thruDate: null)
         GREATER_THAN_EQUAL_TO(thruDate: asOfTimestamp)
     }

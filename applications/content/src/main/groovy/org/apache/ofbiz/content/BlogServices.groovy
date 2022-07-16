@@ -212,7 +212,7 @@ def updateBlogEntry() {
 
     if (parameters._uploadedFile_fileName) {
         if (blog.imageContentId) {
-            EntityCondition condition = new EntityConditionBuilder().AND() {
+            EntityCondition condition = new EntityConditionBuilder().AND {
                 EQUALS(contentId: blog.contentId)
                 EQUALS(contentIdTo: blog.imageContentId)
                 EQUALS(mapKey: 'IMAGE')

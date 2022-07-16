@@ -613,7 +613,7 @@ def createProductCategoryAttribute() {
 
     // check if the new attribute-name is unique to the product-category-id
     exprBldr = new EntityConditionBuilder()
-    condition = exprBldr.AND() {
+    condition = exprBldr.AND {
         EQUALS(productCategoryId: parameters.productCategoryId)
         EQUALS(attrName: parameters.attrName)
     }

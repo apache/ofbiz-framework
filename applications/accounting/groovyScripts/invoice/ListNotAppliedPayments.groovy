@@ -30,7 +30,7 @@ decimals = UtilNumber.getBigDecimalScale('invoice.decimals')
 rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')
 
 exprBldr = new EntityConditionBuilder()
-preCurrencyCond = exprBldr.AND() {
+preCurrencyCond = exprBldr.AND {
     EQUALS(partyIdTo: invoice.partyIdFrom)
     EQUALS(partyIdFrom: invoice.partyId)
     IN(statusId: ['PMNT_NOT_PAID', 'PMNT_RECEIVED', 'PMNT_SENT'])
