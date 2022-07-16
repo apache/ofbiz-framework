@@ -146,7 +146,7 @@ if (fileType) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
                         if (file.isFile() && !file.getName().equals(defaultFileName)) file.delete()
-                    } 
+                    }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()

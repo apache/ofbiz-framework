@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,7 +56,7 @@ if (paymentMethodTypeId && paymentServiceTypeEnumId) {
     } else if ('GIFT_CARD' == paymentMethodTypeId && 'PRDS_PAY_RELEASE' == paymentServiceTypeEnumId ) {
         customMethodsCond = EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_RELEASE')
     }
-} 
+}
 
 if (!paymentMethodTypeId || !paymentServiceTypeEnumId) {
     customMethods = []
@@ -80,7 +80,7 @@ if (!paymentMethodTypeId || !paymentServiceTypeEnumId) {
 }
 if ('PRDS_PAY_EXTERNAL' == paymentServiceTypeEnumId) {
     context.paymentCustomMethods = null
-} else if (customMethodsCond) { 
+} else if (customMethodsCond) {
     context.paymentCustomMethods = from('CustomMethod').where(customMethodsCond).orderBy('description').queryList()
 } else {
     context.paymentCustomMethods = from('CustomMethod').orderBy('description').queryList()

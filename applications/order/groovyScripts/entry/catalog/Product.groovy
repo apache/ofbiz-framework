@@ -54,7 +54,7 @@ if (productId) {
             }
         }
     }
-    
+
     // first make sure this isn't a variant that has an associated virtual product, if it does show that instead of the variant
     virtualProductId = ProductWorker.getVariantVirtualId(product)
     if (virtualProductId) {

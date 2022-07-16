@@ -76,7 +76,7 @@ if ((highIndex - lowIndex + 1) > 0) {
         beganTransaction = TransactionUtil.begin()
         listIt = from('ContentAssocViewTo').where('contentIdStart', (String)parameters.get('contentId')).orderBy('contentId ASC').cursorScrollInsensitive().cache(true).queryIterator()
         resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
-        
+
         arraySize = listIt.getResultsSizeAfterPartialList()
         if (arraySize < highIndex) {
             highIndex = arraySize

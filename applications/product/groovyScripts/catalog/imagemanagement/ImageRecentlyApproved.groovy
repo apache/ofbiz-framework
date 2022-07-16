@@ -48,7 +48,7 @@ for (i in 0..limit){
     exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.LESS_THAN, timeStampDate2))
     // query result
     def productContentAndInfoList = select('productId').from('ProductContentAndInfo').where(exprs).distinct().queryList()
-    
+
     // finding time
     def timeList = from('ProductContentAndInfo').where(exprs).orderBy('productId').queryList()
     def groupByTimeList =  timeList.groupBy{it.productId}
@@ -64,7 +64,7 @@ for (i in 0..limit){
         }
     }
     def showDate = sdf2.format(today - i)
-    
+
     switch (i) {
         case 0: context.approved_0 = productContentAndInfoList; context.time_0 = time; context.date0 = showDate
             context.timeStampDate1_0 = timeStampDate1; context.timeStampDate2_0 = timeStampDate2; break

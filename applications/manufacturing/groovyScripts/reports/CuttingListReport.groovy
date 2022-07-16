@@ -50,7 +50,7 @@ productIdToQuantity = [:] // key=productId, value=quantity
 productIdToProduct = [:] // key=productId, value=product
 dimensionToProducts = [:] // key=Dimension, value=list of products
 dimensionToQuantity = [:] // key=Dimension, value=tot qty (of products)
-    
+
 shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList()
 
 if (shipmentPlans) {

@@ -257,7 +257,7 @@ def productDISC() {
         GenericValue product = cartItem.getProduct()
         String parentProductId = cartItem.getParentProductId()
         boolean passedItemConds = ProductPromoWorker.checkConditionsForItem(productPromoAction, cart, cartItem, delegator, dispatcher, nowTimestamp)
-        
+
         if (passedItemConds && !cartItem.getIsPromo()
                 && (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId)))
                 && (!product || 'N' != product.includeInPromotions)) {

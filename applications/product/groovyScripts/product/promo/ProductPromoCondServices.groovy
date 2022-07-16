@@ -123,7 +123,7 @@ def productTotal() {
             GenericValue product = cartItem.getProduct()
             String parentProductId = cartItem.getParentProductId()
             boolean passedItemConds = ProductPromoWorker.checkConditionsForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp)
-            if (passedItemConds && !cartItem.getIsPromo() 
+            if (passedItemConds && !cartItem.getIsPromo()
                     && (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId)))
                     && (!product || 'N' != product.includeInPromotions)) {
 

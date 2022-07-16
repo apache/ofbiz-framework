@@ -46,12 +46,12 @@ try {
                 .cache(true)
                 .queryIterator()
     surveyQuestionAndApplList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
-    
+
     listSize = listIt.getResultsSizeAfterPartialList()
     if (listSize < highIndex) {
         highIndex = listSize
     }
-    
+
     context.viewIndexLast = (int) (listSize / viewSize)
     context.highIndex = highIndex
     context.listSize = listSize

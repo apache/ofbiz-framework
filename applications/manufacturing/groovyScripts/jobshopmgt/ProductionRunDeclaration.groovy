@@ -54,10 +54,10 @@ if (productionRunId) {
         quantityRejected = productionRun.getGenericValue().quantityRejected ?: 0.0
 
         lastTask = productionRun.getLastProductionRunRoutingTask()
-        quantityDeclared = lastTask ? (lastTask.quantityProduced ?: 0.0) : 0.0 
-        
+        quantityDeclared = lastTask ? (lastTask.quantityProduced ?: 0.0) : 0.0
+
         context.canDeclareAndProduce = 'N'
-        
+
         if (lastTask && ('PRUN_RUNNING'.equals(lastTask.currentStatusId) || 'PRUN_COMPLETED'.equals(lastTask.currentStatusId))) {
             context.canDeclareAndProduce = 'Y'
         }

@@ -63,7 +63,7 @@ def createRequirementAndCommitment() {
         }
         Map result = run service: 'createRequirement', with: createRequirement
         returnMap.requirementId = result.requirementId
-        // create the OrderRequirementCommitment to record the Requirement created for an order item 
+        // create the OrderRequirementCommitment to record the Requirement created for an order item
 
         run service: 'createOrderRequirementCommitment', with: [*:parameters, requirementId: result.requirementId]
     }

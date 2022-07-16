@@ -136,7 +136,7 @@ if (fileType) {
                         } else if(file.isFile() && 'original'.equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()
                         }
-                    } 
+                    }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()

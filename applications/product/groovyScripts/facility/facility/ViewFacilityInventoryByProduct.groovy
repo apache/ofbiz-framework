@@ -130,7 +130,7 @@ if (action) {
     if (statusId) {
         searchParameterString = searchParameterString + '&statusId=' + statusId;
     }
-    
+
     whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND)
 
     beganTransaction = false
@@ -188,7 +188,7 @@ if (action) {
         oneInventory.minimumStock = minimumStock
         oneInventory.reorderQuantity = oneProd.reorderQuantity
         oneInventory.daysToShip = oneProd.daysToShip
-        
+
         resultMap = runService('getProductInventoryAndFacilitySummary', [productId : oneProd.productId, minimumStock : minimumStock, facilityId : oneProd.facilityId, checkTime : checkTime, statusId : statusId])
         if (resultMap) {
             oneInventory.totalAvailableToPromise = resultMap.totalAvailableToPromise

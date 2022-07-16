@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.base.util.ObjectType
-import org.apache.ofbiz.webapp.event.FileUploadProgressListener 
+import org.apache.ofbiz.webapp.event.FileUploadProgressListener
 
 /**
  * Main permission logic
@@ -402,7 +402,7 @@ def createFuturePeriod() {
                         periodCal.set(Calendar.DATE, 1)
                         periodStart = new java.sql.Date(periodCal.getTimeInMillis())
                         periodStartDate = periodStart.toString() + ' 00:00:00.000'
-                        lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH); 
+                        lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH);
                         periodCal.set(Calendar.DATE, lastPeriodDay)
                         periodEnd = new java.sql.Date(periodCal.getTimeInMillis())
                         periodEndDate = periodEnd.toString() + ' 23:59:59.999'

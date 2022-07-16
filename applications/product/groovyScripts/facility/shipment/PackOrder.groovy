@@ -141,7 +141,7 @@ if (orderId) {
         if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
                 if (!shipment) {
-    
+
                     // Generate the shipment cost estimate for the ship group
                     productStoreId = orh.getProductStoreId()
                     shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId)
@@ -154,7 +154,7 @@ if (orderId) {
                         context.shipmentCostEstimateForShipGroup = shipmentCostEstimate
                     }
                     context.productStoreId = productStoreId
-    
+
                     if (!picklistBinId) {
                         packSession.addItemInfo(shippableItems)
                     }

@@ -36,25 +36,25 @@ if (priceRuleId) {
     productPriceRules.add(from('ProductPriceRule').where('productPriceRuleId', priceRuleId).queryOne())
     productPriceConds = productPriceRules[0].getRelated('ProductPriceCond', null, ['productPriceCondSeqId'], true)
     productPriceActions = productPriceRules[0].getRelated('ProductPriceAction', null, ['productPriceActionSeqId'], true)
-    
+
     productPriceCondAdd = []
     productPriceCondAdd.add(makeValue('ProductPriceCond'))
     productPriceCondAdd[0].productPriceRuleId = priceRuleId
     productPriceCondAdd[0].inputParamEnumId = context.inputParamEnums[0].enumId
     productPriceCondAdd[0].operatorEnumId = context.condOperEnums[0].enumId
-    
+
     productPriceActionAdd = []
     productPriceActionAdd.add(makeValue('ProductPriceAction'))
     productPriceActionAdd[0].productPriceRuleId = priceRuleId
     productPriceActionAdd[0].productPriceActionTypeId = context.productPriceActionTypes[0].productPriceActionTypeId
     productPriceActionAdd[0].amount = BigDecimal.ZERO
-    
+
     context.productPriceRules = productPriceRules
     context.productPriceConds = productPriceConds
     context.productPriceActions = productPriceActions
     context.productPriceCondAdd = productPriceCondAdd
     context.productPriceActionAdd = productPriceActionAdd
-    
+
 } else {
     context.productPriceRules = null
     context.productPriceConds = null

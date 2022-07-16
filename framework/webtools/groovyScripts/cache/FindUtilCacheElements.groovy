@@ -46,7 +46,7 @@ if (cacheName) {
 }
 context.totalSize = UtilFormatOut.formatQuantity(totalSize)
 sortField = parameters.sortField
-if (sortField) { 
+if (sortField) {
     context.cacheElementsList = UtilMisc.sortMaps(cacheElementsList, UtilMisc.toList(sortField))
 } else {
     context.cacheElementsList = cacheElementsList

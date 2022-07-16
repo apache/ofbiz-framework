@@ -19,7 +19,7 @@
 
 if (!context.extInfo || context.extInfo == 'N') {
     if (parameters.partyIdentificationTypeId || parameters.idValue) context.extInfo = 'I'
-    else if (parameters.address1 
+    else if (parameters.address1
             || parameters.address2
             || parameters.city
             || parameters.postalCode

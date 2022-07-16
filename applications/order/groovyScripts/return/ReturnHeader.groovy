@@ -24,7 +24,7 @@ import org.apache.ofbiz.party.contact.ContactMechWorker
 if (parameters.userLogin) {
     userLogin = parameters.userLogin
     context.userLogin = userLogin
-} 
+}
 returnHeader = null
 orderId = parameters.orderId
 
@@ -95,7 +95,7 @@ if (returnHeader) {
         postalAddressTo = from('PostalAddress').where('contactMechId', contactMechTo.contactMechId).cache(true).queryOne()
         context.postalAddressTo = postalAddressTo
     }
-    
+
     party = from('Party').where('partyId', partyId).cache(true).queryOne()
     if (party) {
         shippingContactMechList = ContactHelper.getContactMech(party, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)

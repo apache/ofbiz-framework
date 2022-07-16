@@ -19,12 +19,12 @@
  import org.apache.ofbiz.base.util.UtilValidate
  import org.apache.ofbiz.entity.util.EntityUtil
  import org.apache.ofbiz.product.catalog.CatalogWorker
- 
+
 prodCatalog = null
 prodCatalogId = parameters.prodCatalogId
 showScreen = 'origin'
 List errMsgList = []
- 
+
 productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();
 if(productStore){
     context.productStoreId = productStore.productStoreId
@@ -35,7 +35,7 @@ if(!productStore){
  } else {
     facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne();
     webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst();
-     
+
     if(!facility){
         errMsgList.add('Facility not set!')
         showScreen = 'message'
@@ -49,7 +49,7 @@ if (errMsgList) {
     request.setAttribute('_ERROR_MESSAGE_LIST_', errMsgList)
     return
 }
- 
+
 productStoreCatalog = from('ProductStoreCatalog').where('productStoreId', productStore.productStoreId).queryFirst();
 if(productStoreCatalog){
     prodCatalog = productStoreCatalog.getRelatedOne('ProdCatalog', false)
@@ -63,12 +63,12 @@ if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem)
     productCategory = null
     productCategoryId = parameters.productCategoryId
     showErrorMsg = 'N'
-     
+
     if(!prodCatalogId){
         errMsgList.add('Product Catalog not set!')
         showErrorMsg = 'Y'
     }
-     
+
     prodCatalogCategory  = from('ProdCatalogCategory').where('prodCatalogId', prodCatalogId, 'sequenceNum', new Long(1)).queryFirst();
     if(prodCatalogCategory){
         productCategory = from('ProductCategory').where('primaryParentCategoryId', prodCatalogCategory.productCategoryId).queryFirst();
@@ -78,11 +78,11 @@ if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem)
     }
     context.productCategoryId = productCategoryId
     context.productCategory = productCategory
-     
+
     if('product'.equals(tabButtonItem)){
         productId = parameters.productId
         product = null
-         
+
         if(!productCategoryId){
             errMsgList.add('Product Category not set!')
             showErrorMsg = 'Y'
@@ -115,7 +115,7 @@ if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem)
         context.product = product
         context.promoCat = promoCat
     }
-     
+
     if (errMsgList) {
         request.setAttribute('_ERROR_MESSAGE_LIST_', errMsgList)
         return

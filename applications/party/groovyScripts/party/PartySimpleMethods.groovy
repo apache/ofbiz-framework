@@ -43,7 +43,7 @@ def createPartyGroupRoleAndContactMechs() {
     Map result = success()
     result.partyId = serviceResult.partyId
     parameters.partyId = serviceResult.partyId
-    
+
     if (parameters.roleTypeId) {
         Map serviceResultCPR = run service: 'createPartyRole', with: [partyId: serviceResult.partyId,
                                                                      roleTypeId: parameters.roleTypeId]
@@ -68,7 +68,7 @@ def createPartyGroupRoleAndContactMechs() {
     } catch (GenericServiceException e) {
         return error(e.toString())
     }
-    
+
 
     run service: 'createPartyContactMechs', with: parameters
     return result

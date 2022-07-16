@@ -137,7 +137,7 @@ if (product) {
 
     // get the product review(s)
     reviews = product.getRelated('ProductReview', null, ['-postedDateTime'], true)
-    
+
     // get product variant for Box/Case/Each
     productVariants = []
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
@@ -155,11 +155,11 @@ if (product) {
                 mainProducts.add(mainProductMap)
             }
         }
-        
-        // get alternative product price when product doesn't have any feature 
+
+        // get alternative product price when product doesn't have any feature
         jsBuf = new StringBuffer()
         jsBuf.append("<script type=\"application/javascript\">")
-        
+
         // make a list of variant sku with requireAmount
         virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : categoryId])
         virtualVariants = virtualVariantsRes.assocProducts
@@ -171,13 +171,13 @@ if (product) {
             }
         }
         variantPriceList = []
-        
+
         if(virtualVariants){
             amt = new StringBuffer()
             // Create the javascript to return the price for each variant
             variantPriceJS = new StringBuffer()
             variantPriceJS.append('function getVariantPrice(sku) { ')
-            
+
             virtualVariants.each { virtualAssoc ->
                 virtual = virtualAssoc.getRelatedOne('MainProduct', false)
                 // Get price from a virtual product
@@ -200,7 +200,7 @@ if (product) {
                 variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + price + "';\n")
             }
             variantPriceJS.append(' } ')
-            
+
             context.variantPriceList = variantPriceList
             jsBuf.append(amt.toString())
             jsBuf.append(variantPriceJS.toString())

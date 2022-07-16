@@ -56,7 +56,7 @@ contentAssocs.each { contentAssoc ->
     } else {
         nameLocal = 'en_US'
     }
-    
+
     if (localeString == nameLocal) {
         electronicText = from('ElectronicText').where('dataResourceId', content.dataResourceId).queryOne()
         productTextData = electronicText.textData

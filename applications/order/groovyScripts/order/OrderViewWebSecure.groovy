@@ -69,6 +69,6 @@ if (orderHeader) {
 
     orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderHeader, request)
     context.orderContentWrapper = orderContentWrapper
-    
+
 
 }

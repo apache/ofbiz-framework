@@ -28,20 +28,20 @@ invoiceIds.each { invoiceId ->
     invoicesMap = [:]
     invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
     invoicesMap.invoice = invoice
-    
+
     currency = parameters.currency // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
     BigDecimal conversionRate = new BigDecimal('1')
     ZERO = BigDecimal.ZERO
     decimals = UtilNumber.getBigDecimalScale('invoice.decimals')
     rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')
-    
+
     if (invoice) {
         if (currency && !invoice.getString('currencyUomId').equals(currency)) {
             conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)
             invoice.currencyUomId = currency
             invoice.invoiceMessage = ' converted from original with a rate of: ' + conversionRate.setScale(8, rounding)
         }
-    
+
         invoiceItems = invoice.getRelated('InvoiceItem', null, ['invoiceItemSeqId'], false)
         invoiceItemsConv = []
         invoiceItems.each { invoiceItem ->
@@ -50,14 +50,14 @@ invoiceIds.each { invoiceId ->
                 invoiceItemsConv.add(invoiceItem)
             }
         }
-    
+
         invoicesMap.invoiceItems = invoiceItemsConv
-    
+
         invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding)
         invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding)
         invoicesMap.invoiceTotal = invoiceTotal
         invoicesMap.invoiceNoTaxTotal = invoiceNoTaxTotal
-    
+
         if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
             billingAddress = InvoiceWorker.getSendFromAddress(invoice)
         } else {
@@ -71,7 +71,7 @@ invoiceIds.each { invoiceId ->
         sendingParty = InvoiceWorker.getSendFromParty(invoice)
         invoicesMap.sendingParty = sendingParty
 
-        // This snippet was added for adding Tax ID in invoice header if needed 
+        // This snippet was added for adding Tax ID in invoice header if needed
         sendingTaxInfos = sendingParty.getRelated('PartyTaxAuthInfo', null, null, false)
         billingTaxInfos = billToParty.getRelated('PartyTaxAuthInfo', null, null, false)
         sendingPartyTaxId = null
@@ -95,30 +95,30 @@ invoiceIds.each { invoiceId ->
         if (billToPartyTaxId) {
             invoicesMap.billToPartyTaxId = billToPartyTaxId
         }
-    
+
         terms = invoice.getRelated('InvoiceTerm', null, null, false)
         invoicesMap.terms = terms
-    
+
         paymentAppls = from('PaymentApplication').where('invoiceId', invoiceId).queryList()
         invoicesMap.payments = paymentAppls
-    
+
         orderItemBillings = from('OrderItemBilling').where('invoiceId', invoiceId).orderBy('orderId').queryList()
         orders = new LinkedHashSet()
         orderItemBillings.each { orderIb ->
             orders.add(orderIb.orderId)
         }
         invoicesMap.orders = orders
-    
+
         invoiceStatus = invoice.getRelatedOne('StatusItem', false)
         invoicesMap.invoiceStatus = invoiceStatus
-    
+
         edit = parameters.editInvoice
         if ('true'.equalsIgnoreCase(edit)) {
             invoiceItemTypes = from('InvoiceItemType').queryList()
             invoicesMap.invoiceItemTypes = invoiceItemTypes
             invoicesMap.editInvoice = true
         }
-    
+
         // format the date
         if (invoice.invoiceDate) {
             invoiceDate = DateFormat.getDateInstance(DateFormat.LONG).format(invoice.invoiceDate)

@@ -197,7 +197,7 @@ if (product) {
         context.priceMap = priceMap
     }
 
-    // get the product review(s) 
+    // get the product review(s)
     // get all product review in case of Purchase Order.
     reviewByAnd = [:]
     reviewByAnd.statusId = 'PRR_APPROVED'
@@ -216,7 +216,7 @@ if (product) {
     }
 
     // get the days to ship
-    // if order is purchase then don't calculate available inventory for product. 
+    // if order is purchase then don't calculate available inventory for product.
     if (cart.isSalesOrder()) {
         facilityId = productStore.inventoryFacilityId
 
@@ -243,7 +243,7 @@ if (product) {
     // an example of getting features of a certain type to show
     sizeProductFeatureAndAppls = from('ProductFeatureAndAppl').where('productId', productId, 'productFeatureTypeId', 'SIZE').orderBy('sequenceNum', 'defaultSequenceNum').queryList()
     context.sizeProductFeatureAndAppls = sizeProductFeatureAndAppls
-    
+
     // get product variant for Box/Case/Each
     productVariants = []
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
@@ -263,7 +263,7 @@ if (product) {
         }
     }
     context.mainProducts = mainProducts
-    
+
     // Special Variant Code
     if ('Y'.equals(product.isVirtual)) {
         if ('VV_FEATURETREE'.equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
@@ -349,9 +349,9 @@ if (product) {
                             contentWrapper = new ProductContentWrapper(imageMap[key], request)
 
                             // initial image paths
-                            detailImage = contentWrapper.getProductContentAsText(product, 'DETAIL_IMAGE_URL', request, 'string') 
+                            detailImage = contentWrapper.getProductContentAsText(product, 'DETAIL_IMAGE_URL', request, 'string')
                             ?: productContentWrapper.get('DETAIL_IMAGE_URL', 'string')
-                            largeImage = contentWrapper.getProductContentAsText(product, 'LARGE_IMAGE_URL', request, 'string') 
+                            largeImage = contentWrapper.getProductContentAsText(product, 'LARGE_IMAGE_URL', request, 'string')
                             ?: productContentWrapper.get('LARGE_IMAGE_URL', 'string')
 
                             // full image URLs
@@ -450,11 +450,11 @@ if (product) {
                                 variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
                                 variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                             }
-                            
+
                             // make a list of virtual variants sku with requireAmount
                             virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : variant.productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : currentCatalogId])
                             virtualVariants = virtualVariantsRes.assocProducts
-                            
+
                             if(virtualVariants){
                                 virtualVariants.each { virtualAssoc ->
                                     virtual = virtualAssoc.getRelatedOne('MainProduct', false)
@@ -495,7 +495,7 @@ if (product) {
                                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     }
                                 }
-                                
+
                             }
                         }
                         amt.append(' } ')
@@ -513,10 +513,10 @@ if (product) {
     } else {
         context.minimumQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, priceMap.price, productId)
         if(isAlternativePacking){
-            // get alternative product price when product doesn't have any feature 
+            // get alternative product price when product doesn't have any feature
             jsBuf = new StringBuffer()
             jsBuf.append("<script type=\"application/javascript\">")
-            
+
             // make a list of variant sku with requireAmount
             virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : categoryId])
             virtualVariants = virtualVariantsRes.assocProducts
@@ -528,13 +528,13 @@ if (product) {
                 }
             }
             virtualVariantPriceList = []
-            
+
             if(virtualVariants){
                 amt = new StringBuffer()
                 // Create the javascript to return the price for each variant
                 variantPriceJS = new StringBuffer()
                 variantPriceJS.append('function getVariantPrice(sku) { ')
-                
+
                 virtualVariants.each { virtualAssoc ->
                     virtual = virtualAssoc.getRelatedOne('MainProduct', false)
                     // Get price from a virtual product
@@ -554,7 +554,7 @@ if (product) {
                     }
                 }
                 variantPriceJS.append(' } ')
-                
+
                 context.virtualVariantPriceList = virtualVariantPriceList
                 jsBuf.append(amt.toString())
                 jsBuf.append(variantPriceJS.toString())
@@ -632,12 +632,12 @@ if (product) {
         }
         context.productImageList = productImageList
     }
-    
+
     // get reservation start date for rental product
     if('ASSET_USAGE'.equals(productTypeId) || 'ASSET_USAGE_OUT_IN'.equals(productTypeId)){
         context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0,10) // should be tomorrow.
     }
-    
+
     // get product tags
     productKeywords = from('ProductKeyword').where('productId': productId, 'keywordTypeId' : 'KWT_TAG', 'statusId' : 'KW_APPROVED').queryList()
     keywordMap = [:]

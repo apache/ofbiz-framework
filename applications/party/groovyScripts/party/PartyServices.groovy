@@ -47,7 +47,7 @@ def savePartyNameChange() {
             partyNameHistory.create()
         }
     } else if (parameters.firstName ||
-               parameters.middleName || 
+               parameters.middleName ||
                parameters.lastName ||
                parameters.personalTitle ||
                parameters.suffix) {
@@ -152,7 +152,7 @@ def createPartyIdentifications() {
             }
         }
     }
- 
+
     return resultMap
 }
 
@@ -319,7 +319,7 @@ def getPartyTelephone () {
             resultMap.countryCode = telephone.tnCountryCode
         }
         if (telephone.containsKey('areaCode')) {
-            resultMap.areaCode = telephone.areaCode 
+            resultMap.areaCode = telephone.areaCode
         } else if (telephone.containsKey('tnAreaCode')) {
             resultMap.areaCode = telephone.tnAreaCode
         }
@@ -499,7 +499,7 @@ def createPartyRelationshipContactAccount() {
                partyRelationshipTypeId: 'EMPLOYMENT',
                comments: parameters.comments
               ]
- 
+
     return resultMap
 }
 

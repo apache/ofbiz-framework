@@ -56,7 +56,7 @@ if (category) {
         metaKeywords = from('ElectronicText').where('dataResourceId', categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
     }
     categoryContentWrapper = new CategoryContentWrapper(category, request)
-    
+
     categoryDescription = categoryContentWrapper.get('DESCRIPTION', 'html')
 
     if (pageTitle) {
