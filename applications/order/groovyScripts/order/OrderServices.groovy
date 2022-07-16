@@ -100,7 +100,7 @@ def getOrderedSummaryInformation() {
     //find the existing exchange rates
     exprBldr = new EntityConditionBuilder()
 
-    def condition = exprBldr.AND() {
+    def condition = exprBldr.AND {
         EQUALS(partyId: partyId)
         EQUALS(roleTypeId: roleTypeId)
         EQUALS(orderTypeId: orderTypeId)
@@ -110,7 +110,7 @@ def getOrderedSummaryInformation() {
     if (fromDate) {
         condition = exprBldr.AND(condition) {
             condition
-            exprBldr.OR() {
+            exprBldr.OR {
                 GREATER_THAN_EQUAL_TO(orderDate: fromDate)
                 EQUALS(orderDate: null)
             }
@@ -120,7 +120,7 @@ def getOrderedSummaryInformation() {
     if (thruDate) {
         condition = exprBldr.AND(condition) {
             condition
-            exprBldr.OR() {
+            exprBldr.OR {
                 LESS_THAN_EQUAL_TO(orderDate: thruDate)
                 EQUALS(orderDate: null)
             }

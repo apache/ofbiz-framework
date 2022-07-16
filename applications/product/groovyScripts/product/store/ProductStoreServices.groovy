@@ -104,7 +104,7 @@ def updateProductStore() {
         if ('Y' == store.oneInventoryFacility) {
             // expire all the facilities
             EntityConditionBuilder exprBldr = new EntityConditionBuilder()
-            EntityCondition thruDateCondition = exprBldr.OR() {
+            EntityCondition thruDateCondition = exprBldr.OR {
                 EQUALS(thruDate: null)
                 GREATER_THAN_EQUAL_TO(thruDate: nowTimestamp)
             }

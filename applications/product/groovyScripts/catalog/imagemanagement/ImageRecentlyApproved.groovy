@@ -53,7 +53,7 @@ for (i in 0..limit){
     def timeList = from('ProductContentAndInfo').where(exprs).orderBy('productId').queryList()
     def groupByTimeList =  timeList.groupBy{it.productId}
     def tempTimeList = []
-    groupByTimeList.each() {
+    groupByTimeList.each {
         key,value -> tempTimeList.add(value.purchaseFromDate)
     }
 

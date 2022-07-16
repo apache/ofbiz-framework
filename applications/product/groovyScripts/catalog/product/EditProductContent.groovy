@@ -165,7 +165,7 @@ if (fileType) {
 
                 if (result.containsKey('responseMessage') && 'success'.equals(result.get('responseMessage'))) {
                     imgMap = result.get('imageUrlMap')
-                    imgMap.each() { key, value ->
+                    imgMap.each { key, value ->
                         product.set(key + 'ImageUrl', value)
                     }
                 }

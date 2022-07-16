@@ -302,7 +302,7 @@ def getInvoicePaymentInfoListByDueDateOffset() {
 
     List filteredInvoicePaymentInfoList = []
     Timestamp asOfDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), (long) parameters.daysOffset)
-    EntityCondition condition = new EntityConditionBuilder().AND() {
+    EntityCondition condition = new EntityConditionBuilder().AND {
         EQUALS(invoiceTypeId: parameters.invoiceTypeId)
         NOT_IN(statusId: ['INVOICE_CANCELLED', 'INVOICE_PAID'])
     }
@@ -816,7 +816,7 @@ def createMatchingPaymentApplication() {
             if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) return isInvoiceInForeignCurrencyResp
 
             EntityConditionBuilder exprBldr = new EntityConditionBuilder()
-            EntityCondition expr = exprBldr.AND() {
+            EntityCondition expr = exprBldr.AND {
                 NOT_EQUAL(statusId: 'PMNT_CONFIRMED')
                 EQUALS(partyIdFrom: invoice.partyId)
                 EQUALS(partyIdTo: invoice.partyIdFrom)
@@ -853,7 +853,7 @@ def createMatchingPaymentApplication() {
         GenericValue payment = from('Payment').where(paymentId: parameters.paymentId).queryOne()
 
         if (payment) {
-            EntityCondition expr = new EntityConditionBuilder().AND() {
+            EntityCondition expr = new EntityConditionBuilder().AND {
                 NOT_IN(statusId: ['INVOICE_READY','INVOICE_PAID','INVOICE_CANCELLED','INVOICE_WRITEOFF'])
                 EQUALS(partyIdFrom: payment.partyIdTo)
                 EQUALS(partyId: payment.partyIdFrom)
