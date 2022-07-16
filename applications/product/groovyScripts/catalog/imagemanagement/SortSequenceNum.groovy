@@ -29,5 +29,5 @@ if(parameters.sequenceNum){
     duplicate = findExisted.size()
 }
 if(duplicate > 1){
-    context.parameters.sequenceNum = (Long)productContents.sequenceNum[productContents.size()-1] + 1
+    context.parameters.sequenceNum = (Long)productContents.sequenceNum[productContents.size() - 1] + 1
 }

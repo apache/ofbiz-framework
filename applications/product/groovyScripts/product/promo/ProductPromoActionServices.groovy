@@ -243,7 +243,7 @@ def productDISC() {
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal quantityDesired = !productPromoAction.quantity? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
+    BigDecimal quantityDesired = !productPromoAction.quantity ? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
     BigDecimal startingQuantity = quantityDesired
     BigDecimal discountAmountTotal = BigDecimal.ZERO
 
@@ -306,7 +306,7 @@ def productAMDISC() {
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal quantityDesired = !productPromoAction.quantity? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
+    BigDecimal quantityDesired = !productPromoAction.quantity ? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
     BigDecimal startingQuantity = quantityDesired
     BigDecimal discountAmountTotal = BigDecimal.ZERO
 
@@ -328,7 +328,7 @@ def productAMDISC() {
             quantityDesired = quantityDesired.subtract(quantityUsed)
 
             // create an adjustment and add it to the cartItem that implements the promotion action
-            BigDecimal discount = !productPromoAction.amount? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
+            BigDecimal discount = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
             // don't allow the discount to be greater than the price
             if (discount.compareTo(cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())) > 0) {
                 discount = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())
@@ -369,8 +369,8 @@ def productPrice() {
     ShoppingCart cart = parameters.shoppingCart
 
     // with this we want the set of used items to be one price, so total the price for all used items, subtract the amount we want them to cost, and create an adjustment for what is left
-    BigDecimal quantityDesired = !productPromoAction.quantity? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
-    BigDecimal desiredAmount = !productPromoAction.amount? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
+    BigDecimal quantityDesired = !productPromoAction.quantity ? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
+    BigDecimal desiredAmount = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
     BigDecimal totalAmount = BigDecimal.ZERO
 
     Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp)
@@ -448,7 +448,7 @@ def productOrderAmount() {
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal amount = (!productPromoAction.amount? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')).negate()
+    BigDecimal amount = (!productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')).negate()
     // if amount is greater than the order sub total, set equal to order sub total, this normally wouldn't happen because there should be a condition that the order total be above a certain amount, but just in case...
     BigDecimal subTotal = cart.getSubTotalForPromotions()
     if (amount.negate().compareTo(subTotal) > 0) {
@@ -506,7 +506,7 @@ def productShipCharge() {
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal percentage = (!productPromoAction.amount? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
+    BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
     BigDecimal amount = cart.getTotalShipping().multiply(percentage)
     if (amount.compareTo(BigDecimal.ZERO) != 0) {
 
@@ -533,7 +533,7 @@ def productTaxPercent() {
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal percentage = (!productPromoAction.amount? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
+    BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
     BigDecimal amount = cart.getTotalSalesTax().multiply(percentage)
     if (amount.compareTo(BigDecimal.ZERO) != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)

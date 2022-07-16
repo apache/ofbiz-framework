@@ -453,7 +453,7 @@ def updateProductAverageCostOnReceiveInventory() {
         Map serviceResultGIABF = run service: 'getInventoryAvailableByFacility', with: serviceInMap
         BigDecimal quantityOnHandTotal = serviceResultGIABF.quantityOnHandTotal
         BigDecimal oldProductQuantity = quantityOnHandTotal - parameters.quantityAccepted
-        BigDecimal averageCost = ((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted))/(quantityOnHandTotal)
+        BigDecimal averageCost = ((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted)) / (quantityOnHandTotal)
         int roundingDecimal = UtilProperties.getPropertyAsInteger('arithmetic', 'finaccout.decimals', 2)
         String roundingMode = UtilProperties.getPropertyValue('arithmetic', 'finaccount.roundingGroovyMethod', 'HALF_UP')
         averageCost = averageCost.setScale(roundingDecimal, RoundingMode."${roundingMode}")

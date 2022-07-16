@@ -115,8 +115,8 @@ if (allocationPlanHeader) {
                 reservedQuantity = 0
                 reservations = orderItem.getRelated('OrderItemShipGrpInvRes', null, null, false)
                 reservations.each { reservation ->
-                    quantityAvailable = reservation.quantity?reservation.quantity:0.0
-                    quantityNotAvailable = reservation.quantityNotAvailable?reservation.quantityNotAvailable:0.0
+                    quantityAvailable = reservation.quantity ? reservation.quantity : 0.0
+                    quantityNotAvailable = reservation.quantityNotAvailable ? reservation.quantityNotAvailable : 0.0
                     reservedQuantity += (quantityAvailable - quantityNotAvailable)
                 }
                 reservedQuantityTotal = reservedQuantityTotal.add(reservedQuantity)

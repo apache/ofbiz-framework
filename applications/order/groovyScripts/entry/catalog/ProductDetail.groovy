@@ -53,7 +53,7 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     map.each { key, value ->
         def optValue = null
 
-        if (order.indexOf(current) == (order.size()-1)) {
+        if (order.indexOf(current) == (order.size() - 1)) {
             optValue = value.iterator().next()
         } else {
             optValue = prefix + '_' + ct
@@ -63,10 +63,10 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
         ct++
     }
     buf.append(' }')
-    if (order.indexOf(current) < (order.size()-1)) {
+    if (order.indexOf(current) < (order.size() - 1)) {
         ct = 0
         map.each { key, value ->
-            def nextOrder = order.get(order.indexOf(current)+1)
+            def nextOrder = order.get(order.indexOf(current) + 1)
             def newPrefix = prefix + '_' + ct
             buf.append(buildNext(value, order, nextOrder, newPrefix, featureTypes))
             ct++
@@ -101,7 +101,7 @@ if (product) {
     productTypeId = product.productTypeId
 
     boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
-    context.isMarketingPackage = (isMarketingPackage? 'true': 'false')
+    context.isMarketingPackage = (isMarketingPackage ? 'true' : 'false')
 
     featureTypes = [:]
     featureOrder = []
@@ -366,9 +366,9 @@ if (product) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage
                             }
 
-                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[" + (counter+1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
-                            jsBuf.append('DET[' + counter + "] = \"" + detailImageUrl +"\";")
-                            jsBuf.append('IMG[' + counter + "] = \"" + largeImageUrl +"\";")
+                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[" + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
+                            jsBuf.append('DET[' + counter + "] = \"" + detailImageUrl + "\";")
+                            jsBuf.append('IMG[' + counter + "] = \"" + largeImageUrl + "\";")
 
                             if (!firstDetailImage) {
                                 firstDetailImage = detailImageUrl
@@ -511,7 +511,7 @@ if (product) {
             }
         }
     } else {
-        context.minimumQuantity= ShoppingCart.getMinimumOrderQuantity(delegator, priceMap.price, productId)
+        context.minimumQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, priceMap.price, productId)
         if(isAlternativePacking){
             // get alternative product price when product doesn't have any feature 
             jsBuf = new StringBuffer()

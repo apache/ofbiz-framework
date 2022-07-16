@@ -65,10 +65,10 @@ Collection formulae = from('CustomMethod').where('customMethodTypeId', 'BOM_FORM
 context.formulae = formulae
 
 if (product) {
-    assocFromProducts = product.getRelated('MainProductAssoc', (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ['sequenceNum','productId'], false)
+    assocFromProducts = product.getRelated('MainProductAssoc', (productAssocTypeId ? [productAssocTypeId : productAssocTypeId] : [ : ]), ['sequenceNum','productId'], false)
     if (assocFromProducts) context.assocFromProducts = assocFromProducts
 
-    assocToProducts = product.getRelated('AssocProductAssoc', (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ['sequenceNum','productId'], false)
+    assocToProducts = product.getRelated('AssocProductAssoc', (productAssocTypeId ? [productAssocTypeId : productAssocTypeId] : [ : ]), ['sequenceNum','productId'], false)
     if (assocToProducts) context.assocToProducts = assocToProducts
 }
 

@@ -32,7 +32,7 @@ request.removeAttribute('_EVENT_MESSAGE_')
 
 // If there's a paymentMethodId request attribute, the user has just created a new payment method,
 //  so put the new paymentMethodId in the context for the UI
-newPaymentMethodId=request.getAttribute('paymentMethodId')
+newPaymentMethodId = request.getAttribute('paymentMethodId')
 if (newPaymentMethodId) {
     context.checkOutPaymentId = newPaymentMethodId
 }

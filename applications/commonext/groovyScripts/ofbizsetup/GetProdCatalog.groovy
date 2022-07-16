@@ -33,7 +33,7 @@ if(!productStore){
     errMsgList.add('Product Store not set!')
     showScreen = 'message'
  } else {
-    facility =from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne();
+    facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne();
     webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst();
      
     if(!facility){

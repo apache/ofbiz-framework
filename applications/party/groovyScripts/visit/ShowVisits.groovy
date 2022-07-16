@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 partyId = parameters.partyId
 context.partyId = partyId
 
-showAll = parameters.showAll ?:'false'
+showAll = parameters.showAll ?: 'false'
 context.showAll = showAll
 
 sort = parameters.sort
@@ -38,7 +38,7 @@ try {
     beganTransaction = TransactionUtil.begin()
 
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1)
-    viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
+    viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : modelTheme.getDefaultViewSize() ?: 20
     context.viewIndex = viewIndex
     context.viewSize = viewSize
 

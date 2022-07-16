@@ -285,7 +285,7 @@ def productPartyClass() {
         // and from/thru date within range
         List<GenericValue> partyClassificationList = from('PartyClassification').where('partyId', partyId, 'partyClassificationGroupId', partyClassificationGroupId).cache(true).filterByDate().queryList()
         // then 0 (equals), otherwise 1 (not equals)
-        compareBase = partyClassificationList? 0: 1
+        compareBase = partyClassificationList ? 0 : 1
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -308,7 +308,7 @@ def productRoleType() {
         // if a PartyRole exists for this partyId and the specified roleTypeId
         GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', condValue).cache(true).queryOne()
         // then 0 (equals), otherwise 1 (not equals)
-        compareBase = partyRole? 0: 1
+        compareBase = partyRole ? 0 : 1
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result

@@ -120,8 +120,8 @@ class ContactMechWorkerTests extends OFBizTestCase {
                         assert orderContactMechValueMap.postalAddress
                         assert orderContactMechValueMap.postalAddress.contactMechId == '9015'
                         assert orderContactMechValueMap.postalAddress.address1 == '2004 Factory Blvd'
-                        foundBillingAddress = foundBillingAddress?: orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'BILLING_LOCATION'
-                        foundShippingAddress = foundShippingAddress?: orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'SHIPPING_LOCATION'
+                        foundBillingAddress = foundBillingAddress ?: orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'BILLING_LOCATION'
+                        foundShippingAddress = foundShippingAddress ?: orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'SHIPPING_LOCATION'
                         break
                     case '9026':
                         assert orderContactMechValueMap.contactMech.contactMechTypeId == 'EMAIL_ADDRESS'

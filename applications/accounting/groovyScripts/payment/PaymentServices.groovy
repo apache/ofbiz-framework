@@ -47,7 +47,7 @@ def createPayment() {
     if (parameters.paymentMethodId) {
         GenericValue paymentMethod = from('PaymentMethod').where('paymentMethodId', parameters.paymentMethodId).queryOne()
         if (parameters.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
-            logInfo('Replacing passed payment method type [' + parameters.paymentMethodTypeId + '] with payment method type [' + paymentMethod.paymentMethodTypeId + '] for payment method [' + parameters.paymentMethodId +']')
+            logInfo('Replacing passed payment method type [' + parameters.paymentMethodTypeId + '] with payment method type [' + paymentMethod.paymentMethodTypeId + '] for payment method [' + parameters.paymentMethodId + ']')
             parameters.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
         }
     }
@@ -157,7 +157,7 @@ def updatePayment() {
         GenericValue paymentMethod = from('PaymentMethod').where('paymentMethodId', payment.paymentMethodId).queryOne()
         if (payment.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
             logInfo('Replacing passed payment method type [' + parameters.paymentMethodTypeId + '] with payment method type [' +
-                paymentMethod.paymentMethodTypeId + '] for payment method [' + parameters.paymentMethodId +']')
+                paymentMethod.paymentMethodTypeId + '] for payment method [' + parameters.paymentMethodId + ']')
         }
         payment.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
     }
@@ -844,8 +844,7 @@ def createMatchingPaymentApplication() {
                 createPaymentApplicationCtx.paymentId = payment.paymentId
                 createPaymentApplicationCtx.invoiceId = parameters.invoiceId
                 createPaymentApplicationCtx.amountApplied = isInvoiceInForeignCurrencyResp.isForeign
-                        ? payment.actualCurrencyAmount
-                        : payment.amount
+                        ? payment.actualCurrencyAmount : payment.amount
             }
         }
     }

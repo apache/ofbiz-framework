@@ -401,7 +401,7 @@ def createFuturePeriod() {
                         }
                         periodCal.set(Calendar.DATE, 1)
                         periodStart = new java.sql.Date(periodCal.getTimeInMillis())
-                        periodStartDate = periodStart.toString() +' 00:00:00.000'
+                        periodStartDate = periodStart.toString() + ' 00:00:00.000'
                         lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH); 
                         periodCal.set(Calendar.DATE, lastPeriodDay)
                         periodEnd = new java.sql.Date(periodCal.getTimeInMillis())

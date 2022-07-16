@@ -67,7 +67,7 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     map.each { key, value ->
         def optValue = null
 
-        if (order.indexOf(current) == (order.size()-1)) {
+        if (order.indexOf(current) == (order.size() - 1)) {
             optValue = value.iterator().next()
         } else {
             optValue = prefix + '_' + ct
@@ -77,10 +77,10 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
         ct++
     }
     buf.append(' }')
-    if (order.indexOf(current) < (order.size()-1)) {
+    if (order.indexOf(current) < (order.size() - 1)) {
         ct = 0
         map.each { key, value ->
-            def nextOrder = order.get(order.indexOf(current)+1)
+            def nextOrder = order.get(order.indexOf(current) + 1)
             def newPrefix = prefix + '_' + ct
             buf.append(buildNext(value, order, nextOrder, newPrefix, featureTypes))
             ct++
@@ -235,9 +235,9 @@ if (inlineProduct) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage
                             }
 
-                            jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[" + (counter+1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
-                            jsBuf.append('DET' + inlineCounter + '[' + counter + "] = \"" + detailImageUrl +"\";")
-                            jsBuf.append('IMG' + inlineCounter + '[' + counter + "] = \"" + largeImageUrl +"\";")
+                            jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[" + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
+                            jsBuf.append('DET' + inlineCounter + '[' + counter + "] = \"" + detailImageUrl + "\";")
+                            jsBuf.append('IMG' + inlineCounter + '[' + counter + "] = \"" + largeImageUrl + "\";")
 
                             if (!firstDetailImage) {
                                 firstDetailImage = detailImageUrl

@@ -40,4 +40,4 @@ if (cmNewPurposeTypeId) {
     }
     context.cmNewPurposeTypeId = cmNewPurposeTypeId
 }
-context.donePage = parameters.DONE_PAGE ?:'viewprofile?party_id=' + partyId + '&partyId=' + partyId
+context.donePage = parameters.DONE_PAGE ?: 'viewprofile?party_id=' + partyId + '&partyId=' + partyId

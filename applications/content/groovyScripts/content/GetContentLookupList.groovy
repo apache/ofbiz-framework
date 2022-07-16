@@ -29,14 +29,14 @@ import org.apache.ofbiz.entity.model.ModelReader
 viewIndex = parameters.VIEW_INDEX ? Integer.valueOf(parameters.VIEW_INDEX) : 0
 viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : 20
 
-int lowIndex = viewIndex*viewSize+1
-int highIndex = (viewIndex+1)*viewSize
+int lowIndex = viewIndex * viewSize + 1
+int highIndex = (viewIndex + 1) * viewSize
 
 context.viewIndexFirst = 0
 context.viewIndex = viewIndex
-context.viewIndexPrevious = viewIndex-1
-context.viewIndexNext = viewIndex+1
-String curFindString=''
+context.viewIndexPrevious = viewIndex - 1
+context.viewIndexNext = viewIndex + 1
+String curFindString = ''
 
 ModelReader reader = delegator.getModelReader()
 ModelEntity modelEntity = reader.getModelEntity('ContentAssocViewTo')
@@ -103,4 +103,4 @@ context.resultPartialList = resultPartialList
 
 viewIndexLast = UtilMisc.getViewLastIndex(arraySize, viewSize)
 context.viewIndexLast = viewIndexLast
-context.contentAssoc=resultPartialList
+context.contentAssoc = resultPartialList

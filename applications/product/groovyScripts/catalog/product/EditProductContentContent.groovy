@@ -92,7 +92,7 @@ if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
                 bodyDr = bodyContent.getRelatedOne('DataResource', false)
                 body = bodyDr.getRelatedOne('ElectronicText', false)
                 emailData.put(contentAssoc.mapKey, body.textData)
-                emailData.put(contentAssoc.get('mapKey')+'DataResourceId', body.dataResourceId)
+                emailData.put(contentAssoc.get('mapKey') + 'DataResourceId', body.dataResourceId)
             }
         }
     }
@@ -139,7 +139,7 @@ if (productContentTypeId) {
         context.contentFormName = 'EditProductContentDownload'
     }
 }
-if (('PAGE_TITLE'.equals(productContentTypeId))||('META_KEYWORD'.equals(productContentTypeId))||('META_DESCRIPTION'.equals(productContentTypeId))) {
+if (('PAGE_TITLE'.equals(productContentTypeId)) || ('META_KEYWORD'.equals(productContentTypeId)) || ('META_DESCRIPTION'.equals(productContentTypeId))) {
     context.contentFormName = 'EditProductContentSEO'
 }
 

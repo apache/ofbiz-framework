@@ -96,7 +96,7 @@ distributions.main.contents.from(rootDir) {
 }
 
 javadoc {
-    title='OFBiz trunk API'
+    title = 'OFBiz trunk API'
     failOnError = true
     options {
         source '8'
@@ -532,11 +532,11 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) {
         doLast {
             def filterTokens = ['tenantId': tenantId,
-                'tenantName': project.hasProperty('tenantName')? tenantName : tenantId,
-                'domainName': project.hasProperty('domainName')? domainName : 'org.apache.ofbiz',
-                'db-IP': project.hasProperty('dbIp')? dbIp : '',
-                'db-User': project.hasProperty('dbUser')? dbUser : '',
-                'db-Password': project.hasProperty('dbPassword')? dbPassword : '']
+                'tenantName': project.hasProperty('tenantName') ? tenantName : tenantId,
+                'domainName': project.hasProperty('domainName') ? domainName : 'org.apache.ofbiz',
+                'db-IP': project.hasProperty('dbIp') ? dbIp : '',
+                'db-User': project.hasProperty('dbUser') ? dbUser : '',
+                'db-Password': project.hasProperty('dbPassword') ? dbPassword : '']
 
             generateFileFromTemplate(databaseTemplateFile, 'runtime/tmp',
                 filterTokens, 'tmpFilteredTenantData.xml')
@@ -797,7 +797,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
                 'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
-            mkdir pluginDir+'/'+it
+            mkdir pluginDir + '/' + it
         }
 
         [   [tempName:'ofbiz-component.xml', newName:'ofbiz-component.xml', location:''],
@@ -899,8 +899,8 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
             publications {
                 ofbizPluginPublication(MavenPublication) {
                     artifactId pluginId
-                    groupId project.hasProperty('pluginGroup')? pluginGroup :'org.apache.ofbiz.plugin'
-                    version project.hasProperty('pluginVersion')? pluginVersion :'0.1.0-SNAPSHOT'
+                    groupId project.hasProperty('pluginGroup') ? pluginGroup : 'org.apache.ofbiz.plugin'
+                    version project.hasProperty('pluginVersion') ? pluginVersion : '0.1.0-SNAPSHOT'
 
                     artifact createPluginArchive
 

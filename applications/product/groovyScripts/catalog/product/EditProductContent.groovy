@@ -32,8 +32,8 @@ context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator)
 imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.server.path', delegator), context)
 imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator), context)
-imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
-imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
+imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length() - 1) : imageServerPath
+imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix
 context.imageFilenameFormat = imageFilenameFormat
 context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
@@ -131,7 +131,7 @@ if (fileType) {
                 if (!filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.')+1)) && !'original'.equals(fileType)) {
+                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.') + 1)) && !'original'.equals(fileType)) {
                             file.delete()
                         } else if(file.isFile() && 'original'.equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()

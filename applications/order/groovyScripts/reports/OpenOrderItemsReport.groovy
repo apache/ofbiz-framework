@@ -120,7 +120,7 @@ try {
         totalquantityOpen += quantityOpen
         costPriceDividendValue = costPrice
         if (costPriceDividendValue) {
-            percentMarkup = ((retailPrice - costPrice)/costPrice)*100
+            percentMarkup = ((retailPrice - costPrice) / costPrice) * 100
         } else{
             percentMarkup = ''
         }
@@ -151,7 +151,7 @@ totalAmountList = []
 if (orderItemList) {
     totalCostPriceDividendValue = totalCostPrice
     if (totalCostPriceDividendValue) {
-        totalPercentMarkup = ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100 
+        totalPercentMarkup = ((totalRetailPrice - totalCostPrice) / totalCostPrice) * 100
     } else{
         totalPercentMarkup = ''
     }

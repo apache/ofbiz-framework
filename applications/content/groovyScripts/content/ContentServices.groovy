@@ -306,7 +306,7 @@ def createArticleContent() {
                            _uploadedFile_fileName: parameters._uploadedFile_fileName,
                            _uploadedFile_contentType: parameters._uploadedFile_contentType]
         Map serviceResult = run service: 'createContentFromUploadedFile', with: createImage
-        String imageContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
+        String imageContentId = ServiceUtil.isSuccess(serviceResult) ? serviceResult.contentId : null
         if (!contentId) {
             contentIdFrom = imageContentId
             contentId = imageContentId
@@ -325,7 +325,7 @@ def createArticleContent() {
                                                                      textData: textData,
                                                                      contentIdFrom: contentIdFrom,
                                                                      partyId: userLogin.partyId]
-        String textContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
+        String textContentId = ServiceUtil.isSuccess(serviceResult) ? serviceResult.contentId : null
         if (!contentId) {
             contentIdFrom = textContentId
             contentId = textContentId

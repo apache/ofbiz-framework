@@ -34,7 +34,7 @@ if (!thruDate) {
 if (!glFiscalTypeId) {
     return
 }
-organizationPartyId =null
+organizationPartyId = null
 if(context.organizationPartyId) {
     organizationPartyId = context.organizationPartyId
 } else {

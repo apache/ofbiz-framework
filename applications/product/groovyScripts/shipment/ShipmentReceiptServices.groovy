@@ -77,7 +77,7 @@ def receiveInventoryProduct () {
      *  maybe instead of this funny looping maybe for serialized items we should only allow a quantity of 1, ie return an error if it is not 1
      */
     Map result = success()
-    List successMessageList =[]
+    List successMessageList = []
     String currentInventoryItemId
     Double loops = 1.0
     if (parameters.inventoryItemTypeId == 'SERIALIZED_INV_ITEM') {
@@ -313,7 +313,7 @@ def issueOrderItemToShipmentAndReceiveAgainstPO() {
         shipmentItem = from('ShipmentItem').where(shipmentItemLookupPk).queryOne()
 
         // Create OrderShipment for this ShipmentItem
-        Map orderShipmentCreate =[quantity: parameters.quantity,
+        Map orderShipmentCreate = [quantity: parameters.quantity,
             shipmentId: shipmentItem.shipmentId,
             shipmentItemSeqId: shipmentItem.shipmentItemSeqId,
             orderId: orderItem.orderId,
@@ -465,7 +465,7 @@ def cancelReceivedItems() {
     GenericValue inventoryItem = delegator.getRelatedOne('InventoryItem', shipmentReceipt, false)
     Map inventoryItemDetailMap = [inventoryItemId: inventoryItem.inventoryItemId]
     inventoryItemDetailMap.quantityOnHandDiff = inventoryItem.quantityOnHandTotal * (-1)
-    inventoryItemDetailMap.availableToPromiseDiff = inventoryItem.availableToPromiseTotal *(-1)
+    inventoryItemDetailMap.availableToPromiseDiff = inventoryItem.availableToPromiseTotal * (-1)
     run service:'createInventoryItemDetail', with: inventoryItemDetailMap
 
     // Balance the inventory item

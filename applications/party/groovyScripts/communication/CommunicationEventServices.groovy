@@ -408,7 +408,7 @@ def createCommunicationEventRole() {
         GenericValue sysUserLogin = from('UserLogin').where(userLoginId: 'system').queryOne()
 
         def partyRole = parameters
-        partyRole.userLogin= sysUserLogin
+        partyRole.userLogin = sysUserLogin
         run service: 'ensurePartyRole', with: partyRole
 
         GenericValue newEntity = makeValue('CommunicationEventRole')

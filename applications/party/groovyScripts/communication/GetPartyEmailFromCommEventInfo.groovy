@@ -45,13 +45,13 @@ if (name) {
         names.add(name.substring(lastBlank))
     }
     if (names && names.size() > 0) { //lastname
-        context.lastName = names[names.size()-1]
+        context.lastName = names[names.size() - 1]
         if (names.size() > 1) { // firstname
             context.firstName = names[0]
         }
         if (names.size() > 2) { // middle name(s)
             context.middleName = ''
-            for (counter = 1; counter < names.size()-1; counter++) {
+            for (counter = 1; counter < names.size() - 1; counter++) {
                 context.middleName = context.middleName.concat(names[counter]).concat(' ')
             }
         }
