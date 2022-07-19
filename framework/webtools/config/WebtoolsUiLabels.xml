@@ -2125,6 +2125,10 @@
         <value xml:lang="zh">错误：读取文件名 ${filename}：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:讀取檔案名 ${filename}:${errorString}</value>
     </property>
+    <property key="WebtoolsErrorDatafileLoadUrlNotEnabled">
+        <value xml:lang="en">ERROR: For security reason HTTP URLs are not accepted, see OFBIZ-12304. Rather load your data from a file or set SystemProperty security.datafile.loadurls.enable = true</value>
+        <value xml:lang="de">FEHLER: Aus Sicherheitsgründen wird das Laden von HTTP Urls nicht erlaubt. Laden Sie die Daten über eine Datei oder setzen Sie die SystemProperty security.datafile.loadurls.enable = true.</value>
+    </property>
     <property key="WebtoolsErrorReadingTemplateFile">
         <value xml:lang="en">ERROR: reading template file ${filename}: ${errorString}</value>
         <value xml:lang="fr">ERREUR : lors de la lecture du fichier modèle ${filename}, une exception c'est levée (${errorString})</value>
