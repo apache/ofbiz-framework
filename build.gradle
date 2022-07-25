@@ -102,7 +102,7 @@ javadoc {
         links(
             'https://docs.oracle.com/javase/8/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-2.5.17/html/api',
+            'http://docs.groovy-lang.org/docs/groovy-2.5.18/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
@@ -237,7 +237,7 @@ dependencies {
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
     implementation 'org.clojure:clojure:1.10.2'
-    implementation 'org.codehaus.groovy:groovy-all:2.5.17' // Compile issue with commons-cli and Groovy 3. Remember to change the version number in javadoc block.
+    implementation 'org.codehaus.groovy:groovy-all:2.5.18' // Compile issue with commons-cli and Groovy 3. Remember to change the version number in javadoc block.
     implementation 'org.freemarker:freemarker:2.3.31' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
     implementation 'org.owasp.esapi:esapi:2.2.2.0'
     implementation 'org.springframework:spring-test:5.3.9'
