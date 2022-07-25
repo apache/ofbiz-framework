@@ -150,8 +150,14 @@ public class VisitHandler {
                             visit.set("fromDate", new Timestamp(session.getCreationTime()));
 
                             visit.set("initialLocale", initialLocale);
-                            visit.set("initialRequest", initialRequest);
-                            visit.set("initialReferrer", initialReferrer);
+                            if (initialRequest != null) {
+                                visit.set("initialRequest", initialRequest.length() > 2000 ? initialRequest.substring(0, 1999)
+                                        : initialRequest);
+                            }
+                            if (initialReferrer != null) {
+                                visit.set("initialReferrer", initialReferrer.length() > 2000 ? initialReferrer.substring(0, 1999)
+                                        : initialReferrer);
+                            }
                             if (initialUserAgent != null) {
                                 visit.set("initialUserAgent", initialUserAgent.length() > 250 ? initialUserAgent.substring(0, 250)
                                         : initialUserAgent);
