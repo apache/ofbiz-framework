@@ -19,6 +19,7 @@ under the License.
 
 <div class="page-title"><span>${uiLabelMap.WebtoolsImportToDataSource}</span></div>
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
+<p>${uiLabelMap.WebtoolsXMLImportInfoBewareTenant}</p>
 <hr />
 
   <form class="basic-form" method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
