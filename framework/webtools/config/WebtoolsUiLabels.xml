@@ -1600,6 +1600,18 @@
         <value xml:lang="zh">定义位置</value>
         <value xml:lang="zh-TW">定義位置</value>
     </property>
+    <property key="WebtoolsDelegatorName">
+        <value xml:lang="de">Name Delegator:</value>
+        <value xml:lang="en">Delegator Name:</value>
+        <value xml:lang="fr">Nom du délégateur :</value>
+        <value xml:lang="it">Nome Delegator:</value>
+        <value xml:lang="ja">対象デリゲータ名称:</value>
+        <value xml:lang="pt">Name do Delegator:</value>
+        <value xml:lang="ro">Nume Delegator:</value>
+        <value xml:lang="vi">Tên Ủy quyền (delegator) Đích:</value>
+        <value xml:lang="zh">目标代表名称: </value>
+        <value xml:lang="zh-TW">目標代表名稱:  </value>
+    </property>
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
         <value xml:lang="en">Delete Files Afterwards?</value>
@@ -5968,6 +5980,10 @@
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể XML. Các tài liệu này có thẻ gốc "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎XML檔.這些檔都有一個根標簽 "&lt;entity-engine-xml&gt;".&lt;/entity-engine-xml&gt;</value>
+    </property>
+    <property key="WebtoolsXMLImportInfoBewareTenant">
+        <value xml:lang="en">Beware, if you are using tenant this acts as the "loadAll" Gradle task that says: "Load default data; meant for OFBiz development, testing, and demo purposes".</value>
+        <value xml:lang="fr">Attention, si vous utilisez la fonctionnalité "tenant", cela agit comme la tâche Gradle "loadAll" : "Charger les données par défaut ; destiné au développement, aux tests et à la démonstration OFBiz".</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>
