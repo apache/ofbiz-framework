@@ -5981,9 +5981,13 @@
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎XML檔.這些檔都有一個根標簽 "&lt;entity-engine-xml&gt;".&lt;/entity-engine-xml&gt;</value>
     </property>
-    <property key="WebtoolsXMLImportInfoBewareTenant">
-        <value xml:lang="en">Beware, if you are using tenant this acts as the "loadAll" Gradle task that says: "Load default data; meant for OFBiz development, testing, and demo purposes".</value>
-        <value xml:lang="fr">Attention, si vous utilisez la fonctionnalité "tenant", cela agit comme la tâche Gradle "loadAll" : "Charger les données par défaut ; destiné au développement, aux tests et à la démonstration OFBiz".</value>
+    <property key="WebtoolsXMLImportInfoBewareTenant1">
+        <value xml:lang="en">Beware, you are using tenant, import acts as the "loadAll" Gradle task that says: "Load default data; meant for OFBiz development, testing, and demo purposes".</value>
+        <value xml:lang="fr">Attention, vous utilisez la fonctionnalité "tenant", l'import agit comme la tâche Gradle "loadAll" : "Charger les données par défaut ; destiné au développement, aux tests et à la démonstration OFBiz".</value>
+    </property>
+    <property key="WebtoolsXMLImportInfoBewareTenant2">
+        <value xml:lang="en">You should use the "loadTenant" Gradle task to load tenant specific data.</value>
+        <value xml:lang="fr">Vous devez utiliser la tâche Gradle "loadTenant" pour charger des données spécifiques à un tenant.</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>
