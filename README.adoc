@@ -816,7 +816,7 @@ options:
 
 * Search for the JDBC driver in https://bintray.com/bintray/jcenter[jcenter] and
 place it in build.gradle dependencies e.g.
-`runtime 'mysql:mysql-connector-java:5.1.36'`
+`runtimeOnly 'mysql:mysql-connector-java:8.0.30'`
 +
 OR
 * Download the JDBC driver jar and place it in $OFBIZ_HOME/lib or the lib
