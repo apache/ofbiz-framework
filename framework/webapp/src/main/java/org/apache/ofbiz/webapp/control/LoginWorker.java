@@ -804,7 +804,7 @@ public final class LoginWorker {
             return "error";
         }
         if (userLogin != null && hasBasePermission(userLogin, request)) {
-            doBasicLogin(userLogin, request);
+            doBasicLogin(userLogin, request, response);
         } else {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -817,10 +817,11 @@ public final class LoginWorker {
 
         request.setAttribute("_LOGIN_PASSED_", "TRUE");
 
-        // run the after-login events
-        RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
-        rh.runAfterLoginEvents(request, response);
-
+        if (!"Y".equals(UtilProperties.getPropertyValue(SEC_PROPERTIES, "security.login.loginEventsAfterBasicLogin", "N"))) {
+            // run the after-login events
+            RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
+            rh.runAfterLoginEvents(request, response);
+        }
         // Create a secured cookie with the correct userLoginId
         createSecuredLoginIdCookie(request, response);
 
@@ -830,7 +831,7 @@ public final class LoginWorker {
         return autoLoginCheck(request, response);
     }
 
-    public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
+    public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.setAttribute("userLogin", userLogin);
 
@@ -929,6 +930,11 @@ public final class LoginWorker {
             } catch (ServletException e) {
                 Debug.logError(e, MODULE);
             }
+        }
+        if ("Y".equals(UtilProperties.getPropertyValue(SEC_PROPERTIES, "security.login.loginEventsAfterBasicLogin", "N"))) {
+            // run the after-login events
+            RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
+            rh.runAfterLoginEvents(request, response);
         }
 
         // setup some things that should always be there

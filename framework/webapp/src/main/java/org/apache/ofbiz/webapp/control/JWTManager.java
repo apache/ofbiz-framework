@@ -120,7 +120,7 @@ public class JWTManager {
             return "success";
         }
 
-        LoginWorker.doBasicLogin(userLogin, request);
+        LoginWorker.doBasicLogin(userLogin, request, response);
         return "success";
     }
 
