@@ -1604,14 +1604,17 @@ public class PartyServices {
                     EntityFunction.upper("%" + partyId + "%")));
         }
 
-        // now the statusId - send ANY for all statuses; leave null for just enabled; or pass a specific status
+        // now the statusId - null for all statuses; "PARTY_ENABLED" finds statusId == null entries also, other passed in values are matched exactly
         if (UtilValidate.isNotEmpty(statusId)) {
-            andExprs.add(EntityCondition.makeCondition("statusId", statusId));
-        } else {
-            // NOTE: _must_ explicitly allow null as it is not included in a not equal in many databases... odd but true
-            andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", GenericEntity.NULL_FIELD),
-                    EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
+            if ("PARTY_ENABLED".equals(statusId)) {
+                // NOTE: _must_ explicitly allow null as it is not included in a not equal in many databases... odd but true
+                andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId",
+                        GenericEntity.NULL_FIELD), EntityOperator.OR, EntityCondition.makeCondition("statusId", "PARTY_ENABLED")));
+            } else {
+                andExprs.add(EntityCondition.makeCondition("statusId", statusId));
+            }
         }
+
         // check for partyTypeId
         if (UtilValidate.isNotEmpty(partyTypeId)) {
             andExprs.add(EntityCondition.makeCondition("partyTypeId", partyTypeId));
