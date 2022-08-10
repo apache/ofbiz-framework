@@ -397,6 +397,7 @@ rules.each {
     rulesOccurence."$it.key - $it.value" = fileContent.count("Rule=$it.key")
 }
 
+println '|| Number of occurence || Rule name and details ||'
 rulesOccurence.sort { -it.value }.each {
-    if(it.value) println "$it.value : $it.key"
+    if(it.value) println "| $it.value | $it.key |"
 }
