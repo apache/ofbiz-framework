@@ -34,7 +34,7 @@ context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
 
 filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
-context.imageNameSmall = imageUrlPrefix + '/' + filenameExpander.expandString([size : 'small', configItemId : configItemId])
+context.imageNameSmall = imageUrlPrefix + '/' + filenameExpander.expandString([size: 'small', configItemId: configItemId])
 
 // Start ProdConfItemContent stuff
 productContent = null
@@ -46,7 +46,7 @@ context.productContent = productContent
 productContentDatas = []
 productContent.each { productContent ->
     content = productContent.getRelatedOne('Content', false)
-    productContentDatas.add([productContent : productContent, content : content])
+    productContentDatas.add([productContent: productContent, content: content])
 }
 
 context.productContentList = productContentDatas
@@ -73,7 +73,7 @@ if (fileType) {
     context.fileType = fileType
 
     fileNameToUse = 'productConfigItem.' + configItemId
-    fileLocation = filenameExpander.expandString([size : fileType, configItemId : configItemId])
+    fileLocation = filenameExpander.expandString([size: fileType, configItemId: configItemId])
     filePathPrefix = ''
     filenameToUse = fileLocation
     if (fileLocation.lastIndexOf('/') != -1) {

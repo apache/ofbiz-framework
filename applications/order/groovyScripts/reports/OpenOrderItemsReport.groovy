@@ -49,7 +49,7 @@ if (productStoreId) {
     context.productStore = from('ProductStore').where('productStoreId', productStoreId).cache(true).queryOne()
 } else {
     // for generating a title (all stores)  TODO: use UtilProperties to internationalize
-    context.productStore = [storeName : 'All Stores']
+    context.productStore = [storeName: 'All Stores']
 }
 if (orderStatusId) {
     conditions.add(EntityCondition.makeCondition('orderStatusId', EntityOperator.IN, orderStatusId))
@@ -124,21 +124,21 @@ try {
         } else{
             percentMarkup = ''
         }
-        orderItemMap = [orderDate : orderDate,
-                        orderId : orderId,
-                        productId : productId,
-                        itemDescription : itemDescription,
-                        quantityOrdered : quantityOrdered,
-                        quantityIssued : quantityIssued,
-                        quantityOpen : quantityOpen,
-                        shipAfterDate : shipAfterDate,
-                        shipBeforeDate : shipBeforeDate,
-                        costPrice : costPrice,
-                        retailPrice : retailPrice,
-                        listPrice : listPrice,
-                        discount : listPrice - retailPrice,
-                        calculatedMarkup : retailPrice - costPrice,
-                        percentMarkup : percentMarkup]
+        orderItemMap = [orderDate: orderDate,
+                        orderId: orderId,
+                        productId: productId,
+                        itemDescription: itemDescription,
+                        quantityOrdered: quantityOrdered,
+                        quantityIssued: quantityIssued,
+                        quantityOpen: quantityOpen,
+                        shipAfterDate: shipAfterDate,
+                        shipBeforeDate: shipBeforeDate,
+                        costPrice: costPrice,
+                        retailPrice: retailPrice,
+                        listPrice: listPrice,
+                        discount: listPrice - retailPrice,
+                        calculatedMarkup: retailPrice - costPrice,
+                        percentMarkup: percentMarkup]
         orderItemList.add(orderItemMap)
     }
 } catch (GenericEntityException e) {
@@ -155,15 +155,15 @@ if (orderItemList) {
     } else{
         totalPercentMarkup = ''
     }
-    totalAmountMap = [totalCostPrice : totalCostPrice,
-                      totalListPrice : totalListPrice,
-                      totalRetailPrice : totalRetailPrice,
-                      totalquantityOrdered : totalquantityOrdered,
-                      quantityOrdered : quantityOrdered,
-                      totalquantityOpen : totalquantityOpen,
-                      totalDiscount : totalListPrice - totalRetailPrice,
-                      totalMarkup : totalRetailPrice - totalCostPrice,
-                      totalPercentMarkup : totalPercentMarkup]
+    totalAmountMap = [totalCostPrice: totalCostPrice,
+                      totalListPrice: totalListPrice,
+                      totalRetailPrice: totalRetailPrice,
+                      totalquantityOrdered: totalquantityOrdered,
+                      quantityOrdered: quantityOrdered,
+                      totalquantityOpen: totalquantityOpen,
+                      totalDiscount: totalListPrice - totalRetailPrice,
+                      totalMarkup: totalRetailPrice - totalCostPrice,
+                      totalPercentMarkup: totalPercentMarkup]
     totalAmountList.add(totalAmountMap)
 }
 context.orderItemList = orderItemList

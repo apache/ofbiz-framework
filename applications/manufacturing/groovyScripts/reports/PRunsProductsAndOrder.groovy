@@ -48,12 +48,12 @@ if (allProductionRuns) {
         OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId)
         location = from('ProductFacilityLocation').where('productId', productionRun.productId, 'facilityId', productionRun.facilityId).queryFirst()
 
-        productionRunMap = [productionRun : productionRun,
-                                          product : productionRunProduct,
-                                          productionRunOrder : productionRunOrder,
-                                          customer : orh.getPlacingParty(),
-                                          address : orh.getShippingAddress(),
-                                          location : location]
+        productionRunMap = [productionRun: productionRun,
+                            product: productionRunProduct,
+                            productionRunOrder: productionRunOrder,
+                            customer: orh.getPlacingParty(),
+                            address: orh.getShippingAddress(),
+                            location: location]
 
         productionRunMap.plan = planName
         quantity = productionRun.estimatedQuantity

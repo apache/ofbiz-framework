@@ -28,7 +28,7 @@ if (!shipment) {
 } else {
     primaryOrderId = shipment.primaryOrderId
 }
-orderHeader = from('OrderHeader').where(orderId : primaryOrderId).queryOne()
+orderHeader = from('OrderHeader').where(orderId: primaryOrderId).queryOne()
 
 // the kind of StatusItem to use is based on the type of order
 statusItemTypeId = 'SHIPMENT_STATUS'

@@ -41,7 +41,7 @@ ownerAcctgPref = null
 if (facility) {
     owner = facility.getRelatedOne('OwnerParty', false)
     if (owner) {
-        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute('userLogin')])
+        result = runService('getPartyAccountingPreferences', [organizationPartyId: owner.partyId, userLogin: request.getAttribute('userLogin')])
         if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
@@ -100,11 +100,11 @@ shippedQuantities = [:]
 purchaseOrderItems = null
 if (purchaseOrder) {
     if (product) {
-        purchaseOrderItems = purchaseOrder.getRelated('OrderItem', [productId : productId], null, false)
+        purchaseOrderItems = purchaseOrder.getRelated('OrderItem', [productId: productId], null, false)
     } else if (shipment) {
         orderItems = purchaseOrder.getRelated('OrderItem', null, null, false)
         exprs = [] as ArrayList
-        orderShipments = shipment.getRelated('OrderShipment', [orderId : purchaseOrderId], null, false)
+        orderShipments = shipment.getRelated('OrderShipment', [orderId: purchaseOrderId], null, false)
         if (orderShipments) {
             orderShipments.each { orderShipment ->
                 exprs.add(EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, orderShipment.orderItemSeqId))
@@ -116,7 +116,7 @@ if (purchaseOrder) {
             }
         } else {
             // this is here for backward compatibility only: ItemIssuances are no more created for purchase shipments.
-            issuances = shipment.getRelated('ItemIssuance', [orderId : purchaseOrderId], null, false)
+            issuances = shipment.getRelated('ItemIssuance', [orderId: purchaseOrderId], null, false)
             issuances.each { issuance ->
                 exprs.add(EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, issuance.orderItemSeqId))
                 double issuanceQty = issuance.getDouble('quantity').doubleValue()
@@ -142,7 +142,7 @@ if (purchaseOrder && facility) {
             purchaseOrderItems.each { item ->
                 orderCurrencyUnitPriceMap.(item.orderItemSeqId) = item.unitPrice
                 serviceResults = runService('convertUom',
-                        [uomId : orderCurrencyUomId, uomIdTo : ownerCurrencyUomId, originalValue : item.unitPrice])
+                        [uomId: orderCurrencyUomId, uomIdTo: ownerCurrencyUomId, originalValue: item.unitPrice])
                 if (ServiceUtil.isError(serviceResults)) {
                     request.setAttribute('_ERROR_MESSAGE_', ServiceUtil.getErrorMessage(serviceResults))
                     return
@@ -188,7 +188,7 @@ if (purchaseOrderItems) {
         }
         receivedQuantities.put(thisItem.orderItemSeqId, new Double(totalReceived))
         //----------------------
-        salesOrderItemAssocs = from('OrderItemAssoc').where(orderItemAssocTypeId : 'PURCHASE_ORDER', toOrderId : thisItem.orderId, toOrderItemSeqId : thisItem.orderItemSeqId).queryList()
+        salesOrderItemAssocs = from('OrderItemAssoc').where(orderItemAssocTypeId: 'PURCHASE_ORDER', toOrderId: thisItem.orderId, toOrderItemSeqId: thisItem.orderItemSeqId).queryList()
         if (salesOrderItemAssocs) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs)
             salesOrderItems.put(thisItem.orderItemSeqId, salesOrderItem)
@@ -226,8 +226,8 @@ if (ownerAcctgPref) {
         purchaseOrderItems.each { orderItem ->
             productId = orderItem.productId
             if (productId) {
-                result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
-                                                               costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute('userLogin')])
+                result = runService('getProductCost', [productId: productId, currencyUomId: ownerAcctgPref.baseCurrencyUomId,
+                                                       costComponentTypePrefix: 'EST_STD', userLogin: request.getAttribute('userLogin')])
                 if (ServiceUtil.isSuccess(result)) {
                     standardCosts.put(productId, result.productCost)
                 }
@@ -237,8 +237,8 @@ if (ownerAcctgPref) {
 
     // get the unit cost of a single product
     if (productId) {
-        result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
-                                                       costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute('userLogin')])
+        result = runService('getProductCost', [productId: productId, currencyUomId: ownerAcctgPref.baseCurrencyUomId,
+                                               costComponentTypePrefix: 'EST_STD', userLogin: request.getAttribute('userLogin')])
         if (ServiceUtil.isSuccess(result)) {
             standardCosts.put(productId, result.productCost)
         }

@@ -60,17 +60,18 @@ if (sortField) {
 
 allocationPlans = []
 allocationPlanItems.each { allocationPlanItem ->
-    allocationPlanMap = [:]
-    allocationPlanMap.planId = allocationPlanItem.planId
-    allocationPlanMap.planItemSeqId = allocationPlanItem.planItemSeqId
-    allocationPlanMap.planName = allocationPlanItem.planName
-    allocationPlanMap.statusId = allocationPlanItem.statusId
-    allocationPlanMap.planTypeId = allocationPlanItem.planTypeId
-    allocationPlanMap.productId = allocationPlanItem.productId
-    allocationPlanMap.orderId = allocationPlanItem.orderId
-    allocationPlanMap.orderItemSeqId = allocationPlanItem.orderItemSeqId
-    allocationPlanMap.planMethodEnumId = allocationPlanItem.planMethodEnumId
-    allocationPlanMap.allocatedQuantity = allocationPlanItem.allocatedQuantity
+    allocationPlanMap = [
+            planId: allocationPlanItem.planId,
+            planItemSeqId: allocationPlanItem.planItemSeqId,
+            planName: allocationPlanItem.planName,
+            statusId: allocationPlanItem.statusId,
+            planTypeId: allocationPlanItem.planTypeId,
+            productId: allocationPlanItem.productId,
+            orderId: allocationPlanItem.orderId,
+            orderItemSeqId: allocationPlanItem.orderItemSeqId,
+            planMethodEnumId: allocationPlanItem.planMethodEnumId,
+            allocatedQuantity: allocationPlanItem.allocatedQuantity
+    ]
     allocationPlans.add(allocationPlanMap)
 }
 context.allocationPlans = allocationPlans

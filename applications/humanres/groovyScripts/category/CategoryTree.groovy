@@ -36,12 +36,12 @@ List partyRelationships = from('PartyRelationship')
 if (partyRelationships) {
     //root
     GenericValue partyRoot = from('PartyGroup').where(partyId: partyId).cache().queryOne()
-    Map partyRootMap = [partyId  : partyId,
+    Map partyRootMap = [partyId: partyId,
                         groupName: partyRoot.groupName]
 
     //child
     partyRelationships.each {
-        completedTreeContext << [partyId  : it.partyIdTo,
+        completedTreeContext << [partyId: it.partyIdTo,
                                  groupName: PartyHelper.getPartyName(delegator, it.partyIdTo, false)]
 
         subTopList << it.partyIdTo

@@ -92,8 +92,8 @@ def createReturnHeader() {
             .where(userLoginId: 'system')
             .cache()
             .queryOne()
-    Map serviceResult = run service:'getPartyAccountingPreferences', with: [organizationPartyId: parameters.toPartyId,
-        userLogin: systemLogin]
+    Map serviceResult = run service: 'getPartyAccountingPreferences', with: [organizationPartyId: parameters.toPartyId,
+                                                                             userLogin: systemLogin]
     GenericValue partyAcctgPreference = serviceResult.partyAccountingPreference
 
     if (partyAcctgPreference && 'Y' == partyAcctgPreference.useInvoiceIdForReturns) {
@@ -145,8 +145,8 @@ def updateReturnHeader() {
             if (returnItem.orderId) {
                 // no adjustment needed: adjustment is passed in to calculate
                 // the effect of an additional item on return total.
-                Map serviceResult = run service:'getOrderAvailableReturnedTotal', with: [orderId: returnItem.orderId,
-                    adjustment : BigDecimal.ZERO]
+                Map serviceResult = run service: 'getOrderAvailableReturnedTotal', with: [orderId: returnItem.orderId,
+                                                                                          adjustment: BigDecimal.ZERO]
                 BigDecimal availableReturnTotal = serviceResult.availableReturnTotal
                 BigDecimal returnTotal = serviceResult.returnTotal
                 BigDecimal orderTotal = serviceResult.returnTotal
@@ -269,10 +269,10 @@ def createReturnItem() {
         List orderAdjustments = delegator.getRelated('OrderAdjustment', null, null, orderItem, false)
         for (GenericValue orderAdjustment : orderAdjustments) {
             Map returnAdjCtx = [returnId: parameters.returnId,
-                returnItemSeqId: newEntity.returnItemSeqId,
-                returnTypeId: newEntity.returnTypeId,
-                orderAdjustmentId: orderAdjustment.orderAdjustmentId]
-            run service:'createReturnAdjustment', with: returnAdjCtx
+                                returnItemSeqId: newEntity.returnItemSeqId,
+                                returnTypeId: newEntity.returnTypeId,
+                                orderAdjustmentId: orderAdjustment.orderAdjustmentId]
+            run service: 'createReturnAdjustment', with: returnAdjCtx
         }
     }
     return result
@@ -321,7 +321,7 @@ def updateReturnItemsStatus() {
         item.statusId = parameters.statusId
         Map serviceInMap = [:]
         serviceInMap << item
-        run service:'updateReturnItem', with: serviceInMap
+        run service: 'updateReturnItem', with: serviceInMap
     }
     return success()
 }
@@ -351,7 +351,7 @@ def removeReturnItem() {
             returnId: returnItem.returnId)
             .queryList()
     for (GenericValue returnAdjustment : returnAdjustments) {
-        run service:'removeReturnAdjustment', with: [returnAdjustmentId: returnAdjustment.returnAdjustmentId]
+        run service: 'removeReturnAdjustment', with: [returnAdjustmentId: returnAdjustment.returnAdjustmentId]
     }
     returnItem.remove()
     return success()
@@ -414,14 +414,14 @@ def updateReturnStatusFromReceipt() {
             GenericValue shipment = delegator.getRelatedOne('Shipment', receipt, false)
             if (shipment.shipmentId) {
                 if ('RETURN_RECEIVED' != shipment.statusId) {
-                    run service:'updateShipment', with: [shipmentId: shipment.shipmentId,
-                        statusId: 'PURCH_SHIP_RECEIVED']
+                    run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
+                                                          statusId: 'PURCH_SHIP_RECEIVED']
                 }
             }
         }
         // update the return header
-        run service:'updateReturnHeader', with: [statusId: 'RETURN_RECEIVED',
-            returnId: returnHeader.returnId]
+        run service: 'updateReturnHeader', with: [statusId: 'RETURN_RECEIVED',
+                                                  returnId: returnHeader.returnId]
     }
     result.returnHeaderStatus = returnHeader.statusId
     return result
@@ -527,7 +527,7 @@ def quickReturnFromOrder() {
         }
         if (newItemCtx.returnQuantity > (BigDecimal.ZERO)) {
             // otherwise, items which have been fully returned would still get passed in and then come back with an error
-            run service:'createReturnItem', with: newItemCtx
+            run service: 'createReturnItem', with: newItemCtx
         } else {
             logInfo("This return item is not going to be created because its returnQuantity is zero: ${newItemCtx}")
         }
@@ -543,13 +543,13 @@ def quickReturnFromOrder() {
         // filter out orderAdjustment that have been returned
         if (from('ReturnAdjustment').where(orderAdjustmentId: orderAdjustment.orderAdjustmentId).queryCount() == 0) {
             logInfo('Create new return adjustment: ' + returnAdjCtx)
-            run service:'createReturnAdjustment', with: returnAdjCtx
+            run service: 'createReturnAdjustment', with: returnAdjCtx
         }
     }
     // very important: if countNewReturnItemx is not set,
     // getOrderAvailableReturnedTotal would not count the return items we just created
     Map orderAvailableCtx = [orderId: orderHeader.orderId, countNewReturnItemx: true]
-    Map serviceResultART = run service:'getOrderAvailableReturnedTotal', with: orderAvailableCtx
+    Map serviceResultART = run service: 'getOrderAvailableReturnedTotal', with: orderAvailableCtx
     BigDecimal availableReturnTotal = serviceResult.availableReturnTotal
     BigDecimal returnTotal = serviceResultART.returnTotal
     BigDecimal orderTotal = serviceResultART.orderTotal
@@ -560,21 +560,21 @@ def quickReturnFromOrder() {
         logWarning('Creating a balance adjustment of [' + availableReturnTotal + '] for return [' + returnId + ']')
 
         // create the balance adjustment return item
-        run service:'createReturnAdjustment', with: [returnId: returnId,
-            returnAdjustmentTypeId: 'RET_MAN_ADJ',
-            returnItemSeqId: '_NA_',
-            description: 'Balance Adjustment',
-            amount: availableReturnTotal]
+        run service: 'createReturnAdjustment', with: [returnId: returnId,
+                                                      returnAdjustmentTypeId: 'RET_MAN_ADJ',
+                                                      returnItemSeqId: '_NA_',
+                                                      description: 'Balance Adjustment',
+                                                      amount: availableReturnTotal]
     }
     // update the header status
     Map updateHeaderCtx = [returnId: returnId]
     updateHeaderCtx.statusId = 'CUSTOMER_RETURN' == returnHeaderTypeId ? 'RETURN_ACCEPTED' : 'SUP_RETURN_ACCEPTED'
-    run service:'updateReturnHeader', with: updateHeaderCtx
+    run service: 'updateReturnHeader', with: updateHeaderCtx
 
     if ('CUSTOMER_RETURN' == returnHeaderTypeId) {
         // auto-receive this return if we passed in the flag
         if (parameters.receiveReturn) {
-            run service:'quickReceiveReturn', with: [returnId: returnId]
+            run service: 'quickReceiveReturn', with: [returnId: returnId]
         } else {
             // update the header status
             logInfo('Receive flag not set; will handle receiving on entity-sync')
@@ -591,14 +591,14 @@ def quickReturnFromOrder() {
 def createReturnAndItemOrAdjustment() {
     Map result = success()
     if (!parameters.returnId) {
-        Map serviceResultcRH = run service:'createReturnHeader', with: parameters
+        Map serviceResultcRH = run service: 'createReturnHeader', with: parameters
         if (!ServiceUtil.isSuccess(serviceResultcRH)) {
             return serviceResultcRH
         }
         parameters.returnId = serviceResultcRH.returnId
         result.returnId = serviceResultcRH.returnId
     }
-    Map serviceResult = run service:'createReturnItemOrAdjustment', with: parameters
+    Map serviceResult = run service: 'createReturnItemOrAdjustment', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
@@ -614,9 +614,9 @@ def createReturnAndItemOrAdjustment() {
 def cancelReturnItems() {
     List returnItems = from('ReturnItem').where(returnId: parameters.returnId).distinct().queryList()
     for (GenericValue returnItem : returnItems) {
-        run service:'updateReturnItem', with: [returnId: parameters.returnId,
-            returnItemSeqId: returnItem.returnItemSeqId,
-            statusId: 'RETURN_CANCELLED']
+        run service: 'updateReturnItem', with: [returnId: parameters.returnId,
+                                                returnItemSeqId: returnItem.returnItemSeqId,
+                                                statusId: 'RETURN_CANCELLED']
     }
     return success()
 }
@@ -636,8 +636,8 @@ def cancelReplacementOrderItems() {
         Map oiaMap = [orderItemAssocTypeId: 'REPLACEMENT']
         List replacementOrderItems = delegator.getRelated('FromOrderItemAssoc', oiaMap, null, orderItem, false)
         for (GenericValue replacementOrderItem : replacementOrderItems) {
-            run service:'cancelOrderItem', with: [orderId: replacementOrderItem.toOrderId,
-                orderItemSeqId: replacementOrderItem.toOrderItemSeqId]
+            run service: 'cancelOrderItem', with: [orderId: replacementOrderItem.toOrderId,
+                                                   orderItemSeqId: replacementOrderItem.toOrderItemSeqId]
         }
     }
     return success()
@@ -649,7 +649,7 @@ def cancelReplacementOrderItems() {
  */
 def processWaitReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
-        returnTypeId: 'RTN_REPLACE']
+                                                    returnTypeId: 'RTN_REPLACE']
     return success()
 }
 
@@ -658,8 +658,8 @@ def processWaitReplacementReturn() {
  * @return
  */
 def processCrossShipReplacementReturn() {
-    run service:'processReplacementReturn', with: [returnId: parameters.returnId,
-        returnTypeId: 'RTN_CSREPLACE']
+    run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
+                                                    returnTypeId: 'RTN_CSREPLACE']
     return success()
 }
 
@@ -668,8 +668,8 @@ def processCrossShipReplacementReturn() {
  * @return
  */
 def processRepairReplacementReturn() {
-    run service:'processReplacementReturn', with: [returnId: parameters.returnId,
-        returnTypeId: 'RTN_REPAIR_REPLACE']
+    run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
+                                                    returnTypeId: 'RTN_REPAIR_REPLACE']
     return success()
 }
 
@@ -680,13 +680,13 @@ def processRepairReplacementReturn() {
 def processWaitReplacementReservedReturn() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
     if ('RETURN_ACCEPTED' == returnHeader.statusId) {
-        run service:'processReplacementReturn', with: [returnId: parameters.returnId,
-            returnTypeId: 'RTN_WAIT_REPLACE_RES']
+        run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
+                                                        returnTypeId: 'RTN_WAIT_REPLACE_RES']
     }
     if ('RETURN_RECEIVED' == returnHeader.statusId) {
         GenericValue returnItem = from('ReturnItem')
                 .where(returnId: returnHeader.returnId,
-                returnTypeId: 'RTN_WAIT_REPLACE_RES')
+                        returnTypeId: 'RTN_WAIT_REPLACE_RES')
                 .queryFirst()
         if (returnItem) {
             // Get the replacement order and update its status to Approved
@@ -694,13 +694,13 @@ def processWaitReplacementReservedReturn() {
             GenericValue orderHeader = from('OrderHeader').where(orderId: returnItemResponse.replacementOrderId).queryOne()
             if (orderHeader) {
                 if ('ORDER_HOLD' == orderHeader.statusId) {
-                    run service:'changeOrderStatus', with: [statusId: 'ORDER_APPROVED',
-                        orderId: returnItemResponse.replacementOrderId,
-                        setItemStatus: 'Y']
+                    run service: 'changeOrderStatus', with: [statusId: 'ORDER_APPROVED',
+                                                             orderId: returnItemResponse.replacementOrderId,
+                                                             setItemStatus: 'Y']
                 }
                 if ('ORDER_CANCELLED' == orderHeader.statusId) {
-                    run service:'processReplacementReturn', with: [returnId: parameters.returnId,
-                        returnTypeId: 'RTN_WAIT_REPLACE_RES']
+                    run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
+                                                                    returnTypeId: 'RTN_WAIT_REPLACE_RES']
                 }
             }
         }
@@ -714,7 +714,7 @@ def processWaitReplacementReservedReturn() {
  */
 def processReplaceImmediatelyReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
-        returnTypeId: 'RTN_REPLACE_IMMEDIAT']
+                                                    returnTypeId: 'RTN_REPLACE_IMMEDIAT']
     return success()
 }
 
@@ -724,7 +724,7 @@ def processReplaceImmediatelyReturn() {
  */
 def processRefundOnlyReturn() {
     run service: 'processRefundReturn', with: [returnId: parameters.returnId,
-        returnTypeId: 'RTN_REFUND']
+                                               returnTypeId: 'RTN_REFUND']
     return success()
 }
 
@@ -733,8 +733,8 @@ def processRefundOnlyReturn() {
  * @return
  */
 def processRefundImmediatelyReturn() {
-    run service:'processRefundReturn', with: [returnId: parameters.returnId,
-        returnTypeId: 'RTN_REFUND_IMMEDIATE']
+    run service: 'processRefundReturn', with: [returnId: parameters.returnId,
+                                               returnTypeId: 'RTN_REFUND_IMMEDIATE']
     return success()
 }
 
@@ -845,7 +845,7 @@ def addProductsBackToCategory() {
                 Map pcm = [:]
                 pcm << productCategoryMembers.get(0)
                 pcm.thruDate = null
-                run service:'updateProductToCategory', with: pcm
+                run service: 'updateProductToCategory', with: pcm
             }
         }
     } else {
@@ -868,7 +868,7 @@ def addProductsBackToCategory() {
                             Map pcm = [:]
                             pcm << productCategoryMembers.get(0)
                             pcm.thruDate = null
-                            run service:'updateProductToCategory', with: pcm
+                            run service: 'updateProductToCategory', with: pcm
                         }
                     }
                 }
@@ -918,7 +918,7 @@ def updateReturnContactMech() {
             returnHeader.originContactMechId = createReturnContactMechMap.contactMechId
             returnHeader.store()
         }
-        run service:'createReturnContactMech', with: createReturnContactMechMap
+        run service: 'createReturnContactMech', with: createReturnContactMechMap
     }
     returnContactMechMap.store()
     return success()
@@ -975,7 +975,7 @@ def createReturnItemForRental() {
             createReturnCtx.orderItemSeqId = orderItem.orderItemSeqId
             createReturnCtx.description = orderItem.itemDescription
             createReturnCtx.returnQuantity = orderItem.quantity
-            Map serviceResult = run service:'createReturnAndItemOrAdjustment', with: createReturnCtx
+            Map serviceResult = run service: 'createReturnAndItemOrAdjustment', with: createReturnCtx
             String returnId = serviceResult.returnId
             if (returnId) {
                 createReturnCtx.returnId = returnId

@@ -28,7 +28,7 @@ if (orderHeader) {
 schedule = from('OrderDeliverySchedule').where('orderId', orderId, 'orderItemSeqId', '_NA_').queryOne()
 
 // Determine whether the current user can VIEW the order
-checkResult = runService('checkSupplierRelatedOrderPermission', [orderId : orderId, userLogin : session.getAttribute('userLogin'), checkAction : 'VIEW'])
+checkResult = runService('checkSupplierRelatedOrderPermission', [orderId: orderId, userLogin: session.getAttribute('userLogin'), checkAction: 'VIEW'])
 hasSupplierRelatedPermissionStr = checkResult.hasSupplierRelatedPermission
 
 // Determine what the reuslt is, no result is FALSE

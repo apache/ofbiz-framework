@@ -77,7 +77,7 @@ if (orderId && shipment) {
             if (isSalesOrder) {
                 oisgirLimitMap = null
                 if (orderItemShipGroup) {
-                    oisgirLimitMap = [shipGroupSeqId : shipGroupSeqId]
+                    oisgirLimitMap = [shipGroupSeqId: shipGroupSeqId]
                 }
                 orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvRes', oisgirLimitMap, ['reservedDatetime'], false)
                 orderItemShipGrpInvResDatas = [] as LinkedList
@@ -126,7 +126,7 @@ if (shipment && selectFromShipmentPlan) {
 
         oiasgaLimitMap = null
         if (orderItemShipGroup) {
-            oiasgaLimitMap = [shipGroupSeqId : shipGroupSeqId]
+            oiasgaLimitMap = [shipGroupSeqId: shipGroupSeqId]
         }
 
         orderItemShipGroupAssoc = null

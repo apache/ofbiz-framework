@@ -71,7 +71,7 @@ def findAssocContent() {
 
 def updateSingleContentPurpose() {
     delegator.removeByAnd('ContentPurpose', [contentId: parameters.contentId])
-    run service : 'createContentPurpose', with: parameters
+    run service: 'createContentPurpose', with: parameters
 }
 
 def createEmailContent() {
@@ -468,22 +468,22 @@ def deleteContentKeywords() {
 // and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
 def updateCommContentDataResource() {
     Map serviceResult = run service: 'persistContentAndAssoc', with: parameters
-    run service: 'updateCommEventContentAssoc', with: [contentId           : serviceResult.contentId,
-                                                       fromDate            : parameters.fromDate,
+    run service: 'updateCommEventContentAssoc', with: [contentId: serviceResult.contentId,
+                                                       fromDate: parameters.fromDate,
                                                        communicationEventId: parameters.communicationEventId,
-                                                       sequenceNum         : parameters.sequenceNum,
-                                                       userLogin           : userLogin]
+                                                       sequenceNum: parameters.sequenceNum,
+                                                       userLogin: userLogin]
 
-    return [*                   : success(),
-            contentId           : serviceResult.contentId,
-            dataResourceId      : serviceResult.dataResourceId,
-            drDataResourceId    : serviceResult.drDataResourceId,
-            caContentIdTo       : serviceResult.caContentIdTo,
-            caContentId         : serviceResult.caContentId,
+    return [*: success(),
+            contentId: serviceResult.contentId,
+            dataResourceId: serviceResult.dataResourceId,
+            drDataResourceId: serviceResult.drDataResourceId,
+            caContentIdTo: serviceResult.caContentIdTo,
+            caContentId: serviceResult.caContentId,
             caContentAssocTypeId: serviceResult.caContentAssocTypeId,
-            caFromDate          : serviceResult.caFromDate,
-            caSequenceNum       : serviceResult.caSequenceNum,
-            roleTypeList        : serviceResult.roleTypeList]
+            caFromDate: serviceResult.caFromDate,
+            caSequenceNum: serviceResult.caSequenceNum,
+            roleTypeList: serviceResult.roleTypeList]
 }
 
 def indexContentKeywords() {
@@ -505,16 +505,16 @@ def forceIndexContentKeywords() {
 }
 
 def createSimpleTextContent() {
-    Map serviceResult = run service: 'createDataResource', with: [*                 : parameters,
+    Map serviceResult = run service: 'createDataResource', with: [*: parameters,
                                                                   dataResourceTypeId: 'ELECTRONIC_TEXT',
                                                                   dataTemplateTypeId: 'FTL']
 
-    run service: 'createElectronicText', with: [*             : parameters,
-                                                textData      : parameters.text,
+    run service: 'createElectronicText', with: [*: parameters,
+                                                textData: parameters.text,
                                                 dataResourceId: serviceResult.dataResourceId]
 
-    serviceResult = run service: 'createContent', with: [*             : parameters,
-                                                         contentTypeId : 'DOCUMENT',
+    serviceResult = run service: 'createContent', with: [*: parameters,
+                                                         contentTypeId: 'DOCUMENT',
                                                          dataResourceId: serviceResult.dataResourceId]
 
     return serviceResult
@@ -525,7 +525,7 @@ def updateSimpleTextContent() {
 
     if (parameters.textDataResourceId) {
         run service: 'updateElectronicText', with: [dataResourceId: parameters.textDataResourceId,
-                                                    textData      : parameters.text]
+                                                    textData: parameters.text]
         result.dataResourceId = parameters.textdataResourceId
         result.textData = parameters.text
     }

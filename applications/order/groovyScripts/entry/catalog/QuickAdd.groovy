@@ -34,8 +34,8 @@ context.quickAddCats = quickAddCategories
 context.categoryId = categoryId
 
 if (categoryId) {
-    fields = [productCategoryId : categoryId, defaultViewSize : 10,
-            limitView : false, prodCatalogId : currentCatalogId, checkViewAllow : true]
+    fields = [productCategoryId: categoryId, defaultViewSize: 10,
+              limitView: false, prodCatalogId: currentCatalogId, checkViewAllow: true]
     result = runService('getProductCategoryAndLimitedMembers', fields)
     if (result) {
         result.each { key, value ->

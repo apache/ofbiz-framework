@@ -53,12 +53,12 @@ if (allProductionRuns) {
             return
         }
 
-        productionRunMap = [productionRun : productionRun,
-                                          product : productionRunProduct,
-                                          productionRunTask : productionRunTask,
-                                          productionRunOrder : productionRunOrder,
-                                          customer : orh.getPlacingParty(),
-                                          address : orh.getShippingAddress()]
+        productionRunMap = [productionRun: productionRun,
+                            product: productionRunProduct,
+                            productionRunTask: productionRunTask,
+                            productionRunOrder: productionRunOrder,
+                            customer: orh.getPlacingParty(),
+                            address: orh.getShippingAddress()]
         allProductionComponents = from('WorkEffortAndGoods').where('workEffortId', productionRunTask.workEffortId, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').orderBy('productId').queryList()
 
         componentList = []
@@ -66,7 +66,7 @@ if (allProductionRuns) {
         if (allProductionComponents) {
             allProductionComponents.each { productionComponent ->
                 productionRunProductComp = from('Product').where('productId', productionComponent.productId).queryOne()
-                productionRunProductMap = [component : productionComponent,componentProduct : productionRunProductComp]
+                productionRunProductMap = [component: productionComponent, componentProduct: productionRunProductComp]
                 componentList.add(productionRunProductMap)
             }
         }

@@ -71,7 +71,7 @@ if (allProductionRuns) {
                     standardFeatureId = standardFeature.productFeatureId
                 }
                 if (!features.containsKey(standardFeatureId)) {
-                    features.put(standardFeatureId, [productFeature : standardFeature, products : [:]])
+                    features.put(standardFeatureId, [productFeature: standardFeature, products: [:]])
                 }
                 feature = (Map)features.get(standardFeatureId)
                 products = (Map)feature.products
@@ -81,7 +81,7 @@ if (allProductionRuns) {
             // populate the products map and sum the quantities
             //
             if (!products.containsKey(productionRunComponent.getString('productId'))) {
-                products.put(productionRunComponent.productId, [product : productionRunProduct, quantity : new Double(0), location : location])
+                products.put(productionRunComponent.productId, [product: productionRunProduct, quantity: new Double(0), location: location])
             }
             Map productMap = (Map)products.get(productionRunComponent.productId)
             productMapQty = productMap.quantity

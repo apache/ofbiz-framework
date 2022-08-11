@@ -41,10 +41,10 @@ if (shipment) {
         product = from('Product').where('productId', orderLine.productId).queryOne()
         recordGroup.PRODUCT_NAME = product.internalName
 
-        inputPar = [productId : orderLine.productId,
-                                     quantity : shipmentPlan.quantity,
-                                     fromDate : '' + new Date(),
-                                     userLogin: userLogin]
+        inputPar = [productId: orderLine.productId,
+                    quantity: shipmentPlan.quantity,
+                    fromDate: '' + new Date(),
+                    userLogin: userLogin]
 
         result = [:]
         result = runService('getNotAssembledComponents',inputPar)
@@ -60,7 +60,7 @@ if (shipment) {
             float qty = 0
             if (facilityId) {
                 if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
-                    serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId]
+                    serviceInput = [productId: oneComponent.getProduct().productId, facilityId: facilityId]
                     serviceOutput = runService('getInventoryAvailableByFacility',serviceInput)
                     qha = serviceOutput.quantityOnHandTotal ?: 0.0
                     inventoryStock.put(oneComponent.getProduct().productId, qha)
@@ -71,8 +71,8 @@ if (shipment) {
             }
             record.componentOnHand = qty
             // Now we get the products qty already reserved by production runs
-            serviceInput = [productId : oneComponent.getProduct().productId,
-                                          userLogin : userLogin]
+            serviceInput = [productId: oneComponent.getProduct().productId,
+                            userLogin: userLogin]
             serviceOutput = runService('getProductionRunTotResQty', serviceInput)
             resQty = serviceOutput.reservedQuantity
             record.reservedQuantity = resQty

@@ -646,7 +646,7 @@ def ensurePackageRouteSeg(String shipmentId, String shipmentPackageSeqId) {
     for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
         GenericValue checkShipmentPackageRouteSeg = from('ShipmentPackageRouteSeg')
                 .where(shipmentId: shipmentId,
-                        shipmentPackageSeqId : shipmentPackageSeqId,
+                        shipmentPackageSeqId: shipmentPackageSeqId,
                         shipmentRouteSegmentId: shipmentRouteSegment.shipmentRouteSegmentId)
                 .queryOne()
         if (!checkShipmentPackageRouteSeg) {
@@ -760,7 +760,7 @@ def checkCanChangeShipmentStatusGeneral(Map inputParameters) {
         if (badMoveToPacked || badMoveToShipped || badMoveToDelivered
                 || testShipment.statusId == 'SHIPMENT_CANCELLED') {
             GenericValue testShipmentStatus = testShipment.getRelatedOne('StatusItem', true)
-            Map testShipmentMap = [testShipment      : testShipment,
+            Map testShipmentMap = [testShipment: testShipment,
                                    testShipmentStatus: testShipmentStatus]
             String failMessage = UtilProperties.getMessage('ProductErrorUiLabels',
                     'ShipmentCanChangeStatusPermissionError', testShipmentMap, locale)
@@ -803,7 +803,7 @@ def quickShipEntireOrder() {
     }
     // locate shipping facilities associated with order item rez's
     List orderItemShipGrpInvResFacilityIds = from('OrderItemAndShipGrpInvResAndItem')
-            .where(orderId:orderHeader.orderId,
+            .where(orderId: orderHeader.orderId,
                     statusId: 'ITEM_APPROVED')
             .distinct()
             .getFieldList('facilityId')

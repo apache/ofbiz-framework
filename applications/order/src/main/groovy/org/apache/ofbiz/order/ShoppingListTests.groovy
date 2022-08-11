@@ -29,7 +29,7 @@ class ShoppingListTests extends OFBizTestCase {
 
     // Test create shopping list.
     void testCreateShoppingList() {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         Map serviceCtx = [
                 partyId: 'DemoCustomer',
                 shoppingListTypeId: 'SLT_WISH_LIST',
@@ -41,7 +41,7 @@ class ShoppingListTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('createShoppingList', serviceCtx, 600, true);
         def shoppingListId = resultMap.shoppingListId;
-        GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId:shoppingListId], false);
+        GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId: shoppingListId], false);
         assert ServiceUtil.isSuccess(resultMap);
         assert shoppingList;
         assert shoppingList.partyId == 'DemoCustomer';
@@ -50,7 +50,7 @@ class ShoppingListTests extends OFBizTestCase {
 
     // Test create shopping list item
     void testCreateShoppingListItem() {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         def shoppingListId = 'DemoWishList';
         Map serviceCtx = [
                 shoppingListId: shoppingListId,
@@ -70,7 +70,7 @@ class ShoppingListTests extends OFBizTestCase {
 
     // Test create shopping list item by adding a product that already exist in shopping list.
     void testCreateShoppingListItemWithSameProduct() {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         def shoppingListId = 'DemoWishList';
         Map serviceCtx = [
                 shoppingListId: shoppingListId,
@@ -89,14 +89,14 @@ class ShoppingListTests extends OFBizTestCase {
 
     // Test update shopping list by updating the listName
     void testUpdateShoppingList() {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         Map serviceCtx = [
                 shoppingListId: 'DemoWishList',
                 listName: 'New Demo Wish List',
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('updateShoppingList', serviceCtx);
-        GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId:serviceCtx.shoppingListId], false);
+        GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId: serviceCtx.shoppingListId], false);
         assert ServiceUtil.isSuccess(resultMap);
         assert shoppingList;
         assert shoppingList.listName == 'New Demo Wish List';
@@ -104,7 +104,7 @@ class ShoppingListTests extends OFBizTestCase {
 
     // Test update shopping list item by updating quantity of item
     void testUpdateShoppingListItem () {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         Map serviceCtx = [
                 shoppingListId: 'DemoWishList',
                 shoppingListItemSeqId: '00002',
@@ -112,7 +112,7 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('updateShoppingListItem', serviceCtx);
-        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId:serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
         assert ServiceUtil.isSuccess(resultMap)
         assert shoppingListItem
         assert shoppingListItem.quantity == 4
@@ -120,7 +120,7 @@ class ShoppingListTests extends OFBizTestCase {
 
     // Test update shopping list item for a product with zero quantity
     void testUpdateShoppingListItemWithZeroQty() {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         Map serviceCtx = [
                 shoppingListId: 'DemoWishList',
                 shoppingListItemSeqId: '00003',
@@ -128,21 +128,21 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('updateShoppingListItem', serviceCtx);
-        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId:serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00003'], false);
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00003'], false);
         assert ServiceUtil.isSuccess(resultMap)
         assert shoppingListItem
     }
 
     // Test remove shopping list item
     void testRemoveShoppingListItem() {
-        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId:'DemoCustomer'], false);
+        GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
         Map serviceCtx = [
                 shoppingListId: 'DemoWishList',
                 shoppingListItemSeqId: '00002',
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('removeShoppingListItem', serviceCtx);
-        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId:serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
         assert ServiceUtil.isSuccess(resultMap)
         assert !shoppingListItem
     }

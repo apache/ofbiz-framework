@@ -60,7 +60,7 @@ context.returnItemTypeMap = typeMap
 
 if (orderId) {
     order = from('OrderHeader').where('orderId', orderId).queryOne()
-    returnRes = runService('getReturnableItems', [orderId : orderId])
+    returnRes = runService('getReturnableItems', [orderId: orderId])
     context.returnableItems = returnRes.returnableItems
 
     orh = new OrderReadHelper(order)
@@ -68,7 +68,7 @@ if (orderId) {
     context.orderHeaderAdjustments = orh.getAvailableOrderHeaderAdjustments()
 
     // get the order shipping amount
-    shipRes = runService('getOrderShippingAmount', [orderId : orderId])
+    shipRes = runService('getOrderShippingAmount', [orderId: orderId])
     shippingAmount = shipRes.shippingAmount
     context.shippingAmount = shippingAmount
 }

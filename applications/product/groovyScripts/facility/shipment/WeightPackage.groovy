@@ -150,7 +150,7 @@ if (orderId) {
                     context.productStoreId = productStoreId
                     context.estimatedShippingCost = estimatedShippingCost
                 } else {
-                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId' : orderId], locale))
+                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId': orderId], locale))
                     orderId = null
                 }
             } else {
@@ -158,11 +158,11 @@ if (orderId) {
                 orderId = null
             }
         } else {
-            request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPacking', [orderId : orderId], locale))
+            request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPacking', [orderId: orderId], locale))
             orderId = null
         }
     } else {
-        request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId : orderId], locale))
+        request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId: orderId], locale))
         orderId = null
     }
     context.orderedQuantity = weightPackageSession.getOrderedQuantity(orderId)

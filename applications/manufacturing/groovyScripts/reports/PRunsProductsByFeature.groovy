@@ -57,7 +57,7 @@ if (allProductionRuns) {
                 standardFeatureId = standardFeature.productFeatureId
             }
             if (!features.containsKey(standardFeatureId)) {
-                features.put(standardFeatureId, [productFeature : standardFeature, productionRuns : []])
+                features.put(standardFeatureId, [productFeature: standardFeature, productionRuns: []])
             }
             feature = (Map)features.standardFeatureId
             productionRuns = (List)feature.productionRuns
@@ -70,9 +70,9 @@ if (allProductionRuns) {
             return
         }
 
-        productionRunMap = [productionRun : productionRun,
-                                          product : productionRunProduct,
-                                          productionRunTask  : productionRunTask]
+        productionRunMap = [productionRun: productionRun,
+                            product: productionRunProduct,
+                            productionRunTask: productionRunTask]
         productionRuns.add(productionRunMap)
     }
     context.features = features.values()

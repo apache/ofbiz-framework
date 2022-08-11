@@ -53,7 +53,8 @@ List glAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(glAccount
 List cashFlowBalanceTotalList = []
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ['organizationPartyId':parameters.get('ApplicationDecorator|organizationPartyId'), 'findDate': parametersFromDate,'userLogin':userLogin])
+Map lastClosedTimePeriodResult = runService('findLastClosedDate',
+        ['organizationPartyId': parameters.get('ApplicationDecorator|organizationPartyId'), 'findDate': parametersFromDate, 'userLogin': userLogin])
 Timestamp periodClosingFromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!periodClosingFromDate) {
     return
@@ -69,7 +70,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     List lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = ['glAccountId':lastTimePeriodHistory.glAccountId, 'accountCode':lastTimePeriodHistory.accountCode, 'accountName':lastTimePeriodHistory.accountName, 'balance':lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D':lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C':lastTimePeriodHistory.getBigDecimal('postedCredits')]
+        Map accountMap = ['glAccountId': lastTimePeriodHistory.glAccountId, 'accountCode': lastTimePeriodHistory.accountCode,
+                          'accountName': lastTimePeriodHistory.accountName, 'balance': lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          'D': lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C': lastTimePeriodHistory.getBigDecimal('postedCredits')]
         openingCashBalances.(lastTimePeriodHistory.glAccountId) = accountMap
     }
 }
@@ -120,7 +123,7 @@ accountBalanceList.each { accountBalance ->
 }
 openingCashBalanceTotal = balanceTotal
 context.openingCashBalanceList = accountBalanceList
-cashFlowBalanceTotalList.add('totalName':'AccountingOpeningCashBalance', 'balance':balanceTotal)
+cashFlowBalanceTotalList.add('totalName': 'AccountingOpeningCashBalance', 'balance': balanceTotal)
 openingTransactionKeySet = transactionTotalsMap.keySet()
 
 // PERIOD CASH BALANCE
@@ -163,8 +166,8 @@ if (transactionTotals) {
 }
 periodCashBalanceTotal = balanceTotal
 context.periodCashBalanceList = accountBalanceList
-context.periodCashBalanceList.add('accountName':uiLabelMap.AccountingTotalPeriodCashBalance, 'balance':balanceTotal)
-cashFlowBalanceTotalList.add('totalName':'AccountingPeriodCashBalance', 'balance':balanceTotal)
+context.periodCashBalanceList.add('accountName': uiLabelMap.AccountingTotalPeriodCashBalance, 'balance': balanceTotal)
+cashFlowBalanceTotalList.add('totalName': 'AccountingPeriodCashBalance', 'balance': balanceTotal)
 
 // CLOSING BALANCE
 // GlAccounts from parameter's fromDate to parameter's thruDate.
@@ -203,20 +206,20 @@ accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal.add(accountBalance.balance)
 }
 context.closingCashBalanceList = accountBalanceList
-context.closingCashBalanceList.add('accountName':uiLabelMap.AccountingTotalClosingCashBalance, 'balance':balanceTotal)
+context.closingCashBalanceList.add('accountName': uiLabelMap.AccountingTotalClosingCashBalance, 'balance': balanceTotal)
 
 // Get differences of glAccount in closing and opening list and then add difference to opening list.
 if (closingTransactionKeySet) {
     closingTransactionKeySet.removeAll(openingTransactionKeySet)
     closingTransactionKeySet.each { closingTransactionKey ->
         glAccount = from('GlAccount').where('glAccountId', closingTransactionKey).cache(true).queryOne()
-        context.openingCashBalanceList.add(['glAccountId':glAccount.glAccountId, 'accountName':glAccount.accountName, accountCode:glAccount.accountCode, balance:BigDecimal.ZERO, D:BigDecimal.ZERO, C:BigDecimal.ZERO])
+        context.openingCashBalanceList.add(['glAccountId': glAccount.glAccountId, 'accountName': glAccount.accountName, accountCode: glAccount.accountCode, balance: BigDecimal.ZERO, D: BigDecimal.ZERO, C: BigDecimal.ZERO])
     }
 }
-context.openingCashBalanceList.add(['accountName':uiLabelMap.AccountingTotalOpeningCashBalance, 'balance':openingCashBalanceTotal])
+context.openingCashBalanceList.add(['accountName': uiLabelMap.AccountingTotalOpeningCashBalance, 'balance': openingCashBalanceTotal])
 
 // CASH FLOW STATEMENT ENDING BALANCE
 // ENDING BALANCE = OPENING CASH BALANCE + PERIOD CASH BALANCE
 endingCashBalanceTotal = openingCashBalanceTotal.add(periodCashBalanceTotal)
-cashFlowBalanceTotalList.add('totalName':'AccountingEndingCashBalance', 'balance':endingCashBalanceTotal)
+cashFlowBalanceTotalList.add('totalName': 'AccountingEndingCashBalance', 'balance': endingCashBalanceTotal)
 context.cashFlowBalanceTotalList = cashFlowBalanceTotalList

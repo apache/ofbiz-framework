@@ -110,7 +110,7 @@ if (productStore) {
     productStoreFacilityId = productStore.inventoryFacilityId
 }
 context.facilityId = productStoreFacilityId
-inventorySummary = runService('getProductInventorySummaryForItems', [orderItems : shoppingCart.makeOrderItems(dispatcher), facilityId : productStoreFacilityId])
+inventorySummary = runService('getProductInventorySummaryForItems', [orderItems: shoppingCart.makeOrderItems(dispatcher), facilityId: productStoreFacilityId])
 context.availableToPromiseMap = inventorySummary.availableToPromiseMap
 context.quantityOnHandMap = inventorySummary.quantityOnHandMap
 context.mktgPkgATPMap = inventorySummary.mktgPkgATPMap

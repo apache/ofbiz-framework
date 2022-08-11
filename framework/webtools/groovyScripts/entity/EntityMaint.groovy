@@ -38,9 +38,9 @@ if (delegator.getDelegatorTenantId() == null) {
 }
 
 context.entityGroups = []
-context.entityGroups.add(['name' : UtilProperties.getMessage('WebtoolsUiLabels', 'WebtoolsAll', locale), 'value' : ''])
+context.entityGroups.add(['name': UtilProperties.getMessage('WebtoolsUiLabels', 'WebtoolsAll', locale), 'value': ''])
 for (String entityGroup : entityGroups) {
-    context.entityGroups.add(['name' : entityGroup, 'value' : entityGroup])
+    context.entityGroups.add(['name': entityGroup, 'value': entityGroup])
 }
 
 filterByGroupName = parameters.filterByGroupName

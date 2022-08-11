@@ -47,8 +47,8 @@ compareList.each { product ->
 
     productData.productContentWrapper = ProductContentWrapper.makeProductContentWrapper(product, request)
 
-    priceContext = [product : product, currencyUomId : cart.getCurrency(),
-        autoUserLogin : autoUserLogin, userLogin : userLogin]
+    priceContext = [product: product, currencyUomId: cart.getCurrency(),
+                    autoUserLogin: autoUserLogin, userLogin: userLogin]
     priceContext.webSiteId = webSiteId
     priceContext.prodCatalogId = catalogId
     priceContext.productStoreId = productStoreId

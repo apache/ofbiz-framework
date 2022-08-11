@@ -23,6 +23,6 @@ taskInfos = []
 tasks = from('WorkEffort').where('workEffortParentId', productionRunId, 'workEffortTypeId', 'PROD_ORDER_TASK').orderBy('workEffortId').queryList()
 tasks.each { task ->
     records = task.getRelated('WorkEffortFixedAssetAssign', null, null, false)
-    taskInfos.add([task : task, records : records])
+    taskInfos.add([task: task, records: records])
 }
 context.taskInfos = taskInfos

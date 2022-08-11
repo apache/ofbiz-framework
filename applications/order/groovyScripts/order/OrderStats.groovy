@@ -57,11 +57,11 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusDatetime', EntityOperator.LESS_THAN_EQUAL_TO, dayEnd)],
                     EntityOperator.AND)
 dayList = from('OrderStatus').where(ecl).queryList()
-context.dayOrder = EntityUtil.filterByAnd(dayList, [statusId : 'ORDER_CREATED'])
-context.dayApprove = EntityUtil.filterByAnd(dayList, [statusId : 'ORDER_APPROVED'])
-context.dayComplete = EntityUtil.filterByAnd(dayList, [statusId : 'ORDER_COMPLETED'])
-context.dayCancelled = EntityUtil.filterByAnd(dayList, [statusId : 'ORDER_CANCELLED'])
-context.dayRejected = EntityUtil.filterByAnd(dayList, [statusId : 'ORDER_REJECTED'])
+context.dayOrder = EntityUtil.filterByAnd(dayList, [statusId: 'ORDER_CREATED'])
+context.dayApprove = EntityUtil.filterByAnd(dayList, [statusId: 'ORDER_APPROVED'])
+context.dayComplete = EntityUtil.filterByAnd(dayList, [statusId: 'ORDER_COMPLETED'])
+context.dayCancelled = EntityUtil.filterByAnd(dayList, [statusId: 'ORDER_CANCELLED'])
+context.dayRejected = EntityUtil.filterByAnd(dayList, [statusId: 'ORDER_REJECTED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, null),
@@ -70,11 +70,11 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusDatetime', EntityOperator.LESS_THAN_EQUAL_TO, weekEnd)],
                     EntityOperator.AND)
 weekList = from('OrderStatus').where(ecl).queryList()
-context.weekOrder = EntityUtil.filterByAnd(weekList, [statusId : 'ORDER_CREATED'])
+context.weekOrder = EntityUtil.filterByAnd(weekList, [statusId: 'ORDER_CREATED'])
 context.weekApprove = EntityUtil.filterByAnd(weekList, [statusId: 'ORDER_APPROVED'])
-context.weekComplete = EntityUtil.filterByAnd(weekList, [statusId : 'ORDER_COMPLETED'])
-context.weekCancelled = EntityUtil.filterByAnd(weekList, [statusId : 'ORDER_CANCELLED'])
-context.weekRejected = EntityUtil.filterByAnd(weekList, [statusId : 'ORDER_REJECTED'])
+context.weekComplete = EntityUtil.filterByAnd(weekList, [statusId: 'ORDER_COMPLETED'])
+context.weekCancelled = EntityUtil.filterByAnd(weekList, [statusId: 'ORDER_CANCELLED'])
+context.weekRejected = EntityUtil.filterByAnd(weekList, [statusId: 'ORDER_REJECTED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, null),
@@ -83,11 +83,11 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusDatetime', EntityOperator.LESS_THAN_EQUAL_TO, monthEnd)],
                     EntityOperator.AND)
 monthList = from('OrderStatus').where(ecl).queryList()
-context.monthOrder = EntityUtil.filterByAnd(monthList, [statusId : 'ORDER_CREATED'])
-context.monthApprove = EntityUtil.filterByAnd(monthList, [statusId : 'ORDER_APPROVED'])
-context.monthComplete = EntityUtil.filterByAnd(monthList, [statusId : 'ORDER_COMPLETED'])
-context.monthCancelled = EntityUtil.filterByAnd(monthList, [statusId : 'ORDER_CANCELLED'])
-context.monthRejected = EntityUtil.filterByAnd(monthList, [statusId : 'ORDER_REJECTED'])
+context.monthOrder = EntityUtil.filterByAnd(monthList, [statusId: 'ORDER_CREATED'])
+context.monthApprove = EntityUtil.filterByAnd(monthList, [statusId: 'ORDER_APPROVED'])
+context.monthComplete = EntityUtil.filterByAnd(monthList, [statusId: 'ORDER_COMPLETED'])
+context.monthCancelled = EntityUtil.filterByAnd(monthList, [statusId: 'ORDER_CANCELLED'])
+context.monthRejected = EntityUtil.filterByAnd(monthList, [statusId: 'ORDER_REJECTED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, null),
@@ -96,11 +96,11 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusDatetime', EntityOperator.LESS_THAN_EQUAL_TO, yearEnd)],
                     EntityOperator.AND)
 yearList = from('OrderStatus').where(ecl).queryList()
-context.yearOrder = EntityUtil.filterByAnd(yearList, [statusId : 'ORDER_CREATED'])
-context.yearApprove = EntityUtil.filterByAnd(yearList, [statusId : 'ORDER_APPROVED'])
-context.yearComplete = EntityUtil.filterByAnd(yearList, [statusId : 'ORDER_COMPLETED'])
-context.yearCancelled = EntityUtil.filterByAnd(yearList, [statusId : 'ORDER_CANCELLED'])
-context.yearRejected = EntityUtil.filterByAnd(yearList, [statusId : 'ORDER_REJECTED'])
+context.yearOrder = EntityUtil.filterByAnd(yearList, [statusId: 'ORDER_CREATED'])
+context.yearApprove = EntityUtil.filterByAnd(yearList, [statusId: 'ORDER_APPROVED'])
+context.yearComplete = EntityUtil.filterByAnd(yearList, [statusId: 'ORDER_COMPLETED'])
+context.yearCancelled = EntityUtil.filterByAnd(yearList, [statusId: 'ORDER_CANCELLED'])
+context.yearRejected = EntityUtil.filterByAnd(yearList, [statusId: 'ORDER_REJECTED'])
 
 // order totals and item counts
 ecl = EntityCondition.makeCondition([
@@ -111,7 +111,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 dayItems = from('OrderHeaderAndItems').where(ecl).queryList()
-dayItemsPending = EntityUtil.filterByAnd(dayItems, [itemStatusId : 'ITEM_ORDERED'])
+dayItemsPending = EntityUtil.filterByAnd(dayItems, [itemStatusId: 'ITEM_ORDERED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ORDER_REJECTED'),
@@ -121,7 +121,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 dayHeaders = from('OrderHeader').where(ecl).queryList()
-dayHeadersPending = EntityUtil.filterByAnd(dayHeaders, [statusId : 'ORDER_CREATED'])
+dayHeadersPending = EntityUtil.filterByAnd(dayHeaders, [statusId: 'ORDER_CREATED'])
 
 dayItemTotal = calcItemTotal(dayHeaders)
 dayItemCount = calcItemCount(dayItems)
@@ -144,7 +144,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 weekItems = from('OrderHeaderAndItems').where(ecl).queryList()
-weekItemsPending = EntityUtil.filterByAnd(weekItems, [itemStatusId : 'ITEM_ORDERED'])
+weekItemsPending = EntityUtil.filterByAnd(weekItems, [itemStatusId: 'ITEM_ORDERED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ORDER_REJECTED'),
@@ -154,7 +154,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 weekHeaders = from('OrderHeader').where(ecl).queryList()
-weekHeadersPending = EntityUtil.filterByAnd(weekHeaders, [statusId : 'ORDER_CREATED'])
+weekHeadersPending = EntityUtil.filterByAnd(weekHeaders, [statusId: 'ORDER_CREATED'])
 
 weekItemTotal = calcItemTotal(weekHeaders)
 weekItemCount = calcItemCount(weekItems)
@@ -177,7 +177,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 monthItems = from('OrderHeaderAndItems').where(ecl).queryList()
-monthItemsPending = EntityUtil.filterByAnd(monthItems, [itemStatusId : 'ITEM_ORDERED'])
+monthItemsPending = EntityUtil.filterByAnd(monthItems, [itemStatusId: 'ITEM_ORDERED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ORDER_REJECTED'),
@@ -187,7 +187,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 monthHeaders = from('OrderHeader').where(ecl).queryList()
-monthHeadersPending = EntityUtil.filterByAnd(monthHeaders, [statusId : 'ORDER_CREATED'])
+monthHeadersPending = EntityUtil.filterByAnd(monthHeaders, [statusId: 'ORDER_CREATED'])
 
 monthItemTotal = calcItemTotal(monthHeaders)
 monthItemCount = calcItemCount(monthItems)
@@ -210,7 +210,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 yearItems = from('OrderHeaderAndItems').where(ecl).queryList()
-yearItemsPending = EntityUtil.filterByAnd(yearItems, [itemStatusId : 'ITEM_ORDERED'])
+yearItemsPending = EntityUtil.filterByAnd(yearItems, [itemStatusId: 'ITEM_ORDERED'])
 
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ORDER_REJECTED'),
@@ -220,7 +220,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                     EntityOperator.AND)
 yearHeaders = from('OrderHeader').where(ecl).queryList()
-yearHeadersPending = EntityUtil.filterByAnd(yearHeaders, [statusId : 'ORDER_CREATED'])
+yearHeadersPending = EntityUtil.filterByAnd(yearHeaders, [statusId: 'ORDER_CREATED'])
 
 yearItemTotal = calcItemTotal(yearHeaders)
 yearItemCount = calcItemCount(yearItems)

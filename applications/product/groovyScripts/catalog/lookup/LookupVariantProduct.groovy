@@ -24,7 +24,7 @@ productVariantId = productId + '_'
 productFeatureIds = ''
 product = from('Product').where('productId', productId).queryOne()
 
-result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE'])
+result = runService('getProductFeaturesByType', [productId: productId, productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
 featureTypes = result.productFeatureTypes
 featuresByTypes = result.productFeaturesByType
 searchFeatures = []
@@ -32,7 +32,7 @@ selectedFeatureTypeValues = []
 if (featureTypes) {
     featureTypes.each { featureType ->
         featuresByType = featuresByTypes[featureType]
-        featureTypeAndValues = [featureType : featureType, features : featuresByType]
+        featureTypeAndValues = [featureType: featureType, features: featuresByType]
         searchFeatures.add(featureTypeAndValues)
         //
         selectedFeatureTypeValue = request.getParameter(featureType)
@@ -47,14 +47,14 @@ if (featureTypes) {
 }
 
 variants = []
-result = runService('getAllExistingVariants', [productId : productId, productFeatureAppls : selectedFeatureTypeValues])
+result = runService('getAllExistingVariants', [productId: productId, productFeatureAppls: selectedFeatureTypeValues])
 variants = result.variantProductIds
 
 // Quick Add Variant
 productFeatureIdsPar = request.getParameter('productFeatureIds')
 productVariantIdPar = request.getParameter('productVariantId')
 if (productVariantIdPar && productFeatureIdsPar) {
-    result = runService('quickAddVariant', [productId : productId, productFeatureIds : productFeatureIdsPar, productVariantId : productVariantIdPar])
+    result = runService('quickAddVariant', [productId: productId, productFeatureIds: productFeatureIdsPar, productVariantId: productVariantIdPar])
 }
 
 context.product = product

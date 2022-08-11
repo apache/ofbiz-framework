@@ -48,8 +48,8 @@ quoteItems.each { quoteItem ->
     try {
         if (currency && quoteItem.productId) {
             productPrice = from('ProductPrice')
-                              .where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : 'AVERAGE_COST')
-                              .filterByDate(issueDate)
+                    .where(productId: quoteItem.productId, currencyUomId: currency, productPriceTypeId: 'AVERAGE_COST')
+                    .filterByDate(issueDate)
                               .queryFirst()
             if (productPrice?.price != null) {
                 averageCost = productPrice.price * selectedAmount

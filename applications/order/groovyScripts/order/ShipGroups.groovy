@@ -35,7 +35,7 @@ context.shipGroups = shipGroups
 // method to expand the marketing packages
 LinkedList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
     sublines = []
-    associations = product.getRelated('MainProductAssoc', [productAssocTypeId : assocType], null, false)
+    associations = product.getRelated('MainProductAssoc', [productAssocTypeId: assocType], null, false)
     associations = EntityUtil.filterByDate(associations)
     associations.each { association ->
         line = [:]

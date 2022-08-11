@@ -43,7 +43,7 @@ Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponen
 for (ComponentConfig cc: allComponentConfigs) {
     if (cc.getKeystoreInfos()){
         componentName = cc.getComponentName()
-        store = ['componentId' : componentName]
+        store = ['componentId': componentName]
         store.componentName = componentName
         for (KeystoreInfo ks : cc.getKeystoreInfos()) {keystoreName = ks.getName()
             store.keystoreName = ks.getName()

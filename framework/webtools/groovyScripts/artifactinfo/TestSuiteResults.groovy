@@ -39,12 +39,12 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSui
         if (child) {
             details = UtilXml.getAttributeValueIgnorePrefix(child, 'message') ?: child.getNodeValue()
         }
-        testList << [testName        : testCaseElement.getAttribute('name'),
-                     success         : child == null,
-                     details         : details,
-                     suiteName       : suiteName,
+        testList << [testName: testCaseElement.getAttribute('name'),
+                     success: child == null,
+                     details: details,
+                     suiteName: suiteName,
                      displaySuiteName: firstLine,
-                     time            : testCaseElement.getAttribute('time')]
+                     time: testCaseElement.getAttribute('time')]
         firstLine = false
     }
 }

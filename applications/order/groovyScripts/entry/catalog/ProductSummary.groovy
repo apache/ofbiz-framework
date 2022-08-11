@@ -73,7 +73,7 @@ if (!product && productId) {
 if (product) {
     //if order is purchase then don't calculate available inventory for product.
     if (cart.isSalesOrder()) {
-        resultOutput = runService('getInventoryAvailableByFacility', [productId : product.productId, facilityId : facilityId, useCache : true])
+        resultOutput = runService('getInventoryAvailableByFacility', [productId: product.productId, facilityId: facilityId, useCache: true])
         totalAvailableToPromise = resultOutput.availableToPromiseTotal
         if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
             productFacility = from('ProductFacility').where('productId', product.productId, 'facilityId', facilityId).cache(true).queryOne()
@@ -106,8 +106,8 @@ if (product) {
     // get the product price
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service
-        priceContext = [product : product, currencyUomId : cart.getCurrency(),
-                autoUserLogin : autoUserLogin, userLogin : userLogin]
+        priceContext = [product: product, currencyUomId: cart.getCurrency(),
+                        autoUserLogin: autoUserLogin, userLogin: userLogin]
         priceContext.webSiteId = webSiteId
         priceContext.prodCatalogId = catalogId
         priceContext.productStoreId = productStoreId
@@ -119,8 +119,8 @@ if (product) {
         context.price = priceMap
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : product, currencyUomId : cart.getCurrency(),
-                partyId : cart.getPartyId(), userLogin : userLogin]
+        priceContext = [product: product, currencyUomId: cart.getCurrency(),
+                        partyId: cart.getPartyId(), userLogin: userLogin]
         priceMap = runService('calculatePurchasePrice', priceContext)
 
         context.price = priceMap
@@ -161,7 +161,7 @@ if (product) {
         jsBuf.append("<script type=\"application/javascript\">")
 
         // make a list of variant sku with requireAmount
-        virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : categoryId])
+        virtualVariantsRes = runService('getAssociatedProducts', [productIdTo: productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: categoryId])
         virtualVariants = virtualVariantsRes.assocProducts
         // Format to apply the currency code to the variant price in the javascript
         if (productStore) {

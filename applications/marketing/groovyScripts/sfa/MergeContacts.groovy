@@ -29,7 +29,7 @@ if (partyIdFrom && partyIdTo) {
     partyList.each { partyId ->
         party = from('Party').where('partyId', partyId).queryOne()
         person =  party.getRelatedOne('Person', false)
-        contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName]
+        contactDetailMap = [partyId: partyId, firstName: person.firstName, lastName: person.lastName]
 
         generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, 'GENERAL_LOCATION', 'POSTAL_ADDRESS', false))
         if (generalContactMech) {

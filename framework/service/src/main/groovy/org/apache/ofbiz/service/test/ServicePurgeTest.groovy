@@ -34,17 +34,17 @@ class ServicePurgeTest extends GroovyScriptTestCase {
 
         def createRuntimeResult = dispatcher.runSync('createRuntimeData', [
                 runtimeInfo: 'This is a runtimeInfo',
-                userLogin  : sysUserLogin
+                userLogin: sysUserLogin
         ])
         String runtimeDataId = createRuntimeResult.runtimeDataId
 
         dispatcher.runSync('createJobSandbox', [
-                userLogin     : sysUserLogin,
-                poolId        : ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool(),
-                jobId         : jobId,
-                runtimeDataId : runtimeDataId,
-                statusId      : 'SERVICE_FINISHED',
-                serviceName   : 'sendMail',
+                userLogin: sysUserLogin,
+                poolId: ServiceConfigUtil.getServiceEngine().getThreadPool().getSendToPool(),
+                jobId: jobId,
+                runtimeDataId: runtimeDataId,
+                statusId: 'SERVICE_FINISHED',
+                serviceName: 'sendMail',
                 finishDateTime: UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -10)
         ])
 

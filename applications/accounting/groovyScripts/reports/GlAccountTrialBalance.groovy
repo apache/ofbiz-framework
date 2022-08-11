@@ -27,7 +27,9 @@ import java.sql.Timestamp
 if (parameters.get('ApplicationDecorator|organizationPartyId')) {
     onlyIncludePeriodTypeIdList = []
     onlyIncludePeriodTypeIdList.add('FISCAL_YEAR')
-    customTimePeriodResults = runService('findCustomTimePeriods', [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin])
+    customTimePeriodResults = runService('findCustomTimePeriods',
+            [findDate: UtilDateTime.nowTimestamp(), organizationPartyId: parameters.get('ApplicationDecorator|organizationPartyId'),
+             onlyIncludePeriodTypeIdList: onlyIncludePeriodTypeIdList, userLogin: userLogin])
     customTimePeriodList = customTimePeriodResults.customTimePeriodList
     if (customTimePeriodList) {
         context.timePeriod = customTimePeriodList.first().customTimePeriodId
@@ -47,7 +49,7 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
 
     if (parameters.timePeriod) {
         currentTimePeriod = from('CustomTimePeriod').where('customTimePeriodId', parameters.timePeriod).queryOne()
-        previousTimePeriodResult = runService('getPreviousTimePeriod', [customTimePeriodId : parameters.timePeriod, userLogin : userLogin])
+        previousTimePeriodResult = runService('getPreviousTimePeriod', [customTimePeriodId: parameters.timePeriod, userLogin: userLogin])
         previousTimePeriod = previousTimePeriodResult.previousTimePeriod
         if (previousTimePeriod) {
             glAccountHistory = from('GlAccountHistory').where('customTimePeriodId', previousTimePeriod.customTimePeriodId, 'glAccountId', parameters.glAccountId, 'organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
@@ -76,7 +78,9 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
                 isPosted = ''
             }
             acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal',
-                    [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId'), glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin])
+                    [customTimePeriodStartDate: customTimePeriodStartDate, customTimePeriodEndDate: customTimePeriodEndDate,
+                     organizationPartyId: parameters.get('ApplicationDecorator|organizationPartyId'),
+                     glAccountId: parameters.glAccountId, isPosted: isPosted, userLogin: userLogin])
             totalOfYearToDateDebit = totalOfYearToDateDebit + acctgTransEntriesAndTransTotal.debitTotal
             acctgTransEntriesAndTransTotal.totalOfYearToDateDebit = totalOfYearToDateDebit.setScale(decimals, rounding)
             totalOfYearToDateCredit = totalOfYearToDateCredit + acctgTransEntriesAndTransTotal.creditTotal

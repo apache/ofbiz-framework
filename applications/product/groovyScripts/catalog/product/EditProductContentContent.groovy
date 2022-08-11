@@ -84,7 +84,7 @@ if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
             emailData.subject = subject.textData
             emailData.subjectDataResourceId = subject.dataResourceId
         }
-        result = runService('findAssocContent', [userLogin : userLogin, contentId : contentId, mapKeys : ['plainBody', 'htmlBody']])
+        result = runService('findAssocContent', [userLogin: userLogin, contentId: contentId, mapKeys: ['plainBody', 'htmlBody']])
         contentAssocs = result.get('contentAssocs')
         if (contentAssocs) {
             contentAssocs.each { contentAssoc ->

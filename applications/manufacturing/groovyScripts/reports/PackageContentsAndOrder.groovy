@@ -50,18 +50,18 @@ if (packageContents) {
         if (!packagesMap.containsKey(packageContent.shipmentPackageSeqId)) {
             OrderReadHelper orh = new OrderReadHelper(delegator, orderItem.orderId)
             packagesMap.put(packageContent.shipmentPackageSeqId,
-                            [packageId : packageContent.shipmentPackageSeqId,
-                             party : orh.getPlacingParty(),
-                             address : orh.getShippingAddress(),
-                             orderHeader : orh.getOrderHeader(),
-                             orderShipment : orderShipment,
-                             components : []])
+                    [packageId: packageContent.shipmentPackageSeqId,
+                     party: orh.getPlacingParty(),
+                     address: orh.getShippingAddress(),
+                     orderHeader: orh.getOrderHeader(),
+                     orderShipment: orderShipment,
+                     components: []])
         }
         OrderContentWrapper orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderItem, request)
         String imageUrl = orderContentWrapper.get('IMAGE_URL', 'url')
-        packageMap = (Map)packagesMap.packageContent.shipmentPackageSeqId
-        components = (List)packageMap.components
-        components.add([product : product, orderItem : orderItem, imageUrl : imageUrl])
+        packageMap = (Map) packagesMap.packageContent.shipmentPackageSeqId
+        components = (List) packageMap.components
+        components.add([product: product, orderItem: orderItem, imageUrl: imageUrl])
     }
 }
 context.packages = packagesMap.values()

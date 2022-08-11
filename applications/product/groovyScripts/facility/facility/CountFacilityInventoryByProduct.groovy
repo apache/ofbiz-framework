@@ -57,7 +57,7 @@ if (action) {
     prodView = new DynamicViewEntity()
     atpDiffComplexAlias = new ComplexAlias('-')
 
-    conditionMap = [facilityId : facilityId]
+    conditionMap = [facilityId: facilityId]
 
     if (offsetQOHQty) {
         try {

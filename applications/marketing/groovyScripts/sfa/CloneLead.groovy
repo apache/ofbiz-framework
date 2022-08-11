@@ -24,7 +24,7 @@ partyId = parameters.partyId
 if (partyId) {
     party =  from('Party').where('partyId', partyId).queryOne()
     person = party.getRelatedOne('Person', false)
-    contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName, suffix : person.suffix]
+    contactDetailMap = [partyId: partyId, firstName: person.firstName, lastName: person.lastName, suffix: person.suffix]
     partyRelationship = from('PartyRelationship')
                             .where('partyIdTo', partyId, 'roleTypeIdTo', 'EMPLOYEE', 'roleTypeIdFrom', 'LEAD', 'partyRelationshipTypeId', 'EMPLOYMENT')
                             .orderBy('-fromDate')

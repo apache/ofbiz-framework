@@ -43,24 +43,24 @@ if (tree) {
         try {
             outMap = [:]
             if (currencyUomId) {
-                outMap = runService('getProductCost', [productId : node.getProduct().productId,
-                                                                             currencyUomId : currencyUomId,
-                                                                             costComponentTypePrefix : 'EST_STD',
-                                                                             userLogin : userLogin])
+                outMap = runService('getProductCost', [productId: node.getProduct().productId,
+                                                       currencyUomId: currencyUomId,
+                                                       costComponentTypePrefix: 'EST_STD',
+                                                       userLogin: userLogin])
                 unitCost = outMap.productCost
                 totalCost = unitCost * node.getQuantity()
                 grandTotalCost = grandTotalCost + totalCost ?: 0
             }
             if (facilityId) {
-                outMap = runService('getInventoryAvailableByFacility', [productId : node.getProduct().productId,
-                                                                                              facilityId : facilityId,
-                                                                                              userLogin : userLogin])
+                outMap = runService('getInventoryAvailableByFacility', [productId: node.getProduct().productId,
+                                                                        facilityId: facilityId,
+                                                                        userLogin: userLogin])
                 qoh = outMap.quantityOnHandTotal
             }
         } catch (Exception e) {
             logError('Error retrieving bom simulation data: ' + e.getMessage())
         }
-        productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh])
+        productsData.add([node: node, unitCost: unitCost, totalCost: totalCost, qoh: qoh])
     }
     context.productsData = productsData
     context.grandTotalCost = grandTotalCost

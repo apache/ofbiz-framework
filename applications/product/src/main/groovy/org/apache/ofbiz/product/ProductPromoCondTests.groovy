@@ -39,7 +39,7 @@ class ProductPromoCondTests extends OFBizTestCase {
         if (persist) {
             GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
             delegator.createOrStore(productPromo)
-            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId:'01'])
+            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
             delegator.createOrStore(productPromoRule)
             productPromoCond.productPromoId = 'TEST'
             productPromoCond.productPromoRuleId = '01'

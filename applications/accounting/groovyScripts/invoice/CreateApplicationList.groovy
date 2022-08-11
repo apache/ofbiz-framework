@@ -27,7 +27,7 @@ if (!invoice) return
 
 invoiceApplications = [] // to pass back to the screen with payment applications added
 // retrieve related applications with null itemnumber
-invoiceAppls = invoice.getRelated('PaymentApplication', [invoiceItemSeqId : null], null, false)
+invoiceAppls = invoice.getRelated('PaymentApplication', [invoiceItemSeqId: null], null, false)
 invoiceAppls.each { invoiceAppl ->
     itemmap = [:]
     itemmap.invoiceId = invoiceAppl.invoiceId

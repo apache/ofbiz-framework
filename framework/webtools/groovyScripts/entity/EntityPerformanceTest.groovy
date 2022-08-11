@@ -102,7 +102,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     calls = 1000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = makeValue('JobSandbox', [poolId : 'pool', jobName : 'Initial Name' + i, serviceName : 'foo', statusId : 'SERVICE_FINISHED', jobId : '_~WRITE_TEST~_' + i])
+        dummy = makeValue('JobSandbox', [poolId: 'pool', jobName: 'Initial Name' + i, serviceName: 'foo', statusId: 'SERVICE_FINISHED', jobId: '_~WRITE_TEST~_' + i])
         createTestList.add(dummy)
         delegator.create(dummy)
     }
@@ -209,7 +209,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     perfRow.callsPerSecond = decimalFormat.format(callsPerSecond)
     performanceList.add(perfRow)
 
-    testPk = delegator.makePK('DataSourceType', [dataSourceTypeId : 'ADMIN_ENTRY'])
+    testPk = delegator.makePK('DataSourceType', [dataSourceTypeId: 'ADMIN_ENTRY'])
     utilCache.put(testPk, 'testValue')
     calls = 1000000
     startTime = System.currentTimeMillis()

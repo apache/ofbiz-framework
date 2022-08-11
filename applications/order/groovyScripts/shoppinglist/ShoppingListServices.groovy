@@ -105,7 +105,7 @@ def createShoppingListItem() {
         parameters.quantity = parameters.quantity ?: (BigDecimal) 0.0
 
         BigDecimal totalQty = shoppingListItem.quantity + parameters.quantity
-        Map serviceResult = run service: 'updateShoppingListItem', with: [*       : shoppingListItem,
+        Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem,
                                                                           quantity: totalQty]
         if (!ServiceUtil.isSuccess(serviceResult)) {
             return error(serviceResult.errorMessage)
@@ -163,7 +163,7 @@ def addDistinctShoppingListItem() {
             return result
         }
     }
-    Map serviceResult = run service:'createShoppingListItem', with: parameters
+    Map serviceResult = run service: 'createShoppingListItem', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return error(serviceResult.errorMessage)
     }
@@ -201,8 +201,8 @@ def calculateShoppingListDeepTotalPrice() {
                 BigDecimal itemPrice = it.modifiedPrice
                 if (!itemPrice) {
                     GenericValue product = from('Product').where(productId: it.productId).cache().queryOne()
-                    Map serviceResultCPP = run service: 'calculateProductPrice', with: [*       : calcPriceInBaseMap,
-                                                                                        product : product,
+                    Map serviceResultCPP = run service: 'calculateProductPrice', with: [*: calcPriceInBaseMap,
+                                                                                        product: product,
                                                                                         quantity: it.quantity]
                     if (!ServiceUtil.isSuccess(serviceResultCPP)) {
                         return error(serviceResultCPP.errorMessage)
@@ -287,10 +287,10 @@ def addSuggestionsToShoppingList() {
     GenericValue orderRole = from ('OrderRole').where(orderId: parameters.orderId, roleTypeId: 'PLACING_CUSTOMER').queryFirst()
     GenericValue shoppingList = from('ShoppingList').where(partyId: orderRole.partyId, listName: 'Auto Suggestions').queryFirst()
     if (!shoppingList) {
-        Map createShoppingListInMap = [partyId           : orderRole.partyId,
-                                       listName          : 'Auto Suggestions',
+        Map createShoppingListInMap = [partyId: orderRole.partyId,
+                                       listName: 'Auto Suggestions',
                                        shoppingListTypeId: 'SLT_WISH_LIST',
-                                       productStoreId    : parameters.productStoreId]
+                                       productStoreId: parameters.productStoreId]
         Map serviceResultCSL = dispatcher.runSync('createShoppingList', createShoppingListInMap, 7200, true)
         if (!ServiceUtil.isSuccess(serviceResultCSL)) {
             return error(serviceResultCSL.errorMessage)
@@ -325,8 +325,8 @@ private List<GenericValue> linkProductToShoppingList(String productId, String sh
                     productAssocTypeId: 'PRODUCT_COMPLEMENT')
             .filterByDate()
             .queryList().each {
-                run service: 'addDistinctShoppingListItem', with: [productId     : it.productIdTo,
-                                                                   shoppingListId: shoppingListId,
-                                                                   quantity      : (BigDecimal) 1]
+        run service: 'addDistinctShoppingListItem', with: [productId: it.productIdTo,
+                                                           shoppingListId: shoppingListId,
+                                                           quantity: (BigDecimal) 1]
     }
 }

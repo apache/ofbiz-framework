@@ -39,7 +39,7 @@ if (techDataCalendar) {
 calendarExceptionWeeksDatas = []
 calendarExceptionWeeks.each { calendarExceptionWeek ->
     calendarWeek = calendarExceptionWeek.getRelatedOne('TechDataCalendarWeek', false)
-    calendarExceptionWeeksDatas.add([calendarExceptionWeek : calendarExceptionWeek , calendarWeek : calendarWeek])
+    calendarExceptionWeeksDatas.add([calendarExceptionWeek: calendarExceptionWeek, calendarWeek: calendarWeek])
     context.calendarExceptionWeeksDatas = calendarExceptionWeeksDatas
 }
 
