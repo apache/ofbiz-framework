@@ -27,9 +27,9 @@ productPromo = from('ProductPromo').where('productPromoId', productPromoId).quer
 promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale, request.getAttribute('dispatcher'))
 
 productPromoCategoryList = from('ProductPromoCategory').where('productPromoId', productPromoId).cache(true).queryList()
-productPromoCategoryIncludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : 'PPPA_INCLUDE'])
-productPromoCategoryExcludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : 'PPPA_EXCLUDE'])
-productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId : 'PPPA_ALWAYS'])
+productPromoCategoryIncludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId: 'PPPA_INCLUDE'])
+productPromoCategoryExcludeList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId: 'PPPA_EXCLUDE'])
+productPromoCategoryAlwaysList = EntityUtil.filterByAnd(productPromoCategoryList, [productPromoApplEnumId: 'PPPA_ALWAYS'])
 
 productIdsCond = [] as Set
 productIdsAction = [] as Set

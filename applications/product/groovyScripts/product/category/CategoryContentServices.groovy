@@ -130,12 +130,12 @@ def createRelatedUrlContentForCategory() {
     Map rescRes = run service: 'createDataResource', with: dataResource
     parameters.dataResourceId = rescRes.dataResourceId
     Map content = [
-        contentTypeId:'DOCUMENT',
-        dataResourceId: parameters.dataResourceId,
-        contentName: parameters.title,
-        description: parameters.description,
-        localeString: parameters.localeString,
-        createdByUserLogin: parameters.userLogin.userLoginId
+            contentTypeId: 'DOCUMENT',
+            dataResourceId: parameters.dataResourceId,
+            contentName: parameters.title,
+            description: parameters.description,
+            localeString: parameters.localeString,
+            createdByUserLogin: parameters.userLogin.userLoginId
     ]
     Map contRes = run service: 'createContent', with: content
     parameters.contentId = contRes.contentId

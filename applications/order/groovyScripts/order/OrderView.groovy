@@ -90,7 +90,7 @@ if (orderHeader) {
     context.orderTerms = orderTerms
 
     // get sales reps
-    context.salesReps = orderHeader.getRelated('OrderRole', [orderId : orderHeader.orderId, roleTypeId : 'SALES_REP'], null, false)
+    context.salesReps = orderHeader.getRelated('OrderRole', [orderId: orderHeader.orderId, roleTypeId: 'SALES_REP'], null, false)
 
     // get the order type
     orderType = orderHeader.orderTypeId
@@ -330,7 +330,7 @@ if (orderHeader) {
     }
 
     // get inventory summary for each shopping cart product item
-    inventorySummary = runService('getProductInventorySummaryForItems', [orderItems : orderItems])
+    inventorySummary = runService('getProductInventorySummaryForItems', [orderItems: orderItems])
     context.availableToPromiseMap = inventorySummary.availableToPromiseMap
     context.quantityOnHandMap = inventorySummary.quantityOnHandMap
     context.mktgPkgATPMap = inventorySummary.mktgPkgATPMap
@@ -342,7 +342,7 @@ if (orderHeader) {
     if (productStore) {
         facility = productStore.getRelatedOne('Facility', false)
         if (facility) {
-            inventorySummaryByFacility = runService('getProductInventorySummaryForItems', [orderItems : orderItems, facilityId : facility.facilityId])
+            inventorySummaryByFacility = runService('getProductInventorySummaryForItems', [orderItems: orderItems, facilityId: facility.facilityId])
             context.availableToPromiseByFacilityMap = inventorySummaryByFacility.availableToPromiseMap
             context.quantityOnHandByFacilityMap = inventorySummaryByFacility.quantityOnHandMap
             context.facility = facility
@@ -359,7 +359,7 @@ if (orderHeader) {
             ownerPartyId = orderReadHelper.getBillToParty().partyId
             Map ownedFacilities = [:]
             shipGroups.each { shipGroup ->
-                lookupMap = [ownerPartyId : ownerPartyId]
+                lookupMap = [ownerPartyId: ownerPartyId]
                 if (shipGroup.contactMechId) {
                     lookupMap.contactMechId = shipGroup.contactMechId
                 }
@@ -401,7 +401,7 @@ if (orderHeader) {
     productionMap = [:]
     productIds.each { productId ->
         if (productId) {  // avoid order items without productIds, such as bulk order items
-            resultOutput = runService('getProductManufacturingSummaryByFacility', [productId : productId])
+            resultOutput = runService('getProductManufacturingSummaryByFacility', [productId: productId])
             manufacturingInQuantitySummaryByFacility = resultOutput.summaryInByFacility
             Double productionQuantity = 0
             manufacturingInQuantitySummaryByFacility.values().each { manQuantity ->
@@ -448,7 +448,7 @@ if (orderHeader) {
 
     // Get a map of returnable items
     returnableItems = [:]
-    returnableItemServiceMap = run service: 'getReturnableItems', with: [orderId : orderId]
+    returnableItemServiceMap = run service: 'getReturnableItems', with: [orderId: orderId]
     if (returnableItemServiceMap.returnableItems) {
         returnableItems = returnableItemServiceMap.returnableItems
     }

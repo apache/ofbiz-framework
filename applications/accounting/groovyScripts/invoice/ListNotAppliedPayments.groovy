@@ -24,7 +24,7 @@ import org.apache.ofbiz.base.util.UtilNumber
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 invoiceId = parameters.invoiceId
-invoice = from('Invoice').where(invoiceId : invoiceId).queryOne()
+invoice = from('Invoice').where(invoiceId: invoiceId).queryOne()
 
 decimals = UtilNumber.getBigDecimalScale('invoice.decimals')
 rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')

@@ -79,8 +79,8 @@ if (action) {
                     retailPriceGrandTotal += retailPrice
                 }
 
-                resultMap = [productId : product.productId, quantityOnHand : quantityOnHandTotal, availableToPromise : availableToPromiseTotal,
-                             costPrice : costPrice, retailPrice : retailPrice, totalCostPrice : totalCostPrice, totalRetailPrice : totalRetailPrice]
+                resultMap = [productId: product.productId, quantityOnHand: quantityOnHandTotal, availableToPromise: availableToPromiseTotal,
+                             costPrice: costPrice, retailPrice: retailPrice, totalCostPrice: totalCostPrice, totalRetailPrice: totalRetailPrice]
                 inventoryItemTotals.add(resultMap)
             }
         }
@@ -104,8 +104,8 @@ if (action) {
 }
 
 inventoryItemGrandTotals = []
-inventoryItemGrandTotals.add([qohGrandTotal : qohGrandTotal, atpGrandTotal : atpGrandTotal,
-                              totalCostPriceGrandTotal : totalCostPriceGrandTotal, totalRetailPriceGrandTotal : totalRetailPriceGrandTotal])
+inventoryItemGrandTotals.add([qohGrandTotal: qohGrandTotal, atpGrandTotal: atpGrandTotal,
+                              totalCostPriceGrandTotal: totalCostPriceGrandTotal, totalRetailPriceGrandTotal: totalRetailPriceGrandTotal])
 
 context.searchParameterString = searchParameterString
 context.inventoryItemTotals = inventoryItemTotals

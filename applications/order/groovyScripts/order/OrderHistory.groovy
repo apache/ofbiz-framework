@@ -25,7 +25,7 @@ context.orderId = orderId
 
 orderHeader = null
 if (orderId) {
-    orderHeader = from('OrderHeader').where(orderId : orderId).queryOne()
+    orderHeader = from('OrderHeader').where(orderId: orderId).queryOne()
 }
 
 if (orderHeader) {

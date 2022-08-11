@@ -35,29 +35,29 @@ shipmentItems.each { shipmentItem ->
     returnQuantity = Double.valueOf(returnItem.returnQuantity)
 
     shipmentItemQty = Double.valueOf(shipmentItem.quantity)
-    itemIssuances = shipmentItem.getRelated('ItemIssuance', [shipmentId : shipmentId, shipmentItemSeqId : shipmentItem.shipmentItemSeqId], ['inventoryItemId'], false)
+    itemIssuances = shipmentItem.getRelated('ItemIssuance', [shipmentId: shipmentId, shipmentItemSeqId: shipmentItem.shipmentItemSeqId], ['inventoryItemId'], false)
     totalQtyIssued = 0
     issuedItems = []
     itemIssuances.each { itemIssuance ->
         totalQtyIssued = totalQtyIssued + Double.valueOf(itemIssuance.quantity)
-        issuedItems.add([inventoryItemId : itemIssuance.inventoryItemId,
-                         quantity : itemIssuance.quantity])
+        issuedItems.add([inventoryItemId: itemIssuance.inventoryItemId,
+                         quantity: itemIssuance.quantity])
     }
     qtyStillNeedToBeIssued = returnQuantity - totalQtyIssued
-    items.add([shipmentId : shipmentId,
-               shipmentItemSeqId : shipmentItem.shipmentItemSeqId,
-               returnId : returnItem.returnId,
-               returnItemSeqId : returnItem.returnItemSeqId,
-               orderId : returnItem.orderId,
-               partyId : partyId,
-               productId : productId,
-               internalName : internalName,
-               shipmentItemQty : shipmentItemQty,
-               returnQuantity : returnQuantity,
-               totalQtyIssued : totalQtyIssued,
-               issuedItems : issuedItems,
-               qtyStillNeedToBeIssued : qtyStillNeedToBeIssued,
-               ])
+    items.add([shipmentId: shipmentId,
+               shipmentItemSeqId: shipmentItem.shipmentItemSeqId,
+               returnId: returnItem.returnId,
+               returnItemSeqId: returnItem.returnItemSeqId,
+               orderId: returnItem.orderId,
+               partyId: partyId,
+               productId: productId,
+               internalName: internalName,
+               shipmentItemQty: shipmentItemQty,
+               returnQuantity: returnQuantity,
+               totalQtyIssued: totalQtyIssued,
+               issuedItems: issuedItems,
+               qtyStillNeedToBeIssued: qtyStillNeedToBeIssued,
+    ])
 }
 context.shipmentId = shipmentId
 context.items = items

@@ -57,13 +57,13 @@ while (payIterator.hasNext()) {
             amount = payment.amount
             paymentCurrencyUomId = payment.currencyUomId
         }
-        paymentList.add([paymentId : payment.paymentId,
-                         effectiveDate : payment.effectiveDate,
-                         unAppliedAmount : unAppliedAmount,
-                         amount : amount,
-                         paymentCurrencyUomId : paymentCurrencyUomId,
-                         paymentTypeId : payment.paymentTypeId,
-                         paymentParentTypeId : payment.parentTypeId])
+        paymentList.add([paymentId: payment.paymentId,
+                         effectiveDate: payment.effectiveDate,
+                         unAppliedAmount: unAppliedAmount,
+                         amount: amount,
+                         paymentCurrencyUomId: paymentCurrencyUomId,
+                         paymentTypeId: payment.paymentTypeId,
+                         paymentParentTypeId: payment.parentTypeId])
     }
 }
 payIterator.close()

@@ -30,12 +30,12 @@ class FixedAssetTests extends OFBizTestCase {
     }
     void testCreateFixedAssetRegistration() {
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                licenseNumber          : '123456',
-                registrationNumber     : 'abcdef',
-                registrationDate       : UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
-                fromDate               : UtilDateTime.nowTimestamp(),
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                licenseNumber: '123456',
+                registrationNumber: 'abcdef',
+                registrationDate: UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
+                fromDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createFixedAssetRegistration', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -48,13 +48,13 @@ class FixedAssetTests extends OFBizTestCase {
     void testUpdateFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                licenseNumber          : 'updated-123456',
-                registrationNumber     : 'updated-abcdef',
-                registrationDate       : UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
-                fromDate               : fromDate,
-                thruDate               : UtilDateTime.nowTimestamp(),
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                licenseNumber: 'updated-123456',
+                registrationNumber: 'updated-abcdef',
+                registrationDate: UtilDateTime.toTimestamp('01/01/2020 00:00:00'),
+                fromDate: fromDate,
+                thruDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateFixedAssetRegistration', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -67,9 +67,9 @@ class FixedAssetTests extends OFBizTestCase {
     void testDeleteFixedAssetRegistration() {
         Timestamp fromDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                fromDate               : fromDate,
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                fromDate: fromDate,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deleteFixedAssetRegistration', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -81,11 +81,11 @@ class FixedAssetTests extends OFBizTestCase {
     }
     void testCreateFixedAssetMeter() {
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                productMeterTypeId     : 'ODOMETER',
-                readingDate            : UtilDateTime.nowTimestamp(),
-                meterValue             : BigDecimal.valueOf(65),
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                productMeterTypeId: 'ODOMETER',
+                readingDate: UtilDateTime.nowTimestamp(),
+                meterValue: BigDecimal.valueOf(65),
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -98,11 +98,11 @@ class FixedAssetTests extends OFBizTestCase {
     void testUpdateFixedAssetMeter() {
         Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                productMeterTypeId     : 'ODOMETER',
-                readingDate            : readingDate,
-                meterValue             : BigDecimal.valueOf(85),
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                productMeterTypeId: 'ODOMETER',
+                readingDate: readingDate,
+                meterValue: BigDecimal.valueOf(85),
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -115,10 +115,10 @@ class FixedAssetTests extends OFBizTestCase {
     void testDeleteFixedAssetMeter() {
         Timestamp readingDate = UtilDateTime.toTimestamp('04/01/2020 00:00:00')
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                productMeterTypeId     : 'ODOMETER',
-                readingDate            : readingDate,
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                productMeterTypeId: 'ODOMETER',
+                readingDate: readingDate,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deleteFixedAssetMeter', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -130,9 +130,9 @@ class FixedAssetTests extends OFBizTestCase {
     }
     void testCreateFixedAssetGeoPoint() {
         Map serviceCtx = [
-                fixedAssetId           : 'DEMO_VEHICLE_01',
-                geoPointId             : '9000',
-                userLogin              : userLogin
+                fixedAssetId: 'DEMO_VEHICLE_01',
+                geoPointId: '9000',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createFixedAssetGeoPoint', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)

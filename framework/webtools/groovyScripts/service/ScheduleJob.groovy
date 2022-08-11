@@ -48,7 +48,7 @@ e = request.getParameterNames()
 while (e.hasMoreElements()) {
     paramName = e.nextElement()
     paramValue = parameters[paramName]
-    scheduleOptions.add([name : paramName, value : paramValue])
+    scheduleOptions.add([name: paramName, value: paramValue])
 }
 
 context.scheduleOptions = scheduleOptions
@@ -69,9 +69,9 @@ if (serviceName) {
             }
             serviceParam = null
             if (savedSyncResult?.get(par.name)) {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? 'Y' : 'N', defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)]
+                serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N', defaultValue: par.defaultValue, value: savedSyncResult.get(par.name)]
             } else {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? 'Y' : 'N', defaultValue : par.defaultValue]
+                serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N', defaultValue: par.defaultValue]
             }
             serviceParameters.add(serviceParam)
         }

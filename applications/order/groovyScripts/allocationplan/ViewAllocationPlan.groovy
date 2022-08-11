@@ -48,7 +48,7 @@ if (allocationPlanHeader) {
     facilityIterator = facilityList.iterator()
     while (facilityIterator) {
         facility = facilityIterator.next()
-        result = runService('getInventoryAvailableByFacility', [productId : allocationPlanHeader.productId, facilityId : facility.facilityId])
+        result = runService('getInventoryAvailableByFacility', [productId: allocationPlanHeader.productId, facilityId: facility.facilityId])
         totalATP = totalATP + result.availableToPromiseTotal
         totalQOH = totalQOH + result.quantityOnHandTotal
     }

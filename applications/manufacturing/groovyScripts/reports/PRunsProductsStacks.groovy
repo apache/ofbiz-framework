@@ -45,7 +45,7 @@ if (allProductionRuns) {
         productionRunProduct = from('Product').where('productId', productionRun.productId).queryOne()
         location = [:]
         if (productionRunProduct) {
-            location = form('ProductFacilityLocation').where(facilityId : productionRun.facilityId, productId : productionRun.productId).queryFirst()
+            location = form('ProductFacilityLocation').where(facilityId: productionRun.facilityId, productId: productionRun.productId).queryFirst()
         }
         if (taskNamePar) {
             // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
@@ -68,14 +68,14 @@ if (allProductionRuns) {
             qtyInLastStack = stackQty
         }
         for (int i = 1; i < numOfStacks; i++) {
-            stackInfos.add([stackNum : '' + i, numOfStacks : '' + numOfStacks, qty : stackQty])
+            stackInfos.add([stackNum: '' + i, numOfStacks: '' + numOfStacks, qty: stackQty])
         }
-        stackInfos.add([stackNum : '' + numOfStacks, numOfStacks : '' + numOfStacks, qty : qtyInLastStack])
+        stackInfos.add([stackNum: '' + numOfStacks, numOfStacks: '' + numOfStacks, qty: qtyInLastStack])
 
-        productionRunMap = [productionRun : productionRun,
-                                          product : productionRunProduct,
-                                          location : location,
-                                          stackInfos : stackInfos]
+        productionRunMap = [productionRun: productionRun,
+                            product: productionRunProduct,
+                            location: location,
+                            stackInfos: stackInfos]
         productionRuns.add(productionRunMap)
     }
     context.productionRuns = productionRuns

@@ -101,7 +101,7 @@ if (orderHeader) {
         if (billToParty) {
             partyId = billToParty.partyId
         } else {
-            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelated('OrderRole', [roleTypeId : 'BILL_TO_CUSTOMER'], null, false))
+            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelated('OrderRole', [roleTypeId: 'BILL_TO_CUSTOMER'], null, false))
             if (billToCustomer) {
                 partyId = billToCustomer.partyId
             }

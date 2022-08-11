@@ -43,7 +43,7 @@ if (session.getAttribute('_RUN_SYNC_RESULT_')) {
     }
 
     serviceResult.each { key, value ->
-        valueMap = [key : key, value : value.toString()]
+        valueMap = [key: key, value: value.toString()]
         if (value instanceof Map || value instanceof Collection) {
             valueMap.hasChild = 'Y'
         } else {

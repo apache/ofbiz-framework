@@ -53,13 +53,13 @@ while (invIterator.hasNext()) {
         } else {
             invoiceCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
         }
-        invoiceList.add([invoiceId : invoice.invoiceId,
-                         invoiceDate : invoice.invoiceDate,
-                         unAppliedAmount : unAppliedAmount,
-                         invoiceCurrencyUomId : invoiceCurrencyUomId,
-                         amount : InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP),
-                         invoiceTypeId : invoice.invoiceTypeId,
-                         invoiceParentTypeId : invoice.parentTypeId])
+        invoiceList.add([invoiceId: invoice.invoiceId,
+                         invoiceDate: invoice.invoiceDate,
+                         unAppliedAmount: unAppliedAmount,
+                         invoiceCurrencyUomId: invoiceCurrencyUomId,
+                         amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP),
+                         invoiceTypeId: invoice.invoiceTypeId,
+                         invoiceParentTypeId: invoice.parentTypeId])
     }
 }
 invIterator.close()

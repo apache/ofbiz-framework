@@ -265,10 +265,9 @@ def linkGeos() {
             GenericValue oldGeoAssoc = from('GeoAssoc').where(geoId: parameters.geoId, geoIdTo: geoIdTo).queryOne()
             if (!oldGeoAssoc) {
                 // Add as it does not exist
-                GenericValue newGeoAssoc = makeValue('GeoAssoc', [
-                    geoId : parameters.geoId,
-                    geoIdTo : geoIdTo,
-                    geoAssocTypeId : parameters.geoAssocTypeId
+                GenericValue newGeoAssoc = makeValue('GeoAssoc', [geoId: parameters.geoId,
+                                                                  geoIdTo: geoIdTo,
+                                                                  geoAssocTypeId: parameters.geoAssocTypeId
                 ])
                 newGeoAssoc.create()
             }

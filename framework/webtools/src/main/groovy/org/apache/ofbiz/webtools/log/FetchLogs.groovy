@@ -64,7 +64,7 @@ if (parameters.logFileName && listLogFileNames.contains(parameters.logFileName))
             } else if (line.contains(' |D| ')) {
                 type = 'DEBUG'
             }
-            logLines.add([type: type, line:line])
+            logLines.add([type: type, line: line])
         }
     } catch (Exception e) {
         logError(e, module)

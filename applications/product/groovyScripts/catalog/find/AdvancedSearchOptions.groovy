@@ -46,7 +46,7 @@ searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false,
 searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request)
 
 // get suppliers in system
-supplerPartyRoleAndPartyDetails = from('PartyRoleAndPartyDetail').where(roleTypeId : 'SUPPLIER').orderBy('groupName', 'firstName').queryList()
+supplerPartyRoleAndPartyDetails = from('PartyRoleAndPartyDetail').where(roleTypeId: 'SUPPLIER').orderBy('groupName', 'firstName').queryList()
 
 // get the GoodIdentification types
 goodIdentificationTypes = from('GoodIdentificationType').orderBy('description').queryList()

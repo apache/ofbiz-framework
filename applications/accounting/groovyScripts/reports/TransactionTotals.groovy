@@ -132,7 +132,7 @@ if (postedCreditTransactionTotals) {
         postedTotalCredit = postedCreditTransactionTotal.amount
     }
 }
-postedTotals.add(['D':postedTotalDebit, 'C':postedTotalCredit])
+postedTotals.add(['D': postedTotalDebit, 'C': postedTotalCredit])
 context.postedTransactionTotals = postedTotals
 
 // UNPOSTED
@@ -224,7 +224,7 @@ if (unpostedCreditTransactionTotals) {
         unpostedTotalCredit = unpostedCreditTransactionTotal.amount
     }
 }
-unpostedTotals.add(['D':unpostedTotalDebit, 'C':unpostedTotalCredit])
+unpostedTotals.add(['D': unpostedTotalDebit, 'C': unpostedTotalCredit])
 context.unpostedTransactionTotals = unpostedTotals
 
 // POSTED AND UNPOSTED
@@ -317,5 +317,5 @@ if (allCreditTransactionTotals) {
         allTotalCredit = allCreditTransactionTotal.amount
     }
 }
-allTotals.add(['D':allTotalDebit, 'C':allTotalCredit])
+allTotals.add(['D': allTotalDebit, 'C': allTotalCredit])
 context.allTransactionTotals = allTotals

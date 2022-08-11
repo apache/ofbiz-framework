@@ -99,7 +99,7 @@ if (picklistBinId) {
     if (bin) {
         orderId = bin.primaryOrderId
         shipGroupSeqId = bin.primaryShipGroupSeqId
-        packSession.addItemInfo(bin.getRelated('PicklistItem', [itemStatusId : 'PICKITEM_PENDING'], null, false))
+        packSession.addItemInfo(bin.getRelated('PicklistItem', [itemStatusId: 'PICKITEM_PENDING'], null, false))
     }
 } else {
     picklistBinId = null
@@ -159,7 +159,7 @@ if (orderId) {
                         packSession.addItemInfo(shippableItems)
                     }
                 } else {
-                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderHasBeenAlreadyVerified', [orderId : orderId], locale))
+                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderHasBeenAlreadyVerified', [orderId: orderId], locale))
                 }
             } else {
                 request.setAttribute('errorMessageList', ['No ship group sequence ID. Cannot process.'])

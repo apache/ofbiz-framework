@@ -55,7 +55,7 @@ if ('search'.equals(parameters.findType)) {
 }
 
 if (artifactInfo) {
-    artifactInfoMap = [type : artifactInfo.getType(), uniqueId : artifactInfo.getUniqueId(), displayName : artifactInfo.getDisplayName()]
+    artifactInfoMap = [type: artifactInfo.getType(), uniqueId: artifactInfo.getUniqueId(), displayName: artifactInfo.getDisplayName()]
     // add to the recently viewed list
     recentArtifactInfoList = session.getAttribute('recentArtifactInfoList')
     if (!recentArtifactInfoList) {

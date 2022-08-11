@@ -22,7 +22,7 @@
 if (userLogin) {
     userLoginParty = userLogin.getRelatedOne('Party', true)
     if (userLoginParty) {
-        userLoginPartyPrimaryEmails = userLoginParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId : 'PRIMARY_EMAIL'], null, false)
+        userLoginPartyPrimaryEmails = userLoginParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId: 'PRIMARY_EMAIL'], null, false)
         if (userLoginPartyPrimaryEmails) {
             context.thisUserPrimaryEmail = userLoginPartyPrimaryEmails.get(0)
         }

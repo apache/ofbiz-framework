@@ -540,8 +540,8 @@ def checkProductRelatedPermission(String callingMethodName, String checkAction) 
     List roleCategories = []
     // find all role-categories that this product is a member of
     if (parameters.productId && !security.hasEntityPermission('CATALOG', "_${checkAction}", parameters.userLogin)) {
-        Map lookupRoleCategoriesMap = [productId : parameters.productId,
-                                       partyId   : userLogin.partyId,
+        Map lookupRoleCategoriesMap = [productId: parameters.productId,
+                                       partyId: userLogin.partyId,
                                        roleTypeId: 'LTD_ADMIN']
         roleCategories = from('ProductCategoryMemberAndRole')
                 .where(lookupRoleCategoriesMap)
@@ -788,16 +788,16 @@ def createJobForProductGroupOrder() {
 
         // Create Job For ProductGroupOrder
         // FIXME: Jobs should not be manually created
-        Map jobFields = [jobId             : delegator.getNextSeqId('JobSandbox'),
-                         jobName           : 'Check ProductGroupOrder Expired',
-                         runTime           : parameters.thruDate,
-                         poolId            : 'pool',
-                         statusId          : 'SERVICE_PENDING',
-                         serviceName       : 'checkProductGroupOrderExpired',
-                         runAsUser         : 'system',
-                         runtimeDataId     : runtimeDataId,
+        Map jobFields = [jobId: delegator.getNextSeqId('JobSandbox'),
+                         jobName: 'Check ProductGroupOrder Expired',
+                         runTime: parameters.thruDate,
+                         poolId: 'pool',
+                         statusId: 'SERVICE_PENDING',
+                         serviceName: 'checkProductGroupOrderExpired',
+                         runAsUser: 'system',
+                         runtimeDataId: runtimeDataId,
                          maxRecurrenceCount: 1l,
-                         priority          : 50l]
+                         priority: 50l]
         delegator.create('JobSandbox', jobFields)
 
         productGroupOrder.jobId = jobFields.jobId
@@ -830,9 +830,9 @@ def checkOrderItemForProductGroupOrder() {
             productGroupOrder.soldOrderQty += orderItem.quantity
             productGroupOrder.store()
 
-            run service: 'createOrderItemGroupOrder', with: [orderId       : orderItem.orderId,
+            run service: 'createOrderItemGroupOrder', with: [orderId: orderItem.orderId,
                                                              orderItemSeqId: orderItem.orderItemSeqId,
-                                                             groupOrderId  : productGroupOrder.groupOrderId]
+                                                             groupOrderId: productGroupOrder.groupOrderId]
         }
     }
     return success()
@@ -885,15 +885,15 @@ def checkProductGroupOrderExpired() {
             groupOrderStatusId = 'GO_CANCELLED'
         }
         run service: 'updateProductGroupOrder', with: [groupOrderId: productGroupOrder.groupOrderId,
-                                                       statusId    : groupOrderStatusId]
+                                                       statusId: groupOrderStatusId]
 
         List orderItemGroupOrders = from('OrderItemGroupOrder')
                 .where(groupOrderId: productGroupOrder.groupOrderId)
                 .queryList()
         for (GenericValue orderItemGroupOrder : orderItemGroupOrders) {
-            run service: 'changeOrderItemStatus', with: [orderId       : orderItemGroupOrder.orderId,
+            run service: 'changeOrderItemStatus', with: [orderId: orderItemGroupOrder.orderId,
                                                          orderItemSeqId: orderItemGroupOrder.orderItemSeqId,
-                                                         statusId      : newItemStatusId]
+                                                         statusId: newItemStatusId]
         }
     }
     return success()

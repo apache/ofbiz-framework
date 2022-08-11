@@ -528,15 +528,15 @@ def checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
             // looking up a specific role
             hasPermission = from("${roleEntity}")
                     .where(["${roleEntityField}": checkId,
-                            roleTypeId          : checkRoleTypeId,
-                            partyId             : checkPartyId])
+                            roleTypeId: checkRoleTypeId,
+                            partyId: checkPartyId])
                     .queryCount() > 0
         } else {
             logVerbose('Doing lookup without roleTypeId')
             // looking up any role
             hasPermission = from("${roleEntity}")
                     .where(["${roleEntityField}": checkId,
-                            partyId             : checkPartyId])
+                            partyId: checkPartyId])
                     .queryCount() > 0
 
         }
@@ -565,9 +565,9 @@ def findAllContentPurposes(String checkId) {
  * @return
  */
 def findAllAssociatedPartyIds () {
-    Map serviceResult = run service: 'getRelatedParties', with: [partyIdFrom            : userLogin.partyId,
+    Map serviceResult = run service: 'getRelatedParties', with: [partyIdFrom: userLogin.partyId,
                                                                  partyRelationshipTypeId: 'GROUP_ROLLUP',
-                                                                 includeFromToSwitched  : 'Y']
+                                                                 includeFromToSwitched: 'Y']
     List partyIdList = serviceResult.relatedPartyIdList
 
     logVerbose("Got list of associated parties: ${partyIdList}")

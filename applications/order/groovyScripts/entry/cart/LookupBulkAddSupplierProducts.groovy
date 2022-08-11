@@ -112,7 +112,7 @@ for (supplierProduct in supplierProducts) {
         }
         product = from('Product').where('productId', productId).cache(true).queryOne()
         productFacilityList.each { productFacility ->
-            result = runService('getInventoryAvailableByFacility', ['productId' : productId, 'facilityId' : productFacility.facilityId])
+            result = runService('getInventoryAvailableByFacility', ['productId': productId, 'facilityId': productFacility.facilityId])
             qohAtp = result.quantityOnHandTotal.toPlainString() + '/' + result.availableToPromiseTotal.toPlainString()
             productInfoMap = [:]
 

@@ -100,7 +100,7 @@ def createCommunicationEvent() {
         // set role status from the parent commevent to completed
         GenericValue role = from('CommunicationEventRole')
                 .where([communicationEventId: parentCommEvent.communicationEventId,
-                        partyId             : newCommEvent.partyIdFrom])
+                        partyId: newCommEvent.partyIdFrom])
                 .queryFirst()
         if (role) {
             Map setCommEventRoleStatusMap = [*: role]
@@ -118,7 +118,7 @@ def createCommunicationEvent() {
             if (!newCommEvent."partyId${it}"
                     && newCommEvent."contactMechId${it}") {
                 GenericValue partyContactMech = from('PartyAndContactMech')
-                        .where([contactMechId    : newCommEvent."contactMechId${it}",
+                        .where([contactMechId: newCommEvent."contactMechId${it}",
                                 contactMechTypeId: 'EMAIL_ADDRESS'])
                         .queryFirst()
                 if (partyContactMech) {
@@ -649,10 +649,10 @@ def sendContactUsEmailToCompany() {
             .where(parameters)
             .queryOne()
 
-    def bodyParameters = [partyId   : parameters.partyIdTo, email: parameters.emailAddress,
-                          firstName : parameters.firstName, lastName: parameters.lastName,
+    def bodyParameters = [partyId: parameters.partyIdTo, email: parameters.emailAddress,
+                          firstName: parameters.firstName, lastName: parameters.lastName,
                           postalCode: parameters.postalCode, countryCode: parameters.countryCode,
-                          message   : parameters.content]
+                          message: parameters.content]
 
     if (productStoreEmailSetting.bodyScreenLocation) {
         Map emailParams = [bodyParameters: bodyParameters, userLogin: systemUserLogin]

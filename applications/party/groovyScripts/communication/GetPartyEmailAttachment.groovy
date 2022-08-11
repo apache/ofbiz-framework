@@ -24,7 +24,7 @@ communicationEventId = context.communicationEventId
 if (communicationEventId) {
     //Find related CommEventContentDataResource
     List<GenericValue> attachedContents = delegator.findByAnd('CommEventContentDataResource',
-            [communicationEventId : communicationEventId], null, true)
+            [communicationEventId: communicationEventId], null, true)
     List<String> attachedContentNames = []
     attachedContents.each { GenericValue attachedContent ->
         attachedContentNames << attachedContent.contentName as String

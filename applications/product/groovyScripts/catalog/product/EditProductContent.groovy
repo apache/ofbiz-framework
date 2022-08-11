@@ -31,7 +31,7 @@ context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator)
 imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.server.path', delegator), context)
-imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator), context)
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix', delegator), context)
 imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length() - 1) : imageServerPath
 imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix
 context.imageFilenameFormat = imageFilenameFormat
@@ -39,11 +39,11 @@ context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
 
 filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
-context.imageNameSmall  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'small'])
-context.imageNameMedium = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'medium'])
-context.imageNameLarge  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'large'])
-context.imageNameDetail = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'detail'])
-context.imageNameOriginal = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', id : productId, type : 'original'])
+context.imageNameSmall = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', id: productId, type: 'small'])
+context.imageNameMedium = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', id: productId, type: 'medium'])
+context.imageNameLarge = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', id: productId, type: 'large'])
+context.imageNameDetail = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', id: productId, type: 'detail'])
+context.imageNameOriginal = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', id: productId, type: 'original'])
 
 // Start ProductContent stuff
 productContent = null
@@ -74,11 +74,12 @@ if (fileType) {
 
     context.fileType = fileType
 
-    fileLocation = filenameExpander.expandString([location : 'products', id : productId, type : fileType])
+    fileLocation = filenameExpander.expandString([location: 'products', id: productId, type: fileType])
     filePathPrefix = ''
     filenameToUse = fileLocation
     if (fileLocation.lastIndexOf('/') != -1) {
-        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1) // adding 1 to include the trailing slash
+        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1)
+        // adding 1 to include the trailing slash
         filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1)
     }
 
@@ -98,7 +99,7 @@ if (fileType) {
         } catch (Exception e) {
             logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
         }
-        String errorMessage = UtilProperties.getMessage('SecurityUiLabels','SupportedImageFormats', locale)
+        String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedImageFormats', locale)
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -130,17 +131,17 @@ if (fileType) {
                 // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
                 if (!filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
-                    for(File file : files) {
+                    for (File file : files) {
                         if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.') + 1)) && !'original'.equals(fileType)) {
                             file.delete()
-                        } else if(file.isFile() && 'original'.equals(fileType) && !file.getName().equals(defaultFileName)) {
+                        } else if (file.isFile() && 'original'.equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()
                         }
                     }
-                // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
+                    // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()
-                    for(File file : files) {
+                    for (File file : files) {
                         if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + '.')) {
                             file.delete()
                         }

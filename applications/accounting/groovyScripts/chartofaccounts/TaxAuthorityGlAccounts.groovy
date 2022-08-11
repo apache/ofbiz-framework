@@ -20,5 +20,5 @@
 taxAuthorities = from('TaxAuthority').orderBy('taxAuthGeoId', 'taxAuthPartyId').queryList()
 
 context.taxAuthorityHavingNoGlAccountList = taxAuthorities.findAll { taxAuthority ->
-    !taxAuthority.getRelated('TaxAuthorityGlAccount', [organizationPartyId : parameters.get('ApplicationDecorator|organizationPartyId')], null, false)
+    !taxAuthority.getRelated('TaxAuthorityGlAccount', [organizationPartyId: parameters.get('ApplicationDecorator|organizationPartyId')], null, false)
 }

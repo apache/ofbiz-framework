@@ -44,18 +44,18 @@ class ProductPromoActionTests extends OFBizTestCase {
     }
 
     Map prepareConditionMap(ShoppingCart cart, BigDecimal amount, boolean persist) {
-        GenericValue productPromoAction = delegator.makeValue('ProductPromoAction', [amount: amount, orderAdjustmentTypeId:'PROMOTION_ADJUSTMENT'])
+        GenericValue productPromoAction = delegator.makeValue('ProductPromoAction', [amount: amount, orderAdjustmentTypeId: 'PROMOTION_ADJUSTMENT'])
         if (persist) {
             GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
             delegator.createOrStore(productPromo)
-            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId:'01'])
+            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
             delegator.createOrStore(productPromoRule)
             productPromoAction.productPromoId = 'TEST'
             productPromoAction.productPromoRuleId = '01'
             productPromoAction.productPromoActionSeqId = '01'
             delegator.createOrStore(productPromoAction)
         }
-        return  [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), actionResultInfo: new ActionResultInfo(), productPromoAction: productPromoAction]
+        return [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), actionResultInfo: new ActionResultInfo(), productPromoAction: productPromoAction]
     }
 
     /**

@@ -22,11 +22,11 @@ taskInfoList = []
 tasks = from('WorkEffort').where('workEffortParentId', productionRunId, 'workEffortTypeId', 'PROD_ORDER_TASK').orderBy('workEffortId').queryList()
 tasks.each { task ->
     costs = from('CostComponent').where('workEffortId', task.workEffortId).filterByDate().queryList()
-    taskInfoList.add([task : task, taskCosts : costs])
+    taskInfoList.add([task: task, taskCosts: costs])
 }
 // get the costs directly associated to the production run (e.g. overhead costs)
 productionRun = from('WorkEffort').where('workEffortId', productionRunId).cache(true).queryOne()
 costs = from('CostComponent').where('workEffortId', productionRunId).filterByDate().queryList()
-taskInfoList.add([task : productionRun, taskCosts : costs])
+taskInfoList.add([task: productionRun, taskCosts: costs])
 
 context.taskInfoList = taskInfoList;

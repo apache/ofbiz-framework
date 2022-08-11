@@ -122,8 +122,8 @@ if (inlineProduct) {
     autoUserLogin = request.getSession().getAttribute('autoUserLogin')
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service
-        priceContext = [product : inlineProduct, prodCatalogId : currentCatalogId,
-            currencyUomId : cart.getCurrency(), autoUserLogin : autoUserLogin]
+        priceContext = [product: inlineProduct, prodCatalogId: currentCatalogId,
+                        currencyUomId: cart.getCurrency(), autoUserLogin: autoUserLogin]
         priceContext.webSiteId = webSiteId
         priceContext.productStoreId = productStoreId
         priceContext.checkIncludeVat = 'Y'
@@ -133,8 +133,8 @@ if (inlineProduct) {
         context.priceMap = priceMap
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : inlineProduct, currencyUomId : cart.getCurrency(),
-                partyId : cart.getPartyId(), userLogin : userLogin]
+        priceContext = [product: inlineProduct, currencyUomId: cart.getCurrency(),
+                        partyId: cart.getPartyId(), userLogin: userLogin]
         priceMap = runService('calculatePurchasePrice', priceContext)
         context.priceMap = priceMap
     }
@@ -149,10 +149,10 @@ if (inlineProduct) {
         if ('VV_FEATURETREE'.equals(ProductWorker.getProductVirtualVariantMethod(delegator, inlineProductId))) {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(inlineProduct)
         } else {
-            featureMap = runService('getProductFeatureSet', [productId : inlineProductId])
+            featureMap = runService('getProductFeatureSet', [productId: inlineProductId])
             featureSet = featureMap.featureSet
             if (featureSet) {
-                variantTreeMap = runService('getProductVariantTree', [productId : inlineProductId, featureOrder : featureSet, productStoreId : productStoreId])
+                variantTreeMap = runService('getProductVariantTree', [productId: inlineProductId, featureOrder: featureSet, productStoreId: productStoreId])
                 variantTree = variantTreeMap.variantTree
                 imageMap = variantTreeMap.variantSample
                 virtualVariant = variantTreeMap.virtualVariant
@@ -263,7 +263,7 @@ if (inlineProduct) {
                     }
 
                     // make a list of variant sku with requireAmount
-                    variantsRes = runService('getAssociatedProducts', [productId : inlineProductId, type : 'PRODUCT_VARIANT', checkViewAllow : true, prodCatalogId : currentCatalogId])
+                    variantsRes = runService('getAssociatedProducts', [productId: inlineProductId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
                     variants = variantsRes.assocProducts
                     if (variants) {
                         amt = new StringBuffer()

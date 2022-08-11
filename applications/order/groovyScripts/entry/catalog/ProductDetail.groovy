@@ -139,7 +139,7 @@ if (product) {
 
     catNextPreviousResult = null
     if (categoryId) {
-        prevNextMap = [categoryId : categoryId, productId : productId]
+        prevNextMap = [categoryId: categoryId, productId: productId]
         prevNextMap.orderByFields = context.orderByFields ?: ['sequenceNum', 'productId']
         catNextPreviousResult = runService('getPreviousNextProducts', prevNextMap)
         if (ServiceUtil.isError(catNextPreviousResult)) {
@@ -167,7 +167,7 @@ if (product) {
     if (productSurvey) {
         survey = EntityUtil.getFirst(productSurvey)
         origParamMapId = UtilHttp.stashParameterMap(request)
-        surveyContext = ['_ORIG_PARAM_MAP_ID_' : origParamMapId]
+        surveyContext = ['_ORIG_PARAM_MAP_ID_': origParamMapId]
         surveyPartyId = userLogin?.partyId
         wrapper = new ProductStoreSurveyWrapper(survey, surveyPartyId, surveyContext)
         context.surveyWrapper = wrapper
@@ -180,8 +180,8 @@ if (product) {
     autoUserLogin = request.getSession().getAttribute('autoUserLogin')
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service
-        priceContext = [product : product, prodCatalogId : catalogId,
-            currencyUomId : cart.getCurrency(), autoUserLogin : autoUserLogin]
+        priceContext = [product: product, prodCatalogId: catalogId,
+                        currencyUomId: cart.getCurrency(), autoUserLogin: autoUserLogin]
         priceContext.webSiteId = webSiteId
         priceContext.productStoreId = productStoreId
         priceContext.checkIncludeVat = 'Y'
@@ -191,8 +191,8 @@ if (product) {
         context.priceMap = priceMap
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : product, currencyUomId : cart.getCurrency(),
-                partyId : cart.getPartyId(), userLogin : userLogin]
+        priceContext = [product: product, currencyUomId: cart.getCurrency(),
+                        partyId: cart.getPartyId(), userLogin: userLogin]
         priceMap = runService('calculatePurchasePrice', priceContext)
         context.priceMap = priceMap
     }
@@ -220,7 +220,7 @@ if (product) {
     if (cart.isSalesOrder()) {
         facilityId = productStore.inventoryFacilityId
 
-        resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facilityId, useCache : false])
+        resultOutput = runService('getInventoryAvailableByFacility', [productId: productId, facilityId: facilityId, useCache: false])
         totalAvailableToPromise = resultOutput.availableToPromiseTotal
         if (totalAvailableToPromise) {
             productFacility = from('ProductFacility').where('productId', productId, 'facilityId', facilityId).cache(true).queryOne()
@@ -236,7 +236,7 @@ if (product) {
     }
 
     // get the product distinguishing features
-    disFeatureMap = runService('getProductFeatures', [productId : productId, type : 'DISTINGUISHING_FEAT'])
+    disFeatureMap = runService('getProductFeatures', [productId: productId, type: 'DISTINGUISHING_FEAT'])
     disFeatureList = disFeatureMap.productFeatures
     context.disFeatureList = disFeatureList
 
@@ -269,14 +269,14 @@ if (product) {
         if ('VV_FEATURETREE'.equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(product)
         } else {
-            featureMap = runService('getProductFeatureSet', [productId : productId])
+            featureMap = runService('getProductFeatureSet', [productId: productId])
             featureSet = featureMap.featureSet
             if (featureSet) {
                 //if order is purchase then don't calculate available inventory for product.
                 if (cart.isPurchaseOrder()) {
-                    variantTreeMap = runService('getProductVariantTree', [productId : productId, featureOrder : featureSet, checkInventory: false])
+                    variantTreeMap = runService('getProductVariantTree', [productId: productId, featureOrder: featureSet, checkInventory: false])
                 } else {
-                    variantTreeMap = runService('getProductVariantTree', [productId : productId, featureOrder : featureSet, productStoreId : productStoreId])
+                    variantTreeMap = runService('getProductVariantTree', [productId: productId, featureOrder: featureSet, productStoreId: productStoreId])
                 }
                 variantTree = variantTreeMap.variantTree
                 imageMap = variantTreeMap.variantSample
@@ -394,7 +394,7 @@ if (product) {
                     }
 
                     // make a list of variant sku with requireAmount
-                    variantsRes = runService('getAssociatedProducts', [productId : productId, type : 'PRODUCT_VARIANT', checkViewAllow : true, prodCatalogId : currentCatalogId])
+                    variantsRes = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
                     variants = variantsRes.assocProducts
                     variantPriceList = []
                     if (variants) {
@@ -452,7 +452,7 @@ if (product) {
                             }
 
                             // make a list of virtual variants sku with requireAmount
-                            virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : variant.productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : currentCatalogId])
+                            virtualVariantsRes = runService('getAssociatedProducts', [productIdTo: variant.productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: currentCatalogId])
                             virtualVariants = virtualVariantsRes.assocProducts
 
                             if(virtualVariants){
@@ -518,7 +518,7 @@ if (product) {
             jsBuf.append("<script type=\"application/javascript\">")
 
             // make a list of variant sku with requireAmount
-            virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : 'ALTERNATIVE_PACKAGE', checkViewAllow : true, prodCatalogId : categoryId])
+            virtualVariantsRes = runService('getAssociatedProducts', [productIdTo: productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: categoryId])
             virtualVariants = virtualVariantsRes.assocProducts
             // Format to apply the currency code to the variant price in the javascript
             if (productStore) {
@@ -571,7 +571,7 @@ if (product) {
 
     // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
     if (isMarketingPackage) {
-        resultOutput = runService('getMktgPackagesAvailable', [productId : productId])
+        resultOutput = runService('getMktgPackagesAvailable', [productId: productId])
         availableInventory = resultOutput.availableToPromiseTotal
     } else {
         //get last inventory count from product facility for the product
@@ -588,22 +588,22 @@ if (product) {
     context.availableInventory = availableInventory
 
     // get product associations
-    alsoBoughtProducts = runService('getAssociatedProducts', [productId : productId, type : 'ALSO_BOUGHT', checkViewAllow : true, prodCatalogId : currentCatalogId, bidirectional : false, sortDescending : true])
+    alsoBoughtProducts = runService('getAssociatedProducts', [productId: productId, type: 'ALSO_BOUGHT', checkViewAllow: true, prodCatalogId: currentCatalogId, bidirectional: false, sortDescending: true])
     context.alsoBoughtProducts = alsoBoughtProducts.assocProducts
 
-    obsoleteProducts = runService('getAssociatedProducts', [productId : productId, type : 'PRODUCT_OBSOLESCENCE', checkViewAllow : true, prodCatalogId : currentCatalogId])
+    obsoleteProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_OBSOLESCENCE', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.obsoleteProducts = obsoleteProducts.assocProducts
 
-    crossSellProducts = runService('getAssociatedProducts', [productId : productId, type : 'PRODUCT_COMPLEMENT', checkViewAllow : true, prodCatalogId : currentCatalogId])
+    crossSellProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_COMPLEMENT', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.crossSellProducts = crossSellProducts.assocProducts
 
-    upSellProducts = runService('getAssociatedProducts', [productId : productId, type : 'PRODUCT_UPGRADE', checkViewAllow : true, prodCatalogId : currentCatalogId])
+    upSellProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_UPGRADE', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.upSellProducts = upSellProducts.assocProducts
 
-    obsolenscenseProducts = runService('getAssociatedProducts', [productIdTo : productId, type : 'PRODUCT_OBSOLESCENCE', checkViewAllow : true, prodCatalogId : currentCatalogId])
+    obsolenscenseProducts = runService('getAssociatedProducts', [productIdTo: productId, type: 'PRODUCT_OBSOLESCENCE', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.obsolenscenseProducts = obsolenscenseProducts.assocProducts
 
-    accessoryProducts = runService('getAssociatedProducts', [productId : productId, type : 'PRODUCT_ACCESSORY', checkViewAllow : true, prodCatalogId : currentCatalogId])
+    accessoryProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_ACCESSORY', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.accessoryProducts = accessoryProducts.assocProducts
 
     // get the DIGITAL_DOWNLOAD related Content records to show the contentName/description
@@ -611,7 +611,7 @@ if (product) {
     context.downloadProductContentAndInfoList = downloadProductContentAndInfoList
 
     // not the best to save info in an action, but this is probably the best place to count a view; it is done async
-    dispatcher.runAsync('countProductView', [productId : productId, weight : new Long(1)], false)
+    dispatcher.runAsync('countProductView', [productId: productId, weight: new Long(1)], false)
 
     //get product image from image management
     productImageList = []
@@ -639,7 +639,7 @@ if (product) {
     }
 
     // get product tags
-    productKeywords = from('ProductKeyword').where('productId': productId, 'keywordTypeId' : 'KWT_TAG', 'statusId' : 'KW_APPROVED').queryList()
+    productKeywords = from('ProductKeyword').where('productId': productId, 'keywordTypeId': 'KWT_TAG', 'statusId': 'KW_APPROVED').queryList()
     keywordMap = [:]
     if (productKeywords) {
         for (productKeyword in productKeywords) {

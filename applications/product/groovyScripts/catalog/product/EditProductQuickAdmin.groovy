@@ -119,7 +119,7 @@ if (product) {
     productFeatureAndAppls = product.getRelated('ProductFeatureAndAppl', null, null, false)
 
     // get standard features for this product
-    standardFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureApplTypeId : 'STANDARD_FEATURE'])
+    standardFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureApplTypeId: 'STANDARD_FEATURE'])
     productFeatureTypeLookup = [:]
     standardFeatureLookup = [:]
     Iterator standardFeatureApplIter = standardFeatureAppls.iterator()
@@ -133,7 +133,7 @@ if (product) {
     context.standardFeatureAppls = standardFeatureAppls
 
     // get selectable features for this product
-    List selectableFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureApplTypeId : 'SELECTABLE_FEATURE'])
+    List selectableFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
     selectableFeatureLookup = [:]
     // get feature types that are deleteable from selectable features section
     Set selectableFeatureTypes = new HashSet()
@@ -166,7 +166,7 @@ if (product) {
 
 
     // get shipping dimensions and weights for single product
-    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ozUS'])
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'VLIQ_ozUS'])
     if (prodFeaturesFiltered) {
         try {
             floz = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified')
@@ -175,7 +175,7 @@ if (product) {
         }
         context.floz = floz
     }
-    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ml'])
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'VLIQ_ml'])
     if (prodFeaturesFiltered) {
         try {
             ml = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified')
@@ -184,7 +184,7 @@ if (product) {
         }
         context.ml = ml
     }
-    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_g'])
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'WT_g'])
     if (prodFeaturesFiltered) {
         try {
             grams = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified')
@@ -193,7 +193,7 @@ if (product) {
         }
         context.grams = grams
     }
-    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_oz'])
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'WT_oz'])
     if (prodFeaturesFiltered) {
         try {
             ntwt = ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified')
@@ -202,7 +202,7 @@ if (product) {
         }
         context.ntwt = ntwt
     }
-    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : 'HAZMAT'])
+    prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: 'HAZMAT'])
     if (prodFeaturesFiltered) {
         try {
             hazmat = ((GenericValue)prodFeaturesFiltered.get(0)).getString('description')
@@ -227,7 +227,7 @@ if (product) {
     context.thrudate = thrudate
 
     // get all variants - associations first
-    productAssocs = product.getRelated('MainProductAssoc', [productAssocTypeId : 'PRODUCT_VARIANT'], null, false)
+    productAssocs = product.getRelated('MainProductAssoc', [productAssocTypeId: 'PRODUCT_VARIANT'], null, false)
     Iterator productAssocIter = productAssocs.iterator()
     // get shipping dimensions and weights for all the variants
     while (productAssocIter) {
@@ -237,23 +237,23 @@ if (product) {
         if (assocProduct) {
             assocProducts.add(assocProduct)
             assocProductFeatureAndAppls = assocProduct.getRelated('ProductFeatureAndAppl', null, null, false)
-            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ozUS'])
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'VLIQ_ozUS'])
             if (prodFeaturesFiltered) {
                 featureFloz.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified'))
             }
-            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'VLIQ_ml'])
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'VLIQ_ml'])
             if (prodFeaturesFiltered) {
                 featureMl.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified'))
             }
-            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_g'])
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'WT_g'])
             if (prodFeaturesFiltered) {
                 featureGrams.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified'))
             }
-            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'AMOUNT', uomId : 'WT_oz'])
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'WT_oz'])
             if (prodFeaturesFiltered) {
                 featureNtwt.put(assocProduct.productId, ((GenericValue)prodFeaturesFiltered.get(0)).getBigDecimal('numberSpecified'))
             }
-            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : 'HAZMAT'])
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: 'HAZMAT'])
             if (prodFeaturesFiltered) {
                 featureHazmat.put(assocProduct.productId,
                     ((GenericValue)prodFeaturesFiltered.get(0)).getString('description'))
@@ -277,11 +277,11 @@ if (product) {
                 featureThruDate.put(assocProduct.productId, "<span style='color: red'>[x]</span>")
             }
 
-            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId : productFeatureTypeId])
+            prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: productFeatureTypeId])
             if (prodFeaturesFiltered) {
                 // this is used for the selectable feature descriptions section; only include here iff the description is also associated with the virtual product as a selectable feature, ie if this is a distinguishing feature
                 String curSelDescription = ((GenericValue) prodFeaturesFiltered.get(0)).getString('description')
-                testProductFeatureAndAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId : productFeatureTypeId, description : curSelDescription, productFeatureApplTypeId : 'SELECTABLE_FEATURE'])
+                testProductFeatureAndAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: productFeatureTypeId, description: curSelDescription, productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
                 if (testProductFeatureAndAppls) {
                     selFeatureDesc.put(assocProduct.productId, curSelDescription)
                 }

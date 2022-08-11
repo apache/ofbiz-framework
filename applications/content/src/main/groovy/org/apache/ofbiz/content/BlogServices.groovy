@@ -33,67 +33,67 @@ def createBlogEntry() {
         return error(label('ContentUiLabels', 'ContentArticleNameIsMissing'))
     }
     Map serviceResult = run service: 'createContent',
-            with: [dataResourceId    : parameters.templateDataResourceId,
+            with: [dataResourceId: parameters.templateDataResourceId,
                    contentAssocTypeId: 'PUBLISH_LINK',
-                   contentName       : parameters.contentName,
-                   description       : parameters.description,
-                   statusId          : parameters.statusId,
-                   contentIdFrom     : contentIdFrom,
-                   partyId           : userLogin.partyId,
-                   ownerContentId    : ownerContentId,
+                   contentName: parameters.contentName,
+                   description: parameters.description,
+                   statusId: parameters.statusId,
+                   contentIdFrom: contentIdFrom,
+                   partyId: userLogin.partyId,
+                   ownerContentId: ownerContentId,
                    dataTemplateTypeId: 'SCREEN_COMBINED',
-                   mapKey            : 'MAIN']
+                   mapKey: 'MAIN']
     contentIdFrom = serviceResult.contentId
 
     if (parameters._uploadedFile_fileName) {
         run service: 'createContentFromUploadedFile',
                 with: [
-                        dataResourceTypeId       : 'LOCAL_FILE',
-                        dataTemplateTypeId       : 'NONE',
-                        mapKey                   : 'IMAGE',
-                        ownerContentId           : ownerContentId,
-                        contentName              : parameters.contentName,
-                        description              : parameters.description,
-                        statusId                 : parameters.statusId,
-                        contentAssocTypeId       : 'SUB_CONTENT',
-                        contentIdFrom            : contentIdFrom,
-                        partyId                  : userLogin.partyId,
-                        isPublic                 : 'Y',
-                        uploadedFile             : parameters.uploadedFile,
-                        _uploadedFile_fileName   : parameters._uploadedFile_fileName,
+                        dataResourceTypeId: 'LOCAL_FILE',
+                        dataTemplateTypeId: 'NONE',
+                        mapKey: 'IMAGE',
+                        ownerContentId: ownerContentId,
+                        contentName: parameters.contentName,
+                        description: parameters.description,
+                        statusId: parameters.statusId,
+                        contentAssocTypeId: 'SUB_CONTENT',
+                        contentIdFrom: contentIdFrom,
+                        partyId: userLogin.partyId,
+                        isPublic: 'Y',
+                        uploadedFile: parameters.uploadedFile,
+                        _uploadedFile_fileName: parameters._uploadedFile_fileName,
                         _uploadedFile_contentType: parameters._uploadedFile_contentType]
     }
     if (parameters.articleData) {
         run service: 'createTextContent',
                 with: [
-                        dataResourceTypeId  : 'ELECTRONIC_TEXT',
+                        dataResourceTypeId: 'ELECTRONIC_TEXT',
                         contentPurposeTypeId: 'ARTICLE',
-                        dataTemplateTypeId  : 'NONE',
-                        mapKey              : 'MAIN',
-                        ownerContentId      : ownerContentId,
-                        contentName         : parameters.contentName,
-                        description         : parameters.description,
-                        statusId            : parameters.statusId,
-                        contentAssocTypeId  : 'SUB_CONTENT',
-                        textData            : parameters.articleData,
-                        contentIdFrom       : contentIdFrom,
-                        partyId             : userLogin.partyId,
-                        mapKey              : 'ARTICLE']
+                        dataTemplateTypeId: 'NONE',
+                        mapKey: 'MAIN',
+                        ownerContentId: ownerContentId,
+                        contentName: parameters.contentName,
+                        description: parameters.description,
+                        statusId: parameters.statusId,
+                        contentAssocTypeId: 'SUB_CONTENT',
+                        textData: parameters.articleData,
+                        contentIdFrom: contentIdFrom,
+                        partyId: userLogin.partyId,
+                        mapKey: 'ARTICLE']
     }
     if (parameters.summaryData) {
         run service: 'createTextContent',
                 with: [
                         dataResourceTypeId: 'ELECTRONIC_TEXT',
                         dataTemplateTypeId: 'NONE',
-                        mapKey            : 'SUMMARY',
-                        ownerContentId    : ownerContentId,
-                        contentName       : parameters.contentName,
-                        description       : parameters.description,
-                        statusId          : parameters.statusId,
+                        mapKey: 'SUMMARY',
+                        ownerContentId: ownerContentId,
+                        contentName: parameters.contentName,
+                        description: parameters.description,
+                        statusId: parameters.statusId,
                         contentAssocTypeId: 'SUB_CONTENT',
-                        textData          : parameters.summaryData,
-                        contentIdFrom     : contentIdFrom,
-                        partyId           : userLogin.partyId]
+                        textData: parameters.summaryData,
+                        contentIdFrom: contentIdFrom,
+                        partyId: userLogin.partyId]
     }
     return success([blogContentId: ownerContentId, contentId: contentIdFrom])
 }
@@ -131,10 +131,10 @@ def getBlogEntry() {
             }
 
     Map resultMap = [blogContentId: parameters.blogContentId,
-                     contentId    : content.contentId,
-                     contentName  : content.contentName,
-                     description  : content.description,
-                     statusId     : content.statusId]
+                     contentId: content.contentId,
+                     contentName: content.contentName,
+                     description: content.description,
+                     statusId: content.statusId]
     if (imageContent) {
         resultMap.templateDataResourceId = content.dataResourceId
         resultMap.imageContentId = imageContent.contentId
@@ -159,8 +159,8 @@ def getBlogEntry() {
 def updateBlogEntry() {
     Map blog = run service: 'getBlogEntry', with: parameters
     if (['contentName', 'description', 'summaryData', 'templateDataResourceId', 'statusId']
-            .stream().anyMatch { blog[it] != parameters[it] }) {
-        run service: 'updateContent', with: [*             : parameters,
+            .stream().anyMatch { blog[ it ] != parameters[ it ] }) {
+        run service: 'updateContent', with: [*: parameters,
                                              dataResourceId: parameters.templateDataResourceId]
         if (parameters.statusId != blog.statusId
                 && blog.imageContentId) {
@@ -172,42 +172,42 @@ def updateBlogEntry() {
     if (!blog.articleText && parameters.articleData) {
         run service: 'createTextContent',
                 with: [
-                        dataResourceTypeId  : 'ELECTRONIC_TEXT',
+                        dataResourceTypeId: 'ELECTRONIC_TEXT',
                         contentPurposeTypeId: 'ARTICLE',
-                        dataTemplateTypeId  : 'NONE',
-                        mapKey              : 'MAIN',
-                        ownerContentId      : parameters.blogContentId,
-                        contentName         : parameters.contentName,
-                        description         : parameters.description,
-                        statusId            : parameters.statusId,
-                        contentAssocTypeId  : 'SUB_CONTENT',
-                        textData            : parameters.articleData,
-                        contentIdFrom       : blog.contentId,
-                        partyId             : userLogin.partyId,
-                        mapKey              : 'ARTICLE']
+                        dataTemplateTypeId: 'NONE',
+                        mapKey: 'MAIN',
+                        ownerContentId: parameters.blogContentId,
+                        contentName: parameters.contentName,
+                        description: parameters.description,
+                        statusId: parameters.statusId,
+                        contentAssocTypeId: 'SUB_CONTENT',
+                        textData: parameters.articleData,
+                        contentIdFrom: blog.contentId,
+                        partyId: userLogin.partyId,
+                        mapKey: 'ARTICLE']
     }
     if (blog.articleData && parameters.articleData != blog.articleData) {
         run service: 'updateElectronicText', with: [dataResourceId: blog.articleDataResourceId,
-                                                    textData      : parameters.articleData]
+                                                    textData: parameters.articleData]
     }
     if (!blog.summaryData && parameters.summaryData) {
         run service: 'createTextContent',
                 with: [
                         dataResourceTypeId: 'ELECTRONIC_TEXT',
                         dataTemplateTypeId: 'NONE',
-                        mapKey            : 'SUMMARY',
-                        ownerContentId    : parameters.blogContentId,
-                        contentName       : parameters.contentName,
-                        description       : parameters.description,
-                        statusId          : parameters.statusId,
+                        mapKey: 'SUMMARY',
+                        ownerContentId: parameters.blogContentId,
+                        contentName: parameters.contentName,
+                        description: parameters.description,
+                        statusId: parameters.statusId,
                         contentAssocTypeId: 'SUB_CONTENT',
-                        textData          : parameters.summaryData,
-                        contentIdFrom     : blog.contentId,
-                        partyId           : userLogin.partyId]
+                        textData: parameters.summaryData,
+                        contentIdFrom: blog.contentId,
+                        partyId: userLogin.partyId]
     }
     if (blog.summaryData && parameters.summaryData != blog.summaryData) {
         run service: 'updateElectronicText', with: [dataResourceId: blog.summaryDataResourceId,
-                                                    textData      : parameters.summaryData]
+                                                    textData: parameters.summaryData]
     }
 
     if (parameters._uploadedFile_fileName) {
@@ -222,19 +222,19 @@ def updateBlogEntry() {
         }
         run service: 'createContentFromUploadedFile',
                 with: [
-                        isPublic                 : 'Y',
-                        dataTemplateTypeId       : 'NONE',
-                        mapKey                   : 'IMAGE',
-                        dataResourceTypeId       : 'LOCAL_FILE',
-                        contentAssocTypeId       : 'SUB_CONTENT',
-                        ownerContentId           : parameters.blogContentId,
-                        contentName              : parameters.contentName,
-                        description              : parameters.description,
-                        statusId                 : parameters.statusId,
-                        contentIdFrom            : blog.contentId,
-                        partyId                  : userLogin.partyId,
-                        uploadedFile             : parameters.uploadedFile,
-                        _uploadedFile_fileName   : parameters._uploadedFile_fileName,
+                        isPublic: 'Y',
+                        dataTemplateTypeId: 'NONE',
+                        mapKey: 'IMAGE',
+                        dataResourceTypeId: 'LOCAL_FILE',
+                        contentAssocTypeId: 'SUB_CONTENT',
+                        ownerContentId: parameters.blogContentId,
+                        contentName: parameters.contentName,
+                        description: parameters.description,
+                        statusId: parameters.statusId,
+                        contentIdFrom: blog.contentId,
+                        partyId: userLogin.partyId,
+                        uploadedFile: parameters.uploadedFile,
+                        _uploadedFile_fileName: parameters._uploadedFile_fileName,
                         _uploadedFile_contentType: parameters._uploadedFile_contentType]
     }
     return success([blogContentId: parameters.blogContentId, contentId: blog.contentId])
@@ -255,19 +255,19 @@ def getOwnedOrPublishedBlogEntries() {
             .queryList()
             .each {
                 Map serviceResult = run service: 'genericContentPermission',
-                        with: [*             : it.getAllFields(),
+                        with: [*: it.getAllFields(),
                                ownerContentId: parameters.contentId,
-                               mainAction    : 'VIEW']
+                               mainAction: 'VIEW']
                 if (!serviceResult.hasPermission) {
                     serviceResult = run service: 'genericContentPermission',
-                            with: [*             : it.getAllFields(),
+                            with: [*: it.getAllFields(),
                                    ownerContentId: parameters.contentId,
-                                   mainAction    : 'UPDATE']
+                                   mainAction: 'UPDATE']
                 }
                 if (serviceResult.hasPermission) {
                     blogList << it
                 }
             }
-    return success([blogList     : blogList,
+    return success([blogList: blogList,
                     blogContentId: parameters.blogContentId])
 }

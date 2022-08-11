@@ -38,11 +38,11 @@ context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
 
 filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
-context.imageNameSmall  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'small' , id : productId])
-context.imageNameMedium = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'medium', id : productId])
-context.imageNameLarge  = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'large' , id : productId])
-context.imageNameDetail = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'detail', id : productId])
-context.imageNameOriginal = imageUrlPrefix + '/' + filenameExpander.expandString([location : 'products', type : 'original', id : productId])
+context.imageNameSmall = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', type: 'small', id: productId])
+context.imageNameMedium = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', type: 'medium', id: productId])
+context.imageNameLarge = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', type: 'large', id: productId])
+context.imageNameDetail = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', type: 'detail', id: productId])
+context.imageNameOriginal = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'products', type: 'original', id: productId])
 
 // Start ProductContent stuff
 productContent = null
@@ -73,7 +73,7 @@ if (fileType) {
 
     context.fileType = fileType
 
-    fileLocation = filenameExpander.expandString([location : 'products', type : fileType, id : productId])
+    fileLocation = filenameExpander.expandString([location: 'products', type: fileType, id: productId])
     filePathPrefix = ''
     filenameToUse = fileLocation
     if (fileLocation.lastIndexOf('/') != -1) {

@@ -30,7 +30,7 @@ invoiceItemTypes = from('InvoiceItemType').where(exprBldr.LIKE(invoiceItemTypeId
 context.invoiceItemTypes = invoiceItemTypes.collect { invoiceItemType ->
     defaultAccount = true
     glAccount = null
-    invoiceItemTypeOrgs = invoiceItemType.getRelated('InvoiceItemTypeGlAccount', [organizationPartyId : organizationPartyId], null, false)
+    invoiceItemTypeOrgs = invoiceItemType.getRelated('InvoiceItemTypeGlAccount', [organizationPartyId: organizationPartyId], null, false)
     overrideGlAccountId = null
     if (invoiceItemTypeOrgs) {
         invoiceItemTypeOrg = invoiceItemTypeOrgs[0]
@@ -45,10 +45,10 @@ context.invoiceItemTypes = invoiceItemTypes.collect { invoiceItemType ->
         glAccount = invoiceItemType.getRelatedOne('DefaultGlAccount', false)
     }
 
-    return [invoiceItemTypeId : invoiceItemType.invoiceItemTypeId,
-                  description : invoiceItemType.description,
-                  defaultGlAccountId : invoiceItemType.defaultGlAccountId,
-                  overrideGlAccountId : overrideGlAccountId,
-                  defaultAccount : defaultAccount,
-                  activeGlDescription : glAccount?.accountName]
+    return [invoiceItemTypeId: invoiceItemType.invoiceItemTypeId,
+            description: invoiceItemType.description,
+            defaultGlAccountId: invoiceItemType.defaultGlAccountId,
+            overrideGlAccountId: overrideGlAccountId,
+            defaultAccount: defaultAccount,
+            activeGlDescription: glAccount?.accountName]
 }

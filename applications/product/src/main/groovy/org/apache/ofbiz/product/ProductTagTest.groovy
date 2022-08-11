@@ -58,11 +58,11 @@ class ProductTagTest extends OFBizTestCase {
         assert productKeyword.statusId == 'KW_PENDING'
         // Step 3
         Map updateProductKeywordMap = [
-                userLogin : systemUserLogin,
-                productId : 'GZ-1000',
-                keyword : 'test',
-                keywordTypeId : 'KWT_TAG',
-                statusId : 'KW_APPROVED',
+                userLogin: systemUserLogin,
+                productId: 'GZ-1000',
+                keyword: 'test',
+                keywordTypeId: 'KWT_TAG',
+                statusId: 'KW_APPROVED',
         ]
         Map resultMap = dispatcher.runSync('updateProductKeyword', updateProductKeywordMap)
         assert ServiceUtil.isSuccess(resultMap)
@@ -94,11 +94,11 @@ class ProductTagTest extends OFBizTestCase {
         List<GenericValue> checkAllProductKeywordApproveList = from('ProductKeyword').where('productId', 'GZ-1000', 'statusId', 'KW_PENDING', 'keywordTypeId', 'KWT_TAG').queryList()
         for (GenericValue checkAllProductKeywordApprove : checkAllProductKeywordApproveList) {
             updateProductKeywordMap = [
-                    userLogin : systemUserLogin,
-                    productId : checkAllProductKeywordApprove.productId,
-                    keyword : checkAllProductKeywordApprove.keyword,
-                    keywordTypeId : checkAllProductKeywordApprove.keywordTypeId,
-                    statusId : 'KW_APPROVED',
+                    userLogin: systemUserLogin,
+                    productId: checkAllProductKeywordApprove.productId,
+                    keyword: checkAllProductKeywordApprove.keyword,
+                    keywordTypeId: checkAllProductKeywordApprove.keywordTypeId,
+                    statusId: 'KW_APPROVED',
             ]
             resultMap = dispatcher.runSync('updateProductKeyword', updateProductKeywordMap)
             assert ServiceUtil.isSuccess(resultMap)

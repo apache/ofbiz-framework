@@ -23,6 +23,6 @@ taskInfos = []
 tasks = from('WorkEffort').where('workEffortParentId', productionRunId, 'workEffortTypeId', 'PROD_ORDER_TASK').orderBy('workEffortId').queryList()
 tasks.each { task ->
     records = from('InventoryItemDetail').where('workEffortId', task.workEffortId).queryList()
-    taskInfos.add([task : task, records : records])
+    taskInfos.add([task: task, records: records])
 }
 context.taskInfos = taskInfos

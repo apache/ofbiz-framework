@@ -110,17 +110,17 @@ if (orderId) {
                 context.productStoreId = productStoreId
                 shipments = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryList()
                 if (shipments) {
-                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorAllItemsOfOrderAreAlreadyVerified', [orderId : orderId], locale))
+                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorAllItemsOfOrderAreAlreadyVerified', [orderId: orderId], locale))
                 }
             } else {
                 request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('ProductErrorUiLabels', 'ProductErrorNoShipGroupSequenceIdFoundCannotProcess', locale))
             }
         } else {
             context.isOrderStatusApproved = false
-            request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPicking', [orderId : orderId], locale))
+            request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPicking', [orderId: orderId], locale))
         }
     } else {
-        request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId : orderId], locale))
+        request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId: orderId], locale))
     }
 }
 context.verifyPickSession = verifyPickSession

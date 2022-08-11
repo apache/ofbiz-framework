@@ -86,10 +86,10 @@ def getInvoicePaymentInfoList() {
     for (invoiceTerm in invoiceTerms) {
         GenericValue termType = from('TermType').where('termTypeId', invoiceTerm.termTypeId).cache().queryOne()
         if ('FIN_PAYMENT_TERM' == termType.parentTypeId) {
-            Map invoicePaymentInfo = [invoiceId    : invoice.invoiceId,
+            Map invoicePaymentInfo = [invoiceId: invoice.invoiceId,
                                       invoiceTermId: invoiceTerm.invoiceTermId,
-                                      termTypeId   : invoiceTerm.termTypeId,
-                                      dueDate      : UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)]
+                                      termTypeId: invoiceTerm.termTypeId,
+                                      dueDate: UtilDateTime.getDayEnd(invoice.invoiceDate, invoiceTerm.termDays)]
 
             BigDecimal invoiceTermAmount = (invoiceTerm.termValue * invoiceTotalAmount ) / 100
             invoicePaymentInfo.amount = invoiceTermAmount
@@ -187,15 +187,15 @@ def createPaymentAndApplicationForParty() {
     if (paymentAmount > 0) {
         Map serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
         if (ServiceUtil.isError(serviceResult)) return serviceResult
-        serviceResult = run service: 'createPayment', with: [paymentTypeId      : 'VENDOR_PAYMENT',
-                                                             partyIdFrom        : parameters.organizationPartyId,
-                                                             currencyUomId      : serviceResult.partyAccountingPreference.baseCurrencyUomId,
-                                                             partyIdTo          : parameters.partyId,
-                                                             statusId           : 'PMNT_SENT',
-                                                             amount             : paymentAmount,
+        serviceResult = run service: 'createPayment', with: [paymentTypeId: 'VENDOR_PAYMENT',
+                                                             partyIdFrom: parameters.organizationPartyId,
+                                                             currencyUomId: serviceResult.partyAccountingPreference.baseCurrencyUomId,
+                                                             partyIdTo: parameters.partyId,
+                                                             statusId: 'PMNT_SENT',
+                                                             amount: paymentAmount,
                                                              paymentMethodTypeId: parameters.paymentMethodTypeId,
-                                                             paymentMethodId    : parameters.paymentMethodId,
-                                                             paymentRefNum      : parameters.checkStartNumber]
+                                                             paymentMethodId: parameters.paymentMethodId,
+                                                             paymentRefNum: parameters.checkStartNumber]
         if (ServiceUtil.isError(serviceResult)) return serviceResult
         paymentId = serviceResult.paymentId
 
@@ -205,18 +205,18 @@ def createPaymentAndApplicationForParty() {
                 if (ServiceUtil.isError(serviceResult)) return serviceResult
                 Map invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
                 if (invoicePaymentInfo.outstandingAmount > 0) {
-                    serviceResult = run service: 'createPaymentApplication', with: [paymentId    : paymentId,
+                    serviceResult = run service: 'createPaymentApplication', with: [paymentId: paymentId,
                                                                                     amountApplied: invoicePaymentInfo.outstandingAmount,
-                                                                                    invoiceId    : invoice.invoiceId]
+                                                                                    invoiceId: invoice.invoiceId]
                     if (ServiceUtil.isError(serviceResult)) return serviceResult
                 }
             }
             invoiceIds << invoice.invoiceId
         }
     }
-    return success([paymentId : paymentId,
+    return success([paymentId: paymentId,
                     invoiceIds: invoiceIds,
-                    amount    : paymentAmount])
+                    amount: paymentAmount])
 }
 
 def checkAndCreateBatchForValidPayments() {
@@ -271,8 +271,8 @@ def createPaymentContent() {
     Map result = run service: 'updateContent', with: parameters
     if (ServiceUtil.isError(result)) return result
 
-    return success([contentId           : newEntity.contentId,
-                    paymentId           : newEntity.paymentId,
+    return success([contentId: newEntity.contentId,
+                    paymentId: newEntity.paymentId,
                     paymentContentTypeId: newEntity.paymentContentTypeId])
 }
 
@@ -292,7 +292,7 @@ def updatePaymentContent() {
 def massChangePaymentStatus() {
     parameters.paymentIds.each{ paymentId ->
         Map result = run service: 'setPaymentStatus', with: [paymentId: paymentId,
-                                                             statusId : parameters.statusId]
+                                                             statusId: parameters.statusId]
         if (ServiceUtil.isError(result)) return result
     }
     return success()
@@ -344,7 +344,7 @@ def voidPayment() {
     }
     String paymentId = payment.paymentId
     Map paymentStatusCtx = [paymentId: paymentId,
-                            statusId : 'PMNT_VOID']
+                            statusId: 'PMNT_VOID']
     run service: 'setPaymentStatus', with: paymentStatusCtx
     from('PaymentApplication')
             .where(paymentId: paymentId)
@@ -352,7 +352,7 @@ def voidPayment() {
             .each { it ->
                 Map invoice = from('Invoice').where(invoiceId: it.invoiceId).queryOne()
                 if (invoice.statusId == 'INVOICE_PAID') {
-                    run service: 'setInvoiceStatus', with: [*       : invoice.getAllFields(),
+                    run service: 'setInvoiceStatus', with: [*: invoice.getAllFields(),
                                                             paidDate: null,
                                                             statusId: 'INVOICE_READY']
                 }
@@ -365,13 +365,13 @@ def voidPayment() {
             .queryList()
             .each { it ->
                 Map result = run service: 'copyAcctgTransAndEntries', with: [fromAcctgTransId: it.acctgTransId,
-                                                                             revert          : 'Y']
+                                                                             revert: 'Y']
                 if (it.isPosted == 'Y') {
                     run service: 'postAcctgTrans', with: [acctgTransId: result.acctgTransId]
                 }
             }
     return success([finAccountTransId: payment.finAccountTransId,
-                    statusId         : 'FINACT_TRNS_CANCELED'])
+                    statusId: 'FINACT_TRNS_CANCELED'])
 }
 
 def getPaymentGroupReconciliationId() {
@@ -393,30 +393,30 @@ def createPaymentAndApplication() {
     Map createPaymentResp = run service: 'createPayment', with: parameters
     if (ServiceUtil.isError(createPaymentResp)) return createPaymentResp
 
-    Map createPaymentApplicationResp = run service: 'createPaymentApplication', with: [*            : parameters,
-                                                                                       paymentId    : createPaymentResp.paymentId,
+    Map createPaymentApplicationResp = run service: 'createPaymentApplication', with: [*: parameters,
+                                                                                       paymentId: createPaymentResp.paymentId,
                                                                                        amountApplied: parameters.amount]
     if (ServiceUtil.isError(createPaymentApplicationResp)) return createPaymentApplicationResp
 
-    return success([paymentId           : createPaymentResp.paymentId,
+    return success([paymentId: createPaymentResp.paymentId,
                     paymentApplicationId: createPaymentApplicationResp.paymentApplicationId])
 }
 
 def createFinAccoutnTransFromPayment() {
-    Map result = run service: 'createFinAccountTrans', with: [*                    : parameters,
+    Map result = run service: 'createFinAccountTrans', with: [*: parameters,
                                                               finAccountTransTypeId: 'WITHDRAWAL',
-                                                              partyId              : parameters.organizationPartyId,
-                                                              transactionDate      : UtilDateTime.nowTimestamp(),
-                                                              entryDate            : UtilDateTime.nowTimestamp(),
-                                                              statusId             : 'FINACT_TRNS_CREATED',
-                                                              comments             : "Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"]
+                                                              partyId: parameters.organizationPartyId,
+                                                              transactionDate: UtilDateTime.nowTimestamp(),
+                                                              entryDate: UtilDateTime.nowTimestamp(),
+                                                              statusId: 'FINACT_TRNS_CREATED',
+                                                              comments: "Pay to ${parameters.partyId} for invoice Ids - ${parameters.invoiceIds}"]
 
     if (ServiceUtil.isError(result)) {
         return result
     }
     String finAccountTransId = result.finAccountTransId
     result = run service: 'updatePayment', with: [finAccountTransId: finAccountTransId,
-                                                  paymentId        : parameters.paymentId]
+                                                  paymentId: parameters.paymentId]
     if (ServiceUtil.isError(result)) {
         return result
     }
@@ -427,7 +427,7 @@ def quickSendPayment() {
     Map updatePaymentResp = run service: 'updatePayment', with: parameters
     if (ServiceUtil.isError(updatePaymentResp)) return updatePaymentResp
 
-    Map setPaymentStatusResp = run service: 'setPaymentStatus', with: [*       : parameters,
+    Map setPaymentStatusResp = run service: 'setPaymentStatus', with: [*: parameters,
                                                                        statusId: 'PMNT_SENT']
     if (ServiceUtil.isError(setPaymentStatusResp)) return setPaymentStatusResp
 
@@ -454,7 +454,7 @@ def cancelPaymentBatch() {
             GenericValue finAccountTrans = from('FinAccountTrans').where('finAccountTransId', paymentGroupMember.finAccountTransId).queryOne()
             if (finAccountTrans) {
                 finAccountTrans.statusId = 'FINACT_TRNS_CANCELED'
-                result = run service: 'setFinAccountTransStatus', with: [*       : finAccountTrans.getAllFields(),
+                result = run service: 'setFinAccountTransStatus', with: [*: finAccountTrans.getAllFields(),
                                                                          statusId: 'FINACT_TRNS_CANCELED']
                 if (ServiceUtil.isError(result)) return result
             }
@@ -518,8 +518,8 @@ def createPaymentGroupAndMember() {
 
     parameters.paymentIds.each { paymentId ->
         result = run service: 'createPaymentGroupMember', with: [paymentGroupId: paymentGroupId,
-                                                                 fromDate      : parameters.fromDate,
-                                                                 paymentId     : paymentId]
+                                                                 fromDate: parameters.fromDate,
+                                                                 paymentId: paymentId]
         if (ServiceUtil.isError(result)) {
             return result
         }
@@ -549,17 +549,17 @@ def createPaymentAndPaymentGroupForInvoices() {
         if (parameters.checkStartNumber) {
             parameters.checkStartNumber = parameters.checkStartNumber + 1
         }
-        result = run service: 'createPaymentAndApplicationForParty', with: [*                  : parameters,
+        result = run service: 'createPaymentAndApplicationForParty', with: [*: parameters,
                                                                             paymentMethodTypeId: paymentMethod.paymentMethodTypeId,
-                                                                            finAccountId       : paymentMethod.finAccountId,
-                                                                            partyId            : partyId,
-                                                                            invoices           : invoice]
+                                                                            finAccountId: paymentMethod.finAccountId,
+                                                                            partyId: partyId,
+                                                                            invoices: invoice]
         paymentIds << result.paymentId
     }
     if (paymentIds) {
-        result = run service: 'createPaymentGroupAndMember', with: [paymentIds        : paymentIds,
+        result = run service: 'createPaymentGroupAndMember', with: [paymentIds: paymentIds,
                                                                     paymentGroupTypeId: 'CHECK_RUN',
-                                                                    paymentGroupName  : "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
+                                                                    paymentGroupName: "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
         paymentGroupId = result.paymentGroupId
     }
     if (!result.paymentGroupId) {
@@ -644,8 +644,8 @@ def createPaymentFromOrder() {
 
             /* get conversion rate from related invoice when exists */
             Map convertUomInMap = [originalValue: orderHeader.grandTotal,
-                                   uomId        : orderHeader.currencyUom,
-                                   uomIdTo      : partyAcctgPreference.baseCurrencyUomId]
+                                   uomId: orderHeader.currencyUom,
+                                   uomIdTo: partyAcctgPreference.baseCurrencyUomId]
             List<GenericValue> invoices = from('OrderItemBillingAndInvoiceAndItem')
                     .where(orderId: orderHeader.orderId)
                     .queryList()
@@ -742,9 +742,9 @@ def createPaymentApplication() {
     paymentAppl.paymentApplicationId = delegator.getNextSeqId('PaymentApplication')
     paymentAppl.create()
 
-    return success([amountApplied       : paymentAppl.amountApplied,
+    return success([amountApplied: paymentAppl.amountApplied,
                     paymentApplicationId: paymentAppl.paymentApplicationId,
-                    paymentTypeId       : payment.paymentTypeId])
+                    paymentTypeId: payment.paymentTypeId])
 }
 
 def setPaymentStatus() {
@@ -789,7 +789,7 @@ def setPaymentStatus() {
         GenericValue orderPayPref = payment.getRelatedOne('OrderPaymentPreference', false)
         if (orderPayPref) {
             run service: 'updateOrderPaymentPreference', with: [orderPaymentPreferenceId: orderPayPref.orderPaymentPreferenceId,
-                                                                statusId                : 'PAYMENT_CANCELLED']
+                                                                statusId: 'PAYMENT_CANCELLED']
         }
     }
 

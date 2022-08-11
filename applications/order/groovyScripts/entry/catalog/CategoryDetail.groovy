@@ -43,11 +43,11 @@ limitView = request.getAttribute('limitView') ?: true
 context.limitView = limitView
 
 // get the product category & members
-andMap = [productCategoryId : productCategoryId,
-        viewIndexString : viewIndex,
-        viewSizeString : viewSize,
-        defaultViewSize : defaultViewSize,
-        limitView : limitView]
+andMap = [productCategoryId: productCategoryId,
+          viewIndexString: viewIndex,
+          viewSizeString: viewSize,
+          defaultViewSize: defaultViewSize,
+          limitView: limitView]
 andMap.put('prodCatalogId', currentCatalogId)
 andMap.put('checkViewAllow', true)
 // Prevents out of stock product to be displayed on site

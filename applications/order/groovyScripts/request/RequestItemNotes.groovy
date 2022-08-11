@@ -22,7 +22,7 @@ custRequestItemSeqId = parameters.custRequestItemSeqId
 showAll = parameters.showAll ?: 'false'
 context.showAll = showAll
 
-fields = [custRequestId : custRequestId]
+fields = [custRequestId: custRequestId]
 if ('false'.equals(showAll)) {
     fields.custRequestItemSeqId = custRequestItemSeqId
 }

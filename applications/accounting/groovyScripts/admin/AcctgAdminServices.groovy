@@ -28,7 +28,7 @@ import org.apache.ofbiz.service.ModelService
 
 def createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
-    partyRole = select().from('PartyRole').where([partyId:parameters.partyId,roleTypeId:'INTERNAL_ORGANIZATIO']).queryOne()
+    partyRole = select().from('PartyRole').where([partyId: parameters.partyId, roleTypeId: 'INTERNAL_ORGANIZATIO']).queryOne()
     if (!partyRole) {
         String errorMessage = UtilProperties.getMessage('AccountingUiLabels','AccountingPartyMustBeInternalOrganization', locale)
         logError(errorMessage)
@@ -49,7 +49,7 @@ def getPartyAccountingPreferences() {
     Boolean containsEmptyFields = true
 
     while (currentOrganizationPartyId && containsEmptyFields) {
-        GenericValue currentPartyAcctgPref = select().from('PartyAcctgPreference').where([partyId:currentOrganizationPartyId]).queryOne()
+        GenericValue currentPartyAcctgPref = select().from('PartyAcctgPreference').where([partyId: currentOrganizationPartyId]).queryOne()
         containsEmptyFields = false
         if (currentPartyAcctgPref) {
             for (String entityKey : currentPartyAcctgPref.keySet()) {
@@ -63,7 +63,10 @@ def getPartyAccountingPreferences() {
         } else {
             containsEmptyFields = true
         }
-        List<GenericValue> parentPartyRelationships = select().from('PartyRelationship').where([partyIdTo:currentOrganizationPartyId, partyRelationshipTypeId:'GROUP_ROLLUP', roleTypeIdFrom:'_NA_', roleTypeIdTo:'_NA_']).filterByDate().queryList()
+        List<GenericValue> parentPartyRelationships = select().from('PartyRelationship')
+                .where([partyIdTo: currentOrganizationPartyId, partyRelationshipTypeId: 'GROUP_ROLLUP', roleTypeIdFrom: '_NA_',
+                        roleTypeIdTo: '_NA_'])
+                .filterByDate().queryList()
         if (parentPartyRelationships) {
             GenericValue parentPartyRelationship = EntityUtil.getFirst(parentPartyRelationships)
             currentOrganizationPartyId = parentPartyRelationship.partyIdFrom

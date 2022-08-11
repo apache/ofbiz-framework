@@ -89,7 +89,7 @@ baseCurrencyUomId = null
 if (facility) {
     owner = facility.getRelatedOne('OwnerParty', false)
     if (owner) {
-        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute('userLogin')])
+        result = runService('getPartyAccountingPreferences', [organizationPartyId: owner.partyId, userLogin: request.getAttribute('userLogin')])
         if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
@@ -104,7 +104,7 @@ context.inventoryItemTypes = inventoryItemTypes
 
 // Populate the tracking map with shipment and order IDs
 if (!itemQuantitiesToReceive) {
-    itemQuantitiesToReceive = [_shipmentId : shipmentId, _orderId : orderId]
+    itemQuantitiesToReceive = [_shipmentId: shipmentId, _orderId: orderId]
 }
 
 
@@ -157,7 +157,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     // Update the unit cost with the converted value, if any
     if (baseCurrencyUomId && orderHeader.currencyUom) {
         if (product) {
-            result = runService('convertUom', [uomId : orderHeader.currencyUom, uomIdTo : baseCurrencyUomId, originalValue : orderItem.unitPrice])
+            result = runService('convertUom', [uomId: orderHeader.currencyUom, uomIdTo: baseCurrencyUomId, originalValue: orderItem.unitPrice])
             if (ServiceUtil.isSuccess(result)) {
                 orderItem.unitPrice = result.convertedValue
             }
@@ -193,7 +193,7 @@ productQtyToReceive = request.getParameter('quantity')
 context.newQuantity = productQtyToReceive
 
 if (productIdToReceive) {
-    List candidateOrderItems = EntityUtil.filterByAnd(orderItems, [productId : productIdToReceive])
+    List candidateOrderItems = EntityUtil.filterByAnd(orderItems, [productId: productIdToReceive])
 
     // If the productId as given isn't found in the order, try any goodIdentifications and use the first match
     if (!candidateOrderItems) {
@@ -202,7 +202,7 @@ if (productIdToReceive) {
             giit = goodIdentifications.iterator()
             while (giit.hasNext()) {
                 goodIdentification = giit.next()
-                candidateOrderItems = EntityUtil.filterByAnd(orderItems, [productId : goodIdentification.productId])
+                candidateOrderItems = EntityUtil.filterByAnd(orderItems, [productId: goodIdentification.productId])
                 if (candidateOrderItems) {
                     productIdToReceive = goodIdentification.productId
                     break

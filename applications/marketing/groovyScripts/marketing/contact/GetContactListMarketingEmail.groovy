@@ -24,9 +24,9 @@ if (!contactList && contactListId) {
 if (contactList) {
     ownerParty = contactList.getRelatedOne('OwnerParty', false)
     if (ownerParty) {
-        contactMechs = ownerParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId : 'MARKETING_EMAIL'], null, false)
+        contactMechs = ownerParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId: 'MARKETING_EMAIL'], null, false)
         if (!contactMechs) {
-            contactMechs = ownerParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId : 'PRIMARY_EMAIL'], null, false)
+            contactMechs = ownerParty.getRelated('PartyContactMechPurpose', [contactMechPurposeTypeId: 'PRIMARY_EMAIL'], null, false)
         }
 
         if (contactMechs) {

@@ -49,7 +49,7 @@ context.partyId = partyId
 
 // get the top level shopping lists for the party
 allShoppingLists = from('ShoppingList').where('partyId', partyId).queryList()
-shoppingLists = EntityUtil.filterByAnd(allShoppingLists, [parentShoppingListId : null])
+shoppingLists = EntityUtil.filterByAnd(allShoppingLists, [parentShoppingListId: null])
 context.allShoppingLists = allShoppingLists
 context.shoppingLists = shoppingLists
 
@@ -83,14 +83,16 @@ if (shoppingListId) {
                 product = shoppingListItem.getRelatedOne('Product', true)
 
                 // DEJ20050704 not sure about calculating price here, will have some bogus data when not in a store webapp
-                calcPriceOutMap = runService('calculateProductPrice', [product : product, quantity : shoppingListItem.quantity , currencyUomId : currencyUomId, userLogin : userLogin, productStoreId : shoppingList.productStoreId])
+                calcPriceOutMap = runService('calculateProductPrice', [product: product, quantity: shoppingListItem.quantity,
+                                                                       currencyUomId: currencyUomId, userLogin: userLogin,
+                                                                       productStoreId: shoppingList.productStoreId])
                 price = calcPriceOutMap.price
                 totalPrice = price * shoppingListItem.getDouble('quantity')
                 shoppingListItemTotal += totalPrice
 
                 productVariantAssocs = null
                 if ('Y'.equals(product.isVirtual)) {
-                    productVariantAssocs = product.getRelated('MainProductAssoc', [productAssocTypeId : 'PRODUCT_VARIANT'], ['sequenceNum'], true)
+                    productVariantAssocs = product.getRelated('MainProductAssoc', [productAssocTypeId: 'PRODUCT_VARIANT'], ['sequenceNum'], true)
                     productVariantAssocs = EntityUtil.filterByDate(productVariantAssocs)
                 }
 
@@ -129,7 +131,7 @@ if (shoppingListId) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size())
             childShoppingListDatas.each { childShoppingList ->
                 childShoppingListData = [:]
-                calcListPriceInMap = [shoppingListId : childShoppingList.shoppingListId , prodCatalogId : prodCatalogId , webSiteId : webSiteId, userLogin : userLogin]
+                calcListPriceInMap = [shoppingListId: childShoppingList.shoppingListId, prodCatalogId: prodCatalogId, webSiteId: webSiteId, userLogin: userLogin]
                 childShoppingListData.childShoppingList = childShoppingList
                 childShoppingListDatas.add(childShoppingListData)
             }

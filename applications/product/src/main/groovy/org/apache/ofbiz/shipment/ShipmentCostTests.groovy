@@ -69,16 +69,16 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculateSimpleShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'ROAD',
-                carrierPartyId      : 'UPS_SIMPLE',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_SIMPLE',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -87,16 +87,16 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculateSimpleShipmentCostPercentValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'AIR',
-                carrierPartyId      : 'UPS_SIMPLE',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_SIMPLE',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -105,16 +105,16 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculateWeightBreakShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'ROAD',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
 
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
@@ -122,16 +122,16 @@ class ShipmentCostTests extends OFBizTestCase {
         assertEquals 9d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'ROAD',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 100 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 100 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
 
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
@@ -139,16 +139,16 @@ class ShipmentCostTests extends OFBizTestCase {
         assertEquals 10d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'ROAD',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 1000 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 1000 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -157,48 +157,48 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculateQuantityBreakShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'AIR',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 12d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'AIR',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 100 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 100 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 13d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'AIR',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 1000 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 1000 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -207,48 +207,48 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculatePriceBreakShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 15d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 100 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 100 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 16d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 1000 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 1000 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -257,64 +257,64 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculatePriceAndWeightBreakShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 100 as BigDecimal,
-                shippableTotal      : 100 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 100 as BigDecimal,
+                shippableTotal: 100 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 18d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 100 as BigDecimal,
-                shippableTotal      : 1000 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 100 as BigDecimal,
+                shippableTotal: 1000 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 19d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 1000 as BigDecimal,
-                shippableTotal      : 100 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 1000 as BigDecimal,
+                shippableTotal: 100 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 20d, resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 1000 as BigDecimal,
-                shippableTotal      : 1000 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 1000 as BigDecimal,
+                shippableTotal: 1000 as BigDecimal,
+                userLogin: userLogin
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -323,16 +323,16 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testPriceBreakOverRangeAndFailedShipmentCost() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'LOCAL_DELIVERY',
-                carrierPartyId      : 'UPS_BREAK',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 100 as BigDecimal,
-                shippableTotal      : 100000 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_BREAK',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 100 as BigDecimal,
+                shippableTotal: 100000 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isFailure(resultMap)
@@ -340,17 +340,17 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculateMultipleWithPartyShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'ROAD',
-                carrierPartyId      : 'UPS_MULTI',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                partyId             : 'RECEIVER',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 10 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_MULTI',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                partyId: 'RECEIVER',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 10 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
@@ -359,17 +359,17 @@ class ShipmentCostTests extends OFBizTestCase {
 
     void testCalculateMultipleWithBreakShipmentCostFlatValue() {
         Map serviceCtx = [
-                shippableItemInfo   : [[:]],
-                shippingCountryCode : 'USA',
+                shippableItemInfo: [[:]],
+                shippingCountryCode: 'USA',
                 shipmentMethodTypeId: 'ROAD',
-                carrierPartyId      : 'UPS_MULTI',
-                carrierRoleTypeId   : 'CARRIER',
-                productStoreId      : 'ShipCost',
-                partyId             : 'RECEIVER',
-                shippableQuantity   : 10 as BigDecimal,
-                shippableWeight     : 10 as BigDecimal,
-                shippableTotal      : 100 as BigDecimal,
-                userLogin           : userLogin
+                carrierPartyId: 'UPS_MULTI',
+                carrierRoleTypeId: 'CARRIER',
+                productStoreId: 'ShipCost',
+                partyId: 'RECEIVER',
+                shippableQuantity: 10 as BigDecimal,
+                shippableWeight: 10 as BigDecimal,
+                shippableTotal: 100 as BigDecimal,
+                userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)

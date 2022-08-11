@@ -115,7 +115,7 @@ if (productionRunId) {
             }
             delivProducts = []
             if (templateTask) {
-                delivProducts = EntityUtil.filterByDate(templateTask.getRelated('WorkEffortGoodStandard', [workEffortGoodStdTypeId : 'PRUNT_PROD_DELIV'], null, false))
+                delivProducts = EntityUtil.filterByDate(templateTask.getRelated('WorkEffortGoodStandard', [workEffortGoodStdTypeId: 'PRUNT_PROD_DELIV'], null, false))
             }
             context.delivProducts = delivProducts
             // Get the list of delivered products, i.e. inventory items
