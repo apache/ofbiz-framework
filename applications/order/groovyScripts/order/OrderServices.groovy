@@ -20,6 +20,7 @@
 
 import groovy.time.TimeCategory
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 import java.sql.Timestamp
@@ -27,7 +28,7 @@ import java.sql.Timestamp
 /**
  * Service to get the next OrderId
  */
-def getNextOrderId() {
+Map getNextOrderId() {
     GenericValue partyAcctgPreference
     GenericValue customMethod
     String customMethodName
@@ -75,7 +76,7 @@ def getNextOrderId() {
 /**
  * Service to get Summary Information About Orders for a Customer
  */
-def getOrderedSummaryInformation() {
+Map getOrderedSummaryInformation() {
     /*
     // The permission checking is commented out to make this service work also when triggered from ecommerce
     if (!security.hasEntityPermission('ORDERMGR', '_VIEW', session && !parameters.partyId.equals(userLogin.partyId))) {
@@ -100,7 +101,7 @@ def getOrderedSummaryInformation() {
     //find the existing exchange rates
     exprBldr = new EntityConditionBuilder()
 
-    def condition = exprBldr.AND {
+    EntityCondition condition = exprBldr.AND {
         EQUALS(partyId: partyId)
         EQUALS(roleTypeId: roleTypeId)
         EQUALS(orderTypeId: orderTypeId)

@@ -30,7 +30,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Create/Update Customer, Shipping Address and other contact details.
  * @return
  */
-def createUpdateCustomerAndShippingAddress() {
+Map createUpdateCustomerAndShippingAddress() {
     Map result = success()
 
     List<String> messages = []
@@ -108,7 +108,7 @@ def createUpdateCustomerAndShippingAddress() {
  * Create/update billing address and payment information
  * @return
  */
-def createUpdateBillingAddressAndPaymentMethod() {
+Map createUpdateBillingAddressAndPaymentMethod() {
     Map result = success()
     List<String> messages = []
     Map billToPhoneContext = [:]
@@ -183,7 +183,7 @@ def createUpdateBillingAddressAndPaymentMethod() {
  * Set user login in the session
  * @return
  */
-def setAnonUserLogin() {
+Map setAnonUserLogin() {
     ShoppingCart shoppingCart = parameters.shoppingCart
     GenericValue userLogin = shoppingCart.getUserLogin()
     if (!userLogin) {

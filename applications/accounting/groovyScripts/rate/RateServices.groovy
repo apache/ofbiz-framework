@@ -29,7 +29,7 @@ import java.sql.Timestamp
 /**
  * Service to create a rate amount value, if a existing value is present expire it before
  */
-def updateRateAmount() {
+Map updateRateAmount() {
     GenericValue newEntity = delegator.makeValidValue('RateAmount', parameters)
     if (!newEntity.rateCurrencyUomId) {
         newEntity.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
@@ -61,7 +61,7 @@ def updateRateAmount() {
 /**
  * Service to expire a rate amount value
  */
-def expireRateAmount() {
+Map expireRateAmount() {
     GenericValue lookedUpValue = delegator.makeValidValue('RateAmount', parameters)
     if (!lookedUpValue.rateCurrencyUomId) {
         lookedUpValue.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
@@ -80,11 +80,11 @@ def expireRateAmount() {
  * Information to update the specific customer code after change service deleteRateAmount to expireRateAmount
  * @return
  */
-def deleteRateAmount() {
+Map deleteRateAmount() {
     return error('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')
 }
 
-def updatePartyRate() {
+Map updatePartyRate() {
     List<GenericValue> partyRates = from('PartyRate').where([partyId: partyId, rateTypeId: rateTypeId]).queryList()
     if (partyRates) {
         GenericValue partyRate = EntityUtil.getFirst(partyRates)
@@ -108,10 +108,10 @@ def updatePartyRate() {
     }
     return success()
 }
-def deletePartyRate() {
+Map deletePartyRate() {
     return error('delete party rate isn\'t possible, please update your code with service name "expirePartyRate" instead "deletePartyRate"')
 }
-def expirePartyRate() {
+Map expirePartyRate() {
     GenericValue lookedUpValue = from('PartyRate').where(parameters).queryOne()
     if (lookedUpValue) {
         lookedUpValue.thruDate = UtilDateTime.nowTimestamp()
@@ -128,7 +128,7 @@ def expirePartyRate() {
 }
 
 // Get the applicable rate amount value
-def getRateAmount() {
+Map getRateAmount() {
     /* Search for the applicable rate from most specific to most general in the RateAmount entity
     Defaults for periodTypeId is per hour and default currency is the currency in general.properties
     The order is:
@@ -200,7 +200,7 @@ def getRateAmount() {
 }
 
 //Generic fonction to resolve a rate amount from a pk field
-def getRatesAmountsFrom(String field) {
+Map getRatesAmountsFrom(String field) {
     String entityName = null
     if (field == 'workEffortId') entityName = 'WorkEffort'
     if (field == 'partyId') entityName = 'Party'
@@ -224,20 +224,20 @@ def getRatesAmountsFrom(String field) {
     return result
 }
 // Get all the rateAmount for a given workEffortId
-def getRatesAmountsFromWorkEffortId() {
+Map getRatesAmountsFromWorkEffortId() {
     return getRatesAmountsFrom('workEffortId')
 }
 // Get all the rateAmount for a given partyId
-def getRatesAmountsFromPartyId() {
+Map getRatesAmountsFromPartyId() {
     return getRatesAmountsFrom('partyId')
 }
 // Get all the rateAmount for a given emplPositionTypeId
-def getRatesAmountsFromEmplPositionTypeId() {
+Map getRatesAmountsFromEmplPositionTypeId() {
     return getRatesAmountsFrom('emplPositionTypeId')
 }
 
 //Filter a list of rateAmount. The result is the most heavily-filtered non-empty list
-def filterRateAmountList() {
+Map filterRateAmountList() {
     if (!parameters.ratesList) {
         logWarning('The list parameters.ratesList was empty, not processing any further')
         return success()

@@ -60,13 +60,13 @@ if (product) {
 }
 
 // Add imports for script.
-def importCustomizer = new ImportCustomizer()
+ImportCustomizer importCustomizer = new ImportCustomizer()
 importCustomizer.addImport('org.apache.ofbiz.entity.GenericValue')
 importCustomizer.addImport('org.apache.ofbiz.entity.model.ModelEntity')
 importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityCondition')
 importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityOperator')
 importCustomizer.addImport('org.apache.ofbiz.entity.util.EntityQuery')
-def configuration = new CompilerConfiguration()
+CompilerConfiguration configuration = new CompilerConfiguration()
 configuration.addCompilationCustomizers(importCustomizer)
 
 Binding binding = new Binding()
@@ -74,7 +74,7 @@ binding.setVariable('delegator', delegator)
 binding.setVariable('recordValues', recordValues)
 
 ClassLoader loader = Thread.currentThread().getContextClassLoader()
-def shell = new GroovyShell(loader, binding, configuration)
+GroovyShell shell = new GroovyShell(loader, binding, configuration)
 
 if (groovyProgram) {
     try {

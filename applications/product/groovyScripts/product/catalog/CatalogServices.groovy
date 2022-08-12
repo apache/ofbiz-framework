@@ -28,13 +28,13 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * get All categories
  */
-def getAllCategories() {
+Map getAllCategories() {
     String defaultTopCategoryId = parameters.topCategory ?: EntityUtilProperties.getPropertyValue('catalog', 'top.category.default', delegator)
     Map serviceRes = run service: 'getRelatedCategories', with: [parentProductCategoryId: defaultTopCategoryId]
     return serviceRes
 }
 
-def getRelatedCategories() {
+Map getRelatedCategories() {
     Map result = success()
     List categories = []
     List rollups = from('ProductCategoryRollup')
@@ -75,7 +75,7 @@ def getRelatedCategories() {
 /**
  * Check if image url exists or not for all categories
  */
-def checkImageUrlForAllCategories() {
+Map checkImageUrlForAllCategories() {
     Map result = success()
     Map gacRes = run service: 'getAllCategories', with: parameters
     List categories = gacRes.categories
@@ -97,7 +97,7 @@ def checkImageUrlForAllCategories() {
 /**
  * Check if image url exists or not for category and product
  */
-def checkImageUrlForCategoryAndProduct() {
+Map checkImageUrlForCategoryAndProduct() {
     Map result = success()
     Map gpcmRes = run service: 'getProductCategoryMembers', with: parameters
     List categoryMembers = gpcmRes.categoryMembers
@@ -173,7 +173,7 @@ def checkImageUrlForCategoryAndProduct() {
  * @param fileExists
  * @param fileNotExists
  */
-def fileImageExists(map, key, filesImageMap, fileExists, fileNotExists) {
+void fileImageExists(String map, String key, Map<?, ?> filesImageMap, List<?> fileExists, List<?> fileNotExists) {
     if (filesImageMap."${map}"?."${key}") {
         if ('Y' == filesImageMap."${map}".isExists) {
             fileExists.add(filesImageMap."${map}"."${key}")
@@ -187,7 +187,7 @@ def fileImageExists(map, key, filesImageMap, fileExists, fileNotExists) {
  * This service gets the category id and checks if
  * all the images of category exists or not
  */
-def checkImageUrlForCategory() {
+Map checkImageUrlForCategory() {
     Map result = success()
     Map filesImageMap = [:]
     GenericValue category = from('ProductCategory')
@@ -211,7 +211,7 @@ def checkImageUrlForCategory() {
 /**
  * Check if image url exists or not for product
  */
-def checkImageUrlForProduct() {
+Map checkImageUrlForProduct() {
     Map result = success()
     Map filesImageMap = [:]
     if (parameters.productId) {
@@ -240,7 +240,7 @@ def checkImageUrlForProduct() {
  * @param imageType
  * @return
  */
-def imageUrlCheck(prodOrCat, imageType, filesImageMap) {
+Map imageUrlCheck(GenericValue prodOrCat, String imageType, LinkedHashMap<Object, Object> filesImageMap) {
     if (prodOrCat."${imageType}") {
         Map res = run service: 'checkImageUrl', with: [imageUrl: prodOrCat."${imageType}"]
         String isExists = res.isExists
@@ -256,8 +256,8 @@ def imageUrlCheck(prodOrCat, imageType, filesImageMap) {
 /**
  * Check if image url exists or not
  */
-def checkImageUrl() {
-    def imageUrl = parameters.imageUrl
+Map checkImageUrl() {
+    String imageUrl = parameters.imageUrl
     boolean httpFlag = imageUrl.startsWith('http')
     boolean ftpFlag = imageUrl.startsWith('ftp')
     String url = httpFlag || ftpFlag
@@ -270,7 +270,7 @@ def checkImageUrl() {
 /**
  * Catalog permission logic
  */
-def catalogPermissionCheck() {
+Map catalogPermissionCheck() {
     parameters.primaryPermission = 'CATALOG'
     Map result = run service: 'genericBasePermissionCheck', with: parameters
     return result
@@ -279,7 +279,7 @@ def catalogPermissionCheck() {
 /**
  * ProdCatalogToParty permission logic
  */
-def prodCatalogToPartyPermissionCheck() {
+Map prodCatalogToPartyPermissionCheck() {
     parameters.altPermission = 'PARTYMGR'
     return catalogPermissionCheck()
 }
@@ -287,7 +287,7 @@ def prodCatalogToPartyPermissionCheck() {
 /**
  * create missing category and product alternative urls
  */
-def createMissingCategoryAndProductAltUrls() {
+Map createMissingCategoryAndProductAltUrls() {
     Timestamp now = UtilDateTime.nowTimestamp()
     Map result = success()
     result.prodCatalogId = parameters.prodCatalogId
@@ -398,7 +398,7 @@ def createMissingCategoryAndProductAltUrls() {
     return result
 }
 
-def createMissingCategoryAltUrlInline(parentProductCategoryId) {
+List createMissingCategoryAltUrlInline(String parentProductCategoryId) {
     List productCategoryRollupIds = from('ProductCategoryRollup')
             .where('parentProductCategoryId', parentProductCategoryId)
             .filterByDate()

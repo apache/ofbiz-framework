@@ -28,8 +28,8 @@ Locale locale = UtilHttp.getLocale(request)
 String serverName = request.getServerName()
 String serverLocal = serverName.substring(serverName.lastIndexOf('.') + 1)
 
-def nameLocal
-def productTextData
+String nameLocal
+String productTextData
 contentAssocs.each { contentAssoc ->
 
     content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()

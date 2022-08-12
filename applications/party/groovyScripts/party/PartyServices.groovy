@@ -33,7 +33,7 @@ import org.apache.ofbiz.party.party.PartyHelper
 /**
   * Save Party Name Change
   */
-def savePartyNameChange() {
+Map savePartyNameChange() {
     // for special case in ecommerce, if no partyId is passed in use userLogin.partyId
     if (!parameters.partyId) parameters.partyId = userLogin.partyId
 
@@ -67,7 +67,7 @@ def savePartyNameChange() {
 /**
  * Get Party Name For Date
  */
-def getPartyNameForDate() {
+Map getPartyNameForDate() {
     Map resultMap = success()
 
     List<GenericValue> partyNameHistoryList = from('PartyNameHistory')
@@ -118,7 +118,7 @@ def getPartyNameForDate() {
 /**
  * Get Postal Address Boundary
  */
-def getPostalAddressBoundary() {
+Map getPostalAddressBoundary() {
     Map resultMap = success()
 
     List<String> geoIds = from('PostalAddressBoundary')
@@ -136,7 +136,7 @@ def getPostalAddressBoundary() {
 /**
  * Create mass party identification with association between value and type
  */
-def createPartyIdentifications() {
+Map createPartyIdentifications() {
     Map resultMap = success()
 
     for (Map.Entry<String, String> entry : parameters.identifications.entrySet()) {
@@ -159,7 +159,7 @@ def createPartyIdentifications() {
 /**
  * Sets Party Profile Defaults
  */
-def setPartyProfileDefaults() {
+Map setPartyProfileDefaults() {
     if (!parameters.partyId) parameters.partyId = userLogin.partyId
 
     // lookup existing value
@@ -184,7 +184,7 @@ def setPartyProfileDefaults() {
 /**
  * Gets all parties related to partyIdFrom using the PartyRelationship entity
  */
-def getPartiesByRelationship() {
+Map getPartiesByRelationship() {
     Map resultMap = success()
 
     GenericValue lookupMap = makeValue('PartyRelationship')
@@ -203,7 +203,7 @@ def getPartiesByRelationship() {
 /**
  * Gets Parent Organizations for an Organization Party
  */
-def getParentOrganizations() {
+Map getParentOrganizations() {
     Map resultMap = success()
 
     List relatedPartyIdList = [parameters.organizationPartyId]
@@ -220,7 +220,7 @@ def getParentOrganizations() {
 /**
  * Get Parties Related to a Party
  */
-def getRelatedParties() {
+Map getRelatedParties() {
     Map resultMap = success()
 
     List relatedPartyIdList = [parameters.partyIdFrom]
@@ -234,7 +234,7 @@ def getRelatedParties() {
 /**
  * Get Child RoleTypes
  */
-def getChildRoleTypes () {
+Map getChildRoleTypes () {
     Map resultMap = success()
 
     Map res = getChildRoleTypesInline([parameters.roleTypeId])
@@ -246,7 +246,7 @@ def getChildRoleTypes () {
 /**
  * Get the email of the party
  */
-def getPartyEmail () {
+Map getPartyEmail () {
     Map resultMap = success()
 
     // First try to find primary email Address when not found get other email
@@ -279,7 +279,7 @@ def getPartyEmail () {
 /**
  * Get the telephone number of the party
  */
-def getPartyTelephone () {
+Map getPartyTelephone () {
     Map resultMap = success()
     Timestamp searchTimestamp = UtilDateTime.nowTimestamp()
     GenericValue telephone = null
@@ -337,7 +337,7 @@ def getPartyTelephone () {
 /**
  * Get the postal address of the party
  */
-def getPartyPostalAddress () {
+Map getPartyPostalAddress () {
     Map resultMap = success()
     GenericValue address = null
     Timestamp searchTimestamp = UtilDateTime.nowTimestamp()
@@ -396,7 +396,7 @@ def getPartyPostalAddress () {
 /**
   * Create an AddressMatchMap
   */
-def createAddressMatchMap() {
+Map createAddressMatchMap() {
     GenericValue newAddressMatchMap = makeValue('AddressMatchMap', parameters)
     if (parameters.mapKey)   newAddressMatchMap.mapKey = ((String) parameters.mapKey).toUpperCase(context.locale)
     if (parameters.mapValue) newAddressMatchMap.mapValue = ((String) parameters.mapValue).toUpperCase(context.locale)
@@ -407,7 +407,7 @@ def createAddressMatchMap() {
 /**
  * Remove all AddressMatchMap
  */
-def clearAddressMatchMap() {
+Map clearAddressMatchMap() {
     delegator.removeAll('AddressMatchMap')
     return success()
 }
@@ -415,7 +415,7 @@ def clearAddressMatchMap() {
 /**
  * Create a PartyRelationship
  */
-def createPartyRelationship() {
+Map createPartyRelationship() {
     if (!parameters.fromDate)       parameters.fromDate = UtilDateTime.nowTimestamp()
     if (!parameters.roleTypeIdFrom) parameters.roleTypeIdFrom = '_NA_'
     if (!parameters.roleTypeIdTo)   parameters.roleTypeIdTo = '_NA_'
@@ -439,7 +439,7 @@ def createPartyRelationship() {
 /**
  * Update a PartyRelationship
  */
-def updatePartyRelationship() {
+Map updatePartyRelationship() {
     if (!parameters.roleTypeIdFrom) parameters.roleTypeIdFrom = '_NA_'
     if (!parameters.roleTypeIdTo)   parameters.roleTypeIdTo = '_NA_'
 
@@ -456,7 +456,7 @@ def updatePartyRelationship() {
 /**
  * Delete a PartyRelationship
  */
-def deletePartyRelationship() {
+Map deletePartyRelationship() {
     if (!parameters.roleTypeIdFrom) parameters.roleTypeIdFrom = '_NA_'
     if (!parameters.roleTypeIdTo)   parameters.roleTypeIdTo = '_NA_'
 
@@ -472,7 +472,7 @@ def deletePartyRelationship() {
 /**
  * Create a company/contact relationship and add the related roles
  */
-def createPartyRelationshipContactAccount() {
+Map createPartyRelationshipContactAccount() {
     Map resultMap = success()
 
     Map roleMap = [partyId: parameters.accountPartyId, roleTypeId: 'ACCOUNT']
@@ -506,7 +506,7 @@ def createPartyRelationshipContactAccount() {
 /**
  * Notification email on party creation
  */
-def sendCreatePartyEmailNotification() {
+Map sendCreatePartyEmailNotification() {
     Map resultMap = success()
 
     Map lookupMap = [emailType: 'PARTY_REGIS_CONFIRM']
@@ -549,7 +549,7 @@ def sendCreatePartyEmailNotification() {
 /**
  * Send the Notification email on personal information update
  */
-def sendUpdatePersonalInfoEmailNotification() {
+Map sendUpdatePersonalInfoEmailNotification() {
     Map resultMap = success()
 
     Map lookupMap = [emailType: 'UPD_PRSNL_INF_CNFRM']
@@ -605,7 +605,7 @@ def sendUpdatePersonalInfoEmailNotification() {
 /**
  * Send the Notification email on account activated
  */
-def sendAccountActivatedEmailNotification() {
+Map sendAccountActivatedEmailNotification() {
     Map resultMap = success()
 
     Map lookupMap = [emailType: 'PRDS_CUST_ACTIVATED']
@@ -661,7 +661,7 @@ def sendAccountActivatedEmailNotification() {
 /**
  * Create and update a person
  */
-def createUpdatePerson() {
+Map createUpdatePerson() {
     Map resultMap = success()
     String partyId = parameters.partyId
 
@@ -686,7 +686,7 @@ def createUpdatePerson() {
 /**
  * Create customer profile on basis of First Name ,Last Name and Email Address
  */
-def quickCreateCustomer() {
+Map quickCreateCustomer() {
     Map resultMap = success()
 
     Map personContext = [:]
@@ -736,7 +736,7 @@ def quickCreateCustomer() {
 /**
  * Get the main role of this party which is a child of the MAIN_ROLE roletypeId
  */
-def getPartyMainRole() {
+Map getPartyMainRole() {
     Map resultMap = success()
 
     List<GenericValue> partyRoles = from('PartyRole')
@@ -781,7 +781,7 @@ def getPartyMainRole() {
  * recurse
  * useCache (should be "true" or "false")
  */
-def followPartyRelationshipsInline(List relatedPartyIdList,String partyRelationshipTypeId, String roleTypeIdFrom, String roleTypeIdFromIncludeAllChildTypes,
+Map followPartyRelationshipsInline(List relatedPartyIdList,String partyRelationshipTypeId, String roleTypeIdFrom, String roleTypeIdFromIncludeAllChildTypes,
     String roleTypeIdTo, String roleTypeIdToInclueAllChildTypes, String includeFromToSwitched, String recurse, String useCache ) {
     Map resultMap = success()
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -816,7 +816,7 @@ def followPartyRelationshipsInline(List relatedPartyIdList,String partyRelations
 /**
  * Follow PartyRelationships Recurse
  */
-def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTypeIdFromList, List roleTypeIdToList, String partyRelationshipTypeId,
+Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTypeIdFromList, List roleTypeIdToList, String partyRelationshipTypeId,
      String includeFromToSwitched, String recurse, Timestamp searchTimestamp, String useCache) {
 
     Map resultMap = success()
@@ -891,7 +891,7 @@ def followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
 /**
  * Get Child RoleTypes Inline
  */
-def getChildRoleTypesInline (List roleTypeIdListName) {
+Map getChildRoleTypesInline (List roleTypeIdListName) {
     Map resultMap = success()
     List newRoleTypeIdList = []
     List roleTypeIdAlreadySearchedList = []

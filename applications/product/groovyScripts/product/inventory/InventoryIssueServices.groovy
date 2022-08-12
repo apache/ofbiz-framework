@@ -24,7 +24,7 @@ import org.apache.ofbiz.entity.GenericValue
  * Issues the Inventory for an Order that was Immediately Fulfilled
  * @return
  */
-def issueImmediatelyFulfilledOrder() {
+Map issueImmediatelyFulfilledOrder() {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
 
     if (orderHeader) {
@@ -67,7 +67,7 @@ def issueImmediatelyFulfilledOrder() {
  * Issues the Inventory for an Order Item that was Immediately Fulfilled
  * @return
  */
-def issueImmediatelyFulfilledOrderItem() {
+Map issueImmediatelyFulfilledOrderItem() {
     GenericValue lastNonSerInventoryItem
     GenericValue orderItem = parameters.orderItem ?:
             from('OrderItem').where(parameters).queryOne()
@@ -172,7 +172,7 @@ def issueImmediatelyFulfilledOrderItem() {
  * Does a issuance for one InventoryItem, meant to be called in-line
  * @return
  */
-def issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
+GenericValue issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
     GenericValue lastNonSerInventoryItem
     // only do something with this inventoryItem if there is more inventory to issue
     if (parameters.quantityNotIssued > (BigDecimal.ZERO)) {

@@ -17,6 +17,8 @@
  * under the License.
  */
 
+
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtil
 
@@ -33,7 +35,7 @@ shipGroups = from('OrderItemShipGroup').where(findMap).orderBy('shipGroupSeqId')
 context.shipGroups = shipGroups
 
 // method to expand the marketing packages
-LinkedList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
+LinkedList expandProductGroup(GenericValue product, Object quantityInGroup, BigDecimal quantityShipped, Object quantityOpen, String assocType) {
     sublines = []
     associations = product.getRelated('MainProductAssoc', [productAssocTypeId: assocType], null, false)
     associations = EntityUtil.filterByDate(associations)

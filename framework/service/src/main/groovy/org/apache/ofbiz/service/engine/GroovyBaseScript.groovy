@@ -94,7 +94,7 @@ abstract class GroovyBaseScript extends Script {
         return binding.getVariable('delegator').makeValidValue(entityName, inputMap)
     }
 
-    EntityQuery from(def entity) {
+    EntityQuery from(String entity) {
         return EntityQuery.use(binding.getVariable('delegator')).from(entity)
     }
 
@@ -167,29 +167,29 @@ abstract class GroovyBaseScript extends Script {
         }
     }
 
-    def logInfo(String message) {
+    void logInfo(String message) {
         Debug.logInfo(message, getModule())
     }
-    def logWarning(String message) {
+    void logWarning(String message) {
         Debug.logWarning(message, getModule())
     }
-    def logError(String message) {
+    void logError(String message) {
         Debug.logError(message, getModule())
     }
-    def logError(Throwable t, String message) {
+    void logError(Throwable t, String message) {
         Debug.logError(t, message, getModule())
     }
-    def logError(Throwable t) {
+    void logError(Throwable t) {
         Debug.logError(t, null, getModule())
     }
-    def logVerbose(String message) {
+    void logVerbose(String message) {
         Debug.logVerbose(message, getModule())
     }
 
-    def label(String ressource, String message) {
+    String label(String ressource, String message) {
         return label(ressource, message, null)
     }
-    def label(String ressource, String message, Map context) {
+    String label(String ressource, String message, Map context) {
         Locale locale = this.binding.getVariable('locale')
         if (!locale) {
             locale = Locale.getDefault()

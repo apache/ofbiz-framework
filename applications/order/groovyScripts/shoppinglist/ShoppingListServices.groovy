@@ -27,7 +27,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Create a ShoppingList
  * @return
  */
-def createShoppingList() {
+Map createShoppingList() {
     GenericValue newEntity = makeValue('ShoppingList')
     newEntity.setNonPKFields(parameters)
     newEntity.partyId = newEntity.partyId ?: userLogin.partyId
@@ -55,7 +55,7 @@ def createShoppingList() {
  * Update a ShoppingList
  * @return
  */
-def updateShoppingList() {
+Map updateShoppingList() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     shoppingList.setNonPKFields(parameters)
 
@@ -78,7 +78,7 @@ def updateShoppingList() {
  * Create a ShoppingList Item
  * @return
  */
-def createShoppingListItem() {
+Map createShoppingListItem() {
     Map result = success()
     List shoppingListItems = from('ShoppingListItem')
             .where(productId: parameters.productId,
@@ -119,7 +119,7 @@ def createShoppingListItem() {
  * Update a ShoppingListItem
  * @return
  */
-def updateShoppingListItem() {
+Map updateShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     GenericValue shoppingListItem = from('ShoppingListItem').where(parameters).queryOne()
     shoppingListItem.setNonPKFields(parameters)
@@ -133,7 +133,7 @@ def updateShoppingListItem() {
  * Remove a ShoppingListItem
  * @return
  */
-def removeShoppingListItem() {
+Map removeShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     GenericValue shoppingListItem = from('ShoppingListItem').where(parameters).queryOne()
     shoppingListItem.remove()
@@ -153,7 +153,7 @@ private void updateLastAdminModified(GenericValue shoppingList, GenericValue use
  * Adds a shopping list item if one with the same productId does not exist
  * @return
  */
-def addDistinctShoppingListItem() {
+Map addDistinctShoppingListItem() {
     Map result = success()
     List shoppingListItemList = from('ShoppingListItem').where(shoppingListId: parameters.shoppingListId).queryList()
 
@@ -176,7 +176,7 @@ def addDistinctShoppingListItem() {
  * Calculate Deep Total Price for a ShoppingList
  * @return
  */
-def calculateShoppingListDeepTotalPrice() {
+Map calculateShoppingListDeepTotalPrice() {
     Map result = success()
     Map serviceResult = run service: 'checkShoppingListItemSecurity', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -235,7 +235,7 @@ def calculateShoppingListDeepTotalPrice() {
  * Checks security on a ShoppingList
  * @return
  */
-def checkShoppingListSecurity() {
+Map checkShoppingListSecurity() {
     if (userLogin && (userLogin.userLoginId != 'anonymous') &&
             parameters.partyId && (userLogin.partyId != parameters.partyId)
             && !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
@@ -251,7 +251,7 @@ def checkShoppingListSecurity() {
  * Checks security on a ShoppingListIte
  * @return
  */
-def checkShoppingListItemSecurity() {
+Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     if (shoppingList?.partyId && userLogin.partyId != shoppingList.partyId &&
             !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
@@ -271,7 +271,7 @@ def checkShoppingListItemSecurity() {
  * Add suggestions to a shopping list
  * @return
  */
-def addSuggestionsToShoppingList() {
+Map addSuggestionsToShoppingList() {
     Map result = success()
     String shoppingListId
     // first check the ProductStore.enableAutoSuggestionList indicator

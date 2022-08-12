@@ -34,7 +34,7 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Set the Quote status to ordered.
  */
-def checkUpdateQuoteStatus() {
+Map checkUpdateQuoteStatus() {
     GenericValue quote = from('Quote').where(parameters).queryOne()
     if (!quote) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
@@ -47,7 +47,7 @@ def checkUpdateQuoteStatus() {
 /**
  * Get new Quote sequence Id.
  */
-def getNextQuoteId() {
+Map getNextQuoteId() {
     // Try to find PartyAcctgPreference for parameters.partyId, see if we need any special quote number sequencing
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', parameters.partyId).queryOne()
     logInfo("In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
@@ -103,7 +103,7 @@ def getNextQuoteId() {
 /**
  * Enforced Sequence (no gaps, per organization).
  */
-def quoteSequenceEnforced() {
+Map quoteSequenceEnforced() {
     logInfo('In getNextQuoteId sequence enum Enforced')
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     // This is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
@@ -117,7 +117,7 @@ def quoteSequenceEnforced() {
 /**
  * Create a new Quote.
  */
-def createQuote() {
+Map createQuote() {
     if (parameters.partyId
             && parameters.partyId != userLogin.partyId
             && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
@@ -164,7 +164,7 @@ def createQuote() {
             roleTypeId: 'INTERNAL_ORGANIZATIO'
         ]
     }
-    def msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale)
+    String msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale)
     return [successMessage: msg, quoteId: newEntity.quoteId]
 }
 
@@ -172,7 +172,7 @@ def createQuote() {
  * Update an existing quote.
  * @return quoteId
  */
-def updateQuote() {
+Map updateQuote() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuote', locale))
     }
@@ -203,7 +203,7 @@ def updateQuote() {
 /**
  * Copy an existing Quote.
  */
-def copyQuote() {
+Map copyQuote() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuote', locale))
     }
@@ -289,11 +289,11 @@ def copyQuote() {
             }
         }
     }
-    def msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale);
+    String msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale);
     return [successMessage: msg, quoteId: quoteIdTo]
 }
 
-def ensureWorkEffortAndCreateQuoteWorkEffort() {
+Map ensureWorkEffortAndCreateQuoteWorkEffort() {
     String workEffortId = parameters.workEffortId
     if (!workEffortId) {
         Map serviceResult = run service: 'createWorkEffort', with: parameters
@@ -315,7 +315,7 @@ def ensureWorkEffortAndCreateQuoteWorkEffort() {
 /**
  * Create a new QuoteItem, calculate the quoteUnitPrice from config or productPrice if not given.
  */
-def createQuoteItem() {
+Map createQuoteItem() {
     GenericValue quote = from('Quote').where(parameters).queryOne()
     if (!quote) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
@@ -353,7 +353,7 @@ def createQuoteItem() {
 /**
  * Update an existing QuoteItem.
  */
-def updateQuoteItem() {
+Map updateQuoteItem() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuoteItem', locale))
     }
@@ -371,7 +371,7 @@ def updateQuoteItem() {
 /**
  * Remove a QuoteItem.
  */
-def removeQuoteItem() {
+Map removeQuoteItem() {
     Map pksQuoteItem = [quoteId: parameters.quoteId, quoteItemSeqId: parameters.quoteItemSeqId]
     GenericValue quoteItem = from('QuoteItem').where(pksQuoteItem).queryOne()
     if (!quoteItem) {
@@ -386,7 +386,7 @@ def removeQuoteItem() {
 /**
  * Copy an existing QuoteItem.
  */
-def copyQuoteItem() {
+Map copyQuoteItem() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuoteItem', locale))
     }
@@ -421,7 +421,7 @@ def copyQuoteItem() {
 /**
  * Create a new Quote and QuoteItem for a given CustRequest.
  */
-def createQuoteAndQuoteItemForRequest() {
+Map createQuoteAndQuoteItemForRequest() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest', locale))
     }
@@ -465,7 +465,7 @@ def createQuoteAndQuoteItemForRequest() {
 /**
  * Create a Quote from a ShoppingCart.
  */
-def createQuoteFromCart() {
+Map createQuoteFromCart() {
     ShoppingCart cart = (ShoppingCart) parameters.cart
 
     Map createQuoteInMap = parameters
@@ -532,7 +532,7 @@ def createQuoteFromCart() {
 /**
  * Create a Quote from a Shopping List.
  */
-def createQuoteFromShoppingList() {
+Map createQuoteFromShoppingList() {
     Map serviceResult = run service: 'loadCartFromShoppingList', with: parameters
     serviceResult = run service: 'createQuoteFromCart', with: [
         cart: serviceResult.shoppingCart,
@@ -544,7 +544,7 @@ def createQuoteFromShoppingList() {
 /**
  * Auto update a QuoteItem price.
  */
-def autoUpdateQuotePrice() {
+Map autoUpdateQuotePrice() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoUpdateQuotePrice', locale))
     }
@@ -564,7 +564,7 @@ def autoUpdateQuotePrice() {
 /**
  * Create a Quote from a CustRequest.
  */
-def createQuoteFromCustRequest() {
+Map createQuoteFromCustRequest() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCustRequest', locale))
     }
@@ -624,7 +624,7 @@ def createQuoteFromCustRequest() {
 /**
  * Auto create QuoteAdjustments.
  */
-def autoCreateQuoteAdjustments() {
+Map autoCreateQuoteAdjustments() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoCreateQuoteAdjustments', locale))
     }
@@ -685,7 +685,7 @@ def autoCreateQuoteAdjustments() {
 /**
  * Create a new Note associated with a Quote
  */
-def createQuoteNote() {
+Map createQuoteNote() {
     // Passed in field will be noteInfo, which matches entity, but service expects field called note.
     Map serviceContext = dctx.makeValidContext('createNote', ModelService.IN_PARAM, [*: parameters, note: parameters.noteInfo])
     Map serviceResult = dispatcher.runSync('createNote', serviceContext)
@@ -702,7 +702,7 @@ def createQuoteNote() {
 /**
  * Create a Quote adjustment
  */
-def createQuoteAdjustment() {
+Map createQuoteAdjustment() {
     GenericValue quoteAdjustment = makeValue('QuoteAdjustment', parameters)
     quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
     quoteAdjustment.createdByUserLogin = userLogin.userLoginId

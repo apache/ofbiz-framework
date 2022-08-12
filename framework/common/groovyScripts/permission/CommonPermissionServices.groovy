@@ -20,7 +20,7 @@
 import org.apache.ofbiz.base.util.UtilProperties
 
 
-def genericBasePermissionCheck() {
+Map genericBasePermissionCheck() {
     Map result = success()
     // allow mainAction to be set from outside methods or direct to the service
     String mainAction = parameters.mainAction
@@ -68,20 +68,20 @@ def genericBasePermissionCheck() {
 /**
  * Get all CRUD and View Permissions
  */
-def getAllCrudPermissions() {
+Map getAllCrudPermissions() {
     Map result = success()
     result.hasCreatePermission = false
     result.hasUpdatePermission = false
     result.hasDeletePermission = false
     result.hasViewPermission = false
-    def primaryPermission = parameters.primaryPermission
+    String primaryPermission = parameters.primaryPermission
     if (!primaryPermission) {
         return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
     }
     logInfo("Getting all CRUD permissions for ${primaryPermission}")
     result = hasCrudPermission(primaryPermission, result)
 
-    def altPermission = parameters.altPermission
+    String altPermission = parameters.altPermission
     if (altPermission) {
         logInfo("Getting all CRUD permissions for ${altPermission}")
         result = hasCrudPermission(altPermission, result)
@@ -89,7 +89,7 @@ def getAllCrudPermissions() {
     return result
 }
 
-def hasCrudPermission(String perm, Map resultMap) {
+Map hasCrudPermission(String perm, Map resultMap) {
     if (security.hasEntityPermission(perm, '_CREATE', parameters.userLogin)) {
         resultMap.hasCreatePermission = true
     }
@@ -108,7 +108,7 @@ def hasCrudPermission(String perm, Map resultMap) {
 /**
  * Visual Theme permission logic
  */
-def visualThemePermissionCheck() {
+Map visualThemePermissionCheck() {
     parameters.primaryPermission = 'VISUAL_THEME'
     Map result = run service: 'genericBasePermissionCheck', with: parameters
     return result

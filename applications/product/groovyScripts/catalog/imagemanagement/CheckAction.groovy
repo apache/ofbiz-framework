@@ -20,7 +20,7 @@
 import org.apache.ofbiz.base.util.*
 
 Map paramMap = UtilHttp.getParameterMap(request)
-def result
+String result
 int rowCount = UtilHttp.getMultiFormRowCount(paramMap)
 if (rowCount > 1) {
     for (int i = 0; i < rowCount; i++) {

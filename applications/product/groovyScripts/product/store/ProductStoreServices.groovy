@@ -36,7 +36,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Create a Product Store
  * @return
  */
-def createProductStore() {
+Map createProductStore() {
     Map result = success()
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
@@ -75,7 +75,7 @@ def createProductStore() {
  * Update a Product Store
  * @return
  */
-def updateProductStore() {
+Map updateProductStore() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', parameters.locale))
     }
@@ -130,7 +130,7 @@ def updateProductStore() {
  * Reserve Store Inventory
  * @return
  */
-def reserveStoreInventory() {
+Map reserveStoreInventory() {
     Map result = success()
     BigDecimal quantityNotReserved
 
@@ -236,7 +236,7 @@ def reserveStoreInventory() {
  * Is Store Inventory Required
  * @return
  */
-def isStoreInventoryRequired() {
+Map isStoreInventoryRequired() {
     GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
     GenericValue product = parameters.product ?: from('Product').where(parameters).cache().queryOne()
 
@@ -251,7 +251,7 @@ def isStoreInventoryRequired() {
  * @param productStore
  * @return
  */
-def isStoreInventoryRequiredInline(GenericValue product, GenericValue productStore) {
+String isStoreInventoryRequiredInline(GenericValue product, GenericValue productStore) {
     String requireInventory = product.requireInventory
     requireInventory = requireInventory ?: productStore.requireInventory
     requireInventory = requireInventory ?: 'Y'
@@ -262,7 +262,7 @@ def isStoreInventoryRequiredInline(GenericValue product, GenericValue productSto
  * Is Store Inventory Available
  * @return
  */
-def isStoreInventoryAvailable() {
+Map isStoreInventoryAvailable() {
     Map result = success()
     GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
     GenericValue product = parameters.product ?: from('Product').where(parameters).cache().queryOne()
@@ -354,7 +354,7 @@ def isStoreInventoryAvailable() {
  * Is Store Inventory Available or Not Required
  * @return
  */
-def isStoreInventoryAvailableOrNotRequired() {
+Map isStoreInventoryAvailableOrNotRequired() {
     Map result = success()
     GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
     GenericValue product = parameters.product ?: from('Product').where(parameters).cache().queryOne()
@@ -380,7 +380,7 @@ def isStoreInventoryAvailableOrNotRequired() {
  * Check ProductStore Related Permission
  * @return
  */
-def checkProductStoreRelatedPermission(Map inputParameter) {
+Map checkProductStoreRelatedPermission(Map inputParameter) {
     List roleStores
     String callingMethodName = inputParameter.resourceDescription
     String checkAction = inputParameter.mainAction
@@ -418,7 +418,7 @@ def checkProductStoreRelatedPermission(Map inputParameter) {
  * Main permission logic
  * @return
  */
-def productStoreGenericPermission() {
+Map productStoreGenericPermission() {
     Map result = success()
     if (!parameters.mainAction) {
         String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale)
@@ -441,7 +441,7 @@ def productStoreGenericPermission() {
  * When product store group hierarchy has been operate, synchronize primaryParentGroupId with ProductStoreGroupRollup
  * @return
  */
-def checkProductStoreGroupRollup() {
+Map checkProductStoreGroupRollup() {
     GenericValue productStoreGroup = from('ProductStoreGroup').where(parameters).queryOne()
     if (!parameters.primaryParentGroupId) {
         GenericValue productStoreGroupRollup = from('ProductStoreGroupRollup').where(parameters).queryOne()

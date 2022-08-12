@@ -24,7 +24,7 @@ import org.apache.ofbiz.entity.GenericValue
  * Check user has Content Manager permission
  * @return
  */
-def contentManagerPermission() {
+Map contentManagerPermission() {
     Map result = success()
     parameters.primaryPermission = 'CONTENTMGR'
     Map resultService = run service: 'genericBasePermissionCheck', with: parameters
@@ -36,7 +36,7 @@ def contentManagerPermission() {
  * Check user has Content Manager permission
  * @return
  */
-def contentManagerRolePermission() {
+Map contentManagerRolePermission() {
     Map result = success()
     parameters.primaryPermission = 'CONTENTMGR'
     parameters.altPermission = 'CONTENTMGR_ROLE'
@@ -49,7 +49,7 @@ def contentManagerRolePermission() {
  * Generic service for Content Permissions
  * @return
  */
-def genericContentPermission() {
+Map genericContentPermission() {
     String statusId = parameters.statusId
     String contentPurposeTypeId = parameters.contentPurposeTypeId
     String contentId = parameters.contentId
@@ -107,7 +107,7 @@ def genericContentPermission() {
  * @param roleEntityField
  * @return
  */
-def viewContentPermission(Boolean hasPermission, String contentId, String contentOperationId,
+Map viewContentPermission(Boolean hasPermission, String contentId, String contentOperationId,
                           String contentPurposeTypeId, String roleEntity,
                           String roleEntityField) {
 
@@ -155,7 +155,7 @@ def viewContentPermission(Boolean hasPermission, String contentId, String conten
  * @param roleEntityField
  * @return
  */
-def createContentPermission(Boolean hasPermission, String ownerContentId, String contentOperationId,
+Map createContentPermission(Boolean hasPermission, String ownerContentId, String contentOperationId,
                             String statusId, String contentPurposeTypeId,
                             String roleEntity, String roleEntityField) {
 
@@ -243,7 +243,7 @@ def createContentPermission(Boolean hasPermission, String ownerContentId, String
  * @param roleEntityField
  * @return
  */
-def updateContentPermission(Boolean hasPermission, String contentId, String ownerContentId,
+Map updateContentPermission(Boolean hasPermission, String contentId, String ownerContentId,
                             String contentOperationId, String contentPurposeTypeId,
                             String roleEntity, String roleEntityField) {
     String checkId
@@ -340,7 +340,7 @@ def updateContentPermission(Boolean hasPermission, String contentId, String owne
  * @param roleEntityField
  * @return
  */
-def checkContentOperationSecurity(String contentOperationId, String contentPurposeTypeId, String checkId,
+Map checkContentOperationSecurity(String contentOperationId, String contentPurposeTypeId, String checkId,
                                   String roleEntity, String roleEntityField) {
 
     roleEntityField = parameters.roleEntityField
@@ -458,7 +458,7 @@ def checkContentOperationSecurity(String contentOperationId, String contentPurpo
  * Checks the (role) ownership of a record
  * @return
  */
-def checkOwnership() {
+Map checkOwnership() {
     Map result = success()
     String roleEntity = parameters.roleEntity
     String roleEntityField = parameters.roleEntityField
@@ -502,7 +502,7 @@ def checkOwnership() {
  * @param checkRoleTypeId
  * @return
  */
-def checkRoleSecurity(String roleEntity, String roleEntityField, String checkId, String checkPartyId, String checkRoleTypeId) {
+Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId, String checkPartyId, String checkRoleTypeId) {
     Boolean hasPermission
     List foundRoles
     logVerbose('checkRoleSecurity: just reset hasPermission value to false!')
@@ -550,7 +550,7 @@ def checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
  * @param checkId
  * @return
  */
-def findAllContentPurposes(String checkId) {
+Map findAllContentPurposes(String checkId) {
     if (!checkId) {
         return error(label('ContentUiLabels', 'ContentRequiredField', [requiredField: 'checkId']))
     }
@@ -564,7 +564,7 @@ def findAllContentPurposes(String checkId) {
  * Finds all associated party Ids for a use
  * @return
  */
-def findAllAssociatedPartyIds () {
+Map findAllAssociatedPartyIds () {
     Map serviceResult = run service: 'getRelatedParties', with: [partyIdFrom: userLogin.partyId,
                                                                  partyRelationshipTypeId: 'GROUP_ROLLUP',
                                                                  includeFromToSwitched: 'Y']
@@ -578,7 +578,7 @@ def findAllAssociatedPartyIds () {
  * Finds all associated parent content
  * @return
  */
-def findAllParentContent(String contentId) {
+Map findAllParentContent(String contentId) {
     if (!contentId) {
         return error(label('ContentUiLabels', 'ContentRequiredField', [requiredField:  'contentId']))
     }

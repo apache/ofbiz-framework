@@ -26,7 +26,7 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Create Content For ProductConfigItem
  */
-def createProductConfigItemContent() {
+Map createProductConfigItemContent() {
     Map result = success()
     GenericValue newEntity = makeValue('ProdConfItemContent', parameters)
     if (!newEntity.fromDate) {
@@ -46,7 +46,7 @@ def createProductConfigItemContent() {
 /**
  * Update Content For ProductConfigItem
  */
-def updateProductConfigItemContent() {
+Map updateProductConfigItemContent() {
     GenericValue pkParameters = makeValue('ProdConfItemContent')
     pkParameters.setPKFields(parameters)
 
@@ -63,7 +63,7 @@ def updateProductConfigItemContent() {
 /**
  * Create Simple Text Content For Product
  */
-def createSimpleTextContentForProductConfigItem() {
+Map createSimpleTextContentForProductConfigItem() {
     Map createProductConfigItemContent = parameters
     Map serviceResult = run service: 'createSimpleTextContent', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {

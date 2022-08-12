@@ -26,7 +26,7 @@ import org.apache.ofbiz.entity.GenericValue
  * "Get the product's routing and routing tasks
  * @return
  */
-def getProductRouting() {
+Map getProductRouting() {
     Map result = success()
 
     // If applicableDate has been passed use the value with all filter-by-date calls
@@ -116,7 +116,7 @@ def getProductRouting() {
  * Get the routing task assocs of a given routing
  * @return
  */
-def getRoutingTaskAssocs() {
+Map getRoutingTaskAssocs() {
     Map result = success()
     result.routingTaskAssocs = from('WorkEffortAssoc')
             .where(workEffortIdFrom: parameters.workEffortId,

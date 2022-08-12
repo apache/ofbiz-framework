@@ -21,7 +21,7 @@
 /**
  * create Account Group
  */
-def createAccount() {
+Map createAccount() {
     parameters.roleTypeId = 'ACCOUNT'
 
     Map serviceResult = run service: 'createPartyGroupRoleAndContactMechs', with: parameters

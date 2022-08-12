@@ -40,7 +40,7 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         super(name)
     }
 
-    def testInvoicePerShipment(String productId, String invoicePerShipment) {
+    List testInvoicePerShipment(String productId, String invoicePerShipment) {
         MockHttpServletRequest request = new MockHttpServletRequest()
         MockHttpServletResponse response = new MockHttpServletResponse()
 

@@ -30,7 +30,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Method to upload multiple images for product
  * @return
  */
-def uploadProductImages() {
+Map uploadProductImages() {
     Map result = success()
     Map serviceResult = [:]
     result.productId = parameters.productId
@@ -172,7 +172,7 @@ def uploadProductImages() {
  * Remove Content From Product and Image File
  * @return
  */
-def removeProductContentAndImageFile() {
+Map removeProductContentAndImageFile() {
     Map removeContent
     Map serviceResult = [:]
     List checkDefaultImage = from('ProductContent').where(productId: parameters.productId, contentId: parameters.contentId,
@@ -208,7 +208,7 @@ def removeProductContentAndImageFile() {
  * Remove Content From Product
  * @return
  */
-def removeProductContentForImageManagement() {
+Map removeProductContentForImageManagement() {
     Map serviceResult = [:]
     List contentRoles = from('ContentRole').where(contentId: parameters.contentId).queryList()
     if (contentRoles) {
@@ -254,7 +254,7 @@ def removeProductContentForImageManagement() {
  * Set Image Detail
  * @return
  */
-def setImageDetail() {
+Map setImageDetail() {
     GenericValue productContent = from('ProductContent').where(parameters).queryOne()
     productContent.sequenceNum = parameters.sequenceNum
     productContent.store()
@@ -280,7 +280,7 @@ def setImageDetail() {
  * Update Status Image Management
  * @return
  */
-def updateStatusImageManagement() {
+Map updateStatusImageManagement() {
     Map result = success()
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     String checkStatusVal = parameters.checkStatusId
@@ -371,7 +371,7 @@ def updateStatusImageManagement() {
  * Add Rejected Reason Image Management
  * @return
  */
-def addRejectedReasonImageManagement() {
+Map addRejectedReasonImageManagement() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     GenericValue content = from('Content').where(parameters).queryOne()
     if (parameters.description) {
@@ -398,7 +398,7 @@ def addRejectedReasonImageManagement() {
  * Create Content Approval of Image
  * @return
  */
-def createImageContentApproval() {
+Map createImageContentApproval() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     List partyRoles = from('PartyRole').where(roleTypeId: 'IMAGEAPPROVER').queryList()
     for (GenericValue partyRole : partyRoles) {
@@ -416,7 +416,7 @@ def createImageContentApproval() {
  * Remove Content Approval of Image
  * @return
  */
-def removeImageContentApproval() {
+Map removeImageContentApproval() {
     List contentApprovals = from('ContentApproval').where(partyId: parameters.partyId, roleTypeId: 'IMAGEAPPROVER').queryList()
     for (GenericValue contentApproval : contentApprovals) {
         contentApproval.remove()
@@ -428,7 +428,7 @@ def removeImageContentApproval() {
  * Resize Images
  * @return
  */
-def resizeImages() {
+Map resizeImages() {
     Map serviceResult = [:]
     if (parameters.resizeOption == 'resizeAllImages') {
         List productContentAndInfos = from('ProductContentAndInfo').where(productId: parameters.productId, productContentTypeId: 'IMAGE').queryList()
@@ -464,7 +464,7 @@ def resizeImages() {
  * Remove Image By Size
  * @return
  */
-def removeImageBySize() {
+Map removeImageBySize() {
     List productContentAndInfos = from('ProductContentAndInfo').where(productId: parameters.productId, productContentTypeId: 'IMAGE').queryList()
     // <field-map field-name="statusId" value="IM_APPROVED"/>
     for (GenericValue productContentAndInfo : productContentAndInfos) {

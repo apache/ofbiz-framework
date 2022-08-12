@@ -35,7 +35,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * @return
  */
 
-def createDataResource() {
+Map createDataResource() {
     Map result = success()
 
     GenericValue newEntity = makeValue('DataResource', parameters)
@@ -80,7 +80,7 @@ def createDataResource() {
  *
  * @return
  */
-def createDataResourceAndAssocToContent() {
+Map createDataResourceAndAssocToContent() {
 
     GenericValue content = from('Content').where(parameters).queryOne()
     if (!content) {
@@ -119,7 +119,7 @@ def createDataResourceAndAssocToContent() {
  * Get Electronic Text
  * @return
  */
-def getElectronicText() {
+Map getElectronicText() {
     Map result = success()
     GenericValue userLogin = parameters.userLogin
     GenericValue currentContent = parameters.content
@@ -150,7 +150,7 @@ def getElectronicText() {
  *
  * @return
  */
-def attachUploadToDataResource() {
+Map attachUploadToDataResource() {
     boolean isUpdate = false
     boolean forceLocal = UtilProperties.getPropertyValue('content.properties', 'content.upload.always.local.file')
     List validLocalFileTypes = [
@@ -232,7 +232,7 @@ def attachUploadToDataResource() {
  * @param absolute
  * @return
  */
-def saveLocalFileDataResource(String mode) {
+Map saveLocalFileDataResource(String mode) {
     Map result = success()
     List errorList = []
     boolean isUpdate = false
@@ -294,7 +294,7 @@ def saveLocalFileDataResource(String mode) {
     return result
 }
 
-def saveExtFileDataResource(boolean isUpdate, String mode) {
+Map saveExtFileDataResource(boolean isUpdate, String mode) {
     Map result = success()
     List errorList = []
     GenericValue dataResource = from('DataResource')

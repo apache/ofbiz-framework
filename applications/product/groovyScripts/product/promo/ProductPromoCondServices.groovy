@@ -43,7 +43,7 @@ import java.sql.Timestamp
  * This function return success if the conditions have been met for the product amount
  * @return result
  */
-def productAmount() {
+Map productAmount() {
     Map result = success()
     int compareBase = -1
     result.operatorEnumId = 'PPC_EQ'
@@ -102,7 +102,7 @@ def productAmount() {
  * This function return success if the conditions have been met for the product total
  * @return result
  */
-def productTotal() {
+Map productTotal() {
     Map result = success()
     int compareBase = -1
 
@@ -141,7 +141,7 @@ def productTotal() {
  * This function return success if the conditions have been met for the product quantity
  * @return result
  */
-def productQuant() {
+Map productQuant() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -195,7 +195,7 @@ def productQuant() {
  * This function return success if the conditions have been met for new accounts
  * @return result
  */
-def productNewACCT() {
+Map productNewACCT() {
     // promotion description="Account Days Since Created"
     Map result = success()
 
@@ -218,7 +218,7 @@ def productNewACCT() {
  * This function return success if the conditions have been met for the party ID
  * @return result
  */
-def productPartyID() {
+Map productPartyID() {
     Map result = success()
 
     Map productPromoCond = parameters.productPromoCond
@@ -237,7 +237,7 @@ def productPartyID() {
  * This function return success if the conditions have been met for the party group member
  * @return result
  */
-def productPartyGM() {
+Map productPartyGM() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -270,7 +270,7 @@ def productPartyGM() {
  * This function return success if the  conditions have been met for the party class
  * @return result
  */
-def productPartyClass() {
+Map productPartyClass() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -295,7 +295,7 @@ def productPartyClass() {
  * This function return success if the conditions have been met for the role type
  * @return result
  */
-def productRoleType() {
+Map productRoleType() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -318,7 +318,7 @@ def productRoleType() {
  * This function return success if the conditions have been met for the shipping destination
  * @return result
  */
-def productGeoID() {
+Map productGeoID() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -354,7 +354,7 @@ def productGeoID() {
  * This function return success if the conditions have been met for the product order total
  * @return result
  */
-def productOrderTotal() {
+Map productOrderTotal() {
     Map result = success()
     int compareBase = 1
 
@@ -375,7 +375,7 @@ def productOrderTotal() {
  * This function return success if the conditions have been met for the product order sub-total X in last Y Months
  * @return result
  */
-def productOrderHist() {
+Map productOrderHist() {
     // description="Order sub-total X in last Y Months"
     GenericValue productPromoCond = parameters.productPromoCond
     ShoppingCart cart = parameters.shoppingCart
@@ -419,7 +419,7 @@ def productOrderHist() {
  * This function return success if the conditions have been met for the product order of the current year
  * @return result
  */
-def productOrderYear() {
+Map productOrderYear() {
     Map result = success()
     compareBase = 1
 
@@ -465,7 +465,7 @@ def productOrderYear() {
  * This function return success if the conditions have been met for the product order last year
  * @return result
  */
-def productOrderLastYear() {
+Map productOrderLastYear() {
     // description="Order sub-total X since beginning of last year"
     Map result = success()
     compareBase = 1
@@ -518,7 +518,7 @@ def productOrderLastYear() {
  * This function return success if the conditions have been met for the product promo recurrence
  * @return result
  */
-def productPromoRecurrence() {
+Map productPromoRecurrence() {
     Map result = success()
     int compareBase = 1
     GenericValue productPromoCond = parameters.productPromoCond
@@ -549,7 +549,7 @@ def productPromoRecurrence() {
  * This function return success if the conditions have been met for the product total shipping
  * @return result
  */
-def productShipTotal() {
+Map productShipTotal() {
     Map result = success()
     compareBase = 1
 
@@ -572,7 +572,7 @@ def productShipTotal() {
  * This function do nothing except to return true for the product list price minimum amount
  * @return true
  */
-def productListPriceMinAmount() {
+boolean productListPriceMinAmount() {
     // does nothing on order level, only checked on item level, so ignore by always considering passed
     return true
 }
@@ -581,7 +581,7 @@ def productListPriceMinAmount() {
  * This function do nothing except to return true for the product list percent minimum amount
  * @return true
  */
-def productListPriceMinPercent() {
+boolean productListPriceMinPercent() {
     // does nothing on order level, only checked on item level, so ignore by always considering passed
     return true
 }

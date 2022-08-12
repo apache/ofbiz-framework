@@ -26,7 +26,7 @@ import org.apache.ofbiz.entity.GenericValue
  * Apply Feature to Product using Feature Type and ID Code
  * @return
  */
-def applyFeatureToProductFromTypeAndCode() {
+Map applyFeatureToProductFromTypeAndCode() {
     // find the ProductFeatures by type and id code
     List productFeatures = from('ProductFeature')
             .where(productFeatureTypeId: parameters.productFeatureTypeId,
@@ -47,7 +47,7 @@ def applyFeatureToProductFromTypeAndCode() {
  * Create a Product Feature Type
  * @return
  */
-def createProductFeatureType() {
+Map createProductFeatureType() {
     Map result = success()
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels',
@@ -69,7 +69,7 @@ def createProductFeatureType() {
  * Create a ProductFeatureApplAttr
  * @return
  */
-def createProductFeatureApplAttr() {
+Map createProductFeatureApplAttr() {
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels',
                 'ProductCatalogCreatePermissionError', parameters.locale))

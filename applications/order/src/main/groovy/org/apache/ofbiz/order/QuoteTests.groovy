@@ -38,10 +38,10 @@ class QuoteTests extends OFBizTestCase {
     void testCreateQuoteWorkEffort() {
         GenericValue userLogin = getUserLogin('DemoRepStore')
 
-        def quoteId = '9001'
-        def workEffortId = '9007'
+        String quoteId = '9001'
+        String workEffortId = '9007'
 
-        def input = [userLogin: userLogin, quoteId: quoteId, workEffortId: workEffortId]
+        Map input = [userLogin: userLogin, quoteId: quoteId, workEffortId: workEffortId]
         Map serviceResult = dispatcher.runSync('ensureWorkEffortAndCreateQuoteWorkEffort', input)
 
         // Confirm the service output parameters.
@@ -62,13 +62,13 @@ class QuoteTests extends OFBizTestCase {
         Timestamp startTime = nowTimestamp()
         GenericValue userLogin = getUserLogin('DemoRepStore')
 
-        def quoteId = '9001'
-        def workEffortId = '9007'
+        String quoteId = '9001'
+        String workEffortId = '9007'
 
         // Execute the service, note break-on-error is false so that the test
         // itself doesn't fail and we also need a separate transaction so our
         // lookup below doesn't fail due to the rollback
-        def input = [userLogin: userLogin, quoteId: quoteId, workEffortId: workEffortId]
+        Map input = [userLogin: userLogin, quoteId: quoteId, workEffortId: workEffortId]
         Map serviceResult
         try {
             serviceResult = dispatcher.runSync('ensureWorkEffortAndCreateQuoteWorkEffort', input)
@@ -88,7 +88,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Test case for CheckUpdateQuotestatus
     void testCheckUpdateQuotestatus() {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 quoteId: '9001',
         ]
@@ -106,7 +106,7 @@ class QuoteTests extends OFBizTestCase {
 
         // Use the bare minimum inputs necessary to create the work effort as we
         // aren't testing that service, only that it plays well as an ECA.
-        def input = [
+        Map input = [
             currentStatusId: 'ROU_ACTIVE',
             workEffortName: 'Test WorkEffort',
             workEffortTypeId: 'ROUTING',
@@ -221,7 +221,7 @@ class QuoteTests extends OFBizTestCase {
 
     // test create a Term
     void testCreateQuoteTerm () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 termTypeId: 'FIN_PAYMENT_DISC',
                 quoteId: '9000',
@@ -248,7 +248,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Update a term.
     void testUpdateQuoteTerm() {
-        def input = [
+        Map input = [
             termTypeId: 'FIN_PAYMENT_DISC',
             quoteId: '9000',
             quoteItemSeqId: '00002',
@@ -279,7 +279,7 @@ class QuoteTests extends OFBizTestCase {
 
     // delete a term
     void testDeleteQuoteTerm () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 termTypeId: 'FIN_PAYMENT_DISC',
                 quoteId: '9000',
@@ -294,7 +294,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Create Quote Attribute
     void testCreateQuoteAttribute () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 quoteId: '9001',
                 attrName: 'Test'
@@ -306,7 +306,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Create Quote Coefficient
     void testCreateQuoteCoefficient () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 quoteId: '9001',
                 coeffName: 'Test'
@@ -318,7 +318,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Get Next Quote Id
     void testGetNextQuoteId () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 partyId: 'DemoCustomer-1'
         ]
@@ -336,7 +336,7 @@ class QuoteTests extends OFBizTestCase {
             lastQuoteNumber = 0
         }
 
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 partyId: 'DemoCustomer',
                 partyAcctgPreference: partyAcctgPreference
@@ -349,7 +349,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Copy Quote Item
     void testCopyQuoteItem () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 quoteId: '9001',
                 quoteItemSeqId: '00001',
@@ -366,7 +366,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteAndQuoteItemForRequest
     void testCreateQuoteAndQuoteItemForRequest () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 custRequestId: '9000',
                 custRequestItemSeqId: '00001'
@@ -395,7 +395,7 @@ class QuoteTests extends OFBizTestCase {
                 null, null, dispatcher)
         cart.setDefaultCheckoutOptions(dispatcher)
 
-        def input = [
+        Map input = [
             userLogin: userLogin,
             cart: cart,
             applyStorePromotions: 'Y'
@@ -410,7 +410,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteFromShoppingList
     void testCreateQuoteFromShoppingList() {
-        def input = [
+        Map input = [
             userLogin: userLogin,
             shoppingListId: '9000',
             applyStorePromotions: 'Y'
@@ -425,7 +425,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Test autoUpdateQuotePrice
     void testAutoUpdateQuotePrice() {
-        def input = [
+        Map input = [
             userLogin: userLogin,
             quoteId: '9000',
             quoteItemSeqId: '00001',
@@ -439,7 +439,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Test createQuoteFromCustRequest
     void testCreateQuoteFromCustRequest () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 custRequestId: '9000'
         ]
@@ -452,7 +452,7 @@ class QuoteTests extends OFBizTestCase {
     // Test autoCreateQuoteAdjustments
     void testAutoCreateQuoteAdjustments () {
 
-        def input = [
+        Map input = [
             userLogin: userLogin,
             quoteId: '9001'
         ]
@@ -464,7 +464,7 @@ class QuoteTests extends OFBizTestCase {
 
     // Create Quote Note
     void testCreateQuoteNote () {
-        def input = [
+        Map input = [
                 userLogin: userLogin,
                 quoteId: '9001',
                 noteName: 'Test Note',

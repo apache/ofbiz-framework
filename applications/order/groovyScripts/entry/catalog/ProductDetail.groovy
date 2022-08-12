@@ -45,13 +45,13 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 
 String buildNext(Map map, List order, String current, String prefix, Map featureTypes) {
-    def ct = 0
-    def buf = new StringBuffer()
+    int ct = 0
+    StringBuffer buf = new StringBuffer()
     buf.append('function listFT' + current + prefix + '() { ')
     buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options.length = 1;")
     buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\"" + featureTypes[current] + "\",\"\",true,true);")
     map.each { key, value ->
-        def optValue = null
+        String optValue = null
 
         if (order.indexOf(current) == (order.size() - 1)) {
             optValue = value.iterator().next()
@@ -66,8 +66,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     if (order.indexOf(current) < (order.size() - 1)) {
         ct = 0
         map.each { key, value ->
-            def nextOrder = order.get(order.indexOf(current) + 1)
-            def newPrefix = prefix + '_' + ct
+            String nextOrder = order.get(order.indexOf(current) + 1)
+            String newPrefix = prefix + '_' + ct
             buf.append(buildNext(value, order, nextOrder, newPrefix, featureTypes))
             ct++
         }

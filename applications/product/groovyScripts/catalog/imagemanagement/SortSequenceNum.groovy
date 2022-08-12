@@ -23,7 +23,7 @@ import org.apache.ofbiz.base.util.*
 allSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE').queryList()
 nullSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', null).queryList()
 productContents = allSequenceNums - nullSequenceNums
-def duplicate = 0
+int duplicate = 0
 if(parameters.sequenceNum){
     findExisted = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', (Long)parameters.sequenceNum).queryList()
     duplicate = findExisted.size()

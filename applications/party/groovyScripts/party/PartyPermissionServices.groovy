@@ -26,7 +26,7 @@ import org.apache.ofbiz.entity.GenericValue
 /**
  * Party Manager base permission logic
  */
-def basePermissionCheck() {
+Map basePermissionCheck() {
     parameters.primaryPermission = 'PARTYMGR'
     Map serviceResult = run service: 'genericBasePermissionCheck', with: parameters
     return serviceResult
@@ -36,7 +36,7 @@ def basePermissionCheck() {
 /**
  * Party ID Permission Check
  */
-def partyIdPermissionCheck(Map parameters) {
+Map partyIdPermissionCheck(Map parameters) {
     Map result = success()
     Boolean hasPermission
     String partyId = parameters.partyId
@@ -62,7 +62,7 @@ def partyIdPermissionCheck(Map parameters) {
 /**
  * Base Permission Plus Party ID Permission Check
  */
-def basePlusPartyIdPermissionCheck() {
+Map basePlusPartyIdPermissionCheck() {
     Map result = run service: 'basePermissionCheck', with: parameters
     if (!result.hasPermission) {
         result = partyIdPermissionCheck(parameters)
@@ -77,7 +77,7 @@ def basePlusPartyIdPermissionCheck() {
 /**
  * Party status permission logic
  */
-def partyStatusPermissionCheck() {
+Map partyStatusPermissionCheck() {
     Map result = success()
     Boolean hasPermission = false
     if (parameters.partyId && parameters.partyId == userLogin.partyId) {
@@ -96,7 +96,7 @@ def partyStatusPermissionCheck() {
 /**
  * Party group permission logic
  */
-def partyGroupPermissionCheck() {
+Map partyGroupPermissionCheck() {
     parameters.altPermission = 'PARTYMGR_GRP'
     Map result = run service: 'partyStatusPermissionCheck', with: parameters
     return result
@@ -106,7 +106,7 @@ def partyGroupPermissionCheck() {
 /**
  * Party datasource permission logic
  */
-def partyDatasourcePermissionCheck() {
+Map partyDatasourcePermissionCheck() {
     parameters.altPermission = 'PARTYMGR_SRC'
     Map result = run service: 'basePermissionCheck', with: parameters
     return result
@@ -116,7 +116,7 @@ def partyDatasourcePermissionCheck() {
 /**
  * Party role permission logic
  */
-def partyRolePermissionCheck() {
+Map partyRolePermissionCheck() {
     parameters.altPermission = 'PARTYMGR_ROLE'
     Map result = run service: 'partyStatusPermissionCheck', with: parameters
     return result
@@ -126,7 +126,7 @@ def partyRolePermissionCheck() {
 /**
  * Party relationship permission logic
  */
-def partyRelationshipPermissionCheck() {
+Map partyRelationshipPermissionCheck() {
     Map result = success()
     if (!parameters.partyIdFrom) {
         parameters.partyIdFrom = userLogin.partyId
@@ -143,7 +143,7 @@ def partyRelationshipPermissionCheck() {
 /**
  * Party contact mech permission logic
  */
-def partyContactMechPermissionCheck() {
+Map partyContactMechPermissionCheck() {
     Map result = success()
     if (!parameters.partyId || userLogin.partyId == parameters.partyId) {
         Boolean hasPermission = true
@@ -159,7 +159,7 @@ def partyContactMechPermissionCheck() {
 /**
  * Accept and Decline PartyInvitation Permission Logic
  */
-def accAndDecPartyInvitationPermissionCheck() {
+Map accAndDecPartyInvitationPermissionCheck() {
     Map result = success()
     Boolean hasPermission = false
     if (security.hasEntityPermission('PARTYMGR_UPDATE', '_UPDATE', parameters.userLogin)) {
@@ -203,7 +203,7 @@ def accAndDecPartyInvitationPermissionCheck() {
 /**
  * Cancel PartyInvitation Permission Logic
  */
-def cancelPartyInvitationPermissionCheck() {
+Map cancelPartyInvitationPermissionCheck() {
     Map result = success()
     Boolean hasPermission = false
     if (security.hasEntityPermission('PARTYMGR_UPDATE', '_UPDATE', parameters.userLogin)) {
@@ -260,7 +260,7 @@ def cancelPartyInvitationPermissionCheck() {
 /**
  * Communication Event permission logic
  */
-def partyCommunicationEventPermissionCheck() {
+Map partyCommunicationEventPermissionCheck() {
     Map result = success()
     if (parameters.communicationEventTypeId == 'EMAIL_COMMUNICATION' && parameters.mainAction == 'CREATE') {
         parameters.altPermission = 'PARTYMGR_CME-EMAIL'

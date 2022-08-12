@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
-def createBlogEntry() {
+Map createBlogEntry() {
     String ownerContentId = parameters.blogContentId
     String contentIdFrom = parameters.blogContentId
     parameters.statusId = parameters.statusId ?: 'CTNT_INITIAL_DRAFT'
@@ -101,7 +101,7 @@ def createBlogEntry() {
 /**
  * Get all the info for a blog article
  */
-def getBlogEntry() {
+Map getBlogEntry() {
     if (!parameters.contentId) {
         return success([blogContentId: parameters.blogContentId])
     }
@@ -156,7 +156,7 @@ def getBlogEntry() {
 /**
  *  Update a existing Blog Entry
  */
-def updateBlogEntry() {
+Map updateBlogEntry() {
     Map blog = run service: 'getBlogEntry', with: parameters
     if (['contentName', 'description', 'summaryData', 'templateDataResourceId', 'statusId']
             .stream().anyMatch { blog[ it ] != parameters[ it ] }) {
@@ -244,7 +244,7 @@ def updateBlogEntry() {
  * Get blog entries that the user owns or are published
  * @return
  */
-def getOwnedOrPublishedBlogEntries() {
+Map getOwnedOrPublishedBlogEntries() {
     List blogList = []
     from('ContentAssocViewTo')
             .where(contentIdStart: parameters.contentId,

@@ -31,7 +31,7 @@ import java.sql.Timestamp
  * Create a CommunicationEvent with or w/o permission check
  * @return
  */
-def createCommunicationEvent() {
+Map createCommunicationEvent() {
     GenericValue newCommEvent
 
     // check for forward only if created by a user and not incoming email by system
@@ -204,7 +204,7 @@ def createCommunicationEvent() {
  * create a CommunicationEvent without permission, use run service auto-matching to populate missing user
  * @return
  */
-def createCommunicationEventWithoutPermission() {
+Map createCommunicationEventWithoutPermission() {
     GenericValue system = from('UserLogin').where(userLoginId: 'system').cache().queryOne()
     Map result = run service: 'createCommunicationEvent', with: [*:parameters,
                                                                  userLogin: system]
@@ -214,7 +214,7 @@ def createCommunicationEventWithoutPermission() {
 /**
  * Update a CommunicationEvent
  */
-def updateCommunicationEvent() {
+Map updateCommunicationEvent() {
 
     GenericValue event = from('CommunicationEvent')
             .where(parameters)
@@ -302,7 +302,7 @@ def updateCommunicationEvent() {
 /**
  * Delete a CommunicationEvent
  */
-def deleteCommunicationEvent() {
+Map deleteCommunicationEvent() {
 
     GenericValue event = from('CommunicationEvent')
             .where(parameters)
@@ -366,7 +366,7 @@ def deleteCommunicationEvent() {
 /**
  * delete commEvent and workEffort
  */
-def deleteCommunicationEventWorkEffort() {
+Map deleteCommunicationEventWorkEffort() {
 
     GenericValue event = from('CommunicationEvent')
             .where(parameters)
@@ -396,7 +396,7 @@ def deleteCommunicationEventWorkEffort() {
 /**
  * Create a CommunicationEventRole
  */
-def createCommunicationEventRole() {
+Map createCommunicationEventRole() {
 
     // check if role already exist, then ignore
     GenericValue communicationEventRole =
@@ -407,7 +407,7 @@ def createCommunicationEventRole() {
     if (!communicationEventRole) {
         GenericValue sysUserLogin = from('UserLogin').where(userLoginId: 'system').queryOne()
 
-        def partyRole = parameters
+        Map partyRole = parameters
         partyRole.userLogin = sysUserLogin
         run service: 'ensurePartyRole', with: partyRole
 
@@ -443,7 +443,7 @@ def createCommunicationEventRole() {
 /**
  * Remove a CommunicationEventRole
  */
-def removeCommunicationEventRole() {
+Map removeCommunicationEventRole() {
 
     GenericValue eventRole = from('CommunicationEventRole')
             .where(parameters)
@@ -466,7 +466,7 @@ def removeCommunicationEventRole() {
  * Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired,
  * then send the email
  */
-def sendEmailDated() {
+Map sendEmailDated() {
     Timestamp nowDate = UtilDateTime.nowTimestamp()
     EntityCondition conditions = EntityCondition.makeCondition([
             EntityCondition.makeCondition('statusId', 'COM_IN_PROGRESS'),
@@ -522,7 +522,7 @@ def sendEmailDated() {
 /**
  * Set The Communication Event Status
  */
-def setCommunicationEventStatus() {
+Map setCommunicationEventStatus() {
 
     GenericValue communicationEvent = from('CommunicationEvent')
             .where(parameters)
@@ -577,7 +577,7 @@ def setCommunicationEventStatus() {
 }
 
 //set the status for a particular party role to the status COM_ROLE_READ
-def setCommEventRoleToRead() {
+Map setCommEventRoleToRead() {
     if (!parameters.partyId) {
         parameters.partyId = parameters.userLogin.partyId
     }
@@ -609,7 +609,7 @@ def setCommEventRoleToRead() {
 }
 
 //Set The Communication Event Status for a specific role
-def setCommunicationEventRoleStatus() {
+Map setCommunicationEventRoleStatus() {
 
     GenericValue communicationEventRole = from('CommunicationEventRole')
             .where(parameters)
@@ -635,7 +635,7 @@ def setCommunicationEventRoleStatus() {
 }
 
 //Create communication event and send mail to company
-def sendContactUsEmailToCompany() {
+Map sendContactUsEmailToCompany() {
 
     GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').cache().queryOne()
     Map contactUsMap = [*:parameters]
@@ -649,7 +649,7 @@ def sendContactUsEmailToCompany() {
             .where(parameters)
             .queryOne()
 
-    def bodyParameters = [partyId: parameters.partyIdTo, email: parameters.emailAddress,
+    Map bodyParameters = [partyId: parameters.partyIdTo, email: parameters.emailAddress,
                           firstName: parameters.firstName, lastName: parameters.lastName,
                           postalCode: parameters.postalCode, countryCode: parameters.countryCode,
                           message: parameters.content]
