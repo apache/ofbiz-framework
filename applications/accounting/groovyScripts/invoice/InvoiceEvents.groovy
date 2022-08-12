@@ -22,7 +22,7 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 
 //Create a new Invoice Item with Payrol Item Type
-def createInvoiceItemPayrol() {
+Map createInvoiceItemPayrol() {
     List<GenericValue> payRolList = from('InvoiceItemType').queryList()
     from('InvoiceItemType')
             .where('parentTypeId', 'PAYROL')

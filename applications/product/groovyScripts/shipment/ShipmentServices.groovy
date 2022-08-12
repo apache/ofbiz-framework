@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Update Shipment
  * @return
  */
-def updateShipment() {
+Map updateShipment() {
     Map result = success()
     List errorList = []
     GenericValue lookedUpValue = from('Shipment').where(parameters).queryOne()
@@ -85,7 +85,7 @@ def updateShipment() {
  * Create Shipment based on ReturnHeader
  * @return
  */
-def createShipmentForReturn() {
+Map createShipmentForReturn() {
     GenericValue returnHeader = from('ReturnHeader').where(returnId: parameters.returnId).queryOne()
     Map shipmentCtx = [partyIdFrom: returnHeader.fromPartyId,
                        partyIdTo: returnHeader.toPartyId,
@@ -114,7 +114,7 @@ def createShipmentForReturn() {
  * Create Shipment and ShipmentItems based on ReturnHeader and ReturnItems
  * @return
  */
-def createShipmentAndItemsForReturn() {
+Map createShipmentAndItemsForReturn() {
     Map result = success()
     List returnItems = from('ReturnItem').where(returnId: parameters.returnId).queryList()
 
@@ -169,7 +169,7 @@ def createShipmentAndItemsForReturn() {
  * Create Shipment and ShipmentItems based on primaryReturnId for Vendor return
  * @return
  */
-def createShipmentAndItemsForVendorReturn() {
+Map createShipmentAndItemsForVendorReturn() {
     Map serviceResult = run service: 'createShipment', with: parameters
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
@@ -197,7 +197,7 @@ def createShipmentAndItemsForVendorReturn() {
  * Set Shipment Settings From Primary Order
  * @return
  */
-def setShipmentSettingsFromPrimaryOrder() {
+Map setShipmentSettingsFromPrimaryOrder() {
     GenericValue orderItemShipGroup
     // on Shipment set partyIdFrom, partyIdTo (vendorPartyId), originContactMechId, destinationContactMechId, estimatedShipCost
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
@@ -394,7 +394,7 @@ def setShipmentSettingsFromPrimaryOrder() {
  * Set Shipment Settings From Facilities
  * @return
  */
-def setShipmentSettingsFromFacilities() {
+Map setShipmentSettingsFromFacilities() {
     GenericValue facilityContactMech
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
     GenericValue shipmentCopy = shipment.clone()
@@ -441,7 +441,7 @@ def setShipmentSettingsFromFacilities() {
  * Send Shipment Scheduled Notification
  * @return
  */
-def sendShipmentScheduledNotification() {
+Map sendShipmentScheduledNotification() {
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
     // find email address for currently logged in user, set as sendFrom
     GenericValue curUserPartyAndContactMech = from('PartyAndContactMech')
@@ -500,7 +500,7 @@ def sendShipmentScheduledNotification() {
  * Release the purchase order's items assigned to the shipment but not actually received
  * @return
  */
-def balanceItemIssuancesForShipment() {
+Map balanceItemIssuancesForShipment() {
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
     List issuances = shipment.getRelated('ItemIssuance', null, null, false)
     for (GenericValue issuance : issuances) {
@@ -525,7 +525,7 @@ def balanceItemIssuancesForShipment() {
  * splitShipmentItemByQuantity
  * @return
  */
-def splitShipmentItemByQuantity() {
+Map splitShipmentItemByQuantity() {
     GenericValue originalShipmentItem = from('ShipmentItem').where(parameters).queryOne()
 
     // create new ShipmentItem
@@ -583,7 +583,7 @@ def splitShipmentItemByQuantity() {
  * Create ShipmentPackage
  * @return
  */
-def createShipmentPackage() {
+Map createShipmentPackage() {
     GenericValue newEntity = makeValue('ShipmentPackage', parameters)
     if ('New' == newEntity.shipmentPackageSeqId) {
         newEntity.shipmentPackageSeqId = null
@@ -607,7 +607,7 @@ def createShipmentPackage() {
  * Update ShipmentPackage
  * @return
  */
-def updateShipmentPackage() {
+Map updateShipmentPackage() {
     GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
@@ -619,7 +619,7 @@ def updateShipmentPackage() {
  * Delete ShipmentPackage
  * @return
  */
-def deleteShipmentPackage() {
+Map deleteShipmentPackage() {
     // If there is any Shipment Package Content available for this shipment than Shipment Package cannot
     // be deleted as it require Shipment Package Content to be deleted first
     List shipmentPackageContents = from('ShipmentPackageContent')
@@ -641,7 +641,7 @@ def deleteShipmentPackage() {
  * Ensure ShipmentPackageRouteSeg exists for all RouteSegments for this Package
  * @return
  */
-def ensurePackageRouteSeg(String shipmentId, String shipmentPackageSeqId) {
+Map ensurePackageRouteSeg(String shipmentId, String shipmentPackageSeqId) {
     List shipmentRouteSegments = from('ShipmentRouteSegment').where(shipmentId: shipmentId).queryList()
     for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
         GenericValue checkShipmentPackageRouteSeg = from('ShipmentPackageRouteSeg')
@@ -664,7 +664,7 @@ def ensurePackageRouteSeg(String shipmentId, String shipmentPackageSeqId) {
  * Add Shipment Content To Package
  * @return
  */
-def addShipmentContentToPackage() {
+Map addShipmentContentToPackage() {
     Map result = success()
     GenericValue newEntity = makeValue('ShipmentPackageContent')
     newEntity.setPKFields(parameters)
@@ -688,7 +688,7 @@ def addShipmentContentToPackage() {
  * Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment
  * @return
  */
-def ensureRouteSegPackage() {
+Map ensureRouteSegPackage() {
     GenericValue shipmentRouteSegment = from('ShipmentRouteSegment').where(parameters).cache().queryOne()
     List shipmentPackages = from('ShipmentPackage').where(shipmentId: shipmentRouteSegment.shipmentId).queryList()
     for (GenericValue shipmentPackage : shipmentPackages) {
@@ -710,7 +710,7 @@ def ensureRouteSegPackage() {
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
  * @return
  */
-def checkCanChangeShipmentStatusPacked() {
+Map checkCanChangeShipmentStatusPacked() {
     parameters.fromStatusId = 'SHIPMENT_PACKED'
     return checkCanChangeShipmentStatusGeneral(parameters)
 }
@@ -719,7 +719,7 @@ def checkCanChangeShipmentStatusPacked() {
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
  * @return
  */
-def checkCanChangeShipmentStatusShipped() {
+Map checkCanChangeShipmentStatusShipped() {
     parameters.fromStatusId = 'SHIPMENT_SHIPPED'
     return checkCanChangeShipmentStatusGeneral(parameters)
 }
@@ -728,7 +728,7 @@ def checkCanChangeShipmentStatusShipped() {
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
  * @return
  */
-def checkCanChangeShipmentStatusDelivered() {
+Map checkCanChangeShipmentStatusDelivered() {
     parameters.fromStatusId = 'SHIPMENT_DELIVERED'
     return checkCanChangeShipmentStatusGeneral(parameters)
 }
@@ -737,7 +737,7 @@ def checkCanChangeShipmentStatusDelivered() {
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
  * @return
  */
-def checkCanChangeShipmentStatusGeneral(Map inputParameters) {
+Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
     Map result = success()
     String fromStatusId = inputParameters.fromStatusId
     if (!inputParameters.mainAction) {
@@ -778,7 +778,7 @@ def checkCanChangeShipmentStatusGeneral(Map inputParameters) {
  * Quick ships an entire order from multiple facilities
  * @return
  */
-def quickShipEntireOrder() {
+Map quickShipEntireOrder() {
     Map result = success()
     List successMessageList
     List shipmentIds
@@ -838,7 +838,7 @@ def quickShipEntireOrder() {
  * Create and complete a drop shipment for a ship group
  * @return
  */
-def quickDropShipOrder() {
+Map quickDropShipOrder() {
     Map result = success()
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (orderHeader?.statusId == 'ORDER_CREATED') {
@@ -904,7 +904,7 @@ def quickDropShipOrder() {
  * Quick receives an entire purchase order in a facility
  * @return
  */
-def quickReceivePurchaseOrder() {
+Map quickReceivePurchaseOrder() {
     Map result = success()
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     Map serviceResult = getOrderItemShipGroupLists(orderHeader)
@@ -925,7 +925,7 @@ def quickReceivePurchaseOrder() {
  * Sub-method used by quickShip methods to get a list of OrderItemAndShipGroupAssoc and a Map of shipGroupId -> OrderItemAndShipGroupAssoc
  * @return
  */
-def getOrderItemShipGroupLists(GenericValue orderHeader) {
+Map getOrderItemShipGroupLists(GenericValue orderHeader) {
     // lookup all the approved items, doing by item because the item must be approved before shipping
     List orderItemAndShipGroupAssocList = from('OrderItemAndShipGroupAssoc')
             .where(orderId: orderHeader.orderId,
@@ -955,7 +955,7 @@ def getOrderItemShipGroupLists(GenericValue orderHeader) {
  * Sub-method used by quickShip methods to create a shipment
  * @return
  */
-def createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderItemListByShGrpMap,
+Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderItemListByShGrpMap,
                                           List orderItemShipGroupList, List orderItemAndShipGroupAssocList,
                                           String orderItemShipGrpInvResFacilityId,
                                           Timestamp eventDate, Boolean setPackedOnly) {
@@ -1091,7 +1091,7 @@ def createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
  * Create Shipment, ShipmentItems and OrderShipment
  * @return
  */
-def createOrderShipmentPlan () {
+Map createOrderShipmentPlan () {
     Map result = success()
     // first get the order header; make sure we have a product store
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
@@ -1138,7 +1138,7 @@ def createOrderShipmentPlan () {
  *
  * @return
  */
-def issueSerializedInvToShipmentPackageAndSetTracking() {
+Map issueSerializedInvToShipmentPackageAndSetTracking() {
     /*
      *  If serialNumber is provided, Then compare it with the serialNumber of inventoryItem on reservation. If they don't match,
      *  We'll have to reReserve specific inventory that is shiped.
@@ -1198,7 +1198,7 @@ def issueSerializedInvToShipmentPackageAndSetTracking() {
  * Move a shipment into Packed status and then to Shipped status
  * @return
  */
-def setShipmentStatusPackedAndShipped() {
+Map setShipmentStatusPackedAndShipped() {
     // update the shipment status to packed
     run service: 'updateShipment', with: [shipmentId: parameters.shipmentId,
                                           statusId: 'SHIPMENT_PACKED']
@@ -1214,7 +1214,7 @@ def setShipmentStatusPackedAndShipped() {
  * Quick ships order based on item list
  * @return
  */
-def quickShipOrderByItem() {
+Map quickShipOrderByItem() {
     /*
      *  quick ship order using multiple packages per tracking number
      *  Parameters coming in: orderId, shipGroupSeqId,itemShipList, originFacilityId, setPackedOnly
@@ -1334,7 +1334,7 @@ def quickShipOrderByItem() {
  * Delete an OrderShipment and updates the ShipmentItem
  * @return
  */
-def removeOrderShipmentFromShipment() {
+Map removeOrderShipmentFromShipment() {
     GenericValue orderShipment = from('OrderShipment').where(parameters).queryOne()
     GenericValue shipmentItem = from('ShipmentItem').where(parameters).queryOne()
     run service: 'deleteOrderShipment', with: parameters
@@ -1353,7 +1353,7 @@ def removeOrderShipmentFromShipment() {
  * Add or update a ShipmentPlan entry
  * @return
  */
-def addOrderShipmentToShipment() {
+Map addOrderShipmentToShipment() {
     Map result = success()
     // if quantity is greater than 0 we add or update the ShipmentPlan
     if (parameters.quantity > (BigDecimal.ZERO)) {
@@ -1398,7 +1398,7 @@ def addOrderShipmentToShipment() {
  * get the order item quantity still not put in shipments
  * @return
  */
-def getQuantityForShipment() {
+Map getQuantityForShipment() {
     Map result = success()
     BigDecimal plannedQuantity = BigDecimal.ZERO
     BigDecimal issuedQuantity = BigDecimal.ZERO
@@ -1428,7 +1428,7 @@ def getQuantityForShipment() {
  * Check Shipment Items and Cancel Item Issuance and Order Shipment
  * @return
  */
-def checkCancelItemIssuanceAndOrderShipmentFromShipment() {
+Map checkCancelItemIssuanceAndOrderShipmentFromShipment() {
     List orderShipmentList = from('OrderShipment').where(shipmentId: parameters.shipmentId).queryList()
     for (GenericValue orderShipment : orderShipmentList) {
         run service: 'deleteOrderShipment', with: orderShipment.getAllFields()

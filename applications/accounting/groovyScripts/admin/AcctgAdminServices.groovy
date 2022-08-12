@@ -26,7 +26,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 
 
-def createPartyAcctgPreference() {
+Map createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
     partyRole = select().from('PartyRole').where([partyId: parameters.partyId, roleTypeId: 'INTERNAL_ORGANIZATIO']).queryOne()
     if (!partyRole) {
@@ -42,7 +42,7 @@ def createPartyAcctgPreference() {
     return success()
 }
 
-def getPartyAccountingPreferences() {
+Map getPartyAccountingPreferences() {
     Map result = success()
     GenericValue aggregatedPartyAcctgPref = delegator.makeValidValue('PartyAcctgPreference', parameters)
     String currentOrganizationPartyId = parameters.organizationPartyId
@@ -82,7 +82,7 @@ def getPartyAccountingPreferences() {
     return result
 }
 
-def setAcctgCompany() {
+Map setAcctgCompany() {
     Map result = success()
     //Set user preference
     GenericValue partyAcctgPreference = select().from('PartyAcctgPreference').where([partyId: parameters.organizationPartyId]).queryOne()
@@ -94,7 +94,7 @@ def setAcctgCompany() {
     return result
 }
 
-def updateFXConversion() {
+Map updateFXConversion() {
     //Set the FX rate changes as of now
     Timestamp nowTimestamp = parameters.asOfTimestamp
     if (!nowTimestamp) {
@@ -134,7 +134,7 @@ def updateFXConversion() {
     return success()
 }
 
-def getFXConversion() {
+Map getFXConversion() {
     Map result = success()
     Timestamp asOfTimestamp = parameters.asOfTimestamp
     if (!asOfTimestamp) {

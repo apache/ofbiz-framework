@@ -28,7 +28,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Creates a party group, role and contactMechs
  * @return result
  */
-def createPartyGroupRoleAndContactMechs() {
+Map createPartyGroupRoleAndContactMechs() {
     try {
         parameters.partyGroupContext = resolvePartyGroupMap()
     } catch (GenericServiceException e) {
@@ -75,19 +75,19 @@ def createPartyGroupRoleAndContactMechs() {
 }
 
 // TODO need to convert from MapProcessor
-def resolvePartyGroupMap() {
+Map resolvePartyGroupMap() {
     return resolvePartyProcessMap('party/minilang/party/PartyMapProcs.xml', 'partyGroup')
 }
-def resolvePostalAddressMap() {
+Map resolvePostalAddressMap() {
     return resolvePartyProcessMap('party/minilang/contact/PartyContactMechMapProcs.xml', 'postalAddress')
 }
-def resolveTelecomNumberMap() {
+Map resolveTelecomNumberMap() {
     return resolvePartyProcessMap('party/minilang/contact/PartyContactMechMapProcs.xml', 'telecomNumber')
 }
-def resolveEmailAddressMap() {
+Map resolveEmailAddressMap() {
     return resolvePartyProcessMap('party/minilang/contact/PartyContactMechMapProcs.xml', 'emailAddress')
 }
-def resolvePartyProcessMap(String mapProcessorPath, String processMapName) {
+Map resolvePartyProcessMap(String mapProcessorPath, String processMapName) {
     List messages = []
     Map resultMap = [:]
     SimpleMapProcessor.runSimpleMapProcessor('component://' + mapProcessorPath, processMapName, parameters, resultMap, messages, context.locale)

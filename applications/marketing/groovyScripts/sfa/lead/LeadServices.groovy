@@ -27,7 +27,7 @@ import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.ServiceUtil
 
-def createLead() {
+Map createLead() {
     String leadContactPartyId
     String partyGroupPartyId
     // Check if Person or PartyGroup name is supplied
@@ -116,7 +116,7 @@ def createLead() {
  * Convert a lead person into a contact and associated lead group to an account
  * @return
  */
-def convertLeadToContact() {
+Map convertLeadToContact() {
     String partyId = parameters.partyId
     String partyGroupId = parameters.partyGroupId
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -189,7 +189,7 @@ def convertLeadToContact() {
     return result
 }
 
-def resolvePartyProcessMap() {
+Map resolvePartyProcessMap() {
     List messages = []
     Map resultMap = [:]
     //TODO convert map processor

@@ -26,7 +26,7 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Assign the selected party to the production run or task.
  */
-def createProductionRunPartyAssign() {
+Map createProductionRunPartyAssign() {
     parameters.statusId = 'PRTYASGN_ASSIGNED'
     if (!parameters.workEffortId) {
         parameters.workEffortId = parameters.productionRunId
@@ -42,7 +42,7 @@ def createProductionRunPartyAssign() {
 /**
  *Associate the production run to another production run
  */
-def createProductionRunAssoc() {
+Map createProductionRunAssoc() {
     Map serviceContext = [workEffortAssocTypeId: 'WORK_EFF_PRECEDENCY']
     if ('WF_PREDECESSOR' == parameters.workFlowSequenceTypeId) {
         serviceContext.workEffortIdFrom = parameters.productionRunIdTo
@@ -62,7 +62,7 @@ def createProductionRunAssoc() {
 /**
  *Issues the Inventory for a Production Run Task
  */
-def issueProductionRunTask() {
+Map issueProductionRunTask() {
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
     parameters.failIfItemsAreNotAvailable = parameters.failIfItemsAreNotAvailable ?: 'Y'
     parameters.failIfItemsAreNotOnHand = parameters.failIfItemsAreNotOnHand ?: 'Y'
@@ -108,7 +108,7 @@ def issueProductionRunTask() {
 /**
  *Issues the Inventory for a Production Run Task Component
  */
-def issueProductionRunTaskComponent() {
+Map issueProductionRunTaskComponent() {
     GenericValue workEffort = from('WorkEffort').where('workEffortId', parameters.workEffortId).queryOne()
     GenericValue productionRun = from('WorkEffort').where('workEffortId', workEffort.workEffortParentId).queryOne()
     if (['PRUN_CANCELLED', 'PRUN_CLOSED'].contains(productionRun.currentStatusId)) {
@@ -295,7 +295,7 @@ def issueProductionRunTaskComponent() {
 /**
  *Does a issuance for one InventoryItem, meant to be called in-line
  */
-def issueProductionRunTaskComponentInline(Map parameters,
+Map issueProductionRunTaskComponentInline(Map parameters,
                                           GenericValue inventoryItem,
                                           GenericValue lastNonSerInventoryItem) {
 
@@ -354,7 +354,7 @@ def issueProductionRunTaskComponentInline(Map parameters,
 /**
  *Issue one InventoryItem to a WorkEffort
  */
-def issueInventoryItemToWorkEffort() {
+Map issueInventoryItemToWorkEffort() {
     GenericValue inventoryItem = parameters.inventoryItem
     BigDecimal quantityIssued = 0.0
     if ('SERIALIZED_INV_ITEM' == inventoryItem.inventoryItemTypeId && inventoryItem.statusId) {

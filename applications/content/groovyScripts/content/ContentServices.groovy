@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 
-def createTextAndUploadedContent() {
+Map createTextAndUploadedContent() {
     Map result = success()
 
     Map serviceResult = run service: 'createContent', with: parameters
@@ -53,7 +53,7 @@ def createTextAndUploadedContent() {
     return result
 }
 
-def findAssocContent() {
+Map findAssocContent() {
     EntityCondition condition = new EntityConditionBuilder().AND {
         EQUALS(contentId: parameters.contentId)
         IN(mapKey: parameters.mapKeys)
@@ -69,12 +69,12 @@ def findAssocContent() {
     return result
 }
 
-def updateSingleContentPurpose() {
+Map updateSingleContentPurpose() {
     delegator.removeByAnd('ContentPurpose', [contentId: parameters.contentId])
     run service: 'createContentPurpose', with: parameters
 }
 
-def createEmailContent() {
+Map createEmailContent() {
     Map result = success()
     Map createContentMap = [*: parameters]
 
@@ -109,7 +109,7 @@ def createEmailContent() {
     return result
 }
 
-def deactivateAllContentRoles() {
+Map deactivateAllContentRoles() {
     List contentRoles = from('ContentRole')
             .where(contentId: parameters.contentId,
                     partyId: parameters.partyId,
@@ -122,7 +122,7 @@ def deactivateAllContentRoles() {
     return success()
 }
 
-def createContentAlternativeUrl() {
+Map createContentAlternativeUrl() {
     //create Content Alternative URLs.
     String contentCreated = 'N'
     defaultLocaleString = parameters.locale ?: 'en'
@@ -226,7 +226,7 @@ def createContentAlternativeUrl() {
             contentCreated: contentCreated]
 }
 
-def updateEmailContent() {
+Map updateEmailContent() {
     if (parameters.subjectDataResourceId) {
         run service: 'updateElectronicText', with: [dataResourceId: parameters.subjectDataResourceId,
                                                     textData: parameters.subject]
@@ -241,7 +241,7 @@ def updateEmailContent() {
     }
 }
 
-def createArticleContent() {
+Map createArticleContent() {
     // Post a new Content article Entry
     String origContentAssocTypeId = parameters.contentAssocTypeId
     String contentAssocTypeId = parameters.contentAssocTypeId
@@ -357,7 +357,7 @@ def createArticleContent() {
     return result
 }
 
-def setContentStatus() {
+Map setContentStatus() {
     Map result = success()
     GenericValue content = from('Content').where(parameters).queryOne()
     if (content) {
@@ -383,7 +383,7 @@ def setContentStatus() {
     return result
 }
 
-def createDownloadContent() {
+Map createDownloadContent() {
     Map serviceResult = success()
     Map result = runService('createOtherDataResource', [dataResourceContent: parameters.file])
     if (ServiceUtil.isError(result)) return result
@@ -395,7 +395,7 @@ def createDownloadContent() {
     return serviceResult
 }
 
-def updateDownloadContent() {
+Map updateDownloadContent() {
     if (parameters.fileDataResourceId) {
         return runService('updateOtherDataResource', [dataResourceId: parameters.fileDataResourceId,
                                                                   dataResourceContent: parameters.file])
@@ -403,7 +403,7 @@ def updateDownloadContent() {
     return success()
 }
 
-def getDataResource() {
+Map getDataResource() {
     Map result = success()
     Map resultData = [:]
 
@@ -421,7 +421,7 @@ def getDataResource() {
     return result
 }
 
-def getContentAndDataResource () {
+Map getContentAndDataResource () {
     Map result = success()
     Map resultDataContent = [:]
     GenericValue content = from('Content').where('contentId', parameters.contentId).queryOne()
@@ -441,7 +441,7 @@ def getContentAndDataResource () {
 
 /* create content from data resource
    This method will create a skeleton content record from a data resource */
-def createContentFromDataResource() {
+Map createContentFromDataResource() {
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
     if (! dataResource) {
         return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound',
@@ -454,7 +454,7 @@ def createContentFromDataResource() {
     Map result = run service: 'createContent', with: parameters
     return result
 }
-def deleteContentKeywords() {
+Map deleteContentKeywords() {
     GenericValue content = from('Content').where(parameters).queryOne()
     if (content) {
         content.removeRelated('ContentKeyword')
@@ -466,7 +466,7 @@ def deleteContentKeywords() {
 // ImageDataResource, etc. entities (if needed) by calling persistContentAndAssoc.
 // It then takes the passed in contentId, communicationEventId and fromDate primary keys
 // and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
-def updateCommContentDataResource() {
+Map updateCommContentDataResource() {
     Map serviceResult = run service: 'persistContentAndAssoc', with: parameters
     run service: 'updateCommEventContentAssoc', with: [contentId: serviceResult.contentId,
                                                        fromDate: parameters.fromDate,
@@ -486,7 +486,7 @@ def updateCommContentDataResource() {
             roleTypeList: serviceResult.roleTypeList]
 }
 
-def indexContentKeywords() {
+Map indexContentKeywords() {
     // this service is meant to be called from an entity ECA for entities that include a contentId
     // if it is the Content entity itself triggering this action, then a [contentInstance] parameter
     // will be passed and we can save a few cycles looking that up
@@ -498,13 +498,13 @@ def indexContentKeywords() {
     return success()
 }
 
-def forceIndexContentKeywords() {
+Map forceIndexContentKeywords() {
     content = from('Content').where('contentId', parameters.contentId).queryOne()
     ContentKeywordIndex.forceIndexKeywords(content)
     return success()
 }
 
-def createSimpleTextContent() {
+Map createSimpleTextContent() {
     Map serviceResult = run service: 'createDataResource', with: [*: parameters,
                                                                   dataResourceTypeId: 'ELECTRONIC_TEXT',
                                                                   dataTemplateTypeId: 'FTL']
@@ -520,7 +520,7 @@ def createSimpleTextContent() {
     return serviceResult
 }
 
-def updateSimpleTextContent() {
+Map updateSimpleTextContent() {
     Map result = success()
 
     if (parameters.textDataResourceId) {

@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.GenericValue
  * Migrate all element present on entity OldPicklistStatusHistory to entity PickListStatus
  * Update service created 2019-09
  */
-def migrateOldPicklistStatusHistoryToPickListStatus() {
+Map migrateOldPicklistStatusHistoryToPickListStatus() {
     List<GenericValue> oldPicklistStatusHistories = delegator.findAll('OldPicklistStatusHistory', false)
     oldPicklistStatusHistories.each {
         GenericValue picklistStatus = makeValue('PicklistStatus')

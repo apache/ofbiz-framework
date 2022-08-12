@@ -33,7 +33,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import java.sql.Timestamp
 import org.apache.ofbiz.accounting.util.UtilAccounting
 
-def createPayment() {
+Map createPayment() {
     if (!security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin) &&
             (!security.hasEntityPermission('PAY_INFO', '_CREATE', parameters.userLogin) &&
                     userLogin.partyId != parameters.partyIdFrom && userLogin.partyId != parameters.partyIdTo)) {
@@ -68,7 +68,7 @@ def createPayment() {
     return success(paymentId: payment.paymentId)
 }
 
-def getInvoicePaymentInfoList() {
+Map getInvoicePaymentInfoList() {
     // Create a list with information on payment due dates and amounts for the invoice
     GenericValue invoice = parameters.invoice ?: from('Invoice').where('invoiceId', parameters.invoiceId).queryOne()
     List invoicePaymentInfoList = []
@@ -127,7 +127,7 @@ def getInvoicePaymentInfoList() {
     return success(invoicePaymentInfoList: invoicePaymentInfoList)
 }
 
-def updatePayment() {
+Map updatePayment() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
     if (!security.hasEntityPermission('ACCOUNTING', '_UPDATE', parameters.userLogin) &&
         (!security.hasEntityPermission('PAY_INFO', '_UPDATE', parameters.userLogin) &&
@@ -171,7 +171,7 @@ def updatePayment() {
     return success()
 }
 
-def createPaymentAndApplicationForParty() {
+Map createPaymentAndApplicationForParty() {
     BigDecimal paymentAmount = 0
     List invoiceIds = []
     String paymentId
@@ -219,7 +219,7 @@ def createPaymentAndApplicationForParty() {
                     amount: paymentAmount])
 }
 
-def checkAndCreateBatchForValidPayments() {
+Map checkAndCreateBatchForValidPayments() {
     List disbursementPaymentIds = from('Payment')
             .where(EntityCondition.makeCondition('paymentId', EntityOperator.IN, parameters.paymentIds))
             .queryList()
@@ -242,7 +242,7 @@ def checkAndCreateBatchForValidPayments() {
     return result
 }
 
-def getPaymentRunningTotal(){
+Map getPaymentRunningTotal(){
     String currencyUomId
     List paymentIds = parameters.paymentIds
     BigDecimal runningTotal = 0
@@ -263,7 +263,7 @@ def getPaymentRunningTotal(){
     return success(paymentRunningTotal: UtilFormatOut.formatCurrency(runningTotal, currencyUomId, locale))
 }
 
-def createPaymentContent() {
+Map createPaymentContent() {
     GenericValue newEntity = makeValue('PaymentContent', parameters)
     newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
@@ -277,7 +277,7 @@ def createPaymentContent() {
 }
 
 //TODO: This can be converted into entity-auto with a seca rule for updateContent
-def updatePaymentContent() {
+Map updatePaymentContent() {
     GenericValue lookedUpValue = from('PaymentContent').where(parameters).queryOne()
     if (lookedUpValue) {
         lookedUpValue.setNonPKFields(parameters)
@@ -289,7 +289,7 @@ def updatePaymentContent() {
     return error('Error getting Payment Content')
 }
 
-def massChangePaymentStatus() {
+Map massChangePaymentStatus() {
     parameters.paymentIds.each{ paymentId ->
         Map result = run service: 'setPaymentStatus', with: [paymentId: paymentId,
                                                              statusId: parameters.statusId]
@@ -298,7 +298,7 @@ def massChangePaymentStatus() {
     return success()
 }
 
-def getInvoicePaymentInfoListByDueDateOffset() {
+Map getInvoicePaymentInfoListByDueDateOffset() {
 
     List filteredInvoicePaymentInfoList = []
     Timestamp asOfDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), (long) parameters.daysOffset)
@@ -337,7 +337,7 @@ def getInvoicePaymentInfoListByDueDateOffset() {
     return success(invoicePaymentInfoList: filteredInvoicePaymentInfoList)
 }
 
-def voidPayment() {
+Map voidPayment() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
     if (!payment) {
         return error(UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)?.AccountingNoPaymentsfound)
@@ -374,7 +374,7 @@ def voidPayment() {
                     statusId: 'FINACT_TRNS_CANCELED'])
 }
 
-def getPaymentGroupReconciliationId() {
+Map getPaymentGroupReconciliationId() {
     GenericValue paymentGroupMember = from('PaymentGroupMember')
             .where('paymentGroupId', parameters.paymentGroupId)
             .queryFirst()
@@ -389,7 +389,7 @@ def getPaymentGroupReconciliationId() {
     return success(glReconciliationId: glReconciliationId)
 }
 
-def createPaymentAndApplication() {
+Map createPaymentAndApplication() {
     Map createPaymentResp = run service: 'createPayment', with: parameters
     if (ServiceUtil.isError(createPaymentResp)) return createPaymentResp
 
@@ -402,7 +402,7 @@ def createPaymentAndApplication() {
                     paymentApplicationId: createPaymentApplicationResp.paymentApplicationId])
 }
 
-def createFinAccoutnTransFromPayment() {
+Map createFinAccoutnTransFromPayment() {
     Map result = run service: 'createFinAccountTrans', with: [*: parameters,
                                                               finAccountTransTypeId: 'WITHDRAWAL',
                                                               partyId: parameters.organizationPartyId,
@@ -423,7 +423,7 @@ def createFinAccoutnTransFromPayment() {
     return success(finAccountTransId: finAccountTransId)
 }
 
-def quickSendPayment() {
+Map quickSendPayment() {
     Map updatePaymentResp = run service: 'updatePayment', with: parameters
     if (ServiceUtil.isError(updatePaymentResp)) return updatePaymentResp
 
@@ -437,7 +437,7 @@ def quickSendPayment() {
 /**
  * Service to cancel payment batch
  */
-def cancelPaymentBatch() {
+Map cancelPaymentBatch() {
     List<GenericValue> paymentGroupMemberAndTransList = from('PmtGrpMembrPaymentAndFinAcctTrans')
             .where('paymentGroupId', parameters.paymentGroupId)
             .queryList()
@@ -463,7 +463,7 @@ def cancelPaymentBatch() {
     return success()
 }
 
-def getPayments() {
+Map getPayments() {
     List payments = []
     if (parameters.paymentGroupId) {
         List paymentIds = from('PaymentGroupMember')
@@ -485,7 +485,7 @@ def getPayments() {
     return success(payments: payments)
 }
 
-def cancelCheckRunPayments() {
+Map cancelCheckRunPayments() {
     List paymentGroupMemberAndTransList = from('PmtGrpMembrPaymentAndFinAcctTrans')
             .where('paymentGroupId', parameters.paymentGroupId)
             .queryList()
@@ -505,7 +505,7 @@ def cancelCheckRunPayments() {
     return success()
 }
 
-def createPaymentGroupAndMember() {
+Map createPaymentGroupAndMember() {
     serviceResult = success()
     parameters.fromDate = parameters.fromDate ?:  UtilDateTime. nowTimestamp()
     parameters.paymentGroupName = parameters.paymentGroupName ?: 'Payment Group Name'
@@ -527,7 +527,7 @@ def createPaymentGroupAndMember() {
     return success(paymentGroupId: paymentGroupId)
 }
 
-def createPaymentAndPaymentGroupForInvoices() {
+Map createPaymentAndPaymentGroupForInvoices() {
     Map result
     GenericValue paymentMethod = from('PaymentMethod').where('paymentMethodId', parameters.paymentMethodId).queryOne()
 
@@ -568,7 +568,7 @@ def createPaymentAndPaymentGroupForInvoices() {
     return result
 }
 
-def createPaymentFromOrder() {
+Map createPaymentFromOrder() {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (orderHeader) {
         if ('PURCHASE_ORDER' == orderHeader.orderTypeId) {
@@ -688,7 +688,7 @@ def createPaymentFromOrder() {
     }
 }
 
-def createPaymentApplication() {
+Map createPaymentApplication() {
     // Create a Payment Application
     if (!parameters.invoiceId && !parameters.billingAccountId && !parameters.taxAuthGeoId && !parameters.toPaymentId) {
         return error(label('AccountingUiLabels', 'AccountingPaymentApplicationParameterMissing'))
@@ -747,7 +747,7 @@ def createPaymentApplication() {
                     paymentTypeId: payment.paymentTypeId])
 }
 
-def setPaymentStatus() {
+Map setPaymentStatus() {
     GenericValue payment = from('Payment').where('paymentId', parameters.paymentId).queryOne()
     if (!payment) {
         return error("No payment found with ID ${parameters.paymentId}")
@@ -799,7 +799,7 @@ def setPaymentStatus() {
     return success(oldStatusId: oldStatusId)
 }
 
-def createMatchingPaymentApplication() {
+Map createMatchingPaymentApplication() {
     String autoCreate = EntityUtilProperties.getPropertyValue('accounting', 'accounting.payment.application.autocreate', 'Y', delegator)
     if ('Y' != autoCreate) {
         logInfo('payment application not automatically created because config is not set to Y')

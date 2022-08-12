@@ -130,7 +130,7 @@ if (modelEntity) {
     context.dynamicAutoEntityListForm = writerList
 }
 
-def getFieldsToSelect(ModelEntity modelEntity) {
+List<String> getFieldsToSelect(ModelEntity modelEntity) {
     groupByFields = []
     functionFields = []
 

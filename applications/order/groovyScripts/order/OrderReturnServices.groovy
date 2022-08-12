@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Create a ReturnHeader
  * @return
  */
-def createReturnHeader() {
+Map createReturnHeader() {
     Map result = success()
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 
@@ -122,7 +122,7 @@ def createReturnHeader() {
  * Update a ReturnHeader
  * @return
  */
-def updateReturnHeader() {
+Map updateReturnHeader() {
     Map result = success()
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
     // test the total return amount vs the total order amount
@@ -188,7 +188,7 @@ def updateReturnHeader() {
  * Create Return Item
  * @return
  */
-def createReturnItem() {
+Map createReturnItem() {
     Map result = success()
     GenericValue orderItem
     GenericValue returnHeader = from('ReturnHeader')
@@ -282,7 +282,7 @@ def createReturnItem() {
  * Update Return Item
  * @return
  */
-def updateReturnItem() {
+Map updateReturnItem() {
     Map result = success()
     Map lookupPKMap = [returnId: parameters.returnId, returnItemSeqId: parameters.returnItemSeqId]
     GenericValue returnItem = from('ReturnItem').where(lookupPKMap).queryOne()
@@ -315,7 +315,7 @@ def updateReturnItem() {
  * Update Return Items Status
  * @return
  */
-def updateReturnItemsStatus() {
+Map updateReturnItemsStatus() {
     List returnItems = from('ReturnItem').where(returnId: parameters.returnId).queryList()
     for (GenericValue item : returnItems) {
         item.statusId = parameters.statusId
@@ -330,7 +330,7 @@ def updateReturnItemsStatus() {
  * Remove Return Item
  * @return
  */
-def removeReturnItem() {
+Map removeReturnItem() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
     if ('CUSTOMER_RETURN' == returnHeader.returnHeaderTypeId) {
         if ('RETURN_REQUESTED' != returnHeader.statusId) {
@@ -363,7 +363,7 @@ def removeReturnItem() {
  * Update Return Status From ShipmentReceipt
  * @return
  */
-def updateReturnStatusFromReceipt() {
+Map updateReturnStatusFromReceipt() {
     Map result = success()
     Map lookupPKMap = [returnId: parameters.returnId]
     GenericValue returnHeader = from('ReturnHeader').where(lookupPKMap).queryOne()
@@ -431,7 +431,7 @@ def updateReturnStatusFromReceipt() {
  * Create Quick Return From Order
  * @return
  */
-def quickReturnFromOrder() {
+Map quickReturnFromOrder() {
     Map result = success()
     GenericValue returnItemTypeMapping
 
@@ -588,7 +588,7 @@ def quickReturnFromOrder() {
  * If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in
  * @return
  */
-def createReturnAndItemOrAdjustment() {
+Map createReturnAndItemOrAdjustment() {
     Map result = success()
     if (!parameters.returnId) {
         Map serviceResultcRH = run service: 'createReturnHeader', with: parameters
@@ -611,7 +611,7 @@ def createReturnAndItemOrAdjustment() {
  * Update a ReturnItems
  * @return
  */
-def cancelReturnItems() {
+Map cancelReturnItems() {
     List returnItems = from('ReturnItem').where(returnId: parameters.returnId).distinct().queryList()
     for (GenericValue returnItem : returnItems) {
         run service: 'updateReturnItem', with: [returnId: parameters.returnId,
@@ -625,7 +625,7 @@ def cancelReturnItems() {
  * Cancel the associated OrderItems of the replacement order, if any.
  * @return
  */
-def cancelReplacementOrderItems() {
+Map cancelReplacementOrderItems() {
     GenericValue returnItem = from('ReturnItems').where(parameters).queryOne()
     if ('RTN_REPLACE' == returnItem.returnTypeId
             || 'RTN_CSREPLACE' == returnItem.returnTypeId
@@ -647,7 +647,7 @@ def cancelReplacementOrderItems() {
  * Process the replacements in a wait return
  * @return
  */
-def processWaitReplacementReturn() {
+Map processWaitReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
                                                     returnTypeId: 'RTN_REPLACE']
     return success()
@@ -657,7 +657,7 @@ def processWaitReplacementReturn() {
  * Process the replacements in a cross-ship return
  * @return
  */
-def processCrossShipReplacementReturn() {
+Map processCrossShipReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
                                                     returnTypeId: 'RTN_CSREPLACE']
     return success()
@@ -667,7 +667,7 @@ def processCrossShipReplacementReturn() {
  * Process the replacements in a repair return
  * @return
  */
-def processRepairReplacementReturn() {
+Map processRepairReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
                                                     returnTypeId: 'RTN_REPAIR_REPLACE']
     return success()
@@ -677,7 +677,7 @@ def processRepairReplacementReturn() {
  * Process the replacements in a wait reserved return when the return is accepted and then received
  * @return
  */
-def processWaitReplacementReservedReturn() {
+Map processWaitReplacementReservedReturn() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
     if ('RETURN_ACCEPTED' == returnHeader.statusId) {
         run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
@@ -712,7 +712,7 @@ def processWaitReplacementReservedReturn() {
  * Process the replacements in a immediate return
  * @return
  */
-def processReplaceImmediatelyReturn() {
+Map processReplaceImmediatelyReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
                                                     returnTypeId: 'RTN_REPLACE_IMMEDIAT']
     return success()
@@ -722,7 +722,7 @@ def processReplaceImmediatelyReturn() {
  * Process the refund in a return
  * @return
  */
-def processRefundOnlyReturn() {
+Map processRefundOnlyReturn() {
     run service: 'processRefundReturn', with: [returnId: parameters.returnId,
                                                returnTypeId: 'RTN_REFUND']
     return success()
@@ -732,7 +732,7 @@ def processRefundOnlyReturn() {
  * Process the Immediate refund in a return
  * @return
  */
-def processRefundImmediatelyReturn() {
+Map processRefundImmediatelyReturn() {
     run service: 'processRefundReturn', with: [returnId: parameters.returnId,
                                                returnTypeId: 'RTN_REFUND_IMMEDIATE']
     return success()
@@ -742,7 +742,7 @@ def processRefundImmediatelyReturn() {
  * Get the return status associated with customer vs. vendor return
  * @return
  */
-def getStatusItemsForReturn() {
+Map getStatusItemsForReturn() {
     Map result = success()
     if ('CUSTOMER_RETURN' == parameters.returnHeaderTypeId) {
         List statusItems = from('StatusItem').where(statusTypeId: 'ORDER_RETURN_STTS').queryList()
@@ -758,7 +758,7 @@ def getStatusItemsForReturn() {
  * Associate exchange order with original order in OrderItemAssoc entity
  * @return
  */
-def createExchangeOrderAssoc() {
+Map createExchangeOrderAssoc() {
     List returnItems = from('ReturnItem')
             .where(orderId: parameters.originOrderId,
             returnTypeId: 'RTN_REFUND')
@@ -830,7 +830,7 @@ def createExchangeOrderAssoc() {
  * if they does not have any active category
  * @return
  */
-def addProductsBackToCategory() {
+Map addProductsBackToCategory() {
     if (parameters.inventoryItemId) {
         GenericValue inventoryItem = from('InventoryItem').where(parameters).queryOne()
         GenericValue product = delegator.getRelatedOne('Product', inventoryItem, false)
@@ -882,7 +882,7 @@ def addProductsBackToCategory() {
  * Create ReturnHeader and ReturnItem Status
  * @return
  */
-def createReturnStatus() {
+Map createReturnStatus() {
     GenericValue newEntity = makeValue('ReturnStatus')
     if (!parameters.returnItemSeqId) {
         GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
@@ -904,7 +904,7 @@ def createReturnStatus() {
  * Update ReturnContactMech
  * @return
  */
-def updateReturnContactMech() {
+Map updateReturnContactMech() {
     GenericValue returnContactMechMap = makeValue('ReturnContactMech')
     returnContactMechMap.setPKFields(parameters)
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
@@ -928,7 +928,7 @@ def updateReturnContactMech() {
  * Create the return item for rental (which items has product type is ASSET_USAGE_OUT_IN)
  * @return
  */
-def createReturnItemForRental() {
+Map createReturnItemForRental() {
     Map result = success()
     GenericValue orderHeader = from('OrderHeader').where(orderId: parameters.orderId).queryOne()
 
@@ -987,7 +987,7 @@ def createReturnItemForRental() {
     return result
 }
 
-def private informError(String label) {
+private Map informError(String label) {
     String errorMessage = UtilProperties.getMessage('OrderErrorUiLabels', label, parameters.locale)
     logError(errorMessage)
     return error(errorMessage)

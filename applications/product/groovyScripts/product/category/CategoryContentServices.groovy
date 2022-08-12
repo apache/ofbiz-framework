@@ -28,7 +28,7 @@ import org.apache.ofbiz.service.ModelService
 /**
  * Create Content For Product Category
  */
-def createCategoryContent() {
+Map createCategoryContent() {
     GenericValue newEntity = makeValue('ProductCategoryContent')
     newEntity.setPKFields(parameters, true)
     newEntity.setNonPKFields(parameters, true)
@@ -52,7 +52,7 @@ def createCategoryContent() {
 /**
  * Update Content For Category
  */
-def updateCategoryContent() {
+Map updateCategoryContent() {
     GenericValue lookupPKMap = makeValue('ProductCategoryContent')
     lookupPKMap.setPKFields(parameters, true)
     Map lookedUpValue = from('ProductCategoryContent').where(lookupPKMap).queryOne()
@@ -66,7 +66,7 @@ def updateCategoryContent() {
 /**
  * Create Simple Text Content For Product Category
  */
-def createSimpleTextContentForCategory() {
+Map createSimpleTextContentForCategory() {
     Map createCategoryContentMap = dispatcher.getDispatchContext().makeValidContext('createCategoryContent', ModelService.IN_PARAM, parameters)
     Map createSimpleTextMap = dispatcher.getDispatchContext().makeValidContext('createSimpleTextContent', ModelService.IN_PARAM, parameters)
     Map cstcRes = run service: 'createSimpleTextContent', with: createSimpleTextMap
@@ -77,7 +77,7 @@ def createSimpleTextContentForCategory() {
 /**
  * Update SEO Content For Product Category
  */
-def updateContentSEOForCategory() {
+Map updateContentSEOForCategory() {
     updateContent('title', 'PAGE_TITLE')
     updateContent('metaKeyword', 'META_KEYWORD')
     updateContent('metaDiscription', 'META_DESCRIPTION')
@@ -88,7 +88,7 @@ def updateContentSEOForCategory() {
  * @param param
  * @param typeId
  */
-def updateContent(param, typeId) {
+Map updateContent(String param, String typeId) {
     if (parameters."${param}") {
         List productCategoryContents = from('ProductCategoryContentAndInfo')
             .where('productCategoryId', parameters.productCategoryId, 'prodCatContentTypeId', typeId)
@@ -114,7 +114,7 @@ def updateContent(param, typeId) {
 /**
  * Create Related URL Content For Product Category
  */
-def createRelatedUrlContentForCategory() {
+Map createRelatedUrlContentForCategory() {
     String url = parameters.url
     url = url.trim()
     if (url.indexOf('&quot;http://&quot;') != 0) {
@@ -146,7 +146,7 @@ def createRelatedUrlContentForCategory() {
 /**
  * Update Related URL Content For Product Category
  */
-def updateRelatedUrlContentForCategory() {
+Map updateRelatedUrlContentForCategory() {
     Map updateCategoryContent = dispatcher.getDispatchContext().makeValidContext('updateCategoryContent', ModelService.IN_PARAM, parameters)
     run service: 'updateCategoryContent', with: updateCategoryContent
     Map dataResource = [
@@ -168,7 +168,7 @@ def updateRelatedUrlContentForCategory() {
 /**
  * Create Download Content For Category
  */
-def createDownloadContentForCategory() {
+Map createDownloadContentForCategory() {
     Map createCategoryContent = dispatcher.getDispatchContext().makeValidContext('createCategoryContent', ModelService.IN_PARAM, parameters)
     // create data resource
     Map data = [
@@ -200,7 +200,7 @@ def createDownloadContentForCategory() {
 /**
  * Update Download Content For Category
  */
-def updateDownloadContentForCategory() {
+Map updateDownloadContentForCategory() {
     Map attachMap = [
         uploadedFile: parameters.uploadedFile,
         _uploadedFile_fileName: parameters._uploadedFile_fileName,

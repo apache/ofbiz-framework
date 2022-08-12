@@ -31,7 +31,7 @@ import org.apache.ofbiz.party.party.PartyHelper
  * Create a Product Price
  * @return
  */
-def createProductPrice() {
+Map createProductPrice() {
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
@@ -58,7 +58,7 @@ def createProductPrice() {
  * Update an ProductPrice
  * @return
  */
-def updateProductPrice() {
+Map updateProductPrice() {
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
@@ -80,7 +80,7 @@ def updateProductPrice() {
  * Delete an ProductPrice
  * @return
  */
-def deleteProductPrice() {
+Map deleteProductPrice() {
     Map result = success()
     if (!security.hasPermission('CATALOG_PRICE_MAINT', userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductPriceMaintPermissionError', locale))
@@ -96,7 +96,7 @@ def deleteProductPrice() {
  * Inline Handle Price with Tax Included
  * @return
  */
-def inlineHandlePriceWithTaxIncluded() {
+Map inlineHandlePriceWithTaxIncluded() {
     // handle price with tax included related fields (priceWithTax, taxAmount, taxPercentage, taxAuthPartyId, taxAuthGeoId)
     if (parameters.taxAuthPartyId && parameters.taxAuthGeoId) {
         parameters.priceWithTax = parameters.price
@@ -135,7 +135,7 @@ def inlineHandlePriceWithTaxIncluded() {
  * Create an ProductPriceCond
  * @return
  */
-def createProductPriceCond() {
+Map createProductPriceCond() {
     Map result = success()
     if (!security.hasEntityPermission('CATALOG', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', locale))
@@ -157,7 +157,7 @@ def createProductPriceCond() {
  * Update an ProductPriceCond
  * @return
  */
-def updateProductPriceCond() {
+Map updateProductPriceCond() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', locale))
     }
@@ -177,7 +177,7 @@ def updateProductPriceCond() {
  * Set the Value options for selected Price Rule Condition Input
  * @return
  */
-def getAssociatedPriceRulesConds() {
+Map getAssociatedPriceRulesConds() {
     Map result = success()
     List productPriceRulesCondValues = []
 

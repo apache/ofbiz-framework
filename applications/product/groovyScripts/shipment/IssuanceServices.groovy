@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.GenericValue
  * Computes the total quantity assigned to shipment for a purchase order item
  * @return
  */
-def getTotalIssuedQuantityForOrderItem() {
+Map getTotalIssuedQuantityForOrderItem() {
     Map result = success()
     GenericValue orderItem = parameters.orderItem
     BigDecimal totalIssuedQuantity = 0.0

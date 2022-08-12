@@ -27,7 +27,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Creates a new Purchase Order Schedule
  * @return
  */
-def createOrderDeliverySchedule() {
+Map createOrderDeliverySchedule() {
     String checkAction = 'CREATE'
     Map serviceResult = checkSupplierRelatedPermission('createOrderDeliverySchedule', checkAction, parameters.orderId)
     if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -53,7 +53,7 @@ def createOrderDeliverySchedule() {
  * Updates an existing Purchase Order Schedule
  * @return
  */
-def updateOrderDeliverySchedule() {
+Map updateOrderDeliverySchedule() {
     // Verify the user is allowed to edit the fields
     String checkAction = 'UPDATE'
     Map serviceResult = checkSupplierRelatedPermission('updateOrderDeliverySchedule', checkAction, parameters.orderId)
@@ -75,7 +75,7 @@ def updateOrderDeliverySchedule() {
     return success()
 }
 
-def sendOrderDeliveryScheduleNotification() {
+Map sendOrderDeliveryScheduleNotification() {
     String checkAction = 'UPDATE'
     Map serviceResult = checkSupplierRelatedPermission('sendOrderDeliveryScheduleNotification', checkAction, parameters.orderId)
     if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -137,7 +137,7 @@ def sendOrderDeliveryScheduleNotification() {
  * Check Supplier Related Permission Service
  * @return
  */
-def checkSupplierRelatedOrderPermissionService() {
+Map checkSupplierRelatedOrderPermissionService() {
     Map result = success()
     Map serviceResult = checkSupplierRelatedPermission(parameters.callingMethodName, parameters.checkAction, parameters.orderId)
     result.hasSupplierRelatedPermission = serviceResult.hasSupplierRelatedPermission
@@ -150,7 +150,7 @@ def checkSupplierRelatedOrderPermissionService() {
  * Check Supplier Related Permission
  * @return
  */
-def checkSupplierRelatedPermission(String callingMethodName, String checkAction, String orderId) {
+Map checkSupplierRelatedPermission(String callingMethodName, String checkAction, String orderId) {
     Map result = success()
     if (!callingMethodName) {
         callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)

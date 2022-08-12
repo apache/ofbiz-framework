@@ -25,7 +25,7 @@ import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
 
-def getNextInvoiceId() {
+Map getNextInvoiceId() {
     result = success()
 
     // try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing
@@ -79,7 +79,7 @@ def getNextInvoiceId() {
     return result
 }
 
-def invoiceSequenceEnforced() {
+Map invoiceSequenceEnforced() {
     result = success()
 
     logInfo('In createInvoice sequence enum Enforced')
@@ -97,7 +97,7 @@ def invoiceSequenceEnforced() {
     return result
 }
 
-def invoiceSequenceRestart() {
+Map invoiceSequenceRestart() {
     result = success()
 
     logInfo('In createInvoice sequence enum Enforced')

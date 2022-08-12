@@ -18,6 +18,7 @@
  */
 
 
+import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 import java.sql.Timestamp
@@ -44,8 +45,8 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Create an ProductCategory
  */
-def createProductCategory() {
-    def resourceDescription = parameters.rescourceDescription ?: 'createProductCategory'
+Map createProductCategory() {
+    String resourceDescription = parameters.rescourceDescription ?: 'createProductCategory'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
@@ -59,7 +60,7 @@ def createProductCategory() {
         newEntity.productCategoryId = delegator.getNextSeqId('ProductCategory')
     } else {
         newEntity.productCategoryId = parameters.productCategoryId
-        def errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productCategoryId)
+        String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productCategoryId)
         if (errorMessage != null) {
             return error(errorMessage)
         }
@@ -89,7 +90,7 @@ def createProductCategory() {
 /**
  * Update a ProductCategory
  */
-def updateProductCategory() {
+Map updateProductCategory() {
     Map res = checkCategoryRelatedPermission('updateProductCategory', 'UPDATE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -111,7 +112,7 @@ def updateProductCategory() {
 /**
  * Add Product to Multiple Categories
  */
-def addProductToCategories() {
+Map addProductToCategories() {
     Map addProductToCategoryMap = dispatcher.dispatchContext.makeValidContext('addProductToCategory', ModelService.IN_PARAM, parameters)
     if (parameters.categories instanceof java.util.List) {
         for (def category : parameters.categories) {
@@ -135,7 +136,7 @@ def addProductToCategories() {
 /**
  * Remove Product From Category
  */
-def removeProductFromCategory() {
+Map removeProductFromCategory() {
     // If the associated category was the primary category for the product, clear that field
     GenericValue product = from('Product').where(parameters).queryOne()
     if (Objects.equals(product?.primaryProductCategoryId, parameters.productCategoryId)) {
@@ -156,7 +157,7 @@ def removeProductFromCategory() {
 /**
  * Add Party to Category
  */
-def addPartyToCategory() {
+Map addPartyToCategory() {
     Map res = checkCategoryRelatedPermission('addPartyToCategory', 'CREATE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -172,7 +173,7 @@ def addPartyToCategory() {
 /**
  * Update Party to Category Application
  */
-def updatePartyToCategory() {
+Map updatePartyToCategory() {
     Map res = checkCategoryRelatedPermission('updatePartyToCategory', 'UPDATE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -186,7 +187,7 @@ def updatePartyToCategory() {
 /**
  * Remove Party From Category
  */
-def removePartyFromCategory() {
+Map removePartyFromCategory() {
     Map res = checkCategoryRelatedPermission('removePartyFromCategory', 'DELETE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -205,7 +206,7 @@ def removePartyFromCategory() {
 /**
  * Add ProductCategory to Category
  */
-def addProductCategoryToCategory() {
+Map addProductCategoryToCategory() {
     Map res = checkCategoryRelatedPermission('addProductCategoryToCategory', 'CREATE', null, 'parentProductCategoryId')
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -223,7 +224,7 @@ def addProductCategoryToCategory() {
 /**
  * Add ProductCategory to Categories
  */
-def addProductCategoryToCategories() {
+Map addProductCategoryToCategories() {
     if (parameters.categories instanceof java.util.List) {
         for (def category : parameters.categories) {
             // note the the user must be associated with the parent category with the role limited permission
@@ -260,7 +261,7 @@ def addProductCategoryToCategories() {
 /**
  * Update ProductCategory to Category Application
  */
-def updateProductCategoryToCategory() {
+Map updateProductCategoryToCategory() {
     // note the the user must be associated with the parent category with the role limited permission
     Map res = checkCategoryRelatedPermission('updateProductCategoryToCategory', 'UPDATE', null, 'parentProductCategoryId')
     if (!ServiceUtil.isSuccess(res)) {
@@ -278,7 +279,7 @@ def updateProductCategoryToCategory() {
 /**
  * Remove ProductCategory From Category
  */
-def removeProductCategoryFromCategory() {
+Map removeProductCategoryFromCategory() {
     // note the the user must be associated with the parent category with the role limited permission
     Map res = checkCategoryRelatedPermission('removeProductCategoryFromCategory', 'DELETE', null, 'parentProductCategoryId')
     if (!ServiceUtil.isSuccess(res)) {
@@ -299,13 +300,13 @@ def removeProductCategoryFromCategory() {
 /**
  * copy CategoryProduct Members to a CategoryProductTo
  */
-def copyCategoryProductMembers() {
+Map copyCategoryProductMembers() {
     Map res = checkCategoryRelatedPermission('copyCategoryProductMembers', 'CREATE', null, 'productCategoryIdTo')
     if (!ServiceUtil.isSuccess(res)) {
         return res
     }
 
-    def query = from('ProductCategoryMember').where('productCategoryId', parameters.productCategoryId)
+    EntityQuery query = from('ProductCategoryMember').where('productCategoryId', parameters.productCategoryId)
     if (parameters.validDate) {
         query.filterByDate()
     }
@@ -313,8 +314,8 @@ def copyCategoryProductMembers() {
 
     // add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful
     List pcmsToStore = []
-    for (def productCategoryMember : productCategoryMembers) {
-        def newProductCategoryMember = productCategoryMember.clone()
+    for (GenericValue productCategoryMember : productCategoryMembers) {
+        GenericValue newProductCategoryMember = productCategoryMember.clone()
         parameters.productCategoryIdTo = newProductCategoryMember.productCategoryId
         pcmsToStore.add(newProductCategoryMember)
     }
@@ -331,7 +332,7 @@ def copyCategoryProductMembers() {
         List productCategoryRollups = query.queryList()
 
         Map callServiceMap = [:]
-        for (def productCategoryRollup : productCategoryRollups) {
+        for (GenericValue productCategoryRollup : productCategoryRollups) {
             callServiceMap = [
                 productCategoryId: productCategoryRollup.productCategoryId,
                 productCategoryIdTo: parameters.productCategoryIdTo,
@@ -347,8 +348,8 @@ def copyCategoryProductMembers() {
 /**
  * a service wrapper for copyCategoryEntities
  */
-def duplicateCategoryEntities() {
-    def resourceDescription = parameters.resourceDescription ?: 'duplicateCategoryEntities'
+Map duplicateCategoryEntities() {
+    String resourceDescription = parameters.resourceDescription ?: 'duplicateCategoryEntities'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription], parameters.locale))
@@ -366,8 +367,8 @@ def duplicateCategoryEntities() {
  * @param productCategoryIdTo
  * @param validDate
  */
-def copyCategoryEntities(entityName, productCategoryId, productCategoryIdTo, validDate) {
-    def query = from(entityName).where('productCategoryId', productCategoryId)
+Map copyCategoryEntities(String entityName, String productCategoryId, String productCategoryIdTo, Timestamp validDate) {
+    EntityQuery query = from(entityName).where('productCategoryId', productCategoryId)
     if (validDate) {
         query.filterByDate()
     }
@@ -375,8 +376,8 @@ def copyCategoryEntities(entityName, productCategoryId, productCategoryIdTo, val
 
     // add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful
     List entitiesToStore = []
-    for (def categoryEntity : categoryEntities) {
-        def newCategoryEntity = categoryEntity.clone()
+    for (GenericValue categoryEntity : categoryEntities) {
+        GenericValue newCategoryEntity = categoryEntity.clone()
         newCategoryEntity.productCategoryId = productCategoryIdTo
         entitiesToStore.add(newCategoryEntity)
     }
@@ -386,7 +387,7 @@ def copyCategoryEntities(entityName, productCategoryId, productCategoryIdTo, val
 /**
  * Remove ProductCategory From Category
  */
-def expireAllCategoryProductMembers() {
+Map expireAllCategoryProductMembers() {
     Map res = checkCategoryRelatedPermission('expireAllCategoryProductMembers', 'UPDATE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -411,7 +412,7 @@ def expireAllCategoryProductMembers() {
 /**
  * Remove ProductCategory From Category
  */
-def removeExpiredCategoryProductMembers() {
+Map removeExpiredCategoryProductMembers() {
     Map res = checkCategoryRelatedPermission('removeExpiredCategoryProductMembers', 'DELETE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -445,7 +446,7 @@ def removeExpiredCategoryProductMembers() {
  * Create a Product in a Category along with special information such as features
  *
  */
-def createProductInCategory() {
+Map createProductInCategory() {
     Map res = checkCategoryRelatedPermission('createProductInCategory', 'CREATE', null, null)
     if (!ServiceUtil.isSuccess(res)) {
         return res
@@ -460,7 +461,7 @@ def createProductInCategory() {
         parameters.productTypeId = 'FINISHED_GOOD'
     }
     Map cPRes = run service: 'createProduct', with: parameters
-    def productId = cPRes.productId
+    String productId = cPRes.productId
     Map result = success()
     result.productId = productId
 
@@ -499,8 +500,8 @@ def createProductInCategory() {
     // create ProductFeatureAppl(s)
     String hasSelectableFeatures = 'N'
     for (Map entry : parameters.productFeatureIdByType.entrySet()) {
-        def productFeatureTypeId = entry.getKey()
-        def productFeatureId = entry.getValue()
+        String productFeatureTypeId = entry.getKey()
+        String productFeatureId = entry.getValue()
         logInfo("Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]")
         Map createPfaMap = [productId: productId, productFeatureId: productFeatureId]
         if (parameters.productFeatureSelectableByType[productFeatureTypeId].equals('Y')) {
@@ -525,8 +526,8 @@ def createProductInCategory() {
 /**
  * Duplicate a ProductCategory
  */
-def duplicateProductCategory() {
-    def resourceDescription = parameters.resourceDescription ?: 'duplicateProductCategory'
+Map duplicateProductCategory() {
+    String resourceDescription = parameters.resourceDescription ?: 'duplicateProductCategory'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
@@ -545,8 +546,8 @@ def duplicateProductCategory() {
     // set the new product category id, and write it to the datasource
     newCategory.productCategoryId = parameters.productCategoryId
     newCategory.create()
-    def productCategoryId = parameters.oldProductCategoryId
-    def productCategoryIdTo = parameters.productCategoryId
+    String productCategoryId = parameters.oldProductCategoryId
+    String productCategoryIdTo = parameters.productCategoryId
 
     // if requested, duplicate related data as well
     if (parameters.duplicateMembers) {
@@ -574,7 +575,7 @@ def duplicateProductCategory() {
     /* Parent rollups are where oldProductCategoryId = ProductCategoryRollup.productCategoryId,
      * but the child roll up is where oldProductCategoryId = ProductCategoryRollup.parentProductCategoryId
      * and hence requires a new find-by map */
-    def foundValues = []
+    List foundValues = []
     if (parameters.duplicateParentRollup) {
         foundValues = from('ProductCategoryRollup').where('productCategoryId', parameters.oldProductCategoryId).queryList()
         for (GenericValue foundValue : foundValues) {
@@ -603,9 +604,9 @@ def duplicateProductCategory() {
 /**
  * Create an attribute for a product category
  */
-def createProductCategoryAttribute() {
+Map createProductCategoryAttribute() {
 
-    def resourceDescription = parameters.resourceDescription ?: 'createProductCategoryAttribute'
+    String resourceDescription = parameters.resourceDescription ?: 'createProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',
             [resourceDescription: resourceDescription], parameters.locale))
@@ -630,8 +631,8 @@ def createProductCategoryAttribute() {
 /**
  * Update an association between two product categories
  */
-def updateProductCategoryAttribute() {
-    def resourceDescription = parameters.resourceDescription ?: 'updateProductCategoryAttribute'
+Map updateProductCategoryAttribute() {
+    String resourceDescription = parameters.resourceDescription ?: 'updateProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError',
             [resourceDescription: resourceDescription], parameters.locale))
@@ -646,8 +647,8 @@ def updateProductCategoryAttribute() {
 /**
  * Delete an association between two product categories
  */
-def deleteProductCategoryAttribute() {
-    def resourceDescription = parameters.resourceDescription ?: 'deleteProductCategoryAttribute'
+Map deleteProductCategoryAttribute() {
+    String resourceDescription = parameters.resourceDescription ?: 'deleteProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_DELETE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogDeletePermissionError',
             [resourceDescription: resourceDescription], parameters.locale))
@@ -662,7 +663,7 @@ def deleteProductCategoryAttribute() {
 /**
  * create a ProductCategoryLink
  */
-def createProductCategoryLink() {
+Map createProductCategoryLink() {
     GenericValue newEntity = makeValue('ProductCategoryLink')
     newEntity.productCategoryId = parameters.productCategoryId
 
@@ -688,7 +689,7 @@ def createProductCategoryLink() {
 /**
  * Check Product Category Related Permission
  */
-def checkCategoryRelatedPermission(callingMethodName, checkAction, productCategoryIdToCheck, productCategoryIdName) {
+Map checkCategoryRelatedPermission(String callingMethodName, String checkAction, String productCategoryIdToCheck, String productCategoryIdName) {
     if (!callingMethodName) {
         callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
@@ -727,7 +728,7 @@ def checkCategoryRelatedPermission(callingMethodName, checkAction, productCatego
 /**
  * Main permission logic
  */
-def productCategoryGenericPermission() {
+Map productCategoryGenericPermission() {
     if (!parameters.mainAction) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale))
     }
@@ -750,7 +751,7 @@ def productCategoryGenericPermission() {
 /**
  * Check Product Category Permission With View and Purchase Allow
  */
-def checkCategoryPermissionWithViewPurchaseAllow() {
+Map checkCategoryPermissionWithViewPurchaseAllow() {
     Map genericResult = run service: 'productCategoryGenericPermission', with: parameters
     if (genericResult.hasPermission.equals(false)) {
         Map result = [
@@ -782,7 +783,7 @@ def checkCategoryPermissionWithViewPurchaseAllow() {
     String failMessage = ''
     for (Map prodCatalogCategory : prodCatalogCategoryList) {
         // Do not do a permission check, unless the ProdCatalog requires it
-        def prodCatalog = from('ProdCatalog').where([prodCatalogId: prodCatalogCategory.prodCatalogId]).queryOne()
+        GenericValue prodCatalog = from('ProdCatalog').where([prodCatalogId: prodCatalogCategory.prodCatalogId]).queryOne()
         if (prodCatalog.viewAllowPermReqd.equals('Y')
             && !security.hasEntityPermission('CATALOG_VIEW', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
@@ -807,7 +808,7 @@ def checkCategoryPermissionWithViewPurchaseAllow() {
 /**
  * Set the product options for selected product category, mostly used by getDependentDropdownValues
  */
-def getAssociatedProductsList() {
+Map getAssociatedProductsList() {
     parameters.categoryId = parameters.productCategoryId
     Map getProductCategoryMembersMap = dispatcher.dispatchContext.makeValidContext('getProductCategoryMembers', ModelService.IN_PARAM, parameters)
     Map res = run service: 'getProductCategoryMembers', with: getProductCategoryMembersMap

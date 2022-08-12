@@ -21,7 +21,7 @@ package org.apache.ofbiz.common.template
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelUtil
 
-def getFieldTypeName(String entityName) {
+Map getFieldTypeName(String entityName) {
     return ModelUtil.lowerFirstChar(entityName) + 'Id'
 }
 
@@ -29,7 +29,7 @@ def getFieldTypeName(String entityName) {
  * For a entityTypeName and a value return the matching templating document screen
  * If no value found, do a recursive search on parentType
  */
-def getCustomScreenTemplate(String entityTypeName, String fieldTypeValue) {
+Map getCustomScreenTemplate(String entityTypeName, String fieldTypeValue) {
   if (!fieldTypeValue) {
     return null
   }

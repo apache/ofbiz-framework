@@ -49,7 +49,7 @@ context.assignRoleTypeId = assignRoleTypeId
 context.fromDate = fromDate
 context.delegate = delegate
 context.todayDate = new java.sql.Date(System.currentTimeMillis()).toString()
-def partyId = null
+String partyId = null
 
 orderHeader = null
 orderItems = null

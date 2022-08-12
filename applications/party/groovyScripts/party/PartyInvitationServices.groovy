@@ -24,7 +24,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 
 // Party Invitation Services
-def createPartyInvitation() {
+Map createPartyInvitation() {
     Map result = success()
     GenericValue newEntity = makeValue('PartyInvitation', parameters)
     newEntity.partyInvitationId = delegator.getNextSeqId('PartyInvitation')
@@ -39,7 +39,7 @@ def createPartyInvitation() {
     return result
 }
 
-def updatePartyInvitation() {
+Map updatePartyInvitation() {
     GenericValue lookedUpValue = makeValue('PartyInvitation', parameters)
     if (! parameters.toName && parameters.partyId) {
         newEntity.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
@@ -48,7 +48,7 @@ def updatePartyInvitation() {
     return success()
 }
 
-def acceptPartyInvitation() {
+Map acceptPartyInvitation() {
     List partyInvitationGroupAssocs = from('PartyInvitationGroupAssoc')
             .where(partyInvitationId: parameters.partyInvitationId)
             .queryList()

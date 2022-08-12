@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * This function return success if conditions are valid and generate gift with purchase
  * @return result
  */
-def productGWP() {
+Map productGWP() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -215,7 +215,7 @@ def productGWP() {
  * This function return success, if conditions are valid shipping will be set free
  * @return result
  */
-def productActFreeShip() {
+Map productActFreeShip() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -236,7 +236,7 @@ def productActFreeShip() {
  * This function return success, if conditions are valid so X Product for Y% Discount
  * @return result
  */
-def productDISC() {
+Map productDISC() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -299,7 +299,7 @@ def productDISC() {
  * This function return success, if conditions are valid so X Product for Y Discount
  * @return
  */
-def productAMDISC() {
+Map productAMDISC() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -360,7 +360,7 @@ def productAMDISC() {
  *
  * @return
  */
-def productPrice() {
+Map productPrice() {
 
     Map result = success()
 
@@ -416,7 +416,7 @@ def productPrice() {
 
 }
 
-def productOrderPercent() {
+Map productOrderPercent() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -441,7 +441,7 @@ def productOrderPercent() {
     return result
 }
 
-def productOrderAmount() {
+Map productOrderAmount() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -463,7 +463,7 @@ def productOrderAmount() {
     return result
 }
 
-def productSpecialPrice() {
+Map productSpecialPrice() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -499,7 +499,7 @@ def productSpecialPrice() {
     return result
 }
 
-def productShipCharge() {
+Map productShipCharge() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -526,7 +526,7 @@ def productShipCharge() {
     return result
 }
 
-def productTaxPercent() {
+Map productTaxPercent() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction

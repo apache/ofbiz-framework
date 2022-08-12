@@ -21,7 +21,7 @@ product = from('Product').where('productId', parameters.productId).queryOne()
 if (product) {
     productVirtualVariants = from('ProductAssoc').where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
     if(productVirtualVariants){
-        def mainProducts = []
+        List mainProducts = []
         productVirtualVariants.each { virtualVariantKey ->
             mainProductMap = [:]
             mainProduct = virtualVariantKey.getRelatedOne('MainProduct', true)

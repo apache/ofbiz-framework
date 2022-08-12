@@ -26,7 +26,7 @@ import org.apache.ofbiz.service.ServiceUtil
   * Send Mail from Email Template Setting
   * @return
   */
-def sendMailFromTemplateSetting() {
+Map sendMailFromTemplateSetting() {
     Map result = success()
     // if partyIdTo provided but no emailAddress, get it from the partyContactMech
     if (!parameters.sendTo && !parameters.partyIdTo) {

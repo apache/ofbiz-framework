@@ -20,7 +20,7 @@
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 
-def createSystemInfoNote() {
+Map createSystemInfoNote() {
     parameters.noteParty = parameters.noteParty ?: userLogin.partyId
     GenericValue noteData = makeValue('NoteData', parameters)
     noteData.noteDateTime = UtilDateTime.nowTimestamp()
@@ -30,7 +30,7 @@ def createSystemInfoNote() {
     return success()
 }
 
-def deleteSystemInfoNote() {
+Map deleteSystemInfoNote() {
     GenericValue noteData = from('NoteData').where(noteId: parameters.noteId).queryOne()
     noteData.removeRelated('CustRequestItemNote')
     noteData.removeRelated('CustRequestNote')
@@ -43,12 +43,12 @@ def deleteSystemInfoNote() {
     return success()
 }
 
-def deleteAllSystemNotes() {
+Map deleteAllSystemNotes() {
     delegator.removeByAnd('NoteData', [noteParty: userLogin.partyId, noteName: 'SYSTEMNOTE'])
     return success()
 }
 
-def getSystemInfoNotes() {
+Map getSystemInfoNotes() {
     List systemInfoNotes = from('NoteData')
             .where(noteParty: userLogin.partyId,
                     noteName: 'SYSTEMNOTE')
@@ -60,7 +60,7 @@ def getSystemInfoNotes() {
     return success()
 }
 
-def getLastSystemInfoNote() {
+Map getLastSystemInfoNote() {
     Map result = success()
     List systemInfoNotes = from('NoteData')
             .where(noteParty: userLogin ? userLogin.partyId : '_NA_',
@@ -79,7 +79,7 @@ def getLastSystemInfoNote() {
     return result
 }
 
-def getSystemInfoStatus() {
+Map getSystemInfoStatus() {
     List systemInfoStatus = []
     List comms = from('CommunicationEventAndRole')
             .where(partyId: userLogin.partyId,

@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Copy an existing Agreement
  */
 
-def copyAgreement() {
+Map copyAgreement() {
     agreement = from('Agreement').where('agreementId', parameters.agreementId).queryOne();
     serviceResult = success()
     if (agreement) {

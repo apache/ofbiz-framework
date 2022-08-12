@@ -29,7 +29,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
  * Create a ShipmentReceipt
  * @return
  */
-def createShipmentReceipt() {
+Map createShipmentReceipt() {
     Map result = success()
     GenericValue newEntity = makeValue('ShipmentReceipt')
     newEntity.setNonPKFields(parameters)
@@ -67,7 +67,7 @@ def createShipmentReceipt() {
  * Receive Inventory in new Inventory Item(s)
  * @return success, inventoryItemId, successMessageList
  */
-def receiveInventoryProduct () {
+Map receiveInventoryProduct () {
     /*
      * NOTES
      *
@@ -179,7 +179,7 @@ def receiveInventoryProduct () {
  * Quick Receive Entire Return
  * @return
  */
-def quickReceiveReturn() {
+Map quickReceiveReturn() {
     Map result = success()
     GenericValue returnHeader = from('ReturnHeader').where(returnId: parameters.returnId).queryOne()
     if (returnHeader.needsInventoryReceive == 'Y') {
@@ -277,7 +277,7 @@ def quickReceiveReturn() {
  * Issues order item quantity specified to the shipment, then receives inventory for that item and quantity
  * @return
  */
-def issueOrderItemToShipmentAndReceiveAgainstPO() {
+Map issueOrderItemToShipmentAndReceiveAgainstPO() {
     Map result = success()
     String shipmentItemSeqId
     GenericValue shipmentItem
@@ -363,7 +363,7 @@ def issueOrderItemToShipmentAndReceiveAgainstPO() {
  * Computes the till now received quantity from all ShipmentReceipts
  * @return
  */
-def getReceivedQuantityForOrderItem (GenericValue orderItem) {
+BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
     BigDecimal receivedQuantity = 0
     List shipmentReceipts = from('ShipmentReceipt').where(orderId: orderItem.orderId, orderItemSeqId: orderItem.orderItemSeqId).queryList()
     for (GenericValue shipmentReceipt : shipmentReceipts) {
@@ -376,7 +376,7 @@ def getReceivedQuantityForOrderItem (GenericValue orderItem) {
  * Update issuance, shipment and order items if quantity received is higher than quantity on purchase order
  * @return
  */
-def updateIssuanceShipmentAndPoOnReceiveInventory() {
+Map updateIssuanceShipmentAndPoOnReceiveInventory() {
     GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
     if (parameters.orderCurrencyUnitPrice) {
         if (parameters.orderCurrencyUnitPrice != orderItem.unitPrice) {
@@ -447,7 +447,7 @@ def updateIssuanceShipmentAndPoOnReceiveInventory() {
  * Cancel Received Items against a purchase order if received something incorrectly
  * @return
  */
-def cancelReceivedItems() {
+Map cancelReceivedItems() {
     // TODO: When items are received against a Purchase Order, service listed below changes certain things in the system. Changes done by these
     // services also need to be reverted and missing logic can be added later.
     // 1. addProductsBackToCategory

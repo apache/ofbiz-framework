@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Create Content For Product
  * @return
  */
-def createProductContent() {
+Map createProductContent() {
     Map result = success()
     GenericValue newEntity = makeValue('ProductContent', parameters)
     newEntity.create()
@@ -39,7 +39,7 @@ def createProductContent() {
  * Update Content For Product
  * @return
  */
-def updateProductContent() {
+Map updateProductContent() {
     GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
     lookedUpValue.setNonPKFields(parameters)
     lookedUpValue.store()
@@ -51,7 +51,7 @@ def updateProductContent() {
  * Create Email Content For Product
  * @return
  */
-def createEmailContentForProduct() {
+Map createEmailContentForProduct() {
     Map result = success()
     Map createProductContent = parameters
     Map serviceResult = run service: 'createEmailContent', with: parameters
@@ -67,7 +67,7 @@ def createEmailContentForProduct() {
  * Create Download Content For Product
  * @return
  */
-def createDownloadContentForProduct() {
+Map createDownloadContentForProduct() {
     Map createProductContent = parameters
     Map persistContentAndAssoc = parameters
     persistContentAndAssoc.contentTypeId = 'DOCUMENT'
@@ -89,7 +89,7 @@ def createDownloadContentForProduct() {
  * Create Simple Text Content For Product
  * @return
  */
-def createSimpleTextContentForProduct() {
+Map createSimpleTextContentForProduct() {
     Map serviceResult = run service: 'createSimpleTextContent', with: parameters
     Map createProductContentMap = parameters
     createProductContentMap.contentId = serviceResult.contentId
@@ -101,7 +101,7 @@ def createSimpleTextContentForProduct() {
  * Create Simple Text Content For Alternate Locale
  * @return
  */
-def createSimpleTextContentForAlternateLocale() {
+Map createSimpleTextContentForAlternateLocale() {
     Map serviceResult = run service: 'createSimpleTextContent', with: parameters
     Map createContentAssocMap = [contentIdTo: serviceResult.contentId,
                                  contentId: parameters.mainContentId,
@@ -114,7 +114,7 @@ def createSimpleTextContentForAlternateLocale() {
  * Method to upload multiple Additional View images for product
  * @return
  */
-def uploadProductAdditionalViewImages() {
+Map uploadProductAdditionalViewImages() {
     Map result = success()
     Map addAdditionalViewForProductMap = [productId: parameters.productId]
     if (parameters.additionalImageOne) {
@@ -153,7 +153,7 @@ def uploadProductAdditionalViewImages() {
  * Update Product SEO
  * @return
  */
-def updateContentSEOForProduct() {
+Map updateContentSEOForProduct() {
     GenericValue productContent
     if (parameters.title) {
         productContent = from('ProductContentAndInfo')

@@ -77,7 +77,7 @@ if (quoteId) {
 }
 
 // defaults:
-def logoImageUrl = null // the default value, "/images/ofbiz_powered.gif", is set in the screen decorators
+String logoImageUrl = null // the default value, "/images/ofbiz_powered.gif", is set in the screen decorators
 String partyId = null
 // reference date for filtering
 Timestamp referenceDate = null
@@ -97,11 +97,11 @@ if (orderHeader) {
         }
     // purchase orders - use the BILL_TO_CUSTOMER of the order
     } else if ('PURCHASE_ORDER'.equals(orderHeader.orderTypeId)) {
-        def billToParty = orh.getBillToParty()
+        GenericValue billToParty = orh.getBillToParty()
         if (billToParty) {
             partyId = billToParty.partyId
         } else {
-            def billToCustomer = EntityUtil.getFirst(orderHeader.getRelated('OrderRole', [roleTypeId: 'BILL_TO_CUSTOMER'], null, false))
+            GenericValue billToCustomer = EntityUtil.getFirst(orderHeader.getRelated('OrderRole', [roleTypeId: 'BILL_TO_CUSTOMER'], null, false))
             if (billToCustomer) {
                 partyId = billToCustomer.partyId
             }
@@ -150,7 +150,7 @@ if (partyGroup) {
             File logoFile = DataResourceWorker.getContentFile(dataResource.getString('dataResourceTypeId'),
                     dataResource.getString('objectInfo'), '')
             if (logoFile.exists()) {
-                def logoFileBase64 = logoFile.bytes.encodeBase64()
+                Writable logoFileBase64 = logoFile.bytes.encodeBase64()
                 logoImageUrl = 'data:' + dataResource.mimeTypeId + ';base64,' + logoFileBase64
             }
         }

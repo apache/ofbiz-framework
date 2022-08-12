@@ -25,7 +25,7 @@ import org.apache.ofbiz.entity.GenericValue
  * Create a Subscription
  * @return
  */
-def createSubscription() {
+Map createSubscription() {
     GenericValue newEntity = makeValue('Subscription')
     String subscriptionId = parameters.subscriptionId ?: delegator.getNextSeqId('Subscription')
     newEntity.subscriptionId = subscriptionId
@@ -53,7 +53,7 @@ def createSubscription() {
  * Check if a party has a subscription
  * @return
  */
-def isSubscribed() {
+Map isSubscribed() {
     Map result = success()
 
     Map serviceContext = [entityName: 'Subscription',
@@ -73,7 +73,7 @@ def isSubscribed() {
  * Get Subscription data
  * @return
  */
-def getSubscription() {
+Map getSubscription() {
     Map result = success()
 
     GenericValue subscription = from('Subscription')
@@ -88,7 +88,7 @@ def getSubscription() {
  * Create (when not exist) or update (when exist) a Subscription attribute
  * @return
  */
-def updateSubscriptionAttribute() {
+Map updateSubscriptionAttribute() {
     GenericValue lookedUpValue = from('SubscriptionAttribute')
         .where(parameters)
         .queryOne()
@@ -108,7 +108,7 @@ def updateSubscriptionAttribute() {
  * Subscription permission checking logic
  * @return
  */
-def subscriptionPermissionCheck() {
+Map subscriptionPermissionCheck() {
     parameters.primaryPermission = 'CATALOG'
     Map result = run service: 'genericBasePermissionCheck', with: parameters
     // Backwards compatibility - check for non-existent CATALOG_READ permission

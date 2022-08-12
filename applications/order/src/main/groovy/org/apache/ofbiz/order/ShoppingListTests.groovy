@@ -40,7 +40,7 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('createShoppingList', serviceCtx, 600, true);
-        def shoppingListId = resultMap.shoppingListId;
+        String shoppingListId = resultMap.shoppingListId;
         GenericValue shoppingList = delegator.findOne('ShoppingList', [shoppingListId: shoppingListId], false);
         assert ServiceUtil.isSuccess(resultMap);
         assert shoppingList;
@@ -51,7 +51,7 @@ class ShoppingListTests extends OFBizTestCase {
     // Test create shopping list item
     void testCreateShoppingListItem() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
-        def shoppingListId = 'DemoWishList';
+        String shoppingListId = 'DemoWishList';
         Map serviceCtx = [
                 shoppingListId: shoppingListId,
                 productId: 'GZ-8544',
@@ -60,7 +60,7 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('createShoppingListItem', serviceCtx);
-        def shoppingListItemSeqId = resultMap.shoppingListItemSeqId;
+        String shoppingListItemSeqId = resultMap.shoppingListItemSeqId;
         GenericValue shoppingListItem = from('ShoppingListItem').where('shoppingListItemSeqId', shoppingListItemSeqId).queryOne()
         assert ServiceUtil.isSuccess(resultMap);
         assert shoppingListItem;
@@ -71,7 +71,7 @@ class ShoppingListTests extends OFBizTestCase {
     // Test create shopping list item by adding a product that already exist in shopping list.
     void testCreateShoppingListItemWithSameProduct() {
         GenericValue userLogin = delegator.findOne('UserLogin', [userLoginId: 'DemoCustomer'], false);
-        def shoppingListId = 'DemoWishList';
+        String shoppingListId = 'DemoWishList';
         Map serviceCtx = [
                 shoppingListId: shoppingListId,
                 productId: 'GZ-2644',
@@ -80,7 +80,7 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('createShoppingListItem', serviceCtx);
-        def shoppingListItemSeqId = resultMap.shoppingListItemSeqId;
+        String shoppingListItemSeqId = resultMap.shoppingListItemSeqId;
         GenericValue shoppingListItem = from('ShoppingListItem').where('shoppingListItemSeqId', shoppingListItemSeqId).queryOne()
         assert ServiceUtil.isSuccess(resultMap);
         assert shoppingListItem;

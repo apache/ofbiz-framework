@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * Cancels CostComponents
  * @return
  */
-def cancelCostComponents() {
+Map cancelCostComponents() {
     Map costsAndMap = [:]
     if (parameters.costComponentId) {
         costsAndMap.costComponentId = parameters.costComponentId
@@ -58,7 +58,7 @@ def cancelCostComponents() {
  * Create a CostComponent and cancel the existing ones
  * @return
  */
-def recreateCostComponent() {
+Map recreateCostComponent() {
     Map result = success()
     // The existing costs of the same type are expired
     Map costsAndMap = [:]
@@ -94,7 +94,7 @@ def recreateCostComponent() {
  * Gets the product's costs (from CostComponent or ProductPrice)
  * @return
  */
-def getProductCost() {
+Map getProductCost() {
     Map result = success()
     Map inputMap
     String inputString = "${parameters.costComponentTypePrefix}_%"
@@ -182,7 +182,7 @@ def getProductCost() {
  * Gets the production run task's costs
  * @return
  */
-def getTaskCost() {
+Map getTaskCost() {
     Map result = success()
     Map costsByType = [:]
     GenericValue setupCost
@@ -246,7 +246,7 @@ def getTaskCost() {
  * Calculates estimated costs for all the products
  * @return
  */
-def calculateAllProductsCosts() {
+Map calculateAllProductsCosts() {
     // filter-by-date="true"
     List products = from('Product').orderBy('-billOfMaterialLevel').select('productId').queryList()
     Map inMap = [currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix]
@@ -261,7 +261,7 @@ def calculateAllProductsCosts() {
  * Calculates the product's cost
  * @return
  */
-def calculateProductCosts() {
+Map calculateProductCosts() {
     Map result = success()
     Map totalCostsByType = [:]
     BigDecimal totalProductCost = (BigDecimal) 0
@@ -360,7 +360,7 @@ def calculateProductCosts() {
  * Calculate inventory average cost for a product
  * @return
  */
-def calculateProductAverageCost() {
+Map calculateProductAverageCost() {
     Map result = success()
     EntityCondition condition = EntityCondition.makeCondition(
             EntityCondition.makeCondition('productId', parameters.productId),
@@ -419,7 +419,7 @@ def calculateProductAverageCost() {
  * Update a Product Average Cost record on receive inventory
  * @return
  */
-def updateProductAverageCostOnReceiveInventory() {
+Map updateProductAverageCostOnReceiveInventory() {
     GenericValue inventoryItem = from('InventoryItem').where(parameters).queryOne()
     String organizationPartyId = inventoryItem?.ownerPartyId
     if (!organizationPartyId) {
@@ -467,7 +467,7 @@ def updateProductAverageCostOnReceiveInventory() {
 }
 
 // Service to get the average cost of product
-def getProductAverageCost() {
+Map getProductAverageCost() {
     Map result = success()
     GenericValue productAverageCost
     BigDecimal unitCost
@@ -495,7 +495,7 @@ def getProductAverageCost() {
  * Formula that creates a cost component equal to a percentage of total product cost
  * @return
  */
-def productCostPercentageFormula() {
+Map productCostPercentageFormula() {
     Map result = success()
     GenericValue productCostComponentCalc = parameters.productCostComponentCalc
     GenericValue costComponentCalc = parameters.costComponentCalc

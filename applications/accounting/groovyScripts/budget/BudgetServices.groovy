@@ -19,7 +19,7 @@
 
 import org.apache.ofbiz.entity.GenericValue
 
-def updateBudgetStatus() {
+Map updateBudgetStatus() {
     Map result = success()
     List budgetStatuses = from('BudgetStatus').where([budgetId: parameters.budgetId]).orderBy('-statusDate').queryList()
     GenericValue statusValidChange = null

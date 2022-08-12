@@ -29,15 +29,17 @@ import org.apache.ofbiz.entity.condition.EntityFunction
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-def mainAndConds = []
-def orExprs = []
-def entityName = context.entityName
-def searchFields = context.searchFields
-def displayFields = context.displayFields ?: searchFields
-def searchDistinct = Boolean.valueOf(context.searchDistinct ?: false)
+import java.sql.Timestamp
 
-def searchValueFieldName = parameters.term
-def fieldValue = null
+List mainAndConds = []
+List orExprs = []
+String entityName = context.entityName
+List searchFields = context.searchFields
+List displayFields = context.displayFields ?: searchFields
+boolean searchDistinct = Boolean.valueOf(context.searchDistinct ?: false)
+
+String searchValueFieldName = parameters.term
+String fieldValue = null
 if (searchValueFieldName) {
     fieldValue = searchValueFieldName
 } else if (parameters.searchValueFieldName) { // This is to find the description of a lookup value on initialization.
@@ -45,13 +47,13 @@ if (searchValueFieldName) {
     context.description = 'true'
 }
 
-def searchType = context.searchType
-def displayFieldsSet = null
+String searchType = context.searchType
+Set<String> displayFieldsSet = null
 
-def conditionDates = context.conditionDates
-def fromDateName = null
-def thruDateName = null
-def filterByDateValue = null
+Map conditionDates = context.conditionDates
+String fromDateName = null
+String thruDateName = null
+Timestamp filterByDateValue = null
 
 //If conditionDates is present on context, resolve values use add condition date to the condition search
 if (conditionDates) {
@@ -66,7 +68,7 @@ if (conditionDates) {
 }
 
 if (searchFields && fieldValue) {
-    def searchFieldsList = StringUtil.toList(searchFields)
+    List<String> searchFieldsList = StringUtil.toList(searchFields)
     displayFieldsSet = StringUtil.toSet(displayFields)
     if (context.description && fieldValue instanceof java.lang.String) {
         returnField = parameters.searchValueFieldName
@@ -97,12 +99,12 @@ if (searchFields && fieldValue) {
  * but that is not supported by the Jquery Autocompleter, but this is still useful to pass parameters from the
  * lookup screen definition:
  */
-def conditionFields = context.conditionFields
+Map conditionFields = context.conditionFields
 if (conditionFields) {
     // these fields are for additonal conditions, this is a Map of name/value pairs
     for (conditionFieldEntry in conditionFields.entrySet()) {
         if (conditionFieldEntry.getValue() instanceof java.util.List) {
-            def orCondFields = []
+            List orCondFields = []
             for (entry in conditionFieldEntry.getValue()) {
                 orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry))
             }
@@ -121,16 +123,16 @@ if (orExprs && entityName && displayFieldsSet) {
         mainAndConds.add(context.andCondition)
     }
     if (conditionDates) {
-        def condsDateList = []
+        List condsDateList = []
         if (thruDateName) {
-            def condsByThruDate = []
+            List condsByThruDate = []
             condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.GREATER_THAN, filterByDateValue))
             condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.EQUALS, null))
             condsDateList.add(EntityCondition.makeCondition(condsByThruDate, EntityOperator.OR))
         }
 
         if (fromDateName) {
-            def condsByFromDate = []
+            List condsByFromDate = []
             condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.LESS_THAN_EQUAL_TO, filterByDateValue))
             condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.EQUALS, null))
             condsDateList.add(EntityCondition.makeCondition(condsByFromDate, EntityOperator.OR))
@@ -139,7 +141,7 @@ if (orExprs && entityName && displayFieldsSet) {
         mainAndConds.add(EntityCondition.makeCondition(condsDateList, EntityOperator.AND))
     }
 
-    def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND)
+    EntityConditionList<EntityExpr> entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND)
 
     String viewSizeStr = context.autocompleterViewSize
     Integer autocompleterViewSize = Integer.valueOf(viewSizeStr ?: 10)

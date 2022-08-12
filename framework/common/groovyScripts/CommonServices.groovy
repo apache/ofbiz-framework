@@ -35,7 +35,7 @@ import org.apache.ofbiz.webapp.event.FileUploadProgressListener
 /**
  * Main permission logic
  */
-def commonGenericPermission() {
+Map commonGenericPermission() {
     parameters.primaryPermission = 'COMMON'
     Map result = run service: 'genericBasePermissionCheck', with: parameters
     return result
@@ -44,7 +44,7 @@ def commonGenericPermission() {
 /**
  * Convert UOM values
  */
-def convertUom() {
+Map convertUom() {
     // base case: if both uomIds are the same, return the original value
     Map result = success()
     Timestamp asOfDate
@@ -146,7 +146,7 @@ def convertUom() {
 /**
  * Convert UOM values using CustomMethod
  */
-def convertUomCustom() {
+Map convertUomCustom() {
     Map result = success()
     Map uomConversion = parameters.uomConversion
     String customMethodId = uomConversion.customMethodId
@@ -164,7 +164,7 @@ def convertUomCustom() {
 /**
  * Look up progress made in File Upload process
  */
-def getFileUploadProgressStatus() {
+Map getFileUploadProgressStatus() {
     FileUploadProgressListener uploadProgressListener = parameters.uploadProgressListener
     Map result = success()
     if (uploadProgressListener) {
@@ -180,7 +180,7 @@ def getFileUploadProgressStatus() {
 /**
  * Get visual theme resources
  */
-def getVisualThemeResources() {
+Map getVisualThemeResources() {
     Map result = success()
     String visualThemeId = parameters.visualThemeId
     Map themeResources = parameters.themeResources ?: [:]
@@ -219,7 +219,7 @@ def getVisualThemeResources() {
 /**
  * Returns a list of country
  */
-def getCountryList() {
+Map getCountryList() {
     Map result = success()
     List countryList = []
     List geoList = CommonWorkers.getCountryList(delegator)
@@ -233,7 +233,7 @@ def getCountryList() {
 /**
  * set the state options for selected country
  */
-def getAssociatedStateList() {
+Map getAssociatedStateList() {
     Map result = success()
     List stateList = []
 
@@ -252,7 +252,7 @@ def getAssociatedStateList() {
 /**
  * Link Geos to another Geo
  */
-def linkGeos() {
+Map linkGeos() {
     List oldGeoIds = from('GeoAssoc')
             .where(geoId: parameters.geoId,
                     geoAssocTypeId: parameters.geoAssocTypeId)
@@ -280,7 +280,7 @@ def linkGeos() {
  * get related geos to a geo through a geoAssoc
  * @return
  */
-def getRelatedGeos() {
+Map getRelatedGeos() {
     Map result = success()
     List geoList = from('GeoAssoc')
             .where(geoId: parameters.geoId, geoAssocTypeId: parameters.geoAssocTypeId)
@@ -295,7 +295,7 @@ def getRelatedGeos() {
 /**
  * Returns true if an UomConversion record exists
  */
-def checkUomConversion() {
+Map checkUomConversion() {
     Map result = success()
     result.exist = from('UomConversion').where(uomId: parameters.uomId, uomIdTo: parameters.uomIdTo).queryCount() == 1
     return result
@@ -304,7 +304,7 @@ def checkUomConversion() {
 /**
  * Returns true if an UomConversionDated record exists
  */
-def checkUomConversionDated() {
+Map checkUomConversionDated() {
     Map result = success()
     Map condition = [
         uomId: parameters.uomId,
@@ -317,19 +317,19 @@ def checkUomConversionDated() {
     return result
 }
 
-def getServerTimestamp() {
+Map getServerTimestamp() {
     Map result = success()
     result.serverTimestamp = UtilDateTime.nowTimestamp()
     return result
 }
 
-def getServerTimeZone() {
+Map getServerTimeZone() {
     Map result = success()
     result.serverTimeZone = TimeZone.getDefault().toZoneId().toString()
     return result
 }
 
-def getServerTimestampAsLong() {
+Map getServerTimestampAsLong() {
     Map result = success()
     result.serverTimestamp = UtilDateTime.nowTimestamp().getTime()
     return result
@@ -339,7 +339,7 @@ def getServerTimestampAsLong() {
  * Create a KeywordThesaurus
  * @return
  */
-def createKeywordThesaurus() {
+Map createKeywordThesaurus() {
     GenericValue newEntity = makeValue('KeywordThesaurus', parameters)
     newEntity.enteredKeyword = newEntity.enteredKeyword.toLowerCase()
     newEntity.alternateKeyword = newEntity.alternateKeyword.toLowerCase()
@@ -351,7 +351,7 @@ def createKeywordThesaurus() {
  * Delete a complete Entry KeywordThesaurus
  * @return
  */
-def deleteKeywordThesaurus() {
+Map deleteKeywordThesaurus() {
     GenericValue newEntity = makeValue('KeywordThesaurus')
     newEntity.enteredKeyword = parameters.enteredKeyword
     if (parameters.alternateKeyword) {
@@ -361,7 +361,7 @@ def deleteKeywordThesaurus() {
     return success()
 }
 
-def createFuturePeriod() {
+Map createFuturePeriod() {
     applTypes = []
     grain = null
     intermediate = null
@@ -453,4 +453,5 @@ def createFuturePeriod() {
         }
     }
     parties.close()
+    return success()
 }

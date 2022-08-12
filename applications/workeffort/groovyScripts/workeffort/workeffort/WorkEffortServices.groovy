@@ -19,7 +19,7 @@
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil;
 
-def checkAndCreateWorkEffort() {
+Map checkAndCreateWorkEffort() {
     Map result = success()
     /*
      * if needed create some WorkEfforts and remember their IDs:
@@ -74,7 +74,7 @@ def checkAndCreateWorkEffort() {
     lookedUpValue.store()
     return result
 }
-def checkAndUpdateWorkEffort() {
+Map checkAndUpdateWorkEffort() {
     Map result = success()
     GenericValue lookedUpValue = from('Shipment').where(parameters).queryOne()
     // Check the pickup and delivery dates for changes and update the corresponding WorkEfforts

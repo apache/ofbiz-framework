@@ -27,7 +27,7 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Update a Contact Mechanism
  */
-def updateContactMech() {
+Map updateContactMech() {
     Map successMessageMap = [
             EMAIL_ADDRESS: 'EmailAddress',
             WEB_ADDRESS: 'WebAddress',
@@ -62,7 +62,7 @@ def updateContactMech() {
  * @param stateProvinceGeoId
  * @return
  */
-def hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
+Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage
     if (!stateProvinceGeoId) {
         if ('USA' == countryGeoId) errorMessage = 'PartyStateInUsMissing'
@@ -74,7 +74,7 @@ def hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
 /**
  * Create Contact Mechanism with PostalAddress
  */
-def createPostalAddress() {
+Map createPostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
     if (errorMessage) {
         return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
@@ -93,7 +93,7 @@ def createPostalAddress() {
 /**
  * Update Contact Mechanism with PostalAddress
  */
-def updatePostalAddress() {
+Map updatePostalAddress() {
     String errorMessage = hasValidStateProvince(parameters.countryGeoId, parameters.stateProvinceGeoId)
     if (errorMessage) {
         return error(UtilProperties.getMessage('PartyUiLabels', errorMessage, locale))
@@ -133,7 +133,7 @@ def updatePostalAddress() {
 /**
  * Create Contact Mechanism with Telecom Number
  */
-def createTelecomNumber() {
+Map createTelecomNumber() {
     GenericValue newValue = makeValue('TelecomNumber', parameters)
     Map createContactMechMap = [contactMechTypeId: 'TELECOM_NUMBER', contactMechId: parameters.contactMechId]
     Map serviceResult = run service: 'createContactMech', with: createContactMechMap
@@ -148,7 +148,7 @@ def createTelecomNumber() {
 /**
  * Update Contact Mechanism with Telecom Number
  */
-def updateTelecomNumber() {
+Map updateTelecomNumber() {
     GenericValue lookedValue = from('TelecomNumber').where(parameters).queryOne()
     if (!lookedValue) {
         return error(UtilProperties.getMessage('ServiceErrorUiLabels', 'ServiceValueNotFound', locale))
@@ -184,7 +184,7 @@ def updateTelecomNumber() {
 /**
  * Create an email address contact mechanism
  */
-def createEmailAddress() {
+Map createEmailAddress() {
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map createContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -201,7 +201,7 @@ def createEmailAddress() {
 /**
  * Update an email address contact mechanism
  */
-def updateEmailAddress() {
+Map updateEmailAddress() {
     if (UtilValidate.isEmail(parameters.emailAddress)) {
         Map updateContactMechMap = [contactMechTypeId: 'EMAIL_ADDRESS',
                                     contactMechId: parameters.contactMechId,
@@ -218,7 +218,7 @@ def updateEmailAddress() {
 /**
  * Create FtpAddress contact Mech
  */
-def createFtpAddress() {
+Map createFtpAddress() {
     Map contactMech = run service: 'createContactMech', with: [contactMechTypeId: 'FTP_ADDRESS']
     String contactMechId = contactMech.contactMechId
     if (contactMechId) {
@@ -237,7 +237,7 @@ def createFtpAddress() {
 /**
  * Update FtpAddress contact Mech
  */
-def updateFtpAddressWithHistory() {
+Map updateFtpAddressWithHistory() {
     Map resultMap = success()
     resultMap.oldContactMechId = parameters.contactMechId
     resultMap.contactMechId = parameters.contactMechId
@@ -263,7 +263,7 @@ def updateFtpAddressWithHistory() {
  * Create FtpAddress contact Mech and link it with given partyId
  * @return
  */
-def createPartyFtpAddress() {
+Map createPartyFtpAddress() {
     Map contactMech = run service: 'createFtpAddress', with: parameters
     if (ServiceUtil.isError(contactMech)) return contactMech
     String contactMechId = contactMech.contactMechId
@@ -280,7 +280,7 @@ def createPartyFtpAddress() {
     return resultMap
 }
 
-def updatePartyFtpAddress() {
+Map updatePartyFtpAddress() {
     Map updateFtpResult = run service: 'updateFtpAddressWithHistory', with: parameters
     Map result = success()
     result.contactMechId = parameters.contactMechId
@@ -297,7 +297,7 @@ def updatePartyFtpAddress() {
 /**
  * Send an email to the person for Verification of his Email Address
  */
-def sendVerifyEmailAddressNotification() {
+Map sendVerifyEmailAddressNotification() {
     GenericValue storeEmail = from('ProductStoreEmailSetting')
             .where(emailType: 'PRDS_EMAIL_VERIFY')
             .cache()
@@ -326,7 +326,7 @@ def sendVerifyEmailAddressNotification() {
 /**
  * Verify an Email Address through verifyHash and expireDate
  */
-def verifyEmailAddress() {
+Map verifyEmailAddress() {
     GenericValue emailAddressVerification = from('EmailAddressVerification')
             .where(verifyHash: parameters.verifyHash)
             .queryFirst()
