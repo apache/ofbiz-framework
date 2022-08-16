@@ -210,7 +210,7 @@ if (product) {
     if (reviews) {
         ratingReviews = EntityUtil.filterByAnd(reviews, [EntityCondition.makeCondition("productRating", EntityOperator.NOT_EQUAL, null)])
         if (ratingReviews) {
-            context.averageRating = ProductWorker.getAverageProductRating(product, reviews, productStoreId)
+            context.averageRating = ProductWorker.getAverageProductRating(product, reviews, productStoreId, delegator)
             context.numRatings = ratingReviews.size()
         }
     }
