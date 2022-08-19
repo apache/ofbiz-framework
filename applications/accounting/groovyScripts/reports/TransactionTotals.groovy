@@ -38,7 +38,8 @@ if (!glFiscalTypeId) {
 }
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ['organizationPartyId': parameters.get('ApplicationDecorator|organizationPartyId'), 'findDate': fromDate,'userLogin': userLogin])
+Map lastClosedTimePeriodResult = runService('findLastClosedDate',
+        ['organizationPartyId': parameters.get('ApplicationDecorator|organizationPartyId'), 'findDate': fromDate,'userLogin': userLogin])
 Timestamp lastClosedDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 GenericValue lastClosedTimePeriod = null
 if (lastClosedDate) {
@@ -56,7 +57,8 @@ andExprs.add(EntityCondition.makeCondition('isPosted', EntityOperator.EQUALS, 'Y
 andExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUALS, glFiscalTypeId))
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
-List postedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(andExprs).orderBy('glAccountId').queryList()
+List postedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(andExprs).orderBy('glAccountId').queryList()
 if (postedTransactionTotals) {
     Map postedTransactionTotalsMap = [:]
     postedTransactionTotals.each { postedTransactionTotal ->
@@ -66,11 +68,20 @@ if (postedTransactionTotals) {
             if (glAccount) {
                 boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
                 // Get the opening balances at the end of the last closed time period
-                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
+                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount)
+                        || UtilAccounting.isEquityAccount(glAccount)) {
                     if (lastClosedTimePeriod) {
-                        lastTimePeriodHistory = from('GlAccountAndHistory').where('organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId'), 'glAccountId', postedTransactionTotal.glAccountId, 'customTimePeriodId', lastClosedTimePeriod.customTimePeriodId).queryFirst()
+                        lastTimePeriodHistory = from('GlAccountAndHistory')
+                                .where('organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId'),
+                                        'glAccountId', postedTransactionTotal.glAccountId, 'customTimePeriodId',
+                                        lastClosedTimePeriod.customTimePeriodId).queryFirst()
                         if (lastTimePeriodHistory) {
-                            accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'openingD', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'openingC', lastTimePeriodHistory.getBigDecimal('postedCredits'), 'D', BigDecimal.ZERO, 'C', BigDecimal.ZERO)
+                            accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId,
+                                    'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName,
+                                    'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                                    'openingD', lastTimePeriodHistory.getBigDecimal('postedDebits'),
+                                    'openingC', lastTimePeriodHistory.getBigDecimal('postedCredits'),
+                                    'D', BigDecimal.ZERO, 'C', BigDecimal.ZERO)
                         }
                     }
                 }
@@ -92,7 +103,8 @@ if (postedTransactionTotals) {
             mainAndExprs.add(EntityCondition.makeCondition('acctgTransTypeId', EntityOperator.NOT_EQUAL, 'PERIOD_CLOSING'))
             mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, lastClosedDate))
             mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, fromDate))
-            transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(mainAndExprs).orderBy('glAccountId').queryList()
+            transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+                    .from('AcctgTransEntrySums').where(mainAndExprs).orderBy('glAccountId').queryList()
             transactionTotals.each { transactionTotal ->
                 UtilMisc.addToBigDecimalInMap(accountMap, 'opening' + transactionTotal.debitCreditFlag, transactionTotal.amount)
             }
@@ -147,7 +159,8 @@ andExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUA
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
-List unpostedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(andExprs).orderBy('glAccountId').queryList()
+List unpostedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(andExprs).orderBy('glAccountId').queryList()
 if (unpostedTransactionTotals) {
     Map unpostedTransactionTotalsMap = [:]
     unpostedTransactionTotals.each { unpostedTransactionTotal ->
@@ -157,11 +170,19 @@ if (unpostedTransactionTotals) {
             if (glAccount) {
                 boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
                 // Get the opening balances at the end of the last closed time period
-                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
+                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount)
+                        || UtilAccounting.isEquityAccount(glAccount)) {
                     if (lastClosedTimePeriod) {
-                        lastTimePeriodHistory = from('GlAccountAndHistory').where('organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId'), 'glAccountId', unpostedTransactionTotal.glAccountId, 'customTimePeriodId', lastClosedTimePeriod.customTimePeriodId).queryFirst()
+                        lastTimePeriodHistory = from('GlAccountAndHistory').where('organizationPartyId',
+                                parameters.get('ApplicationDecorator|organizationPartyId'), 'glAccountId', unpostedTransactionTotal.glAccountId,
+                                'customTimePeriodId', lastClosedTimePeriod.customTimePeriodId).queryFirst()
                         if (lastTimePeriodHistory) {
-                            accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'openingD', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'openingC', lastTimePeriodHistory.getBigDecimal('postedCredits'), 'D', BigDecimal.ZERO, 'C', BigDecimal.ZERO)
+                            accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId,
+                                    'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName,
+                                    'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                                    'openingD', lastTimePeriodHistory.getBigDecimal('postedDebits'),
+                                    'openingC', lastTimePeriodHistory.getBigDecimal('postedCredits'),
+                                    'D', BigDecimal.ZERO, 'C', BigDecimal.ZERO)
                         }
                     }
                 }
@@ -183,7 +204,8 @@ if (unpostedTransactionTotals) {
             mainAndExprs.add(EntityCondition.makeCondition('acctgTransTypeId', EntityOperator.NOT_EQUAL, 'PERIOD_CLOSING'))
             mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, lastClosedDate))
             mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, fromDate))
-            transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(mainAndExprs).orderBy('glAccountId').queryList()
+            transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+                    .from('AcctgTransEntrySums').where(mainAndExprs).orderBy('glAccountId').queryList()
             transactionTotals.each { transactionTotal ->
                 UtilMisc.addToBigDecimalInMap(accountMap, 'opening' + transactionTotal.debitCreditFlag, transactionTotal.amount)
             }
@@ -238,7 +260,8 @@ andExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUA
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
-List allTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(andExprs).orderBy('glAccountId').queryList()
+List allTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(andExprs).orderBy('glAccountId').queryList()
 if (allTransactionTotals) {
     Map allTransactionTotalsMap = [:]
     allTransactionTotals.each { allTransactionTotal ->
@@ -248,15 +271,22 @@ if (allTransactionTotals) {
             if (glAccount) {
                 boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
                 // Get the opening balances at the end of the last closed time period
-                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount) || UtilAccounting.isEquityAccount(glAccount)) {
+                if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount)
+                        || UtilAccounting.isEquityAccount(glAccount)) {
                     if (lastClosedTimePeriod) {
                         List timePeriodAndExprs = []
-                        timePeriodAndExprs.add(EntityCondition.makeCondition('organizationPartyId', EntityOperator.EQUALS, parameters.get('ApplicationDecorator|organizationPartyId')))
-                        timePeriodAndExprs.add(EntityCondition.makeCondition('glAccountId', EntityOperator.EQUALS, allTransactionTotal.glAccountId))
-                        timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
+                        timePeriodAndExprs.add(
+                                EntityCondition.makeCondition('organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId')))
+                        timePeriodAndExprs.add(EntityCondition.makeCondition('glAccountId', allTransactionTotal.glAccountId))
+                        timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', lastClosedTimePeriod.customTimePeriodId))
                         lastTimePeriodHistory = from('GlAccountAndHistory').where(timePeriodAndExprs).queryFirst()
                         if (lastTimePeriodHistory) {
-                            accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'openingD', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'openingC', lastTimePeriodHistory.getBigDecimal('postedCredits'), 'D', BigDecimal.ZERO, 'C', BigDecimal.ZERO)
+                            accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId,
+                                    'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName,
+                                    'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                                    'openingD', lastTimePeriodHistory.getBigDecimal('postedDebits'),
+                                    'openingC', lastTimePeriodHistory.getBigDecimal('postedCredits'),
+                                    'D', BigDecimal.ZERO, 'C', BigDecimal.ZERO)
                         }
                     }
                 }
@@ -278,7 +308,8 @@ if (allTransactionTotals) {
             mainAndExprs.add(EntityCondition.makeCondition('acctgTransTypeId', EntityOperator.NOT_EQUAL, 'PERIOD_CLOSING'))
             mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, lastClosedDate))
             mainAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, fromDate))
-            transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(mainAndExprs).orderBy('glAccountId').queryList()
+            transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+                    .from('AcctgTransEntrySums').where(mainAndExprs).orderBy('glAccountId').queryList()
             transactionTotals.each { transactionTotal ->
                 UtilMisc.addToBigDecimalInMap(accountMap, 'opening' + transactionTotal.debitCreditFlag, transactionTotal.amount)
             }

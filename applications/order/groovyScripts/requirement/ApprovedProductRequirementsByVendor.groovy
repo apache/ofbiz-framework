@@ -34,5 +34,7 @@ conditions = EntityCondition.makeCondition([
             EntityCondition.makeCondition('requirementTypeId', EntityOperator.EQUALS, 'PRODUCT_REQUIREMENT'),
             EntityUtil.getFilterByDateExpr()
             ], EntityOperator.AND)
-requirements = select('partyId', 'productId').from('RequirementPartyProductCount').where(conditions).orderBy('partyId').cursorScrollInsensitive().distinct().queryIterator()
+requirements = select('partyId', 'productId')
+        .from('RequirementPartyProductCount')
+        .where(conditions).orderBy('partyId').cursorScrollInsensitive().distinct().queryIterator()
 context.requirements = requirements

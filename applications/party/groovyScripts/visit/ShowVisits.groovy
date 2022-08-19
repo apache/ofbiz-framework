@@ -47,7 +47,8 @@ try {
     highIndex = viewIndex * viewSize
 
     if (partyId) {
-        visitListIt = from('Visit').where('partyId', partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
+        visitListIt = from('Visit')
+                .where('partyId', partyId).orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     } else if (showAll.equalsIgnoreCase('true')) {
         visitListIt = from('Visit').orderBy(sortList).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator()
     } else {

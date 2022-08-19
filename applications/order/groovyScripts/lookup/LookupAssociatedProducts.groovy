@@ -28,7 +28,8 @@ if (productId != null) {
     product = from('Product').where('productId', productId).queryOne()
     prodAssocs = product.getRelated('MainProductAssoc', null, null, false)
     if (prodAssocs) {
-        products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition('productAssocTypeId', EntityOperator.NOT_EQUAL, 'PRODUCT_VARIANT')])
+        products = EntityUtil.filterByAnd(prodAssocs,
+                [EntityCondition.makeCondition('productAssocTypeId', EntityOperator.NOT_EQUAL, 'PRODUCT_VARIANT')])
 
         if (products) {
             productList = []

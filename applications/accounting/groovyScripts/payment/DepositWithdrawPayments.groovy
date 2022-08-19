@@ -29,7 +29,8 @@ if ('Y'.equals(parameters.noConditionFind)) {
     finAccountPartyIds = EntityUtil.getFieldListFromEntityList(finAccountRoles, 'partyId', true)
     finAccountPartyIds.add(organizationPartyId)
     partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition('partyIdTo', EntityOperator.IN, finAccountPartyIds),
-                                               EntityCondition.makeCondition('partyIdFrom', EntityOperator.IN, finAccountPartyIds)], EntityOperator.OR)
+                                               EntityCondition.makeCondition('partyIdFrom', EntityOperator.IN, finAccountPartyIds)],
+            EntityOperator.OR)
     statusCond = EntityCondition.makeCondition([EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'PMNT_RECEIVED'),
                                                 EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'PMNT_SENT')], EntityOperator.OR)
 

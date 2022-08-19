@@ -112,7 +112,8 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('updateShoppingListItem', serviceCtx);
-        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem',
+                [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
         assert ServiceUtil.isSuccess(resultMap)
         assert shoppingListItem
         assert shoppingListItem.quantity == 4
@@ -128,7 +129,8 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('updateShoppingListItem', serviceCtx);
-        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00003'], false);
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem',
+                [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00003'], false);
         assert ServiceUtil.isSuccess(resultMap)
         assert shoppingListItem
     }
@@ -142,7 +144,8 @@ class ShoppingListTests extends OFBizTestCase {
                 userLogin: userLogin
         ]
         Map resultMap = dispatcher.runSync('removeShoppingListItem', serviceCtx);
-        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem', [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
+        GenericValue shoppingListItem = delegator.findOne('ShoppingListItem',
+                [shoppingListId: serviceCtx.shoppingListId, 'shoppingListItemSeqId': '00002'], false);
         assert ServiceUtil.isSuccess(resultMap)
         assert !shoppingListItem
     }

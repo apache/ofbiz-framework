@@ -38,7 +38,8 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuit
             firstLine = false
         }
     } catch (GenericConfigException e) {
-        String errMsg = "Error reading XML document from ResourceHandler for loader [${testSuiteResource.getLoaderName()}] and location [${testSuiteResource.getLocation()}]"
+        String errMsg = "Error reading XML document from ResourceHandler for loader [${testSuiteResource.getLoaderName()}]" +
+                " and location [${testSuiteResource.getLocation()}]"
         logError(e, errMsg)
         throw new IllegalArgumentException(errMsg)
     }

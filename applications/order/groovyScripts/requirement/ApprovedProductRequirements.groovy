@@ -21,5 +21,6 @@ prepare = runService('prepareFind', [inputFields: parameters, entityName: 'Requi
 if (prepare.entityConditionList) {
     results = runService('getRequirementsForSupplier', [requirementConditions: prepare.entityConditionList, partyId: parameters.partyId])
     context.requirementsForSupplier = results.requirementsForSupplier
-    context.quantityReport = [distinctProductCount: results.distinctProductCount, quantityTotal: results.quantityTotal, amountTotal: results.amountTotal]
+    context.quantityReport = [distinctProductCount: results.distinctProductCount,
+                              quantityTotal: results.quantityTotal, amountTotal: results.amountTotal]
 }

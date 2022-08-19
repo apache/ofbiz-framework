@@ -165,9 +165,12 @@ Map reserveStoreInventory() {
 
             if (Debug.infoOn()) {
                 if (quantityNotReserved == (BigDecimal) 0) {
-                    logInfo("Inventory IS reserved in facility with id [${productStore.inventoryFacilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}")
+                    logInfo("Inventory IS reserved in facility with id [${productStore.inventoryFacilityId}]" +
+                            " for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}")
                 } else {
-                    logInfo("There is insufficient inventory available in facility with id [${productStore.inventoryFacilityId}] for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, amount could not reserve is ${quantityNotReserved}")
+                    logInfo("There is insufficient inventory available in facility with id [${productStore.inventoryFacilityId}]" +
+                            " for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}," +
+                            " amount could not reserve is ${quantityNotReserved}")
                 }
             }
         } else {
@@ -179,7 +182,8 @@ Map reserveStoreInventory() {
                     .cache()
                     .queryList()
             for (GenericValue productStoreFacility : productStoreFacilities) {
-                // in this case quantityNotReserved will always be empty until it finds a facility it can totally reserve from, then it will be 0.0 and we are done
+                // in this case quantityNotReserved will always be empty until it finds a facility it can totally reserve from,
+                // then it will be 0.0 and we are done
                 if (!storeFound) {
                     // TODO: must entire quantity be available in one location?
                     // Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order.
@@ -202,10 +206,12 @@ Map reserveStoreInventory() {
                                                                                          requireInventory: requireInventory,
                                                                                          reserveOrderEnumId: productStore.reserveOrderEnumId]
             quantityNotReserved = serviceResult.quantityNotReserved
-            logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}")
+            logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}];" +
+                    " desired quantity was ${parameters.quantity}")
         }
     } else {
-        List productStoreFacilities = from('ProductStoreFacility').where(productStoreId: productStore.productStoreId, facilityId: facilityId).cache().orderBy('sequenceNum').filterByDate().queryList()
+        List productStoreFacilities = from('ProductStoreFacility')
+                .where(productStoreId: productStore.productStoreId, facilityId: facilityId).cache().orderBy('sequenceNum').filterByDate().queryList()
         GenericValue facilityFound
         for (GenericValue productStoreFacility : productStoreFacilities) {
             // Search Product Store Facilities to insure the facility passed in is associated to the Product Store passed in
@@ -222,9 +228,12 @@ Map reserveStoreInventory() {
         quantityNotReserved = serviceResult.quantityNotReserved
         if (Debug.infoOn()) {
             if (quantityNotReserved == (BigDecimal) 0) {
-                logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}")
+                logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}];" +
+                        " desired quantity was ${parameters.quantity}")
             } else {
-                logInfo("There is insufficient inventory available in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, amount could not reserve is ${quantityNotReserved}")
+                logInfo("There is insufficient inventory available in facility with id [${facilityId}] " +
+                        "for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, " +
+                        "amount could not reserve is ${quantityNotReserved}")
             }
         }
     }
@@ -401,7 +410,8 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
 
     // find all role-store that this productStore is a member of
     if (!security.hasEntityPermission('CATALOG', ('_' + checkAction), userLogin)) {
-        roleStores = from('ProductStoreRole').where(productStoreId: productStoreIdToCheck, partyId: userLogin.partyId, roleTypeId: 'LTD_ADMIN').filterByDate().queryList()
+        roleStores = from('ProductStoreRole')
+                .where(productStoreId: productStoreIdToCheck, partyId: userLogin.partyId, roleTypeId: 'LTD_ADMIN').filterByDate().queryList()
         roleStores = EntityUtil.filterByDate(roleStores, UtilDateTime.nowTimestamp(), 'roleFromDate', 'roleThruDate', true)
     }
     logInfo("Checking store permission, roleStores=${roleStores}")

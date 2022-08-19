@@ -125,13 +125,15 @@ if (shoppingListId) {
         context.shoppingListType = shoppingListType
 
         // get the child shopping lists of the current list for the logged in user
-        childShoppingLists = from('ShoppingList').where('partyId', partyId, 'parentShoppingListId', shoppingListId).orderBy('listName').cache(true).queryList()
+        childShoppingLists = from('ShoppingList')
+                .where('partyId', partyId, 'parentShoppingListId', shoppingListId).orderBy('listName').cache(true).queryList()
         // now get prices for each child shopping list...
         if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size())
             childShoppingListDatas.each { childShoppingList ->
                 childShoppingListData = [:]
-                calcListPriceInMap = [shoppingListId: childShoppingList.shoppingListId, prodCatalogId: prodCatalogId, webSiteId: webSiteId, userLogin: userLogin]
+                calcListPriceInMap = [shoppingListId: childShoppingList.shoppingListId, prodCatalogId: prodCatalogId,
+                                      webSiteId: webSiteId, userLogin: userLogin]
                 childShoppingListData.childShoppingList = childShoppingList
                 childShoppingListDatas.add(childShoppingListData)
             }

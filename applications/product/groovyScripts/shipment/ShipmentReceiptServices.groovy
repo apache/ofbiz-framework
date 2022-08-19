@@ -111,7 +111,8 @@ Map receiveInventoryProduct () {
     for (Double currentLoop = 0; currentLoop < loops; currentLoop++) {
         logInfo("receiveInventoryProduct Looping and creating inventory info - ${currentLoop}")
 
-        // if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one
+        // if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns);
+        // if not create one
         Map serviceInMap = [:]
         currentInventoryItemId = null
 
@@ -166,7 +167,7 @@ Map receiveInventoryProduct () {
         serviceInMap.inventoryItemId = currentInventoryItemId
         run service: 'balanceInventoryItems', with: serviceInMap
 
-        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}".toString()
+        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}."
     }
     // return the last inventory item received
     result.inventoryItemId = currentInventoryItemId
@@ -225,7 +226,8 @@ Map quickReceiveReturn() {
 
                     // check if the items already have SERIALIZED inventory. If so, it still puts them back as SERIALIZED with status "Accepted."
                     Long serializedItemCount = from('InventoryItem')
-                            .where(productId: returnItem.productId, facilityId: returnHeader.destinationFacilityId, inventoryItemTypeId: 'SERIALIZED_INV_ITEM')
+                            .where(productId: returnItem.productId, facilityId: returnHeader.destinationFacilityId,
+                                    inventoryItemTypeId: 'SERIALIZED_INV_ITEM')
                             .queryCount()
                     Boolean setNonSerial = false
                     if (parameters.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
@@ -435,7 +437,8 @@ Map updateIssuanceShipmentAndPoOnReceiveInventory() {
 
                 // TODO: if we want to record the role of the facility operation we have to re-implement this using ShipmentReceiptRole
                 // <set field="itemIssuanceId" from-field="itemIssuance.itemIssuanceId"/>
-                // <call-simple-method method-name="associateIssueRoles" xml-resource="component://product/minilang/shipment/issuance/IssuanceServices.xml"/>
+                // <call-simple-method method-name="associateIssueRoles"
+                // xml-resource="component://product/minilang/shipment/issuance/IssuanceServices.xml"/>
             }
         }
     }

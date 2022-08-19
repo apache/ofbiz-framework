@@ -40,8 +40,10 @@ if (marketingCampaignId) {
     orderConditionList.add(EntityCondition.makeCondition('marketingCampaignId', EntityOperator.EQUALS, marketingCampaignId))
 }
 
-visits = select('marketingCampaignId', 'visitId').from('MarketingCampaignAndVisit').where(visitConditionList).orderBy('marketingCampaignId').queryList()
-orders = select('marketingCampaignId', 'orderId', 'grandTotal').from('MarketingCampaignAndOrderHeader').where(orderConditionList).orderBy('marketingCampaignId').queryList()
+visits = select('marketingCampaignId', 'visitId')
+        .from('MarketingCampaignAndVisit').where(visitConditionList).orderBy('marketingCampaignId').queryList()
+orders = select('marketingCampaignId', 'orderId', 'grandTotal')
+        .from('MarketingCampaignAndOrderHeader').where(orderConditionList).orderBy('marketingCampaignId').queryList()
 
 //use this helper to build a List of visits, orders, order totals, and conversion rates
 marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, 'marketingCampaignId')

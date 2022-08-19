@@ -351,7 +351,8 @@ Map updateStatusImageManagement() {
                 content.statusId = 'IM_APPROVED'
                 content.store()
 
-                GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE').queryFirst()
+                GenericValue productContent = from('ProductContent')
+                        .where(contentId: parameters.contentId, productContentTypeId: 'IMAGE').queryFirst()
                 productContent.purchaseFromDate = nowTimestamp
                 productContent.store()
 
@@ -450,7 +451,8 @@ Map resizeImages() {
         // <field-map field-name="statusId" value="IM_APPROVED"/>
         for (GenericValue productContentAndInfo : productContentAndInfos) {
             Map createNewImageThumbnailMap = [productId: productContentAndInfo.productId, contentId: productContentAndInfo.contentId,
-                dataResourceName: productContentAndInfo.drDataResourceName, drObjectInfo: productContentAndInfo.drObjectInfo, sizeWidth: parameters.size]
+                dataResourceName: productContentAndInfo.drDataResourceName, drObjectInfo: productContentAndInfo.drObjectInfo,
+                                              sizeWidth: parameters.size]
             serviceResult = run service: 'createNewImageThumbnail', with: createNewImageThumbnailMap
             if (!ServiceUtil.isSuccess(serviceResult)) {
                 return error(serviceResult.errorMessage)

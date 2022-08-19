@@ -771,7 +771,8 @@ Map getPartyMainRole() {
 /**
  * Follow PartyRelationships
  * Uses the following fields in the env (with * are required):
- * relatedPartyIdList* (initial partyIdFrom should be in this list; accumulator of new partyIds, ie all partyIdTo found will be added to this, thus can support recursion)
+ * relatedPartyIdList* (initial partyIdFrom should be in this list; accumulator of new partyIds,
+ *                      ie all partyIdTo found will be added to this, thus can support recursion)
  * partyRelationshipTypeId
  * roleTypeIdFrom
  * roleTypeIdFromIncludeAllChildTypes
@@ -781,8 +782,9 @@ Map getPartyMainRole() {
  * recurse
  * useCache (should be "true" or "false")
  */
-Map followPartyRelationshipsInline(List relatedPartyIdList,String partyRelationshipTypeId, String roleTypeIdFrom, String roleTypeIdFromIncludeAllChildTypes,
-    String roleTypeIdTo, String roleTypeIdToInclueAllChildTypes, String includeFromToSwitched, String recurse, String useCache ) {
+Map followPartyRelationshipsInline(List relatedPartyIdList,String partyRelationshipTypeId, String roleTypeIdFrom,
+                                   String roleTypeIdFromIncludeAllChildTypes, String roleTypeIdTo, String roleTypeIdToInclueAllChildTypes,
+                                   String includeFromToSwitched, String recurse, String useCache ) {
     Map resultMap = success()
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 

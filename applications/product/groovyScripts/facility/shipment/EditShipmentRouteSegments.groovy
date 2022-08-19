@@ -51,9 +51,12 @@ if (shipment) {
             shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne('CurrencyUom', false)
             shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne('BillingWeightUom', false)
             if (shipmentRouteSegment.carrierServiceStatusId) {
-                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from('StatusValidChangeToDetail').where('statusId', shipmentRouteSegment.carrierServiceStatusId).orderBy('sequenceId').queryList()
+                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails =
+                        from('StatusValidChangeToDetail')
+                                .where('statusId', shipmentRouteSegment.carrierServiceStatusId).orderBy('sequenceId').queryList()
             } else {
-                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from('StatusValidChangeToDetail').where('statusId', 'SHRSCS_NOT_STARTED').orderBy('sequenceId').queryList()
+                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails =
+                        from('StatusValidChangeToDetail').where('statusId', 'SHRSCS_NOT_STARTED').orderBy('sequenceId').queryList()
             }
             shipmentRouteSegmentDatas.add(shipmentRouteSegmentData)
         }

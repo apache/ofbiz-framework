@@ -49,9 +49,9 @@ if (latestGeoPoint) {
 
     if (latestGeoPoint && latestGeoPoint.containsKey('latitude') && latestGeoPoint.containsKey('longitude')) {
         List geoPoints = UtilMisc.toList(UtilMisc.toMap('lat', latestGeoPoint.latitude, 'lon', latestGeoPoint.longitude, 'partyId', partyId,
-              'link', UtilMisc.toMap('url', 'viewprofile?partyId=' + partyId, 'label', uiLabelMap.PartyProfile + ' ' + uiLabelMap.CommonOf + ' ' + partyId)))
+              'link', [url: 'viewprofile?partyId=' + partyId, label: uiLabelMap.PartyProfile + ' ' + uiLabelMap.CommonOf + ' ' + partyId]))
 
-        Map geoChart = UtilMisc.toMap('width', '500px', 'height', '450px', 'controlUI' , 'small', 'dataSourceId', latestGeoPoint.dataSourceId, 'points', geoPoints)
+        Map geoChart = [width: '500px', height: '450px', controlUI: 'small', dataSourceId: latestGeoPoint.dataSourceId, points: geoPoints]
         context.geoChart = geoChart
     }
     if (latestGeoPoint && latestGeoPoint.elevationUomId) {

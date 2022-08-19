@@ -43,15 +43,18 @@ if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen
     }
-    categoryPageTitle = from('ProductCategoryContentAndInfo').where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'PAGE_TITLE').cache(true).queryList()
+    categoryPageTitle = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'PAGE_TITLE').cache(true).queryList()
     if (categoryPageTitle) {
         pageTitle = from('ElectronicText').where('dataResourceId', categoryPageTitle.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryMetaDescription = from('ProductCategoryContentAndInfo').where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'META_DESCRIPTION').cache(true).queryList()
+    categoryMetaDescription = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'META_DESCRIPTION').cache(true).queryList()
     if (categoryMetaDescription) {
         metaDescription = from('ElectronicText').where('dataResourceId', categoryMetaDescription.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryMetaKeywords = from('ProductCategoryContentAndInfo').where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'META_KEYWORD').cache(true).queryList()
+    categoryMetaKeywords = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'META_KEYWORD').cache(true).queryList()
     if (categoryMetaKeywords) {
         metaKeywords = from('ElectronicText').where('dataResourceId', categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
     }

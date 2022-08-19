@@ -93,7 +93,8 @@ if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem)
             product = productCategoryMember.getRelatedOne('Product', false)
             productId = product.productId
             // Average cost
-            averageCostValues = from('ProductPrice').where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'AVERAGE_COST').queryList()
+            averageCostValues = from('ProductPrice')
+                    .where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'AVERAGE_COST').queryList()
             if(averageCostValues){
                 averageCostValue = EntityUtil.getFirst(EntityUtil.filterByDate(averageCostValues))
                 if (averageCostValue?.price != null) {
@@ -101,7 +102,8 @@ if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem)
                 }
             }
             //    Default cost
-            defaultPriceValues = from('ProductPrice').where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'DEFAULT_PRICE').queryList();
+            defaultPriceValues = from('ProductPrice')
+                    .where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'DEFAULT_PRICE').queryList();
             if(defaultPriceValues){
                 defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues))
                 if (defaultPrice?.price != null) {

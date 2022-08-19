@@ -34,7 +34,9 @@ if (parameters.productAssocTypeId) {
     cond = EntityCondition.makeCondition('productAssocTypeId', EntityOperator.EQUALS, parameters.productAssocTypeId)
     condList.add(cond)
 } else {
-    bomAssocTypeIds = EntityUtil.getFieldListFromEntityList(select('productAssocTypeId').from('ProductAssocType').where('parentTypeId', 'PRODUCT_COMPONENT').queryList(), 'productAssocTypeId', true)
+    bomAssocTypeIds = EntityUtil.getFieldListFromEntityList(
+            select('productAssocTypeId').from('ProductAssocType').where('parentTypeId', 'PRODUCT_COMPONENT').queryList(),
+            'productAssocTypeId', true)
     cond = EntityCondition.makeCondition('productAssocTypeId', EntityOperator.IN, bomAssocTypeIds)
     condList.add(cond)
 }

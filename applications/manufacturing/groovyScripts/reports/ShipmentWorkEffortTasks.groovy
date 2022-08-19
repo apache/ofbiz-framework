@@ -29,11 +29,14 @@ records = []
 if (shipment) {
     shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList()
     shipmentPlans.each { shipmentPlan ->
-        productionRuns = from('WorkOrderItemFulfillment').where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId).orderBy('workEffortId').queryList()
+        productionRuns = from('WorkOrderItemFulfillment')
+                .where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId).orderBy('workEffortId').queryList()
         if (productionRuns) {
             productionRuns.each { productionRun ->
                 productionRunProduct = [:]
-                productionRunProducts = from('WorkEffortGoodStandard').where('workEffortId', productionRun.workEffortId , 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV', 'statusId', 'WEGS_CREATED').queryList()
+                productionRunProducts = from('WorkEffortGoodStandard')
+                        .where('workEffortId', productionRun.workEffortId , 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV', 'statusId', 'WEGS_CREATED')
+                        .queryList()
                 if (productionRunProducts) {
                     productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne('Product', false)
                 }

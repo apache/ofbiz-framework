@@ -33,7 +33,8 @@ import org.apache.ofbiz.product.image.ScaleImage
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
-imageManagementPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.management.path', delegator), context)
+imageManagementPath = FlexibleStringExpander.expandString(
+        EntityUtilProperties.getPropertyValue('catalog', 'image.management.path', delegator), context)
 
 String fileType = 'original'
 String productId = request.getParameter('productId')

@@ -57,7 +57,8 @@ if (orderId && shipment) {
             context.orderItemShipGroup = orderItemShipGroup
         }
 
-        orderItems = from('OrderItemAndShipGroupAssoc').where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+        orderItems = from('OrderItemAndShipGroupAssoc')
+                .where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
         orderItemDatas = [] as LinkedList
         orderItems.each { orderItemAndShipGroupAssoc ->
             orderItemData = [:]
@@ -79,7 +80,8 @@ if (orderId && shipment) {
                 if (orderItemShipGroup) {
                     oisgirLimitMap = [shipGroupSeqId: shipGroupSeqId]
                 }
-                orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvRes', oisgirLimitMap, ['reservedDatetime'], false)
+                orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvRes',
+                        oisgirLimitMap, ['reservedDatetime'], false)
                 orderItemShipGrpInvResDatas = [] as LinkedList
                 totalQuantityReserved = 0
                 orderItemShipGrpInvResList.each { orderItemShipGrpInvRes ->

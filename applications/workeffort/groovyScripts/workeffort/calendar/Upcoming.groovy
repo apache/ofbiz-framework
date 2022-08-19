@@ -40,7 +40,8 @@ if (workEffortTypeId != null) {
 }
 
 Map serviceCtx = UtilMisc.toMap('userLogin', userLogin, 'start', start, 'numPeriods', 7, 'periodType', Calendar.DATE)
-serviceCtx.putAll(UtilMisc.toMap('partyId', partyId, 'facilityId', facilityId, 'fixedAssetId', fixedAssetId, 'workEffortTypeId', workEffortTypeId, 'calendarType', calendarType, 'locale', locale, 'timeZone', timeZone))
+serviceCtx.putAll([partyId: partyId, facilityId: facilityId, fixedAssetId: fixedAssetId, workEffortTypeId: workEffortTypeId,
+                   calendarType: calendarType, locale: locale, timeZone: timeZone])
 
 Map result = runService('getWorkEffortEventsByPeriod',serviceCtx)
 context.put('days', result.get('periods'))

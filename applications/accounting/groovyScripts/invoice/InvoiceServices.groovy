@@ -111,7 +111,8 @@ Map invoiceSequenceRestart() {
         partyAcctgPreference.lastInvoiceRestartDate = nowTimestamp
     } else {
         //first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year?
-        curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp, partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0l)
+        curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
+                partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0l)
         if (partyAcctgPreference.lastInvoiceRestartDate < curYearFiscalStartDate && nowTimestamp >= curYearFiscalStartDate) {
             //less than fiscal year start, we need to reset it
             partyAcctgPreference.lastInvoiceNumber = 1l

@@ -25,7 +25,8 @@ nullSequenceNums = from('ProductContent').where('productId', parameters.productI
 productContents = allSequenceNums - nullSequenceNums
 int duplicate = 0
 if(parameters.sequenceNum){
-    findExisted = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', (Long)parameters.sequenceNum).queryList()
+    findExisted = from('ProductContent')
+            .where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', (Long) parameters.sequenceNum).queryList()
     duplicate = findExisted.size()
 }
 if(duplicate > 1){

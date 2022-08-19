@@ -218,7 +218,8 @@ class ProductPromoCondTests extends OFBizTestCase {
     void testCondGeoIdPromo() {
         ShoppingCart cart = loadOrder('DEMO10090')
         cart.setShippingContactMechId(0, '9200')
-        GenericValue productPromoCond = from('ProductPromoCond').where('productPromoId', '9022', 'productPromoRuleId', '01', 'productPromoCondSeqId', '01').queryOne()
+        GenericValue productPromoCond = from('ProductPromoCond')
+                .where('productPromoId', '9022', 'productPromoRuleId', '01', 'productPromoCondSeqId', '01').queryOne()
 
         // call service promo
         Map<String, Object> serviceContext = [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
@@ -270,8 +271,9 @@ class ProductPromoCondTests extends OFBizTestCase {
         GenericValue reccurenceRule = delegator.makeValue('RecurrenceRule', [recurrenceRuleId: condValue, frequency: 'DAILY', intervalNumber: 1l,
                                                                        countNumber: -1l, byDayList: 'MO,TU,WE,TH,FR,SA,SU'])
         delegator.createOrStore(reccurenceRule)
-        GenericValue reccurenceInfo = delegator.makeValue('RecurrenceInfo', [recurrenceInfoId: condValue, startDateTime: Timestamp.valueOf('2008-01-01 00:00:00.000'),
-                                                                       recurrenceRuleId: condValue, recurrenceCount: 0l])
+        GenericValue reccurenceInfo = delegator.makeValue('RecurrenceInfo',
+                [recurrenceInfoId: condValue, startDateTime: Timestamp.valueOf('2008-01-01 00:00:00.000'),
+                 recurrenceRuleId: condValue, recurrenceCount: 0l])
         delegator.createOrStore(reccurenceInfo)
 
         // call service promo

@@ -63,7 +63,8 @@ if (andCondition.size() > 1) {
         highIndex = (viewIndex - 1) * viewSize
 
         beganTransaction = TransactionUtil.begin()
-        inventoryItemsEli = from(inventoryItemAndLabelsView).where(andCondition).cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator()
+        inventoryItemsEli = from(inventoryItemAndLabelsView)
+                .where(andCondition).cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator()
 
         inventoryItemsSize = inventoryItemsEli.getResultsSizeAfterPartialList()
         context.inventoryItemsSize = inventoryItemsSize

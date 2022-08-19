@@ -71,7 +71,8 @@ conditions.add(EntityCondition.makeCondition('orderItemStatusId', EntityOperator
 
 // get the results as an entity list iterator
 try {
-    listIt = select('orderId', 'orderDate', 'productId', 'quantityOrdered', 'quantityIssued', 'quantityOpen', 'shipBeforeDate', 'shipAfterDate', 'itemDescription')
+    listIt = select('orderId', 'orderDate', 'productId', 'quantityOrdered',
+            'quantityIssued', 'quantityOpen', 'shipBeforeDate', 'shipAfterDate', 'itemDescription')
                 .from('OrderItemQuantityReportGroupByItem')
                 .where(conditions)
                 .orderBy('orderDate DESC')

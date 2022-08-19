@@ -52,7 +52,8 @@ if (security.hasEntityPermission('FACILITY', '_VIEW', userLogin)) {
     if (shipment) {
         if (shipment.primaryOrderId) {
             // allow if userLogin is associated with the primaryOrderId with the SUPPLIER_AGENT roleTypeId
-            orderRole = from('OrderRole').where('orderId', shipment.primaryOrderId, 'partyId', userLogin.partyId, 'roleTypeId', 'SUPPLIER_AGENT').queryOne()
+            orderRole = from('OrderRole')
+                    .where('orderId', shipment.primaryOrderId, 'partyId', userLogin.partyId, 'roleTypeId', 'SUPPLIER_AGENT').queryOne()
             if (orderRole) {
                 hasPermission = true
             }

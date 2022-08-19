@@ -41,7 +41,8 @@ exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribu
 exceptionDateStartTime = ObjectType.simpleTypeOrObjectConvert(exceptionDateStartTime, 'Timestamp', null, null)
 
 if (exceptionDateStartTime) {
-    calendarExceptionDay = from('TechDataCalendarExcDay').where('calendarId', calendarId , 'exceptionDateStartTime', exceptionDateStartTime).queryOne()
+    calendarExceptionDay = from('TechDataCalendarExcDay')
+            .where('calendarId', calendarId , 'exceptionDateStartTime', exceptionDateStartTime).queryOne()
     if (calendarExceptionDay) {
         context.calendarExceptionDay = calendarExceptionDay
     }

@@ -47,13 +47,15 @@ Map createPayment() {
     if (parameters.paymentMethodId) {
         GenericValue paymentMethod = from('PaymentMethod').where('paymentMethodId', parameters.paymentMethodId).queryOne()
         if (parameters.paymentMethodTypeId != paymentMethod.paymentMethodTypeId) {
-            logInfo('Replacing passed payment method type [' + parameters.paymentMethodTypeId + '] with payment method type [' + paymentMethod.paymentMethodTypeId + '] for payment method [' + parameters.paymentMethodId + ']')
+            logInfo('Replacing passed payment method type [' + parameters.paymentMethodTypeId + '] with payment method type ['
+                    + paymentMethod.paymentMethodTypeId + '] for payment method [' + parameters.paymentMethodId + ']')
             parameters.paymentMethodTypeId = paymentMethod.paymentMethodTypeId
         }
     }
 
     if (parameters.paymentPreferenceId) {
-        GenericValue orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', parameters.paymentPreferenceId).queryOne()
+        GenericValue orderPaymentPreference = from('OrderPaymentPreference')
+                .where('orderPaymentPreferenceId', parameters.paymentPreferenceId).queryOne()
         parameters.paymentId = parameters.paymentId ?: orderPaymentPreference.paymentMethodId
         parameters.paymentMethodTypeId = parameters.paymentMethodTypeId ?: orderPaymentPreference.paymentMethodTypeId
     }
@@ -557,9 +559,10 @@ Map createPaymentAndPaymentGroupForInvoices() {
         paymentIds << result.paymentId
     }
     if (paymentIds) {
-        result = run service: 'createPaymentGroupAndMember', with: [paymentIds: paymentIds,
-                                                                    paymentGroupTypeId: 'CHECK_RUN',
-                                                                    paymentGroupName: "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
+        result = run service: 'createPaymentGroupAndMember',
+                with: [paymentIds: paymentIds,
+                       paymentGroupTypeId: 'CHECK_RUN',
+                       paymentGroupName: "Payment group for Check Run(InvoiceIds-${parameters.invoiceIds})"]
         paymentGroupId = result.paymentGroupId
     }
     if (!result.paymentGroupId) {
@@ -574,12 +577,14 @@ Map createPaymentFromOrder() {
         if ('PURCHASE_ORDER' == orderHeader.orderTypeId) {
             String purchaseAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.purchaseorder.autocreate', 'Y')
             if (purchaseAutoCreate != 'Y') {
-                return error('payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
+                return error('payment not created from approved order because config' +
+                        ' (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
             }
         } else if ('SALES_ORDER' == orderHeader.orderTypeId) {
             String salesAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.salesorder.autocreate', 'Y')
             if (salesAutoCreate != 'Y') {
-                return error('payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
+                return error('payment not created from approved order because config' +
+                        ' (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
             }
         }
 
@@ -682,7 +687,8 @@ Map createPaymentFromOrder() {
 
         result = run service: 'updatePayment', with: parameters
         result.paymentId = parameters.paymentId
-        logInfo('payment ' + parameters.paymentId + ' with the not-paid status automatically created from order: ' + parameters.orderId + ' (can be disabled in accounting.properties)')
+        logInfo('payment ' + parameters.paymentId + ' with the not-paid status automatically created from order: '
+                + parameters.orderId + ' (can be disabled in accounting.properties)')
 
         return result
     }
@@ -866,8 +872,10 @@ Map createMatchingPaymentApplication() {
             String invoiceId
             BigDecimal amountApplied
             for (GenericValue invoice: invoices) {
-                boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.invoiceTypeId, 'parentTypeId', 'PURCHASE_INVOICE')
-                boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.invoiceTypeId, 'parentTypeId', 'SALES_INVOICE')
+                boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.invoiceTypeId,
+                        'parentTypeId', 'PURCHASE_INVOICE')
+                boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.invoiceTypeId,
+                        'parentTypeId', 'SALES_INVOICE')
 
                 if (isPurchaseInvoice || isSalesInvoice) {
                     BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)

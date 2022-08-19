@@ -22,7 +22,8 @@ import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.product.inventory.InventoryWorker
 
 if (product) {
-    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
+    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId,
+            'parentTypeId', 'MARKETING_PKG')
     context.isMarketingPackage = (isMarketingPackage ? 'true' : 'false')
     //If product is virtual gather summary data from variants
     if (product.isVirtual && 'Y'.equals(product.isVirtual)) {
@@ -99,7 +100,10 @@ if (product) {
             quantitySummaryByFacility.put(facility.facilityId, quantitySummary)
         }
 
-        productInventoryItems = from('InventoryItem').where('productId', productId).orderBy('facilityId', '-datetimeReceived', '-inventoryItemId').queryList()
+        productInventoryItems = from('InventoryItem')
+                .where('productId', productId)
+                .orderBy('facilityId', '-datetimeReceived', '-inventoryItemId')
+                .queryList()
 
         // TODO: get all incoming shipments not yet arrived coming into each facility that this product is in, use a view entity with ShipmentAndItem
         findIncomingShipmentsConds = []

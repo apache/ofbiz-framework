@@ -28,7 +28,8 @@ if (productCategoryIdPar) {
     context.category = category
 }
 
-allProductionRuns = from('WorkEffortAndGoods').where('workEffortName', planName, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV').orderBy('productId').queryList()
+allProductionRuns = from('WorkEffortAndGoods')
+        .where('workEffortName', planName, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV').orderBy('productId').queryList()
 productionRuns = []
 
 if (allProductionRuns) {
@@ -59,7 +60,9 @@ if (allProductionRuns) {
                             productionRunOrder: productionRunOrder,
                             customer: orh.getPlacingParty(),
                             address: orh.getShippingAddress()]
-        allProductionComponents = from('WorkEffortAndGoods').where('workEffortId', productionRunTask.workEffortId, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').orderBy('productId').queryList()
+        allProductionComponents = from('WorkEffortAndGoods')
+                .where('workEffortId', productionRunTask.workEffortId, 'statusId', 'WEGS_CREATED',
+                        'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').orderBy('productId').queryList()
 
         componentList = []
 

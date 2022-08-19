@@ -509,8 +509,10 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
 
     List missingFields = []
 
-    if (!roleEntity)      missingFields << 'roleEntity'      // roleEntity is required to determine which content role table to look: ContentRole, DataResourceRole, etc
-    if (!roleEntityField) missingFields << 'roleEntityField' // roleEntityField is required to determine the pk field to check; contentId, dataResourceId, etc
+    if (!roleEntity)      missingFields << 'roleEntity'      // roleEntity is required to determine which content role table
+                                                             // to look: ContentRole, DataResourceRole, etc
+    if (!roleEntityField) missingFields << 'roleEntityField' // roleEntityField is required to determine the pk field to check;
+                                                             // contentId, dataResourceId, etc
     if (!checkId)         missingFields << 'checkId'         // setting the env field contentId is required for this simple method
     if (!checkPartyId)    missingFields << 'checkPartyId'
     if (missingFields) {

@@ -38,7 +38,7 @@ context.prevMillis = new Long(prev.getTime()).toString()
 Timestamp next = UtilDateTime.getDayStart(start, 1, timeZone, locale)
 context.nextMillis = new Long(next.getTime()).toString()
 Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('getWorkEffortEventsByPeriod', ModelService.IN_PARAM, parameters)
-serviceCtx.putAll(UtilMisc.toMap('userLogin', userLogin, 'start', start, 'numPeriods', 24, 'periodType', Calendar.HOUR, 'locale', locale, 'timeZone', timeZone))
+serviceCtx.putAll([userLogin: userLogin, start: start, numPeriods: 24, periodType: Calendar.HOUR, locale: locale, timeZone: timeZone])
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList
 }

@@ -29,7 +29,8 @@ if (productCategoryIdPar) {
     context.category = category
 }
 
-allProductionRuns = from('WorkEffortAndGoods').where('workEffortName', planName, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV').orderBy('productId').queryList()
+allProductionRuns = from('WorkEffortAndGoods')
+        .where('workEffortName', planName, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV').orderBy('productId').queryList()
 productionRuns = []
 
 if (allProductionRuns) {

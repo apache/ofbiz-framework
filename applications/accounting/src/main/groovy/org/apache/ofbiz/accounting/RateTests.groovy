@@ -61,7 +61,9 @@ class RateTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updateRateAmount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue rateAmount = from('RateAmount').where('rateTypeId', 'OVERTIME', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', 'TEST_EMPLOYEE', 'partyId', '_NA_', 'periodTypeId', 'RATE_HOUR', 'fromDate', fromDate).queryOne()
+        GenericValue rateAmount = from('RateAmount')
+                .where('rateTypeId', 'OVERTIME', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', 'TEST_EMPLOYEE',
+                        'partyId', '_NA_', 'periodTypeId', 'RATE_HOUR', 'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.rateAmount == 25
     }
@@ -130,7 +132,9 @@ class RateTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('updatePartyRate', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue rateAmount = from('RateAmount').where('rateTypeId', 'DISCOUNTED', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', '_NA_', 'partyId', 'TEST_PARTY', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
+        GenericValue rateAmount = from('RateAmount')
+                .where('rateTypeId', 'DISCOUNTED', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', '_NA_',
+                        'partyId', 'TEST_PARTY', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
         GenericValue partyRate = from('PartyRate').where('rateTypeId', 'DISCOUNTED', 'partyId', 'TEST_PARTY', 'fromDate', fromDate).queryOne()
 
         assert rateAmount
@@ -163,7 +167,9 @@ class RateTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('expireRateAmount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue rateAmount = from('RateAmount').where('rateTypeId', 'AVERAGE_PAY_RATE', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', 'TEST_EMPLOYEE', 'partyId', '_NA_', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
+        GenericValue rateAmount = from('RateAmount')
+                .where('rateTypeId', 'AVERAGE_PAY_RATE', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD',
+                        'emplPositionTypeId', 'TEST_EMPLOYEE', 'partyId', '_NA_', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.thruDate
     }

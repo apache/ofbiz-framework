@@ -51,7 +51,9 @@ if (allProductionRuns) {
 
         // group by standard feature of type productFeatureTypeIdPar
         if (productFeatureTypeIdPar) {
-            standardFeature = from('ProductFeatureAndAppl').where('productFeatureTypeId', productFeatureTypeIdPar, 'productId', productionRun.productId, 'productFeatureApplTypeId', 'STANDARD_FEATURE').filterByDate().queryFirst()
+            standardFeature = from('ProductFeatureAndAppl')
+                    .where('productFeatureTypeId', productFeatureTypeIdPar, 'productId', productionRun.productId,
+                            'productFeatureApplTypeId', 'STANDARD_FEATURE').filterByDate().queryFirst()
             standardFeatureId = null
             if (standardFeature) {
                 standardFeatureId = standardFeature.productFeatureId

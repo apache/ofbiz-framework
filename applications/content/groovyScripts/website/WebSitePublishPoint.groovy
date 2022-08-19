@@ -17,7 +17,8 @@
  * under the License.
  */
 
-webSiteContent = from('WebSiteContent').where('webSiteId', webSiteId, 'webSiteContentTypeId', 'PUBLISH_POINT').orderBy('-fromDate').cache().filterByDate().queryFirst()
+webSiteContent = from('WebSiteContent')
+        .where('webSiteId', webSiteId, 'webSiteContentTypeId', 'PUBLISH_POINT').orderBy('-fromDate').cache().filterByDate().queryFirst()
 if (webSiteContent) {
     content = webSiteContent.getRelatedOne('Content', false)
     contentRoot = content.contentId

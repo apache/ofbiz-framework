@@ -88,7 +88,9 @@ shipGroups.each { shipGroup ->
 
         // the quantity shipped
         quantityShipped = 0.0
-        issuances = from('ItemIssuance').where('orderId', orderItem.orderId, 'orderItemSeqId', orderItem.orderItemSeqId, 'shipGroupSeqId', orderItemAssoc.shipGroupSeqId).queryList()
+        issuances = from('ItemIssuance')
+                .where('orderId', orderItem.orderId, 'orderItemSeqId', orderItem.orderItemSeqId, 'shipGroupSeqId', orderItemAssoc.shipGroupSeqId)
+                .queryList()
         issuances.each { issuance ->
             quantityShipped += issuance.quantity
         }
@@ -107,7 +109,8 @@ shipGroups.each { shipGroup ->
         line.quantityOpen = quantityOpen
 
         if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')) {
-            assocType = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO') ? 'MANUF_COMPONENT' : 'PRODUCT_COMPONENT'
+            assocType = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId',
+                    product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO') ? 'MANUF_COMPONENT' : 'PRODUCT_COMPONENT'
             sublines = expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType)
             line.expandedList = sublines
         }

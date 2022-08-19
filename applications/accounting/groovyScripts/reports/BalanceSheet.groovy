@@ -69,7 +69,8 @@ GenericValue accumAmortizationGlAccountClass = from('GlAccountClass').where('glA
 List accumAmortizationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumAmortizationGlAccountClass)
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ['organizationPartyId': organizationPartyId, 'findDate': thruDate,'userLogin': userLogin])
+Map lastClosedTimePeriodResult = runService('findLastClosedDate',
+        ['organizationPartyId': organizationPartyId, 'findDate': thruDate,'userLogin': userLogin])
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!fromDate) {
     return
@@ -91,7 +92,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     List lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         assetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
@@ -101,7 +104,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         contraAssetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
@@ -111,7 +116,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         liabilityOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
@@ -121,7 +128,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         equityOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
@@ -131,7 +140,10 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         currentAssetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
@@ -141,7 +153,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         longtermAssetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
@@ -151,7 +165,9 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap('glAccountId', lastTimePeriodHistory.glAccountId, 'accountCode', lastTimePeriodHistory.accountCode, 'accountName', lastTimePeriodHistory.accountName, 'balance', lastTimePeriodHistory.getBigDecimal('endingBalance'), 'D', lastTimePeriodHistory.getBigDecimal('postedDebits'), 'C', lastTimePeriodHistory.getBigDecimal('postedCredits'))
+        Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
+                          accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
+                          D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]
         currentLiabilityOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
 }
@@ -173,7 +189,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List assetAndExprs = mainAndExprs as LinkedList
 assetAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, assetAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(assetAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(assetAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(assetOpeningBalances)
 transactionTotals.each { transactionTotal ->
@@ -209,7 +226,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List currentAssetAndExprs = mainAndExprs as LinkedList
 currentAssetAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, currentAssetAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(currentAssetAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(currentAssetAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(currentAssetOpeningBalances)
 transactionTotals.each { transactionTotal ->
@@ -244,7 +262,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List longtermAssetAndExprs = mainAndExprs as LinkedList
 longtermAssetAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, longtermAssetAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(longtermAssetAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(longtermAssetAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(longtermAssetOpeningBalances)
 transactionTotals.each { transactionTotal ->
@@ -279,7 +298,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List contraAssetAndExprs = mainAndExprs as LinkedList
 contraAssetAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, contraAssetAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(contraAssetAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(contraAssetAndExprs).orderBy('glAccountId').queryList()
 
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(contraAssetOpeningBalances)
@@ -308,8 +328,9 @@ accountBalanceList.each { accountBalance ->
 context.assetAccountBalanceList.addAll(accountBalanceList)
 context.assetAccountBalanceList.add(UtilMisc.toMap('accountName', uiLabelMap.AccountingTotalAccumulatedDepreciation, 'balance', balanceTotal))
 context.contraAssetBalanceTotal = balanceTotal
-balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAccumulatedDepreciation', 'balance', balanceTotal))
-balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAssets', 'balance', (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + balanceTotal)))
+balanceTotalList.add([totalName: 'AccountingTotalAccumulatedDepreciation', balance: balanceTotal])
+balanceTotalList.add([totalName: 'AccountingTotalAssets',
+                      balance: (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + balanceTotal)])
 
 // LIABILITY
 // account balances
@@ -318,7 +339,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List liabilityAndExprs = mainAndExprs as LinkedList
 liabilityAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, liabilityAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(liabilityAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(liabilityAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(liabilityOpeningBalances)
 transactionTotals.each { transactionTotal ->
@@ -354,7 +376,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List currentLiabilityAndExprs = mainAndExprs as LinkedList
 currentLiabilityAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, currentLiabilityAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(currentLiabilityAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(currentLiabilityAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(currentLiabilityOpeningBalances)
 transactionTotals.each { transactionTotal ->
@@ -389,7 +412,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List equityAndExprs = mainAndExprs as LinkedList
 equityAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, equityAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(equityAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(equityAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(equityOpeningBalances)
 transactionTotals.each { transactionTotal ->
@@ -411,12 +435,17 @@ transactionTotals.each { transactionTotal ->
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
 }
 // Add the "retained earnings" account
-Map netIncomeResult = runService('prepareIncomeStatement', ['organizationPartyId': organizationPartyId, 'glFiscalTypeId': glFiscalTypeId, 'fromDate': fromDate, 'thruDate': thruDate, 'userLogin': userLogin])
+Map netIncomeResult = runService('prepareIncomeStatement',
+        ['organizationPartyId': organizationPartyId, 'glFiscalTypeId': glFiscalTypeId,
+         'fromDate': fromDate, 'thruDate': thruDate, 'userLogin': userLogin])
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome
-GenericValue retainedEarningsAccount = from('GlAccountTypeDefault').where('glAccountTypeId', 'RETAINED_EARNINGS', 'organizationPartyId', organizationPartyId).cache(true).queryOne()
+GenericValue retainedEarningsAccount = from('GlAccountTypeDefault')
+        .where('glAccountTypeId', 'RETAINED_EARNINGS', 'organizationPartyId', organizationPartyId).cache(true).queryOne()
 if (retainedEarningsAccount) {
     GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne('GlAccount', false)
-    transactionTotalsMap.put(retainedEarningsGlAccount.glAccountId, UtilMisc.toMap('glAccountId', retainedEarningsGlAccount.glAccountId,'accountName', retainedEarningsGlAccount.accountName, 'accountCode', retainedEarningsGlAccount.accountCode, 'balance', netIncome))
+    transactionTotalsMap.put(retainedEarningsGlAccount.glAccountId,
+            [glAccountId: retainedEarningsGlAccount.glAccountId,
+             accountName: retainedEarningsGlAccount.accountName, accountCode: retainedEarningsGlAccount.accountCode, balance: netIncome])
 }
 accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
 accountBalanceList.each { accountBalance ->

@@ -80,7 +80,8 @@ if (orderHeader) {
                 orderUnitPriceHistory.oldValue = unitPriceHistory.oldValueText
                 orderUnitPriceHistory.newValue = unitPriceHistory.newValueText
                 orderUnitPriceHistory.changedDate = unitPriceHistory.changedDate
-                orderItemSeqId = (unitPriceHistory.pkCombinedValueText).substring((unitPriceHistory.pkCombinedValueText).indexOf('::') + 2, (unitPriceHistory.pkCombinedValueText).length())
+                orderItemSeqId = (unitPriceHistory.pkCombinedValueText)
+                        .substring((unitPriceHistory.pkCombinedValueText).indexOf('::') + 2, (unitPriceHistory.pkCombinedValueText).length())
                 orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
                 orderUnitPriceHistory.productId = orderItem.productId
                 changedByInfoHistories.each { changedByInfoHistory ->
@@ -110,7 +111,8 @@ if (orderHeader) {
                 orderQuantityHistory.oldValue =  new BigDecimal(quantityHistory.oldValueText)
                 orderQuantityHistory.newValue = quantityHistory.newValueText
                 orderQuantityHistory.changedDate = quantityHistory.changedDate
-                orderItemSeqId = (quantityHistory.pkCombinedValueText).substring((quantityHistory.pkCombinedValueText).indexOf('::') + 2, (quantityHistory.pkCombinedValueText).length())
+                orderItemSeqId = (quantityHistory.pkCombinedValueText)
+                        .substring((quantityHistory.pkCombinedValueText).indexOf('::') + 2, (quantityHistory.pkCombinedValueText).length())
                 orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
                 orderQuantityHistory.productId = orderItem.productId
                 changedByInfoHistories.each { changedByInfoHistory ->

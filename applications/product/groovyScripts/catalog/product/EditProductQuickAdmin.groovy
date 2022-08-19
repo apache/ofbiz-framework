@@ -108,8 +108,11 @@ if (product) {
     context.product = product
 
     // get categories
-    allCategories = from('ProductCategory').where(EntityCondition.makeCondition(EntityCondition.makeCondition('showInSelect', EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition('showInSelect', EntityOperator.NOT_EQUAL, 'N')))
-        .orderBy('description').queryList()
+    allCategories = from('ProductCategory')
+            .where(EntityCondition.makeCondition(
+                    EntityCondition.makeCondition('showInSelect', EntityOperator.EQUALS, null),
+                    EntityOperator.OR, EntityCondition.makeCondition('showInSelect', EntityOperator.NOT_EQUAL, 'N')))
+            .orderBy('description').queryList()
 
     categoryMembers = product.getRelated('ProductCategoryMember', null, null, false)
     categoryMembers = EntityUtil.filterByDate(categoryMembers)
@@ -279,9 +282,11 @@ if (product) {
 
             prodFeaturesFiltered = EntityUtil.filterByAnd(assocProductFeatureAndAppls, [productFeatureTypeId: productFeatureTypeId])
             if (prodFeaturesFiltered) {
-                // this is used for the selectable feature descriptions section; only include here iff the description is also associated with the virtual product as a selectable feature, ie if this is a distinguishing feature
+                // this is used for the selectable feature descriptions section; only include here if the description
+                // is also associated with the virtual product as a selectable feature, ie if this is a distinguishing feature
                 String curSelDescription = ((GenericValue) prodFeaturesFiltered.get(0)).getString('description')
-                testProductFeatureAndAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: productFeatureTypeId, description: curSelDescription, productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
+                testProductFeatureAndAppls = EntityUtil.filterByAnd(productFeatureAndAppls,
+                        [productFeatureTypeId: productFeatureTypeId, description: curSelDescription, productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
                 if (testProductFeatureAndAppls) {
                     selFeatureDesc.put(assocProduct.productId, curSelDescription)
                 }

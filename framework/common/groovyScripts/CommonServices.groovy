@@ -411,7 +411,8 @@ Map createFuturePeriod() {
                         yearEndDate = Timestamp.valueOf(year + '-12-31 23:59:59.999')
                         yearPeriodType = periodTypeId + '_YEAR'
                         existingYear = from('CustomTimePeriod')
-                            .where('fromDate',yearStartDate, 'thruDate',yearEndDate,'organizationPartyId',parameters.organizationPartyId, 'periodTypeId',yearPeriodType).queryFirst()
+                                .where('fromDate', yearStartDate, 'thruDate', yearEndDate, 'organizationPartyId', parameters.organizationPartyId,
+                                        'periodTypeId', yearPeriodType).queryFirst()
                         if (existingYear) {
                             parameters.parentPeriodId = existingYear.customTimePeriodId
                         } else {
@@ -437,7 +438,8 @@ Map createFuturePeriod() {
                         thruDate = Timestamp.valueOf(periodEndDate)
                         parameters.periodTypeId = periodTypeId + '_' + grain
                         existingPeriod = from('CustomTimePeriod')
-                            .where('fromDate',fromDate, 'thruDate',thruDate,'organizationPartyId',parameters.organizationPartyId, 'periodTypeId',parameters.periodTypeId).queryFirst()
+                                .where('fromDate', fromDate, 'thruDate', thruDate, 'organizationPartyId', parameters.organizationPartyId,
+                                        'periodTypeId', parameters.periodTypeId).queryFirst()
                         if (!existingPeriod) {
                             parameters.fromDate = periodStartDate
                             parameters.thruDate = periodEndDate

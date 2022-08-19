@@ -63,7 +63,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     StringBuffer buf = new StringBuffer()
     buf.append('function listFT' + inlineCounter + current + prefix + '() { ')
     buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options.length = 1;")
-    buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options[0] = new Option(\"" + featureTypes[current] + "\",\"\",true,true);")
+    buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options[0] = new Option(\""
+            + featureTypes[current] + "\",\"\",true,true);")
     map.each { key, value ->
         String optValue = null
 
@@ -73,7 +74,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
             optValue = prefix + '_' + ct
         }
 
-        buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options[" + (ct + 1) + "] = new Option(\"" + key + "\",\"" + optValue + "\");")
+        buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options[" + (ct + 1) + "] = new Option(\""
+                + key + "\",\"" + optValue + "\");")
         ct++
     }
     buf.append(' }')
@@ -152,7 +154,8 @@ if (inlineProduct) {
             featureMap = runService('getProductFeatureSet', [productId: inlineProductId])
             featureSet = featureMap.featureSet
             if (featureSet) {
-                variantTreeMap = runService('getProductVariantTree', [productId: inlineProductId, featureOrder: featureSet, productStoreId: productStoreId])
+                variantTreeMap = runService('getProductVariantTree',
+                        [productId: inlineProductId, featureOrder: featureSet, productStoreId: productStoreId])
                 variantTree = variantTreeMap.variantTree
                 imageMap = variantTreeMap.variantSample
                 virtualVariant = variantTreeMap.virtualVariant
@@ -201,7 +204,8 @@ if (inlineProduct) {
                     topLevelName = featureOrder[0]
                     jsBuf.append('function list' + inlineCounter + topLevelName + '() {')
                     jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options.length = 1;")
-                    jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[0] = new Option(\"" + featureTypes[topLevelName] + "\",\"\",true,true);")
+                    jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[0] = new Option(\""
+                            + featureTypes[topLevelName] + "\",\"\",true,true);")
                     if (variantTree) {
                         featureOrder.each { featureKey ->
                             jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + featureKey + "\"].options.length = 1;")
@@ -235,7 +239,8 @@ if (inlineProduct) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage
                             }
 
-                            jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[" + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
+                            jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options["
+                                    + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
                             jsBuf.append('DET' + inlineCounter + '[' + counter + "] = \"" + detailImageUrl + "\";")
                             jsBuf.append('IMG' + inlineCounter + '[' + counter + "] = \"" + largeImageUrl + "\";")
 
@@ -263,7 +268,8 @@ if (inlineProduct) {
                     }
 
                     // make a list of variant sku with requireAmount
-                    variantsRes = runService('getAssociatedProducts', [productId: inlineProductId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
+                    variantsRes = runService('getAssociatedProducts',
+                            [productId: inlineProductId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
                     variants = variantsRes.assocProducts
                     if (variants) {
                         amt = new StringBuffer()
@@ -287,9 +293,12 @@ if (inlineProduct) {
                                 variantPriceMap = runService('calculateProductPrice', priceContext)
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: 'N') + "\"; ")
-                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: 'N') + "';\n")
-                            variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.price) + "\"; ")
-                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + numberFormat.format(variantPriceMap.price) + "';\n")
+                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '"
+                                    + (variant.requireAmount ?: 'N') + "';\n")
+                            variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \""
+                                    + numberFormat.format(variantPriceMap.price) + "\"; ")
+                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '"
+                                    + numberFormat.format(variantPriceMap.price) + "';\n")
                         }
                         amt.append(' } ')
                         variantPriceJS.append(' } ')

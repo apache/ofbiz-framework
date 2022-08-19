@@ -352,7 +352,8 @@ Map duplicateCategoryEntities() {
     String resourceDescription = parameters.resourceDescription ?: 'duplicateCategoryEntities'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)
         || security.hasEntityPermission('CATALOG_ROLE', '_CREATE', parameters.userLogin))) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription], parameters.locale))
+        return error(UtilProperties.getMessage('ProductUiLabels',
+                'ProductCatalogCreatePermissionError', [resourceDescription: resourceDescription], parameters.locale))
     }
 
     copyCategoryEntities(parameters.entityName, parameters.productCategoryId, parameters.productCategoryIdTo, parameters.validDate)
@@ -787,13 +788,15 @@ Map checkCategoryPermissionWithViewPurchaseAllow() {
         if (prodCatalog.viewAllowPermReqd.equals('Y')
             && !security.hasEntityPermission('CATALOG_VIEW', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
-            failMessage = UtilProperties.getMessage('CommonUiLabels', 'CommmonCallingMethodPermissionError', [callingMethodName, 'CATALOG_VIEW_ALLOW'], parameters.locale)
+            failMessage = UtilProperties.getMessage('CommonUiLabels',
+                    'CommmonCallingMethodPermissionError', [callingMethodName, 'CATALOG_VIEW_ALLOW'], parameters.locale)
             hasPermission = false
         }
         if (prodCatalog.purchaseAllowPermReqd.equals('Y')
             && !security.hasEntityPermission('CATALOG_PURCHASE', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
-            failMessage = UtilProperties.getMessage('CommonUiLabels', 'CommonCallingMethodPermissionError', [callingMethodName, 'CATALOG_PURCHASE_ALLOW'], parameters.locale)
+            failMessage = UtilProperties.getMessage('CommonUiLabels',
+                    'CommonCallingMethodPermissionError', [callingMethodName, 'CATALOG_PURCHASE_ALLOW'], parameters.locale)
             hasPermission = false
         }
     }

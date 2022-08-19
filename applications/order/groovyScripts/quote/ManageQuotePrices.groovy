@@ -49,7 +49,9 @@ quoteItems.each { quoteItem ->
 
     try {
         if (currency && quoteItem.productId) {
-            productPrice = from('ProductPrice').where('productId', quoteItem.productId, 'currencyUomId', currency, 'productPriceTypeId', 'AVERAGE_COST').filterByDate().queryFirst()
+            productPrice = from('ProductPrice')
+                    .where('productId', quoteItem.productId, 'currencyUomId', currency, 'productPriceTypeId', 'AVERAGE_COST')
+                    .filterByDate().queryFirst()
             if (productPrice?.price != null) {
                 averageCost = productPrice.price
             }

@@ -21,7 +21,8 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
 orderId = request.getParameter('orderId')
-paymentMethodTypes = from('PaymentMethodType').where(EntityCondition.makeCondition('paymentMethodTypeId', EntityOperator.NOT_EQUAL, 'EXT_OFFLINE')).queryList()
+paymentMethodTypes = from('PaymentMethodType')
+        .where(EntityCondition.makeCondition('paymentMethodTypeId', EntityOperator.NOT_EQUAL, 'EXT_OFFLINE')).queryList()
 context.paymentMethodTypes = paymentMethodTypes
 
 workEffortId = request.getParameter('workEffortId')

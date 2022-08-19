@@ -49,7 +49,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     StringBuffer buf = new StringBuffer()
     buf.append('function listFT' + current + prefix + '() { ')
     buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options.length = 1;")
-    buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\"" + featureTypes[current] + "\",\"\",true,true);")
+    buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\""
+            + featureTypes[current] + "\",\"\",true,true);")
     map.each { key, value ->
         String optValue = null
 
@@ -59,7 +60,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
             optValue = prefix + '_' + ct
         }
 
-        buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[" + (ct + 1) + "] = new Option(\"" + key + "\",\"" + optValue + "\");")
+        buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[" + (ct + 1) + "] = new Option(\""
+                + key + "\",\"" + optValue + "\");")
         ct++
     }
     buf.append(' }')
@@ -100,7 +102,8 @@ if (product) {
     context.product_id = productId
     productTypeId = product.productTypeId
 
-    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
+    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, 'ProductType',
+            'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG')
     context.isMarketingPackage = (isMarketingPackage ? 'true' : 'false')
 
     featureTypes = [:]
@@ -241,7 +244,9 @@ if (product) {
     context.disFeatureList = disFeatureList
 
     // an example of getting features of a certain type to show
-    sizeProductFeatureAndAppls = from('ProductFeatureAndAppl').where('productId', productId, 'productFeatureTypeId', 'SIZE').orderBy('sequenceNum', 'defaultSequenceNum').queryList()
+    sizeProductFeatureAndAppls = from('ProductFeatureAndAppl')
+            .where('productId', productId, 'productFeatureTypeId', 'SIZE')
+            .orderBy('sequenceNum', 'defaultSequenceNum').queryList()
     context.sizeProductFeatureAndAppls = sizeProductFeatureAndAppls
 
     // get product variant for Box/Case/Each
@@ -249,7 +254,10 @@ if (product) {
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
     mainProducts = []
     if(isAlternativePacking){
-        productVirtualVariants = from('ProductAssoc').where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
+        productVirtualVariants = from('ProductAssoc')
+                .where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE')
+                .cache(true)
+                .queryList()
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:]
@@ -276,7 +284,8 @@ if (product) {
                 if (cart.isPurchaseOrder()) {
                     variantTreeMap = runService('getProductVariantTree', [productId: productId, featureOrder: featureSet, checkInventory: false])
                 } else {
-                    variantTreeMap = runService('getProductVariantTree', [productId: productId, featureOrder: featureSet, productStoreId: productStoreId])
+                    variantTreeMap = runService('getProductVariantTree',
+                            [productId: productId, featureOrder: featureSet, productStoreId: productStoreId])
                 }
                 variantTree = variantTreeMap.variantTree
                 imageMap = variantTreeMap.variantSample
@@ -330,7 +339,8 @@ if (product) {
                     topLevelName = featureOrder[0]
                     jsBuf.append('function list' + topLevelName + '() {')
                     jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options.length = 1;")
-                    jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[0] = new Option(\"" + featureTypes[topLevelName] + "\",\"\",true,true);")
+                    jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[0] = new Option(\""
+                            + featureTypes[topLevelName] + "\",\"\",true,true);")
                     if (variantTree) {
                         featureOrder.each { featureKey ->
                             jsBuf.append("document.forms[\"addform\"].elements[\"FT" + featureKey + "\"].options.length = 1;")
@@ -366,7 +376,8 @@ if (product) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage
                             }
 
-                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[" + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
+                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options["
+                                    + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
                             jsBuf.append('DET[' + counter + "] = \"" + detailImageUrl + "\";")
                             jsBuf.append('IMG[' + counter + "] = \"" + largeImageUrl + "\";")
 
@@ -394,7 +405,8 @@ if (product) {
                     }
 
                     // make a list of variant sku with requireAmount
-                    variantsRes = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
+                    variantsRes = runService('getAssociatedProducts',
+                            [productId: productId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
                     variants = variantsRes.assocProducts
                     variantPriceList = []
                     if (variants) {
@@ -419,7 +431,8 @@ if (product) {
                                 variantPriceMap = runService('calculateProductPrice', priceContext)
                                 BigDecimal calculatedPrice = (BigDecimal)variantPriceMap.get('price')
                                 // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
-                                variantPriceMap.put('minimumQuantity', ShoppingCart.getMinimumOrderQuantity(delegator, calculatedPrice, variant.get('productId')))
+                                variantPriceMap.put('minimumQuantity',
+                                        ShoppingCart.getMinimumOrderQuantity(delegator, calculatedPrice, variant.get('productId')))
                                 Iterator treeMapIter = variantTree.entrySet().iterator()
                                 while (treeMapIter.hasNext()) {
                                     Map.Entry entry = treeMapIter.next()
@@ -445,14 +458,21 @@ if (product) {
                                 variantPriceMap = runService('calculatePurchasePrice', priceContext)
                             }
                             amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: 'N') + "\"; ")
-                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: 'N') + "';\n")
+                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '"
+                                    + (variant.requireAmount ?: 'N') + "';\n")
                             if (variantPriceMap && variantPriceMap.price) {
-                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
-                                variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
+                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \""
+                                        + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '"
+                                        + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                             }
 
                             // make a list of virtual variants sku with requireAmount
-                            virtualVariantsRes = runService('getAssociatedProducts', [productIdTo: variant.productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: currentCatalogId])
+                            virtualVariantsRes = runService('getAssociatedProducts',
+                                    [productIdTo: variant.productId,
+                                     type: 'ALTERNATIVE_PACKAGE',
+                                     checkViewAllow: true,
+                                     prodCatalogId: currentCatalogId])
                             virtualVariants = virtualVariantsRes.assocProducts
 
                             if(virtualVariants){
@@ -465,7 +485,8 @@ if (product) {
                                         virtualPriceMap = runService('calculateProductPrice', priceContext)
                                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get('price')
                                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
-                                        virtualPriceMap.put('minimumQuantity', ShoppingCart.getMinimumOrderQuantity(delegator, calculatedPrice, virtual.get('productId')))
+                                        virtualPriceMap.minimumQuantity = ShoppingCart.getMinimumOrderQuantity(delegator,
+                                                calculatedPrice, virtual.get('productId'))
                                         Iterator treeMapIter = variantTree.entrySet().iterator()
                                         while (treeMapIter.hasNext()) {
                                             Map.Entry entry = treeMapIter.next()
@@ -487,12 +508,16 @@ if (product) {
                                             }
                                         }
                                         variantPriceList.add(virtualPriceMap)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
-                                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \""
+                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
+                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     } else {
                                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
-                                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \""
+                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
+                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     }
                                 }
 
@@ -518,7 +543,8 @@ if (product) {
             jsBuf.append("<script type=\"application/javascript\">")
 
             // make a list of variant sku with requireAmount
-            virtualVariantsRes = runService('getAssociatedProducts', [productIdTo: productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: categoryId])
+            virtualVariantsRes = runService('getAssociatedProducts',
+                    [productIdTo: productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: categoryId])
             virtualVariants = virtualVariantsRes.assocProducts
             // Format to apply the currency code to the variant price in the javascript
             if (productStore) {
@@ -545,12 +571,16 @@ if (product) {
                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get('price')
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
-                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
+                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \""
+                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
+                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     } else {
                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \"" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
-                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
+                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \""
+                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                        variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
+                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     }
                 }
                 variantPriceJS.append(' } ')
@@ -563,7 +593,8 @@ if (product) {
             }
         }
     }
-    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '" + UtilFormatOut.formatCurrency(priceMap.price, currencyUomId, locale, 10) + "';\n")
+    variantInfoJS.append("        variantPrices['" + product.productId + "'] = '"
+            + UtilFormatOut.formatCurrency(priceMap.price, currencyUomId, locale, 10) + "';\n")
     variantInfoJS.append('    });\n</script>\n')
     context.variantInfoJavaScript = variantInfoJS
 
@@ -588,26 +619,37 @@ if (product) {
     context.availableInventory = availableInventory
 
     // get product associations
-    alsoBoughtProducts = runService('getAssociatedProducts', [productId: productId, type: 'ALSO_BOUGHT', checkViewAllow: true, prodCatalogId: currentCatalogId, bidirectional: false, sortDescending: true])
+    alsoBoughtProducts = runService('getAssociatedProducts',
+            [productId: productId, type: 'ALSO_BOUGHT',
+             checkViewAllow: true,
+             prodCatalogId: currentCatalogId,
+             bidirectional: false,
+             sortDescending: true])
     context.alsoBoughtProducts = alsoBoughtProducts.assocProducts
 
-    obsoleteProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_OBSOLESCENCE', checkViewAllow: true, prodCatalogId: currentCatalogId])
+    obsoleteProducts = runService('getAssociatedProducts',
+            [productId: productId, type: 'PRODUCT_OBSOLESCENCE', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.obsoleteProducts = obsoleteProducts.assocProducts
 
-    crossSellProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_COMPLEMENT', checkViewAllow: true, prodCatalogId: currentCatalogId])
+    crossSellProducts = runService('getAssociatedProducts',
+            [productId: productId, type: 'PRODUCT_COMPLEMENT', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.crossSellProducts = crossSellProducts.assocProducts
 
-    upSellProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_UPGRADE', checkViewAllow: true, prodCatalogId: currentCatalogId])
+    upSellProducts = runService('getAssociatedProducts',
+            [productId: productId, type: 'PRODUCT_UPGRADE', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.upSellProducts = upSellProducts.assocProducts
 
-    obsolenscenseProducts = runService('getAssociatedProducts', [productIdTo: productId, type: 'PRODUCT_OBSOLESCENCE', checkViewAllow: true, prodCatalogId: currentCatalogId])
+    obsolenscenseProducts = runService('getAssociatedProducts',
+            [productIdTo: productId, type: 'PRODUCT_OBSOLESCENCE', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.obsolenscenseProducts = obsolenscenseProducts.assocProducts
 
-    accessoryProducts = runService('getAssociatedProducts', [productId: productId, type: 'PRODUCT_ACCESSORY', checkViewAllow: true, prodCatalogId: currentCatalogId])
+    accessoryProducts = runService('getAssociatedProducts',
+            [productId: productId, type: 'PRODUCT_ACCESSORY', checkViewAllow: true, prodCatalogId: currentCatalogId])
     context.accessoryProducts = accessoryProducts.assocProducts
 
     // get the DIGITAL_DOWNLOAD related Content records to show the contentName/description
-    downloadProductContentAndInfoList = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'DIGITAL_DOWNLOAD').cache(true).queryList()
+    downloadProductContentAndInfoList = from('ProductContentAndInfo')
+            .where('productId', productId, 'productContentTypeId', 'DIGITAL_DOWNLOAD').cache(true).queryList()
     context.downloadProductContentAndInfoList = downloadProductContentAndInfoList
 
     // not the best to save info in an action, but this is probably the best place to count a view; it is done async
@@ -615,14 +657,21 @@ if (product) {
 
     //get product image from image management
     productImageList = []
-    productContentAndInfoImageManamentList = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'IMAGE', 'statusId', 'IM_APPROVED', 'drIsPublic', 'Y').orderBy('sequenceNum').filterByDate().queryList()
+    productContentAndInfoImageManamentList = from('ProductContentAndInfo')
+            .where('productId', productId, 'productContentTypeId', 'IMAGE', 'statusId', 'IM_APPROVED', 'drIsPublic', 'Y')
+            .orderBy('sequenceNum')
+            .filterByDate()
+            .queryList()
     if(productContentAndInfoImageManamentList) {
         productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
-            contentAssocThumb = from('ContentAssoc').where('contentId', productContentAndInfoImageManament.contentId, 'contentAssocTypeId', 'IMAGE_THUMBNAIL').queryFirst()
+            contentAssocThumb = from('ContentAssoc')
+                    .where('contentId', productContentAndInfoImageManament.contentId, 'contentAssocTypeId', 'IMAGE_THUMBNAIL').queryFirst()
             if(contentAssocThumb) {
-                imageContentThumb = from('Content').where('contentId', contentAssocThumb.contentIdTo).queryOne()
+                imageContentThumb = from('Content')
+                        .where('contentId', contentAssocThumb.contentIdTo).queryOne()
                 if(imageContentThumb) {
-                    productImageThumb = from('ContentDataResourceView').where('contentId', imageContentThumb.contentId, 'drDataResourceId', imageContentThumb.dataResourceId).queryOne()
+                    productImageThumb = from('ContentDataResourceView')
+                            .where('contentId', imageContentThumb.contentId, 'drDataResourceId', imageContentThumb.dataResourceId).queryOne()
                     productImageMap = [:]
                     productImageMap.productImageThumb = productImageThumb.drObjectInfo
                     productImageMap.productImage = productContentAndInfoImageManament.drObjectInfo
@@ -643,7 +692,8 @@ if (product) {
     keywordMap = [:]
     if (productKeywords) {
         for (productKeyword in productKeywords) {
-            productKeyWordCount = from('ProductKeyword').where('keyword', productKeyword.keyword, 'keywordTypeId', 'KWT_TAG', 'statusId', 'KW_APPROVED').queryCount()
+            productKeyWordCount = from('ProductKeyword')
+                    .where('keyword', productKeyword.keyword, 'keywordTypeId', 'KWT_TAG', 'statusId', 'KW_APPROVED').queryCount()
             keywordMap.put(productKeyword.keyword,productKeyWordCount)
         }
         context.productTags = keywordMap

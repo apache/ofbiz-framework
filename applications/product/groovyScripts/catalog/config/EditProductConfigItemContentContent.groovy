@@ -27,7 +27,8 @@ confItemContentTypeId = request.getParameter('confItemContentTypeId')
 
 description = request.getParameter('description') ?: null
 
-productContent = from('ProdConfItemContent').where('contentId', contentId, 'configItemId', configItemId, 'confItemContentTypeId', confItemContentTypeId, 'fromDate', fromDate).queryOne()
+productContent = from('ProdConfItemContent')
+        .where('contentId', contentId, 'configItemId', configItemId, 'confItemContentTypeId', confItemContentTypeId, 'fromDate', fromDate).queryOne()
 if (!productContent) {
     productContent = [:]
     productContent.configItemId = configItemId

@@ -27,7 +27,8 @@ if (currentCustomTimePeriodId) {
     context.currentCustomTimePeriodId = currentCustomTimePeriodId
 }
 
-currentCustomTimePeriod = currentCustomTimePeriodId ? from('CustomTimePeriod').where('customTimePeriodId', currentCustomTimePeriodId).queryOne() : null
+currentCustomTimePeriod = currentCustomTimePeriodId ? from('CustomTimePeriod')
+        .where('customTimePeriodId', currentCustomTimePeriodId).queryOne() : null
 if (currentCustomTimePeriod) {
     context.currentCustomTimePeriod = currentCustomTimePeriod
 }
@@ -44,7 +45,8 @@ if (currentCustomTimePeriodId) findMap.parentPeriodId = currentCustomTimePeriodI
 customTimePeriods = from('CustomTimePeriod').where(findMap).orderBy(['periodTypeId', 'periodNum', 'fromDate']).queryList()
 context.customTimePeriods = customTimePeriods
 
-allCustomTimePeriods = from('CustomTimePeriod').orderBy(['organizationPartyId', 'parentPeriodId', 'periodTypeId', 'periodNum', 'fromDate']).queryList()
+allCustomTimePeriods = from('CustomTimePeriod')
+        .orderBy(['organizationPartyId', 'parentPeriodId', 'periodTypeId', 'periodNum', 'fromDate']).queryList()
 context.allCustomTimePeriods = allCustomTimePeriods
 
 periodTypes = from('PeriodType').orderBy('description').cache(true).queryList()

@@ -43,7 +43,8 @@ uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
 parametersFromDate = fromDate
 
 // Setup the divisions for which the report is executed
-List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')
+List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator,
+        parameters.get('ApplicationDecorator|organizationPartyId'), 'GROUP_ROLLUP')
 partyIds.add(parameters.get('ApplicationDecorator|organizationPartyId'))
 
 // Get the group of account classes that will be used to position accounts in the proper section of the  Cash Flow statement
@@ -89,7 +90,8 @@ balanceTotal = BigDecimal.ZERO
 List openingCashBalanceAndExprs = mainAndExprs as LinkedList
 openingCashBalanceAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, periodClosingFromDate))
 openingCashBalanceAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, parametersFromDate))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(openingCashBalanceAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(openingCashBalanceAndExprs).orderBy('glAccountId').queryList()
 transactionTotalsMap = [:]
 transactionTotalsMap.putAll(openingCashBalances)
 transactionTotals.each { transactionTotal ->
@@ -134,7 +136,8 @@ balanceTotal = BigDecimal.ZERO
 List periodCashBalanceAndExprs = mainAndExprs as LinkedList
 periodCashBalanceAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, parametersFromDate))
 periodCashBalanceAndExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, thruDate))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(periodCashBalanceAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(periodCashBalanceAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -188,7 +191,8 @@ if (transactionTotals) {
                 totalDebitBalance = (transactionTotal.D).add(transactionTotalsMap.(transactionTotal.glAccountId).D)
                 totalCreditBalance = (transactionTotal.C).add(transactionTotalsMap.(transactionTotal.glAccountId).C)
                 if (transactionTotalsMap.(transactionTotal.glAccountId).D == 0 && transactionTotalsMap.(transactionTotal.glAccountId).C == 0) {
-                    transactionTotalsMap.(transactionTotal.glAccountId).balance = (transactionTotal.balance).add(transactionTotalsMap.(transactionTotal.glAccountId).balance)
+                    transactionTotalsMap.(transactionTotal.glAccountId).balance =
+                            (transactionTotal.balance).add(transactionTotalsMap.(transactionTotal.glAccountId).balance)
                 } else {
                     transactionTotalsMap.(transactionTotal.glAccountId).D = totalDebitBalance
                     transactionTotalsMap.(transactionTotal.glAccountId).C = totalCreditBalance
@@ -213,7 +217,8 @@ if (closingTransactionKeySet) {
     closingTransactionKeySet.removeAll(openingTransactionKeySet)
     closingTransactionKeySet.each { closingTransactionKey ->
         glAccount = from('GlAccount').where('glAccountId', closingTransactionKey).cache(true).queryOne()
-        context.openingCashBalanceList.add(['glAccountId': glAccount.glAccountId, 'accountName': glAccount.accountName, accountCode: glAccount.accountCode, balance: BigDecimal.ZERO, D: BigDecimal.ZERO, C: BigDecimal.ZERO])
+        context.openingCashBalanceList.add(['glAccountId': glAccount.glAccountId, 'accountName': glAccount.accountName,
+                                            accountCode: glAccount.accountCode, balance: BigDecimal.ZERO, D: BigDecimal.ZERO, C: BigDecimal.ZERO])
     }
 }
 context.openingCashBalanceList.add(['accountName': uiLabelMap.AccountingTotalOpeningCashBalance, 'balance': openingCashBalanceTotal])

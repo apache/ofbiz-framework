@@ -37,7 +37,8 @@ if ('Y'.equals(parameters.isSearch)) {
         invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, partyId))
     }
     if (fromDate) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('fromDate', EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('fromDate',
+                EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
     }
     if (thruDate) {
         invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('thruDate', EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
@@ -45,7 +46,8 @@ if ('Y'.equals(parameters.isSearch)) {
     invoiceItemAndAssocProductList = []
     invoiceItemAndAssocProductList = from('InvoiceItemAndAssocProduct').where(invoiceItemAndAssocProductCond).queryList()
 
-    //filtering invoiceItemAndAssocProductList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
+    //filtering invoiceItemAndAssocProductList for each productId with updating quantity,
+    // commission amount and number of order which generated sales invoices.
     totalQuantity = BigDecimal.ZERO
     totalNumberOfOrders = BigDecimal.ZERO
     totalCommissionAmount = BigDecimal.ZERO

@@ -82,7 +82,8 @@ if (productId) {
 
             // Reserved quantity
             reservedQuantity = 0.0
-            reservations = from('OrderItemShipGrpInvRes').where('orderId', orderAndItem.orderId, 'orderItemSeqId', orderAndItem.orderItemSeqId).queryList()
+            reservations = from('OrderItemShipGrpInvRes')
+                    .where('orderId', orderAndItem.orderId, 'orderItemSeqId', orderAndItem.orderItemSeqId).queryList()
             reservations.each { reservation ->
                 if (reservation.quantity) {
                     reservedQuantity += reservation.quantity

@@ -92,7 +92,8 @@ class AutoAcctgTransTestsPurchase extends OFBizTestCase {
             Precondition: To the Purchase Invoice created add taxes and two different shipping charges
               1. for taxes: set "Invoice Item Type" = "Invoice Sales Tax" and "Unit Price" = 10$
               2. for the first shipping charge: set "Invoice Item Type" = "Invoice Shipping And Handling" and "Unit Price" = 5$
-              3. for the second shipping charge: set "Invoice Item Type" = "Invoice Shipping And Handling", set "Override Gl Account Id" = "516100" and "Unit Price" = 5$
+              3. for the second shipping charge: set "Invoice Item Type" = "Invoice Shipping And Handling",
+                     set "Override Gl Account Id" = "516100" and "Unit Price" = 5$
 
             Post condition: When status is set to ready, an accounting transaction is automatically posted to the GL:
               * Credit; in account 210000 - "ACCOUNTS PAYABLE"; amount: 290$

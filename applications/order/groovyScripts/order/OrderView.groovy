@@ -204,7 +204,8 @@ if (orderHeader) {
         }
         OISGAssContents = []
         shipGroups.each { shipGroup ->
-            OISGAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated('OrderItemShipGroupAssoc', null, null, false), UtilMisc.toMap('orderItemSeqId', orderItem.getString('orderItemSeqId'))))
+            OISGAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated('OrderItemShipGroupAssoc', null, null, false),
+                    [orderItemSeqId: orderItem.getString('orderItemSeqId')]))
         }
         BigDecimal totalQuantityPlanned = 0
         OISGAssContents.each { OISGAssContent ->
@@ -252,7 +253,8 @@ if (orderHeader) {
     context.put('actualDateStr', actualDateStr)
 
     // get Shipment tracking info
-    orderShipmentInfoSummaryList = select('shipGroupSeqId', 'shipmentId', 'shipmentRouteSegmentId', 'carrierPartyId', 'shipmentMethodTypeId', 'shipmentPackageSeqId', 'trackingCode', 'boxNumber')
+    orderShipmentInfoSummaryList = select('shipGroupSeqId', 'shipmentId', 'shipmentRouteSegmentId', 'carrierPartyId',
+            'shipmentMethodTypeId', 'shipmentPackageSeqId', 'trackingCode', 'boxNumber')
             .from('OrderShipmentInfoSummary')
             .where('orderId', orderId)
             .orderBy('shipmentId', 'shipmentRouteSegmentId', 'shipmentPackageSeqId')
@@ -440,8 +442,8 @@ if (orderHeader) {
         shippableItemSizes = orderReadHelper.getShippableSizes(shipGroupSeqId)
         shippingAddress = orderReadHelper.getShippingAddress(shipGroupSeqId)
 
-        List<GenericValue> productStoreShipmentMethList = ProductStoreWorker.getAvailableStoreShippingMethods(delegator, orderReadHelper.getProductStoreId(),
-                shippingAddress, shippableItemSizes, shippableItemFeatures, shippableWeight, shippableTotal)
+        List<GenericValue> productStoreShipmentMethList = ProductStoreWorker.getAvailableStoreShippingMethods(delegator,
+                orderReadHelper.getProductStoreId(), shippingAddress, shippableItemSizes, shippableItemFeatures, shippableWeight, shippableTotal)
         shipGroupShippingMethods.put(shipGroupSeqId, productStoreShipmentMethList)
         context.shipGroupShippingMethods = shipGroupShippingMethods
     }
@@ -494,7 +496,8 @@ context.paramString = paramString
 
 workEffortStatus = null
 if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
-    wepa = from('WorkEffortPartyAssignment').where('workEffortId', workEffortId, 'partyId', assignPartyId, 'roleTypeId', assignRoleTypeId, 'fromDate', fromDate).queryOne()
+    wepa = from('WorkEffortPartyAssignment')
+            .where('workEffortId', workEffortId, 'partyId', assignPartyId, 'roleTypeId', assignRoleTypeId, 'fromDate', fromDate).queryOne()
 
     if ('CAL_ACCEPTED'.equals(wepa?.statusId)) {
         workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
@@ -513,7 +516,8 @@ if (orderItems) {
 }
 
 // getting online ship estimates corresponding to this Order from UPS when "Hold" button will be clicked, when user packs from weight package screen.
-// This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties) of online UPS shipping amount.
+// This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties)
+// of online UPS shipping amount.
 
 shipments = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryList()
 if (shipments) {
@@ -533,7 +537,7 @@ if (shipments) {
                     carrierShipmentMethod = from('CarrierShipmentMethod').where('partyId', 'UPS', 'carrierServiceCode', serviceCode).queryFirst()
                     shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId
                     rate = shippingRate.get(serviceCode)
-                    shipmentMethodDescription = EntityUtil.getFirst(carrierShipmentMethod.getRelated('ShipmentMethodType', null, null, false)).description
+                    shipmentMethodDescription = carrierShipmentMethod.getRelated('ShipmentMethodType', null, null, false)[0]?.description
                     shippingMethodAndRate.shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId
                     shippingMethodAndRate.rate = rate
                     shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription

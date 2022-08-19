@@ -218,7 +218,8 @@ Map copyQuote() {
     if ('Y' == parameters.copyQuoteItems) {
         List quoteItems = quote.getRelated('QuoteItem', null, null, false)
         for (GenericValue quoteItem : quoteItems) {
-            Map serviceContext = dctx.makeValidContext('createQuoteItem', ModelService.IN_PARAM, [*: quoteItem, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteItem', ModelService.IN_PARAM,
+                    [*: quoteItem, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteItem', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -231,7 +232,8 @@ Map copyQuote() {
         List quoteAdjustments = quote.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustement : quoteAdjustments) {
             if (!quoteAdjustment.quoteItemSeqId) {
-                Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM, [*: quoteAdjustement, quoteId: quoteIdTo, userLogin: userLogin])
+                Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
+                        [*: quoteAdjustement, quoteId: quoteIdTo, userLogin: userLogin])
                 serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
@@ -245,7 +247,8 @@ Map copyQuote() {
         List quoteRoles = quote.getRelated('QuoteRole', null, null, false)
         for (GenericValue quoteRole : quoteRoles) {
             if (quoteRole.roleTypeId != 'REQ_TAKER') {
-                Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM, [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
+                Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM,
+                        [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
                 serviceResult = dispatcher.runSync('createQuoteRole', serviceContext)
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
@@ -258,7 +261,8 @@ Map copyQuote() {
     if ('Y' == parameters.copyQuoteAttributes) {
         List quoteAttributes = quote.getRelated('QuoteAttribute', null, null, false)
         for (GenericValue quoteAttribute : quoteAttributes) {
-            Map serviceContext = dctx.makeValidContext('createQuoteAttribute', ModelService.IN_PARAM, [*: quoteAttribute, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteAttribute', ModelService.IN_PARAM,
+                    [*: quoteAttribute, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteAttribute', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -270,7 +274,8 @@ Map copyQuote() {
     if ('Y' == parameters.copyQuoteCoefficients) {
         List quoteCoefficients = quote.getRelated('QuoteCoefficient', null, null, false)
         for (GenericValue quoteCoefficient : quoteCoefficients) {
-            Map serviceContext = dctx.makeValidContext('createQuoteCoefficient', ModelService.IN_PARAM, [*: quoteCoefficient, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteCoefficient', ModelService.IN_PARAM,
+                    [*: quoteCoefficient, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteCoefficient', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -282,7 +287,8 @@ Map copyQuote() {
     if ('Y' == parameters.copyQuoteTerms) {
         List quoteTerms = quote.getRelated('QuoteTerm', null, null, false)
         for (GenericValue quoteTerm : quoteTerms) {
-            Map serviceContext = dctx.makeValidContext('createQuoteTerm', ModelService.IN_PARAM, [*: quoteTerm, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteTerm', ModelService.IN_PARAM,
+                    [*: quoteTerm, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteTerm', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -335,7 +341,8 @@ Map createQuoteItem() {
         }
         if (product?.productTypeId?.startsWith('AGGREGATED')
                 && parameters.configId) {
-            ProductConfigWrapper configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, parameters.configId, product.productId, null, null, null, null, locale, userLogin)
+            ProductConfigWrapper configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, parameters.configId,
+                    product.productId, null, null, null, null, locale, userLogin)
             quoteItem.quoteUnitPrice = configWrapper.getTotalPrice()
         } else {
             Map serviceResult = run service: 'calculateProductPrice', with: [
@@ -407,7 +414,8 @@ Map copyQuoteItem() {
     if ('Y' == parameters.copyQuoteAdjustments) {
         List quoteAdjustments = quoteItem.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustment : quoteAdjustments) {
-            Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM, [*: quoteAdjustment, quoteId: parameters.quoteIdTo, quoteItemSeqId: parameters.quoteItemSeqIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
+                    [*: quoteAdjustment, quoteId: parameters.quoteIdTo, quoteItemSeqId: parameters.quoteItemSeqIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult

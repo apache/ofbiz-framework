@@ -58,8 +58,10 @@ invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().d
 
 while (invIterator.hasNext()) {
     invoice = invIterator.next()
-    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')
-    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', (String) invoice.getString('invoiceTypeId'), 'parentTypeId', 'SALES_INVOICE')
+    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId',
+            invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')
+    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', (String) invoice.getString('invoiceTypeId'),
+            'parentTypeId', 'SALES_INVOICE')
     if (isPurchaseInvoice) {
         totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
@@ -69,7 +71,8 @@ while (invIterator.hasNext()) {
         totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        logError('InvoiceType: ' + invoice.invoiceTypeId + ' without a valid parentTypeId: ' + invoice.parentTypeId + ' !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE')
+        logError('InvoiceType: ' + invoice.invoiceTypeId + ' without a valid parentTypeId: ' + invoice.parentTypeId
+                + ' !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE')
     }
 }
 
@@ -110,7 +113,8 @@ while (payIterator.hasNext()) {
         totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
     else {
-        logError('PaymentTypeId: ' + payment.paymentTypeId + ' without a valid parentTypeId: ' + payment.parentTypeId + ' !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT')
+        logError('PaymentTypeId: ' + payment.paymentTypeId + ' without a valid parentTypeId: ' + payment.parentTypeId
+                + ' !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT')
     }
 }
 payIterator.close()
