@@ -17,7 +17,8 @@
  * under the License.
  */
 
- // this script is used to get the company's logo header information for orders, invoices, and returns.  It can either take order, invoice, returnHeader from
+ // this script is used to get the company's logo header information for orders,
+// invoices, and returns.  It can either take order, invoice, returnHeader from
  // parameters or use orderId, invoiceId, or returnId to look them up.
  // if none of these parameters are available then fromPartyId is used or "ORGANIZATION_PARTY" from general.properties as fallback
 
@@ -85,7 +86,8 @@ Timestamp referenceDate = null
 if (orderHeader) {
     orh = new OrderReadHelper(orderHeader)
     referenceDate = orderHeader.orderDate
-    // for sales order, the logo party is the "BILL_FROM_VENDOR" of the order.  If that's not available, we'll use the OrderHeader's ProductStore's payToPartyId
+    // for sales order, the logo party is the "BILL_FROM_VENDOR" of the order.
+    // If that's not available, we'll use the OrderHeader's ProductStore's payToPartyId
     if ('SALES_ORDER'.equals(orderHeader.orderTypeId)) {
         if (orh.getBillFromParty()) {
             partyId = orh.getBillFromParty().partyId
@@ -133,7 +135,7 @@ if (!partyId) {
     if (fromPartyId) {
         partyId = fromPartyId
     } else {
-        partyId = parameters.get('ApplicationDecorator|organizationPartyId') ? parameters.get('ApplicationDecorator|organizationPartyId') : context.defaultOrganizationPartyId
+        partyId = parameters.get('ApplicationDecorator|organizationPartyId') ?: context.defaultOrganizationPartyId
     }
 }
 

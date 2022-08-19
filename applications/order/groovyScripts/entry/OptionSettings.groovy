@@ -27,7 +27,11 @@ context.cart = cart
 productStore = ProductStoreWorker.getProductStore(request)
 if (productStore) {
     context.productStore = productStore
-    context.carrierShipmentMethodList = from('ProductStoreShipmentMethView').where('productStoreId', productStore.productStoreId).orderBy('sequenceNumber').cache(true).queryList()
+    context.carrierShipmentMethodList = from('ProductStoreShipmentMethView')
+            .where('productStoreId', productStore.productStoreId)
+            .orderBy('sequenceNumber')
+            .cache(true)
+            .queryList()
 }
 
 // nuke the event messages

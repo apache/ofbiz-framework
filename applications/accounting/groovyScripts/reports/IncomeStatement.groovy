@@ -78,7 +78,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List revenueAndExprs = mainAndExprs as LinkedList
 revenueAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, revenueAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(revenueAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(revenueAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -121,7 +122,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List contraRevenueAndExprs = mainAndExprs as LinkedList
 contraRevenueAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, contraRevenueAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(contraRevenueAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(contraRevenueAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -163,7 +165,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List expenseAndExprs = mainAndExprs as LinkedList
 expenseAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, expenseAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(expenseAndExprs).queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(expenseAndExprs).queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -206,7 +209,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List cogsExpenseAndExprs = mainAndExprs as LinkedList
 cogsExpenseAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, cogsExpenseAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(cogsExpenseAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(cogsExpenseAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -248,7 +252,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List sgaExpenseAndExprs = mainAndExprs as LinkedList
 sgaExpenseAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, sgaExpenseAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(sgaExpenseAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(sgaExpenseAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -289,7 +294,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List depreciationAndExprs = mainAndExprs as LinkedList
 depreciationAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, depreciationAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(depreciationAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(depreciationAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO
@@ -330,7 +336,8 @@ transactionTotals = []
 balanceTotal = BigDecimal.ZERO
 List incomeAndExprs = mainAndExprs as LinkedList
 incomeAndExprs.add(EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, incomeAccountClassIds))
-transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(incomeAndExprs).orderBy('glAccountId').queryList()
+transactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(incomeAndExprs).orderBy('glAccountId').queryList()
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
     balanceTotalCredit = BigDecimal.ZERO

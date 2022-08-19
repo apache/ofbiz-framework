@@ -36,7 +36,7 @@ if (state) {
 context.isOpen = isOpen
 
 requestParameters = UtilHttp.getParameterMap(request)
-defaultTopCategoryId = requestParameters.TOP_CATEGORY ? requestParameters.TOP_CATEGORY : EntityUtilProperties.getPropertyValue('catalog', 'top.category.default', delegator)
+defaultTopCategoryId = requestParameters.TOP_CATEGORY ?: EntityUtilProperties.getPropertyValue('catalog', 'top.category.default', delegator)
 currentTopCategoryId = CategoryWorker.getCatalogTopCategory(request, defaultTopCategoryId)
 currentTopCategory = null
 if (isOpen) {

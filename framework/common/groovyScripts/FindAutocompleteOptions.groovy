@@ -90,7 +90,8 @@ if (searchFields && fieldValue) {
             orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue))
             return //in case of EQUALS, we search only a match for the returned field
         } else {
-            orExprs.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue))
+            orExprs.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue(fieldName)),
+                    EntityOperator.LIKE, searchValue))
         }
     }
 }
@@ -106,11 +107,13 @@ if (conditionFields) {
         if (conditionFieldEntry.getValue() instanceof java.util.List) {
             List orCondFields = []
             for (entry in conditionFieldEntry.getValue()) {
-                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry))
+                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()),
+                        EntityOperator.EQUALS, entry))
             }
             mainAndConds.add(EntityCondition.makeCondition(orCondFields, EntityOperator.OR))
         } else {
-            mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()))
+            mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()),
+                    EntityOperator.EQUALS, conditionFieldEntry.getValue()))
         }
     }
 }
@@ -126,14 +129,16 @@ if (orExprs && entityName && displayFieldsSet) {
         List condsDateList = []
         if (thruDateName) {
             List condsByThruDate = []
-            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.GREATER_THAN, filterByDateValue))
+            condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName),
+                    EntityOperator.GREATER_THAN, filterByDateValue))
             condsByThruDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(thruDateName), EntityOperator.EQUALS, null))
             condsDateList.add(EntityCondition.makeCondition(condsByThruDate, EntityOperator.OR))
         }
 
         if (fromDateName) {
             List condsByFromDate = []
-            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.LESS_THAN_EQUAL_TO, filterByDateValue))
+            condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName),
+                    EntityOperator.LESS_THAN_EQUAL_TO, filterByDateValue))
             condsByFromDate.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fromDateName), EntityOperator.EQUALS, null))
             condsDateList.add(EntityCondition.makeCondition(condsByFromDate, EntityOperator.OR))
         }

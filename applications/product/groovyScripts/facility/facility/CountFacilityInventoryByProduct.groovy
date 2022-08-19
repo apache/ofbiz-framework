@@ -264,7 +264,8 @@ if (action) {
                 salesUsageIt = from(salesUsageViewEntity)
                                     .where(EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
                                         EntityCondition.makeCondition('productId', EntityOperator.EQUALS, oneProd.productId),
-                                        EntityCondition.makeCondition('statusId', EntityOperator.IN, ['ORDER_COMPLETED', 'ORDER_APPROVED', 'ORDER_HELD']),
+                                        EntityCondition.makeCondition('statusId', EntityOperator.IN,
+                                                ['ORDER_COMPLETED', 'ORDER_APPROVED', 'ORDER_HELD']),
                                         EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER'),
                                         EntityCondition.makeCondition('orderDate', EntityOperator.GREATER_THAN_EQUAL_TO, checkTime))
                                     .queryIterator()

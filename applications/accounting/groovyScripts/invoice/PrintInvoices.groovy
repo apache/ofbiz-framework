@@ -29,7 +29,8 @@ invoiceIds.each { invoiceId ->
     invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
     invoicesMap.invoice = invoice
 
-    currency = parameters.currency // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
+    currency = parameters.currency // allow the display of the invoice in the original currency,
+                                   // the default is to display the invoice in the default currency
     BigDecimal conversionRate = new BigDecimal('1')
     ZERO = BigDecimal.ZERO
     decimals = UtilNumber.getBigDecimalScale('invoice.decimals')

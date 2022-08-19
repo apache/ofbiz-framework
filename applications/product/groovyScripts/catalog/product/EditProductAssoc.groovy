@@ -29,7 +29,11 @@ if (parameters.fromDate) {
     fromDate = ObjectType.simpleTypeOrObjectConvert(parameters.fromDate, 'Timestamp', null, timeZone, locale, false)
 }
 
-productAssoc = from('ProductAssoc').where('productId', parameters.productId, 'productIdTo', parameters.productIdTo, 'productAssocTypeId', parameters.productAssocTypeId, 'fromDate', fromDate).queryOne()
+productAssoc = from('ProductAssoc')
+        .where('productId', parameters.productId,
+                'productIdTo', parameters.productIdTo,
+                'productAssocTypeId', parameters.productAssocTypeId,
+                'fromDate', fromDate).queryOne()
 context.productAssoc = productAssoc
 
 if (product) {

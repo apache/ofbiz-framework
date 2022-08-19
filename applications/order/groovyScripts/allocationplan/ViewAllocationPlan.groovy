@@ -63,7 +63,8 @@ if (allocationPlanHeader) {
     allocatedQuantityTotal = 0.0
     allocatedValueTotal = 0.0
 
-    allocationPlanItems = from('AllocationPlanAndItem').where('planId', planId, 'productId', allocationPlanInfo.productId).orderBy('prioritySeqId').queryList()
+    allocationPlanItems = from('AllocationPlanAndItem')
+            .where('planId', planId, 'productId', allocationPlanInfo.productId).orderBy('prioritySeqId').queryList()
     allocationPlanItems.each { allocationPlanItem ->
         newSummaryMap = [:]
         itemMap = [:]
@@ -164,8 +165,10 @@ if (allocationPlanHeader) {
                     existingSummaryMap.allocatedValue = newSummaryMap.allocatedValue
                 }
                 allocationPercentage = 0.0
-                if (existingSummaryMap.orderedQuantity && existingSummaryMap.orderedQuantity != 0 && existingSummaryMap.allocatedQuantity && existingSummaryMap.allocatedQuantity != 0) {
-                    allocationPercentage = (existingSummaryMap.allocatedQuantity.divide(existingSummaryMap.orderedQuantity, 2, RoundingMode.HALF_UP)).multiply(100)
+                if (existingSummaryMap.orderedQuantity && existingSummaryMap.orderedQuantity != 0
+                        && existingSummaryMap.allocatedQuantity && existingSummaryMap.allocatedQuantity != 0) {
+                    allocationPercentage = (existingSummaryMap.allocatedQuantity.divide(existingSummaryMap.orderedQuantity, 2, RoundingMode.HALF_UP))
+                            .multiply(100)
                 }
                 existingSummaryMap.allocationPercentage = allocationPercentage
                 summaryMap.put(salesChannelEnumId, existingSummaryMap)

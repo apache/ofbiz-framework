@@ -19,7 +19,9 @@
 
 product = from('Product').where('productId', parameters.productId).queryOne()
 if (product) {
-    productVirtualVariants = from('ProductAssoc').where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
+    productVirtualVariants = from('ProductAssoc')
+            .where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE')
+            .cache(true).queryList()
     if(productVirtualVariants){
         List mainProducts = []
         productVirtualVariants.each { virtualVariantKey ->

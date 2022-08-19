@@ -31,7 +31,8 @@ modelEntity = reader.getModelEntity(entityName)
 
 context.plainTableName = modelEntity.getPlainTableName()
 
-hasViewPermission = security.hasEntityPermission('ENTITY_DATA', '_VIEW', session) || security.hasEntityPermission(modelEntity.getPlainTableName(), '_VIEW', session)
+def hasEntityDataViewPermision = security.hasEntityPermission('ENTITY_DATA', '_VIEW', session)
+hasViewPermission = hasEntityDataViewPermision || security.hasEntityPermission(modelEntity.getPlainTableName(), '_VIEW', session)
 context.hasViewPermission = hasViewPermission
 
 relations = []

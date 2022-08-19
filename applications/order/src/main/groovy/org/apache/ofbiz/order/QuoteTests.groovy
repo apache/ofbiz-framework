@@ -288,7 +288,8 @@ class QuoteTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync('deleteQuoteTerm', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteTerm = from('QuoteTerm').where(termTypeId: serviceResult.termTypeId, quoteId: serviceResult.quoteId, quoteItemSeqId: serviceResult.quoteItemSeqId).queryOne()
+        GenericValue quoteTerm = from('QuoteTerm')
+                .where(termTypeId: serviceResult.termTypeId, quoteId: serviceResult.quoteId, quoteItemSeqId: serviceResult.quoteItemSeqId).queryOne()
         assert !quoteTerm
     }
 
@@ -360,7 +361,8 @@ class QuoteTests extends OFBizTestCase {
 
         Map serviceResult = dispatcher.runSync('copyQuoteItem', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue quoteAdjustment = from('QuoteAdjustment').where('quoteId', '9001', 'quoteItemSeqId', '00002', 'quoteAdjustmentTypeId', 'SALES_TAX').queryFirst()
+        GenericValue quoteAdjustment = from('QuoteAdjustment')
+                .where('quoteId', '9001', 'quoteItemSeqId', '00002', 'quoteAdjustmentTypeId', 'SALES_TAX').queryFirst()
         assert quoteAdjustment
     }
 
@@ -458,7 +460,8 @@ class QuoteTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('autoCreateQuoteAdjustments', input)
         assert ServiceUtil.isSuccess(serviceResult)
-        GenericValue promoQuoteAdjustment = from('QuoteAdjustment').where('quoteId', '9001', 'quoteAdjustmentTypeId', 'PROMOTION_ADJUSTMENT').queryFirst()
+        GenericValue promoQuoteAdjustment = from('QuoteAdjustment')
+                .where('quoteId', '9001', 'quoteAdjustmentTypeId', 'PROMOTION_ADJUSTMENT').queryFirst()
         assert promoQuoteAdjustment
     }
 

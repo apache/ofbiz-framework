@@ -28,7 +28,8 @@ invoiceId = parameters.get('invoiceId')
 invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
 context.invoice = invoice
 
-currency = parameters.currency // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
+currency = parameters.currency // allow the display of the invoice in the original currency,
+                               // the default is to display the invoice in the default currency
 BigDecimal conversionRate = new BigDecimal('1')
 decimals = UtilNumber.getBigDecimalScale('invoice.decimals')
 rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')

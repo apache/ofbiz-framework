@@ -37,8 +37,10 @@ Map createUpdateCustomerAndShippingAddress() {
     Map shipToPhoneCtx = [:]
     Map emailAddressCtx = [:]
     // TODO need to convert from MapProcessor
-    SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml', 'shipToPhone', parameters, shipToPhoneCtx, messages, context.locale)
-    SimpleMapProcessor.runSimpleMapProcessor('component://party/minilang/contact/PartyContactMechMapProcs.xml', 'emailAddress', parameters, emailAddressCtx, messages, context.locale)
+    SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml',
+            'shipToPhone', parameters, shipToPhoneCtx, messages, context.locale)
+    SimpleMapProcessor.runSimpleMapProcessor('component://party/minilang/contact/PartyContactMechMapProcs.xml',
+            'emailAddress', parameters, emailAddressCtx, messages, context.locale)
     // Check errors
     if (messages) return error(StringUtil.join(messages, ','))
 
@@ -113,7 +115,8 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     List<String> messages = []
     Map billToPhoneContext = [:]
     // TODO need to convert from MapProcessor
-    SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml', 'billToPhone', parameters, billToPhoneContext, messages, context.locale)
+    SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml',
+            'billToPhone', parameters, billToPhoneContext, messages, context.locale)
     // Check Errors
     if (messages) return error(StringUtil.join(messages, ','))
 

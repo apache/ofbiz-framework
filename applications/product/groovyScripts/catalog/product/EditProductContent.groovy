@@ -132,7 +132,8 @@ if (fileType) {
                 if (!filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
                     for (File file : files) {
-                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.') + 1)) && !'original'.equals(fileType)) {
+                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.') + 1))
+                                && !'original'.equals(fileType)) {
                             file.delete()
                         } else if (file.isFile() && 'original'.equals(fileType) && !file.getName().equals(defaultFileName)) {
                             file.delete()

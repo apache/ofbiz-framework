@@ -47,7 +47,9 @@ if (productId) {
     if (product) {
         // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
         if('Y'.equals(product.isVirtual) && 'Y'.equals(product.isVariant)){
-            virtualVariantProductAssocs = from('ProductAssoc').where('productId', productId, 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').orderBy('-fromDate').filterByDate().cache(true).queryList()
+            virtualVariantProductAssocs = from('ProductAssoc')
+                    .where('productId', productId, 'productAssocTypeId', 'ALTERNATIVE_PACKAGE')
+                    .orderBy('-fromDate').filterByDate().cache(true).queryList()
             if (virtualVariantProductAssocs) {
                 productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs)
                 product = productAssoc.getRelatedOne('AssocProduct', true)
@@ -66,7 +68,8 @@ if (productId) {
     if (productPageTitle) {
         pageTitle = from('ElectronicText').where('dataResourceId', productPageTitle.get(0).dataResourceId).cache(true).queryOne()
     }
-    productMetaDescription = from('ProductContentAndInfo').where('productId', productId, 'productContentTypeId', 'META_DESCRIPTION').cache(true).queryList()
+    productMetaDescription = from('ProductContentAndInfo')
+            .where('productId', productId, 'productContentTypeId', 'META_DESCRIPTION').cache(true).queryList()
     if (productMetaDescription) {
         metaDescription = from('ElectronicText').where('dataResourceId', productMetaDescription.get(0).dataResourceId).cache(true).queryOne()
     }
@@ -125,7 +128,8 @@ if (productId) {
         }
 
         // Set the default template for aggregated product (product component configurator ui)
-        if (product.productTypeId && ('AGGREGATED'.equals(product.productTypeId) || 'AGGREGATED_SERVICE'.equals(product.productTypeId)) && context.configproductdetailScreen) {
+        if (product.productTypeId && ('AGGREGATED'.equals(product.productTypeId) || 'AGGREGATED_SERVICE'.equals(product.productTypeId))
+                && context.configproductdetailScreen) {
             detailScreen = context.configproductdetailScreen
         }
 

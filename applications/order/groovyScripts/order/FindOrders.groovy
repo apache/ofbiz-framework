@@ -95,7 +95,8 @@ if (shipmentMethod) {
     carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf('@'))
     shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf('@') + 1)
     if (carrierPartyId && shipmentMethodTypeId) {
-        currentCarrierShipmentMethod = from('CarrierShipmentMethod').where('partyId', carrierPartyId, 'shipmentMethodTypeId', shipmentMethodTypeId).queryFirst()
+        currentCarrierShipmentMethod = from('CarrierShipmentMethod')
+                .where('partyId', carrierPartyId, 'shipmentMethodTypeId', shipmentMethodTypeId).queryFirst()
         context.currentCarrierShipmentMethod = currentCarrierShipmentMethod
     }
 }

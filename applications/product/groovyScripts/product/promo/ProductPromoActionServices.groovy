@@ -48,7 +48,8 @@ Map productGWP() {
     ShoppingCart cart = parameters.shoppingCart
     String productStoreId = cart.getProductStoreId()
 
-    // the code was in there for this, so even though I don't think we want to restrict this, just adding this flag to make it easy to change could make option dynamic, but now implied by the use limit
+    // the code was in there for this, so even though I don't think we want to restrict this,
+    // just adding this flag to make it easy to change could make option dynamic, but now implied by the use limit
     boolean allowMultipleGwp = true
 
     Integer itemLoc = ProductPromoWorker.findPromoItem(productPromoAction, cart)
@@ -82,12 +83,16 @@ Map productGWP() {
         if (productId) {
             product = from('Product').where('productId', productId).cache().queryOne()
             if (product == null) {
-                String errMsg = 'GWP Product not found with ID [' + productId + '] for ProductPromoAction [' + productPromoAction.get('productPromoId') + ':' + productPromoAction.get('productPromoRuleId') + ':' + productPromoAction.get('productPromoActionSeqId') + ']'
+                String errMsg = 'GWP Product not found with ID [' + productId + '] for ProductPromoAction [' +
+                        productPromoAction.get('productPromoId') + ':' + productPromoAction.get('productPromoRuleId')
+                + ':' + productPromoAction.get('productPromoActionSeqId') + ']'
                 logError(errMsg)
                 throw new CartItemModifyException(errMsg)
             }
             if ('Y' == product.getString('isVirtual')) {
-                List<GenericValue> productAssocs = EntityUtil.filterByDate(product.getRelated('MainProductAssoc', UtilMisc.toMap('productAssocTypeId', 'PRODUCT_VARIANT'), UtilMisc.toList('sequenceNum'), true))
+                List<GenericValue> productAssocs = EntityUtil.filterByDate(
+                        product.getRelated('MainProductAssoc', UtilMisc.toMap('productAssocTypeId', 'PRODUCT_VARIANT'),
+                                UtilMisc.toList('sequenceNum'), true))
                 for (GenericValue productAssoc : productAssocs) {
                     optionProductIds.add(productAssoc.getString('productIdTo'))
                 }
@@ -103,12 +108,14 @@ Map productGWP() {
                     for (ShoppingCartItem item : matchingItems) {
                         quantityAlreadyInCart = quantityAlreadyInCart.add(item.getQuantity())
                     }
-                    Map<String, Object> invReqResult = dispatcher.runSync('isStoreInventoryAvailable', UtilMisc.<String, Object> toMap('productStoreId', productStoreId, 'productId', productId, 'product', product, 'quantity', quantity.add(quantityAlreadyInCart)))
+                    Map<String, Object> invReqResult = dispatcher.runSync('isStoreInventoryAvailable',
+                            [productStoreId: productStoreId, productId: productId, product: product, quantity: quantity.add(quantityAlreadyInCart)])
                     if (ServiceUtil.isError(invReqResult)) {
                         logError('Error calling isStoreInventoryAvailable service, result is: ' + invReqResult)
                         throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
                     } else if ('Y' != invReqResult.get('available')) {
-                        logWarning(UtilProperties.getMessage(resource_error, 'OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction', UtilMisc.toMap('productId', productId, 'productPromoAction', productPromoAction), cart.getLocale()))
+                        logWarning(UtilProperties.getMessage(resource_error, 'OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction',
+                                UtilMisc.toMap('productId', productId, 'productPromoAction', productPromoAction), cart.getLocale()))
                         productId = null
                         product = null
                     }
@@ -137,7 +144,8 @@ Map productGWP() {
                     quantityAlreadyInCart = quantityAlreadyInCart.add(item.getQuantity())
                 }
 
-                Map<String, Object> invReqResult = dispatcher.runSync('isStoreInventoryAvailable', UtilMisc.<String, Object> toMap('productStoreId', productStoreId, 'productId', optionProductId, 'product', product, 'quantity', quantity.add(quantityAlreadyInCart)))
+                Map<String, Object> invReqResult = dispatcher.runSync('isStoreInventoryAvailable',
+                        [productStoreId: productStoreId, productId: optionProductId, product: product, quantity: quantity.add(quantityAlreadyInCart)])
                 if (ServiceUtil.isError(invReqResult)) {
                     logError('Error calling isStoreInventoryAvailable service, result is: ' + invReqResult)
                     throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
@@ -163,7 +171,9 @@ Map productGWP() {
                 productId = alternateGwpProductId
                 product = from('Product').where('productId', productId).cache().queryOne()
             } else {
-                logWarning(UtilProperties.getMessage(resource_error, 'OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId', UtilMisc.toMap('alternateGwpProductId', alternateGwpProductId), cart.getLocale()))
+                logWarning(UtilProperties.getMessage(resource_error,
+                        'OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId',
+                        [alternateGwpProductId: alternateGwpProductId], cart.getLocale()))
             }
         }
 
@@ -184,7 +194,8 @@ Map productGWP() {
         ShoppingCartItem gwpItem = null
         try {
             // just leave the prodCatalogId null, this line won't be associated with a catalog
-            gwpItem = ShoppingCartItem.makeItem(null, product, null, quantity, null, null, null, null, null, null, null, null, null, null, null, null, dispatcher, cart, Boolean.FALSE, Boolean.TRUE, null, Boolean.FALSE, Boolean.FALSE)
+            gwpItem = ShoppingCartItem.makeItem(null, product, null, quantity, null, null, null, null, null, null,
+                    null, null, null, null, null, null, dispatcher, cart, Boolean.FALSE, Boolean.TRUE, null, Boolean.FALSE, Boolean.FALSE)
             if (optionProductIds.size() > 0) {
                 gwpItem.setAlternativeOptionProductIds(optionProductIds)
             } else {
@@ -267,11 +278,12 @@ Map productDISC() {
                 quantityDesired = quantityDesired.subtract(quantityUsed)
 
                 // create an adjustment and add it to the cartItem that implements the promotion action
-                BigDecimal percentModifier = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount').movePointLeft(2)
+                BigDecimal percentModifier = productPromoAction.amount ? productPromoAction.getBigDecimal('amount').movePointLeft(2) : BigDecimal.ZERO
                 BigDecimal lineAmount = quantityUsed.multiply(cartItem.getBasePrice()).multiply(cartItem.getRentalAdjustment())
                 BigDecimal discountAmount = lineAmount.multiply(percentModifier).negate()
                 discountAmountTotal = discountAmountTotal.add(discountAmount)
-                // not doing this any more, now distributing among conditions and actions (see call below): doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
+                // not doing this any more, now distributing among conditions and actions (see call below):
+                // doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
             }
         }
     }
@@ -284,9 +296,11 @@ Map productDISC() {
     } else {
         BigDecimal totalAmount = ProductPromoWorker.getCartItemsUsedTotalAmount(cart, productPromoAction)
         if (Debug.verboseOn()) {
-            logVerbose('Applying promo [' + productPromoAction.getPrimaryKey() + ']\n totalAmount=' + totalAmount + ', discountAmountTotal=' + discountAmountTotal)
+            logVerbose('Applying promo [' + productPromoAction.getPrimaryKey() + ']\n totalAmount='
+                    + totalAmount + ', discountAmountTotal=' + discountAmountTotal)
         }
-        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
+        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount,
+                ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = discountAmountTotal
         actionResultInfo.quantityLeftInAction = quantityDesired
@@ -335,7 +349,8 @@ Map productAMDISC() {
             }
             BigDecimal discountAmount = quantityUsed.multiply(discount).negate()
             discountAmountTotal = discountAmountTotal.add(discountAmount)
-            // not doing this any more, now distributing among conditions and actions (see call below): doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
+            // not doing this any more, now distributing among conditions and actions (see call below):
+            // doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
         }
     }
 
@@ -345,9 +360,11 @@ Map productAMDISC() {
     } else {
         BigDecimal totalAmount = ProductPromoWorker.getCartItemsUsedTotalAmount(cart, productPromoAction)
         if (Debug.verboseOn()) {
-            logVerbose('Applying promo [' + productPromoAction.getPrimaryKey() + ']\n totalAmount=' + totalAmount + ', discountAmountTotal=' + discountAmountTotal)
+            logVerbose('Applying promo [' + productPromoAction.getPrimaryKey() + ']\n totalAmount='
+                    + totalAmount + ', discountAmountTotal=' + discountAmountTotal)
         }
-        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
+        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount,
+                ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = discountAmountTotal
         actionResultInfo.quantityLeftInAction = quantityDesired
@@ -368,7 +385,8 @@ Map productPrice() {
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    // with this we want the set of used items to be one price, so total the price for all used items, subtract the amount we want them to cost, and create an adjustment for what is left
+    // with this we want the set of used items to be one price, so total the price for all used items,
+    // subtract the amount we want them to cost, and create an adjustment for what is left
     BigDecimal quantityDesired = !productPromoAction.quantity ? BigDecimal.ONE : productPromoAction.getBigDecimal('quantity')
     BigDecimal desiredAmount = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
     BigDecimal totalAmount = BigDecimal.ZERO
@@ -449,7 +467,8 @@ Map productOrderAmount() {
     ShoppingCart cart = parameters.shoppingCart
 
     BigDecimal amount = (!productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')).negate()
-    // if amount is greater than the order sub total, set equal to order sub total, this normally wouldn't happen because there should be a condition that the order total be above a certain amount, but just in case...
+    // if amount is greater than the order sub total, set equal to order sub total, this normally wouldn't happen because
+    // there should be a condition that the order total be above a certain amount, but just in case...
     BigDecimal subTotal = cart.getSubTotalForPromotions()
     if (amount.negate().compareTo(subTotal) > 0) {
         amount = subTotal.negate()

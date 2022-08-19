@@ -232,7 +232,8 @@ class AutoInvoiceTests extends OFBizTestCase {
               * GL Accounts associated with Invoices are ACCOUNTS PAYABLE (210000) and GENERAL CHECKING ACCOUNT (111100)
 
             Post condition : After Cancel Check Run process accounting transactions are automatically posted to the GL.
-              * ACCOUNTS PAYABLE 210000  - debitTotal increased of $82.86 ; creditTotal increased of $165.72 ; debitCreditDifference decreased of $82.86
+              * ACCOUNTS PAYABLE 210000  - debitTotal increased of $82.86 ; creditTotal increased of $165.72
+                                                                          ; debitCreditDifference decreased of $82.86
               * GENERAL CHECKING ACCOUNT 111100 - debitTotal increased of $82.86 ; debitCreditDifference increased of $82.86
         */
         Map serviceCtx = [

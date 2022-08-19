@@ -34,14 +34,16 @@ Map copyAgreement() {
         agreementIdTo = result.agreementId
         agreementItems = agreement.getRelated('AgreementItem', null, null, false)
         agreementItems.each { agreementItem ->
-            Map createAgreementItemInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementItem', ModelService.IN_PARAM, agreementItem)
+            Map createAgreementItemInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementItem',
+                    ModelService.IN_PARAM, agreementItem)
             createAgreementItemInMap.agreementId = agreementIdTo
             result = run service: 'createAgreementItem', with: createAgreementItemInMap
         }
         if ('Y' == parameters.copyAgreementTerms) {
             agreementTerms = agreement.getRelated('AgreementTerm', null, null, false)
             agreementTerms.each { agreementTerm ->
-                Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm', ModelService.IN_PARAM, agreementTerm)
+                Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm',
+                        ModelService.IN_PARAM, agreementTerm)
                 createAgreementTermInMap.agreementId = agreementIdTo
                 createAgreementTermInMap.remove('agreementTermId')
                 result = run service: 'createAgreementTerm', with: createAgreementTermInMap
@@ -50,7 +52,8 @@ Map copyAgreement() {
         if ('Y' == parameters.copyAgreementProducts) {
             agreementProductAppls = agreement.getRelated('AgreementProductAppl', null, null, false)
             agreementProductAppls.each { agreementProductAppl ->
-                Map createAgreementProductApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementProductAppl', ModelService.IN_PARAM, agreementProductAppl)
+                Map createAgreementProductApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementProductAppl',
+                        ModelService.IN_PARAM, agreementProductAppl)
                 createAgreementProductApplInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementProductAppl', with: createAgreementProductApplInMap
             }
@@ -58,7 +61,8 @@ Map copyAgreement() {
         if ('Y' == parameters.copyAgreementFacilities) {
             agreementFacilityAppls = agreement.getRelated('AgreementFacilityAppl', null, null, false)
             agreementFacilityAppls.each { agreementFacilityAppl ->
-                Map createAgreementFacilityApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementFacilityAppl', ModelService.IN_PARAM, agreementFacilityAppl)
+                Map createAgreementFacilityApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementFacilityAppl',
+                        ModelService.IN_PARAM, agreementFacilityAppl)
                 createAgreementFacilityApplInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementFacilityAppl', with: createAgreementFacilityApplInMap
             }
@@ -66,7 +70,8 @@ Map copyAgreement() {
         if ('Y' == parameters.copyAgreementParties) {
             agreementPartyApplics = agreement.getRelated('AgreementPartyApplic', null, null, false)
             agreementPartyApplics.each { agreementPartyApplic ->
-                Map createAgreementPartyApplicInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementPartyApplic', ModelService.IN_PARAM, agreementPartyApplic)
+                Map createAgreementPartyApplicInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementPartyApplic',
+                        ModelService.IN_PARAM, agreementPartyApplic)
                 createAgreementPartyApplicInMap.agreementId = agreementIdTo
                 result = run service: 'createAgreementPartyApplic', with: createAgreementPartyApplicInMap
             }

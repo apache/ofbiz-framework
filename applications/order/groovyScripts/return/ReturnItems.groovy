@@ -36,7 +36,8 @@ returnItems = from('ReturnItem').where('returnId', returnId).queryList()
 context.returnItems = returnItems
 
 // these are just the adjustments not associated directly with a return item--the rest are gotten with a .getRelated on the returnItems in the .FTL
-returnAdjustments = from('ReturnAdjustment').where('returnId', returnId, 'returnItemSeqId', '_NA_').orderBy('returnItemSeqId', 'returnAdjustmentTypeId').queryList()
+returnAdjustments = from('ReturnAdjustment')
+        .where('returnId', returnId, 'returnItemSeqId', '_NA_').orderBy('returnItemSeqId', 'returnAdjustmentTypeId').queryList()
 context.returnAdjustments = returnAdjustments
 
 returnTypes = from('ReturnType').orderBy('sequenceId').queryList()
@@ -78,7 +79,9 @@ if ('VENDOR_RETURN' == returnHeaderTypeId) {
     roleTypeId = 'BILL_FROM_VENDOR'
     partyId = returnHeader.toPartyId
 }
-partyOrders = select('orderId','orderDate').from('OrderHeaderItemAndRoles').where('roleTypeId', roleTypeId, 'partyId', partyId, 'orderItemStatusId', 'ITEM_COMPLETED').orderBy('orderId').distinct().queryList()
+partyOrders = select('orderId','orderDate')
+        .from('OrderHeaderItemAndRoles')
+        .where('roleTypeId', roleTypeId, 'partyId', partyId, 'orderItemStatusId', 'ITEM_COMPLETED').orderBy('orderId').distinct().queryList()
 context.partyOrders = partyOrders
 context.partyId = partyId
 

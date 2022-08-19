@@ -74,7 +74,10 @@ if ((highIndex - lowIndex + 1) > 0) {
     boolean beganTransaction = false
     try {
         beganTransaction = TransactionUtil.begin()
-        listIt = from('ContentAssocViewTo').where('contentIdStart', (String)parameters.get('contentId')).orderBy('contentId ASC').cursorScrollInsensitive().cache(true).queryIterator()
+        listIt = from('ContentAssocViewTo')
+                .where('contentIdStart', (String) parameters.get('contentId'))
+                .orderBy('contentId ASC')
+                .cursorScrollInsensitive().cache(true).queryIterator()
         resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1)
 
         arraySize = listIt.getResultsSizeAfterPartialList()

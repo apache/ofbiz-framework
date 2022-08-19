@@ -44,7 +44,8 @@ andExprs.add(EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUA
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 andExprs.add(EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
-List postedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount').from('AcctgTransEntrySums').where(andCond).orderBy('glAccountId').queryList()
+List postedTransactionTotals = select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
+        .from('AcctgTransEntrySums').where(andCond).orderBy('glAccountId').queryList()
 if (postedTransactionTotals) {
     glAccountCategories = from('GlAccountCategory').where('glAccountCategoryTypeId', 'COST_CENTER').orderBy('glAccountCategoryId').queryList()
     context.glAccountCategories = glAccountCategories
@@ -63,7 +64,9 @@ if (postedTransactionTotals) {
         BigDecimal balance = debitAmount.subtract(creditAmount)
         accountMap.put('balance', balance)
         glAccountCategories.each { glAccountCategory ->
-            glAccountCategoryMember = from('GlAccountCategoryMember').where('glAccountCategoryId', glAccountCategory.glAccountCategoryId, 'glAccountId', postedTransactionTotal.glAccountId).orderBy('glAccountCategoryId').filterByDate().queryFirst()
+            glAccountCategoryMember = from('GlAccountCategoryMember')
+                    .where('glAccountCategoryId', glAccountCategory.glAccountCategoryId, 'glAccountId', postedTransactionTotal.glAccountId)
+                    .orderBy('glAccountCategoryId').filterByDate().queryFirst()
             if (glAccountCategoryMember) {
                 BigDecimal glAccountCategorySharePercentage = glAccountCategoryMember.amountPercentage
                 if (glAccountCategorySharePercentage && glAccountCategorySharePercentage != BigDecimal.ZERO ) {

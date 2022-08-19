@@ -51,7 +51,8 @@ class ProductPriceTests extends OFBizTestCase {
     }
 
     void testCalculateProductPriceOfVirtualProduct() {
-        // If product is a virtual and no price is set then then the service return price of a variant product which have lowest DEFAULT_PRICE. It is also considered whether the product is discontinued for sale before using the lowest price against a variant for a virtual product
+        // If product is a virtual and no price is set then then the service return price of a variant product which have lowest DEFAULT_PRICE.
+        // It is also considered whether the product is discontinued for sale before using the lowest price against a variant for a virtual product
         String productId = 'DemoProduct'
         GenericValue product = from('Product').where('productId', productId).queryOne()
         Map serviceCtx = [:]

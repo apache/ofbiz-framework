@@ -48,6 +48,7 @@ context.giftCardProductList = giftCardProductList
 
 // Get Survey Id for Gift Certificates
 
-productStoreFinActSetting = from('ProductStoreFinActSetting').where('productStoreId', productStoreId, 'finAccountTypeId', 'GIFTCERT_ACCOUNT').queryOne()
+productStoreFinActSetting = from('ProductStoreFinActSetting')
+        .where('productStoreId', productStoreId, 'finAccountTypeId', 'GIFTCERT_ACCOUNT').queryOne()
 context.surveyId = productStoreFinActSetting?.purchaseSurveyId
 

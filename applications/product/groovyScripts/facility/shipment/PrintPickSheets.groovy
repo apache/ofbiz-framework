@@ -60,16 +60,18 @@ if (toPrintOrders) {
                     orderMap.orderId = orderId
                     orderMap.orderDate = orderHeader.orderDate
                     billingOrderContactMechs = []
-                    billingOrderContactMechs = from('OrderContactMech').where('orderId', orderId, 'contactMechPurposeTypeId', 'BILLING_LOCATION').queryList()
+                    billingOrderContactMechs = from('OrderContactMech')
+                            .where('orderId', orderId, 'contactMechPurposeTypeId', 'BILLING_LOCATION').queryList()
                     if (billingOrderContactMechs.size() > 0) {
                         billingContactMechId = EntityUtil.getFirst(billingOrderContactMechs).contactMechId
                         billingAddress = from('PostalAddress').where('contactMechId', billingContactMechId).queryOne()
                     }
-                    shippingContactMechId = from('OrderContactMech').where('orderId', orderId, 'contactMechPurposeTypeId', 'SHIPPING_LOCATION').queryFirst().contactMechId
+                    shippingContactMechId = from('OrderContactMech')
+                            .where('orderId', orderId, 'contactMechPurposeTypeId', 'SHIPPING_LOCATION').queryFirst().contactMechId
                     shippingAddress = from('PostalAddress').where('contactMechId', shippingContactMechId).queryOne()
                     orderItemShipGroups.each { orderItemShipGroup ->
                         if (orderItemShipGroup.orderId == orderId) {
-                            orderMap.shipmentMethodType = EntityUtil.getFirst(orderItemShipGroup.getRelated('ShipmentMethodType', null, null, false)).description
+                            orderMap.shipmentMethodType = orderItemShipGroup.getRelated('ShipmentMethodType', null, null, false)[0]?.description
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId
                             orderMap.shipGroupSeqId = orderItemShipGroup.shipGroupSeqId
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId
@@ -103,7 +105,8 @@ if (toPrintOrders) {
                     context.orderSubTotal = orderSubTotal
                     otherAdjAmount = orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, true, false, false)
                     shippingAmount = orderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true)
-                    shippingAmount = shippingAmount.add(orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true))
+                    shippingAmount = shippingAmount.add(
+                            orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true))
                     taxAmount = orderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false)
                     taxAmount = taxAmount.add(orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false))
                     grandTotal = orderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments)

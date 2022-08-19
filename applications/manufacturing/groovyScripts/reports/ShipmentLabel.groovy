@@ -30,7 +30,8 @@ if (shipment) {
     records = []
     orderReaders = [:]
     shipmentPackages.each { shipmentPackage ->
-        shipmentPackageComponents = from('ShipmentPackageContent').where('shipmentId', shipmentId, 'shipmentPackageSeqId', shipmentPackage.shipmentPackageSeqId).queryList()
+        shipmentPackageComponents = from('ShipmentPackageContent')
+                .where('shipmentId', shipmentId, 'shipmentPackageSeqId', shipmentPackage.shipmentPackageSeqId).queryList()
         shipmentPackageComponents.each { shipmentPackageComponent ->
             shipmentItem = shipmentPackageComponent.getRelatedOne('ShipmentItem', false)
             orderShipments = shipmentItem.getRelated('OrderShipment', null, null, false)

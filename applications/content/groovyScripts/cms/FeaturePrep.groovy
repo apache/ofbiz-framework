@@ -30,7 +30,8 @@ if (dataResourceId) {
     productFeatureList.each { productFeature ->
         productFeatureId = productFeature.productFeatureId
         description = productFeature.description
-        productFeatureDataResource = from('ProductFeatureDataResource').where('productFeatureId', productFeatureId, 'dataResourceId', dataResourceId).cache(true).queryOne()
+        productFeatureDataResource = from('ProductFeatureDataResource')
+                .where('productFeatureId', productFeatureId, 'dataResourceId', dataResourceId).cache(true).queryOne()
         if (productFeatureDataResource) {
             feature = []
             feature.productFeatureId = productFeatureId

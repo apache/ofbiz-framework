@@ -112,7 +112,8 @@ if (product) {
         priceContext.prodCatalogId = catalogId
         priceContext.productStoreId = productStoreId
         priceContext.agreementId = cart.getAgreementId()
-        priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
+        priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices using
+                                                 // the logged in user which could be a CSR instead of the customer
         priceContext.checkIncludeVat = 'Y'
         priceMap = runService('calculateProductPrice', priceContext)
 
@@ -143,7 +144,8 @@ if (product) {
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
     mainProducts = []
     if(isAlternativePacking){
-        productVirtualVariants = from('ProductAssoc').where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
+        productVirtualVariants = from('ProductAssoc')
+                .where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:]
@@ -161,7 +163,8 @@ if (product) {
         jsBuf.append("<script type=\"application/javascript\">")
 
         // make a list of variant sku with requireAmount
-        virtualVariantsRes = runService('getAssociatedProducts', [productIdTo: productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: categoryId])
+        virtualVariantsRes = runService('getAssociatedProducts',
+                [productIdTo: productId, type: 'ALTERNATIVE_PACKAGE', checkViewAllow: true, prodCatalogId: categoryId])
         virtualVariants = virtualVariantsRes.assocProducts
         // Format to apply the currency code to the variant price in the javascript
         if (productStore) {
@@ -233,7 +236,11 @@ if (reviews) {
 }
 
 // an example of getting features of a certain type to show
-sizeProductFeatureAndAppls = from('ProductFeatureAndAppl').where('productId', productId, 'productFeatureTypeId', 'SIZE').orderBy('sequenceNum', 'defaultSequenceNum').cache(true).queryList()
+sizeProductFeatureAndAppls = from('ProductFeatureAndAppl')
+        .where('productId', productId, 'productFeatureTypeId', 'SIZE')
+        .orderBy('sequenceNum', 'defaultSequenceNum')
+        .cache(true)
+        .queryList()
 
 context.product = product
 context.categoryId = categoryId

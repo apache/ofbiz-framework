@@ -47,7 +47,8 @@ if (allProductionRuns) {
         }
 
         // select the task's components, if any
-        allProductionRunComponents = from('WorkEffortGoodStandard').where('workEffortId', productionRunTask.workEffortId, 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').queryList()
+        allProductionRunComponents = from('WorkEffortGoodStandard')
+                .where('workEffortId', productionRunTask.workEffortId, 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').queryList()
         allProductionRunComponents.each { productionRunComponent ->
             // verify if the product is a member of the given category (based on the report's parameter)
             if (productCategoryIdPar) {
@@ -60,12 +61,15 @@ if (allProductionRuns) {
 
             location = null
             if (productionRunProduct) {
-                location = from('ProductFacilityLocation').where('facilityId', productionRun.facilityId, 'productId', productionRunProduct.productId).queryFirst()
+                location = from('ProductFacilityLocation')
+                        .where('facilityId', productionRun.facilityId, 'productId', productionRunProduct.productId).queryFirst()
             }
 
             // group by standard feature of type productFeatureTypeIdPar
             if (productFeatureTypeIdPar) {
-                standardFeature = from('ProductFeatureAndAppl').where('productFeatureTypeId', productFeatureTypeIdPar, 'productId', productionRunComponent.productId, 'productFeatureApplTypeId', 'STANDARD_FEATURE').filterByDate().queryFirst()
+                standardFeature = from('ProductFeatureAndAppl')
+                        .where('productFeatureTypeId', productFeatureTypeIdPar, 'productId', productionRunComponent.productId,
+                                'productFeatureApplTypeId', 'STANDARD_FEATURE').filterByDate().queryFirst()
                 standardFeatureId = null
                 if (standardFeature) {
                     standardFeatureId = standardFeature.productFeatureId

@@ -229,9 +229,14 @@ if (orderItemShipGroupAssocs) {
         plannedQuantity = 0.0
         EntityCondition orderShipmentCondition = null
         if (shipGroupSeqId) {
-            orderShipmentCondition = EntityCondition.makeCondition([orderId: orderItemShipGroupAssoc.orderId, orderItemSeqId: orderItemShipGroupAssoc.orderItemSeqId, shipGroupSeqId: orderItemShipGroupAssoc.shipGroupSeqId])
+            orderShipmentCondition = EntityCondition.makeCondition(
+                    [orderId: orderItemShipGroupAssoc.orderId,
+                     orderItemSeqId: orderItemShipGroupAssoc.orderItemSeqId,
+                     shipGroupSeqId: orderItemShipGroupAssoc.shipGroupSeqId])
         } else {
-            orderShipmentCondition = EntityCondition.makeCondition([orderId: orderItemShipGroupAssoc.orderId, orderItemSeqId: orderItemShipGroupAssoc.orderItemSeqId])
+            orderShipmentCondition = EntityCondition.makeCondition(
+                    [orderId: orderItemShipGroupAssoc.orderId,
+                     orderItemSeqId: orderItemShipGroupAssoc.orderItemSeqId])
         }
         plans = from('OrderShipment').where(orderShipmentCondition).queryList()
         plans.each { plan ->

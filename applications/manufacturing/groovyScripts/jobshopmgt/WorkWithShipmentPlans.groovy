@@ -146,7 +146,10 @@ if (shipmentPlans) {
         }
         rows.add(oneRow)
         // Select the production runs, if available
-        productionRuns = from('WorkOrderItemFulfillment').where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId, 'shipGroupSeqId', shipmentPlan.shipGroupSeqId).orderBy('workEffortId').queryList()
+        productionRuns = from('WorkOrderItemFulfillment')
+                .where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId, 'shipGroupSeqId', shipmentPlan.shipGroupSeqId)
+                .orderBy('workEffortId')
+                .queryList()
         if (productionRuns) {
             workInProgress = 'true'
             productionRunsId = ''

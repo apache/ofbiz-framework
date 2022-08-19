@@ -66,7 +66,8 @@ GenericValue currentLiabilityGlAccountClass = from('GlAccountClass').where('glAc
 List currentLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentLiabilityGlAccountClass)
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ['organizationPartyId': organizationPartyId, 'findDate': thruDate,'userLogin': userLogin])
+Map lastClosedTimePeriodResult = runService('findLastClosedDate',
+        ['organizationPartyId': organizationPartyId, 'findDate': thruDate,'userLogin': userLogin])
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!fromDate) {
     return
@@ -311,9 +312,12 @@ def currentLiabilityBalanceTotal = sumAccountBalances(currentLiabilityAccountBal
 def equityAccountBalances = calculateBalances(equityOpeningBalances, equityAccountClassIds, RootClass.CREDIT)
 
 // Add the "retained earnings" account
-Map netIncomeResult = runService('prepareIncomeStatement', ['organizationPartyId': organizationPartyId, 'glFiscalTypeId': glFiscalTypeId, 'fromDate': fromDate, 'thruDate': thruDate, 'userLogin': userLogin])
+Map netIncomeResult = runService('prepareIncomeStatement',
+        ['organizationPartyId': organizationPartyId, 'glFiscalTypeId': glFiscalTypeId,
+         'fromDate': fromDate, 'thruDate': thruDate, 'userLogin': userLogin])
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome
-GenericValue retainedEarningsAccount = from('GlAccountTypeDefault').where('glAccountTypeId', 'RETAINED_EARNINGS', 'organizationPartyId', organizationPartyId).cache(true).queryOne()
+GenericValue retainedEarningsAccount = from('GlAccountTypeDefault')
+        .where('glAccountTypeId', 'RETAINED_EARNINGS', 'organizationPartyId', organizationPartyId).cache(true).queryOne()
 if (retainedEarningsAccount) {
     GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne("GlAccount", false)
 

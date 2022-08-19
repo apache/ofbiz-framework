@@ -34,7 +34,11 @@ if (delegator.getDelegatorTenantId() == null) {
     entityGroups = mgr.getGroupNames(delegator.getDelegatorName()).toArray().sort()
 } else {
     Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName())
-    entityGroups = EntityUtil.getFieldListFromEntityList(baseDelegator.findList('TenantDataSource', EntityCondition.makeCondition('tenantId', EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()), ['entityGroupName'] as Set, ['entityGroupName'], null, false), 'entityGroupName', false)
+    entityGroups = EntityUtil.getFieldListFromEntityList(
+            baseDelegator.findList('TenantDataSource',
+                    EntityCondition.makeCondition('tenantId', EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()),
+                    ['entityGroupName'] as Set, ['entityGroupName'], null, false),
+            'entityGroupName', false)
 }
 
 context.entityGroups = []
@@ -79,7 +83,8 @@ entities.each { entityName ->
     }
 
     entityPermissionCreate = 'N'
-    if (security.hasEntityPermission('ENTITY_DATA', '_CREATE', session) || security.hasEntityPermission(entity.getPlainTableName(), '_CREATE', session)) {
+    if (security.hasEntityPermission('ENTITY_DATA', '_CREATE', session)
+            || security.hasEntityPermission(entity.getPlainTableName(), '_CREATE', session)) {
         entityPermissionCreate = 'Y'
     }
 

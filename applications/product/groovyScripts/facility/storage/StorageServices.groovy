@@ -27,7 +27,8 @@ import org.apache.ofbiz.entity.GenericValue
 def createFacilityLocation() {
     GenericValue newEntity = makeValue('FacilityLocation', parameters)
 
-    String locationSeqId = "${parameters.areaId ?: ''}${parameters.aisleId ?: ''}${parameters.sectionId ?: ''}${parameters.levelId ?: ''}${parameters.positionId ?: ''}"
+    String locationSeqId = "${parameters.areaId ?: ''}${parameters.aisleId ?: ''}${parameters.sectionId ?: ''}"
+                            +"${parameters.levelId ?: ''}${parameters.positionId ?: ''}"
     if (locationSeqId) {
         int i = 1
         String nextLocationSeqId = locationSeqId

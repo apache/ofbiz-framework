@@ -59,7 +59,12 @@ if (purchaseOrderId) {
 product = null
 if (productId) {
     product = from('Product').where('productId', productId).queryOne()
-    context.supplierPartyIds = EntityUtil.getFieldListFromEntityList(from('SupplierProduct').where('productId', productId).orderBy('partyId').filterByDate(nowTimestamp, 'availableFromDate', 'availableThruDate').queryList(), 'partyId', true)
+    context.supplierPartyIds = from('SupplierProduct')
+                    .where('productId', productId)
+                    .orderBy('partyId')
+                    .filterByDate(nowTimestamp, 'availableFromDate', 'availableThruDate')
+                    .distinct()
+                    .getFieldList('partyId')
 }
 
 shipments = null
@@ -130,7 +135,8 @@ if (purchaseOrder) {
     } else {
         purchaseOrderItems = purchaseOrder.getRelated('OrderItem', null, null, false)
     }
-    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition('statusId', EntityOperator.NOT_IN, ['ITEM_CANCELLED', 'ITEM_COMPLETED'])])
+    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems,
+            [EntityCondition.makeCondition('statusId', EntityOperator.NOT_IN, ['ITEM_CANCELLED', 'ITEM_COMPLETED'])])
 }
 // convert the unit prices to that of the facility owner's currency
 orderCurrencyUnitPriceMap = [:]
@@ -159,7 +165,8 @@ if (purchaseOrder && facility) {
         context.currencyUomId = ownerCurrencyUomId
         context.orderCurrencyUomId = orderCurrencyUomId
     } else {
-        request.setAttribute('_ERROR_MESSAGE_', 'Either no owner party was set for this facility, or no accounting preferences were set for this owner party.')
+        request.setAttribute('_ERROR_MESSAGE_',
+                'Either no owner party was set for this facility, or no accounting preferences were set for this owner party.')
     }
 }
 context.orderCurrencyUnitPriceMap = orderCurrencyUnitPriceMap
@@ -188,7 +195,8 @@ if (purchaseOrderItems) {
         }
         receivedQuantities.put(thisItem.orderItemSeqId, new Double(totalReceived))
         //----------------------
-        salesOrderItemAssocs = from('OrderItemAssoc').where(orderItemAssocTypeId: 'PURCHASE_ORDER', toOrderId: thisItem.orderId, toOrderItemSeqId: thisItem.orderItemSeqId).queryList()
+        salesOrderItemAssocs = from('OrderItemAssoc')
+                .where(orderItemAssocTypeId: 'PURCHASE_ORDER', toOrderId: thisItem.orderId, toOrderItemSeqId: thisItem.orderItemSeqId).queryList()
         if (salesOrderItemAssocs) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs)
             salesOrderItems.put(thisItem.orderItemSeqId, salesOrderItem)

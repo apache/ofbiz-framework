@@ -35,7 +35,8 @@ shipmentItems.each { shipmentItem ->
     returnQuantity = Double.valueOf(returnItem.returnQuantity)
 
     shipmentItemQty = Double.valueOf(shipmentItem.quantity)
-    itemIssuances = shipmentItem.getRelated('ItemIssuance', [shipmentId: shipmentId, shipmentItemSeqId: shipmentItem.shipmentItemSeqId], ['inventoryItemId'], false)
+    itemIssuances = shipmentItem.getRelated('ItemIssuance',
+            [shipmentId: shipmentId, shipmentItemSeqId: shipmentItem.shipmentItemSeqId], ['inventoryItemId'], false)
     totalQtyIssued = 0
     issuedItems = []
     itemIssuances.each { itemIssuance ->

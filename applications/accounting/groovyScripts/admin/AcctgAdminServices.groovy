@@ -87,7 +87,8 @@ Map setAcctgCompany() {
     //Set user preference
     GenericValue partyAcctgPreference = select().from('PartyAcctgPreference').where([partyId: parameters.organizationPartyId]).queryOne()
     if (partyAcctgPreference) {
-        result = runService('setUserPreference', [userPrefValue: parameters.organizationPartyId, userPrefGroupTypeId: 'GLOBAL_PREFERENCES', userPrefTypeId: 'ORGANIZATION_PARTY'])
+        result = runService('setUserPreference',
+                [userPrefValue: parameters.organizationPartyId, userPrefGroupTypeId: 'GLOBAL_PREFERENCES', userPrefTypeId: 'ORGANIZATION_PARTY'])
     }
     result.put('organizationPartyId', parameters.organizationPartyId)
 

@@ -19,7 +19,8 @@
 
 import org.apache.ofbiz.entity.condition.*
 
-context.productFeatureAndAppls = from('ProductFeatureAndAppl').where('productId', productId).orderBy('sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description').queryList()
+context.productFeatureAndAppls = from('ProductFeatureAndAppl')
+        .where('productId', productId).orderBy('sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description').queryList()
 
 context.productFeatureCategories = from('ProductFeatureCategory').orderBy('description').queryList()
 

@@ -75,7 +75,8 @@ conditionList.add(EntityCondition.makeCondition('partyId', EntityOperator.EQUALS
 conditionList.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, shoppingCart.getCurrency()))
 conditionList.add(EntityCondition.makeConditionDate('availableFromDate', 'availableThruDate'))
 
-supplierProducts = select('productId', 'supplierProductId', 'supplierProductName', 'lastPrice', 'minimumOrderQuantity', 'orderQtyIncrements').from('SupplierProduct')
+supplierProducts = select('productId', 'supplierProductId', 'supplierProductName', 'lastPrice', 'minimumOrderQuantity', 'orderQtyIncrements')
+        .from('SupplierProduct')
                     .where(conditionList)
                     .orderBy('productId')
                     .queryList()

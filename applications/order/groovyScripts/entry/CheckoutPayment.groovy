@@ -38,7 +38,10 @@ if (cart) {
     }
 }
 
-finAccounts = from('FinAccountAndRole').where('partyId', partyId, 'roleTypeId', 'OWNER').filterByDate(UtilDateTime.nowTimestamp(), 'fromDate', 'thruDate', 'roleFromDate', 'roleThruDate').queryList()
+finAccounts = from('FinAccountAndRole')
+        .where('partyId', partyId, 'roleTypeId', 'OWNER')
+        .filterByDate(UtilDateTime.nowTimestamp(), 'fromDate', 'thruDate', 'roleFromDate', 'roleThruDate')
+        .queryList()
 context.finAccounts = finAccounts
 
 context.shoppingCart = cart

@@ -49,7 +49,8 @@ if (allProductionRuns) {
         }
         if (taskNamePar) {
             // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-            productionRunTask = from('WorkEffort').where('workEffortParentId', productionRun.workEffortId , 'workEffortName', taskNamePar).queryFirst()
+            productionRunTask = from('WorkEffort')
+                    .where('workEffortParentId', productionRun.workEffortId , 'workEffortName', taskNamePar).queryFirst()
             if (!productionRunTask) {
                 // the production run doesn't include the given task, skip it
                 return

@@ -37,8 +37,8 @@ if (sort) {
     }
 }
 
-partyBase = [EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'CAL_ACCEPTED'), EntityCondition.makeCondition('wepaPartyId', EntityOperator.EQUALS, userLogin.partyId)]
-partyRole = [EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'SUPPLIER_AGENT')]
+partyBase = [EntityCondition.makeCondition('statusId', 'CAL_ACCEPTED'), EntityCondition.makeCondition('wepaPartyId', userLogin.partyId)]
+partyRole = [EntityCondition.makeCondition('orderRoleTypeId', 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', 'SUPPLIER_AGENT')]
 partyExpr = [EntityCondition.makeCondition(partyBase, EntityOperator.AND), EntityCondition.makeCondition(partyRole, EntityOperator.OR)]
 partyTasks = from('OrderTaskList').where(partyExpr).orderBy(sortOrder).queryList()
 
@@ -62,8 +62,10 @@ partyRoles.each { partyRole ->
         pRolesList.add(EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, partyRole.roleTypeId))
 }
 
-custList = [EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', EntityOperator.EQUALS, 'SUPPLIER_AGENT')]
-baseList = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_CANCELLED'), EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_COMPLETED'), EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_DELEGATED')]
+custList = [EntityCondition.makeCondition('orderRoleTypeId', 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', 'SUPPLIER_AGENT')]
+baseList = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_CANCELLED'),
+            EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_COMPLETED'),
+            EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_DELEGATED')]
 expressions = []
 expressions.add(EntityCondition.makeCondition(custList, EntityOperator.OR))
 if (pRolesList) expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR))

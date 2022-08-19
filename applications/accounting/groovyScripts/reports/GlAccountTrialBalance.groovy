@@ -52,7 +52,9 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
         previousTimePeriodResult = runService('getPreviousTimePeriod', [customTimePeriodId: parameters.timePeriod, userLogin: userLogin])
         previousTimePeriod = previousTimePeriodResult.previousTimePeriod
         if (previousTimePeriod) {
-            glAccountHistory = from('GlAccountHistory').where('customTimePeriodId', previousTimePeriod.customTimePeriodId, 'glAccountId', parameters.glAccountId, 'organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
+            glAccountHistory = from('GlAccountHistory')
+                    .where('customTimePeriodId', previousTimePeriod.customTimePeriodId, 'glAccountId', parameters.glAccountId,
+                            'organizationPartyId', parameters.get('ApplicationDecorator|organizationPartyId')).queryOne()
             if (glAccountHistory && glAccountHistory.endingBalance != null) {
                 context.openingBalance = glAccountHistory.endingBalance
                 balanceOfTheAcctgForYear = glAccountHistory.endingBalance

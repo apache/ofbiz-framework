@@ -69,7 +69,8 @@ if (serviceName) {
             }
             serviceParam = null
             if (savedSyncResult?.get(par.name)) {
-                serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N', defaultValue: par.defaultValue, value: savedSyncResult.get(par.name)]
+                serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N',
+                                defaultValue: par.defaultValue, value: savedSyncResult.get(par.name)]
             } else {
                 serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N', defaultValue: par.defaultValue]
             }

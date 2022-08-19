@@ -84,7 +84,8 @@ if (productionRunId) {
         productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId
         productionRunData.facilityId = productionRun.getGenericValue().facilityId
 
-        manufacturer = from('WorkEffortPartyAssignment').where('workEffortId', productionRunId, 'roleTypeId', 'MANUFACTURER').filterByDate().queryFirst()
+        manufacturer = from('WorkEffortPartyAssignment')
+                .where('workEffortId', productionRunId, 'roleTypeId', 'MANUFACTURER').filterByDate().queryFirst()
         if (manufacturer){
             productionRunData.manufacturerId = manufacturer.partyId
         }
@@ -108,14 +109,16 @@ if (productionRunId) {
             // Get the list of deliverable products, i.e. the WorkEffortGoodStandard entries
             // with workEffortGoodStdTypeId = "PRUNT_PROD_DELIV":
             // first of all we get the template task (the routing task)
-            templateTaskAssoc = from('WorkEffortAssoc').where('workEffortIdTo', routingTask.workEffortId, 'workEffortAssocTypeId', 'WORK_EFF_TEMPLATE').filterByDate().queryFirst()
+            templateTaskAssoc = from('WorkEffortAssoc')
+                    .where('workEffortIdTo', routingTask.workEffortId, 'workEffortAssocTypeId', 'WORK_EFF_TEMPLATE').filterByDate().queryFirst()
             templateTask = [:]
             if (templateTaskAssoc) {
                 templateTask = templateTaskAssoc.getRelatedOne('FromWorkEffort', false)
             }
             delivProducts = []
             if (templateTask) {
-                delivProducts = EntityUtil.filterByDate(templateTask.getRelated('WorkEffortGoodStandard', [workEffortGoodStdTypeId: 'PRUNT_PROD_DELIV'], null, false))
+                delivProducts = EntityUtil.filterByDate(templateTask.getRelated('WorkEffortGoodStandard',
+                        [workEffortGoodStdTypeId: 'PRUNT_PROD_DELIV'], null, false))
             }
             context.delivProducts = delivProducts
             // Get the list of delivered products, i.e. inventory items
@@ -131,9 +134,12 @@ if (productionRunId) {
         productionRunRoutingTasks.each { task ->
             // only PRUN_RUNNING tasks can have items issued or production run completed
             if ('PRUN_RUNNING'.equals(task.currentStatusId)) {
-                // Use WorkEffortGoodStandard to figure out if there are products which are needed for this task (PRUNT_PRODNEEDED) and which have not been issued (ie, WEGS_CREATED).
+                // Use WorkEffortGoodStandard to figure out if there are products which are needed for this task (PRUNT_PRODNEEDED)
+                // and which have not been issued (ie, WEGS_CREATED).
                 // If so this task should have products issued
-                components = from('WorkEffortGoodStandard').where('workEffortId', task.workEffortId, 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED', 'statusId', 'WEGS_CREATED').queryList()
+                components = from('WorkEffortGoodStandard')
+                        .where('workEffortId', task.workEffortId, 'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED', 'statusId', 'WEGS_CREATED')
+                        .queryList()
                 if (components) {
                     issueTaskId = task.workEffortId
                 }
@@ -142,7 +148,8 @@ if (productionRunId) {
                 }
             }
 
-            // the first CREATED and SCHEDULED task will be the startTaskId.  As the issue and complete tasks are filled out this condition will no longer be true
+            // the first CREATED and SCHEDULED task will be the startTaskId.
+            // As the issue and complete tasks are filled out this condition will no longer be true
             if (!startTaskId &&
                   !issueTaskId &&
                   !completeTaskId &&
@@ -172,7 +179,8 @@ if (productionRunId) {
                 componentData.internalName = componentName
                 componentData.workEffortName = workEffortName
                 componentData.facilityId = productionRunTask.facilityId
-                issuances = from('WorkEffortAndInventoryAssign').where('workEffortId', component.workEffortId, 'productId', product.productId).queryList()
+                issuances = from('WorkEffortAndInventoryAssign')
+                        .where('workEffortId', component.workEffortId, 'productId', product.productId).queryList()
                 totalIssued = 0.0
                 issuances.each { issuance ->
                     issued = issuance.quantity
@@ -180,10 +188,12 @@ if (productionRunId) {
                         totalIssued += issued
                     }
                 }
-                returns = from('WorkEffortAndInventoryProduced').where('workEffortId', component.workEffortId , 'productId', product.productId).queryList()
+                returns = from('WorkEffortAndInventoryProduced')
+                        .where('workEffortId', component.workEffortId , 'productId', product.productId).queryList()
                 totalReturned = 0.0
                 returns.each { returned ->
-                    returnDetail = from('InventoryItemDetail').where('inventoryItemId', returned.inventoryItemId).orderBy('inventoryItemDetailSeqId').queryFirst()
+                    returnDetail = from('InventoryItemDetail')
+                            .where('inventoryItemId', returned.inventoryItemId).orderBy('inventoryItemDetailSeqId').queryFirst()
                     if (returnDetail) {
                         qtyReturned = returnDetail.quantityOnHandDiff
                         if (qtyReturned) {
@@ -208,7 +218,8 @@ if (productionRunId) {
             }
         }
         // Content
-        productionRunContents = from('WorkEffortContentAndInfo').where('workEffortId', productionRunId).orderBy('-fromDate').filterByDate().queryList()
+        productionRunContents = from('WorkEffortContentAndInfo')
+                .where('workEffortId', productionRunId).orderBy('-fromDate').filterByDate().queryList()
         context.productionRunContents = productionRunContents
         context.productionRunComponents = productionRunComponents
         context.productionRunComponentsData = productionRunComponentsData

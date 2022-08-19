@@ -44,7 +44,8 @@ Timestamp fromDate = null
 if (fromDateStr) fromDate = Timestamp.valueOf(fromDateStr) ?: (Timestamp)request.getAttribute('ProductAssocCreateFromDate')
 context.fromDate = fromDate
 
-productAssoc = from('ProductAssoc').where('productId', productId, 'productIdTo', productIdTo, 'productAssocTypeId', productAssocTypeId, 'fromDate', fromDate).queryOne()
+productAssoc = from('ProductAssoc')
+        .where('productId', productId, 'productIdTo', productIdTo, 'productAssocTypeId', productAssocTypeId, 'fromDate', fromDate).queryOne()
 if (updateMode) {
     productAssoc = [:]
     context.remove('productIdTo')
@@ -65,10 +66,12 @@ Collection formulae = from('CustomMethod').where('customMethodTypeId', 'BOM_FORM
 context.formulae = formulae
 
 if (product) {
-    assocFromProducts = product.getRelated('MainProductAssoc', (productAssocTypeId ? [productAssocTypeId: productAssocTypeId] : [:]), ['sequenceNum', 'productId'], false)
+    assocFromProducts = product.getRelated('MainProductAssoc',
+            (productAssocTypeId ? [productAssocTypeId: productAssocTypeId] : [:]), ['sequenceNum', 'productId'], false)
     if (assocFromProducts) context.assocFromProducts = assocFromProducts
 
-    assocToProducts = product.getRelated('AssocProductAssoc', (productAssocTypeId ? [productAssocTypeId: productAssocTypeId] : [:]), ['sequenceNum', 'productId'], false)
+    assocToProducts = product.getRelated('AssocProductAssoc',
+            (productAssocTypeId ? [productAssocTypeId: productAssocTypeId] : [:]), ['sequenceNum', 'productId'], false)
     if (assocToProducts) context.assocToProducts = assocToProducts
 }
 

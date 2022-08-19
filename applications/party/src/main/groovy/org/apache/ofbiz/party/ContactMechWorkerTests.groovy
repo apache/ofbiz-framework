@@ -92,7 +92,8 @@ class ContactMechWorkerTests extends OFBizTestCase {
         }
 
         //Restart a search at 05/13/2001 10:00:00.000, the email 9126 need to have two purposes
-        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer', UtilDateTime.toTimestamp('05/13/2001 10:00:00'), 'EMAIL_ADDRESS')
+        partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer',
+                UtilDateTime.toTimestamp('05/13/2001 10:00:00'), 'EMAIL_ADDRESS')
         partyContactMechValueMaps.forEach {
             Map partyContactMechValueMap ->
                 switch (partyContactMechValueMap?.contactMech?.contactMechId) {
@@ -120,8 +121,10 @@ class ContactMechWorkerTests extends OFBizTestCase {
                         assert orderContactMechValueMap.postalAddress
                         assert orderContactMechValueMap.postalAddress.contactMechId == '9015'
                         assert orderContactMechValueMap.postalAddress.address1 == '2004 Factory Blvd'
-                        foundBillingAddress = foundBillingAddress ?: orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'BILLING_LOCATION'
-                        foundShippingAddress = foundShippingAddress ?: orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'SHIPPING_LOCATION'
+                        foundBillingAddress = foundBillingAddress ?:
+                                orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'BILLING_LOCATION'
+                        foundShippingAddress = foundShippingAddress ?:
+                                orderContactMechValueMap.contactMechPurposeType.contactMechPurposeTypeId == 'SHIPPING_LOCATION'
                         break
                     case '9026':
                         assert orderContactMechValueMap.contactMech.contactMechTypeId == 'EMAIL_ADDRESS'

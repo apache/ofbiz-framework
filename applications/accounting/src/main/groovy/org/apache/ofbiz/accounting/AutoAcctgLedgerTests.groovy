@@ -49,7 +49,8 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createAcctgTransEntry', serviceCtx)
-        GenericValue acctgTransEntry = from('AcctgTransEntry').where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
+        GenericValue acctgTransEntry = from('AcctgTransEntry')
+                .where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
         assert acctgTransEntry != null
     }
 }

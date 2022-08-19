@@ -51,7 +51,9 @@ context.returnId = returnId
 //fin account info
 finAccounts = null
 if (partyId) {
-    finAccounts = from('FinAccountAndRole').where('partyId', partyId, 'finAccountTypeId', 'STORE_CREDIT_ACCT', 'roleTypeId', 'OWNER', 'statusId', 'FNACT_ACTIVE').filterByDate().queryList()
+    finAccounts = from('FinAccountAndRole')
+            .where('partyId', partyId, 'finAccountTypeId', 'STORE_CREDIT_ACCT', 'roleTypeId', 'OWNER', 'statusId', 'FNACT_ACTIVE')
+            .filterByDate().queryList()
 }
 context.finAccounts = finAccounts
 
@@ -90,7 +92,8 @@ if (context.request) {
 context.addresses = addresses
 
 if (returnHeader) {
-    contactMechTo = ContactMechWorker.getFacilityContactMechByPurpose(delegator, returnHeader.destinationFacilityId, ['PUR_RET_LOCATION', 'SHIPPING_LOCATION', 'PRIMARY_LOCATION'])
+    contactMechTo = ContactMechWorker.getFacilityContactMechByPurpose(delegator, returnHeader.destinationFacilityId,
+            ['PUR_RET_LOCATION', 'SHIPPING_LOCATION', 'PRIMARY_LOCATION'])
     if (contactMechTo) {
         postalAddressTo = from('PostalAddress').where('contactMechId', contactMechTo.contactMechId).cache(true).queryOne()
         context.postalAddressTo = postalAddressTo
@@ -100,7 +103,8 @@ if (returnHeader) {
     if (party) {
         shippingContactMechList = ContactHelper.getContactMech(party, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)
         if (shippingContactMechList) {
-            context.postalAddressFrom = from('PostalAddress').where('contactMechId', EntityUtil.getFirst(shippingContactMechList).contactMechId).cache(true).queryOne()
+            context.postalAddressFrom = from('PostalAddress')
+                    .where('contactMechId', EntityUtil.getFirst(shippingContactMechList).contactMechId).cache(true).queryOne()
         }
     }
 }

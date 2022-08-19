@@ -56,7 +56,9 @@ shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList(
 if (shipmentPlans) {
     shipmentPlans.each { shipmentPlan ->
         // Select the production run, if available
-        weIds = from('WorkOrderItemFulfillment').where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId).orderBy('workEffortId').queryList() // TODO: add shipmentId
+        weIds = from('WorkOrderItemFulfillment')
+                .where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId)
+                .orderBy('workEffortId').queryList() // TODO: add shipmentId
         weId = EntityUtil.getFirst(weIds)
         productionRunTree = [] as ArrayList
         // TODO

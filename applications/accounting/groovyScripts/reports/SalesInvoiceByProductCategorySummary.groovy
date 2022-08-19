@@ -104,7 +104,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     productAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
 
-    productResultListIterator = select('productId', 'quantityTotal', 'amountTotal').from('InvoiceItemProductSummary').where(productAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
+    productResultListIterator = select('productId', 'quantityTotal', 'amountTotal')
+            .from('InvoiceItemProductSummary').where(productAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
     productResultMap = [:]
     while (productResultListIterator.hasNext()) {
         productResult = productResultListIterator.next()
@@ -122,7 +123,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     categoryAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     categoryAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
 
-    categoryResultListIterator = select('productCategoryId', 'quantityTotal', 'amountTotal').from('InvoiceItemCategorySummary').where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
+    categoryResultListIterator = select('productCategoryId', 'quantityTotal', 'amountTotal')
+            .from('InvoiceItemCategorySummary').where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
     categoryResultMap = [:]
     while (categoryResultListIterator.hasNext()) {
         categoryResult = categoryResultListIterator.next()
@@ -140,7 +142,8 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productNullAndExprs.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, null))
     productNullAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     productNullAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
-    productNullResultListIterator = select('productId', 'quantityTotal', 'amountTotal').from('InvoiceItemProductSummary').where(productNullAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
+    productNullResultListIterator = select('productId', 'quantityTotal', 'amountTotal')
+            .from('InvoiceItemProductSummary').where(productNullAndExprs).cursorScrollInsensitive().cache(true).queryIterator()
     // should just be 1 result
     productNullResult = productNullResultListIterator.next()
     productNullResultListIterator.close()

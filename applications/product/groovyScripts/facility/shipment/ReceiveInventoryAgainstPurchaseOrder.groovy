@@ -112,7 +112,8 @@ orderItemDatas = [:] as TreeMap
 totalAvailableToReceive = 0
 
 // Populate the order item data for the FTL
-orderItems = from('OrderItemAndShipGroupAssoc').where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+orderItems = from('OrderItemAndShipGroupAssoc')
+        .where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
 orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne('Product', false)
 
@@ -248,7 +249,8 @@ if (productIdToReceive) {
         }
 
         // Notify if some or all of the quantity just entered for the product will go to a backorder
-        backOrderedQuantity = orderItemDatas.get(EntityUtil.getFirst(candidateOrderItems).orderItemSeqId).backOrderedQuantity - totalQuantityToReceiveBefore
+        backOrderedQuantity =
+                orderItemDatas.get(EntityUtil.getFirst(candidateOrderItems).orderItemSeqId).backOrderedQuantity - totalQuantityToReceiveBefore
 
         if (backOrderedQuantity > 0) {
             totalQtyUsedForBackorders = backOrderedQuantity >= totalQuantityUsed ? totalQuantityUsed : backOrderedQuantity

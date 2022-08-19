@@ -43,7 +43,8 @@ if (!description) {
     description = null
 }
 
-productContent = from('ProductContent').where('contentId', contentId, 'productId', productId, 'productContentTypeId', productContentTypeId, 'fromDate', fromDate).queryOne()
+productContent = from('ProductContent')
+        .where('contentId', contentId, 'productId', productId, 'productContentTypeId', productContentTypeId, 'fromDate', fromDate).queryOne()
 if (!productContent) {
     productContent = [:]
     productContent.productId = productId
@@ -139,7 +140,7 @@ if (productContentTypeId) {
         context.contentFormName = 'EditProductContentDownload'
     }
 }
-if (('PAGE_TITLE'.equals(productContentTypeId)) || ('META_KEYWORD'.equals(productContentTypeId)) || ('META_DESCRIPTION'.equals(productContentTypeId))) {
+if ('PAGE_TITLE'.equals(productContentTypeId) || 'META_KEYWORD'.equals(productContentTypeId) || 'META_DESCRIPTION'.equals(productContentTypeId)) {
     context.contentFormName = 'EditProductContentSEO'
 }
 

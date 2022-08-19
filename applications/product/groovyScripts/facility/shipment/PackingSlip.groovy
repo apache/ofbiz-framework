@@ -51,8 +51,8 @@ shipmentItems.each { shipmentItem ->
 previousShipmentIter = from('Shipment')
                             .where(EntityCondition.makeCondition(
                                             UtilMisc.toList(
-                                                EntityCondition.makeCondition('primaryOrderId', EntityOperator.EQUALS, shipment.getString('primaryOrderId')),
-                                                EntityCondition.makeCondition('shipmentTypeId', EntityOperator.EQUALS, 'SALES_SHIPMENT'),
+                                                EntityCondition.makeCondition('primaryOrderId', shipment.getString('primaryOrderId')),
+                                                EntityCondition.makeCondition('shipmentTypeId', 'SALES_SHIPMENT'),
                                                 EntityCondition.makeCondition('createdDate', EntityOperator.LESS_THAN_EQUAL_TO,
                                                     ObjectType.simpleTypeOrObjectConvert(shipment.getString('createdDate'), 'Timestamp', null, null))
                                             ),
@@ -113,15 +113,18 @@ shipmentPackages.each { shipmentPackage ->
         line.product = product
         line.quantityRequested = quantityRequestedByProduct.get(product.productId)
         line.quantityInPackage = content.quantity
-        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK') && line.quantityInPackage > line.quantityRequested) {
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK')
+                && line.quantityInPackage > line.quantityRequested) {
             line.quantityInPackage = line.quantityRequested
         }
         line.quantityInShipment = quantityInShipmentByProduct.get(product.productId)
-        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK') && line.quantityInShipment > line.quantityRequested) {
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK')
+                && line.quantityInShipment > line.quantityRequested) {
             line.quantityInShipment = line.quantityRequested
         }
         line.quantityShipped = quantityShippedByProduct.get(product.productId)
-        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK') && line.quantityShipped > line.quantityRequested) {
+        if (EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', productTypeId, 'parentTypeId', 'MARKETING_PKG_PICK')
+                && line.quantityShipped > line.quantityRequested) {
             line.quantityShipped = line.quantityRequested
         }
         lines.add(line)

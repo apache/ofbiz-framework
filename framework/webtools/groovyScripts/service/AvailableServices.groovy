@@ -35,7 +35,9 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 List getEcaListForService(String selectedService) {
     ecaMap = org.apache.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService)
 
-    if (!ecaMap) return null
+    if (!ecaMap) {
+        return null
+    }
 
     //ecaMap is a HashMap so get keyset & iterate
     ecaMapList = []
@@ -378,7 +380,8 @@ if (selectedService) {
         curServiceMap.defaultEntityName = defaultEntityName
         curServiceMap.invoke = invoke
         curServiceMap.location = location
-        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), 'file:/' + System.getProperty('ofbiz.home') + '/', '')
+        curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(),
+                'file:/' + System.getProperty('ofbiz.home') + '/', '')
         curServiceMap.requireNewTransaction = requireNewTransaction
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
@@ -482,7 +485,8 @@ if (selectedService) {
 
     if ('true'.equals(showWsdl)) {
         try {
-            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue('url', 'port.http', '80', delegator)}${parameters._CONTROL_PATH_}/SOAPService")
+            wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:" +
+                    "${EntityUtilProperties.getPropertyValue('url', 'port.http', '80', delegator)}${parameters._CONTROL_PATH_}/SOAPService")
             curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl)
         } catch (WSDLException ex) {
             curServiceMap.wsdl = ex.getLocalizedMessage()
@@ -566,7 +570,8 @@ if (!selectedService) {
             curServiceMap.defaultEntityName = defaultEntityName
             curServiceMap.invoke = invoke
             curServiceMap.location = location
-            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(), 'file:/' + System.getProperty('ofbiz.home') + '/', '')
+            curServiceMap.definitionLocation =  StringUtils.replaceOnce(curServiceModel.getDefinitionLocation(),
+                    'file:/' + System.getProperty('ofbiz.home') + '/', '')
             curServiceMap.requireNewTransaction = requireNewTransaction
             curServiceMap.deprecated = curServiceModel.getDeprecatedUseInstead()
 

@@ -116,7 +116,8 @@ Map getProductCost() {
         Map assocAndMap = [productIdTo: product.productId, productAssocTypeId: 'PRODUCT_VARIANT']
         GenericValue virtualAssoc = from('ProductAssoc').where(assocAndMap).filterByDate().queryFirst()
         if (virtualAssoc) {
-            inputMap = [productId: virtualAssoc.productId, currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix]
+            inputMap = [productId: virtualAssoc.productId, currencyUomId: parameters.currencyUomId,
+                        costComponentTypePrefix: parameters.costComponentTypePrefix]
             Map serviceResult = run service: 'getProductCost', with: inputMap
             productCost = serviceResult.productCost
         }
@@ -155,7 +156,8 @@ Map getProductCost() {
                     productCost = serviceResultCU.convertedValue
                     // if currency conversion fails then a 0 cost will be returned
                     if (!productCost) {
-                        logWarning("Currency conversion failed for ProductCost lookup; unable to convert from ${priceCost.currencyUomId} to ${parameters.currencyUomId}")
+                        logWarning("Currency conversion failed for ProductCost lookup;" +
+                                " unable to convert from ${priceCost.currencyUomId} to ${parameters.currencyUomId}")
                         productCost = (BigDecimal) 0
                     }
                 }
@@ -268,7 +270,8 @@ Map calculateProductCosts() {
     BigDecimal totalTaskCost = (BigDecimal) 0
     BigDecimal totalOtherTaskCost = (BigDecimal) 0
     // the existing costs are expired
-    Map cancelMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_ROUTE_COST", productId: parameters.productId, costUomId: parameters.currencyUomId]
+    Map cancelMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_ROUTE_COST",
+                     productId: parameters.productId, costUomId: parameters.currencyUomId]
     run service: 'cancelCostComponents', with: cancelMap
     cancelMap.costComponentTypeId = (String) "${parameters.costComponentTypePrefix}_MAT_COST"
     run service: 'cancelCostComponents', with: cancelMap
@@ -279,14 +282,16 @@ Map calculateProductCosts() {
     if (componentsMap) {
         for (Map componentMap : componentsMap) {
             GenericValue product = componentMap.product
-            Map inputMap = [productId: product.productId, currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix]
+            Map inputMap = [productId: product.productId, currencyUomId: parameters.currencyUomId,
+                            costComponentTypePrefix: parameters.costComponentTypePrefix]
             Map serviceResultGPC = run service: 'getProductCost', with: inputMap
             BigDecimal productCost = serviceResultGPC.productCost
             totalProductCost += componentMap.quantity * productCost
             totalProductCost = totalProductCost.setScale(6)
         }
     } else {
-        Map inputMap = [productId: parameters.productId, currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix]
+        Map inputMap = [productId: parameters.productId, currencyUomId: parameters.currencyUomId,
+                        costComponentTypePrefix: parameters.costComponentTypePrefix]
         Map serviceResultGPC = run service: 'getProductCost', with: inputMap
         BigDecimal productCost = serviceResultGPC.productCost
         totalProductCost += productCost
@@ -298,7 +303,8 @@ Map calculateProductCosts() {
     List tasks = serviceResultGPR.tasks
     GenericValue routing = serviceResultGPR.routing
     for (GenericValue task : tasks) {
-        callSvcMap = [workEffortId: task.workEffortIdTo, currencyUomId: parameters.currencyUomId, productId: parameters.productId, routingId: routing.workEffortId]
+        callSvcMap = [workEffortId: task.workEffortIdTo, currencyUomId: parameters.currencyUomId,
+                      productId: parameters.productId, routingId: routing.workEffortId]
         Map serviceResultGTC = run service: 'getTaskCost', with: callSvcMap
         BigDecimal taskCost = serviceResultGTC.taskCost
         Map costsByType = serviceResultGTC.costsByType
@@ -320,32 +326,40 @@ Map calculateProductCosts() {
 
     // The CostComponent records are created.
     if (totalTaskCost > (BigDecimal) 0) {
-        callSvcMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_ROUTE_COST", productId: parameters.productId, costUomId: parameters.currencyUomId, cost: totalTaskCost]
+        callSvcMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_ROUTE_COST",
+                      productId: parameters.productId, costUomId: parameters.currencyUomId, cost: totalTaskCost]
         run service: 'recreateCostComponent', with: callSvcMap
     }
     if (totalProductCost > (BigDecimal) 0) {
-        callSvcMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_MAT_COST", productId: parameters.productId, costUomId: parameters.currencyUomId, cost: totalProductCost]
+        callSvcMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_MAT_COST", productId: parameters.productId,
+                      costUomId: parameters.currencyUomId, cost: totalProductCost]
         run service: 'recreateCostComponent', with: callSvcMap
     }
     for (Map.Entry entry : totalCostsByType.entrySet()) {
         String costType = entry.getKey()
         BigDecimal totalCostAmount = entry.getValue()
-        callSvcMap = [costComponentTypeId: "${parameters.costComponentTypePrefix}_${costType}", productId: parameters.productId, costUomId: parameters.currencyUomId, cost: totalCostAmount]
+        callSvcMap = [costComponentTypeId: "${parameters.costComponentTypePrefix}_${costType}", productId: parameters.productId,
+                      costUomId: parameters.currencyUomId, cost: totalCostAmount]
         run service: 'recreateCostComponent', with: callSvcMap
     }
     // Now compute the costs derived from CostComponentCalc records associated with the product
-    List productCostComponentCalcs = from('ProductCostComponentCalc').where(productId: parameters.productId).filterByDate().orderBy('sequenceNum').queryList()
+    List productCostComponentCalcs = from('ProductCostComponentCalc')
+            .where(productId: parameters.productId).filterByDate().orderBy('sequenceNum').queryList()
     for (GenericValue productCostComponentCalc : productCostComponentCalcs) {
         GenericValue costComponentCalc = delegator.getRelatedOne('CostComponentCalc', productCostComponentCalc, false)
         GenericValue customMethod = delegator.getRelatedOne('CustomMethod', costComponentCalc, false)
         if (!customMethod) {
             // TODO: not supported for CostComponentCalc entries directly associated to a product
-            logWarning("Unable to create cost component for cost component calc with id [${costComponentCalc.costComponentCalcId}] because customMethod is not set")
+            logWarning("Unable to create cost component for cost component calc with id [${costComponentCalc.costComponentCalcId}]" +
+                    " because customMethod is not set")
         } else {
-            Map customMethodParameters = [productCostComponentCalc: productCostComponentCalc, costComponentCalc: costComponentCalc, currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix, baseCost: totalCost]
+            Map customMethodParameters = [productCostComponentCalc: productCostComponentCalc, costComponentCalc: costComponentCalc,
+                                          currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix,
+                                          baseCost: totalCost]
             Map serviceResultCM = run service: "${customMethod.customMethodName}", with: customMethodParameters
             BigDecimal productCostAdjustment = serviceResultCM.productCostAdjustment
-            callSvcMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_${productCostComponentCalc.costComponentTypeId}", productId: productCostComponentCalc.productId, costUomId: parameters.currencyUomId, cost: productCostAdjustment]
+            callSvcMap = [costComponentTypeId: (String) "${parameters.costComponentTypePrefix}_${productCostComponentCalc.costComponentTypeId}",
+                          productId: productCostComponentCalc.productId, costUomId: parameters.currencyUomId, cost: productCostAdjustment]
             run service: 'recreateCostComponent', with: callSvcMap
             // set field="totalCost" value="${totalCost + productCostAdjustment}" type="BigDecimal"/
             totalCost += productCostAdjustment
@@ -435,7 +449,8 @@ Map updateProductAverageCostOnReceiveInventory() {
             }
         }
     }
-    GenericValue productAverageCost = from('ProductAverageCost').where(productId: parameters.productId, facilityId: parameters.facilityId, productAverageCostTypeId: 'SIMPLE_AVG_COST', organizationPartyId: organizationPartyId).filterByDate().queryFirst()
+    GenericValue productAverageCost = from('ProductAverageCost').where(productId: parameters.productId, facilityId: parameters.facilityId,
+            productAverageCostTypeId: 'SIMPLE_AVG_COST', organizationPartyId: organizationPartyId).filterByDate().queryFirst()
     // <log level="always" message="In updateProductAverageCostOnReceiveInventory found productAverageCost: ${productAverageCost}"/>
     Map productAverageCostMap = parameters
     productAverageCostMap.productAverageCostTypeId = 'SIMPLE_AVG_COST'
@@ -453,16 +468,17 @@ Map updateProductAverageCostOnReceiveInventory() {
         Map serviceResultGIABF = run service: 'getInventoryAvailableByFacility', with: serviceInMap
         BigDecimal quantityOnHandTotal = serviceResultGIABF.quantityOnHandTotal
         BigDecimal oldProductQuantity = quantityOnHandTotal - parameters.quantityAccepted
-        BigDecimal averageCost = ((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted)) / (quantityOnHandTotal)
+        BigDecimal averageCost = ((productAverageCost.averageCost * oldProductQuantity)
+                + (inventoryItem.unitCost * parameters.quantityAccepted)) / (quantityOnHandTotal)
         int roundingDecimal = UtilProperties.getPropertyAsInteger('arithmetic', 'finaccout.decimals', 2)
         String roundingMode = UtilProperties.getPropertyValue('arithmetic', 'finaccount.roundingGroovyMethod', 'HALF_UP')
         averageCost = averageCost.setScale(roundingDecimal, RoundingMode."${roundingMode}")
         productAverageCostMap.averageCost = averageCost
         productAverageCostMap.fromDate = UtilDateTime.nowTimestamp()
     }
-    // <log level="info" message="In updateProductAverageCostOnReceiveInventory creating new average cost with productAverageCostMap: ${productAverageCostMap}"/>
     run service: 'createProductAverageCost', with: productAverageCostMap
-    logInfo("For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} is set from  ${updateProductAverageCostMap.averageCost} to ${productAverageCostMap.averageCost}")
+    logInfo("For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} " +
+            "is set from  ${updateProductAverageCostMap.averageCost} to ${productAverageCostMap.averageCost}")
     return success()
 }
 
@@ -478,7 +494,8 @@ Map getProductAverageCost() {
     if (partyAccountingPreference.cogsMethodId == 'COGS_AVG_COST') {
         // TODO: handle productAverageCostTypeId for WEIGHTED_AVG_COST and MOVING_AVG_COST
         productAverageCost = from('ProductAverageCost')
-                .where(productAverageCostTypeId: 'SIMPLE_AVG_COST', organizationPartyId: inventoryItem.ownerPartyId, productId: inventoryItem.productId, facilityId: inventoryItem.facilityId)
+                .where(productAverageCostTypeId: 'SIMPLE_AVG_COST', organizationPartyId: inventoryItem.ownerPartyId,
+                        productId: inventoryItem.productId, facilityId: inventoryItem.facilityId)
                 .filterByDate()
                 .queryFirst()
     }
@@ -499,7 +516,8 @@ Map productCostPercentageFormula() {
     Map result = success()
     GenericValue productCostComponentCalc = parameters.productCostComponentCalc
     GenericValue costComponentCalc = parameters.costComponentCalc
-    Map inputMap = [productId: productCostComponentCalc.productId, currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix]
+    Map inputMap = [productId: productCostComponentCalc.productId, currencyUomId: parameters.currencyUomId,
+                    costComponentTypePrefix: parameters.costComponentTypePrefix]
     Map serviceResult = run service: 'getProductCost', with: inputMap
     BigDecimal productCost = serviceResult.productCost
     // set field="productCostAdjustment" value="${parameters.baseCost * costComponentCalc.fixedCost}" type="BigDecimal"/
