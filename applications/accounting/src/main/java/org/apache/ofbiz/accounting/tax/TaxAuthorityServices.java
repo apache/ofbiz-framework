@@ -664,7 +664,7 @@ public class TaxAuthorityServices {
                         "taxAuthPartyId", taxAuthPartyId,
                         "taxAuthGeoId", taxAuthGeoId,
                         "productPricePurposeId", "PURCHASE",
-                        "productStoreGroupId", productStore.get("primaryStoreGroupId"))
+                        "productStoreId", productStore.get("primaryStoreGroupId"))
                 .orderBy("-fromDate").filterByDate().queryFirst();
     }
 
