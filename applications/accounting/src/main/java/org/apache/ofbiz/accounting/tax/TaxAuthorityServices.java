@@ -656,22 +656,13 @@ public class TaxAuthorityServices {
      */
     private static GenericValue getProductPrice(Delegator delegator, GenericValue product, GenericValue productStore, String taxAuthGeoId,
             String taxAuthPartyId) throws GenericEntityException {
-        if (UtilValidate.isNotEmpty(productStore.getString("primaryStoreGroupId"))) {
-            return EntityQuery.use(delegator).from("ProductPrice")
-                    .where("productId", product.get("productId"),
-                            "taxAuthPartyId", taxAuthPartyId,
-                            "taxAuthGeoId", taxAuthGeoId,
-                            "productPricePurposeId", "PURCHASE",
-                            "productStoreId", productStore.get("primaryStoreGroupId"))
-                    .orderBy("-fromDate").filterByDate().queryFirst();
-        } else {
-            return EntityQuery.use(delegator).from("ProductPrice")
-                    .where("productId", product.get("productId"),
-                            "taxAuthPartyId", taxAuthPartyId,
-                            "taxAuthGeoId", taxAuthGeoId,
-                            "productPricePurposeId", "PURCHASE")
-                            .orderBy("-fromDate").filterByDate().queryFirst();
-        }
+        return EntityQuery.use(delegator).from("ProductPrice")
+                .where("productId", product.get("productId"),
+                        "taxAuthPartyId", taxAuthPartyId,
+                        "taxAuthGeoId", taxAuthGeoId,
+                        "productPricePurposeId", "PURCHASE",
+                        "productStoreGroupId", productStore.get("primaryStoreGroupId"))
+                .orderBy("-fromDate").filterByDate().queryFirst();
     }
 
     /**
