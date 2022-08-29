@@ -629,6 +629,16 @@ function confirmActionFormLink(msg, formName) {
     }
 }
 
+function serializeFormFromParameters(targetParams) {
+    const beginName = targetParams.indexOf("_FORM_NAME_=");
+    targetParams = targetParams.replace("_FORM_NAME_=", "");
+    const endName = targetParams.indexOf("_AS_PARAM_");
+    const formName = targetParams.substring(beginName, endName);
+    var $form = $("form[name='" + formName + "']");
+
+    return targetParams.replace(formName + "_AS_PARAM_", $form.serialize())
+}
+
 // ===== Ajax Functions - based on jQuery.js ===== //
 
 /** Update an area (HTML container element).
@@ -638,6 +648,10 @@ function confirmActionFormLink(msg, formName) {
 */
 
 function ajaxUpdateArea(areaId, target, targetParams) {
+    if (targetParams.indexOf("_FORM_NAME_") !== -1) {
+        targetParams = serializeFormFromParameters(targetParams)
+    }
+
     if (areaId == "window") {
         targetUrl = target + "?" + targetParams.replace('?','');
         window.location.assign(targetUrl);

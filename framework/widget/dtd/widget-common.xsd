@@ -522,6 +522,11 @@ under the License.
             <xs:attribute name="send-if-empty" type="xs:boolean" default="true"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="auto-parameters-form">
+        <xs:complexType>
+            <xs:attribute name="form-name" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="exclude">
         <xs:complexType>
             <xs:attribute name="field-name" type="xs:string" use="required" />
