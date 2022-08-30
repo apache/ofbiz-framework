@@ -618,7 +618,6 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="auto-parameters-form"/>
 
   <!-- ================== FIELDS ==================== -->
     <xs:element name="AllFields" abstract="true"/>
