@@ -653,24 +653,4 @@ under the License.
             <xs:attribute name="area-target" type="xs:string" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:element name="on-event-update-area area-target">
-        <xs:annotation>
-            <xs:documentation>Propagate current form fields as parameters to the paginate or submit action link
-            (for instance in modal "tunnel" processes), see OFBIZ-12684</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-parameters-form"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="event-type"/>
-            </xs:sequence>
-            <xs:attribute name="area-id" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Identification of the area to update. If empty, by default the screen engine
-                        auto resolve it on the first parent referent screen present in the widget hierarchy</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="area-target" type="xs:string" use="required" />
-        </xs:complexType>
-    </xs:element>
-
 </xs:schema>
