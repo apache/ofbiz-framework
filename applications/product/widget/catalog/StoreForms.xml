@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
+
     <grid name="ListProductStore" list-name="productStores"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
@@ -62,7 +62,7 @@ under the License.
                 <sort-field name="reserveInventory"/>
                 <sort-field name="reserveOrderEnumId"/>
                 <sort-field name="balanceResOnOrderCreation"/>
-                <sort-field name="showOutOfStockProducts"/>   
+                <sort-field name="showOutOfStockProducts"/>
                 <sort-field name="managedByLot"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
@@ -83,7 +83,7 @@ under the License.
             </field-group>
             <field-group title="${uiLabelMap.CommonPayments}" collapsible="true" initially-collapsed="true">
                 <sort-field name="payToPartyId"/>
-                <sort-field name="storeCreditAccountEnumId"/>                
+                <sort-field name="storeCreditAccountEnumId"/>
                 <sort-field name="manualAuthIsCapture"/>
                 <sort-field name="retryFailedAuths"/>
                 <sort-field name="daysToCancelNonPay"/>
@@ -146,7 +146,7 @@ under the License.
     </form>
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         header-row-style="header-row" default-table-style="basic-table">
-        
+
         <alt-target use-when="productStore==null" target="createProductStore"/>
         <auto-fields-service service-name="updateProductStore"/>
 
@@ -325,7 +325,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
         <field name="ecomThemeId" entry-name="visualThemeId" title="${uiLabelMap.ProductStoreEcomThemeId}">
             <drop-down allow-empty="true">
@@ -442,7 +442,7 @@ under the License.
                 <sort-field name="reserveInventory"/>
                 <sort-field name="reserveOrderEnumId"/>
                 <sort-field name="balanceResOnOrderCreation"/>
-                <sort-field name="showOutOfStockProducts"/>   
+                <sort-field name="showOutOfStockProducts"/>
                 <sort-field name="managedByLot"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
@@ -463,7 +463,7 @@ under the License.
             </field-group>
             <field-group title="${uiLabelMap.CommonPayments}" collapsible="true" initially-collapsed="true">
                 <sort-field name="payToPartyId"/>
-                <sort-field name="storeCreditAccountEnumId"/>                
+                <sort-field name="storeCreditAccountEnumId"/>
                 <sort-field name="manualAuthIsCapture"/>
                 <sort-field name="retryFailedAuths"/>
                 <sort-field name="daysToCancelNonPay"/>
@@ -538,7 +538,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <grid name="UpdateProductStoreCatalog" list-name="productStoreCatalogs" target="updateProductStoreCatalog" 
+    <grid name="UpdateProductStoreCatalog" list-name="productStoreCatalogs" target="updateProductStoreCatalog"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
         <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}">
@@ -597,7 +597,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="FindProductStoreRole" type="single" target="FindProductStoreRoles" default-entity-name="ProductStoreRole">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}"><hidden/></field>
@@ -688,7 +688,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="submitButton" title=" " >
-            <hyperlink target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');" 
+            <hyperlink target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');"
                 target-type="plain" image-location="/images/mini-edit.png" image-title="${uiLabelMap.CommonEdit}"/>
         </field>
         <field name="productStoreId"><hidden /></field>
@@ -697,7 +697,7 @@ under the License.
                 <sub-hyperlink link-style="link" description="[${facilityId}]"  target="/facility/control/EditFacility" target-type="inter-app">
                     <parameter param-name="facilityId"/>
                 </sub-hyperlink>
-            </display-entity>    
+            </display-entity>
         </field>
         <field name="sequenceNum" ><display /></field>
         <field name="fromDate" ><display type="date-time" /></field>
@@ -771,7 +771,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.Common${groovy: context.productStoreGroup?'Submit':'Create'}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <grid name="ListProductStoreGroupAssoc" 
+    <grid name="ListProductStoreGroupAssoc"
            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ProductStoreGroupRollup" filter-by-date="true">
@@ -796,7 +796,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    <grid name="ListProductStoreAssoc" 
+    <grid name="ListProductStoreAssoc"
            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ProductStoreGroupAndMember" filter-by-date="true">
@@ -1308,7 +1308,7 @@ under the License.
             </field-group>
         </sort-order>
     </form>
-    
+
     <grid name="ListProductStoreShipmentMeths" list-name="storeShipMethods" paginate-target="EditProductStoreShipSetup"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
