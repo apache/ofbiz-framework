@@ -43,6 +43,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.model.DynamicViewEntity;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityTypeUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -657,14 +658,14 @@ public final class ProductWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
-        return ProductWorker.getAverageProductRating(product, productStoreId);
+        return ProductWorker.getAverageProductRating(product, productStoreId, delegator);
     }
 
-    public static BigDecimal getAverageProductRating(GenericValue product, String productStoreId) {
-        return getAverageProductRating(product, null, productStoreId);
+    public static BigDecimal getAverageProductRating(GenericValue product, String productStoreId, Delegator delegator) {
+        return getAverageProductRating(product, null, productStoreId, delegator);
     }
 
-    public static BigDecimal getAverageProductRating(GenericValue product, List<GenericValue> reviews, String productStoreId) {
+    public static BigDecimal getAverageProductRating(GenericValue product, List<GenericValue> reviews, String productStoreId, Delegator delegator) {
         if (product == null) {
             Debug.logWarning("Invalid product entity passed; unable to obtain valid product rating", MODULE);
             return BigDecimal.ZERO;
@@ -685,37 +686,45 @@ public final class ProductWorker {
         if ("PRDR_FLAT".equals(entityFieldType)) {
             productRating = productEntityRating;
         } else {
-            // get the product rating from the ProductReview entity; limit by product store if ID is passed
-            Map<String, String> reviewByAnd = UtilMisc.toMap("statusId", "PRR_APPROVED");
-            if (productStoreId != null) {
-                reviewByAnd.put("productStoreId", productStoreId);
-            }
-
             // lookup the reviews if we didn't pass them in
             if (reviews == null) {
+                Map<String, String> reviewByAnd = UtilMisc.toMap("statusId", "PRR_APPROVED");
+                if (productStoreId != null) {
+                    reviewByAnd.put("productStoreId", productStoreId);
+                }
+                if (product != null) {
+                    reviewByAnd.put("productId", (String) product.get("productId"));
+                }
                 try {
-                    reviews = product.getRelated("ProductReview", reviewByAnd, UtilMisc.toList("-postedDateTime"), true);
+                    DynamicViewEntity avgProductReview = new DynamicViewEntity();
+                    avgProductReview.addMemberEntity("PR", "ProductReview");
+                    avgProductReview.addAlias("PR", "productRatingAvg", "productRating", null, null, null, "avg");
+                    avgProductReview.addAlias("PR", "productId");
+                    avgProductReview.addAlias("PR", "statusId");
+                    avgProductReview.addAlias("PR", "productStoreId");
+                    GenericValue averageProductReview = EntityQuery.use(delegator).select("productRatingAvg")
+                            .from(avgProductReview).where(reviewByAnd).queryFirst();
+                    productRating = averageProductReview.getBigDecimal("productRatingAvg");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
                 }
-            }
-
-            // tally the average
-            BigDecimal ratingTally = BigDecimal.ZERO;
-            BigDecimal numRatings = BigDecimal.ZERO;
-            if (reviews != null) {
-                for (GenericValue productReview: reviews) {
-                    BigDecimal rating = productReview.getBigDecimal("productRating");
-                    if (rating != null) {
-                        ratingTally = ratingTally.add(rating);
-                        numRatings = numRatings.add(BigDecimal.ONE);
+            } else {
+                // tally the average
+                BigDecimal ratingTally = BigDecimal.ZERO;
+                BigDecimal numRatings = BigDecimal.ZERO;
+                if (reviews != null) {
+                    for (GenericValue productReview: reviews) {
+                        BigDecimal rating = productReview.getBigDecimal("productRating");
+                        if (rating != null) {
+                            ratingTally = ratingTally.add(rating);
+                            numRatings = numRatings.add(BigDecimal.ONE);
+                        }
                     }
                 }
+                if (ratingTally.compareTo(BigDecimal.ZERO) > 0 && numRatings.compareTo(BigDecimal.ZERO) > 0) {
+                    productRating = ratingTally.divide(numRatings, GEN_ROUNDING);
+                }
             }
-            if (ratingTally.compareTo(BigDecimal.ZERO) > 0 && numRatings.compareTo(BigDecimal.ZERO) > 0) {
-                productRating = ratingTally.divide(numRatings, GEN_ROUNDING);
-            }
-
             if ("PRDR_MIN".equals(entityFieldType)) {
                 // check for min
                 if (productEntityRating.compareTo(productRating) > 0) {
