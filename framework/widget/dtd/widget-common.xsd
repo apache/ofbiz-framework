@@ -525,9 +525,9 @@ under the License.
     <xs:element name="auto-parameters-form">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude" />
+                <xs:element minOccurs="0" ref="exclude" />
             </xs:sequence>
-            <xs:attribute name="form-name" type="xs:string"/>
+            <xs:attribute name="form-name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>See OFBIZ-12684.</xs:documentation>
                 </xs:annotation>
