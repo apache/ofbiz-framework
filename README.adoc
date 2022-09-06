@@ -147,9 +147,9 @@ ________________________________________________________________________________
 [[visit-ofbiz-through-your-browser]]
 === Visit OFBiz through your browser:
 
-https://localhost:8443/ordermgr[Order Back Office]
+https://localhost:8443/ordermgr[Order Back Office interface]
 
-https://localhost:8443/accounting[Accounting Back Office]
+https://localhost:8443/accounting[Accounting Back Office interface]
 
 https://localhost:8443/webtools[Administrator interface]
 
