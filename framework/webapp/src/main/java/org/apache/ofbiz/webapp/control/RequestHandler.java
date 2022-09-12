@@ -394,9 +394,9 @@ public final class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-                if (path.contains("/checkLogin/")) {
-                    // Nested requests related with checkLogin uselessly clutter the log. There is nothing to worry about, better remove this wrong
-                    // error message.
+                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/")) {
+                    // Nested requests related with checkLogin and sendconfirmationmail are OK.
+                    // There is nothing to worry about, better remove these wrong errors messages.
                     return;
                 } else if (path.contains("/images/") || path.contains("d.png")) {
                     if (Debug.warningOn()) {
