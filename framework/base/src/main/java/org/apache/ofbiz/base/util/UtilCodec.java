@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -521,7 +523,18 @@ public class UtilCodec {
                 }
             });
 
+            // Remove space within and semicolons on end of style attributes whn using allowStyling()
             value = htmlOutput.toString();
+            String regex = "(style\\s*=\\s*\\\"([^\\\"]*)\\\")";
+            Pattern p = Pattern.compile(regex);
+            Matcher m = p.matcher(value);
+            StringBuffer out = new StringBuffer();
+            while (m.find()) {
+                String str = m.group().replace(";\"", "\"").replace(" ", "");
+                m.appendReplacement(out, str);
+            }
+            m.appendTail(out);
+            value = out.toString();
             String filtered = policy.sanitize(value);
             String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
