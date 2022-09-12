@@ -46,6 +46,7 @@ public class CustomSafePolicy implements SanitizerCustomPolicy {
      */
     public static final PolicyFactory POLICY_DEFINITION = new HtmlPolicyBuilder()
             .allowStandardUrlProtocols()
+            .allowStyling()
             // Allow title="..." on any element.
             .allowAttributes("title").globally()
             // Allow href="..." on <a> elements.
