@@ -426,7 +426,7 @@ public class UtilCodec {
         // check for "<", ">"
         if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
             String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
             } else {
                 issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
@@ -440,7 +440,7 @@ public class UtilCodec {
         if (JS_EVENT_LIST.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
             } else {
                 issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
@@ -478,7 +478,7 @@ public class UtilCodec {
         PolicyFactory policy = null;
         try {
             Class<?> customPolicyClass = null;
-            if (locale.equals(new Locale("test"))) {
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
             } else {
                 customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
@@ -523,8 +523,9 @@ public class UtilCodec {
                 }
             });
 
-            // Remove space within and semicolons on end of style attributes whn using allowStyling()
-            value = htmlOutput.toString();
+            // Remove space within and semicolons on end of style attributes when using allowStyling()
+            // Replace quotes to avoid issue with testCreateCustRequestItemNote and allow saving when using them in fields
+            value = htmlOutput.toString().replace("&#39;", "'").replace("&#34;", "\"");
             String regex = "(style\\s*=\\s*\\\"([^\\\"]*)\\\")";
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(value);
@@ -540,7 +541,7 @@ public class UtilCodec {
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
             if (filtered != null && !value.equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
-                if (locale.equals(new Locale("test"))) {
+                if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
                             + "for security reason. Please check and modify accordingly, thanks.";
                 } else {
@@ -551,7 +552,7 @@ public class UtilCodec {
             }
         }
 
-        return value;
+        return value.replace("'", "&#39;").replace("\"", "&#34;"); // Quotes to HTML entity to be safe
     }
 
     /**
