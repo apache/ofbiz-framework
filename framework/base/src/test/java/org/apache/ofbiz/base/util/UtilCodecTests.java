@@ -101,7 +101,7 @@ public class UtilCodecTests {
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList,
                 new Locale("test"), true); // labels are not available in testClasses Gradle task
-        assertEquals("<script>alert('XSS vector');</script>", canonicalizedXssVector);
+        assertEquals("<script>alert(&#39;XSS vector&#39;);</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] by our input policy, your input has not been accepted for security reason. "
                 + "Please check and modify accordingly, thanks.", errorList.get(0));
