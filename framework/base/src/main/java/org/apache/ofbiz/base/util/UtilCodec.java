@@ -524,8 +524,7 @@ public class UtilCodec {
             });
 
             // Remove space within and semicolons on end of style attributes when using allowStyling()
-            // Replace quotes to avoid issue with testCreateCustRequestItemNote and allow saving when using them in fields
-            value = htmlOutput.toString().replace("&#39;", "'").replace("&#34;", "\"");
+            value = htmlOutput.toString();
             String regex = "(style\\s*=\\s*\\\"([^\\\"]*)\\\")";
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(value);
@@ -539,7 +538,9 @@ public class UtilCodec {
             String filtered = policy.sanitize(value);
             String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
-            if (filtered != null && !value.equals(unescapeEcmaScriptAndHtml4)) {
+            // Replaces possible quotes entities in value (due to HtmlSanitizer above) to avoid issue with
+            // testCreateCustRequestItemNote and allow saving when using quotes in fields
+            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
@@ -552,7 +553,7 @@ public class UtilCodec {
             }
         }
 
-        return value.replace("'", "&#39;").replace("\"", "&#34;"); // Quotes to HTML entity to be safe
+        return value;
     }
 
     /**
