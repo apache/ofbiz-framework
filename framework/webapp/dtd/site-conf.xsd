@@ -512,7 +512,7 @@ under the License.
         <xs:attribute name="name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the response, wich also matches the string returned by the event
+                    The name of the response, that also matches the string returned by the event
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
