@@ -20,9 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindProductConfigItems" type="list" list-name="listIt"
-        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+    <grid name="FindProductConfigItems" list-name="listIt" paginate="true" paginate-target="FindProductConfigItems"
+        default-table-style="basic-table" odd-row-style="alternate-row" target="" header-row-style="header-row-2">
         <actions>
             <service service-name="performFind" result-map-list="listIt" result-map="performFindResult">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -44,7 +43,7 @@ under the License.
             <display description="${typeDescription}"/>
         </field>
         <field name="description"><display/></field>
-    </form>
+    </grid>
     <form name="FindProductConfigItemsFrom" type="single" target="FindProductConfigItems"
         default-map-name="productconfigitems"  header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductConfigItem" default-field-type="find"/>
@@ -56,6 +55,10 @@ under the License.
         <field name="imageUrl"><hidden/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ProductConfigItem" type="single" default-map-name="configItem"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ProductConfigItem" default-field-type="display"/>
     </form>
     <form name="EditProductConfigItem" type="single" target="updateProductConfigItem" title="" default-map-name="configItem"
         header-row-style="header-row" default-table-style="basic-table">
@@ -192,9 +195,8 @@ under the License.
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListProductConfigItem" type="list" list-name="productConfigs"
-        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+    <grid name="ListProductConfigItem" list-name="productConfigs" paginate="true" paginate-target="FindProductConfigItems"
+        default-table-style="basic-table" odd-row-style="alternate-row" header-row-style="header-row-2">
         <actions>
             <entity-condition entity-name="ProductConfigAndProduct" list="productConfigs" distinct="true">
                 <condition-list>
@@ -214,11 +216,10 @@ under the License.
         </field>
         <field name="productName" title="${uiLabelMap.ProductName}"><display description="${productName}"/></field>
         <field name="piecesIncluded" title="${uiLabelMap.ProductPiecesIncluded}"><display description="${piecesIncluded}"/></field>
-    </form>
+    </grid>
 
-    <form name="ProductConfigOptionList" type="list" list-name="configOptionList"
-        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+    <grid name="ProductConfigOptionList" list-name="configOptionList" paginate="true" paginate-target="FindProductConfigItems"
+        default-table-style="basic-table" odd-row-style="alternate-row" header-row-style="header-row-2">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display"/>
         <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigOption}">
             <hyperlink description="${configOptionId} - ${configOptionName}" target="EditProductConfigOptions">
@@ -234,11 +235,9 @@ under the License.
                 <parameter param-name="configOptionId"/>
             </hyperlink>
         </field>
-    </form>
-
-    <form name="ProductConfigList" type="list" list-name="configProducts"
-        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
-        target="" header-row-style="header-row-2" paginate="true">
+    </grid>
+    <grid name="ProductConfigList" list-name="configProducts" paginate="true" paginate-target="FindProductConfigItems"
+        default-table-style="basic-table" odd-row-style="alternate-row" header-row-style="header-row-2">
         <row-actions>
             <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId"/>
@@ -259,6 +258,5 @@ under the License.
                 <parameter param-name="productId" from-field="product.productId"/>
             </hyperlink>
         </field>
-    </form>
-
+    </grid>
 </forms>

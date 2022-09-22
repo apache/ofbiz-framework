@@ -442,7 +442,7 @@ public class EntitySaxReader extends DefaultHandler {
                         }
                     } else {
                         Debug.logWarning("Ignoring invalid field name [" + currentFieldName + "] found for the entity: "
-                                + currentValue.getEntityName() + " with value=" + currentFieldValue.toString(), MODULE);
+                                + currentValue.getEntityName() + " with value=" + new String(currentFieldValue), MODULE);
                     }
                     currentFieldValue = null;
                 }

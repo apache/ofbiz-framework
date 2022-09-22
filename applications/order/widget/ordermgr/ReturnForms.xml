@@ -109,17 +109,6 @@ under the License.
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="createdBy"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <!-- UNUSED FORM
-    <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <auto-fields-service service-name="createReturnItem"/>
-        <field name="itemDescription"><display/></field>
-        <field name="returnId"><hidden/></field>
-        <field name="orderId"><hidden/></field>
-        <field name="orderItemSeqId"><hidden/></field>
-        <field name="statusId"><ignored/></field>
-    </form>
-    -->
     <form name="FindReturns" type="single"  target="findreturn" title="" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="returnHeaderTypeId">
@@ -149,9 +138,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-
-    <form name="ListReturns" type="list"  target="findreturn" title="" list-name="listIt"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="findreturn">
+    <grid name="ListReturns" list-name="listIt" target="findreturn" paginate-target="findreturn"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind"  result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="requestParameters"/>
@@ -184,25 +172,24 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-    </form>
-
-    <form name="ReturnStatusHistory" type="list" list-name="orderReturnStatusHistories"
+    </grid>
+    <grid name="ReturnStatusHistory" list-name="orderReturnStatusHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
         <field name="returnItemSeqId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="statusDatetime" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changeByUserLoginId" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
-    </form>
-    <form name="ReturnAndReceivedQuantityHistory" type="list" list-name="orderReturnItemHistories"
+    </grid>
+    <grid name="ReturnAndReceivedQuantityHistory" list-name="orderReturnItemHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText"><display/></field>
         <field name="newValueText"><display/></field>
         <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
-    </form>
-    <form name="ReturnReasonHistory" type="list" list-name="orderReturnItemHistories"
+    </grid>
+    <grid name="ReturnReasonHistory" list-name="orderReturnItemHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText">
@@ -213,8 +200,8 @@ under the License.
         </field>
         <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
-    </form>
-    <form name="ReturnTypeHistory" type="list" list-name="orderReturnItemHistories"
+    </grid>
+    <grid name="ReturnTypeHistory" list-name="orderReturnItemHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText">
@@ -225,13 +212,13 @@ under the License.
         </field>
         <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
-    </form>
-    <form name="ReturnPriceHistory" type="list" list-name="orderReturnItemHistories"
+    </grid>
+    <grid name="ReturnPriceHistory" list-name="orderReturnItemHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText"><display type="currency"/></field>
         <field name="newValueText"><display type="currency"/></field>
         <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
-    </form>
+    </grid>
 </forms>

@@ -559,20 +559,27 @@
         <attribute name="fieldValue0" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="resequence" auth="true" engine="java" validate="true" transaction-timeout="7200"
-        location="org.apache.ofbiz.content.ContentManagementServices" invoke="resequence">
+    <service name="resequence" auth="true" engine="group">
+        <deprecated use-instead="resequenceContentAssocChildren" since="release22.01"/>
+        <group>
+            <invoke name="resequenceContentAssocChildren"/>
+        </group>
+    </service>
+    <service name="resequenceContentAssocChildren" auth="true" engine="java" transaction-timeout="7200"
+             location="org.apache.ofbiz.content.ContentManagementServices" invoke="resequence">
         <description>Reorder sequence numbers in ContentAssoc entities for a given parent id</description>
-        <attribute mode="IN" name="contentIdTo" optional="false" type="String">
+        <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdTo"/>
+                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
             </type-validate>
         </attribute>
-        <attribute mode="IN" name="seqInc" optional="true" type="Integer"/>
+        <attribute mode="IN" name="seqInc" optional="true" type="Integer" default-value="10"/>
         <attribute mode="IN" name="typeList" optional="true" type="List"/>
-        <attribute mode="IN" name="contentId" optional="true" type="String"/>
+        <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentAssocTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="dir" optional="true" type="String"/>
     </service>
+
     <service name="changeLeafToNode" validate="true" auth="true" engine="java" transaction-timeout="7200"
         location="org.apache.ofbiz.content.ContentManagementServices" invoke="changeLeafToNode">
         <description>Moves dataResource to separate content associated with current content so that node can have only children, no content of its own</description>
@@ -818,8 +825,8 @@
     </service>
 
     <!-- blog services -->
-    <service name="createBlogEntry" engine="simple" auth="true"
-        location="component://content/minilang/blog/BlogServices.xml" invoke="createBlogEntry">
+    <service name="createBlogEntry" engine="groovy" auth="true"
+        location="component://content/src/main/groovy/org/apache/ofbiz/content/BlogServices.groovy" invoke="createBlogEntry">
         <description>Creates content records for a blog entry</description>
         <required-permissions join-type="AND">
             <check-permission permission="CONTENTMGR" action="_CREATE"/>
@@ -838,8 +845,8 @@
         <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
-    <service name="updateBlogEntry" engine="simple" auth="true"
-        location="component://content/minilang/blog/BlogServices.xml" invoke="updateBlogEntry">
+    <service name="updateBlogEntry" engine="groovy" auth="true"
+        location="component://content/src/main/groovy/org/apache/ofbiz/content/BlogServices.groovy" invoke="updateBlogEntry">
         <description>Updates content records for a blog entry</description>
         <required-permissions join-type="AND">
             <check-permission permission="CONTENTMGR" action="_UPDATE"/>
@@ -862,8 +869,8 @@
         <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
-    <service name="getBlogEntry" engine="simple" auth="true"
-        location="component://content/minilang/blog/BlogServices.xml" invoke="getBlogEntry">
+    <service name="getBlogEntry" engine="groovy" auth="true"
+        location="component://content/src/main/groovy/org/apache/ofbiz/content/BlogServices.groovy" invoke="getBlogEntry">
         <description>Retrieves content records for a blog entry</description>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false">
             <type-validate>
@@ -875,25 +882,24 @@
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
         <attribute name="description" type="String" mode="OUT" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="OUT" optional="true"/>
-        <attribute name="summaryData" type="String" mode="OUT" optional="true"/>
-        <attribute name="articleData" type="String" mode="OUT" optional="true"/>
         <attribute name="imageContentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="imageDataResourceId" type="String" mode="IN" optional="true"/>
+        <attribute name="articleData" type="String" mode="OUT" optional="true"/>
         <attribute name="articleContentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="articleDataResourceId" type="String" mode="OUT" optional="true"/>
+        <attribute name="summaryData" type="String" mode="OUT" optional="true"/>
         <attribute name="summaryContentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="summaryDataResourceId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="component://content/minilang/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
-         auth="true"  transaction-timeout="7200">
-        <attribute type="String" mode="IN" name="contentId" optional="false">
+    <service name="getOwnedOrPublishedBlogEntries" engine="groovy" auth="true" transaction-timeout="7200"
+        location="component://content/src/main/groovy/org/apache/ofbiz/content/BlogServices.groovy" invoke="getOwnedOrPublishedBlogEntries">
+        <attribute name="contentId" type="String" mode="IN" >
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
             </type-validate>
         </attribute>
-        <attribute mode="IN" name="userLogin" optional="false" type="org.apache.ofbiz.entity.GenericValue">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingUserLogin"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="OUT" name="blogList" optional="true" type="List"/>
+        <attribute name="blogContentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="blogList" type="List" mode="OUT" optional="true"/>
     </service>
 
     <!-- blog RSS services -->

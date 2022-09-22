@@ -9188,7 +9188,6 @@
     <property key="ItemVariance">
         <value xml:lang="en">Item Variance</value>
     </property>
-
     <property key="lotIdFilledInAllowed">
         <value xml:lang="de">Erlaubt</value>
         <value xml:lang="en">Allowed</value>
@@ -11228,6 +11227,7 @@
         <value xml:lang="zh-TW">尋找分類</value>
     </property>
     <property key="PageTitleFindCatalog">
+        <value xml:lang="de">Katalog suchen</value>
         <value xml:lang="en">Find Catalog</value>
         <value xml:lang="es">Buscar Catálogo</value>
         <value xml:lang="fr">Recherche de catalogues</value>
@@ -11361,6 +11361,7 @@
         <value xml:lang="zh-TW">尋找庫存細項標籤</value>
     </property>
     <property key="PageTitleFindProduct">
+        <value xml:lang="de">Produkt suchen</value>
         <value xml:lang="en">Find Product</value>
         <value xml:lang="es">Buscar Producto</value>
         <value xml:lang="fr">Recherche d'articles</value>
@@ -13131,7 +13132,7 @@
     </property>
     <property key="ProductAddProductsUsingDefaultQuantities">
         <value xml:lang="cs">Přidat výrobky této skupiny do košíku v přednastaveném možství</value>
-        <value xml:lang="de">Produkte dieser Produktgruppe in der vorgegebenen Menge in den Warenkorb legen</value>
+        <value xml:lang="de">Produkte dieser Produktkategorie in der vorgegebenen Menge in den Warenkorb legen</value>
         <value xml:lang="en">Add Products in this Category to the Cart using Default Quantities</value>
         <value xml:lang="en-GB">Add Products in this Category to the basket using default quantities</value>
         <value xml:lang="es">Agregue los productos en esta categoría al carro usando cantidades predeterminadas</value>
@@ -13328,7 +13329,7 @@
     </property>
     <property key="ProductAdvancedSearchInCategory">
         <value xml:lang="cs">Rozšířené hledání ve skupině výrobků</value>
-        <value xml:lang="de">Erweiterte Suche in der Produktgruppe</value>
+        <value xml:lang="de">Erweiterte Suche in der Produktkategorie</value>
         <value xml:lang="en">Advanced Search in Category</value>
         <value xml:lang="es">Búsqueda Avanzada en las Categorías</value>
         <value xml:lang="fr">Recherche avancée dans la catégorie</value>
@@ -14415,7 +14416,7 @@
     </property>
     <property key="ProductBrowseCategories">
         <value xml:lang="cs">Výběr skupiny výrobků</value>
-        <value xml:lang="de">Produktgruppen durchsuchen</value>
+        <value xml:lang="de">Produktkategorien durchsuchen</value>
         <value xml:lang="en">Browse Categories</value>
         <value xml:lang="es">Hojear Categorías</value>
         <value xml:lang="es-CL">Navegar Categorías</value>
@@ -14785,7 +14786,7 @@
         <value xml:lang="de">Katalogname [ID]</value>
         <value xml:lang="en">Catalog Name [Id]</value>
         <value xml:lang="es">Nombre de Catálogo [Código]</value>
-        <value xml:lang="fr">Catalogue ; Nom ; [Réf.]</value>
+        <value xml:lang="fr">Nom de Catalogue [Réf.]</value>
         <value xml:lang="it">Nome catalogo [Codice]</value>
         <value xml:lang="ja">カタログ名称 [ID]</value>
         <value xml:lang="nl">Catalogusnaam [ID]</value>
@@ -14902,7 +14903,7 @@
     </property>
     <property key="ProductCategory">
         <value xml:lang="cs">Skupina výrobků</value>
-        <value xml:lang="de">Produktgruppe</value>
+        <value xml:lang="de">Kategorie</value>
         <value xml:lang="en">Category</value>
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>
@@ -15019,7 +15020,7 @@
     </property>
     <property key="ProductCategoryNotFoundForCategoryID">
         <value xml:lang="cs">Skupina výrobků nenalezena</value>
-        <value xml:lang="de">Produktgruppe wurde nicht gefunden mit ID</value>
+        <value xml:lang="de">Kategorie wurde nicht gefunden mit ID</value>
         <value xml:lang="en">Category not found for Category ID</value>
         <value xml:lang="es">Categoría no encontrada por ID</value>
         <value xml:lang="fr">Aucune catégorie pour cet réf.</value>
@@ -15036,11 +15037,11 @@
         <value xml:lang="zh-TW">沒有找到分類識別</value>
     </property>
     <property key="ProductCategoryAttrAlreadyExists">
-        <value xml:lang="de">Eine Attribut mit diesem Namen existiert bereits für die Produktgruppe mit dieser ID.</value>
+        <value xml:lang="de">Eine Attribut mit diesem Namen existiert bereits für die Kategorie mit dieser ID.</value>
         <value xml:lang="en">There already is an attribute with this name for a group with this ID.</value>
     </property>
     <property key="ProductCategoryAlreadyExists">
-        <value xml:lang="de">Eine Produktgruppe mit dieser ID existiert bereits.</value>
+        <value xml:lang="de">Eine Kategorie mit dieser ID existiert bereits.</value>
         <value xml:lang="en">There already is a Category with this ID.</value>
     </property>
     <property key="ProductCategoryNoVariants">
@@ -15403,7 +15404,7 @@
     </property>
     <property key="ProductChooseQuickAddCategory">
         <value xml:lang="cs">Výběr zrychleným zadáním produktové skupiny</value>
-        <value xml:lang="de">Auswahl einer Produktgruppe für Schnelleingabe</value>
+        <value xml:lang="de">Auswahl einer Produktkategorie für Schnelleingabe</value>
         <value xml:lang="en">Choose QuickAdd Category</value>
         <value xml:lang="es">Elegir la categoría Añadir-Rápido</value>
         <value xml:lang="fr">Choisir une catégorie d'ajout-rapide</value>
@@ -20914,6 +20915,10 @@
         <value xml:lang="zh">这个明细缺货</value>
         <value xml:lang="zh-TW">這個細項缺貨</value>
     </property>
+    <property key="ProductCannotReserveInventoryNotEnoughStock">
+        <value xml:lang="it">Impossibile riservare l'articolo ${parameters.productId}: quantità in stock non sufficiente nel deposito ${parameters.facilityId}. Quantità  non riservata è ${parameters.quantityNotReserved}</value>
+        <value xml:lang="en">Cannot reserve product ${parameters.productId}: not enough quantity left in stock for facility ${parameters.facilityId}. Quantity not reserved is ${parameters.quantityNotReserved}</value>
+     </property>
     <property key="ProductItemPrc">
         <value xml:lang="de">Position Preis</value>
         <value xml:lang="en">Item Prc</value>
@@ -23322,7 +23327,7 @@
     </property>
     <property key="ProductNoProductsInThisCategory">
         <value xml:lang="cs">V této skupině nejsou žádné výrobky</value>
-        <value xml:lang="de">Es gibt keine Produkte in dieser Produktgruppe</value>
+        <value xml:lang="de">Es gibt keine Produkte in dieser Produktkategorie</value>
         <value xml:lang="en">There are no products in this category</value>
         <value xml:lang="es">No hay productos en esta categoría</value>
         <value xml:lang="fr">Aucun article dans cette catégorie</value>
@@ -25793,6 +25798,8 @@
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
+        <value xml:lang="es-CL">Producto</value>
+        <value xml:lang="es-MX">Producto</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品</value>
@@ -28687,7 +28694,7 @@
         <value xml:lang="de">Bewertungen</value>
         <value xml:lang="en">Reviews</value>
         <value xml:lang="es">Revisiones</value>
-        <value xml:lang="fr">Approbations</value>
+        <value xml:lang="fr">Approbations d'avis</value>
         <value xml:lang="it">Recensioni</value>
         <value xml:lang="ja">レビュー</value>
         <value xml:lang="nl">Klantbeoordelingen</value>
@@ -29112,7 +29119,7 @@
     </property>
     <property key="ProductSearchInCategory">
         <value xml:lang="cs">Hledání ve skupině výrobků</value>
-        <value xml:lang="de">Suche in Produktgruppe</value>
+        <value xml:lang="de">Suche in Produktkategorie</value>
         <value xml:lang="en">Search in Category</value>
         <value xml:lang="es">Buscar en la Categoría</value>
         <value xml:lang="fr">Rechercher dans la catégorie</value>

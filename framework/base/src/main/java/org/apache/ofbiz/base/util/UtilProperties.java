@@ -46,6 +46,8 @@ import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -501,7 +503,29 @@ public final class UtilProperties implements Serializable {
             return;
         }
 
-        Properties properties = getProperties(resource);
+        Properties properties = UtilProperties.getProperties(resource);
+        if (properties == null) {
+            return;
+        }
+        properties.setProperty(name, value);
+    }
+
+    /**
+     * Sets the specified value of the specified property name to the specified resource/properties in memory, does not persist it
+     * @param delegator Default delegator, mostly used in tests
+     * @param resource The name of the resource
+     * @param name     The name of the property in the resource
+     * @param value    The value of the property to set in memory
+     */
+    public static void setPropertyValueInMemory(Delegator delegator, String resource, String name, String value) {
+        if (UtilValidate.isEmpty(resource)) {
+            return;
+        }
+        if (UtilValidate.isEmpty(name)) {
+            return;
+        }
+
+        Properties properties = EntityUtilProperties.getProperties(delegator, resource);
         if (properties == null) {
             return;
         }

@@ -24,12 +24,14 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition>
@@ -58,7 +60,7 @@ under the License.
                 <decorator-screen name="CommonPriceDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductGlobalPriceRules}">
-                            <include-form name="FindProductPriceRules" location="component://product/widget/catalog/PriceForms.xml"/>
+                            <include-grid name="FindProductPriceRules" location="component://product/widget/catalog/PriceForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddPriceRule}">
                             <include-form name="AddPriceRules" location="component://product/widget/catalog/PriceForms.xml"/>
@@ -73,7 +75,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
                 <set field="headerItem" value="pricerules"/>
-
                 <script location="component://product/groovyScripts/catalog/price/EditProductPriceRules.groovy"/>
             </actions>
             <widgets>
@@ -84,22 +85,22 @@ under the License.
                         <screenlet title="${uiLabelMap.ProductPriceRuleId} [${parameters.productPriceRuleId}]">
                             <label style="h6" text="${uiLabelMap.ProductConditionsActionsRemoveBefore}"/>
                             <horizontal-separator/>
-                            <include-form name="EditProductPriceRule" location="component://product/widget/catalog/PriceForms.xml"/>
+                            <include-grid name="EditProductPriceRule" location="component://product/widget/catalog/PriceForms.xml"/>
                             <horizontal-separator/>
                             <label style="h6" text="${uiLabelMap.ProductConditionsThenActions}"/>
                             <horizontal-separator/>
                             <screenlet title="${uiLabelMap.ProductConditions}">
-                                <include-form name="EditProductPriceRulesCond" location="component://product/widget/catalog/PriceForms.xml"/>
+                                <include-grid name="EditProductPriceRulesCond" location="component://product/widget/catalog/PriceForms.xml"/>
                                 <horizontal-separator/>
-                                <include-form name="AddProductPriceRulesCond" location="component://product/widget/catalog/PriceForms.xml"/>
+                                <include-grid name="AddProductPriceRulesCond" location="component://product/widget/catalog/PriceForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.ProductActions}">
-                                <include-form name="EditProductPriceRulesAction" location="component://product/widget/catalog/PriceForms.xml"/>
+                                <include-grid name="EditProductPriceRulesAction" location="component://product/widget/catalog/PriceForms.xml"/>
                                 <horizontal-separator/>
-                                <include-form name="AddProductPriceRulesAction" location="component://product/widget/catalog/PriceForms.xml"/>
+                                <include-grid name="AddProductPriceRulesAction" location="component://product/widget/catalog/PriceForms.xml"/>
                             </screenlet>
                         </screenlet>
-                    </decorator-section>                    
+                    </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>

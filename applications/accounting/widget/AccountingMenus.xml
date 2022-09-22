@@ -52,6 +52,34 @@ under the License.
         <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="globalGLSettings"/></menu-item>
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
+        <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewGLTransaction" title="${uiLabelMap.CommonCreate} ${uiLabelMap.GlTransaction}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newAcctgTrans">
+                <parameter param-name="organizationPartyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewInvoice" title="${uiLabelMap.AccountingCreateNewInvoice}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newInvoice"/>
+        </menu-item>
+        <menu-item name="NewPayment" title="${uiLabelMap.CommonCreate} ${uiLabelMap.CommonPayment}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="newPayment"/>
+        </menu-item>
+    </menu>
 
     <menu name="AccountingShortcutAppBar" title="${uiLabelMap.AccountingManager}">
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="/accounting/control/findInvoices" url-mode="inter-app"/></menu-item>
@@ -97,22 +125,36 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
-        <menu-item name="editInvoice" title="${uiLabelMap.AccountingInvoiceHeader}">
+        <menu-item name="invoiceAttributes" title="${uiLabelMap.CommonAttributes}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
-                    <or>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>
                 </and>
             </condition>
-            <link target="editInvoice">
+            <link target="invoiceAttributes">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
+        <menu-item name="invoiceContactMech" title="${uiLabelMap.PartyContactMechs}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                </and>
+            </condition>
+            <link target="invoiceContactMech">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
+        <menu-item name="invoiceContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                </and>
+            </condition>
+            <link target="invoiceContent">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
         <menu-item name="listInvoiceItems" title="${uiLabelMap.AccountingInvoiceItems}">
             <condition>
                 <and>
@@ -127,53 +169,17 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
-        <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
+        <menu-item name="invoiceNotes" title="${uiLabelMap.CommonNotes}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
-                    <or>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>
                 </and>
             </condition>
-            <link target="editInvoiceTimeEntries">
+            <link target="invoiceNotes">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
-        <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
-            <condition>
-                <and>
-                    <not><if-empty field="invoice.invoiceId"/></not>
-                    <or>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>
-                </and>
-            </condition>
-            <link target="invoiceRoles">
-                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
-            </link>
-        </menu-item>
-        
-        <menu-item name="invoiceTerms" title="${uiLabelMap.PartyTerms}">
-            <condition>
-                <and>
-                    <not><if-empty field="invoice.invoiceId"/></not>
-                    <or>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>
-                </and>
-            </condition>
-            <link target="invoiceTerms">
-                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
-            </link>
-        </menu-item>
-        
-        <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingApplications}">
+        <menu-item name="editInvoiceApplications" title="${uiLabelMap.AccountingPaymentsApplications}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
@@ -189,29 +195,78 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-
-        <menu-item name="sendPerEmail" title="${uiLabelMap.CommonSendPerEmail}">
+        <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
             <condition>
-                <not><if-empty field="invoice.invoiceId"/></not>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                </and>
             </condition>
-            <link target="sendPerEmail">
+            <link target="invoiceRoles">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
+        <menu-item name="invoiceTerms" title="${uiLabelMap.PartyTerms}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="invoiceTerms">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="editInvoiceTimeEntries">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
         <menu-item name="commissionRun" title="${uiLabelMap.AccountingCommissionRun}">
             <link target="CommissionRun"/>
         </menu-item>
-        
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
-            <link target="newInvoice"/>
+        <menu-item name="editInvoice" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="editInvoice">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
             <condition>
-                <not><if-empty field="invoice.invoiceId"/></not>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </and>
             </condition>
             <link target="copyInvoice">
                 <parameter param-name="invoiceIdToCopyFrom" from-field="invoiceId"/>
@@ -246,6 +301,10 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus">
@@ -261,6 +320,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
                         <if-compare field="invoice.invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>
@@ -299,6 +362,10 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus">
@@ -312,6 +379,10 @@ under the License.
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>
@@ -327,6 +398,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus" request-confirmation="true" confirmation-message="You want to writeoff this invoice number ${invoice.invoiceId}?">
@@ -341,6 +416,10 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
                     </or>
                 </and>
             </condition>
@@ -360,6 +439,10 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus" request-confirmation="true" confirmation-message="${uiLabelMap.AccountingConfirmationCancelOrder}">
@@ -375,6 +458,10 @@ under the License.
                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
                        <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
                    </or>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="copyInvoiceToTemplate">
@@ -382,11 +469,29 @@ under the License.
                 <parameter param-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
             </link>
         </menu-item>
+        <menu-item name="sendPerEmail" title="${uiLabelMap.CommonEmail}">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="sendPerEmail">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
         <menu-item name="addtax" title="${uiLabelMap.AccountingAddTax}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
                     <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                 </and>
             </condition>
             <link target="addtax">
@@ -421,17 +526,6 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
-        <menu-item name="editPayment" title="${uiLabelMap.AccountingPaymentTabHeader}">
-            <condition>
-                <and>
-                    <not><if-empty field="payment.paymentId"/></not>
-                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
-                </and>
-            </condition>
-            <link target="editPayment">
-                <parameter param-name="paymentId" from-field="payment.paymentId"/>
-            </link>
-        </menu-item>
         <menu-item name="editPaymentApplications" title="${uiLabelMap.AccountingPaymentTabApplications}">
             <condition>
                 <and>
@@ -447,6 +541,14 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
+        <menu-item name="paymentAttributes" title="${uiLabelMap.CommonAttributes}">
+            <condition>
+                <not><if-empty field="payment.paymentId"/></not>
+            </condition>
+            <link target="paymentAttributes">
+                <parameter param-name="paymentId" from-field="payment.paymentId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="PaymentSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -454,15 +556,28 @@ under the License.
         <actions>
             <set field="isDisbursement" value="${groovy:if(context.payment != null) return org.apache.ofbiz.accounting.util.UtilAccounting.isDisbursement(context.payment)}"/>
         </actions>
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create" >
+        <menu-item name="editPayment" title="${uiLabelMap.CommonEdit}">
             <condition>
-                <not><if-empty field="payment.paymentId"/></not>
+                <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                </and>
             </condition>
-            <link target="newPayment"/>
+            <link target="editPayment">
+                <parameter param-name="paymentId" from-field="payment.paymentId"/>
+            </link>
         </menu-item>
         <menu-item name="statusToSend" title="${uiLabelMap.AccountingPaymentTabStatusToSent}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="isDisbursement" operator="equals" value="true"/>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
@@ -476,6 +591,10 @@ under the License.
         <menu-item name="statusToReceived" title="${uiLabelMap.AccountingPaymentTabStatusToReceived}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="isDisbursement" operator="equals" value="false"/>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
@@ -489,6 +608,10 @@ under the License.
         <menu-item name="statusToCancelled" title="${uiLabelMap.AccountingPaymentTabStatusToCancelled}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
@@ -501,6 +624,10 @@ under the License.
         <menu-item name="statusToConfirmed" title="${uiLabelMap.AccountingPaymentTabStatusToConfirmed}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <or>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
@@ -516,6 +643,10 @@ under the License.
         <menu-item name="printAsCheck" title="${uiLabelMap.AccountingPrintAsCheck}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
@@ -527,6 +658,10 @@ under the License.
         <menu-item name="statusToVoidPayment" title="${uiLabelMap.AccountingPaymentTabStatusToVoid}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="payment.paymentId"/></not>
                     <and>
                         <if-compare field="payment.statusId" operator="not-equals" value="PMNT_CONFIRMED"/>
@@ -553,38 +688,53 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
     <menu name="PaymentGroupTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="PaymentGroupOverview" title="${uiLabelMap.AccountingPaymentTabOverview}">
             <link target="PaymentGroupOverview">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
-        <menu-item name="EditPaymentGroup" title="${uiLabelMap.CommonGroup}">
-            <condition><not><if-empty field="paymentGroup.paymentGroupId"/></not></condition>
-            <link target="EditPaymentGroup">
-                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditPaymentGroupMember" title="${uiLabelMap.AccountingGroupMembers}">
+        <menu-item name="EditPaymentGroupMember" title="${uiLabelMap.CommonPayments}">
             <condition><not><if-empty field="paymentGroup.paymentGroupId"/></not></condition>
             <link target="EditPaymentGroupMember">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
     </menu>
-    
     <menu name="PaymentGroupSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
             menu-container-style="button-bar button-style-2">
         <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
             <condition>
-                <not><if-empty field="paymentGroup"/></not>
+                <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                    </or>
+                    <not><if-empty field="paymentGroup"/></not>
+                </and>
             </condition>
             <link target="EditPaymentGroup"/>
+        </menu-item>
+        <menu-item name="EditPaymentGroup" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
+                    <not><if-empty field="paymentGroup"/></not>
+                </and>
+            </condition>
+            <link target="EditPaymentGroup">
+                <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="depositSlip" title="${uiLabelMap.AccountingDepositSlip}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <if-compare field="display" operator="equals" value="true"/>
                     <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="BATCH_PAYMENT"/>
                     <not><if-empty field="paymentGroupMembers"/></not>
@@ -597,6 +747,10 @@ under the License.
         <menu-item name="printCheck" title="${uiLabelMap.AccountingPrintChecks}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <if-compare field="display" operator="equals" value="true"/>
                     <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN"/>
                     <not><if-empty field="paymentGroupMembers"/></not>
@@ -609,6 +763,10 @@ under the License.
         <menu-item name="cancelpaymentGroup" title="${uiLabelMap.AccountingCancelBatchPayments}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="paymentGroupMembers"/></not>
                     <not><if-empty field="paymentGroup"/></not>
                     <if-empty field="glReconciliationId"/>
@@ -622,6 +780,10 @@ under the License.
         <menu-item name="cancelCheckRunPayments" title="${uiLabelMap.AccountingCancelCheckRun}">
             <condition>
                 <and>
+                    <or>
+                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </or>
                     <not><if-empty field="paymentGroupMembers"/></not>
                     <not><if-empty field="paymentGroup"/></not>
                     <if-compare field="paymentGroup.paymentGroupTypeId" operator="equals" value="CHECK_RUN"/>
@@ -632,7 +794,6 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
     <menu name="FixedAssetMaintTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint">
         <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">

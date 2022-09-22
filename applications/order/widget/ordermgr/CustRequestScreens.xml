@@ -47,15 +47,12 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator"
                                           location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="menu-bar">
-                                <container style="button-bar">
-                                    <link target="request" text="${uiLabelMap.OrderNewRequest}"
-                                          style="buttontext create"/>
-                                </container>
-                            </decorator-section>
                             <decorator-section name="search-options">
                                 <platform-specific>
                                     <html>
@@ -241,10 +238,29 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
-                            <include-form name="EditRequestRole" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
+                                    <include-form name="EditRequestRole" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </screenlet>
+                                <screenlet id="RequestRoles">
+                                    <include-form name="ListRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="RequestRoles">
+                                    <include-form name="ViewRequestRoles" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -271,9 +287,6 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                            <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
-                                <parameter param-name="custRequestId"/>
-                            </link>
                             <include-form name="ListRequestItems" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -299,11 +312,6 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}">
-                            <container>
-                                <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
-                                    <parameter param-name="custRequestId"/>
-                                </link>
-                            </container>
                             <include-form name="EditCustRequestItem" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             <platform-specific>
                                 <html><html-template location="component://order/template/request/CopyRequestItem.ftl"/></html>

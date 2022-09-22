@@ -20,6 +20,7 @@ package org.apache.ofbiz.webapp.stats;
 
 import java.net.InetAddress;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Locale;
 
 import javax.servlet.http.Cookie;
@@ -149,8 +150,14 @@ public class VisitHandler {
                             visit.set("fromDate", new Timestamp(session.getCreationTime()));
 
                             visit.set("initialLocale", initialLocale);
-                            visit.set("initialRequest", initialRequest);
-                            visit.set("initialReferrer", initialReferrer);
+                            if (initialRequest != null) {
+                                visit.set("initialRequest", initialRequest.length() > 2000 ? initialRequest.substring(0, 1999)
+                                        : initialRequest);
+                            }
+                            if (initialReferrer != null) {
+                                visit.set("initialReferrer", initialReferrer.length() > 2000 ? initialReferrer.substring(0, 1999)
+                                        : initialReferrer);
+                            }
                             if (initialUserAgent != null) {
                                 visit.set("initialUserAgent", initialUserAgent.length() > 250 ? initialUserAgent.substring(0, 250)
                                         : initialUserAgent);
@@ -227,7 +234,7 @@ public class VisitHandler {
                             String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
                             if (Debug.verboseOn()) {
-                                Debug.logVerbose("Cookies:" + cookies, MODULE);
+                                Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), MODULE);
                             }
                             if (cookies != null) {
                                 for (int i = 0; i < cookies.length; i++) {

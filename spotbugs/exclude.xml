@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<FindBugsFilter
+              xmlns="https://github.com/spotbugs/filter/3.0.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+
+  <!-- v v CN_IDIOM_NO_SUPER_CALL = clone method does not call supper.clone(). OK since shallow clone wanted-->
+  <Match>
+    <Class name="org.apache.ofbiz.entity.GenericEntity" />
+    <Method name="clone" />
+    <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.GenericPK" />
+    <Method name="clone" />
+    <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.GenericValue" />
+    <Method name="clone" />
+    <Bug pattern="CN_IDIOM_NO_SUPER_CALL" />
+  </Match>
+<!-- ^ ^ CN_IDIOM_NO_SUPER_CALL = clone method does not call supper.clone(). OK since shallow clone wanted-->
+
+
+<!-- v v OK because of synchronized use -->
+  <Match>
+    <Class name="org.apache.ofbiz.webapp.view.ApacheFopWorker" />
+    <Method name="getFactoryInstance" />
+    <Bug pattern="DC_DOUBLECHECK" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.accounting.thirdparty.valuelink.ValueLinkApi" />
+    <Method name="getWorkingKeyIndex" />
+    <Bug pattern="DC_DOUBLECHECK" />
+  </Match>
+<!-- ^ ^ OK because of synchronized use -->
+
+<!-- v v OK see remark about OWASP advice at bottom of OFBIZ-9973 -->
+  <Match>
+    <Class name="org.apache.ofbiz.pricat.PricatParseExcelHtmlThread" />
+    <Method name="storePricatFile" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.security.SecuredUpload" />
+    <Method name="isValidFileName" />
+    <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+<!-- ^ ^ OK see remark about OWASP advice at bottom of OFBIZ-9973 -->
+
+<!-- v v OK all is internal -->
+<!-- Though asmentioned by SpotBugs: "a PreparedStatement, is more efficient" -->
+  <Match>
+    <Class name="org.apache.ofbiz.entity.util.SequenceUtil" />
+    <Method name="SequenceBank" />
+    <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.jdbc.DatabaseUtil" />
+    <Method name="createTable" />
+    <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.util.SequenceUtil$SequenceBank" />
+    <Method name="fillBank" />
+    <Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+  </Match>
+<!-- ^ ^  OK all is internal -->
+
+
+<!-- v v OK all is internal (as long as not proved otherwise...)-->
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="partialSelect"/>
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="select" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="selectByMultiRelation" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="selectCountByCondition" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="selectListIteratorByCondition" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="singleInsert" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="customUpdate" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="updateByCondition" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+  <Match>
+    <Class name="org.apache.ofbiz.entity.datasource.GenericDAO" />
+    <Method name="singleUpdate" />
+    <Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+  </Match>
+<!-- ^ ^ OK all is internal (as long as not proved otherwise...)-->
+
+<!-- v v not a problem, false positive -->
+  <Match>
+    <!-- It's OK, cf. OFBIZ-9973 -->
+    <Class name="org.apache.ofbiz.product.imagemanagement.FrameImage" />
+    <Method name="previewFrameImage" />
+    <Bug pattern="PT_RELATIVE_PATH_TRAVERSAL" />
+  </Match>
+  <Match>
+    <!-- not a problem, this is used only once during test, no possible collisions -->
+    <!-- Moreover this is now commented out to allow building with BuilBot 3.3.2 -->
+    <Class name="org.apache.ofbiz.service.test.XmlRpcTests" />
+    <Field name="url" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+  </Match>
+  <Match>
+    <!-- not a problem, report is initialised by initHtmlReport and then feed by different threads -->
+    <Class name="org.apache.ofbiz.htmlreport.AbstractReportThread" />
+    <Field name="report" />
+    <Bug pattern="UWF_UNWRITTEN_FIELD " />
+  </Match>
+  <Match>
+    <!-- not a problem, servletContext is initialised by contextInitialized() and then only read before being destroyed by contextDestroyed() -->
+    <Class name="org.apache.ofbiz.ws.rs.listener.ApiContextListener" />
+    <Field name="servletContext" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+  </Match>
+  <Match>
+    <!-- not a problem, apiKey is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
+    <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
+    <Field name="apiKey" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+  </Match>
+  <Match>
+    <!-- not a problem, baseUrl is initialised by UtilProperties.getPropertyValue() and then only read or possibly modified by the only constructor -->
+    <Class name="org.apache.ofbiz.ecommerce.janrain.JanrainHelper" />
+    <Field name="baseUrl" />
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
+  </Match>
+<!-- ^ ^ not a problem, false positives -->
+</FindBugsFilter>

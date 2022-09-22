@@ -829,13 +829,15 @@ public class EntityPermissionChecker {
     public static List<String> getUserRoles(GenericValue entity, GenericValue userLogin, Delegator delegator) throws GenericEntityException {
 
         List<String> roles = new LinkedList<>();
-        if (entity == null) return roles;
+        if (entity == null || userLogin == null) {
+            return roles;
+        }
         String entityName = entity.getEntityName();
             // TODO: Need to use ContentManagementWorker.getAuthorContent first
 
 
         roles.remove("OWNER"); // always test with the owner of the current content
-        if (entity.get("createdByUserLogin") != null && userLogin != null) {
+        if (entity.get("createdByUserLogin") != null) {
             String userLoginId = (String) userLogin.get("userLoginId");
             String userLoginIdCB = (String) entity.get("createdByUserLogin");
             //if (Debug.infoOn()) Debug.logInfo("userLoginId:" + userLoginId + ": userLoginIdCB:" + userLoginIdCB + ":", null);

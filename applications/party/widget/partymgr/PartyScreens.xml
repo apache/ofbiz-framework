@@ -41,6 +41,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <platform-specific><html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
@@ -637,7 +640,7 @@ under the License.
                         <screenlet id="AddUserLoginSecurityGroupsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                        <include-grid name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

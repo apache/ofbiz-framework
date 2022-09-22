@@ -101,10 +101,12 @@ under the License.
             <td align="right" class="label">${uiLabelMap.CommonType}</td>
             <td nowrap="nowrap">
                 <div>
-                    <label><input type="checkbox" name="view_SALES_ORDER" value="Y" <#if state.hasType('view_SALES_ORDER')>checked="checked"</#if>/>
-                    ${descr_SALES_ORDER}</label>
-                    <label><input type="checkbox" name="view_PURCHASE_ORDER" value="Y" <#if state.hasType('view_PURCHASE_ORDER')>checked="checked"</#if>/>
-                    ${descr_PURCHASE_ORDER}</label>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
+                    <label><input type="checkbox" name="view_SALES_ORDER" value="Y" 
+                    <#if state.hasType('view_SALES_ORDER')>checked="checked"</#if>/>${descr_SALES_ORDER}</label>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
+                    <label><input type="checkbox" name="view_PURCHASE_ORDER" value="Y"
+                    <#if state.hasType('view_PURCHASE_ORDER')>checked="checked"</#if>/>${descr_PURCHASE_ORDER}</label>
                 </div>
             </td>
           </tr>
@@ -113,13 +115,13 @@ under the License.
             <td nowrap="nowrap">
                 <div>
                     <label>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
                     <input type="checkbox" name="filterInventoryProblems" value="Y"
-                        <#if state.hasFilter('filterInventoryProblems')>checked="checked"</#if>/>
-                        ${uiLabelMap.OrderFilterInventoryProblems}</label>
+                        <#if state.hasFilter('filterInventoryProblems')>checked="checked"</#if>/>${uiLabelMap.OrderFilterInventoryProblems}</label>
                     <label>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
                     <input type="checkbox" name="filterAuthProblems" value="Y"
-                        <#if state.hasFilter('filterAuthProblems')>checked="checked"</#if>/>
-                        ${uiLabelMap.OrderFilterAuthProblems}</label>
+                        <#if state.hasFilter('filterAuthProblems')>checked="checked"</#if>/>${uiLabelMap.OrderFilterAuthProblems}</label>
                 </div>
             </td>
           </tr>
@@ -127,16 +129,21 @@ under the License.
             <td align="right" class="label">${uiLabelMap.CommonFilter} (${uiLabelMap.OrderFilterPOs})</td>
             <td nowrap="nowrap">
                 <div>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
                     <label>
-                    <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
-                        <#if state.hasFilter('filterPartiallyReceivedPOs')>checked="checked"</#if>/>
-                        ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</label>
-                    <label><input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
-                        <#if state.hasFilter('filterPOsOpenPastTheirETA')>checked="checked"</#if>/>
-                        ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</label>
-                    <label><input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
-                        <#if state.hasFilter('filterPOsWithRejectedItems')>checked="checked"</#if>/>
-                        ${uiLabelMap.OrderFilterPOsWithRejectedItems}</label>
+                        <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
+                        <#if state.hasFilter('filterPartiallyReceivedPOs')>checked="checked"</#if>/>${uiLabelMap.OrderFilterPartiallyReceivedPOs}
+                    </label>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
+                    <label>
+                        <input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
+                        <#if state.hasFilter('filterPOsOpenPastTheirETA')>checked="checked"</#if>/>${uiLabelMap.OrderFilterPOsOpenPastTheirETA}
+                    </label>
+                    <#-- !if the linebreak was performed after the tag, it would be misinterpreted as a blank! -->
+                    <label>
+                    <input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
+                        <#if state.hasFilter('filterPOsWithRejectedItems')>checked="checked"</#if>/>${uiLabelMap.OrderFilterPOsWithRejectedItems}
+                    </label>
                 </div>
             </td>
           </tr>

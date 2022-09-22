@@ -28,7 +28,6 @@ under the License.
             </condition>
             <link target="FindRequest"/>
         </menu-item>
-
         <menu-item name="quote" title="${uiLabelMap.OrderOrderQuotes}">
             <condition>
                 <or>
@@ -38,21 +37,18 @@ under the License.
             </condition>
             <link target="FindQuote"/>
         </menu-item>
-
         <menu-item name="orderlist" title="${uiLabelMap.OrderOrderList}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <link target="orderlist"/>
         </menu-item>
-
         <menu-item name="findorders" title="${uiLabelMap.OrderFindOrder}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <link target="findorders"/>
         </menu-item>
-
         <menu-item name="orderentry" title="${uiLabelMap.OrderOrderEntry}">
             <condition>
                 <or>
@@ -62,14 +58,12 @@ under the License.
             </condition>
             <link target="orderentry" link-type="anchor"/>
         </menu-item>
-
         <menu-item name="return" title="${uiLabelMap.OrderOrderReturns}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_RETURN"/>
             </condition>
             <link target="findreturn"/>
         </menu-item>
-
         <menu-item name="requirement" title="${uiLabelMap.OrderRequirements}">
             <condition>
                 <or>
@@ -79,17 +73,65 @@ under the License.
             </condition>
             <link target="FindRequirements"/>
         </menu-item>
-
         <menu-item name="reports" title="${uiLabelMap.CommonReports}">
             <link target="OrderPurchaseReportOptions"/>
         </menu-item>
-
         <menu-item name="stats" title="${uiLabelMap.CommonStats}">
             <link target="orderstats"/>
         </menu-item>
-
         <menu-item name="allocationPlan" title="${uiLabelMap.OrderAllocationPlan}">
             <link target="FindAllocationPlan"/>
+        </menu-item>
+    </menu>
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewOrder" title="${uiLabelMap.OrderNewOrder}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    <if-has-permission permission="ORDERMGR" action="_PURCHASE_CREATE"/>
+                </or>
+            </condition>
+            <link target="orderentry" link-type="anchor"/>
+        </menu-item>
+        <menu-item name="NewQuote" title="${uiLabelMap.OrderNewQuote}">
+           <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditQuote"/>
+        </menu-item>
+        <menu-item name="NewRequest" title="${uiLabelMap.OrderNewRequest}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="request"/>
+        </menu-item>
+        <menu-item name="NewRequirement" title="${uiLabelMap.OrderNewRequirement}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditRequirement"/>
+        </menu-item>
+        <menu-item name="NewReturn" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonReturn}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="returnMain"/>
+        </menu-item>
+        <menu-item name="NewAllocationPlan" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderAllocationPlan}">
+            <condition>
+                <or>
+                   <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="CreateAllocationPlan"/>
         </menu-item>
     </menu>
 
@@ -269,14 +311,6 @@ under the License.
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.CommonWorkEfforts}">
-            <condition>
-                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
-            </condition>
-            <link target="ListQuoteWorkEfforts">
-                <parameter param-name="quoteId" from-field="quote.quoteId"/>
-            </link>
-        </menu-item>
         <menu-item name="ListQuoteNotes" title="${uiLabelMap.CommonNotes}">
             <condition>
                 <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
@@ -301,19 +335,130 @@ under the License.
                 <parameter param-name="quoteId" from-field="parameters.quoteId"/>
             </link>
         </menu-item>
+        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.WorkEffortWorkEfforts}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
+            <link target="ListQuoteWorkEfforts">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
     </menu>
-
     <menu name="QuoteSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
         <menu-item name="EditQuote" title="${uiLabelMap.CommonEdit}">
             <condition>
-                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
             </condition>
             <link target="EditQuote">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="quoteReport" title="${uiLabelMap.CommonPdf}">
+        <menu-item name="NewItem" title="${uiLabelMap.OrderCreateOrderQuoteItem}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteItem">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewAttribute" title="${uiLabelMap.OrderNewQuoteAttribute}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteAttribute">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewCoefficient" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderOrderQuoteCoefficients}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteCoefficient">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewNote" title="${uiLabelMap.OrderAddNote}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="createnewquotenote">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewRole" title="${uiLabelMap.CommonNew} ${uiLabelMap.CommonRole}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteRole">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewTerm" title="${uiLabelMap.OrderCreateOrderQuoteTerm}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="EditQuoteTerm">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewWorkEffort" title="${uiLabelMap.WorkEffortCreate}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
+            </condition>
+            <link target="AddQuoteWorkEffort">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="quoteReport" title="${uiLabelMap.CommonNew} ${uiLabelMap.OrderOrderQuoteReport}">
             <link target="QuoteReport" target-window="_BLANK">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
@@ -337,26 +482,13 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}">
+        <menu-item name="ViewRequest" title="${uiLabelMap.CommonOverview}">
             <link target="ViewRequest">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="editRequest" title="${uiLabelMap.OrderRequest}">
-            <condition>
-                <and>
-                    <not><if-empty field="custRequest"/></not>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
-                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
-                </and>
-            </condition>
-            <link target="request">
-                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
-            </link>
-        </menu-item>
-        <menu-item name="requestroles" title="${uiLabelMap.OrderRequestRoles}">
+        <menu-item name="requestroles" title="${uiLabelMap.CommonRoles}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -368,7 +500,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="requestitems" title="${uiLabelMap.OrderRequestItems}">
+        <menu-item name="requestitems" title="${uiLabelMap.CommonItems}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -380,7 +512,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="custRequestContent" title="${uiLabelMap.OrderRequestContent}">
+        <menu-item name="custRequestContent" title="${uiLabelMap.CommonContent}">
             <condition>
                 <and>
                     <not><if-empty field="custRequest"/></not>
@@ -393,9 +525,38 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
     <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2">
+        <menu-item name="editRequest" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                    </or>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="request">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewRequestItem" title="${uiLabelMap.OrderNewRequestItem}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    </or>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="requestitem">
+                <parameter param-name="custRequestId"/>
+            </link>
+        </menu-item>
         <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
             <condition>
                 <and>

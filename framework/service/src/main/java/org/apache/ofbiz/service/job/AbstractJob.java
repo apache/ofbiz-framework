@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.job;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.ofbiz.base.util.Assert;
@@ -28,7 +29,8 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
 /**
  * Abstract Job.
  */
-public abstract class AbstractJob implements Job {
+@SuppressWarnings("serial")
+public abstract class AbstractJob implements Job, Serializable {
 
     private static final String MODULE = AbstractJob.class.getName();
 

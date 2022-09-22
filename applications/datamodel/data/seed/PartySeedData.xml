@@ -215,6 +215,7 @@ under the License.
     <RoleType description="Originator" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="ORIGINATOR"/>
     <RoleType description="Distributor" hasTable="N" parentTypeId="DISTRIBUTION_CHANNEL" roleTypeId="DISTRIBUTOR"/>
     <RoleType description="Employee" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMPLOYEE"/>
+    <RoleType description="Employer" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="EMPLOYER"/>
     <RoleType description="End-User Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="END_USER_CUSTOMER"/>
     <RoleType description="Household" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="HOUSEHOLD"/>
     <RoleType description="Internal Organization" hasTable="Y" parentTypeId="ORGANIZATION_ROLE" roleTypeId="INTERNAL_ORGANIZATIO"/>
@@ -273,6 +274,7 @@ under the License.
     <PartyClassificationType description="Value Rating" hasTable="N" partyClassificationTypeId="VALUE_RATING"/>
     <PartyClassificationType description="SIC Code" hasTable="N" partyClassificationTypeId="SIC_CODE"/>
     <PartyClassificationType description="Ownership" hasTable="N" partyClassificationTypeId="OWNERSHIP"/>
+    <PartyClassificationType description="Region" hasTable="N" partyClassificationTypeId="REGION"/>
 
     <PartyQualType description="Work experience" hasTable="N" partyQualTypeId="EXPERIENCE"/>
     <PartyQualType description="Certification" hasTable="N" partyQualTypeId="CERTIFICATION"/>
@@ -286,7 +288,7 @@ under the License.
     <PartyRelationshipType hasTable="N" partyRelationshipName="Lead Owned by" partyRelationshipTypeId="LEAD_OWNER"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Customer" partyRelationshipTypeId="CUSTOMER_REL" roleTypeIdValidFrom="CUSTOMER"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Distributor" partyRelationshipTypeId="DISTRIBUTION_CHANNEL"/>
-    <PartyRelationshipType hasTable="Y" partyRelationshipName="Employee" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationshipType hasTable="Y" partyRelationshipName="Employment" partyRelationshipTypeId="EMPLOYMENT"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Friend" partyRelationshipTypeId="FRIEND"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Group Member" partyRelationshipTypeId="GROUP_ROLLUP"/>
     <PartyRelationshipType hasTable="N" partyRelationshipName="Host Server Visitor" partyRelationshipTypeId="HOST_SERVER_VISITOR"/>

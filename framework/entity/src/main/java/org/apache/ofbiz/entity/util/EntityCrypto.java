@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -55,6 +54,8 @@ public final class EntityCrypto {
     private final Delegator delegator;
     private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<>();
     private final StorageHandler[] handlers;
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public EntityCrypto(Delegator delegator, String kekText) throws EntityCryptoException {
         this.delegator = delegator;
@@ -418,10 +419,9 @@ public final class EntityCrypto {
             byte[] saltBytes;
             switch (encryptMethod) {
             case SALT:
-                Random random = new SecureRandom();
                 // random length 5-16
-                saltBytes = new byte[5 + random.nextInt(11)];
-                random.nextBytes(saltBytes);
+                saltBytes = new byte[5 + SECURE_RANDOM.nextInt(11)];
+                SECURE_RANDOM.nextBytes(saltBytes);
                 break;
             default:
                 saltBytes = new byte[0];

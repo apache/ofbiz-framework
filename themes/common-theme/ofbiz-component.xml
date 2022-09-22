@@ -31,9 +31,8 @@ under the License.
     <!-- web applications -->
     <webapp name="common-theme"
         title="common theme"
-        menu-name="secondary"
         server="default-server"
-        location="webapp/common"
+        location="webapp/common-theme"
         mount-point="/common"
         app-bar-display="false"/>
     <webapp name="images"

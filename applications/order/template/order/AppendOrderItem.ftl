@@ -59,7 +59,6 @@ under the License.
                 <tr>
                   <td class="label">${uiLabelMap.ProductProductId}</td>
                   <td>
-                      <#-- FIXME Problem here: the input field is shared -->
                       <@htmlTemplate.lookupField formName="appendItemForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
                       <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
                           <a href="javascript:quicklookup(document.appendItemForm.orderId)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
@@ -70,7 +69,7 @@ under the License.
                   <td class="label">${uiLabelMap.OrderPrice}</td>
                   <td>
                     <input type="text" size="6" name="basePrice" value="${requestParameters.price!}"/>
-                    <label><input type="checkbox" name="overridePrice" value="Y"/>&nbsp;${uiLabelMap.OrderOverridePrice}</label>
+                    <label><input type="checkbox" name="overridePrice" value="Y"/>${uiLabelMap.OrderOverridePrice}</label>
                   </td>
                 </tr>
                 <tr>

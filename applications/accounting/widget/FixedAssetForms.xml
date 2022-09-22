@@ -126,7 +126,7 @@ under the License.
         <field name="submitButton" use-when="fixedAssetId==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListFixedAssetProducts" type="list"  list-name="fixedAssetProducts"  target="updateFixedAssetProduct"
+    <grid name="ListFixedAssetProducts" list-name="fixedAssetProducts" target="updateFixedAssetProduct"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="ListFixedAssetProducts" separate-columns="true">
         <field name="productId" title="${uiLabelMap.AccountingProduct}"><display-entity entity-name="Product" description="${description}[${productId}]"/></field>
@@ -143,7 +143,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <!-- create and update a product on a fixed asset -->
     <form name="AddFixedAssetProduct" type="single" target="addFixedAssetProduct" title="" default-map-name="fixedAssetProduct"
@@ -190,7 +190,7 @@ under the License.
         <field name="actualCompletionDate"><display/></field>
     </form>
 
-    <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" title="" paginate-target="EditFixedAssetStdCosts"
+    <grid name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" target="updateFixedAssetStdCost" paginate-target="EditFixedAssetStdCosts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <entity-condition entity-name="FixedAssetStdCost">
@@ -220,7 +220,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="EditFixedAssetStdCost" type="single" target="createFixedAssetStdCost" title="" default-map-name="fixedAssetStdCost"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFixedAssetStdCost" default-field-type="edit"/>
@@ -243,7 +243,7 @@ under the License.
     </form>
 
     <!-- List all fixed asset idents  -->
-    <form name="ListFixedAssetIdents" type="list" list-name="fixedAssetIdents" target="updateFixedAssetIdent"
+    <grid name="ListFixedAssetIdents" list-name="fixedAssetIdents" target="updateFixedAssetIdent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="EditFixedAssetIdents" separate-columns="true">
         <actions>
@@ -264,7 +264,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
+    </grid>
 
     <!-- create a fixed asset Idents-->
     <form name="AddFixedAssetIdent" type="single" target="createFixedAssetIdent" title=""
@@ -283,7 +283,7 @@ under the License.
     </form>
 
     <!-- List all fixed asset Registration  -->
-    <form name="ListFixedAssetRegistrations" type="list" list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
+    <grid name="ListFixedAssetRegistrations" list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="EditFixedAssetRegistrations" separate-columns="true">
         <actions>
@@ -305,7 +305,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <!-- create a fixed asset Registration-->
     <form name="AddFixedAssetRegistration" type="single" target="createFixedAssetRegistration" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -318,7 +318,7 @@ under the License.
     </form>
 
     <!-- list all Fixed Asset Maintenance-->
-    <form name="ListFixedAssetMaints" type="list" list-name="listIt" paginate-target="ListFixedAssetMaints" paginate="true"
+    <grid name="ListFixedAssetMaints" list-name="listIt" paginate-target="ListFixedAssetMaints" paginate="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -340,8 +340,7 @@ under the License.
         <field name="intervalMeterTypeId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}"><display/></field>
         <field name="intervalQuantity" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}"><display/></field>
         <field name="intervalUomId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalUom}"><display/></field>
-    </form>
-
+    </grid>
     <form name="EditFixedAssetMaint" type="single" default-map-name="fixedAssetMaint" target="updateFixedAssetMaint" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -420,7 +419,7 @@ under the License.
     </form>
 
     <!-- List all fixed asset meter readings -->
-    <form name="ListFixedAssetMeters" type="list" list-name="listIt" target="updateFixedAssetMeter" paginate-target="EditFixedAssetMeters"
+    <grid name="ListFixedAssetMeters" list-name="listIt" target="updateFixedAssetMeter" paginate-target="EditFixedAssetMeters"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="findParams.fixedAssetId" from-field="parameters.fixedAssetId"/>
@@ -454,7 +453,7 @@ under the License.
                 <parameter param-name="maintHistSeqId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <!-- create a fixed asset meter reading -->
     <form name="AddFixedAssetMeter" type="single" target="createFixedAssetMeter" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -473,7 +472,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- List all fixed asset Maintenance Order  -->
-    <form name="ListFixedAssetMaintOrders" type="list" list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
+    <grid name="ListFixedAssetMaintOrders" list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditFixedAssetMaintOrders">
         <actions>
             <entity-condition entity-name="FixedAssetMaintOrder" list="fixedAssetMaintOrders">
@@ -500,7 +499,7 @@ under the License.
                 <parameter param-name="orderItemSeqId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <!-- create and update a Order on a fixed asset -->
     <form name="AddFixedAssetMaintOrder" type="single" target="createFixedAssetMaintOrder" title="" default-map-name="fixedAssetMaintOrder"
         header-row-style="header-row" default-table-style="basic-table">
@@ -512,7 +511,7 @@ under the License.
     </form>
 
     <!-- =====================Party Fixed Asset Assignment Forms============== -->
-    <form name="ListPartyFixedAssetAssignments" type="list"  list-name="listPartyFixedAssets"  target="updatePartyFixedAssetAssignment"
+    <grid name="ListPartyFixedAssetAssignments" list-name="listPartyFixedAssets" target="updatePartyFixedAssetAssignment"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="EditPartyFixedAssetAssignments" separate-columns="true">
         <actions>
@@ -554,7 +553,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <form name="AddPartyFixedAssetAssignment" type="single" target="createPartyFixedAssetAssignment"
          header-row-style="header-row" default-table-style="basic-table">
@@ -594,8 +593,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFixedAssetDepMethods" type="list" list-name="fixedAssetDepMethods"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
+    <grid name="ListFixedAssetDepMethods" list-name="fixedAssetDepMethods" paginate-target="showFixedAssetDepreciation"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetDepMethod" list="fixedAssetDepMethods">
                 <condition-expr field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
@@ -613,17 +612,17 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="ListFixedAssetDepreciations" type="list" list-name="assetDepreciationInfoList" default-map-name="assetDepreciationInfo"
+    </grid>
+    <grid name="ListFixedAssetDepreciations" list-name="assetDepreciationInfoList" default-map-name="assetDepreciationInfo"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
         <field name="index"><display description="${itemIndex + 1}"/></field>
         <field name="year"><display/></field>
         <field name="depreciation"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
         <field name="depreciationTotal"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
         <field name="nbv" title="Net Book Value"><display type="currency" currency="${fixedAsset.purchaseCostUomId}"/></field>
-    </form>
-    <form name="FixedAssetTransactions" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" list-name="fixedAssetTransactions" paginate-target="showFixedAssetDepreciation">
+    </grid>
+    <grid name="FixedAssetTransactions" list-name="fixedAssetTransactions" paginate-target="showFixedAssetDepreciation"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list="fixedAssetTransactions">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -644,7 +643,7 @@ under the License.
         <field name="amount"><display type="currency" currency="${currency}"/></field>
         <field name="debitCreditFlag"><display/></field>
         <field name="isPosted"><display/></field>
-    </form>
+    </grid>
     <form name="AddFixedAssetTypeGlAccount" type="single" target="createFixedAssetTypeGlAccountForFixedAsset" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFixedAssetTypeGlAccount" default-field-type="edit"/>
@@ -708,8 +707,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="GlobalFixedAssetTypeGlAccounts" type="list" list-name="globalFixedAssetTypeGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
+    <grid name="GlobalFixedAssetTypeGlAccounts" list-name="globalFixedAssetTypeGlAccounts" paginate-target="showFixedAssetDepreciation"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetTypeGlAccount" list="globalFixedAssetTypeGlAccounts">
                 <condition-list combine="and">
@@ -727,9 +726,9 @@ under the License.
         <field name="depGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
         <field name="profitGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
         <field name="lossGlAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]"/></field>
-    </form>
-    <form name="FixedAssetTypeGlAccounts" type="list" list-name="fixedAssetTypeGlAccounts"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="showFixedAssetDepreciation">
+    </grid>
+    <grid name="FixedAssetTypeGlAccounts" list-name="fixedAssetTypeGlAccounts" paginate-target="showFixedAssetDepreciation"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetTypeGlAccount" list="fixedAssetTypeGlAccounts">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
@@ -747,5 +746,5 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 </forms>

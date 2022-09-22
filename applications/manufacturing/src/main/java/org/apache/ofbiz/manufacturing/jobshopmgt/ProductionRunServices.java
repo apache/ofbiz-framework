@@ -2321,8 +2321,6 @@ public class ProductionRunServices {
         }
 
         // Optional input fields
-        Timestamp fromDate = (Timestamp) context.get("fromDate");
-        Timestamp toDate = (Timestamp) context.get("toDate");
         BigDecimal addQuantityProduced = (BigDecimal) context.get("addQuantityProduced");
         BigDecimal addQuantityRejected = (BigDecimal) context.get("addQuantityRejected");
         BigDecimal addSetupTime = (BigDecimal) context.get("addSetupTime");
@@ -2333,12 +2331,6 @@ public class ProductionRunServices {
 
         if (issueRequiredComponents == null) {
             issueRequiredComponents = Boolean.FALSE;
-        }
-        if (fromDate == null) {
-            fromDate = UtilDateTime.nowTimestamp();
-        }
-        if (toDate == null) {
-            toDate = UtilDateTime.nowTimestamp();
         }
         if (addQuantityProduced == null) {
             addQuantityProduced = BigDecimal.ZERO;
@@ -2593,7 +2585,8 @@ public class ProductionRunServices {
         if (config == null && configId == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingConfigurationNotAvailable", locale));
         }
-        if (config == null && configId != null) {
+        if (config == null
+                || config == null && configId != null) {
             // TODO: load the configuration
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunFromConfigurationNotYetImplemented",
                     locale));

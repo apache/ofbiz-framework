@@ -2305,14 +2305,16 @@ under the License.
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
     <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2100" firstNameOnCard="DEMO" lastNameOnCard="CUSTOMER" contactMechId="9015"/>
 
-    <!-- EuroCustomer want invoices in euro and be located in Amsterdam -->
+    <!-- EuroCustomer wants invoices in Euro(s), located in Amsterdam (Netherlands) -->
     <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="EuroCustomer" firstName="Euro" lastName="Customer"/>
-    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
+    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="nl_NL"/>
+    <PartyClassification partyId="EuroCustomer" partyClassificationGroupId="EMEA" fromDate="2001-01-01 00:00:00.0"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
-    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
+    <PartyStatus partyId="EuroCustomer" statusId="PARTY_ENABLED" statusDate="2001-05-13 00:00:00.000"/>
+    <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2001-05-13 00:00:00.000"/>
 
     <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD" geoPointId="9001"/>
@@ -2334,7 +2336,8 @@ under the License.
     <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
-    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer"/>
+    <UserLogin partyId="FrenchCustomer" userLoginId="FrenchCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" lastLocale="fr_FR"/>
+    <PartyClassification partyId="FrenchCustomer" partyClassificationGroupId="EMEA" fromDate="2001-01-01 00:00:00.0"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyStatus partyId="FrenchCustomer" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
@@ -2597,5 +2600,15 @@ under the License.
     <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="9000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
     <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
     <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
+    
+    <CustomScreen customScreenId="DEFAULT_ORD_TPL" customScreenTypeId="CST_ORDER_TPL" customScreenName="DefaultOrderPDF" customScreenLocation="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="OrdTplSales" partyId="Company" fromDate="2001-05-13 00:00:00" orderTypeId="SALES_ORDER" customScreenId="DEFAULT_ORD_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="OrdTplPurchase" partyId="Company" fromDate="2001-05-13 00:00:00" orderTypeId="PURCHASE_ORDER" customScreenId="DEFAULT_ORD_TPL"/>
+    
+    <CustomScreen customScreenId="DEFAULT_QUOTE_TPL" customScreenTypeId="CST_QUOTE_TPL" customScreenName="DefaultQuotePDF" customScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplOther" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="OTHER_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplProposal" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PROPOSAL" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplProduct" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PRODUCT_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplPurchase" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PURCHASE_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
 
 </entity-engine-xml>

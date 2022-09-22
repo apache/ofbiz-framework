@@ -736,7 +736,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         Object obj = get(name);
 
         if (obj == null) {
-            return null;
+            return false;
         }
         if (obj instanceof Boolean) {
             return (Boolean) obj;
@@ -969,7 +969,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     /**
      * call by the previous method to be able to read with View entityName and entity Field and after for real entity
      * @param modelEntity the modelEntity, for a view it's the ViewEntity
-     * @param modelEntityToUse, same as before except if it's a second call for a view, and so it's the real modelEntity
+     * @param modelEntityToUse same as before except if it's a second call for a view, and so it's the real modelEntity
      * @return null or resourceValue
      */
     private Object get(ModelEntity modelEntity, ModelEntity modelEntityToUse, String name, String resource, Locale locale) {

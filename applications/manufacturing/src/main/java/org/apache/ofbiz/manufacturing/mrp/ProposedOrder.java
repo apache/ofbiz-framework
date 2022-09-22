@@ -111,7 +111,7 @@ public class ProposedOrder {
         Map<String, Object> result = null;
         Timestamp endDate = (Timestamp) requiredByDate.clone();
         Timestamp startDate = endDate;
-        long timeToShip = daysToShip * 8 * 60 * 60 * 1000;
+        long timeToShip = daysToShip * 8 * 60 * 60 * 1000L;
         if (isBuilt) {
             List<GenericValue> listRoutingTaskAssoc = null;
             if (routing == null) {

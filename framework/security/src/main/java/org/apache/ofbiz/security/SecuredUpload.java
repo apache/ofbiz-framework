@@ -27,6 +27,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -36,7 +38,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -49,6 +50,8 @@ import javax.imageio.stream.ImageInputStream;
 
 import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.imaging.ImageFormat;
 import org.apache.commons.imaging.ImageFormats;
 import org.apache.commons.imaging.ImageInfo;
@@ -57,11 +60,11 @@ import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.ImageWriteException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.formats.gif.GifImageParser;
-import org.apache.commons.imaging.formats.jpeg.JpegImageParser;
 import org.apache.commons.imaging.formats.png.PngImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -89,59 +92,79 @@ import com.lowagie.text.pdf.PdfReader;
 
 public class SecuredUpload {
 
+    // To check if a webshell is not uploaded
+
     // This can be helpful:
     // https://en.wikipedia.org/wiki/File_format
     // https://en.wikipedia.org/wiki/List_of_file_signatures
     // See also information in security.properties:
-    // Line #-- UPLOAD: supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio and Video and ZIP
+    // Supported file formats are *safe* PNG, GIF, TIFF, JPEG, PDF, Audio, Video, Text, and ZIP
 
     private static final String MODULE = SecuredUpload.class.getName();
-    private static final List<String> DENIEDFILEEXTENSIONS = deniedFileExtensions();
-    private static final List<String> DENIEDWEBSHELLTOKENS = deniedWebShellTokens();
+    private static final List<String> DENIEDFILEEXTENSIONS = getDeniedFileExtensions();
+    private static final List<String> DENIEDWEBSHELLTOKENS = getDeniedWebShellTokens();
+    private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
 
-    /**
-     * @param fileToCheck
-     * @param fileType
-     * @return true if the file is valid
-     * @throws IOException
-     * @throws ImageReadException
-     */
-    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+    public static boolean isValidText(String content, List<String> allowed) throws IOException {
+        return content != null ? DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token.toLowerCase(), allowed)) : false;
+    }
 
-        if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
-            return true;
+    public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
+        // Prevents double extensions
+        if (StringUtils.countMatches(fileToCheck, ".") > 1) {
+            Debug.logError("Double extensions are not allowed for security reason", MODULE);
+            return false;
         }
 
         String imageServerUrl = EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator);
         Path p = Paths.get(fileToCheck);
-        String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
         boolean wrongFile = true;
 
-        if (DENIEDFILEEXTENSIONS.contains(FilenameUtils.getExtension(fileToCheck))) {
-            Debug.logError("This file extension is not allowed for security reason", MODULE);
-            deleteBadFile(fileToCheck);
-            return false;
-        }
-
-        if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
-            if (fileToCheck.length() > 259) { // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
-                Debug.logError("Uploaded file name too long", MODULE);
-            } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
-                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
-                    wrongFile = false;
-                }
-            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
-                wrongFile = false;
+        // Check extensions
+        if (p != null && p.getFileName() != null) {
+            String fileName = p.getFileName().toString(); // The file name is the farthest element from the root in the directory hierarchy.
+            String extension = FilenameUtils.getExtension(fileToCheck).toLowerCase();
+            // Prevents null byte in filename
+            if (extension.contains("%00")
+                    || extension.contains("%0a")
+                    || extension.contains("%20")
+                    || extension.contains("%0d%0a")
+                    || extension.contains("/")
+                    || extension.contains("./")
+                    || extension.contains(".")) {
+                Debug.logError("Special bytes in extension are not allowed for security reason", MODULE);
+                return false;
             }
-        } else { // Suppose a *nix system
-            if (fileToCheck.length() > 4096) {
-                Debug.logError("Uploaded file name too long", MODULE);
-            } else if (p.toString().contains(imageServerUrl)) {
-                if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+            if (DENIEDFILEEXTENSIONS.contains(extension)) {
+                Debug.logError("This file extension is not allowed for security reason", MODULE);
+                deleteBadFile(fileToCheck);
+                return false;
+            }
+
+            // Check the file and path names
+            if (org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS) {
+                // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+                if (fileToCheck.length() > 259) {
+                    Debug.logError("Uploaded file name too long", MODULE);
+                } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
+                    // TODO check this is still useful in at least 1 case
+                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                        wrongFile = false;
+                    }
+                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
                     wrongFile = false;
                 }
-            } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
-                wrongFile = false;
+            } else { // Suppose a *nix system
+                if (fileToCheck.length() > 4096) {
+                    Debug.logError("Uploaded file name too long", MODULE);
+                } else if (p.toString().contains(imageServerUrl)) {
+                    // TODO check this is still useful in at least 1 case
+                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                        wrongFile = false;
+                    }
+                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                    wrongFile = false;
+                }
             }
         }
 
@@ -152,6 +175,34 @@ public class SecuredUpload {
                     + "The file name and extension should not be empty at all",
                     MODULE);
             deleteBadFile(fileToCheck);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param fileToCheck
+     * @param fileType
+     * @return true if the file is valid
+     * @throws IOException
+     * @throws ImageReadException
+     */
+    public static boolean isValidFile(String fileToCheck, String fileType, Delegator delegator) throws IOException, ImageReadException {
+        // Allow all
+        if (("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "allowAllUploads", delegator)))) {
+            return true;
+        }
+
+        // Check the file name
+        if (!isValidFileName(fileToCheck, delegator)) { // Useless when the file is internally generated, but not sure for all cases
+            return false;
+        }
+
+        // Check the file content
+
+        // Check max line length, default 10000
+        if (!checkMaxLinesLength(fileToCheck)) {
+            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
             return false;
         }
 
@@ -186,7 +237,7 @@ public class SecuredUpload {
             break;
 
         case "AllButCompressed":
-            if (isValidTextFile(fileToCheck)
+            if (isValidTextFile(fileToCheck, true)
                     || isValidImageIncludingSvgFile(fileToCheck)
                     || isValidPdfFile(fileToCheck)) {
                 return true;
@@ -197,7 +248,7 @@ public class SecuredUpload {
             // The philosophy for isValidTextFile() is that
             // we can't presume of all possible text contents used for attacks with payloads
             // At least there is an easy way to prevent them in isValidTextFile
-            if (isValidTextFile(fileToCheck)) {
+            if (isValidTextFile(fileToCheck, true)) {
                 return true;
             }
             break;
@@ -212,13 +263,19 @@ public class SecuredUpload {
                 return true;
             }
             break;
+        case "CSV":
+            if (isValidCsvFile(fileToCheck)) {
+                return true;
+            }
+            break;
 
         default: // All
-            if (isValidTextFile(fileToCheck)
+            if (isValidTextFile(fileToCheck, true)
                     || isValidImageIncludingSvgFile(fileToCheck)
                     || isValidCompressedFile(fileToCheck, delegator)
                     || isValidAudioFile(fileToCheck)
                     || isValidVideoFile(fileToCheck)
+                    || isValidCsvFile(fileToCheck)
                     || isValidPdfFile(fileToCheck)) {
                 return true;
             }
@@ -242,7 +299,8 @@ public class SecuredUpload {
                 || imageFormat.equals(ImageFormats.GIF)
                 || imageFormat.equals(ImageFormats.TIFF)
                 || imageFormat.equals(ImageFormats.JPEG))
-                        && imageMadeSafe(fileName);
+                && imageMadeSafe(fileName)
+                && isValidTextFile(fileName, false);
     }
 
     /**
@@ -311,7 +369,7 @@ public class SecuredUpload {
                 if (!fallbackOnApacheCommonsImaging) {
                     ImageIO.write(sanitizedImage, formatName, fos);
                 } else {
-                    ImageParser imageParser;
+                    ImageParser<?> imageParser;
                     // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
                     // the image format. See reference link in the class header
                     switch (formatName) {
@@ -324,13 +382,13 @@ public class SecuredUpload {
                     case "PNG":
                         imageParser = new PngImageParser();
                         break;
-                    case "JPEG":
-                        imageParser = new JpegImageParser();
-                        break;
+                    // case "JPEG":
+                    // imageParser = new JpegImageParser(); // Does not provide imageParser.writeImage used below
+                    // break;
                     default:
                         throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
                     }
-                    imageParser.writeImage(sanitizedImage, fos, new HashMap<>());
+                    imageParser.writeImage(sanitizedImage, fos, null);
                 }
                 // Set state flag
                 safeState = true;
@@ -368,7 +426,7 @@ public class SecuredUpload {
             } catch (IOException e) {
                 return false;
             }
-            return isValidTextFile(fileName); // Validate content to prevent webshell
+            return isValidTextFile(fileName, true); // Validate content to prevent webshell
         }
         return false;
     }
@@ -400,24 +458,62 @@ public class SecuredUpload {
             }
         } catch (Exception e) {
             safeState = false;
-            Debug.logError(e, "for security reason the PDF file " + file.getAbsolutePath() + "can't be uploaded !", MODULE);
+            Debug.logInfo(e, "The file " + file.getAbsolutePath() + " is not a valid PDF file. For security reason it's not accepted as a such file",
+                    MODULE);
         }
         return safeState;
+    }
+
+    /**
+     * Is it a CVS file?
+     * @param fileName
+     * @return true if it's a valid CVS file
+     * @throws IOException
+     */
+    private static boolean isValidCsvFile(String fileName) throws IOException {
+        Path filePath = Paths.get(fileName);
+        String content = new String(Files.readAllBytes(filePath));
+        Reader in = new StringReader(content);
+        String cvsFormatString = UtilProperties.getPropertyValue("security", "csvformat");
+        CSVFormat cvsFormat = CSVFormat.DEFAULT;
+        switch (cvsFormatString) {
+        case "EXCEL":
+            cvsFormat = CSVFormat.EXCEL;
+            break;
+        case "MYSQL":
+            cvsFormat = CSVFormat.MYSQL;
+            break;
+        case "ORACLE":
+            cvsFormat = CSVFormat.ORACLE;
+            break;
+        case "POSTGRESQL_CSV":
+            cvsFormat = CSVFormat.POSTGRESQL_CSV;
+            break;
+        default:
+            cvsFormat = CSVFormat.DEFAULT;
+        }
+
+        // cf. https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVFormat.html
+        try (CSVParser parser = new CSVParser(in, cvsFormat)) {
+            parser.getRecords();
+        }
+        return isValidTextFile(fileName, false); // Validate content to prevent webshell
     }
 
     private static boolean isExecutable(String fileName) throws IOException {
         String mimeType = getMimeTypeFromFileName(fileName);
         // Check for Windows executable. Neglect .bat and .ps1: https://s.apache.org/c8sim
         if ("application/x-msdownload".equals(mimeType) || "application/x-ms-installer".equals(mimeType)) {
-            Debug.logError("The file" + fileName + " is a Windows executable, for security reason it's not accepted :", MODULE);
+            Debug.logError("The file " + fileName + " is a Windows executable, for security reason it's not accepted", MODULE);
             return true;
         }
         // Check for ELF (Linux) and scripts
         if ("application/x-elf".equals(mimeType)
                 || "application/x-sh".equals(mimeType)
                 || "application/text/x-perl".equals(mimeType)
+                || "application/text/x-ruby".equals(mimeType)
                 || "application/text/x-python".equals(mimeType)) {
-            Debug.logError("The file" + fileName + " is a Linux executable, for security reason it's not accepted :", MODULE);
+            Debug.logError("The file " + fileName + " is a Linux executable, for security reason it's not accepted", MODULE);
             return true;
         }
         return false;
@@ -481,8 +577,11 @@ public class SecuredUpload {
      */
     private static String getMimeTypeFromFileName(String fileName) throws IOException {
         File file = new File(fileName);
-        Tika tika = new Tika();
-        return tika.detect(file);
+        if (file.exists()) {
+            Tika tika = new Tika();
+            return tika.detect(file);
+        }
+        return null;
     }
 
     private static boolean isValidDirectoryInCompressedFile(String folderName, Delegator delegator) throws IOException, ImageReadException {
@@ -566,7 +665,7 @@ public class SecuredUpload {
                 || "audio/x-flac".equals(mimeType)) {
             return true;
         }
-        Debug.logError("The file" + fileName + " is not a valid audio file, for security reason it's not accepted :", MODULE);
+        Debug.logInfo("The file " + fileName + " is not a valid audio file. For security reason it's not accepted as a such file", MODULE);
         return false;
     }
 
@@ -591,52 +690,75 @@ public class SecuredUpload {
                 || "video/x-ms-wmx".equals(mimeType)) {
             return true;
         }
-        Debug.logError("The file" + fileName + " is not a valid video file, for security reason it's not accepted :", MODULE);
+        Debug.logInfo("The file " + fileName + " is not a valid video file. For security reason it's not accepted as a such file", MODULE);
         return false;
     }
 
     /**
      * Does this text file contains a Freemarker Server-Side Template Injection (SSTI) using freemarker.template.utility.Execute? Etc.
      * @param fileName must be an UTF-8 encoded text file
+     * @param encodedContent TODO
      * @return true if the text file does not contains a Freemarker SSTI
      * @throws IOException
      */
-    private static boolean isValidTextFile(String fileName) throws IOException {
+    private static boolean isValidTextFile(String fileName, Boolean encodedContent) throws IOException {
         Path filePath = Paths.get(fileName);
         byte[] bytesFromFile = Files.readAllBytes(filePath);
-        try {
-            Charset.availableCharsets().get("UTF-8").newDecoder().decode(ByteBuffer.wrap(bytesFromFile));
-        } catch (CharacterCodingException e) {
-            return false;
+        if (encodedContent) {
+            try {
+                Charset.availableCharsets().get("UTF-8").newDecoder().decode(ByteBuffer.wrap(bytesFromFile));
+            } catch (CharacterCodingException e) {
+                return false;
+            }
         }
         String content = new String(bytesFromFile);
+        if (content.toLowerCase().contains("xlink:href=\"http")
+                || content.toLowerCase().contains("<!ENTITY ")) { // Billions laugh attack
+            Debug.logInfo("Linked images inside or Entity in SVG are not allowed for security reason", MODULE);
+            return false;
+        }
         ArrayList<String> allowed = new ArrayList<>();
         return isValidText(content, allowed);
     }
 
-    public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token, allowed));
-    }
-
     private static boolean isValid(String content, String string, List<String> allowed) {
-        return !content.toLowerCase().contains(string) || allowed.contains(string);
+        boolean isOK = !content.toLowerCase().contains(string) || allowed.contains(string);
+        if (!isOK) {
+            Debug.logInfo("The uploaded file contains the string '" + string + "'. It can't be uploaded for security reason", MODULE);
+        }
+        return isOK;
     }
 
     private static void deleteBadFile(String fileToCheck) {
-        Debug.logError("File :" + fileToCheck + ", can't be uploaded for security reason", MODULE);
+        Debug.logError("File : " + fileToCheck + ", can't be uploaded for security reason", MODULE);
         File badFile = new File(fileToCheck);
-        if (!badFile.delete()) {
-            Debug.logError("File :" + fileToCheck + ", couldn't be deleted", MODULE);
+        if (badFile.exists() && !badFile.delete()) {
+            Debug.logError("File : " + fileToCheck + ", couldn't be deleted", MODULE);
         }
     }
 
-    private static List<String> deniedFileExtensions() {
+    private static List<String> getDeniedFileExtensions() {
         String deniedExtensions = UtilProperties.getPropertyValue("security", "deniedFileExtensions");
         return UtilValidate.isNotEmpty(deniedExtensions) ? StringUtil.split(deniedExtensions, ",") : new ArrayList<>();
     }
 
-    private static List<String> deniedWebShellTokens() {
+    private static List<String> getDeniedWebShellTokens() {
         String deniedTokens = UtilProperties.getPropertyValue("security", "deniedWebShellTokens");
         return UtilValidate.isNotEmpty(deniedTokens) ? StringUtil.split(deniedTokens, ",") : new ArrayList<>();
+    }
+
+    private static boolean checkMaxLinesLength(String fileToCheck) {
+        try {
+            File file = new File(fileToCheck);
+            List<String> lines = FileUtils.readLines(file, Charset.defaultCharset());
+            for (String line : lines) {
+                if (line.length() > MAXLINELENGTH) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 }

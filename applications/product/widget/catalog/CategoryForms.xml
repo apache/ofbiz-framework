@@ -25,7 +25,8 @@ under the License.
         <field name="productCategoryId"><display/></field>
         <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
-    <form name="EditProductCategoryAttributes" odd-row-style="alternate-row" default-table-style="basic-table" type="list" target="updateProductCategoryAttribute" title="" list-name="categoryAttributes">
+    <grid name="EditProductCategoryAttributes" list-name="categoryAttributes" target="updateProductCategoryAttribute"
+        odd-row-style="alternate-row" default-table-style="basic-table" >
         <auto-fields-service service-name="updateProductCategoryAttribute" default-field-type="display"/>
         <field name="productCategoryId"><hidden/></field>
         <field name="attrValue"><text size="60"/></field>
@@ -36,9 +37,12 @@ under the License.
                 <parameter param-name="attrName"/>
             </hyperlink>
         </field>
-    </form>
-
-    <!-- Product Category Content Forms  -->
+    </grid>
+    <grid name="CategoryProducts" list-name="productCategoryMembers"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ProductCategoryMember" default-field-type="display"/>
+        <field name="productCategoryId"><hidden/></field>
+    </grid>
     <form name="AddCategoryContentAssoc" type="single" target="addContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductCategoryContent"/>
@@ -71,7 +75,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="UpdateCategoryContentAssoc" type="list" target="updateContentToCategory" title="" list-name="productCategoryContentList"
+    <grid name="UpdateCategoryContentAssoc" list-name="productCategoryContentList" target="updateContentToCategory"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}">
@@ -89,18 +93,6 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
-        <!--
-        jacopoc: I've disabled the ability to update a content record because it was not working
-        <field name="thruDate"><date-time type="timestamp"/></field>
-        <field name="prodCatContentTypeId">
-            <drop-down>
-                <entity-options entity-name="ProductCategoryContentType">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        -->
         <field name="editLink" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
             <hyperlink description="${contentId}" target="/content/control/EditContent" target-type="inter-app">
                 <parameter param-name="contentId"/>
@@ -114,7 +106,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent" target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
         header-row-style="header-row" default-table-style="basic-table">
@@ -149,8 +141,8 @@ under the License.
     </form>
 
     <!-- ProductCategoryLink Forms-->
-    <form name="ListProductCategoryLinks" type="list" list-name="productCategoryLinks" target="updateProductCategoryLink" separate-columns="true"
-        title="" odd-row-style="alternate-row" default-table-style="basic-table">
+    <grid name="ListProductCategoryLinks" list-name="productCategoryLinks" target="updateProductCategoryLink" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductCategoryLink">
                 <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>
@@ -158,7 +150,6 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateProductCategoryLink"/>
-
         <field name="productCategoryId"><hidden/></field>
         <field name="linkSeqId"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -180,7 +171,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form>
+    </grid>
 
     <form name="AddProductCategoryLink" type="single" target="createProductCategoryLink" title="" default-map-name="productCategoryLink"
         header-row-style="header-row" default-table-style="basic-table">
@@ -212,7 +203,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListTopCategory" type="list" list-name="noParentCategories" odd-row-style="alternate-row" default-table-style="basic-table">
+    <grid name="ListTopCategory" list-name="noParentCategories" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"  widget-style="buttontext">
             <hyperlink description="${productCategoryId}" target="EditCategory" also-hidden="false">
                 <parameter param-name="CATALOG_TOP_CATEGORY" value="${productCategoryId}"/>
@@ -220,7 +211,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="description"><display/></field>
-    </form>
+    </grid>
 
     <form name="FindCategory" type="single" target="FindCategory" title="" default-map-name="category"
         header-row-style="header-row" default-table-style="basic-table">
@@ -232,7 +223,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListCategory" list-name="listIt" target="" title="" type="list" paginate-target="FindCategory"
+    <grid name="ListCategory" list-name="listIt" paginate-target="FindCategory"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="entityName" value="ProductCategory"/>
@@ -249,12 +240,11 @@ under the License.
                 <parameter param-name="productCategoryId"/>
             </hyperlink>
         </field>
-        
         <field name="productCategoryTypeId" sort-field="true"><display-entity entity-name="ProductCategoryType"/></field>
         <field name="primaryParentCategoryId" sort-field="true"><display/></field>
         <field name="categoryName" sort-field="true"><display/></field>
         <field name="description" sort-field="true"><display/></field>
-    </form>
+    </grid>
 
     <form name="EditCategoryContentSEO" type="single" target="updateContentSEOForCategory" title="${uiLabelMap.ProductUpdateSEOContentCategory}"
         header-row-style="header-row" default-table-style="basic-table">

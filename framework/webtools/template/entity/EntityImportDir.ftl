@@ -19,6 +19,11 @@ under the License.
 
 <div class="page-title"><span>${uiLabelMap.WebtoolsImportToDataSource}</span></div>
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
+<#assign tenantUsed = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "multitenant", "N", delegator)>
+<#if tenantUsed=="Y">
+    <p>${uiLabelMap.WebtoolsXMLImportInfoBewareTenant1}</p>
+    <p>${uiLabelMap.WebtoolsXMLImportInfoBewareTenant2}</p>
+</#if>
 <hr />
 
   <form class="basic-form" method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">

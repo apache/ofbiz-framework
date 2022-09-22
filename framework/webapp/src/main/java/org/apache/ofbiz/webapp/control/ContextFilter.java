@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Enumeration;
 
 import javax.servlet.Filter;
@@ -52,6 +53,8 @@ public class ContextFilter implements Filter {
 
     private static final String MODULE = ContextFilter.class.getName();
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     private FilterConfig config = null;
 
     // default charset used to decode requests body data if no encoding is specified in the request
@@ -82,7 +85,7 @@ public class ContextFilter implements Filter {
         isMultitenant = EntityUtil.isMultiTenantEnabled();
 
         // this will speed up the initial sessionId generation
-        new java.security.SecureRandom().nextLong();
+        SECURE_RANDOM.nextLong();
     }
 
     @Override

@@ -34,7 +34,7 @@ under the License.
                             <container style="button-bar">
                                 <link target="EditFacilityGroup" text="${uiLabelMap.ProductNewGroup}" style="buttontext create"/>
                             </container>
-                            <include-form name="FindFacilityGroup" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                            <include-grid name="FindFacilityGroup" location="component://product/widget/facility/FacilityGroupForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -120,7 +120,9 @@ under the License.
                         <screenlet id="AddFacilityGroupMemberPanel" title="${uiLabelMap.ProductAddFacilityGroupMember}" collapsible="true">
                             <include-form name="AddFacilityGroupMember" location="component://product/widget/facility/FacilityGroupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateFacilityGroupMembers" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        <screenlet>
+                            <include-grid name="UpdateFacilityGroupMembers" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -147,7 +149,9 @@ under the License.
                         <screenlet id="AddFacilityGroupRolePanel" title="${uiLabelMap.ProductAddFacilityGroupPartyRole}" collapsible="true">
                             <include-form name="AddFacilityGroupRole" location="component://product/widget/facility/FacilityGroupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateFacilityGroupRoles" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        <screenlet>
+                            <include-grid name="UpdateFacilityGroupRoles" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -175,11 +179,15 @@ under the License.
                         <screenlet id="AddFacilityGroupRollupFromPanel" title="${uiLabelMap.PageTitleAddFacilityGroupRollup}" collapsible="true">
                             <include-form name="AddFacilityGroupRollupFrom" location="component://product/widget/facility/FacilityGroupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateFacilityGroupRollupTo" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        <screenlet>
+                            <include-grid name="UpdateFacilityGroupRollupTo" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        </screenlet>
                         <screenlet id="AddFacilityGroupRollupToPanel" title="${uiLabelMap.ProductGroupRollupChildGroupsAdd}" collapsible="true">
                             <include-form name="AddFacilityGroupRollupTo" location="component://product/widget/facility/FacilityGroupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateFacilityGroupRollupFrom" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        <screenlet>
+                            <include-grid name="UpdateFacilityGroupRollupFrom" location="component://product/widget/facility/FacilityGroupForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

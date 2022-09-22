@@ -20,10 +20,12 @@ package org.apache.ofbiz.widget.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -852,55 +854,68 @@ public class ModelFormFieldBuilder {
         }
         this.serviceName = modelService.getName();
         this.attributeName = modelParam.getName();
-        if ("find".equals(defaultFieldType)) {
-            if (modelParam.getType().indexOf("Double") != -1 || modelParam.getType().indexOf("Float") != -1
-                    || modelParam.getType().indexOf("Long") != -1 || modelParam.getType().indexOf("Integer") != -1) {
-                ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_SERVICE, 6,
-                        null);
-                this.setFieldInfo(textField);
-            } else if (modelParam.getType().indexOf("Timestamp") != -1) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE,
-                        "timestamp");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.getType().indexOf("Date") != -1) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE,
-                        "date");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.getType().indexOf("Time") != -1) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE,
-                        "time");
-                this.setFieldInfo(dateTimeField);
-            } else {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_SERVICE, null);
-                this.setFieldInfo(textField);
+        String modelParamFieldType = computeFieldTypeToUse(modelParam.getType());
+        FieldInfo fieldInfo = null;
+        switch (defaultFieldType) {
+        case "display":
+            fieldInfo = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            break;
+        case "hidden":
+            fieldInfo = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            break;
+        case "find":
+            if ("text".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            } else if ("numeric".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_SERVICE, 6, null);
+            } else if ("timestamp".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE, "timestamp");
+            } else if ("date".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE, "date");
+            } else if ("time".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE, "time");
             }
-        } else if ("display".equals(defaultFieldType)) {
-            ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_SERVICE, null);
-            this.setFieldInfo(displayField);
-        } else {
-            // default to "edit"
-            if (modelParam.getType().indexOf("Double") != -1 || modelParam.getType().indexOf("Float") != -1
-                    || modelParam.getType().indexOf("Long") != -1 || modelParam.getType().indexOf("Integer") != -1) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, 6, null, null);
-                this.setFieldInfo(textField);
-            } else if (modelParam.getType().indexOf("Timestamp") != -1) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE,
-                        "timestamp");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.getType().indexOf("Date") != -1) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE,
-                        "date");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.getType().indexOf("Time") != -1) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE,
-                        "time");
-                this.setFieldInfo(dateTimeField);
-            } else {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, null);
-                this.setFieldInfo(textField);
+            break;
+        default: // default to "edit"
+            if ("text".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, null);
+            } else if ("numeric".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, 6, null, null);
+            } else if ("timestamp".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, "timestamp");
+            } else if ("date".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, "date");
+            } else if ("time".equals(modelParamFieldType)) {
+                fieldInfo = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, "time");
             }
         }
-        return true;
+        this.setFieldInfo(fieldInfo);
+        return fieldInfo != null;
+    }
+
+    /**
+     * For a service model parameter type, return the logique field type to use
+     * If nothing found, return text
+     * @param modelParamType
+     * @return
+     */
+    private String computeFieldTypeToUse(String modelParamType) {
+        final Map<String, String> switchType = UtilMisc.toMap("Double", "numeric",
+                "Float", "numeric",
+                "Long", "numeric",
+                "Integer", "numeric",
+                "BigDecimal", "numeric",
+                "Timestamp", "timestamp",
+                "Date", "date",
+                "Time", "time");
+        String typeToConvert = "";
+        if (modelParamType.contains(".")) {
+            LinkedList<String> splitString = new LinkedList<>(StringUtil.split(modelParamType, "."));
+            typeToConvert = splitString.getLast();
+        } else {
+            typeToConvert = modelParamType;
+        }
+        return switchType.containsKey(typeToConvert) ? switchType.get(typeToConvert) : "text";
     }
 
     private boolean induceFieldInfoFromServiceParam(String defaultFieldType, ModelReader entityModelReader,

@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Forms for FacilityGroups -->
-    <form name="FindFacilityGroup" type="list" title="" list-name="facilityGroups" paginate-target="FindFacilityGroup"
+    <grid name="FindFacilityGroup" list-name="facilityGroups" paginate-target="FindFacilityGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="FacilityGroup" default-field-type="display"/>
         <field name="facilityGroupId" widget-style="buttontext">
@@ -31,7 +31,7 @@ under the License.
         </field>
         <field name="facilityGroupTypeId"><display-entity entity-name="FacilityGroupType"/></field>
         <field name="description"><display/></field>
-    </form>
+    </grid>
     <form name="EditFacilityGroup" type="single" target="updateFacilityGroup" title="" default-map-name="facilityGroup"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="facilityGroup==null" target="createFacilityGroup"/>
@@ -52,7 +52,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateFacilityGroupRollupTo" type="list" target="updateFacilityGroupToGroup" title="" list-name="currentGroupRollups"
+    <grid name="UpdateFacilityGroupRollupTo" list-name="currentGroupRollups" target="updateFacilityGroupToGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateFacilityGroupToGroup"/>
         <field name="showFacilityGroupId"><hidden value="${facilityGroupId}"/></field>
@@ -74,7 +74,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddFacilityGroupRollupFrom" target="addFacilityGroupToGroup" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addFacilityGroupToGroup"/>
@@ -89,7 +89,7 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateFacilityGroupRollupFrom" type="list" target="updateFacilityGroupToGroup" title="" list-name="parentGroupRollups"
+    <grid name="UpdateFacilityGroupRollupFrom" list-name="parentGroupRollups" target="updateFacilityGroupToGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateFacilityGroupToGroup"/>
         <field name="showFacilityGroupId"><hidden value="${parentFacilityGroupId}"/></field>
@@ -111,7 +111,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddFacilityGroupRollupTo" target="addFacilityGroupToGroup" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addFacilityGroupToGroup"/>
@@ -127,7 +127,7 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateFacilityGroupMembers" type="list" target="updateFacilityToGroup" title="" list-name="facilityGroupMembers"
+    <grid name="UpdateFacilityGroupMembers" list-name="facilityGroupMembers" target="updateFacilityToGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-service service-name="updateFacilityToGroup"/>
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
@@ -147,7 +147,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddFacilityGroupMember" target="addFacilityToGroup" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addFacilityToGroup"/>
@@ -162,7 +162,7 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateFacilityGroupRoles" type="list" target="removePartyFromFacilityGroup" title="" list-name="facilityRoles"
+    <grid name="UpdateFacilityGroupRoles" list-name="facilityRoles" target="removePartyFromFacilityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="removePartyFromFacilityGroup"/>
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
@@ -183,7 +183,7 @@ under the License.
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddFacilityGroupRole" target="addPartyToFacilityGroup" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPartyToFacilityGroup"/>

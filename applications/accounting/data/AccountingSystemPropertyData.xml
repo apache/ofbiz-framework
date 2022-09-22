@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+<!-- 
+# what should the default of the payment to invoice processing be?
+# paymentProcessing by invoice or paymentprocessing by invoiceitem?
+# there is still a box on the menu to change this option by the user.
+# value Y: applying payments to the invoice as a whole (invoiceItemSeqNr = null) with the option to apply per invoice item
+# value N: applying payments to every invoice item with the option to apply to an invoice as a whole
+#value YY: do not show the option box to the user and do only invoice processing
+#value NN: do not show the option box to the user and do only invoiceitem processing
+-->
+    <SystemProperty systemResourceId="accounting" systemPropertyId="invoiceProcessing" 
+    systemPropertyValue="YY"
+    description="Options are: Y, N, YY, NN"
+    />
+
+    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.fixedasset.autocreate" 
+    systemPropertyValue="Y"
+    description="Create a fixed asset when an 'asset usage' type product is created. Options: Y, N"/>
+
+    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.application.autocreate" 
+    systemPropertyValue="Y"
+    description="Create a payment application when a payment is received/sent or invoice is approved (take the oldest not closed one). Options: Y, N"/>
+
+   <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.purchaseorder.autocreate" 
+    systemPropertyValue="Y"
+    description="Create a 'not-paid' payment record if the purchase order is approved. Options: Y, N"/>
+
+    <SystemProperty systemResourceId="accounting" systemPropertyId="accounting.payment.salesorder.autocreate" 
+    systemPropertyValue="Y"
+    description="Create a 'not-paid' payment record if the sales order is completed and no payment exist yet. Options:: Y, N"/>
+
+    <SystemProperty systemResourceId="accounting" systemPropertyId="create.invoice.per.shipment" systemPropertyValue="Y"
+    description="create invoice per shipment. Options: = Y (Invoice per shipment), N (Invoice per order)"/>
+</entity-engine-xml>

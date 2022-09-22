@@ -90,7 +90,7 @@
                                 </decorator-section>
                                 <decorator-section name="search-results">
                                     <screenlet title="${uiLabelMap.WebtoolsGeoPoints}">
-                                        <include-form name="ListGeoPoints" location="component://webtools/widget/GeoManagementForms.xml"/>
+                                        <include-grid name="ListGeoPoints" location="component://webtools/widget/GeoManagementForms.xml"/>
                                     </screenlet>
                                 </decorator-section>
                             </decorator-screen>

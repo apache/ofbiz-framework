@@ -30,6 +30,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://party/widget/partymgr/PartyMenus.xml"/>
                         <section>
                             <condition>
                                 <and>
@@ -80,6 +81,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -118,6 +122,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>

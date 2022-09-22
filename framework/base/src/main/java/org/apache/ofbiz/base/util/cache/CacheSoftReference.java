@@ -18,13 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.cache;
 
-import java.io.Serializable;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ReferenceCleaner;
 
-@SuppressWarnings("serial")
-public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> implements Serializable {
+public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> {
 
     private static final String MODULE = CacheSoftReference.class.getName();
 

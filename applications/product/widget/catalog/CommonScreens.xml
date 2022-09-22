@@ -57,6 +57,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <section>
                             <condition>
@@ -118,6 +121,9 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <section>
                             <condition>
@@ -153,24 +159,9 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                                <container style="button-bar button-style-2">
-                                                    <link target="EditProductStore"  text="${uiLabelMap.ProductNewProductStore}" style="buttontext create" url-mode="plain"/>
-                                                </container>
                                             </widgets>
                                         </section>
                                     </widgets>
-                                    <fail-widgets>
-                                        <section>
-                                            <condition>
-                                                <if-compare operator="not-equals" value="EditProductStore" field="tabButtonItem"/>
-                                            </condition>
-                                            <widgets>
-                                                <container style="button-bar button-style-2">
-                                                    <link target="EditProductStore"  text="${uiLabelMap.ProductNewProductStore}" style="buttontext create" url-mode="plain"/>
-                                                </container>
-                                            </widgets>
-                                        </section>
-                                    </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -191,6 +182,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="ProductStoreGroupTree"/>
                     </decorator-section>
@@ -222,16 +216,9 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <!--<decorator-section name="pre-body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="ShippingTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>-->
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
                     </decorator-section>
@@ -309,7 +296,7 @@ under the License.
                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
                         </container>
                         <screenlet title="${uiLabelMap.ProductCategoryWithNoParent}">
-                            <include-form name="ListTopCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
+                            <include-grid name="ListTopCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -376,6 +363,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <section>
                             <condition>
@@ -406,6 +396,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
                     </decorator-section>

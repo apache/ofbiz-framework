@@ -32,6 +32,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/>
@@ -104,7 +105,7 @@ under the License.
                                         </section>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        <include-grid name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -130,18 +131,36 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <not><if-empty field="finAccountId"/></not>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
                             </condition>
                             <widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingEditFinAccount}"></label>
-                                <screenlet id="EditFinAccountPanel" collapsible="true">
-                                    <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
-                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="finAccountId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                        <screenlet id="EditFinAccountPanel" collapsible="true">
+                                            <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h1" text="${uiLabelMap.CommonCreate} ${uiLabelMap.AccountingFinAccount}"></label>
+                                         <screenlet id="CreateFinAccountPanel" collapsible="true">
+                                            <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="h1" text="${uiLabelMap.CommonCreate}"></label>
-                                <screenlet id="CreateFinAccountPanel" collapsible="true">
-                                    <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <screenlet>
+                                <include-form name="FinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -159,18 +178,40 @@ under the License.
                 <set field="helpAnchor" value="_help_for_edit_financial_account_roles"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>
+                <entity-condition entity-name="FinAccountRole" list="finAccountRoles">
+                    <order-by field-name="partyId"/>
+                    <order-by field-name="roleTypeId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h1" text="${uiLabelMap.AccountingEditFinAccountRoleFor}"/>
-                        <screenlet id="FinAccountRolePanel" collapsible="true">
-                            <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <screenlet id="FinAccountRolePanel" title="${uiLabelMap.PartyAddRole}">
+                                    <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
+                                 </screenlet>
+                                 <screenlet title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                                 </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                 <screenlet title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="FinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                                 </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -217,7 +258,7 @@ under the License.
                         <screenlet id="FinAccountAuthsPanel" title="${uiLabelMap.AccountingEditFinAccountAuthorityFor}]" collapsible="true">
                             <include-form name="AddFinAccountAuth" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <include-grid name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -257,9 +298,28 @@ under the License.
                                         <include-form name="PaymentsDepositWithdraw" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <platform-specific>
-                                            <html><html-template multi-block="true" location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
-                                        </platform-specific>
+                                        <section>
+                                            <condition>
+                                                <and>
+                                                    <or>
+                                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                                       <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                                    </or>
+                                                </and>
+                                            </condition>
+                                            <widgets>
+                                                <platform-specific>
+                                                    <html><html-template multi-block="true" location="component://accounting/template/payment/DepositWithdrawPayments.ftl"/></html>
+                                                </platform-specific>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <screenlet>
+                                                    <platform-specific>
+                                                        <html><html-template multi-block="true" location="component://accounting/template/finaccount/Mutations.ftl"/></html>
+                                                    </platform-specific>
+                                                </screenlet>
+                                            </fail-widgets>
+                                        </section>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -336,7 +396,7 @@ under the License.
                                         <include-form name="FindDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
+                                        <include-grid name="ListDepositSlips" location="component://accounting/widget/FinAccountForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -379,7 +439,7 @@ under the License.
                             <include-form name="EditDepositSlip" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingEditPaymentGroupMemberFor}">
-                            <include-form name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
+                            <include-grid name="ListDepositSlipMember" location="component://accounting/widget/FinAccountForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -449,30 +509,56 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
-                            <parameter param-name="finAccountId" from-field="finAccountId"/>
-                        </link>
                         <section>
                             <condition>
-                                <if-compare field="finAccount.finAccountTypeId" operator="equals" value="BANK_ACCOUNT"/>
+                                <or>
+                                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                    <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                </or>
                             </condition>
                             <widgets>
-                                <link target="BankReconciliation" text="${uiLabelMap.AccountingBankReconciliation}" style="buttontext">
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
                                     <parameter param-name="finAccountId" from-field="finAccountId"/>
-                                    <parameter param-name="statusId" value="FINACT_TRNS_CREATED"/>
                                 </link>
+                                <section>
+                                    <condition>
+                                        <if-compare field="finAccount.finAccountTypeId" operator="equals" value="BANK_ACCOUNT"/>
+                                    </condition>
+                                    <widgets>
+                                        <link target="BankReconciliation" text="${uiLabelMap.AccountingBankReconciliation}" style="buttontext">
+                                            <parameter param-name="finAccountId" from-field="finAccountId"/>
+                                            <parameter param-name="statusId" value="FINACT_TRNS_CREATED"/>
+                                        </link>
+                                    </widgets>
+                                </section>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <platform-specific>
+                                        <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
+                                        </platform-specific>
+                                    </decorator-section>
+                                </decorator-screen>
                             </widgets>
+                            <fail-widgets>
+                                <label style="h1" text="${uiLabelMap.AccountingFinAccount}: ${finAccountId}"></label>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <screenlet>
+                                        <platform-specific>
+                                        <html><html-template multi-block="true" location="component://accounting/template/finaccount/FinAccountTrans.ftl"/></html>
+                                        </platform-specific>
+                                        </screenlet>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </fail-widgets>
                         </section>
-                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                            <decorator-section name="search-options">
-                                <include-form name="FindFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
-                            </decorator-section>
-                            <decorator-section name="search-results">
-                                <platform-specific>
-                                    <html><html-template multi-block="true" location="component://accounting/template/finaccounttrans/FinAccountTrans.ftl"/></html>
-                                </platform-specific>
-                            </decorator-section>
-                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -543,7 +629,7 @@ under the License.
     <screen name="FinAccountPortlets">
         <section>
             <widgets>
-                <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
+                <include-grid name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -715,7 +801,7 @@ under the License.
                                 <include-form name="FindBankReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListFinAccountReconciliations" location="component://accounting/widget/FinAccountForms.xml"/>
+                                <include-grid name="ListFinAccountReconciliations" location="component://accounting/widget/FinAccountForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>

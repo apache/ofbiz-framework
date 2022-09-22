@@ -382,6 +382,40 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+    <xs:element name="return-user-message">
+        <xs:annotation>
+            <xs:documentation>
+                Before return a response to the end user, we can override the event message from different origin.
+                Hard coded, from the labelling system or from a given field
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="ressource" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Properties ressource to use for resolve the message, if you set a value here, indicate the key on value attribute
+                        otherwise this attribute will be ignored.
+                        'like: CommonUiLabels'
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="value" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Value to use to display the response user message.
+                        You can set a plain text, a flexible string or use a key from the property file give in ressource attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="from-field" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Set from what field in context we can found the response user message. This field can contain a flexible string
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="event">
         <xs:annotation>
             <xs:documentation>
@@ -417,7 +451,7 @@ under the License.
                     after-login,
                     before-logout)
                     where the name allows to differentiate them.
-                    Most of the time reques-maps, which have only 1 event, don't use it.
+                    Most of the time request-maps, which have only 1 event, don't use it.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -457,7 +491,7 @@ under the License.
             <xs:documentation>
                 You can have one response for each possible return code from the event.
                 An event can return any string, and that string can be used to route to different responses.
-                At least one reponse by request-map.
+                At least one response by request-map.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -469,6 +503,7 @@ under the License.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element minOccurs="0" ref="return-user-message"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.response"/>
         </xs:complexType>
@@ -477,7 +512,7 @@ under the License.
         <xs:attribute name="name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the response, wich also matches the string returned by the event
+                    The name of the response, that also matches the string returned by the event
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

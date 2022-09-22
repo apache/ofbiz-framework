@@ -719,9 +719,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (subWidget.equals(screenlet.getNavigationForm())) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             HttpServletResponse response = (HttpServletResponse) context.get("response");
-            VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
-            ModelTheme modelTheme = visualTheme.getModelTheme();
             if (request != null && response != null) {
+                VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
+                ModelTheme modelTheme = visualTheme.getModelTheme();
                 Map<String, Object> globalCtx = UtilGenerics.cast(context.get("globalContext"));
                 globalCtx.put("NO_PAGINATOR", true);
                 FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");

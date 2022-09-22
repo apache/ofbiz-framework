@@ -38,8 +38,8 @@ import org.apache.ofbiz.widget.model.ModelTree;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.TreeStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 import freemarker.template.TemplateException;
@@ -87,7 +87,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             String targetEntityId = null;
             Object obj1 = context.get("targetNodeTrail");
             List<String> targetNodeTrail = (obj1 instanceof List) ? UtilGenerics.cast(obj1) : null;
-            if (depth < targetNodeTrail.size()) {
+            if (targetNodeTrail != null && depth < targetNodeTrail.size()) {
                 targetEntityId = targetNodeTrail.get(depth);
             }
             // FIXME: Using a widget model in this way is an ugly hack.

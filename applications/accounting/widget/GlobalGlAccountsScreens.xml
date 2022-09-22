@@ -157,7 +157,7 @@ under the License.
                             <include-tree name="ListGlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleViewGlAccountEntries}">
-                            <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                            <include-grid name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
                      </decorator-section>
                 </decorator-screen>
@@ -239,7 +239,7 @@ under the License.
                                 <link target="ListGlAccountsReport" target-window="_blank" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                                 <link target="ListGlAccountsExport" target-window="_blank" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                             </container>
-                            <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                            <include-grid name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -310,7 +310,7 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingUpdateRateAmount}" navigation-form-name="ListRateAmounts">
                             <include-form name="UpdateRateAmount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <include-grid name="ListRateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

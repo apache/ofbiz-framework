@@ -25,6 +25,19 @@ under the License.
 
     <!-- generate a PDF for the order, sharing the same groovy file as the HTML page for viewing the order -->
     <screen name="OrderPDF">
+         <section>
+             <actions>
+                <set field="defaultTemplateLocation" value="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
+                <set field="defaultTemplateName" value="DefaultOrderPDF"/>
+                <script location="component://commonext/groovyScripts/template/DocTypeTemplate.groovy"/>
+            </actions>
+            <widgets>
+                <include-screen name="${templateName}" location="${templateLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="DefaultOrderPDF">
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrder" />

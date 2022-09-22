@@ -29,14 +29,14 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3
+    id 'at.bxm.svntools' version '3.1' // Java 11 is needed by version 3
     id 'org.asciidoctor.convert' version '2.4.0' // About org.asciidoctor.jvm.convert as it says itself: "If you need a production-ready version of the AsciidoctorJ plugin for Gradle use a 1.5.x release of 'org.asciidoctor.convert' instead"
-    id 'org.owasp.dependencycheck' version '6.3.1' apply false
-    id 'se.patrikerdes.use-latest-versions' version '0.2.17' apply false
-    id 'com.github.ben-manes.versions' version '0.39.0' apply false
+    id 'org.owasp.dependencycheck' version '7.1.1' apply false
+    id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
+    id 'com.github.ben-manes.versions' version '0.42.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version "3.1.0"
+    id "com.github.node-gradle.node" version "3.4.0"
 }
 
 /* OWASP plugin
@@ -80,9 +80,10 @@ ext.pluginsDir = "${rootDir}/plugins"
 
 application {
     mainClassName = 'org.apache.ofbiz.base.start.Start'
+    // jdk.serialFilter is to "Prevent possible DOS attack done using Java deserialisation" (OFBIZ-12592)
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
             ? jvmArgs.tokenize()
-            : ['-Xms128M', '-Xmx1024M']
+            : ['-Xms128M','-Xmx1024M','-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
 }
 
 distributions.main.contents.from(rootDir) {
@@ -101,7 +102,7 @@ javadoc {
         links(
             'https://docs.oracle.com/javase/8/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-2.5.11/html/api',
+            'http://docs.groovy-lang.org/docs/groovy-2.5.18/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
@@ -109,12 +110,15 @@ javadoc {
 
 node {
     download = true
-    version = "12.18.1"
-    // npmVersion will be the one that comes default with the node
+    version = "16.13.1"
+    // npmVersion will be the one that comes default with node
 
     // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
-    //// Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common/js")
+    // Set the work directory where node_modules should be located
+    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common-theme/js")
+    // If you set a "CI" env var then ci only will be used:
+    // https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/faq.md#how-do-i-use-npm-ci-instead-of-npm-install
+    npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
 }
 
 
@@ -156,18 +160,21 @@ allprojects {
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
             // need artifact only because of wrong pom metadata in maven central
+            // Required by: plugins:birt > org.eclipse.birt.runtime:viewservlets:4.5.0 > org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.4.1
+            // TODO Maybe this will no longer needed wheh upgrading viewservlets to 4.9.0
             url "https://repo1.maven.org/maven2"
             metadataSources {
                 artifact()
             }
         }
         maven {
-            // com.springsource.com.sun.syndication
-            url "https://repo.spring.io/plugins-release"
-        }
-        maven {
             url "https://clojars.org/repo"
         }
+        maven {
+            // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
+            url "https://repository.ow2.org/nexus/content/repositories/public/"
+        }
+
     }
 }
 
@@ -193,59 +200,67 @@ configurations {
 }
 
 dependencies {
-    implementation 'xerces:xercesImpl:2.12.1'
-    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'xerces:xercesImpl:2.12.2'
+    implementation 'com.google.zxing:core:3.5.0'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.2'
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20200713.1'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.3'
-    implementation 'com.ibm.icu:icu4j:69.1'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.50'
+    implementation 'com.ibm.icu:icu4j:71.1'
     implementation 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     implementation 'com.sun.mail:javax.mail:1.6.2'
-    implementation 'com.sun.syndication:com.springsource.com.sun.syndication:1.0.0'
-    implementation 'com.thoughtworks.xstream:xstream:1.4.18'
+    implementation 'com.rometools:rome:1.18.0'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.19'
     implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'commons-net:commons-net:3.8.0'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
-    implementation 'net.lingala.zip4j:zip4j:2.9.0'
-    implementation 'org.apache.ant:ant-junit:1.10.11'
+    implementation 'net.lingala.zip4j:zip4j:2.11.1'
+    implementation 'org.apache.ant:ant-junit:1.10.12'
     implementation 'org.apache.commons:commons-collections4:4.4'
     implementation 'org.apache.commons:commons-dbcp2:2.9.0'
-    implementation 'org.apache.commons:commons-imaging:1.0-alpha2' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
+    implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
     implementation 'org.apache.commons:commons-text:1.9'
-    implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
+    implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5'
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.13'
-    implementation 'org.apache.logging.log4j:log4j-api:2.14.1' // the API of log4j 2
-    implementation 'org.apache.logging.log4j:log4j-core:2.14.1' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.2' // the API of log4j 2
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.2' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
     implementation 'org.apache.pdfbox:pdfbox:2.0.24'
-    implementation 'org.apache.shiro:shiro-core:1.8.0'
-    implementation 'org.apache.sshd:sshd-core:1.7.0' // So far we did not update from 1.7.0 because of a compile issue. You may try w/ a newer version than  2.4.0
-    implementation 'org.apache.tika:tika-core:1.26' //  2.1.0 does not work
-    implementation 'org.apache.tika:tika-parsers:1.25' //  2.1.0 does not work
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.54' // Remember to change the version number (9 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.54'
-    implementation 'org.apache.axis2:axis2-kernel:1.7.9' // Above: SOAPEventHandler.java:42: error: package org.apache.axiom.om.impl.builder does not exist
+    implementation 'org.apache.shiro:shiro-core:1.9.0'
+    implementation 'org.apache.sshd:sshd-core:2.8.0'
+    implementation 'org.apache.sshd:sshd-sftp:2.8.0'
+    // Note: The Apache Tika PMC has set September 30, 2022 as the End Of Life for the Tika 1.x branch.
+    //       The PMC will make security fixes for the 1.x branch until that date.
+    implementation 'org.apache.tika:tika-core:2.4.1'
+    implementation 'org.apache.tika:tika-parsers:2.4.1'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
+    implementation 'org.apache.tika:tika-parser-pdf-module:2.4.1'
+    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.3'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.60' // Remember to change the version number (9 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.60'
+    implementation 'org.apache.axis2:axis2-kernel:1.8.1'
     implementation 'batik:batik-svg-dom:1.6-1'
     implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
-    implementation 'org.clojure:clojure:1.10.2'
-    implementation 'org.codehaus.groovy:groovy-all:2.5.11' // Compile issue with commons-cli and Groovy 3. Remember to change the version number in javadoc block.
+    implementation 'org.clojure:clojure:1.11.1'
+    implementation 'org.codehaus.groovy:groovy-all:2.5.18' // Compile issue with commons-cli and Groovy 3. Remember to change the version number in javadoc block.
     implementation 'org.freemarker:freemarker:2.3.31' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
-    implementation 'org.owasp.esapi:esapi:2.2.2.0'
-    implementation 'org.springframework:spring-test:5.3.9'
+    implementation 'org.owasp.esapi:esapi:2.4.0.0'
+    implementation 'org.cyberneko:html:1.9.8'
+    implementation 'org.springframework:spring-test:5.3.21'
     implementation 'org.zapodot:jackson-databind-java-optional:2.6.1'
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
-    implementation 'com.auth0:java-jwt:3.18.1'
+    implementation 'com.auth0:java-jwt:4.0.0'
     implementation 'org.jdom:jdom:1.1.3' // don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
+    implementation 'com.google.re2j:re2j:1.6'
 
     testImplementation 'org.hamcrest:hamcrest-library:2.2' // Enable junit4 to not depend on hamcrest-1.3
-    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation 'org.mockito:mockito-core:4.6.1'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'com.pholser:junit-quickcheck-generators:1.0'
 
@@ -253,14 +268,15 @@ dependencies {
     runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
-    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.7.9' // Above: SOAPEventHandler.java:42: error: package org.apache.axiom.om.impl.builder does not exist
-    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.7.9' // Above: SOAPEventHandler.java:42: error: package org.apache.axiom.om.impl.builder does not exist
-    runtimeOnly 'org.apache.derby:derby:10.14.2.0'  // So far we did not update from 10.14.2.0 because of a compile issue. You may try w/ a newer version than 10.15.1.3
+    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.1'
+    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.1'
+    runtimeOnly 'org.apache.derby:derby:10.14.2.0' // So far we did not update from 10.14.2.0 because of a runtime issue with 10.16.1.1: java.lang.ClassNotFoundException: org.apache.derby.jdbc.EmbeddedDriver
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.14.1' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.14.1' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1' // for external jars using slf4j: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.14.1' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.17.2' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.17.2' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.17.2' //???
+    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.17.2' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtimeOnly 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // Dependencies defined by the plugins
@@ -270,8 +286,8 @@ dependencies {
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
-    junitReport 'junit:junit:4.13.1'
-    junitReport 'org.apache.ant:ant-junit:1.10.11'
+    junitReport 'junit:junit:4.13.2'
+    junitReport 'org.apache.ant:ant-junit:1.10.12'
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
     asciidoctor 'org.jruby:jruby-complete:9.2.19.0' // bug workaround - see OFBIZ-9873
 
@@ -350,10 +366,9 @@ checkstyle {
     // the sum of errors found last time it was changed after using the
     // ‘checkstyle’ tool present in the framework and in the official
     // plugins.
-    tasks.checkstyleMain.maxErrors = 10
-    // Currently there are still errors so we need to temporarily
-    // hide them to avoid polluting the terminal output.
-    showViolations = false
+    tasks.checkstyleMain.maxErrors = 0
+    // Currently there are no errors so we can show new one when they appear
+    showViolations = true
 }
 gitHooks {
     hooks = ['pre-push': 'checkstyleMain']
@@ -1017,7 +1032,7 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
 }
 task cleanNpm(group: cleanupGroup, description: 'clean node modules') {
     doLast {
-        delete "${project.projectDir}/themes/common-theme/webapp/common/js/node_modules"
+        delete "${project.projectDir}/themes/common-theme/webapp/common-theme/js/node_modules"
     }
 }
 /*
@@ -1148,7 +1163,6 @@ tasks.startScripts {
                 unixScript.text.replace('CLASSPATH=$APP_HOME/lib','CLASSPATH=$APP_HOME/config/:$APP_HOME/lib-extra/*:$APP_HOME/lib')
         // Alter the start script for Windows systems.
         windowsScript.text =
-                windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib',
- 'CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
+                windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib','CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
     }
 }

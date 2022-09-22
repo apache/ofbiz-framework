@@ -112,7 +112,7 @@ under the License.
                             <include-form name="AddSecurityGroupPermissionManual" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.Permissions}">
-                            <include-form name="ListSecurityGroupPermissions" location="component://common/widget/SecurityForms.xml"/>
+                            <include-grid name="ListSecurityGroupPermissions" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -138,7 +138,7 @@ under the License.
                             <include-form name="AddSecurityGroupProtectedView" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="ListSecurityGroupProtectedViews" location="component://common/widget/SecurityForms.xml"/>
+                          <include-grid name="ListSecurityGroupProtectedViews" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -164,7 +164,7 @@ under the License.
                             <include-form name="AddSecurityGroupUserLogin" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet>
-                            <include-form name="ListSecurityGroupUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                            <include-grid name="ListSecurityGroupUserLogins" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -220,7 +220,7 @@ under the License.
                             <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet>
-                          <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                          <include-grid name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -247,7 +247,7 @@ under the License.
                             <include-form name="EditCertificate" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.CertIssuers}">
-                            <include-form name="CertIssuerList" location="component://common/widget/SecurityForms.xml"/>
+                            <include-grid name="CertIssuerList" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -274,7 +274,7 @@ under the License.
                             <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
                         </container>
                         <screenlet>
-                            <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                            <include-grid name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -301,7 +301,7 @@ under the License.
                             <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
                         </container>
                         <screenlet>
-                            <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                            <include-grid name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -362,7 +362,7 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.CertSaveToKeyStore}">
                             <include-form name="ViewCertificate" location="component://common/widget/SecurityForms.xml"/>
-                            <include-form name="CertToKeystore" location="component://common/widget/SecurityForms.xml"/>
+                            <include-grid name="CertToKeystore" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                         </container>
                     </decorator-section>

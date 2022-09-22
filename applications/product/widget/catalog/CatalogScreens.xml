@@ -39,7 +39,7 @@ under the License.
                                         <include-form name="FindCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                        <include-grid name="ListCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -59,10 +59,27 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${groovy: parameters.prodCatalogId ? uiLabelMap.PageTitleEditProductCatalog : uiLabelMap.PageTitleNewProductCatalog}">
-                            <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
-                            <include-form name="EditProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${groovy: parameters.prodCatalogId ? uiLabelMap.PageTitleEditProductCatalog : uiLabelMap.PageTitleNewProductCatalog}">
+                                    <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
+                                    <include-form name="EditProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-form name="Catalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -110,7 +127,7 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalogCategories}">
-                            <include-form name="EditProdCatalogCategories" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                            <include-grid name="EditProdCatalogCategories" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductAddCatalogProdCat}">
                             <include-form name="AddProductCategoryToProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
@@ -135,7 +152,7 @@ under the License.
                  <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalogParties}">
-                            <include-form name="UpdateProdCatalogToParty" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                            <include-grid name="UpdateProdCatalogToParty" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductCatalogParties}">
                             <include-form name="AddProdCatalogToParty" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
@@ -160,7 +177,7 @@ under the License.
                  <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalogStores}">
-                            <include-form name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                            <include-grid name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductCatalogStores}">
                             <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
@@ -170,7 +187,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ShortcutApp">
         <section>
             <actions>

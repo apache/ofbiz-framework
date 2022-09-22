@@ -28,17 +28,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.UrlServletHelper;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.product.category.ftl.CatalogUrlSeoTransform;
 
 public class CatalogUrlSeoFilter extends CatalogUrlFilter {
-
-    private static final String MODULE = CatalogUrlSeoFilter.class.getName();
-
-    private String defaultLocaleString = null;
-    private String redirectUrl = null;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -52,15 +46,9 @@ public class CatalogUrlSeoFilter extends CatalogUrlFilter {
         // Set request attribute and session
         UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
 
-        // set initial parameters
-        String initDefaultLocalesString = getConfig().getInitParameter("defaultLocaleString");
-        String initRedirectUrl = getConfig().getInitParameter("redirectUrl");
-        defaultLocaleString = UtilValidate.isNotEmpty(initDefaultLocalesString) ? initDefaultLocalesString : "";
-        redirectUrl = UtilValidate.isNotEmpty(initRedirectUrl) ? initRedirectUrl : "";
-
         // set the ServletContext in the request for future use
         httpRequest.setAttribute("servletContext", getConfig().getServletContext());
-        if (CatalogUrlSeoTransform.forwardUri(httpRequest, httpResponse, delegator, ControlServlet.getControlServlet())) {
+        if (CatalogUrlSeoTransform.forwardUri(httpRequest, httpResponse, delegator, CategoryControlServlet.getControlServlet())) {
             return;
         }
         super.doFilter(httpRequest, httpResponse, chain);

@@ -20,6 +20,7 @@ package org.apache.ofbiz.accounting.payment;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
@@ -29,13 +30,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -91,6 +91,8 @@ public class PaymentGatewayServices {
     private static final int DECIMALS = UtilNumber.getBigDecimalScale("order.decimals");
     private static final RoundingMode ROUNDING = UtilNumber.getRoundingMode("order.rounding");
     private static final BigDecimal ZERO = BigDecimal.ZERO.setScale(DECIMALS, ROUNDING);
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
@@ -3441,8 +3443,7 @@ public class PaymentGatewayServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         String refNum = UtilDateTime.nowAsString();
-        Random r = new Random();
-        int i = r.nextInt(9);
+        int i = SECURE_RANDOM.nextInt(9);
         if (i < 5 || i % 2 == 0) {
             result.put("authResult", Boolean.TRUE);
             result.put("authFlag", "A");

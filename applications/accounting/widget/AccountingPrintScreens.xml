@@ -25,6 +25,19 @@ under the License.
 
     <!-- generate a PDF for the invoice. Sharing the same script file as the HTML page for viewing invoice -->
     <screen name="InvoicePDF">
+         <section>
+             <actions>
+                <set field="defaultTemplateLocation" value="component://accounting/widget/AccountingPrintScreens.xml"/>
+                <set field="defaultTemplateName" value="DefaultInvoicePDF"/>
+                <script location="component://commonext/groovyScripts/template/DocTypeTemplate.groovy"/>
+            </actions>
+            <widgets>
+                <include-screen name="${templateName}" location="${templateLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="DefaultInvoicePDF">
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>

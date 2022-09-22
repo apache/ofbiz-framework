@@ -1087,10 +1087,15 @@ public class FormRenderer {
                 }
             }
 
-            FieldInfo fieldInfo = currentFormField.getFieldInfo();
-            if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
-                    || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
-                continue;
+            FieldInfo fieldInfo = null;
+            if (currentFormField != null) {
+                fieldInfo = currentFormField.getFieldInfo();
+            }
+            if (fieldInfo != null) {
+                if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                        || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
+                    continue;
+                }
             }
             if (alreadyRendered.contains(currentFormField.getName())) {
                 continue;
@@ -1227,7 +1232,7 @@ public class FormRenderer {
         }
         int itemIndex = -1;
         if (iter instanceof EntityListIterator) {
-            EntityListIterator eli = (EntityListIterator) iter;
+            EntityListIterator eli = (EntityListIterator) iter; // INFO Spotbugs reports here "'eli' is never closed" but that's on purpose
             try {
                 if (eli.getResultsSizeAfterPartialList() > 0) {
                     itemIndex++;
@@ -1235,7 +1240,7 @@ public class FormRenderer {
             } catch (GenericEntityException gee) {
                 Debug.logError(gee, MODULE);
             }
-        } else {
+        } else if (iter != null) {
             while (iter.hasNext()) {
                 itemIndex++;
                 break;

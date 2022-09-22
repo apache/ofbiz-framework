@@ -233,6 +233,22 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceStatus"/>
     </request-map>
+    <request-map uri="invoiceAttributes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceAttributes"/>
+    </request-map>
+    <request-map uri="invoiceContactMech">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceContactMech"/>
+    </request-map>
+    <request-map uri="invoiceContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceContent"/>
+    </request-map>
+    <request-map uri="invoiceNotes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceNotes"/>
+    </request-map>
     
     <!-- re Invoice Roles -->
     <request-map uri="invoiceRoles">
@@ -349,6 +365,10 @@ under the License.
     <request-map uri="paymentOverview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="paymentOverview"/>
+    </request-map>
+    <request-map uri="paymentAttributes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="paymentAttributes"/>
     </request-map>
     <request-map uri="editPaymentApplications">
         <security https="true" auth="true"/>
@@ -2628,6 +2648,10 @@ under the License.
     <view-map name="editInvoiceTimeEntries" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceTimeEntries"/>
     <view-map name="invoiceStatus" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceStatus"/>
     <view-map name="editInvoiceApplications" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceApplications"/>
+    <view-map name="invoiceAttributes" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceAttributes"/>
+    <view-map name="invoiceContactMech" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceContactMech"/>
+    <view-map name="invoiceContent" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceContent"/>
+    <view-map name="invoiceNotes" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceNotes"/>
     <view-map name="invoiceRoles" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceRoles"/>
     <view-map name="invoiceTerms" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceTerms"/>
     <view-map name="sendPerEmail" type="screen" page="component://accounting/widget/InvoiceScreens.xml#SendPerEmail"/>
@@ -2636,6 +2660,7 @@ under the License.
     <!-- Payment -->
     <view-map name="findPayments" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPayments"/>
     <view-map name="paymentOverview" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentOverview"/>
+    <view-map name="paymentAttributes" type="screen" page="component://accounting/widget/PaymentScreens.xml#PaymentAttributes"/>
     <view-map name="newPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#NewPayment"/>
     <view-map name="editPayment" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPayment"/>
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>

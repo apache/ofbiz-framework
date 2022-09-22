@@ -32,11 +32,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
+    - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: 11
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew pullAllPluginsSource check
+      run: ./gradlew pullAllPluginsSource check javadoc  
+# Below does not work, see see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
+#     - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
+#       run: ./gradlew pullAllPluginsSource check javadoc loadAll testIntegration

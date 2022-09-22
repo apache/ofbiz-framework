@@ -373,7 +373,6 @@ public class SQLProcessor implements AutoCloseable {
         }
 
         try {
-            sql = sql;
             ind = 1;
             if (specifyTypeAndConcur) {
                 ps = connection.prepareStatement(sql, resultSetType, resultSetConcurrency);

@@ -64,7 +64,10 @@ public final class ModelScreenCondition {
         public boolean eval(Map<String, Object> context) {
             Object obj = context.get("sections");
             Map<String, Object> sectionsMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
-            return !sectionsMap.containsKey(this.sectionExdr.expandString(context));
+            if (sectionsMap != null) {
+                return !sectionsMap.containsKey(this.sectionExdr.expandString(context));
+            }
+            return false;
         }
 
         public FlexibleStringExpander getSectionExdr() {

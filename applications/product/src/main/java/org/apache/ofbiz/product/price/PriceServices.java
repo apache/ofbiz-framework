@@ -68,7 +68,9 @@ public class PriceServices {
      * <p>Calculates the price of a product from pricing rules given the following input, and of course access to the database:</p>
      * <ul>
      *   <li>productId
+     *   <li>productCategoryId
      *   <li>partyId
+     *   <li>partyClassificationGroupId
      *   <li>prodCatalogId
      *   <li>webSiteId
      *   <li>productStoreId
@@ -708,8 +710,16 @@ public class PriceServices {
                 }
             }
 
+            // by partyClassificationGroupId
+            Collection<GenericValue> partyClassificationGroupIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId",
+                    "PRIP_PARTY_CLASS").cache(true).queryList();
+            if (UtilValidate.isNotEmpty(partyClassificationGroupIdConds)) {
+                for (GenericValue partyClassificationGroupIdCond: partyClassificationGroupIdConds) {
+                    productPriceRuleIds.add(partyClassificationGroupIdCond.getString("productPriceRuleId"));
+                }
+            }
+
             // TODO, not supported yet: by groupPartyId
-            // TODO, not supported yet: by partyClassificationGroupId
             // later: (by partyClassificationTypeId)
 
             // by listPrice

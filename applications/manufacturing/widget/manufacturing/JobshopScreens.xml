@@ -123,7 +123,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ManufacturingPrecedingProductionRun}">
-                                    <include-form name="MandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="MandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -133,24 +133,24 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ManufacturingSucceedingProductionRun}">
-                                    <include-form name="DependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="DependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ManufacturingOrderItems}">
-                            <include-form name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
-                            <include-form name="ViewListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ViewListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingMaterials}">
-                            <include-form name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}">
-                            <include-form name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunNotes}">
-                            <include-form name="ListProductionRunNotes" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunNotes" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -219,7 +219,7 @@ under the License.
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ManufacturingInventoryItemsProduced}">
-                            <include-form name="ListProductionRunInventoryItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunInventoryItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -245,7 +245,7 @@ under the License.
                             <include-form name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
-                            <include-form name="ListProductionRunDeclRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunDeclRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -253,7 +253,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ManufacturingMaterials}">
-                                    <include-form name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -271,14 +271,13 @@ under the License.
                                 <section>
                                   <condition><not><if-empty field="prunInventoryProduced"/></not></condition>
                                   <widgets>
-                                    <include-form name="ProductionRunTaskInventoryProducedList" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="ProductionRunTaskInventoryProducedList" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                   </widgets>
                                 </section>
                               </container>
                             </widgets>
                           </section>
                         </screenlet>
-
                         <screenlet title="${uiLabelMap.ManufacturingMaterialsRequiredByRunningTask}">
                             <include-form name="ListIssueProductionRunDeclComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
@@ -286,7 +285,7 @@ under the License.
                             <include-form name="ListReturnProductionRunDeclComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}">
-                            <include-form name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -423,7 +422,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet>
-                    <include-form name="ProductionRunPartyAssocs" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                    <include-grid name="ProductionRunPartyAssocs" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -439,7 +438,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet>
-                    <include-form name="ProductionRunTaskPartyAssocs" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                    <include-grid name="ProductionRunTaskPartyAssocs" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -471,7 +470,7 @@ under the License.
                         <screenlet id="EditProductionRunRoutingTaskPanel" title="${uiLabelMap.ManufacturingProductionRunTasks}" collapsible="true">
                             <include-form name="EditProductionRunRoutingTask" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
-                        <include-form name="ListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                        <include-grid name="ListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -625,7 +624,7 @@ under the License.
                 <set field="taskCosts" value="${groovy: request.getAttribute('taskCosts');}"/>
             </actions>
             <widgets>
-                <include-form name="ProductionRunTaskCosts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                <include-grid name="ProductionRunTaskCosts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -648,7 +647,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-form name="ListProductionRunContent" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                <include-grid name="ListProductionRunContent" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 <screenlet title="Import Content From Product ${delivProductId}">
                                     <include-form name="FindDelivProductContent" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                     <include-form name="ListDelivProductContent" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
@@ -715,7 +714,7 @@ under the License.
                                         <include-form name="FindProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFindProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                        <include-grid name="ListFindProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -747,7 +746,7 @@ under the License.
                 <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingWorkWithShipmentPlans}">
-                            <include-form name="ListShipmentPlans" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListShipmentPlans" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -755,7 +754,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.FormFieldTitle_shipmentId} ${shipment.shipmentId}">
-                                    <include-form name="ListShipmentPlan" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="ListShipmentPlan" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                                 <section>
                                     <condition>

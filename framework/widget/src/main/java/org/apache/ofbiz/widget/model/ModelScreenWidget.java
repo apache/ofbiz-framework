@@ -1468,8 +1468,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     mimeTypeId = content.getString("mimeTypeId");
                 }
 
-                if (!(mimeTypeId != null
-                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0))) {
+                // This is to render an image only, not an application document
+                if (!(mimeTypeId != null && mimeTypeId.indexOf("application") >= 0)) {
                     screenStringRenderer.renderContentBegin(writer, context, this);
                     screenStringRenderer.renderContentBody(writer, context, this);
                     screenStringRenderer.renderContentEnd(writer, context, this);

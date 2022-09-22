@@ -871,7 +871,7 @@
         <value xml:lang="en">Agreement Items</value>
         <value xml:lang="es">Elementos de acuerdo</value>
         <value xml:lang="es-CL">Ítems del Contrato</value>
-        <value xml:lang="fr">Points d'accord commercial</value>
+        <value xml:lang="fr">Articles de l'accord commercial</value>
         <value xml:lang="hi-IN">अनुबंध मदें</value>
         <value xml:lang="it">Righe Contratto</value>
         <value xml:lang="ja">契約アイテム</value>
@@ -1054,7 +1054,7 @@
         <value xml:lang="de">Noch nicht angewandter Betrag</value>
         <value xml:lang="en">Amount not yet applied</value>
         <value xml:lang="es">Cantidad aún no aplicada</value>
-        <value xml:lang="fr">Montant non encore alloué</value>
+        <value xml:lang="fr">Montant non encore enregistré</value>
         <value xml:lang="hi-IN">राशि अब तक लागु नहीं  है</value>
         <value xml:lang="it">Importo non ancora applicato</value>
         <value xml:lang="ja">未消込金額</value>
@@ -1173,12 +1173,12 @@
         <value xml:lang="zh">应付支付组</value>
         <value xml:lang="zh-TW">應付支付群組</value>
     </property>
-    <property key="AccountingApplicationSuccess">
+    <property key="AccountingPaymentApplicationSuccess">
         <value xml:lang="ar">تطبيق ${amountApplied?currency$({isoCode})} من الدفعة [${paymentId}] إلى ${toMessage}</value>
         <value xml:lang="de">${amountApplied?currency(${isoCode})} von Zahlung [${paymentId}] to ${toMessage} zugewiesen</value>
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
         <value xml:lang="es">Aplicando ${amountApplied?currency(${isoCode})} de pago [${paymentId}] a ${toMessage}</value>
-        <value xml:lang="fr">Allouer ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
+        <value xml:lang="fr">Enregistrement de ${amountApplied?currency(${isoCode})} du paiement [${paymentId}] à ${toMessage}</value>
         <value xml:lang="hi-IN">${toMessage} के लिए  भुगतान से [${paymentId}], ${amountApplied?currency(${isoCode})} को लगाएं</value>
         <value xml:lang="it">Applicazione ${amountApplied?currency(${isoCode})} dal pagamento [${paymentId}] a ${toMessage}</value>
         <value xml:lang="ja">${amountApplied?currency(${isoCode})} を、支払 [${paymentId}] から ${toMessage} に消込中</value>
@@ -1264,12 +1264,12 @@
         <value xml:lang="zh">到税务机关辖区[${taxAuthGeoId}]</value>
         <value xml:lang="zh-TW">到稅務機關轄區[${taxAuthGeoId}]</value>
     </property>
-    <property key="AccountingApplications">
+    <property key="AccountingPaymentsApplications">
         <value xml:lang="ar">تطبيقات</value>
         <value xml:lang="de">Zuweisungen</value>
-        <value xml:lang="en">Applications</value>
+        <value xml:lang="en">Payments</value>
         <value xml:lang="es">Aplicaciones</value>
-        <value xml:lang="fr">Allocations</value>
+        <value xml:lang="fr">Enregistrement des paiements</value>
         <value xml:lang="hi-IN">अनुप्रयोग</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">適用</value>
@@ -1288,7 +1288,7 @@
         <value xml:lang="en">Applied Payments</value>
         <value xml:lang="es">Pagos aplicados</value>
         <value xml:lang="es-CL">Pagos Aplicados</value>
-        <value xml:lang="fr">Paiements alloués</value>
+        <value xml:lang="fr">Paiements enregistrés</value>
         <value xml:lang="hi-IN">प्रयुक्त भुगतान</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">消込済支払</value>
@@ -1307,7 +1307,7 @@
         <value xml:lang="en">Apply this payment to</value>
         <value xml:lang="es">Aplicar este pago a</value>
         <value xml:lang="es-CL">Aplicar este Pago a</value>
-        <value xml:lang="fr">Allouer ce paiement à</value>
+        <value xml:lang="fr">Enregistrer ce paiement à</value>
         <value xml:lang="hi-IN">इस भुगतान के लिए लागू करें</value>
         <value xml:lang="it">Applica questo pagamento a</value>
         <value xml:lang="ja">この支払を消込(先)</value>
@@ -1468,7 +1468,7 @@
         <value xml:lang="de">Zahlung zu dieser Rechnung zuweisen</value>
         <value xml:lang="en">Assign Payment to This Invoice</value>
         <value xml:lang="es">Asignar pago a esta factura</value>
-        <value xml:lang="fr">Allouer le paiement à cette facture</value>
+        <value xml:lang="fr">Enregistrer le paiement à cette facture</value>
         <value xml:lang="hi-IN">इस चालान को निरुपित भुगतान</value>
         <value xml:lang="it">Assegna Pagamento a Questa Fattura</value>
         <value xml:lang="ja">この請求に支払を割当</value>
@@ -1506,7 +1506,7 @@
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
         <value xml:lang="es">Asignar tipo de factura de venta a ingresos número de cuenta de LM de ingresos</value>
         <value xml:lang="es-CL">Asignar Tipo de Factura de Venta a Cuenta del Libro Mayor</value>
-        <value xml:lang="fr">Allouer un type de facture de vente au compte comptable n°</value>
+        <value xml:lang="fr">Enregistrer un type de facture de vente au compte comptable n°</value>
         <value xml:lang="hi-IN">राजस्व सामान्य बही खाता निरुपित करने के लिए बिक्री चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Vendita al Numero Conto Profitti Gl</value>
         <value xml:lang="ja">収入GL勘定に販売請求種類を割当</value>
@@ -2050,44 +2050,6 @@
         <value xml:lang="zh">账单账户编号</value>
         <value xml:lang="zh-TW">帳單帳戶識別</value>
     </property>
-    <property key="AccountingBillingAccountLessRequested">
-        <value xml:lang="ar">حساب الفوترة  [${billingAccountId}]لديه ${billingAccountApplyAvailable?currency(${isoCode})} للتطبيق لكن ${amountApplied?currency(${isoCode})}مطلوبة</value>
-        <value xml:lang="de">Rechnungskonto [${billingAccountId}] hat ${billingAccountApplyAvailable?currency(${isoCode})} zuzuweisen, aber ${amountApplied?currency(${isoCode})} wird gefordert</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] has ${billingAccountApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="es-CL">Cuenta de Facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">Le compte de facturation [${billingAccountId}] a un solde de ${billingAccountApplyAvailable?currency(${isoCode})}; un montant de ${amountApplied?currency(${isoCode})} trop élevé ne peut être alloué</value>
-        <value xml:lang="hi-IN">देयकांकन खाता [${billingAccountId}] लागू करने के लिए ${billingAccountApplyAvailable?currency(${isoCode})} रखता है पर ${amountApplied?currency(${isoCode})} अपेक्षित  है</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha ${billingAccountApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
-        <value xml:lang="ja">請求先アカウント [${billingAccountId}] は ${billingAccountApplyAvailable?currency(${isoCode})} を消込していますが、${amountApplied?currency(${isoCode})} がリクエストされています</value>
-        <value xml:lang="nl">factuurrekening [${billingAccountId}] heeft een saldo van ${billingAccountApplyAvailable?currency(${isoCode})} echter ${amountApplied?currency(${isoCode})} is aangevraagd</value>
-        <value xml:lang="pt">Conta de Cobrança [${billingAccountId}] tem ${billingAccountApplyAvailable?currency(${isoCode})} para aplicar, mas ${amountApplied?currency(${isoCode})} é solicitado</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] are ${billingAccountApplyAvailable?currency(${isoCode})} de aplicat dar se cere ${amountApplied?currency(${isoCode})}</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] использует ${billingAccountApplyAvailable?currency(${isoCode})} но запрошен ${amountApplied?currency(${isoCode})}</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] มี ${billingAccountApplyAvailable?currency(${isoCode})} ถึงการสมัครแต่ ${amountApplied?currency(${isoCode})} เรียกร้อง</value>
-        <value xml:lang="vi">Tài khoản thanh toán [${billingAccountId}] có ${billingAccountApplyAvailable?currency(${isoCode})} để khớp lệnh nhưng ${amountApplied?currency(${isoCode})} mới là mong đợi</value>
-        <value xml:lang="zh">账单账户[${billingAccountId}]有${billingAccountApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
-        <value xml:lang="zh-TW">帳單帳戶[${billingAccountId}]有${billingAccountApplyAvailable?currency(${isoCode})}要應用,但是請求的是${amountApplied?currency(${isoCode})}</value>
-    </property>
-    <property key="AccountingBillingAccountNotEnough">
-        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لديه سوى  ${newBillingAccountApplyAvailable?currency(${isoCode})} متوفرة إذن ${amountApplied?currency(${isoCode})} أكثر من اللازم</value>
-        <value xml:lang="de">Rechnungskonto [${billingAccountId}] hat nur  ${newBillingAccountApplyAvailable?currency(${isoCode})} verfügbar, deswegen ist ${amountApplied?currency(${isoCode})} zu viel</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] has only  ${newBillingAccountApplyAvailable?currency(${isoCode})} available so ${amountApplied?currency(${isoCode})} is too much</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene solo ${newBillingAccountApplyAvailable?currency(${isoCode})} disponible asi que ${amountApplied?currency(${isoCode})} es demasiado</value>
-        <value xml:lang="es-CL">Cuenta de Facturación [${billingAccountId}] tiene solo ${newBillingAccountApplyAvailable?currency(${isoCode})} disponible asi que ${amountApplied?currency(${isoCode})} es demasiado</value>
-        <value xml:lang="fr">Le compte de facturation [${billingAccountId}] est limité à  ${newBillingAccountApplyAvailable?currency(${isoCode})} donc ${amountApplied?currency(${isoCode})} est trop élevé</value>
-        <value xml:lang="hi-IN">देयकांकन खाता [${billingAccountId}] में ${newBillingAccountApplyAvailable?currency(${isoCode})} इतना ही उपलब्ध है ,इसलिए ${amountApplied?currency(${isoCode})} बहुत अधिक है</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha solo  ${newBillingAccountApplyAvailable?currency(${isoCode})} disponibile così ${amountApplied?currency(${isoCode})} è troppo grande</value>
-        <value xml:lang="ja">請求先アカウント [${billingAccountId}] は ${newBillingAccountApplyAvailable?currency(${isoCode})} のみ可能です、${amountApplied?currency(${isoCode})} は多すぎます</value>
-        <value xml:lang="nl">factuurrekening [${billingAccountId}] heeft maar  ${newBillingAccountApplyAvailable?currency(${isoCode})} beschikbaar, dus ${amountApplied?currency(${isoCode})} is te veel</value>
-        <value xml:lang="pt">Conta de cobrança [${billingAccountId}] possui aepnas ${newBillingAccountApplyAvailable?currency(${isoCode})} disponível, então${amountApplied?currency(${isoCode})} é demais</value>
-        <value xml:lang="ro">Contul de Facturare [${billingAccountId}] are numai ${newBillingAccountApplyAvailable?currency(${isoCode})} pozitii disponibile ${amountApplied?currency(${isoCode})} deci este prea mare</value>
-        <value xml:lang="ru">Для кредитного счета [${billingAccountId}] доступно только  ${newBillingAccountApplyAvailable?currency(${isoCode})} таким образом ${amountApplied?currency(${isoCode})} это слишком много</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] มีเพียง ${newBillingAccountApplyAvailable?currency(${isoCode})} ดังนั้นใช้ได้ ${amountApplied?currency(${isoCode})} มาก</value>
-        <value xml:lang="vi">Tài khoản thanh toán [${billingAccountId}] chỉ có ${newBillingAccountApplyAvailable?currency(${isoCode})} sẵn sàng nên ${amountApplied?currency(${isoCode})} là quá nhiều</value>
-        <value xml:lang="zh">账单账户[${billingAccountId}]只有${newBillingAccountApplyAvailable?currency(${isoCode})}有效，因此${amountApplied?currency(${isoCode})}太多了</value>
-        <value xml:lang="zh-TW">帳單帳戶[${billingAccountId}]只有${newBillingAccountApplyAvailable?currency(${isoCode})}有效,因此${amountApplied?currency(${isoCode})}太多了</value>
-    </property>
     <property key="AccountingBillingAccountNotFound">
         <value xml:lang="ar">حساب الفوترة ${billingAccountId} عير موجود...</value>
         <value xml:lang="de">Rechnungskonto ${billingAccountId} nicht gefunden...</value>
@@ -2106,84 +2068,6 @@
         <value xml:lang="vi">Tài khoản thanh toán ${billingAccountId} không tìm thấy...</value>
         <value xml:lang="zh">没有找到账单账户 ${billingAccountId}...</value>
         <value xml:lang="zh-TW">沒有找到帳單帳戶 ${billingAccountId}...</value>
-    </property>
-    <property key="AccountingBillingAccountOnly">
-        <value xml:lang="ar"> سدد بحساب الفوترة فقط</value>
-        <value xml:lang="de">Nur über Rechnungskonto zahlen</value>
-        <value xml:lang="en">Billing Account Only</value>
-        <value xml:lang="es">Sólo pagar a la cuenta de facturación</value>
-        <value xml:lang="es-CL">Sólo pagar a la Cuenta de Facturación</value>
-        <value xml:lang="fr">Ne payer qu'avec le compte de facturation</value>
-        <value xml:lang="hi-IN">सिर्फ देयकांकन(बिलिंग) खाता</value>
-        <value xml:lang="it">Solo Conto Fatturazione</value>
-        <value xml:lang="ja">請求先アカウントのみ</value>
-        <value xml:lang="nl">Betaal alleen op rekening</value>
-        <value xml:lang="pt">Apenas conta de cobrança</value>
-        <value xml:lang="ro">Platit numai prin Contul de Facturare</value>
-        <value xml:lang="ru">Платить только через кредитный счет</value>
-        <value xml:lang="th">จ่ายโดยยอดรวมของบัญชีเท่านั้น</value>
-        <value xml:lang="vi">Duy nhất</value>
-        <value xml:lang="zh">仅能使用账单账户支付</value>
-        <value xml:lang="zh-TW">僅能使用帳單帳戶支付</value>
-    </property>
-    <property key="AccountingBillingAccountPayments">
-        <value xml:lang="ar">تسديدات حساب الفوترة</value>
-        <value xml:lang="de">Zahlungen für Rechnungskonto</value>
-        <value xml:lang="en">Billing Account Payments</value>
-        <value xml:lang="es">Pago con cuenta de facturación</value>
-        <value xml:lang="es-CL">Pago con Cuenta de Facturación</value>
-        <value xml:lang="fr">Paiements compte de facturation</value>
-        <value xml:lang="hi-IN">भुगतान के लिए देयकांकन(बिलिंग) खाता</value>
-        <value xml:lang="it">Pagamenti Conto Fatturazione</value>
-        <value xml:lang="ja">請求先アカウント支払</value>
-        <value xml:lang="nl">Rekening betalingen</value>
-        <value xml:lang="pt-BR">Pagamentos com a conta de cobrança</value>
-        <value xml:lang="pt-PT">&gt;Cobrança Através das Contas de Pagamentos</value>
-        <value xml:lang="ro">Plati Cont Facturare</value>
-        <value xml:lang="ru">Платежи по кредитному счету</value>
-        <value xml:lang="th">การชำระเงินยอดรวมของบัญชี</value>
-        <value xml:lang="vi">Thanh toán</value>
-        <value xml:lang="zh">账单账户支付</value>
-        <value xml:lang="zh-TW">帳單帳戶支付</value>
-    </property>
-    <property key="AccountingBillingAccounts">
-        <value xml:lang="ar">حسابات الفوترة</value>
-        <value xml:lang="de">Rechnungskonten</value>
-        <value xml:lang="en">Billing Accounts</value>
-        <value xml:lang="es">Cuentas de facturación</value>
-        <value xml:lang="es-CL">Cuentas de Facturación</value>
-        <value xml:lang="fr">Comptes de facturation</value>
-        <value xml:lang="hi-IN">देयकांकन(बिलिंग) खातें</value>
-        <value xml:lang="it">Conti Fatturazione</value>
-        <value xml:lang="ja">請求先アカウント</value>
-        <value xml:lang="nl">factuur rekening</value>
-        <value xml:lang="pt-BR">Contas de cobrança</value>
-        <value xml:lang="pt-PT">&gt;Contas para Pagamentos</value>
-        <value xml:lang="ro">Cont Facturare</value>
-        <value xml:lang="ru">Кредитные счета</value>
-        <value xml:lang="th">ยอดรวมของบัญชี</value>
-        <value xml:lang="vi">Tài khoản thanh toán</value>
-        <value xml:lang="zh">账单账户</value>
-        <value xml:lang="zh-TW">帳單帳戶</value>
-    </property>
-    <property key="AccountingBillingAcct">
-        <value xml:lang="ar">حساب الفوترة</value>
-        <value xml:lang="de">Rechnungskonto</value>
-        <value xml:lang="en">Billing Acct</value>
-        <value xml:lang="es">Cta Facturación</value>
-        <value xml:lang="es-CL">Cuenta de Facturación</value>
-        <value xml:lang="fr">Cptes facturation</value>
-        <value xml:lang="hi-IN">देयकांकन(बिलिंग) खाता</value>
-        <value xml:lang="it">Conti Fatturazione</value>
-        <value xml:lang="ja">請求先アカウント</value>
-        <value xml:lang="nl">Fakt.Rek.</value>
-        <value xml:lang="pt">Conta de cobrança</value>
-        <value xml:lang="ro">Cont Facturare</value>
-        <value xml:lang="ru">Кред. счет</value>
-        <value xml:lang="th">ยอดรวมของบัญชี</value>
-        <value xml:lang="vi">Tài khoản thanh toán</value>
-        <value xml:lang="zh">账单账户</value>
-        <value xml:lang="zh-TW">帳單帳戶</value>
     </property>
     <property key="AccountingBillingAddress">
         <value xml:lang="ar">عنوان الفوترة</value>
@@ -2239,26 +2123,6 @@
         <value xml:lang="zh">新定单可用金额。</value>
         <value xml:lang="zh-TW">新訂單可用金額.</value>
     </property>
-    <property key="AccountingBillingContactMechId">
-        <value xml:lang="ar">رقم الإحداثيات</value>
-        <value xml:lang="de">Kontaktmechanismus für Fakturierung</value>
-        <value xml:lang="en">Billing Contact Mech</value>
-        <value xml:lang="es">Contacto mercantil de facturación</value>
-        <value xml:lang="es-CL">Mecanismo de contacto de facturación</value>
-        <value xml:lang="fr">Contact de facturation</value>
-        <value xml:lang="hi-IN">देयकांकन(बिलिंग) संपर्क तंत्र</value>
-        <value xml:lang="it">Contatto Fatturazione</value>
-        <value xml:lang="ja">請求連絡方法</value>
-        <value xml:lang="nl">Faktureermethode</value>
-        <value xml:lang="pt-BR">Mecanismo de Contato para Cobranças</value>
-        <value xml:lang="pt-PT">&gt;Mecanismo de Contacto para Cobranças</value>
-        <value xml:lang="ro">Contact Facturare</value>
-        <value xml:lang="ru">Способ контакта по вопр. оплаты</value>
-        <value xml:lang="th">วิธีการติดต่อยอดรวมของราคาสินค้าและบริการที่แจ้งต่อลูกค้า</value>
-        <value xml:lang="vi">Liên hệ thanh toán chi tiết</value>
-        <value xml:lang="zh">账单联系方式</value>
-        <value xml:lang="zh-TW">帳單聯絡方式</value>
-    </property>
     <property key="AccountingBillingContactMechIdMessage">
         <value xml:lang="ar">عنوان الفوترة; أضف طرف/دور أولا; ثم اختر من القائمة المسدلة</value>
         <value xml:lang="de">Rechnungsadresse; Bitte zuerst Akteur/Rolle hinzufügen und dann auswählen</value>
@@ -2276,25 +2140,6 @@
         <value xml:lang="vi">Địa chỉ thanh toán; thêm Tác nhân / Vai trò trước, sau đó chọn từ Danh sách thả xuống</value>
         <value xml:lang="zh">账单地址；先添加会员/角色，然后从下拉框中选择</value>
         <value xml:lang="zh-TW">帳單位址;先增加團體/角色,然後從下拉清單中選擇</value>
-    </property>
-    <property key="AccountingBillingInformation">
-        <value xml:lang="ar">معلومات محاسبية</value>
-        <value xml:lang="de">Rechnungsinformationen</value>
-        <value xml:lang="en">AccountingBilling Information</value>
-        <value xml:lang="es">Información de cuenta de facturación</value>
-        <value xml:lang="es-CL">Información de Cuenta de Facturación</value>
-        <value xml:lang="fr">Informations comptables</value>
-        <value xml:lang="hi-IN">देयकांकन(बिलिंग)खाते की  जानकारी</value>
-        <value xml:lang="it">Informazioni Conto Fatturazione</value>
-        <value xml:lang="ja">請求情報</value>
-        <value xml:lang="nl">factuurinformatie</value>
-        <value xml:lang="pt">Informação de conta de cobrança</value>
-        <value xml:lang="ro">Informatii Cont Facturare</value>
-        <value xml:lang="ru">Информация</value>
-        <value xml:lang="th">ข้อมูลยอดเงินคงเหลือ</value>
-        <value xml:lang="vi">Thông tin thanh toán</value>
-        <value xml:lang="zh">账户账单信息</value>
-        <value xml:lang="zh-TW">帳戶帳單資訊</value>
     </property>
     <property key="AccountingBillingMenu">
         <value xml:lang="ar">حسابات الفوترة</value>
@@ -2351,22 +2196,6 @@
         <value xml:lang="vi">Đây là giá trị đang xử lý của tài khoản thanh toán này.</value>
         <value xml:lang="zh">账单账户上未付的金额。</value>
         <value xml:lang="zh-TW">帳單帳戶上未付的金額.</value>
-    </property>
-    <property key="AccountingBothInvoiceIdBillingAccountIdEmptyError">
-        <value xml:lang="ar">دليل الفاتورة ودليل حساب الفوترة كلاهما فارغ</value>
-        <value xml:lang="de">Rechnungs-Nr. und Rechnungskonto-Nr. sind beide leer</value>
-        <value xml:lang="en">Both InvoiceId and BillingAccountId Empty</value>
-        <value xml:lang="es">Tanto como ID Factura y Cuenta de Facturación están vacías</value>
-        <value xml:lang="es-CL">El ID de Factura y Cuenta de Facturación están vacíos</value>
-        <value xml:lang="fr">Les réf. de facture et de compte de facturation sont toutes les 2 vides</value>
-        <value xml:lang="hi-IN">दोनों, चालान क्रमांक(InvoiceId) और देयकांकन(बिलिंग) खाता क्रमांक (BillingAccountId) खाली</value>
-        <value xml:lang="it">Entrambi InvoiceId e BillingAccountId sono vuoti</value>
-        <value xml:lang="ja">請求書IDおよび請求先アカウントIDが入力されていません</value>
-        <value xml:lang="pt">Ambos InvoiceID e BillingAccountId vazios</value>
-        <value xml:lang="th">ผิดพลาดตรงรหัสใบกำกับสินค้าและรหัสบัญชีทั้งคู่เป็นค่าว่าง</value>
-        <value xml:lang="vi">Thông tin số Hóa đơn và Tài khoản thanh toán đều chưa có</value>
-        <value xml:lang="zh">发票编号（InvoiceId）和账单账户编号（BillingAccountId）都是空的</value>
-        <value xml:lang="zh-TW">發票識別(InvoiceId)和帳單帳戶識別(BillingAccountId)都是空的</value>
     </property>
     <property key="AccountingBudgetFind">
         <value xml:lang="de">Suchen</value>
@@ -2552,21 +2381,6 @@
         <value xml:lang="zh">取消批量支付</value>
         <value xml:lang="zh-TW">取消批量支付</value>
     </property>
-    <property key="AccountingCancelBatchPaymentsError">
-        <value xml:lang="ar">لا يمكن إلغاء معالجة الدفعات [${paymentGroupId}], لإرتباطها بالتسوية المحاسبية [${glReconciliationId}]</value>
-        <value xml:lang="de">Sammelzahlung [${paymentGroupId}] kann nicht abgebrochen werden, da sie zur Kontenabstimung [${glReconciliationId}] zugeordnet ist</value>
-        <value xml:lang="en">Cannot Cancel Batch Payment [${paymentGroupId}], is associated to glReconciliation [${glReconciliationId}]</value>
-        <value xml:lang="es">No se puede cancelar lotes de Pago [$ {paymentGroupId}], se asocia a glReconciliation [$ {glReconciliationId}]</value>
-        <value xml:lang="es-CL">No se puede cancelar lotes de Pago [$ {paymentGroupId}], se asocia a Conciliación LM [$ {glReconciliationId}]</value>
-        <value xml:lang="fr">Impossible d'annuler le service de paiement [${paymentGroupId}], il est associé au rapprochement comptable [${glReconciliationId}]</value>
-        <value xml:lang="hi-IN">बैच भुगतान [${paymentGroupId}], glReconciliation [${glReconciliationId}] से जुड़ा है , इसे रद्द नहीं कर सकते |</value>
-        <value xml:lang="ja">バッチ支払 [${paymentGroupId}] の取消はできません、GL残高照合 [${glReconciliationId}] に関連付けされています</value>
-        <value xml:lang="nl">Kan Batch betaling [${paymentGroupId}] niet annuleren, is gekoppeld aan glReconciliation [${glReconciliationId}]</value>
-        <value xml:lang="pt">Não é possível cancelar pagamento em lote [$ {paymentGroupId}], está associada a glReconciliation [$ {glReconciliationId}]</value>
-        <value xml:lang="vi">Hủy lô thanh toán [${paymentGroupId}], hiện đang liên quan tới Đối ứng sổ cái [${glReconciliationId}]</value>
-        <value xml:lang="zh">无法取消批量支付 [${paymentGroupId}]，它被关联到了总账对账 [${glReconciliationId}]</value>
-        <value xml:lang="zh-TW">無法取消批量支付 [${paymentGroupId}],它被結合到了總帳對帳 [${glReconciliationId}]</value>
-    </property>
     <property key="AccountingCancelCheckRun">
         <value xml:lang="ar">إلغاء تفعيل الشيكات</value>
         <value xml:lang="de">Scheck-Lauf abbrechen</value>
@@ -2618,25 +2432,6 @@
         <value xml:lang="vi">Không thể thêm thanh toán Đi tới Nhóm thanh toán kiểu Thanh toán theo Lô </value>
         <value xml:lang="zh">不能把支付添加到 批量支付 这个支付组类型</value>
         <value xml:lang="zh-TW">不能把支付增加到 批量支付 這個支付群組類型</value>
-    </property>
-    <property key="AccountingCannotGetPaymentForApplication">
-        <value xml:lang="ar">لا يمكن الحصول على التسديد للتطبيق  [${payAppl}] من أجل ${msg}</value>
-        <value xml:lang="de">Zahlung zu Zuweisung [${payAppl}] kann wegen ${msg} nicht ermittelt werden</value>
-        <value xml:lang="en">Cannot get payment for application [${payAppl}] due to ${msg}</value>
-        <value xml:lang="es">No pudo obtener pago para aplicación [${payAppl}] debido a ${msg}</value>
-        <value xml:lang="es-CL">No se puede obtener pago para aplicación [${payAppl}] debido a ${msg}</value>
-        <value xml:lang="fr">Pas trouvé de paiement relatif à [${payAppl}] à cause de ${msg}</value>
-        <value xml:lang="hi-IN">${msg} कारण से आवेदन के लिए भुगतान प्राप्त नहीं कर सकते [${payAppl}]</value>
-        <value xml:lang="it">Non è possibile leggere pagamento per l'applicazione [${payAppl}] scadente il ${msg}</value>
-        <value xml:lang="ja">アプリケーション [${payAppl}] に対する支払を取得することができません、理由 ${msg}</value>
-        <value xml:lang="nl">Kan betaling voor de toewijzing [${payAppl}] niet ophalen omdat ${msg}</value>
-        <value xml:lang="pt">Não é possível obter o pagamento para aplicação [${payAppl}] devido a ${msg}</value>
-        <value xml:lang="ro">Nu este posibila citerea Platii pentru aplicatia [${payAppl}] cu termen de expirare in ${msg}</value>
-        <value xml:lang="ru">Невозможно получить платеж для приложения [${payAppl}] по причине ${msg}</value>
-        <value xml:lang="th">ไม่สามารถชำระเงินสำหรับแอพพลิเคชัน [${payAppl}] เนื่องจาก ${msg}</value>
-        <value xml:lang="vi">Khongo thể lấy thông tin thanh toán cho ứng dụng [${payAppl}] vì ${msg}</value>
-        <value xml:lang="zh">无法为应用[${payAppl}]获得支付，由于${msg}</value>
-        <value xml:lang="zh-TW">無法為應用[${payAppl}]獲得支付,由於${msg}</value>
     </property>
     <property key="AccountingCannotIncludeApPaymentError">
         <value xml:lang="de">Sammel-Anzahlung kann keine Lieferantenzahlungen ${disbursementPaymentIds} beinhalten</value>
@@ -2733,26 +2528,6 @@
         <value xml:lang="zh">缺少卡号</value>
         <value xml:lang="zh-TW">沒有信用卡號碼</value>
     </property>
-    <property key="AccountingCardSecurityCode">
-        <value xml:lang="ar">الرمز الأمني للبطاقة</value>
-        <value xml:lang="cs">Bezpečnostní kód karty</value>
-        <value xml:lang="de">Sicherheitscode der Karte</value>
-        <value xml:lang="en">Card Security Code</value>
-        <value xml:lang="es">Código de seguridad de la tarjeta</value>
-        <value xml:lang="fr">Code d'accès carte</value>
-        <value xml:lang="hi-IN">कार्ड सुरक्सा कोड</value>
-        <value xml:lang="it">Codice segreto carta</value>
-        <value xml:lang="ja">カードセキュリティコード</value>
-        <value xml:lang="nl">Kaart veiligheids code</value>
-        <value xml:lang="pt">Código de Segurança do Cartão</value>
-        <value xml:lang="pt-PT">&gt;Código de Segurança do Cartão</value>
-        <value xml:lang="ro">Cod Secret Carte</value>
-        <value xml:lang="ru">Секретный код карты</value>
-        <value xml:lang="th">รหัสบัตร</value>
-        <value xml:lang="vi">Dãy số bảo mật của thẻ</value>
-        <value xml:lang="zh">卡安全码</value>
-        <value xml:lang="zh-TW">信用卡安全碼</value>
-    </property>
     <property key="AccountingCardType">
         <value xml:lang="ar">نوع البطاقة</value>
         <value xml:lang="cs">Typ karty</value>
@@ -2784,19 +2559,6 @@
         <value xml:lang="vi">Loại thẻ bị thiếu</value>
         <value xml:lang="zh">缺少卡类型</value>
         <value xml:lang="zh-TW">沒有信用卡類型</value>
-    </property>
-    <property key="AccountingCashBalance">
-        <value xml:lang="ar">الرصيد النقدي</value>
-        <value xml:lang="de">Kassenbestand</value>
-        <value xml:lang="en">Cash Balance</value>
-        <value xml:lang="es">Saldo en Efectivo</value>
-        <value xml:lang="fr">Solde de trésorerie</value>
-        <value xml:lang="hi-IN">à¤°à¥‹à¤•à¤¡à¤¼ à¤¶à¥‡à¤·</value>
-        <value xml:lang="ja">現金残高</value>
-        <value xml:lang="pt">Saldo de Caixa</value>
-        <value xml:lang="vi">Cân đối tiền mặt</value>
-        <value xml:lang="zh">现金余额</value>
-        <value xml:lang="zh-TW">現金餘額</value>
     </property>
     <property key="AccountingCashFlowStatement">
         <value xml:lang="ar">بيان التدفق النقدي</value>
@@ -2997,24 +2759,6 @@
         <value xml:lang="zh">期末现金余额</value>
         <value xml:lang="zh-TW">關閉現金餘額</value>
     </property>
-    <property key="AccountingComments">
-        <value xml:lang="ar">تعليقات</value>
-        <value xml:lang="de">Kommentare</value>
-        <value xml:lang="en">Comments</value>
-        <value xml:lang="es">Comentarios</value>
-        <value xml:lang="fr">Commentaires</value>
-        <value xml:lang="hi-IN">टिप्पणियाँ</value>
-        <value xml:lang="it">Commenti</value>
-        <value xml:lang="ja">コメント</value>
-        <value xml:lang="nl">Opmerkingen</value>
-        <value xml:lang="pt">Comentários</value>
-        <value xml:lang="ro">Comentarii</value>
-        <value xml:lang="ru">Комментарии</value>
-        <value xml:lang="th">ความคิดเห็น</value>
-        <value xml:lang="vi">Diễn giải</value>
-        <value xml:lang="zh">评论</value>
-        <value xml:lang="zh-TW">評論</value>
-    </property>
     <property key="AccountingCommissionAmount">
         <value xml:lang="ar">مبلغ العمولة</value>
         <value xml:lang="de">Provisionsbetrag</value>
@@ -3162,26 +2906,6 @@
         <value xml:lang="vi">Tên doanh nghiệp trên Tài khoản</value>
         <value xml:lang="zh">开户行</value>
         <value xml:lang="zh-TW">開戶行</value>
-    </property>
-    <property key="AccountingCompanyNameOnCard">
-        <value xml:lang="ar">اسم الشركة على البطاقة</value>
-        <value xml:lang="cs">Jméno firmy na kartě</value>
-        <value xml:lang="de">Firmenname auf der Karte</value>
-        <value xml:lang="en">Company Name on Card</value>
-        <value xml:lang="es">Nombre de la empresa en la tarjeta</value>
-        <value xml:lang="fr">Carte de l'entreprise</value>
-        <value xml:lang="hi-IN">कार्ड पर कम्पनी नाम</value>
-        <value xml:lang="it">Nome azienda sulla carta</value>
-        <value xml:lang="ja">カード上の会社名</value>
-        <value xml:lang="nl">Bedrijfsnaam op de kaart</value>
-        <value xml:lang="pt">Nome da Empresa no cartão</value>
-        <value xml:lang="pt-PT">&gt;Nome da Entidade no Cartão</value>
-        <value xml:lang="ro">Nume Firma inscrisa pe Carte</value>
-        <value xml:lang="ru">Карта на компанию</value>
-        <value xml:lang="th">ชื่อบริษัทบนบัตร</value>
-        <value xml:lang="vi">Tên doanh nghiệp trên Thẻ</value>
-        <value xml:lang="zh">发卡机构</value>
-        <value xml:lang="zh-TW">發卡機構</value>
     </property>
     <property key="AccountingCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
@@ -3394,7 +3118,7 @@
         <value xml:lang="en">Create Assignment</value>
         <value xml:lang="es">Crear obligación</value>
         <value xml:lang="es-CL">Crear Asignación</value>
-        <value xml:lang="fr">Créer une allocation</value>
+        <value xml:lang="fr">Créer une enregistrement</value>
         <value xml:lang="hi-IN">नियत कार्य  बनाएँ</value>
         <value xml:lang="it">Creare Assegnazione</value>
         <value xml:lang="ja">割当を作成</value>
@@ -3437,26 +3161,6 @@
         <value xml:lang="vi">Tạo tài khoản thanh toán</value>
         <value xml:lang="zh">新建账单账户</value>
         <value xml:lang="zh-TW">新建帳單帳戶</value>
-    </property>
-    <property key="AccountingCreateBillingAccountRole">
-        <value xml:lang="ar">خلق دور حساب فوترة</value>
-        <value xml:lang="de">Rechnungskontorolle erstellen</value>
-        <value xml:lang="en">Create Billing Account Role</value>
-        <value xml:lang="es">Rol de creación de cuenta de facturacón</value>
-        <value xml:lang="es-CL">Crear Rol de cuenta de facturación</value>
-        <value xml:lang="fr">Associer un rôle à ce compte de facturation</value>
-        <value xml:lang="hi-IN">देयकांकन(बिलिंग) खाते की भूमिका बनाएँ</value>
-        <value xml:lang="it">Creare Ruolo Conto Fatturazione</value>
-        <value xml:lang="ja">請求先アカウントロールを作成</value>
-        <value xml:lang="nl">Maak rol voor factuurrekeningen aan</value>
-        <value xml:lang="pt-BR">Criar papel de conta de cobrança</value>
-        <value xml:lang="pt-PT">&gt;Criar Função de Conta para Pagamento</value>
-        <value xml:lang="ro">Creaza Rol Cont Facturare</value>
-        <value xml:lang="ru">Создать роль кредитного счета</value>
-        <value xml:lang="th">สร้างสถานะยอดรวมของบัญชี</value>
-        <value xml:lang="vi">Tạo vai trò tài khoản thanh toán</value>
-        <value xml:lang="zh">新建账单账户角色</value>
-        <value xml:lang="zh-TW">新建帳單帳戶角色</value>
     </property>
     <property key="AccountingCreateBillingAccountTerm">
         <value xml:lang="ar">خلق بند لحساب الفوترة</value>
@@ -4508,24 +4212,6 @@
         <value xml:lang="zh">启用生产状态</value>
         <value xml:lang="zh-TW">啟用生產狀態</value>
     </property>
-    <property key="AccountingDataExchange">
-        <value xml:lang="ar">يجب تساوي مجموع الأرصدة المدينة والدائنة للرصد في الحساب.</value>
-        <value xml:lang="de">Datenaustausch</value>
-        <value xml:lang="en">Data Exchange</value>
-        <value xml:lang="es">Intercambio de datos</value>
-        <value xml:lang="fr">Echange de données</value>
-        <value xml:lang="hi-IN">आंकड़ा विनिमय</value>
-        <value xml:lang="it">Scambio Dati</value>
-        <value xml:lang="ja">データ交換</value>
-        <value xml:lang="nl">Data-overdracht</value>
-        <value xml:lang="pt">Intercâmbio de Dados</value>
-        <value xml:lang="ro">Schimb de Date</value>
-        <value xml:lang="ru">ОбменДанными</value>
-        <value xml:lang="th">การแลกเปลี่ยนข้อมูล</value>
-        <value xml:lang="vi">Chuyển đổi dữ liệu</value>
-        <value xml:lang="zh">数据交换</value>
-        <value xml:lang="zh-TW">資料交換</value>
-    </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="ar">حقل تاريخ الشراء فارغ في بيانات الأصل الثابت</value>
         <value xml:lang="de">Das Feld Erwerbsdatum bei den Anlage-Daten ist leer.</value>
@@ -4542,22 +4228,6 @@
         <value xml:lang="vi">Trường dateAcquired hiện chưa có giá trị trong dữ liệu FixedAsset.</value>
         <value xml:lang="zh">在固定资产数据中，到手日期(dateAcquired)是空的。</value>
         <value xml:lang="zh-TW">在固定資產資料中,到手日期(dateAcquired)是空的.</value>
-    </property>
-    <property key="AccountingDateFilter">
-        <value xml:lang="ar">تصفية البيانات</value>
-        <value xml:lang="de">Datumsfilter</value>
-        <value xml:lang="en">Date Filter</value>
-        <value xml:lang="es">Filtro de Datos</value>
-        <value xml:lang="fr">Filtre de date</value>
-        <value xml:lang="hi-IN">दिनांक फ़िल्टर</value>
-        <value xml:lang="it">Data filtro</value>
-        <value xml:lang="ja">日付フィルタ</value>
-        <value xml:lang="nl">Filter boekhouddatum</value>
-        <value xml:lang="pt">Filtro de Data</value>
-        <value xml:lang="th">Date Filter</value>
-        <value xml:lang="vi">Bộ lọc ngày</value>
-        <value xml:lang="zh">日期过滤器</value>
-        <value xml:lang="zh-TW">日期過濾器</value>
     </property>
     <property key="AccountingDateOpened">
         <value xml:lang="ar">تاريخ الفتح</value>
@@ -4582,25 +4252,6 @@
         <value xml:lang="vi">Tiền Có</value>
         <value xml:lang="zh">借方发生额</value>
         <value xml:lang="zh-TW">借方發生額</value>
-    </property>
-    <property key="AccountingDebitCreditMustEqual">
-        <value xml:lang="ar">تاريخ الإستحقاق</value>
-        <value xml:lang="de">Soll und Haben müssen beim Buchen auf das Hauptkonto gleich sein.</value>
-        <value xml:lang="en">Debit and Credit Totals must be equal to post to GL.</value>
-        <value xml:lang="es">Totales de Débito y Crédito deben ser iguales para enviar a LM.</value>
-        <value xml:lang="es-CL">Totales de Débito y Crédito deben ser iguales para enviar a Libro Mayor.</value>
-        <value xml:lang="fr">Les montants du débit et du crédit doivent être égaux</value>
-        <value xml:lang="hi-IN">नामे/उधार या जमा राशि योग करने के लिए जीएल(GL) पद के बराबर होना चाहिए</value>
-        <value xml:lang="it">Totale Debito e Credito deve essere contabilizzato in Contabilità Generale.</value>
-        <value xml:lang="ja">GLに転記するためには借方および貸方の合計が等しい必要があります。</value>
-        <value xml:lang="nl">Debet and Credit totalen moeten overeenkomen om te kunnen boeken in het grootboek</value>
-        <value xml:lang="pt">Os totais de débito e crédito devem ser iguais para submeter à contabilidade.</value>
-        <value xml:lang="ro">Total Debit si Credit trebuie sa fie Contabilizat de Contabilitatea Generala</value>
-        <value xml:lang="ru">Для записи в ГК суммы дебита и кредита должны быть равны.</value>
-        <value xml:lang="th">ผลรวมเดบิตและเครดิตต้องเท่ากับที่แจ้งถึง GL</value>
-        <value xml:lang="vi">Định khoản Có (debit) và Định khoản Nợ (credit) phải bằng nhau khi gửi đến Sổ cái.</value>
-        <value xml:lang="zh">借方和贷方合计必须等于过账到总账的金额。</value>
-        <value xml:lang="zh-TW">借方和貸方合計必須等於過帳到總帳的金額.</value>
     </property>
     <property key="AccountingDebitFlag">
         <value xml:lang="ar">مدين</value>
@@ -4631,23 +4282,6 @@
         <value xml:lang="vi">Cân đối Nợ và Có </value>
         <value xml:lang="zh">借/贷余额</value>
         <value xml:lang="zh-TW">借/貸餘額</value>
-    </property>
-    <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
-        <value xml:lang="ar">خطأ امني : لعمل deleteFixedAssetMaintOrder يجب الحصول على صلاحية ACCOUNTING_DELETE أو ACCOUNTING_ADMIN أو الصلاحية المحدودة ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="de">Berechtigungsfehler: Um 'deleteFixedAssetMaintOrder' auszuführen muss man ACCOUNTING_DELETE or ACCOUNTING_ADMIN oder die eingeschränkte ACCOUNTING_ROLE_UPDATE Berechtigungen haben</value>
-        <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
-        <value xml:lang="es">Error de seguridad: para borrar una orden de mantenimiento de activo fijo debes tener el permiso ACCOUNTING_DELETE o ACCOUNTING_ADMIN, o el permiso limitado ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les autorisations ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée  ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="hi-IN">सुरक्षा त्रुटि: deleteFixedAssetMaintOrder चलाने के लिए आप को ACCOUNTING_DELETE or ACCOUNTING_ADMIN की अनुमति या सीमित ACCOUNTING_ROLE_UPDATE की अनुमति होना चाहिए</value>
-        <value xml:lang="it">Errore sicurezza: per eseguire il servizio deleteFixedAssetMaintOrder tu devi avere il permesso ACCOUNTING_DELETE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="ja">セキュリティエラー: 固定資産メンテナンス注文の削除は ACCOUNTING_DELETE または ACCOUNTING_ADMIN 権限、または制限された ACCOUNTING_ROLE_UPDATE 権限が必要です</value>
-        <value xml:lang="nl">Toegangfout: om deleteFixedAssetMaintOrder te draaien heb je ACCOUNTING_DELETE- of ACCOUNTING_ADMIN-, of de beperkte ACCOUNTING_ROLE_UPDATE-permissie nodig.</value>
-        <value xml:lang="pt">Erro de segurança: para executar deleteFixedAssetMaintOrder você deve ter permissão ACCOUNTING_DELETE, ACCOUNTING_ADMIN, ou a permissão limitada ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
-        <value xml:lang="vi">Lỗi phân quyền: để thực thi hàm deleteFixedAssetMaintOrder bạn cần có quyền ACCOUNTING_DELETE hoặc quyền ACCOUNTING_ADMIN, hoặc ít nhất quyền ACCOUNTING_ROLE_UPDATE</value>
-        <value xml:lang="zh">安全错误：要运行删除固定资产维修保养订单(deleteFixedAssetMaintOrder)，你必须有ACCOUNTING_DELETE或ACCOUNTING_ADMIN权限，或者受限制的ACCOUNTING_ROLE_UPDATE权限</value>
-        <value xml:lang="zh-TW">安全錯誤:要執行刪除固定資產維修保養訂單(deleteFixedAssetMaintOrder),你必須有ACCOUNTING_DELETE或ACCOUNTING_ADMIN權限,或者受限制的ACCOUNTING_ROLE_UPDATE權限</value>
     </property>
     <property key="AccountingDeposit">
         <value xml:lang="ar">إيداع</value>
@@ -4963,24 +4597,6 @@
         <value xml:lang="zh">编辑定制时间段</value>
         <value xml:lang="zh-TW">編輯客製時間段</value>
     </property>
-    <property key="AccountingEditFinAccount">
-        <value xml:lang="ar">تعديل الحساب المالي ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="de">Finanzkonto bearbeiten</value>
-        <value xml:lang="en">Edit Financial Account ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es">Editar cuenta financiera ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es-CL">Editar Cuenta Financiera ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="fr">Créer/ mettre à jour un compte financier</value>
-        <value xml:lang="hi-IN">${finAccount.finAccountName} [${finAccountId}] वित्तीय खाता बनाएँ/सम्पादित करे</value>
-        <value xml:lang="it">Crea/Aggiorna Conto Finanziario</value>
-        <value xml:lang="ja">金融アカウント ${finAccount.finAccountName} [${finAccountId}] を編集</value>
-        <value xml:lang="nl">Maak/wijzig financiele rekening</value>
-        <value xml:lang="pt">Editar Conta Financeira ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="ru">Создать/обновить финансовый счет</value>
-        <value xml:lang="th">สร้าง/เปลี่ยนแปลงงบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
-        <value xml:lang="vi">Cập nhật tài khoản tài chính ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="zh">创建/更新金融账户</value>
-        <value xml:lang="zh-TW">新建/更新金融帳戶</value>
-    </property>
     <property key="AccountingEditFinAccountAuthorityFor">
         <value xml:lang="ar">تعديل السلطة للحساب المالي لـ ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="de">Berechtigungen für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
@@ -5008,20 +4624,6 @@
         <value xml:lang="vi">Cập nhật tài khoản tài chính Đối ứng cho Tài khoản tài chính: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">编辑财务账目  ${finAccount.finAccountName} [${finAccountId}] 的对账</value>
         <value xml:lang="zh-TW">編輯財務帳目 ${finAccount.finAccountName} [${finAccountId}] 的對帳</value>
-    </property>
-    <property key="AccountingEditFinAccountRoleFor">
-        <value xml:lang="ar">تعديل طرف الحساب المالي لـ ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="de">Rolle für Finanzkonto ${finAccount.finAccountName} [${finAccountId}] bearbeiten</value>
-        <value xml:lang="en">Edit Financial Account Role For ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es">Editar Rol de Cuenta financiera para ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="es-CL">Editar Rol de Cuenta Financiera para ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="fr">Éditer les rôles pour le compte financier ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="hi-IN">वित्तीय खाता भूमिका ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करे</value>
-        <value xml:lang="ja">${finAccount.finAccountName} [${finAccountId}] に対する金融アカウントロールを編集</value>
-        <value xml:lang="pt">Editar Papel da Conta Financeira para ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="vi">Cập nhật vai trò tài khoản tài chính cho ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="zh">编辑财务账目  ${finAccount.finAccountName} [${finAccountId}] 的角色</value>
-        <value xml:lang="zh-TW">編輯財務帳目 ${finAccount.finAccountName} [${finAccountId}] 的角色</value>
     </property>
     <property key="AccountingEditFinAccountTransactionFor">
         <value xml:lang="ar">تعديل عملية الحساب المالي لـ ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -5055,25 +4657,6 @@
         <value xml:lang="vi">Cập nhật thẻ quà tặng</value>
         <value xml:lang="zh">编辑礼品卡</value>
         <value xml:lang="zh-TW">編輯禮物卡</value>
-    </property>
-    <property key="AccountingEditPayment">
-        <value xml:lang="ar">فعال</value>
-        <value xml:lang="cs">Upravit způsob platby</value>
-        <value xml:lang="de">Zahlung bearbeiten</value>
-        <value xml:lang="en">Edit Payment</value>
-        <value xml:lang="es">Editar Pago</value>
-        <value xml:lang="fr">Modifier un paiement</value>
-        <value xml:lang="hi-IN">भुगतान सम्पादित करें</value>
-        <value xml:lang="it">Aggiorna Pagamento</value>
-        <value xml:lang="ja">支払を編集</value>
-        <value xml:lang="nl">Wijzig betaling</value>
-        <value xml:lang="pt">Editar pagamento</value>
-        <value xml:lang="ro">Actualizeaza Plata</value>
-        <value xml:lang="ru">Редактировать платеж</value>
-        <value xml:lang="th">แก้ไขการชำระเงิน</value>
-        <value xml:lang="vi">Cập nhật thanh toán</value>
-        <value xml:lang="zh">编辑支付</value>
-        <value xml:lang="zh-TW">編輯支付</value>
     </property>
     <property key="AccountingEditPaymentGroup">
         <value xml:lang="ar">تعديل مجموعة الدفعة</value>
@@ -5128,40 +4711,6 @@
         <value xml:lang="zh">编辑 ${finAccount.finAccountName} [${finAccountId}] 的支付组成员</value>
         <value xml:lang="zh-TW">編輯 ${finAccount.finAccountName} [${finAccountId}] 支付群組會員</value>
     </property>
-    <property key="AccountingEditTaxAuthorityGlAccounts">
-        <value xml:lang="ar">تعديل حسابات سلطة الضريبة</value>
-        <value xml:lang="de">Steuerkonten bearbeiten</value>
-        <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
-        <value xml:lang="es">Editar cuentas de autoridad tributaria</value>
-        <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
-        <value xml:lang="hi-IN">टैक्स प्राधिकरण जीएल(GL) लेखा कोसम्पादित करें</value>
-        <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
-        <value xml:lang="ja">税務機関GL勘定を編集</value>
-        <value xml:lang="nl">Wijzig Gb-rekeningen belastinginstantie</value>
-        <value xml:lang="pt">Editar contas financeiras da autoridade tributária</value>
-        <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
-        <value xml:lang="vi">Sửa đổi tài khoản sổ cái Cục thuế</value>
-        <value xml:lang="zh">编辑税务机关总账账户</value>
-        <value xml:lang="zh-TW">編輯稅務機關總帳科目</value>
-    </property>
-    <property key="AccountingEffective">
-        <value xml:lang="ar">مشكلة كيان/بيان لخلق فاتورة من بند أمر البيع/الشراء</value>
-        <value xml:lang="de">Ist-</value>
-        <value xml:lang="en">Effective</value>
-        <value xml:lang="es">Efectivo</value>
-        <value xml:lang="fr">Effectif</value>
-        <value xml:lang="hi-IN">प्रभावी</value>
-        <value xml:lang="it">Effettiva</value>
-        <value xml:lang="ja">発効</value>
-        <value xml:lang="nl">Effectief</value>
-        <value xml:lang="pt">Efetivo</value>
-        <value xml:lang="ro">Efectiva</value>
-        <value xml:lang="ru">Эффективный</value>
-        <value xml:lang="th">มีผล</value>
-        <value xml:lang="vi">Hiệu lực</value>
-        <value xml:lang="zh">生效</value>
-        <value xml:lang="zh-TW">生效</value>
-    </property>
     <property key="AccountingEffectiveDate">
         <value xml:lang="ar">تاريخ الفعالية</value>
         <value xml:lang="de">Anwendungszeitpunkt</value>
@@ -5199,24 +4748,6 @@
         <value xml:lang="vi">Thư điện tử với Hóa đơn đính kèm: ${parameters.invoiceId} đã được đặt lịch để gửi đi....</value>
         <value xml:lang="zh">电子邮件信息带有发票：${parameters.invoiceId}已列入发送计划...</value>
         <value xml:lang="zh-TW">電子郵件資訊帶有發票:${parameters.invoiceId}已列入發送計劃...</value>
-    </property>
-    <property key="AccountingEmptyForMaxAmount">
-        <value xml:lang="ar">أتركه فارغا لأقصى المبلغ</value>
-        <value xml:lang="de">Leer lassen für maximalen Betrag</value>
-        <value xml:lang="en">Leave empty for maximum amount</value>
-        <value xml:lang="es">Dejar vacio para cantidad máxima</value>
-        <value xml:lang="fr">Laisser vide pour un montant maximum</value>
-        <value xml:lang="hi-IN">अधिकतम राशि के लिए खाली छोड़ो</value>
-        <value xml:lang="it">Lascia vuoto per importo massimo</value>
-        <value xml:lang="ja">最大金額を空にしてください</value>
-        <value xml:lang="nl">Laat leeg voor maximumbedrag</value>
-        <value xml:lang="pt">Deixe em branco para a quantia máxima</value>
-        <value xml:lang="ro">Lasa liber pentru  pentru totalul maxim</value>
-        <value xml:lang="ru">Оставьте пустым для максимальной суммы</value>
-        <value xml:lang="th">ว่างไว้สำหรับจำนวนมาก</value>
-        <value xml:lang="vi">Để trống nếu bạn muốn giá trị tối đa</value>
-        <value xml:lang="zh">空白时取最大金额</value>
-        <value xml:lang="zh-TW">空白時取最大金額</value>
     </property>
     <property key="AccountingEndingBalance">
         <value xml:lang="ar">الرصيد النهائي</value>
@@ -5393,7 +4924,7 @@
         <value xml:lang="de">Fehler bei der Erstellung einer Rechnung aus Auftrag während der Überprüfung von Zahlungen</value>
         <value xml:lang="en">Error creating invoice from order while checking payment applications</value>
         <value xml:lang="es">Error creando factura a partir de orden mientras se verificaba la aplicación de pago</value>
-        <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande; problème avec les allocations de paiements</value>
+        <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande; problème avec les enregistrements de paiements</value>
         <value xml:lang="hi-IN">आर्डर से चालान  बनाने में त्रुटि, भुगतान अनुप्रयोगों जांच के समय</value>
         <value xml:lang="it">Errore creazione fattura dall'ordine durante il controllo pagamento</value>
         <value xml:lang="ja">注文から請求書の作成中、支払申請の確認中にエラー</value>
@@ -5509,12 +5040,6 @@
         <value xml:lang="vi">Trường expectedEndOfLife không được trống trong dữ liệu FixedAsset.</value>
         <value xml:lang="zh">固定资产数据中的期望使用寿命结束为空。</value>
         <value xml:lang="zh-TW">固定資產資料中的期望使用壽命結束為空.</value>
-    </property>
-    <property key="AccountingExportInvoices">
-        <value xml:lang="de">Rechnungen exportieren</value>
-        <value xml:lang="en">Export Invoices</value>
-        <value xml:lang="es">Exportar facturas</value>
-        <value xml:lang="zh">导出发票</value>
     </property>
     <property key="AccountingExpenses">
         <value xml:lang="ar">المصروفات</value>
@@ -6365,24 +5890,6 @@
         <value xml:lang="zh">没有找到描述方法</value>
         <value xml:lang="zh-TW">沒有找到描述方法</value>
     </property>
-    <property key="AccountingFixedAssetEdit">
-        <value xml:lang="ar">نوع الهوية</value>
-        <value xml:lang="de">Anlage erstellen/ändern</value>
-        <value xml:lang="en">Create/Update Fixed Asset</value>
-        <value xml:lang="es">Crear/Actualizar Activo Fijo</value>
-        <value xml:lang="fr">Créer/modifier une immobilisation</value>
-        <value xml:lang="hi-IN">अचल संपत्ति बनाएँ/सम्पादित करे</value>
-        <value xml:lang="it">Crea/Aggiorna Cespite</value>
-        <value xml:lang="ja">固定資産を作成/更新</value>
-        <value xml:lang="nl">Maken/veranderen vaste activa</value>
-        <value xml:lang="pt">Criar/Atualizar Ativo Fixo</value>
-        <value xml:lang="ro">Creaza/Actualizeaza Mijloace Fixe</value>
-        <value xml:lang="ru">Создать/обновить основные средства</value>
-        <value xml:lang="th">สร้าง/เปลี่ยนแปลงทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="vi">Tạo mới/Cập nhật Tài sản cố định</value>
-        <value xml:lang="zh">新建/更新固定资产</value>
-        <value xml:lang="zh-TW">新建/更新固定資產</value>
-    </property>
     <property key="AccountingFixedAssetGovAgencyPartyId">
         <value xml:lang="ar">وكالة حكومية</value>
         <value xml:lang="cs">Státní úřad</value>
@@ -6423,23 +5930,6 @@
         <value xml:lang="zh">固定资产标识</value>
         <value xml:lang="zh-TW">固定資產識別</value>
     </property>
-    <property key="AccountingFixedAssetIdAlreadyExists">
-        <value xml:lang="ar">دليل الأصل الثابت [${parameters.fixedAssetId}] موجود</value>
-        <value xml:lang="de">Anlage [${parameters.fixedAssetId}] schon vorhanden</value>
-        <value xml:lang="en">Fixed Asset Id [${parameters.fixedAssetId}] Already Exists</value>
-        <value xml:lang="es">ID Activo fijo [${parameters.fixedAssetId}] ya existe</value>
-        <value xml:lang="fr">Cet identifiant d'immobilisation [${parameters.fixedAssetId}] existe déjà</value>
-        <value xml:lang="hi-IN">अचल संपत्ति क्रमांक [${parameters.fixedAssetId}] पहले से ही मौजूद है</value>
-        <value xml:lang="it">Cespite ${parameters.fixedAssetId} già esistente</value>
-        <value xml:lang="ja">固定資産ID [${parameters.fixedAssetId}] はすでに存在します</value>
-        <value xml:lang="nl">Vaste activa ID [${parameters.fixedAssetId}] bestaat al.</value>
-        <value xml:lang="pt">ID do Ativo Fixo [${parameters.fixedAssetId}] já existe</value>
-        <value xml:lang="ru">Основные средства с кодом [${parameters.fixedAssetId}] уже существует</value>
-        <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน [${parameters.fixedAssetId}] ยังคงมีอยู่แล้ว</value>
-        <value xml:lang="vi">Id tài sản cố định [${parameters.fixedAssetId}] đã sử dụng</value>
-        <value xml:lang="zh">固定资产标识[${parameters.fixedAssetId}]已存在</value>
-        <value xml:lang="zh-TW">固定資產識別[${parameters.fixedAssetId}]已存在</value>
-    </property>
     <property key="AccountingFixedAssetIdentIdValue">
         <value xml:lang="ar">القيمة</value>
         <value xml:lang="cs">Hodnota</value>
@@ -6476,22 +5966,6 @@
         <value xml:lang="vi">Kiểu định danh</value>
         <value xml:lang="zh">标识类型</value>
         <value xml:lang="zh-TW">識別類型</value>
-    </property>
-    <property key="AccountingFixedAssetIdentTypeId">
-        <value xml:lang="ar">نوع التعريف لدليل الأصل الثابت</value>
-        <value xml:lang="de">Identifikationsart ID</value>
-        <value xml:lang="en">Fixed Asset Ident Type ID</value>
-        <value xml:lang="es">ID de tipo de identificación de Activo Fijo</value>
-        <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
-        <value xml:lang="hi-IN">अचल संपत्ति पहचान प्रकार क्रमांक</value>
-        <value xml:lang="it">Tipo identificazione cespite</value>
-        <value xml:lang="ja">固定資産標識種類ID</value>
-        <value xml:lang="nl">AccountingFixedAssetIdentTypeId</value>
-        <value xml:lang="pt">ID de tipo de identificação de Ativo Fixo</value>
-        <value xml:lang="th">รหัสประเภทการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="vi">Id kiểu định danh</value>
-        <value xml:lang="zh">固定资产证书类型标识</value>
-        <value xml:lang="zh-TW">固定資產証書類型識別</value>
     </property>
     <property key="AccountingFixedAssetIdents">
         <value xml:lang="ar">أوامر الشراء</value>
@@ -6660,26 +6134,6 @@
         <value xml:lang="zh">如果为产品维修保养指定了维修保养模板，这会自动设置/复位</value>
         <value xml:lang="zh-TW">如果為產品維修保養指定了維修保養模板,這會自動設置/複位</value>
     </property>
-    <property key="AccountingFixedAssetMaintName">
-        <value xml:lang="ar">اسم الصيانة</value>
-        <value xml:lang="cs">Název údržby</value>
-        <value xml:lang="de">Wartungsname</value>
-        <value xml:lang="en">Maintenance Name</value>
-        <value xml:lang="es">Nombre de mantenimiento</value>
-        <value xml:lang="es-CL">Nombre del mantenimiento</value>
-        <value xml:lang="fr">Nom de la maintenance</value>
-        <value xml:lang="hi-IN">रखरखाव का नाम</value>
-        <value xml:lang="it">Nome Manutenzione</value>
-        <value xml:lang="ja">メンテナンス名称</value>
-        <value xml:lang="nl">Onderhoudsnaam</value>
-        <value xml:lang="pt">Nome de Manutenção</value>
-        <value xml:lang="ro">Nume Intretinere</value>
-        <value xml:lang="ru">Название обслуживания</value>
-        <value xml:lang="th">ชื่อการบำรุงรักษา</value>
-        <value xml:lang="vi">Tên bảo trì</value>
-        <value xml:lang="zh">维修保养名称</value>
-        <value xml:lang="zh-TW">維修保養名稱</value>
-    </property>
     <property key="AccountingFixedAssetMaintOrders">
         <value xml:lang="ar">قراءات المقياس</value>
         <value xml:lang="de">Bestellungen</value>
@@ -6782,20 +6236,6 @@
         <value xml:lang="vi">Bảo trì</value>
         <value xml:lang="zh">维修保养</value>
         <value xml:lang="zh-TW">維修保養</value>
-    </property>
-    <property key="AccountingFixedAssetManufacturerId">
-        <value xml:lang="ar">دليل صانع/مصنع الأصل الثابت</value>
-        <value xml:lang="de">Anlagen-Herstellernummer</value>
-        <value xml:lang="en">Fixed Asset Manufacturer ID</value>
-        <value xml:lang="es">ID del fabricante de activo fijo</value>
-        <value xml:lang="fr">Réf. du fabricant de l'actif immobilisé</value>
-        <value xml:lang="hi-IN">अचल संपत्ति निर्माता क्रमांक</value>
-        <value xml:lang="it">Produttore cespite</value>
-        <value xml:lang="ja">固定資産メーカID</value>
-        <value xml:lang="pt">ID de Fabricante de Ativo Fixo</value>
-        <value xml:lang="vi">Nhà sản xuất</value>
-        <value xml:lang="zh">固定资产制造商标识</value>
-        <value xml:lang="zh-TW">固定資產製造商識別</value>
     </property>
     <property key="AccountingFixedAssetMessage1">
         <value xml:lang="ar">*) فارغة, لكن الحد الأقصى من الأصل الثابت معرض</value>
@@ -7431,7 +6871,7 @@
         <value xml:lang="en">GL Account Assignments</value>
         <value xml:lang="es">Asignaciones a cuentas de LM</value>
         <value xml:lang="es-CL">Asignaciones a Cuentas del Libro Mayor</value>
-        <value xml:lang="fr">Allocations du compte comptable</value>
+        <value xml:lang="fr">Enregistrements du compte comptable</value>
         <value xml:lang="hi-IN">जीएल(GL) खाता नियत कार्य</value>
         <value xml:lang="it">Assegnazione Conti Gl</value>
         <value xml:lang="ja">GL勘定割当</value>
@@ -7872,7 +7312,7 @@
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>
         <value xml:lang="cs">Číslo faktury</value>
-        <value xml:lang="de">Inv.Nr</value>
+        <value xml:lang="de">Rg.Nr</value>
         <value xml:lang="en">Inv.Nr</value>
         <value xml:lang="es">Nr.Fact</value>
         <value xml:lang="es-CL">Factura N°</value>
@@ -8003,7 +7443,7 @@
         <value xml:lang="de">Rechnung [${invoiceId}] ist storniert und kann nicht zugewiesen werden...</value>
         <value xml:lang="en">Invoice [${invoiceId}] is cancelled, cannot be applied to...</value>
         <value xml:lang="es">Factura [${invoiceId}] esta cancelada, no puede ser aplicada...</value>
-        <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être alloué de paiement...</value>
+        <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être enregistré de paiement...</value>
         <value xml:lang="hi-IN">चालान [$(invoiceId)] रद्द कर दिया गया है, पर लागू नहीं किया जा सकता है...</value>
         <value xml:lang="it">Fattura [${invoiceId}] è annullata, non può essere applicata a...</value>
         <value xml:lang="ja">請求書 [${invoiceId}] は取消済です、消込できません...</value>
@@ -8986,7 +8426,7 @@
         <value xml:lang="de">Zeiteinträge</value>
         <value xml:lang="en">Time Entries</value>
         <value xml:lang="es">Entradas de Tiempo</value>
-        <value xml:lang="fr">Ecritures d'horaire</value>
+        <value xml:lang="fr">Horaires d'écriture'</value>
         <value xml:lang="hi-IN">समय प्रतिविष्टियाँ</value>
         <value xml:lang="it">Righe Timbratura</value>
         <value xml:lang="ja">予定エントリ</value>
@@ -9075,7 +8515,7 @@
         <value xml:lang="de">Zahlungen zu Rechnungen zugewiesen</value>
         <value xml:lang="en">Payments applied to Invoices</value>
         <value xml:lang="es">Pagos aplicados para la Facturas</value>
-        <value xml:lang="fr">Paiements alloués aux factures</value>
+        <value xml:lang="fr">Paiements enregistrés aux factures</value>
         <value xml:lang="hi-IN">चालान भुगतान पर लागु हो गया है</value>
         <value xml:lang="it">Pagamenti applicati alle Fatture</value>
         <value xml:lang="ja">請求に消込済の支払</value>
@@ -9336,7 +8776,7 @@
         <value xml:lang="de">Rechnungen die zugewiesen werden könnten</value>
         <value xml:lang="en">Possible invoices to apply</value>
         <value xml:lang="es">Posibles facturas a aplicar</value>
-        <value xml:lang="fr">Factures pouvant être allouées</value>
+        <value xml:lang="fr">Factures pouvant être enregistrées</value>
         <value xml:lang="hi-IN">लागू करने के लिए संभावित चालान</value>
         <value xml:lang="it">Possibili fatture da applicare</value>
         <value xml:lang="ja">消込可能請求一覧</value>
@@ -9370,7 +8810,7 @@
         <value xml:lang="de">Zuzuweisende Zahlungen</value>
         <value xml:lang="en">Possible payments to apply</value>
         <value xml:lang="es">Posibles pagos a aplicar</value>
-        <value xml:lang="fr">Paiements pouvant être alloués</value>
+        <value xml:lang="fr">Paiements pouvant être enregistrés</value>
         <value xml:lang="hi-IN">लागू करने के लिए संभावित भुगतान</value>
         <value xml:lang="it">Possibili pagamenti da applicare</value>
         <value xml:lang="ja">消込可能請求一覧</value>
@@ -10144,7 +9584,7 @@
         <value xml:lang="en">Amount requested to apply is zero or not provided: no amount applied/n</value>
         <value xml:lang="es">Cantidad requerida a aplicar es cero o no se proporciono: ninguna cantidad aplicada/n</value>
         <value xml:lang="es-CL">Cantidad requerida a aplicar es cero o no se proporciono ninguna cantidad aplicada</value>
-        <value xml:lang="fr">Le montant à allouer est zéro ou manquant: il n'a pas été appliqué de montant/n</value>
+        <value xml:lang="fr">Le montant à enregistrer est zéro ou manquant: il n'a pas été appliqué de montant/n</value>
         <value xml:lang="hi-IN">लागु करने के लिए दी गयी राशी शून्य है या प्रदान नहीं की गयी : कोई राशि लागू नहीं/n</value>
         <value xml:lang="it">Importo richiesto da applicare è zero o non inserito: nessun importo applicato/n</value>
         <value xml:lang="ja">消込するリクエスト金額は0または提供されていません: 消込する金額はありません</value>
@@ -10579,7 +10019,7 @@
         <value xml:lang="en">No applications found..</value>
         <value xml:lang="es">No se encontraton aplicaciones..</value>
         <value xml:lang="es-CL">No se encontrarón aplicaciones..</value>
-        <value xml:lang="fr">Aucune allocation trouvée...</value>
+        <value xml:lang="fr">Aucun enregistrement trouvé...</value>
         <value xml:lang="hi-IN">अनुप्रयोग नहीं मिला..</value>
         <value xml:lang="it">Nessun applicazione pagamento trovata.</value>
         <value xml:lang="ja">申請はありません..</value>
@@ -10597,7 +10037,7 @@
         <value xml:lang="de">Keine Zahlungen gefunden..</value>
         <value xml:lang="en">No Payments found</value>
         <value xml:lang="es">No se encontraron pagos</value>
-        <value xml:lang="fr">Aucunpaiement trouvé</value>
+        <value xml:lang="fr">Aucun paiement trouvé</value>
         <value xml:lang="hi-IN">भुगतान नहीं मिला</value>
         <value xml:lang="it">Nessun Pagamento trovato</value>
         <value xml:lang="ja">支払はありません</value>
@@ -11203,7 +10643,7 @@
         <value xml:lang="en">Status cannot be set to 'Confirmed', the payment is not fully applied!</value>
         <value xml:lang="es">Status no puede ser 'Confirmado', el pago no esta completamente aplicado!</value>
         <value xml:lang="es-CL">Estado no puede ser 'Confirmado', el pago no esta completamente aplicado!</value>
-        <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement alloué !</value>
+        <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement enregistré !</value>
         <value xml:lang="hi-IN">नई स्थिति को 'पुष्टिकृत (Confirmed)' स्थिति में नहीं स्थापित किया जा सकता, भुगतान पूरी तरह से लागू नहीं किया गया है</value>
         <value xml:lang="it">Stato non può essere impostato a 'Confermato', il pagamento non è completamento applicato!</value>
         <value xml:lang="ja">ステータスは'完了'にできません、支払はまだすべて消込されていません!</value>
@@ -11670,7 +11110,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] ist schon komplett zugewiesen</value>
         <value xml:lang="en">Payment [${paymentId}] is already fully applied</value>
         <value xml:lang="es">Pago [${paymentId}] esta completamente aplicado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] a déjà été entièrement alloué</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] a déjà été entièrement enregistré</value>
         <value xml:lang="hi-IN">भुगतान [${paymentId}] पहले से ही पूरी तरह से लागू किया जा चुका है</value>
         <value xml:lang="it">Pagamento [${paymentId}] è già completamente applicato</value>
         <value xml:lang="ja">支払 [${paymentId}] はすでにすべて消込済です</value>
@@ -11842,7 +11282,7 @@
         <value xml:lang="en">PaymentApplication record [${paymentApplicationId}] not found</value>
         <value xml:lang="es">Registro de Aplicación de Pago [${paymentApplicationId}] not found</value>
         <value xml:lang="es-CL">Registro de Aplicación de Pago [${paymentApplicationId}] no encontrado</value>
-        <value xml:lang="fr">L'allocation du paiement  [${paymentApplicationId}] n'a pas été trouvée</value>
+        <value xml:lang="fr">L'enregistrement du paiement  [${paymentApplicationId}] n'a pas été trouvé</value>
         <value xml:lang="hi-IN">PaymentApplication रिकार्ड [$(paymentApplicationId)] नहीं मिला</value>
         <value xml:lang="it">PaymentApplication record [${paymentApplicationId}] non trovato</value>
         <value xml:lang="ja">支払申請レコード [${paymentApplicationId}] が見つかりません</value>
@@ -11885,7 +11325,7 @@
         <value xml:lang="en">Payment application requires either an invoiceId, a billingAccountId, a taxAuthGeoId or a glAccountId</value>
         <value xml:lang="es">Aplicación de pago requiere cualquiera de IdFactua, un IdCuentaFacturación, o un IdAreaAutoridadFiscal</value>
         <value xml:lang="es-CL">Aplicación de pago requiere cualquier ID de Factura, un Id de Cuenta Facturación o un Id de Area Autoridad Tributaria</value>
-        <value xml:lang="fr">Pour allouer ce paiement, il faut ou bien une réf. de facture, un compte de facturation, une administration fiscale ou un compte comptable</value>
+        <value xml:lang="fr">Pour enregistrer ce paiement, il faut ou bien une réf. de facture, un compte de facturation, une administration fiscale ou un compte comptable</value>
         <value xml:lang="hi-IN">PaymentApplication के लिए या तो एक invoiceId, एक billingAccountId, एक taxAuthGeoId या एक glAccountId आवश्यक है</value>
         <value xml:lang="it">Applicazione pagamento richiede entrambi un fattura, un conto fatturazione, o una autorità tasse geografia</value>
         <value xml:lang="ja">支払申請は請求ID、請求先アカウントID、税務機関位置ID、またはGL勘定IDのいずれかが必要です</value>
@@ -11916,7 +11356,7 @@
         <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido concelado y no puede ser aplicado</value>
         <value xml:lang="es-CL">Pago [${paymentId}] ha sido cancelado y no puede ser aplicado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est annullé est ne peut être alloué</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est annullé est ne peut être enregistré</value>
         <value xml:lang="hi-IN">भुगतान [$(paymentId)] रद्द कर दिया गया है और लागू नहीं किया जा सकता है</value>
         <value xml:lang="it">Pagamento [${paymentId}] è annullato e non può essere applicato</value>
         <value xml:lang="ja">支払 [${paymentId}] は取消済のため消込できません</value>
@@ -11966,7 +11406,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] ist bestätigt und kann nicht zugewiesen werden</value>
         <value xml:lang="en">Payment [${paymentId}] is confirmed and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido confirmado y no puede ser aplicado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est confirmé et ne peut pas être alloué</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est confirmé et ne peut pas être enregistré</value>
         <value xml:lang="hi-IN">भुगतान [$(paymentId)] स्थिर है और लागू नहीं किया जा सकता है</value>
         <value xml:lang="it">Pagamento [${paymentId}] è confermato e non può essere applicato</value>
         <value xml:lang="ja">支払 [${paymentId}] は確認済のため消込できません</value>
@@ -12373,7 +11813,7 @@
         <value xml:lang="en">PaymentID to apply</value>
         <value xml:lang="es">IdPago a aplicar</value>
         <value xml:lang="es-CL">ID Pago a aplicar</value>
-        <value xml:lang="fr">Réf. paiement à allouer</value>
+        <value xml:lang="fr">Réf. paiement à enregistrer</value>
         <value xml:lang="hi-IN">लागू करने के लिए भुगतानक्रमांक</value>
         <value xml:lang="it">Numero Pagamento da applicare</value>
         <value xml:lang="ja">消込支払ID</value>
@@ -12586,7 +12026,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] hat einen Betrag (${paymentApplyAvailable?currency(${isoCode})} zur Verfügung und der angeforderte Betrag  ${amountApplied?currency(${isoCode})} ist zu hoch</value>
         <value xml:lang="en">Payment [${paymentId}] has an amount (${paymentApplyAvailable?currency(${isoCode})} to apply and the  ${amountApplied?currency(${isoCode})} requested is too much</value>
         <value xml:lang="es">Pago [${paymentId}] tiene una cantidad (${paymentApplyAvailable?currency(${isoCode})} para aplicar y ${amountApplied?currency(${isoCode})} requerido es demasiado</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est d'un montant à allouer de (${paymentApplyAvailable?currency(${isoCode})} et le montant demande ${amountApplied?currency(${isoCode})} est trop élevé</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est d'un montant à enregistrer de (${paymentApplyAvailable?currency(${isoCode})} et le montant demande ${amountApplied?currency(${isoCode})} est trop élevé</value>
         <value xml:lang="hi-IN">भुगतान [${paymentId}] पर लागू करने के लिए राशि ${paymentApplyAvailable?currency(${isoCode})} उपलब्ध है और अनुरोधित ${amountApplied?currency(${isoCode})} बहुत अधिक है</value>
         <value xml:lang="it">Pagamento [${paymentId}] ha un'importo (${paymentApplyAvailable?currency(${isoCode})} da applicare e ${amountApplied?currency(${isoCode})} richiesto è troppo grosso</value>
         <value xml:lang="ja">支払 [${paymentId}] は金額 (${paymentApplyAvailable?currency(${isoCode})} を消込していますが、リクエストされた ${amountApplied?currency(${isoCode})} は多すぎます</value>
@@ -12850,7 +12290,7 @@
         <value xml:lang="de">Zuweisungen</value>
         <value xml:lang="en">Applications</value>
         <value xml:lang="es">Aplicaciones</value>
-        <value xml:lang="fr">Allocations</value>
+        <value xml:lang="fr">Enregistrements</value>
         <value xml:lang="hi-IN">अनुप्रयोग</value>
         <value xml:lang="it">Applicazioni Pagamento</value>
         <value xml:lang="ja">適用</value>
@@ -13276,7 +12716,7 @@
         <value xml:lang="de">Zahlung zugewiesen</value>
         <value xml:lang="en">Payments Applied</value>
         <value xml:lang="es">Pagos Aplicados</value>
-        <value xml:lang="fr">Paiements alloués</value>
+        <value xml:lang="fr">Paiements enregistrés</value>
         <value xml:lang="hi-IN">लागू भुगतान</value>
         <value xml:lang="it">Pagamenti Applicati</value>
         <value xml:lang="ja">消込済支払</value>
@@ -13971,7 +13411,7 @@
         <value xml:lang="en">Problem getting PaymentApplication(s) for Invoice ID [${invoiceId}]</value>
         <value xml:lang="es">Problema obteniendo Aplicación de Pago(s) para Id Factura [${invoiceId}]</value>
         <value xml:lang="es-CL">Problema obteniendo Aplicación de Pago(s) para ID de Factura [${invoiceId}]</value>
-        <value xml:lang="fr">Erreur en recherchant les paiements alloués à la commande [${invoiceId}]</value>
+        <value xml:lang="fr">Erreur en recherchant les paiements enregistrés à la commande [${invoiceId}]</value>
         <value xml:lang="hi-IN">चालान क्रमांक [$(invoiceId)] के लिए PaymentApplication(s) में समस्या हो रही</value>
         <value xml:lang="it">Problema leggendo PaymentApplication(s) per Numero Fattura [${invoiceId}]</value>
         <value xml:lang="ja">請求ID [${invoiceId}] に対する注文申請の取得時に問題があります</value>
@@ -18116,7 +17556,7 @@
         <value xml:lang="de">Menge zugewiesen</value>
         <value xml:lang="en">Amount Applied</value>
         <value xml:lang="es">Cantidad Aplicada</value>
-        <value xml:lang="fr">Montant alloué</value>
+        <value xml:lang="fr">Montant enregistré</value>
         <value xml:lang="hi-IN">लागू राशि</value>
         <value xml:lang="it">Importo Applicato</value>
         <value xml:lang="ja">消込済金額</value>
@@ -18135,7 +17575,7 @@
         <value xml:lang="en">Outstanding amount</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à allouer</value>
+        <value xml:lang="fr">Montant à enregistrer</value>
         <value xml:lang="hi-IN">बकाया राशि</value>
         <value xml:lang="it">Importo Da Applicare</value>
         <value xml:lang="ja">未払金額</value>
@@ -18172,7 +17612,7 @@
         <value xml:lang="de">Angelegt</value>
         <value xml:lang="en">Applied</value>
         <value xml:lang="es">Aplicado</value>
-        <value xml:lang="fr">Alloué</value>
+        <value xml:lang="fr">enregistré</value>
         <value xml:lang="hi-IN">लागू</value>
         <value xml:lang="it">Applicato</value>
         <value xml:lang="ja">消込済</value>
@@ -18190,7 +17630,7 @@
         <value xml:lang="de">Zuweisen</value>
         <value xml:lang="en">Apply</value>
         <value xml:lang="es">Aplicar</value>
-        <value xml:lang="fr">Allouer</value>
+        <value xml:lang="fr">Enregistrer</value>
         <value xml:lang="hi-IN">लागू करे</value>
         <value xml:lang="it">Applicare</value>
         <value xml:lang="ja">消込</value>
@@ -19722,7 +19162,7 @@
         <value xml:lang="de">Hauptbuch Transaktionen</value>
         <value xml:lang="en">Gl Transactions</value>
         <value xml:lang="es">Transacciones GL</value>
-        <value xml:lang="fr">Transactions GL</value>
+        <value xml:lang="fr">des opérations comptables</value>
         <value xml:lang="ja">GLトランザクション</value>
         <value xml:lang="pt">Transações contábeis</value>
         <value xml:lang="vi">Bút toán</value>
@@ -19984,7 +19424,7 @@
         <value xml:lang="de">Nicht angewendet</value>
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="es">No Aplica</value>
-        <value xml:lang="fr">Non alloué</value>
+        <value xml:lang="fr">Non enregistré</value>
         <value xml:lang="hi-IN">लागू नहीं</value>
         <value xml:lang="it">Non applicata</value>
         <value xml:lang="ja">未消込</value>
@@ -20013,7 +19453,7 @@
         <value xml:lang="en">Assign to whole invoice</value>
         <value xml:lang="es">Asignar a factura completa</value>
         <value xml:lang="es-CL">Asignar a Factura Completa</value>
-        <value xml:lang="fr">Allouer à la facture dans son entièreté</value>
+        <value xml:lang="fr">Enregistrer à la facture dans son entièreté</value>
         <value xml:lang="hi-IN">पूरे चालान को आवंटित</value>
         <value xml:lang="it">Assegna a Tutte le Fatture</value>
         <value xml:lang="ja">請求書すべてに割当</value>
@@ -20519,7 +19959,7 @@
         <value xml:lang="de">Nicht zugewiesen</value>
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="es">No Aplica</value>
-        <value xml:lang="fr">Non alloué</value>
+        <value xml:lang="fr">Non enregistré</value>
         <value xml:lang="hi-IN">लागू नहीं</value>
         <value xml:lang="it">Non applicata</value>
         <value xml:lang="ja">未消込</value>
@@ -20909,7 +20349,7 @@
         <value xml:lang="en">Already Applied</value>
         <value xml:lang="es">Ya aplicado</value>
         <value xml:lang="es-CL">Ya Aplicado</value>
-        <value xml:lang="fr">Déjà alloué</value>
+        <value xml:lang="fr">Déjà enregistré</value>
         <value xml:lang="hi-IN">पहले से ही लागू</value>
         <value xml:lang="it">Pagamento già Applicato</value>
         <value xml:lang="ja">すでに消込済</value>
@@ -20928,7 +20368,7 @@
         <value xml:lang="en">Amount to Apply</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à allouer</value>
+        <value xml:lang="fr">Montant à enregistrer</value>
         <value xml:lang="hi-IN">लागू करने के लिए राशि</value>
         <value xml:lang="it">Importo da Applicare</value>
         <value xml:lang="ja">消込金額</value>
@@ -22581,7 +22021,7 @@
         <value xml:lang="de">alle angelegten Rechnungen</value>
         <value xml:lang="en">Tot Invoice Applied</value>
         <value xml:lang="es">Total Factura Aplicada</value>
-        <value xml:lang="fr">Total alloué</value>
+        <value xml:lang="fr">Total enregistré</value>
         <value xml:lang="hi-IN">कुल एप्लाइड चालान</value>
         <value xml:lang="it">Totale fattura applicato</value>
         <value xml:lang="ja">消込済請求合計</value>
@@ -22851,6 +22291,14 @@
         <value xml:lang="vi">Năm đến Ngày cân đối hạn mức (debit)</value>
         <value xml:lang="zh">本年借方余额</value>
         <value xml:lang="zh-TW">本年借方餘額</value>
+    </property>
+    <property key="GlTransaction">
+        <value xml:lang="de">Hauptbuch Transaktion</value>
+        <value xml:lang="en">a Gl Transaction</value>
+        <value xml:lang="es">uno Transaccione GL</value>
+        <value xml:lang="fr">une transaction comptable</value>
+        <value xml:lang="ja">GLトランザクション</value>
+        <value xml:lang="pt">Transaçõe contábei</value>
     </property>
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="ar">إضافة أدوار الإتفاقية</value>
@@ -24163,6 +23611,22 @@
         <value xml:lang="zh">发票总览</value>
         <value xml:lang="zh-TW">發票總覽</value>
     </property>
+    <property key="PageTitleInvoiceAttributes">
+        <value xml:lang="en">Invoice Attributes</value>
+        <value xml:lang="nl">Factuurattributen</value>
+    </property>
+    <property key="PageTitleInvoiceContactMech">
+        <value xml:lang="en">Invoice Contact Info</value>
+        <value xml:lang="nl">Factuurcontactgegevens</value>
+    </property>
+    <property key="PageTitleInvoiceContent">
+        <value xml:lang="en">Invoice Content</value>
+        <value xml:lang="nl">Factuurcontent</value>
+    </property>
+    <property key="PageTitleInvoiceNotes">
+        <value xml:lang="en">Invoice Notes</value>
+        <value xml:lang="nl">Factuurnotities</value>
+    </property>
     <property key="PageTitleListAccounts">
         <value xml:lang="ar">قائمة الحسابات</value>
         <value xml:lang="cs">Seznam účtů</value>
@@ -24787,6 +24251,10 @@
         <value xml:lang="vi">Tổng quan thanh toán</value>
         <value xml:lang="zh">支付总览</value>
         <value xml:lang="zh-TW">支付總覽</value>
+    </property>
+    <property key="PageTitlePaymentAttributes">
+        <value xml:lang="en">Payment Attributes</value>
+        <value xml:lang="nl">Betalingsattributen</value>
     </property>
     <property key="PageTitleSalesInvoiceByProductCategorySummary">
         <value xml:lang="ar">ملخص فواتير المبيعات بفئة السلعة</value>

@@ -69,7 +69,7 @@ public class JavaEventHandler implements EventHandler {
             throw new EventHandlerException("Error invoking event, the class "
                                             + event.getPath() + " was not found");
         }
-        if (event.getInvoke() == null || event.getInvoke() == null) {
+        if (event.getInvoke() == null) {
             throw new EventHandlerException("Invalid event method or path; call initialize()");
         }
 

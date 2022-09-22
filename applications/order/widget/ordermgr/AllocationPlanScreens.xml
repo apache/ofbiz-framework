@@ -24,6 +24,9 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for ALLOCPLAN, _VIEW permission -->

@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -40,9 +42,13 @@ import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.PercentCodec;
 import org.owasp.esapi.codecs.XMLEntityCodec;
+import org.owasp.html.Handler;
 import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.HtmlSanitizer;
+import org.owasp.html.HtmlStreamRenderer;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
+import org.owasp.html.TagBalancingHtmlStreamEventReceiver;
 
 @SuppressWarnings("rawtypes")
 public class UtilCodec {
@@ -420,7 +426,7 @@ public class UtilCodec {
         // check for "<", ">"
         if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
             String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
             } else {
                 issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
@@ -434,7 +440,7 @@ public class UtilCodec {
         if (JS_EVENT_LIST.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent))
                 || value.contains("seekSegmentTime")) {
             String issueMsg = null;
-            if (locale.equals(new Locale("test"))) {
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
             } else {
                 issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
@@ -472,7 +478,7 @@ public class UtilCodec {
         PolicyFactory policy = null;
         try {
             Class<?> customPolicyClass = null;
-            if (locale.equals(new Locale("test"))) {
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
             } else {
                 customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
@@ -490,10 +496,53 @@ public class UtilCodec {
         }
 
         if (value != null) {
+          //Create valid HTML from input with empty sanitizer. Compare the result with the sanitized result.
+            StringBuilder htmlOutput = new StringBuilder();
+            HtmlStreamRenderer renderer = HtmlStreamRenderer.create(htmlOutput, Handler.DO_NOTHING);
+            TagBalancingHtmlStreamEventReceiver balancer = new TagBalancingHtmlStreamEventReceiver(renderer);
+            HtmlSanitizer.sanitize(value, new HtmlSanitizer.Policy() {
+                @Override
+                public void openDocument() {
+                    balancer.openDocument();
+                }
+                @Override
+                public void openTag(String tagName, List<String> attrs) {
+                    balancer.openTag(tagName, attrs);
+                }
+                @Override
+                public void text(String text) {
+                    balancer.text(text);
+                }
+                @Override
+                public void closeTag(String tagName) {
+                    balancer.closeTag(tagName);
+                }
+                @Override
+                public void closeDocument() {
+                    balancer.closeDocument();
+                }
+            });
+
+            // Remove space within and semicolons on end of style attributes when using allowStyling()
+            value = htmlOutput.toString();
+            String regex = "(style\\s*=\\s*\\\"([^\\\"]*)\\\")";
+            Pattern p = Pattern.compile(regex);
+            Matcher m = p.matcher(value);
+            StringBuffer out = new StringBuffer();
+            while (m.find()) {
+                String str = m.group().replace(";\"", "\"").replace(" ", "");
+                m.appendReplacement(out, str);
+            }
+            m.appendTail(out);
+            value = out.toString();
             String filtered = policy.sanitize(value);
-            if (filtered != null && !value.equals(StringEscapeUtils.unescapeEcmaScript(StringEscapeUtils.unescapeHtml4(filtered)))) {
+            String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
+            String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
+            // Replaces possible quotes entities in value (due to HtmlSanitizer above) to avoid issue with
+            // testCreateCustRequestItemNote and allow saving when using quotes in fields
+            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
-                if (locale.equals(new Locale("test"))) {
+                if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
                             + "for security reason. Please check and modify accordingly, thanks.";
                 } else {

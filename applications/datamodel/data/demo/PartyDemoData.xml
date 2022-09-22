@@ -123,4 +123,7 @@ under the License.
     <PartyGroup partyId="DemoGovAgency" groupName="Demo Government Agency"/>
     <PartyRole partyId="DemoGovAgency" roleTypeId="GOV_AGENCY"/>
 
+    <!-- PartyClassification data -->
+    <PartyClassificationGroup partyClassificationGroupId="EMEA" description="Europe and Middle East" partyClassificationTypeId="REGION"/>
+    <PartyClassificationGroup partyClassificationGroupId="APAC" description="Asia and Pacific" partyClassificationTypeId="REGION"/>
 </entity-engine-xml>

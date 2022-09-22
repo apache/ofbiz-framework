@@ -28,8 +28,6 @@ import org.apache.ofbiz.entity.GenericValue;
 @SuppressWarnings("serial")
 public class PurgeJob extends AbstractJob implements Serializable {
 
-    private static final String MODULE = PurgeJob.class.getName();
-
     private final GenericValue jobValue;
 
     public PurgeJob(GenericValue jobValue) {

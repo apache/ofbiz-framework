@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
-    <form name="ListProductStore" type="list" list-name="productStores"
+
+    <grid name="ListProductStore" list-name="productStores"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="storeName"/>
@@ -37,11 +37,116 @@ under the License.
         <field name="storeName" title="${uiLabelMap.ProductStoreName}" sort-field="true"><display/></field>
         <field name="title" title="${uiLabelMap.ProductTitle}" sort-field="true"><display/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}" sort-field="true"><display/></field>
+    </grid>
+    <form name="ProductStore" type="single" default-map-name="productStore"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="ProductStore" default-field-type="display"/>
+        <sort-order>
+            <field-group title="${uiLabelMap.ProductStore}">
+                <sort-field name="productStoreId"/>
+                <sort-field name="primaryStoreGroupId"/>
+                <sort-field name="storeName"/>
+                <sort-field name="title"/>
+                <sort-field name="subtitle"/>
+                <sort-field name="companyName"/>
+                <sort-field name="isDemoStore"/>
+                <sort-field name="ecomThemeId"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonInventory}" collapsible="true">
+                <sort-field name="inventoryFacilityId"/>
+                <sort-field name="oneInventoryFacility"/>
+                <sort-field name="isImmediatelyFulfilled"/>
+                <sort-field name="checkInventory"/>
+                <sort-field name="requireInventory"/>
+                <sort-field name="requirementMethodEnumId"/>
+                <sort-field name="reserveInventory"/>
+                <sort-field name="reserveOrderEnumId"/>
+                <sort-field name="balanceResOnOrderCreation"/>
+                <sort-field name="showOutOfStockProducts"/>
+                <sort-field name="managedByLot"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
+                <sort-field name="viewCartOnAdd"/>
+                <sort-field name="autoSaveCart"/>
+                <sort-field name="addToCartReplaceUpsell"/>
+                <sort-field name="addToCartRemoveIncompat"/>
+                <sort-field name="showCheckoutGiftOptions"/>
+                <sort-field name="prodSearchExcludeVariants"/>
+                <sort-field name="orderDecimalQuantity"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonShipping}" collapsible="true" initially-collapsed="true">
+                <sort-field name="prorateShipping"/>
+                <sort-field name="reqShipAddrForDigItems"/>
+                <sort-field name="selectPaymentTypePerItem"/>
+                <sort-field name="shipIfCaptureFails"/>
+                <sort-field name="splitPayPrefPerShpGrp"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonPayments}" collapsible="true" initially-collapsed="true">
+                <sort-field name="payToPartyId"/>
+                <sort-field name="storeCreditAccountEnumId"/>
+                <sort-field name="manualAuthIsCapture"/>
+                <sort-field name="retryFailedAuths"/>
+                <sort-field name="daysToCancelNonPay"/>
+                <sort-field name="autoOrderCcTryExp"/>
+                <sort-field name="autoOrderCcTryOtherCards"/>
+                <sort-field name="autoOrderCcTryLaterNsf"/>
+                <sort-field name="autoOrderCcTryLaterMax"/>
+                <sort-field name="storeCreditValidDays"/>
+                <sort-field name="setOwnerUponIssuance"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonOrders}" collapsible="true" initially-collapsed="true">
+                <sort-field name="orderNumberPrefix"/>
+                <sort-field name="defaultSalesChannelEnumId"/>
+                <sort-field name="explodeOrderItems"/>
+                <sort-field name="checkGcBalance"/>
+                <sort-field name="autoInvoiceDigitalItems"/>
+                <sort-field name="autoApproveInvoice"/>
+                <sort-field name="autoApproveOrder"/>
+                <sort-field name="reqReturnInventoryReceive"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonLocalisation}" collapsible="true" initially-collapsed="true">
+                <sort-field name="defaultLocaleString"/>
+                <sort-field name="defaultCurrencyUomId"/>
+                <sort-field name="defaultTimeZoneString"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductOrdersStatus}" collapsible="true" initially-collapsed="true">
+                <sort-field name="headerApprovedStatus"/>
+                <sort-field name="itemApprovedStatus"/>
+                <sort-field name="digitalItemApprovedStatus"/>
+                <sort-field name="headerDeclinedStatus"/>
+                <sort-field name="itemDeclinedStatus"/>
+                <sort-field name="headerCancelStatus"/>
+                <sort-field name="itemCancelStatus"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonMessages}" collapsible="true" initially-collapsed="true">
+                <sort-field name="authDeclinedMessage"/>
+                <sort-field name="authFraudMessage"/>
+                <sort-field name="authErrorMessage"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonTax}" collapsible="true" initially-collapsed="true">
+                <sort-field name="prorateTaxes"/>
+                <sort-field name="showPricesWithVatTax"/>
+                <sort-field name="showTaxIsExempt"/>
+                <sort-field name="vatTaxAuthGeoId"/>
+                <sort-field name="vatTaxAuthPartyId"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonVisitors}" collapsible="true" initially-collapsed="true">
+                <sort-field name="autoApproveReviews"/>
+                <sort-field name="allowPassword"/>
+                <sort-field name="defaultPassword"/>
+                <sort-field name="usePrimaryEmailUsername"/>
+                <sort-field name="requireCustomerRole"/>
+                <sort-field name="enableAutoSuggestionList"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonUpload}" collapsible="true" initially-collapsed="true">
+                <sort-field name="enableDigProdUpload"/>
+                <sort-field name="digProdUploadCategoryId"/>
+            </field-group>
+        </sort-order>
     </form>
-    
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         header-row-style="header-row" default-table-style="basic-table">
-        
+
         <alt-target use-when="productStore==null" target="createProductStore"/>
         <auto-fields-service service-name="updateProductStore"/>
 
@@ -220,7 +325,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
         <field name="ecomThemeId" entry-name="visualThemeId" title="${uiLabelMap.ProductStoreEcomThemeId}">
             <drop-down allow-empty="true">
@@ -337,7 +442,7 @@ under the License.
                 <sort-field name="reserveInventory"/>
                 <sort-field name="reserveOrderEnumId"/>
                 <sort-field name="balanceResOnOrderCreation"/>
-                <sort-field name="showOutOfStockProducts"/>   
+                <sort-field name="showOutOfStockProducts"/>
                 <sort-field name="managedByLot"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
@@ -358,7 +463,7 @@ under the License.
             </field-group>
             <field-group title="${uiLabelMap.CommonPayments}" collapsible="true" initially-collapsed="true">
                 <sort-field name="payToPartyId"/>
-                <sort-field name="storeCreditAccountEnumId"/>                
+                <sort-field name="storeCreditAccountEnumId"/>
                 <sort-field name="manualAuthIsCapture"/>
                 <sort-field name="retryFailedAuths"/>
                 <sort-field name="daysToCancelNonPay"/>
@@ -433,7 +538,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductStoreCatalog" type="list" target="updateProductStoreCatalog" title="" list-name="productStoreCatalogs"
+    <grid name="UpdateProductStoreCatalog" list-name="productStoreCatalogs" target="updateProductStoreCatalog"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
         <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}">
@@ -453,8 +558,8 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="ListProductStorePromos" type="list" list-name="productStorePromoAndAppls" target="updateProductStorePromoAppl"
+    </grid>
+    <grid name="ListProductStorePromos" list-name="productStorePromoAndAppls" target="updateProductStorePromoAppl"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <field name="productStoreId"><hidden/></field>
         <field name="productPromoId" widget-style="buttontext">
@@ -473,7 +578,7 @@ under the License.
             </drop-down>
         </field>
          <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="CreateProductStorePromo" type="single" target="createProductStorePromoAppl"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
@@ -492,7 +597,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="FindProductStoreRole" type="single" target="FindProductStoreRoles" default-entity-name="ProductStoreRole">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}"><hidden/></field>
@@ -508,7 +613,7 @@ under the License.
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListProductStoreRole" type="list" list-name="listIt" paginate-target="FindProductStoreRoles" default-entity-name="ProductStoreRole" separate-columns="true"
+    <grid name="ListProductStoreRole" list-name="listIt" paginate-target="FindProductStoreRoles" default-entity-name="ProductStoreRole" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -546,7 +651,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
 
     <form name="EditProductStoreRole" type="single" target="storeUpdateRole" default-map-name="productStoreRole"
             header-row-style="header-row" default-table-style="basic-table">
@@ -573,7 +678,7 @@ under the License.
     </form>
 
     <!-- ProductStoreFacility forms -->
-    <form name="ListProductStoreFacility" type="list" list-name="listIt" target=""
+    <grid name="ListProductStoreFacility" list-name="listIt"
             default-table-style="basic-table hover-bar" odd-row-style="alternate-row">
         <actions>
             <entity-and entity-name="ProductStoreFacility">
@@ -582,9 +687,8 @@ under the License.
                 <order-by field-name="fromDate"/>
             </entity-and>
         </actions>
-        
         <field name="submitButton" title=" " >
-            <hyperlink target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');" 
+            <hyperlink target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');"
                 target-type="plain" image-location="/images/mini-edit.png" image-title="${uiLabelMap.CommonEdit}"/>
         </field>
         <field name="productStoreId"><hidden /></field>
@@ -593,7 +697,7 @@ under the License.
                 <sub-hyperlink link-style="link" description="[${facilityId}]"  target="/facility/control/EditFacility" target-type="inter-app">
                     <parameter param-name="facilityId"/>
                 </sub-hyperlink>
-            </display-entity>    
+            </display-entity>
         </field>
         <field name="sequenceNum" ><display /></field>
         <field name="fromDate" ><display type="date-time" /></field>
@@ -603,12 +707,13 @@ under the License.
                target-type="plain" request-confirmation="true" image-location="/images/mini-trash.png" image-title="${uiLabelMap.CommonRemove}">
             </hyperlink>
         </field>
-     </form>
+     </grid>
 
      <form name="EditProductStoreFacility" type="single" focus-field-name="facilityId"
                target="addProductStoreFacility" title="" default-map-name="productStoreFacility" >
         <alt-target target="updateProductStoreFacility" use-when="productStoreFacility != null"/>
 
+        <field name="portalPortletId"><hidden value="PrdStoreFacilityMgmt"/></field>
         <field name="productStoreId"><hidden /></field>
         <field name="facilityId" use-when="productStoreFacility != null"><display/></field>
         <field name="facilityId" use-when="productStoreFacility == null">
@@ -623,11 +728,13 @@ under the License.
         <field name="submitButton" title="${groovy: productStoreFacility == null ? uiLabelMap.CommonAdd : uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <on-event-update-area event-type="submit" area-id="PP_ProductStoreFacilityPrdStoreFacilityMgmt00001" area-target="ListProductStoreFacilityFormOnly?portalPortletId=PrdStoreFacilityMgmt&amp;productStoreId=${parameters.productStoreId}"/>
+        <on-event-update-area area-target="ListProductStoreFacilityFormOnly" event-type="submit" area-id="PP_ProductStoreFacilityPrdStoreFacilityMgmt00001">
+            <auto-parameters-form/>
+        </on-event-update-area>
      </form>
 
      <!-- ProductStoreGroup Forms -->
-     <form name="ListParentProductStoreGroup" type="list" target="EditProductStoreGroup" paginate="false"
+     <grid name="ListParentProductStoreGroup" target="EditProductStoreGroup" paginate="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ProductStoreGroup">
@@ -644,7 +751,7 @@ under the License.
         <field name="productStoreGroupTypeId"><display-entity entity-name="ProductStoreGroupType"/></field>
         <field name="description"><display/></field>
         <field name="selectButton" title="${uiLabelMap.CommonSelect}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="EditProductStoreGroup" target="updateProductStoreGroup" type="single" default-map-name="productStoreGroup">
         <alt-target use-when="productStoreGroup == null" target="createProductStoreGroup"/>
         <auto-fields-entity entity-name="ProductStoreGroup"/>
@@ -664,7 +771,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.Common${groovy: context.productStoreGroup?'Submit':'Create'}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="ListProductStoreGroupAssoc" type="list"
+    <grid name="ListProductStoreGroupAssoc"
            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ProductStoreGroupRollup" filter-by-date="true">
@@ -688,8 +795,8 @@ under the License.
                 <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
-    </form>
-    <form name="ListProductStoreAssoc" type="list"
+    </grid>
+    <grid name="ListProductStoreAssoc"
            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ProductStoreGroupAndMember" filter-by-date="true">
@@ -704,7 +811,7 @@ under the License.
         <field name="storeName"><display/></field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
-    </form>
+    </grid>
     <form name="AddProductStoreAssoc" type="single" target="AddProductStoreToGroup">
         <field name="productStoreGroupId"><hidden/></field>
         <field name="productStoreId">
@@ -720,7 +827,7 @@ under the License.
             <parameter param-name="productStoreGroupId" from-field="productStoreGroup.productStoreGroupId"/>
         </on-event-update-area>
     </form>
-    <form name="ListProductStoreFinAccountSettings" type="list" target="UpdateProductStoreFinAccountSettings" list-name="productStoreFinActSettings"
+    <grid name="ListProductStoreFinAccountSettings" list-name="productStoreFinActSettings" target="UpdateProductStoreFinAccountSettings"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductStoreFinActSetting" default-field-type="display"/>
         <field name="productStoreId"><ignored/></field>
@@ -742,7 +849,7 @@ under the License.
                 <parameter param-name="finAccountTypeId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditProductStoreFinAccountSettings" type="single" target="UpdateProductStoreFinAccountSettings" default-map-name="finAccountSetting"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="finAccountSetting==null" target="CreateProductStoreFinAccountSettings"/>
@@ -788,7 +895,7 @@ under the License.
         <field name="fromAddress" title="${uiLabelMap.CommonFromAddress}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductStoreEmail" type="list" target="updateProductStoreEmail" title="" list-name="productStoreEmailSettings"
+    <grid name="UpdateProductStoreEmail" list-name="productStoreEmailSettings" target="updateProductStoreEmail"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductStoreEmailSetting"/>
         <field name="productStoreId"><hidden/></field>
@@ -806,7 +913,7 @@ under the License.
                 <parameter param-name="emailType"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditProductStorePaymentSetting" type="single" target="storeUpdatePaySetting" default-map-name="productStorePaymentSetting"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productStorePaymentSetting==null" target="storeCreatePaySetting"/>
@@ -854,7 +961,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductStorePaymentSettings" type="list" odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductStorePaySetup">
+    <grid name="ListProductStorePaymentSettings" paginate-target="EditProductStorePaySetup"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="ProductStorePaymentSetting">
                 <field-map field-name="productStoreId"/>
@@ -898,9 +1006,9 @@ under the License.
         <field name="deleteLink" title=" " use-when="${groovy:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}">
             <display/>
         </field>
-    </form>
-    <form name="ViewProductStoreSegments" target="" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="">
+    </grid>
+    <grid name="ViewProductStoreSegments"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="SegmentGroup">
                 <field-map field-name="productStoreId"/>
@@ -918,7 +1026,7 @@ under the License.
                 <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="CreateproductStorekeywordOvrdForm" type="single" target="createProductStoreKeywordOvrd" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductStoreKeywordOvrd"/>
@@ -933,7 +1041,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateproductStorekeywordOvrdForm" type="list" target="updateProductStoreKeywordOvrd" title="" list-name="productStorekeywordOvrdList"
+    <grid name="UpdateproductStorekeywordOvrdForm" list-name="productStorekeywordOvrdList" target="updateProductStoreKeywordOvrd"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductStoreKeywordOvrd"/>
         <field name="productStoreId"><hidden/></field>
@@ -955,7 +1063,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditProductStoreVendorPayment" type="single" target="createProductStoreVendorPayment"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
@@ -974,7 +1082,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductStoreVendorPayments" type="list" list-name="productStoreVendorPaymentList" target="deleteProductStoreVendorPayment" paginate-target="EditProductStoreVendorPayments"
+    <grid name="ListProductStoreVendorPayments" list-name="productStoreVendorPaymentList" target="deleteProductStoreVendorPayment" paginate-target="EditProductStoreVendorPayments"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
         <field name="vendorPartyId"><display/></field>
@@ -985,7 +1093,7 @@ under the License.
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
+    </grid>
     <form name="EditProductStoreVendorShipment" type="single" target="createProductStoreVendorShipment"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
@@ -998,7 +1106,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductStoreVendorShipments" type="list" list-name="productStoreVendorShipmentList" target="deleteProductStoreVendorShipment"
+    <grid name="ListProductStoreVendorShipments" list-name="productStoreVendorShipmentList" target="deleteProductStoreVendorShipment"
         paginate-target="EditProductStoreVendorShipments" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
         <field name="carrierPartyId"><display/></field>
@@ -1007,9 +1115,9 @@ under the License.
             <display-entity entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    <form name="ListShipmentCostEstimates" target="" title="" type="list"  list-name="estimates"
-        paginate-target="EditProductStoreShipmentCostEstimates" odd-row-style="alternate-row" default-table-style="basic-table">
+    </grid>
+    <grid name="ListShipmentCostEstimates" list-name="estimates" paginate-target="EditProductStoreShipmentCostEstimates"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentCostEstimate" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
         <field name="carrierRoleTypeId"><hidden/></field>
@@ -1052,7 +1160,7 @@ under the License.
                 <parameter param-name="shipmentCostEstimateId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddShipmentCostEstimate" type="single" target="storeCreateShipRate" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
@@ -1200,9 +1308,9 @@ under the License.
             </field-group>
         </sort-order>
     </form>
-    
-    <form name="ListProductStoreShipmentMeths" target="" title="" type="list"  list-name="storeShipMethods"
-        paginate-target="EditProductStoreShipSetup" odd-row-style="alternate-row" default-table-style="basic-table">
+
+    <grid name="ListProductStoreShipmentMeths" list-name="storeShipMethods" paginate-target="EditProductStoreShipSetup"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
         <field name="productStoreShipMethId" title=" " widget-style="buttontext">
@@ -1239,7 +1347,7 @@ under the License.
                 <parameter param-name="productStoreShipMethId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="EditProductStoreShipmentMeth" type="single" target="storeUpdateShipMeth" title="" default-map-name="productStoreShipmentMeth"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productStoreShipmentMeth==null" target="storeCreateShipMeth"/>

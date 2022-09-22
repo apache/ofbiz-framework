@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVFormat.Builder;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -2303,7 +2304,8 @@ public class PartyServices {
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
+        Builder csvFormatBuilder = Builder.create().setHeader();
+        CSVFormat fmt = csvFormatBuilder.build();
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs = new LinkedList<>();
         String lastPartyId = null;        // last partyId read from the csv file
@@ -2333,7 +2335,7 @@ public class PartyServices {
 
 
         try (BufferedReader csvReader = new BufferedReader(new StringReader(csvString))) {
-            for (final CSVRecord rec : fmt.parse(csvReader)) {
+            for (CSVRecord rec : fmt.parse(csvReader)) {
                 if (UtilValidate.isNotEmpty(rec.get("partyId"))) {
                     currentPartyId = rec.get("partyId");
                 }
@@ -2438,6 +2440,10 @@ public class PartyServices {
                                         "userLogin", userLogin);
                                 result = dispatcher.runSync("updatePartyGroup", partyGroup);
                                 if (ServiceUtil.isError(result)) {
+                                    // Eclipse reports here: Resource leak: '<unassigned Closeable value>' is not closed at this location
+                                    // but it's OK. As csvReader is in a try-with-ressource it will be closed anyway
+                                    // I prefer to not put @SuppressWarnings("resource") to the whole method
+                                    // BTW to be consistent Eclipse should also reports the same issue below
                                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                                 }
                             } else { // person

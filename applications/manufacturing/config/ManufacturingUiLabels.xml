@@ -1514,19 +1514,20 @@
         <value xml:lang="zh-TW">到產品識別</value>
     </property>
     <property key="ManufacturingCostCalcs">
-        <value xml:lang="de">Kosten</value>
-        <value xml:lang="en">Costs</value>
-        <value xml:lang="es">Costos</value>
-        <value xml:lang="fr">Coûts</value>
-        <value xml:lang="it">Costi</value>
-        <value xml:lang="ja">原価</value>
-        <value xml:lang="nl">Kosten</value>
-        <value xml:lang="pt-BR">Custos</value>
-        <value xml:lang="ro">Cost</value>
-        <value xml:lang="th">ราคา</value>
-        <value xml:lang="vi">Chi phí</value>
-        <value xml:lang="zh">费用</value>
-        <value xml:lang="zh-TW">費用</value>
+        <value xml:lang="de">Kostenkalkulationen</value>
+        <value xml:lang="en">Cost Calculations</value>
+        <value xml:lang="es">Cálculos de costos</value>
+        <value xml:lang="fr">Calculs de coûts</value>
+        <value xml:lang="it">Calcoli dei costi </value>
+        <value xml:lang="ja">コスト計算</value>
+        <value xml:lang="nl">Kostencalculaties</value>
+        <value xml:lang="pt">Cálculos de custo</value>
+        <value xml:lang="pt-BR">Cálculos de custo</value>
+        <value xml:lang="ro">Calculele costurilor</value>
+        <value xml:lang="th">การคำนวณต้นทุน</value>
+        <value xml:lang="vi">Tính toán chi phí</value>
+        <value xml:lang="zh">成本计算</value>
+        <value xml:lang="zh-TW">成本計算</value>
     </property>
     <property key="ManufacturingCreateBom">
         <value xml:lang="en">Create Bom</value>
@@ -2778,7 +2779,7 @@
         <value xml:lang="fr">Contrôler les entrées composantes du coût Calc.</value>
         <value xml:lang="it">Gestione Costi Componenti Voci Calcolo</value>
         <value xml:lang="ja">原価構成計算エントリの管理</value>
-        <value xml:lang="nl">Beheer calculatie(s) kosten-component(en)</value>
+        <value xml:lang="nl">Calculatie(s) kosten-component(en)</value>
         <value xml:lang="pt-BR">Administrar entradas de cálculo de custo de componentes</value>
         <value xml:lang="ro">Gestiune Cost Componente Date Calcul</value>
         <value xml:lang="th">เข้าสู่การจัดการคำนวณราคา</value>
@@ -2793,6 +2794,7 @@
         <value xml:lang="fr">Gestion de production</value>
         <value xml:lang="it">Gestione della produzione</value>
         <value xml:lang="ja">生産管理</value>
+        <value xml:lang="nl">Fabrikage</value>
         <value xml:lang="pt-BR">Gestor de produção</value>
         <value xml:lang="ro">Aplicatie Gestiune Productie</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการการผลิต</value>
@@ -3828,7 +3830,7 @@
         <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit für Produktionsauftrag ist falsch formatiert</value>
         <value xml:lang="en">Production Run Estimated Unit Run Time field is not formatted correctly</value>
         <value xml:lang="es">El formato usado para indicar la Tiempo estimado unitario no es correcto</value>
-        <value xml:lang="fr">Le champ Temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="fr">Le champ temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Tempo stimato esecuzione non è formattato correttamente</value>
         <value xml:lang="zh">生产运行预计单位运行时间数据项格式不正确</value>
     </property>
@@ -3836,7 +3838,7 @@
         <value xml:lang="de">Geschätzte Rüstzeit für Produktionsauftrag ist falsch formatiert</value>
         <value xml:lang="en">Production Run Estimated Setup Time field is not formatted correctly</value>
         <value xml:lang="es">El formato usado para indicar la Tiempo estimado de preparación no es correcto</value>
-        <value xml:lang="fr">Le champ Temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="fr">Le champ temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Tempo stimato configur non è formattato correttamente</value>
         <value xml:lang="zh">生产运行预计建立时间数据项格式不正确</value>
     </property>

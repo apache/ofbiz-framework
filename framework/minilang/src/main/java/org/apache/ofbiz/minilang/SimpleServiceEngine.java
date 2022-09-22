@@ -74,14 +74,17 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
         ClassLoader classLoader = null;
         if (dctx != null) {
             classLoader = dctx.getClassLoader();
-        }
-        // if the classLoader is null, no big deal, SimpleMethod will use the
-        // current thread's ClassLoader by default if null passed in
-        try {
-            return SimpleMethod.runSimpleService(this.getLocation(modelService), modelService.getInvoke(), dctx, context, classLoader);
-        } catch (MiniLangException e) {
+            // if the classLoader is null, no big deal, SimpleMethod will use the
+            // current thread's ClassLoader by default if null passed in
+            try {
+                return SimpleMethod.runSimpleService(this.getLocation(modelService), modelService.getInvoke(), dctx, context, classLoader);
+            } catch (MiniLangException e) {
+                throw new GenericServiceException("Error running simple method [" + modelService.getInvoke() + "] in XML file ["
+                        + modelService.getLocation() + "]: ", e);
+            }
+        } else {
             throw new GenericServiceException("Error running simple method [" + modelService.getInvoke() + "] in XML file ["
-                    + modelService.getLocation() + "]: ", e);
+                    + modelService.getLocation() + "]");
         }
     }
 }

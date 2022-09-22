@@ -18,8 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
-    <!-- form whose input filters the FindPaymentGatewayConfig -->
     <form name="FindShipmentGatewayConfig" type="single" target="FindShipmentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
         <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}"><text-find ignore-case="true"/></field>
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
@@ -36,8 +34,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <form name="ListShipmentGatewayConfig" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <grid name="ListShipmentGatewayConfig" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -55,8 +52,7 @@ under the License.
         <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}">
             <display-entity entity-name="ShipmentGatewayConfigType" key-field-name="shipmentGatewayConfTypeId"/>
         </field>
-    </form>
-    
+    </grid>
     <form name="EditShipmentGatewayConfig" type="single" target="UpdateShipmentGatewayConfig" default-map-name="shipmentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
         <field name="shipmentGatewayConfigId"><hidden/></field>
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text size="60" maxlength="60"/></field>
@@ -67,7 +63,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
     <form name="EditShipmentGatewayConfigDhl" type="single" target="updateShipmentGatewayDhl" default-map-name="shipmentGatewayDhl" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayDhl" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
@@ -111,7 +106,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
     <form name="EditShipmentGatewayConfigFedex" type="single" target="updateShipmentGatewayFedex" default-map-name="shipmentGatewayFedex" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayFedex" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
@@ -179,7 +173,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
     <form name="EditShipmentGatewayConfigUps" type="single" target="updateShipmentGatewayUps" default-map-name="shipmentGatewayUps" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayUps" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
@@ -273,7 +266,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
     <form name="EditShipmentGatewayConfigUsps" type="single" target="updateShipmentGatewayUsps" default-map-name="shipmentGatewayUsps" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentGatewayUsps" default-field-type="edit"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
@@ -302,7 +294,6 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
     <form name="FindShipmentGatewayConfigTypes" type="single" target="FindShipmentGatewayConfigTypes" header-row-style="header-row" default-table-style="basic-table">
         <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}"><text-find ignore-case="true"/></field>
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
@@ -312,8 +303,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <form name="ListShipmentGatewayConfigTypes" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <grid name="ListShipmentGatewayConfigTypes" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -328,8 +318,7 @@ under the License.
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeDescription}">
             <hyperlink description="${description}" target="EditShipmentGatewayConfigType?shipmentGatewayConfTypeId=${shipmentGatewayConfTypeId}"/>
         </field>
-    </form>
-    
+    </grid>
     <form name="EditShipmentGatewayConfigType" type="single" target="UpdateShipmentGatewayConfigType" default-map-name="shipmentGatewayConfigType" header-row-style="header-row" default-table-style="basic-table">
         <field name="shipmentGatewayConfTypeId"><hidden/></field>
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeDescription}"><text size="60" maxlength="60"/></field>

@@ -30,8 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
 import java.util.stream.Collectors;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -501,9 +501,9 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     public class ConfigItem implements java.io.Serializable {
-        private GenericValue configItem = null;
+        private transient GenericValue configItem = null;
         private GenericValue configItemAssoc = null;
-        private ProductConfigItemContentWrapper content = null;
+        private transient ProductConfigItemContentWrapper content = null;
         private List<ConfigOption> options = null;
         private boolean first = true;
 
@@ -703,9 +703,11 @@ public class ProductConfigWrapper implements Serializable {
                     && otherOptions.size() != mineOptions.size()) {
                 return false;
             }
-            for (int i = 0; i < mineOptions.size(); i++) {
-                if (!mineOptions.get(i).equals(otherOptions.get(i))) {
-                    return false;
+            if (mineOptions != null) {
+                for (int i = 0; i < mineOptions.size(); i++) {
+                    if (!mineOptions.get(i).equals(otherOptions.get(i))) {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -1091,7 +1093,7 @@ public class ProductConfigWrapper implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConfigOption that = (ConfigOption) o;
-            return that.getId() == getId()
+            return that.getId().equals(getId())
                     && that.isSelected() == isSelected()
                     && Objects.equals(availabilityDate, that.availabilityDate)
                     && Objects.equals(componentList, that.componentList)

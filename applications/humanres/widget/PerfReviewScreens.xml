@@ -32,6 +32,9 @@
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
@@ -43,7 +46,7 @@
                                 <include-form name="FindPerfReviews" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListPerfReviews" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
+                                <include-grid name="ListPerfReviews" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
@@ -90,9 +93,11 @@
             <widgets>
                 <decorator-screen name="CommonPerfReviewDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
                         <screenlet id="AddPerfReviewItemPanel" title="${uiLabelMap.HumanResAddPerfReviewItems}" collapsible="true">
                             <include-form name="AddPerfReviewItem" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
+                        </screenlet>
+                        <screenlet  title="${uiLabelMap.CommonItems}">
+                            <include-grid name="ListPerfReviewItems" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

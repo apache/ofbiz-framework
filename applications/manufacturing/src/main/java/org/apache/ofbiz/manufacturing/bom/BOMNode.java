@@ -261,68 +261,64 @@ public class BOMNode {
                             .filterByDate(inDate).queryList());
                 }
                 newNode = substituteNode(oneChildNode, productFeatures, genericLinkRules);
+                // If no substitution has been done (no valid rule applied),
+                // we try to search for a generic node-rule
+                List<GenericValue> genericNodeRules = EntityQuery.use(delegator).from("ProductManufacturingRule")
+                        .where("productIdIn", node.get("productIdTo"))
+                        .orderBy("ruleSeqId")
+                        .filterByDate(inDate).queryList();
+                newNode = null;
+                newNode = substituteNode(oneChildNode, productFeatures, genericNodeRules);
+                // If no substitution has been done (no valid rule applied),
+                // we try to set the default (first) node-substitution
+                // if (UtilValidate.isNotEmpty(genericNodeRules)) {
+                // FIXME
+                // ...
+                // }
+                // -----------------------------------------------------------
+                // We try to apply directly the selected features
                 if (newNode.equals(oneChildNode)) {
-                    // If no substitution has been done (no valid rule applied),
-                    // we try to search for a generic node-rule
-                    List<GenericValue> genericNodeRules = EntityQuery.use(delegator).from("ProductManufacturingRule")
-                            .where("productIdIn", node.get("productIdTo"))
-                            .orderBy("ruleSeqId")
-                            .filterByDate(inDate).queryList();
-                    newNode = null;
-                    newNode = substituteNode(oneChildNode, productFeatures, genericNodeRules);
-                    if (newNode.equals(oneChildNode)) {
-                        // If no substitution has been done (no valid rule applied),
-                        // we try to set the default (first) node-substitution
-                        // if (UtilValidate.isNotEmpty(genericNodeRules)) {
-                            // FIXME
-                            //...
-                        // }
-                        // -----------------------------------------------------------
-                        // We try to apply directly the selected features
-                        if (newNode.equals(oneChildNode)) {
-                            Map<String, String> selectedFeatures = new HashMap<>();
-                            if (productFeatures != null) {
-                                GenericValue feature = null;
-                                for (GenericValue productFeature : productFeatures) {
-                                    feature = productFeature;
-                                    selectedFeatures.put(feature.getString("productFeatureTypeId"), feature.getString("productFeatureId")); // FIXME
-                                }
-                            }
-
-                            if (!selectedFeatures.isEmpty()) {
-                                Map<String, Object> context = new HashMap<>();
-                                context.put("productId", node.get("productIdTo"));
-                                context.put("selectedFeatures", selectedFeatures);
-                                Map<String, Object> storeResult = null;
-                                GenericValue variantProduct = null;
-                                try {
-                                    storeResult = dispatcher.runSync("getProductVariant", context);
-                                    if (ServiceUtil.isError(storeResult)) {
-                                        String errorMessage = ServiceUtil.getErrorMessage(storeResult);
-                                        Debug.logError(errorMessage, MODULE);
-                                        throw new GenericEntityException(errorMessage);
-                                    }
-                                    List<GenericValue> variantProducts = UtilGenerics.cast(storeResult.get("products"));
-                                    if (variantProducts.size() == 1) {
-                                        variantProduct = variantProducts.get(0);
-                                    }
-                                } catch (GenericServiceException e) {
-                                    Debug.logError("Error calling getProductVariant service " + e.getMessage(), MODULE);
-                                }
-                                if (variantProduct != null) {
-                                    newNode = new BOMNode(variantProduct, dispatcher, userLogin);
-                                    newNode.setTree(tree);
-                                    newNode.setSubstitutedNode(oneChildNode);
-                                    newNode.setQuantityMultiplier(oneChildNode.getQuantityMultiplier());
-                                    newNode.setScrapFactor(oneChildNode.getScrapFactor());
-                                    newNode.setProductAssoc(oneChildNode.getProductAssoc());
-                                }
-                            }
-
+                    Map<String, String> selectedFeatures = new HashMap<>();
+                    if (productFeatures != null) {
+                        GenericValue feature = null;
+                        for (GenericValue productFeature : productFeatures) {
+                            feature = productFeature;
+                            selectedFeatures.put(feature.getString("productFeatureTypeId"), feature.getString("productFeatureId")); // FIXME
                         }
-                        // -----------------------------------------------------------
                     }
+
+                    if (!selectedFeatures.isEmpty()) {
+                        Map<String, Object> context = new HashMap<>();
+                        context.put("productId", node.get("productIdTo"));
+                        context.put("selectedFeatures", selectedFeatures);
+                        Map<String, Object> storeResult = null;
+                        GenericValue variantProduct = null;
+                        try {
+                            storeResult = dispatcher.runSync("getProductVariant", context);
+                            if (ServiceUtil.isError(storeResult)) {
+                                String errorMessage = ServiceUtil.getErrorMessage(storeResult);
+                                Debug.logError(errorMessage, MODULE);
+                                throw new GenericEntityException(errorMessage);
+                            }
+                            List<GenericValue> variantProducts = UtilGenerics.cast(storeResult.get("products"));
+                            if (variantProducts.size() == 1) {
+                                variantProduct = variantProducts.get(0);
+                            }
+                        } catch (GenericServiceException e) {
+                            Debug.logError("Error calling getProductVariant service " + e.getMessage(), MODULE);
+                        }
+                        if (variantProduct != null) {
+                            newNode = new BOMNode(variantProduct, dispatcher, userLogin);
+                            newNode.setTree(tree);
+                            newNode.setSubstitutedNode(oneChildNode);
+                            newNode.setQuantityMultiplier(oneChildNode.getQuantityMultiplier());
+                            newNode.setScrapFactor(oneChildNode.getScrapFactor());
+                            newNode.setProductAssoc(oneChildNode.getProductAssoc());
+                        }
+                    }
+
                 }
+                // -----------------------------------------------------------
             }
         } // end of if (isVirtual())
         return newNode;

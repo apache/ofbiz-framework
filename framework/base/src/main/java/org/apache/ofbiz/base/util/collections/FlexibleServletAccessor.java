@@ -173,12 +173,16 @@ public class FlexibleServletAccessor<T> implements Serializable {
         return this.name.hashCode();
     }
 
-    /** The equals and hashCode methods are implemented just case this object is ever accidently used as a Map key
+    /**
+     * The equals and hashCode methods are implemented just in case this object is ever accidently used as a Map key
      * @param obj
      * @return whether this object is equal to the passed object
      */
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj instanceof FlexibleServletAccessor<?>) {
             FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
             if (this.name == null) {
@@ -204,7 +208,6 @@ public class FlexibleServletAccessor<T> implements Serializable {
     }
 
     protected static class AttributeAccessor<T> implements Serializable {
-        private Map<String, Object> expandContext;
         private String attributeName;
         private FlexibleMapAccessor<T> fma;
         private boolean isListReference;

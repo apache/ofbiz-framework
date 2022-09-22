@@ -19,11 +19,11 @@
 package org.apache.ofbiz.order.test;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -50,6 +50,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class OrderTestServices {
 
     private static final String MODULE = OrderTestServices.class.getName();
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public static Map<String, Object> createTestSalesOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -120,8 +121,6 @@ public class OrderTestServices {
                     UtilMisc.toMap("productCategoryId", productCategoryId), locale));
         }
 
-        Random r = new Random();
-
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currencyUomId);
         cart.setOrderType("SALES_ORDER");
         cart.setChannelType(salesChannel);
@@ -139,7 +138,7 @@ public class OrderTestServices {
         int numberOfProductsPerOrderInt = numberOfProductsPerOrder;
         for (int j = 1; j <= numberOfProductsPerOrderInt; j++) {
             // get a product
-            int k = r.nextInt(productsList.size());
+            int k = SECURE_RANDOM.nextInt(productsList.size());
             try {
                 cart.addOrIncreaseItem(productsList.get(k), null, BigDecimal.ONE, null, null, null,
                                        null, null, null, null,

@@ -160,7 +160,7 @@
                                 </container>
                                 <container style="righthalf">
                                     <label style="h1" text="${uiLabelMap.WorkEffortParticipants}"/>
-                                    <include-form name="ListTrainingParticipants" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                                    <include-grid name="ListTrainingParticipants" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                                     <section>
                                         <condition>
                                             <and>
@@ -208,7 +208,7 @@
                                 <include-form name="FindTrainingApprovals" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListTrainingApprovals" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                                <include-grid name="ListTrainingApprovals" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
@@ -255,7 +255,7 @@
                              <include-form name="FindTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                          </decorator-section>
                          <decorator-section name="search-results">
-                             <include-form name="ListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                             <include-grid name="ListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                          </decorator-section>
                      </decorator-screen>
                         </decorator-section>

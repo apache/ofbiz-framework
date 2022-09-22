@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ ******************************************************************************/
 package org.apache.ofbiz.product.product;
 
 import java.io.File;
@@ -1077,10 +1077,14 @@ public class ProductServices {
                 String fileToCheck = imageServerPath + "/" + fileLocation + "." + extension.getString("fileExtensionId");
                 File file = new File(fileToCheck);
                 try {
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                    Path tempFile = Files.createTempFile(null, null);
+                    Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+                    // Check if a webshell is not uploaded
+                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
+                    Files.delete(tempFile);
                     RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
                     out.write(imageData.array());
                     out.close();
@@ -1383,6 +1387,7 @@ public class ProductServices {
             try {
                 Path tempFile = Files.createTempFile(null, null);
                 Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
+                // Check if a webshell is not uploaded
                 if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);

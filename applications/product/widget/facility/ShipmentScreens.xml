@@ -68,7 +68,7 @@ under the License.
                             <include-form name="FindShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductShipmentsFound}">
-                            <include-form name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
+                            <include-grid name="ListShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -92,9 +92,6 @@ under the License.
                                 <if-has-permission permission="FACILITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://product/template/shipment/ShipmentTabBar.ftl"/></html>
-                                </platform-specific>
                                 <section>
                                     <condition>
                                         <not><if-empty field="shipment"/></not>
@@ -102,9 +99,8 @@ under the License.
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf" target-window="_BLANK">
-                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                            </link>
+                                            <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentTabBar"/>
+                                            <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentActionBar"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -278,7 +274,7 @@ under the License.
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ProductShipmentPlanList}">
-                            <include-form name="ListShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
+                            <include-grid name="ListShipmentPlan" location="component://product/widget/facility//ShipmentForms.xml"/>
                             <label style="h2" text="${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}"/>
                         </screenlet>
                         <section>
@@ -367,7 +363,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator" location="${parameters.commonShipmentDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
+                        <include-grid name="ShipmentReceipts" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

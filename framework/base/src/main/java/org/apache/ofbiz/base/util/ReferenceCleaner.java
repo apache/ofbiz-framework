@@ -24,7 +24,6 @@ import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 
 public final class ReferenceCleaner {
-    private static final String MODULE = ReferenceCleaner.class.getName();
 
     private static final class CleanerThread extends Thread {
         private boolean keepRunning = true;

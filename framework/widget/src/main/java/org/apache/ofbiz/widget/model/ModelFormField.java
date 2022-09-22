@@ -1114,7 +1114,7 @@ public final class ModelFormField {
             if (!allCheckedStr.isEmpty()) {
                 return "true".equals(allCheckedStr);
             }
-            return null;
+            return false;
         }
 
         @Override
@@ -1568,6 +1568,30 @@ public final class ModelFormField {
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
         }
+
+        /**
+         * Analyze if a sub hyperlink is associate to the display entity with an empty description
+         * @param context
+         * @return
+         */
+        public boolean needConvertAsHyperlink(Map<String, Object> context) {
+            return getSubHyperlink() != null
+                    && getSubHyperlink().shouldUse(context)
+                    && getSubHyperlink().getDescription(context).isEmpty();
+        }
+
+        /**
+         * Convert the display entity as a Hyperlink for the rendering
+         * @param context
+         * @return
+         */
+        public HyperlinkField asHyperlink(Map<String, Object> context) {
+            return new HyperlinkField(getModelFormField(),
+                    getDescription(context),
+                    getSubHyperlink().getLink(),
+                    getAlsoHidden());
+        }
+
     }
 
     /**
@@ -2799,6 +2823,13 @@ public final class ModelFormField {
             // Backwards-compatible fix
             element.setAttribute("url-mode", element.getAttribute("target-type"));
             this.link = new Link(element);
+        }
+
+        public HyperlinkField(ModelFormField modelFormField, String description, Link link, boolean alsoHidden) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.HYPERLINK, modelFormField);
+            this.alsoHidden = alsoHidden;
+            this.description = FlexibleStringExpander.getInstance(description);
+            this.link = link;
         }
 
         private HyperlinkField(HyperlinkField original, ModelFormField modelFormField) {

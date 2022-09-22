@@ -34,7 +34,48 @@ under the License.
         <menu-item name="shipping" title="${uiLabelMap.ProductShipping}"><link target="ListShipmentMethodTypes"/></menu-item>
         <menu-item name="Imagemanagement" title="${uiLabelMap.ImageManagement}"><link target="Imagemanagement"/></menu-item>
     </menu>
-
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="newProduct" title="${uiLabelMap.ProductCreateNewProduct}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditProduct"/>
+        </menu-item>
+        <menu-item name="newStore" title="${uiLabelMap.ProductCreateNewProductStore}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditProductStore"/>
+        </menu-item>
+        <menu-item name="newCatalog" title="${uiLabelMap.ProductCreateNewCatalog}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditProdCatalog"/>
+        </menu-item>
+        <menu-item name="newCategory" title="${uiLabelMap.ProductCreateNewCategory}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditCategory"/>
+        </menu-item>
+    </menu>
     <menu name="CatalogShortcutAppBar" title="${uiLabelMap.ProductCatalogManager}">
         <menu-item name="catalogs" title="${uiLabelMap.ProductCatalogs}"><link target="/catalog/control/FindCatalog" url-mode="inter-app"/></menu-item>
         <menu-item name="categories" title="${uiLabelMap.ProductCategories}"><link target="/catalog/control/FindCategory" url-mode="inter-app"/></menu-item>
@@ -76,9 +117,6 @@ under the License.
     </menu>
 
     <menu name="CatalogSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="EditProductCatalog" title="${uiLabelMap.ProductNewProdCatalog}" widget-style="buttontext create">
-            <link target="EditProdCatalog"/>
-        </menu-item>
         <menu-item name="CreateSeo" title="${uiLabelMap.ProductCatalogSeoCreate}">
             <condition>
                 <not><if-empty field="prodCatalog"/></not>
@@ -168,9 +206,6 @@ under the License.
     </menu>
 
     <menu name="CategorySubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="EditCategory" title="${uiLabelMap.ProductNewCategory}" widget-style="buttontext create">
-            <link target="EditCategory"/>
-        </menu-item>
         <menu-item name="createProductInCategoryStart" title="${uiLabelMap.ProductCreateProductInCategory}" widget-style="buttontext create">
             <condition>
                 <not><if-empty field="productCategory"/></not>
@@ -542,9 +577,6 @@ under the License.
     </menu>
 
     <menu name="ProductSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="EditProduct" title="${uiLabelMap.ProductNewProduct}" widget-style="buttontext create">
-            <link target="EditProduct"/>
-        </menu-item>
         <menu-item name="CreateVirtualWithVariantsForm" title="${uiLabelMap.ProductNewVirtualProduct}" widget-style="buttontext create">
             <condition>
                 <not><if-empty field="product"/></not>
