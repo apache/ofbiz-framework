@@ -71,10 +71,10 @@ under the License.
                                 </section>
                             </decorator-section>
                             <decorator-section name="search-options">
-                                <include-form name="FindTemporalExpression" location="component://webtools/widget/tempExprForms.xml"/>
+                                <include-form name="FindTemporalExpression" location="component://webtools/widget/TempExprForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListTemporalExpressions" location="component://webtools/widget/tempExprForms.xml"/>
+                                <include-form name="ListTemporalExpressions" location="component://webtools/widget/TempExprForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
