@@ -25,10 +25,10 @@ image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.co
 image:https://ci2.apache.org/badges/ofbizTrunkFramework.svg[link=https://ci2.apache.org/badges/ofbizTrunkFramework.svg]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
+image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 ////
 image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 ////
-image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 
 If you are reading this file in AsciiDoc format you may want to see it at
 https://nightlies.apache.org/ofbiz/trunk/readme/html5/[HTML]
