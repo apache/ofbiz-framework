@@ -79,7 +79,7 @@ public class CommonServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    private static Map<String, Object> testService(DispatchContext dctx, Map<String, ?> context) {
+    public static Map<String, Object> testService(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
         if (!context.isEmpty()) {
