@@ -288,7 +288,7 @@ public class UelFunctions {
         return str1.replaceAll(str2, str3);
     }
 
-    private static String replaceFirst(String str1, String str2, String str3) {
+    public static String replaceFirst(String str1, String str2, String str3) {
         if (null == str1) return null;
         return StringUtils.replaceOnce(str1, str2, str3);
     }
