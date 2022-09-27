@@ -54,7 +54,7 @@ public final class GeoWorker {
         return expandGeoGroup(geo);
     }
 
-    public static List<GenericValue> expandGeoGroup(GenericValue geo) {
+    private static List<GenericValue> expandGeoGroup(GenericValue geo) {
         if (geo == null) {
             return new LinkedList<>();
         }
@@ -117,7 +117,7 @@ public final class GeoWorker {
         return containsGeo(geoList, geo);
     }
 
-    public static boolean containsGeo(List<GenericValue> geoList, GenericValue geo) {
+    private static boolean containsGeo(List<GenericValue> geoList, GenericValue geo) {
         if (geoList == null || geo == null) {
             return false;
         }
