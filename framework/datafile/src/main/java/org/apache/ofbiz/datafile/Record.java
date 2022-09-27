@@ -355,7 +355,7 @@ public class Record implements Serializable {
      * @param name the name
      * @return the fixed string
      */
-    public String getFixedString(String name) {
+    private String getFixedString(String name) {
         if (name == null) {
             return null;
         }
@@ -440,7 +440,7 @@ public class Record implements Serializable {
      * @return the string
      * @throws DataFileException the data file exception
      */
-    public String writeLineString(ModelDataFile modelDataFile) throws DataFileException {
+    String writeLineString(ModelDataFile modelDataFile) throws DataFileException {
         ModelRecord modelRecord = getModelRecord();
         boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.getSeparatorStyle());
         boolean isFixedLength = ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.getSeparatorStyle());
@@ -588,7 +588,7 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return the Record Object created
      */
-    public static Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
+    static Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
         Record record = new Record(modelRecord);
 
         for (ModelField modelField : modelRecord.getFields()) {

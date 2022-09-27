@@ -43,7 +43,7 @@ public final class ModelDataFileReader {
     private static final String MODULE = ModelDataFileReader.class.getName();
     private static final UtilCache<URL, ModelDataFileReader> READERS = UtilCache.createUtilCache("ModelDataFile", true);
 
-    public static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
+    static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
         ModelDataFileReader reader = READERS.get(readerURL);
         if (reader == null) {
             if (Debug.infoOn()) {
@@ -61,7 +61,7 @@ public final class ModelDataFileReader {
     private final URL readerURL;
     private final Map<String, ModelDataFile> modelDataFiles;
 
-    public ModelDataFileReader(URL readerURL) throws DataFileException {
+    private ModelDataFileReader(URL readerURL) throws DataFileException {
         this.readerURL = readerURL;
         this.modelDataFiles = Collections.unmodifiableMap(createModelDataFiles());
     }
@@ -284,7 +284,7 @@ public final class ModelDataFileReader {
      * @return An DataFile object describing the specified dataFile of the specified
      *         descriptor file.
      */
-    public ModelDataFile getModelDataFile(String dataFileName) {
+    ModelDataFile getModelDataFile(String dataFileName) {
         return this.modelDataFiles.get(dataFileName);
     }
 
