@@ -52,7 +52,7 @@ public final class ExecutionPool {
         private final String namePrefix;
         private volatile int count = 1;
 
-        protected ExecutionPoolThreadFactory(ThreadGroup group, String namePrefix) {
+        ExecutionPoolThreadFactory(ThreadGroup group, String namePrefix) {
             this.group = group;
             this.namePrefix = namePrefix;
         }
@@ -186,7 +186,7 @@ public final class ExecutionPool {
          * @param other used to calculate the difference
          * @return the time difference of the two instance's expireTimeNanos
          */
-        public long timeDiff(Pulse other) {
+        long timeDiff(Pulse other) {
             return expireTimeNanos - other.expireTimeNanos;
         }
     }

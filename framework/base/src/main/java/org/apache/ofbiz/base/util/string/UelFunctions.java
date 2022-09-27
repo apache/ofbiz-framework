@@ -288,7 +288,7 @@ public class UelFunctions {
         return str1.replaceAll(str2, str3);
     }
 
-    public static String replaceFirst(String str1, String str2, String str3) {
+    private static String replaceFirst(String str1, String str2, String str3) {
         if (null == str1) return null;
         return StringUtils.replaceOnce(str1, str2, str3);
     }
@@ -361,7 +361,7 @@ public class UelFunctions {
         return null;
     }
 
-    public static Document readHtmlDocument(String str) {
+    private static Document readHtmlDocument(String str) {
         Document document = null;
         try {
             URL url = FlexibleLocation.resolveLocation(str);
@@ -415,7 +415,7 @@ public class UelFunctions {
         return false;
     }
 
-    public static String toHtmlString(Node node, String encoding, boolean indent, int indentAmount) {
+    private static String toHtmlString(Node node, String encoding, boolean indent, int indentAmount) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -447,7 +447,7 @@ public class UelFunctions {
         return null;
     }
 
-    public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
+    private static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
             UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
             return os.toString();

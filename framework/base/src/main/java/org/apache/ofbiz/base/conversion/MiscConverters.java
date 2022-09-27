@@ -36,7 +36,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 /** Miscellaneous Converter classes. */
 public class MiscConverters implements ConverterLoader {
 
-    public static final int CHAR_BUFFER_SIZE = 4096;
+    private static final int CHAR_BUFFER_SIZE = 4096;
 
     public static class BlobToBlob extends AbstractConverter<Blob, Blob> {
         public BlobToBlob() {

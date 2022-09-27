@@ -1024,7 +1024,7 @@ public final class UtilProperties implements Serializable {
 
         protected UtilResourceBundle() { }
 
-        public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
+        UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;
             this.locale = locale;
             setParent(parent);
@@ -1125,7 +1125,7 @@ public final class UtilProperties implements Serializable {
         public ExtendedProperties(Properties defaults) {
             super(defaults);
         }
-        public ExtendedProperties(URL url, Locale locale) throws IOException, InvalidPropertiesFormatException {
+        ExtendedProperties(URL url, Locale locale) throws IOException, InvalidPropertiesFormatException {
             try (InputStream in = new BufferedInputStream(url.openStream())) {
                 if (url.getFile().endsWith(".xml")) {
                     xmlToProperties(in, locale, this);

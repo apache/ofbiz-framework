@@ -358,7 +358,7 @@ public class HttpClient {
      * @return the string
      * @throws HttpClientException the http client exception
      */
-    public String sendHttpRequest(String method) throws HttpClientException {
+    private String sendHttpRequest(String method) throws HttpClientException {
         InputStream in = sendHttpRequestStream(method);
         if (in == null) {
             return null;

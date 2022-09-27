@@ -149,7 +149,7 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
         return i == 0 ? "" : Integer.toString(i);
     }
 
-    public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
+    private static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
         try {
             for (String propName : propNames) {
                 String key = propName.concat(".").concat(parameter);
@@ -166,15 +166,15 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
         return null;
     }
 
-    protected void setPropertiesParams(String cacheName) {
+    private void setPropertiesParams(String cacheName) {
         setPropertiesParams(new String[] {cacheName});
     }
 
-    public void setPropertiesParams(String[] propNames) {
+    private void setPropertiesParams(String[] propNames) {
         setPropertiesParams("cache", propNames);
     }
 
-    public void setPropertiesParams(String settingsResourceName, String[] propNames) {
+    private void setPropertiesParams(String settingsResourceName, String[] propNames) {
         ResourceBundle res = ResourceBundle.getBundle(settingsResourceName);
 
         if (res != null) {
@@ -411,7 +411,7 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
 
     /** This is used for internal remove calls because we only want to count external calls */
     @SuppressWarnings("unchecked")
-    protected synchronized V removeInternal(Object key, boolean countRemove) {
+    private synchronized V removeInternal(Object key, boolean countRemove) {
         if (key == null) {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject" + this.name, MODULE);
@@ -438,7 +438,7 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
         return null;
     }
 
-    protected synchronized void removeInternal(Object key, CacheLine<V> existingCacheLine) {
+    private synchronized void removeInternal(Object key, CacheLine<V> existingCacheLine) {
         Object nulledKey = fromKey(key);
         cancel(existingCacheLine);
         if (!memoryTable.remove(nulledKey, existingCacheLine)) {
@@ -501,14 +501,14 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
     /** Returns the number of cache misses from entries that are expired
      * @return The number of cache misses
      */
-    public long getMissCountExpired() {
+    private long getMissCountExpired() {
         return this.missCountExpired.get();
     }
 
     /** Returns the number of cache misses from entries that are have had the soft reference cleared out (by garbage collector and such)
      * @return The number of cache misses
      */
-    public long getMissCountSoftRef() {
+    private long getMissCountSoftRef() {
         return this.missCountSoftRef.get();
     }
 
@@ -529,7 +529,7 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
 
     /** Clears the hit and miss counters
      */
-    public void clearCounters() {
+    private void clearCounters() {
         this.hitCount.set(0);
         this.missCountNotFound.set(0);
         this.missCountExpired.set(0);
@@ -678,21 +678,21 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
     }
 
     /** Send a key addition event to all registered listeners */
-    protected void noteAddition(K key, V newValue) {
+    private void noteAddition(K key, V newValue) {
         for (CacheListener<K, V> listener: listeners) {
             listener.noteKeyAddition(this, key, newValue);
         }
     }
 
     /** Send a key removal event to all registered listeners */
-    protected void noteRemoval(K key, V oldValue) {
+    private void noteRemoval(K key, V oldValue) {
         for (CacheListener<K, V> listener: listeners) {
             listener.noteKeyRemoval(this, key, oldValue);
         }
     }
 
     /** Send a key update event to all registered listeners */
-    protected void noteUpdate(K key, V newValue, V oldValue) {
+    private void noteUpdate(K key, V newValue, V oldValue) {
         for (CacheListener<K, V> listener: listeners) {
             listener.noteKeyUpdate(this, key, newValue, oldValue);
         }

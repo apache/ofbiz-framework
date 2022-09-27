@@ -94,7 +94,7 @@ public final class KeyStoreUtil {
         return ks;
     }
 
-    public static KeyStore getSystemTrustStore() throws IOException, GeneralSecurityException {
+    static KeyStore getSystemTrustStore() throws IOException, GeneralSecurityException {
         String javaHome = System.getProperty("java.home");
         String fileName = System.getProperty("javax.net.ssl.trustStore");
         String password = System.getProperty("javax.net.ssl.trustStorePassword");
@@ -133,7 +133,7 @@ public final class KeyStoreUtil {
         return getX500Map(cert.getSubjectX500Principal());
     }
 
-    public static Map<String, String> getX500Map(Principal x500) {
+    static Map<String, String> getX500Map(Principal x500) {
         Map<String, String> x500Map = new HashMap<>();
 
         String name = x500.getName().replaceAll("\\\\,", "&com;");

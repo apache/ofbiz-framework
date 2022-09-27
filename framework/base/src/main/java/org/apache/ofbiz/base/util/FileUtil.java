@@ -81,7 +81,7 @@ public final class FileUtil {
      * @param path The file path to convert.
      * @return The converted file path.
      */
-    public static String localizePath(String path) {
+    private static String localizePath(String path) {
         String fileNameSeparator = ("\\".equals(File.separator) ? "\\" + File.separator : File.separator);
         return path.replaceAll("/+|\\\\+", fileNameSeparator);
     }
@@ -90,7 +90,7 @@ public final class FileUtil {
         writeString(null, fileName, s);
     }
 
-    public static void writeString(String path, String name, String s) {
+    private static void writeString(String path, String name, String s) {
 
         try (Writer out = getBufferedWriter(path, name);) {
             out.write(s + System.getProperty("line.separator"));
@@ -130,7 +130,7 @@ public final class FileUtil {
         }
     }
 
-    public static Writer getBufferedWriter(String path, String name) throws IOException {
+    private static Writer getBufferedWriter(String path, String name) throws IOException {
         String fileName = getPatchedFileName(path, name);
         if (UtilValidate.isEmpty(fileName)) {
             throw new IOException("Cannot obtain buffered writer for an empty filename!");
@@ -148,7 +148,7 @@ public final class FileUtil {
         return new BufferedOutputStream(new FileOutputStream(fileName));
     }
 
-    public static String getPatchedFileName(String path, String fileName) throws IOException {
+    private static String getPatchedFileName(String path, String fileName) throws IOException {
         // make sure the export directory exists
         if (UtilValidate.isNotEmpty(path)) {
             path = path.replaceAll("\\\\", "/");
@@ -172,7 +172,7 @@ public final class FileUtil {
         return fileName;
     }
 
-    public static StringBuffer readTextFile(File file, boolean newline) throws FileNotFoundException, IOException {
+    private static StringBuffer readTextFile(File file, boolean newline) throws FileNotFoundException, IOException {
         if (!file.exists()) {
             throw new FileNotFoundException();
         }
@@ -210,7 +210,7 @@ public final class FileUtil {
         return readString;
     }
 
-    public static void searchFiles(List<File> fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
+    private static void searchFiles(List<File> fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
         // Get filtered files in the current path
         File[] files = path.listFiles(filter);
         if (files == null) {

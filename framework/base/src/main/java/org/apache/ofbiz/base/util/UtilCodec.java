@@ -334,11 +334,11 @@ public class UtilCodec {
         return canonicalize(value, false, false);
     }
 
-    public static String canonicalize(String value, boolean strict) throws IntrusionException {
+    static String canonicalize(String value, boolean strict) throws IntrusionException {
         return canonicalize(value, strict, strict);
     }
 
-    public static String canonicalize(String input, boolean restrictMultiple, boolean restrictMixed) {
+    static String canonicalize(String input, boolean restrictMultiple, boolean restrictMixed) {
         if (input == null) {
             return null;
         }

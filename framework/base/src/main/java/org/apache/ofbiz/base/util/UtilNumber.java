@@ -270,7 +270,7 @@ public final class UtilNumber {
      * @param   value - The name of the mode (e.g., "ROUND_HALF_UP")
      * @return  RoundingMode - The rounding mode value of the mode (e.g, RoundingMode.HALF_UP) or null if the input was bad.
      */
-    public static RoundingMode roundingModeFromString(String value) {
+    private static RoundingMode roundingModeFromString(String value) {
         if (value == null) {
             return null;
         }
@@ -324,7 +324,7 @@ public final class UtilNumber {
      * @param   locale - the Locale
      * @return  formatted string or an empty string if there was an error
      */
-    public static String formatRuleBasedAmount(double amount, String ruleSet, String rule, Locale locale) {
+    private static String formatRuleBasedAmount(double amount, String ruleSet, String rule, Locale locale) {
         RuleBasedNumberFormat formatter = new RuleBasedNumberFormat(ruleSet, locale);
         String result = "";
         try {
@@ -366,7 +366,7 @@ public final class UtilNumber {
      * @param roundingMode  the RoundingMode rounding mode to apply
      * @return          The formatted string or "" if there were errors.
      */
-    public static String toPercentString(Number number, int scale, RoundingMode roundingMode) {
+    private static String toPercentString(Number number, int scale, RoundingMode roundingMode) {
         // convert to BigDecimal
         if (!(number instanceof BigDecimal)) {
             number = new BigDecimal(number.doubleValue());

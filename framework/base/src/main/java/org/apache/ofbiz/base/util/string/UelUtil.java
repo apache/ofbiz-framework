@@ -458,7 +458,7 @@ public final class UelUtil {
      * @return New <code>List</code> or <code>Map</code>
      */
     @SuppressWarnings("rawtypes")
-    public static Object autoVivifyListOrMap(Object property) {
+    static Object autoVivifyListOrMap(Object property) {
         String str = property.toString();
         boolean isList = ("add".equals(str) || str.startsWith("insert@"));
         if (!isList && !"java.lang.String".equals(property.getClass().getName())) {
@@ -493,7 +493,7 @@ public final class UelUtil {
         return result;
     }
 
-    public static Object resolveVariable(String variable, Map<String, ? extends Object> variables, Locale locale) {
+    private static Object resolveVariable(String variable, Map<String, ? extends Object> variables, Locale locale) {
         Object obj = null;
         String createObjectType = null;
         String name = variable;

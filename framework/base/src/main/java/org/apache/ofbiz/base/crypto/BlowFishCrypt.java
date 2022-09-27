@@ -53,7 +53,7 @@ public class BlowFishCrypt {
      * Creates a new BlowFishCrypt object.
      * @param key An encoded secret key
      */
-    public BlowFishCrypt(byte[] key) {
+    private BlowFishCrypt(byte[] key) {
         try {
             secretKeySpec = new SecretKeySpec(key, "Blowfish");
         } catch (IllegalArgumentException e) {
@@ -88,7 +88,7 @@ public class BlowFishCrypt {
      * Decrypt the string with the secret key.
      * @param string The string to decrypt.
      */
-    public byte[] decrypt(String string) {
+    private byte[] decrypt(String string) {
         return decrypt(string.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -109,7 +109,7 @@ public class BlowFishCrypt {
      * Decrypt the byte array with the secret key.
      * @param bytes The array of bytes to decrypt.
      */
-    public byte[] decrypt(byte[] bytes) {
+    private byte[] decrypt(byte[] bytes) {
         try {
             return crypt(bytes, Cipher.DECRYPT_MODE);
         } catch (Exception e) {
@@ -128,7 +128,7 @@ public class BlowFishCrypt {
         return cipher.doFinal(bytes);
     }
 
-    public static byte[] generateKey() throws NoSuchAlgorithmException {
+    private static byte[] generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
         keyGen.init(448);
 
@@ -138,7 +138,7 @@ public class BlowFishCrypt {
         return keyBytes;
     }
 
-    public static boolean testKey(byte[] key) {
+    private static boolean testKey(byte[] key) {
         String testString = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstufwxyz";
         BlowFishCrypt c = new BlowFishCrypt(key);
         byte[] encryptedBytes = c.encrypt(testString);

@@ -45,7 +45,7 @@ public class URLConnector {
     private int hostCertLevel = 2;
 
     protected URLConnector() { }
-    protected URLConnector(URL url, String clientCertAlias, int hostCertLevel, boolean trustAnyCert) {
+    private URLConnector(URL url, String clientCertAlias, int hostCertLevel, boolean trustAnyCert) {
         this.clientCertAlias = clientCertAlias;
         this.url = url;
         this.trustAnyCert = trustAnyCert;
@@ -111,7 +111,7 @@ public class URLConnector {
         return openConnection(url, 30000, clientCertAlias, SSLUtil.getHostCertNormalCheck());
     }
 
-    public static URLConnection openUntrustedConnection(URL url, int timeout, String clientCertAlias, int hostCertLevel) throws IOException {
+    static URLConnection openUntrustedConnection(URL url, int timeout, String clientCertAlias, int hostCertLevel) throws IOException {
         URLConnector uc = new URLConnector(url, clientCertAlias, hostCertLevel, true);
         return uc.openConnection(timeout);
     }

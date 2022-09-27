@@ -35,7 +35,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return source;
     }
 
-    public GenericMapCollection(M source) {
+    GenericMapCollection(M source) {
         this.source = source;
     }
 
@@ -136,7 +136,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
      * @param sb the sb
      * @return the string builder
      */
-    public StringBuilder appendTo(StringBuilder sb) {
+    private StringBuilder appendTo(StringBuilder sb) {
         sb.append("[");
         Iterator<I> it = iterator(false);
         while (it.hasNext()) {

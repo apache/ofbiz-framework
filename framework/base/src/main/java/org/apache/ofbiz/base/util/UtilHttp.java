@@ -516,7 +516,7 @@ public final class UtilHttp {
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
      */
-    public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    private static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> attributeMap = new HashMap<>();
 
         // look at all request attributes
@@ -551,7 +551,7 @@ public final class UtilHttp {
      * Create a map from a HttpSession object
      * @return The resulting Map
      */
-    public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    private static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> sessionMap = new HashMap<>();
         HttpSession session = request.getSession();
 
@@ -587,7 +587,7 @@ public final class UtilHttp {
      * Create a map from a ServletContext object
      * @return The resulting Map
      */
-    public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    private static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> servletCtxMap = new HashMap<>();
 
         // look at all servlet context attributes
@@ -894,7 +894,7 @@ public final class UtilHttp {
         setTimeZone(request.getSession(), UtilDateTime.toTimeZone(tzId));
     }
 
-    public static void setTimeZone(HttpSession session, TimeZone timeZone) {
+    private static void setTimeZone(HttpSession session, TimeZone timeZone) {
         session.setAttribute(SESSION_KEY_TIMEZONE, timeZone);
     }
 
@@ -1362,7 +1362,7 @@ public final class UtilHttp {
      * @param length Size (in bytes) of the content
      * @throws IOException
      */
-    public static void streamContent(OutputStream out, InputStream in, int length) throws IOException {
+    private static void streamContent(OutputStream out, InputStream in, int length) throws IOException {
         // make sure we have something to write to
         if (out == null) {
             throw new IOException("Attempt to write to null output stream");
@@ -1705,7 +1705,7 @@ public final class UtilHttp {
         return "autoId_" + uniqueIdNumber;
     }
 
-    public static void setContentDisposition(final HttpServletResponse response, final String filename) {
+    private static void setContentDisposition(final HttpServletResponse response, final String filename) {
         String dispositionType = UtilProperties.getPropertyValue("requestHandler", "content-disposition-type", "attachment");
         response.setHeader("Content-Disposition", String.format("%s; filename=\"%s\"", dispositionType, filename));
     }
@@ -1714,7 +1714,7 @@ public final class UtilHttp {
         return getAllowAllHttpClient("component://base/config/ofbizssl.jks", "changeit");
     }
 
-    public static CloseableHttpClient getAllowAllHttpClient(String jksStoreFileName, String jksStorePassword) {
+    private static CloseableHttpClient getAllowAllHttpClient(String jksStoreFileName, String jksStorePassword) {
         try {
             // Trust own CA and all self-signed certs
             SSLContext sslContext = SSLContexts.custom()
