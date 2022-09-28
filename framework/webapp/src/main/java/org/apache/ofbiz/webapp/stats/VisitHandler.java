@@ -233,10 +233,10 @@ public class VisitHandler {
                             // first try to get the current ID from the visitor cookie
                             String cookieVisitorId = null;
                             Cookie[] cookies = request.getCookies();
-                            if (Debug.verboseOn()) {
-                                Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), MODULE);
-                            }
                             if (cookies != null) {
+                                if (Debug.verboseOn()) {
+                                    Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), MODULE);
+                                }
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(VISITOR_COOKIE_NAME)) {
                                         cookieVisitorId = cookies[i].getValue();
