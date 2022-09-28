@@ -361,7 +361,7 @@ public class UelFunctions {
         return null;
     }
 
-    private static Document readHtmlDocument(String str) {
+    public static Document readHtmlDocument(String str) {
         Document document = null;
         try {
             URL url = FlexibleLocation.resolveLocation(str);
