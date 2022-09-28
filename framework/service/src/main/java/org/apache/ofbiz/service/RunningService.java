@@ -56,11 +56,11 @@ public class RunningService {
     }
 
     public Timestamp getStartStamp() {
-        return (Timestamp) this.startStamp.clone();
+        return (startStamp != null) ? (Timestamp) this.startStamp.clone() : null;
     }
 
     public Timestamp getEndStamp() {
-        return (Timestamp) this.endStamp.clone();
+        return (endStamp != null) ? (Timestamp) this.endStamp.clone() : null;
     }
 
     public void setEndStamp() {
