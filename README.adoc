@@ -23,9 +23,9 @@ image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www
 image:https://img.shields.io/badge/Version-release18.12-green.svg[link=https://github.com/apache/ofbiz-framework/tree/release18.12]
 image:https://ci2.apache.org/badges/ofbiz18Framework.svg[link=https://ci2.apache.org/badges/ofbizBranch18Framework.svg]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=release18.12[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
-image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg?branch=release18.12[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
-//image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status&branch=release18.12[link=notReadyYet]
 image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
+//image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg?branch=release18.12[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+//image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status&branch=release18.12[link=notReadyYet]
 
 If you are reading this file in AsciiDoc format you may want to see it in
 https://nightlies.apache.org/ofbiz/stable/readme/html5/[HTML]
