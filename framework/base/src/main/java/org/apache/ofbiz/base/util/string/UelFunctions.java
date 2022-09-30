@@ -197,7 +197,7 @@ import org.xml.sax.SAXException;
 public class UelFunctions {
 
     protected static final Functions FUNCTION_MAPPER = new Functions();
-    private static final String MODULE = UelFunctions.class.getName();
+    public static final String MODULE = UelFunctions.class.getName();
 
     /**
      * Returns a <code>FunctionMapper</code> instance.
@@ -415,7 +415,7 @@ public class UelFunctions {
         return false;
     }
 
-    private static String toHtmlString(Node node, String encoding, boolean indent, int indentAmount) {
+    public static String toHtmlString(Node node, String encoding, boolean indent, int indentAmount) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -447,7 +447,7 @@ public class UelFunctions {
         return null;
     }
 
-    private static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
+    public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
         try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
             UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
             return os.toString();
