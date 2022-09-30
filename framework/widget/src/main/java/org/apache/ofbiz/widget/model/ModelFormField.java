@@ -160,7 +160,7 @@ public final class ModelFormField {
     private final String parentFormName;
     private final String tabindex;
     private final String conditionGroup;
-    private final boolean disabled;
+    private final FlexibleStringExpander disabled;
 
     private ModelFormField(ModelFormFieldBuilder builder) {
         this.action = builder.getAction();
@@ -215,7 +215,7 @@ public final class ModelFormField {
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
         this.conditionGroup = builder.getConditionGroup();
-        this.disabled = builder.getDisabled();
+        this.disabled = builder.getDisabledSpec();
     }
 
     public FlexibleStringExpander getAction() {
@@ -483,8 +483,15 @@ public final class ModelFormField {
         return conditionGroup;
     }
 
-    public boolean getDisabled() {
+    public FlexibleStringExpander getDisabledSpec() {
         return disabled;
+    }
+
+    public boolean getDisabled(Map<String, Object> context) {
+        if (UtilValidate.isNotEmpty(this.disabled)) {
+            return "true".equals(disabled.expandString(context));
+        }
+        return false;
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
@@ -2738,25 +2745,30 @@ public final class ModelFormField {
      */
     public static class HiddenField extends FieldInfo {
         private final FlexibleStringExpander value;
+        private final FlexibleStringExpander disabled;
 
         public HiddenField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.value = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+            this.disabled = FlexibleStringExpander.getInstance(element.getAttribute("disabled"));
         }
 
         private HiddenField(HiddenField original, ModelFormField modelFormField) {
             super(original.getFieldSource(), original.getFieldType(), modelFormField);
             this.value = original.value;
+            this.disabled = original.disabled;
         }
 
         public HiddenField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.HIDDEN, modelFormField);
             this.value = FlexibleStringExpander.getInstance("");
+            this.disabled = FlexibleStringExpander.getInstance("");
         }
 
         public HiddenField(ModelFormField modelFormField) {
             super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.HIDDEN, modelFormField);
             this.value = FlexibleStringExpander.getInstance("");
+            this.disabled = FlexibleStringExpander.getInstance("");
         }
 
         @Override
@@ -2797,6 +2809,18 @@ public final class ModelFormField {
                 return valueEnc;
             }
             return getModelFormField().getEntry(context);
+        }
+
+        /**
+         *
+         * @param context the context
+         * @return evaluated value
+         */
+        public boolean getDisabled(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.disabled)) {
+                return "true".equals(disabled.expandString(context));
+            }
+            return false;
         }
 
         @Override
