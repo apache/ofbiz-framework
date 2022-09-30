@@ -116,7 +116,7 @@ public class ModelFormFieldBuilder {
     private String parentFormName = "";
     private String tabindex = "";
     private String conditionGroup = "";
-    private boolean disabled = false;
+    private FlexibleStringExpander disabled = FlexibleStringExpander.getInstance("");
 
     protected static final List<String> NUMERIC_FIELD_TYPES = Collections.unmodifiableList(UtilMisc.toList(
             "floating-point", "numeric", "fixed-point",
@@ -206,7 +206,7 @@ public class ModelFormFieldBuilder {
         this.parentFormName = fieldElement.getAttribute("form-name");
         this.tabindex = fieldElement.getAttribute("tabindex");
         this.conditionGroup = fieldElement.getAttribute("condition-group");
-        this.disabled = "true".equals(fieldElement.getAttribute("disabled"));
+        this.disabled = FlexibleStringExpander.getInstance(fieldElement.getAttribute("disabled"));
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
@@ -323,7 +323,7 @@ public class ModelFormFieldBuilder {
         this.parentFormName = modelFormField.getParentFormName();
         this.tabindex = modelFormField.getTabindex();
         this.conditionGroup = modelFormField.getConditionGroup();
-        this.disabled = modelFormField.getDisabled();
+        this.disabled = modelFormField.getDisabledSpec();
     }
 
     public ModelFormFieldBuilder(ModelFormFieldBuilder builder) {
@@ -366,7 +366,7 @@ public class ModelFormFieldBuilder {
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
         this.conditionGroup = builder.getConditionGroup();
-        this.disabled = builder.getDisabled();
+        this.disabled = builder.getDisabledSpec();
     }
 
     /**
@@ -729,7 +729,7 @@ public class ModelFormFieldBuilder {
      * Gets disabled.*
      * @return the disabled
      */
-    public boolean getDisabled() {
+    public FlexibleStringExpander getDisabledSpec() {
         return disabled;
     }
 
@@ -1048,7 +1048,7 @@ public class ModelFormFieldBuilder {
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
         this.separateColumn = builder.getSeparateColumn();
-        this.disabled = builder.getDisabled();
+        this.disabled = builder.getDisabledSpec();
     }
 
     /**

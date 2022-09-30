@@ -293,7 +293,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String tabindex = modelFormField.getTabindex();
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextareaField ");
         sr.append("name=\"");
@@ -341,7 +341,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         String className = "";
         String alert = "false";
         String name = "";
@@ -608,7 +608,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         String event = modelFormField.getEvent();
@@ -860,7 +860,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
         Boolean allChecked = checkField.isAllChecked(context);
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         String id = modelFormField.getCurrentContainerId(context);
         String className = "";
         String alert = "false";
@@ -941,7 +941,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         String className = "";
         String alert = "false";
         String name = modelFormField.getParameterName(context);
@@ -1044,6 +1044,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderSubmitField ");
         sr.append("buttonType=\"");
@@ -1082,7 +1083,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1129,6 +1132,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String conditionGroup = modelFormField.getConditionGroup();
         String event = modelFormField.getEvent();
         String id = modelFormField.getCurrentContainerId(context);
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderHiddenField ");
         sr.append(" name=\"");
@@ -1147,7 +1151,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (action != null) {
             sr.append(action);
         }
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
     }
 
@@ -1774,6 +1780,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         boolean ignCase = textFindField.getIgnoreCase(context);
         boolean hideIgnoreCase = textFindField.getHideIgnoreCase();
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextFindField ");
         sr.append(" name=\"");
@@ -1814,7 +1821,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(tabindex);
         sr.append("\" conditionGroup=\"");
         sr.append(conditionGroup);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1861,6 +1870,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String defaultOptionThru = rangeFindField.getDefaultOptionThru();
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderRangeFindField ");
         sr.append(" className=\"");
@@ -1901,7 +1911,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1995,6 +2007,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String id = modelFormField.getCurrentContainerId(context);
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderDateFindField ");
         sr.append(" className=\"");
@@ -2053,7 +2066,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(opIsEmpty);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, locale, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -2171,6 +2186,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         lastViewName = UtilHttp.getEncodedParameter(lastViewName);
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");
@@ -2241,7 +2257,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" delegatorName=\"");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" delegatorName=\"");
         sr.append(((HttpSession) context.get("session")).getAttribute("delegatorName").toString());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
@@ -2518,6 +2536,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             autocomplete = "off";
         }
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderFileField ");
         sr.append(" className=\"");
@@ -2536,7 +2555,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.makeHyperlinkString(writer, textField.getSubHyperlink(), context);
         this.appendTooltip(writer, context, modelFormField);
@@ -2551,6 +2572,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String size = Integer.toString(passwordField.getSize());
         String maxlength = "";
         String id = modelFormField.getCurrentContainerId(context);
+        boolean disabled = modelFormField.getDisabled(context);
         String autocomplete = "";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();
@@ -2606,7 +2628,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.addAsterisks(writer, context, modelFormField);
         this.makeHyperlinkString(writer, passwordField.getSubHyperlink(), context);

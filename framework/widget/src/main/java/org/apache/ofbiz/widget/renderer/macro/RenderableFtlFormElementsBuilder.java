@@ -272,7 +272,7 @@ public final class RenderableFtlFormElementsBuilder {
             mask = textField.getMask();
         }
         String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         boolean readonly = textField.getReadonly();
         String tabindex = modelFormField.getTabindex();
 
