@@ -245,88 +245,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderTextareaField(Appendable writer, Map<String, Object> context, TextareaField textareaField) {
-        ModelFormField modelFormField = textareaField.getModelFormField();
-        String name = modelFormField.getParameterName(context);
-        String cols = Integer.toString(textareaField.getCols());
-        String rows = Integer.toString(textareaField.getRows());
-        String id = modelFormField.getCurrentContainerId(context);
-        String className = "";
-        String alert = "false";
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        //check for required field style on single forms
-        if (shouldApplyRequiredField(modelFormField)) {
-            String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) {
-                requiredStyle = "required";
-            }
-            if (UtilValidate.isEmpty(className)) {
-                className = requiredStyle;
-            } else {
-                className = requiredStyle + " " + className;
-            }
-        }
-        String visualEditorEnable = "";
-        String buttons = "";
-        if (textareaField.getVisualEditorEnable()) {
-            visualEditorEnable = "true";
-            buttons = textareaField.getVisualEditorButtons(context);
-            if (UtilValidate.isEmpty(buttons)) {
-                buttons = "maxi";
-            }
-        }
-        String readonly = "";
-        if (textareaField.isReadOnly()) {
-            readonly = "readonly";
-        }
-        Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
-        String language = "en";
-        if (userLogin != null) {
-            language = UtilValidate.isEmpty((String) userLogin.get("lastLocale")) ? "en" : (String) userLogin.get("lastLocale");
-        }
-        String maxlength = "";
-        if (textareaField.getMaxlength() != null) {
-            maxlength = Integer.toString(textareaField.getMaxlength());
-        }
-        String tabindex = modelFormField.getTabindex();
-        String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
-        boolean disabled = modelFormField.getDisabled(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderTextareaField ");
-        sr.append("name=\"");
-        sr.append(name);
-        sr.append("\" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" cols=\"");
-        sr.append(cols);
-        sr.append("\" rows=\"");
-        sr.append(rows);
-        sr.append("\" maxlength=\"");
-        sr.append(maxlength);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" readonly=\"");
-        sr.append(readonly);
-        sr.append("\" visualEditorEnable=\"");
-        sr.append(visualEditorEnable);
-        sr.append("\" language=\"");
-        sr.append(language);
-        sr.append("\" buttons=\"");
-        sr.append(buttons);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.textArea(context, textareaField));
+
+        final ModelFormField modelFormField = textareaField.getModelFormField();
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
