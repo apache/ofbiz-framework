@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -298,6 +299,69 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("delegatorName", ((HttpSession) context.get("session"))
                         .getAttribute("delegatorName").toString())
                 .build();
+    }
+
+    public RenderableFtl textArea(final Map<String, Object> context, final ModelFormField.TextareaField textareaField) {
+
+        final ModelFormField modelFormField = textareaField.getModelFormField();
+
+        final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
+                .name("renderTextareaField")
+                .stringParameter("name", modelFormField.getParameterName(context));
+
+        builder.intParameter("cols", textareaField.getCols());
+        builder.intParameter("rows", textareaField.getRows());
+
+        builder.stringParameter("id", modelFormField.getCurrentContainerId(context));
+
+        builder.stringParameter("alert", "false");
+
+        ArrayList<String> classNames = new ArrayList<>();
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            classNames.add(modelFormField.getWidgetStyle());
+            if (modelFormField.shouldBeRed(context)) {
+                builder.stringParameter("alert", "true");
+            }
+        }
+
+        if (shouldApplyRequiredField(modelFormField)) {
+            String requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle)) {
+                requiredStyle = "required";
+            }
+            classNames.add(requiredStyle);
+        }
+        builder.stringParameter("className", String.join(" ", classNames));
+
+        if (textareaField.getVisualEditorEnable()) {
+            builder.booleanParameter("visualEditorEnable", true);
+
+            String buttons = textareaField.getVisualEditorButtons(context);
+            builder.stringParameter("buttons", UtilValidate.isEmpty(buttons) ? "maxi" : buttons);
+        }
+
+        if (textareaField.isReadOnly()) {
+            builder.stringParameter("readonly", "readonly");
+        }
+
+        Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
+        String language = "en";
+        if (userLogin != null) {
+            language = UtilValidate.isEmpty((String) userLogin.get("lastLocale")) ? "en" : (String) userLogin.get("lastLocale");
+        }
+        builder.stringParameter("language", language);
+
+        if (textareaField.getMaxlength() != null) {
+            builder.intParameter("maxlength", textareaField.getMaxlength());
+        }
+
+        builder.stringParameter("tabindex", modelFormField.getTabindex());
+
+        builder.stringParameter("value", modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
+
+        builder.booleanParameter("disabled", modelFormField.getDisabled(context));
+
+        return builder.build();
     }
 
     public RenderableFtl makeHyperlinkString(final ModelFormField.SubHyperlink subHyperlink,
@@ -631,6 +695,12 @@ public final class RenderableFtlFormElementsBuilder {
             throw new RuntimeException("Cannot access whole form context");
         }
         return wholeFormContext;
+    }
+
+    private boolean shouldApplyRequiredField(ModelFormField modelFormField) {
+        return ("single".equals(modelFormField.getModelForm().getType())
+                || "upload".equals(modelFormField.getModelForm().getType()))
+                && modelFormField.getRequiredField();
     }
 
     /**

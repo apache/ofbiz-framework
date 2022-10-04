@@ -237,6 +237,57 @@ public class RenderableFtlFormElementsBuilderTest {
     }
 
     @Test
+    public void textareaFieldSetsIdValueLengthAndSize(@Mocked final ModelFormField.TextareaField textareaField) {
+        final int maxLength = 142;
+        final int cols = 80;
+        final int rows = 5;
+        new Expectations() {
+            {
+                modelFormField.getCurrentContainerId(withNotNull());
+                result = "CurrentTextareaId";
+
+                modelFormField.getEntry(withNotNull(), anyString);
+                result = "TEXTAREAVALUE";
+
+                textareaField.getMaxlength();
+                result = maxLength;
+
+                textareaField.getCols();
+                result = cols;
+
+                textareaField.getRows();
+                result = rows;
+            }
+        };
+
+        final HashMap<String, Object> context = new HashMap<>();
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textArea(context, textareaField);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField",
+                MacroCallParameterMatcher.hasNameAndStringValue("id", "CurrentTextareaId"),
+                MacroCallParameterMatcher.hasNameAndStringValue("value", "TEXTAREAVALUE"),
+                MacroCallParameterMatcher.hasNameAndIntegerValue("cols", cols),
+                MacroCallParameterMatcher.hasNameAndIntegerValue("rows", rows),
+                MacroCallParameterMatcher.hasNameAndIntegerValue("maxlength", maxLength)));
+    }
+
+    @Test
+    public void textareaFieldSetsDisabledParameters(@Mocked final ModelFormField.TextareaField textareaField) {
+        new Expectations() {
+            {
+                modelFormField.getDisabled(withNotNull());
+                result = true;
+            }
+        };
+
+        final HashMap<String, Object> context = new HashMap<>();
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textArea(context, textareaField);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField",
+                MacroCallParameterMatcher.hasNameAndBooleanValue("disabled", true)));
+    }
+
+    @Test
     public void fieldGroupOpenRendersCollapsibleAreaId(@Mocked final ModelForm.FieldGroup fieldGroup) {
         new Expectations() {
             {

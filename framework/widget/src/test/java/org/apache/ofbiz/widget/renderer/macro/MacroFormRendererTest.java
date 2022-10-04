@@ -225,23 +225,17 @@ public class MacroFormRendererTest {
     public void textAreaMacroRendered(@Mocked ModelFormField.TextareaField textareaField) throws IOException {
         new Expectations() {
             {
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "TEXTAREAVALUE";
-
-                textareaField.getCols();
-                result = 11;
-
-                textareaField.getRows();
-                result = 22;
+                renderableFtlFormElementsBuilder.textArea(withNotNull(), textareaField);
+                result = genericMacroCall;
             }
         };
 
+        genericTooltipRenderedExpectation(textareaField);
+
         macroFormRenderer.renderTextareaField(appendable, ImmutableMap.of(), textareaField);
 
-        assertAndGetMacroString("renderTextareaField", ImmutableMap.of(
-                "value", "TEXTAREAVALUE",
-                "cols", "11",
-                "rows", "22"));
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test
