@@ -21,25 +21,25 @@ package org.apache.ofbiz.widget.renderer.macro;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-public final class MacroCallParameterStringValueMatcher extends TypeSafeMatcher<Object> {
-    private final String value;
+public final class MacroCallParameterIntegerValueMatcher extends TypeSafeMatcher<Object> {
+    private final int value;
 
-    public MacroCallParameterStringValueMatcher(final String value) {
+    public MacroCallParameterIntegerValueMatcher(final int value) {
         this.value = value;
     }
 
     @Override
     protected boolean matchesSafely(final Object item) {
-        return value.equals(item);
+        return item.equals(value);
     }
 
     @Override
     public void describeTo(final Description description) {
-        description.appendText("string value '" + value + "'");
+        description.appendText("integer value '" + value + "'");
     }
 
     @Override
     protected void describeMismatchSafely(final Object item, final Description mismatchDescription) {
-        mismatchDescription.appendText("with value '" + item + "'");
+        mismatchDescription.appendText("with integer value '" + item + "'");
     }
 }
