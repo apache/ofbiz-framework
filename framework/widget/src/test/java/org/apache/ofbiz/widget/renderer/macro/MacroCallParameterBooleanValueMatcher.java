@@ -35,7 +35,7 @@ public final class MacroCallParameterBooleanValueMatcher extends TypeSafeMatcher
 
     @Override
     public void describeTo(final Description description) {
-        description.appendText("with boolean value '" + value + "'");
+        description.appendText("boolean value '" + value + "'");
     }
 
     @Override
