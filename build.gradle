@@ -219,6 +219,7 @@ dependencies {
     implementation 'net.lingala.zip4j:zip4j:2.11.1'
     implementation 'org.apache.ant:ant-junit:1.10.12'
     implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation 'org.apache.commons:commons-csv:1.9.0'	
     implementation 'org.apache.commons:commons-dbcp2:2.9.0'
     implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
     implementation 'org.apache.commons:commons-text:1.9'
@@ -232,12 +233,9 @@ dependencies {
     implementation 'org.apache.shiro:shiro-core:1.9.0'
     implementation 'org.apache.sshd:sshd-core:2.8.0'
     implementation 'org.apache.sshd:sshd-sftp:2.8.0'
-    // Note: The Apache Tika PMC has set September 30, 2022 as the End Of Life for the Tika 1.x branch.
-    //       The PMC will make security fixes for the 1.x branch until that date.
-    implementation 'org.apache.tika:tika-core:2.4.1'
-    implementation 'org.apache.tika:tika-parsers:2.4.1'
-    implementation 'org.apache.commons:commons-csv:1.9.0'
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.4.1'
+    implementation 'org.apache.tika:tika-core:2.5.0'
+    implementation 'org.apache.tika:tika-parsers:2.5.0'
+    implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.3'
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.65' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.65'
