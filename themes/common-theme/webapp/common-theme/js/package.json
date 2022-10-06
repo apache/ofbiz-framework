@@ -13,7 +13,7 @@
         "trumbowyg": "^2.25.2",
         "flot": "^4.2.3",
         "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
-        "uglify-js": "3.17.2"
+        "uglify-js": "3.17.3"
     },
     "scripts": {
         "uglify": "uglifyjs node_modules/flot/dist/es5/jquery.flot.js -c -m -o node_modules/flot/dist/es5/jquery.flot.min.js"
