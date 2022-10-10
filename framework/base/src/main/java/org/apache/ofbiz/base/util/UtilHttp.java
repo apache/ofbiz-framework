@@ -764,7 +764,7 @@ public final class UtilHttp {
         }
         // When you set a mountpoint which contains a slash inside its name (ie not only a slash as a trailer, which is possible),
         // as it's needed with OFBIZ-10765, OFBiz tries to create a cookie with a slash in its name and that's impossible.
-        return appName.replaceAll("/", "_");
+        return appName.replace("/", "_");
     }
 
     public static void setInitialRequestInfo(HttpServletRequest request) {
@@ -1205,7 +1205,7 @@ public final class UtilHttp {
     }
 
     public static String encodeBlanks(String htmlString) {
-        return htmlString.replaceAll(" ", "%20");
+        return htmlString.replace(" ", "%20");
     }
 
     public static String setResponseBrowserProxyNoCache(HttpServletRequest request, HttpServletResponse response) {

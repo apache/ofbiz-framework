@@ -1771,7 +1771,7 @@ public final class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
-                retVal = retVal.replaceAll("&nbsp;", " ");
+                retVal = retVal.replace("&nbsp;", " ");
                 // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {

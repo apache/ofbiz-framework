@@ -181,7 +181,7 @@ public final class CsrfUtil {
         }
 
         if (pathOrRequestUri.contains("&#x2f;")) {
-            pathOrRequestUri = pathOrRequestUri.replaceAll("&#x2f;", "/");
+            pathOrRequestUri = pathOrRequestUri.replace("&#x2f;", "/");
         }
 
         String requestUri = getRequestUriWithSubFolderLimit(getRequestUriFromPath(pathOrRequestUri));

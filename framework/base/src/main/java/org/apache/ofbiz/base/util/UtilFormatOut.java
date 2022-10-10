@@ -568,7 +568,7 @@ public final class UtilFormatOut {
         return newString.toString();
     }
     public static String makeSqlSafe(String unsafeString) {
-        return unsafeString.replaceAll("'", "''");
+        return unsafeString.replace("'", "''");
     }
 
     public static String formatPrintableCreditCard(String original) {

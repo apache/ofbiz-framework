@@ -1243,7 +1243,7 @@ public final class LoginWorker {
                         Map<String, String> x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
                         if (i == 0) {
                             String cn = x500Map.get("CN");
-                            cn = cn.replaceAll("\\\\", "");
+                            cn = cn.replace("\\\\", "");
                             Matcher m = pattern.matcher(cn);
                             if (m.matches()) {
                                 userLoginId = m.group(1);

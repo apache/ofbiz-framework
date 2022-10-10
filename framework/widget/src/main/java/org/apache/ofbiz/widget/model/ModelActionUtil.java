@@ -38,7 +38,7 @@ public class ModelActionUtil {
             context.put("queryString", queryString);
             context.put("queryStringMap", result.get("queryStringMap"));
             if (UtilValidate.isNotEmpty(queryString)) {
-                String queryStringEncoded = queryString.replaceAll("&", "%26");
+                String queryStringEncoded = queryString.replace("&", "%26");
                 context.put("queryStringEncoded", queryStringEncoded);
             }
         } else {

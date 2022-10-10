@@ -336,7 +336,7 @@ public final class WidgetWorker {
     public static Map<String, Object> resolveParametersMapFromQueryString(Map<String, Object> context) {
         String qbeString = (String) context.get("_QBESTRING_");
         return qbeString != null
-                ? UtilHttp.getQueryStringOnlyParameterMap(qbeString.replaceAll("&amp;", "&"))
+                ? UtilHttp.getQueryStringOnlyParameterMap(qbeString.replace("&amp;", "&"))
                 : null;
     }
 }

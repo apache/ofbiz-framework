@@ -68,8 +68,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     public static <L, R> void register(String name, EntityOperator<L, R> operator) {
         registerCase(name, operator);
-        registerCase(name.replaceAll("-", "_"), operator);
-        registerCase(name.replaceAll("_", "-"), operator);
+        registerCase(name.replace("-", "_"), operator);
+        registerCase(name.replace("_", "-"), operator);
     }
 
     public static <L, R> EntityOperator<L, R> lookup(String name) {

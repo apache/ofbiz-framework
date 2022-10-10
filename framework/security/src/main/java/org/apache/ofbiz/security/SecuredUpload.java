@@ -146,7 +146,7 @@ public class SecuredUpload {
                 // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
                 if (fileToCheck.length() > 259) {
                     Debug.logError("Uploaded file name too long", MODULE);
-                } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
+                } else if (p.toString().contains(imageServerUrl.replace("/", "\\\\"))) {
                     // TODO check this is still useful in at least 1 case
                     if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                         wrongFile = false;

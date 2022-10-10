@@ -168,7 +168,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                         LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
                         Locale locale = (Locale) args.get("locale");
                         String prefixString = ((StringModel) prefix).getAsString();
-                        prefixString = prefixString.replaceAll("&#47;", "/");
+                        prefixString = prefixString.replace("&#47;", "/");
                         String contextPath = prefixString;
                         int lastSlashIndex = prefixString.lastIndexOf('/');
                         if (lastSlashIndex > -1 && lastSlashIndex < prefixString.length()) {

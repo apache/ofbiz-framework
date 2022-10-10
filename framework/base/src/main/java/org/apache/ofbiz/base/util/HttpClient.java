@@ -402,7 +402,7 @@ public class HttpClient {
                 }
 
                 if (charset != null) {
-                    charset = charset.trim().replaceAll("\"", "");
+                    charset = charset.trim().replace("\"", "");
                 }
                 if (Debug.verboseOn() || debug) {
                     Debug.logVerbose("Getting text from HttpClient with charset: " + charset, MODULE);

@@ -135,7 +135,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     private static String encodeDoubleQuotes(String htmlString) {
-        return htmlString.replaceAll("\"", "\\\\\"");
+        return htmlString.replace("\"", "\\\\\"");
     }
 
     public boolean getRenderPagination() {
@@ -715,8 +715,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (textSize > 0 && description.length() > textSize) {
                 description = description.substring(0, textSize - 8) + "..." + description.substring(description.length() - 5);
             }
-            options.append(encode(description.replaceAll("'", "\\\\\'"), modelFormField, context));
-            // replaceAll("'", "\\\\\'") related to OFBIZ-6504
+            options.append(encode(description.replaceAll("'", "\\\\\'"), modelFormField, context)); // related to OFBIZ-6504
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 options.append("'");
