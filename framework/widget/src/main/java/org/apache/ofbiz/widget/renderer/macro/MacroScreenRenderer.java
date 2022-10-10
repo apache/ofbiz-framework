@@ -125,7 +125,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 Object value = parameter.getValue();
                 if (value instanceof String) {
                     sb.append('"');
-                    sb.append(((String) value).replaceAll("\"", "\\\\\""));
+                    sb.append(((String) value).replace("\"", "\\\\\""));
                     sb.append('"');
                 } else {
                     sb.append(value);
@@ -351,7 +351,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append("\" text=\"");
         sr.append(text);
         sr.append("\" imgStr=\"");
-        sr.append(imgStr.replaceAll("\"", "\\\\\""));
+        sr.append(imgStr.replace("\"", "\\\\\""));
         sr.append("\" />");
         executeMacro(writer, sr.toString());
     }
