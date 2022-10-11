@@ -715,7 +715,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (textSize > 0 && description.length() > textSize) {
                 description = description.substring(0, textSize - 8) + "..." + description.substring(description.length() - 5);
             }
-            options.append(encode(description.replace("'", "\\\\\'"), modelFormField, context)); // related to OFBIZ-6504
+            options.append(encode(description.replaceAll("'", "\\\\\'"), modelFormField, context)); // related to OFBIZ-6504
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 options.append("'");
@@ -2818,7 +2818,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         Map<String, Object> paramMap = UtilHttp.getQueryStringOnlyParameterMap(queryString);
         String qbeString = (String) context.get("_QBESTRING_");
         if (qbeString != null) {
-            qbeString = qbeString.replace("&amp;", "&");
+            qbeString = qbeString.replaceAll("&amp;", "&");
             paramMap.putAll(UtilHttp.getQueryStringOnlyParameterMap(qbeString));
         }
         paramMap.put(modelForm.getSortFieldParameterName(), newSortField);

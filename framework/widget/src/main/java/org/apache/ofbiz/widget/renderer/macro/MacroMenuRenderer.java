@@ -124,7 +124,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 Object value = parameter.getValue();
                 if (value instanceof String) {
                     sb.append('"');
-                    sb.append(((String) value).replace("\"", "\\\\\""));
+                    sb.append(((String) value).replaceAll("\"", "\\\\\""));
                     sb.append('"');
                 } else {
                     sb.append(value);
