@@ -477,7 +477,7 @@ public class CommonEvents {
                     String platformSpecificPath = sourceFileUrl.getFile();
                     // ensure file separator in location is correct
                     if (!platformSpecificPath.contains(File.separator) && "\\".equals(File.separator)) {
-                        platformSpecificPath = platformSpecificPath.replace("/", "\\\\");
+                        platformSpecificPath = platformSpecificPath.replace("/", "\\");
                     }
                     // get line number
                     int lineNumber = 1;

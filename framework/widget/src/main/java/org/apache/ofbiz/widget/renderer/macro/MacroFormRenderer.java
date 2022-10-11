@@ -135,7 +135,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     private static String encodeDoubleQuotes(String htmlString) {
-        return htmlString.replace("\"", "\\\\\"");
+        return htmlString.replace("\"", "\\\"");
     }
 
     public boolean getRenderPagination() {

@@ -151,7 +151,7 @@ public final class FileUtil {
     private static String getPatchedFileName(String path, String fileName) throws IOException {
         // make sure the export directory exists
         if (UtilValidate.isNotEmpty(path)) {
-            path = path.replace("\\\\", "/");
+            path = path.replace("\\", "/");
             File parentDir = new File(path);
             if (!parentDir.exists()) {
                 if (!parentDir.mkdir()) {
