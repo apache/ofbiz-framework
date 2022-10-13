@@ -29,7 +29,7 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '3.1' // Java 11 is needed by version 3
+    id 'at.bxm.svntools' version '3.1'
     id 'org.asciidoctor.convert' version '2.4.0' // About org.asciidoctor.jvm.convert as it says itself: "If you need a production-ready version of the AsciidoctorJ plugin for Gradle use a 1.5.x release of 'org.asciidoctor.convert' instead"
     id 'org.owasp.dependencycheck' version '7.1.1' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
@@ -100,7 +100,7 @@ javadoc {
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/javase/8/docs/api',
+            'https://docs.oracle.com/javase/11/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-2.5.18/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
@@ -122,8 +122,8 @@ node {
 }
 
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 // Java compile options, syntax gradlew -PXlint:none build
 tasks.withType(JavaCompile) {
@@ -201,6 +201,7 @@ configurations {
 
 dependencies {
     implementation 'xerces:xercesImpl:2.12.2'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
     implementation 'com.google.zxing:core:3.5.0'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
