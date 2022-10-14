@@ -113,7 +113,7 @@ function bindObservers(bind_element) {
 
     jQuery(bind_element).find("[data-mask]").each(function(){
         var self = this;
-        var libraryFiles = ["/common/js/jquery/plugins/inputmask/jquery.inputmask-5.0.6-beta.11.min.js"];
+        var libraryFiles = ["/common/js/node_modules/inputmask/dist/jquery.inputmask.min.js"];
         importLibrary(libraryFiles, function() {
             var element = jQuery(self);
             var mask = element.data('mask');
