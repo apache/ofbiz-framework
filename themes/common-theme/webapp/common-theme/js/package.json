@@ -6,6 +6,7 @@
     "dependencies": {
         "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
         "dompurify": "^2.4.0",
+        "featherlight": "^1.7.14",
         "flot": "^4.2.3",
         "inputmask": "^5.0.7",
         "jquery": "^3.6.1",
