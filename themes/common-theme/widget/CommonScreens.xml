@@ -344,8 +344,8 @@ under the License.
                         <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
 
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" default-value="component://common-theme/template/includes/Messages.ftl"/>
-                        <set field="layoutSettings.styleSheets[]" value="/common/js/jquery/plugins/featherlight/featherlight-1.7.13.min.css" global="true"/>
-                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/featherlight/featherlight-1.7.13.min.js" global="true"/>
+                        <set field="layoutSettings.styleSheets[]" value="/common/js/node_modules/featherlight/release/featherlight.min.css" global="true"/>
+                        <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/featherlight/release/featherlight.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-ui-dist/jquery-ui.min.js" global="true"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery-validation/dist/jquery.validate.min.js"/>
                         <set field="layoutSettings.javaScripts[+0]" value="/common/js/node_modules/jquery.browser/dist/jquery.browser.min.js" global="true"/>
