@@ -38,6 +38,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.util.Debug;
@@ -150,18 +151,20 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
     }
 
     private static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
-        try {
-            for (String propName : propNames) {
-                String key = propName.concat(".").concat(parameter);
-                if (res.containsKey(key)) {
-                    try {
-                        return res.getString(key);
-                    } catch (MissingResourceException e) {
+        if (!Stream.of(propNames).anyMatch(string -> string == null || string.isEmpty())) {
+            try {
+                for (String propName : propNames) {
+                    String key = propName.concat(".").concat(parameter);
+                    if (res.containsKey(key)) {
+                        try {
+                            return res.getString(key);
+                        } catch (MissingResourceException e) {
+                        }
                     }
                 }
+            } catch (Exception e) {
+                Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), MODULE);
             }
-        } catch (Exception e) {
-            Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), MODULE);
         }
         return null;
     }
