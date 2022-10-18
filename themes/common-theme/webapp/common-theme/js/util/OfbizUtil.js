@@ -967,13 +967,21 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                 });
             },
             select: function(event, ui){
-                //jQuery("#" + areaArray[0]).html(ui.item);
-                jQuery("#" + areaArray[0]).val(ui.item.value); // setting a text field
-                if (showDescription && (ui.item.value != undefined && ui.item.value != '')) {
-                    setLookDescription(areaArray[0], ui.item.label, areaArray[2], formName, showDescription)
+                // search returned something
+                if(ui.item.id !== '') {
+                    $(`#${areaArray[0]}`).val(ui.item.value);
+                    if (showDescription && (ui.item.value != undefined && ui.item.value != '')) {
+                        setLookDescription(areaArray[0], ui.item.label, areaArray[2], formName, showDescription);
+                    }
+                } else {
+                    // empty the search input
+                    $(`#${areaArray[0]}`).val('');
+                    // cancel the selection (do not copy "no result found" in the search field)
+                    event.preventDefault();
                 }
             }
         });
+
         if (showDescription) {
             var lookupDescriptionLoader = new lookupDescriptionLoaded(areaArray[i], areaArray[i + 1], areaArray[i + 2], formName);
             lookupDescriptionLoader.update();
