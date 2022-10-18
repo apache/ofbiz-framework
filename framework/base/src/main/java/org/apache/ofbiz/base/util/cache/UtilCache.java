@@ -38,6 +38,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.util.Debug;
@@ -149,7 +150,8 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
         return i == 0 ? "" : Integer.toString(i);
     }
 
-    public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
+    private static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
+        if (!Stream.of(propNames).anyMatch(string -> string == null || string.isEmpty())) {
         try {
             for (String propName : propNames) {
                 String key = propName.concat(".").concat(parameter);
