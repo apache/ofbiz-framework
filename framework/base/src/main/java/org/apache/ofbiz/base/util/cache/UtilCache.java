@@ -152,21 +152,22 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
 
     private static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
         if (!Stream.of(propNames).anyMatch(string -> string == null || string.isEmpty())) {
-        try {
-            for (String propName : propNames) {
-                String key = propName.concat(".").concat(parameter);
-                if (res.containsKey(key)) {
-                    try {
-                        return res.getString(key);
-                    } catch (MissingResourceException e) {
+            try {
+                for (String propName : propNames) {
+                    String key = propName.concat(".").concat(parameter);
+                    if (res.containsKey(key)) {
+                        try {
+                            return res.getString(key);
+                        } catch (MissingResourceException e) {
+                        }
                     }
                 }
+            } catch (Exception e) {
+                Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), MODULE);
             }
-        } catch (Exception e) {
-            Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), MODULE);
         }
-        return null;
-    }
+            return null;
+        }
 
     protected void setPropertiesParams(String cacheName) {
         setPropertiesParams(new String[] {cacheName});
