@@ -166,8 +166,8 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
                 Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + Arrays.toString(propNames), MODULE);
             }
         }
-            return null;
-        }
+        return null;
+    }
 
     protected void setPropertiesParams(String cacheName) {
         setPropertiesParams(new String[] {cacheName});
