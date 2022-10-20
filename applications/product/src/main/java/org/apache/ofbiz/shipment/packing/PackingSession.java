@@ -39,6 +39,9 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.apache.ofbiz.entity.condition.EntityConditionList;
+import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.product.product.ProductWorker;
@@ -157,16 +160,43 @@ public class PackingSession implements java.io.Serializable {
         if (shipGroupSeqId == null) {
             shipGroupSeqId = primaryShipGrp;
         }
+
+        List<GenericValue> reservations = null;
+        List<String> orderItemSeqIds = new LinkedList<String>();
+
         if (orderItemSeqId == null && productId != null) {
-            orderItemSeqId = this.findOrderItemSeqId(productId, orderId, shipGroupSeqId, quantity);
+            orderItemSeqIds = this.findOrderItemSeqId(productId, orderId, shipGroupSeqId, quantity);
+
+            if (orderItemSeqIds.size() == 1) {
+                orderItemSeqId = orderItemSeqIds.get(0);
+
+                // get the reservations for the item
+                Map<String, Object> invLookup = new HashMap<String, Object>();
+                invLookup.put("orderId", orderId);
+                invLookup.put("orderItemSeqId", orderItemSeqId);
+                invLookup.put("shipGroupSeqId", shipGroupSeqId);
+                reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup,
+                        UtilMisc.toList("quantity DESC"), false);
+            } else {
+                List<EntityCondition> exprList = new LinkedList<EntityCondition>();
+                exprList.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
+                exprList.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.IN, orderItemSeqIds));
+                exprList.add(EntityCondition.makeCondition("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
+                EntityConditionList<EntityCondition> orderSeqExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+                reservations = this.getDelegator().findList("OrderItemShipGrpInvRes", orderSeqExprList, null,
+                        UtilMisc.toList("quantity"), null, false);
+            }
         }
 
         // get the reservations for the item
-        Map<String, Object> invLookup = new HashMap<>();
-        invLookup.put("orderId", orderId);
-        invLookup.put("orderItemSeqId", orderItemSeqId);
-        invLookup.put("shipGroupSeqId", shipGroupSeqId);
-        List<GenericValue> reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup, UtilMisc.toList("quantity DESC"), false);
+        if (UtilValidate.isEmpty(reservations)) {
+            // get the reservations for the item
+            Map<String, Object> invLookup = new HashMap<String, Object>();
+            invLookup.put("orderId", orderId);
+            invLookup.put("orderItemSeqId", orderItemSeqId);
+            invLookup.put("shipGroupSeqId", shipGroupSeqId);
+            reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup, UtilMisc.toList("quantity DESC"), false);
+        }
 
         // no reservations we cannot add this item
         if (UtilValidate.isEmpty(reservations)) {
@@ -176,13 +206,10 @@ public class PackingSession implements java.io.Serializable {
         // find the inventoryItemId to use
         if (reservations.size() == 1) {
             GenericValue res = EntityUtil.getFirst(reservations);
-            BigDecimal resQty = numAvailableItems(res);
-
-            // If reservation has enough for the quantity required
-            if (resQty.compareTo(quantity) >= 0) {
-                int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
-                this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
-            }
+            int checkCode = this.checkLineForAdd(res, res.get("orderId").toString(),
+                    res.get("orderItemSeqId").toString(), res.get("shipGroupSeqId").toString(), productId, quantity, packageSeqId, update);
+            this.createPackLineItem(checkCode, res, res.get("orderId").toString(),
+                    res.get("orderItemSeqId").toString(), res.get("shipGroupSeqId").toString(), productId, quantity, weight, packageSeqId);
         } else {
             // more than one reservation found
             Map<GenericValue, BigDecimal> toCreateMap = new HashMap<>();
@@ -197,37 +224,41 @@ public class PackingSession implements java.io.Serializable {
                     continue;
                 }
 
-                BigDecimal resQty = numAvailableItems(res);
+                BigDecimal resQty = res.getBigDecimal("quantity");
+                BigDecimal resPackedQty = this.getPackedQuantity(
+                        res.get("orderId").toString(),
+                        res.get("orderItemSeqId").toString(),
+                        res.get("shipGroupSeqId").toString(),
+                        productId, res.getString("inventoryItemId"), -1);
+                if (resPackedQty.compareTo(resQty) >= 0) {
+                    continue;
+                } else if (!update) {
+                    resQty = resQty.subtract(resPackedQty);
+                }
 
-                if (resQty.compareTo(BigDecimal.ZERO) > 0) {
-                    BigDecimal resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId,
-                            res.getString("inventoryItemId"), -1);
-                    if (resPackedQty.compareTo(resQty) >= 0) {
-                        continue;
-                    } else if (!update) {
-                        resQty = resQty.subtract(resPackedQty);
-                    }
+                BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
 
-                    BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
-
-                    int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
-                    switch (thisCheck) {
-                    case 2:
-                        Debug.logInfo("Packing check returned '2' - new pack line will be created!", MODULE);
-                        toCreateMap.put(res, thisQty);
-                        qtyRemain = qtyRemain.subtract(thisQty);
-                        break;
-                    case 1:
-                        Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", MODULE);
-                        qtyRemain = qtyRemain.subtract(thisQty);
-                        break;
-                    case 0:
-                        Debug.logInfo("Packing check returned '0' - doing nothing.", MODULE);
-                        break;
-                    default:
-                        Debug.logInfo("Packing check returned '> 2' or '< 0'", MODULE);
-                        break;
-                    }
+                int thisCheck = this.checkLineForAdd(res,
+                        res.get("orderId").toString(),
+                        res.get("orderItemSeqId").toString(),
+                        res.get("shipGroupSeqId").toString(),
+                        productId, thisQty, packageSeqId, update);
+                switch (thisCheck) {
+                case 2:
+                    Debug.logInfo("Packing check returned '2' - new pack line will be created!", MODULE);
+                    toCreateMap.put(res, thisQty);
+                    qtyRemain = qtyRemain.subtract(thisQty);
+                    break;
+                case 1:
+                    Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", MODULE);
+                    qtyRemain = qtyRemain.subtract(thisQty);
+                    break;
+                case 0:
+                    Debug.logInfo("Packing check returned '0' - doing nothing.", MODULE);
+                    break;
+                default:
+                    Debug.logInfo("Packing check returned '> 2' or '< 0'", MODULE);
+                    break;
                 }
             }
 
@@ -235,7 +266,8 @@ public class PackingSession implements java.io.Serializable {
                 for (Map.Entry<GenericValue, BigDecimal> entry: toCreateMap.entrySet()) {
                     GenericValue res = entry.getKey();
                     BigDecimal qty = entry.getValue();
-                    this.createPackLineItem(2, res, orderId, orderItemSeqId, shipGroupSeqId, productId, qty, weight, packageSeqId);
+                    this.createPackLineItem(2, res, res.get("orderId").toString(), res.get("orderItemSeqId").toString(),
+                            res.get("shipGroupSeqId").toString(), productId, qty, weight, packageSeqId);
                 }
             } else {
                 throw new GeneralException("Not enough inventory reservation available; cannot pack the item! [103]");
@@ -244,20 +276,6 @@ public class PackingSession implements java.io.Serializable {
 
         // run the add events
         this.runEvents(PackingEvent.EVENT_CODE_ADD);
-    }
-
-    private static BigDecimal numAvailableItems(GenericValue res) {
-        // In simple situations, the reserved quantity will match the quantity from the order item.
-        // If there is a back order, quantity from order may exceed quantity currently reserved and on hand.
-        // resQty should never exceed the quantity from the order item, because that quantity was the quantity reserved in the first place.
-        BigDecimal notAvailable = res.getBigDecimal("quantityNotAvailable");
-        BigDecimal resQty = res.getBigDecimal("quantity");
-
-        if (notAvailable != null) {
-            resQty = resQty.subtract(notAvailable);
-        }
-
-        return resQty;
     }
 
     /**
@@ -361,7 +379,7 @@ public class PackingSession implements java.io.Serializable {
      * @return the string
      * @throws GeneralException the general exception
      */
-    protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity) throws GeneralException {
+    protected List<String> findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity) throws GeneralException {
         Map<String, Object> lookupMap = new HashMap<>();
         lookupMap.put("orderId", orderId);
         lookupMap.put("productId", productId);
@@ -372,6 +390,7 @@ public class PackingSession implements java.io.Serializable {
         List<GenericValue> orderItems = this.getDelegator().findByAnd("OrderItemAndShipGroupAssoc", lookupMap, sort, false);
 
         String orderItemSeqId = null;
+        List<String> orderItemSeqIds = new LinkedList<String>();
         if (orderItems != null) {
             for (GenericValue item: orderItems) {
                 // get the reservations for the item
@@ -384,14 +403,14 @@ public class PackingSession implements java.io.Serializable {
                     BigDecimal qty = res.getBigDecimal("quantity");
                     if (quantity.compareTo(qty) <= 0) {
                         orderItemSeqId = item.getString("orderItemSeqId");
-                        break;
+                        orderItemSeqIds.add(orderItemSeqId);
                     }
                 }
             }
         }
 
         if (orderItemSeqId != null) {
-            return orderItemSeqId;
+            return orderItemSeqIds;
         } else {
             throw new GeneralException("No valid order item found for product [" + productId + "] with quantity: " + quantity);
         }
