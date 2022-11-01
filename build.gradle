@@ -220,7 +220,7 @@ dependencies {
     implementation 'net.lingala.zip4j:zip4j:2.11.1'
     implementation 'org.apache.ant:ant-junit:1.10.12'
     implementation 'org.apache.commons:commons-collections4:4.4'
-    implementation 'org.apache.commons:commons-csv:1.9.0'	
+    implementation 'org.apache.commons:commons-csv:1.9.0'
     implementation 'org.apache.commons:commons-dbcp2:2.9.0'
     implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
     implementation 'org.apache.commons:commons-text:1.10.0'
@@ -238,8 +238,8 @@ dependencies {
     implementation 'org.apache.tika:tika-parsers:2.5.0'
     implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.3'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.65' // Remember to change the version number (9 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.65'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.68' // Remember to change the version number (9 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.68'
     implementation 'org.apache.axis2:axis2-kernel:1.8.1'
     implementation 'batik:batik-svg-dom:1.6-1'
     implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
