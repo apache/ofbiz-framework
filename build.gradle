@@ -289,7 +289,7 @@ dependencies {
     junitReport 'junit:junit:4.13.2'
     junitReport 'org.apache.ant:ant-junit:1.10.12'
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3' // Tried to upgrade to 2.3.3, got "asciidoctor-1.5.8 conflicts with asciidoctor (~> 2.0"
-    asciidoctor 'org.jruby:jruby-complete:9.3.9.0' // bug workaround - see OFBIZ-9873
+    asciidoctor 'org.jruby:jruby-complete:9.2.19.0' // bug workaround - see OFBIZ-9873, 9.3.9.0 does not work
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
