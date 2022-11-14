@@ -1275,7 +1275,7 @@ public final class ModelFormField {
         private final boolean isTwelveHour;
         private final FlexibleStringExpander defaultValue;
         private final String inputMethod;
-        private final String mask;
+        private final boolean useMask;
         private final int step;
         private final String type;
 
@@ -1285,7 +1285,7 @@ public final class ModelFormField {
             this.type = original.type;
             this.inputMethod = original.inputMethod;
             this.isTwelveHour = original.isTwelveHour;
-            this.mask = original.mask;
+            this.useMask = original.useMask;
             this.step = original.step;
         }
 
@@ -1295,7 +1295,7 @@ public final class ModelFormField {
             this.type = element.getAttribute("type");
             this.inputMethod = element.getAttribute("input-method");
             this.isTwelveHour = "12".equals(element.getAttribute("clock"));
-            this.mask = element.getAttribute("mask");
+            this.useMask = "Y".equals(element.getAttribute("mask"));
 
             final String stepAttribute = element.getAttribute("step");
             if (stepAttribute.isEmpty()) {
@@ -1318,7 +1318,7 @@ public final class ModelFormField {
             this.type = "";
             this.inputMethod = "";
             this.isTwelveHour = false;
-            this.mask = "";
+            this.useMask = false;
             this.step = 1;
         }
 
@@ -1328,7 +1328,7 @@ public final class ModelFormField {
             this.type = type;
             this.inputMethod = "";
             this.isTwelveHour = false;
-            this.mask = "";
+            this.useMask = false;
             this.step = 1;
         }
 
@@ -1338,7 +1338,7 @@ public final class ModelFormField {
             this.type = "";
             this.inputMethod = "";
             this.isTwelveHour = false;
-            this.mask = "";
+            this.useMask = false;
             this.step = 1;
         }
 
@@ -1408,10 +1408,11 @@ public final class ModelFormField {
 
         /**
          * Gets mask.
+         *
          * @return the mask
          */
-        public String getMask() {
-            return this.mask;
+        public boolean useMask() {
+            return this.useMask;
         }
 
         /**

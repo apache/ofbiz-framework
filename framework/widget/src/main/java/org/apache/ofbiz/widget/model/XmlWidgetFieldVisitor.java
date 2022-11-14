@@ -364,7 +364,7 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("type", field.isDateType() ? "date" : field.isTimeType() ? "time" : "timestamp");
         visitAttribute("input-method", field.getInputMethod());
         visitAttribute("isTwelveHour", field.isTwelveHour());
-        visitAttribute("mask", field.getMask());
+        visitAttribute("mask", field.useMask() ? "Y" : "N");
         visitAttribute("step", field.getStep());
     }
 

@@ -392,7 +392,6 @@ public final class RenderableFtlFormElementsBuilder {
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
         String className = "";
         String alert = "false";
-        String formattedMask = "";
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -416,52 +415,60 @@ public final class RenderableFtlFormElementsBuilder {
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         }
-        String localizedInputTitle = "";
-        String localizedIconTitle = "";
 
         // whether the date field is short form, yyyy-mm-dd
         boolean shortDateInput = dateTimeField.isDateType() || useTimeDropDown;
         macroCallBuilder.booleanParameter("shortDateInput", shortDateInput);
 
-        // the default values for a timestamp
-        int size = 25;
-        int maxlength = 30;
+        // Set render properties based on the date-time field's type.
+        final int size;
+        final int maxlength;
+        final String formattedMask;
+        final String titleLabelMapKey;
+
         if (shortDateInput) {
+            size = 10;
             maxlength = 10;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
-            }
+            formattedMask = "9999-99-99";
+            titleLabelMapKey = "CommonFormatDate";
         } else if (dateTimeField.isTimeType()) {
-            macroCallBuilder.booleanParameter("isTimeType", dateTimeField.isTimeType());
+            size = 8;
             maxlength = 8;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
-            }
+            formattedMask = "99:99:99";
+            titleLabelMapKey = "CommonFormatTime";
+
+            macroCallBuilder.booleanParameter("isTimeType", dateTimeField.isTimeType());
         } else {
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
-            }
+            size = 25;
+            maxlength = 30;
+            formattedMask = "9999-99-99 99:99:99";
+            titleLabelMapKey = "CommonFormatDateTime";
         }
 
-        String contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
-        String value = contextValue;
-        if (UtilValidate.isNotEmpty(value)) {
-            if (value.length() > maxlength) {
-                value = value.substring(0, maxlength);
-            }
+        macroCallBuilder.intParameter("size", size)
+                .intParameter("maxlength", maxlength);
+
+        if (dateTimeField.useMask()) {
+            macroCallBuilder.stringParameter("mask", formattedMask);
         }
+
+        if (uiLabelMap != null) {
+            macroCallBuilder.stringParameter("title", uiLabelMap.get(titleLabelMapKey))
+                    .stringParameter("localizedIconTitle", uiLabelMap.get("CommonViewCalendar"));
+        }
+
+        final String contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
+        final String value = UtilValidate.isNotEmpty(contextValue) && contextValue.length() > maxlength
+                ? contextValue.substring(0, maxlength)
+                : contextValue;
+
         String id = modelFormField.getCurrentContainerId(context);
         ModelForm modelForm = modelFormField.getModelForm();
         String formName = FormRenderer.getCurrentFormName(modelForm, context);
         String timeDropdown = dateTimeField.getInputMethod();
         String timeDropdownParamName = "";
         String classString = "";
-        // search for a localized label for the icon
-        if (uiLabelMap != null) {
-            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
-        }
+
         if (!dateTimeField.isTimeType()) {
             String tempParamName;
             if (useTimeDropDown) {
@@ -527,16 +534,7 @@ public final class RenderableFtlFormElementsBuilder {
                 className = requiredStyle + " " + className;
             }
         }
-        String mask = dateTimeField.getMask();
-        if ("Y".equals(mask)) {
-            if (dateTimeField.isDateType()) {
-                formattedMask = "9999-99-99";
-            } else if (dateTimeField.isTimeType()) {
-                formattedMask = "99:99:99";
-            } else if (dateTimeField.isTimestampType()) {
-                formattedMask = "9999-99-99 99:99:99";
-            }
-        }
+
         String isXMLHttpRequest = "false";
         if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
             isXMLHttpRequest = "true";
@@ -546,19 +544,14 @@ public final class RenderableFtlFormElementsBuilder {
         macroCallBuilder.stringParameter("className", className)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)
-                .stringParameter("title", localizedInputTitle)
-                .intParameter("size", size)
-                .intParameter("maxlength", maxlength)
                 .stringParameter("id", id)
                 .stringParameter("event", event)
                 .stringParameter("action", action)
                 .stringParameter("timeDropdownParamName", timeDropdownParamName)
                 .stringParameter("defaultDateTimeString", defaultDateTimeString)
-                .stringParameter("localizedIconTitle", localizedIconTitle)
                 .stringParameter("timeDropdown", timeDropdown)
                 .stringParameter("classString", classString)
                 .stringParameter("formName", formName)
-                .stringParameter("mask", formattedMask)
                 .stringParameter("tabindex", modelFormField.getTabindex())
                 .stringParameter("isXMLHttpRequest", isXMLHttpRequest);
 

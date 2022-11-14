@@ -94,8 +94,8 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
                 datetimeField.isDateType();
                 result = true;
 
-                datetimeField.getMask();
-                result = "Y";
+                datetimeField.useMask();
+                result = true;
 
                 modelFormField.getEntry(withNotNull(), anyString);
                 result = "DATETIMEVALUE";
@@ -118,8 +118,8 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
                 datetimeField.isTimeType();
                 result = true;
 
-                datetimeField.getMask();
-                result = "Y";
+                datetimeField.useMask();
+                result = true;
 
                 modelFormField.getEntry(withNotNull(), anyString);
                 result = "DATETIMEVALUE";
@@ -141,9 +141,10 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
             {
                 datetimeField.isTimestampType();
                 result = true;
+                minTimes = 0;
 
-                datetimeField.getMask();
-                result = "Y";
+                datetimeField.useMask();
+                result = true;
 
                 modelFormField.getEntry(withNotNull(), anyString);
                 result = "DATETIMEVALUE";
