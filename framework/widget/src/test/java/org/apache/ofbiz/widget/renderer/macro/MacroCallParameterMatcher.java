@@ -88,6 +88,14 @@ public final class MacroCallParameterMatcher extends TypeSafeMatcher<Map.Entry<S
         return new MacroCallParameterMatcher(name, new MacroCallParameterStringValueMatcher(value));
     }
 
+    public static MacroCallParameterMatcher hasNameAndStringValueStartsWith(final String name, final String startsWith) {
+        return new MacroCallParameterMatcher(name, new MacroCallParameterStringValueStartsWithMatcher(startsWith));
+    }
+
+    public static MacroCallParameterMatcher hasNameAndStringValueEndsWith(final String name, final String endsWith) {
+        return new MacroCallParameterMatcher(name, new MacroCallParameterStringValueEndsWithMatcher(endsWith));
+    }
+
     public static MacroCallParameterMatcher hasNameAndIntegerValue(final String name, final int value) {
         return new MacroCallParameterMatcher(name, new MacroCallParameterIntegerValueMatcher(value));
     }

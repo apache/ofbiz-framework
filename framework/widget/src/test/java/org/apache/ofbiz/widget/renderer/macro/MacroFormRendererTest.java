@@ -222,7 +222,7 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void textAreaMacroRendered(@Mocked ModelFormField.TextareaField textareaField) throws IOException {
+    public void textAreaMacroRendered(@Mocked ModelFormField.TextareaField textareaField) {
         new Expectations() {
             {
                 renderableFtlFormElementsBuilder.textArea(withNotNull(), textareaField);
@@ -239,19 +239,20 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void dateTimeMacroRendered(@Mocked ModelFormField.DateTimeField dateTimeField) throws IOException {
+    public void dateTimeMacroRendered(@Mocked ModelFormField.DateTimeField dateTimeField) {
         new Expectations() {
             {
-                modelFormField.getEntry(withNotNull(), anyString);
-                result = "2020-01-02";
-
-                dateTimeField.getInputMethod();
-                result = "date";
+                renderableFtlFormElementsBuilder.dateTime(withNotNull(), dateTimeField);
+                result = genericMacroCall;
             }
         };
 
+        genericTooltipRenderedExpectation(dateTimeField);
+
         macroFormRenderer.renderDateTimeField(appendable, ImmutableMap.of(), dateTimeField);
-        assertAndGetMacroString("renderDateTimeField", ImmutableMap.of("value", "2020-01-02"));
+
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
     }
 
     @Test

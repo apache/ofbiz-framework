@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.StringWriter;
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ibm.icu.util.Calendar;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -45,8 +47,10 @@ import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
+import org.apache.ofbiz.widget.model.ModelFormFieldBuilder;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Label;
 import org.apache.ofbiz.widget.model.ModelTheme;
+import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
@@ -362,6 +366,237 @@ public final class RenderableFtlFormElementsBuilder {
         builder.booleanParameter("disabled", modelFormField.getDisabled(context));
 
         return builder.build();
+    }
+
+    public RenderableFtl dateTime(final Map<String, Object> context, final ModelFormField.DateTimeField dateTimeField) {
+
+        ModelFormField modelFormField = dateTimeField.getModelFormField();
+        String paramName = modelFormField.getParameterName(context);
+        String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
+        boolean disabled = modelFormField.getDisabled(context);
+        String className = "";
+        String alert = "false";
+        String name = "";
+        String formattedMask = "";
+        String event = modelFormField.getEvent();
+        String action = modelFormField.getAction(context);
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            className = modelFormField.getWidgetStyle();
+            if (modelFormField.shouldBeRed(context)) {
+                alert = "true";
+            }
+        }
+        boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
+        String stepString = dateTimeField.getStep();
+        int step = 1;
+        StringBuilder timeValues = new StringBuilder();
+        if (useTimeDropDown && UtilValidate.isNotEmpty(step)) {
+            try {
+                step = Integer.parseInt(stepString);
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" "
+                        + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
+            }
+            timeValues.append("[");
+            for (int i = 0; i <= 59;) {
+                if (i != 0) {
+                    timeValues.append(", ");
+                }
+                timeValues.append(i);
+                i += step;
+            }
+            timeValues.append("]");
+        }
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
+        }
+        String localizedInputTitle = "";
+        String localizedIconTitle = "";
+        // whether the date field is short form, yyyy-mm-dd
+        boolean shortDateInput = ("date".equals(dateTimeField.getType()) || useTimeDropDown ? true : false);
+        if (useTimeDropDown) {
+            name = UtilHttp.makeCompositeParam(paramName, "date");
+        } else {
+            name = paramName;
+        }
+        // the default values for a timestamp
+        int size = 25;
+        int maxlength = 30;
+        if (shortDateInput) {
+            maxlength = 10;
+            size = maxlength;
+            if (uiLabelMap != null) {
+                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
+            }
+        } else if ("time".equals(dateTimeField.getType())) {
+            maxlength = 8;
+            size = maxlength;
+            if (uiLabelMap != null) {
+                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
+            }
+        } else {
+            if (uiLabelMap != null) {
+                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
+            }
+        }
+        /*
+         * FIXME: Using a builder here is a hack. Replace the builder with appropriate code.
+         */
+        ModelFormFieldBuilder fieldBuilder = new ModelFormFieldBuilder(modelFormField);
+        boolean memEncodeOutput = modelFormField.getEncodeOutput();
+        if (useTimeDropDown) {
+            // If time-dropdown deactivate encodingOutput for found hour and minutes
+            // FIXME: Encoding should be controlled by the renderer, not by the model.
+            fieldBuilder.setEncodeOutput(false);
+        }
+        // FIXME: modelFormField.getEntry ignores shortDateInput when converting Date objects to Strings.
+        if (useTimeDropDown) {
+            fieldBuilder.setEncodeOutput(memEncodeOutput);
+        }
+        modelFormField = fieldBuilder.build();
+        String contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
+        String value = contextValue;
+        if (UtilValidate.isNotEmpty(value)) {
+            if (value.length() > maxlength) {
+                value = value.substring(0, maxlength);
+            }
+        }
+        String id = modelFormField.getCurrentContainerId(context);
+        ModelForm modelForm = modelFormField.getModelForm();
+        String formName = FormRenderer.getCurrentFormName(modelForm, context);
+        String timeDropdown = dateTimeField.getInputMethod();
+        String timeDropdownParamName = "";
+        String classString = "";
+        boolean isTwelveHour = false;
+        String timeHourName = "";
+        int hour2 = 0;
+        int hour1 = 0;
+        int minutes = 0;
+        String timeMinutesName = "";
+        String amSelected = "";
+        String pmSelected = "";
+        String ampmName = "";
+        String compositeType = "";
+        // search for a localized label for the icon
+        if (uiLabelMap != null) {
+            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
+        }
+        if (!"time".equals(dateTimeField.getType())) {
+            String tempParamName;
+            if (useTimeDropDown) {
+                tempParamName = UtilHttp.makeCompositeParam(paramName, "date");
+            } else {
+                tempParamName = paramName;
+            }
+            timeDropdownParamName = tempParamName;
+            defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString));
+        }
+        // if we have an input method of time-dropdown, then render two
+        // dropdowns
+        if (useTimeDropDown) {
+            className = modelFormField.getWidgetStyle();
+            classString = (className != null ? className : "");
+            isTwelveHour = "12".equals(dateTimeField.getClock());
+            // set the Calendar to the default time of the form or now()
+            Calendar cal = null;
+            try {
+                Timestamp defaultTimestamp = Timestamp.valueOf(contextValue);
+                cal = Calendar.getInstance();
+                cal.setTime(defaultTimestamp);
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("Form widget field [" + paramName
+                        + "] with input-method=\"time-dropdown\" was not able to understand the default time [" + defaultDateTimeString
+                        + "]. The parsing error was: " + e.getMessage(), MODULE);
+            }
+            timeHourName = UtilHttp.makeCompositeParam(paramName, "hour");
+            if (cal != null) {
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                hour2 = hour;
+                if (hour == 0) {
+                    hour = 12;
+                }
+                if (hour > 12) {
+                    hour -= 12;
+                }
+                hour1 = hour;
+                minutes = cal.get(Calendar.MINUTE);
+            }
+            timeMinutesName = UtilHttp.makeCompositeParam(paramName, "minutes");
+            compositeType = UtilHttp.makeCompositeParam(paramName, "compositeType");
+            // if 12 hour clock, write the AM/PM selector
+            if (isTwelveHour) {
+                amSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.AM) ? "selected" : "");
+                pmSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.PM) ? "selected" : "");
+                ampmName = UtilHttp.makeCompositeParam(paramName, "ampm");
+            }
+        }
+        //check for required field style on single forms
+        if (shouldApplyRequiredField(modelFormField)) {
+            String requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle)) {
+                requiredStyle = "required";
+            }
+            if (UtilValidate.isEmpty(className)) {
+                className = requiredStyle;
+            } else {
+                className = requiredStyle + " " + className;
+            }
+        }
+        String mask = dateTimeField.getMask();
+        if ("Y".equals(mask)) {
+            if ("date".equals(dateTimeField.getType())) {
+                formattedMask = "9999-99-99";
+            } else if ("time".equals(dateTimeField.getType())) {
+                formattedMask = "99:99:99";
+            } else if ("timestamp".equals(dateTimeField.getType())) {
+                formattedMask = "9999-99-99 99:99:99";
+            }
+        }
+        String isXMLHttpRequest = "false";
+        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+            isXMLHttpRequest = "true";
+        }
+
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateTimeField")
+                .stringParameter("name", name)
+                .stringParameter("className", className)
+                .stringParameter("alert", alert)
+                .stringParameter("value", value)
+                .stringParameter("title", localizedInputTitle)
+                .intParameter("size", size)
+                .intParameter("maxlength", maxlength)
+                .intParameter("step", step)
+                .stringParameter("timeValues", timeValues.toString())
+                .stringParameter("id", id)
+                .stringParameter("event", event)
+                .stringParameter("action", action)
+                .stringParameter("dateType", dateTimeField.getType())
+                .booleanParameter("shortDateInput", shortDateInput)
+                .stringParameter("timeDropdownParamName", timeDropdownParamName)
+                .stringParameter("defaultDateTimeString", defaultDateTimeString)
+                .stringParameter("localizedIconTitle", localizedIconTitle)
+                .stringParameter("timeDropdown", timeDropdown)
+                .stringParameter("timeHourName", timeHourName)
+                .stringParameter("classString", classString)
+                .intParameter("hour1", hour1)
+                .intParameter("hour2", hour2)
+                .stringParameter("timeMinutesName", timeMinutesName)
+                .intParameter("minutes", minutes)
+                .booleanParameter("isTwelveHour", isTwelveHour)
+                .stringParameter("ampmName", ampmName)
+                .stringParameter("amSelected", amSelected)
+                .stringParameter("pmSelected", pmSelected)
+                .stringParameter("compositeType", compositeType)
+                .stringParameter("formName", formName)
+                .stringParameter("mask", formattedMask)
+                .stringParameter("tabindex", modelFormField.getTabindex())
+                .stringParameter("isXMLHttpRequest", isXMLHttpRequest)
+                .booleanParameter("disabled", disabled);
+
+        return macroCallBuilder.build();
     }
 
     public RenderableFtl makeHyperlinkString(final ModelFormField.SubHyperlink subHyperlink,
