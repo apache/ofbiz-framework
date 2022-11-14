@@ -49,7 +49,6 @@ import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
-import org.apache.ofbiz.widget.model.ModelFormFieldBuilder;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Label;
 import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
@@ -433,21 +432,7 @@ public final class RenderableFtlFormElementsBuilder {
                 localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
             }
         }
-        /*
-         * FIXME: Using a builder here is a hack. Replace the builder with appropriate code.
-         */
-        ModelFormFieldBuilder fieldBuilder = new ModelFormFieldBuilder(modelFormField);
-        boolean memEncodeOutput = modelFormField.getEncodeOutput();
-        if (useTimeDropDown) {
-            // If time-dropdown deactivate encodingOutput for found hour and minutes
-            // FIXME: Encoding should be controlled by the renderer, not by the model.
-            fieldBuilder.setEncodeOutput(false);
-        }
-        // FIXME: modelFormField.getEntry ignores shortDateInput when converting Date objects to Strings.
-        if (useTimeDropDown) {
-            fieldBuilder.setEncodeOutput(memEncodeOutput);
-        }
-        modelFormField = fieldBuilder.build();
+
         String contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         String value = contextValue;
         if (UtilValidate.isNotEmpty(value)) {
