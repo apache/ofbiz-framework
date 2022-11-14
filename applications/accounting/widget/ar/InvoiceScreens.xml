@@ -80,7 +80,7 @@ under the License.
                                         <include-form name="FindArInvoices" location="component://accounting/widget/ar/forms/InvoiceForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        <include-grid name="ListInvoices" location="component://accounting/widget/InvoiceForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
