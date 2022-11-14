@@ -1423,12 +1423,16 @@ public final class ModelFormField {
             return this.step;
         }
 
-        /**
-         * Gets type.
-         * @return the type
-         */
-        public String getType() {
-            return type;
+        public final boolean isDateType() {
+            return "date".equals(type);
+        }
+
+        public final boolean isTimeType() {
+            return "time".equals(type);
+        }
+
+        public final boolean isTimestampType() {
+            return "timestamp".equals(type);
         }
 
         @Override

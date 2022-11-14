@@ -88,13 +88,13 @@ under the License.
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest="">
+<#macro renderDateTimeField name className alert timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName compositeType isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest="">
   <span class="view-calendar">
     <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
     <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
     <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
     <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
-    <#if dateType!="time" >
+    <#if !isTimeType >
       <input type="text" name="${name}_i18n" <@renderClass className alert /> <@renderDisabled disabled />
         <#if tabindex?has_content> tabindex="${tabindex}"</#if>
         <#if title?has_content> title="${title}"</#if>
@@ -442,14 +442,14 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderDateFindField className alert id name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
+<#macro renderDateFindField className alert id name formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty isTimeType=false isDateType=false conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
-  <#if dateType != "time">
+  <#if !isTimeType>
     <#local className = className + " date-time-picker"/>
   </#if>
-  <#local shortDateInput = "date" == dateType/>
+  <#local shortDateInput = isDateType/>
   <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
   <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
   <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>

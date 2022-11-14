@@ -1609,14 +1609,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // the default values for a timestamp
         int size = 25;
         int maxlength = 30;
-        String dateType = dateFindField.getType();
-        if ("date".equals(dateType)) {
+        if (dateFindField.isDateType()) {
             maxlength = 10;
             size = maxlength;
             if (uiLabelMap != null) {
                 localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
-        } else if ("time".equals(dateFindField.getType())) {
+        } else if (dateFindField.isTimeType()) {
             maxlength = 8;
             size = maxlength;
             if (uiLabelMap != null) {
@@ -1639,7 +1638,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String defaultDateTimeString = "";
         StringBuilder imgSrc = new StringBuilder();
         // add calendar pop-up button and seed data IF this is not a "time" type date-find
-        if (!"time".equals(dateFindField.getType())) {
+        if (!dateFindField.isTimeType()) {
             ModelForm modelForm = modelFormField.getModelForm();
             formName = FormRenderer.getCurrentFormName(modelForm, context);
             defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context)));
@@ -1688,9 +1687,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(Integer.toString(size));
         sr.append("\" maxlength=\"");
         sr.append(Integer.toString(maxlength));
-        sr.append("\" dateType=\"");
-        sr.append(dateType);
-        sr.append("\" formName=\"");
+        sr.append("\" isDateType=");
+        sr.append(Boolean.toString(dateFindField.isDateType()));
+        sr.append("\" isTimeType=");
+        sr.append(Boolean.toString(dateFindField.isTimeType()));
+        sr.append(" formName=\"");
         sr.append(formName);
         sr.append("\" defaultDateTimeString=\"");
         sr.append(defaultDateTimeString);

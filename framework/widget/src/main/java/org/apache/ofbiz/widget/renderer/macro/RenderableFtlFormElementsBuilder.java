@@ -373,14 +373,16 @@ public final class RenderableFtlFormElementsBuilder {
 
         final ModelFormField modelFormField = dateTimeField.getModelFormField();
 
-        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
-                .name("renderDateTimeField")
-                .booleanParameter("disabled", modelFormField.getDisabled(context));
-
         // Determine whether separate drop down select inputs be used for the hour/minute/am_pm components of the date-time.
         boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
 
         final String paramName = modelFormField.getParameterName(context);
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateTimeField")
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .stringParameter("name", useTimeDropDown ? UtilHttp.makeCompositeParam(paramName, "date") : paramName);
+
         // Set names for the various input components that might be rendered for this date-time field.
         macroCallBuilder.stringParameter("timeHourName", UtilHttp.makeCompositeParam(paramName, "hour"))
                 .stringParameter("timeMinutesName", UtilHttp.makeCompositeParam(paramName, "minutes"))
@@ -390,7 +392,6 @@ public final class RenderableFtlFormElementsBuilder {
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
         String className = "";
         String alert = "false";
-        String name = "";
         String formattedMask = "";
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -400,27 +401,28 @@ public final class RenderableFtlFormElementsBuilder {
                 alert = "true";
             }
         }
-        final int step = dateTimeField.getStep();
+
         if (useTimeDropDown) {
+            final int step = dateTimeField.getStep();
             final String timeValues = IntStream.range(0, 60)
                     .filter(i -> i % step == 0)
-                    .mapToObj(i -> Integer.toString(i))
+                    .mapToObj(Integer::toString)
                     .collect(Collectors.joining(", ", "[", "]"));
-            macroCallBuilder.stringParameter("timeValues", timeValues);
+            macroCallBuilder.stringParameter("timeValues", timeValues)
+                    .intParameter("step", step);
         }
+
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", MODULE);
         }
         String localizedInputTitle = "";
         String localizedIconTitle = "";
+
         // whether the date field is short form, yyyy-mm-dd
-        boolean shortDateInput = ("date".equals(dateTimeField.getType()) || useTimeDropDown ? true : false);
-        if (useTimeDropDown) {
-            name = UtilHttp.makeCompositeParam(paramName, "date");
-        } else {
-            name = paramName;
-        }
+        boolean shortDateInput = dateTimeField.isDateType() || useTimeDropDown;
+        macroCallBuilder.booleanParameter("shortDateInput", shortDateInput);
+
         // the default values for a timestamp
         int size = 25;
         int maxlength = 30;
@@ -430,7 +432,8 @@ public final class RenderableFtlFormElementsBuilder {
             if (uiLabelMap != null) {
                 localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
-        } else if ("time".equals(dateTimeField.getType())) {
+        } else if (dateTimeField.isTimeType()) {
+            macroCallBuilder.booleanParameter("isTimeType", dateTimeField.isTimeType());
             maxlength = 8;
             size = maxlength;
             if (uiLabelMap != null) {
@@ -459,7 +462,7 @@ public final class RenderableFtlFormElementsBuilder {
         if (uiLabelMap != null) {
             localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
         }
-        if (!"time".equals(dateTimeField.getType())) {
+        if (!dateTimeField.isTimeType()) {
             String tempParamName;
             if (useTimeDropDown) {
                 tempParamName = UtilHttp.makeCompositeParam(paramName, "date");
@@ -526,11 +529,11 @@ public final class RenderableFtlFormElementsBuilder {
         }
         String mask = dateTimeField.getMask();
         if ("Y".equals(mask)) {
-            if ("date".equals(dateTimeField.getType())) {
+            if (dateTimeField.isDateType()) {
                 formattedMask = "9999-99-99";
-            } else if ("time".equals(dateTimeField.getType())) {
+            } else if (dateTimeField.isTimeType()) {
                 formattedMask = "99:99:99";
-            } else if ("timestamp".equals(dateTimeField.getType())) {
+            } else if (dateTimeField.isTimestampType()) {
                 formattedMask = "9999-99-99 99:99:99";
             }
         }
@@ -540,19 +543,15 @@ public final class RenderableFtlFormElementsBuilder {
         }
 
 
-        macroCallBuilder.stringParameter("name", name)
-                .stringParameter("className", className)
+        macroCallBuilder.stringParameter("className", className)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)
                 .stringParameter("title", localizedInputTitle)
                 .intParameter("size", size)
                 .intParameter("maxlength", maxlength)
-                .intParameter("step", step)
                 .stringParameter("id", id)
                 .stringParameter("event", event)
                 .stringParameter("action", action)
-                .stringParameter("dateType", dateTimeField.getType())
-                .booleanParameter("shortDateInput", shortDateInput)
                 .stringParameter("timeDropdownParamName", timeDropdownParamName)
                 .stringParameter("defaultDateTimeString", defaultDateTimeString)
                 .stringParameter("localizedIconTitle", localizedIconTitle)

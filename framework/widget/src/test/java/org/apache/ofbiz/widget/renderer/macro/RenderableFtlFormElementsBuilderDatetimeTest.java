@@ -91,8 +91,8 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     public void datetimeFieldSetsLengthAndMaskForDateType(@Mocked final ModelFormField.DateTimeField datetimeField) {
         new Expectations() {
             {
-                datetimeField.getType();
-                result = "date";
+                datetimeField.isDateType();
+                result = true;
 
                 datetimeField.getMask();
                 result = "Y";
@@ -115,8 +115,8 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     public void datetimeFieldSetsLengthForTimeType(@Mocked final ModelFormField.DateTimeField datetimeField) {
         new Expectations() {
             {
-                datetimeField.getType();
-                result = "time";
+                datetimeField.isTimeType();
+                result = true;
 
                 datetimeField.getMask();
                 result = "Y";
@@ -139,8 +139,8 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     public void datetimeFieldSetsLengthForTimestampType(@Mocked final ModelFormField.DateTimeField datetimeField) {
         new Expectations() {
             {
-                datetimeField.getType();
-                result = "timestamp";
+                datetimeField.isTimestampType();
+                result = true;
 
                 datetimeField.getMask();
                 result = "Y";
