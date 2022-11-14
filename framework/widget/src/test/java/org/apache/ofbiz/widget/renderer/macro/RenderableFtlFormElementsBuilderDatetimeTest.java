@@ -160,9 +160,12 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     }
 
     @Test
-    public void datetimeFieldSetsTimeValuesForDefaultStep(@Mocked final ModelFormField.DateTimeField datetimeField) {
+    public void datetimeFieldSetsTimeValuesForStepSize1(@Mocked final ModelFormField.DateTimeField datetimeField) {
         new Expectations() {
             {
+                datetimeField.getStep();
+                result = 1;
+
                 datetimeField.getInputMethod();
                 result = "time-dropdown";
 
@@ -183,11 +186,11 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     public void datetimeFieldSetsTimeValuesForStepSize3(@Mocked final ModelFormField.DateTimeField datetimeField) {
         new Expectations() {
             {
+                datetimeField.getStep();
+                result = 3;
+
                 datetimeField.getInputMethod();
                 result = "time-dropdown";
-
-                datetimeField.getStep();
-                result = "3";
 
                 modelFormField.getEntry(withNotNull(), anyString);
                 result = "DATETIMEVALUE";
@@ -206,6 +209,9 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
     public void datetimeFieldSetsValuesFor12HourClock(@Mocked final ModelFormField.DateTimeField datetimeField) {
         new Expectations() {
             {
+                datetimeField.getStep();
+                result = 1;
+
                 datetimeField.getInputMethod();
                 result = "time-dropdown";
 

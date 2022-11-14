@@ -28,6 +28,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -370,6 +372,9 @@ public final class RenderableFtlFormElementsBuilder {
 
     public RenderableFtl dateTime(final Map<String, Object> context, final ModelFormField.DateTimeField dateTimeField) {
 
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateTimeField");
+
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
@@ -387,25 +392,13 @@ public final class RenderableFtlFormElementsBuilder {
             }
         }
         boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
-        String stepString = dateTimeField.getStep();
-        int step = 1;
-        StringBuilder timeValues = new StringBuilder();
-        if (useTimeDropDown && UtilValidate.isNotEmpty(step)) {
-            try {
-                step = Integer.parseInt(stepString);
-            } catch (IllegalArgumentException e) {
-                Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" "
-                        + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
-            }
-            timeValues.append("[");
-            for (int i = 0; i <= 59;) {
-                if (i != 0) {
-                    timeValues.append(", ");
-                }
-                timeValues.append(i);
-                i += step;
-            }
-            timeValues.append("]");
+        final int step = dateTimeField.getStep();
+        if (useTimeDropDown) {
+            final String timeValues = IntStream.range(0, 60)
+                    .filter(i -> i % step == 0)
+                    .mapToObj(i -> Integer.toString(i))
+                    .collect(Collectors.joining(", ", "[", "]"));
+            macroCallBuilder.stringParameter("timeValues", timeValues);
         }
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
@@ -559,9 +552,7 @@ public final class RenderableFtlFormElementsBuilder {
         }
 
 
-        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
-                .name("renderDateTimeField")
-                .stringParameter("name", name)
+        macroCallBuilder.stringParameter("name", name)
                 .stringParameter("className", className)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)
@@ -569,7 +560,6 @@ public final class RenderableFtlFormElementsBuilder {
                 .intParameter("size", size)
                 .intParameter("maxlength", maxlength)
                 .intParameter("step", step)
-                .stringParameter("timeValues", timeValues.toString())
                 .stringParameter("id", id)
                 .stringParameter("event", event)
                 .stringParameter("action", action)

@@ -88,7 +88,7 @@ import org.w3c.dom.Element;
 /**
  * Models the &lt;field&gt; element.
  *
- * @see <code>widget-form.xsd</code>
+ * @see <a href="https://ofbiz.apache.org/dtds/widget-form.xsd">widget-form.xsd</a>
  */
 public final class ModelFormField {
 
@@ -1276,7 +1276,7 @@ public final class ModelFormField {
         private final FlexibleStringExpander defaultValue;
         private final String inputMethod;
         private final String mask;
-        private final String step;
+        private final int step;
         private final String type;
 
         protected DateTimeField(DateTimeField original, ModelFormField modelFormField) {
@@ -1296,11 +1296,20 @@ public final class ModelFormField {
             this.inputMethod = element.getAttribute("input-method");
             this.clock = element.getAttribute("clock");
             this.mask = element.getAttribute("mask");
-            String step = element.getAttribute("step");
-            if (step.isEmpty()) {
-                step = "1";
+
+            final String stepAttribute = element.getAttribute("step");
+            if (stepAttribute.isEmpty()) {
+                this.step = 1;
+            } else {
+                try {
+                    this.step = Integer.parseInt(stepAttribute);
+                } catch (IllegalArgumentException e) {
+                    final String msg = "Could not read the step value of the datetime element: [" + stepAttribute
+                            + "]. Value must be an integer.";
+                    Debug.logError(msg, MODULE);
+                    throw new RuntimeException(msg, e);
+                }
             }
-            this.step = step;
         }
 
         public DateTimeField(int fieldSource, ModelFormField modelFormField) {
@@ -1310,7 +1319,7 @@ public final class ModelFormField {
             this.inputMethod = "";
             this.clock = "";
             this.mask = "";
-            this.step = "1";
+            this.step = 1;
         }
 
         public DateTimeField(int fieldSource, String type) {
@@ -1320,7 +1329,7 @@ public final class ModelFormField {
             this.inputMethod = "";
             this.clock = "";
             this.mask = "";
-            this.step = "1";
+            this.step = 1;
         }
 
         public DateTimeField(ModelFormField modelFormField) {
@@ -1330,7 +1339,7 @@ public final class ModelFormField {
             this.inputMethod = "";
             this.clock = "";
             this.mask = "";
-            this.step = "1";
+            this.step = 1;
         }
 
         @Override
@@ -1408,9 +1417,10 @@ public final class ModelFormField {
 
         /**
          * Gets step.
+         *
          * @return the step
          */
-        public String getStep() {
+        public int getStep() {
             return this.step;
         }
 
