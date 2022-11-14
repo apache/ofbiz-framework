@@ -372,6 +372,7 @@ public final class RenderableFtlFormElementsBuilder {
     public RenderableFtl dateTime(final Map<String, Object> context, final ModelFormField.DateTimeField dateTimeField) {
 
         final ModelFormField modelFormField = dateTimeField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
 
         // Determine whether separate drop down select inputs be used for the hour/minute/am_pm components of the date-time.
         boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
@@ -381,7 +382,14 @@ public final class RenderableFtlFormElementsBuilder {
         final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
                 .name("renderDateTimeField")
                 .booleanParameter("disabled", modelFormField.getDisabled(context))
-                .stringParameter("name", useTimeDropDown ? UtilHttp.makeCompositeParam(paramName, "date") : paramName);
+                .stringParameter("name", useTimeDropDown ? UtilHttp.makeCompositeParam(paramName, "date") : paramName)
+                .stringParameter("id", modelFormField.getCurrentContainerId(context))
+                .booleanParameter("isXMLHttpRequest", "XMLHttpRequest".equals(request.getHeader("X-Requested-With")))
+                .stringParameter("tabindex", modelFormField.getTabindex())
+                .stringParameter("event", modelFormField.getEvent())
+                .stringParameter("formName", FormRenderer.getCurrentFormName(modelForm, context))
+                .booleanParameter("alert", false)
+                .stringParameter("action", modelFormField.getAction(context));
 
         // Set names for the various input components that might be rendered for this date-time field.
         macroCallBuilder.stringParameter("timeHourName", UtilHttp.makeCompositeParam(paramName, "hour"))
@@ -389,17 +397,25 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("compositeType", UtilHttp.makeCompositeParam(paramName, "compositeType"))
                 .stringParameter("ampmName", UtilHttp.makeCompositeParam(paramName, "ampm"));
 
-        String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
-        String className = "";
-        String alert = "false";
-        String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);
+        ArrayList<String> classNames = new ArrayList<>();
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
+            classNames.add(modelFormField.getWidgetStyle());
+
             if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
+                macroCallBuilder.booleanParameter("alert", true);
             }
         }
+
+        if (shouldApplyRequiredField(modelFormField)) {
+            String requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle)) {
+                requiredStyle = "required";
+            }
+            classNames.add(requiredStyle);
+        }
+        macroCallBuilder.stringParameter("className", String.join(" ", classNames));
+
+        String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
 
         if (useTimeDropDown) {
             final int step = dateTimeField.getStep();
@@ -437,7 +453,7 @@ public final class RenderableFtlFormElementsBuilder {
             formattedMask = "99:99:99";
             titleLabelMapKey = "CommonFormatTime";
 
-            macroCallBuilder.booleanParameter("isTimeType", dateTimeField.isTimeType());
+            macroCallBuilder.booleanParameter("isTimeType", true);
         } else {
             size = 25;
             maxlength = 30;
@@ -462,12 +478,8 @@ public final class RenderableFtlFormElementsBuilder {
                 ? contextValue.substring(0, maxlength)
                 : contextValue;
 
-        String id = modelFormField.getCurrentContainerId(context);
-        ModelForm modelForm = modelFormField.getModelForm();
-        String formName = FormRenderer.getCurrentFormName(modelForm, context);
         String timeDropdown = dateTimeField.getInputMethod();
         String timeDropdownParamName = "";
-        String classString = "";
 
         if (!dateTimeField.isTimeType()) {
             String tempParamName;
@@ -480,10 +492,11 @@ public final class RenderableFtlFormElementsBuilder {
             defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString));
         }
 
-        // if we have an input method of time-dropdown, then render two dropdowns
+        // If we have an input method of time-dropdown, then render two dropdowns
         if (useTimeDropDown) {
-            className = modelFormField.getWidgetStyle();
-            classString = (className != null ? className : "");
+            // Set the class to apply to the time input components.
+            final String widgetStyle = modelFormField.getWidgetStyle();
+            macroCallBuilder.stringParameter("classString", widgetStyle != null ? widgetStyle : "");
 
             // Set the Calendar to the field's context value, or the field's default if no context value exists.
             final Calendar cal = Calendar.getInstance();
@@ -511,7 +524,6 @@ public final class RenderableFtlFormElementsBuilder {
                 macroCallBuilder.intParameter("minutes", minutesOfHour);
             }
 
-
             boolean isTwelveHourClock = dateTimeField.isTwelveHour();
             macroCallBuilder.booleanParameter("isTwelveHour", isTwelveHourClock);
 
@@ -522,38 +534,11 @@ public final class RenderableFtlFormElementsBuilder {
 
             }
         }
-        //check for required field style on single forms
-        if (shouldApplyRequiredField(modelFormField)) {
-            String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) {
-                requiredStyle = "required";
-            }
-            if (UtilValidate.isEmpty(className)) {
-                className = requiredStyle;
-            } else {
-                className = requiredStyle + " " + className;
-            }
-        }
 
-        String isXMLHttpRequest = "false";
-        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-            isXMLHttpRequest = "true";
-        }
-
-
-        macroCallBuilder.stringParameter("className", className)
-                .stringParameter("alert", alert)
-                .stringParameter("value", value)
-                .stringParameter("id", id)
-                .stringParameter("event", event)
-                .stringParameter("action", action)
+        macroCallBuilder.stringParameter("value", value)
                 .stringParameter("timeDropdownParamName", timeDropdownParamName)
                 .stringParameter("defaultDateTimeString", defaultDateTimeString)
-                .stringParameter("timeDropdown", timeDropdown)
-                .stringParameter("classString", classString)
-                .stringParameter("formName", formName)
-                .stringParameter("tabindex", modelFormField.getTabindex())
-                .stringParameter("isXMLHttpRequest", isXMLHttpRequest);
+                .stringParameter("timeDropdown", timeDropdown);
 
         return macroCallBuilder.build();
     }
