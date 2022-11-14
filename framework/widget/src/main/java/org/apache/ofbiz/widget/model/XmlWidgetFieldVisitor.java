@@ -363,7 +363,7 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("default-value", field.getDefaultValue());
         visitAttribute("type", field.getType());
         visitAttribute("input-method", field.getInputMethod());
-        visitAttribute("clock", field.getClock());
+        visitAttribute("isTwelveHour", field.isTwelveHour());
         visitAttribute("mask", field.getMask());
         visitAttribute("step", field.getStep());
     }

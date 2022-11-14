@@ -140,8 +140,8 @@ under the License.
         <#rt/>
         <#if isTwelveHour>
           <select name="${ampmName}" <@renderDisabled disabled /> <#if classString?has_content>class="${classString}"</#if>><#rt/>
-            <option value="AM" <#if "selected" == amSelected>selected="selected"</#if> >AM</option><#rt/>
-            <option value="PM" <#if "selected" == pmSelected>selected="selected"</#if>>PM</option><#rt/>
+            <option value="AM" <#if amSelected>selected="selected"</#if>>AM</option><#rt/>
+            <option value="PM" <#if pmSelected>selected="selected"</#if>>PM</option><#rt/>
           </select>
         <#rt/>
       </#if>

@@ -215,8 +215,8 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
                 datetimeField.getInputMethod();
                 result = "time-dropdown";
 
-                datetimeField.getClock();
-                result = "12";
+                datetimeField.isTwelveHour();
+                result = true;
 
                 modelFormField.getEntry(withNotNull(), anyString);
                 result = "2022-05-18 16:44:57";
@@ -230,6 +230,6 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
                 MacroCallParameterMatcher.hasNameAndIntegerValue("hour1", 4),
                 MacroCallParameterMatcher.hasNameAndIntegerValue("hour2", 16),
                 MacroCallParameterMatcher.hasNameAndBooleanValue("isTwelveHour", true),
-                MacroCallParameterMatcher.hasNameAndStringValue("pmSelected", "selected")));
+                MacroCallParameterMatcher.hasNameAndBooleanValue("pmSelected", true)));
     }
 }

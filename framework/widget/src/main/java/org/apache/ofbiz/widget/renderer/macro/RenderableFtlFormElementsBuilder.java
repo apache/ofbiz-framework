@@ -371,13 +371,23 @@ public final class RenderableFtlFormElementsBuilder {
 
     public RenderableFtl dateTime(final Map<String, Object> context, final ModelFormField.DateTimeField dateTimeField) {
 
-        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
-                .name("renderDateTimeField");
+        final ModelFormField modelFormField = dateTimeField.getModelFormField();
 
-        ModelFormField modelFormField = dateTimeField.getModelFormField();
-        String paramName = modelFormField.getParameterName(context);
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateTimeField")
+                .booleanParameter("disabled", modelFormField.getDisabled(context));
+
+        // Determine whether separate drop down select inputs be used for the hour/minute/am_pm components of the date-time.
+        boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
+
+        final String paramName = modelFormField.getParameterName(context);
+        // Set names for the various input components that might be rendered for this date-time field.
+        macroCallBuilder.stringParameter("timeHourName", UtilHttp.makeCompositeParam(paramName, "hour"))
+                .stringParameter("timeMinutesName", UtilHttp.makeCompositeParam(paramName, "minutes"))
+                .stringParameter("compositeType", UtilHttp.makeCompositeParam(paramName, "compositeType"))
+                .stringParameter("ampmName", UtilHttp.makeCompositeParam(paramName, "ampm"));
+
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
-        boolean disabled = modelFormField.getDisabled(context);
         String className = "";
         String alert = "false";
         String name = "";
@@ -390,7 +400,6 @@ public final class RenderableFtlFormElementsBuilder {
                 alert = "true";
             }
         }
-        boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
         final int step = dateTimeField.getStep();
         if (useTimeDropDown) {
             final String timeValues = IntStream.range(0, 60)
@@ -446,16 +455,6 @@ public final class RenderableFtlFormElementsBuilder {
         String timeDropdown = dateTimeField.getInputMethod();
         String timeDropdownParamName = "";
         String classString = "";
-        boolean isTwelveHour = false;
-        String timeHourName = "";
-        int hour2 = 0;
-        int hour1 = 0;
-        int minutes = 0;
-        String timeMinutesName = "";
-        String amSelected = "";
-        String pmSelected = "";
-        String ampmName = "";
-        String compositeType = "";
         // search for a localized label for the icon
         if (uiLabelMap != null) {
             localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
@@ -470,43 +469,47 @@ public final class RenderableFtlFormElementsBuilder {
             timeDropdownParamName = tempParamName;
             defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString));
         }
-        // if we have an input method of time-dropdown, then render two
-        // dropdowns
+
+        // if we have an input method of time-dropdown, then render two dropdowns
         if (useTimeDropDown) {
             className = modelFormField.getWidgetStyle();
             classString = (className != null ? className : "");
-            isTwelveHour = "12".equals(dateTimeField.getClock());
-            // set the Calendar to the default time of the form or now()
-            Calendar cal = null;
+
+            // Set the Calendar to the field's context value, or the field's default if no context value exists.
+            final Calendar cal = Calendar.getInstance();
             try {
-                Timestamp defaultTimestamp = Timestamp.valueOf(contextValue);
-                cal = Calendar.getInstance();
-                cal.setTime(defaultTimestamp);
+                if (contextValue != null) {
+                    Timestamp contextValueTimestamp = Timestamp.valueOf(contextValue);
+                    cal.setTime(contextValueTimestamp);
+                }
             } catch (IllegalArgumentException e) {
                 Debug.logWarning("Form widget field [" + paramName
-                        + "] with input-method=\"time-dropdown\" was not able to understand the default time [" + defaultDateTimeString
+                        + "] with input-method=\"time-dropdown\" was not able to understand the time [" + contextValue
                         + "]. The parsing error was: " + e.getMessage(), MODULE);
             }
-            timeHourName = UtilHttp.makeCompositeParam(paramName, "hour");
+
             if (cal != null) {
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                hour2 = hour;
-                if (hour == 0) {
-                    hour = 12;
-                }
-                if (hour > 12) {
-                    hour -= 12;
-                }
-                hour1 = hour;
-                minutes = cal.get(Calendar.MINUTE);
+                int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+                int minutesOfHour = cal.get(Calendar.MINUTE);
+
+                // Set the hour value for when in 12-hour clock mode.
+                macroCallBuilder.intParameter("hour1", hourOfDay % 12);
+
+                // Set the hour value for when in 24-hour clock mode.
+                macroCallBuilder.intParameter("hour2", hourOfDay);
+
+                macroCallBuilder.intParameter("minutes", minutesOfHour);
             }
-            timeMinutesName = UtilHttp.makeCompositeParam(paramName, "minutes");
-            compositeType = UtilHttp.makeCompositeParam(paramName, "compositeType");
-            // if 12 hour clock, write the AM/PM selector
-            if (isTwelveHour) {
-                amSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.AM) ? "selected" : "");
-                pmSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.PM) ? "selected" : "");
-                ampmName = UtilHttp.makeCompositeParam(paramName, "ampm");
+
+
+            boolean isTwelveHourClock = dateTimeField.isTwelveHour();
+            macroCallBuilder.booleanParameter("isTwelveHour", isTwelveHourClock);
+
+            // if using a 12-hour clock, write the AM/PM selector
+            if (isTwelveHourClock) {
+                macroCallBuilder.booleanParameter("amSelected", cal.get(Calendar.AM_PM) == Calendar.AM)
+                        .booleanParameter("pmSelected", cal.get(Calendar.AM_PM) == Calendar.PM);
+
             }
         }
         //check for required field style on single forms
@@ -554,22 +557,11 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("defaultDateTimeString", defaultDateTimeString)
                 .stringParameter("localizedIconTitle", localizedIconTitle)
                 .stringParameter("timeDropdown", timeDropdown)
-                .stringParameter("timeHourName", timeHourName)
                 .stringParameter("classString", classString)
-                .intParameter("hour1", hour1)
-                .intParameter("hour2", hour2)
-                .stringParameter("timeMinutesName", timeMinutesName)
-                .intParameter("minutes", minutes)
-                .booleanParameter("isTwelveHour", isTwelveHour)
-                .stringParameter("ampmName", ampmName)
-                .stringParameter("amSelected", amSelected)
-                .stringParameter("pmSelected", pmSelected)
-                .stringParameter("compositeType", compositeType)
                 .stringParameter("formName", formName)
                 .stringParameter("mask", formattedMask)
                 .stringParameter("tabindex", modelFormField.getTabindex())
-                .stringParameter("isXMLHttpRequest", isXMLHttpRequest)
-                .booleanParameter("disabled", disabled);
+                .stringParameter("isXMLHttpRequest", isXMLHttpRequest);
 
         return macroCallBuilder.build();
     }

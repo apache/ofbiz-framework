@@ -1272,7 +1272,7 @@ public final class ModelFormField {
      * @see <code>widget-form.xsd</code>
      */
     public static class DateTimeField extends FieldInfo {
-        private final String clock;
+        private final boolean isTwelveHour;
         private final FlexibleStringExpander defaultValue;
         private final String inputMethod;
         private final String mask;
@@ -1284,7 +1284,7 @@ public final class ModelFormField {
             this.defaultValue = original.defaultValue;
             this.type = original.type;
             this.inputMethod = original.inputMethod;
-            this.clock = original.clock;
+            this.isTwelveHour = original.isTwelveHour;
             this.mask = original.mask;
             this.step = original.step;
         }
@@ -1294,7 +1294,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
             this.type = element.getAttribute("type");
             this.inputMethod = element.getAttribute("input-method");
-            this.clock = element.getAttribute("clock");
+            this.isTwelveHour = "12".equals(element.getAttribute("clock"));
             this.mask = element.getAttribute("mask");
 
             final String stepAttribute = element.getAttribute("step");
@@ -1317,7 +1317,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.type = "";
             this.inputMethod = "";
-            this.clock = "";
+            this.isTwelveHour = false;
             this.mask = "";
             this.step = 1;
         }
@@ -1327,7 +1327,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.type = type;
             this.inputMethod = "";
-            this.clock = "";
+            this.isTwelveHour = false;
             this.mask = "";
             this.step = 1;
         }
@@ -1337,7 +1337,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.type = "";
             this.inputMethod = "";
-            this.clock = "";
+            this.isTwelveHour = false;
             this.mask = "";
             this.step = 1;
         }
@@ -1353,11 +1353,10 @@ public final class ModelFormField {
         }
 
         /**
-         * Gets clock.
-         * @return the clock
+         * @return True if this field uses a 12-hour clock. If false then a 24-hour clock should be used.
          */
-        public String getClock() {
-            return this.clock;
+        public boolean isTwelveHour() {
+            return this.isTwelveHour;
         }
 
         /**
