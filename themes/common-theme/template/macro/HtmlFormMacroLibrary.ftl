@@ -88,14 +88,14 @@ under the License.
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName compositeType isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest="">
+<#macro renderDateTimeField name className alert timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest="">
   <span class="view-calendar">
     <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
     <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
     <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
     <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
     <#if !isTimeType >
-      <input type="text" name="${name}_i18n" <@renderClass className alert /> <@renderDisabled disabled />
+      <input type="text" name="${name}_i18n" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if tabindex?has_content> tabindex="${tabindex}"</#if>
         <#if title?has_content> title="${title}"</#if>
         <#if value?has_content> value="${value}"</#if>
@@ -104,7 +104,7 @@ under the License.
         <#if id?has_content> id="${id}_i18n"</#if>/><#rt/>
         <#local className = className + " date-time-picker"/>
     </#if>
-    <input type="hidden" name="${name}" <@renderClass className alert /> <@renderDisabled disabled />
+    <input type="hidden" name="${name}" <@renderClass className alert?c /> <@renderDisabled disabled />
       <#if tabindex?has_content> tabindex="${tabindex}"</#if>
       <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
       <#if title?has_content> title="${title}"</#if>
@@ -147,7 +147,7 @@ under the License.
       </#if>
     </#if>
     <input type="hidden" name="${compositeType}" value="Timestamp"/>
-    <#if isXMLHttpRequest=="true">
+    <#if isXMLHttpRequest>
         <script>
           initDateTimePicker(document.getElementById("${id}"));
         </script>
