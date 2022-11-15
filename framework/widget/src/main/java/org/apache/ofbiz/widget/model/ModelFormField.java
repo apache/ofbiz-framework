@@ -88,7 +88,7 @@ import org.w3c.dom.Element;
 /**
  * Models the &lt;field&gt; element.
  *
- * @see <code>widget-form.xsd</code>
+ * @see <a href="https://ofbiz.apache.org/dtds/widget-form.xsd">widget-form.xsd</a>
  */
 public final class ModelFormField {
 
@@ -1272,11 +1272,11 @@ public final class ModelFormField {
      * @see <code>widget-form.xsd</code>
      */
     public static class DateTimeField extends FieldInfo {
-        private final String clock;
+        private final boolean isTwelveHour;
         private final FlexibleStringExpander defaultValue;
         private final String inputMethod;
-        private final String mask;
-        private final String step;
+        private final boolean useMask;
+        private final int step;
         private final String type;
 
         protected DateTimeField(DateTimeField original, ModelFormField modelFormField) {
@@ -1284,8 +1284,8 @@ public final class ModelFormField {
             this.defaultValue = original.defaultValue;
             this.type = original.type;
             this.inputMethod = original.inputMethod;
-            this.clock = original.clock;
-            this.mask = original.mask;
+            this.isTwelveHour = original.isTwelveHour;
+            this.useMask = original.useMask;
             this.step = original.step;
         }
 
@@ -1294,13 +1294,22 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
             this.type = element.getAttribute("type");
             this.inputMethod = element.getAttribute("input-method");
-            this.clock = element.getAttribute("clock");
-            this.mask = element.getAttribute("mask");
-            String step = element.getAttribute("step");
-            if (step.isEmpty()) {
-                step = "1";
+            this.isTwelveHour = "12".equals(element.getAttribute("clock"));
+            this.useMask = "Y".equals(element.getAttribute("mask"));
+
+            final String stepAttribute = element.getAttribute("step");
+            if (stepAttribute.isEmpty()) {
+                this.step = 1;
+            } else {
+                try {
+                    this.step = Integer.parseInt(stepAttribute);
+                } catch (IllegalArgumentException e) {
+                    final String msg = "Could not read the step value of the datetime element: [" + stepAttribute
+                            + "]. Value must be an integer.";
+                    Debug.logError(msg, MODULE);
+                    throw new RuntimeException(msg, e);
+                }
             }
-            this.step = step;
         }
 
         public DateTimeField(int fieldSource, ModelFormField modelFormField) {
@@ -1308,9 +1317,9 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.type = "";
             this.inputMethod = "";
-            this.clock = "";
-            this.mask = "";
-            this.step = "1";
+            this.isTwelveHour = false;
+            this.useMask = false;
+            this.step = 1;
         }
 
         public DateTimeField(int fieldSource, String type) {
@@ -1318,9 +1327,9 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.type = type;
             this.inputMethod = "";
-            this.clock = "";
-            this.mask = "";
-            this.step = "1";
+            this.isTwelveHour = false;
+            this.useMask = false;
+            this.step = 1;
         }
 
         public DateTimeField(ModelFormField modelFormField) {
@@ -1328,9 +1337,9 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.type = "";
             this.inputMethod = "";
-            this.clock = "";
-            this.mask = "";
-            this.step = "1";
+            this.isTwelveHour = false;
+            this.useMask = false;
+            this.step = 1;
         }
 
         @Override
@@ -1344,11 +1353,10 @@ public final class ModelFormField {
         }
 
         /**
-         * Gets clock.
-         * @return the clock
+         * @return True if this field uses a 12-hour clock. If false then a 24-hour clock should be used.
          */
-        public String getClock() {
-            return this.clock;
+        public boolean isTwelveHour() {
+            return this.isTwelveHour;
         }
 
         /**
@@ -1400,26 +1408,32 @@ public final class ModelFormField {
 
         /**
          * Gets mask.
+         *
          * @return the mask
          */
-        public String getMask() {
-            return this.mask;
+        public boolean useMask() {
+            return this.useMask;
         }
 
         /**
          * Gets step.
+         *
          * @return the step
          */
-        public String getStep() {
+        public int getStep() {
             return this.step;
         }
 
-        /**
-         * Gets type.
-         * @return the type
-         */
-        public String getType() {
-            return type;
+        public final boolean isDateType() {
+            return "date".equals(type);
+        }
+
+        public final boolean isTimeType() {
+            return "time".equals(type);
+        }
+
+        public final boolean isTimestampType() {
+            return "timestamp".equals(type);
         }
 
         @Override

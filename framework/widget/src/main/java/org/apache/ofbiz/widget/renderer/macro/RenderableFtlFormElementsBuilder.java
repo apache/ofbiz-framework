@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.renderer.macro;
 
 import java.io.StringWriter;
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,11 +28,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ibm.icu.util.Calendar;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -47,6 +51,7 @@ import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.apache.ofbiz.widget.model.ModelScreenWidget.Label;
 import org.apache.ofbiz.widget.model.ModelTheme;
+import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
@@ -362,6 +367,180 @@ public final class RenderableFtlFormElementsBuilder {
         builder.booleanParameter("disabled", modelFormField.getDisabled(context));
 
         return builder.build();
+    }
+
+    public RenderableFtl dateTime(final Map<String, Object> context, final ModelFormField.DateTimeField dateTimeField) {
+
+        final ModelFormField modelFormField = dateTimeField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
+
+        // Determine whether separate drop down select inputs be used for the hour/minute/am_pm components of the date-time.
+        boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
+
+        final String paramName = modelFormField.getParameterName(context);
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateTimeField")
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .stringParameter("name", useTimeDropDown ? UtilHttp.makeCompositeParam(paramName, "date") : paramName)
+                .stringParameter("id", modelFormField.getCurrentContainerId(context))
+                .booleanParameter("isXMLHttpRequest", "XMLHttpRequest".equals(request.getHeader("X-Requested-With")))
+                .stringParameter("tabindex", modelFormField.getTabindex())
+                .stringParameter("event", modelFormField.getEvent())
+                .stringParameter("formName", FormRenderer.getCurrentFormName(modelForm, context))
+                .booleanParameter("alert", false)
+                .stringParameter("action", modelFormField.getAction(context));
+
+        // Set names for the various input components that might be rendered for this date-time field.
+        macroCallBuilder.stringParameter("timeHourName", UtilHttp.makeCompositeParam(paramName, "hour"))
+                .stringParameter("timeMinutesName", UtilHttp.makeCompositeParam(paramName, "minutes"))
+                .stringParameter("compositeType", UtilHttp.makeCompositeParam(paramName, "compositeType"))
+                .stringParameter("ampmName", UtilHttp.makeCompositeParam(paramName, "ampm"));
+
+        ArrayList<String> classNames = new ArrayList<>();
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            classNames.add(modelFormField.getWidgetStyle());
+
+            if (modelFormField.shouldBeRed(context)) {
+                macroCallBuilder.booleanParameter("alert", true);
+            }
+        }
+
+        if (shouldApplyRequiredField(modelFormField)) {
+            String requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle)) {
+                requiredStyle = "required";
+            }
+            classNames.add(requiredStyle);
+        }
+        macroCallBuilder.stringParameter("className", String.join(" ", classNames));
+
+        String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
+
+        if (useTimeDropDown) {
+            final int step = dateTimeField.getStep();
+            final String timeValues = IntStream.range(0, 60)
+                    .filter(i -> i % step == 0)
+                    .mapToObj(Integer::toString)
+                    .collect(Collectors.joining(", ", "[", "]"));
+            macroCallBuilder.stringParameter("timeValues", timeValues)
+                    .intParameter("step", step);
+        }
+
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
+        }
+
+        // whether the date field is short form, yyyy-mm-dd
+        boolean shortDateInput = dateTimeField.isDateType() || useTimeDropDown;
+        macroCallBuilder.booleanParameter("shortDateInput", shortDateInput);
+
+        // Set render properties based on the date-time field's type.
+        final int size;
+        final int maxlength;
+        final String formattedMask;
+        final String titleLabelMapKey;
+
+        if (shortDateInput) {
+            size = 10;
+            maxlength = 10;
+            formattedMask = "9999-99-99";
+            titleLabelMapKey = "CommonFormatDate";
+        } else if (dateTimeField.isTimeType()) {
+            size = 8;
+            maxlength = 8;
+            formattedMask = "99:99:99";
+            titleLabelMapKey = "CommonFormatTime";
+
+            macroCallBuilder.booleanParameter("isTimeType", true);
+        } else {
+            size = 25;
+            maxlength = 30;
+            formattedMask = "9999-99-99 99:99:99";
+            titleLabelMapKey = "CommonFormatDateTime";
+        }
+
+        macroCallBuilder.intParameter("size", size)
+                .intParameter("maxlength", maxlength);
+
+        if (dateTimeField.useMask()) {
+            macroCallBuilder.stringParameter("mask", formattedMask);
+        }
+
+        if (uiLabelMap != null) {
+            macroCallBuilder.stringParameter("title", uiLabelMap.get(titleLabelMapKey))
+                    .stringParameter("localizedIconTitle", uiLabelMap.get("CommonViewCalendar"));
+        }
+
+        final String contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
+        final String value = UtilValidate.isNotEmpty(contextValue) && contextValue.length() > maxlength
+                ? contextValue.substring(0, maxlength)
+                : contextValue;
+
+        String timeDropdown = dateTimeField.getInputMethod();
+        String timeDropdownParamName = "";
+
+        if (!dateTimeField.isTimeType()) {
+            String tempParamName;
+            if (useTimeDropDown) {
+                tempParamName = UtilHttp.makeCompositeParam(paramName, "date");
+            } else {
+                tempParamName = paramName;
+            }
+            timeDropdownParamName = tempParamName;
+            defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString));
+        }
+
+        // If we have an input method of time-dropdown, then render two dropdowns
+        if (useTimeDropDown) {
+            // Set the class to apply to the time input components.
+            final String widgetStyle = modelFormField.getWidgetStyle();
+            macroCallBuilder.stringParameter("classString", widgetStyle != null ? widgetStyle : "");
+
+            // Set the Calendar to the field's context value, or the field's default if no context value exists.
+            final Calendar cal = Calendar.getInstance();
+            try {
+                if (contextValue != null) {
+                    Timestamp contextValueTimestamp = Timestamp.valueOf(contextValue);
+                    cal.setTime(contextValueTimestamp);
+                }
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("Form widget field [" + paramName
+                        + "] with input-method=\"time-dropdown\" was not able to understand the time [" + contextValue
+                        + "]. The parsing error was: " + e.getMessage(), MODULE);
+            }
+
+            if (cal != null) {
+                int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+                int minutesOfHour = cal.get(Calendar.MINUTE);
+
+                // Set the hour value for when in 12-hour clock mode.
+                macroCallBuilder.intParameter("hour1", hourOfDay % 12);
+
+                // Set the hour value for when in 24-hour clock mode.
+                macroCallBuilder.intParameter("hour2", hourOfDay);
+
+                macroCallBuilder.intParameter("minutes", minutesOfHour);
+            }
+
+            boolean isTwelveHourClock = dateTimeField.isTwelveHour();
+            macroCallBuilder.booleanParameter("isTwelveHour", isTwelveHourClock);
+
+            // if using a 12-hour clock, write the AM/PM selector
+            if (isTwelveHourClock) {
+                macroCallBuilder.booleanParameter("amSelected", cal.get(Calendar.AM_PM) == Calendar.AM)
+                        .booleanParameter("pmSelected", cal.get(Calendar.AM_PM) == Calendar.PM);
+
+            }
+        }
+
+        macroCallBuilder.stringParameter("value", value)
+                .stringParameter("timeDropdownParamName", timeDropdownParamName)
+                .stringParameter("defaultDateTimeString", defaultDateTimeString)
+                .stringParameter("timeDropdown", timeDropdown);
+
+        return macroCallBuilder.build();
     }
 
     public RenderableFtl makeHyperlinkString(final ModelFormField.SubHyperlink subHyperlink,
