@@ -1689,7 +1689,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(Integer.toString(maxlength));
         sr.append("\" isDateType=");
         sr.append(Boolean.toString(dateFindField.isDateType()));
-        sr.append("\" isTimeType=");
+        sr.append(" isTimeType=");
         sr.append(Boolean.toString(dateFindField.isTimeType()));
         sr.append(" formName=\"");
         sr.append(formName);
