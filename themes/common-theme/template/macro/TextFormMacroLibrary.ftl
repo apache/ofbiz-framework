@@ -26,7 +26,7 @@ under the License.
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default"><@renderField value /></#macro>
 
-<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="" disabled=""><@renderField value /></#macro>
+<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false><@renderField value /></#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest=""><@renderField value /></#macro>
 
@@ -44,10 +44,10 @@ under the License.
 <#macro renderCheckField items className alert id allChecked currentValue name event action conditionGroup tabindex disabled></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled></#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title name event confirmation containerId tabindex></#macro>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false></#macro>
 <#macro renderResetField className alert name title></#macro>
 
-<#macro renderHiddenField name conditionGroup value id event action></#macro>
+<#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="" disabled=false></#macro>
 <#macro renderIgnoredField></#macro>
 
 <#macro renderFieldTitle style title id fieldHelpText="" for=""><@renderField title /></#macro>
