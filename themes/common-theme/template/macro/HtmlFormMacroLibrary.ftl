@@ -88,7 +88,7 @@ under the License.
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest="">
+<#macro renderDateTimeField name className timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType alert=false isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest=false>
   <span class="view-calendar">
     <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
     <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>

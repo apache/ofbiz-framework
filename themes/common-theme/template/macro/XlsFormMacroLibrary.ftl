@@ -32,9 +32,9 @@ under the License.
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default"><@renderItemField value "txf" className/></#macro>
 
-<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="" disabled=""></#macro>
+<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false></#macro>
 
-<#macro renderDateTimeField name className alert title value size maxlength id isTimeType isDateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest="">
+<#macro renderDateTimeField name className timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType alert=false isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest=false>
 <#if isTimeType ><@renderItemField value "tf" className/>
 <#elseif isDateType><@renderItemField value "dt" className/>
 <#else><@renderItemField value "dtf" className/></#if>
@@ -46,11 +46,11 @@ under the License.
 
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled><@renderItemField currentValue "txf" className/></#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title name event confirmation containerId tabindex></#macro>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false></#macro>
 
 <#macro renderResetField className alert name title></#macro>
 
-<#macro renderHiddenField name conditionGroup value id event action></#macro>
+<#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="" disabled=false></#macro>
 
 <#macro renderIgnoredField></#macro>
 
