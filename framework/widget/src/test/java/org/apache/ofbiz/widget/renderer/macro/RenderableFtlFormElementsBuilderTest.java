@@ -26,6 +26,7 @@ import mockit.Mocked;
 import mockit.Tested;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
@@ -59,6 +60,9 @@ public class RenderableFtlFormElementsBuilderTest {
 
     @Injectable
     private HttpServletResponse response;
+
+    @Injectable
+    private StaticContentUrlProvider staticContentUrlProvider;
 
     @Mocked
     private HttpSession httpSession;

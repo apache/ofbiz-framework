@@ -442,7 +442,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderDateFindField className alert id name formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty isTimeType=false isDateType=false conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
+<#macro renderDateFindField id name formName defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty className="" alert=false imgSrc="" value="" isTimeType=false isDateType=false conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
@@ -455,7 +455,7 @@ under the License.
   <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
   <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
   <span class="view-calendar">
-    <input id="${id}_fld0_value" type="text" <@renderClass className alert /> <@renderDisabled disabled />
+    <input id="${id}_fld0_value" type="text" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if name?has_content> name="${name?html}_fld0_value"</#if>
         <#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if>
         <#if value?has_content> value="${value}"</#if>
@@ -481,7 +481,7 @@ under the License.
       </span><#rt/>
     </#if>
     <#rt/>
-    <input id="${id}_fld1_value" type="text" <@renderClass className alert /> <@renderDisabled disabled />
+    <input id="${id}_fld1_value" type="text" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if name?has_content> name="${name}_fld1_value"</#if>
         <#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if>
         <#if value2?has_content> value="${value2}"</#if>

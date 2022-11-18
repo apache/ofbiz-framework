@@ -52,6 +52,7 @@ import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
+import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
@@ -125,9 +126,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = UtilCodec.getEncoder("string");
         this.ftlWriter = ftlWriter != null ? ftlWriter : new FtlWriter(macroLibraryPath, this.visualTheme);
+        final StaticContentUrlProvider staticContentUrlProvider = new StaticContentUrlProvider(request);
         this.renderableFtlFormElementsBuilder = renderableFtlFormElementsBuilder != null
                 ? renderableFtlFormElementsBuilder
-                : new RenderableFtlFormElementsBuilder(this.visualTheme, rh, request, response);
+                : new RenderableFtlFormElementsBuilder(this.visualTheme, rh, request, response, staticContentUrlProvider);
     }
 
     private static String encodeDoubleQuotes(String htmlString) {
@@ -1579,158 +1581,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
-        ModelFormField modelFormField = dateFindField.getModelFormField();
-        Locale locale = (Locale) context.get("locale");
-        String opEquals = UtilProperties.getMessage("conditionalUiLabels", "equals", locale);
-        String opGreaterThan = UtilProperties.getMessage("conditionalUiLabels", "greater_than", locale);
-        String opSameDay = UtilProperties.getMessage("conditionalUiLabels", "same_day", locale);
-        String opGreaterThanFromDayStart = UtilProperties.getMessage("conditionalUiLabels", "greater_than_from_day_start", locale);
-        String opLessThan = UtilProperties.getMessage("conditionalUiLabels", "less_than", locale);
-        String opUpToDay = UtilProperties.getMessage("conditionalUiLabels", "up_to_day", locale);
-        String opUpThruDay = UtilProperties.getMessage("conditionalUiLabels", "up_thru_day", locale);
-        String opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
-        String conditionGroup = modelFormField.getConditionGroup();
-        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
-        if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
-        }
-        String localizedInputTitle = "";
-        String localizedIconTitle = "";
-        String className = "";
-        String alert = "false";
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String name = modelFormField.getParameterName(context);
-        // the default values for a timestamp
-        int size = 25;
-        int maxlength = 30;
-        if (dateFindField.isDateType()) {
-            maxlength = 10;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
-            }
-        } else if (dateFindField.isTimeType()) {
-            maxlength = 8;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
-            }
-        } else {
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
-            }
-        }
-        String value = modelFormField.getEntry(context, dateFindField.getDefaultValue(context));
-        if (value == null) {
-            value = "";
-        }
-        // search for a localized label for the icon
-        if (uiLabelMap != null) {
-            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
-        }
-        String formName = "";
-        String defaultDateTimeString = "";
-        StringBuilder imgSrc = new StringBuilder();
-        // add calendar pop-up button and seed data IF this is not a "time" type date-find
-        if (!dateFindField.isTimeType()) {
-            ModelForm modelForm = modelFormField.getModelForm();
-            formName = FormRenderer.getCurrentFormName(modelForm, context);
-            defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context)));
-            this.appendContentUrl(imgSrc, "/images/cal.gif");
-        }
-        String defaultOptionFrom = dateFindField.getDefaultOptionFrom(context);
-        String defaultOptionThru = dateFindField.getDefaultOptionThru(context);
-        String value2 = modelFormField.getEntry(context);
-        if (value2 == null) {
-            value2 = "";
-        }
-        if (context.containsKey("parameters")) {
-            Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-            if (parameters.containsKey(name + "_fld0_value")) {
-                value = (String) parameters.get(name + "_fld0_value");
-            }
-            if (parameters.containsKey(name + "_fld1_value")) {
-                value2 = (String) parameters.get(name + "_fld1_value");
-            }
-        }
+    public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) {
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateFind(context, dateFindField));
 
-        String titleStyle = "";
-        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            titleStyle = modelFormField.getTitleStyle();
-        }
-        String id = modelFormField.getCurrentContainerId(context);
-        String tabindex = modelFormField.getTabindex();
-        boolean disabled = modelFormField.getDisabled(context);
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderDateFindField ");
-        sr.append(" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" localizedInputTitle=\"");
-        sr.append(localizedInputTitle);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" value2=\"");
-        sr.append(value2);
-        sr.append("\" size=\"");
-        sr.append(Integer.toString(size));
-        sr.append("\" maxlength=\"");
-        sr.append(Integer.toString(maxlength));
-        sr.append("\" isDateType=");
-        sr.append(Boolean.toString(dateFindField.isDateType()));
-        sr.append(" isTimeType=");
-        sr.append(Boolean.toString(dateFindField.isTimeType()));
-        sr.append(" formName=\"");
-        sr.append(formName);
-        sr.append("\" defaultDateTimeString=\"");
-        sr.append(defaultDateTimeString);
-        sr.append("\" imgSrc=\"");
-        sr.append(imgSrc.toString());
-        sr.append("\" conditionGroup=\"");
-        sr.append(conditionGroup);
-        sr.append("\" localizedIconTitle=\"");
-        sr.append(localizedIconTitle);
-        sr.append("\" titleStyle=\"");
-        sr.append(titleStyle);
-        sr.append("\" defaultOptionFrom=\"");
-        sr.append(defaultOptionFrom);
-        sr.append("\" defaultOptionThru=\"");
-        sr.append(defaultOptionThru);
-        sr.append("\" opEquals=\"");
-        sr.append(opEquals);
-        sr.append("\" opSameDay=\"");
-        sr.append(opSameDay);
-        sr.append("\" opGreaterThanFromDayStart=\"");
-        sr.append(opGreaterThanFromDayStart);
-        sr.append("\" opGreaterThan=\"");
-        sr.append(opGreaterThan);
-        sr.append("\" opGreaterThan=\"");
-        sr.append(opGreaterThan);
-        sr.append("\" opLessThan=\"");
-        sr.append(opLessThan);
-        sr.append("\" opUpToDay=\"");
-        sr.append(opUpToDay);
-        sr.append("\" opUpThruDay=\"");
-        sr.append(opUpThruDay);
-        sr.append("\" opIsEmpty=\"");
-        sr.append(opIsEmpty);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, locale, sr.toString());
+        final ModelFormField modelFormField = dateFindField.getModelFormField();
         this.appendTooltip(writer, context, modelFormField);
     }
 
