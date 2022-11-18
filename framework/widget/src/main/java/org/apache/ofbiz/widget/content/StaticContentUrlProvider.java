@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * Generates URL strings for addressing static content based properties configured on an HttpRequest's website or
  * configured properties in url.properties.
  *
- * @See ContentUrlTag
+ * @see ContentUrlTag
  */
 public class StaticContentUrlProvider {
     // HttpServletRequest used to find the URL of the current website.
