@@ -592,29 +592,6 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void dateFindFieldMacroRendered(@Mocked ModelFormField modelFormField,
-                                           @Mocked ModelFormField.DateFindField dateFindField) throws IOException {
-        new Expectations() {
-            {
-                dateFindField.getModelFormField();
-                result = modelFormField;
-
-                modelFormField.getEntry(withNotNull(), withNull());
-                result = "2020-01-01";
-
-                modelFormField.getParameterName(withNotNull());
-                result = "FIELDNAME";
-            }
-        };
-
-        ImmutableMap<String, Object> context = ImmutableMap.of();
-        macroFormRenderer.renderDateFindField(appendable, context, dateFindField);
-        assertAndGetMacroString("renderDateFindField", ImmutableMap.of(
-                "name", "FIELDNAME",
-                "value", "2020-01-01"));
-    }
-
-    @Test
     public void lookupFieldMacroRendered(@Mocked ModelFormField modelFormField,
                                          @Mocked ModelFormField.LookupField lookupField) throws IOException {
         new Expectations() {

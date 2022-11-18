@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -41,10 +42,12 @@ import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.WidgetWorker;
+import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
@@ -73,12 +76,16 @@ public final class RenderableFtlFormElementsBuilder {
     private final HttpServletRequest request;
     private final HttpServletResponse response;
 
+    private final StaticContentUrlProvider staticContentUrlProvider;
+
     public RenderableFtlFormElementsBuilder(final VisualTheme visualTheme, final RequestHandler requestHandler,
-                                            final HttpServletRequest request, final HttpServletResponse response) {
+                                            final HttpServletRequest request, final HttpServletResponse response,
+                                            final StaticContentUrlProvider staticContentUrlProvider) {
         this.visualTheme = visualTheme;
         this.requestHandler = requestHandler;
         this.request = request;
         this.response = response;
+        this.staticContentUrlProvider = staticContentUrlProvider;
     }
 
     public RenderableFtl tooltip(final Map<String, Object> context, final ModelFormField modelFormField) {
@@ -543,6 +550,100 @@ public final class RenderableFtlFormElementsBuilder {
         return macroCallBuilder.build();
     }
 
+    public RenderableFtl dateFind(final Map<String, Object> context, final ModelFormField.DateFindField dateFindField) {
+        final ModelFormField modelFormField = dateFindField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
+        final String name = modelFormField.getParameterName(context);
+
+        final Locale locale = (Locale) context.get("locale");
+
+        final Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
+        }
+
+        final Function<String, String> getOpLabel = (label) -> UtilProperties.getMessage("conditionalUiLabels",
+                label, locale);
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateFindField")
+                .stringParameter("name", name)
+                .stringParameter("id", modelFormField.getCurrentContainerId(context))
+                .stringParameter("formName", FormRenderer.getCurrentFormName(modelForm, context))
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .booleanParameter("isDateType", dateFindField.isDateType())
+                .booleanParameter("isTimeType", dateFindField.isTimeType())
+                .stringParameter("opEquals", getOpLabel.apply("equals"))
+                .stringParameter("opSameDay", getOpLabel.apply("same_day"))
+                .stringParameter("opGreaterThanFromDayStart", getOpLabel.apply("greater_than_from_day_start"))
+                .stringParameter("opGreaterThan", getOpLabel.apply("greater_than"))
+                .stringParameter("opLessThan", getOpLabel.apply("less_than"))
+                .stringParameter("opUpToDay", getOpLabel.apply("up_to_day"))
+                .stringParameter("opUpThruDay", getOpLabel.apply("up_thru_day"))
+                .stringParameter("opIsEmpty", getOpLabel.apply("is_empty"))
+                .stringParameter("tabindex", modelFormField.getTabindex())
+                .stringParameter("conditionGroup", modelFormField.getConditionGroup())
+                .stringParameter("defaultOptionFrom", dateFindField.getDefaultOptionFrom(context))
+                .stringParameter("defaultOptionThru", dateFindField.getDefaultOptionThru(context));
+
+        macroCallBuilder.booleanParameter("alert", false);
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            macroCallBuilder.stringParameter("className", modelFormField.getWidgetStyle());
+            if (modelFormField.shouldBeRed(context)) {
+                macroCallBuilder.booleanParameter("alert", true);
+            }
+        }
+
+        // Set render properties based on the date-finds field's type.
+        final String localizedInputTitleLabelMapKey;
+        if (dateFindField.isDateType()) {
+            macroCallBuilder.intParameter("size", 10)
+                    .intParameter("maxlength", 20);
+
+            localizedInputTitleLabelMapKey = "CommonFormatDate";
+        } else if (dateFindField.isTimeType()) {
+            macroCallBuilder.intParameter("size", 8)
+                    .intParameter("maxlength", 8);
+
+            localizedInputTitleLabelMapKey = "CommonFormatTime";
+        } else {
+            macroCallBuilder.intParameter("size", 25)
+                    .intParameter("maxlength", 30);
+
+            localizedInputTitleLabelMapKey = "CommonFormatDateTime";
+        }
+
+        if (uiLabelMap != null) {
+            // search for a localized label for the icon
+            macroCallBuilder.stringParameter("localizedInputTitle", uiLabelMap.get(localizedInputTitleLabelMapKey));
+        }
+
+        // add calendar pop-up button IF this is not a "time" type date-find
+        if (!dateFindField.isTimeType()) {
+            macroCallBuilder.stringParameter("imgSrc", pathAsContentUrl("/images/cal.gif"));
+        }
+
+        macroCallBuilder.stringParameter("value",
+                modelFormField.getEntry(context, dateFindField.getDefaultValue(context)))
+                .stringParameter("value2", modelFormField.getEntry(context));
+
+        if (context.containsKey("parameters")) {
+            final Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+            if (parameters.containsKey(name + "_fld0_value")) {
+                macroCallBuilder.stringParameter("value", (String) parameters.get(name + "_fld0_value"));
+            }
+            if (parameters.containsKey(name + "_fld1_value")) {
+                macroCallBuilder.stringParameter("value2", (String) parameters.get(name + "_fld1_value"));
+            }
+        }
+
+        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+            macroCallBuilder.stringParameter("titleStyle", modelFormField.getTitleStyle());
+        }
+
+        return macroCallBuilder.build();
+    }
+
     public RenderableFtl makeHyperlinkString(final ModelFormField.SubHyperlink subHyperlink,
                                              final Map<String, Object> context) {
         if (subHyperlink == null || !subHyperlink.shouldUse(context)) {
@@ -895,5 +996,9 @@ public final class RenderableFtlFormElementsBuilder {
         targetParams = targetParams.replace("?", "");
         targetParams = targetParams.replace("&amp;", "&");
         return targetParams;
+    }
+
+    private String pathAsContentUrl(final String path) {
+        return staticContentUrlProvider.pathAsContentUrlString(path);
     }
 }

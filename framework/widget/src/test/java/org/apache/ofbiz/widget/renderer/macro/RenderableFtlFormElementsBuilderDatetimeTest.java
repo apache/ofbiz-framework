@@ -5,6 +5,7 @@ import mockit.Injectable;
 import mockit.Mocked;
 import mockit.Tested;
 import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
@@ -31,6 +32,9 @@ public class RenderableFtlFormElementsBuilderDatetimeTest {
 
     @Injectable
     private HttpServletResponse response;
+
+    @Injectable
+    private StaticContentUrlProvider staticContentUrlProvider;
 
     @Mocked
     private HttpSession httpSession;
