@@ -19,6 +19,7 @@
 package org.apache.ofbiz.marketing.marketing;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -56,6 +58,7 @@ public class MarketingServices {
         String contactListId = (String) context.get("contactListId");
         String email = (String) context.get("email");
         String partyId = (String) context.get("partyId");
+        String successMessage = UtilProperties.getMessage(RESOURCE, "MarketingNewsletterSubscriptionRequestSuccessMessage", locale);
 
         if (!UtilValidate.isEmail(email)) {
             String error = UtilProperties.getMessage(RESOURCE, "MarketingCampaignInvalidEmailInput", locale);
@@ -97,6 +100,41 @@ public class MarketingServices {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
             }
             String contactMechId = (String) serviceResults.get("contactMechId");
+
+            //checks if user is already subscribed to newsletter
+            input = UtilMisc.toMap("contactListId", contactList.get("contactListId"), "partyId", partyId, "preferredContactMechId", contactMechId);
+            List<GenericValue> contactListPartyList = EntityQuery.use(delegator).from("ContactListParty").where(input).filterByDate().queryList();
+
+            List<GenericValue> acceptedContactListPartyList = EntityUtil.filterByAnd(contactListPartyList,
+                    UtilMisc.toMap("statusId", "CLPT_ACCEPTED"));
+            if (UtilValidate.isNotEmpty(acceptedContactListPartyList)) {
+                String error = UtilProperties.getMessage(RESOURCE, "MarketingNewsletterSubscriptionAlreadyExistsMsg", locale);
+                Debug.logError(error, MODULE);
+                return ServiceUtil.returnError(error);
+            }
+            /* check if user has already requested to sign up: if yes, delete all the existing
+             * pending records and then add a new one.
+             */
+            List<GenericValue> pendingContactListPartyList = EntityUtil.filterByAnd(contactListPartyList,
+                    UtilMisc.toMap("statusId", "CLPT_PENDING"));
+            if (UtilValidate.isNotEmpty(pendingContactListPartyList)) {
+                successMessage = UtilProperties.getMessage(RESOURCE, "MarketingNewsletterSubscriptionReqstAlreadyExistsMsg", locale);
+                int count = 0;
+                for (GenericValue pendingCLP : pendingContactListPartyList) {
+                    Map<String, Object> deletePendingCLPInput = UtilMisc.toMap("userLogin", userLogin,
+                            "contactListId", pendingCLP.get("contactListId"), "fromDate", pendingCLP.get("fromDate"),
+                            "partyId", pendingCLP.get("partyId"));
+
+                    Map<String, Object> deletePendingCLPResults = dispatcher.runSync("deleteContactListParty", deletePendingCLPInput);
+                    if (ServiceUtil.isSuccess(deletePendingCLPResults)) {
+                        count++;
+                    } else {
+                        Debug.logError(ServiceUtil.getErrorMessage(deletePendingCLPResults), MODULE);
+                    }
+                }
+                Debug.logInfo("Successfully deleted " + count + " old Contact List PENDING requests.", MODULE);
+            }
+
             // create a new association at this fromDate to the anonymous party with status accepted
             input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"),
                     "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baseLocation",
@@ -114,6 +152,44 @@ public class MarketingServices {
             Debug.logInfo(e, error + e.getMessage(), MODULE);
             return ServiceUtil.returnError(error);
         }
-        return ServiceUtil.returnSuccess();
+        return ServiceUtil.returnSuccess(successMessage);
+    }
+
+    public static Map<String, Object> deleteContactListParty(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+
+        String contactListId = (String) context.get("contactListId");
+        String partyId = (String) context.get("partyId");
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
+        String successMessage = UtilProperties.getMessage(RESOURCE, "MarketingNewsletterSubscriptionPendingRequestDeletedMessage", locale);
+
+        Map<String, Object> input = UtilMisc.toMap("contactListId", contactListId, "partyId", partyId,
+                "fromDate", fromDate);
+        int cntListPartyRemoved = 0;
+        try {
+            GenericValue contactListParty = EntityQuery.use(delegator).from("ContactListParty").where(input).filterByDate().queryOne();
+            if (contactListParty != null) {
+                List<GenericValue> relContactListPartyStatusList = contactListParty.getRelated("ContactListPartyStatus", null, null, true);
+                int cntLstPrtStatusRemoved = 0;
+                if (relContactListPartyStatusList != null && relContactListPartyStatusList.size() > 0) {
+                    cntLstPrtStatusRemoved = delegator.removeAll(relContactListPartyStatusList);
+                }
+                if (cntLstPrtStatusRemoved > 0) {
+                    cntListPartyRemoved = delegator.removeValue(contactListParty);
+                }
+            }
+            if (cntListPartyRemoved > 0) {
+                successMessage = successMessage + "[contactListId: " + contactListId
+                        + ", partyId: " + partyId + ", fromDate: "
+                        + fromDate + ", Status: " + contactListParty.getString("statusId") + "]";
+                Debug.logInfo(successMessage, MODULE);
+            }
+        } catch (GenericEntityException e) {
+            String error = UtilProperties.getMessage(RES_ORDER, "checkhelper.problems_reading_database", locale);
+            Debug.logError(e, error + e.getMessage(), MODULE);
+            return ServiceUtil.returnError(error);
+        }
+        return ServiceUtil.returnSuccess(successMessage);
     }
 }

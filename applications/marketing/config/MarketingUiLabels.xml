@@ -1045,7 +1045,23 @@
         <value xml:lang="vi">Chào mừng bạn đến với Ứng dụng quản trị Tiếp thị !</value>
         <value xml:lang="zh">欢迎使用市场管理程序！</value>
         <value xml:lang="zh-TW">歡迎使用行銷管理程式！</value>
+    </property> 
+   <property key="MarketingNewsletterSubscriptionRequestSuccessMessage">
+        <value xml:lang="en">Newsletter subscription request successful. Please check your inbox for verification email.</value>
+        <value xml:lang="it">Richiesta di iscrizione alla Newsletter inviata con successo. Controlla la tua casella di posta per l'email di verifica.</value>
     </property>
+    <property key="MarketingNewsletterSubscriptionReqstAlreadyExistsMsg">
+        <value xml:lang="en">You have already requested to subscribe for our newsletter. However, you have not verified your subscription. We have resent you the verification mail - please check your inbox for verification email.</value>
+        <value xml:lang="it">Hai già richiesto di iscriverti a questa newsletter, ma non hai verificato la sottoscrizione. Ti abbiamo nuovamente inviato l'email di verifica - controlla la tua casella di posta.</value>
+    </property>
+    <property key="MarketingNewsletterSubscriptionAlreadyExistsMsg">
+        <value xml:lang="en">You are already subscribed to our newsletter.</value>
+        <value xml:lang="it">Sei già iscritto alla nostra newsletter.</value>
+    </property>
+    <property key="MarketingNewsletterSubscriptionPendingRequestDeletedMessage">
+        <value xml:lang="en">Successfully removed Newsletter subscription request.</value>
+        <value xml:lang="it">Richiesta di iscrizione alla newseltter rimossa con sucesso.</value>
+    </property> 
     <property key="MarketingNoOfEmployees">
         <value xml:lang="de">Anzahl Angestellte</value>
         <value xml:lang="en">No of Employees</value>

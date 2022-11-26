@@ -217,9 +217,17 @@ under the License.
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <!--
     <service name="deleteContactListParty" default-entity-name="ContactListParty" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Party from ContactList</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    -->
+    <service name="deleteContactListParty" default-entity-name="ContactListParty" engine="java"
+    	location="org.apache.ofbiz.marketing.marketing.MarketingServices" invoke="deleteContactListParty" auth="true">
+    	<description>Remove Party from ContactList</description>
+    	<auto-attributes include="pk" mode="IN" optional="true"/>
     </service>
     <service name="createContactListPartyStatus" default-entity-name="ContactListPartyStatus" engine="simple"
         location="component://marketing/minilang/marketing/contact/ContactListServices.xml" invoke="createContactListPartyStatus" auth="true">
