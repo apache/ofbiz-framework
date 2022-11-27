@@ -54,7 +54,7 @@ ext.pluginsDir = "${rootDir}/plugins"
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
 // java settings
-List jvmArguments = ['-Xms128M', '-Xmx1024M', '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
+List jvmArguments = ['-Xms128M', '-Xmx1024M', '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000']
 if (project.hasProperty('jvmArgs')) {
     jvmArguments = jvmArgs.tokenize()
 }
