@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -55,6 +56,7 @@ public final class CsrfUtil {
             new LinkedHashMap<String, Map<String, Map<String, String>>>() {
         private static final long serialVersionUID = 1L;
 
+        @Override
         protected boolean removeEldestEntry(Map.Entry<String, Map<String, Map<String, String>>> eldest) {
             return size() > cacheSize; // TODO use also csrf.cache.size here?
         }
@@ -100,6 +102,7 @@ public final class CsrfUtil {
                 tokenMap = new LinkedHashMap<String, String>() {
                     private static final long serialVersionUID = 1L;
 
+                    @Override
                     protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
                         return size() > cacheSize;
                     }
@@ -112,6 +115,7 @@ public final class CsrfUtil {
                 tokenMap = new LinkedHashMap<String, String>() {
                     private static final long serialVersionUID = 1L;
 
+                    @Override
                     protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
                         return size() > cacheSize;
                     }
