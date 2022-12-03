@@ -587,8 +587,8 @@ def createPaymentFromOrder() {
         if (from("OrderPaymentPrefAndPayment")
                 .where([EntityCondition.makeCondition("orderId", orderHeader.orderId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")])
-                .queryCount() > 1) {
-            return error("Payment not created for order ${orderHeader.orderId}, at least a single payment already exists")
+                .queryCount() > 0) {
+            return failure("Payment not created for order ${orderHeader.orderId}, at least a single payment already exists")
         }
 
         GenericValue orderRoleTo = from("OrderRole")
