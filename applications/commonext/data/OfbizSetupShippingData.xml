@@ -23,9 +23,7 @@
     <Party partyId="UPS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <Party partyId="DHL" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <Party partyId="FEDEX" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
-    <Party partyId="_NA_" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
 
-    <Person partyId="_NA_"/>
     <PartyGroup partyId="USPS" groupName="USPS"/>
     <PartyGroup partyId="UPS" groupName="UPS"/>
     <PartyGroup partyId="DHL" groupName="DHL"/>
@@ -34,7 +32,6 @@
     <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
     <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
 
     <PartyStatus partyId="USPS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
@@ -76,7 +73,6 @@
     <ShipmentMethodType description="Fedex International Ground " shipmentMethodTypeId="FEDEX_INT_GROUND"/>
     <ShipmentMethodType description="Fedex Freight" shipmentMethodTypeId="FEDEX_FREIGHT"/>
 
-    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
     <ShipmentMethodType description="Three-Day Select" shipmentMethodTypeId="THIRD_DAY_AIR_SEL"/>
     <ShipmentMethodType description="Second Day Air" shipmentMethodTypeId="SECOND_DAY_AIR"/>
     <ShipmentMethodType description="Second Day Air Early A.M.  " shipmentMethodTypeId="SECOND_DAY_AIR_AM"/>
@@ -102,7 +98,6 @@
     <ShipmentMethodType description="Express 10.30 AM" shipmentMethodTypeId="EXP_10_30_AM"/>
 
     <!-- Local options -->
-    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
     <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="5"/>
 
     <!-- Fedex shipping options -->

@@ -20,9 +20,6 @@ under the License.
 
 <entity-engine-xml>
     <!-- OFBiz Core security -->
-    <Party partyId="_NA_" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
-    <Person partyId="_NA_"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
     <PartyRole partyId="_NA_" roleTypeId="_NA_"/>
 
     <Party partyId="admin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
