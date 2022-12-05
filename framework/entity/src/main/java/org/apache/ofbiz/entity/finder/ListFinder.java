@@ -215,7 +215,8 @@ public abstract class ListFinder extends Finder {
                     options.setMaxRows(size * (index + 1));
                 }
                 boolean beganTransaction = false;
-                try (EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options)) {
+                try (EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields,
+                        options)) {
                     if (useTransaction) {
                         beganTransaction = TransactionUtil.begin();
                     }
