@@ -25,18 +25,18 @@ under the License.
     <version>1.0</version>
 
     <!-- Permission Services -->
-    <service name="facilityGenericPermission" engine="simple"
-        location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
+    <service name="facilityGenericPermission" engine="groovy"
+        location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="checkProductFacilityRelatedPermission" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
+    <service name="checkProductFacilityRelatedPermission" engine="groovy"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="checkProductFacilityRelatedPermission">
         <description>ProductFacility Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
     <!-- Product Inventory Services -->
-    <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
+    <service name="createInventoryItem" default-entity-name="InventoryItem" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -50,8 +50,8 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
 
-    <service name="createInventoryItemCheckSetAtpQoh" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemCheckSetAtpQoh" auth="false">
+    <service name="createInventoryItemCheckSetAtpQoh" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItemCheckSetAtpQoh" auth="false">
         <description>
         </description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
@@ -64,8 +64,8 @@ under the License.
     </service>
 
 
-    <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
+    <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="updateInventoryItem" auth="true">
         <description>Update an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -77,8 +77,8 @@ under the License.
         <attribute name="oldProductId" mode="OUT" optional="true" type="String"/>
         <attribute name="oldStatusId" mode="OUT" optional="true" type="String"/>
     </service>
-    <service name="changeOwnerUponIssuance" engine="simple"  auth="true"
-        location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="changeOwnerUponIssuance">
+    <service name="changeOwnerUponIssuance" engine="groovy"  auth="true"
+        location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="changeOwnerUponIssuance">
         <description>If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -87,16 +87,16 @@ under the License.
         </attribute>
 
     </service>
-    <service name="createInventoryItemStatus" engine="simple" default-entity-name="InventoryItemStatus"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
+    <service name="createInventoryItemStatus" engine="groovy" default-entity-name="InventoryItemStatus"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItemStatus">
         <description>Create an inventory item status record</description>
         <auto-attributes mode="IN" include="all" optional="true"/>
         <override name="inventoryItemId" optional="false"/>
         <override name="statusId" optional="false"/>
     </service>
 
-    <service name="checkProductInventoryDiscontinuation" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
+    <service name="checkProductInventoryDiscontinuation" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="checkProductInventoryDiscontinuation" auth="false">
         <description>Check Product Inventory Discontinuation</description>
         <attribute name="productId" mode="IN" optional="false" type="String">
         <type-validate>
@@ -105,14 +105,14 @@ under the License.
         </attribute>
 
     </service>
-    <service name="inventoryItemCheckSetDefaultValues" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="inventoryItemCheckSetDefaultValues" auth="false">
+    <service name="inventoryItemCheckSetDefaultValues" default-entity-name="InventoryItem" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="inventoryItemCheckSetDefaultValues" auth="false">
         <description>Check and, if empty, fills with default values ownerPartyId, currencyUomId, unitCost</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItem" type="Map" mode="IN" optional="true"/>
     </service>
-    <service name="createInventoryItemDetail" default-entity-name="InventoryItemDetail" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemDetail" auth="true">
+    <service name="createInventoryItemDetail" default-entity-name="InventoryItemDetail" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItemDetail" auth="true">
         <description>Create an createInventoryItemDetail - note that the quantityOnHand and availableToPromise are relative (positive or negative) and will be added to the corresponding value on the given InventoryItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -120,8 +120,8 @@ under the License.
         </auto-attributes>
         <override name="inventoryItemDetailSeqId" mode="OUT"/>
     </service>
-    <service name="updateInventoryItemFromDetail" default-entity-name="InventoryItemDetail" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryItemFromDetail" auth="false">
+    <service name="updateInventoryItemFromDetail" default-entity-name="InventoryItemDetail" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="updateInventoryItemFromDetail" auth="false">
         <description>
             Sums all availableToPromiseDiff and quantityOnHandDiff elements for the inventoryItemId and sets the availableToPromise and quantityOnHand fields on the corresponding InventoryItem.
             Meant to be run as an Entity ECA triggered on any modify operation on the InventoryItemDetail entity.
@@ -132,8 +132,8 @@ under the License.
         </type-validate>
         </attribute>
     </service>
-    <service name="updateSerializedInventoryTotals" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateSerializedInventoryTotals" auth="false">
+    <service name="updateSerializedInventoryTotals" default-entity-name="InventoryItem" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="updateSerializedInventoryTotals" auth="false">
         <description>Sets the ATP/QOH totals for serialized inventory items</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -142,8 +142,8 @@ under the License.
         </attribute>
     </service>
 
-    <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">
+    <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItemVariance" auth="true">
         <description>Create an InventoryItemVariance - note that the quantityOnHand and availableToPromise are relative and will be added to the corresponding value on the given InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -155,8 +155,8 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createPhysicalInventoryAndVariance" engine="simple" auth="true" transaction-timeout="600"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance">
+    <service name="createPhysicalInventoryAndVariance" engine="groovy" auth="true" transaction-timeout="600"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createPhysicalInventoryAndVariance">
         <description>Create a PhysicalInventory and an InventoryItemVariance</description>
         <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PhysicalInventory" include="nonpk" mode="IN" optional="true"/>
@@ -164,7 +164,21 @@ under the License.
         <override name="physicalInventoryId" mode="OUT"/>
     </service>
 
-    <service name="getMktgPackagesAvailable" engine="simple"
+    <service name="getMktgPackagesAvailable" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getMktgPackagesAvailable" auth="false" use-transaction="false">
+        <description>Get Marketing Packages Available From Components In Inventory</description>
+        <attribute name="productId" type="String" mode="IN" optional="false">
+        <type-validate>
+            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
+        </type-validate>
+        </attribute>
+
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+    <service name="getMktgPackagesAvailable2" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false" use-transaction="false">
         <description>Get Marketing Packages Available From Components In Inventory</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
@@ -178,8 +192,8 @@ under the License.
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="getProductInventoryAvailable" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+    <service name="getProductInventoryAvailable" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -192,8 +206,8 @@ under the License.
         <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
-    <service name="getInventoryAvailableByFacility" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+    <service name="getInventoryAvailableByFacility" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a facilityId</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -212,8 +226,8 @@ under the License.
         <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
-    <service name="getInventoryAvailableByLocation" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
+    <service name="getInventoryAvailableByLocation" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getProductInventoryAvailable" auth="false">
         <description>Get Inventory Availability for a Product constrained by a facility and location</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -236,8 +250,8 @@ under the License.
         <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
-    <service name="getInventoryAvailableByContainer" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+    <service name="getInventoryAvailableByContainer" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a containerId</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -254,8 +268,8 @@ under the License.
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="getInventoryAvailableByItem" engine="simple"
-             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+    <service name="getInventoryAvailableByItem" engine="groovy"
+             location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for an InventoryItem</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -283,8 +297,8 @@ under the License.
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="getProductInventoryAvailableBySupplier" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+    <service name="getProductInventoryAvailableBySupplier" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product by a Supplier</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -302,8 +316,8 @@ under the License.
         <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
-    <service name="countProductInventoryOnHand" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
+    <service name="countProductInventoryOnHand" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
         <description>Count Inventory On Hand for a Product constrained by a facilityId at a given date.</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -327,8 +341,8 @@ under the License.
         </attribute>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    <service name="countProductInventoryShippedForSales" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="countProductInventoryShippedForSales" auth="true" use-transaction="false">
+    <service name="countProductInventoryShippedForSales" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="countProductInventoryShippedForSales" auth="true" use-transaction="false">
         <description>Count Inventory Shipped for Sales Orders for a Product constrained by a facilityId in a given date range.</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -400,8 +414,8 @@ under the License.
         <!-- this service has no parameters IN or OUT -->
     </service>
 
-    <service name="balanceInventoryItems" engine="simple" transaction-timeout="600"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
+    <service name="balanceInventoryItems" engine="groovy" transaction-timeout="600"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="balanceInventoryItems" auth="true">
         <description>Balance inventory items based on the new item specified which will have available inventory that back-order (negative ATP) reservations can be reassigned to.</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -413,8 +427,8 @@ under the License.
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
     </service>
 
-    <service name="reassignInventoryReservations" engine="simple" transaction-timeout="600"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservations" auth="true">
+    <service name="reassignInventoryReservations" engine="groovy" transaction-timeout="600"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="reassignInventoryReservations" auth="true">
         <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -430,8 +444,8 @@ under the License.
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
         <attribute name="priority" type="String" mode="IN"  optional="true"/>
     </service>
-    <service name="reassignInventoryReservationsByAllocationPlan" engine="simple" transaction-timeout="600"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservationsByAllocationPlan" auth="true">
+    <service name="reassignInventoryReservationsByAllocationPlan" engine="groovy" transaction-timeout="600"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="reassignInventoryReservationsByAllocationPlan" auth="true">
         <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -448,8 +462,8 @@ under the License.
         <attribute name="priority" type="String" mode="IN"  optional="true"/>
         <attribute name="allocationPlanAndItemList" mode="IN" type="List"/>
     </service>
-    <service name="balanceOrderItemsWithNegativeReservations" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
+    <service name="balanceOrderItemsWithNegativeReservations" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="balanceOrderItemsWithNegativeReservations">
         <description>For each product with a negative reservation in the order, calls reassignInventoryReservations</description>
         <attribute name="orderId" type="String" mode="IN" optional="false">
         <type-validate>
@@ -725,8 +739,7 @@ under the License.
         <attribute name="receiveDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createInventoryTransfer" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryTransfer" auth="true">
+    <service name="createInventoryTransfer" engine="entity-auto" default-entity-name="InventoryTransfer" invoke="create" auth="true">
         <description>Create an inventory transfer.  Uses the prepareInventoryTransfer service; see comments there about transfer quantities and inventory items.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceInventoryTransfer"/>
@@ -737,8 +750,8 @@ under the License.
         </attribute>
         <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateInventoryTransfer" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryTransfer" auth="true">
+    <service name="updateInventoryTransfer" engine="groovy"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="updateInventoryTransfer" auth="true">
         <description>Update an inventory transfer record</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceInventoryTransfer"/>
@@ -779,8 +792,8 @@ under the License.
         </attribute>
     </service>
 
-    <service name="createInventoryTransfersForProduct" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryTransfersForProduct" auth="true">
+    <service name="createInventoryTransfersForProduct" engine="groovy"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryTransfersForProduct" auth="true">
         <description>Create inventory transfers for the given product and quantity. Return the units not available for transfers.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false">
@@ -1285,8 +1298,8 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemLabelAppl" auth="true">
+    <service name="createInventoryItemLabelAppl" default-entity-name="InventoryItemLabelAppl" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItemLabelAppl" auth="true">
         <description>Create an InventoryItemLabelAppl</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false">
@@ -1308,8 +1321,8 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="setOrderReservationPriority" engine="simple" invoke="setOrderReservationPriority"
-                location="component://product/minilang/product/inventory/InventoryServices.xml"  auth="true">
+    <service name="setOrderReservationPriority" engine="groovy" invoke="setOrderReservationPriority"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy"  auth="true">
         <description>set order priority</description>
         <attribute name="priority" mode="IN" type="String" optional="true"/>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
@@ -1330,13 +1343,13 @@ under the License.
        </attribute>
        <attribute name="LocationList" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="setLastInventoryCount" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="setLastInventoryCount">
+    <service name="setLastInventoryCount" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="setLastInventoryCount">
         <description>Service which run as EECA (on InventoryItemDetail entity) and updates lastInventoryCount for products available in facility in ProductFacility entity</description>
         <attribute name="inventoryItemId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="createUpdateFacilityGeoPoint" engine="simple" default-entity-name="GeoPoint"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createUpdateFacilityGeoPoint">
+    <service name="createUpdateFacilityGeoPoint" engine="groovy" default-entity-name="GeoPoint"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createUpdateFacilityGeoPoint">
         <description>Create or update GeoPoint assigned to facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="facilityId" mode="IN" type="String"/>
