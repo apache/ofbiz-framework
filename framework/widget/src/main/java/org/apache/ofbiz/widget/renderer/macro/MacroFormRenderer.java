@@ -215,6 +215,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
         this.request.setAttribute("id", modelFormField.getCurrentContainerId(context));
+        this.request.setAttribute("title", hyperlinkField.getTitle());
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(),
@@ -2971,12 +2972,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String event = "";
             String action = "";
             String imgSrc = "";
+            String imgTitle = "";
             String alt = "";
             String id = "";
             String uniqueItemName = "";
             String width = "";
             String height = "";
-            String imgTitle = "";
+            String title = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
                 event = modelFormField.getEvent();
@@ -2985,22 +2987,22 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
                 imgSrc = request.getAttribute("image").toString();
             }
-            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
-                alt = request.getAttribute("alternate").toString();
-            }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
             }
-            Integer size = Integer.valueOf("0");
+            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
+                alt = request.getAttribute("alternate").toString();
+            }
+            int size = 0;
             if (UtilValidate.isNotEmpty(request.getAttribute("descriptionSize"))) {
-                size = Integer.valueOf(request.getAttribute("descriptionSize").toString());
+                size = Integer.parseInt(request.getAttribute("descriptionSize").toString());
             }
+            // if description is truncated, always use description as title
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
-                imgTitle = description;
-                description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
-            }
-            if (UtilValidate.isEmpty(imgTitle)) {
-                imgTitle = modelFormField.getTitle(context);
+                title = description;
+                description = description.substring(0, size) + "…";
+            } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
+                title = request.getAttribute("title").toString();
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
@@ -3037,8 +3039,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(action);
             sr.append("\" imgSrc=\"");
             sr.append(imgSrc);
-            sr.append("\" title=\"");
+            sr.append("\" imgTitle=\"");
             sr.append(imgTitle);
+            sr.append("\" title=\"");
+            sr.append(title);
             sr.append("\" alternate=\"");
             sr.append(alt);
             sr.append("\" targetParameters=\"");

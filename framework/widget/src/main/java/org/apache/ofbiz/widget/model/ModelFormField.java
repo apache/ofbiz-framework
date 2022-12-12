@@ -3019,6 +3019,14 @@ public final class ModelFormField {
         }
 
         /**
+         * Gets title.
+         * @return the title
+         */
+        public String getTitle() {
+            return link.getTitle();
+        }
+
+        /**
          * Gets image.
          * @return the image
          */

@@ -330,6 +330,7 @@ public final class CommonWidgetModels {
         private final boolean encode;
         private final boolean fullPath;
         private final FlexibleStringExpander idExdr;
+        private final String title;
         private final Image image;
         private final String linkType; // anchor or hidden form
         private final FlexibleStringExpander nameExdr;
@@ -352,6 +353,7 @@ public final class CommonWidgetModels {
         public Link(Element linkElement) {
             this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
             this.idExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("id"));
+            this.title = linkElement.getAttribute("title");
             this.styleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("style"));
             this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
             this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
@@ -426,6 +428,7 @@ public final class CommonWidgetModels {
             this.encode = false;
             this.fullPath = false;
             this.idExdr = FlexibleStringExpander.getInstance("");
+            this.title = "";
             this.image = null;
             this.linkType = "";
             this.nameExdr = FlexibleStringExpander.getInstance("");
@@ -452,6 +455,7 @@ public final class CommonWidgetModels {
             this.encode = false;
             this.fullPath = false;
             this.idExdr = FlexibleStringExpander.getInstance("");
+            this.title = "";
             this.image = null;
             this.linkType = "";
             this.nameExdr = FlexibleStringExpander.getInstance("");
@@ -508,6 +512,10 @@ public final class CommonWidgetModels {
 
         public FlexibleStringExpander getIdExdr() {
             return idExdr;
+        }
+
+        public String getTitle() {
+            return this.title;
         }
 
         public Image getImage() {

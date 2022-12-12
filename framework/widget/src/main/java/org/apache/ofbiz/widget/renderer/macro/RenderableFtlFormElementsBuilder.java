@@ -414,12 +414,13 @@ public final class RenderableFtlFormElementsBuilder {
             String event = "";
             String action = "";
             String imgSrc = "";
+            String imgTitle = "";
             String alt = "";
             String id = "";
             String uniqueItemName = "";
             String width = "";
             String height = "";
-            String imgTitle = "";
+            String title = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent())
                     && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
@@ -429,23 +430,21 @@ public final class RenderableFtlFormElementsBuilder {
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
                 imgSrc = request.getAttribute("image").toString();
             }
-            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
-                alt = request.getAttribute("alternate").toString();
-            }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
+            }
+            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
+                alt = request.getAttribute("alternate").toString();
             }
             Integer size = Integer.valueOf("0");
             if (UtilValidate.isNotEmpty(request.getAttribute("descriptionSize"))) {
                 size = Integer.valueOf(request.getAttribute("descriptionSize").toString());
             }
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
-                imgTitle = description;
-                description = description.substring(0, size - 8) + "..."
-                        + description.substring(description.length() - 5);
-            }
-            if (UtilValidate.isEmpty(imgTitle)) {
-                imgTitle = modelFormField.getTitle(context);
+                title = description;
+                description = description.substring(0, size) + "…";
+            } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
+                title = request.getAttribute("title").toString();
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
@@ -463,7 +462,8 @@ public final class RenderableFtlFormElementsBuilder {
                     .stringParameter("event", event)
                     .stringParameter("action", action)
                     .stringParameter("imgSrc", imgSrc)
-                    .stringParameter("title", imgTitle)
+                    .stringParameter("imgTitle", imgTitle)
+                    .stringParameter("title", title)
                     .stringParameter("alternate", alt)
                     .mapParameter("targetParameters", parameterMap)
                     .stringParameter("linkUrl", linkUrl.toString())
