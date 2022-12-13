@@ -201,20 +201,4 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <!-- ============================== -->
-    <!-- Inventory Maintenance Services -->
-    <!-- ============================== -->
-    <service name="updateOldInventoryToDetailAll" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailAll" auth="true">
-        <description>Update Old Inventory To Detail</description>
-    </service>
-    <service name="updateOldInventoryToDetailSingle" engine="simple" require-new-transaction="true"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
-        <description>Update Old Inventory To Detail</description>
-        <attribute name="inventoryItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
-	     <type-validate>
-	         <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingInventoryItem"/>
-	     </type-validate>
-        </attribute>
-    </service>
 </services>
