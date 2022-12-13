@@ -452,32 +452,6 @@ under the License.
         </if-compare>
     </simple-method>
 
-    <simple-method method-name="updateOldInventoryToDetailAll" short-description="Update Old Inventory To Detail All">
-        <!-- find all InventoryItem records where oldQuantityOnHand or oldAvailableToPromise are not null -->
-        <entity-condition entity-name="InventoryItem" list="inventoryItemList">
-            <condition-list combine="or">
-                <condition-expr field-name="oldQuantityOnHand" operator="not-equals" value=""/>
-                <condition-expr field-name="oldAvailableToPromise" operator="not-equals" value=""/>
-            </condition-list>
-        </entity-condition>
-        <iterate list="inventoryItemList" entry="inventoryItem">
-            <set from-field="inventoryItem" field="callServiceMap.inventoryItem"/>
-            <call-service service-name="updateOldInventoryToDetailSingle" in-map-name="callServiceMap"/>
-            <clear-field field="callServiceMap.inventoryItem"/>
-        </iterate>
-    </simple-method>
-    <simple-method method-name="updateOldInventoryToDetailSingle" short-description="Update Old Inventory To Detail Single">
-        <!-- for each create an InventoryItemDetail representing the old QOH or ATP value, then null those fields -->
-        <set from-field="parameters.inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
-        <set from-field="parameters.inventoryItem.oldAvailableToPromise" field="createDetailMap.availableToPromiseDiff"/>
-        <set from-field="parameters.inventoryItem.oldQuantityOnHand" field="createDetailMap.quantityOnHandDiff"/>
-        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-
-        <clear-field field="parameters.inventoryItem.oldAvailableToPromise"/>
-        <clear-field field="parameters.inventoryItem.oldQuantityOnHand"/>
-        <store-value value-field="parameters.inventoryItem"/>
-    </simple-method>
-
     <simple-method method-name="checkProductInventoryDiscontinuation" short-description="Check Product Inventory Discontinuation" login-required="false">
         <set from-field="parameters.productId" field="productIdMap.productId"/>
         <find-by-primary-key entity-name="Product" map="productIdMap" value-field="product"/>

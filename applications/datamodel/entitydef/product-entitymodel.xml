@@ -1973,8 +1973,6 @@ under the License.
       <field name="quantityOnHandTotal" type="fixed-point"></field>
       <field name="availableToPromiseTotal" type="fixed-point"></field>
       <field name="accountingQuantityTotal" type="fixed-point"></field>
-      <field name="oldQuantityOnHand" col-name="QUANTITY_ON_HAND" type="fixed-point"></field>
-      <field name="oldAvailableToPromise" col-name="AVAILABLE_TO_PROMISE" type="fixed-point"></field>
       <field name="serialNumber" type="value"></field>
       <field name="softIdentifier" type="value"></field>
       <field name="activationNumber" type="value"></field>
@@ -2115,8 +2113,6 @@ under the License.
         <alias entity-alias="II" name="quantityOnHandTotal"/>
         <alias entity-alias="II" name="availableToPromiseTotal"/>
         <alias entity-alias="II" name="accountingQuantityTotal"/>
-        <alias entity-alias="II" name="oldQuantityOnHand"/>
-        <alias entity-alias="II" name="oldAvailableToPromise"/>
         <alias entity-alias="II" name="serialNumber"/>
         <alias entity-alias="II" name="softIdentifier"/>
         <alias entity-alias="II" name="activationNumber"/>
