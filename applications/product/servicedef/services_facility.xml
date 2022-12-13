@@ -1335,8 +1335,8 @@ under the License.
         <description>Service which run as EECA (on InventoryItemDetail entity) and updates lastInventoryCount for products available in facility in ProductFacility entity</description>
         <attribute name="inventoryItemId" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="createUpdateFacilityGeoPoint" engine="simple" default-entity-name="GeoPoint"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createUpdateFacilityGeoPoint">
+    <service name="createUpdateFacilityGeoPoint" engine="groovy" default-entity-name="GeoPoint"
+                location="component://product/groovyScripts/facility/facility/FacilityGeoServices.groovy" invoke="createUpdateFacilityGeoPoint">
         <description>Create or update GeoPoint assigned to facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="facilityId" mode="IN" type="String"/>
