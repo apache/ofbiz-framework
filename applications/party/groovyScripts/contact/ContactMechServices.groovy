@@ -252,7 +252,7 @@ Map updateFtpAddressWithHistory() {
             newContactMechResult = run service: 'updateContactMech', with: updateContactMechMap
         }
 
-        if (!resultMap.oldContactMechId.equals(newContactMechResult.contactMechId)) {
+        if (resultMap.oldContactMechId != newContactMechResult.contactMechId) {
             resultMap.put('contactMechId', newContactMechResult.contactMechId)
         }
     }

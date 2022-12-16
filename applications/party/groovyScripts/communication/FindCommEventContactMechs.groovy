@@ -30,7 +30,7 @@ partyIdFrom = context.partyIdFrom
 partyIdTo = context.partyIdTo
 
 if (parameters.communicationEventTypeId) {
-    if ('EMAIL_COMMUNICATION'.equals(parameters.communicationEventTypeId)) {
+    if ('EMAIL_COMMUNICATION' == parameters.communicationEventTypeId) {
         userEmailAddresses = from('PartyContactWithPurpose')
                 .where('contactMechTypeId', 'EMAIL_ADDRESS' , 'partyId', partyIdFrom)
                 .filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate')

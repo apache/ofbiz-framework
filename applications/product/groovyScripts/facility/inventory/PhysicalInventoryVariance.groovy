@@ -20,7 +20,7 @@
 import org.apache.ofbiz.entity.condition.EntityCondition
 
 // get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM
-if (inventoryItem && 'NON_SERIAL_INV_ITEM'.equals(inventoryItem.inventoryItemTypeId)) {
+if (inventoryItem && 'NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
     physicalInventoryAndVariances = from('PhysicalInventoryAndVariance')
             .where('inventoryItemId', inventoryItemId).orderBy('-physicalInventoryDate', '-physicalInventoryId').queryList()
     physicalInventoryAndVarianceDatas = new ArrayList(physicalInventoryAndVariances.size())

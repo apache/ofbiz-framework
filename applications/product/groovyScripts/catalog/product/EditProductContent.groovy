@@ -133,9 +133,9 @@ if (fileType) {
                     File[] files = targetDir.listFiles()
                     for (File file : files) {
                         if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.') + 1))
-                                && !'original'.equals(fileType)) {
+                                && 'original' != fileType) {
                             file.delete()
-                        } else if (file.isFile() && 'original'.equals(fileType) && !file.getName().equals(defaultFileName)) {
+                        } else if (file.isFile() && 'original' == fileType && file.getName() != defaultFileName) {
                             file.delete()
                         }
                     }
@@ -143,7 +143,7 @@ if (fileType) {
                 } else {
                     File[] files = targetDir.listFiles()
                     for (File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + '.')) {
+                        if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) {
                             file.delete()
                         }
                     }
@@ -161,11 +161,11 @@ if (fileType) {
             product.set(fileType + 'ImageUrl', imageUrl)
 
             // call scaleImageInAllSize
-            if ('original'.equals(fileType)) {
+            if ('original' == fileType) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, 'main', '0')
 
-                if (result.containsKey('responseMessage') && 'success'.equals(result.get('responseMessage'))) {
+                if (result.containsKey('responseMessage') && 'success' == result.get('responseMessage')) {
                     imgMap = result.get('imageUrlMap')
                     imgMap.each { key, value ->
                         product.set(key + 'ImageUrl', value)

@@ -53,7 +53,7 @@ abstract class GroovyBaseScript extends Script {
                     ? this.binding.getVariable('locale')
                     : this.binding.getVariable('parameters').locale
         }
-        if (serviceName.equals('createAnonFile')) {
+        if (serviceName == 'createAnonFile') {
             String fileName = inputMap.get('dataResourceName')
             String fileNameAndPath = inputMap.get('objectInfo')
             File file = new File(fileNameAndPath)

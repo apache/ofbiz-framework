@@ -223,7 +223,7 @@ class AutoPaymentTests extends OFBizTestCase {
                 .where('paymentGroupId', paymentGroupId)
                 .queryList()
         GenericValue firstPaymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
-        if (firstPaymentGroupMemberAndTrans && !'FINACT_TRNS_APPROVED'.equals(firstPaymentGroupMemberAndTrans.finAccountTransStatusId)) {
+        if (firstPaymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != firstPaymentGroupMemberAndTrans.finAccountTransStatusId) {
             for (GenericValue aymentGroupMemberAndTrans : paymentGroupMemberAndTransList) {
                 assert aymentGroupMemberAndTrans.thruDate
                 assert aymentGroupMemberAndTrans.statusId == 'PMNT_VOID'

@@ -505,7 +505,7 @@ Map createProductInCategory() {
         String productFeatureId = entry.getValue()
         logInfo("Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]")
         Map createPfaMap = [productId: productId, productFeatureId: productFeatureId]
-        if (parameters.productFeatureSelectableByType[productFeatureTypeId].equals('Y')) {
+        if (parameters.productFeatureSelectableByType[productFeatureTypeId] == 'Y') {
             createPfaMap.productFeatureApplTypeId = 'SELECTABLE_FEATURE'
             hasSelectableFeatures = 'Y'
         } else {
@@ -516,7 +516,7 @@ Map createProductInCategory() {
     }
 
     // set isVirtual based on hasSelectableFeatures
-    if (hasSelectableFeatures.equals('Y')) {
+    if (hasSelectableFeatures == 'Y') {
         GenericValue newProduct = from('Product').where(parameters).queryOne()
         newProduct.isVirtual = 'Y'
         newProduct.store()
@@ -754,7 +754,7 @@ Map productCategoryGenericPermission() {
  */
 Map checkCategoryPermissionWithViewPurchaseAllow() {
     Map genericResult = run service: 'productCategoryGenericPermission', with: parameters
-    if (genericResult.hasPermission.equals(false)) {
+    if (genericResult.hasPermission == false) {
         Map result = [
             hasPermission: genericResult.hasPermission,
             failMessage: genericResult.failMessage
@@ -785,14 +785,14 @@ Map checkCategoryPermissionWithViewPurchaseAllow() {
     for (Map prodCatalogCategory : prodCatalogCategoryList) {
         // Do not do a permission check, unless the ProdCatalog requires it
         GenericValue prodCatalog = from('ProdCatalog').where([prodCatalogId: prodCatalogCategory.prodCatalogId]).queryOne()
-        if (prodCatalog.viewAllowPermReqd.equals('Y')
+        if (prodCatalog.viewAllowPermReqd == 'Y'
             && !security.hasEntityPermission('CATALOG_VIEW', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
             failMessage = UtilProperties.getMessage('CommonUiLabels',
                     'CommmonCallingMethodPermissionError', [callingMethodName, 'CATALOG_VIEW_ALLOW'], parameters.locale)
             hasPermission = false
         }
-        if (prodCatalog.purchaseAllowPermReqd.equals('Y')
+        if (prodCatalog.purchaseAllowPermReqd == 'Y'
             && !security.hasEntityPermission('CATALOG_PURCHASE', '_ALLOW', parameters.userLogin)) {
             logVerbose('Permission check failed, user does not have permission')
             failMessage = UtilProperties.getMessage('CommonUiLabels',

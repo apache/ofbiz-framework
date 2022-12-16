@@ -29,7 +29,7 @@ cart = session.getAttribute('shoppingCart')
 
 if (cart) {
     createNewShipGroup = request.getParameter('createNewShipGroup')
-    if ('Y'.equals(createNewShipGroup)) {
+    if ('Y' == createNewShipGroup) {
         cart.addShipInfo()
     }
 
@@ -45,8 +45,8 @@ if (cart) {
     // nuke the event messages
     request.removeAttribute('_EVENT_MESSAGE_')
 
-    if ('SALES_ORDER'.equals(cart.getOrderType())) {
-        if (!'_NA_'.equals(orderPartyId)) {
+    if ('SALES_ORDER' == cart.getOrderType()) {
+        if ('_NA_' != orderPartyId) {
             orderParty = from('Party').where('partyId', orderPartyId).queryOne()
             if (orderParty) {
                 shippingContactMechList = ContactHelper.getContactMech(orderParty, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)
@@ -57,7 +57,7 @@ if (cart) {
             }
         }
         // Ship to another party
-        if (!context.shipToPartyId.equals(orderPartyId)) {
+        if (context.shipToPartyId != orderPartyId) {
             shipToParty = from('Party').where('partyId', context.shipToPartyId).queryOne()
             if (shipToParty) {
                 shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)
@@ -81,7 +81,7 @@ if (cart) {
         context.productStoreFacilities = productStoreFacilities
 } else {
         // Purchase order
-        if (!'_NA_'.equals(orderPartyId)) {
+        if ('_NA_' != orderPartyId) {
             orderParty = from('Party').where('partyId', orderPartyId).queryOne()
             if (orderParty) {
                 orderPerson = orderParty.getRelatedOne('Person', false)
@@ -114,7 +114,7 @@ if (cart) {
             context.facilityMaps = facilityMaps
         }
         // Ship to another party
-        if (!context.shipToPartyId.equals(orderPartyId)) {
+        if (context.shipToPartyId != orderPartyId) {
             shipToParty = from('Party').where('partyId', context.shipToPartyId).queryOne()
             if (shipToParty)
         {

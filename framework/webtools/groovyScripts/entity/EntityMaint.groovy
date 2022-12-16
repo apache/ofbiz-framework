@@ -66,7 +66,7 @@ entities.each { entityName ->
     if (!entityGroups.contains(entityGroupName)) {
         return
     }
-    if (filterByGroupName && !filterByGroupName.equals(entityGroupName)) {
+    if (filterByGroupName && filterByGroupName != entityGroupName) {
         return
     }
     if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase().replace(' ', ''))) {

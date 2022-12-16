@@ -69,7 +69,7 @@ if (shipmentPlans) {
                 if (ProductionRunHelper.hasTask(delegator, selectWorkEffortNameParameter, oneProductionRun.getGenericValue().workEffortId)) {
                     product = oneProductionRun.getProductProduced()
                     primaryCategory = product.primaryProductCategoryId
-                    if (primaryCategory && selectPrimaryCategoryIdParameter.equals(primaryCategory)) {
+                    if (primaryCategory && selectPrimaryCategoryIdParameter == primaryCategory) {
                         productId = product.productId
                         productIdToProduct.put(productId, product)
                         if (!productIdToQuantity.containsKey(productId)) {

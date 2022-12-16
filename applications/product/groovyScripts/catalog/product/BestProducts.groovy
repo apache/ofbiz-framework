@@ -52,7 +52,7 @@ orderHeaderList.each { orderHeader ->
         inListFlag = false
 
         bestSellingProducts.each { bestSellingProduct ->
-            if ((bestSellingProduct.productId).equals(orderItem.productId) && (bestSellingProduct.currencyUom).equals(orderHeader.currencyUom)) {
+            if (bestSellingProduct.productId == orderItem.productId && bestSellingProduct.currencyUom == orderHeader.currencyUom) {
                 inListFlag = true
                 bestSellingProduct.amount += amount
                 bestSellingProduct.qtyOrdered += qtyOrdered

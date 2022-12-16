@@ -38,7 +38,7 @@ if (parameters.entityName) {
 int maxRecordsPerFile = maxRecStr ? (maxRecStr as int) : 0
 
 preConfiguredSetName = parameters.preConfiguredSetName
-if ('Product1'.equals(preConfiguredSetName)) {
+if ('Product1' == preConfiguredSetName) {
     passedEntityNames = [
             'DataResource',
             'Facility',
@@ -50,7 +50,7 @@ if ('Product1'.equals(preConfiguredSetName)) {
             'ProductPriceRule',
             'ProductPromo'
     ] as LinkedHashSet
-} else if ('Product2'.equals(preConfiguredSetName)) {
+} else if ('Product2' == preConfiguredSetName) {
     passedEntityNames = [
             'Content',
             'ElectronicText',
@@ -73,7 +73,7 @@ if ('Product1'.equals(preConfiguredSetName)) {
             'ProductPromoProduct',
             'ProductPromoRule'
     ] as LinkedHashSet
-} else if ('Product3'.equals(preConfiguredSetName)) {
+} else if ('Product3' == preConfiguredSetName) {
     passedEntityNames = [
             'ProdCatalogInvFacility',
             'ProductContent',
@@ -87,13 +87,13 @@ if ('Product1'.equals(preConfiguredSetName)) {
             'ProductPromoCodeParty',
             'ProductPromoCond'
     ] as LinkedHashSet
-} else if ('Product4'.equals(preConfiguredSetName)) {
+} else if ('Product4' == preConfiguredSetName) {
     passedEntityNames = [
             'InventoryItem',
             'ProductFeatureCatGrpAppl',
             'ProductFeatureGroupAppl'
     ] as LinkedHashSet
-} else if ('CatalogExport'.equals(preConfiguredSetName)) {
+} else if ('CatalogExport' == preConfiguredSetName) {
     passedEntityNames = [
             'ProdCatalogCategoryType',
             'ProdCatalog',
@@ -150,7 +150,7 @@ if ('Product1'.equals(preConfiguredSetName)) {
 if (entitySyncId) {
     passedEntityNames = org.apache.ofbiz.entityext.synchronization.EntitySyncContext.getEntitySyncModelNamesToUse(dispatcher, entitySyncId)
 }
-checkAll = 'true'.equals(parameters.checkAll)
+checkAll = 'true' == parameters.checkAll
 tobrowser = parameters.tobrowser != null
 context.tobrowser = tobrowser
 

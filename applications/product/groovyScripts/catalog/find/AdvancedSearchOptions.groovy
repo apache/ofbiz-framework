@@ -38,7 +38,7 @@ if (searchCategoryId) {
 productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()))
 
 searchOperator = parameters.SEARCH_OPERATOR
-if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
+if ('AND' != searchOperator && 'OR' != searchOperator) {
     searchOperator = 'OR'
 }
 

@@ -41,7 +41,7 @@ inventoryItemProducts.each { productId ->
         totalInventoryCost = result.get('totalInventoryCost')
         productAverageCost = result.get('productAverageCost')
         currencyUomId = result.get('currencyUomId')
-        if (!totalQuantityOnHand.equals(BigDecimal.ZERO)) {
+        if (totalQuantityOnHand != BigDecimal.ZERO) {
             inventoryAverageCosts.add(UtilMisc.toMap('productId', productId, 'totalQuantityOnHand', totalQuantityOnHand,
                     'productAverageCost', productAverageCost, 'totalInventoryCost', totalInventoryCost, 'currencyUomId', currencyUomId))
         }

@@ -63,7 +63,7 @@ try {
 surveyPageList = from('SurveyPage').where('surveyId', surveyId).orderBy('sequenceNum').queryList()
 surveyMultiRespList = from('SurveyMultiResp').where('surveyId', surveyId).orderBy('multiRespTitle').queryList()
 
-if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && 'OPTION'.equals(surveyQuestion.surveyQuestionTypeId)) {
+if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && 'OPTION' == surveyQuestion.surveyQuestionTypeId) {
     // get the options
     questionOptions = from('SurveyQuestionOption').where('surveyQuestionId', surveyQuestionId).orderBy('sequenceNum').queryList()
     context.questionOptions = questionOptions
@@ -80,7 +80,7 @@ if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && 'OPTION'.equals(sur
 surveyQuestionCategoryId = parameters.surveyQuestionCategoryId
 surveyQuestionCategory = null
 categoryQuestions = null
-if (surveyQuestionCategoryId && 'Y'.equals(parameters.applyQuestionFromCategory)) {
+if (surveyQuestionCategoryId && 'Y' == parameters.applyQuestionFromCategory) {
     surveyQuestionCategory = from('SurveyQuestionCategory').where('surveyQuestionCategoryId', surveyQuestionCategoryId).queryOne()
     if (surveyQuestionCategory) {
         categoryQuestions = surveyQuestionCategory.getRelated('SurveyQuestion', null, null, false)

@@ -36,7 +36,7 @@ if (delegatorName.contains('default#')) {
 aif = ArtifactInfoFactory.getArtifactInfoFactory(delegatorName)
 context.aif = aif
 artifactInfo = null
-if ('search'.equals(parameters.findType)) {
+if ('search' == parameters.findType) {
     artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type)
     if (artifactInfoSet.size() == 1) {
         artifactInfo = artifactInfoSet.iterator().next()

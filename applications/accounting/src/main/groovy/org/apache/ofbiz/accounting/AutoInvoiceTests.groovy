@@ -130,7 +130,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         assert invoiceItems
 
         for (GenericValue invoiceItem : invoiceItems) {
-            if (invoiceItem.productId && 'WG-9943-B3'.equals(invoiceItem.productId)) {
+            if (invoiceItem.productId && 'WG-9943-B3' == invoiceItem.productId) {
                 invoiceTotal = invoiceTotal.add(invoiceItem.quantity * (invoiceItem.amount * 0.03 + 1))
             }
         }
@@ -280,7 +280,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         GenericValue paymentGroupMemberAndTrans = from('PmtGrpMembrPaymentAndFinAcctTrans')
                 .where('paymentGroupId', '9000')
                 .queryFirst()
-        if (paymentGroupMemberAndTrans && !'FINACT_TRNS_APPROVED'.equals(paymentGroupMemberAndTrans.finAccountTransStatusId)) {
+        if (paymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != paymentGroupMemberAndTrans.finAccountTransStatusId) {
             BigDecimal tempBig = new BigDecimal('82.86')
 
             BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)

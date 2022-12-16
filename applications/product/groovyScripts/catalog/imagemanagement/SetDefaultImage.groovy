@@ -111,7 +111,7 @@ if (fileType) {
 
     defaultFileName = 'temp_' + dataResourceName
     checkPathFile = imageManagementPath + '/' + productId + '/' + dataResourceName
-    if (checkPathFile.equals(productContentList.get(0).drObjectInfo)) {
+    if (checkPathFile == productContentList.get(0).drObjectInfo) {
         BufferedImage bufImg = ImageIO.read(new File(imageManagementPath + '/' + productId + '/' + dataResourceName))
     } else {
         BufferedImage bufImg = ImageIO.read(new File(productContentList.get(0).drObjectInfo))
@@ -146,13 +146,13 @@ if (fileType) {
                 if (!filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName)) file.delete()
+                        if (file.isFile() && file.getName() != defaultFileName) file.delete()
                     }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + '.')) file.delete()
+                        if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) file.delete()
                     }
                 }
             } catch (Exception e) {
@@ -168,11 +168,11 @@ if (fileType) {
             product.set(fileType + 'ImageUrl', imageUrl)
 
             // call scaleImageInAllSize
-            if ('original'.equals(fileType)) {
+            if ('original' == fileType) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, 'main', '0')
 
-                if (result.containsKey('responseMessage') && 'success'.equals(result.get('responseMessage'))) {
+                if (result.containsKey('responseMessage') && 'success' == result.get('responseMessage')) {
                     imgMap = result.get('imageUrlMap')
                     imgMap.each { key, value ->
                         product.set(key + 'ImageUrl', value)

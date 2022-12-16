@@ -138,7 +138,7 @@ if (orderId) {
             context.carrierShipmentBoxTypes = carrierShipmentBoxTypes
         }
 
-        if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
+        if ('ORDER_APPROVED' == orderHeader.statusId) {
             if (shipGroupSeqId) {
                 if (!shipment) {
 

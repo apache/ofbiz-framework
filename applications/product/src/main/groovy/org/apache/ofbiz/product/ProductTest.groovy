@@ -47,8 +47,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert internalName.equals(product.internalName)
-        assert productTypeId.equals(product.productTypeId)
+        assert internalName == product.internalName
+        assert productTypeId == product.productTypeId
     }
 
     void testUpdateProduct() {
@@ -69,8 +69,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert productName.equals(product.productName)
-        assert description.equals(product.description)
+        assert productName == product.productName
+        assert description == product.description
     }
 
     void testDuplicateProduct() {
@@ -89,9 +89,9 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert 'Test_type'.equals(product.productTypeId)
-        assert 'Test_name_C'.equals(product.productName)
-        assert 'This is product description'.equals(product.description)
+        assert 'Test_type' == product.productTypeId
+        assert 'Test_name_C' == product.productName
+        assert 'This is product description' == product.description
     }
 
     void testQuickAddVariant() {
@@ -112,8 +112,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productVariantId)
                 .queryOne()
         assert product
-        assert 'N'.equals(product.isVirtual)
-        assert 'Y'.equals(product.isVariant)
+        assert 'N' == product.isVirtual
+        assert 'Y' == product.isVariant
         assert !product.primaryProductCategoryId
 
         GenericValue productAssoc = from('ProductAssoc')
@@ -187,9 +187,9 @@ class ProductTest extends OFBizTestCase {
                 .where('productReviewId', serviceResult.productReviewId)
                 .queryOne()
         assert productReview
-        assert productId.equals(review.productId)
-        assert productStoreId.equals(review.productStoreId)
-        assert productReview.equals(review.productReview)
+        assert productId == review.productId
+        assert productStoreId == review.productStoreId
+        assert productReview == review.productReview
         assert productRating.compareTo(review.productRating) == 0
     }
 
@@ -211,7 +211,7 @@ class ProductTest extends OFBizTestCase {
                 .where('productReviewId', productReviewId)
                 .queryOne()
         assert productReview
-        assert productReview.equals(review.productReview)
+        assert productReview == review.productReview
         assert productRating.compareTo(review.productRating) == 0
     }
 
@@ -358,6 +358,6 @@ class ProductTest extends OFBizTestCase {
                 .where('productCategoryId', productCategoryId)
                 .queryOne()
         assert productCategory
-        assert 'USAGE_CATEGORY'.equals(productCategory.productCategoryTypeId)
+        assert 'USAGE_CATEGORY' == productCategory.productCategoryTypeId
     }
 }

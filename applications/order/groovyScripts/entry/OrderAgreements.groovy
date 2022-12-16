@@ -27,7 +27,7 @@ shoppingCart = ShoppingCartEvents.getCartObject(request)
 context.cart = shoppingCart
 
 // get applicable agreements for order entry
-if ('PURCHASE_ORDER'.equals(shoppingCart.getOrderType())) {
+if ('PURCHASE_ORDER' == shoppingCart.getOrderType()) {
 
     // for a purchase order, orderPartyId = billFromVendor (the supplier)
     supplierPartyId = shoppingCart.getOrderPartyId()

@@ -24,7 +24,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 
 import java.sql.Timestamp
 
-if ('Y'.equals(parameters.isSearch)) {
+if ('Y' == parameters.isSearch) {
     fromDate = parameters.fromDate
     thruDate = parameters.thruDate
     partyId = parameters.partyId
@@ -66,7 +66,7 @@ if ('Y'.equals(parameters.isSearch)) {
             salesAgentAndTermAmtMap = [:]
             salesInvoiceIds = []
             invoiceItemAndAssocProductList.each { invoiceItemAndAssocProduct ->
-                if (productId.equals(invoiceItemAndAssocProduct.productId)) {
+                if (productId == invoiceItemAndAssocProduct.productId) {
                     partyIdTermAmountMap = [:]
                     partyIdTermAmountKey = null
                     assocProductId = invoiceItemAndAssocProduct.productId

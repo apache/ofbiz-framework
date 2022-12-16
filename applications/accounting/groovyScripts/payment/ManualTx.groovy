@@ -56,10 +56,10 @@ if (paymentMethodId) {
 
         // party information
         party = paymentMethod.getRelatedOne('Party', false)
-        if (party && 'PERSON'.equals(party.partyTypeId)) {
+        if (party && 'PERSON' == party.partyTypeId) {
             person = party.getRelatedOne('Person', false)
             context.person = person
-        } else if (party && 'PARTY_GROUP'.equals(party.partyTypeId)) {
+        } else if (party && 'PARTY_GROUP' == party.partyTypeId) {
             partyGroup = party.getRelatedOne('PartyGroup', false)
             context.partyGroup = partyGroup
         }

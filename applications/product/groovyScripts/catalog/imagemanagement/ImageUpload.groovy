@@ -138,11 +138,11 @@ if (fileType) {
             product.set(fileType + 'ImageUrl', imageUrl)
 
             // call scaleImageInAllSize
-            if ('original'.equals(fileType)) {
+            if ('original' == fileType) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, 'main', '0')
 
-                if (result.containsKey('responseMessage') && 'success'.equals(result.get('responseMessage'))) {
+                if (result.containsKey('responseMessage') && 'success' == result.get('responseMessage')) {
                     imgMap = result.get('imageUrlMap')
                     imgMap.each { key, value ->
                         product.set(key + 'ImageUrl', value)

@@ -33,9 +33,9 @@ itemQuantitiesToReceive = session.getAttribute('purchaseOrderItemQuantitiesToRec
 if (itemQuantitiesToReceive) {
     sessionShipmentId = itemQuantitiesToReceive._shipmentId
     sessionOrderId = itemQuantitiesToReceive._orderId
-    if ((sessionShipmentId && !sessionShipmentId.equals(shipmentId)) ||
-        ((sessionOrderId && !sessionOrderId.equals(orderId)))        ||
-         'Y'.equals(request.getParameter('clearAll'))) {
+    if ((sessionShipmentId && sessionShipmentId != shipmentId) ||
+        ((sessionOrderId && sessionOrderId != orderId))        ||
+            'Y' == request.getParameter('clearAll')) {
 
         // Clear the map if the shipmentId or orderId are different than the current ones, or
         // if the clearAll parameter is present
@@ -49,7 +49,7 @@ if (!shipment) {
     return
 }
 
-isPurchaseShipment = 'PURCHASE_SHIPMENT'.equals(shipment.shipmentTypeId)
+isPurchaseShipment = 'PURCHASE_SHIPMENT' == shipment.shipmentTypeId
 context.isPurchaseShipment = isPurchaseShipment
 if (!isPurchaseShipment) {
     return
@@ -78,7 +78,7 @@ if (!orderHeader) {
     return
 }
 
-isPurchaseOrder = 'PURCHASE_ORDER'.equals(orderHeader.orderTypeId)
+isPurchaseOrder = 'PURCHASE_ORDER' == orderHeader.orderTypeId
 context.isPurchaseOrder = isPurchaseOrder
 if (!isPurchaseOrder) {
     return

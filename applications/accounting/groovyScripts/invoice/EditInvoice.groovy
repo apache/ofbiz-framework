@@ -38,7 +38,7 @@ if (invoice) {
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
     // home of the customer.)
-    if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
+    if ('PURCHASE_INVOICE' == invoice.invoiceTypeId) {
         billingAddress = InvoiceWorker.getSendFromAddress(invoice)
     } else {
         billingAddress = InvoiceWorker.getBillToAddress(invoice)
@@ -53,7 +53,7 @@ if (invoice) {
     shippingAddress = InvoiceWorker.getShippingAddress(invoice)
     context.shippingAddress = shippingAddress
 
-    if (currency && !invoice.getString('currencyUomId').equals(currency)) {
+    if (currency && invoice.getString('currencyUomId') != currency) {
         conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)
         invoice.currencyUomId = currency
         invoice.invoiceMessage = ' converted from original with a rate of: ' + conversionRate.setScale(8, rounding)
@@ -68,7 +68,7 @@ if (invoice) {
         // get party tax id for VAT taxes: they are required in invoices by EU
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
         taxRate = invoiceItem.getRelatedOne('TaxAuthorityRateProduct', false)
-        if (taxRate && 'VAT_TAX'.equals(taxRate.taxAuthorityRateTypeId)) {
+        if (taxRate && 'VAT_TAX' == taxRate.taxAuthorityRateTypeId) {
             taxInfo = from('PartyTaxAuthInfo')
                 .where('partyId', billToParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
                 .filterByDate(invoice.invoiceDate)
@@ -109,12 +109,12 @@ if (invoice) {
 
     if (billingAddress) {
         sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
-            if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+            if (sendingTaxInfo.taxAuthGeoId == billingAddress.countryGeoId) {
                 sendingPartyTaxId = sendingTaxInfos[i - 1].partyTaxId
             }
         }
         billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
-            if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+            if (billingTaxInfo.taxAuthGeoId == billingAddress.countryGeoId) {
                 billToPartyTaxId = billingTaxInfos[i - 1].partyTaxId
             }
         }

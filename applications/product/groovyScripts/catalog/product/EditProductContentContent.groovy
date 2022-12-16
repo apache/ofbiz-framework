@@ -77,7 +77,7 @@ if (contentId) {
 }
 
 //Email
-if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
+if ('FULFILLMENT_EMAIL' == productContentTypeId) {
     emailData = [:]
     if (contentId && content) {
         subjectDr = content.getRelatedOne('DataResource', false)
@@ -101,7 +101,7 @@ if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
 
     context.contentFormName = 'EditProductContentEmail'
     context.emailData = emailData
-} else if ('DIGITAL_DOWNLOAD'.equals(productContentTypeId)) {
+} else if ('DIGITAL_DOWNLOAD' == productContentTypeId) {
     downloadData = [:]
     if (contentId && content) {
         downloadDr = content.getRelatedOne('DataResource', false)
@@ -115,7 +115,7 @@ if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
     }
     context.contentFormName = 'EditProductContentDownload'
     context.downloadData = downloadData
-} else if ('FULFILLMENT_EXTERNAL'.equals(productContentTypeId)) {
+} else if ('FULFILLMENT_EXTERNAL' == productContentTypeId) {
     context.contentFormName = 'EditProductContentExternal'
 } else if (productContentTypeId && productContentTypeId.indexOf('_IMAGE') > -1) {
     context.contentFormName = 'EditProductContentImage'
@@ -137,11 +137,11 @@ if ('FULFILLMENT_EMAIL'.equals(productContentTypeId)) {
 }
 if (productContentTypeId) {
     productContentType = from('ProductContentType').where('productContentTypeId', productContentTypeId).queryOne()
-    if (productContentType && 'DIGITAL_DOWNLOAD'.equals(productContentType.parentTypeId)) {
+    if (productContentType && 'DIGITAL_DOWNLOAD' == productContentType.parentTypeId) {
         context.contentFormName = 'EditProductContentDownload'
     }
 }
-if ('PAGE_TITLE'.equals(productContentTypeId) || 'META_KEYWORD'.equals(productContentTypeId) || 'META_DESCRIPTION'.equals(productContentTypeId)) {
+if ('PAGE_TITLE' == productContentTypeId || 'META_KEYWORD' == productContentTypeId || 'META_DESCRIPTION' == productContentTypeId) {
     context.contentFormName = 'EditProductContentSEO'
 }
 

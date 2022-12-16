@@ -59,7 +59,7 @@ context.prodCatalog = prodCatalog
 context.prodCatalogId = prodCatalogId
 context.showScreen = showScreen
 
-if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem))){
+if('productcategory' == tabButtonItem || 'product' == tabButtonItem){
     productCategory = null
     productCategoryId = parameters.productCategoryId
     showErrorMsg = 'N'
@@ -79,7 +79,7 @@ if(('productcategory'.equals(tabButtonItem)) || ('product'.equals(tabButtonItem)
     context.productCategoryId = productCategoryId
     context.productCategory = productCategory
 
-    if('product'.equals(tabButtonItem)){
+    if('product' == tabButtonItem){
         productId = parameters.productId
         product = null
 

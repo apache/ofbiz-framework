@@ -53,7 +53,7 @@ if (action) {
                 productPrices = product.getRelated('ProductPrice', null, null, false)
                 if (productPrices) {
                     productPrices.each { productPrice ->
-                        if (("DEFAULT_PRICE").equals(productPrice.productPriceTypeId)) {
+                        if (("DEFAULT_PRICE") == productPrice.productPriceTypeId) {
                             retailPrice = productPrice.getDouble('price')
                         }
                     }

@@ -153,7 +153,7 @@ if (transactionTotals) {
             accountMap.balance = BigDecimal.ZERO
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D'.equals(transactionTotal.debitCreditFlag)) {
+        if ('D' == transactionTotal.debitCreditFlag) {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)

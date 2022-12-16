@@ -51,8 +51,8 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert contactMech
-        assert contactMechId.equals(serviceCtx.contactMechId)
-        assert contactMech.infoString.equals(serviceCtx.emailAddress)
+        assert contactMechId == serviceCtx.contactMechId
+        assert contactMech.infoString == serviceCtx.emailAddress
 
         // now update with changing the email address, a new record will be created in ContactMech entity this time
         serviceResult.clear()
@@ -67,8 +67,8 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', newContactMechId)
                 .queryOne()
         assert contactMech
-        assert !contactMechId.equals(newContactMechId)
-        assert contactMech.infoString.equals(serviceCtx.emailAddress)
+        assert contactMechId != newContactMechId
+        assert contactMech.infoString == serviceCtx.emailAddress
     }
 
     void testUpdatePartyTelecomNumber() {
@@ -92,14 +92,14 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert contactMech
-        assert contactMechId.equals(serviceCtx.contactMechId)
+        assert contactMechId == serviceCtx.contactMechId
 
         GenericValue telecomNumber = from('TelecomNumber')
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert telecomNumber
-        assert telecomNumber.areaCode.equals(serviceCtx.areaCode)
-        assert telecomNumber.contactNumber.equals(serviceCtx.contactNumber)
+        assert telecomNumber.areaCode == serviceCtx.areaCode
+        assert telecomNumber.contactNumber == serviceCtx.contactNumber
 
         // try now with changing the telecom number, a new record will be created in ContactMech, TelecomNumber entity this time
         serviceResult.clear()
@@ -114,15 +114,15 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', newContactMechId)
                 .queryOne()
         assert contactMech
-        assert !contactMechId.equals(newContactMechId)
+        assert contactMechId != newContactMechId
 
         telecomNumber.clear()
         telecomNumber = from('TelecomNumber')
                 .where('contactMechId', newContactMechId)
                 .queryOne()
         assert telecomNumber
-        assert telecomNumber.areaCode.equals(serviceCtx.areaCode)
-        assert telecomNumber.contactNumber.equals(serviceCtx.contactNumber)
+        assert telecomNumber.areaCode == serviceCtx.areaCode
+        assert telecomNumber.contactNumber == serviceCtx.contactNumber
     }
 
     void testUpdatePartyPostalAddress() {
@@ -137,7 +137,7 @@ class PartyContactMechTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String contactMechId = serviceResult.contactMechId
         assert contactMechId
-        assert contactMechId.equals(serviceCtx.contactMechId)
+        assert contactMechId == serviceCtx.contactMechId
 
         GenericValue contactMech = from('ContactMech')
                 .where('contactMechId', contactMechId)
@@ -149,9 +149,9 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert postalAddress
-        assert postalAddress.address1.equals(serviceCtx.address1)
-        assert postalAddress.stateProvinceGeoId.equals(serviceCtx.stateProvinceGeoId)
-        assert postalAddress.postalCode.equals(serviceCtx.postalCode)
+        assert postalAddress.address1 == serviceCtx.address1
+        assert postalAddress.stateProvinceGeoId == serviceCtx.stateProvinceGeoId
+        assert postalAddress.postalCode == serviceCtx.postalCode
 
         // try now with changing the postal address fields, a new record will be created in ContactMech, PostalAddress entity this time
         serviceResult.clear()
@@ -167,15 +167,15 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', newContactMechId)
                 .queryOne()
         assert contactMech
-        assert !contactMechId.equals(newContactMechId)
+        assert contactMechId != newContactMechId
 
         postalAddress.clear()
         postalAddress = from('PostalAddress')
                 .where('contactMechId', newContactMechId)
                 .queryOne()
         assert postalAddress
-        assert postalAddress.stateProvinceGeoId.equals(serviceCtx.stateProvinceGeoId)
-        assert postalAddress.postalCode.equals(serviceCtx.postalCode)
+        assert postalAddress.stateProvinceGeoId == serviceCtx.stateProvinceGeoId
+        assert postalAddress.postalCode == serviceCtx.postalCode
     }
 
     void testCreatePartyEmailAddress() {
@@ -198,22 +198,22 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert contactMech
-        assert emailAddress.equals(contactMech.infoString)
+        assert emailAddress == contactMech.infoString
 
         GenericValue partyContactMech = from('PartyContactMech')
                 .where('contactMechId', contactMechId)
                 .filterByDate().orderBy('fromDate')
                 .queryFirst()
         assert partyContactMech
-        assert partyId.equals(partyContactMech.partyId)
+        assert partyId == partyContactMech.partyId
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
                 .where('contactMechId', contactMechId)
                 .filterByDate().orderBy('fromDate')
                 .queryFirst()
         assert partyContactMechPurpose
-        assert partyId.equals(partyContactMechPurpose.partyId)
-        assert contactMechPurposeTypeId.equals(partyContactMechPurpose.contactMechPurposeTypeId)
+        assert partyId == partyContactMechPurpose.partyId
+        assert contactMechPurposeTypeId == partyContactMechPurpose.contactMechPurposeTypeId
     }
 
     void testCreatePartyTelecomNumber() {
@@ -242,21 +242,21 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert telecomNumber
-        assert areaCode.equals(telecomNumber.areaCode)
-        assert contactNumber.equals(telecomNumber.contactNumber)
+        assert areaCode == telecomNumber.areaCode
+        assert contactNumber == telecomNumber.contactNumber
 
         GenericValue partyContactMech = from('PartyContactMech')
                 .where('contactMechId', contactMechId)
                 .filterByDate().queryFirst()
         assert partyContactMech
-        assert partyId.equals(partyContactMech.partyId)
+        assert partyId == partyContactMech.partyId
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
                 .where('contactMechId', contactMechId)
                 .filterByDate().queryFirst()
         assert partyContactMechPurpose
-        assert partyId.equals(partyContactMechPurpose.partyId)
-        assert contactMechPurposeTypeId.equals(partyContactMechPurpose.contactMechPurposeTypeId)
+        assert partyId == partyContactMechPurpose.partyId
+        assert contactMechPurposeTypeId == partyContactMechPurpose.contactMechPurposeTypeId
     }
 
     void testCreateUpdatePartyTelecomNumberWithCreate() {
@@ -287,22 +287,22 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert telecomNumber
-        assert areaCode.equals(telecomNumber.areaCode)
-        assert contactNumber.equals(telecomNumber.contactNumber)
+        assert areaCode == telecomNumber.areaCode
+        assert contactNumber == telecomNumber.contactNumber
 
         GenericValue partyContactMech = from('PartyContactMech')
                 .where('contactMechId', contactMechId)
                 .filterByDate().queryFirst()
         assert partyContactMech
-        assert partyId.equals(partyContactMech.partyId)
-        assert extension.equals(partyContactMech.extension)
+        assert partyId == partyContactMech.partyId
+        assert extension == partyContactMech.extension
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
                 .where('contactMechId', contactMechId)
                 .filterByDate().queryFirst()
         assert partyContactMechPurpose
-        assert partyId.equals(partyContactMechPurpose.partyId)
-        assert contactMechPurposeTypeId.equals(partyContactMechPurpose.contactMechPurposeTypeId)
+        assert partyId == partyContactMechPurpose.partyId
+        assert contactMechPurposeTypeId == partyContactMechPurpose.contactMechPurposeTypeId
     }
 
     void testCreateUpdatePartyTelecomNumberWithUpdate() {
@@ -339,8 +339,8 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert telecomNumber
-        assert areaCode.equals(telecomNumber.areaCode)
-        assert contactNumber.equals(telecomNumber.contactNumber)
+        assert areaCode == telecomNumber.areaCode
+        assert contactNumber == telecomNumber.contactNumber
 
         GenericValue partyContactMech = from('PartyContactMech')
                 .where('contactMechId', contactMechId)
@@ -369,13 +369,13 @@ class PartyContactMechTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         String contactMechId = serviceResult.contactMechId
         assert contactMechId
-        assert emailAddress.equals(serviceResult.emailAddress)
+        assert emailAddress == serviceResult.emailAddress
 
         GenericValue contactMech = from('ContactMech')
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert contactMech
-        assert emailAddress.equals(contactMech.infoString)
+        assert emailAddress == contactMech.infoString
 
         GenericValue partyContactMech = from('PartyContactMech')
                 .where('contactMechId', contactMechId)
@@ -405,7 +405,7 @@ class PartyContactMechTests extends OFBizTestCase {
         String contactMechId = serviceResult.contactMechId
         assert contactMechId
         assert contactMechId != '9126'
-        assert emailAddress.equals(serviceResult.emailAddress)
+        assert emailAddress == serviceResult.emailAddress
 
         GenericValue partyContactMechPurpose = from('PartyContactMechPurpose')
                 .where('contactMechId', '9126')
@@ -417,7 +417,7 @@ class PartyContactMechTests extends OFBizTestCase {
                 .where('contactMechId', contactMechId)
                 .queryOne()
         assert contactMech
-        assert emailAddress.equals(contactMech.infoString)
+        assert emailAddress == contactMech.infoString
 
         GenericValue partyContactMech = from('PartyContactMech')
                 .where('contactMechId', contactMechId)

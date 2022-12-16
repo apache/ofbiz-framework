@@ -29,7 +29,7 @@ searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCata
 otherSearchProdCatalogCategories = CatalogWorker.getProdCatalogCategories(request, currentCatalogId, 'PCCT_OTHER_SEARCH')
 
 searchOperator = request.getParameter('SEARCH_OPERATOR')
-if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
+if ('AND' != searchOperator && 'OR' != searchOperator) {
     searchOperator = 'OR'
 }
 

@@ -30,7 +30,7 @@ context.returnHeaderTypeId = returnHeaderTypeId
 partyId = parameters.party_id
 
 if (partyId) {
-    if (('VENDOR_RETURN').equals(returnHeaderTypeId)) {
+    if (('VENDOR_RETURN') == returnHeaderTypeId) {
         context.toPartyId = partyId
     }
     party = from('Party').where('partyId', partyId).queryOne()
@@ -45,7 +45,7 @@ if (orderId) {
     order = from('OrderHeader').where('orderId', orderId).queryOne()
     productStore = order.getRelatedOne('ProductStore', false)
     if (productStore) {
-        if (('VENDOR_RETURN').equals(returnHeaderTypeId)) {
+        if (('VENDOR_RETURN') == returnHeaderTypeId) {
             context.partyId = productStore.payToPartyId
         } else {
             context.destinationFacilityId = ProductStoreWorker.determineSingleFacilityForStore(delegator, productStore.productStoreId)

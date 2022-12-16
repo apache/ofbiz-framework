@@ -76,7 +76,7 @@ if (parameters.get('ApplicationDecorator|organizationPartyId')) {
         isPosted = parameters.isPosted
 
         while (customTimePeriodEndDate <= currentTimePeriod.thruDate) {
-            if ('ALL'.equals(isPosted)) {
+            if ('ALL' == isPosted) {
                 isPosted = ''
             }
             acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal',

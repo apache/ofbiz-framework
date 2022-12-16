@@ -30,8 +30,8 @@ if (orderHeader) {
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
     hasPermission = false
     canViewInternalDetails = false
-    if (('SALES_ORDER'.equals(orderHeader.orderTypeId) && security.hasEntityPermission('ORDERMGR', '_VIEW', session))
-        || ('PURCHASE_ORDER'.equals(orderHeader.orderTypeId) && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session))) {
+    if (('SALES_ORDER' == orderHeader.orderTypeId && security.hasEntityPermission('ORDERMGR', '_VIEW', session))
+        || ('PURCHASE_ORDER' == orderHeader.orderTypeId && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session))) {
         hasPermission = true
         canViewInternalDetails = true
     } else if (security.hasEntityPermission('ORDERMGR_ROLE', '_VIEW', session)) {
@@ -48,10 +48,10 @@ if (orderHeader) {
         }
     }
     // This is related with OFBIZ-11836 "IDOR vulnerability in the order processing feature"
-    if (parameters.localDispatcherName.equals('ecommerce')) {
+    if (parameters.localDispatcherName == 'ecommerce') {
         List errMsgList = []
-        if (orderHeader.createdBy.equals(person.partyId)
-        || ('anonymous'.equals(orderHeader.createdBy) && 'Y'.equals(allowAnonymousView))) {
+        if (orderHeader.createdBy == person.partyId
+        || ('anonymous' == orderHeader.createdBy && 'Y' == allowAnonymousView)) {
             hasPermission = true
             canViewInternalDetails = true
         } else {
