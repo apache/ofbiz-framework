@@ -100,7 +100,7 @@ if (orderHeader) {
 
     // get the display party
     displayParty = null
-    if ('PURCHASE_ORDER'.equals(orderType)) {
+    if ('PURCHASE_ORDER' == orderType) {
         displayParty = orderReadHelper.getSupplierAgent()
     } else {
         displayParty = orderReadHelper.getPlacingParty()
@@ -130,7 +130,7 @@ if (orderHeader) {
     orderItemList = orderReadHelper.getOrderItems()
     // Retrieve all non-promo items that aren't cancelled
     context.orderItemList = orderReadHelper.getOrderItems().findAll { item ->
-        (item.isPromo == null || item.isPromo == 'N')  || !item.statusId.equals('ITEM_CANCELLED')
+        (item.statusId != 'ITEM_CANCELLED' || (item.isPromo == null || item.isPromo == 'N'))
     }
 
     shippingAddress = orderReadHelper.getShippingAddress()
@@ -297,7 +297,7 @@ if (orderHeader) {
     orderItemChangeReasons = from('Enumeration').where('enumTypeId', 'ODR_ITM_CH_REASON').orderBy('sequenceId').queryList()
     context.orderItemChangeReasons = orderItemChangeReasons
 
-    if ('PURCHASE_ORDER'.equals(orderType)) {
+    if ('PURCHASE_ORDER' == orderType) {
         // for purchase orders, we need also the supplier's postal address
         supplier = orderReadHelper.getBillFromParty()
         if (supplier) {
@@ -306,13 +306,13 @@ if (orderHeader) {
             supplierContactMechValueMaps.each { supplierContactMechValueMap ->
                 contactMechPurposes = supplierContactMechValueMap.partyContactMechPurposes
                 contactMechPurposes.each { contactMechPurpose ->
-                    if ('GENERAL_LOCATION'.equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    if ('GENERAL_LOCATION' == contactMechPurpose.contactMechPurposeTypeId) {
                         context.supplierGeneralContactMechValueMap = supplierContactMechValueMap
-                    } else if ('SHIPPING_LOCATION'.equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    } else if ('SHIPPING_LOCATION' == contactMechPurpose.contactMechPurposeTypeId) {
                         context.supplierShippingContactMechValueMap = supplierContactMechValueMap
-                    } else if ('BILLING_LOCATION'.equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    } else if ('BILLING_LOCATION' == contactMechPurpose.contactMechPurposeTypeId) {
                         context.supplierBillingContactMechValueMap = supplierContactMechValueMap
-                    } else if ('PAYMENT_LOCATION'.equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    } else if ('PAYMENT_LOCATION' == contactMechPurpose.contactMechPurposeTypeId) {
                         context.supplierPaymentContactMechValueMap = supplierContactMechValueMap
                     }
                 }
@@ -325,7 +325,7 @@ if (orderHeader) {
 
     // see if an approved order with all items completed exists
     context.setOrderCompleteOption = false
-    if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
+    if ('ORDER_APPROVED' == orderHeader.statusId) {
         expr = EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'ITEM_COMPLETED')
         notCreatedItems = orderReadHelper.getOrderItemsByCondition(expr)
         if (!notCreatedItems) {
@@ -357,7 +357,7 @@ if (orderHeader) {
     // These facilities must be owned by the bill-to party of the purchase order.
     // For a given ship group, the allowed facilities are the ones associated
     // to the same contact mech of the ship group.
-    if ('PURCHASE_ORDER'.equals(orderType)) {
+    if ('PURCHASE_ORDER' == orderType) {
         facilitiesForShipGroup = [:]
         if (orderReadHelper.getBillToParty()) {
             ownerPartyId = orderReadHelper.getBillToParty().partyId
@@ -380,7 +380,7 @@ if (orderHeader) {
     }
 
     // set the type of return based on type of order
-    if ('SALES_ORDER'.equals(orderType)) {
+    if ('SALES_ORDER' == orderType) {
         context.returnHeaderTypeId = 'CUSTOMER_RETURN'
         // also set the product store facility Id for sales orders
         if (productStore) {
@@ -460,7 +460,7 @@ if (orderHeader) {
 
     // get the catalogIds for appending items
     if (context.request != null) {
-        if ('SALES_ORDER'.equals(orderType) && productStore) {
+        if ('SALES_ORDER' == orderType && productStore) {
             catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStore.productStoreId, partyId)
         } else {
             catalogCol = CatalogWorker.getAllCatalogIds(request)
@@ -501,12 +501,12 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
     wepa = from('WorkEffortPartyAssignment')
             .where('workEffortId', workEffortId, 'partyId', assignPartyId, 'roleTypeId', assignRoleTypeId, 'fromDate', fromDate).queryOne()
 
-    if ('CAL_ACCEPTED'.equals(wepa?.statusId)) {
+    if ('CAL_ACCEPTED' == wepa?.statusId) {
         workEffort = from('WorkEffort').where('workEffortId', workEffortId).queryOne()
         workEffortStatus = workEffort.currentStatusId
         if (workEffortStatus) {
             context.workEffortStatus = workEffortStatus
-            if ('WF_RUNNING'.equals(workEffortStatus) || 'WF_SUSPENDED'.equals(workEffortStatus))
+            if ('WF_RUNNING' == workEffortStatus || 'WF_SUSPENDED' == workEffortStatus)
                 context.inProcess = true
         }
     }
@@ -554,7 +554,7 @@ if (shipments) {
 // get orderAdjustmentId for SHIPPING_CHARGES
 orderAdjustmentId = null
 orderAdjustments.each { orderAdjustment ->
-    if('SHIPPING_CHARGES'.equals(orderAdjustment.orderAdjustmentTypeId)) {
+    if('SHIPPING_CHARGES' == orderAdjustment.orderAdjustmentTypeId) {
         orderAdjustmentId = orderAdjustment.orderAdjustmentId
     }
 }

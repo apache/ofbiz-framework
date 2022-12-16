@@ -27,10 +27,10 @@ context.userLogin = userLogin
 sort = parameters.sort
 sortOrder = ['currentStatusId', '-priority', 'orderDate']
 if (sort) {
-    if ('name'.equals(sort)) {
+    if ('name' == sort) {
         sortOrder.add(0, 'firstName')
         sortOrder.add(0, 'lastName')
-    } else if ('grandTotal'.equals(sort)) {
+    } else if ('grandTotal' == sort) {
         sortOrder.add(0, '-grandTotal')
     } else {
         sortOrder.add(0, sort)
@@ -58,7 +58,7 @@ partyRoles = from('PartyRole').where('partyId', userLogin.partyId).queryList()
 // build the role list
 pRolesList = []
 partyRoles.each { partyRole ->
-    if (!'_NA_'.equals(partyRole.roleTypeId))
+    if ('_NA_' != partyRole.roleTypeId)
         pRolesList.add(EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, partyRole.roleTypeId))
 }
 

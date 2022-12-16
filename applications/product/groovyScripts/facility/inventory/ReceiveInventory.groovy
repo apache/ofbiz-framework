@@ -51,7 +51,7 @@ if (facility) {
 purchaseOrder = null
 if (purchaseOrderId) {
     purchaseOrder = from('OrderHeader').where('orderId', purchaseOrderId).queryOne()
-    if (purchaseOrder && !'PURCHASE_ORDER'.equals(purchaseOrder.orderTypeId)) {
+    if (purchaseOrder && 'PURCHASE_ORDER' != purchaseOrder.orderTypeId) {
         purchaseOrder = null
     }
 }
@@ -74,9 +74,9 @@ if (purchaseOrder && !shipmentId) {
         shipments = [] as TreeSet
         orderShipments.each { orderShipment ->
             shipment = orderShipment.getRelatedOne('Shipment', false)
-            if (!'PURCH_SHIP_RECEIVED'.equals(shipment.statusId) &&
-                !'SHIPMENT_CANCELLED'.equals(shipment.statusId) &&
-                (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {
+            if ('PURCH_SHIP_RECEIVED' != shipment.statusId &&
+                    'SHIPMENT_CANCELLED' != shipment.statusId &&
+                (!shipment.destinationFacilityId || facilityId == shipment.destinationFacilityId)) {
                 shipments.add(shipment)
             }
         }
@@ -87,9 +87,9 @@ if (purchaseOrder && !shipmentId) {
         shipments = [] as TreeSet
         issuances.each { issuance ->
             shipment = issuance.getRelatedOne('Shipment', false)
-            if (!'PURCH_SHIP_RECEIVED'.equals(shipment.statusId) &&
-                !'SHIPMENT_CANCELLED'.equals(shipment.statusId) &&
-                (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {
+            if ('PURCH_SHIP_RECEIVED' != shipment.statusId &&
+                    'SHIPMENT_CANCELLED' != shipment.statusId &&
+                (!shipment.destinationFacilityId || facilityId == shipment.destinationFacilityId)) {
                 shipments.add(shipment)
             }
         }
@@ -97,7 +97,7 @@ if (purchaseOrder && !shipmentId) {
 }
 
 shipment = null
-if (shipmentId && !'_NA_'.equals(shipmentId)) {
+if (shipmentId && '_NA_' != shipmentId) {
     shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 }
 
@@ -144,7 +144,7 @@ if (purchaseOrder && facility) {
     if (ownerAcctgPref) {
         ownerCurrencyUomId = ownerAcctgPref.baseCurrencyUomId
         orderCurrencyUomId = purchaseOrder.currencyUom
-        if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
+        if (orderCurrencyUomId != ownerCurrencyUomId) {
             purchaseOrderItems.each { item ->
                 orderCurrencyUnitPriceMap.(item.orderItemSeqId) = item.unitPrice
                 serviceResults = runService('convertUom',
@@ -181,7 +181,7 @@ if (purchaseOrderItems) {
         receipts = thisItem.getRelated('ShipmentReceipt', null, null, false)
         if (receipts) {
             receipts.each { rec ->
-                if (!shipment || (rec.shipmentId && rec.shipmentId.equals(shipment.shipmentId))) {
+                if (!shipment || (rec.shipmentId && rec.shipmentId == shipment.shipmentId)) {
                     accepted = rec.getDouble('quantityAccepted')
                     rejected = rec.getDouble('quantityRejected')
                     if (accepted) {

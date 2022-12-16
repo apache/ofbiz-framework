@@ -46,8 +46,8 @@ class PartyStatusChangeTests extends OFBizTestCase {
                 .where('partyId', partyId)
                 .queryOne()
         assert party
-        assert statusId.equals(party.statusId)
-        assert 'PARTY_ENABLED'.equals(serviceResult.oldStatusId)
+        assert statusId == party.statusId
+        assert 'PARTY_ENABLED' == serviceResult.oldStatusId
     }
 
     // Test case for changing party status to PARTY_ENABLED
@@ -68,7 +68,7 @@ class PartyStatusChangeTests extends OFBizTestCase {
                 .where('partyId', partyId)
                 .queryOne()
         assert party
-        assert statusId.equals(party.statusId)
-        assert 'PARTY_DISABLED'.equals(serviceResult.oldStatusId)
+        assert statusId == party.statusId
+        assert 'PARTY_DISABLED' == serviceResult.oldStatusId
     }
 }

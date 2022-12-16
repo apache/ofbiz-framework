@@ -273,8 +273,8 @@ if (product) {
     context.mainProducts = mainProducts
 
     // Special Variant Code
-    if ('Y'.equals(product.isVirtual)) {
-        if ('VV_FEATURETREE'.equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
+    if ('Y' == product.isVirtual) {
+        if ('VV_FEATURETREE' == ProductWorker.getProductVirtualVariantMethod(delegator, productId)) {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(product)
         } else {
             featureMap = runService('getProductFeatureSet', [productId: productId])
@@ -440,14 +440,14 @@ if (product) {
                                         Iterator entryIter = entry.getValue().entrySet().iterator()
                                         while (entryIter.hasNext()) {
                                             Map.Entry innerentry = entryIter.next()
-                                            if (variant.get('productId').equals(innerentry.getValue().get(0))) {
+                                            if (variant.get('productId') == innerentry.getValue().get(0)) {
                                                 variantPriceMap.put('variantName', innerentry.getKey())
                                                 variantPriceMap.put('secondVariantName', entry.getKey())
                                                 break
                                             }
                                         }
                                     } else if (entry.getValue()) {
-                                        if (variant.get('productId').equals(entry.getValue().get(0))) {
+                                        if (variant.get('productId') == entry.getValue().get(0)) {
                                             variantPriceMap.put('variantName', entry.getKey())
                                             break
                                         }
@@ -494,14 +494,14 @@ if (product) {
                                                 Iterator entryIter = entry.getValue().entrySet().iterator()
                                                 while (entryIter.hasNext()) {
                                                     Map.Entry innerentry = entryIter.next()
-                                                    if (virtual.get('productId').equals(innerentry.getValue().get(0))) {
+                                                    if (virtual.get('productId') == innerentry.getValue().get(0)) {
                                                         virtualPriceMap.put('variantName', innerentry.getKey())
                                                         virtualPriceMap.put('secondVariantName', entry.getKey())
                                                         break
                                                     }
                                                 }
                                             } else if (entry.getValue()) {
-                                                if (virtual.get('productId').equals(entry.getValue().get(0))) {
+                                                if (virtual.get('productId') == entry.getValue().get(0)) {
                                                     virtualPriceMap.put('variantName', entry.getKey())
                                                     break
                                                 }
@@ -683,7 +683,7 @@ if (product) {
     }
 
     // get reservation start date for rental product
-    if('ASSET_USAGE'.equals(productTypeId) || 'ASSET_USAGE_OUT_IN'.equals(productTypeId)){
+    if('ASSET_USAGE' == productTypeId || 'ASSET_USAGE_OUT_IN' == productTypeId){
         context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0,10) // should be tomorrow.
     }
 

@@ -64,7 +64,7 @@ componentList = UtilMisc.sortMaps(componentList, UtilMisc.toList('+compName'))
 lastComp = null
 for (int entry = 0; entry < componentList.size(); entry++) {
     compSave = componentList[entry].compName
-    if (lastComp != null && compSave.equals(lastComp)) {
+    if (lastComp != null && compSave == lastComp) {
         componentList[entry].compName = ''
         componentList[entry].rootLocation = ''
         componentList[entry].enabled = ''

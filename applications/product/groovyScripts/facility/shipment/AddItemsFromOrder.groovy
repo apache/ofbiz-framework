@@ -48,7 +48,7 @@ if (orderId && shipment) {
         context.orderHeaderStatus = orderHeader.getRelatedOne('StatusItem', false)
         context.orderType = orderHeader.getRelatedOne('OrderType', false)
 
-        isSalesOrder = 'SALES_ORDER'.equals(orderHeader.orderTypeId)
+        isSalesOrder = 'SALES_ORDER' == orderHeader.orderTypeId
         context.isSalesOrder = isSalesOrder
 
         orderItemShipGroup = null
@@ -151,7 +151,7 @@ if (shipment && selectFromShipmentPlan) {
             if (itemIssuance.cancelQuantity) {
                 totalQuantityIssued -= itemIssuance.getDouble('cancelQuantity')
             }
-            if (itemIssuance.shipmentId && itemIssuance.shipmentId.equals(shipmentId)) {
+            if (itemIssuance.shipmentId && itemIssuance.shipmentId == shipmentId) {
                 totalQuantityIssuedInShipment += itemIssuance.getDouble('quantity')
                 if (itemIssuance.cancelQuantity) {
                     totalQuantityIssuedInShipment -= itemIssuance.getDouble('cancelQuantity')

@@ -25,7 +25,7 @@ exprBldr =  new EntityConditionBuilder()
 invoice = context.invoice
 if (!invoice) return
 glAccountOrganizationAndClassList = null
-if ('SALES_INVOICE'.equals(invoice.invoiceTypeId)) {
+if ('SALES_INVOICE' == invoice.invoiceTypeId) {
     itemTypesCond = exprBldr.OR {
         EQUALS(invoiceItemTypeId: 'SINVOICE_ADJ')
         EQUALS(parentTypeId: 'SINVOICE_ADJ')
@@ -36,7 +36,7 @@ if ('SALES_INVOICE'.equals(invoice.invoiceTypeId)) {
     }
     invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
     glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyIdFrom).queryList()
-} else if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
+} else if ('PURCHASE_INVOICE' == invoice.invoiceTypeId) {
     itemTypesCond = exprBldr.OR {
         EQUALS(invoiceItemTypeId: 'PINVOICE_ADJ')
         EQUALS(parentTypeId: 'PINVOICE_ADJ')
@@ -47,7 +47,7 @@ if ('SALES_INVOICE'.equals(invoice.invoiceTypeId)) {
     }
     invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
     glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyId).queryList()
-} else if ('PAYROL_INVOICE'.equals(invoice.invoiceTypeId)) {
+} else if ('PAYROL_INVOICE' == invoice.invoiceTypeId) {
     itemTypesCond = exprBldr.OR {
         EQUALS(invoiceItemTypeId: 'PAYROL_EARN_HOURS')
         EQUALS(parentTypeId: 'PAYROL_EARN_HOURS')
@@ -58,7 +58,7 @@ if ('SALES_INVOICE'.equals(invoice.invoiceTypeId)) {
     }
     invoiceItemTypes = from('InvoiceItemType').where(itemTypesCond).orderBy(['parentTypeId', 'invoiceItemTypeId']).queryList()
     glAccountOrganizationAndClassList = from('GlAccountOrganizationAndClass').where('organizationPartyId', invoice.partyId).queryList()
-} else if ('COMMISSION_INVOICE'.equals(invoice.invoiceTypeId)) {
+} else if ('COMMISSION_INVOICE' == invoice.invoiceTypeId) {
     itemTypesCond = exprBldr.OR {
         EQUALS(invoiceItemTypeId: 'COMM_INV_ITEM')
         EQUALS(parentTypeId: 'COMM_INV_ITEM')

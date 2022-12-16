@@ -28,9 +28,9 @@ if (invoiceTypeId) {
         EQUALS(invoiceTypeId: invoiceTypeId)
         LESS_THAN(dueDate: UtilDateTime.nowTimestamp())
     }
-    if ('PURCHASE_INVOICE'.equals(invoiceTypeId)) {
+    if ('PURCHASE_INVOICE' == invoiceTypeId) {
         invoiceStatusesCondition = exprBldr.IN(statusId: ['INVOICE_RECEIVED', 'INVOICE_IN_PROCESS', 'INVOICE_READY'])
-    } else if ('SALES_INVOICE'.equals(invoiceTypeId)) {
+    } else if ('SALES_INVOICE' == invoiceTypeId) {
         invoiceStatusesCondition = exprBldr.IN(statusId: ['INVOICE_SENT', 'INVOICE_APPROVED', 'INVOICE_READY'])
     }
     expr = exprBldr.AND([expr, invoiceStatusesCondition])

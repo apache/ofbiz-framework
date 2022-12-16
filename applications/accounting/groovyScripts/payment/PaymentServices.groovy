@@ -147,7 +147,7 @@ Map updatePayment() {
         oldPayment.comments = newPayment.comments
         oldPayment.paymentRefNum = newPayment.paymentRefNum ?: null
         oldPayment.finAccountTransId = newPayment.finAccountTransId ?: null
-        if (!oldPayment.equals(newPayment)) {
+        if (oldPayment != newPayment) {
             return error(label('AccountingUiLabels', 'AccountingPSUpdateNotAllowedBecauseOfStatus'))
         }
     }

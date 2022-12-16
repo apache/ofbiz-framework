@@ -23,11 +23,11 @@ state = request.getParameter('CategoryProductsState')
 isOpen = true
 if (state) {
     session.setAttribute('CategoryProductsState', state)
-    isOpen = 'open'.equals(state)
+    isOpen = 'open' == state
 } else {
     state = (String) session.getAttribute('CategoryProductsState')
     if (state) {
-        isOpen = 'open'.equals(state)
+        isOpen = 'open' == state
     }
 }
 context.isOpen = isOpen

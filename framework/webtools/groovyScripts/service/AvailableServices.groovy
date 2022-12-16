@@ -86,7 +86,7 @@ List getEcaListForService(String selectedService) {
                 setsList = new ArrayList()
                 actionsVal.each { curAction ->
                     actionClass = curAction.getClass()
-                    if (org.apache.ofbiz.service.eca.ServiceEcaAction.equals(actionClass)) {
+                    if (org.apache.ofbiz.service.eca.ServiceEcaAction == actionClass) {
                         actionMap = [:]
 
                         //eventName
@@ -386,7 +386,7 @@ if (selectedService) {
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
 
-        if (permissionGroups && !'NA'.equals(permissionGroups)) {
+        if (permissionGroups && 'NA' != permissionGroups) {
             permList = new ArrayList(permissionGroups.size())
             permissionGroups.each { curPerm ->  //This is a ModelPermGroup
                 curPerm.permissions.each { curPermObj ->
@@ -483,7 +483,7 @@ if (selectedService) {
 
     showWsdl = parameters.show_wsdl
 
-    if ('true'.equals(showWsdl)) {
+    if ('true' == showWsdl) {
         try {
             wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:" +
                     "${EntityUtilProperties.getPropertyValue('url', 'port.http', '80', delegator)}${parameters._CONTROL_PATH_}/SOAPService")
@@ -526,34 +526,34 @@ if (!selectedService) {
             constraintName = consArr[0]
             constraintVal = consArr[1]
 
-            if ('engine_name'.equals(constraintName)) {
-                canIncludeService = curServiceModel.getEngineName().equals(constraintVal)
-                if ('NA'.equals(constraintVal)) {
+            if ('engine_name' == constraintName) {
+                canIncludeService = curServiceModel.getEngineName() == constraintVal
+                if ('NA' == constraintVal) {
                     canIncludeService = curServiceModel.getEngineName() ? false : true
                 }
             }
 
-            if (canIncludeService && 'default_entity_name'.equals(constraintName)) {
-                canIncludeService = curServiceModel.getDefaultEntityName().equals(constraintVal)
-                if ('NA'.equals(constraintVal)) {
+            if (canIncludeService && 'default_entity_name' == constraintName) {
+                canIncludeService = curServiceModel.getDefaultEntityName() == constraintVal
+                if ('NA' == constraintVal) {
                     canIncludeService = curServiceModel.getDefaultEntityName() ? false : true
                 }
             }
 
-            if (canIncludeService && 'location'.equals(constraintName)) {
-                canIncludeService = curServiceModel.getLocation().equals(constraintVal)
-                if ('NA'.equals(constraintVal)) {
+            if (canIncludeService && 'location' == constraintName) {
+                canIncludeService = curServiceModel.getLocation() == constraintVal
+                if ('NA' == constraintVal) {
                     canIncludeService = curServiceModel.getLocation() ? false : true
                 }
             }
 
-            if (canIncludeService && 'definitionLocation'.equals(constraintName)) {
-                canIncludeService = curServiceModel.getDefinitionLocation().equals(constraintVal)
+            if (canIncludeService && 'definitionLocation' == constraintName) {
+                canIncludeService = curServiceModel.getDefinitionLocation() == constraintVal
             }
 
-            if (canIncludeService && 'alpha'.equals(constraintName)) {
-                canIncludeService = (serviceName[0]).equals(constraintVal)
-                if ('NA'.equals(constraintVal)) {
+            if (canIncludeService && 'alpha' == constraintName) {
+                canIncludeService = (serviceName[0]) == constraintVal
+                if ('NA' == constraintVal) {
                     canIncludeService = true
                 }
             }

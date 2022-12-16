@@ -21,7 +21,7 @@ import java.sql.Timestamp
 import org.apache.ofbiz.content.content.ContentSearchSession
 
 searchOperator = parameters.get('SEARCH_OPERATOR')
-if (!'AND'.equals(searchOperator) && !'OR'.equals(searchOperator)) {
+if ('AND' != searchOperator && 'OR' != searchOperator) {
     searchOperator = 'OR'
 }
 

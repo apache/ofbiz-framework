@@ -28,7 +28,7 @@ if (rowCount > 1) {
         if(paramMap.get('checkStatusId' + thisSuffix)){
             String temp = paramMap.get('checkStatusId' + thisSuffix)
             String[] splitTemp = temp.split('/')
-            if('IM_REJECTED'.equals(splitTemp[0])){
+            if('IM_REJECTED' == splitTemp[0]){
                 rejected = true
             }
         }
@@ -37,7 +37,7 @@ if (rowCount > 1) {
 else {
     String temp = paramMap.get('checkStatusId_o_0')
     String[] splitTemp = temp.split('/')
-    if('IM_REJECTED'.equals(splitTemp[0])){
+    if('IM_REJECTED' == splitTemp[0]){
         rejected = true
     }
 }

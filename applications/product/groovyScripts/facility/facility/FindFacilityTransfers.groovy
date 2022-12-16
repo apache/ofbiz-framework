@@ -20,11 +20,11 @@
 import org.apache.ofbiz.entity.condition.*
 
 //default this to true, ie only show active
-activeOnly = !'false'.equals(request.getParameter('activeOnly'))
+activeOnly = 'false' != request.getParameter('activeOnly')
 context.activeOnly = activeOnly
 
 // if the completeRequested was set, then we'll lookup only requested status
-completeRequested = 'true'.equals(request.getParameter('completeRequested'))
+completeRequested = 'true' == request.getParameter('completeRequested')
 context.completeRequested = completeRequested
 
 // get the 'to' this facility transfers

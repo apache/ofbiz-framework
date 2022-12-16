@@ -32,7 +32,7 @@ orderHeader = from('OrderHeader').where(orderId: primaryOrderId).queryOne()
 
 // the kind of StatusItem to use is based on the type of order
 statusItemTypeId = 'SHIPMENT_STATUS'
-if (orderHeader && 'PURCHASE_ORDER'.equals(orderHeader.orderTypeId)) {
+if (orderHeader && 'PURCHASE_ORDER' == orderHeader.orderTypeId) {
     statusItemTypeId = 'PURCH_SHIP_STATUS'
 }
 context.statusItemTypeId = statusItemTypeId

@@ -132,7 +132,7 @@ if (orderId) {
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader)
         GenericValue orderItemShipGroup = orderReadHelper.getOrderItemShipGroup(shipGroupSeqId)
         carrierPartyId = orderItemShipGroup.carrierPartyId
-        if ('ORDER_APPROVED'.equals(orderHeader.statusId)) {
+        if ('ORDER_APPROVED' == orderHeader.statusId) {
             if (shipGroupSeqId) {
                 if (shipment) {
                     productStoreId = orderReadHelper.getProductStoreId()

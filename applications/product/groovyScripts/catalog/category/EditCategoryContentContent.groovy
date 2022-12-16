@@ -33,11 +33,11 @@ prodCatContentTypeId = parameters.prodCatContentTypeId
 context.contentFormName = 'EditCategoryContentSimpleText'
 context.contentFormTitle = "${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
 
-if ('PAGE_TITLE'.equals(prodCatContentTypeId) || 'META_KEYWORD'.equals(prodCatContentTypeId) || 'META_DESCRIPTION'.equals(prodCatContentTypeId)) {
+if (['PAGE_TITLE', 'META_KEYWORD', 'META_DESCRIPTION'].contains(prodCatContentTypeId)) {
     context.contentFormName = 'EditCategoryContentSEO'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateSEOContentCategory}"
 }
-if ('RELATED_URL'.equals(prodCatContentTypeId)) {
+if ('RELATED_URL' == prodCatContentTypeId) {
     contentList = from('ContentDataResourceView').where('contentId', contentId).queryList()
     if (contentList) {
         context.contentId = contentList.get(0).contentId
@@ -49,11 +49,11 @@ if ('RELATED_URL'.equals(prodCatContentTypeId)) {
     }
     context.contentFormName = 'EditCategoryContentRelatedUrl'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
-}else if ('VIDEO'.equals(prodCatContentTypeId) || 'CATEGORY_IMAGE'.equals(prodCatContentTypeId)) {
+}else if ('VIDEO' == prodCatContentTypeId || 'CATEGORY_IMAGE' == prodCatContentTypeId) {
     if (content) {
         context.fileDataResourceId = content.dataResourceId
     }
-    if('CATEGORY_IMAGE'.equals(prodCatContentTypeId)){
+    if('CATEGORY_IMAGE' == prodCatContentTypeId){
         context.dataResourceTypeId = 'IMAGE_OBJECT'
     }else{
         context.dataResourceTypeId = 'VIDEO_OBJECT'

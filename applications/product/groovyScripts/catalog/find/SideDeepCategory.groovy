@@ -26,11 +26,11 @@ state = request.getParameter('BrowseCategoriesState')
 isOpen = true
 if (state) {
     session.setAttribute('BrowseCategoriesState', state)
-    isOpen = 'open'.equals(state)
+    isOpen = 'open' == state
 } else {
     state = (String) session.getAttribute('BrowseCategoriesState')
     if (state) {
-        isOpen = 'open'.equals(state)
+        isOpen = 'open' == state
     }
 }
 context.isOpen = isOpen

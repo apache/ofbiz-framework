@@ -61,7 +61,7 @@ previousShipmentIter = from('Shipment')
 
 while (previousShipmentIter.hasNext()) {
     previousShipmentItem = previousShipmentIter.next()
-    if (!previousShipmentItem.shipmentId.equals(shipment.shipmentId)) {
+    if (previousShipmentItem.shipmentId != shipment.shipmentId) {
         previousShipmentItems = previousShipmentItem.getRelated('ShipmentItem', null, null, false)
         previousShipmentItems.each { shipmentItem ->
             productId = shipmentItem.productId

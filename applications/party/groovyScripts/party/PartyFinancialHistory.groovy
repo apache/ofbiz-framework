@@ -104,11 +104,11 @@ payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().d
 
 while (payIterator.hasNext()) {
     payment = payIterator.next()
-    if ('DISBURSEMENT'.equals(payment.parentTypeId) || 'TAX_PAYMENT'.equals(payment.parentTypeId)) {
+    if ('DISBURSEMENT' == payment.parentTypeId || 'TAX_PAYMENT' == payment.parentTypeId) {
         totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }
-    else if ('RECEIPT'.equals(payment.parentTypeId)) {
+    else if ('RECEIPT' == payment.parentTypeId) {
         totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
         totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
     }

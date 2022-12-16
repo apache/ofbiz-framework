@@ -37,7 +37,7 @@ invoiceIds.each { invoiceId ->
     rounding = UtilNumber.getBigDecimalRoundingMode('invoice.rounding')
 
     if (invoice) {
-        if (currency && !invoice.getString('currencyUomId').equals(currency)) {
+        if (currency && invoice.getString('currencyUomId') != currency) {
             conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)
             invoice.currencyUomId = currency
             invoice.invoiceMessage = ' converted from original with a rate of: ' + conversionRate.setScale(8, rounding)
@@ -59,7 +59,7 @@ invoiceIds.each { invoiceId ->
         invoicesMap.invoiceTotal = invoiceTotal
         invoicesMap.invoiceNoTaxTotal = invoiceNoTaxTotal
 
-        if ('PURCHASE_INVOICE'.equals(invoice.invoiceTypeId)) {
+        if ('PURCHASE_INVOICE' == invoice.invoiceTypeId) {
             billingAddress = InvoiceWorker.getSendFromAddress(invoice)
         } else {
             billingAddress = InvoiceWorker.getBillToAddress(invoice)
@@ -80,12 +80,12 @@ invoiceIds.each { invoiceId ->
 
         if (billingAddress) {
             sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
-                if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+                if (sendingTaxInfo.taxAuthGeoId == billingAddress.countryGeoId) {
                     sendingPartyTaxId = sendingTaxInfos[i - 1].partyTaxId
                 }
             }
             billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
-                if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+                if (billingTaxInfo.taxAuthGeoId == billingAddress.countryGeoId) {
                     billToPartyTaxId = billingTaxInfos[i - 1].partyTaxId
                 }
             }
