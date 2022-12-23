@@ -717,7 +717,7 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         def branch
         def revision
         def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
-        def gitFolder = new File('.git')
+        def gitFolder = rootProject.file('.git')
 
         if (!gitFolder.exists()) {
           println ("Git is not used")
