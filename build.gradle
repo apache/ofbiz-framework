@@ -593,7 +593,7 @@ task deletePluginDocumentation {
         if (!project.hasProperty('pluginId')) {
             throw new GradleException('Missing property \"pluginId\"')
         }
-        if(!activeComponents().contains(pluginId)) {
+        if(!(activeComponents().stream().anyMatch { it.name == pluginId })) {
             throw new GradleException("Could not find plugin with id ${pluginId}")
         }
         delete "${buildDir}/asciidoc/plugins/${pluginId}"
