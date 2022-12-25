@@ -430,7 +430,7 @@ def createCommunicationEventRole() {
                         .queryFirst()
 
                 if (contactMech) {
-                    newEntity.contactMechId = contactMechs[0]
+                    newEntity.contactMechId = contactMech.contactMechId
                 }
             }
         }

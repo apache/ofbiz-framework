@@ -27,7 +27,7 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
 
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonSecurityPermissionSeedData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonSystemPropertyData.xml"/>
+    <!-- <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/CommonSystemPropertyData.xml"/> Use it if you need/want, notably if you use multitenant-->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CurrencyData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CountryCodeData.xml"/>

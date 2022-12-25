@@ -29,11 +29,11 @@ your template file:
 
 <#macro NullMacro></#macro>
 
-<#macro DateField formName="" fieldName="" fieldValue="" fieldClass="">
+<#macro DateField id=fieldName formName="" fieldName="" fieldValue="" fieldClass="">
   <#if javaScriptEnabled>
     <@htmlTemplate.renderDateTimeField name="${fieldName}" event="${event!}" action="${action!}"
         className="${fieldClass!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${fieldValue!''}"
-        size="25" maxlength="30" id="${fieldName}1" dateType="date" shortDateInput=false timeDropdownParamName=""
+        size="25" maxlength="30" id="${id}" dateType="date" shortDateInput=false timeDropdownParamName=""
         defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString=""
         hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected=""
         pmSelected="" compositeType="" formName=""/>

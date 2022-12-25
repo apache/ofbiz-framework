@@ -1907,9 +1907,7 @@ under the License.
     <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="Company" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
 
-    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
     <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
     <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
     <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
@@ -1923,7 +1921,6 @@ under the License.
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3" carrierServiceCode="03"/>
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="2" carrierServiceCode="02"/>
     <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
-    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
     <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="8"/>
 
     <ProductStoreShipmentMeth productStoreShipMethId="9017" productStoreId="RentalStore" partyId="_NA_" includeNoChargeItems="Y" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="6"/>
@@ -1961,7 +1958,6 @@ under the License.
     <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
 
     <PartyRole partyId="Company" roleTypeId="CARRIER"/>
-    <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
 
     <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
     <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
@@ -1996,7 +1992,6 @@ under the License.
     <ShipmentMethodType description="Fedex International Ground " shipmentMethodTypeId="FEDEX_INT_GROUND"/>
     <ShipmentMethodType description="Fedex Freight" shipmentMethodTypeId="FEDEX_FREIGHT"/>
 
-    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
     <ShipmentMethodType description="Three-Day Select" shipmentMethodTypeId="THIRD_DAY_AIR_SEL"/>
     <ShipmentMethodType description="Second Day Air" shipmentMethodTypeId="SECOND_DAY_AIR"/>
     <ShipmentMethodType description="Second Day Air Early A.M.  " shipmentMethodTypeId="SECOND_DAY_AIR_AM"/>
@@ -2023,7 +2018,6 @@ under the License.
 
     <!-- Local options -->
     <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
-    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
     <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="5"/>
 
     <!-- Fedex shipping options -->
@@ -2600,5 +2594,15 @@ under the License.
     <AgreementTerm agreementId="AGR_SALES" agreementItemSeqId="00001" agreementTermId="9000" description="Sales test agreement" termDays="30" termTypeId="FIN_PAYMENT_FIXDAY"/>
     <!-- An AgreementProductAppls aris related to an AgreementItem. AgreementProductAppls are optional. If a  product id and a price are specified the price will override the ProductPrice if the agreement is selected in the order -->
     <AgreementProductAppl agreementId="AGR_SALES" agreementItemSeqId="00001" price="10.000" productId="GZ-1000"/>
+    
+    <CustomScreen customScreenId="DEFAULT_ORD_TPL" customScreenTypeId="CST_ORDER_TPL" customScreenName="DefaultOrderPDF" customScreenLocation="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="OrdTplSales" partyId="Company" fromDate="2001-05-13 00:00:00" orderTypeId="SALES_ORDER" customScreenId="DEFAULT_ORD_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="OrdTplPurchase" partyId="Company" fromDate="2001-05-13 00:00:00" orderTypeId="PURCHASE_ORDER" customScreenId="DEFAULT_ORD_TPL"/>
+    
+    <CustomScreen customScreenId="DEFAULT_QUOTE_TPL" customScreenTypeId="CST_QUOTE_TPL" customScreenName="DefaultQuotePDF" customScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplOther" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="OTHER_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplProposal" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PROPOSAL" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplProduct" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PRODUCT_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
+    <PartyPrefDocTypeTpl partyPrefDocTypeTplId="QuoTplPurchase" partyId="Company" fromDate="2001-05-13 00:00:00" quoteTypeId="PURCHASE_QUOTE" customScreenId="DEFAULT_QUOTE_TPL"/>
 
 </entity-engine-xml>

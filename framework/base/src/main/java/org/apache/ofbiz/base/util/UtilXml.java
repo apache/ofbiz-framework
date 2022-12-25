@@ -125,7 +125,7 @@ public final class UtilXml {
      * @return A <code>LSOutput</code> instance
      * @see <a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/">DOM Level 3 Load and Save Specification</a>
      */
-    public static LSOutput createLSOutput(DOMImplementationLS impl, OutputStream os, String encoding) {
+    private static LSOutput createLSOutput(DOMImplementationLS impl, OutputStream os, String encoding) {
         LSOutput out = impl.createLSOutput();
         if (os != null) {
             out.setByteStream(os);
@@ -146,7 +146,7 @@ public final class UtilXml {
      * @return A <code>LSSerializer</code> instance
      * @see <a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/">DOM Level 3 Load and Save Specification</a>
      */
-    public static LSSerializer createLSSerializer(DOMImplementationLS impl, boolean includeXmlDeclaration, boolean enablePrettyPrint) {
+    private static LSSerializer createLSSerializer(DOMImplementationLS impl, boolean includeXmlDeclaration, boolean enablePrettyPrint) {
         LSSerializer writer = impl.createLSSerializer();
         DOMConfiguration domConfig = writer.getDomConfig();
         domConfig.setParameter("xml-declaration", includeXmlDeclaration);

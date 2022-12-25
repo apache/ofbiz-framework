@@ -7312,7 +7312,7 @@
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>
         <value xml:lang="cs">Číslo faktury</value>
-        <value xml:lang="de">Inv.Nr</value>
+        <value xml:lang="de">Rg.Nr</value>
         <value xml:lang="en">Inv.Nr</value>
         <value xml:lang="es">Nr.Fact</value>
         <value xml:lang="es-CL">Factura N°</value>

@@ -3564,16 +3564,6 @@
         <value xml:lang="zh-CN">新建报价项</value>
         <value xml:lang="zh-TW">新建報價細項</value>
     </property>
-    <property key="OrderCreateOrderQuoteNote">
-        <value xml:lang="ar">خلق ملاحظة عرض سعر جديدة</value>
-        <value xml:lang="de">Neue Anmerkung zu Angebot erstellen</value>
-        <value xml:lang="de-CH">Neue Anmerkung zu Offerte erstellen</value>
-        <value xml:lang="en">Create New Quote Note</value>
-        <value xml:lang="fr">Créer une nouvelle note de devis</value>
-        <value xml:lang="nl">Nieuwe notitie bij offerte aanmaken</value>
-        <value xml:lang="zh">新建询价便笺</value>
-        <value xml:lang="zh-TW">新建詢價便箋</value>
-    </property>
     <property key="OrderCreateOrderQuoteRole">
         <value xml:lang="ar">خلق دور عرض سعر جديد</value>
         <value xml:lang="de">Neue Angebotsrolle erstellen</value>
@@ -12772,7 +12762,7 @@
         <value xml:lang="zh">退货类型历史记录</value>
         <value xml:lang="zh-TW">退貨類型歷史</value>
     </property>
-    
+
     <property key="OrderReviewOrder">
         <value xml:lang="ar">مراجعة أمر البيع\الشراء</value>
         <value xml:lang="de">Auftrag prüfen</value>
@@ -16318,5 +16308,9 @@
     <property key="PageTitleLookupReturnHeader">
         <value xml:lang="en">Lookup Return Header</value>
         <value xml:lang="nl">Retouren zoeken/vinden</value>
+    </property>
+    <property key="ItemAddedSuccessfully">
+       <value xml:lang="en">Item ${productId} added successfully</value>
+       <value xml:lang="it">Articolo ${productId} aggiunto con successo</value>
     </property>
 </resource>

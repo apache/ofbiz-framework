@@ -54,7 +54,7 @@ under the License.
                         <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
                         <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)!}"/>
                         <#if hasExpired><#assign class="alert"><#else><#assign class=""></#if>
-                        <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(prodCatalogCategory.thruDate)!}" size="25" maxlength="30" id="thruDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!}" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(prodCatalogCategory.thruDate)!}" size="25" maxlength="30" id="thruDate_1" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)!}"/>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
                     </form>
@@ -99,7 +99,7 @@ under the License.
                             <option value="${(prodCatalogCategoryType.prodCatalogCategoryTypeId)!}">${(prodCatalogCategoryType.get("description",locale))!}</option>
                         </#list>
                         </select>
-                        <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_1" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <input type="submit" value="${uiLabelMap.CommonAdd}"/>
                     </form>
                 </td></tr>

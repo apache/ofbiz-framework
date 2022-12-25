@@ -83,11 +83,11 @@
             </tr>
             <tr>
                 <td class="label">From Date</td>
-                <td><@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="" value="${Static['org.apache.ofbiz.base.util.UtilDateTime'].nowTimestamp()}" size="20" maxlength="50" id="fromDate" dateType="timestamp" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
+                <td><@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" title="" value="${Static['org.apache.ofbiz.base.util.UtilDateTime'].nowTimestamp()}" size="20" maxlength="50" id="fromDate" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
             </tr>
             <tr>
                 <td class="label">Thru Date</td>
-                <td><@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="" value="" size="20" maxlength="50" id="thruDate" dateType="timestamp" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
+                <td><@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" title="" value="" size="20" maxlength="50" id="thruDate" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
             </tr>
             <tr>
                 <td colspan="2" align="center"><input id="submit" type="button" onclick="javascript:pathSave('${contentId}');" class="smallSubmit" value="Create"/></td>

@@ -142,7 +142,7 @@ public final class StringUtil {
      * @param trim Trim whitespace off fields
      * @return a Map of name/value pairs
      */
-    public static Map<String, String> strToMap(String str, String delim, boolean trim) {
+    private static Map<String, String> strToMap(String str, String delim, boolean trim) {
         return strToMap(str, delim, trim, null);
 
     }

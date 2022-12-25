@@ -72,7 +72,7 @@ public class RunningService {
      * @return the start stamp
      */
     public Timestamp getStartStamp() {
-        return (Timestamp) this.startStamp.clone();
+        return (startStamp != null) ? (Timestamp) this.startStamp.clone() : null;
     }
 
     /**
@@ -80,7 +80,7 @@ public class RunningService {
      * @return the end stamp
      */
     public Timestamp getEndStamp() {
-        return (Timestamp) this.endStamp.clone();
+        return (endStamp != null) ? (Timestamp) this.endStamp.clone() : null;
     }
 
     /**

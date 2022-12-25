@@ -256,21 +256,21 @@ under the License.
         <attribute name="codeLength" type="Integer" mode="IN" optional="true" default-value="8"/>
         <attribute name="promoCodeLayout" type="String" mode="IN" optional="true" default-value="sequence"/>
     </service>
-
-    <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="component://product/minilang/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
+    
+    <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="groovy" invoke="createProductPromoCond"
+             location="component://product/groovyScripts/product/promo/PromoServices.groovy" auth="true">
         <description>Create a ProductPromo</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
         <override name="productPromoCondSeqId" mode="OUT"/>
     </service>
-    <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
-                location="component://product/minilang/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
+    <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="groovy" invoke="updateProductPromoCond"
+             location="component://product/groovyScripts/product/promo/PromoServices.groovy" auth="true">
         <description>Update a ProductPromo</description>
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
     </service>

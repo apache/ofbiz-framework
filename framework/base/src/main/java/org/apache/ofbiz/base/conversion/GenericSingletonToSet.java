@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GenericSingletonToSet<T> extends AbstractConverter<T, Set<T>> {
-    public GenericSingletonToSet(Class<T> sourceClass) {
+    GenericSingletonToSet(Class<T> sourceClass) {
         super(sourceClass, Set.class);
     }
 

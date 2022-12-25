@@ -292,7 +292,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         sr.append("\" linkText=\"");
         sr.append(linkText);
         sr.append("\" imgStr=\"");
-        sr.append(imgStr.replaceAll("\"", "\\\\\""));
+        sr.append(imgStr.replace("\"", "\\\""));
         sr.append("\" />");
         executeMacro(sr.toString().replace("|", "%7C")); // Fix for OFBIZ-9191
     }

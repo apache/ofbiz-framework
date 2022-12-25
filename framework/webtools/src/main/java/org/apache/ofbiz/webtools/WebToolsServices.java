@@ -84,6 +84,7 @@ import org.apache.ofbiz.entity.util.EntityDataLoader;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntitySaxReader;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
@@ -108,6 +109,7 @@ public class WebToolsServices {
     public static Map<String, Object> entityImport(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         List<String> messages = new LinkedList<>();
 
@@ -145,10 +147,11 @@ public class WebToolsServices {
         // #############################
         // FM Template
         // #############################
-        if (UtilValidate.urlInString(fulltext)) {
+        if (UtilValidate.urlInString(fulltext)
+                && !"true".equals(EntityUtilProperties.getPropertyValue("security", "security.datafile.loadurls.enable", "false", delegator))) {
             Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12304", MODULE);
-            Debug.logInfo("Rather load your data from a file", MODULE);
-            return null;
+            Debug.logInfo("Rather load your data from a file or set SystemProperty security.datafile.loadurls.enable = true", MODULE);
+            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsErrorDatafileLoadUrlNotEnabled", locale));
         }
         if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
             File fmFile = new File(fmfilename);

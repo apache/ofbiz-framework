@@ -305,9 +305,16 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="BillingAccountPaymentPanel" title="${uiLabelMap.AccountingCreatePayment}" collapsible="true">
-                            <include-form name="CreateIncomingBillingAccountPayment" location="component://accounting/widget/BillingAccountForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="ACCOUNTING" action="CREATE"/>
+                            </condition>
+                            <widgets>
+                                <screenlet id="BillingAccountPaymentPanel" title="${uiLabelMap.AccountingCreatePayment}" collapsible="true">
+                                    <include-form name="CreateIncomingBillingAccountPayment" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                         <include-grid name="ListBillingAccountPayments" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

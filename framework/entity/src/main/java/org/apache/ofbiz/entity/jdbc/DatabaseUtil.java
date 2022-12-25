@@ -1019,7 +1019,7 @@ public class DatabaseUtil {
         try {
             String[] types = {"TABLE", "BASE TABLE", "VIEW", "ALIAS", "SYNONYM"};
             lookupSchemaName = getSchemaName(dbData);
-            tableSet = dbData.getTables(null, lookupSchemaName, null, types);
+            tableSet = dbData.getTables(connection.getCatalog(), lookupSchemaName, null, types);
             if (tableSet == null) {
                 Debug.logWarning("getTables returned null set", MODULE);
             }
@@ -1158,7 +1158,7 @@ public class DatabaseUtil {
                 }
 
                 boolean foundCols = false;
-                ResultSet rsCols = dbData.getColumns(null, lookupSchemaName, null, null);
+                ResultSet rsCols = dbData.getColumns(connection.getCatalog(), lookupSchemaName, null, null);
                 if (!rsCols.next()) {
                     try {
                         rsCols.close();
@@ -1167,7 +1167,7 @@ public class DatabaseUtil {
                         Debug.logError(message, MODULE);
                         if (messages != null) messages.add(message);
                     }
-                    rsCols = dbData.getColumns(null, lookupSchemaName, "%", "%");
+                    rsCols = dbData.getColumns(connection.getCatalog(), lookupSchemaName, "%", "%");
                     if (!rsCols.next()) {
                         Debug.logVerbose("Now what to do? I guess try one table name at a time...", MODULE);
                     } else {

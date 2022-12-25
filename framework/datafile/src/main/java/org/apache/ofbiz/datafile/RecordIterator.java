@@ -97,7 +97,7 @@ public class RecordIterator {
      * @return the next line
      * @throws DataFileException the data file exception
      */
-    protected boolean getNextLine() throws DataFileException {
+    private boolean getNextLine() throws DataFileException {
         this.nextLine = null;
         this.nextRecord = null;
 
@@ -148,7 +148,7 @@ public class RecordIterator {
      * Gets current line number.
      * @return the current line number
      */
-    public int getCurrentLineNumber() {
+    private int getCurrentLineNumber() {
         return this.nextLineNum - 1;
     }
 
@@ -251,7 +251,7 @@ public class RecordIterator {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return the ModelRecord Object found
      */
-    protected static ModelRecord findModelForLine(String line, int lineNum, ModelDataFile modelDataFile) throws DataFileException {
+    private static ModelRecord findModelForLine(String line, int lineNum, ModelDataFile modelDataFile) throws DataFileException {
         ModelRecord modelRecord = null;
 
         for (ModelRecord curModelRecord : modelDataFile.getRecords()) {

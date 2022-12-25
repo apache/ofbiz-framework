@@ -94,7 +94,7 @@ public class ModelDataFile {
      * @param recordName the record name
      * @return the model record
      */
-    public ModelRecord getModelRecord(String recordName) {
+    ModelRecord getModelRecord(String recordName) {
         for (ModelRecord curRecord: records) {
 
             if (curRecord.getName().equals(recordName)) {

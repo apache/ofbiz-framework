@@ -108,7 +108,7 @@ public final class GroovyUtil {
      * @param context A <code>Map</code> containing initial variables
      * @return A <code>Binding</code> instance
      */
-    public static Binding getBinding(Map<String, Object> context, String expression) {
+    private static Binding getBinding(Map<String, Object> context, String expression) {
         Map<String, Object> vars = new HashMap<>();
         if (context != null) {
             vars.putAll(context);

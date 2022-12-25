@@ -144,7 +144,7 @@ public class ExternalLoginKeysManager {
             request.getSession().setAttribute("userLogin", userLogin);
             userLogin = LoginWorker.checkLogout(request, response);
 
-            LoginWorker.doBasicLogin(userLogin, request);
+            LoginWorker.doBasicLogin(userLogin, request, response);
 
             // Create a secured cookie with the correct userLoginId
             LoginWorker.createSecuredLoginIdCookie(request, response);

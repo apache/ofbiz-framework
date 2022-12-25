@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -120,7 +121,7 @@ public class JWTManager {
             return "success";
         }
 
-        LoginWorker.doBasicLogin(userLogin, request);
+        LoginWorker.doBasicLogin(userLogin, request, response);
         return "success";
     }
 
@@ -140,7 +141,10 @@ public class JWTManager {
      */
 
     public static String getJWTKey(Delegator delegator, String salt) {
-        String key = EntityUtilProperties.getPropertyValue("security", "security.token.key", delegator);
+        String key = UtilProperties.getPropertyValue("security", "security.token.key");
+        if (key.length() < 64) { // The key must be 512 bits (ie 64 chars)  as we use HMAC512 to create the token, cf. OFBIZ-12724
+            throw new SecurityException("The JWT secret key is too short. It must be at least 512 bites.");
+        }
         if (salt != null) {
             return StringUtil.toHexString(salt.getBytes()) + key;
         }
@@ -257,7 +261,7 @@ public class JWTManager {
 
     /**
      * Validates the provided token using a salt to recreate the key from the secret
-     * If the token is valid it will get the conteined claims and return them.
+     * If the token is valid it will get the contained claims and return them.
      * If token validation failed it will return an error.
      * @param delegator
      * @param jwtToken

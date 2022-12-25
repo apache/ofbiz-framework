@@ -26,7 +26,7 @@ import java.util.TimeZone;
  * and <code>getTargetClass</code> methods.
  */
 public abstract class AbstractLocalizedConverter<S, T> extends AbstractConverter<S, T> implements LocalizedConverter<S, T> {
-    protected AbstractLocalizedConverter(Class<? super S> sourceClass, Class<? super T> targetClass) {
+    AbstractLocalizedConverter(Class<? super S> sourceClass, Class<? super T> targetClass) {
         super(sourceClass, targetClass);
     }
 

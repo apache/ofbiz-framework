@@ -45,6 +45,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
 
+import org.apache.http.HttpStatus;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.util.Debug;
@@ -362,6 +363,7 @@ public final class LoginWorker {
                 if (UtilValidate.isNotEmpty(formParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
+                response.setStatus(HttpStatus.SC_UNAUTHORIZED);
                 return "error";
             }
         }
@@ -802,7 +804,7 @@ public final class LoginWorker {
             return "error";
         }
         if (userLogin != null && hasBasePermission(userLogin, request)) {
-            doBasicLogin(userLogin, request);
+            doBasicLogin(userLogin, request, response);
         } else {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -815,10 +817,11 @@ public final class LoginWorker {
 
         request.setAttribute("_LOGIN_PASSED_", "TRUE");
 
-        // run the after-login events
-        RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
-        rh.runAfterLoginEvents(request, response);
-
+        if (!"Y".equals(UtilProperties.getPropertyValue(SEC_PROPERTIES, "security.login.loginEventsAfterBasicLogin", "N"))) {
+            // run the after-login events
+            RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
+            rh.runAfterLoginEvents(request, response);
+        }
         // Create a secured cookie with the correct userLoginId
         createSecuredLoginIdCookie(request, response);
 
@@ -828,7 +831,7 @@ public final class LoginWorker {
         return autoLoginCheck(request, response);
     }
 
-    public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
+    public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.setAttribute("userLogin", userLogin);
 
@@ -927,6 +930,11 @@ public final class LoginWorker {
             } catch (ServletException e) {
                 Debug.logError(e, MODULE);
             }
+        }
+        if ("Y".equals(UtilProperties.getPropertyValue(SEC_PROPERTIES, "security.login.loginEventsAfterBasicLogin", "N"))) {
+            // run the after-login events
+            RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
+            rh.runAfterLoginEvents(request, response);
         }
 
         // setup some things that should always be there
@@ -1235,7 +1243,7 @@ public final class LoginWorker {
                         Map<String, String> x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
                         if (i == 0) {
                             String cn = x500Map.get("CN");
-                            cn = cn.replaceAll("\\\\", "");
+                            cn = cn.replace("\\", "");
                             Matcher m = pattern.matcher(cn);
                             if (m.matches()) {
                                 userLoginId = m.group(1);
@@ -1373,7 +1381,7 @@ public final class LoginWorker {
                 }
             }
         } else {
-            if (Debug.warningOn()) {
+            if (Debug.warningOn() && !GenericValue.getStackTraceAsString().contains("ControlFilter")) {
                 Debug.logWarning("Received a null Security object from HttpServletRequest", MODULE);
             }
         }

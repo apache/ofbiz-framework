@@ -335,7 +335,7 @@ under the License.
                 <parameter param-name="quoteId" from-field="parameters.quoteId"/>
             </link>
         </menu-item>
-        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.CommonWorkEfforts}">
+        <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.WorkEffortWorkEfforts}">
             <condition>
                 <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
             </condition>
@@ -412,7 +412,7 @@ under the License.
                     <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
                 </and>
             </condition>
-            <link target="EditQuoteRole">
+            <link target="createnewquotenote">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
@@ -440,7 +440,7 @@ under the License.
                     <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
                 </and>
             </condition>
-            <link target="EditQuoteRole">
+            <link target="EditQuoteTerm">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
@@ -454,7 +454,7 @@ under the License.
                     <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
                 </and>
             </condition>
-            <link target="EditQuoteRole">
+            <link target="AddQuoteWorkEffort">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
@@ -542,7 +542,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="NewRequestItem" title="${uiLabelMap.ProductNewItem}">
+        <menu-item name="NewRequestItem" title="${uiLabelMap.OrderNewRequestItem}">
             <condition>
                 <and>
                     <or>

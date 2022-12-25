@@ -19,7 +19,7 @@
 package org.apache.ofbiz.service;
 
 @SuppressWarnings("serial")
-public class ExecutionServiceException extends org.apache.ofbiz.base.util.GeneralException {
+public class ExecutionServiceException extends org.apache.ofbiz.service.GenericServiceException {
 
     public ExecutionServiceException() {
         super();

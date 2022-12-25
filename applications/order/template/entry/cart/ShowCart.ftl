@@ -111,7 +111,7 @@ under the License.
                       <#if useAsDefaultDesiredDeliveryDate??> 
                         <#assign value = defaultDesiredDeliveryDate>
                       </#if>
-                      <@htmlTemplate.renderDateTimeField name="itemDesiredDeliveryDate" value="${value!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                      <@htmlTemplate.renderDateTimeField name="itemDesiredDeliveryDate" value="${value!''}" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item1" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                       <label>
                       <input type="checkbox" name="useAsDefaultDesiredDeliveryDate" value="true"<#if useAsDefaultDesiredDeliveryDate??> checked="checked"</#if>/>
                       ${uiLabelMap.OrderUseDefaultDesiredDeliveryDate}
@@ -123,7 +123,7 @@ under the License.
                   <td align="right"><div>${uiLabelMap.OrderShipAfterDate} :</div></td>
                   <td>
                     <div>
-                      <@htmlTemplate.renderDateTimeField name="shipAfterDate" value="${shoppingCart.getDefaultShipAfterDate()!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                      <@htmlTemplate.renderDateTimeField name="shipAfterDate" value="${shoppingCart.getDefaultShipAfterDate()!''}" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item2" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     </div>
                   </td>
                 </tr>
@@ -131,7 +131,7 @@ under the License.
                   <td align="right"><div>${uiLabelMap.OrderShipBeforeDate} :</div></td>
                   <td>
                     <div>
-                      <@htmlTemplate.renderDateTimeField name="shipBeforeDate" value="${shoppingCart.getDefaultShipBeforeDate()!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item3" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                      <@htmlTemplate.renderDateTimeField name="shipBeforeDate" value="${shoppingCart.getDefaultShipBeforeDate()!''}" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item3" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     </div>
                   </td>
                 </tr>
@@ -140,7 +140,7 @@ under the License.
                     <td align="right"><div>${uiLabelMap.OrderReserveAfterDate} :</div></td>
                     <td>
                       <div>
-                        <@htmlTemplate.renderDateTimeField name="reserveAfterDate" value="${shoppingCart.getDefaultReserveAfterDate()!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item4" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="reserveAfterDate" value="${shoppingCart.getDefaultReserveAfterDate()!''}" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item4" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                       </div>
                     </td>
                   </tr>

@@ -161,7 +161,7 @@ public final class Converters {
      * @param <T> The target object type
      * @param creator The <code>ConverterCreater</code> instance to register
      */
-    public static <S, T> void registerCreator(ConverterCreator creator) {
+    static <S, T> void registerCreator(ConverterCreator creator) {
         synchronized (CREATORS) {
             CREATORS.add(creator);
         }
@@ -178,7 +178,7 @@ public final class Converters {
         registerConverter(converter, converter.getSourceClass(), converter.getTargetClass());
     }
 
-    public static <S, T> void registerConverter(Converter<S, T> converter, Class<?> sourceClass, Class<?> targetClass) {
+    private static <S, T> void registerConverter(Converter<S, T> converter, Class<?> sourceClass, Class<?> targetClass) {
         StringBuilder sb = new StringBuilder();
         if (sourceClass != null) {
             sb.append(sourceClass.getName());
@@ -196,7 +196,7 @@ public final class Converters {
     }
 
     protected static class PassThruConverterCreator implements ConverterCreator {
-        protected PassThruConverterCreator() {
+        PassThruConverterCreator() {
         }
 
         @Override
@@ -216,7 +216,7 @@ public final class Converters {
         private final Class<S> sourceClass;
         private final Class<T> targetClass;
 
-        public PassThruConverter(Class<S> sourceClass, Class<T> targetClass) {
+        PassThruConverter(Class<S> sourceClass, Class<T> targetClass) {
             this.sourceClass = sourceClass;
             this.targetClass = targetClass;
         }

@@ -253,16 +253,6 @@ public final class JobManager {
                 Debug.logWarning(e, "Unable to get purge job days: ", MODULE);
                 return Collections.emptyList();
             }
-            List<EntityCondition> purgeCondition = UtilMisc.toList(
-                    EntityCondition.makeCondition("runByInstanceId", INSTANCE_ID),
-                    EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition(UtilMisc.toList(
-                                    EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null),
-                                    EntityCondition.makeCondition("finishDateTime", EntityOperator.LESS_THAN, purgeTime))),
-                            EntityCondition.makeCondition(UtilMisc.toList(
-                                    EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null),
-                                    EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime)))),
-                            EntityOperator.OR));
             beganTransaction = false;
             try {
                 beganTransaction = TransactionUtil.begin();
@@ -270,12 +260,8 @@ public final class JobManager {
                     Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", MODULE);
                     return Collections.emptyList();
                 }
-                List<GenericValue> jobs = EntityQuery.use(delegator).from("JobSandbox")
-                        .where(purgeCondition)
-                        .select("jobId")
-                        .maxRows(limit)
-                        .queryList();
-                jobs.forEach(jobValue -> poll.add(new PurgeJob(jobValue)));
+                getJobsToPurge(delegator, null, INSTANCE_ID, limit, purgeTime)
+                        .forEach(jobValue -> poll.add(new PurgeJob(jobValue)));
                 TransactionUtil.commit(beganTransaction);
             } catch (Throwable t) {
                 String errMsg = "Exception thrown while polling JobSandbox: ";
@@ -289,6 +275,30 @@ public final class JobManager {
             }
         }
         return poll;
+    }
+
+    public static List<GenericValue> getJobsToPurge(Delegator delegator, String poolId, String instanceId, int limit, Timestamp purgeTime)
+            throws GenericEntityException {
+        List<EntityCondition> purgeCondition = UtilMisc.toList(
+                EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition(UtilMisc.toList(
+                                        EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null),
+                                        EntityCondition.makeCondition("finishDateTime", EntityOperator.LESS_THAN, purgeTime))),
+                                EntityCondition.makeCondition(UtilMisc.toList(
+                                        EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null),
+                                        EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime)))),
+                        EntityOperator.OR));
+        if (UtilValidate.isNotEmpty(instanceId)) {
+            purgeCondition.add(EntityCondition.makeCondition("runByInstanceId", instanceId));
+        }
+        if (UtilValidate.isNotEmpty(poolId)) {
+            purgeCondition.add(EntityCondition.makeCondition("poolId", poolId));
+        }
+        return EntityQuery.use(delegator).from("JobSandbox")
+                .where(purgeCondition)
+                .select("jobId", "runtimeDataId", "recurrenceInfoId")
+                .maxRows(limit)
+                .queryList();
     }
 
     public synchronized void reloadCrashedJobs() {

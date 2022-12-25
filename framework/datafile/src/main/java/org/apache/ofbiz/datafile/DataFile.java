@@ -55,7 +55,7 @@ public class DataFile {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return A new DataFile object with the specified file pre-loaded
      */
-    public static DataFile readFile(URL fileUrl, URL definitionUrl, String dataFileName) throws DataFileException {
+    static DataFile readFile(URL fileUrl, URL definitionUrl, String dataFileName) throws DataFileException {
         DataFile dataFile = makeDataFile(definitionUrl, dataFileName);
 
         dataFile.readDataFile(fileUrl);
@@ -98,7 +98,7 @@ public class DataFile {
      * Gets model data file.
      * @return the model data file
      */
-    public ModelDataFile getModelDataFile() {
+    private ModelDataFile getModelDataFile() {
         return modelDataFile;
     }
 
@@ -132,7 +132,7 @@ public class DataFile {
      * @param fileUrl The URL that the file will be loaded from
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      */
-    public void readDataFile(URL fileUrl) throws DataFileException {
+    private void readDataFile(URL fileUrl) throws DataFileException {
         if (fileUrl == null) {
             throw new IllegalStateException("File URL is null, cannot load file");
         }
@@ -163,7 +163,7 @@ public class DataFile {
      * @param locationInfo Text information about where the data came from for exception messages
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      */
-    public void readDataFile(InputStream dataFileStream, String locationInfo) throws DataFileException {
+    private void readDataFile(InputStream dataFileStream, String locationInfo) throws DataFileException {
         if (modelDataFile == null) {
             throw new IllegalStateException("DataFile model is null, cannot load file");
         }
@@ -195,7 +195,7 @@ public class DataFile {
      * @return the record iterator
      * @throws DataFileException the data file exception
      */
-    public RecordIterator makeRecordIterator(InputStream dataFileStream, String locationInfo) throws DataFileException {
+    private RecordIterator makeRecordIterator(InputStream dataFileStream, String locationInfo) throws DataFileException {
         return new RecordIterator(dataFileStream, this.modelDataFile, locationInfo);
     }
 
@@ -247,7 +247,7 @@ public class DataFile {
      * @param records the records
      * @throws DataFileException the data file exception
      */
-    protected void writeRecords(OutputStream outStream, List<Record> records) throws DataFileException {
+    private void writeRecords(OutputStream outStream, List<Record> records) throws DataFileException {
         for (Record record : records) {
             String line = record.writeLineString(modelDataFile);
 

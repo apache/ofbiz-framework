@@ -38,7 +38,7 @@ public abstract class ResourceLoader {
     // This cache is temporary - we will use it until the framework has been refactored to eliminate DOM tree caching, then it can be removed.
     private static final UtilCache<String, Document> DOM_CACHE = UtilCache.createUtilCache("resource.DomTrees", 0, 0);
 
-    public static InputStream loadResource(String xmlFilename, String location, String loaderName) throws GenericConfigException {
+    static InputStream loadResource(String xmlFilename, String location, String loaderName) throws GenericConfigException {
         ResourceLoader loader = getLoader(xmlFilename, loaderName);
         if (loader == null) {
             throw new IllegalArgumentException("ResourceLoader not found with name [" + loaderName + "] in " + xmlFilename);
@@ -179,7 +179,7 @@ public abstract class ResourceLoader {
      * @param location
      * @return the built-up full location
      */
-    public String fullLocation(String location) {
+    String fullLocation(String location) {
         StringBuilder buf = new StringBuilder();
         if (!envName.isEmpty()) {
             String propValue = System.getProperty(envName);

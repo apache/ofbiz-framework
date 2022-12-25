@@ -112,8 +112,6 @@ under the License.
         <alias entity-alias="IITM" name="quantityOnHandTotal"/>
         <alias entity-alias="IITM" name="availableToPromiseTotal"/>
         <alias entity-alias="IITM" name="accountingQuantityTotal"/>
-        <alias entity-alias="IITM" name="oldQuantityOnHand"/>
-        <alias entity-alias="IITM" name="oldAvailableToPromise"/>
         <alias entity-alias="IITM" name="serialNumber"/>
         <alias entity-alias="IITM" name="softIdentifier"/>
         <alias entity-alias="IITM" name="activationNumber"/>

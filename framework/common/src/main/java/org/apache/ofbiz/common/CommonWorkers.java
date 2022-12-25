@@ -110,7 +110,7 @@ public final class CommonWorkers {
     /**
      * Returns a list of regional geo associations.
      */
-    public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country, String listOrderBy) {
+    private static List<GenericValue> getAssociatedStateList(Delegator delegator, String country, String listOrderBy) {
         if (UtilValidate.isEmpty(country)) {
             // Load the system default country
             country = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);

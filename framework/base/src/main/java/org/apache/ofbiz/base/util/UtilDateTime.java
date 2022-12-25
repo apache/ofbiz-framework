@@ -65,7 +65,7 @@ public final class UtilDateTime {
 
     private UtilDateTime() { }
 
-    public static double getInterval(Date from, Date thru) {
+    private static double getInterval(Date from, Date thru) {
         return thru != null ? thru.getTime() - from.getTime() : 0;
     }
 
@@ -486,7 +486,7 @@ public final class UtilDateTime {
      * @param time The time String: either HH:MM or HH:MM:SS
      * @return A Date made from the date and time Strings
      */
-    public static java.util.Date toDate(String date, String time) {
+    private static java.util.Date toDate(String date, String time) {
         if (date == null || time == null) {
             return null;
         }
@@ -535,8 +535,8 @@ public final class UtilDateTime {
      * @param secondStr The second String
      * @return A Date made from separate Strings for month, day, year, hour, minute, and second.
      */
-    public static java.util.Date toDate(String monthStr, String dayStr, String yearStr, String hourStr,
-            String minuteStr, String secondStr) {
+    static java.util.Date toDate(String monthStr, String dayStr, String yearStr, String hourStr,
+                                 String minuteStr, String secondStr) {
 
         int month;
         int day;
@@ -569,7 +569,7 @@ public final class UtilDateTime {
      * @param second The second int
      * @return A Date made from separate ints for month, day, year, hour, minute, and second.
      */
-    public static java.util.Date toDate(int month, int day, int year, int hour, int minute, int second) {
+    private static java.util.Date toDate(int month, int day, int year, int hour, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
 
         try {
@@ -586,7 +586,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A date String in the given format
      */
-    public static String toDateString(java.util.Date date, String format) {
+    private static String toDateString(java.util.Date date, String format) {
         if (date == null) {
             return "";
         }
@@ -617,7 +617,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A time String in the format HH:MM:SS or HH:MM
      */
-    public static String toTimeString(java.util.Date date) {
+    private static String toTimeString(java.util.Date date) {
         if (date == null) {
             return "";
         }
@@ -635,7 +635,7 @@ public final class UtilDateTime {
      * @param second The second int
      * @return A time String in the format HH:MM:SS or HH:MM
      */
-    public static String toTimeString(int hour, int minute, int second) {
+    private static String toTimeString(int hour, int minute, int second) {
         String hourStr;
         String minuteStr;
         String secondStr;
@@ -816,7 +816,7 @@ public final class UtilDateTime {
         return getWeekStart(stamp, daysLater, 0, timeZone, locale);
     }
 
-    public static Timestamp getWeekStart(Timestamp stamp, int daysLater, int weeksLater, TimeZone timeZone, Locale locale) {
+    private static Timestamp getWeekStart(Timestamp stamp, int daysLater, int weeksLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
         tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
@@ -842,7 +842,7 @@ public final class UtilDateTime {
         return getMonthStart(stamp, daysLater, 0, timeZone, locale);
     }
 
-    public static Timestamp getMonthStart(Timestamp stamp, int daysLater, int monthsLater, TimeZone timeZone, Locale locale) {
+    private static Timestamp getMonthStart(Timestamp stamp, int daysLater, int monthsLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), 1, 0, 0, 0);
         tempCal.add(Calendar.MONTH, monthsLater);
@@ -875,7 +875,7 @@ public final class UtilDateTime {
                 ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()), timeZone, locale);
     }
 
-    public static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater, TimeZone timeZone, Locale locale) {
+    private static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
         tempCal.add(Calendar.YEAR, yearsLater);
@@ -892,7 +892,7 @@ public final class UtilDateTime {
         return getMonthEnd(new Timestamp(tempCal.getTimeInMillis()), timeZone, locale);
     }
 
-    public static int weekNumber(Timestamp stamp, TimeZone timeZone, Locale locale) {
+    private static int weekNumber(Timestamp stamp, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         return tempCal.get(Calendar.WEEK_OF_YEAR);
     }
@@ -997,7 +997,7 @@ public final class UtilDateTime {
     /**
      * Localized String to Timestamp conversion. To be used in tandem with timeStampToString().
      */
-    public static Timestamp stringToTimeStamp(String dateTimeString, String dateTimeFormat, TimeZone tz, Locale locale) throws ParseException {
+    private static Timestamp stringToTimeStamp(String dateTimeString, String dateTimeFormat, TimeZone tz, Locale locale) throws ParseException {
         DateFormat dateFormat = toDateTimeFormat(dateTimeFormat, tz, locale);
         Date parsedDate = dateFormat.parse(dateTimeString);
         return new Timestamp(parsedDate.getTime());
@@ -1013,7 +1013,7 @@ public final class UtilDateTime {
     /**
      * Localized Timestamp to String conversion. To be used in tandem with stringToTimeStamp().
      */
-    public static String timeStampToString(Timestamp stamp, String dateTimeFormat, TimeZone tz, Locale locale) {
+    private static String timeStampToString(Timestamp stamp, String dateTimeFormat, TimeZone tz, Locale locale) {
         DateFormat dateFormat = toDateTimeFormat(dateTimeFormat, tz, locale);
         return dateFormat.format(stamp);
     }
@@ -1115,7 +1115,7 @@ public final class UtilDateTime {
         return cal.get(Calendar.YEAR);
     }
 
-    public static Date getEarliestDate() {
+    static Date getEarliestDate() {
         Calendar cal = getCalendarInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
         cal.set(Calendar.YEAR, cal.getActualMinimum(Calendar.YEAR));
         cal.set(Calendar.MONTH, cal.getActualMinimum(Calendar.MONTH));
@@ -1127,7 +1127,7 @@ public final class UtilDateTime {
         return cal.getTime();
     }
 
-    public static Date getLatestDate() {
+    static Date getLatestDate() {
         Calendar cal = getCalendarInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
         cal.set(Calendar.YEAR, cal.getActualMaximum(Calendar.YEAR));
         cal.set(Calendar.MONTH, cal.getActualMaximum(Calendar.MONTH));
@@ -1146,7 +1146,7 @@ public final class UtilDateTime {
      * @param date  the date to copy
      * @return an immutable copy of {@code date}.
      */
-    public static Date unmodifiableDate(Date date) {
+    static Date unmodifiableDate(Date date) {
         if (date instanceof ImmutableDate) {
             return date;
         }

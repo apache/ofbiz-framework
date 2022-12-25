@@ -38,7 +38,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
 
     private static final String MODULE = CrossSubdomainSessionValve.class.getName();
 
-    public CrossSubdomainSessionValve() {
+    CrossSubdomainSessionValve() {
         super();
     }
 
@@ -68,7 +68,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
      * @param response the response
      * @param cookie the cookie
      */
-    protected void replaceCookie(Request request, Response response, Cookie cookie) {
+    private void replaceCookie(Request request, Response response, Cookie cookie) {
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         // copy the existing session cookie, but use a different domain (only if domain is valid)

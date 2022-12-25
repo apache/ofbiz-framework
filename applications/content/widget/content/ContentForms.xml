@@ -299,9 +299,10 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"></display-entity></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"/></field>
         <field name="mapKey"><display/></field>
-        <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
+        <field name="sequenceNum"><display/></field>
+        <field name="fromDate"><display type="date"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAssoc" also-hidden="false">
                 <parameter param-name="contentId"/>
@@ -311,7 +312,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="thruDate"><date-time/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
+        <field name="updateButton" widget-style="buttontext">
             <submit button-type="text-link"/>
         </field>
     </form>
@@ -330,9 +331,10 @@ under the License.
             </display-entity>
         </field>
         <field name="contentIdTo"><hidden/></field>
-        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"></display-entity></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"/></field>
         <field name="mapKey"><display/></field>
-        <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
+        <field name="sequenceNum"><display/></field>
+        <field name="fromDate"><display type="date"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeContentAssoc" also-hidden="false">
                 <parameter param-name="contentId"/>
@@ -342,7 +344,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="thruDate"><date-time/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
+        <field name="updateButton" widget-style="buttontext">
             <submit button-type="text-link"/>
         </field>
     </form>

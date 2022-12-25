@@ -586,6 +586,7 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" ref="auto-parameters-service"/>
                 <xs:element minOccurs="0" ref="auto-parameters-entity"/>
+                <xs:element minOccurs="0" ref="auto-parameters-form"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
             </xs:sequence>
             <xs:attribute name="event-type" use="required">
@@ -856,7 +857,15 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="disabled" type="xs:boolean" default="false"/>
+            <xs:attribute type="xs:string" name="disabled">
+                <xs:annotation>
+                    <xs:documentation>
+                        Set a field as disabled : not mutable, not focusable, not submitted if in a form.
+                        Accepts ${} notation to allow use of expressions.
+                        Expressions must evaluate to the strings 'true', 'false' (without quotes) or empty (equivalent to false)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
@@ -963,11 +972,6 @@ under the License.
                         <xs:enumeration value="N" />
                     </xs:restriction>
                 </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="placeholder" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>Specifies a short hint that describes the expected value of an input field.</xs:documentation>
-                </xs:annotation>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -1551,6 +1555,12 @@ under the License.
             <xs:documentation>Area to be updated when a field event occurs.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="auto-parameters-service"/>
+                <xs:element minOccurs="0" ref="auto-parameters-entity"/>
+                <xs:element minOccurs="0" ref="auto-parameters-form"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
+            </xs:sequence>
             <xs:attribute name="event-type" use="required">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -1559,8 +1569,8 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="area-id" use="required" />
-            <xs:attribute type="xs:string" name="area-target" use="required" />
+            <xs:attribute type="xs:string" name="area-id" />
+            <xs:attribute type="xs:string" name="area-target" />
         </xs:complexType>
     </xs:element>
 

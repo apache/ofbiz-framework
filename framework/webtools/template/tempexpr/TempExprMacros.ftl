@@ -36,13 +36,13 @@ your template file:
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td>
-      <@DateField formName=formName fieldName="dateRange1" fieldValue=fromDate/>
+      <@DateField id="dateRange_date1" formName=formName fieldName="date1" fieldValue=fromDate/>
     </td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.CommonTo}</td>
     <td>
-      <@DateField formName=formName fieldName="dateRange2" fieldValue=toDate/>
+      <@DateField id="dateRange_date2" formName=formName fieldName="date2" fieldValue=toDate/>
     </td>
   </tr>
 </#macro>
@@ -104,7 +104,7 @@ your template file:
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td>
-      <@DateField formName=formName fieldName="dateFreq1" fieldValue=fromDate/>
+      <@DateField id="frequency_date1" formName=formName fieldName="date1" fieldValue=fromDate/>
     </td>
   </tr>
   <tr>
