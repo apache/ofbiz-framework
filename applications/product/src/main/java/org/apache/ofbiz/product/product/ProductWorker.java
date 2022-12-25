@@ -34,6 +34,7 @@ import java.util.Set;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.geo.GeoWorker;
@@ -42,6 +43,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.model.DynamicViewEntity;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityTypeUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -50,6 +52,7 @@ import org.apache.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * Product Worker class to reduce code in JSPs.
@@ -62,22 +65,17 @@ public final class ProductWorker {
     private ProductWorker() { }
 
     public static boolean shippingApplies(GenericValue product) {
-        String errMsg = "";
         if (product != null) {
             String productTypeId = product.getString("productTypeId");
-            if ("SERVICE".equals(productTypeId) || "SERVICE_PRODUCT".equals(productTypeId) || (ProductWorker.isDigital(product)
-                    && !ProductWorker.isPhysical(product))) {
+            if ("SERVICE".equals(productTypeId) || "SERVICE_PRODUCT".equals(productTypeId)
+                    || (ProductWorker.isDigital(product) && !ProductWorker.isPhysical(product))) {
                 // don't charge shipping on services or digital goods
                 return false;
             }
-            Boolean chargeShipping = product.getBoolean("chargeShipping");
-
-            if (chargeShipping == null) {
-                return true;
-            }
-            return chargeShipping;
+            return product.get("chargeShipping") == null
+                    || product.getBoolean("chargeShipping");
         }
-        throw new IllegalArgumentException(errMsg);
+        throw new IllegalArgumentException("No product given to analyze if it needed to ship it");
     }
 
     public static boolean isBillableToAddress(GenericValue product, GenericValue postalAddress) {
@@ -660,14 +658,14 @@ public final class ProductWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
-        return ProductWorker.getAverageProductRating(product, productStoreId);
+        return ProductWorker.getAverageProductRating(product, productStoreId, delegator);
     }
 
-    public static BigDecimal getAverageProductRating(GenericValue product, String productStoreId) {
-        return getAverageProductRating(product, null, productStoreId);
+    public static BigDecimal getAverageProductRating(GenericValue product, String productStoreId, Delegator delegator) {
+        return getAverageProductRating(product, null, productStoreId, delegator);
     }
 
-    public static BigDecimal getAverageProductRating(GenericValue product, List<GenericValue> reviews, String productStoreId) {
+    public static BigDecimal getAverageProductRating(GenericValue product, List<GenericValue> reviews, String productStoreId, Delegator delegator) {
         if (product == null) {
             Debug.logWarning("Invalid product entity passed; unable to obtain valid product rating", MODULE);
             return BigDecimal.ZERO;
@@ -688,37 +686,45 @@ public final class ProductWorker {
         if ("PRDR_FLAT".equals(entityFieldType)) {
             productRating = productEntityRating;
         } else {
-            // get the product rating from the ProductReview entity; limit by product store if ID is passed
-            Map<String, String> reviewByAnd = UtilMisc.toMap("statusId", "PRR_APPROVED");
-            if (productStoreId != null) {
-                reviewByAnd.put("productStoreId", productStoreId);
-            }
-
             // lookup the reviews if we didn't pass them in
             if (reviews == null) {
+                Map<String, String> reviewByAnd = UtilMisc.toMap("statusId", "PRR_APPROVED");
+                if (productStoreId != null) {
+                    reviewByAnd.put("productStoreId", productStoreId);
+                }
+                if (product != null) {
+                    reviewByAnd.put("productId", (String) product.get("productId"));
+                }
                 try {
-                    reviews = product.getRelated("ProductReview", reviewByAnd, UtilMisc.toList("-postedDateTime"), true);
+                    DynamicViewEntity avgProductReview = new DynamicViewEntity();
+                    avgProductReview.addMemberEntity("PR", "ProductReview");
+                    avgProductReview.addAlias("PR", "productRatingAvg", "productRating", null, null, null, "avg");
+                    avgProductReview.addAlias("PR", "productId");
+                    avgProductReview.addAlias("PR", "statusId");
+                    avgProductReview.addAlias("PR", "productStoreId");
+                    GenericValue averageProductReview = EntityQuery.use(delegator).select("productRatingAvg")
+                            .from(avgProductReview).where(reviewByAnd).queryFirst();
+                    productRating = averageProductReview.getBigDecimal("productRatingAvg");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
                 }
-            }
-
-            // tally the average
-            BigDecimal ratingTally = BigDecimal.ZERO;
-            BigDecimal numRatings = BigDecimal.ZERO;
-            if (reviews != null) {
-                for (GenericValue productReview: reviews) {
-                    BigDecimal rating = productReview.getBigDecimal("productRating");
-                    if (rating != null) {
-                        ratingTally = ratingTally.add(rating);
-                        numRatings = numRatings.add(BigDecimal.ONE);
+            } else {
+                // tally the average
+                BigDecimal ratingTally = BigDecimal.ZERO;
+                BigDecimal numRatings = BigDecimal.ZERO;
+                if (reviews != null) {
+                    for (GenericValue productReview: reviews) {
+                        BigDecimal rating = productReview.getBigDecimal("productRating");
+                        if (rating != null) {
+                            ratingTally = ratingTally.add(rating);
+                            numRatings = numRatings.add(BigDecimal.ONE);
+                        }
                     }
                 }
+                if (ratingTally.compareTo(BigDecimal.ZERO) > 0 && numRatings.compareTo(BigDecimal.ZERO) > 0) {
+                    productRating = ratingTally.divide(numRatings, GEN_ROUNDING);
+                }
             }
-            if (ratingTally.compareTo(BigDecimal.ZERO) > 0 && numRatings.compareTo(BigDecimal.ZERO) > 0) {
-                productRating = ratingTally.divide(numRatings, GEN_ROUNDING);
-            }
-
             if ("PRDR_MIN".equals(entityFieldType)) {
                 // check for min
                 if (productEntityRating.compareTo(productRating) > 0) {
@@ -1317,17 +1323,51 @@ public final class ProductWorker {
                         productsInStock.add(genericRecord);
                     }
                 } else {
-                    List<GenericValue> facilities = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId).queryList();
-                    BigDecimal availableInventory = BigDecimal.ZERO;
-                    if (UtilValidate.isNotEmpty(facilities)) {
-                        for (GenericValue facility : facilities) {
-                            BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
-                            if (lastInventoryCount != null) {
-                                availableInventory = lastInventoryCount.add(availableInventory);
+                    if ("Y".equals(product.getString("isVirtual"))) {
+                        BigDecimal availableInventory = BigDecimal.ZERO;
+                        try {
+                            Map<String, Object> variantResultOutput = dispatcher.runSync("getAllProductVariants",
+                                    UtilMisc.toMap("productId", productId));
+                            if (ServiceUtil.isError(variantResultOutput)) {
+                                Debug.logError("Error in retrieving all product variants for productId " + productId
+                                        + " Skip this product. Error is : " + ServiceUtil.getErrorMessage(variantResultOutput), MODULE);
+                                continue;
                             }
+                            List<GenericValue> productVariants = UtilGenerics.cast(variantResultOutput.get("assocProducts"));
+                            for (GenericValue productVariant : productVariants) {
+                                List<GenericValue> facilities = EntityQuery.use(delegator)
+                                        .from("ProductFacility")
+                                        .where("productId", productVariant.getString("productIdTo"))
+                                        .queryList();
+                                if (UtilValidate.isNotEmpty(facilities)) {
+                                    for (GenericValue facility : facilities) {
+                                        BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
+                                        if (lastInventoryCount != null) {
+                                            availableInventory = lastInventoryCount.add(availableInventory);
+                                        }
+                                    }
+                                }
+                            }
+                            if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
+                                productsInStock.add(genericRecord);
+                            }
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "Error getting all product variants for productId " + productId
+                                    + ", while filtering out of stock products.", MODULE);
                         }
-                        if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
-                            productsInStock.add(genericRecord);
+                    } else {
+                        BigDecimal availableInventory = BigDecimal.ZERO;
+                        List<GenericValue> facilities = EntityQuery.use(delegator).from("ProductFacility").where("productId", productId).queryList();
+                        if (UtilValidate.isNotEmpty(facilities)) {
+                            for (GenericValue facility : facilities) {
+                                BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
+                                if (lastInventoryCount != null) {
+                                    availableInventory = lastInventoryCount.add(availableInventory);
+                                }
+                            }
+                            if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
+                                productsInStock.add(genericRecord);
+                            }
                         }
                     }
                 }

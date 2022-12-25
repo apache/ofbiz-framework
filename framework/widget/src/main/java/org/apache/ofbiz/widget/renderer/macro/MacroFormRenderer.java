@@ -23,7 +23,6 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -53,6 +52,7 @@ import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
+import org.apache.ofbiz.widget.content.StaticContentUrlProvider;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
@@ -80,7 +80,6 @@ import org.apache.ofbiz.widget.model.ModelFormField.SubmitField;
 import org.apache.ofbiz.widget.model.ModelFormField.TextField;
 import org.apache.ofbiz.widget.model.ModelFormField.TextFindField;
 import org.apache.ofbiz.widget.model.ModelFormField.TextareaField;
-import org.apache.ofbiz.widget.model.ModelFormFieldBuilder;
 import org.apache.ofbiz.widget.model.ModelScreenWidget;
 import org.apache.ofbiz.widget.model.ModelSingleForm;
 import org.apache.ofbiz.widget.model.ModelTheme;
@@ -94,8 +93,6 @@ import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.jsoup.nodes.Element;
-
-import com.ibm.icu.util.Calendar;
 
 /**
  * Widget Library - Form Renderer implementation based on Freemarker macros
@@ -129,13 +126,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = UtilCodec.getEncoder("string");
         this.ftlWriter = ftlWriter != null ? ftlWriter : new FtlWriter(macroLibraryPath, this.visualTheme);
+        final StaticContentUrlProvider staticContentUrlProvider = new StaticContentUrlProvider(request);
         this.renderableFtlFormElementsBuilder = renderableFtlFormElementsBuilder != null
                 ? renderableFtlFormElementsBuilder
-                : new RenderableFtlFormElementsBuilder(this.visualTheme, rh, request, response);
+                : new RenderableFtlFormElementsBuilder(this.visualTheme, rh, request, response, staticContentUrlProvider);
     }
 
     private static String encodeDoubleQuotes(String htmlString) {
-        return htmlString.replaceAll("\"", "\\\\\"");
+        return htmlString.replace("\"", "\\\"");
     }
 
     public boolean getRenderPagination() {
@@ -183,14 +181,21 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) {
-        writeFtlElement(writer,
-                renderableFtlFormElementsBuilder.displayField(context, displayField, this.javaScriptEnabled));
+    public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField)
+            throws IOException {
+        if (displayField instanceof DisplayEntityField
+                && ((DisplayEntityField) displayField).needConvertAsHyperlink(context)) {
 
-        if (displayField instanceof DisplayEntityField) {
+            // When we have a subHyperlink on a display entity, display all as a hyperlink
+            renderHyperlinkField(writer, context, ((DisplayEntityField) displayField).asHyperlink(context));
+        } else {
             writeFtlElement(writer,
-                    renderableFtlFormElementsBuilder.makeHyperlinkString(((DisplayEntityField) displayField).getSubHyperlink(),
-                            context));
+                    renderableFtlFormElementsBuilder.displayField(context, displayField, this.javaScriptEnabled));
+            if (displayField instanceof DisplayEntityField) {
+                writeFtlElement(writer,
+                        renderableFtlFormElementsBuilder.makeHyperlinkString(((DisplayEntityField) displayField).getSubHyperlink(),
+                                context));
+            }
         }
 
         final ModelFormField modelFormField = displayField.getModelFormField();
@@ -198,7 +203,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
-    public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
+    public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField)
+            throws IOException {
         this.request.setAttribute("image", hyperlinkField.getImageLocation(context));
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         String encodedAlternate = encode(hyperlinkField.getAlternate(context), modelFormField, context);
@@ -207,6 +213,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
         this.request.setAttribute("id", modelFormField.getCurrentContainerId(context));
+        this.request.setAttribute("title", hyperlinkField.getTitle());
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(),
@@ -236,354 +243,24 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderTextareaField(Appendable writer, Map<String, Object> context, TextareaField textareaField) {
-        ModelFormField modelFormField = textareaField.getModelFormField();
-        String name = modelFormField.getParameterName(context);
-        String cols = Integer.toString(textareaField.getCols());
-        String rows = Integer.toString(textareaField.getRows());
-        String id = modelFormField.getCurrentContainerId(context);
-        String className = "";
-        String alert = "false";
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
-            String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) {
-                requiredStyle = "required";
-            }
-            if (UtilValidate.isEmpty(className)) {
-                className = requiredStyle;
-            } else {
-                className = requiredStyle + " " + className;
-            }
-        }
-        String visualEditorEnable = "";
-        String buttons = "";
-        if (textareaField.getVisualEditorEnable()) {
-            visualEditorEnable = "true";
-            buttons = textareaField.getVisualEditorButtons(context);
-            if (UtilValidate.isEmpty(buttons)) {
-                buttons = "maxi";
-            }
-        }
-        String readonly = "";
-        if (textareaField.isReadOnly()) {
-            readonly = "readonly";
-        }
-        Map<String, Object> userLogin = UtilGenerics.cast(context.get("userLogin"));
-        String language = "en";
-        if (userLogin != null) {
-            language = UtilValidate.isEmpty((String) userLogin.get("lastLocale")) ? "en" : (String) userLogin.get("lastLocale");
-        }
-        String maxlength = "";
-        if (textareaField.getMaxlength() != null) {
-            maxlength = Integer.toString(textareaField.getMaxlength());
-        }
-        String tabindex = modelFormField.getTabindex();
-        String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
-        boolean disabled = modelFormField.getDisabled();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderTextareaField ");
-        sr.append("name=\"");
-        sr.append(name);
-        sr.append("\" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" cols=\"");
-        sr.append(cols);
-        sr.append("\" rows=\"");
-        sr.append(rows);
-        sr.append("\" maxlength=\"");
-        sr.append(maxlength);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" readonly=\"");
-        sr.append(readonly);
-        sr.append("\" visualEditorEnable=\"");
-        sr.append(visualEditorEnable);
-        sr.append("\" language=\"");
-        sr.append(language);
-        sr.append("\" buttons=\"");
-        sr.append(buttons);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.textArea(context, textareaField));
+
+        final ModelFormField modelFormField = textareaField.getModelFormField();
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    private boolean shouldApplyRequiredField(ModelFormField modelFormField) {
+        return ("single".equals(modelFormField.getModelForm().getType())
+                || "upload".equals(modelFormField.getModelForm().getType()))
+                && modelFormField.getRequiredField();
+    }
+
     @Override
-    public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
-        ModelFormField modelFormField = dateTimeField.getModelFormField();
-        String paramName = modelFormField.getParameterName(context);
-        String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
-        boolean disabled = modelFormField.getDisabled();
-        String className = "";
-        String alert = "false";
-        String name = "";
-        String formattedMask = "";
-        String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
-        String stepString = dateTimeField.getStep();
-        int step = 1;
-        StringBuilder timeValues = new StringBuilder();
-        if (useTimeDropDown && UtilValidate.isNotEmpty(step)) {
-            try {
-                step = Integer.parseInt(stepString);
-            } catch (IllegalArgumentException e) {
-                Debug.logWarning("Invalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" "
-                        + " Found Value [" + stepString + "]  " + e.getMessage(), MODULE);
-            }
-            timeValues.append("[");
-            for (int i = 0; i <= 59;) {
-                if (i != 0) {
-                    timeValues.append(", ");
-                }
-                timeValues.append(i);
-                i += step;
-            }
-            timeValues.append("]");
-        }
-        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
-        if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
-        }
-        String localizedInputTitle = "";
-        String localizedIconTitle = "";
-        // whether the date field is short form, yyyy-mm-dd
-        boolean shortDateInput = ("date".equals(dateTimeField.getType()) || useTimeDropDown ? true : false);
-        if (useTimeDropDown) {
-            name = UtilHttp.makeCompositeParam(paramName, "date");
-        } else {
-            name = paramName;
-        }
-        // the default values for a timestamp
-        int size = 25;
-        int maxlength = 30;
-        if (shortDateInput) {
-            maxlength = 10;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
-            }
-        } else if ("time".equals(dateTimeField.getType())) {
-            maxlength = 8;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
-            }
-        } else {
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
-            }
-        }
-        /*
-         * FIXME: Using a builder here is a hack. Replace the builder with appropriate code.
-         */
-        ModelFormFieldBuilder builder = new ModelFormFieldBuilder(modelFormField);
-        boolean memEncodeOutput = modelFormField.getEncodeOutput();
-        if (useTimeDropDown) {
-            // If time-dropdown deactivate encodingOutput for found hour and minutes
-            // FIXME: Encoding should be controlled by the renderer, not by the model.
-            builder.setEncodeOutput(false);
-        }
-        // FIXME: modelFormField.getEntry ignores shortDateInput when converting Date objects to Strings.
-        if (useTimeDropDown) {
-            builder.setEncodeOutput(memEncodeOutput);
-        }
-        modelFormField = builder.build();
-        String contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
-        String value = contextValue;
-        if (UtilValidate.isNotEmpty(value)) {
-            if (value.length() > maxlength) {
-                value = value.substring(0, maxlength);
-            }
-        }
-        String id = modelFormField.getCurrentContainerId(context);
-        ModelForm modelForm = modelFormField.getModelForm();
-        String formName = FormRenderer.getCurrentFormName(modelForm, context);
-        String timeDropdown = dateTimeField.getInputMethod();
-        String timeDropdownParamName = "";
-        String classString = "";
-        boolean isTwelveHour = false;
-        String timeHourName = "";
-        int hour2 = 0;
-        int hour1 = 0;
-        int minutes = 0;
-        String timeMinutesName = "";
-        String amSelected = "";
-        String pmSelected = "";
-        String ampmName = "";
-        String compositeType = "";
-        // search for a localized label for the icon
-        if (uiLabelMap != null) {
-            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
-        }
-        if (!"time".equals(dateTimeField.getType())) {
-            String tempParamName;
-            if (useTimeDropDown) {
-                tempParamName = UtilHttp.makeCompositeParam(paramName, "date");
-            } else {
-                tempParamName = paramName;
-            }
-            timeDropdownParamName = tempParamName;
-            defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString));
-        }
-        // if we have an input method of time-dropdown, then render two
-        // dropdowns
-        if (useTimeDropDown) {
-            className = modelFormField.getWidgetStyle();
-            classString = (className != null ? className : "");
-            isTwelveHour = "12".equals(dateTimeField.getClock());
-            // set the Calendar to the default time of the form or now()
-            Calendar cal = null;
-            try {
-                Timestamp defaultTimestamp = Timestamp.valueOf(contextValue);
-                cal = Calendar.getInstance();
-                cal.setTime(defaultTimestamp);
-            } catch (IllegalArgumentException e) {
-                Debug.logWarning("Form widget field [" + paramName
-                        + "] with input-method=\"time-dropdown\" was not able to understand the default time [" + defaultDateTimeString
-                        + "]. The parsing error was: " + e.getMessage(), MODULE);
-            }
-            timeHourName = UtilHttp.makeCompositeParam(paramName, "hour");
-            if (cal != null) {
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                hour2 = hour;
-                if (hour == 0) {
-                    hour = 12;
-                }
-                if (hour > 12) {
-                    hour -= 12;
-                }
-                hour1 = hour;
-                minutes = cal.get(Calendar.MINUTE);
-            }
-            timeMinutesName = UtilHttp.makeCompositeParam(paramName, "minutes");
-            compositeType = UtilHttp.makeCompositeParam(paramName, "compositeType");
-            // if 12 hour clock, write the AM/PM selector
-            if (isTwelveHour) {
-                amSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.AM) ? "selected" : "");
-                pmSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.PM) ? "selected" : "");
-                ampmName = UtilHttp.makeCompositeParam(paramName, "ampm");
-            }
-        }
-        //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
-            String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) {
-                requiredStyle = "required";
-            }
-            if (UtilValidate.isEmpty(className)) {
-                className = requiredStyle;
-            } else {
-                className = requiredStyle + " " + className;
-            }
-        }
-        String mask = dateTimeField.getMask();
-        if ("Y".equals(mask)) {
-            if ("date".equals(dateTimeField.getType())) {
-                formattedMask = "9999-99-99";
-            } else if ("time".equals(dateTimeField.getType())) {
-                formattedMask = "99:99:99";
-            } else if ("timestamp".equals(dateTimeField.getType())) {
-                formattedMask = "9999-99-99 99:99:99";
-            }
-        }
-        String isXMLHttpRequest = "false";
-        if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-            isXMLHttpRequest = "true";
-        }
-        String tabindex = modelFormField.getTabindex();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderDateTimeField ");
-        sr.append("name=\"");
-        sr.append(name);
-        sr.append("\" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" title=\"");
-        sr.append(localizedInputTitle);
-        sr.append("\" size=\"");
-        sr.append(Integer.toString(size));
-        sr.append("\" maxlength=\"");
-        sr.append(Integer.toString(maxlength));
-        sr.append("\" step=\"");
-        sr.append(Integer.toString(step));
-        sr.append("\" timeValues=\"");
-        sr.append(timeValues.toString());
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" event=\"");
-        sr.append(event);
-        sr.append("\" action=\"");
-        sr.append(action);
-        sr.append("\" dateType=\"");
-        sr.append(dateTimeField.getType());
-        sr.append("\" shortDateInput=");
-        sr.append(Boolean.toString(shortDateInput));
-        sr.append(" timeDropdownParamName=\"");
-        sr.append(timeDropdownParamName);
-        sr.append("\" defaultDateTimeString=\"");
-        sr.append(defaultDateTimeString);
-        sr.append("\" localizedIconTitle=\"");
-        sr.append(localizedIconTitle);
-        sr.append("\" timeDropdown=\"");
-        sr.append(timeDropdown);
-        sr.append("\" timeHourName=\"");
-        sr.append(timeHourName);
-        sr.append("\" classString=\"");
-        sr.append(classString);
-        sr.append("\" hour1=");
-        sr.append(Integer.toString(hour1));
-        sr.append(" hour2=");
-        sr.append(Integer.toString(hour2));
-        sr.append(" timeMinutesName=\"");
-        sr.append(timeMinutesName);
-        sr.append("\" minutes=");
-        sr.append(Integer.toString(minutes));
-        sr.append(" isTwelveHour=");
-        sr.append(Boolean.toString(isTwelveHour));
-        sr.append(" ampmName=\"");
-        sr.append(ampmName);
-        sr.append("\" amSelected=\"");
-        sr.append(amSelected);
-        sr.append("\" pmSelected=\"");
-        sr.append(pmSelected);
-        sr.append("\" compositeType=\"");
-        sr.append(compositeType);
-        sr.append("\" formName=\"");
-        sr.append(formName);
-        sr.append("\" mask=\"");
-        sr.append(formattedMask);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" isXMLHttpRequest=\"");
-        sr.append(isXMLHttpRequest);
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
-        sr.append(" />");
-        executeMacro(writer, (Locale) context.get("locale"), sr.toString());
+    public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) {
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateTime(context, dateTimeField));
+
+        final ModelFormField modelFormField = dateTimeField.getModelFormField();
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -594,7 +271,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         String event = modelFormField.getEvent();
@@ -633,7 +310,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -700,8 +377,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (textSize > 0 && description.length() > textSize) {
                 description = description.substring(0, textSize - 8) + "..." + description.substring(description.length() - 5);
             }
-            options.append(encode(description.replaceAll("'", "\\\\\'"), modelFormField, context));
-            // replaceAll("'", "\\\\\'") related to OFBIZ-6504
+            options.append(encode(description.replaceAll("'", "\\\\\'"), modelFormField, context)); // related to OFBIZ-6504
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 options.append("'");
@@ -846,7 +522,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
         Boolean allChecked = checkField.isAllChecked(context);
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         String id = modelFormField.getCurrentContainerId(context);
         String className = "";
         String alert = "false";
@@ -927,7 +603,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String conditionGroup = modelFormField.getConditionGroup();
-        boolean disabled = modelFormField.getDisabled();
+        boolean disabled = modelFormField.getDisabled(context);
         String className = "";
         String alert = "false";
         String name = modelFormField.getParameterName(context);
@@ -1030,6 +706,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
         }
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderSubmitField ");
         sr.append("buttonType=\"");
@@ -1068,7 +745,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1115,6 +794,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String conditionGroup = modelFormField.getConditionGroup();
         String event = modelFormField.getEvent();
         String id = modelFormField.getCurrentContainerId(context);
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderHiddenField ");
         sr.append(" name=\"");
@@ -1133,7 +813,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (action != null) {
             sr.append(action);
         }
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
     }
 
@@ -1196,7 +878,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (!sb.toString().isEmpty()) {
             //check for required field style on single forms
-            if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+            if (shouldApplyRequiredField(modelFormField)) {
                 String requiredStyle = modelFormField.getRequiredFieldStyle();
                 if (UtilValidate.isNotEmpty(requiredStyle)) {
                     style = requiredStyle;
@@ -1760,6 +1442,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         boolean ignCase = textFindField.getIgnoreCase(context);
         boolean hideIgnoreCase = textFindField.getHideIgnoreCase();
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextFindField ");
         sr.append(" name=\"");
@@ -1800,7 +1483,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(tabindex);
         sr.append("\" conditionGroup=\"");
         sr.append(conditionGroup);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1847,6 +1532,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String defaultOptionThru = rangeFindField.getDefaultOptionThru();
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderRangeFindField ");
         sr.append(" className=\"");
@@ -1887,160 +1573,18 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
 
     @Override
-    public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
-        ModelFormField modelFormField = dateFindField.getModelFormField();
-        Locale locale = (Locale) context.get("locale");
-        String opEquals = UtilProperties.getMessage("conditionalUiLabels", "equals", locale);
-        String opGreaterThan = UtilProperties.getMessage("conditionalUiLabels", "greater_than", locale);
-        String opSameDay = UtilProperties.getMessage("conditionalUiLabels", "same_day", locale);
-        String opGreaterThanFromDayStart = UtilProperties.getMessage("conditionalUiLabels", "greater_than_from_day_start", locale);
-        String opLessThan = UtilProperties.getMessage("conditionalUiLabels", "less_than", locale);
-        String opUpToDay = UtilProperties.getMessage("conditionalUiLabels", "up_to_day", locale);
-        String opUpThruDay = UtilProperties.getMessage("conditionalUiLabels", "up_thru_day", locale);
-        String opIsEmpty = UtilProperties.getMessage("conditionalUiLabels", "is_empty", locale);
-        String conditionGroup = modelFormField.getConditionGroup();
-        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
-        if (uiLabelMap == null) {
-            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
-        }
-        String localizedInputTitle = "";
-        String localizedIconTitle = "";
-        String className = "";
-        String alert = "false";
-        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
-            if (modelFormField.shouldBeRed(context)) {
-                alert = "true";
-            }
-        }
-        String name = modelFormField.getParameterName(context);
-        // the default values for a timestamp
-        int size = 25;
-        int maxlength = 30;
-        String dateType = dateFindField.getType();
-        if ("date".equals(dateType)) {
-            maxlength = 10;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
-            }
-        } else if ("time".equals(dateFindField.getType())) {
-            maxlength = 8;
-            size = maxlength;
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
-            }
-        } else {
-            if (uiLabelMap != null) {
-                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
-            }
-        }
-        String value = modelFormField.getEntry(context, dateFindField.getDefaultValue(context));
-        if (value == null) {
-            value = "";
-        }
-        // search for a localized label for the icon
-        if (uiLabelMap != null) {
-            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
-        }
-        String formName = "";
-        String defaultDateTimeString = "";
-        StringBuilder imgSrc = new StringBuilder();
-        // add calendar pop-up button and seed data IF this is not a "time" type date-find
-        if (!"time".equals(dateFindField.getType())) {
-            ModelForm modelForm = modelFormField.getModelForm();
-            formName = FormRenderer.getCurrentFormName(modelForm, context);
-            defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context)));
-            this.appendContentUrl(imgSrc, "/images/cal.gif");
-        }
-        String defaultOptionFrom = dateFindField.getDefaultOptionFrom(context);
-        String defaultOptionThru = dateFindField.getDefaultOptionThru(context);
-        String value2 = modelFormField.getEntry(context);
-        if (value2 == null) {
-            value2 = "";
-        }
-        if (context.containsKey("parameters")) {
-            Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-            if (parameters.containsKey(name + "_fld0_value")) {
-                value = (String) parameters.get(name + "_fld0_value");
-            }
-            if (parameters.containsKey(name + "_fld1_value")) {
-                value2 = (String) parameters.get(name + "_fld1_value");
-            }
-        }
+    public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) {
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateFind(context, dateFindField));
 
-        String titleStyle = "";
-        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            titleStyle = modelFormField.getTitleStyle();
-        }
-        String id = modelFormField.getCurrentContainerId(context);
-        String tabindex = modelFormField.getTabindex();
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderDateFindField ");
-        sr.append(" className=\"");
-        sr.append(className);
-        sr.append("\" alert=\"");
-        sr.append(alert);
-        sr.append("\" id=\"");
-        sr.append(id);
-        sr.append("\" name=\"");
-        sr.append(name);
-        sr.append("\" localizedInputTitle=\"");
-        sr.append(localizedInputTitle);
-        sr.append("\" value=\"");
-        sr.append(value);
-        sr.append("\" value2=\"");
-        sr.append(value2);
-        sr.append("\" size=\"");
-        sr.append(Integer.toString(size));
-        sr.append("\" maxlength=\"");
-        sr.append(Integer.toString(maxlength));
-        sr.append("\" dateType=\"");
-        sr.append(dateType);
-        sr.append("\" formName=\"");
-        sr.append(formName);
-        sr.append("\" defaultDateTimeString=\"");
-        sr.append(defaultDateTimeString);
-        sr.append("\" imgSrc=\"");
-        sr.append(imgSrc.toString());
-        sr.append("\" conditionGroup=\"");
-        sr.append(conditionGroup);
-        sr.append("\" localizedIconTitle=\"");
-        sr.append(localizedIconTitle);
-        sr.append("\" titleStyle=\"");
-        sr.append(titleStyle);
-        sr.append("\" defaultOptionFrom=\"");
-        sr.append(defaultOptionFrom);
-        sr.append("\" defaultOptionThru=\"");
-        sr.append(defaultOptionThru);
-        sr.append("\" opEquals=\"");
-        sr.append(opEquals);
-        sr.append("\" opSameDay=\"");
-        sr.append(opSameDay);
-        sr.append("\" opGreaterThanFromDayStart=\"");
-        sr.append(opGreaterThanFromDayStart);
-        sr.append("\" opGreaterThan=\"");
-        sr.append(opGreaterThan);
-        sr.append("\" opGreaterThan=\"");
-        sr.append(opGreaterThan);
-        sr.append("\" opLessThan=\"");
-        sr.append(opLessThan);
-        sr.append("\" opUpToDay=\"");
-        sr.append(opUpToDay);
-        sr.append("\" opUpThruDay=\"");
-        sr.append(opUpThruDay);
-        sr.append("\" opIsEmpty=\"");
-        sr.append(opIsEmpty);
-        sr.append("\" tabindex=\"");
-        sr.append(tabindex);
-        sr.append("\" />");
-        executeMacro(writer, locale, sr.toString());
+        final ModelFormField modelFormField = dateFindField.getModelFormField();
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -2058,7 +1602,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
         }
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -2157,6 +1701,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         lastViewName = UtilHttp.getEncodedParameter(lastViewName);
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");
@@ -2227,7 +1772,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(conditionGroup);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" delegatorName=\"");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" delegatorName=\"");
         sr.append(((HttpSession) context.get("session")).getAttribute("delegatorName").toString());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
@@ -2504,6 +2051,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             autocomplete = "off";
         }
         String tabindex = modelFormField.getTabindex();
+        boolean disabled = modelFormField.getDisabled(context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderFileField ");
         sr.append(" className=\"");
@@ -2522,7 +2070,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.makeHyperlinkString(writer, textField.getSubHyperlink(), context);
         this.appendTooltip(writer, context, modelFormField);
@@ -2537,6 +2087,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String size = Integer.toString(passwordField.getSize());
         String maxlength = "";
         String id = modelFormField.getCurrentContainerId(context);
+        boolean disabled = modelFormField.getDisabled(context);
         String autocomplete = "";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();
@@ -2559,7 +2110,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
 
         //check for required field style on single forms
-        if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+        if (shouldApplyRequiredField(modelFormField)) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = "required";
@@ -2592,7 +2143,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" tabindex=\"");
         sr.append(tabindex);
-        sr.append("\" />");
+        sr.append("\" disabled=");
+        sr.append(Boolean.toString(disabled));
+        sr.append(" />");
         executeMacro(writer, sr.toString());
         this.addAsterisks(writer, context, modelFormField);
         this.makeHyperlinkString(writer, passwordField.getSubHyperlink(), context);
@@ -2915,7 +2468,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 writer.append(hiddenFormElement.outerHtml());
                 final Element anchorElement = WidgetWorker.makeHiddenFormLinkAnchorElement(linkStyle,
                         encodedDescription, confirmation, modelFormField, request, context);
-                writer.append(anchorElement.outerHtml());
+                if (anchorElement != null) {
+                    writer.append(anchorElement.outerHtml());
+                }
             }
         } else {
             if ("layered-modal".equals(realLinkType)) {
@@ -2955,12 +2510,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String event = "";
             String action = "";
             String imgSrc = "";
+            String imgTitle = "";
             String alt = "";
             String id = "";
             String uniqueItemName = "";
             String width = "";
             String height = "";
-            String imgTitle = "";
+            String title = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
                 event = modelFormField.getEvent();
@@ -2969,22 +2525,22 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
                 imgSrc = request.getAttribute("image").toString();
             }
-            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
-                alt = request.getAttribute("alternate").toString();
-            }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
             }
-            Integer size = Integer.valueOf("0");
+            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
+                alt = request.getAttribute("alternate").toString();
+            }
+            int size = 0;
             if (UtilValidate.isNotEmpty(request.getAttribute("descriptionSize"))) {
-                size = Integer.valueOf(request.getAttribute("descriptionSize").toString());
+                size = Integer.parseInt(request.getAttribute("descriptionSize").toString());
             }
+            // if description is truncated, always use description as title
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
-                imgTitle = description;
-                description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
-            }
-            if (UtilValidate.isEmpty(imgTitle)) {
-                imgTitle = modelFormField.getTitle(context);
+                title = description;
+                description = description.substring(0, size) + "…";
+            } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
+                title = request.getAttribute("title").toString();
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
@@ -3021,8 +2577,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(action);
             sr.append("\" imgSrc=\"");
             sr.append(imgSrc);
-            sr.append("\" title=\"");
+            sr.append("\" imgTitle=\"");
             sr.append(imgTitle);
+            sr.append("\" title=\"");
+            sr.append(title);
             sr.append("\" alternate=\"");
             sr.append(alt);
             sr.append("\" targetParameters=\"");

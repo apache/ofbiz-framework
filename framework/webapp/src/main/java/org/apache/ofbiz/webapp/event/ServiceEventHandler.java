@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.ExecutionServiceException;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelParam;
@@ -264,6 +265,10 @@ public class ServiceEventHandler implements EventHandler {
             } else {
                 request.setAttribute("_ERROR_MESSAGE_", e.getNonNestedMessage());
             }
+            return "error";
+        } catch (ExecutionServiceException e) {
+            Debug.logError(e, MODULE);
+            request.setAttribute("_ERROR_MESSAGE_", e.getNonNestedMessage());
             return "error";
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error", MODULE);

@@ -61,7 +61,7 @@ public final class ScriptUtil {
 
     private static final String MODULE = ScriptUtil.class.getName();
     /** The screen widget context map bindings key. */
-    public static final String WIDGET_CONTEXT_KEY = "widget";
+    private static final String WIDGET_CONTEXT_KEY = "widget";
     /** The service/servlet/request parameters map bindings key. */
     public static final String PARAMETERS_KEY = "parameters";
     /** The result map bindings key. */
@@ -113,7 +113,7 @@ public final class ScriptUtil {
      * @throws ScriptException
      * @throws IOException
      */
-    public static CompiledScript compileScriptFile(String filePath) throws ScriptException, IOException {
+    private static CompiledScript compileScriptFile(String filePath) throws ScriptException, IOException {
         Assert.notNull("filePath", filePath);
         CompiledScript script = PARSED_SCRIPTS.get(filePath);
         if (script == null) {
@@ -150,7 +150,7 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      * @throws ScriptException
      */
-    public static CompiledScript compileScriptString(String language, String script) throws ScriptException {
+    private static CompiledScript compileScriptString(String language, String script) throws ScriptException {
         Assert.notNull("language", language, "script", script);
         String cacheKey = language.concat("://").concat(script);
         CompiledScript compiledScript = PARSED_SCRIPTS.get(cacheKey);
@@ -186,7 +186,7 @@ public final class ScriptUtil {
      * @param context
      * @return
      */
-    public static ScriptContext createScriptContext(Map<String, Object> context) {
+    static ScriptContext createScriptContext(Map<String, Object> context) {
         Assert.notNull("context", context);
         Map<String, Object> localContext = new HashMap<>(context);
         localContext.put(WIDGET_CONTEXT_KEY, context);

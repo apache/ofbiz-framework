@@ -44,7 +44,7 @@ public final class UtilFormatOut {
 
     private UtilFormatOut() { }
 
-    public static String safeToString(Object obj) {
+    static String safeToString(Object obj) {
         if (obj != null) {
             return obj.toString();
         }
@@ -123,7 +123,7 @@ public final class UtilFormatOut {
      * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
      * @return A String with the formatted price
      */
-    public static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
+    private static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
         com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getCurrencyInstance(locale);
         if (isoCode != null && isoCode.length() > 1) {
             nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
@@ -568,7 +568,7 @@ public final class UtilFormatOut {
         return newString.toString();
     }
     public static String makeSqlSafe(String unsafeString) {
-        return unsafeString.replaceAll("'", "''");
+        return unsafeString.replace("'", "''");
     }
 
     public static String formatPrintableCreditCard(String original) {

@@ -95,7 +95,7 @@ public class HtmlWidgetRenderer {
             switch (NAMED_BORDER_TYPE) {
             case SOURCE:
                 return "<div class='info-container'><span class='info-overlay-item info-cursor-none info-"
-                        + widgetType.toLowerCase().replaceAll(" ", "-") + "' data-source='"
+                        + widgetType.toLowerCase().replace(" ", "-") + "' data-source='"
                         + location + "' data-target='" + contextPath
                         + (SeoConfigUtil.isCategoryUrlEnabled(contextPath) ? "" : "/control")
                         + "/openSourceFile'>"

@@ -528,13 +528,13 @@ under the License.
         </required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="getSupplierProductFeatures" engine="simple"
-        location="component://product/minilang/product/supplier/SupplierProductServices.xml" invoke="getSupplierProductFeatures">
+    <service name="getSupplierProductFeatures" engine="groovy" invoke="getSupplierProductFeatures"
+             location="component://product/groovyScripts/product/supplier/SupplierProductServices.groovy">
         <description>Finds a list of SupplierProductFeature entities based on the productFeatureId.
             If a partyId is given, only product feature information for that supplier party is returned.</description>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureId" type="String" mode="IN"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="supplierProductFeatures" type="java.util.List" mode="OUT" optional="false"/>
+        <attribute name="supplierProductFeatures" type="java.util.List" mode="OUT"/>
     </service>
 
     <service name="createProductMaint" default-entity-name="ProductMaint" engine="entity-auto" invoke="create" auth="true">
@@ -944,8 +944,8 @@ under the License.
         </group>
     </service>
 
-    <service name="updateContentSEOForCategory" engine="simple"
-            location="component://product/minilang/product/category/CategoryContentServices.xml" invoke="updateContentSEOForCategory" auth="true">
+    <service name="updateContentSEOForCategory" engine="groovy"
+            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateContentSEOForCategory" auth="true">
         <description>Update SEO Content For Product Category</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>

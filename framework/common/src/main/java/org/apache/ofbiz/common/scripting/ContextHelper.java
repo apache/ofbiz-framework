@@ -56,7 +56,7 @@ public final class ContextHelper {
     private final ScriptContext context;
     private final int scriptType;
 
-    public ContextHelper(ScriptContext context) {
+    ContextHelper(ScriptContext context) {
         Assert.notNull("context", context);
         this.context = context;
         if (context.getAttribute("request") != null) {
@@ -77,7 +77,7 @@ public final class ContextHelper {
         return FlexibleStringExpander.expandString(original, getBindings());
     }
 
-    public Map<String, Object> getBindings() {
+    Map<String, Object> getBindings() {
         return this.context.getBindings(ScriptContext.ENGINE_SCOPE);
     }
 
@@ -89,7 +89,7 @@ public final class ContextHelper {
         return (LocalDispatcher) this.context.getAttribute("dispatcher");
     }
 
-    public <T> T getEnv(FlexibleMapAccessor<T> fma) {
+    private <T> T getEnv(FlexibleMapAccessor<T> fma) {
         return fma.get(getBindings());
     }
 
@@ -173,7 +173,7 @@ public final class ContextHelper {
         return results;
     }
 
-    public String getScriptName() {
+    String getScriptName() {
         String scriptName = (String) this.context.getAttribute(ScriptEngine.FILENAME);
         return scriptName != null ? scriptName : "Unknown";
     }
@@ -208,7 +208,7 @@ public final class ContextHelper {
         }
     }
 
-    public <T> void putEnv(FlexibleMapAccessor<T> fma, T value) {
+    private <T> void putEnv(FlexibleMapAccessor<T> fma, T value) {
         fma.put(getBindings(), value);
     }
 
@@ -226,7 +226,7 @@ public final class ContextHelper {
      * @param value
      *            The value to set in the named environment location.
      */
-    public <T> void putEnv(String key, T value) {
+    private <T> void putEnv(String key, T value) {
         String ekey = this.expandString(key);
         FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         this.putEnv(fma, value);
@@ -236,11 +236,11 @@ public final class ContextHelper {
         getParameters().put(key, value);
     }
 
-    public void putResult(String key, Object value) {
+    void putResult(String key, Object value) {
         getResults().put(key, value);
     }
 
-    public void putResults(Map<String, Object> results) {
+    void putResults(Map<String, Object> results) {
         getResults().putAll(results);
     }
 
@@ -248,7 +248,7 @@ public final class ContextHelper {
         return getBindings().remove(key);
     }
 
-    public <T> T removeEnv(FlexibleMapAccessor<T> fma) {
+    private <T> T removeEnv(FlexibleMapAccessor<T> fma) {
         return fma.remove(getBindings());
     }
 

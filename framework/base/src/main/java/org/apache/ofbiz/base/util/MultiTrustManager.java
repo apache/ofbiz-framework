@@ -61,7 +61,7 @@ public class MultiTrustManager implements X509TrustManager {
      * Gets number of key stores.
      * @return the number of key stores
      */
-    public int getNumberOfKeyStores() {
+    int getNumberOfKeyStores() {
         return keystores.size();
     }
 
@@ -127,7 +127,7 @@ public class MultiTrustManager implements X509TrustManager {
      * @param cert the cert
      * @return the boolean
      */
-    protected boolean isTrusted(X509Certificate[] cert) {
+    private boolean isTrusted(X509Certificate[] cert) {
         if (cert != null) {
             X509Certificate[] issuers = this.getAcceptedIssuers();
             for (X509Certificate issuer : issuers) {

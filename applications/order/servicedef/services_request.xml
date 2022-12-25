@@ -91,7 +91,7 @@ under the License.
         <override name="description" allow-html="safe"/>
         <override name="status" default-value="CRQ_SUBMITTED"/>
     </service>
-    <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem" invoke="update" auth="true">
+    <service name="updateCustRequestItem" engine="entity-auto" default-entity-name="CustRequestItem" invoke="update" auth="true">
         <description>Update a CustRequestItem record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

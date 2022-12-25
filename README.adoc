@@ -22,9 +22,12 @@ The Apache OFBiz Project
 
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
 image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.com/apache/ofbiz-framework]
+image:https://ci2.apache.org/badges/ofbizTrunkFramework.svg[link=https://ci2.apache.org/badges/ofbizTrunkFramework.svg]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
-image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
+//image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+
 
 If you are reading this file in AsciiDoc format you may want to see it at
 https://nightlies.apache.org/ofbiz/trunk/readme/html5/[HTML]
@@ -68,7 +71,7 @@ ________________________________________________________________________________
 
 The only requirements to run OFBiz is
 
-* to have the Java Development Kit (JDK) version 8 installed on your system
+* to have the Java Development Kit (JDK) version 11 installed on your system
 (not just the JRE, but the full JDK) that you can download from the below link.
 Make sure of setting the $JAVA_HOME environment variable. +
 https://adoptopenjdk.net/[JDK download].
@@ -95,7 +98,7 @@ the command line at the OFBiz top level directory (folder).
 MS Windows: `init-gradle-wrapper`
 [IMPORTANT]
 ====
-* If you cross the error 
+* If you cross the error
 [quote]
 ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
@@ -145,9 +148,9 @@ ________________________________________________________________________________
 [[visit-ofbiz-through-your-browser]]
 === Visit OFBiz through your browser:
 
-https://localhost:8443/ordermgr[Order Back Office]
+https://localhost:8443/ordermgr[Order Back Office interface]
 
-https://localhost:8443/accounting[Accounting Back Office]
+https://localhost:8443/accounting[Accounting Back Office interface]
 
 https://localhost:8443/webtools[Administrator interface]
 
@@ -166,7 +169,8 @@ Once proper mitigations to the security issues are complete the OFBiz team will
 disclose this information to the public mailing list.
 * If you find a post-auth security issue, please https://s.apache.org/dsj2p[create a bug in our issue tracker (Jira)] .
 
-
+* If you want to use AJP on a non localhost OFBiz instance, you need to set the value of allowedRequestAttributesPattern
+in framework/catalina/ofbiz-component.xml
 
 You can find more information about security in OFBiz at
 https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
@@ -834,7 +838,7 @@ options:
 
 * Search for the JDBC driver in https://bintray.com/bintray/jcenter[jcenter] and
 place it in build.gradle dependencies e.g.
-`runtime 'mysql:mysql-connector-java:5.1.36'`
+`runtime 'mysql:mysql-connector-java:8.0.30'`
 +
 OR
 * Download the JDBC driver jar and place it in $OFBIZ_HOME/lib or the lib

@@ -33,15 +33,15 @@ public class LRUMap<K, V> extends LinkedHashMap<K, V> {
         this(10);
     }
 
-    public LRUMap(int size) {
+    private LRUMap(int size) {
         this(size, 16);
     }
 
-    public LRUMap(int size, int initialCapacity) {
+    private LRUMap(int size, int initialCapacity) {
         this(size, initialCapacity, (float) .75);
     }
 
-    public LRUMap(int size, int initialCapacity, float loadFactor) {
+    private LRUMap(int size, int initialCapacity, float loadFactor) {
         super(initialCapacity, loadFactor, true);
         maxSize = size;
     }

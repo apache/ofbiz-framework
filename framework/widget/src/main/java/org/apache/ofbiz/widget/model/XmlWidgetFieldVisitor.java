@@ -361,10 +361,10 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
 
     private void visitDateTimeFieldAttrs(DateTimeField field) throws Exception {
         visitAttribute("default-value", field.getDefaultValue());
-        visitAttribute("type", field.getType());
+        visitAttribute("type", field.isDateType() ? "date" : field.isTimeType() ? "time" : "timestamp");
         visitAttribute("input-method", field.getInputMethod());
-        visitAttribute("clock", field.getClock());
-        visitAttribute("mask", field.getMask());
+        visitAttribute("isTwelveHour", field.isTwelveHour());
+        visitAttribute("mask", field.useMask() ? "Y" : "N");
         visitAttribute("step", field.getStep());
     }
 

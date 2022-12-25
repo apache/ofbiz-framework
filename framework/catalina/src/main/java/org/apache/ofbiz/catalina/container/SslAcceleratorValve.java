@@ -43,7 +43,7 @@ public class SslAcceleratorValve extends ValveBase {
      * Sets ssl accelerator port.
      * @param sslAcceleratorPort the ssl accelerator port
      */
-    public void setSslAcceleratorPort(Integer sslAcceleratorPort) {
+    void setSslAcceleratorPort(Integer sslAcceleratorPort) {
         this.sslAcceleratorPort = sslAcceleratorPort;
     }
 

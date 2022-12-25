@@ -18,6 +18,8 @@
  */
 package org.apache.ofbiz.service.engine;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -37,6 +39,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelParam;
@@ -71,6 +74,9 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> parameters) throws GenericServiceException {
         // static java service methods should be: public Map<String, Object> methodName(DispatchContext dctx, Map<String, Object> context)
+        if (!isValidText(parameters)) {
+            return ServiceUtil.returnError("Not saved for security reason!");
+        }
         DispatchContext dctx = getDispatcher().getLocalContext(localName);
         Locale locale = (Locale) parameters.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -613,5 +619,22 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully",
                 UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
+    }
+
+    private static boolean isValidText(Map<String, Object> parameters) {
+        // TODO maybe more parameters will be needed in future...
+        String parameter = (String) parameters.get("webappPath");
+        if (parameter != null) {
+            try {
+                if (!SecuredUpload.isValidText(parameter, Collections.emptyList())) {
+                    Debug.logError("================== Not saved for security reason ==================", MODULE);
+                    return false;
+                }
+            } catch (IOException e) {
+                Debug.logError("================== Not saved for security reason ==================", MODULE);
+                return false;
+            }
+        }
+        return true;
     }
 }

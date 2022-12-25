@@ -106,7 +106,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
      * @param map the map
      * @return the boolean
      */
-    protected boolean equalsGenericMap(GenericMap<?, ?> map) {
+    private boolean equalsGenericMap(GenericMap<?, ?> map) {
         Iterator<Map.Entry<K, V>> it = iterator(false);
         while (it.hasNext()) {
             Map.Entry<K, V> entry = it.next();
@@ -134,7 +134,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
      * @param map the map
      * @return the boolean
      */
-    protected boolean equalsMap(Map<?, ?> map) {
+    private boolean equalsMap(Map<?, ?> map) {
         Iterator<Map.Entry<K, V>> it = iterator(false);
         while (it.hasNext()) {
             Map.Entry<K, V> entry = it.next();

@@ -197,7 +197,7 @@ import org.xml.sax.SAXException;
 public class UelFunctions {
 
     protected static final Functions FUNCTION_MAPPER = new Functions();
-    private static final String MODULE = UelFunctions.class.getName();
+    public static final String MODULE = UelFunctions.class.getName();
 
     /**
      * Returns a <code>FunctionMapper</code> instance.

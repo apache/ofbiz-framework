@@ -58,11 +58,13 @@ import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
 import org.apache.ofbiz.service.semaphore.ServiceSemaphore;
 
-import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+
+
 
 /**
- * The global service dispatcher. This is the "engine" part of the
- * Service Engine.
+ * The global service dispatcher. This is the "engine" part of the Service Engine.
  */
 public final class ServiceDispatcher {
 
@@ -70,8 +72,10 @@ public final class ServiceDispatcher {
     public static final int LRU_LOG_SIZE = 200;
     public static final int LOCK_RETRIES = 3;
 
-    private static final Map<RunningService, ServiceDispatcher> RUN_LOG = new ConcurrentLinkedHashMap.Builder<RunningService,
-            ServiceDispatcher>().maximumWeightedCapacity(LRU_LOG_SIZE).build();
+    private static final Cache<RunningService, ServiceDispatcher> RUN_LOG = Caffeine.newBuilder()
+            .maximumSize(LRU_LOG_SIZE)
+            .build();
+
     private static ConcurrentHashMap<String, ServiceDispatcher> dispatchers = new ConcurrentHashMap<>();
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
     // We need a better design - like have this class query EntityDataLoadContainer if data is being loaded.
@@ -1107,7 +1111,7 @@ public final class ServiceDispatcher {
     }
 
     public static Map<RunningService, ServiceDispatcher> getServiceLogMap() {
-        return RUN_LOG;
+        return RUN_LOG.asMap();
     }
 
 }

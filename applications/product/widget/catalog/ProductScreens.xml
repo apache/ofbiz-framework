@@ -89,7 +89,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindProduct">
         <section>
             <actions>
@@ -259,7 +259,7 @@ under the License.
                             <include-grid name="ListSalesAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductCommissions}">
-                            <include-form name="ListCommissionAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
+                            <include-grid name="ListCommissionAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductProducts}">
                             <include-grid name="ListProductAgreements" location="component://product/widget/catalog/ProductForms.xml"/>
@@ -1048,11 +1048,11 @@ under the License.
                                 <widgets>
                                     <screenlet title="${assocSection.sectionTitle}">
                                         <include-grid name="ListProductAssocs" location="component://product/widget/catalog/ProductForms.xml"/>
+                                        <label style="help-note">${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
                                     </screenlet>
-                                    <label style="tooltip">${uiLabelMap.CommonNote} : ${uiLabelMap.ProductHighlightedExplanation}</label>
                                 </widgets>
                             </section>
-                        </iterate-section>  
+                        </iterate-section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1260,7 +1260,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleEditProductParties}">
                             <include-grid name="UpdateProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
-                        
+
                         <screenlet title="${uiLabelMap.ProductAssociatePartyToProduct}">
                             <include-form name="AddProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
@@ -1388,7 +1388,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ProductPriceHistory">
         <section>
             <actions>

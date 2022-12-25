@@ -6,7 +6,7 @@ your business.
 System requirements
 
 The only requirement to run OFBiz is to have the Java Development Kit (JDK)
-version 8 installed on your system (not just the JRE, but the full JDK) which
+version 11 installed on your system (not just the JRE, but the full JDK) which
 you can download from the below link. Make sure of setting the $JAVA_HOME
 environment variable.
 
@@ -25,6 +25,7 @@ the command line at the OFBiz top level directory (folder).
         MS Windows: init-gradle-wrapper
         Unix-like OS: ./gradle/init-gradle-wrapper
 
+        The OFBiz specific Gradle tasks are listed using "gradlew tasks"
 
     Prepare OFBiz:
 

@@ -222,8 +222,15 @@ public abstract class ListFinder extends Finder {
                     EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields,
                             options);
                     this.outputHandler.handleOutput(eli, context, listAcsr);
-                    // NOTE: the eli EntityListIterator is not closed here. It SHOULD be closed later after the returned list will be used (eg see
-                    // EntityAnd.getChildren() in ModelTree.java)
+                    // NOTE: the eli EntityListIterator is closed by the line above, in outputHandler.handleOutput().
+                    // It's necessary for cases like EntityAnd.getChildren() in ModelTree.java where eli is used.
+                    // See OFBIZ-9385 for more details. Also using a try-with-ressource for eli is not an option for the same reason.
+                    // I guess it's related to ModelTree "DEVELOPERS PLEASE READ" header
+                    // It dates since http://svn.apache.org/viewvc?view=revision&revision=1652852
+                    // EntityAnd::runAction and EntityCondition::runAction in ModelTreeAction.java use ListFinder::runFind we are in.
+                    // It's also the case for EntityAnd::exec and EntityCondition::exec in Minilang
+                    // I did not dig further...
+
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in by " + label + " find operation, rolling back transaction";
                     Debug.logError(e, errMsg, MODULE);

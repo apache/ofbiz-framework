@@ -67,6 +67,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://accounting/widget/AccountingMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}" navigation-menu-name="NewAccountOrganization">
                             <include-menu name="NewAccountOrganization" location="component://accounting/widget/AccountingMenus.xml"/>
@@ -84,6 +87,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://accounting/widget/AccountingMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingNewCompany}">
                             <include-form name="AddCompany" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -103,6 +109,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://accounting/widget/AccountingMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonImportExport} ${uiLabelMap.CommonFor}: ${partyGroup.groupName} [${organizationPartyId}]">
                             <container style="lefthalf">

@@ -102,7 +102,7 @@ public final class SSLUtil {
         return HOSTCERT_MIN_CHECK;
     }
 
-    public static int getHostCertNormalCheck() {
+    static int getHostCertNormalCheck() {
         return HOSTCERT_NORMAL_CHECK;
     }
 
@@ -129,7 +129,7 @@ public final class SSLUtil {
         return false;
     }
 
-    public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    private static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
         List<KeyManager> keyMgrs = new LinkedList<>();
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isCertStore()) {
@@ -155,7 +155,7 @@ public final class SSLUtil {
         return getKeyManagers(null);
     }
 
-    public static TrustManager[] getTrustManagers() throws IOException, GeneralSecurityException, GenericConfigException {
+    private static TrustManager[] getTrustManagers() throws IOException, GeneralSecurityException, GenericConfigException {
         MultiTrustManager tm = new MultiTrustManager();
         tm.add(KeyStoreUtil.getSystemTrustStore());
         if (tm.getNumberOfKeyStores() < 1) {
@@ -237,7 +237,7 @@ public final class SSLUtil {
         return context;
     }
 
-    public static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
+    private static SSLSocketFactory getSSLSocketFactory(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
         return getSSLSocketFactory(alias, false);
     }
 
@@ -298,7 +298,7 @@ public final class SSLUtil {
         loadJsseProperties(false);
     }
 
-    public static synchronized void loadJsseProperties(boolean debug) {
+    static synchronized void loadJsseProperties(boolean debug) {
         if (!loadedProps) {
             String protocol = UtilProperties.getPropertyValue("jsse", "java.protocol.handler.pkgs", "NONE");
             String proxyHost = UtilProperties.getPropertyValue("jsse", "https.proxyHost", "NONE");

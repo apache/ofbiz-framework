@@ -51,8 +51,11 @@ import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityFunction;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.model.DynamicViewEntity;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
+import org.apache.ofbiz.entity.model.ModelReader;
+import org.apache.ofbiz.entity.model.ModelViewEntity;
 import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -500,6 +503,7 @@ public class FindServices {
      */
     public static Map<String, Object> performFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
+        DynamicViewEntity dynamicViewEntity = (DynamicViewEntity) context.get("dynamicViewEntity");
         String orderBy = (String) context.get("orderBy");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
@@ -545,6 +549,7 @@ public class FindServices {
         Map<String, Object> prepareResult = null;
         try {
             prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy,
+                                               "dynamicViewEntity", dynamicViewEntity,
                                                "inputFields", inputFields, "filterByDate", filterByDate, "noConditionFind", noConditionFind,
                                                "filterByDateValue", filterByDateValue, "userLogin", userLogin, "fromDateName", fromDateName,
                     "thruDateName", thruDateName,
@@ -559,6 +564,7 @@ public class FindServices {
         Map<String, Object> executeResult = null;
         try {
             executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList,
+                                                                             "dynamicViewEntity", dynamicViewEntity,
                                                                              "fieldList", fieldList, "entityConditionList", exprList,
                                                                              "noConditionFind", noConditionFind, "distinct", distinct,
                                                                              "locale", context.get("locale"), "timeZone", context.get("timeZone"),
@@ -589,6 +595,7 @@ public class FindServices {
      */
     public static Map<String, Object> prepareFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
+        DynamicViewEntity dynamicViewEntity = (DynamicViewEntity) context.get("dynamicViewEntity");
         Delegator delegator = dctx.getDelegator();
         String orderBy = (String) context.get("orderBy");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
@@ -611,7 +618,16 @@ public class FindServices {
         String thruDateName = (String) context.get("thruDateName");
 
         Map<String, Object> queryStringMap = new LinkedHashMap<>();
-        ModelEntity modelEntity = delegator.getModelEntity(entityName);
+        ModelEntity modelEntity;
+        if (dynamicViewEntity != null) {
+            try {
+                modelEntity = new ModelViewEntity(dynamicViewEntity, ModelReader.getModelReader(delegator.getDelegatorName()));
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.toString());
+            }
+        } else {
+            modelEntity = delegator.getModelEntity(entityName);
+        }
         List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
 
         /* the filter by date condition should only be added when there are other conditions or when
@@ -668,6 +684,7 @@ public class FindServices {
      */
     public static Map<String, Object> executeFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
+        DynamicViewEntity dynamicViewEntity = (DynamicViewEntity) context.get("dynamicViewEntity");
         EntityConditionList<EntityCondition> entityConditionList = UtilGenerics.cast(context.get("entityConditionList"));
         List<String> orderByList = checkCollection(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
@@ -686,20 +703,25 @@ public class FindServices {
         int listSize = 0;
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
-                listIt = EntityQuery.use(delegator)
-                                    .select(fieldSet)
-                                    .from(entityName)
-                                    .where(entityConditionList)
-                                    .orderBy(orderByList)
-                                    .cursorScrollInsensitive()
-                                    .maxRows(maxRows)
-                                    .distinct(distinct)
-                                    .queryIterator();
+                EntityQuery query = EntityQuery.use(delegator);
+                if (dynamicViewEntity != null) {
+                    query.from(dynamicViewEntity);
+                } else {
+                    query.from(entityName);
+                }
+                listIt = query.select(fieldSet)
+                        .where(entityConditionList)
+                        .orderBy(orderByList)
+                        .cursorScrollInsensitive()
+                        .maxRows(maxRows)
+                        .distinct(distinct)
+                        .queryIterator();
                 listSize = listIt.getResultsSizeAfterPartialList();
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRunning",
-                    UtilMisc.toMap("entityName", entityName, "errorString", e.getMessage()), locale));
+                    UtilMisc.toMap("entityName", (dynamicViewEntity != null ? dynamicViewEntity.getEntityName() : entityName),
+                                   "errorString", e.getMessage()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();

@@ -31,7 +31,22 @@ under the License.
         <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="UserJobs"/></menu-item>
         <menu-item name="WorkEffortICalendar" title="${uiLabelMap.WorkEffortICalendar}"><link target="FindICalendars"/></menu-item>
     </menu>
-
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewWorkEffort" title="${uiLabelMap.WorkEffortCreate}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="WORKEFFORTMGR" action="_CREATE"/>
+                    </or>
+                </and>
+            </condition>
+            <link text="${uiLabelMap.WorkEffortCreate}" target="WorkEffort/Edit" link-type="layered-modal">
+                <set-callback area-target="WorkEffortSummary" area-id="window">
+                    <parameter param-name="workEffortId" from-event-result="workEffortId"/>
+                </set-callback>
+            </link>
+        </menu-item>
+    </menu>
     <menu name="WorkEffortShortcutAppBar" title="${uiLabelMap.WorkEffortManager}" default-menu-item-name="task" >
         <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="/workeffort/control/mytasks" url-mode="inter-app"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="/workeffort/control/calendar" url-mode="inter-app"/></menu-item>

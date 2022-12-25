@@ -22,7 +22,7 @@ package org.apache.ofbiz.base.util.cache;
 public abstract class SoftRefCacheLine<V> extends CacheLine<V> {
     private final CacheSoftReference<V> ref;
 
-    public SoftRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
+    SoftRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
         super(loadTimeNanos, expireTimeNanos);
         this.ref = new CacheSoftReference<V>(value) {
             @Override

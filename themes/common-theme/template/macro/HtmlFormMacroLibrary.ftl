@@ -28,7 +28,7 @@ under the License.
     <img src="${imageLocation}" alt=""><#lt/>
   <#else>
     <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true" || title?has_content>
-      <span data-inplace-editor-url="${inPlaceEditorUrl}" data-inplace-editor-params="${inPlaceEditorParams}" <#if idName?has_content>id="cc_${idName}"</#if> <#if title?has_content>title="${title}"</#if> <@renderClass class alert />><#t/>
+      <span <#if inPlaceEditorUrl?has_content>data-inplace-editor-url="${inPlaceEditorUrl}" data-inplace-editor-params="${inPlaceEditorParams}"</#if> <#if idName?has_content>id="cc_${idName}"</#if> <#if title?has_content>title="${title}"</#if> <@renderClass class alert />><#t/>
     </#if>
 
     <#if description?has_content>
@@ -43,7 +43,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled="" clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
+<#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
   <input type="text" name="${name?default("")?html}"<#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled && ajaxUrl?has_content>
     <#local defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
@@ -54,11 +54,10 @@ under the License.
      data-ajax-url="${ajaxUrl!}"<#rt/>
      data-default-delay="${defaultDelay!300}"<#rt/>
   </#if>
-    <@renderClass className alert />
+    <@renderClass className alert /> <@renderDisabled disabled />
     <#if value?has_content> value="${value}"</#if><#rt/>
     <#if textSize?has_content> size="${textSize}"</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
-    <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
     <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/>
     <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
@@ -70,12 +69,12 @@ under the License.
   /><#t/>
 </#macro>
 
-<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled="">
+<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false>
   <#if visualEditorEnable?has_content>
     <#local className = className + " visual-editor">
   </#if>
   <textarea name="${name}"<#t/>
-    <@renderClass className alert />
+    <@renderClass className alert /> <@renderDisabled disabled />
     <#if cols?has_content> cols="${cols}"</#if><#rt/>
     <#if rows?has_content> rows="${rows}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
@@ -84,33 +83,34 @@ under the License.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if visualEditorEnable?has_content> data-toolbar="${buttons?default("maxi")}"</#if><#rt/>
     <#if language?has_content> data-language="${language!"en"}"</#if><#rt/>
-    <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
   </textarea><#lt/>
 </#macro>
 
-<#macro renderDateTimeField name className alert dateType timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType timeDropdown="" classString="" hour1="" hour2="" shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled="" isXMLHttpRequest="">
+<#macro renderDateTimeField name className timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType alert=false isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest=false>
   <span class="view-calendar">
     <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
     <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
     <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
     <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
-    <#if dateType!="time" >
-      <input type="text" <#if tabindex?has_content> tabindex="${tabindex}"</#if> name="${name}_i18n" <@renderClass className alert /><#rt/>
+    <#if !isTimeType >
+      <input type="text" name="${name}_i18n" <@renderClass className alert?c /> <@renderDisabled disabled />
+        <#if tabindex?has_content> tabindex="${tabindex}"</#if>
         <#if title?has_content> title="${title}"</#if>
         <#if value?has_content> value="${value}"</#if>
         <#if size?has_content> size="${size}"</#if><#rt/>
         <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
-        <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
         <#if id?has_content> id="${id}_i18n"</#if>/><#rt/>
         <#local className = className + " date-time-picker"/>
     </#if>
-    <input type="hidden" <#if tabindex?has_content> tabindex="${tabindex}"</#if> name="${name}" <#if event?has_content && action?has_content> ${event}="${action}"</#if> <@renderClass className alert /><#rt/>
+    <input type="hidden" name="${name}" <@renderClass className alert?c /> <@renderDisabled disabled />
+      <#if tabindex?has_content> tabindex="${tabindex}"</#if>
+      <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
       <#if title?has_content> title="${title}"</#if>
       <#if value?has_content> value="${value}"</#if>
       <#if size?has_content> size="${size}"</#if><#rt/>
-      <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
+      <#if maxlength?has_content> maxlength="${maxlength}"</#if>
       <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
       <#if cultureInfo?has_content> data-cultureinfo="${cultureInfo}"</#if><#rt/>
       <#if datePickerLang?has_content> data-datepickerlang="${datePickerLang}"</#if><#rt/>
@@ -119,7 +119,7 @@ under the License.
       data-shortdate="${shortDateInput?string}"
       <#if id?has_content> id="${id}"</#if>/><#rt/>
     <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
-      <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
+      <select name="${timeHourName}" <@renderDisabled disabled /> <#if classString?has_content>class="${classString}"</#if>><#rt/>
         <#if isTwelveHour>
           <#local x=11>
           <#list 0..x as i>
@@ -131,7 +131,7 @@ under the License.
             <option value="${i}"<#if hour2?has_content><#if i=hour2> selected="selected"</#if></#if>>${i}</option><#rt/>
           </#list>
         </#if>
-        </select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
+        </select>:<select name="${timeMinutesName}" <@renderDisabled disabled /> <#if classString?has_content>class="${classString}"</#if>><#rt/>
           <#local values = Static["org.apache.ofbiz.base.util.StringUtil"].toList(timeValues)>
           <#list values as i>
             <option value="${i}"<#if minutes?has_content><#if i?number== minutes ||((i?number==(60 -step?number)) && (minutes &gt; 60 - (step?number/2))) || ((minutes &gt; i?number )&& (minutes &lt; i?number+(step?number/2))) || ((minutes &lt; i?number )&& (minutes &gt; i?number-(step?number/2)))> selected="selected"</#if></#if>>${i}</option><#rt/>
@@ -139,15 +139,15 @@ under the License.
         </select>
         <#rt/>
         <#if isTwelveHour>
-          <select name="${ampmName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
-            <option value="AM" <#if "selected" == amSelected>selected="selected"</#if> >AM</option><#rt/>
-            <option value="PM" <#if "selected" == pmSelected>selected="selected"</#if>>PM</option><#rt/>
+          <select name="${ampmName}" <@renderDisabled disabled /> <#if classString?has_content>class="${classString}"</#if>><#rt/>
+            <option value="AM" <#if amSelected>selected="selected"</#if>>AM</option><#rt/>
+            <option value="PM" <#if pmSelected>selected="selected"</#if>>PM</option><#rt/>
           </select>
         <#rt/>
       </#if>
     </#if>
     <input type="hidden" name="${compositeType}" value="Timestamp"/>
-    <#if isXMLHttpRequest=="true">
+    <#if isXMLHttpRequest>
         <script>
           initDateTimePicker(document.getElementById("${id}"));
         </script>
@@ -155,17 +155,24 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderDropDownField name className alert id formName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup="" tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="" disabled="">
+<#macro renderDropDownField name className alert id formName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup="" tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="" disabled=false>
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <span class="ui-widget">
-    <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if ajaxEnabled> class="autoCompleteDropDown"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#if disabled?has_content && disabled> disabled</#if><#rt/>
-    <#if otherFieldName?has_content>
-    data-other-field-name="${otherFieldName}"
-    data-other-field-value='${otherValue?js_string}'
-    data-other-field-size='${otherFieldSize}'
-    </#if>>
+    <select name="${name?default("")}<#rt/>"
+      <@renderClass className alert /> <@renderDisabled disabled />
+      <#if id?has_content> id="${id}"</#if>
+      <#if multiple?has_content> multiple="multiple"</#if>
+      <#if ajaxEnabled> class="autoCompleteDropDown"</#if>
+      <#if event?has_content> ${event}="${action}"</#if>
+      <#if size?has_content> size="${size}"</#if>
+      <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+      <#if otherFieldName?has_content>
+        data-other-field-name="${otherFieldName}"
+        data-other-field-value='${otherValue?js_string}'
+        data-other-field-size='${otherFieldSize}'
+      </#if>>
       <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
         <option selected="selected" value="${currentValue}">${explicitDescription?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/><#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
       </#if>
@@ -188,61 +195,66 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderCheckField items className alert id name action conditionGroup="" allChecked="" currentValue=""  event="" tabindex="" disabled="">
+<#macro renderCheckField items className alert id name action conditionGroup="" allChecked="" currentValue=""  event="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
-      <input type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-        <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
+      <input <@renderDisabled disabled /> type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
         <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked>
-          <#elseif item.checked?has_content && item.checked?boolean> checked="checked"</#if>
-          name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
+        <#elseif item.checked?has_content && item.checked?boolean> checked="checked"</#if>
+        name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
         ${item.description?default("")}
     </span>
   </#list>
 </#macro>
 
-<#macro renderRadioField items className alert name action conditionGroup="" currentValue="" noCurrentSelectedKey="" event="" tabindex="" disabled="">
+<#macro renderRadioField items className alert name action conditionGroup="" currentValue="" noCurrentSelectedKey="" event="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
-      <input type="radio"<#if currentValue?has_content><#if currentValue==item.key> checked="checked"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-        <#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if><#if disabled?has_content && disabled> disabled="disabled"</#if>
-        name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
+      <input type="radio" <@renderDisabled disabled />
+        <#if currentValue?has_content>
+          <#if currentValue==item.key> checked="checked"</#if>
+          <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+        <#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if>
+        name="${name?default("")?html}" value="${item.key?default("")?html}"
+        <#if event?has_content> ${event}="${action}"</#if>/><#rt/>
       ${item.description}
     </span>
   </#list>
 </#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="">
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false>
   <#if buttonType=="text-link">
     <a <@renderClass className alert /> href="javascript:document.${formName}.submit()" <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>><#if title?has_content>${title}</#if> </a>
   <#elseif buttonType=="image">
-    <input type="image" src="${imgSrc}" <@renderClass className alert /><#if name?has_content> name="${name}"</#if>
+    <input type="image" src="${imgSrc}" <@renderClass className alert /> <@renderDisabled disabled /> <#if name?has_content> name="${name}"</#if>
     <#if title?has_content> alt="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
     <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>/>
   <#else>
-    <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert />
-    <#if id?has_content> id="${id}"</#if><#rt/>
-    <#if name??> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
-    <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}')"
-      <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
-    <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-    </#if>/>
-    <#if containerId?has_content>
-    <#-- the form will be submit by ajax, we inform that perss enter need to call  -->
-    <script>
-        $("form[name='${formName}']").keypress(function(e) {
-          if (e.which === 13 && ! $(e.target).is('textarea')) {
-            e.preventDefault();
-            $("#${id!}").click();
-          }});
-    </script>
-  </#if>
+    <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /> <@renderDisabled disabled />
+      <#if id?has_content> id="${id}"</#if><#rt/>
+      <#if name??> name="${name}"</#if>
+      <#if title?has_content> value="${title}"</#if>
+      <#if event?has_content> ${event}="${action}"</#if>
+      <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}')"
+        <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
+      <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+      </#if>/>
+      <#if containerId?has_content>
+        <#-- the form will be submit by ajax, we inform that perss enter need to call  -->
+        <script>
+            $("form[name='${formName}']").keypress(function(e) {
+              if (e.which === 13 && ! $(e.target).is('textarea')) {
+                e.preventDefault();
+                $("#${id!}").click();
+              }});
+        </script>
+      </#if>
   </#if>
 </#macro>
 
@@ -250,11 +262,14 @@ under the License.
   <input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/>
 </#macro>
 
-<#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="">
+<#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="" disabled=false>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
-  <input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if><#if id?has_content> id="${id}"</#if><#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
+  <input type="hidden" name="${name}" <@renderDisabled disabled />
+    <#if value?has_content> value="${value}"</#if>
+    <#if id?has_content> id="${id}"</#if>
+    <#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
 </#macro>
 
 <#macro renderIgnoredField></#macro>
@@ -396,12 +411,12 @@ under the License.
 
 <#macro renderFormatEmptySpace>&nbsp;</#macro>
 
-<#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase conditionGroup="" value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="">
+<#macro renderTextFindField name defaultOption opBeginsWith opContains opIsEmpty opNotEqual className alert hideIgnoreCase ignCase ignoreCase conditionGroup="" value="" opEquals="" size="" maxlength="" autocomplete="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
   <#if opEquals?has_content>
-    <select <#if name?has_content>name="${name}_op"</#if>    class="selectBox"><#rt/>
+    <select <@renderDisabled disabled /> <#if name?has_content>name="${name}_op"</#if> class="selectBox"<#rt/>
       <option value="equals"<#if defaultOption=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
       <option value="like"<#if defaultOption=="like"> selected="selected"</#if>>${opBeginsWith}</option><#rt/>
       <option value="contains"<#if defaultOption=="contains"> selected="selected"</#if>>${opContains}</option><#rt/>
@@ -411,31 +426,36 @@ under the License.
   <#else>
     <input type="hidden" name=<#if name?has_content> "${name}_op"</#if>    value="${defaultOption}"/><#rt/>
   </#if>
-    <input type="text" <@renderClass className alert /> name="${name}"<#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+    <input type="text" <@renderClass className alert /> <@renderDisabled disabled /> name="${name}"
+      <#if value?has_content> value="${value}"</#if>
+      <#if size?has_content> size="${size}"</#if>
+      <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+      <#if autocomplete?has_content> autocomplete="off"</#if>
+      <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
     <#if titleStyle?has_content><span class="${titleStyle}" ><#rt/></#if>
     <#if hideIgnoreCase>
       <input type="hidden" name="${name}_ic" value=<#if ignCase>"Y"<#else> ""</#if>/><#rt/>
     <#else>
-      <input type="checkbox" name="${name}_ic" value="Y" <#if ignCase> checked="checked"</#if> /> ${ignoreCase}<#rt/>
+      <input type="checkbox" name="${name}_ic" value="Y" <#if ignCase> checked="checked"</#if> <@renderDisabled disabled />/> ${ignoreCase}<#rt/>
     </#if>
     <#if titleStyle?has_content></span>
   </#if>
 </#macro>
 
-<#macro renderDateFindField className alert id name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="">
+<#macro renderDateFindField id name formName defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty className="" alert=false imgSrc="" value="" isTimeType=false isDateType=false conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
-  <#if dateType != "time">
+  <#if !isTimeType>
     <#local className = className + " date-time-picker"/>
   </#if>
-  <#local shortDateInput = "date" == dateType/>
+  <#local shortDateInput = isDateType/>
   <#local cultureInfo = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("datejs", .locale)/>
   <#local datePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("jquery", .locale)/>
   <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
   <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
   <span class="view-calendar">
-    <input id="${id}_fld0_value" type="text" <@renderClass className alert />
+    <input id="${id}_fld0_value" type="text" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if name?has_content> name="${name?html}_fld0_value"</#if>
         <#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if>
         <#if value?has_content> value="${value}"</#if>
@@ -451,7 +471,7 @@ under the License.
     <#if titleStyle?has_content>
       <span class="${titleStyle}"><#rt/>
     </#if>
-    <select<#if name?has_content> name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
+    <select <@renderDisabled disabled /> <#if name?has_content> name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
       <option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
       <option value="sameDay"<#if defaultOptionFrom=="sameDay"> selected="selected"</#if>>${opSameDay}</option><#rt/>
       <option value="greaterThanFromDayStart"<#if defaultOptionFrom=="greaterThanFromDayStart"> selected="selected"</#if>>${opGreaterThanFromDayStart}</option><#rt/>
@@ -461,7 +481,7 @@ under the License.
       </span><#rt/>
     </#if>
     <#rt/>
-    <input id="${id}_fld1_value" type="text" <@renderClass className alert />
+    <input id="${id}_fld1_value" type="text" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if name?has_content> name="${name}_fld1_value"</#if>
         <#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if>
         <#if value2?has_content> value="${value2}"</#if>
@@ -471,12 +491,12 @@ under the License.
         <#if datePickerLang?has_content> data-datepickerlang="${datePickerLang}"</#if><#rt/>
         <#if timePicker?has_content> data-timePicker="${timePicker}"</#if><#rt/>
         <#if timePickerLang?has_content> data-timepickerlang="${timePickerLang}"</#if><#rt/>
-         data-shortdate="${shortDateInput?string}"
+        data-shortdate="${shortDateInput?string}"
     /><#rt/>
     <#if titleStyle?has_content>
       <span class="${titleStyle}"><#rt/>
     </#if>
-    <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox"><#rt/>
+    <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox" <@renderDisabled disabled />><#rt/>
       <option value="opLessThan"<#if defaultOptionThru=="opLessThan"> selected="selected"</#if>>${opLessThan}</option><#rt/>
       <option value="upToDay"<#if defaultOptionThru=="upToDay"> selected="selected"</#if>>${opUpToDay}</option><#rt/>
       <option value="upThruDay"<#if defaultOptionThru=="upThruDay"> selected="selected"</#if>>${opUpThruDay}</option><#rt/>
@@ -488,15 +508,21 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderRangeFindField className alert value defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals defaultOptionThru conditionGroup="" name="" size="" maxlength="" autocomplete="" titleStyle="" value2="" tabindex="">
+<#macro renderRangeFindField className alert value defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals defaultOptionThru conditionGroup="" name="" size="" maxlength="" autocomplete="" titleStyle="" value2="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
-  <input type="text" <@renderClass className alert /> <#if name?has_content>name="${name}_fld0_value"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+  <input type="text" <@renderClass className alert /> <@renderDisabled disabled />
+    <#if name?has_content>name="${name}_fld0_value"</#if>
+    <#if value?has_content> value="${value}"</#if>
+    <#if size?has_content> size="${size}"</#if>
+    <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+    <#if autocomplete?has_content> autocomplete="off"</#if>
+    <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
   <#if titleStyle?has_content>
     <span class="${titleStyle}" ><#rt/>
   </#if>
-  <select <#if name?has_content>name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
+  <select <@renderDisabled disabled /> <#if name?has_content>name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
     <option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
     <option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected="selected"</#if>>${opGreaterThan}</option><#rt/>
     <option value="greaterThanEqualTo"<#if defaultOptionFrom=="greaterThanEqualTo"> selected="selected"</#if>>${opGreaterThanEquals}</option><#rt/>
@@ -505,11 +531,16 @@ under the License.
     </span><#rt/>
   </#if>
   <br /><#rt/>
-  <input type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
+  <input type="text" <@renderClass className alert /> <@renderDisabled disabled />
+    <#if name?has_content> name="${name}_fld1_value"</#if>
+    <#if value2?has_content> value="${value2}"</#if>
+    <#if size?has_content> size="${size}"</#if>
+    <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+    <#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
   <#if titleStyle?has_content>
-    <span class="${titleStyle}" ><#rt/>
+    <span class="${titleStyle}"><#rt/>
   </#if>
-  <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox"><#rt/>
+  <select <@renderDisabled disabled /> name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox"><#rt/>
     <option value="lessThan"<#if defaultOptionThru=="lessThan"> selected="selected"</#if>>${opLessThan?html}</option><#rt/>
     <option value="lessThanEqualTo"<#if defaultOptionThru=="lessThanEqualTo"> selected="selected"</#if>>${opLessThanEquals?html}</option><#rt/>
   </select><#rt/>
@@ -553,7 +584,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 Parameter: tabindex, String, optional - HTML tabindex number.
 Parameter: delegatorName, String, optional - name of the delegator in context.
 -->
-<#macro renderLookupField name formName fieldFormName conditionGroup="" className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default">
+<#macro renderLookupField name formName fieldFormName conditionGroup="" className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default" disabled=false>
   <#if Static["org.apache.ofbiz.widget.model.ModelWidget"].widgetBoundaryCommentsEnabled(context)><#-- context is always null here, but this is handled in widgetBoundaryCommentsEnabled -->
   <!-- @renderLookupField -->
   </#if>
@@ -571,13 +602,16 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
   </#if>
   <#if conditionGroup?has_content>
-    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
   <span class="field-lookup">
     <#if size?has_content && size=="0">
-      <input type="hidden" <#if name?has_content> name="${name}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+      <input type="hidden" <@renderDisabled disabled />
+        <#if name?has_content> name="${name}"</#if>
+        <#if tabindex?has_content> tabindex="${tabindex}"</#if>
     <#else>
-      <input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+      <input type="text" <@renderClass className alert /> <@renderDisabled disabled />
+        <#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
         <#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/>
         <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
         <#if autocomplete?has_content> autocomplete="off"</#if><#rt/>
@@ -659,12 +693,31 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   </#if>
 </#macro>
 
-<#macro renderFileField className alert name="" value="" size="" maxlength="" autocomplete="" tabindex="">
-  <input type="file" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+<#macro renderFileField className alert name="" value="" size="" maxlength="" autocomplete="" tabindex="" disabled=false>
+  <input type="file"
+    <@renderClass className alert />
+    <@renderDisabled disabled />
+    <#if name?has_content> name="${name}"</#if>
+    <#if value?has_content> value="${value}"</#if>
+    <#if size?has_content> size="${size}"</#if>
+    <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+    <#if autocomplete?has_content> autocomplete="off"</#if>
+    <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
 </#macro>
-<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="">
-  <input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>/>
+
+<#macro renderPasswordField className alert name="" value="" size="" maxlength="" id="" autocomplete="" tabindex="" disabled=false>
+  <input type="password"
+    <@renderClass className alert />
+    <@renderDisabled disabled />
+    <#if name?has_content> name="${name}"</#if>
+    <#if value?has_content> value="${value}"</#if>
+    <#if size?has_content> size="${size}"</#if>
+    <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+    <#if id?has_content> id="${id}"</#if>
+    <#if autocomplete?has_content> autocomplete="off"</#if>
+    <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
 </#macro>
+
 <#macro renderImageField action value="" description="" alternate="" style="" event=""><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if><#if style?has_content> class="${style}"</#if><#if event?has_content> ${event?html}="${action}" </#if>/></#macro>
 
 <#macro renderBanner style="" leftStyle="" rightStyle="" leftText="" text="" rightText="">
@@ -722,10 +775,14 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   <#if requiredField=="true"><#if !requiredStyle?has_content>*</#if></#if>
 </#macro>
 
-<#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow="">
+<#macro renderDisabled disabled>
+  <#if disabled?has_content && disabled> disabled </#if>
+</#macro>
+
+<#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow="" disabled=false>
   <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${name}">
     <#list parameters as parameter>
-      <input name="${parameter.name}" value="${parameter.value?html}" type="hidden"/>
+      <input name="${parameter.name}" value="${parameter.value?html}" type="hidden" <@renderDisabled disabled />/>
     </#list>
   </form>
 </#macro>
@@ -735,7 +792,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>>
       <#if imgSrc?has_content><img src="${imgSrc}" alt=""/></#if>${description}</a>
 </#macro>
-<#macro makeHyperlinkString hiddenFormName imgSrc title  alternate linkUrl description linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="">
+<#macro makeHyperlinkString hiddenFormName imgSrc imgTitle title alternate linkUrl description linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="">
     <#if uniqueItemName?has_content>
         <#local params = "{&quot;presentation&quot;: &quot;layer&quot;">
         <#if targetParameters?has_content && !targetParameters?is_hash>
@@ -760,7 +817,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       <#if action?has_content && event?has_content> ${event}="${action}"</#if>
       <#if confirmation?has_content> data-confirm-message="${confirmation}"</#if>
       <#if id?has_content> id="${id}"</#if>
-      <#if imgSrc?length == 0 && title?has_content> title="${title}"</#if>>
-      <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description?html}</a>
+      <#if title?has_content> title="${title}"</#if>>
+      <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" <#if imgTitle?has_content>title="${imgTitle}"</#if>/></#if>${description?html}</a>
     </#if>
 </#macro>

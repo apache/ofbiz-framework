@@ -30,8 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import java.util.stream.Collectors;
+
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.JSONConverters;
 import org.apache.ofbiz.base.lang.JSON;
@@ -61,6 +61,7 @@ import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * Abstract base class for the &lt;form&gt; and &lt;grid&gt; elements.
@@ -2309,15 +2310,24 @@ public abstract class ModelForm extends ModelWidget {
             this.defaultServiceName = defaultServiceName;
             this.defaultEntityName = defaultEntityName;
             List<? extends Element> parameterElementList = UtilXml.childElementList(updateAreaElement, "parameter");
-            if (parameterElementList.isEmpty()) {
-                this.parameterList = Collections.emptyList();
-            } else {
-                List<CommonWidgetModels.Parameter> parameterList = new ArrayList<>(parameterElementList.size());
-                for (Element parameterElement : parameterElementList) {
-                    parameterList.add(new CommonWidgetModels.Parameter(parameterElement));
-                }
-                this.parameterList = Collections.unmodifiableList(parameterList);
+
+            List<CommonWidgetModels.Parameter> parameterList = new ArrayList<>(parameterElementList.size());
+            for (Element parameterElement : parameterElementList) {
+                parameterList.add(new CommonWidgetModels.Parameter(parameterElement));
             }
+            Element autoFormParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-form");
+            if (autoFormParamsElement != null) {
+                Node formElement = autoFormParamsElement;
+                while (formElement != null
+                        && formElement.getLocalName() != "form") {
+                    formElement = formElement.getParentNode();
+                }
+                if (formElement.getLocalName() != null) {
+                    parameterList.add(new CommonWidgetModels.Parameter("_FORM_NAME_", ((Element) formElement).getAttribute("name") + "_AS_PARAM_",
+                            false));
+                }
+            }
+            this.parameterList = Collections.unmodifiableList(parameterList);
             Element autoServiceParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-service");
             if (autoServiceParamsElement != null) {
                 this.autoServiceParameters = new CommonWidgetModels.AutoServiceParameters(autoServiceParamsElement);
@@ -2476,7 +2486,7 @@ public abstract class ModelForm extends ModelWidget {
 
             Map<String, String> claims = UtilMisc.toMap(
                     "areaId", WidgetWorker.getScreenStack(context).resolveScreenAreaId(getAreaId()),
-                    "areaTarget", getAreaTarget());
+                    "areaTarget", getAreaTarget(context));
 
             // Propagate on the callback parameters use by pagination list
             Map<String, Object> parameters = WidgetWorker.resolveParametersMapFromQueryString(context);

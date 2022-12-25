@@ -176,6 +176,7 @@ def reserveStoreInventory() {
             List productStoreFacilities = from("ProductStoreFacility")
                     .where(productStoreId: productStore.productStoreId)
                     .orderBy("sequenceNum")
+                    .filterByDate()
                     .cache()
                     .queryList()
             for (GenericValue productStoreFacility : productStoreFacilities) {
@@ -184,29 +185,28 @@ def reserveStoreInventory() {
                     // TODO: must entire quantity be available in one location?
                     // Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order.
                     Map callServiceMapIABF = [productId: parameters.productId, facilityId: productStoreFacility.facilityId]
-                    logInfo("ProductStoreService:In productStoreFacilities loop: [" + parameters.facilityId + "]")
                     Map serviceResultIABF = run service: "getInventoryAvailableByFacility", with: callServiceMapIABF
                     BigDecimal availableToPromiseTotal = serviceResultIABF.availableToPromiseTotal
-
                     if (availableToPromiseTotal >= parameters.quantity) {
                         storeFound = productStoreFacility
                     }
                 }
             }
             // didn't find anything? Take the first facility from list
+            GenericValue defaultStoreFound
             if (!storeFound) {
-                storeFound = productStoreFacilities.get(0)
+                defaultStoreFound = productStore.getRelatedOne("Facility", true)
             }
-            facilityId = storeFound.facilityId ?: ""
+            facilityId = storeFound ? storeFound.facilityId : defaultStoreFound.facilityId
             Map serviceResult = run service: "reserveProductInventoryByFacility", with: [*: parameters,
                                                                                          facilityId: facilityId,
                                                                                          requireInventory: requireInventory,
                                                                                          reserveOrderEnumId: productStore.reserveOrderEnumId]
             quantityNotReserved = serviceResult.quantityNotReserved
-            logInfo("Inventory IS reserved in facility with id [${storeFound.facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}")
+            logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}")
         }
     } else {
-        List productStoreFacilities = from("ProductStoreFacility").where(productStoreId: productStore.productStoreId, facilityId: facilityId).cache().orderBy("sequenceNum").queryList()
+        List productStoreFacilities = from("ProductStoreFacility").where(productStoreId: productStore.productStoreId, facilityId: facilityId).cache().orderBy("sequenceNum").filterByDate().queryList()
         GenericValue facilityFound
         for (GenericValue productStoreFacility : productStoreFacilities) {
             // Search Product Store Facilities to insure the facility passed in is associated to the Product Store passed in
@@ -314,6 +314,7 @@ def isStoreInventoryAvailable() {
         List productStoreFacilities = from("ProductStoreFacility")
                 .where(productStoreId: productStore.productStoreId)
                 .orderBy("sequenceNum")
+                .filterByDate()
                 .cache()
                 .queryList()
         available = "N"

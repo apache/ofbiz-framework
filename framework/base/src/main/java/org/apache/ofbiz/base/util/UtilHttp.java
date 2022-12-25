@@ -61,8 +61,6 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -90,6 +88,9 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.SameSiteFilter;
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+
+import com.google.re2j.Matcher;
+import com.google.re2j.Pattern;
 
 /**
  * HttpUtil - Misc HTTP Utility Functions
@@ -460,23 +461,47 @@ public final class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getJSONAttributeMap(HttpServletRequest request) {
+        return parseJSONAttributeMap(getAttributeMap(request));
+    }
+
+    /**
+     * For a map analyse each object to prepare a Json response
+     * @param attrMap
+     * @return
+     */
+    private static Map<String, Object> parseJSONAttributeMap(Map<String, Object> attrMap) {
         Map<String, Object> returnMap = new HashMap<>();
-        Map<String, Object> attrMap = getAttributeMap(request);
         for (Map.Entry<String, Object> entry : attrMap.entrySet()) {
-            String key = entry.getKey();
-            Object val = entry.getValue();
-            if (val instanceof java.sql.Timestamp) {
-                val = val.toString();
-            }
-            if (val instanceof String || val instanceof Number || val instanceof Map<?, ?> || val instanceof List<?> || val instanceof Boolean) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Adding attribute to JSON output: " + key, MODULE);
-                }
-                returnMap.put(key, val);
+            Object val = parseJSONAttributeValue(entry.getValue());
+            if (val != null) {
+                returnMap.put(entry.getKey(), val);
             }
         }
-
         return returnMap;
+    }
+
+    /**
+     * For a value analyse the object type to prepare a Json response
+     * @param val
+     * @return
+     */
+    private static Object parseJSONAttributeValue(Object val) {
+        if (val == null) {
+            return null;
+        }
+        if (val instanceof java.sql.Timestamp) {
+            val = val.toString();
+        }
+        if (val instanceof String
+                || val instanceof Number
+                || val instanceof Boolean) {
+            return val;
+        } else if (val instanceof Map<?, ?>) {
+            return parseJSONAttributeMap(UtilGenerics.cast(val));
+        } else if (val instanceof List<?>) {
+            return ((List<?>) val).stream().map(UtilHttp::parseJSONAttributeValue).collect(Collectors.toList());
+        }
+        return null;
     }
 
     /**
@@ -491,7 +516,7 @@ public final class UtilHttp {
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
      */
-    public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    private static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> attributeMap = new HashMap<>();
 
         // look at all request attributes
@@ -526,7 +551,7 @@ public final class UtilHttp {
      * Create a map from a HttpSession object
      * @return The resulting Map
      */
-    public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    private static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> sessionMap = new HashMap<>();
         HttpSession session = request.getSession();
 
@@ -562,7 +587,7 @@ public final class UtilHttp {
      * Create a map from a ServletContext object
      * @return The resulting Map
      */
-    public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    private static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> servletCtxMap = new HashMap<>();
 
         // look at all servlet context attributes
@@ -739,7 +764,7 @@ public final class UtilHttp {
         }
         // When you set a mountpoint which contains a slash inside its name (ie not only a slash as a trailer, which is possible),
         // as it's needed with OFBIZ-10765, OFBiz tries to create a cookie with a slash in its name and that's impossible.
-        return appName.replaceAll("/", "_");
+        return appName.replace("/", "_");
     }
 
     public static void setInitialRequestInfo(HttpServletRequest request) {
@@ -869,7 +894,7 @@ public final class UtilHttp {
         setTimeZone(request.getSession(), UtilDateTime.toTimeZone(tzId));
     }
 
-    public static void setTimeZone(HttpSession session, TimeZone timeZone) {
+    private static void setTimeZone(HttpSession session, TimeZone timeZone) {
         session.setAttribute(SESSION_KEY_TIMEZONE, timeZone);
     }
 
@@ -1180,7 +1205,7 @@ public final class UtilHttp {
     }
 
     public static String encodeBlanks(String htmlString) {
-        return htmlString.replaceAll(" ", "%20");
+        return htmlString.replace(" ", "%20");
     }
 
     public static String setResponseBrowserProxyNoCache(HttpServletRequest request, HttpServletResponse response) {
@@ -1337,7 +1362,7 @@ public final class UtilHttp {
      * @param length Size (in bytes) of the content
      * @throws IOException
      */
-    public static void streamContent(OutputStream out, InputStream in, int length) throws IOException {
+    private static void streamContent(OutputStream out, InputStream in, int length) throws IOException {
         // make sure we have something to write to
         if (out == null) {
             throw new IOException("Attempt to write to null output stream");
@@ -1680,7 +1705,7 @@ public final class UtilHttp {
         return "autoId_" + uniqueIdNumber;
     }
 
-    public static void setContentDisposition(final HttpServletResponse response, final String filename) {
+    private static void setContentDisposition(final HttpServletResponse response, final String filename) {
         String dispositionType = UtilProperties.getPropertyValue("requestHandler", "content-disposition-type", "attachment");
         response.setHeader("Content-Disposition", String.format("%s; filename=\"%s\"", dispositionType, filename));
     }
@@ -1689,7 +1714,7 @@ public final class UtilHttp {
         return getAllowAllHttpClient("component://base/config/ofbizssl.jks", "changeit");
     }
 
-    public static CloseableHttpClient getAllowAllHttpClient(String jksStoreFileName, String jksStorePassword) {
+    private static CloseableHttpClient getAllowAllHttpClient(String jksStoreFileName, String jksStorePassword) {
         try {
             // Trust own CA and all self-signed certs
             SSLContext sslContext = SSLContexts.custom()

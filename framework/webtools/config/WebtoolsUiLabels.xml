@@ -1611,7 +1611,7 @@
         <value xml:lang="vi">Tên Ủy quyền (delegator) Đích:</value>
         <value xml:lang="zh">目标代表名称: </value>
         <value xml:lang="zh-TW">目標代表名稱:  </value>
-    </property>    
+    </property>
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
         <value xml:lang="en">Delete Files Afterwards?</value>
@@ -2124,6 +2124,10 @@
         <value xml:lang="vi">Lỗi: đọc tập tin với tên ${filename}: ${errorString}</value>
         <value xml:lang="zh">错误：读取文件名 ${filename}：${errorString}</value>
         <value xml:lang="zh-TW">錯誤:讀取檔案名 ${filename}:${errorString}</value>
+    </property>
+    <property key="WebtoolsErrorDatafileLoadUrlNotEnabled">
+        <value xml:lang="en">ERROR: For security reason HTTP URLs are not accepted, see OFBIZ-12304. Rather load your data from a file or set SystemProperty security.datafile.loadurls.enable = true</value>
+        <value xml:lang="de">FEHLER: Aus Sicherheitsgründen wird das Laden von HTTP Urls nicht erlaubt. Laden Sie die Daten über eine Datei oder setzen Sie die SystemProperty security.datafile.loadurls.enable = true.</value>
     </property>
     <property key="WebtoolsErrorReadingTemplateFile">
         <value xml:lang="en">ERROR: reading template file ${filename}: ${errorString}</value>
@@ -5976,6 +5980,14 @@
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể XML. Các tài liệu này có thẻ gốc "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎XML檔.這些檔都有一個根標簽 "&lt;entity-engine-xml&gt;".&lt;/entity-engine-xml&gt;</value>
+    </property>
+    <property key="WebtoolsXMLImportInfoBewareTenant1">
+        <value xml:lang="en">Beware, you are using tenant, import acts as the "loadAll" Gradle task that says: "Load default data; meant for OFBiz development, testing, and demo purposes".</value>
+        <value xml:lang="fr">Attention, vous utilisez la fonctionnalité "tenant", l'import agit comme la tâche Gradle "loadAll" : "Charger les données par défaut ; destiné au développement, aux tests et à la démonstration OFBiz".</value>
+    </property>
+    <property key="WebtoolsXMLImportInfoBewareTenant2">
+        <value xml:lang="en">You should use the "loadTenant" Gradle task to load tenant specific data.</value>
+        <value xml:lang="fr">Vous devez utiliser la tâche Gradle "loadTenant" pour charger des données spécifiques à un tenant.</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>

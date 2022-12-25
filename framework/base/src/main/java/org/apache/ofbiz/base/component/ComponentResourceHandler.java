@@ -50,7 +50,7 @@ public class ComponentResourceHandler implements ResourceHandler {
         this.location = element.getAttribute("location");
     }
 
-    public ComponentResourceHandler(String componentName, String loaderName, String location) {
+    ComponentResourceHandler(String componentName, String loaderName, String location) {
         this.componentName = componentName;
         this.loaderName = loaderName;
         this.location = location;

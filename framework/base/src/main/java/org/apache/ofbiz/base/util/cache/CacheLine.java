@@ -21,7 +21,7 @@ package org.apache.ofbiz.base.util.cache;
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
 
 public abstract class CacheLine<V> extends ExecutionPool.Pulse {
-    protected CacheLine(long loadTimeNanos, long expireTimeNanos) {
+    CacheLine(long loadTimeNanos, long expireTimeNanos) {
         super(loadTimeNanos, expireTimeNanos);
     }
 

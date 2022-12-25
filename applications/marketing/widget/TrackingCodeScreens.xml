@@ -90,11 +90,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditTrackingCode}">
-                                    <container>
-                                        <link  text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
-                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                        </link>
-                                    </container>
                                     <include-form name="EditTrackingCode" location="component://marketing/widget/TrackingCodeForms.xml"/>
                                 </screenlet>
                             </widgets>
@@ -247,7 +242,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListTrackingCodeVisits">
         <section>
             <actions>

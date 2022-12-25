@@ -483,21 +483,11 @@ public class TaxAuthorityServices {
                 if (product != null && taxAuthPartyId != null && taxAuthGeoId != null) {
                     // find a ProductPrice for the productId and taxAuth* values, and see if it has
                     // a priceWithTax value
-                    productPrice = EntityQuery.use(delegator).from("ProductPrice")
-                            .where("productId", product.get("productId"),
-                                    "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId,
-                                    "productPricePurposeId", "PURCHASE")
-                            .orderBy("-fromDate").filterByDate().queryFirst();
-
+                    productPrice = getProductPrice(delegator, product, productStore, taxAuthGeoId, taxAuthPartyId);
                     if (productPrice == null) {
-                        GenericValue virtualProduct = ProductWorker.getParentProduct(product.getString("productId"),
-                                delegator);
+                        GenericValue virtualProduct = ProductWorker.getParentProduct(product.getString("productId"), delegator);
                         if (virtualProduct != null) {
-                            productPrice = EntityQuery.use(delegator).from("ProductPrice")
-                                    .where("productId", virtualProduct.get("productId"),
-                                            "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId,
-                                            "productPricePurposeId", "PURCHASE")
-                                    .orderBy("-fromDate").filterByDate().queryFirst();
+                            productPrice = getProductPrice(delegator, virtualProduct, productStore, taxAuthGeoId, taxAuthPartyId);
                         }
                     }
                 }
@@ -656,11 +646,39 @@ public class TaxAuthorityServices {
     }
 
     /**
-     * Private helper method which determines, based on the state of the product,
-     * how the ProdCondition should be set for the main condition.
      * @param delegator
      * @param product
-     *            which may be null
+     * @param productStore
+     * @param taxAuthGeoId
+     * @param taxAuthPartyId
+     * @return productPrice
+     * @throws GenericEntityException
+     */
+    private static GenericValue getProductPrice(Delegator delegator, GenericValue product, GenericValue productStore, String taxAuthGeoId,
+            String taxAuthPartyId) throws GenericEntityException {
+        if (productStore != null && UtilValidate.isNotEmpty(productStore.getString("primaryStoreGroupId"))) {
+            return EntityQuery.use(delegator).from("ProductPrice")
+                    .where("productId", product.get("productId"),
+                            "taxAuthPartyId", taxAuthPartyId,
+                            "taxAuthGeoId", taxAuthGeoId,
+                            "productPricePurposeId", "PURCHASE",
+                            "productStoreGroupId", productStore.get("primaryStoreGroupId"))
+                    .orderBy("-fromDate").filterByDate().queryFirst();
+        } else {
+            // Purchase order case
+            return EntityQuery.use(delegator).from("ProductPrice")
+                    .where("productId", product.get("productId"),
+                            "taxAuthPartyId", taxAuthPartyId,
+                            "taxAuthGeoId", taxAuthGeoId,
+                            "productPricePurposeId", "PURCHASE")
+                    .orderBy("-fromDate").filterByDate().queryFirst();
+        }
+    }
+
+    /**
+     * Private helper method which determines, based on the state of the product, how the ProdCondition should be set for the main condition.
+     * @param delegator
+     * @param product which may be null
      * @return non-null Condition
      * @throws GenericEntityException
      */

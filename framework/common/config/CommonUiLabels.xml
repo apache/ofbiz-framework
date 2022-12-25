@@ -164,6 +164,7 @@
         <value xml:lang="es-MX">Gestión de Catálogo de Productos, Categorías, Productos, Reglas de Precios, Promociones, Tienda de Productos</value>
         <value xml:lang="fr">Gestion des catalogues, Catégories, Articles, Promotions, Règles de prix, Centres de profit </value>
         <value xml:lang="ja">製品カタログ管理、カテゴリ、製品、価格ルール、プロモーション、製品店舗</value>
+        <value xml:lang="nl">Product Informantie Beheer</value>
         <value xml:lang="ru">Каталог управления товарами, Категории, Товар, Цены, Акции, Магазин</value>
         <value xml:lang="vi">Quản lý Phân loại Trình diễn, Phân loại Quản lý, Sản phẩm, Công thức giá, Khuyến mãi, Cửa hàng</value>
         <value xml:lang="zh">产品目录管理，包括分类、产品、价格规则、促销、产品店铺</value>
@@ -177,6 +178,7 @@
         <value xml:lang="es-MX">Cancelar</value>
         <value xml:lang="fr">Abandonner</value>
         <value xml:lang="ja">アボート</value>
+        <value xml:lang="nl">Afbreken</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="vi">Hủy</value>
         <value xml:lang="zh">放弃</value>
@@ -322,6 +324,7 @@
         <value xml:lang="fr">Ajouter une nouvelle colonne à ce portail</value>
         <value xml:lang="it">Aggiunge una nuova colonna a questa pagina</value>
         <value xml:lang="ja">このポータルに新規項目を追加</value>
+        <value xml:lang="nl">Kolom toevoegen</value>
         <value xml:lang="pt-BR">Adicionar uma nova coluna neste portal</value>
         <value xml:lang="ru">Добавить новый столбец в этот портал</value>
         <value xml:lang="vi">Thêm một cột cho Cổng thông tin này này</value>
@@ -338,7 +341,7 @@
         <value xml:lang="hi-IN">एक Portlet जोड़ें...</value>
         <value xml:lang="it">Aggiungi un portlet...</value>
         <value xml:lang="ja">ポートレットを追加</value>
-        <value xml:lang="nl">Toevoegen portlet...</value>
+        <value xml:lang="nl">Toevoegen portlet</value>
         <value xml:lang="pt-BR">Adicionar um Portlet ...</value>
         <value xml:lang="ru">Добавить портлет </value>
         <value xml:lang="vi">Thêm một ứng dụng Portlet...</value>
@@ -356,7 +359,7 @@
         <value xml:lang="hi-IN">कॉलम जोड़ें</value>
         <value xml:lang="it">Aggiungi una colonna</value>
         <value xml:lang="ja">項目を追加</value>
-        <value xml:lang="nl">Toevoegen column...</value>
+        <value xml:lang="nl">Toevoegen kolom</value>
         <value xml:lang="pt-BR">Adicionar Coluna</value>
         <value xml:lang="ru">Добавить столбец </value>
         <value xml:lang="vi">Thêm cột</value>
@@ -375,7 +378,7 @@
         <value xml:lang="hi-IN">डिफ़ॉल्ट जोड़ें</value>
         <value xml:lang="it">Aggiungi default</value>
         <value xml:lang="ja">デフォルトを追加</value>
-        <value xml:lang="nl">Toevoegen standaard</value>
+        <value xml:lang="nl">Standaard toevoegen</value>
         <value xml:lang="pt">Adicionar Default</value>
         <value xml:lang="pt-BR">Adicionar Padrão</value>
         <value xml:lang="pt-PT">Adicionar Pré-definições</value>
@@ -399,7 +402,7 @@
         <value xml:lang="hi-IN">क्रमांक जोड़ें</value>
         <value xml:lang="it">Aggiungi codice</value>
         <value xml:lang="ja">IDを追加</value>
-        <value xml:lang="nl">Toevoegen nummer</value>
+        <value xml:lang="nl">ID toevoegen</value>
         <value xml:lang="pt">Adicionar ID</value>
         <value xml:lang="ro">Adauga Cod</value>
         <value xml:lang="ru">Добавить ID</value>
@@ -421,7 +424,7 @@
         <value xml:lang="hi-IN">नया जोड़ें</value>
         <value xml:lang="it">Aggiungi nuovo</value>
         <value xml:lang="ja">新規追加</value>
-        <value xml:lang="nl">Toevoegen nieuwe</value>
+        <value xml:lang="nl">Nieuw(e) toevoegen</value>
         <value xml:lang="pt">Adicionar Novo</value>
         <value xml:lang="pt-BR">Criar um Novo</value>
         <value xml:lang="ro">Adauga Nou</value>
@@ -441,6 +444,7 @@
         <value xml:lang="fr">Ajouter une portlet à la page</value>
         <value xml:lang="it">Aggiunge un portlet in questa colonna</value>
         <value xml:lang="ja">ポータルページにポートレットを追加</value>
+        <value xml:lang="nl">Portlet aan pagina toevoegen</value>
         <value xml:lang="pt-BR">Adicionar um portlet à página do portal</value>
         <value xml:lang="ru">Добавить портлет на страницу портала </value>
         <value xml:lang="vi">Thêm một portlet vào trang portal</value>
@@ -459,7 +463,7 @@
         <value xml:lang="hi-IN">समस्या जोड़ें</value>
         <value xml:lang="it">Aggiungi problema</value>
         <value xml:lang="ja">問題を追加</value>
-        <value xml:lang="nl">Toevoegen probleem</value>
+        <value xml:lang="nl">Probleem toevoegen</value>
         <value xml:lang="pt">Adicionar Problema</value>
         <value xml:lang="pt-BR">Problema de criação</value>
         <value xml:lang="ro">Adauga Problema</value>
@@ -536,7 +540,7 @@
         <value xml:lang="hi-IN">पता पंक्ति</value>
         <value xml:lang="it">Riga indirizzo</value>
         <value xml:lang="ja">住所行</value>
-        <value xml:lang="nl">Adres lijn</value>
+        <value xml:lang="nl">Adresregel</value>
         <value xml:lang="pt">Linha de Endereço</value>
         <value xml:lang="ro">Linie Adresa</value>
         <value xml:lang="ru">Строка адреса</value>
@@ -555,6 +559,7 @@
         <value xml:lang="es-MX">Dirección no encontrada.</value>
         <value xml:lang="fr">Adresse inconnue</value>
         <value xml:lang="ja">住所が見つかりません。</value>
+        <value xml:lang="nl">Adres niet gevonden</value>
         <value xml:lang="ru">Адрес не найден </value>
         <value xml:lang="vi">Không tìm thấy địa chỉ</value>
         <value xml:lang="zh">没有找到地址。</value>
@@ -604,6 +609,7 @@
         <value xml:lang="hi-IN">उन्नत सुविधाएँ</value>
         <value xml:lang="it">Caratteristiche avanzate</value>
         <value xml:lang="ja">詳細機能</value>
+        <value xml:lang="nl">uitgebreide eigenschappen</value>
         <value xml:lang="pt-BR">Recursos avançados</value>
         <value xml:lang="ru">Дополнительные функции </value>
         <value xml:lang="vi">Tính năng chuyên sâu</value>
@@ -621,7 +627,7 @@
         <value xml:lang="hi-IN">उन्नत खोज</value>
         <value xml:lang="it">Ricerca avanzata</value>
         <value xml:lang="ja">詳細検索</value>
-        <value xml:lang="nl">Uitgebreide zoek</value>
+        <value xml:lang="nl">Uitgebreid zoeken</value>
         <value xml:lang="pt-BR">Pesquisa Avançada</value>
         <value xml:lang="ro">Cautare Avansata</value>
         <value xml:lang="ru">Расширенный поиск</value>
@@ -729,6 +735,7 @@
         <value xml:lang="hi-IN">हमेशा शामिल करें</value>
         <value xml:lang="it">Include sempre</value>
         <value xml:lang="ja">常に含む</value>
+        <value xml:lang="nl">Altijd opnemen</value>
         <value xml:lang="pt">Incluir Sempre</value>
         <value xml:lang="pt-BR">Sempre incluir</value>
         <value xml:lang="ru">Всегда включать </value>
@@ -813,7 +820,7 @@
         <value xml:lang="hi-IN">कोईभी वापसी स्थिति</value>
         <value xml:lang="it">Qualsiasi stato reso</value>
         <value xml:lang="ja">任意のステータス</value>
-        <value xml:lang="nl">Elke retour status</value>
+        <value xml:lang="nl">Elke retourstatus</value>
         <value xml:lang="pt">Qualquer Estado de Devolução</value>
         <value xml:lang="pt-BR">Qualquer estado de resposta</value>
         <value xml:lang="ro">Orice Stadiu Returnare</value>
@@ -835,7 +842,7 @@
         <value xml:lang="hi-IN">कोईभी भूमिका प्रकार</value>
         <value xml:lang="it">Qualsiasi tipo ruolo</value>
         <value xml:lang="ja">任意のロール種類</value>
-        <value xml:lang="nl">Elke rol type</value>
+        <value xml:lang="nl">Elke roltype</value>
         <value xml:lang="pt">Qualquer Tipo de Papél</value>
         <value xml:lang="pt-BR">Qualquer tipo de papel</value>
         <value xml:lang="ro">Orice Tip Rol</value>
@@ -850,13 +857,14 @@
         <value xml:lang="ar">أي قناة</value>
         <value xml:lang="cs">Libovolný prodejní kanál</value>
         <value xml:lang="de">Beliebiger Verkaufskanal</value>
-        <value xml:lang="en">Any Channel</value>
+        <value xml:lang="en">Any Sales Channel</value>
         <value xml:lang="es">Cualquier canal</value>
         <value xml:lang="es-MX">Cualquier canal</value>
         <value xml:lang="fr">N'importe quel canal</value>
         <value xml:lang="hi-IN">कोई चैनल</value>
         <value xml:lang="it">Qualsiasi canale</value>
         <value xml:lang="ja">任意のチャネル</value>
+        <value xml:lang="nl">Elk verkoopkanaal</value>
         <value xml:lang="pt">Qualquer Canal</value>
         <value xml:lang="ro">Orice Canal</value>
         <value xml:lang="ru">Любой канал</value>
@@ -878,6 +886,7 @@
         <value xml:lang="hi-IN">कोई राज्य/प्रांत</value>
         <value xml:lang="it">Qualsiasi stato/provincia</value>
         <value xml:lang="ja">任意の都道府県/州</value>
+        <value xml:lang="nl">Elke staat/provincie</value>
         <value xml:lang="pt-BR">Qualquer Estado/Província</value>
         <value xml:lang="ru"> Штат/Провинция </value>
         <value xml:lang="vi">Địa phương/Tỉnh thành bất kỳ</value>
@@ -970,7 +979,7 @@
         <value xml:lang="hi-IN">लागू करे</value>
         <value xml:lang="it">Applica</value>
         <value xml:lang="ja">適用</value>
-        <value xml:lang="nl">Wijs toe</value>
+        <value xml:lang="nl">Toewijzen</value>
         <value xml:lang="pt">Aplicar</value>
         <value xml:lang="ro">Aplica</value>
         <value xml:lang="ru">Применить</value>
@@ -1152,6 +1161,7 @@
         <value xml:lang="es">Adjuntos</value>
         <value xml:lang="es-MX">Adjuntos</value>
         <value xml:lang="fr">Pièces jointes</value>
+        <value xml:lang="nl">Bijlagen</value>
     </property>
     <property key="CommonAttentionName">
         <value xml:lang="ar">اسم الاهتمام</value>
@@ -1165,7 +1175,7 @@
         <value xml:lang="hi-IN">प्राप्तकर्ता का नाम</value>
         <value xml:lang="it">Attenzione di</value>
         <value xml:lang="ja">注意名</value>
-        <value xml:lang="nl">Attentie naam</value>
+        <value xml:lang="nl">T.a.v.</value>
         <value xml:lang="pt">Ao Cuidado De</value>
         <value xml:lang="pt-BR">Nome respeitoso</value>
         <value xml:lang="ro">Atentie De</value>
@@ -1187,7 +1197,7 @@
         <value xml:lang="hi-IN">ध्यान दें</value>
         <value xml:lang="it">All'attenzione di</value>
         <value xml:lang="ja">注</value>
-        <value xml:lang="nl">Att</value>
+        <value xml:lang="nl">T.a.v.</value>
         <value xml:lang="pt">Attn</value>
         <value xml:lang="pt-BR">Aos cuidados de</value>
         <value xml:lang="ro">Att.</value>
@@ -1241,6 +1251,7 @@
         <value xml:lang="es-MX">Autenticar</value>
         <value xml:lang="fr">Authentifier</value>
         <value xml:lang="ja">証明</value>
+        <value xml:lang="nl">Autenticeren</value>
         <value xml:lang="ru">Аутентификация</value>
         <value xml:lang="zh">认证</value>
         <value xml:lang="zh-TW">認證</value>
@@ -1253,6 +1264,7 @@
         <value xml:lang="es-MX">Autorizar</value>
         <value xml:lang="fr">Autoriser</value>
         <value xml:lang="ja">許可</value>
+        <value xml:lang="nl">Authoriseren</value>
         <value xml:lang="ru">Авторизация</value>
         <value xml:lang="vi">Cấp phép</value>
         <value xml:lang="zh">授权</value>
@@ -1430,7 +1442,7 @@
         <value xml:lang="hi-IN">खाता क्रमांक</value>
         <value xml:lang="it">Nr. conto</value>
         <value xml:lang="ja">口座番号</value>
-        <value xml:lang="nl">Rek.Nr</value>
+        <value xml:lang="nl">Bankrek.Nr</value>
         <value xml:lang="pt">AccntNr</value>
         <value xml:lang="pt-BR">Número de conta</value>
         <value xml:lang="ro">Nr.Cont</value>
@@ -1486,6 +1498,7 @@
         <value xml:lang="en">branch</value>
         <value xml:lang="es">rama</value>
         <value xml:lang="fr">branche</value>
+        <value xml:lang="nl">Tak</value>
     </property>
     <property key="CommonBuiltOn">
         <value xml:lang="en">built on</value>
@@ -1493,6 +1506,7 @@
         <value xml:lang="es-CL">construida sobre</value>
         <value xml:lang="es-MX">construida sobre</value>
         <value xml:lang="fr">compilée le</value>
+        <value xml:lang="nl">Gebaseerd op</value>
         <value xml:lang="zh">编译日期为</value>
     </property>
     <property key="CommonBut">
@@ -1524,7 +1538,7 @@
         <value xml:lang="fr">De</value>
         <value xml:lang="hi-IN">के द्वारा</value>
         <value xml:lang="it">Da</value>
-        <value xml:lang="nl">bij</value>
+        <value xml:lang="nl">bij/door</value>
         <value xml:lang="pt">Por</value>
         <value xml:lang="ro">De la </value>
         <value xml:lang="ru">По</value>
@@ -1679,6 +1693,7 @@
         <value xml:lang="hi-IN">नहीं मिला</value>
         <value xml:lang="it">Non è stato possibile trovarlo</value>
         <value xml:lang="ja">見つかりません</value>
+        <value xml:lang="nl">Kan niet gevonden worden</value>
         <value xml:lang="pt-BR">Não pôde ser encontrado</value>
         <value xml:lang="vi">Không thể tìm thấy</value>
         <value xml:lang="zh">无法找到</value>
@@ -1691,6 +1706,7 @@
         <value xml:lang="es">Código captcha</value>
         <value xml:lang="fr">Code captcha</value>
         <value xml:lang="ja">キャプチャコード</value>
+        <value xml:lang="nl">Verificatiecode</value>
         <value xml:lang="pt-BR">Código Captcha</value>
         <value xml:lang="ru">Captcha Code</value>
         <value xml:lang="vi">Mã ảnh xác thực</value>
@@ -1707,7 +1723,7 @@
         <value xml:lang="hi-IN">बदलें</value>
         <value xml:lang="it">Cambiare</value>
         <value xml:lang="ja">変更</value>
-        <value xml:lang="nl">Verander</value>
+        <value xml:lang="nl">Wijzigen</value>
         <value xml:lang="pt">Alterar</value>
         <value xml:lang="ro">Schimbare</value>
         <value xml:lang="ru">Изменить</value>
@@ -1730,6 +1746,7 @@
         <value xml:lang="es">caracteres restantes.</value>
         <value xml:lang="fr">caractères restants.</value>
         <value xml:lang="ja">文字 残り</value>
+        <value xml:lang="nl">Tekens over</value>
         <value xml:lang="pt-BR">Caracteres sobrando.</value>
         <value xml:lang="ru">Осталось символов</value>
         <value xml:lang="vi">ký tự bên trái.</value>
@@ -1786,7 +1803,7 @@
         <value xml:lang="hi-IN">जांचना</value>
         <value xml:lang="it">Controlla</value>
         <value xml:lang="ja">当座</value>
-        <value xml:lang="nl">Checking</value>
+        <value xml:lang="nl">Controle</value>
         <value xml:lang="pt">A Verificar</value>
         <value xml:lang="pt-BR">Verificando</value>
         <value xml:lang="pt-PT">Verificação</value>
@@ -1831,7 +1848,7 @@
         <value xml:lang="hi-IN">बिना खता बनाये आप चेकआउट कर सकते है</value>
         <value xml:lang="it">Tu puoi fare il checkout senza creare una utenza</value>
         <value xml:lang="ja">アカウントを作成せずにチェックアウトすることができます</value>
-        <value xml:lang="nl">Je kan afrekenen zonder een rekening aan te maken</value>
+        <value xml:lang="nl">Afrekenen zonder registratie</value>
         <value xml:lang="pt">Você pode verificar/terminar sem criar uma conta</value>
         <value xml:lang="pt-BR">Você pode finalizar a compra sem criar uma conta (um Login)</value>
         <value xml:lang="pt-PT">Pode Pagar sem criar uma conta connosco</value>
@@ -1858,7 +1875,7 @@
         <value xml:lang="hi-IN">भाषा चुनें</value>
         <value xml:lang="it">Scegli lingua</value>
         <value xml:lang="ja">言語の選択</value>
-        <value xml:lang="nl">Kies een taal</value>
+        <value xml:lang="nl">Selecteer taal</value>
         <value xml:lang="pt">Escolher Língua</value>
         <value xml:lang="pt-BR">Escolha o idioma</value>
         <value xml:lang="pt-PT">Escolher Idioma</value>
@@ -1880,7 +1897,7 @@
         <value xml:lang="hi-IN">शहर</value>
         <value xml:lang="it">Città</value>
         <value xml:lang="ja">市区町村</value>
-        <value xml:lang="nl">Plaats</value>
+        <value xml:lang="nl">Stad</value>
         <value xml:lang="pt">Cidade</value>
         <value xml:lang="ro">Oras</value>
         <value xml:lang="ru">Город</value>
@@ -1893,7 +1910,7 @@
     <property key="CommonClass">
         <value xml:lang="en">Class</value>
         <value xml:lang="es">Clase</value>
-        <value xml:lang="nl">Klasse</value>
+        <value xml:lang="nl">Klas(se)</value>
     </property>
     <property key="CommonClear">
         <value xml:lang="ar">محو</value>
@@ -1905,7 +1922,7 @@
         <value xml:lang="hi-IN">साफ़ करें</value>
         <value xml:lang="it">Pulisci</value>
         <value xml:lang="ja">クリア</value>
-        <value xml:lang="nl">Wis</value>
+        <value xml:lang="nl">Wissen</value>
         <value xml:lang="pt">Limpar</value>
         <value xml:lang="ro">Azereaza</value>
         <value xml:lang="ru">Очистить</value>
@@ -1925,6 +1942,7 @@
         <value xml:lang="hi-IN">सभी साफ करें</value>
         <value xml:lang="it">Pulisci tutto</value>
         <value xml:lang="ja">すべてクリア</value>
+        <value xml:lang="nl">Alles wissen</value>
         <value xml:lang="pt">Limpar Tudo</value>
         <value xml:lang="ru">Отчистить все</value>
         <value xml:lang="th">เคลียร์ทั้งหมด</value>
@@ -1942,6 +1960,7 @@
         <value xml:lang="hi-IN">वर्तमान को साफ़ करें</value>
         <value xml:lang="it">Pulisci attuale</value>
         <value xml:lang="ja">現在をクリア</value>
+        <value xml:lang="nl">Huidige wissen</value>
         <value xml:lang="pt-BR">Limpar atual</value>
         <value xml:lang="ru">Текущая очистка</value>
         <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
@@ -9435,6 +9454,26 @@
         <value xml:lang="zh">处理中</value>
         <value xml:lang="zh-CN">处理中</value>
         <value xml:lang="zh-TW">處理中</value>
+    </property>
+    <property key="CommonProduct">
+        <value xml:lang="ar">سلعة</value>
+        <value xml:lang="cs">Výrobek</value>
+        <value xml:lang="de">Produkt</value>
+        <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
+        <value xml:lang="fr">Article</value>
+        <value xml:lang="hi-IN">सामान</value>
+        <value xml:lang="it">Prodotto</value>
+        <value xml:lang="ja">製品</value>
+        <value xml:lang="nl">Produkt</value>
+        <value xml:lang="pt-BR">Produto</value>
+        <value xml:lang="pt-PT">Produto</value>
+        <value xml:lang="ro">Produs</value>
+        <value xml:lang="ru">Продукт</value>
+        <value xml:lang="th">สินค้า</value>
+        <value xml:lang="vi">Sản phẩm</value>
+        <value xml:lang="zh">产品</value>
+        <value xml:lang="zh-TW">產品</value>
     </property>
     <property key="CommonProductRating"><!--  Used to demark the section where ProductRating setting are made. -->
         <value xml:lang="de">Bewertung</value>

@@ -21,6 +21,7 @@ package org.apache.ofbiz.content.data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -83,22 +85,16 @@ public class DataEvents {
         String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service",
                 "genericContentPermission", delegator);
 
-        // @formatter:off (prevent unwanted formatting in Eclipse)
-        // For OFBIZ-11840. It's counterintuitive to return success but it makes sense if you thing about it. It simply returns a blank screen.
-        // To illustrate, only few payloads, onLoad related, are handled because it works everytime.
-        // It could be improved by checking for all payloads.
-        // As listed at https://portswigger.net/web-security/cross-site-scripting/cheat-sheet, at 2020-11-11 there are 8979 of them.
-        // So a way could be to read all of them and test...
-        // @formatter:on
-
-        if (contentId.toLowerCase().contains("<svg")
-                || contentId.toLowerCase().contains("<body")
-                || contentId.toLowerCase().contains("<iframe")
-                || contentId.toLowerCase().contains("<object")
-                || contentId.toLowerCase().contains("<embed")
-                || contentId.toLowerCase().contains("<a href='javas")
-                || contentId.toLowerCase().contains("<a href=\"javas")
-                || contentId.toLowerCase().contains("<script")) {
+        // For OFBIZ-11840, checks if a webshell is not uploaded
+        // It's counterintuitive to return success but it makes sense if you thing about it.
+        // It simply returns a blank screen.
+        try {
+            if (!SecuredUpload.isValidText(contentId, Collections.emptyList())) {
+                Debug.logError("================== Not saved for security reason ==================", MODULE);
+                return "success";
+            }
+        } catch (IOException e) {
+            Debug.logError("================== Not saved for security reason ==================", MODULE);
             return "success";
         }
 

@@ -436,7 +436,7 @@ public final class UtilMisc {
      * @param obj Object to convert
      * @return Double
      */
-    public static Double toDoubleObject(Object obj) {
+    private static Double toDoubleObject(Object obj) {
         if (obj == null) {
             return null;
         }
@@ -510,7 +510,7 @@ public final class UtilMisc {
      * @param obj Object to convert
      * @return Long
      */
-    public static Long toLongObject(Object obj) {
+    private static Long toLongObject(Object obj) {
         if (obj == null) {
             return null;
         }

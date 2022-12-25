@@ -21,7 +21,7 @@ package org.apache.ofbiz.base.util.cache;
 public abstract class HardRefCacheLine<V> extends CacheLine<V> {
     private final V value;
 
-    public HardRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
+    HardRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
         super(loadTimeNanos, expireTimeNanos);
         this.value = value;
     }

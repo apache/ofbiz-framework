@@ -21,7 +21,6 @@ package org.apache.ofbiz.service.job;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import org.apache.ofbiz.base.config.GenericConfigException;
@@ -32,8 +31,6 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
@@ -126,27 +123,9 @@ public class JobServices {
         }
         Delegator delegator = dctx.getDelegator();
         Timestamp purgeTime = Timestamp.from(Instant.now().minus(Duration.ofDays(daysToKeep)));
-
-        // create the conditions to query
-        List<EntityCondition> purgeCondition = UtilMisc.toList(
-                EntityCondition.makeCondition("poolId", sendPool),
-                EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null),
-                                EntityCondition.makeCondition("finishDateTime", EntityOperator.LESS_THAN, purgeTime))),
-                        EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null),
-                                EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime)))),
-                        EntityOperator.OR));
-
-        EntityQuery jobQuery = EntityQuery.use(delegator).from("JobSandbox")
-                .where(purgeCondition)
-                .select("jobId");
-        if (limit != null) {
-            jobQuery.maxRows(limit);
-        }
         try {
-            jobQuery.queryList().forEach(JobUtil::removeJob);
+            JobManager.getJobsToPurge(delegator, sendPool, null, limit, purgeTime)
+                    .forEach(JobUtil::removeJob);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
         }

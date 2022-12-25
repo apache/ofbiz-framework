@@ -70,7 +70,7 @@ public final class UomWorker {
         return null;
     }
 
-    public static Calendar addUomTime(Calendar cal, Timestamp startTime, String uomId, int value) {
+    private static Calendar addUomTime(Calendar cal, Timestamp startTime, String uomId, int value) {
         if (cal == null) {
             cal = Calendar.getInstance();
         }

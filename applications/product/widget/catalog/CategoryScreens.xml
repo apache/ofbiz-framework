@@ -268,7 +268,7 @@ under the License.
                                     <include-form name="${contentFormName}" location="component://product/widget/catalog/CategoryForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ProductListAssociatedContentInfos}">
-                                    <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
+                                    <include-grid name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}">
                                     <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/widget/catalog/CategoryForms.xml"/>

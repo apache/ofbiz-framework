@@ -170,8 +170,11 @@ public class ModelMenu extends ModelWidget {
                 defaultWidgetStyle = parent.defaultWidgetStyle;
                 defaultTooltipStyle = parent.defaultTooltipStyle;
                 defaultMenuItemName = parent.defaultMenuItemName;
-                menuItemList.addAll(parent.menuItemList);
-                menuItemMap.putAll(parent.menuItemMap);
+                for (ModelMenuItem originModelMenuItem: parent.menuItemList) {
+                    ModelMenuItem modelMenuItem = new ModelMenuItem(originModelMenuItem, this, null);
+                    menuItemList.add(modelMenuItem);
+                    menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
+                }
                 defaultPermissionOperation = parent.defaultPermissionOperation;
                 defaultPermissionEntityAction = parent.defaultPermissionEntityAction;
                 defaultAssociatedContentId = parent.defaultAssociatedContentId;

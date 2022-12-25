@@ -42,7 +42,7 @@ public class UtilCodecTests {
         String xssVector = "&lt;script&gtalert(\"XSS vector\");&lt;/script&gt;";
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlStrictNone("fieldName", xssVector, errorList,
-                new Locale("test"));
+                new Locale("test")); // labels are not available in testClasses Gradle task
         assertEquals("<script>alert(\"XSS vector\");</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] less-than (<) and greater-than (>) symbols are not allowed.",
@@ -91,7 +91,7 @@ public class UtilCodecTests {
             String... wantedMessages) {
         List<String> gottenMessages = new ArrayList<>();
         assertEquals(label, fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages,
-                new Locale("test")));
+                new Locale("test"))); // labels are not available in testClasses Gradle task
         assertEquals(label, Arrays.asList(wantedMessages), gottenMessages);
     }
 
@@ -100,7 +100,7 @@ public class UtilCodecTests {
         String xssVector = "<script>alert('XSS vector');</script>";
         List<String> errorList = new ArrayList<>();
         String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList,
-                new Locale("test"), true);
+                new Locale("test"), true); // labels are not available in testClasses Gradle task
         assertEquals("<script>alert('XSS vector');</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] by our input policy, your input has not been accepted for security reason. "

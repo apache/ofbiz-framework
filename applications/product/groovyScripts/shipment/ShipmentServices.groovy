@@ -729,7 +729,7 @@ def checkCanChangeShipmentStatusShipped() {
  * @return
  */
 def checkCanChangeShipmentStatusDelivered() {
-    parameters.fromStatusId = "SHIPMENT_DEIVERED"
+    parameters.fromStatusId = "SHIPMENT_DELIVERED"
     return checkCanChangeShipmentStatusGeneral(parameters)
 }
 
@@ -1135,7 +1135,7 @@ def createOrderShipmentPlan () {
 }
 
 /**
- * 
+ *
  * @return
  */
 def issueSerializedInvToShipmentPackageAndSetTracking() {

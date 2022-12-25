@@ -3830,7 +3830,7 @@
         <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit für Produktionsauftrag ist falsch formatiert</value>
         <value xml:lang="en">Production Run Estimated Unit Run Time field is not formatted correctly</value>
         <value xml:lang="es">El formato usado para indicar la Tiempo estimado unitario no es correcto</value>
-        <value xml:lang="fr">Le champ Temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="fr">Le champ temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Tempo stimato esecuzione non è formattato correttamente</value>
         <value xml:lang="zh">生产运行预计单位运行时间数据项格式不正确</value>
     </property>
@@ -3838,7 +3838,7 @@
         <value xml:lang="de">Geschätzte Rüstzeit für Produktionsauftrag ist falsch formatiert</value>
         <value xml:lang="en">Production Run Estimated Setup Time field is not formatted correctly</value>
         <value xml:lang="es">El formato usado para indicar la Tiempo estimado de preparación no es correcto</value>
-        <value xml:lang="fr">Le champ Temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="fr">Le champ temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Tempo stimato configur non è formattato correttamente</value>
         <value xml:lang="zh">生产运行预计建立时间数据项格式不正确</value>
     </property>

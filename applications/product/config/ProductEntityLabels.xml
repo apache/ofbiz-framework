@@ -3533,7 +3533,7 @@
         <value xml:lang="zh-TW">促銷包</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG_AUTO">
-        <value xml:lang="de">Marketingpaket</value>
+        <value xml:lang="de">Marketingpaket: Automatisch produziert</value>
         <value xml:lang="en">Marketing Package: Auto Manufactured</value>
         <value xml:lang="es">Paquete de marketing</value>
         <value xml:lang="es-CL">Paquete de Marketing: Auto Fabricado</value>

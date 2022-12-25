@@ -80,7 +80,7 @@ under the License.
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find default-value="${nowTimestamp}"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find/></field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">

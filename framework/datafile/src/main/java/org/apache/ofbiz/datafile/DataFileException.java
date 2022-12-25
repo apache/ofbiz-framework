@@ -30,11 +30,11 @@ public class DataFileException extends GeneralException {
         super();
     }
 
-    public DataFileException(String str) {
+    DataFileException(String str) {
         super(str);
     }
 
-    public DataFileException(String str, Throwable nested) {
+    DataFileException(String str, Throwable nested) {
         super(str, nested);
     }
 }

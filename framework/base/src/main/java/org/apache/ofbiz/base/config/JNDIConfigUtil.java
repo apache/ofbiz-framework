@@ -91,7 +91,7 @@ public final class JNDIConfigUtil {
             return securityCredentials;
         }
 
-        public JndiServerInfo(Element element) {
+        JndiServerInfo(Element element) {
             this.name = element.getAttribute("name");
             this.contextProviderUrl = element.getAttribute("context-provider-url");
             this.initialContextFactory = element.getAttribute("initial-context-factory");

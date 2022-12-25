@@ -32,7 +32,7 @@ under the License.
         <field name="emplPositionId" title="${uiLabelMap.FormFieldTitle_emplPositionId}"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPerfReviews" type="list" title="" separate-columns="true" default-entity-name="PerfReview" list-name="listIt" paginate-target="FindPerfReviews" paginate="true"
+    <grid name="ListPerfReviews" list-name="listIt" separate-columns="true" default-entity-name="PerfReview" paginate-target="FindPerfReviews" paginate="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -65,7 +65,7 @@ under the License.
         </field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
-    </form>
+    </grid>
     <form name="EditPerfReview" type="single" target="updatePerfReview" title="" default-map-name="perfReview"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="perfReview==null" target="createPerfReview"/>
@@ -87,7 +87,7 @@ under the License.
         <field name="submitButton" use-when="perfReview==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="perfReview!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPerfReviewItems" type="list" target="updatePerfReviewItem" title="updatePerfReviewItem" paginate-target="findPerfReviewItems"
+    <grid name="ListPerfReviewItems" target="updatePerfReviewItem" title="updatePerfReviewItem" paginate-target="findPerfReviewItems"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PerfReviewItem">
@@ -109,7 +109,7 @@ under the License.
                 <parameter param-name="perfReviewItemSeqId"/>
             </hyperlink>
         </field>
-    </form>
+    </grid>
     <form name="AddPerfReviewItem" type="single" target="createPerfReviewItem" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPerfReviewItem"/>

@@ -140,13 +140,28 @@ public final class WidgetWorker {
             final String href = "javascript:document." + makeLinkHiddenFormName(context, modelFormField) + ".submit()";
             anchorElement.attr("href", href);
 
-
             if (isNotEmpty(modelFormField.getEvent()) && isNotEmpty(modelFormField.getAction(context))) {
                 anchorElement.attr(modelFormField.getEvent(), modelFormField.getAction(context));
             }
 
             if (isNotEmpty(confirmation)) {
                 anchorElement.attr("onclick", "return confirm('" + confirmation + "')");
+            }
+
+            int size = 0;
+            String title = request.getAttribute("title").toString();
+            if (UtilValidate.isNotEmpty(request.getAttribute("descriptionSize"))) {
+                size = Integer.parseInt(request.getAttribute("descriptionSize").toString());
+            }
+
+            // if description is truncated, always use description as title
+            if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
+                title = description;
+                description = description.substring(0, size) + "…";
+            }
+
+            if (isNotEmpty(title)) {
+                anchorElement.attr("title", title);
             }
 
             anchorElement.text(description);
@@ -321,7 +336,7 @@ public final class WidgetWorker {
     public static Map<String, Object> resolveParametersMapFromQueryString(Map<String, Object> context) {
         String qbeString = (String) context.get("_QBESTRING_");
         return qbeString != null
-                ? UtilHttp.getQueryStringOnlyParameterMap(qbeString.replaceAll("&amp;", "&"))
+                ? UtilHttp.getQueryStringOnlyParameterMap(qbeString.replace("&amp;", "&"))
                 : null;
     }
 }

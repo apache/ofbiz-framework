@@ -36,15 +36,15 @@ under the License.
       <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
         <label>
           ${uiLabelMap.CommonUsername}
-          <input type="text" name="USERNAME" value="${username}"/>
+          <input type="text" name="USERNAME" value="${username}" tabindex="0"/>
         </label>
         
         <label>
           <span>
             ${uiLabelMap.CommonPassword}
-            <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}</a>
           </span>
-          <input type="password" name="PASSWORD" autocomplete="off" value=""/>
+          <input type="password" name="PASSWORD" autocomplete="off" value="" tabindex="0"/>
+            <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}</a>
         </label>
 
         <#if ("Y" == useMultitenant) >
@@ -58,7 +58,7 @@ under the License.
           </#if>
         </#if>
 
-        <input type="submit" value="${uiLabelMap.CommonLogin}"/>
+        <input type="submit" value="${uiLabelMap.CommonLogin}"  tabindex="0"/>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
         
       </form>

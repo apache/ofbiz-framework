@@ -77,7 +77,7 @@ public final class Debug {
         }
     }
 
-    public static Logger getLogger(String module) {
+    private static Logger getLogger(String module) {
         if (UtilValidate.isNotEmpty(module)) {
             return LogManager.getLogger(module);
         }

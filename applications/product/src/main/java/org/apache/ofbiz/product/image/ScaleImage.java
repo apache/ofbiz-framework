@@ -224,6 +224,7 @@ public class ScaleImage {
                     try {
                         String fileToCheck = imageServerPath + "/" + newFileLocation + "." + imgExtension;
                         ImageIO.write(bufNewImg, imgExtension, new File(fileToCheck));
+                        // Check if a webshell is not uploaded
                         if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                             String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                             return ServiceUtil.returnError(errorMessage);
@@ -402,6 +403,7 @@ public class ScaleImage {
                     try {
                         String fileToCheck = imageServerPath + "/" + newFileLocation + "." + imgExtension;
                         ImageIO.write(bufNewImg, imgExtension, new File(fileToCheck));
+                        // Check if a webshell is not uploaded
                         if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                             String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                             return ServiceUtil.returnError(errorMessage);

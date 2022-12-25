@@ -118,7 +118,7 @@ public final class FlexibleLocation {
         }
     }
 
-    public static String stripLocationType(String location) {
+    static String stripLocationType(String location) {
         if (UtilValidate.isEmpty(location)) {
             return "";
         }

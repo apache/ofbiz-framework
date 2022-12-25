@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -106,15 +107,9 @@ public class ModelMenuItem extends ModelWidget {
         this.tooltipStyle = menuItemElement.getAttribute("tooltip-style");
         this.selectedStyle = menuItemElement.getAttribute("selected-style");
         String hideIfSelected = menuItemElement.getAttribute("hide-if-selected");
-        if (!hideIfSelected.isEmpty()) {
-            if ("true".equalsIgnoreCase(hideIfSelected)) {
-                this.hideIfSelected = Boolean.TRUE;
-            } else {
-                this.hideIfSelected = Boolean.FALSE;
-            }
-        } else {
-            this.hideIfSelected = null;
-        }
+        this.hideIfSelected = !hideIfSelected.isEmpty()
+                ? "true".equalsIgnoreCase(hideIfSelected)
+                : null;
         this.disableIfEmpty = menuItemElement.getAttribute("disable-if-empty");
         this.align = menuItemElement.getAttribute("align");
         this.alignStyle = menuItemElement.getAttribute("align-style");
@@ -169,6 +164,40 @@ public class ModelMenuItem extends ModelWidget {
             this.actions = Collections.emptyList();
         }
         this.overrideName = "";
+    }
+
+    public ModelMenuItem(ModelMenuItem originMenuItem, ModelMenu modelMenu, ModelMenuItem parentMenuItem) {
+        super(modelMenu.getName() + originMenuItem.getName());
+        this.modelMenu = modelMenu;
+        this.parentMenuItem = parentMenuItem;
+        this.entityName = originMenuItem.entityName;
+        this.title = originMenuItem.title;
+        this.tooltip = originMenuItem.tooltip;
+        this.parentPortalPageId = originMenuItem.parentPortalPageId;
+        this.titleStyle = originMenuItem.titleStyle;
+        this.disabledTitleStyle = originMenuItem.disabledTitleStyle;
+        this.widgetStyle = originMenuItem.widgetStyle;
+        this.tooltipStyle = originMenuItem.tooltipStyle;
+        this.selectedStyle = originMenuItem.selectedStyle;
+        this.hideIfSelected = originMenuItem.hideIfSelected;
+        this.disableIfEmpty = originMenuItem.disableIfEmpty;
+        this.align = originMenuItem.align;
+        this.alignStyle = originMenuItem.alignStyle;
+        this.position = originMenuItem.position;
+        this.associatedContentId = originMenuItem.associatedContentId;
+        this.cellWidth = originMenuItem.cellWidth;
+        this.subMenu = originMenuItem.subMenu;
+        this.link = new MenuLink(originMenuItem.link, this);
+        List<ModelMenuItem> menuItems = new LinkedList<>();
+        originMenuItem.menuItemList.forEach(item -> {
+            menuItems.add(new ModelMenuItem(item, modelMenu, this));
+        });
+        this.menuItemList = menuItems.isEmpty()
+                ? Collections.emptyList()
+                : Collections.unmodifiableList(menuItems);
+        this.condition = originMenuItem.condition;
+        this.actions = originMenuItem.actions;
+        this.overrideName = originMenuItem.overrideName;
     }
 
     // Portal constructor
@@ -658,6 +687,13 @@ public class ModelMenuItem extends ModelWidget {
                 linkElement.setAttribute("text", parentMenuItem.getTitle().getOriginal());
             }
             this.link = new Link(linkElement);
+        }
+
+        public MenuLink(MenuLink originLink, ModelMenuItem parentMenuItem) {
+            this.linkMenuItem = parentMenuItem;
+            this.link = originLink != null
+                    ? originLink.link
+                    : new Link();
         }
 
         public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {

@@ -448,7 +448,7 @@ def updateProductAverageCostOnReceiveInventory() {
     } else {
         // Expire existing one and calculate average cost
         updateProductAverageCostMap << productAverageCost
-        updateProductAverageCostMap.thurDate = UtilDateTime.nowTimestamp()
+        updateProductAverageCostMap.thruDate = UtilDateTime.nowTimestamp()
         run service: "updateProductAverageCost", with: updateProductAverageCostMap
 
         Map serviceInMap = [productId: parameters.productId, facilityId: parameters.facilityId]
