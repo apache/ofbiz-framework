@@ -42,7 +42,9 @@ if (lookupFlag) {
     eventDate = parameters.eventDate
     if (eventDate?.length() > 8) {
         eventDate = eventDate.trim()
-        if (eventDate.length() < 14) eventDate = eventDate + ' ' + '00:00:00.000'
+        if (eventDate.length() < 14) {
+            eventDate = eventDate + ' ' + '00:00:00.000'
+        }
         paramList = paramList + '&eventDate=' + eventDate
         andExprs.add(EntityCondition.makeCondition('eventDate', EntityOperator.GREATER_THAN,
                 ObjectType.simpleTypeOrObjectConvert(eventDate, 'Timestamp', null, null)))
@@ -71,15 +73,18 @@ context.paramList = paramList
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0)
 viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize() ?: 20
 listSize = 0
-if (inventoryList)
+if (inventoryList) {
     listSize = inventoryList.size()
+}
 
 lowIndex = viewIndex * viewSize
 highIndex = (viewIndex + 1) * viewSize
-if (listSize < highIndex)
+if (listSize < highIndex) {
     highIndex = listSize
-if ( highIndex < 1 )
+}
+if ( highIndex < 1 ) {
     highIndex = 0
+}
 context.viewIndex = viewIndex
 context.listSize = listSize
 context.highIndex = highIndex

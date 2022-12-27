@@ -23,7 +23,9 @@ import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import java.text.NumberFormat
 
 // @param GenericValue invoice - The Invoice entity to find payment applications for
-if (!invoice) return
+if (!invoice) {
+    return
+}
 
 invoiceApplications = [] // to pass back to the screen with payment applications added
 // retrieve related applications with null itemnumber
@@ -70,4 +72,6 @@ invoice.getRelated('InvoiceItem', null, null, false).each { item ->
         invoiceApplications.add(itemmap)
     }
 }
-if (invoiceApplications) context.invoiceApplications = invoiceApplications
+if (invoiceApplications) {
+    context.invoiceApplications = invoiceApplications
+}

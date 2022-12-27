@@ -38,7 +38,9 @@ public class FileUtilTests {
 
         //ensure no zip already exists
         File readmeZipped = new File(zipFilePath, zipName)
-        if (readmeZipped.exists()) readmeZipped.delete()
+        if (readmeZipped.exists()) {
+            readmeZipped.delete()
+        }
 
         //write it down into tmp folder
         OutputStream out = new FileOutputStream(readmeZipped)
@@ -52,7 +54,9 @@ public class FileUtilTests {
 
         //ensure no README.adoc exist in tmp folder
         File readme = new File(zipFilePath, fileName)
-        if (readme.exists()) readme.delete()
+        if (readme.exists()) {
+            readme.delete()
+        }
 
         //validate unzip and compare the two files
         FileUtil.unzipFileToFolder(readmeZipped, zipFilePath, false)

@@ -23,13 +23,17 @@ import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtil
 
 orderId = parameters.orderId
-if (!orderId) return
+if (!orderId) {
+    return
+}
 
 shipGroupSeqId = parameters.shipGroupSeqId
 
 // if a particular ship group is requested, we will limit ourselves to it
 findMap = [orderId: orderId]
-if (shipGroupSeqId) findMap.shipGroupSeqId = shipGroupSeqId
+if (shipGroupSeqId) {
+    findMap.shipGroupSeqId = shipGroupSeqId
+}
 
 shipGroups = from('OrderItemShipGroup').where(findMap).orderBy('shipGroupSeqId').queryList()
 context.shipGroups = shipGroups

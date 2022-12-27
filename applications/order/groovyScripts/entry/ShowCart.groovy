@@ -79,7 +79,9 @@ productStoreId = shoppingCart.getProductStoreId()
 context.productStoreId = productStoreId
 
 partyId = shoppingCart.getPartyId()
-if ('_NA_' == partyId) partyId = null
+if ('_NA_' == partyId) {
+    partyId = null
+}
 context.partyId = partyId
 
 defaultDesiredDeliveryDate = shoppingCart.getDefaultItemDeliveryDate()

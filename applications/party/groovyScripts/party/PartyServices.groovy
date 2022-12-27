@@ -35,7 +35,9 @@ import org.apache.ofbiz.party.party.PartyHelper
   */
 Map savePartyNameChange() {
     // for special case in ecommerce, if no partyId is passed in use userLogin.partyId
-    if (!parameters.partyId) parameters.partyId = userLogin.partyId
+    if (!parameters.partyId) {
+        parameters.partyId = userLogin.partyId
+    }
 
     GenericValue partyNameHistory = makeValue('PartyNameHistory', parameters)
     partyNameHistory.changeDate = UtilDateTime.nowTimestamp()
@@ -78,7 +80,9 @@ Map getPartyNameForDate() {
     GenericValue person = from('Person').where(parameters).queryOne()
     GenericValue partyGroup = from('PartyGroup').where(parameters).queryOne()
 
-    if (!parameters.compareDate) parameters.compareDate = UtilDateTime.nowTimestamp()
+    if (!parameters.compareDate) {
+        parameters.compareDate = UtilDateTime.nowTimestamp()
+    }
 
     // go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate
     GenericValue partyNameHistoryCurrent = null
@@ -101,10 +105,18 @@ Map getPartyNameForDate() {
     if (person) {
         resultMap.firstName = person.firstName
         resultMap.lastName = person.lastName
-        if (person.middleName) resultMap.middleName = person.middleName
-        if (person.personalTitle) resultMap.personalTitle = person.personalTitle
-        if (person.suffix) resultMap.suffix = person.suffix
-        if (!partyNameHistoryCurrent && person.gender) resultMap.gender = person.gender
+        if (person.middleName) {
+            resultMap.middleName = person.middleName
+        }
+        if (person.personalTitle) {
+            resultMap.personalTitle = person.personalTitle
+        }
+        if (person.suffix) {
+            resultMap.suffix = person.suffix
+        }
+        if (!partyNameHistoryCurrent && person.gender) {
+            resultMap.gender = person.gender
+        }
 
         resultMap.fullName = PartyHelper.getPartyName(person, parameters.lastNameFirst == 'Y')
     } else if (partyGroup) {
@@ -160,7 +172,9 @@ Map createPartyIdentifications() {
  * Sets Party Profile Defaults
  */
 Map setPartyProfileDefaults() {
-    if (!parameters.partyId) parameters.partyId = userLogin.partyId
+    if (!parameters.partyId) {
+        parameters.partyId = userLogin.partyId
+    }
 
     // lookup existing value
     GenericValue partyProfileDefault = from('PartyProfileDefault')
@@ -196,7 +210,9 @@ Map getPartiesByRelationship() {
     List<GenericValue> parties = from('Party')
             .where(EntityCondition.makeCondition('partyId', EntityOperator.IN, partyIdTos))
             .queryList()
-    if (parties) resultMap.parties = parties
+    if (parties) {
+        resultMap.parties = parties
+    }
     return resultMap
 }
 
@@ -208,7 +224,9 @@ Map getParentOrganizations() {
 
     List relatedPartyIdList = [parameters.organizationPartyId]
     String recurse = 'Y'
-    if (parameters.getParentsOfParents) recurse = parameters.getParentsOfParents
+    if (parameters.getParentsOfParents) {
+        recurse = parameters.getParentsOfParents
+    }
 
     Map res = followPartyRelationshipsInline(relatedPartyIdList,'GROUP_ROLLUP',
             'ORGANIZATION_UNIT', 'Y', 'PARENT_ORGANIZATION',
@@ -328,7 +346,9 @@ Map getPartyTelephone () {
         } else if (telephone.containsKey('tnContactNumber')) {
             resultMap.contactNumber = telephone.tnContactNumber
         }
-        if (telephone.containsKey('extension')) resultMap.extension = telephone.extension
+        if (telephone.containsKey('extension')) {
+            resultMap.extension = telephone.extension
+        }
     }
 
     return resultMap
@@ -370,23 +390,20 @@ Map getPartyPostalAddress () {
     if (address) {
         resultMap.contactMechId = address.contactMechId
         if (address.containsKey('address1')) {
-            if (address.address1)           resultMap.address1 = address.address1
-            if (address.address2)           resultMap.address2 = address.address2
-            if (address.directions)         resultMap.directions = address.directions
-            if (address.city)               resultMap.city = address.city
-            if (address.postalCode)         resultMap.postalCode = address.postalCode
-            if (address.stateProvinceGeoId) resultMap.stateProvinceGeoId = address.stateProvinceGeoId
-            if (address.countyGeoId)        resultMap.countyGeoId = address.countyGeoId
-            if (address.countryGeoId)       resultMap.countryGeoId = address.countryGeoId
+            ['address1', 'address2', 'directions', 'city', 'postalCode',
+             'stateProvinceGeoId', 'countyGeoId', 'countryGeoId'].each { value ->
+                if (address."$value") {
+                    resultMap."$value" = address."$value"
+                }
+            }
         } else if (address.containsKey('paAddress1')) {
-            if (address.paAddress1)           resultMap.address1 = address.paAddress1
-            if (address.paAddress2)           resultMap.address2 = address.paAddress2
-            if (address.paDirections)         resultMap.directions = address.paDirections
-            if (address.paCity)               resultMap.city = address.paCity
-            if (address.paPostalCode)         resultMap.postalCode = address.paPostalCode
-            if (address.paStateProvinceGeoId) resultMap.stateProvinceGeoId = address.paStateProvinceGeoId
-            if (address.paCountyGeoId)        resultMap.countyGeoId = address.paCountyGeoId
-            if (address.paCountryGeoId)       resultMap.countryGeoId = address.paCountryGeoId
+            ['address1', 'address2', 'directions', 'city', 'postalCode',
+             'stateProvinceGeoId', 'countyGeoId', 'countryGeoId'].each { value ->
+                String prefixedValue = 'pa'+value.capitalize()
+                if (address."$prefixedValue") {
+                    resultMap."$value" = address."$prefixedValue"
+                }
+            }
         }
     }
 
@@ -398,8 +415,12 @@ Map getPartyPostalAddress () {
   */
 Map createAddressMatchMap() {
     GenericValue newAddressMatchMap = makeValue('AddressMatchMap', parameters)
-    if (parameters.mapKey)   newAddressMatchMap.mapKey = ((String) parameters.mapKey).toUpperCase(context.locale)
-    if (parameters.mapValue) newAddressMatchMap.mapValue = ((String) parameters.mapValue).toUpperCase(context.locale)
+    if (parameters.mapKey)    {
+        newAddressMatchMap.mapKey = ((String) parameters.mapKey).toUpperCase(context.locale)
+    }
+    if (parameters.mapValue) {
+        newAddressMatchMap.mapValue = ((String) parameters.mapValue).toUpperCase(context.locale)
+    }
     newAddressMatchMap.create()
     return success()
 }
@@ -416,10 +437,10 @@ Map clearAddressMatchMap() {
  * Create a PartyRelationship
  */
 Map createPartyRelationship() {
-    if (!parameters.fromDate)       parameters.fromDate = UtilDateTime.nowTimestamp()
-    if (!parameters.roleTypeIdFrom) parameters.roleTypeIdFrom = '_NA_'
-    if (!parameters.roleTypeIdTo)   parameters.roleTypeIdTo = '_NA_'
-    if (!parameters.partyIdFrom)    parameters.partyIdFrom = userLogin.partyId
+    parameters.fromDate = parameters.fromDate ?: UtilDateTime.nowTimestamp()
+    parameters.roleTypeIdFrom = parameters.roleTypeIdFrom ?: '_NA_'
+    parameters.roleTypeIdTo = parameters.roleTypeIdTo ?: '_NA_'
+    parameters.partyIdFrom = parameters.partyIdFrom ?: userLogin.partyId
 
     // check if not already exist
     List<GenericValue> partyRels = from('PartyRelationship')
@@ -440,8 +461,8 @@ Map createPartyRelationship() {
  * Update a PartyRelationship
  */
 Map updatePartyRelationship() {
-    if (!parameters.roleTypeIdFrom) parameters.roleTypeIdFrom = '_NA_'
-    if (!parameters.roleTypeIdTo)   parameters.roleTypeIdTo = '_NA_'
+    parameters.roleTypeIdFrom = parameters.roleTypeIdFrom ?: '_NA_'
+    parameters.roleTypeIdTo = parameters.roleTypeIdTo ?: '_NA_'
 
     // lookup existing value
     GenericValue partyRelationship = from('PartyRelationship')
@@ -457,8 +478,8 @@ Map updatePartyRelationship() {
  * Delete a PartyRelationship
  */
 Map deletePartyRelationship() {
-    if (!parameters.roleTypeIdFrom) parameters.roleTypeIdFrom = '_NA_'
-    if (!parameters.roleTypeIdTo)   parameters.roleTypeIdTo = '_NA_'
+    parameters.roleTypeIdFrom = parameters.roleTypeIdFrom ?: '_NA_'
+    parameters.roleTypeIdTo = parameters.roleTypeIdTo ?: '_NA_'
 
     // lookup existing value
     GenericValue partyRelationship = from('PartyRelationship')
@@ -565,7 +586,9 @@ Map sendUpdatePersonalInfoEmailNotification() {
         .queryOne()
     if (storeEmail && storeEmail.bodyScreenLocation) {
         String partyId = parameters.partyId
-        if (parameters.updatedUserLogin) partyId = parameters.updatedUserLogin.partyId
+        if (parameters.updatedUserLogin) {
+            partyId = parameters.updatedUserLogin.partyId
+        }
 
         GenericValue webSite = from('WebSite')
             .where(productStoreId: storeEmail.productStoreId)
@@ -581,8 +604,9 @@ Map sendUpdatePersonalInfoEmailNotification() {
             .where(partyId: partyId, contactMechPurposeTypeId: 'PRIMARY_EMAIL')
             .filterByDate()
            .queryFirst()
-        if (!partyContactDetailByPurpose) logWarning('No email found.')
-        else {
+        if (!partyContactDetailByPurpose) {
+            logWarning('No email found.')
+        } else {
             GenericValue contactMech = from('ContactMech')
                 .where(contactMechId: partyContactDetailByPurpose.contactMechId)
                 .queryOne()
@@ -621,7 +645,9 @@ Map sendAccountActivatedEmailNotification() {
             .queryOne()
     if (storeEmail && storeEmail.bodyScreenLocation) {
         String partyId = parameters.partyId
-        if (!partyId) partyId = userLogin.partyId
+        if (!partyId) {
+            partyId = userLogin.partyId
+        }
 
         GenericValue webSite = from('WebSite')
                 .where(productStoreId: storeEmail.productStoreId)
@@ -637,8 +663,9 @@ Map sendAccountActivatedEmailNotification() {
                 .where(partyId: partyId, contactMechPurposeTypeId: 'PRIMARY_EMAIL')
                 .filterByDate()
                 .queryFirst()
-        if (!partyContactDetailByPurpose) logWarning('No email found.')
-        else {
+        if (!partyContactDetailByPurpose) {
+            logWarning('No email found.')
+        } else {
             GenericValue contactMech = from('ContactMech')
                 .where('contactMechId': partyContactDetailByPurpose.contactMechId)
                 .queryOne()
@@ -672,7 +699,9 @@ Map createUpdatePerson() {
             'person', parameters, personContext, messages, context.locale)
 
     // Check errors
-    if (messages) return error(StringUtil.join(messages, ','))
+    if (messages) {
+        return error(StringUtil.join(messages, ','))
+    }
 
     GenericValue party = from('Party')
        .where(partyId: partyId)
@@ -699,11 +728,15 @@ Map quickCreateCustomer() {
             'emailAddress', parameters, emailContext, messages, context.locale)
 
     // Check errors
-    if (messages) return error(StringUtil.join(messages, ','))
+    if (messages) {
+        return error(StringUtil.join(messages, ','))
+    }
 
     // Create person
     Map serviceResult = run service: 'createPerson', with: personContext
-    if (ServiceUtil.isError(serviceResult)) return serviceResult
+    if (ServiceUtil.isError(serviceResult)) {
+        return serviceResult
+    }
     String partyId = serviceResult.partyId
 
     GenericValue userLogin = from('UserLogin')
@@ -714,20 +747,26 @@ Map quickCreateCustomer() {
     emailContext.userLogin = userLogin
     emailContext.contactMechPurposeTypeId = 'PRIMARY_EMAIL'
     serviceResult = run service: 'createPartyEmailAddress', with: emailContext
-    if (ServiceUtil.isError(serviceResult)) return serviceResult
+    if (ServiceUtil.isError(serviceResult)) {
+        return serviceResult
+    }
 
     // Sign up for Contact List
     if (parameters.subscribeContactList == 'Y') {
         serviceResult = run service: 'signUpForContactList', with: [partyId: partyId,
                                                                     contactListId: parameters.contactListId,
                                                                     email: parameters.emailAddress]
-        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
     }
 
     // Create the PartyRole
     serviceResult = run service: 'createPartyRole', with: [partyId: partyId,
                                                            roleTypeId: 'CUSTOMER']
-    if (ServiceUtil.isError(serviceResult)) return serviceResult
+    if (ServiceUtil.isError(serviceResult)) {
+        return serviceResult
+    }
 
     resultMap.partyId = partyId
     return resultMap
@@ -789,7 +828,9 @@ Map followPartyRelationshipsInline(List relatedPartyIdList,String partyRelations
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 
     List roleTypeIdFromList = null
-    if (roleTypeIdFrom) roleTypeIdFromList = [roleTypeIdFrom]
+    if (roleTypeIdFrom) {
+        roleTypeIdFromList = [roleTypeIdFrom]
+    }
     if ('Y' == roleTypeIdFromIncludeAllChildTypes) {
         List roleTypeIdListName = roleTypeIdFromList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
@@ -797,7 +838,9 @@ Map followPartyRelationshipsInline(List relatedPartyIdList,String partyRelations
     }
 
     List roleTypeIdToList = null
-    if (roleTypeIdTo) roleTypeIdToList = [roleTypeIdTo]
+    if (roleTypeIdTo) {
+        roleTypeIdToList = [roleTypeIdTo]
+    }
     if ('Y' == roleTypeIdToInclueAllChildTypes) {
         List roleTypeIdListName = roleTypeIdToList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
@@ -829,9 +872,15 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
             relatedPartyIdAlreadySearchedList.add(relatedPartyId)
 
             List<EntityCondition> entityConditionList = [EntityCondition.makeCondition('partyIdFrom', relatedPartyId)]
-            if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdFromList)
-            if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdToList)
-            if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
+            if (roleTypeIdFromList) {
+                entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdFromList)
+            }
+            if (roleTypeIdToList) {
+                entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdToList)
+            }
+            if (partyRelationshipTypeId) {
+                entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
+            }
             EntityCondition condition = EntityCondition.makeCondition(entityConditionList)
 
             // get the newest (highest date) first
@@ -851,9 +900,15 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
             if ('Y' == includeFromToSwitched) {
                 entityConditionList = [EntityCondition.makeCondition('partyIdTo', relatedPartyId)]
                 // The roles are reversed
-                if (roleTypeIdFromList) entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdToList)
-                if (roleTypeIdToList) entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdFromList)
-                if (partyRelationshipTypeId) entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
+                if (roleTypeIdFromList) {
+                    entityConditionList << EntityCondition.makeCondition('roleTypeIdFrom', EntityOperator.IN, roleTypeIdToList)
+                }
+                if (roleTypeIdToList) {
+                    entityConditionList << EntityCondition.makeCondition('roleTypeIdTo', EntityOperator.IN, roleTypeIdFromList)
+                }
+                if (partyRelationshipTypeId) {
+                    entityConditionList << EntityCondition.makeCondition('partyRelationshipTypeId', partyRelationshipTypeId)
+                }
                 condition = EntityCondition.makeCondition(entityConditionList)
 
                 PartyRelationshipList = from('PartyRelationship')

@@ -39,8 +39,12 @@ if (currentPeriodType) {
 }
 
 findMap = [ : ]
-if (findOrganizationPartyId) findMap.organizationPartyId = findOrganizationPartyId
-if (currentCustomTimePeriodId) findMap.parentPeriodId = currentCustomTimePeriodId
+if (findOrganizationPartyId) {
+    findMap.organizationPartyId = findOrganizationPartyId
+}
+if (currentCustomTimePeriodId) {
+    findMap.parentPeriodId = currentCustomTimePeriodId
+}
 
 customTimePeriods = from('CustomTimePeriod').where(findMap).orderBy(['periodTypeId', 'periodNum', 'fromDate']).queryList()
 context.customTimePeriods = customTimePeriods

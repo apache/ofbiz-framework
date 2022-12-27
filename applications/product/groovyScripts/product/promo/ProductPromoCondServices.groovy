@@ -370,7 +370,9 @@ Map productOrderTotal() {
 
     if (condValue) {
         BigDecimal orderSubTotal = cart.getSubTotalForPromotions()
-        if (Debug.infoOn()) logInfo('Doing order total compare: orderSubTotal=' + orderSubTotal)
+        if (Debug.infoOn()) {
+            logInfo('Doing order total compare: orderSubTotal=' + orderSubTotal)
+        }
         compareBase = orderSubTotal.compareTo(new BigDecimal(condValue))
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -410,8 +412,10 @@ Map productOrderHist() {
             } else {
                 BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
                 BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
-                if (Debug.verboseOn()) logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
-                        + monthsToInclude + ' months.')
+                if (Debug.verboseOn()) {
+                    logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
+                            + monthsToInclude + ' months.')
+                }
                 compareBase = orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue))
             }
         } catch (GenericServiceException e) {
@@ -457,8 +461,10 @@ Map productOrderYear() {
                 return serviceResult
             } else {
                 BigDecimal orderSubTotal = result.get('totalSubRemainingAmount')
-                if (Debug.verboseOn()) logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
-                        + monthsToInclude + ' months.')
+                if (Debug.verboseOn()) {
+                    logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
+                            + monthsToInclude + ' months.')
+                }
                 compareBase = orderSubTotal.compareTo(new BigDecimal((condValue)))
 
             }
@@ -513,7 +519,9 @@ Map productOrderLastYear() {
                 return serviceResult
             } else {
                 Double orderSubTotal = (Double) result.get('totalSubRemainingAmount')
-                if (Debug.verboseOn()) logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
+                if (Debug.verboseOn()) {
+                    logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
+                }
                 compareBase = orderSubTotal.compareTo(Double.valueOf(condValue))
             }
         } catch (GenericServiceException e) {

@@ -42,7 +42,9 @@ Map createUpdateCustomerAndShippingAddress() {
     SimpleMapProcessor.runSimpleMapProcessor('component://party/minilang/contact/PartyContactMechMapProcs.xml',
             'emailAddress', parameters, emailAddressCtx, messages, context.locale)
     // Check errors
-    if (messages) return error(StringUtil.join(messages, ','))
+    if (messages) {
+        return error(StringUtil.join(messages, ','))
+    }
 
     ShoppingCart shoppingCart = parameters.shoppingCart
     String partyId = parameters.partyId
@@ -118,7 +120,9 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     SimpleMapProcessor.runSimpleMapProcessor('component://order/minilang/customer/CheckoutMapProcs.xml',
             'billToPhone', parameters, billToPhoneContext, messages, context.locale)
     // Check Errors
-    if (messages) return error(StringUtil.join(messages, ','))
+    if (messages) {
+        return error(StringUtil.join(messages, ','))
+    }
 
     ShoppingCart shoppingCart = parameters.shoppingCart
     GenericValue userLogin = shoppingCart.getUserLogin()
@@ -145,7 +149,9 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     Map billToAddressCtx = parameters
     billToAddressCtx.userLogin = userLogin
     Map serviceResultCUBA = run service: 'createUpdateBillingAddress', with: billToAddressCtx
-    if (ServiceUtil.isError(serviceResultCUBA)) return serviceResultCUBA
+    if (ServiceUtil.isError(serviceResultCUBA)) {
+        return serviceResultCUBA
+    }
     parameters.billToContactMechId = serviceResultCUBA.contactMechId
     result.contactMechId = serviceResultCUBA.contactMechId
     if (parameters.billToContactMechId) {
@@ -159,7 +165,9 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId = 'PHONE_BILLING'
     createUpdatePartyTelecomNumberCtx.contactMechId = parameters.billToPhoneContactMechId
     Map serviceResultCUPTN = run service: 'createUpdatePartyTelecomNumber', with: createUpdatePartyTelecomNumberCtx
-    if (ServiceUtil.isError(serviceResultCUPTN)) return serviceResultCUPTN
+    if (ServiceUtil.isError(serviceResultCUPTN)) {
+        return serviceResultCUPTN
+    }
     String billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     result.billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     if (billToPhoneContactMechId) {
@@ -170,7 +178,9 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     creditCartCtx.contactMechId = parameters.billToContactMechId
     creditCartCtx.userLogin = userLogin
     Map serviceResultCUCC = run service: 'createUpdateCreditCard', with: creditCartCtx
-    if (ServiceUtil.isError(serviceResultCUCC)) return serviceResultCUCC
+    if (ServiceUtil.isError(serviceResultCUCC)) {
+        return serviceResultCUCC
+    }
     String paymentMethodId = serviceResultCUCC.paymentMethodId
     result.paymentMethodId = serviceResultCUCC.paymentMethodId
     // Set Payment Method

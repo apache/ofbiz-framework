@@ -31,7 +31,9 @@ context.sort = sort
 
 visitListIt = null
 sortList = ['-fromDate']
-if (sort) sortList.add(0, sort)
+if (sort) {
+    sortList.add(0, sort)
+}
 
 boolean beganTransaction = false
 try {

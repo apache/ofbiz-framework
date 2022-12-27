@@ -57,17 +57,29 @@ baseProductAndExprs = []
 baseProductAndExprs.add(EntityCondition.makeCondition('invoiceTypeId', EntityOperator.EQUALS, 'SALES_INVOICE'))
 baseProductAndExprs.add(EntityCondition.makeCondition('invoiceItemTypeId', EntityOperator.IN, ['INV_PROD_ITEM', 'INV_FPROD_ITEM', 'INV_DPROD_ITEM']))
 baseProductAndExprs.add(EntityCondition.makeCondition('statusId', EntityOperator.IN, ['INVOICE_READY', 'INVOICE_PAID']))
-if (organizationPartyId) baseProductAndExprs.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, organizationPartyId))
-if (currencyUomId) baseProductAndExprs.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, currencyUomId))
+if (organizationPartyId) {
+    baseProductAndExprs.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, organizationPartyId))
+}
+if (currencyUomId) {
+    baseProductAndExprs.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, currencyUomId))
+}
 
 baseCategoryAndExprs = []
 baseCategoryAndExprs.add(EntityCondition.makeCondition('invoiceTypeId', EntityOperator.EQUALS, 'SALES_INVOICE'))
 baseCategoryAndExprs.add(EntityCondition.makeCondition('invoiceItemTypeId', EntityOperator.IN, ['INV_PROD_ITEM', 'INV_FPROD_ITEM', 'INV_DPROD_ITEM']))
 baseCategoryAndExprs.add(EntityCondition.makeCondition('statusId', EntityOperator.IN, ['INVOICE_READY', 'INVOICE_PAID']))
-if (productCategoryIdSet) baseCategoryAndExprs.add(EntityCondition.makeCondition('productCategoryId', EntityOperator.IN, productCategoryIdSet))
-if (productIdSet) baseCategoryAndExprs.add(EntityCondition.makeCondition('productId', EntityOperator.NOT_IN, productIdSet))
-if (organizationPartyId) baseCategoryAndExprs.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, organizationPartyId))
-if (currencyUomId) baseCategoryAndExprs.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, currencyUomId))
+if (productCategoryIdSet) {
+    baseCategoryAndExprs.add(EntityCondition.makeCondition('productCategoryId', EntityOperator.IN, productCategoryIdSet))
+}
+if (productIdSet) {
+    baseCategoryAndExprs.add(EntityCondition.makeCondition('productId', EntityOperator.NOT_IN, productIdSet))
+}
+if (organizationPartyId) {
+    baseCategoryAndExprs.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, organizationPartyId))
+}
+if (currencyUomId) {
+    baseCategoryAndExprs.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, currencyUomId))
+}
 
 
 // get the Calendar object for the current month (specifed by month, year Integer values in the context)
@@ -100,7 +112,9 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // do the product find
     productAndExprs = []
     productAndExprs.addAll(baseProductAndExprs)
-    if (productIdSet) productAndExprs.add(EntityCondition.makeCondition('productId', EntityOperator.IN, productIdSet))
+    if (productIdSet) {
+        productAndExprs.add(EntityCondition.makeCondition('productId', EntityOperator.IN, productIdSet))
+    }
     productAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin))
     productAndExprs.add(EntityCondition.makeCondition('invoiceDate', EntityOperator.LESS_THAN, nextDayBegin))
 

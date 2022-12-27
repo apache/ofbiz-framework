@@ -19,13 +19,17 @@
 
 Map testPingSuccess() {
     Map returnMap = success('Service result success')
-    if (parameters.ping) returnMap.pong = parameters.ping
+    if (parameters.ping) {
+        returnMap.pong = parameters.ping
+    }
     return returnMap
 }
 
 Map testPingError() {
     Map returnMap = error('Service result error')
-    if (parameters.ping) returnMap.pong = parameters.ping
+    if (parameters.ping) {
+        returnMap.pong = parameters.ping
+    }
     return returnMap
 }
 

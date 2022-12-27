@@ -108,9 +108,13 @@ if (allProductionRuns) {
                 productArea = (productHeight * productWidth) / (1000 * 1000)
                 panelQty = 0.0
                 int panelQtyInt = 0
-                if (productArea > 0) panelQty = productMapQty / productArea
+                if (productArea > 0) {
+                    panelQty = productMapQty / productArea
+                }
                 panelQtyInt = panelQty
-                if (panelQtyInt < panelQty) panelQtyInt++
+                if (panelQtyInt < panelQty) {
+                    panelQtyInt++
+                }
                 productMap.panelQuantity = panelQtyInt
             }
         }

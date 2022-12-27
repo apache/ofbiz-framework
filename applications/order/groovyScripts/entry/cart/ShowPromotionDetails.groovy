@@ -21,7 +21,9 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 
 productPromoId = request.getParameter('productPromoId')
-if (!productPromoId) productPromoId = parameters.productPromoId
+if (!productPromoId) {
+    productPromoId = parameters.productPromoId
+}
 productPromo = from('ProductPromo').where('productPromoId', productPromoId).queryOne()
 
 promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale, request.getAttribute('dispatcher'))

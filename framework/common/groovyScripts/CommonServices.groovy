@@ -446,7 +446,9 @@ Map createFuturePeriod() {
                             // persist the future period
                             inMap = dispatcher.getDispatchContext().makeValidContext('createCustomTimePeriod', ModelService.IN_PARAM, parameters)
                             serviceResult = run service: 'createCustomTimePeriod', with: inMap
-                            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+                            if (!ServiceUtil.isSuccess(serviceResult)) {
+                                return error(serviceResult.errorMessage)
+                            }
                         }
                         parameters.parentPeriodId = ''
                     }

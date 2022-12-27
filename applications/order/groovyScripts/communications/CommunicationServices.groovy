@@ -29,7 +29,9 @@ Map createOrderConversation() {
     createCommunicationEventMap.entryDate = UtilDateTime.nowTimestamp()
     createCommunicationEventMap.statusId = 'COM_ENTERED'
     Map result = dispatcher.runSync('createCommunicationEvent', createCommunicationEventMap)
-    if (ServiceUtil.isError(result)) return result
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
 
     if (parameters.communicationEventPrpTypId) {
         Map<String, Object> createCommunicationEventPurposeMap = dispatcher.getDispatchContext()

@@ -19,17 +19,23 @@
 
 communicationEvent = from('CommunicationEvent').where('communicationEventId', parameters.communicationEventId).cache(true).queryOne()
 
-if (!communicationEvent.note) return
+if (!communicationEvent.note) {
+    return
+}
 nameString = 'Sent from: '
 nameStringIndexValue = communicationEvent.note.indexOf(nameString)
-if (nameStringIndexValue == -1) return
+if (nameStringIndexValue == -1) {
+    return
+}
 int startEmail = nameStringIndexValue + nameString.length()
 int endEmail = communicationEvent.note.indexOf(';', startEmail)
 context.emailAddress = communicationEvent.note.substring(startEmail, endEmail)
 
 nameString = 'Sent Name from: '
 nameStringIndexValue = communicationEvent.note.indexOf(nameString)
-if (nameStringIndexValue == -1) return
+if (nameStringIndexValue == -1) {
+    return
+}
 int startName = nameStringIndexValue + nameString.length()
 int endName = communicationEvent.note.indexOf(';', startName)
 name = communicationEvent.note.substring(startName, endName)

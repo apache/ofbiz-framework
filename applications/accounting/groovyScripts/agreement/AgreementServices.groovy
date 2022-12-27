@@ -30,7 +30,9 @@ Map copyAgreement() {
     if (agreement) {
         Map createAgreementInMap = dispatcher.getDispatchContext().makeValidContext('createAgreement', ModelService.IN_PARAM, agreement)
         result = run service: 'createAgreement', with: createAgreementInMap
-        if (ServiceUtil.isError(result)) return result
+        if (ServiceUtil.isError(result)) {
+            return result
+        }
         agreementIdTo = result.agreementId
         agreementItems = agreement.getRelated('AgreementItem', null, null, false)
         agreementItems.each { agreementItem ->

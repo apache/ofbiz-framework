@@ -81,8 +81,12 @@ cart = ShoppingCartEvents.getCartObject(request)
 
 // set currency format
 currencyUomId = null
-if (cart) currencyUomId = cart.getCurrency()
-if (!currencyUomId) currencyUomId = EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
+if (cart) {
+    currencyUomId = cart.getCurrency()
+}
+if (!currencyUomId) {
+    currencyUomId = EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
+}
 
 // get the shopping lists for the user (if logged in)
 if (userLogin) {
@@ -138,7 +142,9 @@ if (product) {
 
     // get next/previous information for category
     categoryId = parameters.category_id ?: product.primaryProductCategoryId
-    if (categoryId) context.categoryId = categoryId
+    if (categoryId) {
+        context.categoryId = categoryId
+    }
 
     catNextPreviousResult = null
     if (categoryId) {

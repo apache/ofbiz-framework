@@ -26,8 +26,9 @@ import org.apache.ofbiz.product.store.ProductStoreWorker
 productStore = ProductStoreWorker.getProductStore(request)
 if (productStore) {
     context.defaultProductStore = productStore
-    if (productStore.defaultSalesChannelEnumId)
+    if (productStore.defaultSalesChannelEnumId) {
         context.defaultSalesChannel = from('Enumeration').where('enumId', productStore.defaultSalesChannelEnumId).cache(true).queryOne()
+    }
 }
 // Get the Cart
 shoppingCart = session.getAttribute('shoppingCart')
