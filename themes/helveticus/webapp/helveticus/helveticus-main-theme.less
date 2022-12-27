@@ -1505,3 +1505,30 @@ form .basic-table,
 .hidden{
   display: none;
 }
+
+// Tree select
+.basic-tree ul, .basic-tree li {
+  padding-right: 0;
+  padding-left: 1em;
+}
+
+.basic-tree li {
+  .expanded, .collapsed {
+    margin-right: 4px;
+    padding-right: 0;
+    padding-left: 1em;
+  }
+
+  .leafnode {
+    padding-right: 1em;
+    margin-right: 4px;
+  }
+
+  .expanded {
+    background: url(/images/collapse.gif) no-repeat right center;
+  }
+
+  .collapsed {
+    background: url(/images/expand.gif) no-repeat right center;
+  }
+}
