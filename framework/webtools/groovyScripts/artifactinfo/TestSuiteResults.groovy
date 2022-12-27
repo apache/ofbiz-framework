@@ -29,7 +29,9 @@ List testList = []
 for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSuiteInfos(parameters.compName)) {
     String suiteName = getTestSuiteName(testSuiteInfo)
     // if a suiteName has been requested, limit result to it.
-    if (parameters.suiteName && suiteName != parameters.suiteName) continue
+    if (parameters.suiteName && suiteName != parameters.suiteName) {
+        continue
+    }
 
     boolean firstLine = true
     for (Element testCaseElement : getTestCaseResultsForSuite(suiteName)) {

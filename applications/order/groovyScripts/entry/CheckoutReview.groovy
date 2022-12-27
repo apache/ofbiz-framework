@@ -93,7 +93,9 @@ productStore = ProductStoreWorker.getProductStore(productStoreId, delegator)
 if (productStore) {
     payToPartyId = productStore.payToPartyId
     paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId)
-    if (paymentAddress) context.paymentAddress = paymentAddress
+    if (paymentAddress) {
+        context.paymentAddress = paymentAddress
+    }
 }
 
 billingAddress = null
@@ -101,10 +103,14 @@ if (paymentMethod) {
     creditCard = paymentMethod.getRelatedOne('CreditCard', false)
     billingAddress = creditCard?.getRelatedOne('PostalAddress', false)
 }
-if (billingAddress) context.billingAddress = billingAddress
+if (billingAddress) {
+    context.billingAddress = billingAddress
+}
 
 billingAccount = cart.getBillingAccountId() ? from('BillingAccount').where('billingAccountId', cart.getBillingAccountId()).queryOne() : null
-if (billingAccount) context.billingAccount = billingAccount
+if (billingAccount) {
+    context.billingAccount = billingAccount
+}
 
 context << [
         customerPoNumber: cart.getPoNumber(),
@@ -120,7 +126,9 @@ context << [
 ]
 
 shipmentMethodType = from('ShipmentMethodType').where('shipmentMethodTypeId', cart.getShipmentMethodTypeId()).queryOne()
-if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description
+if (shipmentMethodType) {
+    context.shipMethDescription = shipmentMethodType.description
+}
 
 orh = new OrderReadHelper(orderAdjustments, orderItems)
 context.localOrderReadHelper = orh

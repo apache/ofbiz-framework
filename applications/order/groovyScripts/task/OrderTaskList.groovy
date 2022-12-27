@@ -42,7 +42,9 @@ partyRole = [EntityCondition.makeCondition('orderRoleTypeId', 'PLACING_CUSTOMER'
 partyExpr = [EntityCondition.makeCondition(partyBase, EntityOperator.AND), EntityCondition.makeCondition(partyRole, EntityOperator.OR)]
 partyTasks = from('OrderTaskList').where(partyExpr).orderBy(sortOrder).queryList()
 
-if (partyTasks) partyTasks = EntityUtil.filterByDate(partyTasks)
+if (partyTasks) {
+    partyTasks = EntityUtil.filterByDate(partyTasks)
+}
 context.partyTasks = partyTasks
 
 // Build a map of orderId and currency
@@ -58,8 +60,9 @@ partyRoles = from('PartyRole').where('partyId', userLogin.partyId).queryList()
 // build the role list
 pRolesList = []
 partyRoles.each { partyRole ->
-    if ('_NA_' != partyRole.roleTypeId)
+    if ('_NA_' != partyRole.roleTypeId) {
         pRolesList.add(EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, partyRole.roleTypeId))
+    }
 }
 
 custList = [EntityCondition.makeCondition('orderRoleTypeId', 'PLACING_CUSTOMER'), EntityCondition.makeCondition('orderRoleTypeId', 'SUPPLIER_AGENT')]
@@ -68,7 +71,9 @@ baseList = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 
             EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'CAL_DELEGATED')]
 expressions = []
 expressions.add(EntityCondition.makeCondition(custList, EntityOperator.OR))
-if (pRolesList) expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR))
+if (pRolesList) {
+    expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR))
+}
 expressions.add(EntityCondition.makeCondition(baseList, EntityOperator.AND))
 
 // invoke the query

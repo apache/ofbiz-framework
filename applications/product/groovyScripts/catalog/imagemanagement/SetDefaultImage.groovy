@@ -146,13 +146,17 @@ if (fileType) {
                 if (!filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && file.getName() != defaultFileName) file.delete()
+                        if (file.isFile() && file.getName() != defaultFileName) {
+                            file.delete()
+                        }
                     }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                 } else {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) file.delete()
+                        if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) {
+                            file.delete()
+                        }
                     }
                 }
             } catch (Exception e) {

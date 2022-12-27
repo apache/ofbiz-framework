@@ -65,8 +65,12 @@ Map updateContactMech() {
 Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage
     if (!stateProvinceGeoId) {
-        if ('USA' == countryGeoId) errorMessage = 'PartyStateInUsMissing'
-        if ('CAN' == countryGeoId) errorMessage = 'PartyProvinceInCanadaMissing'
+        if ('USA' == countryGeoId) {
+            errorMessage = 'PartyStateInUsMissing'
+        }
+        if ('CAN' == countryGeoId) {
+            errorMessage = 'PartyProvinceInCanadaMissing'
+        }
     }
     return errorMessage
 }
@@ -265,13 +269,17 @@ Map updateFtpAddressWithHistory() {
  */
 Map createPartyFtpAddress() {
     Map contactMech = run service: 'createFtpAddress', with: parameters
-    if (ServiceUtil.isError(contactMech)) return contactMech
+    if (ServiceUtil.isError(contactMech)) {
+        return contactMech
+    }
     String contactMechId = contactMech.contactMechId
 
     Map createPartyContactMechMap = parameters
     createPartyContactMechMap.put('contactMechId', contactMechId)
     Map serviceResult = run service: 'createPartyContactMech', with: createPartyContactMechMap
-    if (ServiceUtil.isError(serviceResult)) return serviceResult
+    if (ServiceUtil.isError(serviceResult)) {
+        return serviceResult
+    }
 
     //TODO: manage purpose
 

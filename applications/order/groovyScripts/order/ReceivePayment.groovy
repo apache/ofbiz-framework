@@ -31,14 +31,18 @@ roleTypeId = request.getParameter('roleTypeId')
 fromDate = request.getParameter('fromDate')
 
 donePage = request.getParameter('DONE_PAGE') ?: 'orderview?orderId=' + orderId
-if (workEffortId)
+if (workEffortId) {
     donePage += '&workEffortId=' + workEffortId
-if (partyId)
+}
+if (partyId) {
     donePage += '&partyId=' + partyId
-if (roleTypeId)
+}
+if (roleTypeId) {
     donePage += '&roleTypeId=' + roleTypeId
-if (fromDate)
+}
+if (fromDate) {
     donePage += '&fromDate=' + fromDate
+}
 context.donePage = donePage
 
 

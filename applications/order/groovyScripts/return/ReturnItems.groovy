@@ -20,7 +20,9 @@
 import org.apache.ofbiz.order.order.OrderReadHelper
 
 returnId = parameters.returnId
-if (!returnId) return
+if (!returnId) {
+    return
+}
 context.returnId = returnId
 
 orderId = parameters.orderId

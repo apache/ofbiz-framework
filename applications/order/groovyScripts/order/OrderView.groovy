@@ -489,11 +489,21 @@ if (orderHeader) {
 }
 
 paramString = ''
-if (orderId) paramString += 'orderId=' + orderId
-if (workEffortId) paramString += '&workEffortId=' + workEffortId
-if (assignPartyId) paramString += '&partyId=' + assignPartyId
-if (assignRoleTypeId) paramString += '&roleTypeId=' + assignRoleTypeId
-if (fromDate) paramString += '&fromDate=' + fromDate
+if (orderId) {
+    paramString += 'orderId=' + orderId
+}
+if (workEffortId) {
+    paramString += '&workEffortId=' + workEffortId
+}
+if (assignPartyId) {
+    paramString += '&partyId=' + assignPartyId
+}
+if (assignRoleTypeId) {
+    paramString += '&roleTypeId=' + assignRoleTypeId
+}
+if (fromDate) {
+    paramString += '&fromDate=' + fromDate
+}
 context.paramString = paramString
 
 workEffortStatus = null
@@ -506,8 +516,9 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
         workEffortStatus = workEffort.currentStatusId
         if (workEffortStatus) {
             context.workEffortStatus = workEffortStatus
-            if ('WF_RUNNING' == workEffortStatus || 'WF_SUSPENDED' == workEffortStatus)
+            if ('WF_RUNNING' == workEffortStatus || 'WF_SUSPENDED' == workEffortStatus) {
                 context.inProcess = true
+            }
         }
     }
 }

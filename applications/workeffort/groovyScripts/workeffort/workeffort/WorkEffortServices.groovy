@@ -39,14 +39,18 @@ Map checkAndCreateWorkEffort() {
             shipWorkEffortMap.workEffortTypeId = 'SHIPMENT_OUTBOUND'
         }
         Map serviceResult = run service: 'createWorkEffort', with: shipWorkEffortMap
-        if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+        if (!ServiceUtil.isSuccess(serviceResult)) {
+            return error(serviceResult.errorMessage)
+        }
         lookedUpValue.estimatedShipWorkEffId = serviceResult.workEffortId
         if (parameters.partyIdFrom) {
             serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedShipWorkEffId,
                                                            partyId: parameters.partyIdFrom,
                                                            roleTypeId: 'CAL_ATTENDEE',
                                                            statusId: 'CAL_SENT']
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
         }
     }
     if (parameters.estimatedArrivalDate) {
@@ -61,14 +65,18 @@ Map checkAndCreateWorkEffort() {
             arrivalWorkEffortMap.workEffortTypeId = 'SHIPMENT_INBOUND'
         }
         Map serviceResult = run service: 'createWorkEffort', with: arrivalWorkEffortMap
-        if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+        if (!ServiceUtil.isSuccess(serviceResult)) {
+            return error(serviceResult.errorMessage)
+        }
         lookedUpValue.estimatedArrivalWorkEffId = serviceResultAD.workEffortId
         if (parameters.partyIdTo) {
             serviceResult = run service: 'assignPartyToWorkEffort', with: [workEffortId: lookedUpValue.estimatedArrivalWorkEffId,
                                                            partyId: parameters.partyIdTo,
                                                            roleTypeId: 'CAL_ATTENDEE',
                                                            statusId: 'CAL_SENT']
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
         }
     }
     lookedUpValue.store()
@@ -101,7 +109,9 @@ Map checkAndUpdateWorkEffort() {
             Map estShipWeUpdMap = [:]
             estShipWeUpdMap << estShipWe
             Map serviceResult = run service: 'updateWorkEffort', with: estShipWeUpdMap
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
 
         }
     }
@@ -117,7 +127,9 @@ Map checkAndUpdateWorkEffort() {
             estimatedArrivalWorkEffort.estimatedCompletionDate = parameters.estimatedArrivalDate
             estimatedArrivalWorkEffort.facilityId = parameters.destinationFacilityId
             Map serviceResult = run service: 'updateWorkEffort', with: estimatedArrivalWorkEffort
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
         }
     }
     // if the partyIdTo or partyIdFrom has changed, add WEPAs
@@ -135,7 +147,9 @@ Map checkAndUpdateWorkEffort() {
             assignPartyToWorkEffortShip.roleTypeId = 'CAL_ATTENDEE'
             assignPartyToWorkEffortShip.statusId = 'CAL_SENT'
             Map serviceResult = run service: 'assignPartyToWorkEffort', with: assignPartyToWorkEffortShip
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
         }
     }
     if (parameters.partyIdTo
@@ -151,7 +165,9 @@ Map checkAndUpdateWorkEffort() {
             assignPartyToWorkEffortArrival.roleTypeId = 'CAL_ATTENDEE'
             assignPartyToWorkEffortArrival.statusId = 'CAL_SENT'
             serviceResult = run service: 'assignPartyToWorkEffort', with: assignPartyToWorkEffortArrival
-            if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
         }
     }
     return result

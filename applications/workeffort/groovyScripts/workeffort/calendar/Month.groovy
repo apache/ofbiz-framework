@@ -43,7 +43,9 @@ end = UtilDateTime.getMonthEnd(start, timeZone, locale)
 //Find out what date to get from
 getFrom = null
 prevMonthDays =  tempCal.get(Calendar.DAY_OF_WEEK) - tempCal.getFirstDayOfWeek()
-if (prevMonthDays < 0) prevMonthDays += 7
+if (prevMonthDays < 0) {
+    prevMonthDays += 7
+}
 tempCal.add(Calendar.DATE, -prevMonthDays)
 numDays += prevMonthDays
 getFrom = new Timestamp(tempCal.getTimeInMillis())

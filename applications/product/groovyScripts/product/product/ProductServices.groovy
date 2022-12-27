@@ -212,12 +212,24 @@ Map duplicateProduct() {
 
     // if requested, duplicate related data as well
     List relationToDuplicate = []
-    if (parameters.duplicatePrices) relationToDuplicate << 'ProductPrice'
-    if (parameters.duplicateIDs) relationToDuplicate << 'GoodIdentification'
-    if (parameters.duplicateContent) relationToDuplicate << 'ProductContent'
-    if (parameters.duplicateCategoryMembers) relationToDuplicate << 'ProductCategoryMember'
-    if (parameters.duplicateAttributes) relationToDuplicate << 'ProductAttribute'
-    if (parameters.duplicateFeatureAppls) relationToDuplicate << 'ProductFeatureAppl'
+    if (parameters.duplicatePrices) {
+        relationToDuplicate << 'ProductPrice'
+    }
+    if (parameters.duplicateIDs) {
+        relationToDuplicate << 'GoodIdentification'
+    }
+    if (parameters.duplicateContent) {
+        relationToDuplicate << 'ProductContent'
+    }
+    if (parameters.duplicateCategoryMembers) {
+        relationToDuplicate << 'ProductCategoryMember'
+    }
+    if (parameters.duplicateAttributes) {
+        relationToDuplicate << 'ProductAttribute'
+    }
+    if (parameters.duplicateFeatureAppls) {
+        relationToDuplicate << 'ProductFeatureAppl'
+    }
     if (parameters.duplicateAssocs) {
         relationToDuplicate << 'ProductAssoc'
 
@@ -261,13 +273,27 @@ Map duplicateProduct() {
 
     // if requested, remove related data as well
     List relationToRemove = []
-    if (parameters.removePrices) relationToRemove << 'ProductPrice'
-    if (parameters.removeIDs) relationToRemove << 'GoodIdentification'
-    if (parameters.removeContent) relationToRemove << 'ProductContent'
-    if (parameters.removeCategoryMembers) relationToRemove << 'ProductCategoryMember'
-    if (parameters.removeAttributes) relationToRemove << 'ProductAttribute'
-    if (parameters.removeFeatureAppls) relationToRemove << 'ProductFeatureAppl'
-    if (parameters.removeInventoryItems) relationToRemove << 'InventoryItem'
+    if (parameters.removePrices) {
+        relationToRemove << 'ProductPrice'
+    }
+    if (parameters.removeIDs) {
+        relationToRemove << 'GoodIdentification'
+    }
+    if (parameters.removeContent) {
+        relationToRemove << 'ProductContent'
+    }
+    if (parameters.removeCategoryMembers) {
+        relationToRemove << 'ProductCategoryMember'
+    }
+    if (parameters.removeAttributes) {
+        relationToRemove << 'ProductAttribute'
+    }
+    if (parameters.removeFeatureAppls) {
+        relationToRemove << 'ProductFeatureAppl'
+    }
+    if (parameters.removeInventoryItems) {
+        relationToRemove << 'InventoryItem'
+    }
     if (parameters.removeAssocs) {
         relationToRemove << 'ProductAssoc'
         // small difference here, also do the reverse assocs...
@@ -504,13 +530,27 @@ Map copyToProductVariants() {
 
         // if requested, duplicate related data
         List relationToDuplicate = []
-        if (parameters.duplicatePrices) relationToDuplicate << 'ProductPrice'
-        if (parameters.duplicateIDs) relationToDuplicate << 'GoodIdentification'
-        if (parameters.duplicateContent) relationToDuplicate << 'ProductContent'
-        if (parameters.duplicateCategoryMembers) relationToDuplicate << 'ProductCategoryMember'
-        if (parameters.duplicateAttributes) relationToDuplicate << 'ProductAttribute'
-        if (parameters.duplicateFacilities) relationToDuplicate << 'ProductFacility'
-        if (parameters.duplicateLocations) relationToDuplicate << 'ProductFacilityLocation'
+        if (parameters.duplicatePrices) {
+            relationToDuplicate << 'ProductPrice'
+        }
+        if (parameters.duplicateIDs) {
+            relationToDuplicate << 'GoodIdentification'
+        }
+        if (parameters.duplicateContent) {
+            relationToDuplicate << 'ProductContent'
+        }
+        if (parameters.duplicateCategoryMembers) {
+            relationToDuplicate << 'ProductCategoryMember'
+        }
+        if (parameters.duplicateAttributes) {
+            relationToDuplicate << 'ProductAttribute'
+        }
+        if (parameters.duplicateFacilities) {
+            relationToDuplicate << 'ProductFacility'
+        }
+        if (parameters.duplicateLocations) {
+            relationToDuplicate << 'ProductFacilityLocation'
+        }
         relationToDuplicate.each {
             if (parameters.removeBefore) {
                 delegator.removeByCondition(it, productVariantContext)
@@ -843,7 +883,9 @@ Map checkOrderItemForProductGroupOrder() {
  */
 Map cancleOrderItemGroupOrder() {
     Map orderItemCond = [orderId: parameters.orderId]
-    if (parameters.orderItemSeqId) orderItemCond.orderItemSeqId = parameters.orderItemSeqId
+    if (parameters.orderItemSeqId) {
+        orderItemCond.orderItemSeqId = parameters.orderItemSeqId
+    }
     List orderItems = from('OrderItem')
             .where(orderItemCond)
             .queryList()

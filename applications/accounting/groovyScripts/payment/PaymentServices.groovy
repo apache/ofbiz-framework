@@ -168,7 +168,9 @@ Map updatePayment() {
             parameters.statusId != statusIdSave) {
         Map serviceResult = run service: 'setPaymentStatus', with: [*        : parameters,
                                                                     paymentId: payment.paymentId]
-        if (!ServiceUtil.isSuccess(serviceResult)) return serviceResult
+        if (!ServiceUtil.isSuccess(serviceResult)) {
+            return serviceResult
+        }
     }
     return success()
 }
@@ -180,7 +182,9 @@ Map createPaymentAndApplicationForParty() {
     parameters.invoices.each { GenericValue invoice ->
         if ('INVOICE_READY' == invoice.statusId) {
             Map serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
-            if (ServiceUtil.isError(serviceResult)) return serviceResult
+            if (ServiceUtil.isError(serviceResult)) {
+                return serviceResult
+            }
             paymentAmount += serviceResult.invoicePaymentInfoList[0].outstandingAmount
         } else {
             return error(label('AccountingUiLabels', 'AccountingInvoicesRequiredInReadyStatus'))
@@ -188,7 +192,9 @@ Map createPaymentAndApplicationForParty() {
     }
     if (paymentAmount > 0) {
         Map serviceResult = run service: 'getPartyAccountingPreferences', with: parameters
-        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
         serviceResult = run service: 'createPayment', with: [paymentTypeId: 'VENDOR_PAYMENT',
                                                              partyIdFrom: parameters.organizationPartyId,
                                                              currencyUomId: serviceResult.partyAccountingPreference.baseCurrencyUomId,
@@ -198,19 +204,25 @@ Map createPaymentAndApplicationForParty() {
                                                              paymentMethodTypeId: parameters.paymentMethodTypeId,
                                                              paymentMethodId: parameters.paymentMethodId,
                                                              paymentRefNum: parameters.checkStartNumber]
-        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
         paymentId = serviceResult.paymentId
 
         parameters.invoices.each { GenericValue invoice ->
             if ('INVOICE_READY' == invoice.statusId) {
                 serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
-                if (ServiceUtil.isError(serviceResult)) return serviceResult
+                if (ServiceUtil.isError(serviceResult)) {
+                    return serviceResult
+                }
                 Map invoicePaymentInfo = serviceResult.invoicePaymentInfoList[0]
                 if (invoicePaymentInfo.outstandingAmount > 0) {
                     serviceResult = run service: 'createPaymentApplication', with: [paymentId: paymentId,
                                                                                     amountApplied: invoicePaymentInfo.outstandingAmount,
                                                                                     invoiceId: invoice.invoiceId]
-                    if (ServiceUtil.isError(serviceResult)) return serviceResult
+                    if (ServiceUtil.isError(serviceResult)) {
+                        return serviceResult
+                    }
                 }
             }
             invoiceIds << invoice.invoiceId
@@ -271,7 +283,9 @@ Map createPaymentContent() {
     newEntity.create()
 
     Map result = run service: 'updateContent', with: parameters
-    if (ServiceUtil.isError(result)) return result
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
 
     return success([contentId: newEntity.contentId,
                     paymentId: newEntity.paymentId,
@@ -285,7 +299,9 @@ Map updatePaymentContent() {
         lookedUpValue.setNonPKFields(parameters)
         lookedUpValue.store()
         Map result = run service: 'updateContent', with: parameters
-        if (ServiceUtil.isError(result)) return result
+        if (ServiceUtil.isError(result)) {
+            return result
+        }
         return success()
     }
     return error('Error getting Payment Content')
@@ -295,7 +311,9 @@ Map massChangePaymentStatus() {
     parameters.paymentIds.each{ paymentId ->
         Map result = run service: 'setPaymentStatus', with: [paymentId: paymentId,
                                                              statusId: parameters.statusId]
-        if (ServiceUtil.isError(result)) return result
+        if (ServiceUtil.isError(result)) {
+            return result
+        }
     }
     return success()
 }
@@ -325,7 +343,9 @@ Map getInvoicePaymentInfoListByDueDateOffset() {
             .queryList()
             .each {
                 Map serviceResult = run service: 'getInvoicePaymentInfoList', with: [invoice: it]
-                if (ServiceUtil.isError(serviceResult)) return serviceResult
+                if (ServiceUtil.isError(serviceResult)) {
+                    return serviceResult
+                }
                 invoicePaymentInfoList = serviceResult.invoicePaymentInfoList
                 if (invoicePaymentInfoList) {
                     invoicePaymentInfoList.each { Map invoicePaymentInfo ->
@@ -393,12 +413,16 @@ Map getPaymentGroupReconciliationId() {
 
 Map createPaymentAndApplication() {
     Map createPaymentResp = run service: 'createPayment', with: parameters
-    if (ServiceUtil.isError(createPaymentResp)) return createPaymentResp
+    if (ServiceUtil.isError(createPaymentResp)) {
+        return createPaymentResp
+    }
 
     Map createPaymentApplicationResp = run service: 'createPaymentApplication', with: [*: parameters,
                                                                                        paymentId: createPaymentResp.paymentId,
                                                                                        amountApplied: parameters.amount]
-    if (ServiceUtil.isError(createPaymentApplicationResp)) return createPaymentApplicationResp
+    if (ServiceUtil.isError(createPaymentApplicationResp)) {
+        return createPaymentApplicationResp
+    }
 
     return success([paymentId: createPaymentResp.paymentId,
                     paymentApplicationId: createPaymentApplicationResp.paymentApplicationId])
@@ -427,11 +451,15 @@ Map createFinAccoutnTransFromPayment() {
 
 Map quickSendPayment() {
     Map updatePaymentResp = run service: 'updatePayment', with: parameters
-    if (ServiceUtil.isError(updatePaymentResp)) return updatePaymentResp
+    if (ServiceUtil.isError(updatePaymentResp)) {
+        return updatePaymentResp
+    }
 
     Map setPaymentStatusResp = run service: 'setPaymentStatus', with: [*: parameters,
                                                                        statusId: 'PMNT_SENT']
-    if (ServiceUtil.isError(setPaymentStatusResp)) return setPaymentStatusResp
+    if (ServiceUtil.isError(setPaymentStatusResp)) {
+        return setPaymentStatusResp
+    }
 
     return success()
 }
@@ -451,14 +479,18 @@ Map cancelPaymentBatch() {
 
         for (GenericValue paymentGroupMember : paymentGroupMemberAndTransList) {
             Map result = run service: 'expirePaymentGroupMember', with: paymentGroupMember.getAllFields()
-            if (ServiceUtil.isError(result)) return result
+            if (ServiceUtil.isError(result)) {
+                return result
+            }
 
             GenericValue finAccountTrans = from('FinAccountTrans').where('finAccountTransId', paymentGroupMember.finAccountTransId).queryOne()
             if (finAccountTrans) {
                 finAccountTrans.statusId = 'FINACT_TRNS_CANCELED'
                 result = run service: 'setFinAccountTransStatus', with: [*: finAccountTrans.getAllFields(),
                                                                          statusId: 'FINACT_TRNS_CANCELED']
-                if (ServiceUtil.isError(result)) return result
+                if (ServiceUtil.isError(result)) {
+                    return result
+                }
             }
         }
     }
@@ -496,9 +528,13 @@ Map cancelCheckRunPayments() {
             for (GenericValue paymentGroupMemberAndTrans : paymentGroupMemberAndTransList) {
                 GenericValue payment = from('Payment').where('paymentId', paymentGroupMemberAndTrans.paymentId).queryOne()
                 Map result = run service: 'voidPayment', with: payment.getAllFields()
-                if (ServiceUtil.isError(result)) return result
+                if (ServiceUtil.isError(result)) {
+                    return result
+                }
                 result = run service: 'expirePaymentGroupMember', with: paymentGroupMemberAndTrans.getAllFields()
-                if (ServiceUtil.isError(result)) return result
+                if (ServiceUtil.isError(result)) {
+                    return result
+                }
             }
         } else {
             return error(label('AccountingErrorUiLabels', 'AccountingCheckIsAlreadyIssued'))
@@ -819,7 +855,9 @@ Map createMatchingPaymentApplication() {
             BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
 
             Map isInvoiceInForeignCurrencyResp = run service: 'isInvoiceInForeignCurrency', with: [invoiceId: invoice.invoiceId]
-            if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) return isInvoiceInForeignCurrencyResp
+            if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) {
+                return isInvoiceInForeignCurrencyResp
+            }
 
             EntityConditionBuilder exprBldr = new EntityConditionBuilder()
             EntityCondition expr = exprBldr.AND {
@@ -881,7 +919,9 @@ Map createMatchingPaymentApplication() {
                     BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
 
                     Map isInvoiceInForeignCurrencyResp = run service: 'isInvoiceInForeignCurrency', with: [invoiceId: invoice.invoiceId]
-                    if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) return isInvoiceInForeignCurrencyResp
+                    if (ServiceUtil.isError(isInvoiceInForeignCurrencyResp)) {
+                        return isInvoiceInForeignCurrencyResp
+                    }
 
                     if (isInvoiceInForeignCurrencyResp.isForeign
                             && invoiceTotal.compareTo(payment.actualCurrencyAmount) == 0
@@ -911,7 +951,9 @@ Map createMatchingPaymentApplication() {
     if (createPaymentApplicationCtx.paymentId &&
             createPaymentApplicationCtx.invoiceId) {
         Map createPaymentApplicationResp = run service: 'createPaymentApplication', with: createPaymentApplicationCtx
-        if (ServiceUtil.isError(createPaymentApplicationResp)) return createPaymentApplicationResp
+        if (ServiceUtil.isError(createPaymentApplicationResp)) {
+            return createPaymentApplicationResp
+        }
 
         logInfo("payment application automatically created between invoiceId: $createPaymentApplicationCtx.invoiceId}" +
                 " and paymentId: ${createPaymentApplicationCtx.paymentId} for" +

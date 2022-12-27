@@ -80,7 +80,9 @@ Map getSubscription() {
         .where(parameters)
         .queryOne()
     result.subscriptionId = parameters.subscriptionId
-    if (subscription) result.subscription = subscription
+    if (subscription) {
+        result.subscription = subscription
+    }
     return result
 }
 

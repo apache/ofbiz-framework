@@ -30,7 +30,9 @@ Map getNextInvoiceId() {
 
     // try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where(parameters).queryOne()
-    if (Debug.infoOn()) logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
+    if (Debug.infoOn()) {
+        logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
+    }
 
     String customMethodName = null
     String invoiceIdPrefix = ''
@@ -57,7 +59,9 @@ Map getNextInvoiceId() {
     if (customMethodName) {
         parameters.partyAcctgPreference = partyAcctgPreference
         Map serviceResult = run service: customMethodName, with: parameters
-        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
         invoiceIdTemp = serviceResult.invoiceId
     } else {
         logInfo('In createInvoice sequence enum Standard')

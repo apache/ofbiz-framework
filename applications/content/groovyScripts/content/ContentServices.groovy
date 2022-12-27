@@ -65,7 +65,9 @@ Map findAssocContent() {
             .queryList()
 
     Map result = success()
-    if (contentAssocs) result.contentAssocs = contentAssocs
+    if (contentAssocs) {
+        result.contentAssocs = contentAssocs
+    }
     return result
 }
 
@@ -386,11 +388,15 @@ Map setContentStatus() {
 Map createDownloadContent() {
     Map serviceResult = success()
     Map result = runService('createOtherDataResource', [dataResourceContent: parameters.file])
-    if (ServiceUtil.isError(result)) return result
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
     Map serviceCtx = dispatcher.dispatchContext.makeValidContext('createContent', ModelService.IN_PARAM, parameters)
     serviceCtx.dataResourceId = result.dataResourceId
     result = runService('createContent', serviceCtx)
-    if (ServiceUtil.isError(result)) return result
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
     serviceResult.contentId = result.contentId
     return serviceResult
 }

@@ -27,8 +27,12 @@ currencyUomId = null
 billingAccounts = []
 if (partyId) {
     billingAccountAndRoles = from('BillingAccountAndRole').where('partyId', partyId).queryList()
-    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId
-    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
+    if (billingAccountAndRoles) {
+        currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId
+    }
+    if (currencyUomId) {
+        billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
+    }
 }
 context.billingAccounts = billingAccounts
 context.showOld = showOld

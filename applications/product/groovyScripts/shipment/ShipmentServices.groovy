@@ -64,7 +64,9 @@ Map updateShipment() {
         return error(errorList.toString())
     }
     Map serviceResult = run service: 'checkAndUpdateWorkEffort', with: parameters
-    if (!ServiceUtil.isSuccess(serviceResult)) return error(serviceResult.errorMessage)
+    if (!ServiceUtil.isSuccess(serviceResult)) {
+        return error(serviceResult.errorMessage)
+    }
 
     // finally before setting nonpk fields, set the oldStatusId, oldPrimaryOrderId, oldOriginFacilityId, oldDestinationFacilityId
     result.oldStatusId = lookedUpValue.statusId
@@ -998,8 +1000,9 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
                                             roleTypeId: 'BILL_FROM_VENDOR')
                                     .queryFirst()
                         }
-                        if (orderRole)
+                        if (orderRole) {
                             partyIdFrom = orderRole.partyId
+                        }
                     }
                 }
                 shipmentContext.partyIdFrom = partyIdFrom

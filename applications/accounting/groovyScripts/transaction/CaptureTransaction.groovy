@@ -24,7 +24,9 @@ import org.apache.ofbiz.entity.util.EntityUtil
 orderId = context.orderId
 orderPaymentPreferenceId = context.orderPaymentPreferenceId
 
-if ((!orderId) || (!orderPaymentPreferenceId)) return
+if ((!orderId) || (!orderPaymentPreferenceId)) {
+    return
+}
 
 if (orderId) {
     orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()

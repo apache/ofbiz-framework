@@ -42,7 +42,9 @@ if (!security.hasEntityPermission('ACCOUNTING', '_PRINT_CHECKS', session)) {
 paymentId = context.paymentId
 if (paymentId) {
     payment = from('Payment').where('paymentId', paymentId).queryOne()
-    if (payment) payments.add(payment)
+    if (payment) {
+        payments.add(payment)
+    }
     context.payments = payments
     return
 }

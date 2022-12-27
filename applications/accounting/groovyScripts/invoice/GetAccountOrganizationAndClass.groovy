@@ -23,7 +23,9 @@ import org.apache.ofbiz.entity.util.EntityUtil
 
 exprBldr =  new EntityConditionBuilder()
 invoice = context.invoice
-if (!invoice) return
+if (!invoice) {
+    return
+}
 glAccountOrganizationAndClassList = null
 if ('SALES_INVOICE' == invoice.invoiceTypeId) {
     itemTypesCond = exprBldr.OR {

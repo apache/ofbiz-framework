@@ -34,7 +34,7 @@ Map updateRateAmount() {
     if (!newEntity.rateCurrencyUomId) {
         newEntity.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     }
-    if (!newEntity.fromDate) newEntity.fromDate = UtilDateTime.nowTimestamp()
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.thruDate = null
 
     //Check if the entry is already exist with a different rate else expire the older to create the new one
@@ -49,7 +49,9 @@ Map updateRateAmount() {
         updating = (rateAmountLookedUpValue.fromDate.compareTo(newEntity.fromDate) == 0)
         if (rateAmountLookedUpValue.rateAmount != rateAmount) {
             result = run service: 'expireRateAmount', with: rateAmountLookedUpValue.getAllFields()
-            if (ServiceUtil.isError(result)) return result
+            if (ServiceUtil.isError(result)) {
+                return result
+            }
         } else {
             return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist', locale))
         }
@@ -91,7 +93,7 @@ Map updatePartyRate() {
         partyRate.thruDate = UtilDateTime.nowTimestamp()
     }
     GenericValue newEntity = delegator.makeValidValue('PartyRate', parameters)
-    if (!newEntity.fromDate) newEntity.fromDate = UtilDateTime.nowTimestamp()
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
 
     //check other default rate to desactive them
@@ -104,7 +106,9 @@ Map updatePartyRate() {
     }
     if (parameters.rateAmount) {
         result = run service: 'updateRateAmount', with: parameters
-        if (ServiceUtil.isError(result)) return result
+        if (ServiceUtil.isError(result)) {
+            return result
+        }
     }
     return success()
 }
@@ -121,7 +125,9 @@ Map expirePartyRate() {
         if (parameters.rateAmountFromDate) {
             parameters.fromDate = parameters.rateAmountFromDate;
             result = run service: 'expireRateAmount', with: parameters
-            if (ServiceUtil.isError(result)) return result
+            if (ServiceUtil.isError(result)) {
+                return result
+            }
         }
     }
     return success()
@@ -189,7 +195,7 @@ Map getRateAmount() {
     Map result = success()
     if (ratesList) {
         rateAmount = ratesList[0]
-        if (! rateAmount.rateAmount) rateAmount.rateAmount = BigDecimal.ZERO
+        rateAmount.rateAmount = rateAmount.rateAmount ?: BigDecimal.ZERO
         result.rateAmount = rateAmount.rateAmount
         result.periodTypeId = rateAmount.periodTypeId
         result.rateCurrencyUomId = rateAmount.rateCurrencyUomId
@@ -202,9 +208,15 @@ Map getRateAmount() {
 //Generic fonction to resolve a rate amount from a pk field
 Map getRatesAmountsFrom(String field) {
     String entityName = null
-    if (field == 'workEffortId') entityName = 'WorkEffort'
-    if (field == 'partyId') entityName = 'Party'
-    if (field == 'emplPositionTypeId') entityName = 'EmplPositionType'
+    if (field == 'workEffortId') {
+        entityName = 'WorkEffort'
+    }
+    if (field == 'partyId') {
+        entityName = 'Party'
+    }
+    if (field == 'emplPositionTypeId') {
+        entityName = 'EmplPositionType'
+    }
 
     Map condition = [rateTypeId: parameters.rateTypeId,
                      periodTypeId: parameters.periodTypeId,

@@ -60,10 +60,12 @@ if (returnItems) {
             receipts.each { rec ->
                 accepted = rec.getDouble('quantityAccepted')
                 rejected = rec.getDouble('quantityRejected')
-                if (accepted)
+                if (accepted) {
                     totalReceived += accepted.doubleValue()
-                if (rejected)
+                }
+                if (rejected) {
                     totalReceived += rejected.doubleValue()
+                }
             }
         }
         receivedQuantities[thisItem.returnItemSeqId] = new Double(totalReceived)
