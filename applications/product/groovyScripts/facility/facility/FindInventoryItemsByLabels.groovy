@@ -17,12 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
+
+import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.model.ModelKeyMap
-import org.apache.ofbiz.entity.transaction.*
-import org.apache.ofbiz.entity.util.EntityFindOptions
+import org.apache.ofbiz.entity.transaction.TransactionUtil
 import org.apache.ofbiz.entity.util.EntityListIterator
 
 facilityId = parameters.facilityId

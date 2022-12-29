@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import java.util.*
-import org.apache.ofbiz.entity.util.*
-
 boolean isCalOwner = false
 List partyAssignments = from('WorkEffortPartyAssignment')
         .where('workEffortId', parameters.workEffortId, 'partyId', parameters.userLogin.partyId).filterByDate().queryList()

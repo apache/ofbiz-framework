@@ -22,7 +22,8 @@
  * Puts productFeatureGroup and productFeatures which are put of this group into the context.  Currently does not break out the features by view size.
  */
 
-import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.GenericEntity
+
 
 productFeatureGroupId = parameters.get('productFeatureGroupId')
 if (productFeatureGroupId) {

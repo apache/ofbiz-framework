@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
 
 facilityId = parameters.facilityId
 if (!facilityId && request.getAttribute('facilityId')) {

@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import java.lang.*
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.contact.ContactHelper

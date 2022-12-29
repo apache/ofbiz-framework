@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-
 facilityId = request.getParameter('facilityId')
 locationSeqId = request.getParameter('locationSeqId')
 facility = null

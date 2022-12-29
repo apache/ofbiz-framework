@@ -17,20 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.*
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityFindOptions
 
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.util.List
-import java.util.Set
 
 int limit = 13 // set number of days
 DateTimeFormatter sdf = DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss')

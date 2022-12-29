@@ -22,8 +22,6 @@
  * should not contain order component's specific code.
  */
 
-import java.lang.*
-import java.util.*
 import org.apache.ofbiz.product.catalog.CatalogWorker
 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)

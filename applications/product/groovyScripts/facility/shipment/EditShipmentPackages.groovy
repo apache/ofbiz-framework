@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-
 shipmentId = request.getParameter('shipmentId')
 if (!shipmentId) {
     shipmentId = context.shipmentId

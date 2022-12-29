@@ -17,18 +17,16 @@
  * under the License.
  */
 
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander
+
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
-import java.io.File
-import java.util.List
 
 import javax.imageio.ImageIO
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.product.image.ScaleImage
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()

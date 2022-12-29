@@ -17,11 +17,8 @@
  * under the License.
  */
 
-import java.lang.*
-import java.util.*
 import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilHttp
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.category.CategoryWorker
 import org.apache.ofbiz.product.category.CategoryContentWrapper

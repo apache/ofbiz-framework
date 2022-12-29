@@ -17,7 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
+
+import org.apache.ofbiz.base.util.UtilFormatOut
 
 state = request.getParameter('CategoryProductsState')
 isOpen = true

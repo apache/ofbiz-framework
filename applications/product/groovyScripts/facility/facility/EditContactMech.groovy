@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.party.contact.ContactMechWorker
 
 facilityId = parameters.facilityId
 context.facilityId = facilityId

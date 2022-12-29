@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import java.lang.*
-import java.util.*
 import java.text.NumberFormat
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag

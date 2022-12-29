@@ -17,9 +17,11 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.product.catalog.*
-import org.apache.ofbiz.product.product.*
+
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.product.ProductSearchSession
 
 module = 'KeywordSearch.groovy'
 

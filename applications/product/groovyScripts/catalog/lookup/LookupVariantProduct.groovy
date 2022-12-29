@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
 
 productId = request.getParameter('productId')
 productVariantId = productId + '_'

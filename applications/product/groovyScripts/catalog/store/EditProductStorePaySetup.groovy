@@ -17,8 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
+
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
 paymentMethodTypeId = request.getParameter('paymentMethodTypeId')
 paymentServiceTypeEnumId = request.getParameter('paymentServiceTypeEnumId')

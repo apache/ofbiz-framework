@@ -17,10 +17,12 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.base.util.*
 
 shipmentId = request.getParameter('shipmentId')
 orderId = request.getParameter('purchaseOrderId')

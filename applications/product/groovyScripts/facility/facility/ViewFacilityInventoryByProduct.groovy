@@ -17,16 +17,16 @@
  * under the License.
  */
 
-import java.util.*
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.transaction.TransactionUtil
+
 import java.sql.Timestamp
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.transaction.*
 import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.model.ModelKeyMap
-import org.apache.ofbiz.entity.util.EntityFindOptions
-import org.apache.ofbiz.product.inventory.*
 
 action = request.getParameter('action')
 statusId = request.getParameter('statusId')

@@ -18,12 +18,8 @@
  */
 
 import java.text.DecimalFormat
-import java.util.*
 import org.apache.ofbiz.base.util.cache.UtilCache
-import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.security.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilMisc
 
 DecimalFormat decimalFormat = new DecimalFormat('#,##0.#######')
 

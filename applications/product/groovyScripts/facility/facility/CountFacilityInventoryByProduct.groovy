@@ -30,15 +30,18 @@
 // is not computed; you can use the ViewFacilityInventoryByProduct.groovy if you
 // need it (but it is slower than this one).
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.transaction.*
-import org.apache.ofbiz.entity.util.*
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.entity.model.ModelViewEntity.ComplexAlias
 import org.apache.ofbiz.entity.model.ModelViewEntity.ComplexAliasField
-import org.apache.ofbiz.product.inventory.*
+import org.apache.ofbiz.entity.transaction.TransactionUtil
+import org.apache.ofbiz.entity.util.EntityListIterator
+import org.apache.ofbiz.product.inventory.InventoryWorker
 
 action = request.getParameter('action')
 

@@ -17,12 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.base.util.string.*
+
+import org.apache.ofbiz.base.util.HttpRequestFileUpload
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
-import org.apache.ofbiz.entity.condition.*
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 

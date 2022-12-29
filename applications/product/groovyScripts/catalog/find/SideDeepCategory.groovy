@@ -17,10 +17,11 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.product.category.*
+
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.product.category.CategoryWorker
 
 state = request.getParameter('BrowseCategoriesState')
 isOpen = true

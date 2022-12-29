@@ -17,10 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.base.util.*
-import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.ObjectType
 
 contentId = parameters.contentId

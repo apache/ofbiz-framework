@@ -23,11 +23,8 @@ import java.util.List
 
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.component.ComponentConfig.KeystoreInfo
-import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.KeyStoreUtil
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
 
 cert = org.apache.ofbiz.base.util.KeyStoreUtil.pemToCert(certString)
 if (cert){

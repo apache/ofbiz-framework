@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilFormatOut
 
 //default this to true, ie only show active
 activeOnly = 'false' != request.getParameter('activeOnly')

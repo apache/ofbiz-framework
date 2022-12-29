@@ -19,8 +19,11 @@
 
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.condition.*
+
+import org.apache.ofbiz.base.util.ObjectType
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 
 // Since this script is run after ViewShipment, we will re-use the shipment in the context
@@ -50,11 +53,11 @@ shipmentItems.each { shipmentItem ->
 // Add in the total of all previously shipped items
 previousShipmentIter = from('Shipment')
                             .where(EntityCondition.makeCondition(
-                                            UtilMisc.toList(
+                                    UtilMisc.toList(
                                                 EntityCondition.makeCondition('primaryOrderId', shipment.getString('primaryOrderId')),
                                                 EntityCondition.makeCondition('shipmentTypeId', 'SALES_SHIPMENT'),
                                                 EntityCondition.makeCondition('createdDate', EntityOperator.LESS_THAN_EQUAL_TO,
-                                                    ObjectType.simpleTypeOrObjectConvert(shipment.getString('createdDate'), 'Timestamp', null, null))
+                                                        ObjectType.simpleTypeOrObjectConvert(shipment.getString('createdDate'), 'Timestamp', null, null))
                                             ),
                                         EntityOperator.AND))
                             .queryIterator()

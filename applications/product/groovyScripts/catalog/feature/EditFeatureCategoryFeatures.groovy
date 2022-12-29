@@ -17,11 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
+
+import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.entity.transaction.TransactionUtil
 import org.apache.ofbiz.entity.util.EntityFindOptions
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.transaction.*
 
 context.hasPermission = security.hasEntityPermission('CATALOG', '_VIEW', session)
 

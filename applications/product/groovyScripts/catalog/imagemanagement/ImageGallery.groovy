@@ -22,11 +22,6 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.util.*
-
 productImageList = []
 productContentAndInfoImageManamentList = from('ProductContentAndInfo')
         .where('productId', productId, 'productContentTypeId', 'IMAGE', 'statusId', 'IM_APPROVED').orderBy('sequenceNum').queryList()
