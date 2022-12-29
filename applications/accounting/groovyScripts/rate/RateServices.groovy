@@ -80,7 +80,6 @@ Map expireRateAmount() {
 }
 /**
  * Information to update the specific customer code after change service deleteRateAmount to expireRateAmount
- * @return
  */
 Map deleteRateAmount() {
     return error('delete rate amount isn\'t possible, please update your code with service name "expireRateAmount" instead "deleteRateAmount"')

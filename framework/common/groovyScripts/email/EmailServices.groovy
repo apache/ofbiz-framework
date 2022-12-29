@@ -24,7 +24,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
  /**
   * Send Mail from Email Template Setting
-  * @return
   */
 Map sendMailFromTemplateSetting() {
     Map result = success()

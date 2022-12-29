@@ -28,7 +28,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Method to upload multiple images for product
- * @return
  */
 Map uploadProductImages() {
     Map result = success()
@@ -170,7 +169,6 @@ Map uploadProductImages() {
 
 /**
  * Remove Content From Product and Image File
- * @return
  */
 Map removeProductContentAndImageFile() {
     Map removeContent
@@ -206,7 +204,6 @@ Map removeProductContentAndImageFile() {
 
 /**
  * Remove Content From Product
- * @return
  */
 Map removeProductContentForImageManagement() {
     Map serviceResult = [:]
@@ -252,7 +249,6 @@ Map removeProductContentForImageManagement() {
 
 /**
  * Set Image Detail
- * @return
  */
 Map setImageDetail() {
     GenericValue productContent = from('ProductContent').where(parameters).queryOne()
@@ -278,7 +274,6 @@ Map setImageDetail() {
 
 /**
  * Update Status Image Management
- * @return
  */
 Map updateStatusImageManagement() {
     Map result = success()
@@ -370,7 +365,6 @@ Map updateStatusImageManagement() {
 
 /**
  * Add Rejected Reason Image Management
- * @return
  */
 Map addRejectedReasonImageManagement() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -397,7 +391,6 @@ Map addRejectedReasonImageManagement() {
 
 /**
  * Create Content Approval of Image
- * @return
  */
 Map createImageContentApproval() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
@@ -415,7 +408,6 @@ Map createImageContentApproval() {
 
 /**
  * Remove Content Approval of Image
- * @return
  */
 Map removeImageContentApproval() {
     List contentApprovals = from('ContentApproval').where(partyId: parameters.partyId, roleTypeId: 'IMAGEAPPROVER').queryList()
@@ -427,7 +419,6 @@ Map removeImageContentApproval() {
 
 /**
  * Resize Images
- * @return
  */
 Map resizeImages() {
     Map serviceResult = [:]
@@ -464,7 +455,6 @@ Map resizeImages() {
 
 /**
  * Remove Image By Size
- * @return
  */
 Map removeImageBySize() {
     List productContentAndInfos = from('ProductContentAndInfo').where(productId: parameters.productId, productContentTypeId: 'IMAGE').queryList()

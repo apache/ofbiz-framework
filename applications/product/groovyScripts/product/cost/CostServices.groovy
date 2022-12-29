@@ -30,7 +30,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Cancels CostComponents
- * @return
  */
 Map cancelCostComponents() {
     Map costsAndMap = [:]
@@ -56,7 +55,6 @@ Map cancelCostComponents() {
 
 /**
  * Create a CostComponent and cancel the existing ones
- * @return
  */
 Map recreateCostComponent() {
     Map result = success()
@@ -92,7 +90,6 @@ Map recreateCostComponent() {
 
 /**
  * Gets the product's costs (from CostComponent or ProductPrice)
- * @return
  */
 Map getProductCost() {
     Map result = success()
@@ -182,7 +179,6 @@ Map getProductCost() {
 
 /**
  * Gets the production run task's costs
- * @return
  */
 Map getTaskCost() {
     Map result = success()
@@ -246,7 +242,6 @@ Map getTaskCost() {
 
 /**
  * Calculates estimated costs for all the products
- * @return
  */
 Map calculateAllProductsCosts() {
     // filter-by-date="true"
@@ -261,7 +256,6 @@ Map calculateAllProductsCosts() {
 
 /**
  * Calculates the product's cost
- * @return
  */
 Map calculateProductCosts() {
     Map result = success()
@@ -372,7 +366,6 @@ Map calculateProductCosts() {
 
 /**
  * Calculate inventory average cost for a product
- * @return
  */
 Map calculateProductAverageCost() {
     Map result = success()
@@ -431,7 +424,6 @@ Map calculateProductAverageCost() {
 
 /**
  * Update a Product Average Cost record on receive inventory
- * @return
  */
 Map updateProductAverageCostOnReceiveInventory() {
     GenericValue inventoryItem = from('InventoryItem').where(parameters).queryOne()
@@ -510,7 +502,6 @@ Map getProductAverageCost() {
 
 /**
  * Formula that creates a cost component equal to a percentage of total product cost
- * @return
  */
 Map productCostPercentageFormula() {
     Map result = success()

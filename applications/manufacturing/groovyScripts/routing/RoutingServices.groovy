@@ -24,7 +24,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * "Get the product's routing and routing tasks
- * @return
  */
 Map getProductRouting() {
     Map result = success()
@@ -114,7 +113,6 @@ Map getProductRouting() {
 
 /**
  * Get the routing task assocs of a given routing
- * @return
  */
 Map getRoutingTaskAssocs() {
     Map result = success()

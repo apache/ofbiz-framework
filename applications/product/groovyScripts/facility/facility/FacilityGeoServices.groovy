@@ -22,7 +22,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create or update GeoPoint assigned to facility
- * @return
  */
 Map createUpdateFacilityGeoPoint() {
     if (!parameters.geoPointId) {

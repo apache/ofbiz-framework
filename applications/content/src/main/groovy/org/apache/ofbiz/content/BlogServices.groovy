@@ -242,7 +242,6 @@ Map updateBlogEntry() {
 
 /**
  * Get blog entries that the user owns or are published
- * @return
  */
 Map getOwnedOrPublishedBlogEntries() {
     List blogList = []

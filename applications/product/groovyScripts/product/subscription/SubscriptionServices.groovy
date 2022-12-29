@@ -23,7 +23,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Create a Subscription
- * @return
  */
 Map createSubscription() {
     GenericValue newEntity = makeValue('Subscription')
@@ -51,7 +50,6 @@ Map createSubscription() {
 
 /**
  * Check if a party has a subscription
- * @return
  */
 Map isSubscribed() {
     Map result = success()
@@ -71,7 +69,6 @@ Map isSubscribed() {
 
 /**
  * Get Subscription data
- * @return
  */
 Map getSubscription() {
     Map result = success()
@@ -88,7 +85,6 @@ Map getSubscription() {
 
 /**
  * Create (when not exist) or update (when exist) a Subscription attribute
- * @return
  */
 Map updateSubscriptionAttribute() {
     GenericValue lookedUpValue = from('SubscriptionAttribute')
@@ -108,7 +104,6 @@ Map updateSubscriptionAttribute() {
 
 /**
  * Subscription permission checking logic
- * @return
  */
 Map subscriptionPermissionCheck() {
     parameters.primaryPermission = 'CATALOG'

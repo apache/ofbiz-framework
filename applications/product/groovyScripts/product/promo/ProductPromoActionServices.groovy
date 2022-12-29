@@ -311,7 +311,6 @@ Map productDISC() {
 
 /**
  * This function return success, if conditions are valid so X Product for Y Discount
- * @return
  */
 Map productAMDISC() {
     Map result = success()
@@ -375,7 +374,6 @@ Map productAMDISC() {
 
 /**
  *
- * @return
  */
 Map productPrice() {
 

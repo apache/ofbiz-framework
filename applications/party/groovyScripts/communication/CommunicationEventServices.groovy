@@ -29,7 +29,6 @@ import java.sql.Timestamp
 
 /**
  * Create a CommunicationEvent with or w/o permission check
- * @return
  */
 Map createCommunicationEvent() {
     GenericValue newCommEvent
@@ -202,7 +201,6 @@ Map createCommunicationEvent() {
 
 /**
  * create a CommunicationEvent without permission, use run service auto-matching to populate missing user
- * @return
  */
 Map createCommunicationEventWithoutPermission() {
     GenericValue system = from('UserLogin').where(userLoginId: 'system').cache().queryOne()

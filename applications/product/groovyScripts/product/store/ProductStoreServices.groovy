@@ -34,7 +34,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create a Product Store
- * @return
  */
 Map createProductStore() {
     Map result = success()
@@ -73,7 +72,6 @@ Map createProductStore() {
 
 /**
  * Update a Product Store
- * @return
  */
 Map updateProductStore() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
@@ -128,7 +126,6 @@ Map updateProductStore() {
 
 /**
  * Reserve Store Inventory
- * @return
  */
 Map reserveStoreInventory() {
     Map result = success()
@@ -243,7 +240,6 @@ Map reserveStoreInventory() {
 
 /**
  * Is Store Inventory Required
- * @return
  */
 Map isStoreInventoryRequired() {
     GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
@@ -258,7 +254,6 @@ Map isStoreInventoryRequired() {
  * Is Store Inventory Required
  * @param product
  * @param productStore
- * @return
  */
 String isStoreInventoryRequiredInline(GenericValue product, GenericValue productStore) {
     String requireInventory = product.requireInventory
@@ -269,7 +264,6 @@ String isStoreInventoryRequiredInline(GenericValue product, GenericValue product
 
 /**
  * Is Store Inventory Available
- * @return
  */
 Map isStoreInventoryAvailable() {
     Map result = success()
@@ -361,7 +355,6 @@ Map isStoreInventoryAvailable() {
 
 /**
  * Is Store Inventory Available or Not Required
- * @return
  */
 Map isStoreInventoryAvailableOrNotRequired() {
     Map result = success()
@@ -387,7 +380,6 @@ Map isStoreInventoryAvailableOrNotRequired() {
 
 /**
  * Check ProductStore Related Permission
- * @return
  */
 Map checkProductStoreRelatedPermission(Map inputParameter) {
     List roleStores
@@ -426,7 +418,6 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
 
 /**
  * Main permission logic
- * @return
  */
 Map productStoreGenericPermission() {
     Map result = success()
@@ -449,7 +440,6 @@ Map productStoreGenericPermission() {
 
 /**
  * When product store group hierarchy has been operate, synchronize primaryParentGroupId with ProductStoreGroupRollup
- * @return
  */
 Map checkProductStoreGroupRollup() {
     GenericValue productStoreGroup = from('ProductStoreGroup').where(parameters).queryOne()

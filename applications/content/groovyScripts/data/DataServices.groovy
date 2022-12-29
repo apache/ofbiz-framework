@@ -32,7 +32,6 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Create a Data Resource
  *
- * @return
  */
 
 Map createDataResource() {
@@ -78,7 +77,6 @@ Map createDataResource() {
 /**
  * Create a Data Resource and return the data resource type
  *
- * @return
  */
 Map createDataResourceAndAssocToContent() {
 
@@ -117,7 +115,6 @@ Map createDataResourceAndAssocToContent() {
 
 /**
  * Get Electronic Text
- * @return
  */
 Map getElectronicText() {
     Map result = success()
@@ -148,7 +145,6 @@ Map getElectronicText() {
 /**
  * Attach an uploaded file to a data resource
  *
- * @return
  */
 Map attachUploadToDataResource() {
     boolean isUpdate = false
@@ -230,7 +226,6 @@ Map attachUploadToDataResource() {
  * Attach an uploaded file to a data resource as a Local File-Type (Local, OfBiz or Context)
  *
  * @param absolute
- * @return
  */
 Map saveLocalFileDataResource(String mode) {
     Map result = success()

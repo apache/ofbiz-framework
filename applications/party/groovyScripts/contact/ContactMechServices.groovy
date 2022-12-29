@@ -60,7 +60,6 @@ Map updateContactMech() {
  * locale function to control if the state province is mandatoring
  * @param countryGeoId
  * @param stateProvinceGeoId
- * @return
  */
 Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage
@@ -265,7 +264,6 @@ Map updateFtpAddressWithHistory() {
 
 /**
  * Create FtpAddress contact Mech and link it with given partyId
- * @return
  */
 Map createPartyFtpAddress() {
     Map contactMech = run service: 'createFtpAddress', with: parameters

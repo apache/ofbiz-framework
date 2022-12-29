@@ -28,7 +28,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create/Update Customer, Shipping Address and other contact details.
- * @return
  */
 Map createUpdateCustomerAndShippingAddress() {
     Map result = success()
@@ -110,7 +109,6 @@ Map createUpdateCustomerAndShippingAddress() {
 
 /**
  * Create/update billing address and payment information
- * @return
  */
 Map createUpdateBillingAddressAndPaymentMethod() {
     Map result = success()
@@ -194,7 +192,6 @@ Map createUpdateBillingAddressAndPaymentMethod() {
 
 /**
  * Set user login in the session
- * @return
  */
 Map setAnonUserLogin() {
     ShoppingCart shoppingCart = parameters.shoppingCart

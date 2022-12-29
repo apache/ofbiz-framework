@@ -22,7 +22,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Check user has Content Manager permission
- * @return
  */
 Map contentManagerPermission() {
     Map result = success()
@@ -34,7 +33,6 @@ Map contentManagerPermission() {
 
 /**
  * Check user has Content Manager permission
- * @return
  */
 Map contentManagerRolePermission() {
     Map result = success()
@@ -47,7 +45,6 @@ Map contentManagerRolePermission() {
 
 /**
  * Generic service for Content Permissions
- * @return
  */
 Map genericContentPermission() {
     String statusId = parameters.statusId
@@ -105,7 +102,6 @@ Map genericContentPermission() {
  * @param contentPurposeTypeId
  * @param roleEntity
  * @param roleEntityField
- * @return
  */
 Map viewContentPermission(Boolean hasPermission, String contentId, String contentOperationId,
                           String contentPurposeTypeId, String roleEntity,
@@ -153,7 +149,6 @@ Map viewContentPermission(Boolean hasPermission, String contentId, String conten
  * @param contentPurposeTypeId
  * @param roleEntity
  * @param roleEntityField
- * @return
  */
 Map createContentPermission(Boolean hasPermission, String ownerContentId, String contentOperationId,
                             String statusId, String contentPurposeTypeId,
@@ -241,7 +236,6 @@ Map createContentPermission(Boolean hasPermission, String ownerContentId, String
  * @param contentPurposeTypeId
  * @param roleEntity
  * @param roleEntityField
- * @return
  */
 Map updateContentPermission(Boolean hasPermission, String contentId, String ownerContentId,
                             String contentOperationId, String contentPurposeTypeId,
@@ -338,7 +332,6 @@ Map updateContentPermission(Boolean hasPermission, String contentId, String owne
  * @param checkId
  * @param roleEntity
  * @param roleEntityField
- * @return
  */
 Map checkContentOperationSecurity(String contentOperationId, String contentPurposeTypeId, String checkId,
                                   String roleEntity, String roleEntityField) {
@@ -456,7 +449,6 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
 // method to check content ownership
 /**
  * Checks the (role) ownership of a record
- * @return
  */
 Map checkOwnership() {
     Map result = success()
@@ -500,7 +492,6 @@ Map checkOwnership() {
  * @param checkId
  * @param checkPartyId
  * @param checkRoleTypeId
- * @return
  */
 Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId, String checkPartyId, String checkRoleTypeId) {
     Boolean hasPermission
@@ -556,7 +547,6 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
 /**
  * Find all content purposes for the specified content
  * @param checkId
- * @return
  */
 Map findAllContentPurposes(String checkId) {
     if (!checkId) {
@@ -570,7 +560,6 @@ Map findAllContentPurposes(String checkId) {
 
 /**
  * Finds all associated party Ids for a use
- * @return
  */
 Map findAllAssociatedPartyIds () {
     Map serviceResult = run service: 'getRelatedParties', with: [partyIdFrom: userLogin.partyId,
@@ -584,7 +573,6 @@ Map findAllAssociatedPartyIds () {
 
 /**
  * Finds all associated parent content
- * @return
  */
 Map findAllParentContent(String contentId) {
     if (!contentId) {
