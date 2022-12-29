@@ -278,7 +278,6 @@ Map linkGeos() {
 
 /**
  * get related geos to a geo through a geoAssoc
- * @return
  */
 Map getRelatedGeos() {
     Map result = success()
@@ -337,7 +336,6 @@ Map getServerTimestampAsLong() {
 
 /**
  * Create a KeywordThesaurus
- * @return
  */
 Map createKeywordThesaurus() {
     GenericValue newEntity = makeValue('KeywordThesaurus', parameters)
@@ -349,7 +347,6 @@ Map createKeywordThesaurus() {
 
 /**
  * Delete a complete Entry KeywordThesaurus
- * @return
  */
 Map deleteKeywordThesaurus() {
     GenericValue newEntity = makeValue('KeywordThesaurus')

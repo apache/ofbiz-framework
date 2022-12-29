@@ -22,7 +22,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Issues the Inventory for an Order that was Immediately Fulfilled
- * @return
  */
 Map issueImmediatelyFulfilledOrder() {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
@@ -65,7 +64,6 @@ Map issueImmediatelyFulfilledOrder() {
 
 /**
  * Issues the Inventory for an Order Item that was Immediately Fulfilled
- * @return
  */
 Map issueImmediatelyFulfilledOrderItem() {
     GenericValue lastNonSerInventoryItem
@@ -170,7 +168,6 @@ Map issueImmediatelyFulfilledOrderItem() {
 
 /**
  * Does a issuance for one InventoryItem, meant to be called in-line
- * @return
  */
 GenericValue issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
     GenericValue lastNonSerInventoryItem

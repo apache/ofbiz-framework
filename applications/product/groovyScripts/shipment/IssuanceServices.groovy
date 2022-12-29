@@ -21,7 +21,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Computes the total quantity assigned to shipment for a purchase order item
- * @return
  */
 Map getTotalIssuedQuantityForOrderItem() {
     Map result = success()

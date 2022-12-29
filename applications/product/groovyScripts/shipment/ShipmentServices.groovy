@@ -30,7 +30,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Update Shipment
- * @return
  */
 Map updateShipment() {
     Map result = success()
@@ -85,7 +84,6 @@ Map updateShipment() {
 
 /**
  * Create Shipment based on ReturnHeader
- * @return
  */
 Map createShipmentForReturn() {
     GenericValue returnHeader = from('ReturnHeader').where(returnId: parameters.returnId).queryOne()
@@ -114,7 +112,6 @@ Map createShipmentForReturn() {
 
 /**
  * Create Shipment and ShipmentItems based on ReturnHeader and ReturnItems
- * @return
  */
 Map createShipmentAndItemsForReturn() {
     Map result = success()
@@ -169,7 +166,6 @@ Map createShipmentAndItemsForReturn() {
 
 /**
  * Create Shipment and ShipmentItems based on primaryReturnId for Vendor return
- * @return
  */
 Map createShipmentAndItemsForVendorReturn() {
     Map serviceResult = run service: 'createShipment', with: parameters
@@ -197,7 +193,6 @@ Map createShipmentAndItemsForVendorReturn() {
 
 /**
  * Set Shipment Settings From Primary Order
- * @return
  */
 Map setShipmentSettingsFromPrimaryOrder() {
     GenericValue orderItemShipGroup
@@ -394,7 +389,6 @@ Map setShipmentSettingsFromPrimaryOrder() {
 
 /**
  * Set Shipment Settings From Facilities
- * @return
  */
 Map setShipmentSettingsFromFacilities() {
     GenericValue facilityContactMech
@@ -441,7 +435,6 @@ Map setShipmentSettingsFromFacilities() {
 
 /**
  * Send Shipment Scheduled Notification
- * @return
  */
 Map sendShipmentScheduledNotification() {
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
@@ -500,7 +493,6 @@ Map sendShipmentScheduledNotification() {
 
 /**
  * Release the purchase order's items assigned to the shipment but not actually received
- * @return
  */
 Map balanceItemIssuancesForShipment() {
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
@@ -525,7 +517,6 @@ Map balanceItemIssuancesForShipment() {
 
 /**
  * splitShipmentItemByQuantity
- * @return
  */
 Map splitShipmentItemByQuantity() {
     GenericValue originalShipmentItem = from('ShipmentItem').where(parameters).queryOne()
@@ -583,7 +574,6 @@ Map splitShipmentItemByQuantity() {
 
 /**
  * Create ShipmentPackage
- * @return
  */
 Map createShipmentPackage() {
     GenericValue newEntity = makeValue('ShipmentPackage', parameters)
@@ -607,7 +597,6 @@ Map createShipmentPackage() {
 
 /**
  * Update ShipmentPackage
- * @return
  */
 Map updateShipmentPackage() {
     GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
@@ -619,7 +608,6 @@ Map updateShipmentPackage() {
 
 /**
  * Delete ShipmentPackage
- * @return
  */
 Map deleteShipmentPackage() {
     // If there is any Shipment Package Content available for this shipment than Shipment Package cannot
@@ -641,7 +629,6 @@ Map deleteShipmentPackage() {
 
 /**
  * Ensure ShipmentPackageRouteSeg exists for all RouteSegments for this Package
- * @return
  */
 Map ensurePackageRouteSeg(String shipmentId, String shipmentPackageSeqId) {
     List shipmentRouteSegments = from('ShipmentRouteSegment').where(shipmentId: shipmentId).queryList()
@@ -664,7 +651,6 @@ Map ensurePackageRouteSeg(String shipmentId, String shipmentPackageSeqId) {
 
 /**
  * Add Shipment Content To Package
- * @return
  */
 Map addShipmentContentToPackage() {
     Map result = success()
@@ -688,7 +674,6 @@ Map addShipmentContentToPackage() {
 
 /**
  * Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment
- * @return
  */
 Map ensureRouteSegPackage() {
     GenericValue shipmentRouteSegment = from('ShipmentRouteSegment').where(parameters).cache().queryOne()
@@ -710,7 +695,6 @@ Map ensureRouteSegPackage() {
 
 /**
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
- * @return
  */
 Map checkCanChangeShipmentStatusPacked() {
     parameters.fromStatusId = 'SHIPMENT_PACKED'
@@ -719,7 +703,6 @@ Map checkCanChangeShipmentStatusPacked() {
 
 /**
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
- * @return
  */
 Map checkCanChangeShipmentStatusShipped() {
     parameters.fromStatusId = 'SHIPMENT_SHIPPED'
@@ -728,7 +711,6 @@ Map checkCanChangeShipmentStatusShipped() {
 
 /**
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
- * @return
  */
 Map checkCanChangeShipmentStatusDelivered() {
     parameters.fromStatusId = 'SHIPMENT_DELIVERED'
@@ -737,7 +719,6 @@ Map checkCanChangeShipmentStatusDelivered() {
 
 /**
  * Check the Status of a Shipment to see if it can be changed - meant to be called in-line
- * @return
  */
 Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
     Map result = success()
@@ -778,7 +759,6 @@ Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
 
 /**
  * Quick ships an entire order from multiple facilities
- * @return
  */
 Map quickShipEntireOrder() {
     Map result = success()
@@ -838,7 +818,6 @@ Map quickShipEntireOrder() {
 
 /**
  * Create and complete a drop shipment for a ship group
- * @return
  */
 Map quickDropShipOrder() {
     Map result = success()
@@ -904,7 +883,6 @@ Map quickDropShipOrder() {
 
 /**
  * Quick receives an entire purchase order in a facility
- * @return
  */
 Map quickReceivePurchaseOrder() {
     Map result = success()
@@ -925,7 +903,6 @@ Map quickReceivePurchaseOrder() {
 
 /**
  * Sub-method used by quickShip methods to get a list of OrderItemAndShipGroupAssoc and a Map of shipGroupId -> OrderItemAndShipGroupAssoc
- * @return
  */
 Map getOrderItemShipGroupLists(GenericValue orderHeader) {
     // lookup all the approved items, doing by item because the item must be approved before shipping
@@ -955,7 +932,6 @@ Map getOrderItemShipGroupLists(GenericValue orderHeader) {
 
 /**
  * Sub-method used by quickShip methods to create a shipment
- * @return
  */
 Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderItemListByShGrpMap,
                                           List orderItemShipGroupList, List orderItemAndShipGroupAssocList,
@@ -1092,7 +1068,6 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
 
 /**
  * Create Shipment, ShipmentItems and OrderShipment
- * @return
  */
 Map createOrderShipmentPlan () {
     Map result = success()
@@ -1139,7 +1114,6 @@ Map createOrderShipmentPlan () {
 
 /**
  *
- * @return
  */
 Map issueSerializedInvToShipmentPackageAndSetTracking() {
     /*
@@ -1199,7 +1173,6 @@ Map issueSerializedInvToShipmentPackageAndSetTracking() {
 
 /**
  * Move a shipment into Packed status and then to Shipped status
- * @return
  */
 Map setShipmentStatusPackedAndShipped() {
     // update the shipment status to packed
@@ -1215,7 +1188,6 @@ Map setShipmentStatusPackedAndShipped() {
 
 /**
  * Quick ships order based on item list
- * @return
  */
 Map quickShipOrderByItem() {
     /*
@@ -1335,7 +1307,6 @@ Map quickShipOrderByItem() {
 
 /**
  * Delete an OrderShipment and updates the ShipmentItem
- * @return
  */
 Map removeOrderShipmentFromShipment() {
     GenericValue orderShipment = from('OrderShipment').where(parameters).queryOne()
@@ -1354,7 +1325,6 @@ Map removeOrderShipmentFromShipment() {
 
 /**
  * Add or update a ShipmentPlan entry
- * @return
  */
 Map addOrderShipmentToShipment() {
     Map result = success()
@@ -1399,7 +1369,6 @@ Map addOrderShipmentToShipment() {
 
 /**
  * get the order item quantity still not put in shipments
- * @return
  */
 Map getQuantityForShipment() {
     Map result = success()
@@ -1429,7 +1398,6 @@ Map getQuantityForShipment() {
 
 /**
  * Check Shipment Items and Cancel Item Issuance and Order Shipment
- * @return
  */
 Map checkCancelItemIssuanceAndOrderShipmentFromShipment() {
     List orderShipmentList = from('OrderShipment').where(shipmentId: parameters.shipmentId).queryList()

@@ -22,7 +22,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Create a Facility Location
- * @return
  */
 def createFacilityLocation() {
     GenericValue newEntity = makeValue('FacilityLocation', parameters)

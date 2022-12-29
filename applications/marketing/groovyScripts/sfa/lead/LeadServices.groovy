@@ -114,7 +114,6 @@ Map createLead() {
 
 /**
  * Convert a lead person into a contact and associated lead group to an account
- * @return
  */
 Map convertLeadToContact() {
     String partyId = parameters.partyId

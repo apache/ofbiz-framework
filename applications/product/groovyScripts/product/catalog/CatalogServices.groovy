@@ -238,7 +238,6 @@ Map checkImageUrlForProduct() {
  * @param prodOrCat
  * @param filesImageMap
  * @param imageType
- * @return
  */
 Map imageUrlCheck(GenericValue prodOrCat, String imageType, LinkedHashMap<Object, Object> filesImageMap) {
     if (prodOrCat."${imageType}") {

@@ -25,7 +25,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Creates a new Purchase Order Schedule
- * @return
  */
 Map createOrderDeliverySchedule() {
     String checkAction = 'CREATE'
@@ -51,7 +50,6 @@ Map createOrderDeliverySchedule() {
 
 /**
  * Updates an existing Purchase Order Schedule
- * @return
  */
 Map updateOrderDeliverySchedule() {
     // Verify the user is allowed to edit the fields
@@ -135,7 +133,6 @@ Map sendOrderDeliveryScheduleNotification() {
 
 /**
  * Check Supplier Related Permission Service
- * @return
  */
 Map checkSupplierRelatedOrderPermissionService() {
     Map result = success()
@@ -148,7 +145,6 @@ Map checkSupplierRelatedOrderPermissionService() {
 
 /**
  * Check Supplier Related Permission
- * @return
  */
 Map checkSupplierRelatedPermission(String callingMethodName, String checkAction, String orderId) {
     Map result = success()

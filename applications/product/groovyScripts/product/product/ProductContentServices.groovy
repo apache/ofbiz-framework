@@ -22,7 +22,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create Content For Product
- * @return
  */
 Map createProductContent() {
     Map result = success()
@@ -37,7 +36,6 @@ Map createProductContent() {
 
 /**
  * Update Content For Product
- * @return
  */
 Map updateProductContent() {
     GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
@@ -49,7 +47,6 @@ Map updateProductContent() {
 
 /**
  * Create Email Content For Product
- * @return
  */
 Map createEmailContentForProduct() {
     Map result = success()
@@ -65,7 +62,6 @@ Map createEmailContentForProduct() {
 
 /**
  * Create Download Content For Product
- * @return
  */
 Map createDownloadContentForProduct() {
     Map createProductContent = parameters
@@ -87,7 +83,6 @@ Map createDownloadContentForProduct() {
 
 /**
  * Create Simple Text Content For Product
- * @return
  */
 Map createSimpleTextContentForProduct() {
     Map serviceResult = run service: 'createSimpleTextContent', with: parameters
@@ -99,7 +94,6 @@ Map createSimpleTextContentForProduct() {
 
 /**
  * Create Simple Text Content For Alternate Locale
- * @return
  */
 Map createSimpleTextContentForAlternateLocale() {
     Map serviceResult = run service: 'createSimpleTextContent', with: parameters
@@ -112,7 +106,6 @@ Map createSimpleTextContentForAlternateLocale() {
 
 /**
  * Method to upload multiple Additional View images for product
- * @return
  */
 Map uploadProductAdditionalViewImages() {
     Map result = success()
@@ -151,7 +144,6 @@ Map uploadProductAdditionalViewImages() {
 
 /**
  * Update Product SEO
- * @return
  */
 Map updateContentSEOForProduct() {
     GenericValue productContent

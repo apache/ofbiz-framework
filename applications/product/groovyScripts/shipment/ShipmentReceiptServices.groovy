@@ -27,7 +27,6 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 
 /**
  * Create a ShipmentReceipt
- * @return
  */
 Map createShipmentReceipt() {
     Map result = success()
@@ -178,7 +177,6 @@ Map receiveInventoryProduct () {
 
 /**
  * Quick Receive Entire Return
- * @return
  */
 Map quickReceiveReturn() {
     Map result = success()
@@ -277,7 +275,6 @@ Map quickReceiveReturn() {
 
 /**
  * Issues order item quantity specified to the shipment, then receives inventory for that item and quantity
- * @return
  */
 Map issueOrderItemToShipmentAndReceiveAgainstPO() {
     Map result = success()
@@ -363,7 +360,6 @@ Map issueOrderItemToShipmentAndReceiveAgainstPO() {
 
 /**
  * Computes the till now received quantity from all ShipmentReceipts
- * @return
  */
 BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
     BigDecimal receivedQuantity = 0
@@ -376,7 +372,6 @@ BigDecimal getReceivedQuantityForOrderItem (GenericValue orderItem) {
 
 /**
  * Update issuance, shipment and order items if quantity received is higher than quantity on purchase order
- * @return
  */
 Map updateIssuanceShipmentAndPoOnReceiveInventory() {
     GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
@@ -448,7 +443,6 @@ Map updateIssuanceShipmentAndPoOnReceiveInventory() {
 
 /**
  * Cancel Received Items against a purchase order if received something incorrectly
- * @return
  */
 Map cancelReceivedItems() {
     // TODO: When items are received against a Purchase Order, service listed below changes certain things in the system. Changes done by these

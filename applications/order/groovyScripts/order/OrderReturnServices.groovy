@@ -29,7 +29,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create a ReturnHeader
- * @return
  */
 Map createReturnHeader() {
     Map result = success()
@@ -120,7 +119,6 @@ Map createReturnHeader() {
 
 /**
  * Update a ReturnHeader
- * @return
  */
 Map updateReturnHeader() {
     Map result = success()
@@ -186,7 +184,6 @@ Map updateReturnHeader() {
 
 /**
  * Create Return Item
- * @return
  */
 Map createReturnItem() {
     Map result = success()
@@ -280,7 +277,6 @@ Map createReturnItem() {
 
 /**
  * Update Return Item
- * @return
  */
 Map updateReturnItem() {
     Map result = success()
@@ -313,7 +309,6 @@ Map updateReturnItem() {
 
 /**
  * Update Return Items Status
- * @return
  */
 Map updateReturnItemsStatus() {
     List returnItems = from('ReturnItem').where(returnId: parameters.returnId).queryList()
@@ -328,7 +323,6 @@ Map updateReturnItemsStatus() {
 
 /**
  * Remove Return Item
- * @return
  */
 Map removeReturnItem() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
@@ -361,7 +355,6 @@ Map removeReturnItem() {
 
 /**
  * Update Return Status From ShipmentReceipt
- * @return
  */
 Map updateReturnStatusFromReceipt() {
     Map result = success()
@@ -429,7 +422,6 @@ Map updateReturnStatusFromReceipt() {
 
 /**
  * Create Quick Return From Order
- * @return
  */
 Map quickReturnFromOrder() {
     Map result = success()
@@ -586,7 +578,6 @@ Map quickReturnFromOrder() {
 
 /**
  * If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in
- * @return
  */
 Map createReturnAndItemOrAdjustment() {
     Map result = success()
@@ -609,7 +600,6 @@ Map createReturnAndItemOrAdjustment() {
 
 /**
  * Update a ReturnItems
- * @return
  */
 Map cancelReturnItems() {
     List returnItems = from('ReturnItem').where(returnId: parameters.returnId).distinct().queryList()
@@ -623,7 +613,6 @@ Map cancelReturnItems() {
 
 /**
  * Cancel the associated OrderItems of the replacement order, if any.
- * @return
  */
 Map cancelReplacementOrderItems() {
     GenericValue returnItem = from('ReturnItems').where(parameters).queryOne()
@@ -645,7 +634,6 @@ Map cancelReplacementOrderItems() {
 
 /**
  * Process the replacements in a wait return
- * @return
  */
 Map processWaitReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
@@ -655,7 +643,6 @@ Map processWaitReplacementReturn() {
 
 /**
  * Process the replacements in a cross-ship return
- * @return
  */
 Map processCrossShipReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
@@ -665,7 +652,6 @@ Map processCrossShipReplacementReturn() {
 
 /**
  * Process the replacements in a repair return
- * @return
  */
 Map processRepairReplacementReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
@@ -675,7 +661,6 @@ Map processRepairReplacementReturn() {
 
 /**
  * Process the replacements in a wait reserved return when the return is accepted and then received
- * @return
  */
 Map processWaitReplacementReservedReturn() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
@@ -710,7 +695,6 @@ Map processWaitReplacementReservedReturn() {
 
 /**
  * Process the replacements in a immediate return
- * @return
  */
 Map processReplaceImmediatelyReturn() {
     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
@@ -720,7 +704,6 @@ Map processReplaceImmediatelyReturn() {
 
 /**
  * Process the refund in a return
- * @return
  */
 Map processRefundOnlyReturn() {
     run service: 'processRefundReturn', with: [returnId: parameters.returnId,
@@ -730,7 +713,6 @@ Map processRefundOnlyReturn() {
 
 /**
  * Process the Immediate refund in a return
- * @return
  */
 Map processRefundImmediatelyReturn() {
     run service: 'processRefundReturn', with: [returnId: parameters.returnId,
@@ -740,7 +722,6 @@ Map processRefundImmediatelyReturn() {
 
 /**
  * Get the return status associated with customer vs. vendor return
- * @return
  */
 Map getStatusItemsForReturn() {
     Map result = success()
@@ -756,7 +737,6 @@ Map getStatusItemsForReturn() {
 
 /**
  * Associate exchange order with original order in OrderItemAssoc entity
- * @return
  */
 Map createExchangeOrderAssoc() {
     List returnItems = from('ReturnItem')
@@ -828,7 +808,6 @@ Map createExchangeOrderAssoc() {
  * When one or more product is received directly through receive inventory or
  * refund return then add these product(s) back to category,
  * if they does not have any active category
- * @return
  */
 Map addProductsBackToCategory() {
     if (parameters.inventoryItemId) {
@@ -880,7 +859,6 @@ Map addProductsBackToCategory() {
 
 /**
  * Create ReturnHeader and ReturnItem Status
- * @return
  */
 Map createReturnStatus() {
     GenericValue newEntity = makeValue('ReturnStatus')
@@ -902,7 +880,6 @@ Map createReturnStatus() {
 
 /**
  * Update ReturnContactMech
- * @return
  */
 Map updateReturnContactMech() {
     GenericValue returnContactMechMap = makeValue('ReturnContactMech')
@@ -926,7 +903,6 @@ Map updateReturnContactMech() {
 
 /**
  * Create the return item for rental (which items has product type is ASSET_USAGE_OUT_IN)
- * @return
  */
 Map createReturnItemForRental() {
     Map result = success()

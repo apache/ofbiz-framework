@@ -25,7 +25,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create a ShoppingList
- * @return
  */
 Map createShoppingList() {
     GenericValue newEntity = makeValue('ShoppingList')
@@ -53,7 +52,6 @@ Map createShoppingList() {
 
 /**
  * Update a ShoppingList
- * @return
  */
 Map updateShoppingList() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
@@ -76,7 +74,6 @@ Map updateShoppingList() {
 
 /**
  * Create a ShoppingList Item
- * @return
  */
 Map createShoppingListItem() {
     Map result = success()
@@ -117,7 +114,6 @@ Map createShoppingListItem() {
 
 /**
  * Update a ShoppingListItem
- * @return
  */
 Map updateShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
@@ -131,7 +127,6 @@ Map updateShoppingListItem() {
 
 /**
  * Remove a ShoppingListItem
- * @return
  */
 Map removeShoppingListItem() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
@@ -151,7 +146,6 @@ private void updateLastAdminModified(GenericValue shoppingList, GenericValue use
 
 /**
  * Adds a shopping list item if one with the same productId does not exist
- * @return
  */
 Map addDistinctShoppingListItem() {
     Map result = success()
@@ -174,7 +168,6 @@ Map addDistinctShoppingListItem() {
 
 /**
  * Calculate Deep Total Price for a ShoppingList
- * @return
  */
 Map calculateShoppingListDeepTotalPrice() {
     Map result = success()
@@ -233,7 +226,6 @@ Map calculateShoppingListDeepTotalPrice() {
 
 /**
  * Checks security on a ShoppingList
- * @return
  */
 Map checkShoppingListSecurity() {
     if (userLogin && (userLogin.userLoginId != 'anonymous') &&
@@ -249,7 +241,6 @@ Map checkShoppingListSecurity() {
 
 /**
  * Checks security on a ShoppingListIte
- * @return
  */
 Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
@@ -269,7 +260,6 @@ Map checkShoppingListItemSecurity() {
 
 /**
  * Add suggestions to a shopping list
- * @return
  */
 Map addSuggestionsToShoppingList() {
     Map result = success()

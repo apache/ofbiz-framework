@@ -21,7 +21,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Create or update GeoPoint assigned to facility
- * @return
  */
 Map createUpdateFacilityGeoPoint() {
     if (!parameters.geoPointId) {

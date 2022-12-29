@@ -24,7 +24,6 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * Apply Feature to Product using Feature Type and ID Code
- * @return
  */
 Map applyFeatureToProductFromTypeAndCode() {
     // find the ProductFeatures by type and id code
@@ -45,7 +44,6 @@ Map applyFeatureToProductFromTypeAndCode() {
 
 /**
  * Create a Product Feature Type
- * @return
  */
 Map createProductFeatureType() {
     Map result = success()
@@ -67,7 +65,6 @@ Map createProductFeatureType() {
 
 /**
  * Create a ProductFeatureApplAttr
- * @return
  */
 Map createProductFeatureApplAttr() {
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {

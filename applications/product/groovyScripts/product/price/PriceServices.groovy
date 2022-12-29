@@ -29,7 +29,6 @@ import org.apache.ofbiz.party.party.PartyHelper
 
 /**
  * Create a Product Price
- * @return
  */
 Map createProductPrice() {
     Map result = success()
@@ -56,7 +55,6 @@ Map createProductPrice() {
 
 /**
  * Update an ProductPrice
- * @return
  */
 Map updateProductPrice() {
     Map result = success()
@@ -78,7 +76,6 @@ Map updateProductPrice() {
 
 /**
  * Delete an ProductPrice
- * @return
  */
 Map deleteProductPrice() {
     Map result = success()
@@ -94,7 +91,6 @@ Map deleteProductPrice() {
 
 /**
  * Inline Handle Price with Tax Included
- * @return
  */
 Map inlineHandlePriceWithTaxIncluded() {
     // handle price with tax included related fields (priceWithTax, taxAmount, taxPercentage, taxAuthPartyId, taxAuthGeoId)
@@ -133,7 +129,6 @@ Map inlineHandlePriceWithTaxIncluded() {
 
 /**
  * Create an ProductPriceCond
- * @return
  */
 Map createProductPriceCond() {
     Map result = success()
@@ -155,7 +150,6 @@ Map createProductPriceCond() {
 
 /**
  * Update an ProductPriceCond
- * @return
  */
 Map updateProductPriceCond() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', userLogin)) {
@@ -175,7 +169,6 @@ Map updateProductPriceCond() {
 
 /**
  * Set the Value options for selected Price Rule Condition Input
- * @return
  */
 Map getAssociatedPriceRulesConds() {
     Map result = success()
