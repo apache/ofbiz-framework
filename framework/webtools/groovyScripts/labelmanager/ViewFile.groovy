@@ -16,11 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.net.URI
-import org.apache.ofbiz.base.util.*
-import org.w3c.dom.*
-import java.io.ByteArrayOutputStream
-import org.apache.commons.lang.StringEscapeUtils
+
+import org.apache.ofbiz.base.util.FileUtil
+import org.apache.ofbiz.base.util.UtilXml
+import org.w3c.dom.Document
 
 fileString = ''
 if (parameters.fileName) {

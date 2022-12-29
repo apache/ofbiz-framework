@@ -17,12 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.model.*
 
-import javax.servlet.*
-import javax.servlet.http.*
+import org.apache.ofbiz.base.util.UtilHttp
 
 Locale locale = UtilHttp.getLocale(request)
 String serverName = request.getServerName()

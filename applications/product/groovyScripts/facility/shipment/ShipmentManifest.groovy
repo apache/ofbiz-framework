@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.content.report.*
 
 shipmentId = request.getParameter('shipmentId')
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()

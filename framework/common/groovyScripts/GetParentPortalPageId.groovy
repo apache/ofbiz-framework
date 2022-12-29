@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.condition.*
+
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
 // executes only on startup when only the basic parameters.portalPageId (from commonscreens.xml) is available
@@ -37,7 +37,7 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
             EntityCondition.makeCondition('securityGroupId', EntityOperator.EQUALS, null),
             EntityCondition.makeCondition('parentPortalPageId', EntityOperator.EQUALS, null),
             EntityCondition.makeCondition('portalPageId', EntityOperator.LIKE, parameters.parentPortalPageId + '%')
-            ],EntityOperator.AND)
+            ], EntityOperator.AND)
         portalMainPages = delegator.findList('PortalPage', condSec, null, null, null, false)
     }
     if (portalMainPages) {

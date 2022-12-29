@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.base.util.*
 
 contentId = request.getParameter('contentId') ?: null
 

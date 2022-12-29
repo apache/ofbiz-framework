@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-
 relationshipEnums = from('Enumeration').where('enumTypeId', 'KW_THES_REL').orderBy('sequenceId').cache(true).queryList()
 
 keywordThesauruses = from('KeywordThesaurus').orderBy('enteredKeyword').queryList()

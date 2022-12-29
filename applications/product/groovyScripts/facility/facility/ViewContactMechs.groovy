@@ -17,8 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.party.contact.*
+
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.party.contact.ContactMechWorker
 
 context.nowStr = UtilDateTime.nowTimestamp()
 

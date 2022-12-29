@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
 
 shipmentId = parameters.shipmentId
 if (!shipmentId) {

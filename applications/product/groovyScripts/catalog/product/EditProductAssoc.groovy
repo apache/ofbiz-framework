@@ -17,8 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
+
+import org.apache.ofbiz.base.util.ObjectType
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilProperties
 
 uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
 

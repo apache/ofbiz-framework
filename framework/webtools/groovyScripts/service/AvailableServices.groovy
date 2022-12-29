@@ -17,18 +17,11 @@
  * under the License.
  */
 
-import java.util.*
 import javax.wsdl.WSDLException
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilXml
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.service.eca.ServiceEcaUtil
-import org.apache.ofbiz.service.ModelPermGroup
-import org.apache.ofbiz.service.ModelPermission
 import org.apache.ofbiz.service.ServiceContainer
-import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 

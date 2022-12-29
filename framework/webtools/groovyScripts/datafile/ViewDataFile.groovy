@@ -17,11 +17,13 @@
  * under the License.
  */
 
-import java.util.*
-import java.net.*
-import org.apache.ofbiz.security.*
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.datafile.*
+
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilURL
+import org.apache.ofbiz.datafile.DataFile
+import org.apache.ofbiz.datafile.DataFile2EntityXml
+import org.apache.ofbiz.datafile.ModelDataFileReader
 
 uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
 messages = []

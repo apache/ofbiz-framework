@@ -19,9 +19,7 @@
 
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.webapp.stats.*
+import org.apache.ofbiz.webapp.stats.ServerHitBin
 
 clearBins = parameters.clear
 if ('true' == clearBins) {

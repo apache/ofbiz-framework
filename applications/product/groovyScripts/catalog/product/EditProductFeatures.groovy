@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-
 context.productFeatureAndAppls = from('ProductFeatureAndAppl')
         .where('productId', productId).orderBy('sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description').queryList()
 

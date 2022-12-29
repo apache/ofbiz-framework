@@ -17,9 +17,10 @@
  * under the License.
  */
 
- import org.apache.ofbiz.base.util.*
- import org.apache.ofbiz.common.geo.*
- import org.apache.ofbiz.entity.*
+
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.common.geo.GeoWorker
 
 facilityId = parameters.facilityId
 locationSeqId = parameters.locationSeqId

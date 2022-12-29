@@ -17,7 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
+
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.product.inventory.InventoryWorker
 

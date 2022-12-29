@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
 
 facilityId = request.getParameter('facilityId')

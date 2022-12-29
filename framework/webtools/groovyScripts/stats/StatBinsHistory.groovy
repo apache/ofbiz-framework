@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.webapp.stats.*
+
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.webapp.stats.ServerHitBin
 
 id = parameters.statsId
 typeStr = parameters.type
