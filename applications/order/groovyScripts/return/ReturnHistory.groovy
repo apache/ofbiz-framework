@@ -34,8 +34,8 @@ returnHistoryList.each { returnHistory ->
         if (returnHistory.newValueText.toString() != returnHistory.oldValueText.toString()) {
             orderReturnItemHistories.add(returnHistory)
         }
-    } else if ((Float.valueOf(returnHistory.oldValueText)).compareTo(Float.valueOf(returnHistory.newValueText)) != 0) {
-        orderReturnItemHistories.add(returnHistory)
+    } else if (returnHistory.oldValueText as BigDecimal != returnHistory.newValueText as BigDecimal) {
+            orderReturnItemHistories.add(returnHistory)
     }
 }
 context.orderReturnItemHistories = orderReturnItemHistories

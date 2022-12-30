@@ -108,7 +108,7 @@ Map updatePostalAddress() {
     String contactMechId
     String oldContactMechId = lookedValue.contactMechId
     String successMessage = 'PartyPostalAddressSuccessfullyUpdated'
-    if (newValue.compareTo(lookedValue) != 0) {
+    if (newValue != lookedValue) {
         logInfo('Postal address need updating')
         Map createPostalAddressMap = [*:parameters]
         createPostalAddressMap.contactMechId = null
@@ -159,7 +159,7 @@ Map updateTelecomNumber() {
     String contactMechId
     String oldContactMechId = lookedValue.contactMechId
     String successMessage = 'PartyTelecomNumberSuccessfullyUpdated'
-    if (newValue.compareTo(lookedValue) != 0) {
+    if (newValue != lookedValue) {
         logInfo('Telecom number need updating')
         Map createTelecomNumberMap = [*:parameters]
         createTelecomNumberMap.contactMechId = null

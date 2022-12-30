@@ -190,7 +190,7 @@ class ProductTest extends OFBizTestCase {
         assert productId == review.productId
         assert productStoreId == review.productStoreId
         assert productReview == review.productReview
-        assert productRating.compareTo(review.productRating) == 0
+        assert productRating == review.productRating
     }
 
     void testUpdateProductReview() {
@@ -212,7 +212,7 @@ class ProductTest extends OFBizTestCase {
                 .queryOne()
         assert productReview
         assert productReview == review.productReview
-        assert productRating.compareTo(review.productRating) == 0
+        assert productRating == review.productRating
     }
 
     void testFindProductById() {
@@ -256,7 +256,7 @@ class ProductTest extends OFBizTestCase {
                               'fromDate', fromDate)
                 .queryOne()
         assert productPrice
-        assert price.compareTo(productPrice.price) == 0
+        assert price == productPrice.price
     }
 
     void testUpdateProductPrice() {
@@ -296,7 +296,7 @@ class ProductTest extends OFBizTestCase {
         serviceCtx.price = price
         serviceResult = dispatcher.runSync('updateProductPrice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert price.compareTo(serviceResult.oldPrice) != 0
+        assert price != serviceResult.oldPrice
 
         GenericValue productPrice = from('ProductPrice')
                 .where('productId', productId,
@@ -308,7 +308,7 @@ class ProductTest extends OFBizTestCase {
                 .queryOne()
         assert productPrice
         assert productPrice.price
-        assert price.compareTo(productPrice.price) == 0
+        assert price == productPrice.price
     }
 
     void testDeleteProductPrice() {

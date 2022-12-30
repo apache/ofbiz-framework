@@ -30,7 +30,7 @@ if (state.hasFilter('filterInventoryProblems') && orderHeaderList) {
     orderHeaderList.each { orderHeader ->
         orderReadHelper = OrderReadHelper.getHelper(orderHeader)
         backorderQty = orderReadHelper.getOrderBackorderQuantity()
-        if (backorderQty.compareTo(BigDecimal.ZERO) > 0) {
+        if (backorderQty > 0) {
             filterInventoryProblems.add(orderHeader.orderId)
         }
     }

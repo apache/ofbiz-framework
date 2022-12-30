@@ -63,7 +63,7 @@ Map productAmount() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (amountNeeded.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (amountNeeded > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         GenericValue product = cartItem.getProduct()
@@ -86,7 +86,7 @@ Map productAmount() {
     }
 
     // if amountNeeded > 0 then the promo condition failed, so remove candidate promo uses and increment the promoQuantityUsed to restore it
-    if (amountNeeded.compareTo(BigDecimal.ZERO) > 0) {
+    if (amountNeeded > 0) {
         // failed, reset the entire rule, ie including all other conditions that might have been done before
         cart.resetPromoRuleUse(productPromoCond.productPromoId, productPromoCond.productPromoRuleId)
         compareBase = -1
@@ -131,7 +131,7 @@ Map productTotal() {
                 amountAvailable = amountAvailable.add(cartItem.getItemSubTotal())
             }
         }
-        compareBase = amountAvailable.compareTo(amountNeeded)
+        compareBase = amountAvailable <=> amountNeeded
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -161,7 +161,7 @@ Map productQuant() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityNeeded.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityNeeded > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         GenericValue product = cartItem.getProduct()
@@ -177,7 +177,7 @@ Map productQuant() {
     }
 
     // if quantityNeeded > 0 then the promo condition failed, so remove candidate promo uses and increment the promoQuantityUsed to restore it
-    if (quantityNeeded.compareTo(BigDecimal.ZERO) > 0) {
+    if (quantityNeeded > 0) {
         // failed, reset the entire rule, ie including all other conditions that might have been done before
         cart.resetPromoRuleUse(productPromoCond.productPromoId, productPromoCond.productPromoRuleId)
         compareBase = -1
@@ -206,7 +206,7 @@ Map productNewACCT() {
     if (condValue) {
         BigDecimal acctDays = cart.getPartyDaysSinceCreated(nowTimestamp)
         if (acctDays) {
-            compareBase = acctDays.compareTo(new BigDecimal(condValue))
+            compareBase = acctDays <=> condValue as BigDecimal
         }
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -226,7 +226,7 @@ Map productPartyID() {
     String partyId = cart.getPartyId()
     int compareBase = 1
     if (partyId && condValue) {
-        compareBase = partyId.compareTo(condValue)
+        compareBase = partyId <=> condValue
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -370,7 +370,7 @@ Map productOrderTotal() {
         if (Debug.infoOn()) {
             logInfo('Doing order total compare: orderSubTotal=' + orderSubTotal)
         }
-        compareBase = orderSubTotal.compareTo(new BigDecimal(condValue))
+        compareBase = orderSubTotal <=> condValue as BigDecimal
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -413,7 +413,7 @@ Map productOrderHist() {
                     logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
                             + monthsToInclude + ' months.')
                 }
-                compareBase = orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue))
+                compareBase = orderSubTotalAndCartSubTotal <=> condValue as BigDecimal
             }
         } catch (GenericServiceException e) {
             logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
@@ -462,7 +462,7 @@ Map productOrderYear() {
                     logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
                             + monthsToInclude + ' months.')
                 }
-                compareBase = orderSubTotal.compareTo(new BigDecimal((condValue)))
+                compareBase = orderSubTotal <=> condValue as BigDecimal
 
             }
         } catch (GenericServiceException e) {
@@ -519,7 +519,7 @@ Map productOrderLastYear() {
                 if (Debug.verboseOn()) {
                     logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
                 }
-                compareBase = orderSubTotal.compareTo(Double.valueOf(condValue))
+                compareBase = orderSubTotal <=> condValue as Double
             }
         } catch (GenericServiceException e) {
             logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
@@ -578,7 +578,7 @@ Map productShipTotal() {
         if (Debug.verboseOn()) {
             logVerbose('Doing order total Shipping compare: ordertotalShipping=' + orderTotalShipping)
         }
-        compareBase = orderTotalShipping.compareTo(new BigDecimal(condValue))
+        compareBase =  orderTotalShipping <=> condValue as BigDecimal
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result

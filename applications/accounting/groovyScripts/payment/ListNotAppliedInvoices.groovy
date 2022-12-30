@@ -78,7 +78,7 @@ List getInvoices(List invoices, boolean actual) {
                 invoiceMap.amount = invoiceAmount
                 invoiceMap.description = invoice.description
                 invoiceMap.amountApplied = invoiceApplied
-                if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
+                if (paymentToApply < invoiceToApply) {
                     invoiceMap.amountToApply = paymentToApply
                 } else {
                     invoiceMap.amountToApply = invoiceToApply

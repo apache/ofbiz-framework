@@ -43,7 +43,7 @@ Map updateRateAmount() {
             'periodTypeId', newEntity.periodTypeId,
             'partyId', newEntity.partyId).filterByDate().queryFirst()
     if (rateAmountLookedUpValue) {
-        updating = (rateAmountLookedUpValue.fromDate.compareTo(newEntity.fromDate) == 0)
+        updating = (rateAmountLookedUpValue.fromDate == newEntity.fromDate)
         if (rateAmountLookedUpValue.rateAmount != rateAmount) {
             result = run service: 'expireRateAmount', with: rateAmountLookedUpValue.getAllFields()
             if (ServiceUtil.isError(result)) {
