@@ -55,7 +55,7 @@ if (shipment) {
                             taskEstimatedSetup: task.getDouble('estimatedSetupMillis'),
                     ]
                     records.add(record)
-                    if(task.getDouble('estimatedMilliSeconds') != null){
+                    if (task.getDouble('estimatedMilliSeconds') != null) {
                         fixedAssetTime = fixedAssetTime + task.getDouble('estimatedMilliSeconds')
                     }
                 }

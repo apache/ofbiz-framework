@@ -120,7 +120,7 @@ try {
         costPriceDividendValue = costPrice
         if (costPriceDividendValue) {
             percentMarkup = ((retailPrice - costPrice) / costPrice) * 100
-        } else{
+        } else {
             percentMarkup = ''
         }
         orderItemMap = [orderDate: orderDate,
@@ -151,7 +151,7 @@ if (orderItemList) {
     totalCostPriceDividendValue = totalCostPrice
     if (totalCostPriceDividendValue) {
         totalPercentMarkup = ((totalRetailPrice - totalCostPrice) / totalCostPrice) * 100
-    } else{
+    } else {
         totalPercentMarkup = ''
     }
     totalAmountMap = [totalCostPrice: totalCostPrice,

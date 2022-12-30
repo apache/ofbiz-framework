@@ -32,7 +32,7 @@ DateTimeFormatter sdf2 = DateTimeFormatter.ofPattern('EEEE dd/MM/yyyy', locale)
 SimpleDateFormat sdfTime = new SimpleDateFormat('HH:mm')
 LocalDateTime today = LocalDateTime.now()
 
-for (i in 0..limit){
+for (i in 0..limit) {
     Timestamp timeStampDate1 = Timestamp.valueOf(today.minusDays(i + 1).format(sdf).toString())
     Timestamp timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
     // make condition for distinct productId
@@ -46,15 +46,15 @@ for (i in 0..limit){
 
     // finding time
     List<GenericValue> timeList = from('ProductContentAndInfo').where(exprs).orderBy('productId').queryList()
-    Map groupByTimeList =  timeList.groupBy{it.productId}
+    Map groupByTimeList = timeList.groupBy { it.productId }
     List tempTimeList = []
     groupByTimeList.each {
         key, value -> tempTimeList.add(value.purchaseFromDate)
     }
 
     List time = []
-    if(tempTimeList.size > 0){
-        for(j in 0..tempTimeList.size - 1){
+    if (tempTimeList.size > 0) {
+        for (j in 0..tempTimeList.size - 1) {
             time.add(sdfTime.format(tempTimeList.get(j).get(0)))
         }
     }

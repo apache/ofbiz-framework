@@ -26,21 +26,21 @@ showScreen = 'origin'
 List errMsgList = []
 
 productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst()
-if(productStore){
+if (productStore) {
     context.productStoreId = productStore.productStoreId
 }
 if (productStore) {
    facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne()
    webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst()
 
-   if(!facility){
-       errMsgList.add('Facility not set!')
-       showScreen = 'message'
-   }
-   if(!webSite){
-       errMsgList.add('WebSite not set!')
-       showScreen = 'message'
-   }
+    if (!facility) {
+        errMsgList.add('Facility not set!')
+        showScreen = 'message'
+    }
+    if (!webSite) {
+        errMsgList.add('WebSite not set!')
+        showScreen = 'message'
+    }
 } else {
     errMsgList.add('Product Store not set!')
     showScreen = 'message'
@@ -51,7 +51,7 @@ if (errMsgList) {
 }
 
 productStoreCatalog = from('ProductStoreCatalog').where('productStoreId', productStore.productStoreId).queryFirst()
-if(productStoreCatalog){
+if (productStoreCatalog) {
     prodCatalog = productStoreCatalog.getRelatedOne('ProdCatalog', false)
     prodCatalogId = prodCatalog.prodCatalogId
 }
@@ -59,43 +59,43 @@ context.prodCatalog = prodCatalog
 context.prodCatalogId = prodCatalogId
 context.showScreen = showScreen
 
-if('productcategory' == tabButtonItem || 'product' == tabButtonItem){
+if ('productcategory' == tabButtonItem || 'product' == tabButtonItem) {
     productCategory = null
     productCategoryId = parameters.productCategoryId
     showErrorMsg = 'N'
 
-    if(!prodCatalogId){
+    if (!prodCatalogId) {
         errMsgList.add('Product Catalog not set!')
         showErrorMsg = 'Y'
     }
 
     prodCatalogCategory  = from('ProdCatalogCategory').where('prodCatalogId', prodCatalogId, 'sequenceNum', new Long(1)).queryFirst()
-    if(prodCatalogCategory){
+    if (prodCatalogCategory) {
         productCategory = from('ProductCategory').where('primaryParentCategoryId', prodCatalogCategory.productCategoryId).queryFirst()
-        if(productCategory){
+        if (productCategory) {
             productCategoryId = productCategory.productCategoryId
         }
     }
     context.productCategoryId = productCategoryId
     context.productCategory = productCategory
 
-    if('product' == tabButtonItem){
+    if ('product' == tabButtonItem) {
         productId = parameters.productId
         product = null
 
-        if(!productCategoryId){
+        if (!productCategoryId) {
             errMsgList.add('Product Category not set!')
             showErrorMsg = 'Y'
         }
          /**************** get product from ProductCategory ******************/
         productCategoryMember  = from('ProductCategoryMember').where('productCategoryId', productCategoryId).queryFirst()
-        if(productCategoryMember){
+        if (productCategoryMember) {
             product = productCategoryMember.getRelatedOne('Product', false)
             productId = product.productId
             // Average cost
             averageCostValues = from('ProductPrice')
                     .where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'AVERAGE_COST').queryList()
-            if(averageCostValues){
+            if (averageCostValues) {
                 averageCostValue = EntityUtil.getFirst(EntityUtil.filterByDate(averageCostValues))
                 if (averageCostValue?.price != null) {
                     context.averageCost = averageCostValue.price
@@ -104,7 +104,7 @@ if('productcategory' == tabButtonItem || 'product' == tabButtonItem){
             //    Default cost
             defaultPriceValues = from('ProductPrice')
                     .where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'DEFAULT_PRICE').queryList()
-            if(defaultPriceValues){
+            if (defaultPriceValues) {
                 defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues))
                 if (defaultPrice?.price != null) {
                     context.defaultPrice = defaultPrice.price

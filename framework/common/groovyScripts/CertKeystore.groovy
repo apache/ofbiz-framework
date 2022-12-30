@@ -21,7 +21,7 @@ import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.component.ComponentConfig.KeystoreInfo
 
 cert = org.apache.ofbiz.base.util.KeyStoreUtil.pemToCert(certString)
-if (cert){
+if (cert) {
     context.certType = cert.getType()
     context.certName = cert.getSubjectX500Principal().getName()
     context.certSerialNumber = cert.getSerialNumber().toString(16)
@@ -32,7 +32,7 @@ stores = []
 store = []
 Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents()
 for (ComponentConfig cc: allComponentConfigs) {
-    if (cc.getKeystoreInfos()){
+    if (cc.getKeystoreInfos()) {
         componentName = cc.getComponentName()
         store = ['componentId': componentName]
         store.componentName = componentName

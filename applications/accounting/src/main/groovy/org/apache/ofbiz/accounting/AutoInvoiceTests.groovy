@@ -30,7 +30,8 @@ class AutoInvoiceTests extends OFBizTestCase {
     public AutoInvoiceTests(String name) {
         super(name)
     }
-    void testInvoiceWorkerGetInvoiceTotal(){
+
+    void testInvoiceWorkerGetInvoiceTotal() {
 
         String invoiceId = 'demo10000'
         BigDecimal amount = new BigDecimal('323.54')
@@ -105,7 +106,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         assertInvoiceTotal(invoiceId, amount)
     }
 
-    void assertInvoiceTotal(String invoiceId, BigDecimal amount){
+    void assertInvoiceTotal(String invoiceId, BigDecimal amount) {
         GenericValue invoice =  EntityQuery.use(delegator).from('Invoice').where('invoiceId', invoiceId).queryOne()
         BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
         assert  invoiceTotal == amount

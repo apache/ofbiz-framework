@@ -47,9 +47,9 @@ if ('RELATED_URL' == prodCatContentTypeId) {
     if (content) {
         context.fileDataResourceId = content.dataResourceId
     }
-    if('CATEGORY_IMAGE' == prodCatContentTypeId){
+    if ('CATEGORY_IMAGE' == prodCatContentTypeId) {
         context.dataResourceTypeId = 'IMAGE_OBJECT'
-    }else{
+    } else {
         context.dataResourceTypeId = 'VIDEO_OBJECT'
     }
     context.contentFormName = 'EditCategoryContentDownload'

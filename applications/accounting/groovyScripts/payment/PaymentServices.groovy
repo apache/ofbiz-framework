@@ -256,7 +256,7 @@ Map checkAndCreateBatchForValidPayments() {
     return result
 }
 
-Map getPaymentRunningTotal(){
+Map getPaymentRunningTotal() {
     String currencyUomId
     List paymentIds = parameters.paymentIds
     BigDecimal runningTotal = 0
@@ -308,7 +308,7 @@ Map updatePaymentContent() {
 }
 
 Map massChangePaymentStatus() {
-    parameters.paymentIds.each{ paymentId ->
+    parameters.paymentIds.each { paymentId ->
         Map result = run service: 'setPaymentStatus', with: [paymentId: paymentId,
                                                              statusId: parameters.statusId]
         if (ServiceUtil.isError(result)) {

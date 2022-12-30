@@ -44,7 +44,7 @@ if (orderHeader) {
         orderShipmentHistory = [:]
         if ('shipmentMethodTypeId' == shipmentMethodHistory.changedFieldName) {
             shipmentMethodType = from('ShipmentMethodType').where('shipmentMethodTypeId', shipmentMethodHistory.newValueText).queryOne()
-            if (shipmentMethodType != null){
+            if (shipmentMethodType != null) {
                 carrierPartyHistories.each { carrierPartyHistory ->
                     if (carrierPartyHistory.lastUpdatedTxStamp == shipmentMethodHistory.lastUpdatedTxStamp) {
                         if ('_NA_' == carrierPartyHistory.newValueText) {

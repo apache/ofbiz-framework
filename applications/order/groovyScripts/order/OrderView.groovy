@@ -215,7 +215,7 @@ if (orderHeader) {
             if (qty != null) {
                 totalQuantityPlanned = totalQuantityPlanned.add(qty)
             }
-            if (cancelQty != null){
+            if (cancelQty != null) {
                 OISGAssContent.set('quantity', qty.subtract(cancelQty))
             } else {
                 OISGAssContent.set('quantity', qty)

@@ -163,7 +163,7 @@ def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 defaultTasks 'jar', 'test'
 
 allprojects {
-    repositories{
+    repositories {
         mavenCentral()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
@@ -770,13 +770,13 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         }
 
         def branchOutput = new ByteArrayOutputStream()
-        exec{
+        exec {
             commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
             standardOutput = branchOutput
         }
         branch = branchOutput.toString()
         def revisionOutput = new ByteArrayOutputStream()
-        exec{
+        exec {
             commandLine 'git', 'rev-parse', 'HEAD'
             standardOutput = revisionOutput
         }
