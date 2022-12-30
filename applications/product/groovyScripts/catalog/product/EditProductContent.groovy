@@ -25,8 +25,6 @@ import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
 
-import org.apache.commons.io.FileUtils
-
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 // make the image file formats

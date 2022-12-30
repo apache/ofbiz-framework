@@ -23,7 +23,6 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.party.contact.ContactHelper
 import org.apache.ofbiz.party.contact.ContactMechWorker
-import org.apache.ofbiz.base.util.UtilValidate
 
 cart = session.getAttribute('shoppingCart')
 

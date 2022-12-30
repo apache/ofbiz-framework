@@ -17,15 +17,15 @@
  * under the License.
  */
 
-import java.sql.Timestamp
 
-import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.ServiceUtil
+
+import java.sql.Timestamp
 
 Map createLead() {
     String leadContactPartyId

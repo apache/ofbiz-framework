@@ -16,10 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import java.util.StringTokenizer
-import org.apache.ofbiz.base.util.UtilValidate
-
 String carrierShipmentString = request.getParameter('carrierShipmentString')
 if (carrierShipmentString) {
     StringTokenizer st = new StringTokenizer(carrierShipmentString, '|')

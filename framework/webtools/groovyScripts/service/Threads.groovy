@@ -17,17 +17,7 @@
  * under the License.
  */
 
-import java.util.ArrayList
-import java.util.HashMap
-import java.util.Iterator
-import java.util.List
-import java.util.Map
-import java.sql.Timestamp
 
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.service.RunningService
-import org.apache.ofbiz.service.engine.GenericEngine
-import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilProperties
 
 uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)

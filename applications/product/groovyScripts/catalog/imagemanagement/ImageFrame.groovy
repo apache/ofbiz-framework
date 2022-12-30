@@ -16,10 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import javax.servlet.http.HttpSession
-import org.apache.ofbiz.base.util.UtilValidate
-
 frameContentId = null
 frameDataResourceId = null
 

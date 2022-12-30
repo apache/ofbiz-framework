@@ -17,11 +17,11 @@
  * under the License.
  */
 
-import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.service.ModelService
+
+import java.sql.Timestamp
 
 String startParam = parameters.startTime
 Timestamp start = null

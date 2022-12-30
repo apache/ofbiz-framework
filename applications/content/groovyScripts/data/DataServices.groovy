@@ -1,13 +1,3 @@
-import java.sql.Timestamp
-
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.content.data.DataResourceWorker
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.service.ModelService
-import org.apache.ofbiz.service.ServiceUtil
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,6 +17,14 @@ import org.apache.ofbiz.service.ServiceUtil
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceUtil
+
+import java.sql.Timestamp
 
 //Methods for DataResource
 /**

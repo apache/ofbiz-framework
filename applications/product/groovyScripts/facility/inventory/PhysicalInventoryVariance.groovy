@@ -16,9 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.ofbiz.entity.condition.EntityCondition
-
 // get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM
 if (inventoryItem && 'NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
     physicalInventoryAndVariances = from('PhysicalInventoryAndVariance')

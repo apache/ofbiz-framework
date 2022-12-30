@@ -17,16 +17,7 @@
  * under the License.
  */
 
-import java.util.HashMap
-import java.util.Iterator
-import java.util.LinkedList
-import java.util.Map
-import java.util.Set
-import java.sql.Timestamp
 
-import org.apache.ofbiz.entity.GenericEntity
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.webapp.event.CoreEvents
 
 if (session.getAttribute('_RUN_SYNC_RESULT_')) {

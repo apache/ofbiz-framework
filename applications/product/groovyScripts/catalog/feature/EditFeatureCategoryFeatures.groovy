@@ -20,7 +20,6 @@
 
 import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.transaction.TransactionUtil
-import org.apache.ofbiz.entity.util.EntityFindOptions
 
 context.hasPermission = security.hasEntityPermission('CATALOG', '_VIEW', session)
 

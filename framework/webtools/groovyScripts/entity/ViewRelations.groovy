@@ -16,13 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.entity.model.ModelReader
-import org.apache.ofbiz.entity.model.ModelEntity
-import org.apache.ofbiz.entity.model.ModelRelation
-import org.apache.ofbiz.entity.model.ModelKeyMap
-
 entityName = parameters.entityName
 context.entityName = entityName
 

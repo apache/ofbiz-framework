@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.cache.UtilCache
-import org.apache.ofbiz.base.util.cache.CacheLine
+
 import org.apache.ofbiz.base.util.UtilFormatOut
-import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.base.util.cache.UtilCache
 
 cacheName = parameters.UTIL_CACHE_NAME
 context.cacheName = cacheName

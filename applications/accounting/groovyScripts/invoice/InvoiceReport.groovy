@@ -19,7 +19,6 @@
 
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder()
 

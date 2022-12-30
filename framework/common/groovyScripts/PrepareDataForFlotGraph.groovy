@@ -16,8 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.ofbiz.base.util.StringUtil
 chartData = context.chartData
 chartType = context.chartType
 labelFieldName = context.labelFieldName
