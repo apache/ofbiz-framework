@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -162,7 +161,6 @@ if (product) {
         }
     }
     context.productFeatureTypeLookup = productFeatureTypeLookup
-
 
     // get shipping dimensions and weights for single product
     prodFeaturesFiltered = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureTypeId: 'AMOUNT', uomId: 'VLIQ_ozUS'])

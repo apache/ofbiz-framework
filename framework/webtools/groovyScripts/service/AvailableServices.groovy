@@ -326,7 +326,6 @@ List getEcaListForService(String selectedService) {
     return ecaMapList
 }
 
-
 //Local Dispatchers
 dispArrList = new TreeSet()
 dispArrList.addAll(ServiceContainer.getAllDispatcherNames())
@@ -488,7 +487,6 @@ if (selectedService) {
     }
     context.selectedServiceMap = curServiceMap
 }
-
 
 if (!selectedService) {
 

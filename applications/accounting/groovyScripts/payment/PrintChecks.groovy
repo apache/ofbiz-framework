@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilNumber
 

@@ -20,7 +20,6 @@
 import org.apache.ofbiz.content.content.ContentSearchSession
 import org.apache.ofbiz.content.content.ContentSearchEvents
 
-
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
 ContentSearchSession.processSearchParameters(parameters, request)
 Map result = ContentSearchEvents.getContentSearchResult(request, delegator)

@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilProperties
 
 uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)

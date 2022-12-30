@@ -25,7 +25,6 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo
 import org.apache.ofbiz.service.ServiceUtil
 
-
 /**
  * Create/Update Customer, Shipping Address and other contact details.
  */

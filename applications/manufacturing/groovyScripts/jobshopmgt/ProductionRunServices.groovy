@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
@@ -288,7 +287,6 @@ Map issueProductionRunTaskComponent() {
     }
     return success()
 }
-
 
 /**
  *Does a issuance for one InventoryItem, meant to be called in-line

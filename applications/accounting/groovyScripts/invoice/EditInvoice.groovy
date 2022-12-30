@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.base.util.UtilNumber
 
@@ -123,7 +122,6 @@ if (invoice) {
         context.billToPartyTaxId = billToPartyTaxId
     }
     //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
-
 
     terms = invoice.getRelated('InvoiceTerm', null, null, false)
     context.terms = terms

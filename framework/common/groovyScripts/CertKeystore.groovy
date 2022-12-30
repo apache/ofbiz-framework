@@ -20,7 +20,6 @@
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.component.ComponentConfig.KeystoreInfo
 
-
 cert = org.apache.ofbiz.base.util.KeyStoreUtil.pemToCert(certString)
 if (cert){
     context.certType = cert.getType()

@@ -436,7 +436,6 @@ Map updateIssuanceShipmentAndPoOnReceiveInventory() {
     return success()
 }
 
-
 /**
  * Cancel Received Items against a purchase order if received something incorrectly
  */

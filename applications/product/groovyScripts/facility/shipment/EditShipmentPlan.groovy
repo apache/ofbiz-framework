@@ -30,7 +30,6 @@ if (shipmentId) {
     shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 }
 
-
 // **************************************
 // Order Items are searched also by shipGroupSeqId and put in orderItemShipGroupAssocs
 // **************************************

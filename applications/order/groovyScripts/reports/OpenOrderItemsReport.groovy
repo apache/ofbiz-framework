@@ -22,7 +22,6 @@
  * the OrderItemQuantityReportGroupByItem view.
  */
 
-
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.GenericEntityException
@@ -31,7 +30,6 @@ import org.apache.ofbiz.base.util.ObjectType
 productStoreId = ObjectType.simpleTypeOrObjectConvert(parameters.productStoreId, 'List', null, null)
 orderTypeId = ObjectType.simpleTypeOrObjectConvert(parameters.orderTypeId, 'List', null, null)
 orderStatusId = ObjectType.simpleTypeOrObjectConvert(parameters.orderStatusId, 'List', null, null)
-
 
 // search by orderTypeId is mandatory
 conditions = [EntityCondition.makeCondition('orderTypeId', EntityOperator.IN, orderTypeId)]

@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 shoppingCart = session.getAttribute('shoppingCart')
 partyId = shoppingCart.getPartyId()
 

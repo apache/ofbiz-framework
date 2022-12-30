@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 shipmentId = request.getParameter('shipmentId') ?: context.shipmentId
 
 shipment = null

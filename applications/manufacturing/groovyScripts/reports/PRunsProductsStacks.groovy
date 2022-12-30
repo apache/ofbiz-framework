@@ -20,7 +20,6 @@
 // PRunsProductsStacks
 // ReportC
 
-
 if (productCategoryIdPar) {
     category = from('ProductCategory').where('productCategoryId', productCategoryIdPar).queryOne()
     context.category = category

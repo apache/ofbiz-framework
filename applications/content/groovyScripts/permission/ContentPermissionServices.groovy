@@ -93,7 +93,6 @@ Map genericContentPermission() {
     return success(hasPermission: hasPermission)
 }
 
-
 /**
  * Check user can view content
  * @param hasPermission
@@ -267,7 +266,6 @@ Map updateContentPermission(Boolean hasPermission, String contentId, String owne
     parameters.primaryPermission = 'CONTENTMGR_ROLE'
     Map resultService = run service: 'genericBasePermissionCheck', with: parameters
     hasPermission = resultService.hasPermission ?: false
-
 
     // must have permission to continue
     if (hasPermission) {

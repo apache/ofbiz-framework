@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 
 import java.text.NumberFormat
@@ -44,7 +43,6 @@ invoiceAppls.each { invoiceAppl ->
     ]
     invoiceApplications.add(itemmap)
 }
-
 
 // retrieve related applications with an existing itemnumber
 invoice.getRelated('InvoiceItem', null, null, false).each { item ->

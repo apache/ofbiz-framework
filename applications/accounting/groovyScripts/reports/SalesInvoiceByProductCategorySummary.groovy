@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -80,7 +79,6 @@ if (organizationPartyId) {
 if (currencyUomId) {
     baseCategoryAndExprs.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, currencyUomId))
 }
-
 
 // get the Calendar object for the current month (specifed by month, year Integer values in the context)
 monthCal = Calendar.getInstance()

@@ -30,7 +30,6 @@
 // is not computed; you can use the ViewFacilityInventoryByProduct.groovy if you
 // need it (but it is slower than this one).
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -262,7 +261,6 @@ if (action) {
                     offsetATPQtyAvailable: offsetATPQtyAvailable,
                     quantityOnOrder: InventoryWorker.getOutstandingPurchasedQuantity(oneProd.productId, delegator)
             ]
-
 
             if (checkTime) {
 

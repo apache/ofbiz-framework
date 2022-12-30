@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.order.order.OrderReadHelper

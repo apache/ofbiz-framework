@@ -56,7 +56,6 @@ context.hasCreatePermission = hasCreatePermission
 context.hasUpdatePermission = hasUpdatePermission
 context.hasDeletePermission = hasDeletePermission
 
-
 // Resolve and prepare pkValues from request to support rest or oldest request call
 Map<String, String> pkNamesValuesMap = null
 if (parameters.pkValues) {

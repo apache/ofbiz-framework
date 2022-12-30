@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 contentId = request.getParameter('contentId') ?: null
 
 confItemContentTypeId = request.getParameter('confItemContentTypeId')

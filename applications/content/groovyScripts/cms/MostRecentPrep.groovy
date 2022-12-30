@@ -23,7 +23,6 @@ import org.apache.ofbiz.content.ContentManagementWorker
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-
 logInfo('in mostrecentprep(1):')
 paramMap = UtilHttp.getParameterMap(request)
 forumId = ContentManagementWorker.getFromSomewhere('moderatedSiteId', paramMap, request, context)

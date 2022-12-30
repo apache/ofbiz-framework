@@ -21,7 +21,6 @@ import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 
-
  /**
   * Send Mail from Email Template Setting
   */
@@ -77,15 +76,4 @@ Map sendMailFromTemplateSetting() {
     }
     return result
 }
-
-
-
-
-
-
-
-
-
-
-
 

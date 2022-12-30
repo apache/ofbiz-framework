@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.feature.ParametricSearch
 import org.apache.ofbiz.product.product.ProductSearchSession

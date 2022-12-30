@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.party.party.PartyHelper
 
 import org.apache.ofbiz.base.util.UtilDateTime

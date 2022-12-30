@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 custRequestId = parameters.custRequestId
 if (custRequestId) {
     requestQuote = from('QuoteItem').where('custRequestId', custRequestId).queryFirst()

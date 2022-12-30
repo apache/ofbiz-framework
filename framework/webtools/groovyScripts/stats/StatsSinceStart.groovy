@@ -52,7 +52,6 @@ while (iterator.hasNext()) {
 }
 context.eventList = eventList
 
-
 // Views
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()))
 viewList = []

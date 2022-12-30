@@ -22,7 +22,6 @@
  * should not contain order component's specific code.
  */
 
-
 import org.apache.ofbiz.entity.GenericValue
 
 // Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.

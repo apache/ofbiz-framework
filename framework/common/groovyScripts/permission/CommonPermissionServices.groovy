@@ -19,7 +19,6 @@
 
 import org.apache.ofbiz.base.util.UtilProperties
 
-
 Map genericBasePermissionCheck() {
     Map result = success()
     // allow mainAction to be set from outside methods or direct to the service

@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.testtools.TestRunContainer

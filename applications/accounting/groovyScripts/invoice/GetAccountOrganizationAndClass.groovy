@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 

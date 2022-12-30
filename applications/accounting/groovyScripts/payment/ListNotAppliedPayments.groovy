@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.base.util.UtilNumber
 import org.apache.ofbiz.entity.condition.EntityCondition

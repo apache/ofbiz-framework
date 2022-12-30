@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 productId = request.getParameter('productId')
 productVariantId = productId + '_'
 productFeatureIds = ''

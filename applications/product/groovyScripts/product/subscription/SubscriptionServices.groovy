@@ -17,9 +17,7 @@
 * under the License.
 */
 
-
 import org.apache.ofbiz.entity.GenericValue
-
 
 /**
  * Create a Subscription

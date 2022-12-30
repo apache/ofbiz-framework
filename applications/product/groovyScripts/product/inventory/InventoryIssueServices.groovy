@@ -19,7 +19,6 @@
 
 import org.apache.ofbiz.entity.GenericValue
 
-
 /**
  * Issues the Inventory for an Order that was Immediately Fulfilled
  */

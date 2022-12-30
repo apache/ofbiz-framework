@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.transaction.TransactionUtil
 
 partyId = parameters.partyId
