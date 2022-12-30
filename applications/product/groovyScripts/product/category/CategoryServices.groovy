@@ -163,9 +163,7 @@ Map addPartyToCategory() {
         return res
     }
     GenericValue newEntity = makeValue('ProductCategoryRole', parameters)
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.nowTimestamp()
-    }
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
     return success()
 }
@@ -213,9 +211,7 @@ Map addProductCategoryToCategory() {
     }
     GenericValue newEntity = makeValue('ProductCategoryRollup', parameters)
 
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.nowTimestamp()
-    }
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
 
     newEntity.create()
     return success()
@@ -235,9 +231,7 @@ Map addProductCategoryToCategories() {
             GenericValue newEntity = makeValue('ProductCategoryRollup', parameters)
             newEntity.parentProductCategoryId = category
 
-            if (!newEntity.fromDate) {
-                newEntity.fromDate = UtilDateTime.nowTimestamp()
-            }
+            newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
             newEntity.create()
         }
     } else {
@@ -249,10 +243,7 @@ Map addProductCategoryToCategories() {
         GenericValue newEntity = makeValue('ProductCategoryRollup', parameters)
         newEntity.parentProductCategoryId = parameters.categories
 
-        if (!newEntity.fromDate) {
-            newEntity.fromDate = UtilDateTime.nowTimestamp()
-        }
-
+        newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
         newEntity.create()
     }
     return success()
@@ -453,14 +444,11 @@ Map createProductInCategory() {
         return res
     }
 
-    if (!parameters.currencyUomId) {
-        parameters.currencyUomId = EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
-    }
+    parameters.currencyUomId = parameters.currencyUomId ?:
+            EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
 
     // create product
-    if (!parameters.productTypeId) {
-        parameters.productTypeId = 'FINISHED_GOOD'
-    }
+    parameters.productTypeId = parameters.productTypeId ?: 'FINISHED_GOOD'
     Map cPRes = run service: 'createProduct', with: parameters
     String productId = cPRes.productId
     Map result = success()
@@ -674,9 +662,7 @@ Map createProductCategoryLink() {
     }
 
     // now set the rest of the PK fields (should just be fromDate now; unless linkSeqId is not empty)
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.nowTimestamp()
-    }
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
     return success()
 }
@@ -691,18 +677,10 @@ Map createProductCategoryLink() {
  * Check Product Category Related Permission
  */
 Map checkCategoryRelatedPermission(String callingMethodName, String checkAction, String productCategoryIdToCheck, String productCategoryIdName) {
-    if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
-    }
-    if (!checkAction) {
-        checkAction = 'UPDATE'
-    }
-    if (!productCategoryIdName) {
-        productCategoryIdName = 'productCategoryId'
-    }
-    if (!productCategoryIdToCheck) {
-        productCategoryIdToCheck = parameters."${productCategoryIdName}"
-    }
+    callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
+    checkAction = checkAction ?: 'UPDATE'
+    productCategoryIdName = productCategoryIdName ?: 'productCategoryId'
+    productCategoryIdToCheck = productCategoryIdToCheck ?: parameters."${productCategoryIdName}"
 
     // find all role-categories that this category is a member of
     List roleCategories = []
@@ -766,10 +744,7 @@ Map checkCategoryPermissionWithViewPurchaseAllow() {
     boolean hasPermission = true
 
     // Set up for a call to ckeckCategoryRelatedPermission below, but callingMethodName is needed sooner
-    String resourceDescription = parameters.resourceDescription
-    if (!resourceDescription) {
-        resourceDescription = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
-    }
+    String resourceDescription = parameters.resourceDescription ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     String callingMethodName = resourceDescription
     String checkAction = parameters.mainAction ?: 'UPDATE'
 

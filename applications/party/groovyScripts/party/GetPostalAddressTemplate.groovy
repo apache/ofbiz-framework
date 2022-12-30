@@ -18,11 +18,8 @@
  */
 
 postalAddressForTemplate = context.postalAddress
-postalAddressTemplateSuffix = context.postalAddressTemplateSuffix
+postalAddressTemplateSuffix = context.postalAddressTemplateSuffix ?: '.ftl'
 
-if (!postalAddressTemplateSuffix) {
-    postalAddressTemplateSuffix = '.ftl'
-}
 context.postalAddressTemplate = 'PostalAddress' + postalAddressTemplateSuffix
 if (postalAddressForTemplate && postalAddressForTemplate.countryGeoId) {
     postalAddressTemplate = 'PostalAddress_' + postalAddressForTemplate.countryGeoId + postalAddressTemplateSuffix

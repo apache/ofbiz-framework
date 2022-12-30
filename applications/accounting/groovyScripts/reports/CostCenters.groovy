@@ -26,12 +26,8 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 if (!fromDate) {
     return
 }
-if (!thruDate) {
-    thruDate = UtilDateTime.nowTimestamp()
-}
-if (!parameters.glFiscalTypeId) {
-    parameters.glFiscalTypeId = 'ACTUAL'
-}
+thruDate = thruDate ?: UtilDateTime.nowTimestamp()
+parameters.glFiscalTypeId = parameters.glFiscalTypeId ?: 'ACTUAL'
 
 // POSTED
 // Posted transactions totals and grand totals

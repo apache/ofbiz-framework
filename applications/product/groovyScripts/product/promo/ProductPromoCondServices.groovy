@@ -151,10 +151,8 @@ Map productQuant() {
     String condValue = productPromoCond.condValue
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 
-    if (!operatorEnumId) {
-        // if the operator is not specified in the condition, then assume as default PPC_EQ (for backward compatibility)
-        operatorEnumId = 'PPC_EQ'
-    }
+    // if the operator is not specified in the condition, then assume as default PPC_EQ (for backward compatibility)
+    operatorEnumId = operatorEnumId ?: 'PPC_EQ'
     BigDecimal quantityNeeded = BigDecimal.ONE
     if (condValue) {
         quantityNeeded = new BigDecimal(condValue)

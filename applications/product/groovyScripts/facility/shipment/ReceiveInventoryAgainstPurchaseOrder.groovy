@@ -62,12 +62,8 @@ context.facility = facility
 context.facilityId = shipment.destinationFacilityId
 context.now = UtilDateTime.nowTimestamp()
 
-if (!orderId) {
-    orderId = shipment.primaryOrderId
-}
-if (!shipGroupSeqId) {
-    shipGroupSeqId = shipment.primaryShipGroupSeqId
-}
+orderId = orderId ?: shipment.primaryOrderId
+shipGroupSeqId = shipGroupSeqId ?: shipment.primaryShipGroupSeqId
 context.orderId = orderId
 
 if (!orderId) {
@@ -105,10 +101,7 @@ inventoryItemTypes = from('InventoryItemType').queryList()
 context.inventoryItemTypes = inventoryItemTypes
 
 // Populate the tracking map with shipment and order IDs
-if (!itemQuantitiesToReceive) {
-    itemQuantitiesToReceive = [_shipmentId: shipmentId, _orderId: orderId]
-}
-
+itemQuantitiesToReceive = itemQuantitiesToReceive ?: [_shipmentId: shipmentId, _orderId: orderId]
 
 orderItemDatas = [:] as TreeMap
 totalAvailableToReceive = 0

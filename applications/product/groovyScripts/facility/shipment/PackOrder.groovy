@@ -35,10 +35,7 @@ if (facilityId) {
 // order based packing
 orderId = parameters.orderId
 shipGroupSeqId = parameters.shipGroupSeqId
-shipmentId = parameters.shipmentId
-if (!shipmentId) {
-    shipmentId = request.getAttribute('shipmentId')
-}
+shipmentId = parameters.shipmentId ?: request.getAttribute('shipmentId')
 context.shipmentId = shipmentId
 
 // If a shipment exists, provide the IDs of any related invoices
@@ -90,11 +87,8 @@ if (!packSession) {
 packSession.clearItemInfos()
 
 // picklist based packing information
-picklistBinId = parameters.picklistBinId
+picklistBinId = parameters.picklistBinId ?: packSession.getPicklistBinId()
 // see if the bin ID is already set
-if (!picklistBinId) {
-    picklistBinId = packSession.getPicklistBinId()
-}
 if (picklistBinId) {
     bin = from('PicklistBin').where('picklistBinId', picklistBinId).queryOne()
     if (bin) {
@@ -182,8 +176,6 @@ defaultWeightUomId = null
 if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId
 }
-if (!defaultWeightUomId) {
-    defaultWeightUomId = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', 'WT_kg', delegator)
-}
+defaultWeightUomId = defaultWeightUomId ?: EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', 'WT_kg', delegator)
 context.defaultWeightUom = from('Uom').where('uomId', defaultWeightUomId).cache().queryOne()
 context.defaultWeightUomId = defaultWeightUomId

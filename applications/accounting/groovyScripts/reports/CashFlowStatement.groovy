@@ -32,12 +32,8 @@ import java.sql.Timestamp
 if (!fromDate) {
     return
 }
-if (!thruDate) {
-    thruDate = UtilDateTime.nowTimestamp()
-}
-if (!parameters.glFiscalTypeId) {
-    parameters.glFiscalTypeId = 'ACTUAL'
-}
+thruDate = thruDate ?: UtilDateTime.nowTimestamp()
+parameters.glFiscalTypeId = parameters.glFiscalTypeId ?: 'ACTUAL'
 
 uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
 parametersFromDate = fromDate

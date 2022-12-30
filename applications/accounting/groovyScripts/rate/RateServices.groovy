@@ -31,9 +31,7 @@ import java.sql.Timestamp
  */
 Map updateRateAmount() {
     GenericValue newEntity = delegator.makeValidValue('RateAmount', parameters)
-    if (!newEntity.rateCurrencyUomId) {
-        newEntity.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
-    }
+    newEntity.rateCurrencyUomId = newEntity.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.thruDate = null
 
@@ -65,9 +63,7 @@ Map updateRateAmount() {
  */
 Map expireRateAmount() {
     GenericValue lookedUpValue = delegator.makeValidValue('RateAmount', parameters)
-    if (!lookedUpValue.rateCurrencyUomId) {
-        lookedUpValue.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
-    }
+    lookedUpValue.rateCurrencyUomId = lookedUpValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
     lookedUpValue = from('RateAmount').where(lookedUpValue).queryOne()
     if (lookedUpValue) {
         Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
@@ -168,9 +164,7 @@ Map getRateAmount() {
     }
     if (serviceName) {
         Map serviceContextMap = new HashMap<>(parameters)
-        if (!serviceContextMap.rateCurrencyUomId) {
-            serviceContextMap.rateCurrencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
-        }
+        serviceContextMap.rateCurrencyUomId = serviceContextMap.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
         Map result = run service: serviceName, with: serviceContextMap
         serviceContextMap.ratesList = result.ratesList
         result = run service: 'filterRateAmountList', with: serviceContextMap

@@ -41,9 +41,7 @@ Map createProduct() {
     }
 
     GenericValue newEntity = makeValue('Product', parameters)
-    if (!newEntity.productId) {
-        newEntity.productId = delegator.getNextSeqId('Product')
-    } else {
+    if (newEntity.productId) {
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productId)
         if (errorMessage) {
             return error(errorMessage)
@@ -52,6 +50,8 @@ Map createProduct() {
         if (dummyProduct) {
             return error(UtilProperties.getMessage('CommonErrorUiLabels', 'CommonErrorDuplicateKey', parameters.locale))
         }
+    } else {
+        newEntity.productId = delegator.getNextSeqId('Product')
     }
     result.productId = newEntity.productId
 
@@ -332,10 +332,7 @@ Map indexProductKeywords() {
     //this service is meant to be called from an entity ECA for entities that include a productId
     //if it is the Product entity itself triggering this action, then a [productInstance] parameter
     //will be passed and we can save a few cycles looking that up
-    GenericValue productInstance = parameters.productInstance
-    if (!productInstance) {
-        productInstance = from('Product').where(parameters).queryOne()
-    }
+    GenericValue productInstance = parameters.productInstance ?: from('Product').where(parameters).queryOne()
     //induce keywords if autoCreateKeywords is empty or Y
     if (!productInstance.autoCreateKeywords || 'Y' == productInstance.autoCreateKeywords) {
         KeywordIndex.indexKeywords(productInstance)
@@ -414,9 +411,7 @@ Map createProductReview() {
     Map result = success()
     result.productReviewId = newEntity.productReviewId
 
-    if (!newEntity.postedDateTime) {
-        newEntity.postedDateTime = UtilDateTime.nowTimestamp()
-    }
+    newEntity.postedDateTime = newEntity.postedDateTime ?: UtilDateTime.nowTimestamp()
     newEntity.create()
 
     String productId = newEntity.productId
@@ -571,9 +566,7 @@ Map copyToProductVariants() {
  * a method to centralize product security code, meant to be called in-line with
  */
 Map checkProductRelatedPermission(String callingMethodName, String checkAction) {
-    if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
-    }
+    callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     if (UtilValidate.isEmpty(checkAction)) {
         checkAction = 'UPDATE'
     }
@@ -668,9 +661,7 @@ Map addPartyToProduct() {
     }
     GenericValue newEntity = makeValue('ProductRole', parameters)
 
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.nowTimestamp()
-    }
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
     return success()
 }

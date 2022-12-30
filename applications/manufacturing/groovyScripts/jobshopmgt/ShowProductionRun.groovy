@@ -25,10 +25,7 @@ import org.apache.ofbiz.base.util.UtilValidate
 
 delegator = request.getAttribute('delegator')
 
-productionRunId = request.getParameter('productionRunId')
-if (!productionRunId) {
-    productionRunId = request.getParameter('workEffortId')
-}
+productionRunId = request.getParameter('productionRunId') ?: request.getParameter('workEffortId')
 if (productionRunId) {
 
     GenericValue productionRun = from('WorkEffort').where('workEffortId', productionRunId).queryOne();

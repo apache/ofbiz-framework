@@ -21,11 +21,7 @@ context.inputParamEnums = from('Enumeration').where('enumTypeId', 'PROD_PRICE_IN
 context.condOperEnums = from('Enumeration').where('enumTypeId', 'PROD_PRICE_COND').orderBy('sequenceId').cache(true).queryList()
 context.productPriceActionTypes = from('ProductPriceActionType').orderBy('description').cache(true).queryList()
 
-String priceRuleId = request.getParameter('productPriceRuleId')
-
-if (!priceRuleId) {
-    priceRuleId = parameters.get('productPriceRuleId')
-}
+String priceRuleId = request.getParameter('productPriceRuleId') ?: parameters.get('productPriceRuleId')
 
 if (priceRuleId) {
     productPriceRules = []

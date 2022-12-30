@@ -332,10 +332,7 @@ class QuoteTests extends OFBizTestCase {
     // Test Quote Sequence Enforced
     void testQuoteSequenceEnforced() {
         GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', 'DemoCustomer').queryOne()
-        Long lastQuoteNumber = partyAcctgPreference.lastQuoteNumber
-        if (!lastQuoteNumber) {
-            lastQuoteNumber = 0
-        }
+        Long lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ?: 0
 
         Map input = [
                 userLogin: userLogin,

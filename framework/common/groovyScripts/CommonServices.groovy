@@ -54,12 +54,8 @@ Map convertUom() {
     BigDecimal convertedValue
 
     // setting up default parameters if not specified
-    if (!parameters.defaultRoundingMode) {
-        parameters.defaultRoundingMode = RoundingMode.HALF_EVEN
-    }
-    if (!parameters.defaultDecimalScale) {
-        parameters.defaultDecimalScale = 2
-    }
+    parameters.defaultRoundingMode = parameters.defaultRoundingMode ?: RoundingMode.HALF_EVEN
+    parameters.defaultDecimalScale = parameters.defaultDecimalScale ?: 2
 
     if (parameters.uomId == parameters.uomIdTo) {
         result.convertedValue = parameters.originalValue
@@ -97,9 +93,7 @@ Map convertUom() {
     }
 
     // if not found, try the uom conversion entity
-    if (!uomConversion) {
-        uomConversion = from('UomConversion').where(parameters).cache().queryOne()
-    }
+    uomConversion = uomConversion ?: from('UomConversion').where(parameters).cache().queryOne()
     logVerbose("using conversion factor=${uomConversion.conversionFactor}")
 
     if (!uomConversion) {

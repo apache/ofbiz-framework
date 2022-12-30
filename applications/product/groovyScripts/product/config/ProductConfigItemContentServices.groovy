@@ -29,9 +29,7 @@ import org.apache.ofbiz.service.ServiceUtil
 Map createProductConfigItemContent() {
     Map result = success()
     GenericValue newEntity = makeValue('ProdConfItemContent', parameters)
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.getTimestamp(System.currentTimeSeconds() * 1000)
-    }
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.getTimestamp(System.currentTimeSeconds() * 1000)
     newEntity.create()
 
     run service: 'updateContent', with: parameters

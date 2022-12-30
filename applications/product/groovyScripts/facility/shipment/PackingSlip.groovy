@@ -41,10 +41,7 @@ quantityInShipmentByProduct = [:]
 shipmentItems = shipment.getRelated('ShipmentItem', null, null, false)
 shipmentItems.each { shipmentItem ->
     productId = shipmentItem.productId
-    shipped = quantityShippedByProduct.get(productId)
-    if (!shipped) {
-        shipped = 0 as Double
-    }
+    shipped = quantityShippedByProduct.get(productId) ?: 0 as Double
     shipped += shipmentItem.getDouble('quantity').doubleValue()
     quantityShippedByProduct.put(productId, shipped)
     quantityInShipmentByProduct.put(productId, shipped)
@@ -68,10 +65,7 @@ while (previousShipmentIter.hasNext()) {
         previousShipmentItems = previousShipmentItem.getRelated('ShipmentItem', null, null, false)
         previousShipmentItems.each { shipmentItem ->
             productId = shipmentItem.productId
-            shipped = quantityShippedByProduct.get(productId)
-            if (!shipped) {
-                shipped = new Double(0)
-            }
+            shipped = quantityShippedByProduct.get(productId) ?: 0 as Double
             shipped += shipmentItem.getDouble('quantity').doubleValue()
             quantityShippedByProduct.put(productId, shipped)
         }
@@ -89,10 +83,7 @@ issuances.each { issuance ->
     productId = orderItem.productId
     if (!countedOrderItems.containsKey(orderItem.orderId + orderItem.orderItemSeqId)) {
         countedOrderItems.put(orderItem.orderId + orderItem.orderItemSeqId, null)
-        requested = quantityRequestedByProduct.get(productId)
-        if (!requested) {
-            requested = new Double(0)
-        }
+        requested = quantityRequestedByProduct.get(productId) ?: 0 as Double
         cancelQuantity = orderItem.getDouble('cancelQuantity')
         quantity = orderItem.getDouble('quantity')
         requested += quantity.doubleValue() - (cancelQuantity ? cancelQuantity.doubleValue() : 0)

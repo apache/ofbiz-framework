@@ -35,9 +35,7 @@ import org.apache.ofbiz.party.party.PartyHelper
   */
 Map savePartyNameChange() {
     // for special case in ecommerce, if no partyId is passed in use userLogin.partyId
-    if (!parameters.partyId) {
-        parameters.partyId = userLogin.partyId
-    }
+    parameters.partyId = parameters.partyId ?: userLogin.partyId
 
     GenericValue partyNameHistory = makeValue('PartyNameHistory', parameters)
     partyNameHistory.changeDate = UtilDateTime.nowTimestamp()
@@ -80,9 +78,7 @@ Map getPartyNameForDate() {
     GenericValue person = from('Person').where(parameters).queryOne()
     GenericValue partyGroup = from('PartyGroup').where(parameters).queryOne()
 
-    if (!parameters.compareDate) {
-        parameters.compareDate = UtilDateTime.nowTimestamp()
-    }
+    parameters.compareDate = parameters.compareDate ?: UtilDateTime.nowTimestamp()
 
     // go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate
     GenericValue partyNameHistoryCurrent = null
@@ -172,9 +168,7 @@ Map createPartyIdentifications() {
  * Sets Party Profile Defaults
  */
 Map setPartyProfileDefaults() {
-    if (!parameters.partyId) {
-        parameters.partyId = userLogin.partyId
-    }
+    parameters.partyId = parameters.partyId ?: userLogin.partyId
 
     // lookup existing value
     GenericValue partyProfileDefault = from('PartyProfileDefault')
@@ -274,19 +268,15 @@ Map getPartyEmail () {
         .filterByDate(searchTimestamp, 'purposeFromDate', 'purposeThruDate', 'contactFromDate', 'contactThruDate')
         .queryFirst()
     // Any other email
-    if (!emailAddress) {
-        emailAddress = from('PartyAndContactMech')
-        .where(partyId: parameters.partyId, contactMechTypeId: 'EMAIL_ADDRESS')
-        .filterByDate(searchTimestamp)
-        .queryFirst()
-    }
+    emailAddress = emailAddress ?: from('PartyAndContactMech')
+            .where(partyId: parameters.partyId, contactMechTypeId: 'EMAIL_ADDRESS')
+            .filterByDate(searchTimestamp)
+            .queryFirst()
     // Any other electronic address
-    if (!emailAddress) {
-        emailAddress = from('PartyAndContactMech')
-        .where(partyId: parameters.partyId, contactMechTypeId: 'ELECTRONIC_ADDRESS')
-        .filterByDate(searchTimestamp)
-        .queryFirst()
-    }
+    emailAddress = emailAddress ?: from('PartyAndContactMech')
+            .where(partyId: parameters.partyId, contactMechTypeId: 'ELECTRONIC_ADDRESS')
+            .filterByDate(searchTimestamp)
+            .queryFirst()
     if (emailAddress) {
         resultMap.emailAddress = emailAddress.infoString
         resultMap.contactMechId = emailAddress.contactMechId
@@ -644,10 +634,7 @@ Map sendAccountActivatedEmailNotification() {
             .where(lookupMap)
             .queryOne()
     if (storeEmail && storeEmail.bodyScreenLocation) {
-        String partyId = parameters.partyId
-        if (!partyId) {
-            partyId = userLogin.partyId
-        }
+        String partyId = parameters.partyId ?: userLogin.partyId
 
         GenericValue webSite = from('WebSite')
                 .where(productStoreId: storeEmail.productStoreId)

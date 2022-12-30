@@ -22,10 +22,7 @@ import org.apache.ofbiz.base.util.UtilProperties
 
 uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
 
-contentId = parameters.contentId
-if (!contentId) {
-    contentId = null
-}
+contentId = parameters.contentId ?: null
 
 prodCatContentTypeId = parameters.prodCatContentTypeId
 context.contentFormName = 'EditCategoryContentSimpleText'

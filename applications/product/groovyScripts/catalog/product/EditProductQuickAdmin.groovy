@@ -75,13 +75,7 @@ context.addedFeatureTypeIds = addedFeatureTypes.keySet()
 context.addedFeatureTypes = addedFeatureTypes
 context.featuresByType = featuresByType
 
-productId = parameters.get('productId')
-if (!productId) {
-    productId = parameters.get('PRODUCT_ID')
-}
-if (!productId) {
-    productId = request.getAttribute('productId')
-}
+productId = parameters.get('productId') ?: parameters.get('PRODUCT_ID') ?: request.getAttribute('productId')
 if (productId) {
     context.productId = productId
 }

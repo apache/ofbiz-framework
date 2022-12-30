@@ -35,9 +35,8 @@ if (inventoryTransferId) {
             facilityId = inventoryTransfer.facilityId
             parameters.facilityId = facilityId
         }
-        if (!inventoryItemId) {
-            inventoryItemId = inventoryTransfer.inventoryItemId
-        }
+
+        inventoryItemId = inventoryItemId ?: inventoryTransfer.inventoryItemId
     }
 }
 

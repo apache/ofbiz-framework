@@ -32,9 +32,7 @@ Map createPartyInvitation() {
     if (! parameters.toName && parameters.partyId) {
         newEntity.toName = PartyHelper.getPartyName(delegator, parameters.partyId, false)
     }
-    if (!newEntity.lastInviteDate) {
-        newEntity.lastInviteDate = UtilDateTime.nowTimestamp()
-    }
+    newEntity.lastInviteDate = newEntity.lastInviteDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
     return result
 }

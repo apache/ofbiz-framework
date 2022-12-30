@@ -28,9 +28,7 @@ import org.apache.ofbiz.party.party.PartyWorker
 if (!fromDate) {
     return
 }
-if (!thruDate) {
-    thruDate = UtilDateTime.nowTimestamp()
-}
+thruDate = thruDate ?: UtilDateTime.nowTimestamp()
 if (!glFiscalTypeId) {
     return
 }

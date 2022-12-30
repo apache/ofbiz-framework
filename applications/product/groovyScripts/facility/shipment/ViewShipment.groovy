@@ -18,10 +18,7 @@
  */
 
 
-shipmentId = parameters.shipmentId
-if (!shipmentId) {
-    shipmentId = request.getAttribute('shipmentId')
-}
+shipmentId = parameters.shipmentId ?: request.getAttribute('shipmentId')
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 context.shipmentId = shipmentId

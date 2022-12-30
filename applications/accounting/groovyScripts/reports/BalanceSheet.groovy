@@ -31,9 +31,7 @@ import java.sql.Timestamp
 
 uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
 
-if (!thruDate) {
-    thruDate = UtilDateTime.nowTimestamp()
-}
+thruDate = thruDate ?: UtilDateTime.nowTimestamp()
 if (!glFiscalTypeId) {
     return
 }

@@ -36,9 +36,7 @@ calendarData = context.techDataCalendar
 if (!tryEntity) {
     calendarData = requestParams ?: [:]
 }
-if (!calendarData) {
-    calendarData = [:]
-}
+calendarData = calendarData ?: [:]
 context.calendarData = calendarData
 
 allCalendarWeek = from('TechDataCalendarWeek').queryList()

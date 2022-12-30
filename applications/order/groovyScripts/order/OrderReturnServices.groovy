@@ -80,9 +80,7 @@ Map createReturnHeader() {
     }
     // check the needs (auto) inventory receive flag
     // (default to N, meaning that return won't automatically be considered Received when Accepted)
-    if (!parameters.needsInventoryReceive) {
-        parameters.needsInventoryReceive = 'N'
-    }
+    parameters.needsInventoryReceive = parameters.needsInventoryReceive ?: 'N'
     GenericValue newEntity = makeValue('ReturnHeader')
     newEntity.setNonPKFields(parameters)
 
@@ -449,9 +447,7 @@ Map quickReturnFromOrder() {
     if ('CUSTOMER_RETURN' == returnHeaderTypeId) {
         createHeaderCtx.fromPartyId = orderRole.partyId
         createHeaderCtx.toPartyId = productStore.payToPartyId
-        if (!createHeaderCtx.destinationFacilityId) {
-            createHeaderCtx.destinationFacilityId = productStore.inventoryFacilityId
-        }
+        createHeaderCtx.destinationFacilityId = createHeaderCtx.destinationFacilityId ?: productStore.inventoryFacilityId
     } else {
         createHeaderCtx.fromPartyId = productStore.paytoPartyId
         createHeaderCtx.toPartyId = orderRole.partyId
@@ -463,12 +459,8 @@ Map quickReturnFromOrder() {
     // get the available to return order items
     List orderItems = from('OrderItem').where(orderId: orderHeader.orderId, statusId: 'ITEM_COMPLETED').queryList()
 
-    if (!parameters.returnReasonId) {
-        parameters.returnReasonId = 'RTN_NOT_WANT'
-    }
-    if (!parameters.returnTypeId) {
-        parameters.returnTypeId = 'RTN_REFUND'
-    }
+    parameters.returnReasonId = parameters.returnReasonId ?: 'RTN_NOT_WANT'
+    parameters.returnTypeId = parameters.returnTypeId ?: 'RTN_REFUND'
     // create the return items
     for (GenericValue orderItem : orderItems) {
         Map newItemCtx = [returnId: returnId,

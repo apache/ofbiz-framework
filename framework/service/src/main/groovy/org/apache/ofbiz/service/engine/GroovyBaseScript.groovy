@@ -38,21 +38,15 @@ abstract class GroovyBaseScript extends Script {
     Map runService(String serviceName, Map inputMap) throws ExecutionServiceException {
         LocalDispatcher dispatcher = binding.getVariable('dispatcher')
         DispatchContext dctx = dispatcher.getDispatchContext()
-        if (!inputMap.userLogin) {
-            inputMap.userLogin = this.binding.hasVariable('userLogin')
-                    ? this.binding.getVariable('userLogin')
-                    : this.binding.getVariable('parameters').userLogin
-        }
-        if (!inputMap.timeZone) {
-            inputMap.timeZone = this.binding.hasVariable('timeZone')
-                    ? this.binding.getVariable('timeZone')
-                    : this.binding.getVariable('parameters').timeZone
-        }
-        if (!inputMap.locale) {
-            inputMap.locale = this.binding.hasVariable('locale')
-                    ? this.binding.getVariable('locale')
-                    : this.binding.getVariable('parameters').locale
-        }
+        inputMap.userLogin = inputMap.userLogin ?: this.binding.hasVariable('userLogin')
+                ? this.binding.getVariable('userLogin')
+                : this.binding.getVariable('parameters').userLogin
+        inputMap.timeZone = inputMap.timeZone ?: this.binding.hasVariable('timeZone')
+                ? this.binding.getVariable('timeZone')
+                : this.binding.getVariable('parameters').timeZone
+        inputMap.locale = inputMap.locale ?: this.binding.hasVariable('locale')
+                ? this.binding.getVariable('locale')
+                : this.binding.getVariable('parameters').locale
         if (serviceName == 'createAnonFile') {
             String fileName = inputMap.get('dataResourceName')
             String fileNameAndPath = inputMap.get('objectInfo')
@@ -190,10 +184,7 @@ abstract class GroovyBaseScript extends Script {
         return label(ressource, message, null)
     }
     String label(String ressource, String message, Map context) {
-        Locale locale = this.binding.getVariable('locale')
-        if (!locale) {
-            locale = Locale.getDefault()
-        }
+        Locale locale = this.binding.getVariable('locale') ?: Locale.getDefault()
         if (context) {
             return UtilProperties.getMessage(ressource, message, context, locale)
         }

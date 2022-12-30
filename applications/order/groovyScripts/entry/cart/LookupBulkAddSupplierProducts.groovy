@@ -39,9 +39,7 @@ if (!parameters.containsKey('VIEW_INDEX_2')) {
         }
     }
 }
-if (!maxRows) {
-    maxRows = 50
-}
+maxRows = maxRows ?: 50
 
 productId = parameters.productId
 supplier = null

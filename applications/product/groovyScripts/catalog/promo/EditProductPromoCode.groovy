@@ -17,10 +17,7 @@
  * under the License.
  */
 
-productPromoCodeId = request.getParameter('productPromoCodeId')
-if (!productPromoCodeId) {
-    productPromoCodeId = request.getAttribute('productPromoCodeId')
-}
+productPromoCodeId = request.getParameter('productPromoCodeId') ?: request.getAttribute('productPromoCodeId')
 productPromoCode = from('ProductPromoCode').where('productPromoCodeId', productPromoCodeId).queryOne()
 
 productPromoId = null

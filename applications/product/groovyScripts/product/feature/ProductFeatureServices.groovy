@@ -34,9 +34,7 @@ Map applyFeatureToProductFromTypeAndCode() {
     for (GenericValue productFeature : productFeatures) {
         Map applyFeatureContext = parameters
         applyFeatureContext.productFeatureId = productFeature.productFeatureId
-        if (! applyFeatureContext.sequenceNum) {
-            applyFeatureContext.sequenceNum = productFeature.defaultSequenceNum
-        }
+        applyFeatureContext.sequenceNum = applyFeatureContext.sequenceNum ?: productFeature.defaultSequenceNum
         run service: 'applyFeatureToProduct', with: applyFeatureContext
     }
     return success()
@@ -51,9 +49,8 @@ Map createProductFeatureType() {
         return error(UtilProperties.getMessage('ProductUiLabels',
                 'ProductCatalogCreatePermissionError', parameters.locale))
     }
-    if (! parameters.productFeatureTypeId) {
-        parameters.productFeatureTypeId = delegator.getNextSeqId('ProductFeatureType')
-    } else if (!Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId)) {
+    parameters.productFeatureTypeId = parameters.productFeatureTypeId ?: delegator.getNextSeqId('ProductFeatureType')
+    if (!Pattern.matches('^[a-zA-Z_0-9]+$', parameters.productFeatureTypeId)) {
         return error(UtilProperties.getMessage('ProductErrorUiLabels',
                 'ProductFeatureTypeIdMustContainsLettersAndDigits', parameters.locale))
     }

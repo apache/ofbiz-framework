@@ -27,10 +27,7 @@ Boolean actualCurrency = new Boolean(context.actualCurrency)
 if (actualCurrency == null) {
     actualCurrency = true
 }
-actualCurrencyUomId = context.actualCurrencyUomId
-if (!actualCurrencyUomId) {
-    actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
-}
+actualCurrencyUomId = context.actualCurrencyUomId ?:  context.defaultOrganizationPartyCurrencyUomId
 //get total/unapplied/applied invoices separated by sales/purch amount:
 totalInvSaApplied = BigDecimal.ZERO
 totalInvSaNotApplied = BigDecimal.ZERO

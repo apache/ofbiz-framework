@@ -131,12 +131,8 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     }
     String shipToContactMechId = parameters.shipToContactMechId
     if (shoppingCart) {
-        if (!partyId) {
-            partyId = shoppingCart.getPartyId()
-        }
-        if (!shipToContactMechId) {
-            shipToContactMechId = shoppingCart.getShippingContactMechId()
-        }
+        partyId = partyId ?: shoppingCart.getPartyId()
+        shipToContactMechId = shipToContactMechId ?: shoppingCart.getShippingContactMechId()
     }
     if (partyId) {
         if (userLogin.userLoginId == 'anonymous') {
@@ -196,13 +192,13 @@ Map createUpdateBillingAddressAndPaymentMethod() {
 Map setAnonUserLogin() {
     ShoppingCart shoppingCart = parameters.shoppingCart
     GenericValue userLogin = shoppingCart.getUserLogin()
-    if (!userLogin) {
-        userLogin = from('UserLogin').where(userLoginId: 'anonymous').queryOne()
-    } else {
+    if (userLogin) {
         // If an anonymous user is coming back, update the party id in the userLogin object
         if (userLogin.userLoginId == 'anonymous' && parameters.partyId) {
             userLogin.partyId = parameters.partyId
         }
+    } else {
+        userLogin = from('UserLogin').where(userLoginId: 'anonymous').queryOne()
     }
     shoppingCart.setUserLogin(userLogin, dispatcher)
     return success()

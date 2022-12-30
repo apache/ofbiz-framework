@@ -19,13 +19,10 @@
 
 import org.apache.ofbiz.entity.condition.EntityCondition
 
-shipmentId = request.getParameter('shipmentId')
+shipmentId = request.getParameter('shipmentId') ?: context.shipmentId
 orderId = request.getParameter('orderId')
 shipGroupSeqId = request.getParameter('shipGroupSeqId')
 
-if (!shipmentId) {
-    shipmentId = context.shipmentId
-}
 action = request.getParameter('action')
 
 shipment = null

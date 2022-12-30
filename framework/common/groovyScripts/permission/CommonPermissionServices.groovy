@@ -45,10 +45,8 @@ Map genericBasePermissionCheck() {
     // altPermission is not a required field; no need to add Error
 
     // set up called service name
-    String resourceDescription = parameters.resourceDescription
-    if (!resourceDescription) {
-        resourceDescription = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
-    }
+    String resourceDescription = parameters.resourceDescription ?:
+            UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
 
     // check permission, permission checks include _ADMIN
     if (security.hasEntityPermission(primaryPermission, "_${mainAction}", parameters.userLogin)

@@ -31,10 +31,7 @@ if (!verifyPickSession) {
     session.setAttribute('verifyPickSession', verifyPickSession)
 }
 
-shipmentId = parameters.shipmentId
-if (!shipmentId) {
-    shipmentId = request.getAttribute('shipmentId')
-}
+shipmentId = parameters.shipmentId ?: request.getAttribute('shipmentId')
 context.shipmentId = shipmentId
 
 if (shipmentId) {
