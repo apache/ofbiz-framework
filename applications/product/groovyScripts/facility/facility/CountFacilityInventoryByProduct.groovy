@@ -187,7 +187,6 @@ if (action) {
     }
 
     if (checkTime) {
-
         // Construct a dynamic view entity to search against for sales usage quantities
         salesUsageViewEntity = new DynamicViewEntity()
         salesUsageViewEntity.addMemberEntity('OI', 'OrderItem')
@@ -263,7 +262,6 @@ if (action) {
             ]
 
             if (checkTime) {
-
                 // Make a query against the sales usage view entity
                 salesUsageIt = from(salesUsageViewEntity)
                                     .where(EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),

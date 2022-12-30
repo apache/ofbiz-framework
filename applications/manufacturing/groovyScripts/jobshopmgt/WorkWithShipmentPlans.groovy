@@ -136,7 +136,6 @@ if (shipmentPlans) {
         if (product.heightUomId &&
             product.widthUomId &&
             product.depthUomId) {
-
             heightUom = from('Uom').where('uomId', product.heightUomId).cache(true).queryOne()
             widthUom = from('Uom').where('uomId', product.widthUomId).cache(true).queryOne()
             depthUom = from('Uom').where('uomId', product.depthUomId).cache(true).queryOne()

@@ -136,7 +136,6 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from('GlAccountAndHistory').where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-
         Map accountMap = [glAccountId: lastTimePeriodHistory.glAccountId, accountCode: lastTimePeriodHistory.accountCode,
                           accountName: lastTimePeriodHistory.accountName, balance: lastTimePeriodHistory.getBigDecimal('endingBalance'),
                           D: lastTimePeriodHistory.getBigDecimal('postedDebits'), C: lastTimePeriodHistory.getBigDecimal('postedCredits')]

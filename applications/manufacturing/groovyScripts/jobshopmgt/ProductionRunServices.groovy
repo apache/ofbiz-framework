@@ -367,7 +367,6 @@ Map issueInventoryItemToWorkEffort() {
     if ('NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId &&
             inventoryItem.availableToPromiseTotal &&
             inventoryItem.availableToPromiseTotal > 0) {
-
         quantityIssued = !parameters.quantity || parameters.quantity > inventoryItem.availableToPromiseTotal ?
                 parameters.quantity :
                 inventoryItem.availableToPromiseTotal

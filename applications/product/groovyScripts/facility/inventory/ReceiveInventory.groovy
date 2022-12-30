@@ -228,7 +228,6 @@ facilities = from('Facility').queryList()
 // default per unit cost for both shipment or individual product
 standardCosts = [:]
 if (ownerAcctgPref) {
-
     // get the unit cost of the products in a shipment
     if (purchaseOrderItems) {
         purchaseOrderItems.each { orderItem ->

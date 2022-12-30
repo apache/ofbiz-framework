@@ -75,7 +75,6 @@ Map createDataResource() {
  *
  */
 Map createDataResourceAndAssocToContent() {
-
     GenericValue content = from('Content').where(parameters).queryOne()
     if (!content) {
         return error(UtilProperties.getMessage('ContentErrorUiLabels', 'layoutEvents.content_empty', parameters.locale))

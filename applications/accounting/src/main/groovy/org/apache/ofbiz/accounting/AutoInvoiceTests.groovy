@@ -32,7 +32,6 @@ class AutoInvoiceTests extends OFBizTestCase {
     }
 
     void testInvoiceWorkerGetInvoiceTotal() {
-
         String invoiceId = 'demo10000'
         BigDecimal amount = new BigDecimal('323.54')
         assertInvoiceTotal(invoiceId, amount)

@@ -156,7 +156,6 @@ List<String> getFieldsToSelect(ModelEntity modelEntity) {
     List<String> fieldsToSelect = []
 
     if (groupByFields || functionFields) {
-
         for (String groupByField : groupByFields) {
             fieldsToSelect.add(groupByField)
         }

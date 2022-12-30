@@ -376,7 +376,6 @@ Map productAMDISC() {
  *
  */
 Map productPrice() {
-
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -526,7 +525,6 @@ Map productShipCharge() {
     BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
     BigDecimal amount = cart.getTotalShipping().multiply(percentage)
     if (amount.compareTo(BigDecimal.ZERO) != 0) {
-
         int existingOrderPromoIndex = cart.getAdjustmentPromoIndex(productPromoAction.getString('productPromoId'))
         if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal('amount') == amount) {
             actionResultInfo.ranAction = false  // already ran, no need to repeat

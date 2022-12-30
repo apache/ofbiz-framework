@@ -37,7 +37,6 @@ if (itemQuantitiesToReceive) {
     if ((sessionShipmentId && sessionShipmentId != shipmentId) ||
         ((sessionOrderId && sessionOrderId != orderId))        ||
             'Y' == request.getParameter('clearAll')) {
-
         // Clear the map if the shipmentId or orderId are different than the current ones, or
         // if the clearAll parameter is present
         itemQuantitiesToReceive.clear()
@@ -255,7 +254,6 @@ if (productIdToReceive) {
             }
         }
     } else {
-
         // Add an error message to the context if the productId doesn't exist in this purchase order
         context.ProductReceiveInventoryAgainstPurchaseOrderProductNotFound = true
     }

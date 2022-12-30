@@ -127,7 +127,6 @@ Map productTotal() {
             if (passedItemConds && !cartItem.getIsPromo()
                     && (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId)))
                     && (!product || 'N' != product.includeInPromotions)) {
-
                 // just count the entire sub-total of the item
                 amountAvailable = amountAvailable.add(cartItem.getItemSubTotal())
             }

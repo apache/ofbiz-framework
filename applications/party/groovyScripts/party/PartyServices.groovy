@@ -175,12 +175,10 @@ Map setPartyProfileDefaults() {
         .where(parameters)
         .queryOne()
     if (partyProfileDefault) {
-
         // update the fields
         partyProfileDefault.setNonPKFields(parameters)
         partyProfileDefault.store()
     } else {
-
         // create the profile defaut because is missing
         partyProfileDefault = makeValue('PartyProfileDefault', parameters)
         partyProfileDefault.create()
