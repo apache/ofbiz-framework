@@ -143,10 +143,10 @@ if (product) {
     productVariants = []
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
     mainProducts = []
-    if(isAlternativePacking){
+    if (isAlternativePacking) {
         productVirtualVariants = from('ProductAssoc')
                 .where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE').cache(true).queryList()
-        if(productVirtualVariants){
+        if (productVirtualVariants) {
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:]
                 mainProduct = virtualVariantKey.getRelatedOne('MainProduct', true)
@@ -175,7 +175,7 @@ if (product) {
         }
         variantPriceList = []
 
-        if(virtualVariants){
+        if (virtualVariants) {
             amt = new StringBuffer()
             // Create the javascript to return the price for each variant
             variantPriceJS = new StringBuffer()

@@ -43,7 +43,7 @@ if (productId) {
     product = from('Product').where('productId', productId).cache(true).queryOne()
     if (product) {
         // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
-        if('Y' == product.isVirtual && 'Y' == product.isVariant){
+        if ('Y' == product.isVirtual && 'Y' == product.isVariant) {
             virtualVariantProductAssocs = from('ProductAssoc')
                     .where('productId', productId, 'productAssocTypeId', 'ALTERNATIVE_PACKAGE')
                     .orderBy('-fromDate').filterByDate().cache(true).queryList()

@@ -44,7 +44,7 @@ if (productionRunId) {
 
         manufacturer = from('WorkEffortPartyAssignment')
                 .where('workEffortId', productionRunId, 'roleTypeId', 'MANUFACTURER').filterByDate().queryFirst()
-        if (manufacturer){
+        if (manufacturer) {
             productionRunData.manufacturerId = manufacturer.partyId
         }
         context.productionRunData = productionRunData

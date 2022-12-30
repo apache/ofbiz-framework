@@ -255,12 +255,12 @@ if (product) {
     productVariants = []
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null)
     mainProducts = []
-    if(isAlternativePacking){
+    if (isAlternativePacking) {
         productVirtualVariants = from('ProductAssoc')
                 .where('productIdTo', product.productId , 'productAssocTypeId', 'ALTERNATIVE_PACKAGE')
                 .cache(true)
                 .queryList()
-        if(productVirtualVariants){
+        if (productVirtualVariants) {
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:]
                 mainProduct = virtualVariantKey.getRelatedOne('MainProduct', true)
@@ -473,7 +473,7 @@ if (product) {
                                      prodCatalogId: currentCatalogId])
                             virtualVariants = virtualVariantsRes.assocProducts
 
-                            if(virtualVariants){
+                            if (virtualVariants) {
                                 virtualVariants.each { virtualAssoc ->
                                     virtual = virtualAssoc.getRelatedOne('MainProduct', false)
                                     // Get price from a virtual product
@@ -535,7 +535,7 @@ if (product) {
         }
     } else {
         context.minimumQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, priceMap.price, productId)
-        if(isAlternativePacking){
+        if (isAlternativePacking) {
             // get alternative product price when product doesn't have any feature
             jsBuf = new StringBuffer()
             jsBuf.append("<script type=\"application/javascript\">")
@@ -553,7 +553,7 @@ if (product) {
             }
             virtualVariantPriceList = []
 
-            if(virtualVariants){
+            if (virtualVariants) {
                 amt = new StringBuffer()
                 // Create the javascript to return the price for each variant
                 variantPriceJS = new StringBuffer()

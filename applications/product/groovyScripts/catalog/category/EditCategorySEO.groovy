@@ -20,7 +20,7 @@
 productCategoryId = parameters.productCategoryId
 if (productCategoryId) {
     productCategoryContents  = from('ProductCategoryContent').where('productCategoryId', productCategoryId).queryList()
-    productCategoryContents.each{ productCategoryContent->
+    productCategoryContents.each { productCategoryContent ->
         if ('PAGE_TITLE' == productCategoryContent.prodCatContentTypeId) {
             contentTitle  = from('Content').where('contentId', productCategoryContent.contentId).queryOne()
             dataTextTitle  = from('ElectronicText').where('dataResourceId', contentTitle.dataResourceId).queryOne()

@@ -36,21 +36,21 @@ listPartyPostalAddress = from('PartyAndPostalAddress').where('partyId', partyId)
 partyPostalAddress = EntityUtil.getFirst(EntityUtil.filterByDate(listPartyPostalAddress))
 context.partyPostalAddress = partyPostalAddress
 
-if('productstore' == tabButtonItemTop){
-    if(findResultSize == 0){
+if ('productstore' == tabButtonItemTop) {
+    if (findResultSize == 0) {
         request.setAttribute('_ERROR_MESSAGE_', 'Facility not set!')
         context.showScreen = 'message'
         return
-    }else{
+    } else {
         context.showScreen = 'origin'
     }
-}else if('facility' == tabButtonItemTop){
+} else if ('facility' == tabButtonItemTop) {
     facilityId = parameters.facilityId
     if (!facilityId && request.getAttribute('facilityId')) {
         facilityId = request.getAttribute('facilityId')
     }
     facility = from('Facility').where('facilityId', facilityId).queryOne()
-    if(facility){
+    if (facility) {
         facilityType = facility.getRelatedOne('FacilityType', false)
         context.facilityType = facilityType
     }

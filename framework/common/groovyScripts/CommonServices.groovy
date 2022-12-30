@@ -351,7 +351,7 @@ Map createFuturePeriod() {
     grain = null
     intermediate = null
     parties = from('PartyAcctgPreference').where('enableAccounting', 'Y').queryIterator()
-    while (parties.hasNext()){
+    while (parties.hasNext()) {
         party = parties.next()
         parameters.organizationPartyId = party.partyId
         createCustomTimePeriod = from('SystemProperty')
@@ -361,7 +361,7 @@ Map createFuturePeriod() {
             applTypes = from('SystemProperty')
                     .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.applType').queryOne()
             List types = Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*'))
-            types.each{periodTypeId ->
+            types.each { periodTypeId ->
                 Calendar periodCal = Calendar.getInstance()
                 systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.intermediate'
                 applTypeInter = from('SystemProperty')

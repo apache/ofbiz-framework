@@ -20,4 +20,4 @@
 
 import org.apache.ofbiz.accounting.util.UtilAccounting
 
-context.payments.removeAll{UtilAccounting.isReceipt(it)}
+context.payments.removeAll { UtilAccounting.isReceipt(it) }
