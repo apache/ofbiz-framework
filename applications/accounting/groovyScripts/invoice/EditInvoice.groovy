@@ -62,7 +62,7 @@ if (invoice) {
     invoiceItemsConv = []
     vatTaxesByType = [:]
     invoiceItems.each { invoiceItem ->
-        invoiceItem.amount = invoiceItem.getBigDecimal('amount').multiply(conversionRate).setScale(decimals, rounding)
+        invoiceItem.amount = invoiceItem.getBigDecimal('amount') * conversionRate.setScale(decimals, rounding)
         invoiceItemsConv.add(invoiceItem)
         // get party tax id for VAT taxes: they are required in invoices by EU
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
@@ -91,8 +91,8 @@ if (invoice) {
 
     context.invoiceItems = invoiceItemsConv
 
-    invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding)
-    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding)
+    invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice) * conversionRate.setScale(decimals, rounding)
+    invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice) * conversionRate.setScale(decimals, rounding)
     context.invoiceTotal = invoiceTotal
     context.invoiceNoTaxTotal = invoiceNoTaxTotal
 

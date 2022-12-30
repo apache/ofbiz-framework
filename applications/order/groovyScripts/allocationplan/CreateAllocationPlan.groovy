@@ -74,7 +74,7 @@ if (productId) {
             } else {
                 orderedQuantity = quantity
             }
-            orderedValue = orderedQuantity.multiply(unitPrice)
+            orderedValue = orderedQuantity * unitPrice
             orderedQuantityTotal = orderedQuantityTotal.add(orderedQuantity)
             orderedValueTotal = orderedValueTotal.add(orderedValue)
             itemMap.orderedQuantity = orderedQuantity

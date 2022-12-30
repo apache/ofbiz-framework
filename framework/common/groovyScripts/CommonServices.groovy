@@ -110,7 +110,7 @@ Map convertUom() {
     else { // not custom conversion
         // do the conversion
         if (parameters.originalValue && uomConversion.conversionFactor) {
-            convertedValue = (parameters.originalValue).multiply(BigDecimal.valueOf(uomConversion.conversionFactor))
+            convertedValue = parameters.originalValue * uomConversion.conversionFactor as BigDecimal
             convertedValue = convertedValue.setScale(15, RoundingMode.HALF_EVEN)
         }
     } //custom conversion?

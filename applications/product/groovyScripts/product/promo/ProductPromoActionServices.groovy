@@ -206,7 +206,7 @@ Map productGWP() {
             throw e
         }
 
-        BigDecimal discountAmount = quantity.multiply(gwpItem.getBasePrice()).negate()
+        BigDecimal discountAmount = quantity * (gwpItem.getBasePrice()).negate()
         ProductPromoWorker.doOrderItemPromoAction(productPromoAction, gwpItem, discountAmount, 'amount', delegator)
 
         // set promo after create note that to setQuantity we must clear this flag, setQuantity, then re-set the flag
@@ -279,8 +279,8 @@ Map productDISC() {
 
                 // create an adjustment and add it to the cartItem that implements the promotion action
                 BigDecimal percentModifier = productPromoAction.amount ? productPromoAction.getBigDecimal('amount').movePointLeft(2) : BigDecimal.ZERO
-                BigDecimal lineAmount = quantityUsed.multiply(cartItem.getBasePrice()).multiply(cartItem.getRentalAdjustment())
-                BigDecimal discountAmount = lineAmount.multiply(percentModifier).negate()
+                BigDecimal lineAmount = quantityUsed * cartItem.getBasePrice() * cartItem.getRentalAdjustment()
+                BigDecimal discountAmount = lineAmount * percentModifier.negate()
                 discountAmountTotal = discountAmountTotal.add(discountAmount)
                 // not doing this any more, now distributing among conditions and actions (see call below):
                 // doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
@@ -343,10 +343,10 @@ Map productAMDISC() {
             // create an adjustment and add it to the cartItem that implements the promotion action
             BigDecimal discount = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
             // don't allow the discount to be greater than the price
-            if (discount > cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())) {
-                discount = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())
+            if (discount > cartItem.getBasePrice() * cartItem.getRentalAdjustment()) {
+                discount = cartItem.getBasePrice() * cartItem.getRentalAdjustment()
             }
-            BigDecimal discountAmount = quantityUsed.multiply(discount).negate()
+            BigDecimal discountAmount = quantityUsed * discount.negate()
             discountAmountTotal = discountAmountTotal.add(discountAmount)
             // not doing this any more, now distributing among conditions and actions (see call below):
             // doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
@@ -408,7 +408,7 @@ Map productPrice() {
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false)
             if (quantityUsed > 0) {
                 quantityDesired = quantityDesired.subtract(quantityUsed)
-                totalAmount = totalAmount.add(quantityUsed.multiply(cartItem.getBasePrice()).multiply(cartItem.getRentalAdjustment()))
+                totalAmount = totalAmount.add(quantityUsed * cartItem.getBasePrice() * cartItem.getRentalAdjustment())
                 cartItemsUsed.add(cartItem)
             }
         }
@@ -443,9 +443,9 @@ Map productOrderPercent() {
     Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp)
     BigDecimal amount = BigDecimal.ZERO
     if (productIds) {
-        amount = cart.getSubTotalForPromotions(productIds).multiply(percentage)
+        amount = cart.getSubTotalForPromotions(productIds) * percentage
     } else {
-        amount = cart.getSubTotalForPromotions().multiply(percentage)
+        amount = cart.getSubTotalForPromotions() * percentage
     }
     if (amount != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
@@ -499,12 +499,12 @@ Map productSpecialPrice() {
         }
 
         // get difference between basePrice and specialPromoPrice and adjust for that
-        BigDecimal difference = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment()).subtract(cartItem.getSpecialPromoPrice()).negate()
+        BigDecimal difference = (cartItem.getBasePrice() * cartItem.getRentalAdjustment()).subtract(cartItem.getSpecialPromoPrice()).negate()
 
         if (difference != 0) {
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(cartItem.getQuantity(), productPromoAction, false)
             if (quantityUsed > BigDecimal.ZERO) {
-                BigDecimal amount = difference.multiply(quantityUsed)
+                BigDecimal amount = difference * quantityUsed
                 ProductPromoWorker.doOrderItemPromoAction(productPromoAction, cartItem, amount, 'amount', delegator)
                 actionResultInfo.ranAction = true
                 actionResultInfo.totalDiscountAmount = amount
@@ -523,7 +523,7 @@ Map productShipCharge() {
     ShoppingCart cart = parameters.shoppingCart
 
     BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
-    BigDecimal amount = cart.getTotalShipping().multiply(percentage)
+    BigDecimal amount = cart.getTotalShipping() * percentage
     if (amount != 0) {
         int existingOrderPromoIndex = cart.getAdjustmentPromoIndex(productPromoAction.getString('productPromoId'))
         if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal('amount') == amount) {
@@ -549,7 +549,7 @@ Map productTaxPercent() {
     ShoppingCart cart = parameters.shoppingCart
 
     BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
-    BigDecimal amount = cart.getTotalSalesTax().multiply(percentage)
+    BigDecimal amount = cart.getTotalSalesTax() * percentage
     if (amount != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true

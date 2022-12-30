@@ -81,7 +81,7 @@ Map productAmount() {
             // reduce amount still needed to qualify for promo (amountNeeded)
             BigDecimal quantity = cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, false)
             // get pro-rated amount based on discount
-            amountNeeded = amountNeeded.subtract(quantity.multiply(basePrice))
+            amountNeeded = amountNeeded.subtract(quantity * basePrice)
         }
     }
 
