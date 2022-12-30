@@ -156,7 +156,7 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
         assert paymentAcctgTrans
         assert paymentAcctgTrans.glJournalId != 'ERROR_JOURNAL'
 
-        acctgTransEntryList.clear();
+        acctgTransEntryList.clear()
         acctgTransEntryList = from('AcctgTransEntry')
                 .where('acctgTransId', paymentAcctgTrans.acctgTransId)
                 .queryList()

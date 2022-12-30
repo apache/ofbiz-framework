@@ -293,7 +293,7 @@ Map copyQuote() {
             }
         }
     }
-    String msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale);
+    String msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale)
     return [successMessage: msg, quoteId: quoteIdTo]
 }
 

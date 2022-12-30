@@ -40,7 +40,7 @@ Map sendMailFromTemplateSetting() {
         parameters.sendTo = serviceResult.emailAddress
         if (!parameters.sendTo) {
             logInfo("PartyId: ${parameters.partyIdTo} has no valid email address, not sending email")
-            return result;
+            return result
         }
     }
     GenericValue emailTemplateSetting = from('EmailTemplateSetting').where(parameters).queryOne()

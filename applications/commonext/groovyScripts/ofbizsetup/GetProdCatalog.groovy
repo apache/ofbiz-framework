@@ -25,13 +25,13 @@ prodCatalogId = parameters.prodCatalogId
 showScreen = 'origin'
 List errMsgList = []
 
-productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();
+productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst()
 if(productStore){
     context.productStoreId = productStore.productStoreId
 }
 if (productStore) {
-   facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne();
-   webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst();
+   facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne()
+   webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst()
 
    if(!facility){
        errMsgList.add('Facility not set!')
@@ -50,7 +50,7 @@ if (errMsgList) {
     return
 }
 
-productStoreCatalog = from('ProductStoreCatalog').where('productStoreId', productStore.productStoreId).queryFirst();
+productStoreCatalog = from('ProductStoreCatalog').where('productStoreId', productStore.productStoreId).queryFirst()
 if(productStoreCatalog){
     prodCatalog = productStoreCatalog.getRelatedOne('ProdCatalog', false)
     prodCatalogId = prodCatalog.prodCatalogId
@@ -69,9 +69,9 @@ if('productcategory' == tabButtonItem || 'product' == tabButtonItem){
         showErrorMsg = 'Y'
     }
 
-    prodCatalogCategory  = from('ProdCatalogCategory').where('prodCatalogId', prodCatalogId, 'sequenceNum', new Long(1)).queryFirst();
+    prodCatalogCategory  = from('ProdCatalogCategory').where('prodCatalogId', prodCatalogId, 'sequenceNum', new Long(1)).queryFirst()
     if(prodCatalogCategory){
-        productCategory = from('ProductCategory').where('primaryParentCategoryId', prodCatalogCategory.productCategoryId).queryFirst();
+        productCategory = from('ProductCategory').where('primaryParentCategoryId', prodCatalogCategory.productCategoryId).queryFirst()
         if(productCategory){
             productCategoryId = productCategory.productCategoryId
         }
@@ -88,7 +88,7 @@ if('productcategory' == tabButtonItem || 'product' == tabButtonItem){
             showErrorMsg = 'Y'
         }
          /**************** get product from ProductCategory ******************/
-        productCategoryMember  = from('ProductCategoryMember').where('productCategoryId', productCategoryId).queryFirst();
+        productCategoryMember  = from('ProductCategoryMember').where('productCategoryId', productCategoryId).queryFirst()
         if(productCategoryMember){
             product = productCategoryMember.getRelatedOne('Product', false)
             productId = product.productId
@@ -103,7 +103,7 @@ if('productcategory' == tabButtonItem || 'product' == tabButtonItem){
             }
             //    Default cost
             defaultPriceValues = from('ProductPrice')
-                    .where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'DEFAULT_PRICE').queryList();
+                    .where('productId', productId, 'productPricePurposeId', 'PURCHASE', 'productPriceTypeId', 'DEFAULT_PRICE').queryList()
             if(defaultPriceValues){
                 defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues))
                 if (defaultPrice?.price != null) {

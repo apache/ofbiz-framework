@@ -20,7 +20,7 @@
 import org.apache.ofbiz.service.ServiceUtil
 
 public Map SetTimeZoneFromBrowser() {
-    userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst();
+    userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
     if (userLogin) {
         if (!userLogin.lastTimeZone || 'null' == userLogin.lastTimeZone) {
             userLogin.lastTimeZone = parameters.localeName

@@ -76,4 +76,4 @@ if (partyIdFrom && partyIdTo) {
         contactInfoList.add(contactDetailMap)
     }
 }
-context.contactInfoList = contactInfoList;
+context.contactInfoList = contactInfoList

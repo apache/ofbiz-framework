@@ -25,8 +25,8 @@ context.factory = factory
 factory.findMatchingLabels(parameters.labelComponentName, parameters.labelFileName, parameters.labelKey,
         parameters.labelLocaleName, 'Y' == parameters.onlyNotUsedLabels)
 context.labels = factory.getLabels()
-allLabels = factory.getLabelsList();
-context.labelsList = allLabels;
+allLabels = factory.getLabelsList()
+context.labelsList = allLabels
 context.localesFound = factory.getLocalesFound()
 context.filesFound = factory.getFilesFound()
 context.componentNamesFound = factory.getComponentNamesFound()
@@ -40,4 +40,4 @@ if ('Y' == parameters.onlyNotUsedLabels) {
     context.referencesList = references.keySet()
 }
 
-context.totalLabelsCount = allLabels.size();
+context.totalLabelsCount = allLabels.size()

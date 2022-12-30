@@ -36,6 +36,6 @@ Map createUpdateFacilityGeoPoint() {
         GenericValue facility = from("Facility").where(parameters).queryOne()
         facility.geoPointId = geoPointId
         facility.store()
-        return success();
+        return success()
     }
 }

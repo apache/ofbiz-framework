@@ -362,7 +362,7 @@ Map createFuturePeriod() {
                     .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.applType').queryOne()
             List types = Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*'))
             types.each{periodTypeId ->
-                Calendar periodCal = Calendar.getInstance();
+                Calendar periodCal = Calendar.getInstance()
                 systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.intermediate'
                 applTypeInter = from('SystemProperty')
                     .where('systemResourceId', 'general', 'systemPropertyId', systemPropertyId).queryOne()
@@ -386,7 +386,7 @@ Map createFuturePeriod() {
                         periodCal.set(Calendar.DATE, 1)
                         periodStart = new java.sql.Date(periodCal.getTimeInMillis())
                         periodStartDate = periodStart.toString() + ' 00:00:00.000'
-                        lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+                        lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH)
                         periodCal.set(Calendar.DATE, lastPeriodDay)
                         periodEnd = new java.sql.Date(periodCal.getTimeInMillis())
                         periodEndDate = periodEnd.toString() + ' 23:59:59.999'

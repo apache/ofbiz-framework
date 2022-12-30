@@ -127,7 +127,7 @@ if (action) {
     }
     // add statusId in search parametters
     if (statusId) {
-        searchParameterString = searchParameterString + '&statusId=' + statusId;
+        searchParameterString = searchParameterString + '&statusId=' + statusId
     }
 
     whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND)
@@ -137,7 +137,7 @@ if (action) {
     lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1)
     highIndex = (viewIndex.intValue() + 1) * viewSize.intValue()
     // add viewSize and viewIndex in search parameters
-    searchParameterString = searchParameterString + '&VIEW_SIZE=' + viewSize + '&VIEW_INDEX=' + viewIndex;
+    searchParameterString = searchParameterString + '&VIEW_SIZE=' + viewSize + '&VIEW_INDEX=' + viewIndex
     List prods = null
     try {
         beganTransaction = TransactionUtil.begin()

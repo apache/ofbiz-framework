@@ -358,7 +358,7 @@ Map updateStatusImageManagement() {
             }
         }
     }
-    result.put('productId', parameters.productId);
+    result.put('productId', parameters.productId)
     return result
 }
 

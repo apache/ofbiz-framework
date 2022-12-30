@@ -17,7 +17,7 @@
  * under the License.
  *******************************************************************************/
 
- package org.apache.ofbiz.accounting;
+ package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.base.util.UtilDateTime

@@ -107,7 +107,7 @@ totalAvailableToReceive = 0
 
 // Populate the order item data for the FTL
 orderItems = from('OrderItemAndShipGroupAssoc')
-        .where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+        .where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList()
 orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne('Product', false)
 

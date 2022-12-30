@@ -83,8 +83,8 @@ class ProductPromoActionTests extends OFBizTestCase {
         }
 
         //Add tax to cart
-        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-        coh.calcAndAddTax(false);
+        CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart)
+        coh.calcAndAddTax(false)
 
         serviceResult = dispatcher.runSync('productPromoActTaxPercent', serviceContext)
 

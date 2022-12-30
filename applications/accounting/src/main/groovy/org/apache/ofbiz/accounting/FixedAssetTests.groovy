@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.ofbiz.accounting;
+package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
@@ -42,7 +42,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01')
-                .filterByDate().queryFirst();
+                .filterByDate().queryFirst()
         assert fixedAssetRegistration
     }
     void testUpdateFixedAssetRegistration() {
@@ -61,7 +61,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
-                .filterByDate().queryOne();
+                .filterByDate().queryOne()
         assert fixedAssetRegistration == null
     }
     void testDeleteFixedAssetRegistration() {
@@ -76,7 +76,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetRegistration = from('FixedAssetRegistration')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'fromDate', fromDate)
-                .queryOne();
+                .queryOne()
         assert fixedAssetRegistration == null
     }
     void testCreateFixedAssetMeter() {
@@ -92,7 +92,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER')
-                .queryFirst();
+                .queryFirst()
         assert fixedAssetMeter
     }
     void testUpdateFixedAssetMeter() {
@@ -109,7 +109,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
-                .queryOne();
+                .queryOne()
         assert fixedAssetMeter
     }
     void testDeleteFixedAssetMeter() {
@@ -125,7 +125,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetMeter = from('FixedAssetMeter')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'productMeterTypeId', 'ODOMETER', 'readingDate', readingDate)
-                .queryOne();
+                .queryOne()
         assert fixedAssetMeter == null
     }
     void testCreateFixedAssetGeoPoint() {
@@ -139,7 +139,7 @@ class FixedAssetTests extends OFBizTestCase {
 
         GenericValue fixedAssetGeoPoint = from('FixedAssetGeoPoint')
                 .where('fixedAssetId', 'DEMO_VEHICLE_01', 'geoPointId', '9000')
-                .filterByDate().queryFirst();
+                .filterByDate().queryFirst()
         assert fixedAssetGeoPoint
     }
 }

@@ -19,7 +19,7 @@
 
 import javax.wsdl.WSDLException
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.service.ServiceContainer
 import org.apache.ofbiz.base.util.UtilProperties
