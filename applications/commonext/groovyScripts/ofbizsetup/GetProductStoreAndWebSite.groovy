@@ -16,8 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- import org.apache.ofbiz.entity.util.EntityUtil
-
 productStoreId = null
 
 productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();

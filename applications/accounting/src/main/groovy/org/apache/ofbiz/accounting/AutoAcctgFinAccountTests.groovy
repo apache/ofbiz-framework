@@ -23,8 +23,6 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-import java.sql.Timestamp
-
 class AutoAcctgFinAccountTests extends OFBizTestCase {
     public AutoAcctgFinAccountTests(String name) {
         super(name)

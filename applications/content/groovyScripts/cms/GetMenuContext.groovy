@@ -16,9 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.ofbiz.base.util.Debug
-
 session = context.session
 menuContext = session.getAttribute('menuContext')
 

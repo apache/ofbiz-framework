@@ -23,26 +23,25 @@
  */
 
 
-import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
-import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.webapp.taglib.ContentUrlTag
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart
+import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.product.product.ProductWorker
-import org.apache.ofbiz.product.catalog.CatalogWorker
-import org.apache.ofbiz.product.store.ProductStoreWorker
 import org.apache.ofbiz.product.store.ProductStoreSurveyWrapper
+import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.webapp.taglib.ContentUrlTag
 import org.apache.ofbiz.webapp.website.WebSiteWorker
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 
 String buildNext(Map map, List order, String current, String prefix, Map featureTypes) {
     int ct = 0

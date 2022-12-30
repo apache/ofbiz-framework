@@ -16,11 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.entity.model.ModelReader
-import org.apache.ofbiz.entity.model.ModelEntity
-
 controlPath = parameters._CONTROL_PATH_
 context.controlPath = controlPath
 

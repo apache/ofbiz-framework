@@ -17,12 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.service.GenericServiceException
 import org.apache.ofbiz.service.ServiceUtil
-
 
 /**
  * Creates a party group, role and contactMechs

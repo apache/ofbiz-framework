@@ -1,8 +1,3 @@
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ModelService
-import org.apache.ofbiz.service.ServiceUtil
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,6 +16,11 @@ import org.apache.ofbiz.service.ServiceUtil
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
+
 
  /**
   * Send Mail from Email Template Setting

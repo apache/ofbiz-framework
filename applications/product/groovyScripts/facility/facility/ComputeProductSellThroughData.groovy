@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import java.math.MathContext
 import java.sql.Timestamp
 
 if (parameters.fromDateSellThrough) {

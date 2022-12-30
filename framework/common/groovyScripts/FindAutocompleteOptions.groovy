@@ -17,17 +17,16 @@
  * under the License.
  */
 
+
 import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionList
 import org.apache.ofbiz.entity.condition.EntityExpr
 import org.apache.ofbiz.entity.condition.EntityFieldValue
 import org.apache.ofbiz.entity.condition.EntityFunction
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityUtilProperties
+import org.apache.ofbiz.entity.util.EntityFindOptions
 
 import java.sql.Timestamp
 

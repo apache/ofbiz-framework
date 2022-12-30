@@ -21,8 +21,8 @@
  * NOTE: This script is also referenced by the webpos and ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericValue;
+
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.category.CategoryContentWrapper
 import org.apache.ofbiz.product.store.ProductStoreWorker

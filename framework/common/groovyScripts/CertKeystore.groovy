@@ -16,14 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-import java.io.IOException
-import java.util.ArrayList
-import java.util.Collection
-import java.util.List
 
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.component.ComponentConfig.KeystoreInfo
-import org.apache.ofbiz.base.util.KeyStoreUtil
 
 
 cert = org.apache.ofbiz.base.util.KeyStoreUtil.pemToCert(certString)

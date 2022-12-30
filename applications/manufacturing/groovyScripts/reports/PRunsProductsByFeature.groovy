@@ -20,8 +20,6 @@
 // PRunsProductsByFeature
 // ReportE
 
-import org.apache.ofbiz.entity.util.EntityUtil
-
 if (productCategoryIdPar) {
     category = from('ProductCategory').where('productCategoryId', productCategoryIdPar).queryOne()
     context.category = category

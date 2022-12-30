@@ -16,12 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.math.RoundingMode
 
-import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.party.PartyHelper
+
+import java.math.RoundingMode
 
 planId = parameters.planId
 allocationPlanInfo = [:]

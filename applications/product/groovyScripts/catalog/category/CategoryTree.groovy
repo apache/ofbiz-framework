@@ -22,8 +22,8 @@
  * should not contain order component's specific code.
  */
 
+
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityUtil
 
 // Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
 // The separateRootType function will return the list of category of given catalog.

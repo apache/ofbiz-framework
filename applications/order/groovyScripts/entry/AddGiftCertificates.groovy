@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.UtilValidate
+
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
 cart = session.getAttribute('shoppingCart')
