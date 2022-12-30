@@ -97,10 +97,7 @@ Map setAcctgCompany() {
 
 Map updateFXConversion() {
     //Set the FX rate changes as of now
-    Timestamp nowTimestamp = parameters.asOfTimestamp
-    if (!nowTimestamp) {
-        nowTimestamp = UtilDateTime.nowTimestamp()
-    }
+    Timestamp nowTimestamp = parameters.asOfTimestamp ?: UtilDateTime.nowTimestamp()
 
     //find the existing exchange rates for this currency pair
     exprBldr = new EntityConditionBuilder()
@@ -137,10 +134,7 @@ Map updateFXConversion() {
 
 Map getFXConversion() {
     Map result = success()
-    Timestamp asOfTimestamp = parameters.asOfTimestamp
-    if (!asOfTimestamp) {
-        asOfTimestamp = UtilDateTime.nowTimestamp()
-    }
+    Timestamp asOfTimestamp = parameters.asOfTimestamp ?: UtilDateTime.nowTimestamp()
 
     //find the existing exchange rates
     exprBldr = new EntityConditionBuilder()

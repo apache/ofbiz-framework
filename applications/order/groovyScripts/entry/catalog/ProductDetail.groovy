@@ -84,9 +84,7 @@ currencyUomId = null
 if (cart) {
     currencyUomId = cart.getCurrency()
 }
-if (!currencyUomId) {
-    currencyUomId = EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
-}
+currencyUomId = currencyUomId ?: EntityUtilProperties.getPropertyValue('general', 'currency.uom.id.default', 'USD', delegator)
 
 // get the shopping lists for the user (if logged in)
 if (userLogin) {
@@ -387,12 +385,8 @@ if (product) {
                             jsBuf.append('DET[' + counter + "] = \"" + detailImageUrl + "\";")
                             jsBuf.append('IMG[' + counter + "] = \"" + largeImageUrl + "\";")
 
-                            if (!firstDetailImage) {
-                                firstDetailImage = detailImageUrl
-                            }
-                            if (!firstLargeImage) {
-                                firstLargeImage = largeImage
-                            }
+                            firstDetailImage = firstDetailImage ?: detailImageUrl
+                            firstLargeImage = firstLargeImage ?: largeImage
                             counter++
                         }
                         context.firstDetailImage = firstDetailImage

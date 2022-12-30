@@ -30,9 +30,7 @@ import java.sql.Timestamp
 if (!fromDate) {
     return
 }
-if (!thruDate) {
-    thruDate = UtilDateTime.nowTimestamp()
-}
+thruDate = thruDate ?: UtilDateTime.nowTimestamp()
 if (!glFiscalTypeId) {
     return
 }

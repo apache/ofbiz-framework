@@ -21,10 +21,8 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-if (! context.noConditionFind) {
-    context.noConditionFind = parameters.noConditionFind ?:
-            EntityUtilProperties.getPropertyValue('widget', 'widget.defaultNoConditionFind', delegator)
-}
+context.noConditionFind = context.noConditionFind ?: parameters.noConditionFind ?:
+        EntityUtilProperties.getPropertyValue('widget', 'widget.defaultNoConditionFind', delegator)
 Map prepareResult = runService('prepareFind', [entityName: context.entityName,
                                                orderBy: context.orderBy,
                                                inputFields: parameters,

@@ -39,9 +39,7 @@ Map createDataResource() {
 
     GenericValue newEntity = makeValue('DataResource', parameters)
 
-    if (!newEntity.dataResourceId) {
-        newEntity.dataResourceId = delegator.getNextSeqId('DataResource')
-    }
+    newEntity.dataResourceId = newEntity.dataResourceId ?: delegator.getNextSeqId('DataResource')
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     GenericValue userLogin = parameters.userLogin

@@ -59,10 +59,7 @@ try {
     }
 
     // get the partial list for this page
-    visitList = visitListIt.getPartialList(lowIndex, viewSize)
-    if (!visitList) {
-        visitList = new ArrayList()
-    }
+    visitList = visitListIt.getPartialList(lowIndex, viewSize) ?: []
 
     visitListSize = visitListIt.getResultsSizeAfterPartialList()
     if (highIndex > visitListSize) {

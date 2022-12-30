@@ -723,9 +723,7 @@ Map checkCanChangeShipmentStatusDelivered() {
 Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
     Map result = success()
     String fromStatusId = inputParameters.fromStatusId
-    if (!inputParameters.mainAction) {
-        inputParameters.mainAction = 'UPDATE'
-    }
+    inputParameters.mainAction = inputParameters.mainAction ?: 'UPDATE'
     Map serviceResult = run service: 'facilityGenericPermission', with: inputParameters
     if (ServiceUtil.isError(serviceResult)) {
         return serviceResult
@@ -969,13 +967,11 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
                         GenericValue orderRole = from('OrderRole')
                                 .where(orderId: orderHeader.orderId,
                                         roleTypeId: 'SHIP_FROM_VENDOR')
-                                .queryFirst()
-                        if (!orderRole) {
-                            orderRole = from('OrderRole')
+                                .queryFirst() ?:
+                                from('OrderRole')
                                     .where(orderId: orderHeader.orderId,
                                             roleTypeId: 'BILL_FROM_VENDOR')
                                     .queryFirst()
-                        }
                         if (orderRole) {
                             partyIdFrom = orderRole.partyId
                         }

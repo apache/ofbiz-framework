@@ -67,9 +67,7 @@ paymentMethodData = paymentResults.paymentMethod
 if (!tryEntity.booleanValue()) {
     paymentMethodData = parameters
 }
-if (!paymentMethodData) {
-    paymentMethodData = new HashMap()
-}
+paymentMethodData = paymentMethodData ?: [:]
 if (paymentMethodData) {
     context.paymentMethodData = paymentMethodData
 }

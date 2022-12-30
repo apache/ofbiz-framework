@@ -387,18 +387,10 @@ Map checkProductStoreRelatedPermission(Map inputParameter) {
     String checkAction = inputParameter.mainAction
     String productStoreIdName = inputParameter.productStoreIdName
     String productStoreIdToCheck = inputParameter.productStoreIdToCheck
-    if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
-    }
-    if (!checkAction) {
-        checkAction = 'UPDATE'
-    }
-    if (!productStoreIdName) {
-        productStoreIdName = inputParameter.productStoreId
-    }
-    if (!productStoreIdToCheck) {
-        productStoreIdToCheck = inputParameter.productstoreIdName
-    }
+    callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
+    checkAction = checkAction ?: 'UPDATE'
+    productStoreIdName = productStoreIdName ?: inputParameter.productStoreId
+    productStoreIdToCheck = productStoreIdToCheck ?: inputParameter.productstoreIdName
 
     // find all role-store that this productStore is a member of
     if (!security.hasEntityPermission('CATALOG', ('_' + checkAction), userLogin)) {

@@ -61,12 +61,7 @@ if (contentId) {
 if (content) {
     dataResourceId = content.dataResourceId
 }
-if (!dataResourceId) {
-    dataResourceId = context.drDataResourceId
-    if (!dataResourceId) {
-        dataResourceId = context.dataResourceId
-    }
-}
+dataResourceId = dataResourceId ?: context.drDataResourceId ?: context.dataResourceId
 if (dataResourceId) {
     dataResource = from('DataResource').where('dataResourceId', dataResourceId).cache(true).queryOne()
     SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml',
@@ -88,8 +83,5 @@ context.currentValue = currentValue
 
 request.setAttribute('previousParams', currentValue)
 
-persistAction = context.persistAction
-if (!persistAction) {
-    persistAction = 'persistContent'
-}
+persistAction = context.persistAction ?: 'persistContent'
 context.persistAction = persistAction;

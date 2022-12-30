@@ -83,10 +83,7 @@ if (invoice) {
             if (taxInfo) {
                 context.sendingPartyTaxId = taxInfo.partyTaxId
             }
-            vatTaxesByTypeAmount = vatTaxesByType[taxRate.taxAuthorityRateSeqId]
-            if (!vatTaxesByTypeAmount) {
-                vatTaxesByTypeAmount = 0.0
-            }
+            vatTaxesByTypeAmount = vatTaxesByType[taxRate.taxAuthorityRateSeqId] ?: 0.0
             vatTaxesByType.put(taxRate.taxAuthorityRateSeqId, vatTaxesByTypeAmount + invoiceItem.amount)
         }
     }

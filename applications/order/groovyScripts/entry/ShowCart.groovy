@@ -24,16 +24,10 @@ import org.apache.ofbiz.product.catalog.CatalogWorker
 productId = parameters.productId
 if (productId) {
 
-    quantityOnHandTotal = parameters.quantityOnHandTotal
-    if (!quantityOnHandTotal) {
-        quantityOnHandTotal = 0
-    }
+    quantityOnHandTotal = parameters.quantityOnHandTotal ?: 0
     context.quantityOnHandTotal = quantityOnHandTotal
 
-    availableToPromiseTotal = parameters.availableToPromiseTotal
-    if (!availableToPromiseTotal) {
-        availableToPromiseTotal = 0
-    }
+    availableToPromiseTotal = parameters.availableToPromiseTotal ?: 0
     context.availableToPromiseTotal = availableToPromiseTotal
 }
 context.productId = productId
@@ -85,10 +79,10 @@ if ('_NA_' == partyId) {
 context.partyId = partyId
 
 defaultDesiredDeliveryDate = shoppingCart.getDefaultItemDeliveryDate()
-if (!defaultDesiredDeliveryDate) {
-    defaultDesiredDeliveryDate = (new java.sql.Date(System.currentTimeMillis())).toString()
-} else {
+if (defaultDesiredDeliveryDate) {
     context.useAsDefaultDesiredDeliveryDate =  'true'
+} else {
+    defaultDesiredDeliveryDate = (new java.sql.Date(System.currentTimeMillis())).toString()
 }
 context.defaultDesiredDeliveryDate = defaultDesiredDeliveryDate
 

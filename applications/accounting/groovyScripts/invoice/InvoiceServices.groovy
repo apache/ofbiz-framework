@@ -67,14 +67,14 @@ Map getNextInvoiceId() {
         logInfo('In createInvoice sequence enum Standard')
         //default to the default sequencing: INVSQ_STANDARD
         invoiceIdTemp = parameters.invoiceId
-        if (!invoiceIdTemp) {
-            invoiceIdTemp = delegator.getNextSeqId('Invoice', 1)
-        } else {
+        if (invoiceIdTemp) {
             //check the provided ID
             errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
             if (errorMsg != null) {
                 return error("In getNextInvoiceId ${errorMsg}")
             }
+        } else {
+            invoiceIdTemp = delegator.getNextSeqId('Invoice', 1)
         }
     }
 

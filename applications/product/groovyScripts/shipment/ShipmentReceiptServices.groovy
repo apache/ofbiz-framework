@@ -37,9 +37,7 @@ Map createShipmentReceipt() {
     newEntity.receiptId = receiptId
     result.receiptId = receiptId
 
-    if (!newEntity.datetimeReceived) {
-        newEntity.datetimeReceived = UtilDateTime.nowTimestamp()
-    }
+    newEntity.datetimeReceived = newEntity.datetimeReceived ?: UtilDateTime.nowTimestamp()
     newEntity.receivedByUserLoginId = userLogin.userLoginId
     newEntity.create()
 
@@ -213,9 +211,7 @@ Map quickReceiveReturn() {
             }
             for (GenericValue returnItem : returnItems) {
                 Map receiveCtx = [:]
-                if (!returnItem.expectedItemStatus) {
-                    returnItem.expectedItemStatus = 'INV_RETURNED'
-                }
+                returnItem.expectedItemStatus = returnItem.expectedItemStatus ?: 'INV_RETURNED'
                 GenericValue orderItem = delegator.getRelatedOne('OrderItem', returnItem, false)
                 if (orderItem?.productId) {
                     Map costCtx = [returnItemSeqId: returnItem.returnItemSeqId, returnId: returnItem.returnId]

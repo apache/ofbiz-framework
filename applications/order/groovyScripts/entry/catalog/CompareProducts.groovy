@@ -67,12 +67,9 @@ compareList.each { product ->
     productFeatureAppls = from('ProductFeatureAppl').where(condList).orderBy('sequenceNum').cache(true).queryList()
     productFeatureAppls.each { productFeatureAppl ->
         productFeature = productFeatureAppl.getRelatedOne('ProductFeature', true)
-        if (!productData[productFeature.productFeatureTypeId]) {
-            productData[productFeature.productFeatureTypeId] = [:]
-        }
-        if (!productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId]) {
-            productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] = []
-        }
+        productData[productFeature.productFeatureTypeId] = productData[productFeature.productFeatureTypeId] ?: [:]
+        productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] =
+                productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] ?: []
         productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] << productFeature
         productFeatureTypeIds << productFeature.productFeatureTypeId
     }

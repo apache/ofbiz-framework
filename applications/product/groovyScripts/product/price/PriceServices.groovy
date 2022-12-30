@@ -40,9 +40,7 @@ Map createProductPrice() {
     GenericValue newEntity = makeValue('ProductPrice', parameters)
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = nowTimestamp
-    }
+    newEntity.fromDate = newEntity.fromDate ?: nowTimestamp
     result.fromDate = newEntity.fromDate
     newEntity.lastModifiedDate = nowTimestamp
     newEntity.createdDate = nowTimestamp

@@ -17,10 +17,7 @@
  * under the License.
  */
 
-seqNo = context.caSequenceNum
-if (!seqNo) {
-    seqNo = context.sequenceNum
-}
+seqNo = context.caSequenceNum ?: context.sequenceNum
 logInfo('caSequenceNum:' + seqNo)
 
 if (seqNo) {

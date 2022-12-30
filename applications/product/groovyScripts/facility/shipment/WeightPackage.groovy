@@ -32,13 +32,7 @@ if (!weightPackageSession) {
 }
 context.weightPackageSession = weightPackageSession
 
-showWarningForm = parameters.showWarningForm
-if (!showWarningForm) {
-    showWarningForm = request.getAttribute('showWarningForm')
-    if (!showWarningForm) {
-        showWarningForm = false
-    }
-}
+showWarningForm = parameters.showWarningForm ?: request.getAttribute('showWarningForm') ?: false
 context.showWarningForm = showWarningForm
 
 orderId = parameters.orderId
@@ -86,10 +80,7 @@ if (picklistBinId) {
     }
 }
 
-shipmentId = parameters.shipmentId
-if (!shipmentId) {
-    shipmentId = request.getAttribute('shipmentId')
-}
+shipmentId = parameters.shipmentId ?: request.getAttribute('shipmentId')
 if (!shipmentId && shipment) {
     shipmentId = shipment.shipmentId
 }
@@ -196,9 +187,7 @@ defaultDimensionUomId = null
 if (facility) {
     defaultDimensionUomId = facility.defaultDimensionUomId
 }
-if (!defaultDimensionUomId) {
-    defaultDimensionUomId = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.dimension.uom', 'LEN_in', delegator)
-}
+defaultDimensionUomId = defaultDimensionUomId ?: EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.dimension.uom', 'LEN_in', delegator)
 context.defaultDimensionUom = from('Uom').where('uomId', defaultDimensionUomId).cache().queryOne()
 context.defaultDimensionUomId = defaultDimensionUomId
 
@@ -206,9 +195,7 @@ defaultWeightUomId = null
 if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId
 }
-if (!defaultWeightUomId) {
-    defaultWeightUomId = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', 'WT_kg', delegator)
-}
+defaultWeightUomId = defaultWeightUomId ?: EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', 'WT_kg', delegator)
 
 context.defaultWeightUom = from('Uom').where('uomId', defaultWeightUomId).cache().queryOne()
 context.defaultWeightUomId = defaultWeightUomId

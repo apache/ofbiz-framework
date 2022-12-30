@@ -179,9 +179,7 @@ Map updateQuote() {
     quoteId = parameters.quoteId
     GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
 
-    if (!parameters.statusId) {
-        parameters.statusId = quote.statusId
-    }
+    parameters.statusId = parameters.statusId ?: quote.statusId
 
     if (parameters.statusId != quote.statusId) {
         // Check if the status change is a valid change.
@@ -448,9 +446,7 @@ Map createQuoteAndQuoteItemForRequest() {
         quoteName: custRequest.custRequestName,
         currencyUomId: custRequest.maximumAmountUomId
     ]
-    if (!input.statusId) {
-        input.statusId = 'QUO_CREATED'
-    }
+    input.statusId = input.statusId ?: 'QUO_CREATED'
     Map serviceResult = run service: 'createQuote', with: input
     String quoteId = serviceResult.quoteId
 

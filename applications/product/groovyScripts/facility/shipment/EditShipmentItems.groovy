@@ -18,10 +18,7 @@
  */
 
 
-shipmentId = request.getParameter('shipmentId')
-if (!shipmentId) {
-    shipmentId = context.shipmentId
-}
+shipmentId = request.getParameter('shipmentId') ?: context.shipmentId
 
 shipment = null
 if (shipmentId) {

@@ -149,17 +149,13 @@ if (allocationPlanHeader) {
                 existingSummaryMap.orderedQuantity += newSummaryMap.orderedQuantity
                 existingSummaryMap.orderedValue += newSummaryMap.orderedValue
                 if (existingSummaryMap.allocatedQuantity) {
-                    if (!newSummaryMap.allocatedQuantity) {
-                        newSummaryMap.allocatedQuantity = 0
-                    }
+                    newSummaryMap.allocatedQuantity = newSummaryMap.allocatedQuantity ?: 0
                     existingSummaryMap.allocatedQuantity += newSummaryMap.allocatedQuantity
                 } else {
                     existingSummaryMap.allocatedQuantity = newSummaryMap.allocatedQuantity
                 }
                 if (existingSummaryMap.allocatedValue) {
-                    if (!newSummaryMap.allocatedValue) {
-                        newSummaryMap.allocatedValue = 0
-                    }
+                    newSummaryMap.allocatedValue = newSummaryMap.allocatedValue ?: 0
                     existingSummaryMap.allocatedValue += newSummaryMap.allocatedValue
                 } else {
                     existingSummaryMap.allocatedValue = newSummaryMap.allocatedValue

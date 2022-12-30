@@ -49,9 +49,7 @@ Map createCommunicationEvent() {
     }
 
     // init communication event fields
-    if (! newCommEvent) {
-        newCommEvent = makeValue('CommunicationEvent')
-    }
+    newCommEvent = newCommEvent ?: makeValue('CommunicationEvent')
     newCommEvent.setNonPKFields(parameters)
     newCommEvent.communicationEventId = parameters.communicationEventId ?:
             delegator.getNextSeqId('CommunicationEvent')
@@ -576,9 +574,7 @@ Map setCommunicationEventStatus() {
 
 //set the status for a particular party role to the status COM_ROLE_READ
 Map setCommEventRoleToRead() {
-    if (!parameters.partyId) {
-        parameters.partyId = parameters.userLogin.partyId
-    }
+    parameters.partyId = parameters.partyId ?: parameters.userLogin.partyId
 
     GenericValue eventRole
     if (!parameters.roleTypeId) {

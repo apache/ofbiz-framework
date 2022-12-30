@@ -242,12 +242,8 @@ if (inlineProduct) {
                             jsBuf.append('DET' + inlineCounter + '[' + counter + "] = \"" + detailImageUrl + "\";")
                             jsBuf.append('IMG' + inlineCounter + '[' + counter + "] = \"" + largeImageUrl + "\";")
 
-                            if (!firstDetailImage) {
-                                firstDetailImage = detailImageUrl
-                            }
-                            if (!firstLargeImage) {
-                                firstLargeImage = largeImage
-                            }
+                            firstDetailImage = firstDetailImage ?: detailImageUrl
+                            firstLargeImage = firstLargeImage ?: largeImage
                             counter++
                         }
                         context.firstDetailImage = firstDetailImage

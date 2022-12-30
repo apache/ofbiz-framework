@@ -20,43 +20,32 @@
 
 import org.apache.ofbiz.base.util.ObjectType
 
-contentId = parameters.contentId
-if (!contentId) {
-    contentId = null
-}
+contentId = parameters.contentId ?: null
 
 productContentTypeId = parameters.productContentTypeId
 
-fromDate = parameters.fromDate
-if (!fromDate) {
-    fromDate = null
-} else {
+fromDate = parameters.fromDate ?: null
+if (fromDate) {
     fromDate = ObjectType.simpleTypeOrObjectConvert(fromDate, 'Timestamp', null, null, false)
 }
 
 
-description = parameters.description
-if (!description) {
-    description = null
-}
+description = parameters.description ?: null
 
 productContent = from('ProductContent')
-        .where('contentId', contentId, 'productId', productId, 'productContentTypeId', productContentTypeId, 'fromDate', fromDate).queryOne()
-if (!productContent) {
-    productContent = [
-            productId: productId,
-            contentId: contentId,
-            productContentTypeId: productContentTypeId,
-            fromDate: fromDate,
-            thruDate: parameters.thruDate,
-            purchaseFromDate: parameters.purchaseFromDate,
-            purchaseThruDate: parameters.purchaseThruDate,
-            useCountLimit: parameters.useCountLimit,
-            useTime: parameters.useTime,
-            useTimeUomId: parameters.useTimeUomId,
-            useRoleTypeId: parameters.useRoleTypeId,
-    ]
-}
+        .where('contentId', contentId, 'productId', productId, 'productContentTypeId', productContentTypeId, 'fromDate', fromDate)
+        .queryOne() ?: [productId: productId,
+                        contentId: contentId,
+                        productContentTypeId: productContentTypeId,
+                        fromDate: fromDate,
+                        thruDate: parameters.thruDate,
+                        purchaseFromDate: parameters.purchaseFromDate,
+                        purchaseThruDate: parameters.purchaseThruDate,
+                        useCountLimit: parameters.useCountLimit,
+                        useTime: parameters.useTime,
+                        useTimeUomId: parameters.useTimeUomId,
+                        useRoleTypeId: parameters.useRoleTypeId]
+
 context.productContent = productContent
 
 productContentData = [:]

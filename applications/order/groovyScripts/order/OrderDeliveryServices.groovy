@@ -35,9 +35,7 @@ Map createOrderDeliverySchedule() {
 
     GenericValue schedule = makeValue('OrderDeliverySchedule')
     schedule.setPKFields(parameters)
-    if(!schedule.orderItemSeqId) {
-        schedule.orderItemSeqId = '_NA_'
-    }
+    schedule.orderItemSeqId = schedule.orderItemSeqId ?: '_NA_'
     // only set statusId if hasScheduleAdminRelatedPermission
     schedule.setNonPKFields(parameters)
     if (!security.hasEntityPermission('ORDERMGR', ('_' + checkAction), parameters.userLogin)) {
@@ -79,9 +77,7 @@ Map sendOrderDeliveryScheduleNotification() {
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
-    if (!parameters.orderItemSeqId) {
-        parameters.orderItemSeqId = '_NA_'
-    }
+    parameters.orderItemSeqId = parameters.orderItemSeqId ?: '_NA_'
     GenericValue orderDeliverySchedule = from('OrderDeliverySchedule').where(parameters).queryOne()
     // find email address for currently logged in user, set as sendFrom
     Map curUserPcmFindMap = [partyId: userLogin.partyId, contactMechTypeId: 'EMAIL_ADDRESS']
@@ -148,12 +144,8 @@ Map checkSupplierRelatedOrderPermissionService() {
  */
 Map checkSupplierRelatedPermission(String callingMethodName, String checkAction, String orderId) {
     Map result = success()
-    if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
-    }
-    if (!checkAction) {
-        checkAction = 'UPDATE'
-    }
+    callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', locale)
+    checkAction = checkAction ?: 'UPDATE'
     result.hasSupplierRelatedPermission = false
     if (security.hasEntityPermission('ORDERMGR', ('_' + checkAction), userLogin)) {
         result.hasSupplierRelatedPermission = true

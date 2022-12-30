@@ -28,9 +28,7 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 Map createProductionRunPartyAssign() {
     parameters.statusId = 'PRTYASGN_ASSIGNED'
-    if (!parameters.workEffortId) {
-        parameters.workEffortId = parameters.productionRunId
-    }
+    parameters.workEffortId = parameters.workEffortId ?: parameters.productionRunId
 
     Map serviceResult = run service: 'assignPartyToWorkEffort', with: parameters
     if (ServiceUtil.isError(serviceResult)) {

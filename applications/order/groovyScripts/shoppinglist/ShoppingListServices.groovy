@@ -33,13 +33,9 @@ Map createShoppingList() {
     newEntity.shoppingListTypeId = newEntity.shoppingListTypeId ?: 'SLT_WISH_LIST'
     newEntity.isPublic = newEntity.isPublic ?: 'N'
 
-    if (!newEntity.listName) {
-        newEntity.listName = UtilProperties.getMessage('OrderUiLabels', 'OrderNewShoppingList', parameters.locale) ?: 'New Shopping List'
-    }
+    newEntity.listName = newEntity.listName ?: UtilProperties.getMessage('OrderUiLabels', 'OrderNewShoppingList', parameters.locale) ?: 'New Shopping List'
 
-    if (!newEntity.isActive) {
-        newEntity.isActive = newEntity.shoppingListTypeId == 'SLT_AUTO_REODR' ? 'N' : 'Y'
-    }
+    newEntity.isActive = newEntity.isActive ?: newEntity.shoppingListTypeId == 'SLT_AUTO_REODR' ? 'N' : 'Y'
 
     newEntity.shoppingListId = delegator.getNextSeqId('ShoppingList')
     newEntity.create()

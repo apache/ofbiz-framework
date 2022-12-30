@@ -496,10 +496,7 @@ Map indexContentKeywords() {
     // this service is meant to be called from an entity ECA for entities that include a contentId
     // if it is the Content entity itself triggering this action, then a [contentInstance] parameter
     // will be passed and we can save a few cycles looking that up
-    GenericValue contentInstance = parameters.contentInstance
-    if (!contentInstance) {
-        contentInstance = from('Content').where('contentId', parameters.contentId).queryOne()
-    }
+    GenericValue contentInstance = parameters.contentInstance ?: from('Content').where('contentId', parameters.contentId).queryOne()
     ContentKeywordIndex.indexKeywords(contentInstance)
     return success()
 }

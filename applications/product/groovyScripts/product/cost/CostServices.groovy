@@ -78,9 +78,7 @@ Map recreateCostComponent() {
     GenericValue newEntity = makeValue('CostComponent')
     newEntity.setNonPKFields(parameters)
     newEntity.costComponentId = delegator.getNextSeqId('CostComponent')
-    if (!newEntity.fromDate) {
-        newEntity.fromDate = UtilDateTime.nowTimestamp()
-    }
+    newEntity.fromDate = newEntity.fromDate ?: UtilDateTime.nowTimestamp()
     newEntity.create()
     result.costComponentId = newEntity.costComponentId
     return result
@@ -389,9 +387,7 @@ Map calculateProductAverageCost() {
     String currencyUomId
     for (GenericValue inventoryItem : inventoryItems) {
         totalQuantityOnHand += inventoryItem.quantityOnHandTotal
-        if (!currencyUomId) {
-            currencyUomId = inventoryItem.currencyUomId
-        }
+        currencyUomId = currencyUomId ?: inventoryItem.currencyUomId
         if (!differentCurrencies) {
             if (currencyUomId == inventoryItem.currencyUomId) {
                 totalInventoryCost += (inventoryItem.unitCost * inventoryItem.quantityOnHandTotal)
