@@ -35,8 +35,8 @@ class InventoryTests extends OFBizTestCase {
         ]
         Map serviceResult = dispatcher.runSync('getInventoryAvailableByFacility', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.quantityOnHandTotal.compareTo(new BigDecimal('509')) == 0
-        assert serviceResult.availableToPromiseTotal.compareTo(new BigDecimal('509')) == 0
+        assert serviceResult.quantityOnHandTotal == 509
+        assert serviceResult.availableToPromiseTotal == 509
     }
 
     // Test Physical Inventory Adjustment

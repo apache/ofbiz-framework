@@ -255,7 +255,7 @@ class AutoPaymentTests extends OFBizTestCase {
                     .queryOne()
             assert finAccountTrans
             assert ['DEPOSIT', 'WITHDRAWAL'].contains(finAccountTrans.finAccountTransTypeId)
-            assert finAccountTrans.amount.compareTo(payment.amount) == 0
+            assert finAccountTrans.amount == payment.amount
         }
     }
 
@@ -285,7 +285,7 @@ class AutoPaymentTests extends OFBizTestCase {
         GenericValue finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', finAccountTransId)
                 .queryOne()
-        assert paymentRunningTotal.compareTo(finAccountTrans.amount) == 0
+        assert paymentRunningTotal == finAccountTrans.amount
     }
 
     // Test case for fin account trans
@@ -379,8 +379,8 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '120000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert serviceResult
-        assert totalReceivableDebitAmount.compareTo(serviceResult.debitTotal) == 0
-        assert totalReceivableDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalReceivableDebitAmount == serviceResult.debitTotal
+        assert totalReceivableDebitCreditDifference == serviceResult.debitCreditDifference
 
         BigDecimal totalUndepositedCreditAmount = undepositedCreditTotal.add(new BigDecimal('20'))
         BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(new BigDecimal('20'))
@@ -388,8 +388,8 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '112000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert serviceResult
-        assert totalUndepositedCreditAmount.compareTo(serviceResult.creditTotal) == 0
-        assert totalUndepositedDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalUndepositedCreditAmount == serviceResult.creditTotal
+        assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
     }
 
     // Test case to verify GL postings for Check Run process
@@ -464,9 +464,9 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '210000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert totalPayableDebitAmount.compareTo(serviceResult.debitTotal) == 0
-        assert payableCreditTotal.compareTo(serviceResult.creditTotal) == 0
-        assert totalPayableDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalPayableDebitAmount == serviceResult.debitTotal
+        assert payableCreditTotal == serviceResult.creditTotal
+        assert totalPayableDebitCreditDifference == serviceResult.debitCreditDifference
 
         BigDecimal totalUndepositedCreditAmount = tempBig.add(undepositedCreditTotal)
         BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(tempBig)
@@ -474,9 +474,9 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '111100'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert undepositedDebitTotal.compareTo(serviceResult.debitTotal) == 0
-        assert totalUndepositedCreditAmount.compareTo(serviceResult.creditTotal) == 0
-        assert totalUndepositedDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert undepositedDebitTotal == serviceResult.debitTotal
+        assert totalUndepositedCreditAmount == serviceResult.creditTotal
+        assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
     }
 
     void disabledTestUpdatePaymentMethodAddress() {

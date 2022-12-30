@@ -262,7 +262,7 @@ Map productDISC() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         GenericValue product = cartItem.getProduct()
@@ -274,7 +274,7 @@ Map productDISC() {
                 && (!product || 'N' != product.includeInPromotions)) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false)
-            if (quantityUsed.compareTo(BigDecimal.ZERO) > 0) {
+            if (quantityUsed > 0) {
                 quantityDesired = quantityDesired.subtract(quantityUsed)
 
                 // create an adjustment and add it to the cartItem that implements the promotion action
@@ -288,7 +288,7 @@ Map productDISC() {
         }
     }
 
-    if (quantityDesired.compareTo(startingQuantity) == 0) {
+    if (quantityDesired == startingQuantity) {
         // couldn't find any (or enough) cart items to give a discount to, don't consider action run
         actionResultInfo.ranAction = false
         // clear out any action uses for this so they don't become part of anything else
@@ -327,7 +327,7 @@ Map productAMDISC() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         String parentProductId = cartItem.getParentProductId()
@@ -343,7 +343,7 @@ Map productAMDISC() {
             // create an adjustment and add it to the cartItem that implements the promotion action
             BigDecimal discount = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal('amount')
             // don't allow the discount to be greater than the price
-            if (discount.compareTo(cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())) > 0) {
+            if (discount > cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())) {
                 discount = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())
             }
             BigDecimal discountAmount = quantityUsed.multiply(discount).negate()
@@ -353,7 +353,7 @@ Map productAMDISC() {
         }
     }
 
-    if (quantityDesired.compareTo(startingQuantity) == 0) {
+    if (quantityDesired == startingQuantity) {
         // couldn't find any cart items to give a discount to, don't consider action run
         actionResultInfo.ranAction = false
     } else {
@@ -393,7 +393,7 @@ Map productPrice() {
     List<ShoppingCartItem> cartItemsUsed = new LinkedList<>()
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         String parentProductId = cartItem.getParentProductId()
@@ -406,7 +406,7 @@ Map productPrice() {
                 (product == null || 'N' != product.getString('includeInPromotions'))) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false)
-            if (quantityUsed.compareTo(BigDecimal.ZERO) > 0) {
+            if (quantityUsed > 0) {
                 quantityDesired = quantityDesired.subtract(quantityUsed)
                 totalAmount = totalAmount.add(quantityUsed.multiply(cartItem.getBasePrice()).multiply(cartItem.getRentalAdjustment()))
                 cartItemsUsed.add(cartItem)
@@ -415,7 +415,7 @@ Map productPrice() {
 
     }
 
-    if (totalAmount.compareTo(desiredAmount) > 0 && quantityDesired.compareTo(BigDecimal.ZERO) == 0) {
+    if (totalAmount > desiredAmount && quantityDesired == 0) {
         BigDecimal discountAmountTotal = totalAmount.subtract(desiredAmount).negate()
         ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, cartItemsUsed, productPromoAction, delegator)
         actionResultInfo.ranAction = true
@@ -447,7 +447,7 @@ Map productOrderPercent() {
     } else {
         amount = cart.getSubTotalForPromotions().multiply(percentage)
     }
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
+    if (amount != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = amount
@@ -467,10 +467,10 @@ Map productOrderAmount() {
     // if amount is greater than the order sub total, set equal to order sub total, this normally wouldn't happen because
     // there should be a condition that the order total be above a certain amount, but just in case...
     BigDecimal subTotal = cart.getSubTotalForPromotions()
-    if (amount.negate().compareTo(subTotal) > 0) {
+    if (amount.negate() > subTotal) {
         amount = subTotal.negate()
     }
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
+    if (amount != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = amount
@@ -501,7 +501,7 @@ Map productSpecialPrice() {
         // get difference between basePrice and specialPromoPrice and adjust for that
         BigDecimal difference = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment()).subtract(cartItem.getSpecialPromoPrice()).negate()
 
-        if (difference.compareTo(BigDecimal.ZERO) != 0) {
+        if (difference != 0) {
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(cartItem.getQuantity(), productPromoAction, false)
             if (quantityUsed > BigDecimal.ZERO) {
                 BigDecimal amount = difference.multiply(quantityUsed)
@@ -524,7 +524,7 @@ Map productShipCharge() {
 
     BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
     BigDecimal amount = cart.getTotalShipping().multiply(percentage)
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
+    if (amount != 0) {
         int existingOrderPromoIndex = cart.getAdjustmentPromoIndex(productPromoAction.getString('productPromoId'))
         if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal('amount') == amount) {
             actionResultInfo.ranAction = false  // already ran, no need to repeat
@@ -550,7 +550,7 @@ Map productTaxPercent() {
 
     BigDecimal percentage = (!productPromoAction.amount ? BigDecimal.ZERO : (productPromoAction.getBigDecimal('amount').movePointLeft(2))).negate()
     BigDecimal amount = cart.getTotalSalesTax().multiply(percentage)
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
+    if (amount != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = amount

@@ -68,7 +68,7 @@ if (payments)    {
             paymentMap.amount = payment.getBigDecimal('amount')
             paymentMap.amountApplied = PaymentWorker.getPaymentApplied(payment)
             paymentToApply = PaymentWorker.getPaymentNotApplied(payment)
-            if (paymentToApply.compareTo(basePaymentToApply) < 0 ) {
+            if (paymentToApply < basePaymentToApply) {
                 paymentMap.amountToApply = paymentToApply
            } else {
                 paymentMap.amountToApply = basePaymentToApply

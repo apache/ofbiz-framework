@@ -348,7 +348,7 @@ Map getInvoicePaymentInfoListByDueDateOffset() {
                 invoicePaymentInfoList = serviceResult.invoicePaymentInfoList
                 if (invoicePaymentInfoList) {
                     invoicePaymentInfoList.each { Map invoicePaymentInfo ->
-                        if (invoicePaymentInfo.outstandingAmount.compareTo(BigDecimal.ZERO) > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
+                        if (invoicePaymentInfo.outstandingAmount > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
                             filteredInvoicePaymentInfoList << invoicePaymentInfo
                         }
                     }
@@ -923,11 +923,11 @@ Map createMatchingPaymentApplication() {
                     }
 
                     if (isInvoiceInForeignCurrencyResp.isForeign
-                            && invoiceTotal.compareTo(payment.actualCurrencyAmount) == 0
+                            && invoiceTotal == payment.actualCurrencyAmount
                             && invoice.currencyUomId == payment.actualCurrencyUomId) {
                         invoiceId = invoice.invoiceId
                         amountApplied = payment.actualCurrencyAmount
-                    } else if (invoiceTotal.compareTo(payment.amount) == 0 && invoice.currencyUomId == payment.currencyUomId) {
+                    } else if (invoiceTotal == payment.amount && invoice.currencyUomId == payment.currencyUomId) {
                         invoiceId = invoice.invoiceId
                         amountApplied = payment.amount
                     }

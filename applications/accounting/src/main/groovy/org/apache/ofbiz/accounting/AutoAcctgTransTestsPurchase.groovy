@@ -190,6 +190,6 @@ class AutoAcctgTransTestsPurchase extends OFBizTestCase {
             }
         }
 
-        assert debitTotal.compareTo(creditTotal) == 0
+        assert debitTotal == creditTotal
     }
 }

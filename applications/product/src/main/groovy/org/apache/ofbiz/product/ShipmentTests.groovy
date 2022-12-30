@@ -161,8 +161,8 @@ class ShipmentTests extends OFBizTestCase {
         assert inventoryItem
         assert inventoryItem.productId == serviceCtx.productId
         assert inventoryItem.facilityId == serviceCtx.facilityId
-        assert inventoryItem.quantityOnHandTotal.compareTo(serviceCtx.quantityAccepted) == 0
-        assert inventoryItem.availableToPromiseTotal.compareTo(serviceCtx.quantityAccepted) == 0
+        assert inventoryItem.quantityOnHandTotal == serviceCtx.quantityAccepted
+        assert inventoryItem.availableToPromiseTotal == serviceCtx.quantityAccepted
 
         List inventoryItemDetails = from('InventoryItemDetail')
                 .where('inventoryItemId', inventoryItemId)
@@ -173,7 +173,7 @@ class ShipmentTests extends OFBizTestCase {
                 .where('inventoryItemId', inventoryItemId)
                 .orderBy('datetimeReceived').queryFirst()
         assert shipmentReceipt
-        assert shipmentReceipt.quantityAccepted.compareTo(serviceCtx.quantityAccepted) == 0
+        assert shipmentReceipt.quantityAccepted == serviceCtx.quantityAccepted
         assert shipmentReceipt.productId == serviceCtx.productId
     }
 

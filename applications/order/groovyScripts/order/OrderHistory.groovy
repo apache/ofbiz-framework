@@ -76,7 +76,7 @@ if (orderHeader) {
     unitPriceHistories.each { unitPriceHistory ->
         orderUnitPriceHistory = [:]
         if ((unitPriceHistory.oldValueText) && (unitPriceHistory.newValueText)) {
-            if ((Float.valueOf(unitPriceHistory.oldValueText)).compareTo(Float.valueOf(unitPriceHistory.newValueText)) != 0) {
+            if (unitPriceHistory.oldValueText as BigDecimal != unitPriceHistory.newValueText as BigDecimal) {
                 orderUnitPriceHistory.oldValue = unitPriceHistory.oldValueText
                 orderUnitPriceHistory.newValue = unitPriceHistory.newValueText
                 orderUnitPriceHistory.changedDate = unitPriceHistory.changedDate
@@ -107,7 +107,7 @@ if (orderHeader) {
     quantityHistories.each { quantityHistory ->
         orderQuantityHistory = [:]
         if ((quantityHistory.oldValueText) && (quantityHistory.newValueText)) {
-            if ((Float.valueOf(quantityHistory.oldValueText)).compareTo(Float.valueOf(quantityHistory.newValueText)) != 0) {
+            if (quantityHistory.oldValueText as BigDecimal != quantityHistory.newValueText as BigDecimal) {
                 orderQuantityHistory.oldValue =  new BigDecimal(quantityHistory.oldValueText)
                 orderQuantityHistory.newValue = quantityHistory.newValueText
                 orderQuantityHistory.changedDate = quantityHistory.changedDate

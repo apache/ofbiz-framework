@@ -69,7 +69,7 @@ List getPayments(List payments, boolean actual) {
             if (paymentToApply?.signum() == 1) {
                 paymentMap.paymentId = payment.paymentId
                 paymentMap.effectiveDate = payment.effectiveDate
-                if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
+                if (paymentToApply < invoiceToApply) {
                     paymentMap.amountToApply = paymentToApply
                 } else {
                     paymentMap.amountToApply = invoiceToApply
