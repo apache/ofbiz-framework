@@ -29,7 +29,7 @@ Map createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
     partyRole = select().from('PartyRole').where([partyId: parameters.partyId, roleTypeId: 'INTERNAL_ORGANIZATIO']).queryOne()
     if (!partyRole) {
-        String errorMessage = UtilProperties.getMessage('AccountingUiLabels','AccountingPartyMustBeInternalOrganization', locale)
+        String errorMessage = UtilProperties.getMessage('AccountingUiLabels', 'AccountingPartyMustBeInternalOrganization', locale)
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -54,7 +54,7 @@ Map getPartyAccountingPreferences() {
             for (String entityKey : currentPartyAcctgPref.keySet()) {
                 Object entityValue = currentPartyAcctgPref.get(entityKey)
                 if (entityValue) {
-                    aggregatedPartyAcctgPref.put(entityKey,entityValue)
+                    aggregatedPartyAcctgPref.put(entityKey, entityValue)
                 } else {
                     containsEmptyFields = true
                 }
@@ -75,7 +75,7 @@ Map getPartyAccountingPreferences() {
     }
 
     if (aggregatedPartyAcctgPref) {
-        aggregatedPartyAcctgPref.put('partyId',parameters.organizationPartyId)
+        aggregatedPartyAcctgPref.put('partyId', parameters.organizationPartyId)
         result.put('partyAccountingPreference', aggregatedPartyAcctgPref)
     }
     return result
@@ -165,6 +165,6 @@ Map getFXConversion() {
         logError(errorMessage)
         return error(errorMessage)
     }
-    result.put('conversionRate',conversionRate)
+    result.put('conversionRate', conversionRate)
     return result
 }

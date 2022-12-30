@@ -222,7 +222,7 @@ Map getParentOrganizations() {
         recurse = parameters.getParentsOfParents
     }
 
-    Map res = followPartyRelationshipsInline(relatedPartyIdList,'GROUP_ROLLUP',
+    Map res = followPartyRelationshipsInline(relatedPartyIdList, 'GROUP_ROLLUP',
             'ORGANIZATION_UNIT', 'Y', 'PARENT_ORGANIZATION',
             null, 'Y', recurse, 'Y')
     resultMap.parentOrganizationPartyIdList = res.relatedPartyIdList
@@ -808,9 +808,9 @@ Map getPartyMainRole() {
  * recurse
  * useCache (should be "true" or "false")
  */
-Map followPartyRelationshipsInline(List relatedPartyIdList,String partyRelationshipTypeId, String roleTypeIdFrom,
+Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelationshipTypeId, String roleTypeIdFrom,
                                    String roleTypeIdFromIncludeAllChildTypes, String roleTypeIdTo, String roleTypeIdToInclueAllChildTypes,
-                                   String includeFromToSwitched, String recurse, String useCache ) {
+                                   String includeFromToSwitched, String recurse, String useCache) {
     Map resultMap = success()
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 

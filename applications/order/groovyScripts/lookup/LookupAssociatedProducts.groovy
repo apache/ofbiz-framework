@@ -38,7 +38,7 @@ if (productId != null) {
                     productList.add(from('Product').where('productId', productIdTo).queryFirst())
                 }
             }
-            context.put('productList',productList)
+            context.put('productList', productList)
         }
     }
 }

@@ -81,9 +81,10 @@ if ('VENDOR_RETURN' == returnHeaderTypeId) {
     roleTypeId = 'BILL_FROM_VENDOR'
     partyId = returnHeader.toPartyId
 }
-partyOrders = select('orderId','orderDate')
+partyOrders = select('orderId', 'orderDate')
         .from('OrderHeaderItemAndRoles')
-        .where('roleTypeId', roleTypeId, 'partyId', partyId, 'orderItemStatusId', 'ITEM_COMPLETED').orderBy('orderId').distinct().queryList()
+        .where('roleTypeId', roleTypeId, 'partyId', partyId, 'orderItemStatusId', 'ITEM_COMPLETED')
+        .orderBy('orderId').distinct().queryList()
 context.partyOrders = partyOrders
 context.partyId = partyId
 

@@ -350,29 +350,29 @@ Map createFuturePeriod() {
     applTypes = []
     grain = null
     intermediate = null
-    parties = from('PartyAcctgPreference').where('enableAccounting','Y').queryIterator()
+    parties = from('PartyAcctgPreference').where('enableAccounting', 'Y').queryIterator()
     while (parties.hasNext()){
         party = parties.next()
         parameters.organizationPartyId = party.partyId
         createCustomTimePeriod = from('SystemProperty')
-            .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.create').queryOne()
+                .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.create').queryOne()
         if ('Y' == createCustomTimePeriod.systemPropertyValue) {
             // get list of CustomTypePeriod types
             applTypes = from('SystemProperty')
-                .where('systemResourceId','general', 'systemPropertyId','CustomTimePeriod.applType').queryOne()
+                    .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.applType').queryOne()
             List types = Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*'))
             types.each{periodTypeId ->
                 Calendar periodCal = Calendar.getInstance();
                 systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.intermediate'
                 applTypeInter = from('SystemProperty')
-                    .where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
+                    .where('systemResourceId', 'general', 'systemPropertyId', systemPropertyId).queryOne()
                 if (applTypeInter) {
                     intermediate = applTypeInter.systemPropertyValue
                 }
                 // get grain for application type
                 systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.grain'
                 applTypeGrain = from('SystemProperty')
-                    .where('systemResourceId','general', 'systemPropertyId',systemPropertyId).queryOne()
+                        .where('systemResourceId', 'general', 'systemPropertyId', systemPropertyId).queryOne()
                 if (applTypeGrain) {
                     grain = applTypeGrain.systemPropertyValue
                     if ('MONTH' == grain) {

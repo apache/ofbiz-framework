@@ -31,22 +31,22 @@ invExprs =
         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_WRITEOFF'),
         EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_CANCELLED'),
         EntityCondition.makeCondition([
-            EntityCondition.makeCondition([
-                EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
-                ],EntityOperator.AND),
+                EntityCondition.makeCondition([
+                    EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, parameters.partyId),
+                    EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                ], EntityOperator.AND),
             EntityCondition.makeCondition([
                 EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
                 EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
-                ],EntityOperator.AND)
-            ],EntityOperator.OR)
-        ],EntityOperator.AND)
+            ], EntityOperator.AND)
+        ], EntityOperator.OR)
+    ], EntityOperator.AND)
 
 invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 invoiceList = []
 while (invIterator.hasNext()) {
     invoice = invIterator.next()
-    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true) {
             invoiceCurrencyUomId = invoice.currencyUomId

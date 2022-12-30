@@ -898,7 +898,7 @@ Map createMatchingPaymentApplication() {
 
         if (payment) {
             EntityCondition expr = new EntityConditionBuilder().AND {
-                NOT_IN(statusId: ['INVOICE_READY','INVOICE_PAID','INVOICE_CANCELLED','INVOICE_WRITEOFF'])
+                NOT_IN(statusId: ['INVOICE_READY', 'INVOICE_PAID', 'INVOICE_CANCELLED', 'INVOICE_WRITEOFF'])
                 EQUALS(partyIdFrom: payment.partyIdTo)
                 EQUALS(partyId: payment.partyIdFrom)
             }

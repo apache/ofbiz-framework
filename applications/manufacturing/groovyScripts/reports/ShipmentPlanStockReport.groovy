@@ -46,7 +46,7 @@ if (shipment) {
                     userLogin: userLogin]
 
         result = [:]
-        result = runService('getNotAssembledComponents',inputPar)
+        result = runService('getNotAssembledComponents', inputPar)
         if (result) {
             components = (List)result.get('notAssembledComponents')
         }
@@ -60,7 +60,7 @@ if (shipment) {
             if (facilityId) {
                 if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
                     serviceInput = [productId: oneComponent.getProduct().productId, facilityId: facilityId]
-                    serviceOutput = runService('getInventoryAvailableByFacility',serviceInput)
+                    serviceOutput = runService('getInventoryAvailableByFacility', serviceInput)
                     qha = serviceOutput.quantityOnHandTotal ?: 0.0
                     inventoryStock.put(oneComponent.getProduct().productId, qha)
                 }

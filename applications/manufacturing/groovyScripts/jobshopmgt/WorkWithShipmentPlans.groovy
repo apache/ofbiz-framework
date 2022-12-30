@@ -66,7 +66,7 @@ if (shipmentPlans) {
         // Total quantity planned not issued
         plannedQuantity = 0.0
         qtyPlannedInShipment = [:]
-        plans = from('OrderShipment').where('orderId', orderItem.orderId ,'orderItemSeqId', orderItem.orderItemSeqId).queryList()
+        plans = from('OrderShipment').where('orderId', orderItem.orderId, 'orderItemSeqId', orderItem.orderItemSeqId).queryList()
         plans.each { plan ->
             if (plan.quantity) {
                 netPlanQty = plan.quantity

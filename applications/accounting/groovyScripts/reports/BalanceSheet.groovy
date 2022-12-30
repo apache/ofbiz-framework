@@ -63,7 +63,7 @@ List currentLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClas
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
 Map lastClosedTimePeriodResult = runService('findLastClosedDate',
-        ['organizationPartyId': organizationPartyId, 'findDate': thruDate,'userLogin': userLogin])
+        ['organizationPartyId': organizationPartyId, 'findDate': thruDate, 'userLogin': userLogin])
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!fromDate) {
     return

@@ -37,8 +37,8 @@ for (i in 0..limit){
     Timestamp timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
     // make condition for distinct productId
     List exprs = []
-    exprs.add(EntityCondition.makeCondition('productContentTypeId',EntityOperator.EQUALS, 'IMAGE'))
-    exprs.add(EntityCondition.makeCondition('statusId',EntityOperator.EQUALS, 'IM_APPROVED'))
+    exprs.add(EntityCondition.makeCondition('productContentTypeId', EntityOperator.EQUALS, 'IMAGE'))
+    exprs.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'IM_APPROVED'))
     exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.GREATER_THAN_EQUAL_TO, timeStampDate1))
     exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.LESS_THAN, timeStampDate2))
     // query result
@@ -49,7 +49,7 @@ for (i in 0..limit){
     Map groupByTimeList =  timeList.groupBy{it.productId}
     List tempTimeList = []
     groupByTimeList.each {
-        key,value -> tempTimeList.add(value.purchaseFromDate)
+        key, value -> tempTimeList.add(value.purchaseFromDate)
     }
 
     List time = []
