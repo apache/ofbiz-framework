@@ -21,7 +21,6 @@ import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 import java.sql.Timestamp
-import java.util.Objects
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
