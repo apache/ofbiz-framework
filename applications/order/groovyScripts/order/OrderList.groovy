@@ -50,7 +50,7 @@ context.orderHeaderList = orderHeaderList
 // a list of order type descriptions
 ordertypes = from('OrderType').cache(true).queryList()
 ordertypes.each { type ->
-    context['descr_' + type.orderTypeId] = type.get('description',locale)
+    context['descr_' + type.orderTypeId] = type.get('description', locale)
 }
 
 context.filterDate = filterDate

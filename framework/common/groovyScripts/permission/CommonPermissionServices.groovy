@@ -24,13 +24,13 @@ Map genericBasePermissionCheck() {
     // allow mainAction to be set from outside methods or direct to the service
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage('CommonUiLabels','CommonPermissionMainActionAttributeMissing', parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
     }
 
     // allow primary permission to be set from outside methods or direct to the service
     String primaryPermission = parameters.primaryPermission
     if (!primaryPermission) {
-        return error(UtilProperties.getMessage('CommonUiLabels','CommonPermissionPrimaryPermissionMissing', parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionPrimaryPermissionMissing', parameters.locale))
     }
     logVerbose("Checking for primary permission ${primaryPermission}_${mainAction}")
 

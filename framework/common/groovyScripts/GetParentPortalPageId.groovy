@@ -29,7 +29,7 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
             EntityCondition.makeCondition('portalPageId', EntityOperator.LIKE, parameters.parentPortalPageId + '%'),
             EntityCondition.makeCondition('parentPortalPageId', EntityOperator.EQUALS, null),
             EntityCondition.makeCondition('userLoginId', EntityOperator.EQUALS, userLogin.userLoginId)
-            ],EntityOperator.AND)
+    ], EntityOperator.AND)
     portalMainPages = EntityUtil.filterByDate(delegator.findList('PortalPageAndUserLogin', condSec, null, null, null, false))
     if (!portalMainPages) { // look for a null securityGroup if not found
         condSec = EntityCondition.makeCondition([

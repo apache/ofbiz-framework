@@ -64,13 +64,13 @@ List getInvoices(List invoices, boolean actual) {
     if (invoices) {
         invoicesList = [] // to pass back to the screeen list of unapplied invoices
         paymentApplied = PaymentWorker.getPaymentApplied(payment)
-        paymentToApply = payment.getBigDecimal('amount').setScale(decimals,rounding).subtract(paymentApplied)
+        paymentToApply = payment.getBigDecimal('amount').setScale(decimals, rounding).subtract(paymentApplied)
         if (actual && payment.actualCurrencyAmount) {
-            paymentToApply = payment.getBigDecimal('actualCurrencyAmount').setScale(decimals,rounding).subtract(paymentApplied)
+            paymentToApply = payment.getBigDecimal('actualCurrencyAmount').setScale(decimals, rounding).subtract(paymentApplied)
         }
         invoices.each { invoice ->
-            invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice).setScale(decimals,rounding)
-            invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice).setScale(decimals,rounding)
+            invoiceAmount = InvoiceWorker.getInvoiceTotal(invoice).setScale(decimals, rounding)
+            invoiceApplied = InvoiceWorker.getInvoiceApplied(invoice).setScale(decimals, rounding)
             invoiceToApply = invoiceAmount.subtract(invoiceApplied)
             if (invoiceToApply.signum() == 1) {
                 invoiceMap = [:]

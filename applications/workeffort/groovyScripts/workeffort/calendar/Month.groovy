@@ -67,7 +67,7 @@ if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList
 }
 result = runService('getWorkEffortEventsByPeriod', serviceCtx)
-context.put('periods',result.get('periods'))
+context.put('periods', result.get('periods'))
 context.put('maxConcurrentEntries', result.get('maxConcurrentEntries'))
 context.put('start', start)
 context.put('end', end)

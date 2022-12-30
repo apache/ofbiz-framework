@@ -681,8 +681,9 @@ if (product) {
     }
 
     // get reservation start date for rental product
-    if('ASSET_USAGE' == productTypeId || 'ASSET_USAGE_OUT_IN' == productTypeId){
-        context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0,10) // should be tomorrow.
+    if ('ASSET_USAGE' == productTypeId || 'ASSET_USAGE_OUT_IN' == productTypeId) {
+        context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0, 10)
+        // should be tomorrow.
     }
 
     // get product tags
@@ -692,7 +693,7 @@ if (product) {
         for (productKeyword in productKeywords) {
             productKeyWordCount = from('ProductKeyword')
                     .where('keyword', productKeyword.keyword, 'keywordTypeId', 'KWT_TAG', 'statusId', 'KW_APPROVED').queryCount()
-            keywordMap.put(productKeyword.keyword,productKeyWordCount)
+            keywordMap.put(productKeyword.keyword, productKeyWordCount)
         }
         context.productTags = keywordMap
     }

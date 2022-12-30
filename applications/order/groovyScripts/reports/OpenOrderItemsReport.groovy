@@ -97,7 +97,7 @@ try {
         shipAfterDate = listValue.shipAfterDate
         shipBeforeDate = listValue.shipBeforeDate
         productIdCondExpr =  [EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId)]
-        productPrices = select('price','productPriceTypeId').from('ProductPrice').where(productIdCondExpr).queryList()
+        productPrices = select('price', 'productPriceTypeId').from('ProductPrice').where(productIdCondExpr).queryList()
         costPrice = 0.0
         retailPrice = 0.0
         listPrice = 0.0

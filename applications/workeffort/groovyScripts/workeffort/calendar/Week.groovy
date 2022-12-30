@@ -42,10 +42,10 @@ serviceCtx.putAll([userLogin: userLogin, start: start, numPeriods: 7, periodType
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList
 }
-Map result = runService('getWorkEffortEventsByPeriod',serviceCtx)
-context.put('periods',result.get('periods'))
-context.put('maxConcurrentEntries',result.get('maxConcurrentEntries'))
-context.put('start',start)
-context.put('end',end)
-context.put('prev',prev)
-context.put('next',next)
+Map result = runService('getWorkEffortEventsByPeriod', serviceCtx)
+context.put('periods', result.get('periods'))
+context.put('maxConcurrentEntries', result.get('maxConcurrentEntries'))
+context.put('start', start)
+context.put('end', end)
+context.put('prev', prev)
+context.put('next', next)

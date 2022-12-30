@@ -475,15 +475,15 @@ if (orderHeader) {
 
     // list to find all the POSTAL_ADDRESS for the party.
     orderParty = from('Party').where('partyId', partyId).queryOne()
-    postalContactMechList = ContactHelper.getContactMechByType(orderParty,'POSTAL_ADDRESS', false)
+    postalContactMechList = ContactHelper.getContactMechByType(orderParty, 'POSTAL_ADDRESS', false)
     context.postalContactMechList = postalContactMechList
 
     // list to find all the TELECOM_NUMBER for the party.
-    telecomContactMechList = ContactHelper.getContactMechByType(orderParty,'TELECOM_NUMBER', false)
+    telecomContactMechList = ContactHelper.getContactMechByType(orderParty, 'TELECOM_NUMBER', false)
     context.telecomContactMechList = telecomContactMechList
 
     // list to find all the EMAIL_ADDRESS for the party.
-    emailContactMechList = ContactHelper.getContactMechByType(orderParty,'EMAIL_ADDRESS', false)
+    emailContactMechList = ContactHelper.getContactMechByType(orderParty, 'EMAIL_ADDRESS', false)
     context.emailContactMechList = emailContactMechList
 }
 

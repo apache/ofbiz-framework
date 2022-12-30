@@ -64,7 +64,7 @@ if (payments)    {
             paymentMap.paymentId = basePaymentId
             paymentMap.toPaymentId = payment.paymentId
             paymentMap.currencyUomId = payment.currencyUomId
-            paymentMap.effectiveDate = payment.effectiveDate.toString().substring(0,10) // list as YYYY-MM-DD
+            paymentMap.effectiveDate = payment.effectiveDate.toString().substring(0, 10) // list as YYYY-MM-DD
             paymentMap.amount = payment.getBigDecimal('amount')
             paymentMap.amountApplied = PaymentWorker.getPaymentApplied(payment)
             paymentToApply = PaymentWorker.getPaymentNotApplied(payment)

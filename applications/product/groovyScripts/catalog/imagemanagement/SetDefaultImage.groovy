@@ -45,7 +45,7 @@ if (productContentList) {
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator)
 imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.server.path', delegator), context)
-imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator), context)
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix', delegator), context)
 imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length() - 1) : imageServerPath
 imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix
 context.imageFilenameFormat = imageFilenameFormat
