@@ -193,7 +193,7 @@ Map quickReceiveReturn() {
             List returnItems = from('ReturnItem').where(returnId: returnHeader.returnId).queryList()
 
             // if no inventory item type specified, get default from facility
-            if(!parameters.inventoryItemTypeId) {
+            if (!parameters.inventoryItemTypeId) {
                 GenericValue facility = delegator.getRelatedOne('Facility', returnHeader, false)
                 parameters.inventoryItemTypeId = facility.defaultInventoryItemTypeId ?: 'NON_SERIAL_INV_ITEM'
             }

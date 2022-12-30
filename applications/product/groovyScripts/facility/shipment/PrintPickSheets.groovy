@@ -46,7 +46,7 @@ if (toPrintOrders) {
     orderHeaderList = []
     orderChargeList = []
     toPrintOrders.each { toPrintOrder ->
-        if(toPrintOrder) {
+        if (toPrintOrder) {
             orderHeaders = toPrintOrder.orderHeader
             orderItemShipGroups = toPrintOrder.orderItemShipGroup
             orderItemShipGrpInvResList = toPrintOrder.orderItemShipGrpInvResList

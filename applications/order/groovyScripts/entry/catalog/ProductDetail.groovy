@@ -605,7 +605,7 @@ if (product) {
     } else {
         //get last inventory count from product facility for the product
         facilities = from('ProductFacility').where('productId', product.productId).queryList()
-        if(facilities) {
+        if (facilities) {
             facilities.each { facility ->
                 lastInventoryCount = facility.lastInventoryCount
                 if (lastInventoryCount != null) {
@@ -660,14 +660,14 @@ if (product) {
             .orderBy('sequenceNum')
             .filterByDate()
             .queryList()
-    if(productContentAndInfoImageManamentList) {
+    if (productContentAndInfoImageManamentList) {
         productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
             contentAssocThumb = from('ContentAssoc')
                     .where('contentId', productContentAndInfoImageManament.contentId, 'contentAssocTypeId', 'IMAGE_THUMBNAIL').queryFirst()
-            if(contentAssocThumb) {
+            if (contentAssocThumb) {
                 imageContentThumb = from('Content')
                         .where('contentId', contentAssocThumb.contentIdTo).queryOne()
-                if(imageContentThumb) {
+                if (imageContentThumb) {
                     productImageThumb = from('ContentDataResourceView')
                             .where('contentId', imageContentThumb.contentId, 'drDataResourceId', imageContentThumb.dataResourceId).queryOne()
                     productImageMap = [:]

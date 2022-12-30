@@ -34,9 +34,9 @@ if (cart) {
     orderPartyId = cart.getPartyId()
     shipToPartyId = parameters.shipToPartyId
     context.cart = cart
-    if(shipToPartyId) {
+    if (shipToPartyId) {
         context.shipToPartyId = shipToPartyId
-} else {
+    } else {
         context.shipToPartyId = cart.getShipToCustomerPartyId()
     }
 

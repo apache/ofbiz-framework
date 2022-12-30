@@ -25,13 +25,13 @@
 productImageList = []
 productContentAndInfoImageManamentList = from('ProductContentAndInfo')
         .where('productId', productId, 'productContentTypeId', 'IMAGE', 'statusId', 'IM_APPROVED').orderBy('sequenceNum').queryList()
-if(productContentAndInfoImageManamentList) {
+if (productContentAndInfoImageManamentList) {
     productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
         contentAssocThumb = from('ContentAssoc')
                 .where('contentId', productContentAndInfoImageManament.contentId, 'contentAssocTypeId', 'IMAGE_THUMBNAIL').queryFirst()
-        if(contentAssocThumb) {
+        if (contentAssocThumb) {
             imageContentThumb = from('Content').where('contentId', contentAssocThumb.contentIdTo).queryOne()
-            if(imageContentThumb) {
+            if (imageContentThumb) {
                 productImageThumb = from('ContentDataResourceView')
                         .where('contentId', imageContentThumb.contentId, 'drDataResourceId', imageContentThumb.dataResourceId).queryOne()
                 productImageMap = [:]

@@ -36,7 +36,7 @@ if (!glFiscalTypeId) {
     return
 }
 organizationPartyId = null
-if(context.organizationPartyId) {
+if (context.organizationPartyId) {
     organizationPartyId = context.organizationPartyId
 } else {
     organizationPartyId = parameters.get('ApplicationDecorator|organizationPartyId')

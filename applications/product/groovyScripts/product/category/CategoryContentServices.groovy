@@ -32,7 +32,7 @@ Map createCategoryContent() {
     newEntity.setPKFields(parameters, true)
     newEntity.setNonPKFields(parameters, true)
 
-    if(!newEntity.fromDate) {
+    if (!newEntity.fromDate) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         newEntity.fromDate  = nowTimestamp
     }
