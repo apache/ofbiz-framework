@@ -103,7 +103,7 @@ if (allocationPlanHeader) {
                 } else {
                     orderedQuantity = quantity
                 }
-                orderedValue = orderedQuantity.multiply(unitPrice)
+                orderedValue = orderedQuantity * unitPrice
                 orderedQuantityTotal = orderedQuantityTotal.add(orderedQuantity)
                 orderedValueTotal = orderedValueTotal.add(orderedValue)
                 itemMap.orderedQuantity = orderedQuantity
@@ -127,7 +127,7 @@ if (allocationPlanHeader) {
             }
             allocatedQuantity = allocationPlanItem.allocatedQuantity
             if (allocatedQuantity) {
-                allocatedValue = allocatedQuantity.multiply(unitPrice)
+                allocatedValue = allocatedQuantity * unitPrice
                 allocatedQuantityTotal = allocatedQuantityTotal.add(allocatedQuantity)
                 allocatedValueTotal = allocatedValueTotal.add(allocatedValue)
                 itemMap.allocatedQuantity = allocatedQuantity
@@ -138,7 +138,7 @@ if (allocationPlanHeader) {
 
             allocationPercentage = 0.0
             if (allocatedQuantity && allocatedQuantity != 0 && orderedQuantity != 0) {
-                allocationPercentage = (allocatedQuantity.divide(orderedQuantity, 2, RoundingMode.HALF_UP)).multiply(100)
+                allocationPercentage = (allocatedQuantity.divide(orderedQuantity, 2, RoundingMode.HALF_UP)) * 100
             }
             itemMap.allocationPercentage = allocationPercentage
             newSummaryMap.allocationPercentage = allocationPercentage
@@ -162,8 +162,8 @@ if (allocationPlanHeader) {
                 allocationPercentage = 0.0
                 if (existingSummaryMap.orderedQuantity && existingSummaryMap.orderedQuantity != 0
                         && existingSummaryMap.allocatedQuantity && existingSummaryMap.allocatedQuantity != 0) {
-                    allocationPercentage = (existingSummaryMap.allocatedQuantity.divide(existingSummaryMap.orderedQuantity, 2, RoundingMode.HALF_UP))
-                            .multiply(100)
+                    allocationPercentage = (existingSummaryMap.allocatedQuantity
+                            .divide(existingSummaryMap.orderedQuantity, 2, RoundingMode.HALF_UP)) * 100
                 }
                 existingSummaryMap.allocationPercentage = allocationPercentage
                 summaryMap.put(salesChannelEnumId, existingSummaryMap)
@@ -175,7 +175,7 @@ if (allocationPlanHeader) {
     }
     allocationPercentageTotal = 0.0
     if (orderedQuantityTotal != 0.0 && allocatedQuantityTotal != 0.0) {
-        allocationPercentageTotal = (allocatedQuantityTotal.divide(orderedQuantityTotal, 2, RoundingMode.HALF_UP)).multiply(100)
+        allocationPercentageTotal = (allocatedQuantityTotal.divide(orderedQuantityTotal, 2, RoundingMode.HALF_UP)) * 100
     }
     allocationPlanInfo.orderedQuantityTotal = orderedQuantityTotal
     allocationPlanInfo.orderedValueTotal = orderedValueTotal

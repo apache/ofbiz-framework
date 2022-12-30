@@ -25,7 +25,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 BigDecimal calcItemTotal(List headers) {
     BigDecimal total = BigDecimal.ZERO
     headers.each { header ->
-        total = total.plus(header.grandTotal ?: BigDecimal.ZERO)
+        total = total + (header.grandTotal ?: BigDecimal.ZERO)
     }
     return total
 }

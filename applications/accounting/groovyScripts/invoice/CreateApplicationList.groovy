@@ -49,7 +49,7 @@ invoice.getRelated('InvoiceItem', null, null, false).each { item ->
     BigDecimal itemTotal = null
     if (item.amount != null) {
         if (item.quantity) {
-          itemTotal = item.getBigDecimal('amount').multiply(item.getBigDecimal('quantity'))
+          itemTotal = item.getBigDecimal('amount') * item.getBigDecimal('quantity')
         } else {
           itemTotal = item.getBigDecimal('amount')
         }

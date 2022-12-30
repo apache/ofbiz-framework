@@ -46,15 +46,15 @@ invoiceIds.each { invoiceId ->
         invoiceItemsConv = []
         invoiceItems.each { invoiceItem ->
             if (invoiceItem.amount) {
-                invoiceItem.amount = invoiceItem.getBigDecimal('amount').multiply(conversionRate).setScale(decimals, rounding)
+                invoiceItem.amount = invoiceItem.getBigDecimal('amount') * conversionRate.setScale(decimals, rounding)
                 invoiceItemsConv.add(invoiceItem)
             }
         }
 
         invoicesMap.invoiceItems = invoiceItemsConv
 
-        invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding)
-        invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding)
+        invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice) * conversionRate.setScale(decimals, rounding)
+        invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotal(invoice) * conversionRate.setScale(decimals, rounding)
         invoicesMap.invoiceTotal = invoiceTotal
         invoicesMap.invoiceNoTaxTotal = invoiceNoTaxTotal
 

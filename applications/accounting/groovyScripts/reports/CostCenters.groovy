@@ -66,7 +66,7 @@ if (postedTransactionTotals) {
                 BigDecimal glAccountCategorySharePercentage = glAccountCategoryMember.amountPercentage
                 if (glAccountCategorySharePercentage && glAccountCategorySharePercentage != BigDecimal.ZERO ) {
                     glAccountCategoryShareFraction = glAccountCategorySharePercentage.divide(new BigDecimal('100.00'))
-                    BigDecimal glAccountCategoryShare = balance.multiply(glAccountCategoryShareFraction)
+                    BigDecimal glAccountCategoryShare = balance * glAccountCategoryShareFraction
                     accountMap.put(glAccountCategory.glAccountCategoryId, glAccountCategoryShare)
                 }
             }

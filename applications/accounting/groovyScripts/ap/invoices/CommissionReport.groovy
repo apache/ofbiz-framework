@@ -71,7 +71,7 @@ if ('Y' == parameters.isSearch) {
                     assocProductId = invoiceItemAndAssocProduct.productId
                     productName = invoiceItemAndAssocProduct.productName
                     quantity = quantity.add(invoiceItemAndAssocProduct.quantity)
-                    commissionAmount = commissionAmount.add(invoiceItemAndAssocProduct.termAmount.multiply(invoiceItemAndAssocProduct.quantity))
+                    commissionAmount = commissionAmount.add(invoiceItemAndAssocProduct.termAmount * invoiceItemAndAssocProduct.quantity)
                     termAmount = termAmount.add(invoiceItemAndAssocProduct.termAmount)
                     partyIdTermAmountMap.partyId = invoiceItemAndAssocProduct.partyIdFrom
                     partyIdTermAmountMap.termAmount = invoiceItemAndAssocProduct.termAmount
@@ -88,14 +88,14 @@ if ('Y' == parameters.isSearch) {
             commissionReportMap.quantity = quantity
             commissionReportMap.salesAgentAndTermAmtMap = salesAgentAndTermAmtMap
             commissionReportMap.commissionAmount = commissionAmount
-            commissionReportMap.netSale = invoiceItemProductAmount.multiply(quantity)
+            commissionReportMap.netSale = invoiceItemProductAmount * quantity
             commissionReportMap.salesInvoiceIds = salesInvoiceIds
             commissionReportMap.numberOfOrders = salesInvoiceIds.size()
             commissionReportList.add(commissionReportMap)
             totalQuantity = totalQuantity.add(quantity)
             totalNumberOfOrders = totalNumberOfOrders.add(salesInvoiceIds.size())
             totalCommissionAmount = totalCommissionAmount.add(commissionAmount)
-            totalNetSales = totalNetSales.add(invoiceItemProductAmount.multiply(quantity))
+            totalNetSales = totalNetSales.add(invoiceItemProductAmount * quantity)
         }
     }
     context.commissionReportList = commissionReportList
