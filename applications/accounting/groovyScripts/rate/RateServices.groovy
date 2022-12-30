@@ -25,7 +25,6 @@ import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
 
-
 /**
  * Service to create a rate amount value, if a existing value is present expire it before
  */

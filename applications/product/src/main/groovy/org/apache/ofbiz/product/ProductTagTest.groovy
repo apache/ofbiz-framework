@@ -41,7 +41,6 @@ class ProductTagTest extends OFBizTestCase {
         Step 7) Check all product tags is approved.
         Step 8) Check all product tags is created.*/
 
-
         MockHttpServletRequest request = new MockHttpServletRequest()
         MockHttpServletResponse response = new MockHttpServletResponse()
         GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').queryOne()

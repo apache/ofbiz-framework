@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.ObjectType
 
 contentId = parameters.contentId ?: null
@@ -28,7 +27,6 @@ fromDate = parameters.fromDate ?: null
 if (fromDate) {
     fromDate = ObjectType.simpleTypeOrObjectConvert(fromDate, 'Timestamp', null, null, false)
 }
-
 
 description = parameters.description ?: null
 

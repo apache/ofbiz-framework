@@ -27,7 +27,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
 
-
 /**
  * Cancels CostComponents
  */

@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 allSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE').queryList()
 nullSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', null).queryList()
 productContents = allSequenceNums - nullSequenceNums

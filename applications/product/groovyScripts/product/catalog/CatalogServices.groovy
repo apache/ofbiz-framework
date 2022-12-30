@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilURL
@@ -71,7 +70,6 @@ Map getRelatedCategories() {
     return result
 }
 
-
 /**
  * Check if image url exists or not for all categories
  */
@@ -92,7 +90,6 @@ Map checkImageUrlForAllCategories() {
     }
     return result
 }
-
 
 /**
  * Check if image url exists or not for category and product

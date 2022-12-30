@@ -25,7 +25,6 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 
-
 Map createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
     partyRole = select().from('PartyRole').where([partyId: parameters.partyId, roleTypeId: 'INTERNAL_ORGANIZATIO']).queryOne()

@@ -20,7 +20,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator
  * under the License.
  */
 
-
 ppCond = EntityCondition.makeCondition('portletCategoryId', EntityOperator.EQUALS, parameters.portletCategoryId)
 categories = delegator.findList('PortletPortletCategory', ppCond, null, null, null, false)
 

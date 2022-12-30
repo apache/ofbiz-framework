@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.base.util.UtilNumber
 

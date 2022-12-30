@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 
 context.hasPermission = security.hasEntityPermission('CATALOG', '_VIEW', session)

@@ -370,7 +370,6 @@ class ProductPromoCondTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase >= 0
 
-
         //2.test promo nonvalid
         cart = loadOrder(orderId)
         serviceContext = prepareConditionMap(cart, '150', true)

@@ -24,7 +24,6 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 
-
 /**
  * Create Content For Product Category
  */

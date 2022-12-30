@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtil

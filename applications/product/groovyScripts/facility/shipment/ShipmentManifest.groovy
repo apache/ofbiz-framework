@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 shipmentId = request.getParameter('shipmentId')
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 

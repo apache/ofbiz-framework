@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 /**
  * This script finds and places in the context of the form current (un-expired) contact mechs for the logged in user and the
  * party for whom the communication event is intended.  It currently just does searches for email but should be

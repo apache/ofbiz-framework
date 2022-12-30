@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties

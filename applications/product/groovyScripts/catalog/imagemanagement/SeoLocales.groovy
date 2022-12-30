@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilHttp
 
 Locale locale = UtilHttp.getLocale(request)
@@ -65,6 +64,4 @@ if (productTextData == null) {
 } else {
     context.productTextData = productTextData
 }
-
-
 

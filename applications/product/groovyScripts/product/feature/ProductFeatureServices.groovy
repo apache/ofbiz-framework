@@ -21,7 +21,6 @@ import java.util.regex.Pattern
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 
-
 /**
  * Apply Feature to Product using Feature Type and ID Code
  */

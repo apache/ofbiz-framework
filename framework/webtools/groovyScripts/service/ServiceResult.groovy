@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.webapp.event.CoreEvents
 
 if (session.getAttribute('_RUN_SYNC_RESULT_')) {
@@ -45,5 +44,4 @@ if (session.getAttribute('_RUN_SYNC_RESULT_')) {
 
     context.serviceResultList = serviceResultList
 }
-
 

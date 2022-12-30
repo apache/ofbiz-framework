@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 
 exprBldr = new org.apache.ofbiz.entity.condition.EntityConditionBuilder()

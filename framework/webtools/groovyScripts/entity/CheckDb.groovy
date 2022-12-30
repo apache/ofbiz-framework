@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.jdbc.DatabaseUtil
 
 controlPath = parameters._CONTROL_PATH_

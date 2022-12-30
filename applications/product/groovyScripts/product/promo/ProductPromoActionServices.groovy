@@ -561,6 +561,3 @@ Map productTaxPercent() {
     return result
 }
 
-
-
-

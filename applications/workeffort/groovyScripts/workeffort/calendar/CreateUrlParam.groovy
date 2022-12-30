@@ -19,7 +19,6 @@
 
 import org.apache.ofbiz.base.util.UtilMisc
 
-
 // Allow containing screens to specify URL parameters to be included in calendar navigation links
 List urlParameterNames = context.urlParameterNames
 if (urlParameterNames == null) {

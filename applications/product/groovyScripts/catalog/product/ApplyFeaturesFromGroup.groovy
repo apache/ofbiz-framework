@@ -24,7 +24,6 @@
 
 import org.apache.ofbiz.entity.GenericEntity
 
-
 productFeatureGroupId = parameters.get('productFeatureGroupId')
 if (productFeatureGroupId) {
     productFeatureGroup = from('ProductFeatureGroup').where('productFeatureGroupId', productFeatureGroupId).queryOne()

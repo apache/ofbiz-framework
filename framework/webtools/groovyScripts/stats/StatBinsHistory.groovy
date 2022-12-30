@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.webapp.stats.ServerHitBin
 

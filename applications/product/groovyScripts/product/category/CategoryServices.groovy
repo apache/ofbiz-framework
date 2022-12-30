@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
@@ -34,7 +33,6 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-
 
 /*
  * ================================================================

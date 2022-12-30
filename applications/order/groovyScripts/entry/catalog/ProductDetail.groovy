@@ -22,7 +22,6 @@
  * should not contain order component's specific code.
  */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilHttp

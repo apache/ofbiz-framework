@@ -194,7 +194,6 @@ if (orderHeader) {
     shipGroups = from('OrderItemShipGroup').where('orderId', orderId).orderBy('shipGroupSeqId').queryList()
     context.shipGroups = shipGroups
 
-
     orderItemDatas = []
     orderItemList.each { orderItem ->
         BigDecimal cancelQuantity = orderItem.get('cancelQuantity')

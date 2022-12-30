@@ -116,7 +116,6 @@ if (inlineProduct) {
         context.mainDetailImageUrl = mainDetailImageUrl.toString()
     }
 
-
     // get the product price
     webSiteId = WebSiteWorker.getWebSiteId(request)
     autoUserLogin = request.getSession().getAttribute('autoUserLogin')
@@ -138,7 +137,6 @@ if (inlineProduct) {
         priceMap = runService('calculatePurchasePrice', priceContext)
         context.priceMap = priceMap
     }
-
 
     context.variantTree = null
     context.variantTreeSize = null

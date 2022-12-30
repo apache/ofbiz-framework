@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.product.feature.ParametricSearch
 import org.apache.ofbiz.product.product.ProductSearch
 import org.apache.ofbiz.webapp.stats.VisitHandler

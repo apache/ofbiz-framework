@@ -40,7 +40,6 @@ context.productFeatureTypeIds = productFeatureTypeIds
 productFeatureTypeMap = [:]
 context.productFeatureTypeMap = productFeatureTypeMap
 
-
 compareList.each { product ->
     productData = [:]
     productDataMap[product.productId] = productData

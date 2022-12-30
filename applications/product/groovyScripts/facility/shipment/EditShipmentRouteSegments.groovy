@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 
 shipmentId = request.getParameter('shipmentId') ?: context.shipmentId

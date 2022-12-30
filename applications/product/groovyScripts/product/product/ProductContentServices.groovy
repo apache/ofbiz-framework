@@ -80,7 +80,6 @@ Map createDownloadContentForProduct() {
     return success()
 }
 
-
 /**
  * Create Simple Text Content For Product
  */

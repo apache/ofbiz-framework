@@ -24,7 +24,6 @@ import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
 import freemarker.template.WrappingTemplateModel
 
-
 Locale locale = UtilHttp.getLocale(request)
 if (currentValue) {
     dataResourceId = currentValue.drDataResourceId

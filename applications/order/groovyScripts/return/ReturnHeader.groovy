@@ -83,7 +83,6 @@ if (orderId) {
 context.orderRole = orderRole
 context.orderHeader = orderHeader
 
-
 // from address
 addresses = null
 if (context.request) {

@@ -17,7 +17,6 @@
 * under the License.
 */
 
-
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
@@ -351,7 +350,6 @@ Map discontinueProductSales() {
     product.salesDiscontinuationDate = nowTimestamp
     product.store()
 
-
     // expire product from all categories
     exprBldr = new EntityConditionBuilder()
     condition = exprBldr.AND {
@@ -365,7 +363,6 @@ Map discontinueProductSales() {
             [thruDate: nowTimestamp], condition)
     return success()
 }
-
 
 Map countProductView() {
     long weight = parameters.weight ?: 1l

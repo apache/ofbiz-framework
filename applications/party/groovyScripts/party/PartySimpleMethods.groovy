@@ -66,7 +66,6 @@ Map createPartyGroupRoleAndContactMechs() {
         return error(e.toString())
     }
 
-
     run service: 'createPartyContactMechs', with: parameters
     return result
 }

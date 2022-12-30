@@ -22,7 +22,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.catalog.CatalogWorker
 
-
 shoppingCart = ShoppingCartEvents.getCartObject(request)
 context.cart = shoppingCart
 

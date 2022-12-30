@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 facilityId = parameters.facilityId
 if (!facilityId && request.getAttribute('facilityId')) {
     facilityId = request.getAttribute('facilityId')

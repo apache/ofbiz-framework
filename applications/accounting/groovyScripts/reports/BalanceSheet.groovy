@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.accounting.util.UtilAccounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilMisc
@@ -44,7 +43,6 @@ if(context.organizationPartyId) {
 // Setup the divisions for which the report is executed
 List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')
 partyIds.add(organizationPartyId)
-
 
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
 GenericValue assetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'ASSET').cache(true).queryOne()

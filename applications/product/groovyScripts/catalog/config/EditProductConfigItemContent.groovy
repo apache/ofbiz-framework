@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.HttpRequestFileUpload
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander

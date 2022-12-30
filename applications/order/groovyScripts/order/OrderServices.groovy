@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import groovy.time.TimeCategory
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition

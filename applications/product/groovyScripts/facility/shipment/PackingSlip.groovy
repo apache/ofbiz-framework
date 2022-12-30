@@ -19,7 +19,6 @@
 
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 
-
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.condition.EntityCondition
