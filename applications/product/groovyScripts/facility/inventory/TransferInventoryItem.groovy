@@ -49,11 +49,9 @@ if (facilityId) {
     facility = from('Facility').where('facilityId', facilityId).queryOne()
 }
 
-String illegalInventoryItem = null
 if (inventoryItemId) {
     inventoryItem = from('InventoryItem').where('inventoryItemId', inventoryItemId).queryOne()
     if (facilityId && inventoryItem && inventoryItem.facilityId && inventoryItem.facilityId != facilityId) {
-        illegalInventoryItem = 'Inventory item not found for this facility.'
         inventoryItem = null
     }
     if (inventoryItem) {

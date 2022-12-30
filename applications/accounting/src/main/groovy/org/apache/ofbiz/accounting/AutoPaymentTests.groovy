@@ -354,14 +354,12 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal receivableDebitTotal = serviceResult.debitTotal
-        BigDecimal receivableCreditTotal = serviceResult.creditTotal
         BigDecimal receivableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
         serviceCtx.glAccountId = '112000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        BigDecimal undepositedDebitTotal = serviceResult.debitTotal
         BigDecimal undepositedCreditTotal = serviceResult.creditTotal
         BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
 

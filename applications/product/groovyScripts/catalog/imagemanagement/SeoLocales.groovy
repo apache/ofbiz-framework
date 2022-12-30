@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilHttp
-
-Locale locale = UtilHttp.getLocale(request)
 String serverName = request.getServerName()
 String serverLocal = serverName.substring(serverName.lastIndexOf('.') + 1)
 

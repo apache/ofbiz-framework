@@ -63,7 +63,6 @@ if (postedTransactionTotals) {
         if (!accountMap) {
             GenericValue glAccount = from('GlAccount').where('glAccountId', postedTransactionTotal.glAccountId).cache(true).queryOne()
             if (glAccount) {
-                boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
                 // Get the opening balances at the end of the last closed time period
                 if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount)
                         || UtilAccounting.isEquityAccount(glAccount)) {
@@ -165,7 +164,6 @@ if (unpostedTransactionTotals) {
         if (!accountMap) {
             GenericValue glAccount = from('GlAccount').where('glAccountId', unpostedTransactionTotal.glAccountId).cache(true).queryOne()
             if (glAccount) {
-                boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
                 // Get the opening balances at the end of the last closed time period
                 if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount)
                         || UtilAccounting.isEquityAccount(glAccount)) {
@@ -266,7 +264,6 @@ if (allTransactionTotals) {
         if (!accountMap) {
             GenericValue glAccount = from('GlAccount').where('glAccountId', allTransactionTotal.glAccountId).cache(true).queryOne()
             if (glAccount) {
-                boolean isDebitAccount = UtilAccounting.isDebitAccount(glAccount)
                 // Get the opening balances at the end of the last closed time period
                 if (UtilAccounting.isAssetAccount(glAccount) || UtilAccounting.isLiabilityAccount(glAccount)
                         || UtilAccounting.isEquityAccount(glAccount)) {

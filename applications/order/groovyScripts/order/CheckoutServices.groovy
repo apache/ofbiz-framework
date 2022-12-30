@@ -179,7 +179,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     // Set Payment Method
     String cardSecurityCode = parameters.billToCardSecurityCode
     CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, shoppingCart)
-    Map callResult = checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, false, false)
+    checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, false, false)
     CartPaymentInfo cartPaymentInfo = shoppingCart.getPaymentInfo(paymentMethodId, null, null, null, true)
     cartPaymentInfo.securityCode = cardSecurityCode
     return result

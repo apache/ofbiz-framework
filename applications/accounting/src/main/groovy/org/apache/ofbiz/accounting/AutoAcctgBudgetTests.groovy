@@ -46,7 +46,7 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         serviceCtx.budgetId = '9999'
         serviceCtx.statusId = 'BG_APPROVED'
         serviceCtx.userLogin = userLogin
-        Map result = dispatcher.runSync('updateBudgetStatus', serviceCtx)
+        dispatcher.runSync('updateBudgetStatus', serviceCtx)
 
         List<GenericValue> budgetStatuses = from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
         assert ! budgetStatuses?.isEmpty()

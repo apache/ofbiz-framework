@@ -199,15 +199,13 @@ Map quickReceiveReturn() {
             }
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 
-            Long returnItemCount = from('ReturnItem').where(returnId: returnHeader.returnId).queryCount()
             Long nonProductItems =  (Long) 0
 
             for (GenericValue returnItem : returnItems) {
                 // record this return item on the return shipment as well.  not sure if this is actually necessary...
                 Map shipItemCtx = [shipmentId: shipmentId, productId: returnItem.productId, quantity: returnItem.returnQuantity]
                 logInfo("calling create shipment item with ${shipItemCtx}")
-                Map serviceCSI = run service: 'createShipmentItem', with: shipItemCtx
-                String shipmentItemSeqId = serviceCSI.shipmentItemSeqId
+                run service: 'createShipmentItem', with: shipItemCtx
             }
             for (GenericValue returnItem : returnItems) {
                 Map receiveCtx = [:]
@@ -480,7 +478,7 @@ Map cancelReceivedItems() {
         orderItemCtx << orderItem
         orderItemCtx.fromStatusId = 'ITEM_COMPLETED'
         run service: 'changeOrderItemStatus', with: orderItemCtx
-        GenericValue orderHeader = delegator.getRelatedOne('OrderHeader', orderItem, false)
+        delegator.getRelatedOne('OrderHeader', orderItem, false)
         // cancel the invoice
         GenericValue orderItemBilling = from('OrderItemBilling').where(orderId: orderItem.orderId).queryFirst()
         if (orderItemBilling) {

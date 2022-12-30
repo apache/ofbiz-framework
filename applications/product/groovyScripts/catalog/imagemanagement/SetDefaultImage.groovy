@@ -107,10 +107,11 @@ if (fileType) {
 
     defaultFileName = 'temp_' + dataResourceName
     checkPathFile = imageManagementPath + '/' + productId + '/' + dataResourceName
+    BufferedImage bufImg
     if (checkPathFile == productContentList.get(0).drObjectInfo) {
-        BufferedImage bufImg = ImageIO.read(new File(imageManagementPath + '/' + productId + '/' + dataResourceName))
+        bufImg = ImageIO.read(new File(imageManagementPath + '/' + productId + '/' + dataResourceName))
     } else {
-        BufferedImage bufImg = ImageIO.read(new File(productContentList.get(0).drObjectInfo))
+        bufImg = ImageIO.read(new File(productContentList.get(0).drObjectInfo))
     }
     ImageIO.write((RenderedImage) bufImg, 'jpg', new File(imageManagementPath + '/' + productId + '/' + defaultFileName))
 

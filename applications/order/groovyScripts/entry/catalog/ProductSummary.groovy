@@ -188,7 +188,6 @@ if (product) {
                 if (cart.isSalesOrder()) {
                     // sales order: run the "calculateProductPrice" service
                     virtualPriceMap = runService('calculateProductPrice', priceContext)
-                    BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get('price')
                     // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                     variantPriceList.add(virtualPriceMap)
                 } else {

@@ -449,7 +449,6 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
  * Checks the (role) ownership of a record
  */
 Map checkOwnership() {
-    Map result = success()
     String roleEntity = parameters.roleEntity
     String roleEntityField = parameters.roleEntityField
     String checkId = parameters.checkId
