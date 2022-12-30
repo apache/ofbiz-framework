@@ -59,10 +59,6 @@ GenericValue longtermAssetGlAccountClass = from('GlAccountClass').where('glAccou
 List longtermAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(longtermAssetGlAccountClass)
 GenericValue currentLiabilityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CURRENT_LIABILITY').cache(true).queryOne()
 List currentLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentLiabilityGlAccountClass)
-GenericValue accumDepreciationGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'ACCUM_DEPRECIATION').cache(true).queryOne()
-List accumDepreciationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumDepreciationGlAccountClass)
-GenericValue accumAmortizationGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'ACCUM_AMORTIZATION').cache(true).queryOne()
-List accumAmortizationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumAmortizationGlAccountClass)
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
 Map lastClosedTimePeriodResult = runService('findLastClosedDate',

@@ -76,7 +76,6 @@ if (product) {
         }
         facilityIterator = facilityList.iterator()
         dispatcher = request.getAttribute('dispatcher')
-        Map contextInput = null
         Map resultOutput = null
 
         // inventory quantity summary by facility: For every warehouse the product's atp and qoh

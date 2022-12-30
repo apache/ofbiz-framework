@@ -31,8 +31,6 @@ if (facilityId && locationSeqId) {
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'FacilityLocationAndGeoPoint', 'facilityId', facilityId, 'locationSeqId', locationSeqId)
     context.latestGeoPoint = latestGeoPoint
 
-    List geoCenter = UtilMisc.toList(UtilMisc.toMap('lat', latestGeoPoint.latitude, 'lon', latestGeoPoint.longitude, 'zoom', '13'))
-
     if (latestGeoPoint && latestGeoPoint.containsKey('latitude') && latestGeoPoint.containsKey('longitude')) {
         List geoPoints = UtilMisc.toList(UtilMisc.toMap('lat', latestGeoPoint.latitude, 'lon', latestGeoPoint.longitude, 'facilityId', facilityId,
                 'link', UtilMisc.toMap('url', 'EditFacilityLocation?facilityId=' + facilityId + '&locationSeqId=' + locationSeqId,

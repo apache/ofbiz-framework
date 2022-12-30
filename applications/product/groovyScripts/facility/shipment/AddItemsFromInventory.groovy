@@ -28,8 +28,6 @@ shipmentItems = shipment.getRelated('ShipmentItem', null, null, false)
 shipmentItems.each { shipmentItem ->
     productId = shipmentItem.productId
     internalName = shipmentItem.getRelated('Product', null, null, false).internalName
-    EntityCondition cond = EntityCondition.makeCondition([EntityCondition.makeCondition('returnId', shipment.primaryReturnId),
-                                   EntityCondition.makeCondition('productId', productId)], EntityOperator.AND)
     returnItem = from('ReturnItem').where('returnId', shipment.primaryReturnId, 'productId', productId).cache(true).queryFirst()
     returnQuantity = Double.valueOf(returnItem.returnQuantity)
 

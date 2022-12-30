@@ -394,7 +394,6 @@ Map setShipmentSettingsFromFacilities() {
     GenericValue facilityContactMech
     GenericValue shipment = from('Shipment').where(parameters).queryOne()
     GenericValue shipmentCopy = shipment.clone()
-    List descendingFromDateOrder = ['-fromDate']
     if (shipment?.originFacilityId) {
         if (!shipment.originContactMechId) {
             facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(
@@ -760,7 +759,6 @@ Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
 Map quickShipEntireOrder() {
     Map result = success()
     List successMessageList
-    List shipmentIds
     List shipmentShipGroupFacilityList
     // first get the order header; make sure we have a product store
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
@@ -790,9 +788,6 @@ Map quickShipEntireOrder() {
 
     // traverse facilities, instantiate shipment for each
     for (String orderItemShipGrpInvResFacilityId : orderItemShipGrpInvResFacilityIds) {
-        // sanity check for valid facility
-        GenericValue facility = from('Facility').where(facilityId: orderItemShipGrpInvResFacilityId).queryOne()
-        // should never be empty - referential integrity enforced
         Map serviceResultCSFFASG = createShipmentForFacilityAndShipGroup(orderHeader,
                 serviceResult.orderItemListByShGrpMap, serviceResult.orderItemShipGroupList,
                 serviceResult.orderItemAndShipGroupAssocList, orderItemShipGrpInvResFacilityId,
@@ -1143,7 +1138,6 @@ Map issueSerializedInvToShipmentPackageAndSetTracking() {
     shipItemContext.shipmentItemSeqId = itemIssuance.shipmentItemSeqId
     shipItemContext.quantity = itemIssuance.quantity
     Map serviceResultASCTP = run service: 'addShipmentContentToPackage', with: shipItemContext
-    Map packageMap = ["${parameters.trackingNum}": serviceResultASCTP.shipmentPackageSeqId]
     Map routeSegLookup = [shipmentPackageSeqId: serviceResultASCTP.shipmentPackageSeqId]
     if (routeSegLookup.shipmentPackageSeqId) {
         routeSegLookup.shipmentId = itemIssuance.shipmentId
@@ -1321,8 +1315,6 @@ Map addOrderShipmentToShipment() {
     Map result = success()
     // if quantity is greater than 0 we add or update the ShipmentPlan
     if (parameters.quantity > (BigDecimal.ZERO)) {
-        // get orderHeader
-        GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
         // get orderItem
         GenericValue orderItem = from('OrderItem').where(parameters).queryOne()
         // make sure the orderItem is not already present in this shipment

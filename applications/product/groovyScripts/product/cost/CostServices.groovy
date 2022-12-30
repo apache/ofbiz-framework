@@ -504,8 +504,7 @@ Map productCostPercentageFormula() {
     GenericValue costComponentCalc = parameters.costComponentCalc
     Map inputMap = [productId: productCostComponentCalc.productId, currencyUomId: parameters.currencyUomId,
                     costComponentTypePrefix: parameters.costComponentTypePrefix]
-    Map serviceResult = run service: 'getProductCost', with: inputMap
-    BigDecimal productCost = serviceResult.productCost
+    run service: 'getProductCost', with: inputMap
     // set field="productCostAdjustment" value="${parameters.baseCost * costComponentCalc.fixedCost}" type="BigDecimal"/
     BigDecimal productCostAdjustment = costComponentCalc.fixedCost * parameters.baseCost
     productCostAdjustment = productCostAdjustment.setScale(6)

@@ -185,14 +185,12 @@ class AutoInvoiceTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal payableDebitTotal = serviceResult.debitTotal
-        BigDecimal payableCreditTotal = serviceResult.creditTotal
         BigDecimal payableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
         serviceCtx.glAccountId = '214000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        BigDecimal uninvoicedDebitTotal = serviceResult.debitTotal
         BigDecimal uninvoicedCreditTotal = serviceResult.creditTotal
         BigDecimal uninvoicedDebitCreditDifference = serviceResult.debitCreditDifference
 
@@ -266,7 +264,6 @@ class AutoInvoiceTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal undepositedDebitTotal = serviceResult.debitTotal
-        BigDecimal undepositedCreditTotal = serviceResult.creditTotal
         BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()

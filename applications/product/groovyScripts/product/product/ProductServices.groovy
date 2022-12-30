@@ -405,16 +405,16 @@ Map createProductReview() {
 
     // create the new ProductReview
     newEntity.productReviewId = delegator.getNextSeqId('ProductReview')
-    Map result = success()
-    result.productReviewId = newEntity.productReviewId
-
     newEntity.postedDateTime = newEntity.postedDateTime ?: UtilDateTime.nowTimestamp()
     newEntity.create()
 
     String productId = newEntity.productId
+    updateProductWithReviewRatingAvg(productId)
+
     String successMessage = UtilProperties.getMessage('ProductUiLabels',
             'ProductCreateProductReviewSuccess', parameters.locale)
-    updateProductWithReviewRatingAvg(productId)
+    Map result = success(successMessage )
+    result.productReviewId = newEntity.productReviewId
 
     return result
 }
@@ -510,8 +510,6 @@ Map copyToProductVariants() {
     }
 
     Map productFindContext = [productId: parameters.virtualProductId]
-    GenericValue oldProduct = findOne('Product', productFindContext, false)
-
     Map variantsFindContext = [productId: parameters.virtualProductId, productAssocTypeId: 'PRODUCT_VARIANT']
     List variants = from('ProductAssoc')
             .where(variantsFindContext)

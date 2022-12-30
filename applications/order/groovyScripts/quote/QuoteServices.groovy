@@ -149,7 +149,7 @@ Map createQuote() {
     // This is not done if they are the same e.g. a logged in customer that is
     // creating a quote for its own sake.
     if (parameters.partyId != userLogin.partyId) {
-        Map serviceResult = run service: 'createQuoteRole', with: [
+        run service: 'createQuoteRole', with: [
             quoteId: newEntity.quoteId,
             partyId: userLogin.partyId,
             roleTypeId: 'REQ_TAKER'
@@ -158,7 +158,7 @@ Map createQuote() {
 
     // Set ProductStore's payToPartyId as internal organisation for quote.
     if (productStore?.payToPartyId) {
-        Map serviceResult = run service: 'createQuoteRole', with: [
+        run service: 'createQuoteRole', with: [
             quoteId: newEntity.quoteId,
             partyId: productStore.payToPartyId,
             roleTypeId: 'INTERNAL_ORGANIZATIO'
@@ -612,7 +612,7 @@ Map createQuoteFromCustRequest() {
     List custRequestItems = from('CustRequestItem').where(exprdCond).queryList()
 
     custRequestItems.each { GenericValue custRequestItem ->
-        Map serviceCQIResult = run service: 'createQuoteItem', with: [*:custRequestItem, quoteId: quoteId]
+        run service: 'createQuoteItem', with: [*:custRequestItem, quoteId: quoteId]
     }
 
     // Roles

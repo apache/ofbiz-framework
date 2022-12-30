@@ -113,7 +113,6 @@ Map createDataResourceAndAssocToContent() {
  */
 Map getElectronicText() {
     Map result = success()
-    GenericValue userLogin = parameters.userLogin
     GenericValue currentContent = parameters.content
     logInfo("GETELECTRONICTEXT, currentContent:${currentContent}")
 

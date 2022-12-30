@@ -44,8 +44,6 @@ if (geoPointId) {
 if (latestGeoPoint) {
     context.latestGeoPoint = latestGeoPoint
 
-    List geoCenter = UtilMisc.toList(UtilMisc.toMap('lat', latestGeoPoint.latitude, 'lon', latestGeoPoint.longitude, 'zoom', '13'))
-
     if (latestGeoPoint && latestGeoPoint.containsKey('latitude') && latestGeoPoint.containsKey('longitude')) {
         List geoPoints = UtilMisc.toList(UtilMisc.toMap('lat', latestGeoPoint.latitude, 'lon', latestGeoPoint.longitude, 'partyId', partyId,
               'link', [url: 'viewprofile?partyId=' + partyId, label: uiLabelMap.PartyProfile + ' ' + uiLabelMap.CommonOf + ' ' + partyId]))

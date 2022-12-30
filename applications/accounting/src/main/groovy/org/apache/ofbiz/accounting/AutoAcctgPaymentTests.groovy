@@ -85,7 +85,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
             fromDate: nowTimestamp,
             userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync('createPaymentContent', serviceCtx)
+        dispatcher.runSync('createPaymentContent', serviceCtx)
         GenericValue paymentContent = from('PaymentContent')
                 .where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
         assert paymentContent
