@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
 /**
@@ -25,7 +25,7 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 
 Map copyAgreement() {
-    agreement = from('Agreement').where('agreementId', parameters.agreementId).queryOne();
+    agreement = from('Agreement').where('agreementId', parameters.agreementId).queryOne()
     serviceResult = success()
     if (agreement) {
         Map createAgreementInMap = dispatcher.getDispatchContext().makeValidContext('createAgreement', ModelService.IN_PARAM, agreement)

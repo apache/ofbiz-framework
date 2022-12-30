@@ -47,8 +47,8 @@ class ProductTagTest extends OFBizTestCase {
         request.setAttribute('delegator', delegator)
         request.setAttribute('dispatcher', dispatcher)
         // Step 1
-        request.setParameter('productId', 'GZ-1000');
-        request.setParameter('productTags', 'test');
+        request.setParameter('productId', 'GZ-1000')
+        request.setParameter('productTags', 'test')
         ProductEvents.addProductTags(request, response)
 
         // Step 2
@@ -73,8 +73,8 @@ class ProductTagTest extends OFBizTestCase {
         assert checkProductKeywordApprove.statusId == 'KW_APPROVED'
 
         // Step 5
-        request.setParameter('productId', 'GZ-1000');
-        request.setParameter('productTags', '\'rock and roll\' t-shirt red');
+        request.setParameter('productId', 'GZ-1000')
+        request.setParameter('productTags', '\'rock and roll\' t-shirt red')
         ProductEvents.addProductTags(request, response)
 
         // Step 6

@@ -103,7 +103,7 @@ if (allocationPlanHeader) {
                 } else {
                     orderedQuantity = quantity
                 }
-                orderedValue = orderedQuantity.multiply(unitPrice);
+                orderedValue = orderedQuantity.multiply(unitPrice)
                 orderedQuantityTotal = orderedQuantityTotal.add(orderedQuantity)
                 orderedValueTotal = orderedValueTotal.add(orderedValue)
                 itemMap.orderedQuantity = orderedQuantity
@@ -127,7 +127,7 @@ if (allocationPlanHeader) {
             }
             allocatedQuantity = allocationPlanItem.allocatedQuantity
             if (allocatedQuantity) {
-                allocatedValue = allocatedQuantity.multiply(unitPrice);
+                allocatedValue = allocatedQuantity.multiply(unitPrice)
                 allocatedQuantityTotal = allocatedQuantityTotal.add(allocatedQuantity)
                 allocatedValueTotal = allocatedValueTotal.add(allocatedValue)
                 itemMap.allocatedQuantity = allocatedQuantity

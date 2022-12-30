@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.party.contact.ContactHelper;
+import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.party.contact.ContactHelper
 import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper
 
 shoppingCart = session.getAttribute('shoppingCart')
 currencyUomId = shoppingCart.getCurrency()

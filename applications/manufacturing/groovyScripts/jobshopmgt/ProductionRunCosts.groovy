@@ -29,4 +29,4 @@ productionRun = from('WorkEffort').where('workEffortId', productionRunId).cache(
 costs = from('CostComponent').where('workEffortId', productionRunId).filterByDate().queryList()
 taskInfoList.add([task: productionRun, taskCosts: costs])
 
-context.taskInfoList = taskInfoList;
+context.taskInfoList = taskInfoList

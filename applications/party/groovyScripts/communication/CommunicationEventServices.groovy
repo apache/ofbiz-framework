@@ -84,7 +84,7 @@ Map createCommunicationEvent() {
                     localContent.substring(0, localContent.indexOf('\n', 0) == -1
                             ? localContent.length()
                             : localContent.indexOf('\n', 0))
-            int startChar = localContent.indexOf('\n', 0);
+            int startChar = localContent.indexOf('\n', 0)
             while (startChar != -1 && (startChar = localContent.indexOf('\n', startChar) + 1) != 0) {
                 resultLine += '\n > ' + localContent.substring(startChar,
                         localContent.indexOf('\n', startChar) == -1

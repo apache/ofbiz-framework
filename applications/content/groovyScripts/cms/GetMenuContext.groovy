@@ -23,4 +23,4 @@ if (!menuContext) {
     menuContext = [:]
     session.setAttribute('menuContext', menuContext)
 }
-context.menuContext = menuContext;
+context.menuContext = menuContext

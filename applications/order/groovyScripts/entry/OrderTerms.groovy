@@ -51,4 +51,4 @@ if (request.getParameter('createNew') == 'Y') {
 
 }
 
-context.termTypes = from('TermType').queryList();
+context.termTypes = from('TermType').queryList()

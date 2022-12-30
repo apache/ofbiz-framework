@@ -1114,7 +1114,7 @@ def createOfbizBackgroundCommandTask(taskName) {
 
 def spawnProcess(command) {
     ProcessBuilder pb = new ProcessBuilder(command)
-    File consoleLog = file("${rootDir}/runtime/logs/console.log");
+    File consoleLog = file("${rootDir}/runtime/logs/console.log")
 
     pb.directory(file("${rootDir}"))
     pb.redirectErrorStream(true)

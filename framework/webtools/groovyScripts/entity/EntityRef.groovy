@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.security.CsrfUtil;
+import org.apache.ofbiz.security.CsrfUtil
 
 controlPath = parameters._CONTROL_PATH_
 list = "$controlPath/view/entityref_list"

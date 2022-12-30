@@ -26,11 +26,11 @@ delegator = request.getAttribute('delegator')
 productionRunId = request.getParameter('productionRunId') ?: request.getParameter('workEffortId')
 if (productionRunId) {
 
-    GenericValue productionRun = from('WorkEffort').where('workEffortId', productionRunId).queryOne();
+    GenericValue productionRun = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
     if (productionRun) {
         // If this is a task, get the parent production run
         if (productionRun.getString('workEffortTypeId') != null && 'PROD_ORDER_TASK' == productionRun.getString('workEffortTypeId')) {
-            productionRun = from('WorkEffort').where('workEffortId', productionRun.getString('workEffortParentId')).queryOne();
+            productionRun = from('WorkEffort').where('workEffortId', productionRun.getString('workEffortParentId')).queryOne()
         }
     }
 

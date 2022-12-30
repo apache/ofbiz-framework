@@ -56,7 +56,7 @@ if (orderId && shipment) {
         }
 
         orderItems = from('OrderItemAndShipGroupAssoc')
-                .where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+                .where('shipGroupSeqId', shipGroupSeqId, 'orderId', orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList()
         orderItemDatas = [] as LinkedList
         orderItems.each { orderItemAndShipGroupAssoc ->
             orderItemData = [:]

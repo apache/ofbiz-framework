@@ -25,7 +25,7 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.product.product.ProductContentWrapper
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 inlineProductId = request.getAttribute('inlineProductId')
 inlineCounter = request.getAttribute('inlineCounter')

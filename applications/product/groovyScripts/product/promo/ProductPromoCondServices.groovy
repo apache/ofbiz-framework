@@ -542,7 +542,7 @@ Map productPromoRecurrence() {
     String condValue = productPromoCond.condValue
 
     if (condValue) {
-        GenericValue recurrenceInfo = from('RecurrenceInfo').where('recurrenceInfoId', condValue).cache().queryOne();
+        GenericValue recurrenceInfo = from('RecurrenceInfo').where('recurrenceInfoId', condValue).cache().queryOne()
         if (recurrenceInfo) {
             RecurrenceInfo recurrence = null
             try {

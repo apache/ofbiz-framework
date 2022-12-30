@@ -18,7 +18,7 @@
  */
 productStoreId = null
 
-productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();
+productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst()
 if(productStore){
     productStoreId = productStore.productStoreId
 }
@@ -27,7 +27,7 @@ context.productStore = productStore
 
 if('website' == tabButtonItemTop){
     if(productStoreId != null){
-        webSite = from('WebSite').where('productStoreId', productStoreId).queryFirst();
+        webSite = from('WebSite').where('productStoreId', productStoreId).queryFirst()
         context.showScreen = 'origin'
     }else{
         request.setAttribute('_ERROR_MESSAGE_', 'Product Store not set!')

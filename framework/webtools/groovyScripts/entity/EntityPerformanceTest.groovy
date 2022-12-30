@@ -29,7 +29,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     calls = 1000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = from('JobSandbox').where('jobId', 'PURGE_OLD_JOBS').queryOne();
+        dummy = from('JobSandbox').where('jobId', 'PURGE_OLD_JOBS').queryOne()
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime / 1000)
@@ -46,7 +46,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     calls = 10000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = from('JobSandbox').where('jobId', 'PURGE_OLD_JOBS').cache().queryOne();
+        dummy = from('JobSandbox').where('jobId', 'PURGE_OLD_JOBS').cache().queryOne()
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime / 1000)
@@ -63,7 +63,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     calls = 1000
     startTime = System.currentTimeMillis()
     for (int i = 0; i < calls; i++) {
-        dummy = from('DataSourceType').where('dataSourceTypeId', 'ADMIN_ENTRY').queryOne();
+        dummy = from('DataSourceType').where('dataSourceTypeId', 'ADMIN_ENTRY').queryOne()
     }
     totalTime = System.currentTimeMillis() - startTime
     callsPerSecond = calls / (totalTime / 1000)

@@ -18,7 +18,7 @@
  */
 
 import org.apache.ofbiz.product.product.ProductEvents
-import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker

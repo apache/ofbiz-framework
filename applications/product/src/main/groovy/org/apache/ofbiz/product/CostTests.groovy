@@ -39,7 +39,7 @@ class CostTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(resultMap)
 
         List<GenericValue> costComponents = from('CostComponent').where('productId', productId).filterByDate().queryList()
-        BigDecimal costTotalAmount = BigDecimal.ZERO;
+        BigDecimal costTotalAmount = BigDecimal.ZERO
 
         for (GenericValue costComponent : costComponents) {
             assert costComponent.costUomId == 'USD'

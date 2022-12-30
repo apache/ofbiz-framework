@@ -23,12 +23,12 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 
 invoiceId = parameters.invoiceId
 userLoginId = userLogin.userLoginId
-userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne();
-userLoginNameView = from('PartyNameView').where('partyId', userLogin.get('partyId')).queryOne();
+userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
+userLoginNameView = from('PartyNameView').where('partyId', userLogin.get('partyId')).queryOne()
 userLoginName = userLoginNameView.getString('firstName') + ' ' + userLoginNameView.getString('lastName')
 dateFormatter = new java.text.SimpleDateFormat('dd MMMMM yyyy')
 
-invoice = from('Invoice').where('invoiceId', invoiceId).queryOne();
+invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
 if (invoice) {
     context.invoiceDescription = invoice.get('description')
     context.invoiceTypeDescription = invoice.getRelatedOne('InvoiceType', false).get('description')
@@ -44,7 +44,7 @@ if ('PURCHASE_INVOICE' == invoice.get('invoiceTypeId')
     partyId = invoice.get('partyId')
 }
 partyName = ''
-partyNameView = from('PartyNameView').where('partyId', partyId).queryOne();
+partyNameView = from('PartyNameView').where('partyId', partyId).queryOne()
 if (partyNameView.get('firstName')) {
     partyName += partyNameView.get('firstName') + ' '
 }

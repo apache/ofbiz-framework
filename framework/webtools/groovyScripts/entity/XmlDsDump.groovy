@@ -188,11 +188,11 @@ if (passedEntityNames) {
 
         // single file
         if (filename && numberOfEntities) {
-            if (outpath && !(filename.contains('/') && filename.contains("\\"))) {
-                filename = outpath + File.separator + filename;
+            if (outpath && !(filename.contains('/') && filename.contains('\\'))) {
+                filename = outpath + File.separator + filename
             }
             writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), 'UTF-8')))
-            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+            writer.println('<?xml version="1.0" encoding="UTF-8"?>')
             writer.println('<entity-engine-xml>')
 
             passedEntityNames.each { curEntityName ->
@@ -278,7 +278,7 @@ if (passedEntityNames) {
                                 writer = new PrintWriter(
                                             new BufferedWriter(
                                                 new OutputStreamWriter(new FileOutputStream(new File(outdir, fileName + '.xml')), 'UTF-8')))
-                                writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+                                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
                                 writer.println('<entity-engine-xml>')
                                 isFirst = false
                             }
@@ -298,7 +298,7 @@ if (passedEntityNames) {
                                             new BufferedWriter(
                                                 new OutputStreamWriter(
                                                         new FileOutputStream(new File(outdir, fileName + '_' + splitNumStr + '.xml')), 'UTF-8')))
-                                writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
+                                writer.println('<?xml version="1.0" encoding="UTF-8"?>')
                                 writer.println('<entity-engine-xml>')
                             }
 

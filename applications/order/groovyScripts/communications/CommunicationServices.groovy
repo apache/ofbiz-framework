@@ -37,6 +37,6 @@ Map createOrderConversation() {
         Map<String, Object> createCommunicationEventPurposeMap = dispatcher.getDispatchContext()
                 .makeValidContext('createCommunicationEventPurpose', 'IN', parameters)
         createCommunicationEventPurposeMap.communicationEventId = result.communicationEventId
-        return dispatcher.runSync('createCommunicationEventPurpose', createCommunicationEventPurposeMap);
+        return dispatcher.runSync('createCommunicationEventPurpose', createCommunicationEventPurposeMap)
     }
 }

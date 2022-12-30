@@ -37,7 +37,7 @@ selectPrimaryCategoryIdParameter = 'CABINETS' // struttura
 shipmentId = request.getParameter('shipmentId')
 context.shipmentId = shipmentId
 
-shipment = from('Shipment').where('shipmentId', shipmentId).queryOne();
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 context.shipment = shipment
 
 // dimensionsByFeatureMap [key=feature; value=productsByShapeMap]

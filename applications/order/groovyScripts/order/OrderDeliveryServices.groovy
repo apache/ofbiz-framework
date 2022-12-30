@@ -94,7 +94,7 @@ Map sendOrderDeliveryScheduleNotification() {
         Map sendToPartyPcmFindMap = [partyId: entry.getKey(), contactMechTypeId: 'EMAIL_ADDRESS']
         List sendToPartyPartyAndContactMechs = from('PartyAndContactMech').where(sendToPartyPcmFindMap).queryList()
         for (GenericValue sendToPartyPartyAndContactMech : sendToPartyPartyAndContactMechs) {
-            StringBuilder newContact = new StringBuilder();
+            StringBuilder newContact = new StringBuilder()
             if (sendEmailMap.sendTo) {
                 newContact.append(sendEmailMap.sendTo)
             }

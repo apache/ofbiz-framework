@@ -117,7 +117,7 @@ Map expirePartyRate() {
 
         //expire related rate amount
         if (parameters.rateAmountFromDate) {
-            parameters.fromDate = parameters.rateAmountFromDate;
+            parameters.fromDate = parameters.rateAmountFromDate
             result = run service: 'expireRateAmount', with: parameters
             if (ServiceUtil.isError(result)) {
                 return result
@@ -171,7 +171,7 @@ Map getRateAmount() {
     }
 
     if (!ratesList) {
-        ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList();
+        ratesList = from('RateAmount').where([rateTypeId: parameters.rateTypeId]).queryList()
         Map serviceContextMap = new HashMap<>(parameters)
         serviceContextMap.ratesList = ratesList
         Map result = run service: 'filterRateAmountList', with: serviceContextMap

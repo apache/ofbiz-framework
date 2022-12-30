@@ -18,6 +18,6 @@
  */
 
 if (geoPoint && geoPoint.elevationUomId) {
-    elevationUom = from('Uom').where('uomId', geoPoint.elevationUomId).queryList();
+    elevationUom = from('Uom').where('uomId', geoPoint.elevationUomId).queryList()
     context.elevationUomAbbr = elevationUom.abbreviation
 }
