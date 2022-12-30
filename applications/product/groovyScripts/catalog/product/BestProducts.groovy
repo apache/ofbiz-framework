@@ -78,7 +78,7 @@ itr = 1
 while (itr <= 5) {
     orderItemDetail = [:]
     bestSellingProducts.each { bestSellingProduct ->
-        if (!(orderItemDetail.isEmpty())) {
+        if (orderItemDetail) {
             if (bestSellingProduct.qtyOrdered > orderItemDetail.qtyOrdered) {
                 orderItemDetail = bestSellingProduct
             }

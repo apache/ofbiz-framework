@@ -26,7 +26,9 @@ String groovyProgram = null
 recordValues = []
 errMsgList = []
 
-if (!parameters.groovyProgram) {
+if (parameters.groovyProgram) {
+    groovyProgram = parameters.groovyProgram
+} else {
 
     groovyProgram = '''
 // Use the List variable recordValues to fill it with GenericValue maps.
@@ -55,8 +57,6 @@ if (product) {
 
 '''
     parameters.groovyProgram = groovyProgram
-} else {
-    groovyProgram = parameters.groovyProgram
 }
 
 // Add imports for script.

@@ -125,12 +125,12 @@ Map partyRolePermissionCheck() {
  */
 Map partyRelationshipPermissionCheck() {
     Map result = success()
-    if (!parameters.partyIdFrom) {
-        parameters.partyIdFrom = userLogin.partyId
-        result.hasPermission = true
-    } else {
+    if (parameters.partyIdFrom) {
         parameters.altPermission = 'PARTYMGR_REL'
         result = run service: 'basePermissionCheck', with: parameters
+    } else {
+        parameters.partyIdFrom = userLogin.partyId
+        result.hasPermission = true
     }
     return result
 }
@@ -165,25 +165,24 @@ Map accAndDecPartyInvitationPermissionCheck() {
     }
     if (!hasPermission) {
         GenericValue partyInvitation = from('PartyInvitation').where(parameters).queryOne()
-        if (!partyInvitation?.partyId) {
-            if (!partyInvitation?.emailAddress) {
-                return error(UtilProperties.getMessage('PartyUiLabels',
-                        'PartyInvitationNotValidError', parameters.locale))
-            } else {
-                Map serviceResult = run service: 'findPartyFromEmailAddress', with: [address: partyInvitation.emailAddress]
-                String partyId = serviceResult.partyId
-                if (partyId && partyId == userLogin.partyId) {
-                    hasPermission = true
-                    result.hasPermission = hasPermission
-                } else {
-                    return error(UtilProperties.getMessage('PartyUiLabels',
-                            'PartyInvitationNotValidError', parameters.locale))
-                }
-            }
-        } else {
+        if (partyInvitation?.partyId) {
             if (partyInvitation.partyId == userLogin.partyId) {
                 hasPermission = true
                 result.hasPermission = hasPermission
+            }
+        } else {
+            if (!partyInvitation?.emailAddress) {
+                return error(UtilProperties.getMessage('PartyUiLabels',
+                        'PartyInvitationNotValidError', parameters.locale))
+            }
+            Map serviceResult = run service: 'findPartyFromEmailAddress', with: [address: partyInvitation.emailAddress]
+            String partyId = serviceResult.partyId
+            if (partyId && partyId == userLogin.partyId) {
+                hasPermission = true
+                result.hasPermission = hasPermission
+            } else {
+                return error(UtilProperties.getMessage('PartyUiLabels',
+                        'PartyInvitationNotValidError', parameters.locale))
             }
         }
     }
@@ -215,30 +214,29 @@ Map cancelPartyInvitationPermissionCheck() {
             result.hasPermission = hasPermission
         }
         if (!hasPermission) {
-            if (!partyInvitation?.partyId) {
+            if (partyInvitation?.partyId) {
+                if (partyInvitation?.partyId == userLogin.partyId) {
+                    hasPermission = true
+                    result.hasPermission = hasPermission
+                }
+            } else {
                 if (!partyInvitation?.emailAddress) {
                     String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
                     logError(errorMessage)
                     return error(errorMessage)
-                } else {
-                    Map findPartyCtx = [address: partyInvitation.emailAddress]
-                    Map serviceResult = run service: 'findPartyFromEmailAddress', with: findPartyCtx
-                    String partyId = serviceResult.partyId
-                    if (partyId) {
-                        if (partyId == userLogin.partyId) {
-                            hasPermission = true
-                            result.hasPermission = hasPermission
-                        }
-                    } else {
-                        String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
-                        logError(errorMessage)
-                        return error(errorMessage)
-                    }
                 }
-            } else {
-                if (partyInvitation?.partyId == userLogin.partyId) {
-                    hasPermission = true
-                    result.hasPermission = hasPermission
+                Map findPartyCtx = [address: partyInvitation.emailAddress]
+                Map serviceResult = run service: 'findPartyFromEmailAddress', with: findPartyCtx
+                String partyId = serviceResult.partyId
+                if (partyId) {
+                    if (partyId == userLogin.partyId) {
+                        hasPermission = true
+                        result.hasPermission = hasPermission
+                    }
+                } else {
+                    String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
+                    logError(errorMessage)
+                    return error(errorMessage)
                 }
             }
         }

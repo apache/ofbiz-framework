@@ -150,7 +150,7 @@ Map getProductCost() {
                     productCost = serviceResultCU.convertedValue
                     // if currency conversion fails then a 0 cost will be returned
                     if (!productCost) {
-                        logWarning("Currency conversion failed for ProductCost lookup;" +
+                        logWarning('Currency conversion failed for ProductCost lookup;' +
                                 " unable to convert from ${priceCost.currencyUomId} to ${parameters.currencyUomId}")
                         productCost = (BigDecimal) 0
                     }
@@ -339,11 +339,7 @@ Map calculateProductCosts() {
     for (GenericValue productCostComponentCalc : productCostComponentCalcs) {
         GenericValue costComponentCalc = delegator.getRelatedOne('CostComponentCalc', productCostComponentCalc, false)
         GenericValue customMethod = delegator.getRelatedOne('CustomMethod', costComponentCalc, false)
-        if (!customMethod) {
-            // TODO: not supported for CostComponentCalc entries directly associated to a product
-            logWarning("Unable to create cost component for cost component calc with id [${costComponentCalc.costComponentCalcId}]" +
-                    " because customMethod is not set")
-        } else {
+        if (customMethod) {
             Map customMethodParameters = [productCostComponentCalc: productCostComponentCalc, costComponentCalc: costComponentCalc,
                                           currencyUomId: parameters.currencyUomId, costComponentTypePrefix: parameters.costComponentTypePrefix,
                                           baseCost: totalCost]
@@ -355,6 +351,10 @@ Map calculateProductCosts() {
             // set field="totalCost" value="${totalCost + productCostAdjustment}" type="BigDecimal"/
             totalCost += productCostAdjustment
             totalCost = totalCost.setScale(6)
+        } else {
+            // TODO: not supported for CostComponentCalc entries directly associated to a product
+            logWarning("Unable to create cost component for cost component calc with id [${costComponentCalc.costComponentCalcId}]" +
+                    ' because customMethod is not set')
         }
     }
     result.totalCost = totalCost
@@ -443,9 +443,7 @@ Map updateProductAverageCostOnReceiveInventory() {
     productAverageCostMap.productAverageCostTypeId = 'SIMPLE_AVG_COST'
     productAverageCostMap.organizationPartyId = organizationPartyId
     Map updateProductAverageCostMap = [:]
-    if (!productAverageCost) {
-        productAverageCostMap.averageCost = inventoryItem.unitCost
-    } else {
+    if (productAverageCost) {
         // Expire existing one and calculate average cost
         updateProductAverageCostMap << productAverageCost
         updateProductAverageCostMap.thruDate = UtilDateTime.nowTimestamp()
@@ -462,6 +460,8 @@ Map updateProductAverageCostOnReceiveInventory() {
         averageCost = averageCost.setScale(roundingDecimal, RoundingMode."${roundingMode}")
         productAverageCostMap.averageCost = averageCost
         productAverageCostMap.fromDate = UtilDateTime.nowTimestamp()
+    } else {
+        productAverageCostMap.averageCost = inventoryItem.unitCost
     }
     run service: 'createProductAverageCost', with: productAverageCostMap
     logInfo("For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} " +

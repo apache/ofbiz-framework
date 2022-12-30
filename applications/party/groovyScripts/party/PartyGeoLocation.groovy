@@ -36,10 +36,10 @@ if (!partyId && userLoginId) {
 geoPointId = parameters.geoPointId
 context.partyId = partyId
 
-if (!geoPointId) {
-    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'PartyAndGeoPoint', 'partyId', partyId, null, null)
-} else {
+if (geoPointId) {
     latestGeoPoint = from('GeoPoint').where('geoPointId', geoPointId).queryOne()
+} else {
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'PartyAndGeoPoint', 'partyId', partyId, null, null)
 }
 if (latestGeoPoint) {
     context.latestGeoPoint = latestGeoPoint

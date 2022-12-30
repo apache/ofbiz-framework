@@ -54,14 +54,14 @@ Map createProductCategory() {
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     GenericValue newEntity = makeValue('ProductCategory', parameters)
 
-    if (!parameters.productCategoryId) {
-        newEntity.productCategoryId = delegator.getNextSeqId('ProductCategory')
-    } else {
+    if (parameters.productCategoryId) {
         newEntity.productCategoryId = parameters.productCategoryId
         String errorMessage = UtilValidate.checkValidDatabaseId(newEntity.productCategoryId)
         if (errorMessage != null) {
             return error(errorMessage)
         }
+    } else {
+        newEntity.productCategoryId = delegator.getNextSeqId('ProductCategory')
     }
     Map result = success()
     result.productCategoryId = newEntity.productCategoryId

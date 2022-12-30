@@ -76,7 +76,20 @@ Map createShoppingListItem() {
             .where(productId: parameters.productId,
                     shoppingListId: parameters.shoppingListId)
             .queryList()
-    if (!shoppingListItems) {
+    if (shoppingListItems) {
+        GenericValue shoppingListItem = shoppingListItems[0]
+
+        shoppingListItem.quantity = shoppingListItem.quantity ?: (BigDecimal) 0.0
+        parameters.quantity = parameters.quantity ?: (BigDecimal) 0.0
+
+        BigDecimal totalQty = shoppingListItem.quantity + parameters.quantity
+        Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem,
+                                                                          quantity: totalQty]
+        if (!ServiceUtil.isSuccess(serviceResult)) {
+            return error(serviceResult.errorMessage)
+        }
+        result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
+    } else {
         GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
         GenericValue product = from('Product').where(parameters).queryOne()
         if (!product) {
@@ -90,19 +103,6 @@ Map createShoppingListItem() {
 
         result.shoppingListItemSeqId = newEntity.shoppingListItemSeqId
         updateLastAdminModified(shoppingList, userLogin)
-    } else {
-        GenericValue shoppingListItem = shoppingListItems[0]
-
-        shoppingListItem.quantity = shoppingListItem.quantity ?: (BigDecimal) 0.0
-        parameters.quantity = parameters.quantity ?: (BigDecimal) 0.0
-
-        BigDecimal totalQty = shoppingListItem.quantity + parameters.quantity
-        Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem,
-                                                                          quantity: totalQty]
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
-        result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
     }
     return result
 }
@@ -271,7 +271,9 @@ Map addSuggestionsToShoppingList() {
 
     GenericValue orderRole = from ('OrderRole').where(orderId: parameters.orderId, roleTypeId: 'PLACING_CUSTOMER').queryFirst()
     GenericValue shoppingList = from('ShoppingList').where(partyId: orderRole.partyId, listName: 'Auto Suggestions').queryFirst()
-    if (!shoppingList) {
+    if (shoppingList) {
+        shoppingListId = shoppingList.shoppingListId
+    } else {
         Map createShoppingListInMap = [partyId: orderRole.partyId,
                                        listName: 'Auto Suggestions',
                                        shoppingListTypeId: 'SLT_WISH_LIST',
@@ -281,8 +283,6 @@ Map addSuggestionsToShoppingList() {
             return error(serviceResultCSL.errorMessage)
         }
         shoppingListId = serviceResultCSL.serviceResult
-    } else {
-        shoppingListId = shoppingList.shoppingListId
     }
     List orderItemList = from ('OrderItem').where(orderId: parameters.orderId).orderBy('orderItemSeqId').queryList()
     for (GenericValue orderItem : orderItemList) {

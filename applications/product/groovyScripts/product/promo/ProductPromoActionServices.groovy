@@ -443,10 +443,10 @@ Map productOrderPercent() {
     percentage = percentage.movePointLeft(2).negate()
     Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp)
     BigDecimal amount = BigDecimal.ZERO
-    if (!productIds) {
-        amount = cart.getSubTotalForPromotions().multiply(percentage)
-    } else {
+    if (productIds) {
         amount = cart.getSubTotalForPromotions(productIds).multiply(percentage)
+    } else {
+        amount = cart.getSubTotalForPromotions().multiply(percentage)
     }
     if (amount.compareTo(BigDecimal.ZERO) != 0) {
         ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)

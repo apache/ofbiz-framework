@@ -311,14 +311,18 @@ Map createMissingCategoryAndProductAltUrls() {
                     .orderBy('-fromDate')
                     .cache()
                     .queryList()
-            if (!productCategoryContentAndInfoList) {
+            if (productCategoryContentAndInfoList) {
+                categoriesNotUpdated += 1
+            } else {
                 Map createSimpleTextContentForCategoryCtx = [
                     fromDate: now,
                     prodCatContentTypeId: 'ALTERNATIVE_URL',
                     localeString: 'en',
                     productCategoryId: productCategoryList.productCategoryId
                 ]
-                if (!productCategoryList.categoryName) {
+                if (productCategoryList.categoryName) {
+                    createSimpleTextContentForCategoryCtx.text = productCategoryList.categoryName
+                } else {
                     GenericValue productCategoryContent = from('ProductCategoryContentAndInfo')
                             .where('productCategoryId', productCategoryList.productCategoryId,
                                     'prodCatContentTypeId', 'CATEGORY_NAME')
@@ -331,8 +335,6 @@ Map createMissingCategoryAndProductAltUrls() {
                         Map resultMap = gcadrRes.resultData
                         createSimpleTextContentForCategoryCtx.text = resultMap.electronicText.textData
                     }
-                } else {
-                    createSimpleTextContentForCategoryCtx.text = productCategoryList.categoryName
                 }
                 if (createSimpleTextContentForCategoryCtx.text) {
                     Map res = run service: 'createSimpleTextContentForCategory', with: createSimpleTextContentForCategoryCtx
@@ -341,8 +343,6 @@ Map createMissingCategoryAndProductAltUrls() {
                     }
                     categoriesUpdated += 1
                 }
-            } else {
-                categoriesNotUpdated += 1
             }
         }
 
@@ -361,7 +361,9 @@ Map createMissingCategoryAndProductAltUrls() {
                         .cache().orderBy('-fromDate')
                         .filterByDate()
                         .queryList()
-                if (!productContentAndInfoList) {
+                if (productContentAndInfoList) {
+                    productsNotUpdated += 1
+                } else {
                     GenericValue product = from('Product').where('productId', memberProductId).queryOne()
                     Map createSimpleTextContentForProductCtx = [
                         fromDate: now,
@@ -377,8 +379,6 @@ Map createMissingCategoryAndProductAltUrls() {
                         }
                         productsUpdated += 1
                     }
-                } else {
-                    productsNotUpdated += 1
                 }
             }
         }

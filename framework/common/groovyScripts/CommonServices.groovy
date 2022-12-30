@@ -97,32 +97,31 @@ Map convertUom() {
         // if still no uom conversion entity, then no conversion is possible
         return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoUomConversionFound', parameters.locale))
     }
-    else {
-        // Do custom conversion, if we have customMethodId
-        if (uomConversion.customMethodId) { //custom conversion?
-            logVerbose("using custom conversion customMethodId=${uomConversion.customMethodId}")
-            Map customParms = parameters.convertUom
-            customParms.uomConversion = uomConversion
-            Map serviceResult = run service: 'convertUomCustom', with: customParms
-            convertedValue = serviceResult.convertedValue
+    // Do custom conversion, if we have customMethodId
+    if (uomConversion.customMethodId) { //custom conversion?
+        logVerbose("using custom conversion customMethodId=${uomConversion.customMethodId}")
+        Map customParms = parameters.convertUom
+        customParms.uomConversion = uomConversion
+        Map serviceResult = run service: 'convertUomCustom', with: customParms
+        convertedValue = serviceResult.convertedValue
 
-            logVerbose("Custom UoM conversion returning convertedValue=${convertedValue}")
+        logVerbose("Custom UoM conversion returning convertedValue=${convertedValue}")
+    }
+    else { // not custom conversion
+        // do the conversion
+        if (parameters.originalValue && uomConversion.conversionFactor) {
+            convertedValue = (parameters.originalValue).multiply(BigDecimal.valueOf(uomConversion.conversionFactor))
+            convertedValue = convertedValue.setScale(15, RoundingMode.HALF_EVEN)
         }
-        else { // not custom conversion
-            // do the conversion
-            if (parameters.originalValue && uomConversion.conversionFactor) {
-                convertedValue = (parameters.originalValue).multiply(BigDecimal.valueOf(uomConversion.conversionFactor))
-                convertedValue = convertedValue.setScale(15, RoundingMode.HALF_EVEN)
-            }
-        } //custom conversion?
+    } //custom conversion?
 
-        // round result, if UomConversion[Dated] so specifies
-        decimalScale = uomConversion.decimalScale ?: parameters.defaultDecimalScale
-        roundingMode = uomConversion.roundingMode ?: parameters.defaultRoundingMode
-        if (parameters.defaultRoundingMode != roundingMode) {
-            convertedValue = convertedValue.setScale(decimalScale, roundingMode)
-        }
-    } // no UomConversion or UomConversionDated found
+    // round result, if UomConversion[Dated] so specifies
+    decimalScale = uomConversion.decimalScale ?: parameters.defaultDecimalScale
+    roundingMode = uomConversion.roundingMode ?: parameters.defaultRoundingMode
+    if (parameters.defaultRoundingMode != roundingMode) {
+        convertedValue = convertedValue.setScale(decimalScale, roundingMode)
+    }
+    // no UomConversion or UomConversionDated found
 
     // all done
     result.convertedValue = convertedValue
@@ -144,11 +143,10 @@ Map convertUomCustom() {
     GenericValue customMethod = from('CustomMethod').where(customMethodId: customMethodId).cache().queryOne()
     if (!customMethod?.customMethodName) {
         return error(UtilProperties.getMessage('CommonUiLabels', 'CommonNoCustomMethodName', parameters.locale))
-    } else {
-        logVerbose('calling custom method' + customMethod.customMethodName)
-        Map serviceResult = run service: customMethod.customMethodName, with: [arguments: parameters]
-        result.convertedValue = serviceResult.convertedValue
     }
+    logVerbose('calling custom method' + customMethod.customMethodName)
+    Map serviceResult = run service: customMethod.customMethodName, with: [arguments: parameters]
+    result.convertedValue = serviceResult.convertedValue
     return result
 }
 
@@ -196,11 +194,10 @@ Map getVisualThemeResources() {
     for (GenericValue resourceRecord : resourceList) {
         String resourceTypeEnumId = resourceRecord.resourceTypeEnumId
         String resourceValue = resourceRecord.resourceValue
-        if (!resourceValue) {
-            logWarning(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeInvalidRecord', parameters.locale))
-        }
-        else {
+        if (resourceValue) {
             themeResources[resourceTypeEnumId] = [resouceTypeEnumId: resourceValue]
+        } else {
+            logWarning(UtilProperties.getMessage('CommonUiLabels', 'CommonVisualThemeInvalidRecord', parameters.locale))
         }
     }
     result.themeResources = themeResources
@@ -412,10 +409,10 @@ Map createFuturePeriod() {
                             // persist the future period
                             inMap = dispatcher.getDispatchContext().makeValidContext('createCustomTimePeriod', ModelService.IN_PARAM, parameters)
                             serviceResult = run service: 'createCustomTimePeriod', with: inMap
-                            if (!ServiceUtil.isSuccess(serviceResult)) {
-                                return error(serviceResult.errorMessage)
-                            } else {
+                            if (ServiceUtil.isSuccess(serviceResult)) {
                                 parameters.parentPeriodId = serviceResult.customTimePeriodId
+                            } else {
+                                return error(serviceResult.errorMessage)
                             }
                         }
                         // check whether the future period exists

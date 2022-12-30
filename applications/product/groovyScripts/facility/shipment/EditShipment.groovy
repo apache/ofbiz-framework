@@ -21,10 +21,10 @@ shipmentId = parameters.shipmentId
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 // orderHeader is needed here to determine type of order and hence types of shipment status
-if (!shipment) {
-    primaryOrderId = request.getParameter('primaryOrderId')
-} else {
+if (shipment) {
     primaryOrderId = shipment.primaryOrderId
+} else {
+    primaryOrderId = request.getParameter('primaryOrderId')
 }
 orderHeader = from('OrderHeader').where(orderId: primaryOrderId).queryOne()
 

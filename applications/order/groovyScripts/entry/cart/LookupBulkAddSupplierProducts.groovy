@@ -63,10 +63,10 @@ if (productId) {
     conditionList.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue('productId')),
                                      EntityOperator.LIKE, productId.toUpperCase() + '%'))
 }
-if (!supplier) {
-    supplierPartyId = shoppingCart.getOrderPartyId()
-} else {
+if (supplier) {
     supplierPartyId = supplier.getString('partyId')
+} else {
+    supplierPartyId = shoppingCart.getOrderPartyId()
 }
 conditionList.add(EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, supplierPartyId))
 

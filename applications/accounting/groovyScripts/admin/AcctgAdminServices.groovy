@@ -113,10 +113,10 @@ Map updateFXConversion() {
 
     //expire all of them
     for (GenericValue uomConversion : uomConversions) {
-        if (!parameters.fromDate) {
-            uomConversion.put('thruDate', nowTimestamp)
-        } else {
+        if (parameters.fromDate) {
             uomConversion.put('thruDate', parameters.fromDate)
+        } else {
+            uomConversion.put('thruDate', nowTimestamp)
         }
     }
     delegator.storeAll(uomConversions)

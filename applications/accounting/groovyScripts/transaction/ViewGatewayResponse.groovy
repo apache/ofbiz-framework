@@ -33,12 +33,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 orderPaymentPreferenceId = context.orderPaymentPreferenceId
 
 // first purpose: retrieve orderId and paymentPreferenceId
-if (!orderPaymentPreferenceId) {
-    paymentGatewayResponse = context.paymentGatewayResponse
-    orderPaymentPreference = paymentGatewayResponse.getRelatedOne('OrderPaymentPreference', false)
-    context.orderId = orderPaymentPreference.orderId
-    context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
-} else {
+if (orderPaymentPreferenceId) {
     // second purpose: grab the latest gateway response of the orderpaymentpreferenceId
     orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()
     gatewayResponses = orderPaymentPreference.getRelated('PaymentGatewayResponse', null, ['transactionDate DESC'], false)
@@ -50,6 +45,11 @@ if (!orderPaymentPreferenceId) {
     }
 
     context.orderId = orderPaymentPreference.orderId
+} else {
+    paymentGatewayResponse = context.paymentGatewayResponse
+    orderPaymentPreference = paymentGatewayResponse.getRelatedOne('OrderPaymentPreference', false)
+    context.orderId = orderPaymentPreference.orderId
+    context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
 }
 // get the list of payments associated to gateway response
 if (context.paymentGatewayResponse) {

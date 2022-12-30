@@ -657,13 +657,13 @@ Map addShipmentContentToPackage() {
     GenericValue newEntity = makeValue('ShipmentPackageContent')
     newEntity.setPKFields(parameters)
     GenericValue shipmentPackageContent = from('ShipmentPackageContent').where(newEntity).queryOne()
-    if (!shipmentPackageContent) {
-        Map serviceResult = run service: 'createShipmentPackageContent', with: parameters
-        newEntity.shipmentPackageSeqId = serviceResult.shipmentPackageSeqId
-    } else {
+    if (shipmentPackageContent) {
         // add the quantities and store it
         shipmentPackageContent.quantity += parameters.quantity
         run service: 'updateShipmentPackageContent', with: shipmentPackageContent.getAllFields()
+    } else {
+        Map serviceResult = run service: 'createShipmentPackageContent', with: parameters
+        newEntity.shipmentPackageSeqId = serviceResult.shipmentPackageSeqId
     }
     logInfo("Shipment package: ${newEntity}")
     result.shipmentPackageSeqId = newEntity.shipmentPackageSeqId
@@ -950,111 +950,110 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
             List argListNames = [orderItemShipGroup.shipGroupSeqId]
             return success(UtilProperties.getMessage('ProductUiLabels',
                     'FacilityShipmentNoItemsAvailableToShip', argListNames, locale))
-        } else {
-            // create the shipment for this facility and ship group combination
-            Map shipmentContext = [primaryOrderId: orderHeader.orderId,
-                                   primaryShipGroupSeqId: orderItemShipGroup.shipGroupSeqId]
-            // for Sales Shipment, order items' reservation facilityId is the originFacilityId, and the initial status is "INPUT"
-            // for Purchase Shipment, the facilityId parameter is the destinationFacilityId, and the initial status is "CREATED"
-            if (orderHeader.orderTypeId == 'SALES_ORDER') {
-                if (orderItemShipGroup.vendorPartyId) {
-                    partyIdFrom = orderItemShipGroup.vendorPartyId
-                } else {
-                    if (facility?.ownerPartyId) {
-                        partyIdFrom = facility.ownerPartyId
-                    }
-                    if (!partyIdFrom) {
-                        GenericValue orderRole = from('OrderRole')
-                                .where(orderId: orderHeader.orderId,
-                                        roleTypeId: 'SHIP_FROM_VENDOR')
-                                .queryFirst() ?:
-                                from('OrderRole')
-                                    .where(orderId: orderHeader.orderId,
-                                            roleTypeId: 'BILL_FROM_VENDOR')
-                                    .queryFirst()
-                        if (orderRole) {
-                            partyIdFrom = orderRole.partyId
-                        }
-                    }
-                }
-                shipmentContext.partyIdFrom = partyIdFrom
-                shipmentContext.originFacilityId = orderItemShipGrpInvResFacilityId
-                shipmentContext.statusId = 'SHIPMENT_INPUT'
-            } else {
-                shipmentContext.destinationFacilityId = facility.facilityId
-                shipmentContext.statusId = 'PURCH_SHIP_CREATED'
-            }
-            Map serviceResult = run service: 'createShipment', with: shipmentContext
-            GenericValue shipment = from('Shipment').where(shipmentId: serviceResult.shipmentId).queryOne()
-            if (orderHeader.orderTypeId == 'SALES_ORDER') {
-                for (GenericValue orderItemAndShipGroupAssoc : perShipGroupItemList) {
-                    // just get the OrderItemShipGrpInvResAndItem records for this facility and this ship group,
-                    // since that is what this shipment is for
-                    List itemResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvResAndItem',
-                            [facilityId: orderItemShipGrpInvResFacilityId], null, false)
-                    for (GenericValue itemRes : itemResList) {
-                        run service: 'issueOrderItemShipGrpInvResToShipment', with: [shipmentId: shipment.shipmentId,
-                                                                                     orderId: itemRes.orderId,
-                                                                                     orderItemSeqId: itemRes.orderItemSeqId,
-                                                                                     shipGroupSeqId: itemRes.shipGroupSeqId,
-                                                                                     inventoryItemId: itemRes.inventoryItemId,
-                                                                                     quantity: itemRes.quantity,
-                                                                                     eventDate: eventDate]
-                    }
-                }
-            } else { // Issue all purchase order items
-                for (GenericValue item : orderItemAndShipGroupAssocList) {
-                    run service: 'issueOrderItemToShipment', with: [shipmentId: shipment.shipmentId,
-                                                                    orderId: item.orderId,
-                                                                    orderItemSeqId: item.orderItemSeqId,
-                                                                    shipGroupSeqId: item.shipGroupSeqId,
-                                                                    quantity: item.quantity]
-                }
-            }
-            // place all issued items into a single package
-            List itemIssuances = from('ItemIssuance')
-                    .where(orderId: orderHeader.orderId,
-                            shipGroupSeqId: orderItemShipGroup.shipGroupSeqId,
-                            shipmentId: shipment.shipmentId)
-                    .queryList()
-            String shipmentPackageSeqId = 'New'
-            for (GenericValue itemIssuance: itemIssuances) {
-                Map serviceResultASCTP = run service: 'addShipmentContentToPackage', with: [shipmentId: itemIssuance.shipmentId,
-                                                                                            shipmentItemSeqId: itemIssuance.shipmentItemSeqId,
-                                                                                            quantity: itemIssuance.quantity,
-                                                                                            shipmentPackageSeqId: shipmentPackageSeqId]
-                shipmentPackageSeqId = serviceResultASCTP.shipmentPackageSeqId
-            }
-            if (orderHeader.orderTypeId == 'SALES_ORDER') {
-                // update the shipment status to packed
-                run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
-                                                      eventDate: eventDate,
-                                                      statusId: 'SHIPMENT_PACKED']
-
-                // update the shipment status to shipped (if setPackedOnly has NOT been set)
-                if (!setPackedOnly) {
-                    run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
-                                                          eventDate: eventDate,
-                                                          statusId: 'SHIPMENT_SHIPPED']
-                }
-            } else { // PURCHASE_ORDER
-                // update the shipment status to shipped
-                run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
-                                                      eventDate: eventDate,
-                                                      statusId: 'PURCH_SHIP_SHIPPED']
-            }
-            Map shipmentShipGroupFacility = [shipmentId: shipment.shipmentId,
-                                             facilityId: facility.facilityId,
-                                             shipGroupSeqId: orderItemShipGroup.shipGroupSeqId]
-            shipmentShipGroupFacilityList << shipmentShipGroupFacility
-            List argListNames = []
-            argListNames << shipmentShipGroupFacility.shipmentId
-            argListNames << shipmentShipGroupFacility.shipGroupSeqId
-            argListNames << shipmentShipGroupFacility.facilityId
-            successMessageList << UtilProperties.getMessage('ProductUiLabels',
-                    'FacilityShipmentIdCreated', argListNames, locale)
-            shipmentIds << shipment.shipmentId
         }
+        // create the shipment for this facility and ship group combination
+        Map shipmentContext = [primaryOrderId: orderHeader.orderId,
+                               primaryShipGroupSeqId: orderItemShipGroup.shipGroupSeqId]
+        // for Sales Shipment, order items' reservation facilityId is the originFacilityId, and the initial status is "INPUT"
+        // for Purchase Shipment, the facilityId parameter is the destinationFacilityId, and the initial status is "CREATED"
+        if (orderHeader.orderTypeId == 'SALES_ORDER') {
+            if (orderItemShipGroup.vendorPartyId) {
+                partyIdFrom = orderItemShipGroup.vendorPartyId
+            } else {
+                if (facility?.ownerPartyId) {
+                    partyIdFrom = facility.ownerPartyId
+                }
+                if (!partyIdFrom) {
+                    GenericValue orderRole = from('OrderRole')
+                            .where(orderId: orderHeader.orderId,
+                                    roleTypeId: 'SHIP_FROM_VENDOR')
+                            .queryFirst() ?:
+                            from('OrderRole')
+                                .where(orderId: orderHeader.orderId,
+                                        roleTypeId: 'BILL_FROM_VENDOR')
+                                .queryFirst()
+                    if (orderRole) {
+                        partyIdFrom = orderRole.partyId
+                    }
+                }
+            }
+            shipmentContext.partyIdFrom = partyIdFrom
+            shipmentContext.originFacilityId = orderItemShipGrpInvResFacilityId
+            shipmentContext.statusId = 'SHIPMENT_INPUT'
+        } else {
+            shipmentContext.destinationFacilityId = facility.facilityId
+            shipmentContext.statusId = 'PURCH_SHIP_CREATED'
+        }
+        Map serviceResult = run service: 'createShipment', with: shipmentContext
+        GenericValue shipment = from('Shipment').where(shipmentId: serviceResult.shipmentId).queryOne()
+        if (orderHeader.orderTypeId == 'SALES_ORDER') {
+            for (GenericValue orderItemAndShipGroupAssoc : perShipGroupItemList) {
+                // just get the OrderItemShipGrpInvResAndItem records for this facility and this ship group,
+                // since that is what this shipment is for
+                List itemResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvResAndItem',
+                        [facilityId: orderItemShipGrpInvResFacilityId], null, false)
+                for (GenericValue itemRes : itemResList) {
+                    run service: 'issueOrderItemShipGrpInvResToShipment', with: [shipmentId: shipment.shipmentId,
+                                                                                 orderId: itemRes.orderId,
+                                                                                 orderItemSeqId: itemRes.orderItemSeqId,
+                                                                                 shipGroupSeqId: itemRes.shipGroupSeqId,
+                                                                                 inventoryItemId: itemRes.inventoryItemId,
+                                                                                 quantity: itemRes.quantity,
+                                                                                 eventDate: eventDate]
+                }
+            }
+        } else { // Issue all purchase order items
+            for (GenericValue item : orderItemAndShipGroupAssocList) {
+                run service: 'issueOrderItemToShipment', with: [shipmentId: shipment.shipmentId,
+                                                                orderId: item.orderId,
+                                                                orderItemSeqId: item.orderItemSeqId,
+                                                                shipGroupSeqId: item.shipGroupSeqId,
+                                                                quantity: item.quantity]
+            }
+        }
+        // place all issued items into a single package
+        List itemIssuances = from('ItemIssuance')
+                .where(orderId: orderHeader.orderId,
+                        shipGroupSeqId: orderItemShipGroup.shipGroupSeqId,
+                        shipmentId: shipment.shipmentId)
+                .queryList()
+        String shipmentPackageSeqId = 'New'
+        for (GenericValue itemIssuance: itemIssuances) {
+            Map serviceResultASCTP = run service: 'addShipmentContentToPackage', with: [shipmentId: itemIssuance.shipmentId,
+                                                                                        shipmentItemSeqId: itemIssuance.shipmentItemSeqId,
+                                                                                        quantity: itemIssuance.quantity,
+                                                                                        shipmentPackageSeqId: shipmentPackageSeqId]
+            shipmentPackageSeqId = serviceResultASCTP.shipmentPackageSeqId
+        }
+        if (orderHeader.orderTypeId == 'SALES_ORDER') {
+            // update the shipment status to packed
+            run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
+                                                  eventDate: eventDate,
+                                                  statusId: 'SHIPMENT_PACKED']
+
+            // update the shipment status to shipped (if setPackedOnly has NOT been set)
+            if (!setPackedOnly) {
+                run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
+                                                      eventDate: eventDate,
+                                                      statusId: 'SHIPMENT_SHIPPED']
+            }
+        } else { // PURCHASE_ORDER
+            // update the shipment status to shipped
+            run service: 'updateShipment', with: [shipmentId: shipment.shipmentId,
+                                                  eventDate: eventDate,
+                                                  statusId: 'PURCH_SHIP_SHIPPED']
+        }
+        Map shipmentShipGroupFacility = [shipmentId: shipment.shipmentId,
+                                         facilityId: facility.facilityId,
+                                         shipGroupSeqId: orderItemShipGroup.shipGroupSeqId]
+        shipmentShipGroupFacilityList << shipmentShipGroupFacility
+        List argListNames = []
+        argListNames << shipmentShipGroupFacility.shipmentId
+        argListNames << shipmentShipGroupFacility.shipGroupSeqId
+        argListNames << shipmentShipGroupFacility.facilityId
+        successMessageList << UtilProperties.getMessage('ProductUiLabels',
+                'FacilityShipmentIdCreated', argListNames, locale)
+        shipmentIds << shipment.shipmentId
     }
     result.shipmentIds = shipmentIds
     result.successMessageList = successMessageList
@@ -1200,32 +1199,31 @@ Map quickShipOrderByItem() {
             String errorMessage = UtilProperties.getMessage('ProductUiLabels', 'FacilityNoQuickShip', locale)
             logError(errorMessage)
             return error(errorMessage)
-        } else {
-            // get the product store entity
-            GenericValue productStore = from('ProductStore')
-                    .where(productStoreId: orderHeader.productStoreId)
-                    .cache()
-                    .queryOne()
-            if (productStore.reserveInventory != 'Y') {
-                // no reservations; no shipment; cannot use quick ship
-                String errorMessage = UtilProperties.getMessage('ProductUiLabels',
-                        'FacilityNoQuickShipForNotReserveInventory', locale)
-                logError(errorMessage)
-                return error(errorMessage)
-            }
-            if (productStore.oneInventoryFacility != 'Y') {
-                // if we allow multiple facilities we cannot use quick ship; throw error
-                String errorMessage = UtilProperties.getMessage('ProductUiLabels',
-                        'FacilityNoQuickShipForMultipleFacilities', locale)
-                logError(errorMessage)
-                return error(errorMessage)
-            }
-            if (!productStore.inventoryFacilityId) {
-                String errorMessage = UtilProperties.getMessage('ProductUiLabels',
-                        'FacilityNoQuickShipForNotInventoryFacility', locale)
-                logError(errorMessage)
-                return error(errorMessage)
-            }
+        }
+        // get the product store entity
+        GenericValue productStore = from('ProductStore')
+                .where(productStoreId: orderHeader.productStoreId)
+                .cache()
+                .queryOne()
+        if (productStore.reserveInventory != 'Y') {
+            // no reservations; no shipment; cannot use quick ship
+            String errorMessage = UtilProperties.getMessage('ProductUiLabels',
+                    'FacilityNoQuickShipForNotReserveInventory', locale)
+            logError(errorMessage)
+            return error(errorMessage)
+        }
+        if (productStore.oneInventoryFacility != 'Y') {
+            // if we allow multiple facilities we cannot use quick ship; throw error
+            String errorMessage = UtilProperties.getMessage('ProductUiLabels',
+                    'FacilityNoQuickShipForMultipleFacilities', locale)
+            logError(errorMessage)
+            return error(errorMessage)
+        }
+        if (!productStore.inventoryFacilityId) {
+            String errorMessage = UtilProperties.getMessage('ProductUiLabels',
+                    'FacilityNoQuickShipForNotInventoryFacility', locale)
+            logError(errorMessage)
+            return error(errorMessage)
         }
     }
     // make sure we have items to issue

@@ -28,12 +28,12 @@ openingCashBalanceList1.each { accountBalance ->
 }
 openingCashBalanceList2.each { accountBalance ->
     Map openingCashAccount = (Map)openingCashBalanceMap.get(accountBalance.glAccountId)
-    if (!openingCashAccount) {
+    if (openingCashAccount) {
+        openingCashAccount.put('balance2', accountBalance.balance)
+    } else {
         openingCashBalanceMap.put(accountBalance.glAccountId, [glAccountId: accountBalance.glAccountId, accountCode: accountBalance.accountCode,
                                                                accountName: accountBalance.accountName, balance2: accountBalance.balance,
                                                                balance1: BigDecimal.ZERO])
-    } else {
-        openingCashAccount.put('balance2', accountBalance.balance)
     }
 }
 openingCashBalanceList = UtilMisc.sortMaps(openingCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
@@ -49,15 +49,15 @@ periodCashBalanceList1.each { accountBalance ->
 }
 periodCashBalanceList2.each { accountBalance ->
     Map periodCashAccount = (Map)periodCashBalanceMap.get(accountBalance.glAccountId)
-    if (!periodCashAccount) {
+    if (periodCashAccount) {
+        periodCashAccount.put('balance2', accountBalance.balance)
+        periodCashAccount.put('D2', accountBalance.D)
+        periodCashAccount.put('C2', accountBalance.C)
+    } else {
         periodCashBalanceMap.put(accountBalance.glAccountId, [glAccountId: accountBalance.glAccountId, accountCode: accountBalance.accountCode,
                                                               accountName: accountBalance.accountName, balance2: accountBalance.balance,
                                                               balance1: BigDecimal.ZERO, D2: accountBalance.D, C2: accountBalance.C,
                                                               D1: BigDecimal.ZERO, C1: BigDecimal.ZERO])
-    } else {
-        periodCashAccount.put('balance2', accountBalance.balance)
-        periodCashAccount.put('D2', accountBalance.D)
-        periodCashAccount.put('C2', accountBalance.C)
     }
 }
 periodCashBalanceList = UtilMisc.sortMaps(periodCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
@@ -72,12 +72,12 @@ closingCashBalanceList1.each { accountBalance ->
 }
 closingCashBalanceList2.each { accountBalance ->
     Map closingCashAccount = (Map)closingCashBalanceMap.get(accountBalance.glAccountId)
-    if (!closingCashAccount) {
+    if (closingCashAccount) {
+        closingCashAccount.put('balance2', accountBalance.balance)
+    } else {
         closingCashBalanceMap.put(accountBalance.glAccountId, [glAccountId: accountBalance.glAccountId, accountCode: accountBalance.accountCode,
                                                                accountName: accountBalance.accountName, balance2: accountBalance.balance,
                                                                balance1: BigDecimal.ZERO])
-    } else {
-        closingCashAccount.put('balance2', accountBalance.balance)
     }
 }
 closingCashBalanceList = UtilMisc.sortMaps(closingCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
@@ -90,11 +90,11 @@ cashFlowBalanceTotalList1.each { accountBalance ->
 }
 cashFlowBalanceTotalList2.each { accountBalance ->
     Map cashFlowBalanceAccount = (Map)balanceTotalMap.get(accountBalance.totalName)
-    if (!cashFlowBalanceAccount) {
+    if (cashFlowBalanceAccount) {
+        cashFlowBalanceAccount.put('balance2', accountBalance.balance)
+    } else {
         balanceTotalMap.put(accountBalance.totalName, [totalName: accountBalance.totalName, balance2: accountBalance.balance,
                                                        balance1: BigDecimal.ZERO])
-    } else {
-        cashFlowBalanceAccount.put('balance2', accountBalance.balance)
     }
 }
 cashFlowBalanceTotalList = balanceTotalMap.values().asList()

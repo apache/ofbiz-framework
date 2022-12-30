@@ -161,7 +161,25 @@ Map createContentAlternativeUrl() {
                         localeString: localeString.toString())
                 .filterByDate('caFromDate', 'caThruDate')
                 .queryList()
-        if (!contentAssocDataResources) {
+        if (contentAssocDataResources) {
+            if (contentAssocDataResources
+                    && contentAssocDataResources[0].drObjectInfo
+                    && content.contentName) {
+                String uri = UrlServletHelper.invalidCharacter(content.contentName)
+                if (uri) {
+                    try {
+                        serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
+                                      objectInfo: "/${uri}'${content.contentId}-content"]
+                        if (ServiceUtil.isSuccess(serviceResult)) {
+                            contentIdTo = serviceResult.contentId
+                        }
+                    } catch (GenericServiceException e) {
+                        logError(e.getMessage())
+                    }
+                    contentCreated = 'Y'
+                }
+            }
+        } else {
             if (content.contentName) {
                 String uri = UrlServletHelper.invalidCharacter(content.contentName)
                 if (uri) {
@@ -200,24 +218,6 @@ Map createContentAlternativeUrl() {
                                 logError(e.getMessage())
                             }
                         }
-                    }
-                    contentCreated = 'Y'
-                }
-            }
-        } else {
-            if (contentAssocDataResources
-                    && contentAssocDataResources[0].drObjectInfo
-                    && content.contentName) {
-                String uri = UrlServletHelper.invalidCharacter(content.contentName)
-                if (uri) {
-                    try {
-                        serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
-                                      objectInfo: "/${uri}'${content.contentId}-content"]
-                        if (ServiceUtil.isSuccess(serviceResult)) {
-                            contentIdTo = serviceResult.contentId
-                        }
-                    } catch (GenericServiceException e) {
-                        logError(e.getMessage())
                     }
                     contentCreated = 'Y'
                 }
