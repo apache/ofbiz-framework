@@ -23,7 +23,6 @@ import org.apache.ofbiz.product.catalog.CatalogWorker
 
 productId = parameters.productId
 if (productId) {
-
     quantityOnHandTotal = parameters.quantityOnHandTotal ?: 0
     context.quantityOnHandTotal = quantityOnHandTotal
 

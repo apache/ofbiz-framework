@@ -489,7 +489,6 @@ if (selectedService) {
 }
 
 if (!selectedService) {
-
     //get constraints if any
     constraint = parameters.constraint
 

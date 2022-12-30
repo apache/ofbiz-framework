@@ -319,7 +319,6 @@ Map massChangePaymentStatus() {
 }
 
 Map getInvoicePaymentInfoListByDueDateOffset() {
-
     List filteredInvoicePaymentInfoList = []
     Timestamp asOfDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), (long) parameters.daysOffset)
     EntityCondition condition = new EntityConditionBuilder().AND {

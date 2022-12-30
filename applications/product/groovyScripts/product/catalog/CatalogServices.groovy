@@ -402,7 +402,6 @@ List createMissingCategoryAltUrlInline(String parentProductCategoryId) {
             .getFieldList('productCategoryId')
     List productCategories = []
     for (String productCategoryId : productCategoryRollupIds) {
-
         // append product category to list
         productCategories << from('ProductCategory')
                 .where('productCategoryId', productCategoryId)

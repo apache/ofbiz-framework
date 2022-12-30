@@ -109,7 +109,6 @@ Map createCommunicationEvent() {
     newCommEvent.statusId = newCommEvent.statusId ?: 'COM_ENTERED'
 
     if (newCommEvent.communicationEventTypeId == 'EMAIL_COMMUNICATION') {
-
         ['From', 'To'].each {
             // if only contactMechId[From/To] and no partyId[From/To] is provided for creation email address find the related part
             if (!newCommEvent."partyId${it}"
@@ -122,7 +121,6 @@ Map createCommunicationEvent() {
                     newCommEvent."partyId${it}" = partyContactMech.partyId
                 }
             } else {
-
                 //if partyId[From/To] provided but no contactMechId[From/To] get emailAddress
                 if (newCommEvent."partyId${it}"
                         && !newCommEvent."contactMechId${it}") {
@@ -211,7 +209,6 @@ Map createCommunicationEventWithoutPermission() {
  * Update a CommunicationEvent
  */
 Map updateCommunicationEvent() {
-
     GenericValue event = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
@@ -225,7 +222,6 @@ Map updateCommunicationEvent() {
 
     // get partyId from email address if required
     if (!parameters.partyIdTo && parameters.contactMechIdTo) {
-
         GenericValue partyContactMech = from('PartyAndContactMech')
                 .where(contactMechId: parameters.contactMechIdTo)
                 .filterByDate()
@@ -238,7 +234,6 @@ Map updateCommunicationEvent() {
     // if the from-party changed, change also the roles
     if (parameters.partyIdFrom
             && parameters.partyIdFrom != event.partyIdFrom) {
-
         // updating partyId from old:
         if (event.partyIdFrom) {
             GenericValue roleFrom = from('CommunicationEventRole')
@@ -299,7 +294,6 @@ Map updateCommunicationEvent() {
  * Delete a CommunicationEvent
  */
 Map deleteCommunicationEvent() {
-
     GenericValue event = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
@@ -363,7 +357,6 @@ Map deleteCommunicationEvent() {
  * delete commEvent and workEffort
  */
 Map deleteCommunicationEventWorkEffort() {
-
     GenericValue event = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
@@ -393,7 +386,6 @@ Map deleteCommunicationEventWorkEffort() {
  * Create a CommunicationEventRole
  */
 Map createCommunicationEventRole() {
-
     // check if role already exist, then ignore
     GenericValue communicationEventRole =
             from('CommunicationEventRole')
@@ -440,7 +432,6 @@ Map createCommunicationEventRole() {
  * Remove a CommunicationEventRole
  */
 Map removeCommunicationEventRole() {
-
     GenericValue eventRole = from('CommunicationEventRole')
             .where(parameters)
             .queryOne()
@@ -496,7 +487,6 @@ Map sendEmailDated() {
 
     communicationEvents = from('CommunicationEvent').where(conditions).queryList()
     communicationEvents.each { communicationEvent ->
-
         List<GenericValue> contactListParties = from('ContactListParty')
                 .where(contactListId: communicationEvent.contactListId)
                 .queryList()
@@ -519,14 +509,12 @@ Map sendEmailDated() {
  * Set The Communication Event Status
  */
 Map setCommunicationEventStatus() {
-
     GenericValue communicationEvent = from('CommunicationEvent')
             .where(parameters)
             .queryOne()
     oldStatusId = communicationEvent.statusId
 
     if (parameters.statusId != communicationEvent.statusId) {
-
         GenericValue statusChange = from('StatusValidChange')
                 .where(statusId: communicationEvent.statusId,
                         statusIdTo: parameters.statusId)
@@ -603,7 +591,6 @@ Map setCommEventRoleToRead() {
 
 //Set The Communication Event Status for a specific role
 Map setCommunicationEventRoleStatus() {
-
     GenericValue communicationEventRole = from('CommunicationEventRole')
             .where(parameters)
             .queryOne()
@@ -628,7 +615,6 @@ Map setCommunicationEventRoleStatus() {
 
 //Create communication event and send mail to company
 Map sendContactUsEmailToCompany() {
-
     GenericValue systemUserLogin = from('UserLogin').where('userLoginId', 'system').cache().queryOne()
     Map contactUsMap = [*:parameters]
     contactUsMap.userLogin = systemUserLogin

@@ -89,7 +89,6 @@ context.tryEntity = tryEntity
 forLock = new Object()
 contentType = null
 if (fileType) {
-
     context.fileType = fileType
 
     fileLocation = filenameExpander.expandString([location: 'products', id: productId, type: fileType])

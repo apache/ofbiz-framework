@@ -26,7 +26,6 @@ String serverLocal = serverName.substring(serverName.lastIndexOf('.') + 1)
 String nameLocal
 String productTextData
 contentAssocs.each { contentAssoc ->
-
     content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
     localeString = content.localeString
 

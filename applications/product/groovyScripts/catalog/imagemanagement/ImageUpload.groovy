@@ -70,7 +70,6 @@ forLock = new Object()
 contentType = null
 String fileType = request.getParameter('upload_file_type')
 if (fileType) {
-
     context.fileType = fileType
 
     fileLocation = filenameExpander.expandString([location: 'products', type: fileType, id: productId])

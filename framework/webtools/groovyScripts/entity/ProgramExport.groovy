@@ -29,7 +29,6 @@ errMsgList = []
 if (parameters.groovyProgram) {
     groovyProgram = parameters.groovyProgram
 } else {
-
     groovyProgram = '''
 // Use the List variable recordValues to fill it with GenericValue maps.
 // full groovy syntax is available

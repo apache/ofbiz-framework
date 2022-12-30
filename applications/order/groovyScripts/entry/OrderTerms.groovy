@@ -26,7 +26,6 @@ orderTerms = cart.getOrderTerms()
 context.orderTerms = orderTerms
 
 if (request.getParameter('createNew') == 'Y') {
-
     termIndexStr = request.getParameter('termIndex')
     if (termIndexStr) {
         try {

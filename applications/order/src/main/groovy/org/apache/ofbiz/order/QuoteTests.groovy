@@ -190,7 +190,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test updateQuoteItem service
     void testUpdateQuoteItem() {
-
         Map input = [
                 userLogin: userLogin,
                 quoteId: '9000',
@@ -205,7 +204,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test removeQuoteItem service
     void testRemoveQuoteItem() {
-
         Map input = [
                 userLogin: userLogin,
                 quoteId: '9000',
@@ -451,7 +449,6 @@ class QuoteTests extends OFBizTestCase {
 
     // Test autoCreateQuoteAdjustments
     void testAutoCreateQuoteAdjustments () {
-
         Map input = [
             userLogin: userLogin,
             quoteId: '9001'

@@ -731,7 +731,6 @@ Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
     Boolean hasPermission = serviceResult.hasPermission
     GenericValue testShipment = from('Shipment').where(inputParameters).cache().queryOne()
     if (testShipment) {
-
         boolean badMoveToPacked = testShipment.statusId == 'SHIPMENT_PACKED' && fromStatusId == 'SHIPMENT_PACKED'
         boolean badMoveToShipped = testShipment.statusId == 'SHIPMENT_SHIPPED' &&
                 ['SHIPMENT_PACKED', 'SHIPMENT_SHIPPED'].contains(fromStatusId)
@@ -943,7 +942,6 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
     // for OrderItemShipGroup need to split all OISGIRs into their ship groups and create a shipment for each
     GenericValue facility = from('Facility').where(facilityId: orderItemShipGrpInvResFacilityId).cache().queryOne()
     for (GenericValue orderItemShipGroup : orderItemShipGroupList) {
-
         List perShipGroupItemList = orderItemListByShGrpMap
         // make sure we have something to ship
         if (!perShipGroupItemList) {
@@ -1092,7 +1090,6 @@ Map createOrderShipmentPlan () {
             if (itemProduct) {
                 GenericValue itemProductType = itemProduct.getRelatedOne('ProductType', true)
                 if (itemProductType.isPhysical == 'Y') {
-
                     // Create shipment item
                     run service: 'addOrderShipmentToShipment', with: [orderId: orderHeader.orderId,
                                                                       orderItemSeqId: orderItem.orderItemSeqId,

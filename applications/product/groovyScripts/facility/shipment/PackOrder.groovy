@@ -137,7 +137,6 @@ if (orderId) {
                     request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels',
                             'OrderErrorOrderHasBeenAlreadyVerified', [orderId: orderId], locale))
                 } else {
-
                     // Generate the shipment cost estimate for the ship group
                     productStoreId = orh.getProductStoreId()
                     shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId)

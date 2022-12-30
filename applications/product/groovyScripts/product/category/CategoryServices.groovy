@@ -591,7 +591,6 @@ Map duplicateProductCategory() {
  * Create an attribute for a product category
  */
 Map createProductCategoryAttribute() {
-
     String resourceDescription = parameters.resourceDescription ?: 'createProductCategoryAttribute'
     if (!(security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError',

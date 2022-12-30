@@ -27,7 +27,6 @@ context.cart = shoppingCart
 
 // get applicable agreements for order entry
 if ('PURCHASE_ORDER' == shoppingCart.getOrderType()) {
-
     // for a purchase order, orderPartyId = billFromVendor (the supplier)
     supplierPartyId = shoppingCart.getOrderPartyId()
     customerPartyId = shoppingCart.getBillToCustomerPartyId()
@@ -44,7 +43,6 @@ if ('PURCHASE_ORDER' == shoppingCart.getOrderType()) {
     ], EntityOperator.AND)
 
 } else {
-
     // for a sales order, orderPartyId = billToCustomer (the customer)
     customerPartyId = shoppingCart.getOrderPartyId()
     companyPartyId = shoppingCart.getBillFromVendorPartyId()
