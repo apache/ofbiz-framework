@@ -75,7 +75,7 @@ if (orderHeader) {
     unitPriceHistories = from('EntityAuditLog').where(unitPriceCond).orderBy('-changedDate').queryList()
     unitPriceHistories.each { unitPriceHistory ->
         orderUnitPriceHistory = [:]
-        if  ((unitPriceHistory.oldValueText) && (unitPriceHistory.newValueText)) {
+        if ((unitPriceHistory.oldValueText) && (unitPriceHistory.newValueText)) {
             if ((Float.valueOf(unitPriceHistory.oldValueText)).compareTo(Float.valueOf(unitPriceHistory.newValueText)) != 0) {
                 orderUnitPriceHistory.oldValue = unitPriceHistory.oldValueText
                 orderUnitPriceHistory.newValue = unitPriceHistory.newValueText
@@ -117,7 +117,7 @@ if (orderHeader) {
                 orderQuantityHistory.productId = orderItem.productId
                 changedByInfoHistories.each { changedByInfoHistory ->
                     if (changedByInfoHistory.lastUpdatedTxStamp == quantityHistory.lastUpdatedTxStamp) {
-                        if(changedByInfoHistory.newValueText) {
+                        if (changedByInfoHistory.newValueText) {
                             orderQuantityHistory.changedByUser = changedByInfoHistory.newValueText
                         } else {
                             orderQuantityHistory.changedByUser = changedByInfoHistory.oldValueText

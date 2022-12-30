@@ -655,7 +655,7 @@ Map createProductCategoryLink() {
     newEntity.productCategoryId = parameters.productCategoryId
 
     // don't set the fromDate yet; let's get the seq ID first
-    if(!parameters.linkSeqId) {
+    if (!parameters.linkSeqId) {
         delegator.setNextSubSeqId(newEntity, 'linkSeqId', 5, 1)
     }
 

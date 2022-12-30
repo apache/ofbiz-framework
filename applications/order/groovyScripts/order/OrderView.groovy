@@ -564,7 +564,7 @@ if (shipments) {
 // get orderAdjustmentId for SHIPPING_CHARGES
 orderAdjustmentId = null
 orderAdjustments.each { orderAdjustment ->
-    if('SHIPPING_CHARGES' == orderAdjustment.orderAdjustmentTypeId) {
+    if ('SHIPPING_CHARGES' == orderAdjustment.orderAdjustmentTypeId) {
         orderAdjustmentId = orderAdjustment.orderAdjustmentId
     }
 }

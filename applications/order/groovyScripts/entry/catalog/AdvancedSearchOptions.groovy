@@ -37,7 +37,7 @@ searchCategory = from('ProductCategory').where('productCategoryId', searchCatego
 
 productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator)
 productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List
-if(productFeatureTypeIdsOrdered) {
+if (productFeatureTypeIdsOrdered) {
     context.productFeatureTypes = from('ProductFeatureType')
             .where(EntityCondition.makeCondition('productFeatureTypeId', EntityOperator.IN, productFeatureTypeIdsOrdered)).queryList()
 }

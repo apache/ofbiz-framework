@@ -29,7 +29,7 @@ import org.apache.ofbiz.entity.GenericValue
 // PLEASE NOTE : The structure of the list of separateRootType function is according to the JSON_DATA plugin of the jsTree.
 
 List separateRootType(List<GenericValue> roots) {
-    if(roots) {
+    if (roots) {
         prodRootTypeTree = []
         roots.each { root ->
             prodCateMap = [:]
