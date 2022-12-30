@@ -57,7 +57,18 @@ Map createLead() {
     // relationship of Person and PartyGroup as Employee and title
     if (parameters.groupName) {
         parameters.partyTypeId = 'PARTY_GROUP'
-        if (!leadContactPartyId) {
+        if (leadContactPartyId) {
+            serviceResult = run service: 'createPartyGroup', with: resolvePartyProcessMap()
+            if (ServiceUtil.isError(serviceResult)) {
+                return serviceResult
+            }
+            partyGroupPartyId = serviceResult.partyId
+            serviceResult = run service: 'createPartyRole', with: [partyId: partyGroupPartyId,
+                                                                   roleTypeId: 'ACCOUNT_LEAD']
+            if (ServiceUtil.isError(serviceResult)) {
+                return serviceResult
+            }
+        } else {
             parameters.roleTypeId = 'ACCOUNT_LEAD'
             // In case we have any contact mech data then associate with party group
             serviceResult = run service: 'createPartyGroupRoleAndContactMechs', with: parameters
@@ -66,18 +77,7 @@ Map createLead() {
             }
             partyGroupPartyId = serviceResult.partyId
             run service: 'setPartyStatus', with: [partyId: partyGroupPartyId,
-                                              statusId: 'LEAD_ASSIGNED']
-    } else {
-            serviceResult = run service: 'createPartyGroup', with: resolvePartyProcessMap()
-            if (ServiceUtil.isError(serviceResult)) {
-                return serviceResult
-            }
-            partyGroupPartyId = serviceResult.partyId
-            serviceResult = run service: 'createPartyRole', with: [partyId: partyGroupPartyId,
-                                                               roleTypeId: 'ACCOUNT_LEAD']
-            if (ServiceUtil.isError(serviceResult)) {
-                return serviceResult
-            }
+                                                  statusId: 'LEAD_ASSIGNED']
         }
     }
     if (leadContactPartyId && partyGroupPartyId) {

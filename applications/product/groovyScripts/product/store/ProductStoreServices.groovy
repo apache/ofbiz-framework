@@ -147,7 +147,34 @@ Map reserveStoreInventory() {
     }
     String requireInventory = isStoreInventoryRequiredInline(product, productStore)
     String facilityId = parameters.facilityId
-    if (!facilityId) {
+    if (facilityId) {
+        List productStoreFacilities = from('ProductStoreFacility')
+                .where(productStoreId: productStore.productStoreId, facilityId: facilityId).cache().orderBy('sequenceNum').filterByDate().queryList()
+        GenericValue facilityFound
+        for (GenericValue productStoreFacility : productStoreFacilities) {
+            // Search Product Store Facilities to insure the facility passed in is associated to the Product Store passed in
+            facilityFound = productStoreFacility
+            logInfo('ProductStoreService:Facility Found : [' + facilityFound + ']')
+        }
+        if (!facilityFound) {
+            return  error(UtilProperties.getMessage('ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore', parameters.locale))
+        }
+        Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
+                                                                                     facilityId: facilityId,
+                                                                                     requireInventory: requireInventory,
+                                                                                     reserveOrderEnumId: productStore.reserveOrderEnumId]
+        quantityNotReserved = serviceResult.quantityNotReserved
+        if (Debug.infoOn()) {
+            if (quantityNotReserved == (BigDecimal) 0) {
+                logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}];" +
+                        " desired quantity was ${parameters.quantity}")
+            } else {
+                logInfo("There is insufficient inventory available in facility with id [${facilityId}] " +
+                        "for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, " +
+                        "amount could not reserve is ${quantityNotReserved}")
+            }
+        }
+    } else {
         if ('Y' == productStore.oneInventoryFacility) {
             if (!productStore.inventoryFacilityId) {
                 return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility', parameters.locale))
@@ -203,33 +230,6 @@ Map reserveStoreInventory() {
             quantityNotReserved = serviceResult.quantityNotReserved
             logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}];" +
                     " desired quantity was ${parameters.quantity}")
-        }
-    } else {
-        List productStoreFacilities = from('ProductStoreFacility')
-                .where(productStoreId: productStore.productStoreId, facilityId: facilityId).cache().orderBy('sequenceNum').filterByDate().queryList()
-        GenericValue facilityFound
-        for (GenericValue productStoreFacility : productStoreFacilities) {
-            // Search Product Store Facilities to insure the facility passed in is associated to the Product Store passed in
-            facilityFound = productStoreFacility
-            logInfo('ProductStoreService:Facility Found : [' + facilityFound + ']')
-        }
-        if (!facilityFound) {
-            return  error(UtilProperties.getMessage('ProductUiLabels', 'FacilityNoAssociatedWithProcuctStore', parameters.locale))
-        }
-        Map serviceResult = run service: 'reserveProductInventoryByFacility', with: [*: parameters,
-                                                                                     facilityId: facilityId,
-                                                                                     requireInventory: requireInventory,
-                                                                                     reserveOrderEnumId: productStore.reserveOrderEnumId]
-        quantityNotReserved = serviceResult.quantityNotReserved
-        if (Debug.infoOn()) {
-            if (quantityNotReserved == (BigDecimal) 0) {
-                logInfo("Inventory IS reserved in facility with id [${facilityId}] for product id [${parameters.productId}];" +
-                        " desired quantity was ${parameters.quantity}")
-            } else {
-                logInfo("There is insufficient inventory available in facility with id [${facilityId}] " +
-                        "for product id [${parameters.productId}]; desired quantity is ${parameters.quantity}, " +
-                        "amount could not reserve is ${quantityNotReserved}")
-            }
         }
     }
     result.quantityNotReserved = quantityNotReserved
@@ -433,13 +433,7 @@ Map productStoreGenericPermission() {
  */
 Map checkProductStoreGroupRollup() {
     GenericValue productStoreGroup = from('ProductStoreGroup').where(parameters).queryOne()
-    if (!parameters.primaryParentGroupId) {
-        GenericValue productStoreGroupRollup = from('ProductStoreGroupRollup').where(parameters).queryOne()
-        if (productStoreGroupRollup) {
-            productStoreGroup.primaryParentGroupId = productStoreGroupRollup.parentGroupId
-            run service: 'updateProductStoreGroup', with: productStoreGroup.getAllFields()
-        }
-    } else {
+    if (parameters.primaryParentGroupId) {
         if (from('ProductStoreGroupRollup')
                 .where(productStoreGroupId: productStoreGroup.productStoreGroupId,
                         parentGroupId: parameters.primaryParentGroupId)
@@ -448,6 +442,12 @@ Map checkProductStoreGroupRollup() {
             run service: 'createProductStoreGroupRollup', with: [productStoreGroupId: productStoreGroup.productStoreGroupId,
                                                                 parentGroupId: parameters.primaryParentGroupId,
                                                                 fromDate: UtilDateTime.nowTimestamp()]
+        }
+    } else {
+        GenericValue productStoreGroupRollup = from('ProductStoreGroupRollup').where(parameters).queryOne()
+        if (productStoreGroupRollup) {
+            productStoreGroup.primaryParentGroupId = productStoreGroupRollup.parentGroupId
+            run service: 'updateProductStoreGroup', with: productStoreGroup.getAllFields()
         }
     }
     return success()

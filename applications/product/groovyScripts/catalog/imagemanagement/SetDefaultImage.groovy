@@ -140,7 +140,14 @@ if (fileType) {
                 // Delete existing image files
                 File targetDir = new File(imageServerPath + '/' + filePathPrefix)
                 // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
-                if (!filenameToUse.startsWith(productId + '.')) {
+                if (filenameToUse.startsWith(productId + '.')) {
+                    File[] files = targetDir.listFiles()
+                    for(File file : files) {
+                        if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) {
+                            file.delete()
+                        }
+                    }
+                } else {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
                         if (file.isFile() && file.getName() != defaultFileName) {
@@ -148,13 +155,6 @@ if (fileType) {
                         }
                     }
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
-                } else {
-                    File[] files = targetDir.listFiles()
-                    for(File file : files) {
-                        if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) {
-                            file.delete()
-                        }
-                    }
                 }
             } catch (Exception e) {
                 logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")

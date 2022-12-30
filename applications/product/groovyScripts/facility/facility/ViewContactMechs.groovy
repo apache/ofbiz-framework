@@ -25,11 +25,11 @@ context.nowStr = UtilDateTime.nowTimestamp()
 facilityId = parameters.facilityId
 facility = from('Facility').where('facilityId', facilityId).queryOne()
 facilityType = null
-if (!facility) {
+if (facility) {
+    facilityType = facility.getRelatedOne('FacilityType', false)
+} else {
     context.facility = makeValue('Facility', null)
     context.facilityType = makeValue('FacilityType', null)
-} else {
-    facilityType = facility.getRelatedOne('FacilityType', false)
 }
 context.facility = facility
 context.facilityType = facilityType

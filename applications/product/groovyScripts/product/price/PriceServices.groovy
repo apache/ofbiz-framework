@@ -251,12 +251,12 @@ Map getAssociatedPriceRulesConds() {
     }
 
     result.productPriceRulesCondValues = []
-    if (!productPriceRulesCondValues) {
-        result.productPriceRulesCondValues << UtilProperties.getMessage('CommonUiLabels', 'CommonNoOptions', locale)
-    } else {
+    if (productPriceRulesCondValues) {
         productPriceRulesCondValues.each {
             result.productPriceRulesCondValues << it.description + ': ' + it.key
         }
+    } else {
+        result.productPriceRulesCondValues << UtilProperties.getMessage('CommonUiLabels', 'CommonNoOptions', locale)
     }
     return result
 }

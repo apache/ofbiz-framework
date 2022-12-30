@@ -368,15 +368,15 @@ Map countProductView() {
     long weight = parameters.weight ?: 1l
 
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
-    if (!productCalculatedInfo) {
+    if (productCalculatedInfo) {
+        productCalculatedInfo.totalTimesViewed += weight
+        productCalculatedInfo.store()
+    } else {
         // go ahead and create it
         productCalculatedInfo = makeValue('ProductCalculatedInfo')
         productCalculatedInfo.productId = parameters.productId
         productCalculatedInfo.totalTimesViewed = weight
         productCalculatedInfo.create()
-    } else {
-        productCalculatedInfo.totalTimesViewed += weight
-        productCalculatedInfo.store()
     }
 
     // do the same for the virtual product...
@@ -481,15 +481,15 @@ Map updateProductWithReviewRatingAvg(String productId) {
 
     // update the review average on the ProductCalculatedInfo entity
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
-    if (!productCalculatedInfo) {
+    if (productCalculatedInfo) {
+        productCalculatedInfo.averageCustomerRating = averageCustomerRating
+        productCalculatedInfo.store()
+    } else {
         // go ahead and create it
         productCalculatedInfo = makeValue('ProductCalculatedInfo')
         productCalculatedInfo.productId = productId
         productCalculatedInfo.averageCustomerRating = averageCustomerRating
         productCalculatedInfo.create()
-    } else {
-        productCalculatedInfo.averageCustomerRating = averageCustomerRating
-        productCalculatedInfo.store()
     }
 
     return success()

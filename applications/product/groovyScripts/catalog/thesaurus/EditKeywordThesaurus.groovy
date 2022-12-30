@@ -23,11 +23,10 @@ keywordThesauruses = from('KeywordThesaurus').orderBy('enteredKeyword').queryLis
 
 //if no param sent in make firstLetter 'a' else use firstLetter passed in
 firstLetterString = request.getParameter('firstLetter')
-if (!firstLetterString) {
-    firstLetter = 'a'
-}
-else {
+if (firstLetterString) {
     firstLetter = firstLetterString.charAt(0)
+} else {
+    firstLetter = 'a'
 }
 
 //add elememts to new list as long as it is smaller then 20,

@@ -28,12 +28,12 @@ assetAccountBalanceList1.each { accountBalance ->
 }
 assetAccountBalanceList2.each { accountBalance ->
     Map assetAccount = (Map)assetAccountBalanceMap.get(accountBalance.glAccountId)
-    if (!assetAccount) {
+    if (assetAccount) {
+        assetAccount.put('balance2', accountBalance.balance)
+    } else {
         assetAccountBalanceMap.put(accountBalance.glAccountId, [glAccountId: accountBalance.glAccountId, accountCode: accountBalance.accountCode,
                                                                 accountName: accountBalance.accountName, balance2: accountBalance.balance,
                                                                 balance1: BigDecimal.ZERO])
-    } else {
-        assetAccount.put('balance2', accountBalance.balance)
     }
 }
 assetAccountBalanceList = UtilMisc.sortMaps(assetAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
@@ -48,12 +48,12 @@ liabilityAccountBalanceList1.each { accountBalance ->
 }
 liabilityAccountBalanceList2.each { accountBalance ->
     Map assetAccount = (Map)liabilityAccountBalanceMap.get(accountBalance.glAccountId)
-    if (!assetAccount) {
+    if (assetAccount) {
+        assetAccount.put('balance2', accountBalance.balance)
+    } else {
         liabilityAccountBalanceMap.put(accountBalance.glAccountId, [glAccountId: accountBalance.glAccountId, accountCode: accountBalance.accountCode,
                                                                     accountName: accountBalance.accountName, balance2: accountBalance.balance,
                                                                     balance1: BigDecimal.ZERO])
-    } else {
-        assetAccount.put('balance2', accountBalance.balance)
     }
 }
 liabilityAccountBalanceList = UtilMisc.sortMaps(liabilityAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
@@ -68,12 +68,12 @@ equityAccountBalanceList1.each { accountBalance ->
 }
 equityAccountBalanceList2.each { accountBalance ->
     Map assetAccount = (Map)equityAccountBalanceMap.get(accountBalance.glAccountId)
-    if (!assetAccount) {
+    if (assetAccount) {
+        assetAccount.put('balance2', accountBalance.balance)
+    } else {
         equityAccountBalanceMap.put(accountBalance.glAccountId, [glAccountId: accountBalance.glAccountId, accountCode: accountBalance.accountCode,
                                                                  accountName: accountBalance.accountName, balance2: accountBalance.balance,
                                                                  balance1: BigDecimal.ZERO])
-    } else {
-        assetAccount.put('balance2', accountBalance.balance)
     }
 }
 equityAccountBalanceList = UtilMisc.sortMaps(equityAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
@@ -86,11 +86,11 @@ balanceTotalList1.each { accountBalance ->
 }
 balanceTotalList2.each { accountBalance ->
     Map assetAccount = (Map)balanceTotalMap.get(accountBalance.totalName)
-    if (!assetAccount) {
+    if (assetAccount) {
+        assetAccount.put('balance2', accountBalance.balance)
+    } else {
         balanceTotalMap.put(accountBalance.totalName, [totalName: accountBalance.totalName, balance2: accountBalance.balance,
                                                        balance1: BigDecimal.ZERO])
-    } else {
-        assetAccount.put('balance2', accountBalance.balance)
     }
 }
 balanceTotalList = balanceTotalMap.values().asList()

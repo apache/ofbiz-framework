@@ -175,29 +175,28 @@ Map removeProductContentAndImageFile() {
     Map serviceResult = [:]
     List checkDefaultImage = from('ProductContent').where(productId: parameters.productId, contentId: parameters.contentId,
         productContentTypeId: 'DEFAULT_IMAGE').queryList()
-    if (!checkDefaultImage) {
-        List contentAssocs = from('ContentAssoc').where(contentId: parameters.contentId, contentAssocTypeId: 'IMAGE_THUMBNAIL').queryList()
-        if (contentAssocs) {
-            for (GenericValue contentAssoc : contentAssocs) {
-                contentAssoc.remove()
-                removeContent = [contentId: contentAssoc.contentIdTo, productId: parameters.productId]
-                serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent
-                if (!ServiceUtil.isSuccess(serviceResult)) {
-                    return error(serviceResult.errorMessage)
-                }
-            }
-        }
-        GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
-        lookedUpValue.remove()
-        removeContent = [contentId: parameters.contentId, productId: parameters.productId]
-        serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
-        }
-    } else {
+    if (checkDefaultImage) {
         String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels', 'ImageManagementErrorRmoveDefaultImage', locale)
         logError("Cannot remove image contentId ${parameters.contentId}")
         return error(errorMessage)
+    }
+    List contentAssocs = from('ContentAssoc').where(contentId: parameters.contentId, contentAssocTypeId: 'IMAGE_THUMBNAIL').queryList()
+    if (contentAssocs) {
+        for (GenericValue contentAssoc : contentAssocs) {
+            contentAssoc.remove()
+            removeContent = [contentId: contentAssoc.contentIdTo, productId: parameters.productId]
+            serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent
+            if (!ServiceUtil.isSuccess(serviceResult)) {
+                return error(serviceResult.errorMessage)
+            }
+        }
+    }
+    GenericValue lookedUpValue = from('ProductContent').where(parameters).queryOne()
+    lookedUpValue.remove()
+    removeContent = [contentId: parameters.contentId, productId: parameters.productId]
+    serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent
+    if (!ServiceUtil.isSuccess(serviceResult)) {
+        return error(serviceResult.errorMessage)
     }
     return success()
 }

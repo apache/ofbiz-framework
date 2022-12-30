@@ -174,16 +174,16 @@ Map setPartyProfileDefaults() {
     GenericValue partyProfileDefault = from('PartyProfileDefault')
         .where(parameters)
         .queryOne()
-    if (!partyProfileDefault) {
-
-        // create the profile defaut because is missing
-        partyProfileDefault = makeValue('PartyProfileDefault', parameters)
-        partyProfileDefault.create()
-    } else {
+    if (partyProfileDefault) {
 
         // update the fields
         partyProfileDefault.setNonPKFields(parameters)
         partyProfileDefault.store()
+    } else {
+
+        // create the profile defaut because is missing
+        partyProfileDefault = makeValue('PartyProfileDefault', parameters)
+        partyProfileDefault.create()
     }
 
     return success()
@@ -298,13 +298,13 @@ Map getPartyTelephone () {
         .queryList()
     if (telephoneList) {
         List<String> types = []
-        if (!parameters.contactMechPurposeTypeId) {
+        if (parameters.contactMechPurposeTypeId) {
+            types << parameters.contactMechPurposeTypeId
+        } else {
             // search in this order if not provided
             types = ['PRIMARY_PHONE', 'PHONE_MOBILE', 'PHONE_WORK',
                      'PHONE_QUICK', 'PHONE_HOME', 'PHONE_BILLING',
                      'PHONE_SHIPPING', 'PHONE_SHIP_ORIG']
-        } else {
-            types << parameters.contactMechPurposeTypeId
         }
 
         telephone = EntityUtil.getFirst(EntityUtil.filterByCondition(telephoneList,
@@ -358,11 +358,11 @@ Map getPartyPostalAddress () {
         .queryList()
     if (addressList) {
         List<String> types = []
-        if (!parameters.contactMechPurposeTypeId) {
+        if (parameters.contactMechPurposeTypeId) {
+            types << parameters.contactMechPurposeTypeId
+        } else {
             // search in this order if not provided
             types = ['GENERAL_LOCATION', 'BILLING_LOCATION', 'PAYMENT_LOCATION', 'SHIPPING_LOCATION']
-        } else {
-            types << parameters.contactMechPurposeTypeId
         }
         addressList = EntityUtil.filterByCondition(addressList,
                 EntityCondition.makeCondition('contactMechPurposeTypeId', EntityJoinOperator.IN, types))
@@ -522,10 +522,10 @@ Map sendCreatePartyEmailNotification() {
 
     Map lookupMap = [emailType: 'PARTY_REGIS_CONFIRM']
     String productStoreId = parameters.productStoreId
-    if (!productStoreId) {
-        logWarning('No productStoreId specified.')
-    } else {
+    if (productStoreId) {
         lookupMap.productStoreId = productStoreId
+    } else {
+        logWarning('No productStoreId specified.')
     }
 
     GenericValue storeEmail = from('ProductStoreEmailSetting')
@@ -565,10 +565,10 @@ Map sendUpdatePersonalInfoEmailNotification() {
 
     Map lookupMap = [emailType: 'UPD_PRSNL_INF_CNFRM']
     String productStoreId = parameters.productStoreId
-    if (!productStoreId) {
-        logWarning('No productStoreId specified.')
-    } else {
+    if (productStoreId) {
         lookupMap.productStoreId = productStoreId
+    } else {
+        logWarning('No productStoreId specified.')
     }
 
     GenericValue storeEmail = from('ProductStoreEmailSetting')
@@ -594,9 +594,7 @@ Map sendUpdatePersonalInfoEmailNotification() {
             .where(partyId: partyId, contactMechPurposeTypeId: 'PRIMARY_EMAIL')
             .filterByDate()
            .queryFirst()
-        if (!partyContactDetailByPurpose) {
-            logWarning('No email found.')
-        } else {
+        if (partyContactDetailByPurpose) {
             GenericValue contactMech = from('ContactMech')
                 .where(contactMechId: partyContactDetailByPurpose.contactMechId)
                 .queryOne()
@@ -611,6 +609,8 @@ Map sendUpdatePersonalInfoEmailNotification() {
                        bodyScreenUri: storeEmail.bodyScreenLocation,
                        webSiteId: webSite.webSiteId,
                        emailType: lookupMap.emailType]
+        } else {
+            logWarning('No email found.')
         }
     }
     return resultMap
@@ -624,10 +624,10 @@ Map sendAccountActivatedEmailNotification() {
 
     Map lookupMap = [emailType: 'PRDS_CUST_ACTIVATED']
     String productStoreId = parameters.productStoreId
-    if (!productStoreId) {
-        logWarning('No productStoreId specified.')
-    } else {
+    if (productStoreId) {
         lookupMap.productStoreId = productStoreId
+    } else {
+        logWarning('No productStoreId specified.')
     }
 
     GenericValue storeEmail = from('ProductStoreEmailSetting')
@@ -650,9 +650,7 @@ Map sendAccountActivatedEmailNotification() {
                 .where(partyId: partyId, contactMechPurposeTypeId: 'PRIMARY_EMAIL')
                 .filterByDate()
                 .queryFirst()
-        if (!partyContactDetailByPurpose) {
-            logWarning('No email found.')
-        } else {
+        if (partyContactDetailByPurpose) {
             GenericValue contactMech = from('ContactMech')
                 .where('contactMechId': partyContactDetailByPurpose.contactMechId)
                 .queryOne()
@@ -667,6 +665,8 @@ Map sendAccountActivatedEmailNotification() {
                        bodyScreenUri: storeEmail.bodyScreenLocation,
                        webSiteId: webSite.webSiteId,
                        emailType: lookupMap.emailType]
+        } else {
+            logWarning('No email found.')
         }
     }
     return resultMap

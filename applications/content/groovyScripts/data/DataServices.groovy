@@ -228,12 +228,12 @@ Map saveLocalFileDataResource(String mode) {
     List errorList = []
     boolean isUpdate = false
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
-    if (!dataResource) {
-        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
-    } else {
+    if (dataResource) {
         if (dataResource.objectInfo) {
             isUpdate = true
         }
+    } else {
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
     }
     if (!parameters._uploadedFile_fileName) {
         if (isUpdate) {

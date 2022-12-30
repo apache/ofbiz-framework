@@ -38,16 +38,7 @@ Map createReturnHeader() {
         return informError('OrderSecurityErrorToRunCreateReturnHeader')
     }
     String returnHeaderTypeId = parameters.returnHeaderTypeId
-    if (!parameters.toPartyId) {
-        // no toPartyId was specified. use destination facility to determine the party of the return
-        if ('CUSTOMER_RETURN' == returnHeaderTypeId && parameters.destinationFacilityId) {
-            GenericValue destinationFacility = from('Facility')
-                    .where(facilityId: parameters.destinationFacilityId)
-                    .cache()
-                    .queryOne()
-            parameters.toPartyId = destinationFacility.ownerPartyId
-        }
-    } else {
+    if (parameters.toPartyId) {
         // make sure that the party to return to is an INTERNAL_ORGANIZATIO for customer return
         // and SUPPLIER for vendor return else stop
         if (returnHeaderTypeId.contains('CUSTOMER_')) {
@@ -66,6 +57,15 @@ Map createReturnHeader() {
             if (!partyRole) {
                 return informError('OrderReturnRequestPartyRoleSupplier')
             }
+        }
+    } else {
+        // no toPartyId was specified. use destination facility to determine the party of the return
+        if ('CUSTOMER_RETURN' == returnHeaderTypeId && parameters.destinationFacilityId) {
+            GenericValue destinationFacility = from('Facility')
+                    .where(facilityId: parameters.destinationFacilityId)
+                    .cache()
+                    .queryOne()
+            parameters.toPartyId = destinationFacility.ownerPartyId
         }
     }
     if (parameters.paymentMethodId) {
@@ -500,9 +500,8 @@ Map quickReturnFromOrder() {
         }
         if (!returnItemTypeMapping.returnItemTypeId) {
             return informError('OrderReturnItemTypeOrderItemNoMatching')
-        } else {
-            newItemCtx.returnItemTypeId = returnItemTypeMapping.returnItemTypeId
         }
+        newItemCtx.returnItemTypeId = returnItemTypeMapping.returnItemTypeId
         // create the return item
         if (newItemCtx.orderAdjustmentId) {
             logInfo("Found unexpected orderAdjustment: ${newItemCtx.orderAdjustmentId}")
@@ -853,13 +852,13 @@ Map addProductsBackToCategory() {
  */
 Map createReturnStatus() {
     GenericValue newEntity = makeValue('ReturnStatus')
-    if (!parameters.returnItemSeqId) {
-        GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
-        newEntity.statusId = returnHeader.statusId
-    } else {
+    if (parameters.returnItemSeqId) {
         GenericValue returnItem = from('ReturnItem').where(parameters).queryOne()
         newEntity.returnItemSeqId = returnItem.returnItemSeqId
         newEntity.statusId = returnItem.statusId
+    } else {
+        GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
+        newEntity.statusId = returnHeader.statusId
     }
     newEntity.returnStatusId = delegator.getNextSeqId('ReturnStatus')
     newEntity.returnId = parameters.returnId

@@ -535,37 +535,36 @@ Map setCommunicationEventStatus() {
             logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}")
             return error(UtilProperties.getMessage('ProductUiLabels',
                             'commeventservices.communication_event_status', parameters.locale as Locale))
-        } else {
-            communicationEvent.statusId = parameters.statusId
-            communicationEvent.store()
-            if ('COM_COMPLETE' == parameters.statusId) {
-                if ('Y' == parameters.setRoleStatusToComplete) {
-                    //if the status of the communicationevent is set to complete, all roles need to be set to complete,
-                    //which means the commevent was dealt with and no further action is required by any
-                    // of the other participants/addressees
-                    List<GenericValue> roles = communicationEvent.getRelated('CommunicationEventRole', null, null, false)
-                    roles.each { role ->
-                        if ('COM_ROLE_COMPLETED' != role.statusId) {
-                            role.statusId = 'COM_ROLE_COMPLETED'
-                            role.store()
-                        }
+        }
+        communicationEvent.statusId = parameters.statusId
+        communicationEvent.store()
+        if ('COM_COMPLETE' == parameters.statusId) {
+            if ('Y' == parameters.setRoleStatusToComplete) {
+                //if the status of the communicationevent is set to complete, all roles need to be set to complete,
+                //which means the commevent was dealt with and no further action is required by any
+                // of the other participants/addressees
+                List<GenericValue> roles = communicationEvent.getRelated('CommunicationEventRole', null, null, false)
+                roles.each { role ->
+                    if ('COM_ROLE_COMPLETED' != role.statusId) {
+                        role.statusId = 'COM_ROLE_COMPLETED'
+                        role.store()
                     }
                 }
-            } else { //make sure at least the senders role is set to complete
+            }
+        } else { //make sure at least the senders role is set to complete
 
-                GenericValue communicationEventRole =
-                        from('CommunicationEventRole').where(
-                                communicationEventId: communicationEvent.communicationEventId,
-                                partyId: communicationEvent.partyIdFrom,
-                                roleTypeId: 'ORIGINATOR')
-                                .queryOne()
-                //found a mispelling in minilang so ...
-                if (communicationEventRole
-                        && !'COM_ROLE_COMPLETED' == communicationEventRole.statusId) {
-                    Map updateRoleMap = [*:communicationEventRole]
-                    updateRoleMap.statusId = 'COM_ROLE_COMPLETED'
-                    run service: 'updateCommunicationEventRole', with: updateRoleMap
-                }
+            GenericValue communicationEventRole =
+                    from('CommunicationEventRole').where(
+                            communicationEventId: communicationEvent.communicationEventId,
+                            partyId: communicationEvent.partyIdFrom,
+                            roleTypeId: 'ORIGINATOR')
+                            .queryOne()
+            //found a mispelling in minilang so ...
+            if (communicationEventRole
+                    && !'COM_ROLE_COMPLETED' == communicationEventRole.statusId) {
+                Map updateRoleMap = [*:communicationEventRole]
+                updateRoleMap.statusId = 'COM_ROLE_COMPLETED'
+                run service: 'updateCommunicationEventRole', with: updateRoleMap
             }
         }
     }
@@ -577,16 +576,16 @@ Map setCommEventRoleToRead() {
     parameters.partyId = parameters.partyId ?: parameters.userLogin.partyId
 
     GenericValue eventRole
-    if (!parameters.roleTypeId) {
+    if (parameters.roleTypeId) {
+        eventRole = from('CommunicationEventRole')
+                .where(parameters)
+                .queryOne()
+    } else {
         eventRole = from('CommunicationEventRole')
                 .where(communicationEventId: parameters.communicationEventId,
                        partyId: parameters.partyId)
                 .queryFirst()
         parameters.roleTypeId = eventRole.roleTypeId
-    } else {
-        eventRole = from('CommunicationEventRole')
-                .where(parameters)
-                .queryOne()
     }
 
     if (eventRole
@@ -620,10 +619,9 @@ Map setCommunicationEventRoleStatus() {
             logError("Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}")
             return error(UtilProperties.getMessage('ProductUiLabels',
                             'commeventservices.communication_event_status', parameters.locale as Locale))
-        } else {
-            communicationEventRole.statusId = parameters.statusId
-            communicationEventRole.store()
         }
+        communicationEventRole.statusId = parameters.statusId
+        communicationEventRole.store()
     }
     return success()
 }

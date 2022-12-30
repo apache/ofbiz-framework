@@ -63,11 +63,7 @@ if (orderId && !shipGroupSeqId && orderId.indexOf('/') > -1) {
 // setup the packing session
 packSession = session.getAttribute('packingSession')
 clear = parameters.clear
-if (!packSession) {
-    packSession = new org.apache.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin)
-    session.setAttribute('packingSession', packSession)
-    Debug.log('Created NEW packing session!!')
-} else {
+if (packSession) {
     if (packSession.getStatus() == 0) {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId)
         shipGrp = orh.getOrderItemShipGroup(shipGroupSeqId)
@@ -81,6 +77,10 @@ if (!packSession) {
     } else if (clear) {
         packSession.clear()
     }
+} else {
+    packSession = new org.apache.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin)
+    session.setAttribute('packingSession', packSession)
+    Debug.log('Created NEW packing session!!')
 }
 packSession.clearItemInfos()
 
@@ -133,7 +133,10 @@ if (orderId) {
 
         if ('ORDER_APPROVED' == orderHeader.statusId) {
             if (shipGroupSeqId) {
-                if (!shipment) {
+                if (shipment) {
+                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels',
+                            'OrderErrorOrderHasBeenAlreadyVerified', [orderId: orderId], locale))
+                } else {
 
                     // Generate the shipment cost estimate for the ship group
                     productStoreId = orh.getProductStoreId()
@@ -154,9 +157,6 @@ if (orderId) {
                     if (!picklistBinId) {
                         packSession.addItemInfo(shippableItems)
                     }
-                } else {
-                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels',
-                            'OrderErrorOrderHasBeenAlreadyVerified', [orderId: orderId], locale))
                 }
             } else {
                 request.setAttribute('errorMessageList', ['No ship group sequence ID. Cannot process.'])

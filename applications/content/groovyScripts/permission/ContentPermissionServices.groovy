@@ -66,7 +66,9 @@ Map genericContentPermission() {
     }
 
     //  mainAction based call outs
-    if (!hasPermission) {
+    if (hasPermission) {
+        logInfo("Admin permission found: ${parameters.primaryPermission}_${mainAction}")
+    } else {
         switch (parameters.mainAction) {
             case 'VIEW':
                 Map serviceVCP = viewContentPermission(hasPermission, contentId, contentOperationId,
@@ -85,8 +87,6 @@ Map genericContentPermission() {
                         contentOperationId, contentPurposeTypeId, roleEntity, roleEntityField)
                 hasPermission = serviceUCP.hasPermission ?: false
         } // all other actions use main base check
-    } else {
-        logInfo("Admin permission found: ${parameters.primaryPermission}_${mainAction}")
     }
     logInfo("Permission service [${mainAction} / ${parameters.contentId}] completed; returning hasPermission = ${hasPermission}")
 
@@ -201,7 +201,9 @@ Map createContentPermission(Boolean hasPermission, String ownerContentId, String
                 Map serviceResultCO = run service: 'checkOwnership', with: parameters
                 hasPermission = serviceResultCO.hasPermission ?: false
 
-                if (!hasPermission) {
+                if (hasPermission) {
+                    logVerbose('Permission set to TRUE; granting access')
+                } else {
                     // no permission on this parent; check the parent's parent(s)
                     while (!hasPermission && checkId) {
                         // iterate until either we have permission or there are no more parents
@@ -217,8 +219,6 @@ Map createContentPermission(Boolean hasPermission, String ownerContentId, String
                             checkId = null
                         }
                     }
-                } else {
-                    logVerbose('Permission set to TRUE; granting access')
                 }
             }
         }
@@ -385,11 +385,7 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
     String toCheckContentId = checkId
     logVerbose("[${checkId}] Found Operations [${contentPurposeTypeId}/${contentOperationId}] :: ${operations}")
 
-    if (!operations) {
-        // there are no ContentPurposeOperation entries for this operation/purpose; default is approve permission
-        logVerbose('No operations found; permission granted!')
-        hasPermission = true
-    } else {
+    if (operations) {
         // there are requirements to test
         //  get all possible partyIds for this user (including group memberships)
         List partyIdList = findAllAssociatedPartyIds()
@@ -440,6 +436,10 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
                 }
             }
         }
+    } else {
+        // there are no ContentPurposeOperation entries for this operation/purpose; default is approve permission
+        logVerbose('No operations found; permission granted!')
+        hasPermission = true
     }
     return success(hasPermission: hasPermission)
 }
@@ -466,7 +466,9 @@ Map checkOwnership() {
 
     // check to see if any of the parties are owner of the content
     for (String thisPartyId : partyIdList) {
-        if (!hasPermission) {
+        if (hasPermission) {
+            logVerbose("Field hasPermission is TRUE [${hasPermission}] did not test!")
+        } else {
             logVerbose("Checking to see if party [${thisPartyId}] has ownership of ${checkId} :: ${hasPermission}")
             checkPartyId = thisPartyId
             Map serviceResult = checkRoleSecurity(roleEntity, roleEntityField, checkId, checkPartyId, 'OWNER')
@@ -475,8 +477,6 @@ Map checkOwnership() {
             } else {
                 hasPermission = serviceResult.hasPermission
             }
-        } else {
-            logVerbose("Field hasPermission is TRUE [${hasPermission}] did not test!")
         }
     }
     return success(hasPermission: hasPermission)

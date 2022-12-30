@@ -22,11 +22,11 @@ if (!facilityId && request.getAttribute('facilityId')) {
     facilityId = request.getAttribute('facilityId')
 }
 facility = from('Facility').where('facilityId', facilityId).queryOne()
-if (!facility) {
+if (facility) {
+    facilityType = facility.getRelatedOne('FacilityType', false)
+} else {
     facility = makeValue('Facility')
     facilityType = makeValue('FacilityType')
-} else {
-    facilityType = facility.getRelatedOne('FacilityType', false)
 }
 context.facility = facility
 context.facilityType = facilityType

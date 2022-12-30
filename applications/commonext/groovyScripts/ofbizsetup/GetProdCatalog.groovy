@@ -29,22 +29,22 @@ productStore = from('ProductStore').where('payToPartyId', partyId).queryFirst();
 if(productStore){
     context.productStoreId = productStore.productStoreId
 }
-if(!productStore){
+if (productStore) {
+   facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne();
+   webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst();
+
+   if(!facility){
+       errMsgList.add('Facility not set!')
+       showScreen = 'message'
+   }
+   if(!webSite){
+       errMsgList.add('WebSite not set!')
+       showScreen = 'message'
+   }
+} else {
     errMsgList.add('Product Store not set!')
     showScreen = 'message'
- } else {
-    facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne();
-    webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst();
-
-    if(!facility){
-        errMsgList.add('Facility not set!')
-        showScreen = 'message'
-    }
-    if(!webSite){
-        errMsgList.add('WebSite not set!')
-        showScreen = 'message'
-    }
-}
+ }
 if (errMsgList) {
     request.setAttribute('_ERROR_MESSAGE_LIST_', errMsgList)
     return

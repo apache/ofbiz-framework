@@ -122,15 +122,15 @@ Map receiveInventoryProduct () {
                 parameters.partyId = orderRole.partyId
             }
         }
-        if (!parameters.currentInventoryItemId) {
-            Map serviceResult = run service: 'createInventoryItem', with: parameters
-            currentInventoryItemId = serviceResult.inventoryItemId
-        } else {
+        if (parameters.currentInventoryItemId) {
             if (parameters.currentInventoryItemId) {
                 parameters.inventoryItemId = parameters.currentInventoryItemId
             }
             run service: 'updateInventoryItem', with: parameters
             currentInventoryItemId = parameters.currentInventoryItemId
+        } else {
+            Map serviceResult = run service: 'createInventoryItem', with: parameters
+            currentInventoryItemId = serviceResult.inventoryItemId
         }
 
         // do this only for non-serialized inventory
@@ -301,24 +301,7 @@ Map issueOrderItemToShipmentAndReceiveAgainstPO() {
                 .orderBy('shipmentItemSeqId')
                 .queryFirst()
     }
-    if (!shipmentItem) {
-        Map shipmentItemCreate = [productId: orderItem.productId, shipmentId: parameters.shipmentId, quantity: parameters.quantity]
-        Map serviceResult = run service: 'createShipmentItem', with: shipmentItemCreate
-        Map shipmentItemLookupPk = [shipmentItemSeqId: serviceResult.shipmentItemSeqId, shipmentId: parameters.shipmentId]
-        shipmentItem = from('ShipmentItem').where(shipmentItemLookupPk).queryOne()
-
-        // Create OrderShipment for this ShipmentItem
-        Map orderShipmentCreate = [quantity: parameters.quantity,
-                                   shipmentId: shipmentItem.shipmentId,
-                                   shipmentItemSeqId: shipmentItem.shipmentItemSeqId,
-                                   orderId: orderItem.orderId,
-                                   orderItemSeqId: orderItem.orderItemSeqId]
-        if (orderItemShipGroupAssoc) {
-            // If we have a ShipGroup Assoc for this Item to focus on, set that; this is mostly the case for purchase orders and such
-            orderShipmentCreate.shipGroupSeqId = orderItemShipGroupAssoc.shipGroupSeqId
-        }
-        run service: 'createOrderShipment', with: orderShipmentCreate
-    } else {
+    if (shipmentItem) {
         Map inputMap = parameters
         inputMap.orderItem = orderItem
         Map serviceResult = run service: 'getTotalIssuedQuantityForOrderItem', with: inputMap
@@ -341,6 +324,23 @@ Map issueOrderItemToShipmentAndReceiveAgainstPO() {
             orderShipment.quantity = orderShipment.quantity + quantityToAdd
             orderShipment.store()
         }
+    } else {
+        Map shipmentItemCreate = [productId: orderItem.productId, shipmentId: parameters.shipmentId, quantity: parameters.quantity]
+        Map serviceResult = run service: 'createShipmentItem', with: shipmentItemCreate
+        Map shipmentItemLookupPk = [shipmentItemSeqId: serviceResult.shipmentItemSeqId, shipmentId: parameters.shipmentId]
+        shipmentItem = from('ShipmentItem').where(shipmentItemLookupPk).queryOne()
+
+        // Create OrderShipment for this ShipmentItem
+        Map orderShipmentCreate = [quantity: parameters.quantity,
+                                   shipmentId: shipmentItem.shipmentId,
+                                   shipmentItemSeqId: shipmentItem.shipmentItemSeqId,
+                                   orderId: orderItem.orderId,
+                                   orderItemSeqId: orderItem.orderItemSeqId]
+        if (orderItemShipGroupAssoc) {
+            // If we have a ShipGroup Assoc for this Item to focus on, set that; this is mostly the case for purchase orders and such
+            orderShipmentCreate.shipGroupSeqId = orderItemShipGroupAssoc.shipGroupSeqId
+        }
+        run service: 'createOrderShipment', with: orderShipmentCreate
     }
     // TODO: if we want to record the role of the facility operation we have to re-implement this using ShipmentReceiptRole
     // <call-simple-method method-name="associateIssueRoles" xml-resource="component://product/minilang/shipment/issuance/IssuanceServices.xml"/>

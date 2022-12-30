@@ -150,12 +150,12 @@ Map checkSupplierRelatedPermission(String callingMethodName, String checkAction,
     } else {
         Map lookupOrderRoleMap = [orderId: orderId, partyId: userLogin.partyId, roleTypeId: 'SUPPLIER_AGENT']
         GenericValue permOrderRole = from('OrderRole').where(lookupOrderRoleMap).queryOne()
-        if (!permOrderRole) {
+        if (permOrderRole) {
+            result.hasSupplierRelatedPermission = true
+        } else {
             result = error("ERROR: You do not have permission to ${checkAction} Delivery Schedule Information;" +
                     " you must be associated with this order as a Supplier Agent or have the ORDERMGR_${checkAction} permission.")
             result.hasSupplierRelatedPermission = false
-        } else {
-            result.hasSupplierRelatedPermission = true
         }
     }
     logInfo('hasSupplierRelatedPermission is: ' + result.hasSupplierRelatedPermission)
