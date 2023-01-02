@@ -23,24 +23,27 @@ import org.apache.ofbiz.entity.GenericValue
  * Migrate all elements present on OldOrderBlacklist and OldOrderBlacklistType to respectively OrderDenylist and OrderDenylistType entities
  * Update service created 2021-02
  */
-def migrateOldOrderBlacklistAndOldOrderBlacklistType() {
-    List<GenericValue> oldOrderBlacklist = delegator.findAll("OldOrderBlacklist", false)
+Map migrateOldOrderBlacklistAndOldOrderBlacklistType() {
+    List<GenericValue> oldOrderBlacklistType = delegator.findAll('OldOrderBlacklistType', false)
+    List<GenericValue> typesToRemove = []
+    oldOrderBlacklistType.each {
+        GenericValue orderDenyListType = makeValue('OrderDenylistType')
+        orderDenyListType.orderDenylistTypeId = it.orderBlacklistTypeId
+        orderDenyListType.description = it.description
+        orderDenyListType.create()
+        typesToRemove << it
+    }
+
+    List<GenericValue> oldOrderBlacklist = delegator.findAll('OldOrderBlacklist', false)
     oldOrderBlacklist.each {
-        GenericValue OrderDenylist = makeValue("OrderDenylist")
-        OrderDenylist.blacklistString = it.blacklistString
-        OrderDenylist.orderBlacklistTypeId = it.orderBlacklistTypeId
-        OrderDenylist.create()
+        GenericValue orderDenyList = makeValue('OrderDenylist')
+        orderDenyList.denylistString = it.blacklistString
+        orderDenyList.orderDenylistTypeId = it.orderBlacklistTypeId
+        orderDenyList.create()
         it.remove()
     }
 
-    List<GenericValue> oldOrderBlacklistType = delegator.findAll("OldOrderBlacklistType", false)
-    oldOrderBlacklist.each {
-        GenericValue OrderDenylistType = makeValue("OrderDenylistType")
-        orderBlacklist.orderBlacklistTypeId = it.orderBlacklistTypeId
-        OrderDenylistType.description = it.description
-        OrderDenylistType.create()
-        it.remove()
-    }
+    delegator.removeAll(typesToRemove)
 
     return success()
 }
