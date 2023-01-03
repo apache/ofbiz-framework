@@ -25,7 +25,7 @@ if (productStore) {
 context.productStoreId = productStoreId
 context.productStore = productStore
 
-if ('website' == tabButtonItemTop) {
+if (tabButtonItemTop == 'website') {
     if (productStoreId != null) {
         webSite = from('WebSite').where('productStoreId', productStoreId).queryFirst()
         context.showScreen = 'origin'

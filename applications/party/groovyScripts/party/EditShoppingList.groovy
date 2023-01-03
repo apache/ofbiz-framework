@@ -89,7 +89,7 @@ if (shoppingListId) {
                 shoppingListItemTotal += totalPrice
 
                 productVariantAssocs = null
-                if ('Y' == product.isVirtual) {
+                if (product.isVirtual == 'Y') {
                     productVariantAssocs = product.getRelated('MainProductAssoc', [productAssocTypeId: 'PRODUCT_VARIANT'], ['sequenceNum'], true)
                     productVariantAssocs = EntityUtil.filterByDate(productVariantAssocs)
                 }

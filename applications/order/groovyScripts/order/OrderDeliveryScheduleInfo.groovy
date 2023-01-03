@@ -32,7 +32,7 @@ checkResult = runService('checkSupplierRelatedOrderPermission', [orderId: orderI
 hasSupplierRelatedPermissionStr = checkResult.hasSupplierRelatedPermission
 
 // Determine what the reuslt is, no result is FALSE
-hasSupplierRelatedPermission = 'true' == hasSupplierRelatedPermissionStr
+hasSupplierRelatedPermission = hasSupplierRelatedPermissionStr == 'true'
 
 context.orderId = orderId
 context.orderItemSeqId = '_NA_'

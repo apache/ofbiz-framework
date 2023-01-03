@@ -37,7 +37,7 @@ EntityCondition statusPartyDisable = EntityCondition.makeCondition(
 EntityCondition entityConditionList = null
 if (prepareResult.entityConditionList) {
     entityConditionList = EntityCondition.makeCondition([prepareResult.entityConditionList, statusPartyDisable])
-} else if ('Y' == context.noConditionFind) {
+} else if (context.noConditionFind == 'Y') {
     entityConditionList = statusPartyDisable
 }
 

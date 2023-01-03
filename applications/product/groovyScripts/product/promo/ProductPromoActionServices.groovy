@@ -63,7 +63,7 @@ Map productGWP() {
         if (productPromoAction.quantity != null) {
             quantity = productPromoAction.getBigDecimal('quantity')
         } else {
-            if ('Y' == productPromoAction.get('useCartQuantity')) {
+            if (productPromoAction.get('useCartQuantity') == 'Y') {
                 quantity = BigDecimal.ZERO
                 List<ShoppingCartItem> used = ProductPromoWorker.getCartItemsUsed(cart, productPromoAction)
                 for (ShoppingCartItem item : used) {
@@ -89,7 +89,7 @@ Map productGWP() {
                 logError(errMsg)
                 throw new CartItemModifyException(errMsg)
             }
-            if ('Y' == product.getString('isVirtual')) {
+            if (product.getString('isVirtual') == 'Y') {
                 List<GenericValue> productAssocs = EntityUtil.filterByDate(
                         product.getRelated('MainProductAssoc', UtilMisc.toMap('productAssocTypeId', 'PRODUCT_VARIANT'),
                                 UtilMisc.toList('sequenceNum'), true))

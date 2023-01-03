@@ -26,23 +26,23 @@ contentAssocs.each { contentAssoc ->
     content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
     localeString = content.localeString
 
-    if ('au' == serverLocal) {
+    if (serverLocal == 'au') {
         nameLocal = 'en_AU'
-    } else if ('ca' == serverLocal) {
+    } else if (serverLocal == 'ca') {
         nameLocal = 'en_CA'
-    } else if ('de' == serverLocal) {
+    } else if (serverLocal == 'de') {
         nameLocal = 'de'
-    } else if ('ie' == serverLocal) {
+    } else if (serverLocal == 'ie') {
         nameLocal = 'en_IE'
-    } else if ('fr' == serverLocal) {
+    } else if (serverLocal == 'fr') {
         nameLocal = 'fr'
-    } else if ('es' == serverLocal) {
+    } else if (serverLocal == 'es') {
         nameLocal = 'es'
-    } else if ('it' == serverLocal) {
+    } else if (serverLocal == 'it') {
         nameLocal = 'it'
-    } else if ('uk' == serverLocal) {
+    } else if (serverLocal == 'uk') {
         nameLocal = 'en_GB'
-    } else if ('sg' == serverLocal) {
+    } else if (serverLocal == 'sg') {
         nameLocal = 'en_SG'
     } else {
         nameLocal = 'en_US'

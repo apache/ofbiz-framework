@@ -39,7 +39,7 @@ if (parameters.entityName) {
 int maxRecordsPerFile = maxRecStr ? (maxRecStr as int) : 0
 
 preConfiguredSetName = parameters.preConfiguredSetName
-if ('Product1' == preConfiguredSetName) {
+if (preConfiguredSetName == 'Product1') {
     passedEntityNames = [
             'DataResource',
             'Facility',
@@ -51,7 +51,7 @@ if ('Product1' == preConfiguredSetName) {
             'ProductPriceRule',
             'ProductPromo'
     ] as LinkedHashSet
-} else if ('Product2' == preConfiguredSetName) {
+} else if (preConfiguredSetName == 'Product2') {
     passedEntityNames = [
             'Content',
             'ElectronicText',
@@ -74,7 +74,7 @@ if ('Product1' == preConfiguredSetName) {
             'ProductPromoProduct',
             'ProductPromoRule'
     ] as LinkedHashSet
-} else if ('Product3' == preConfiguredSetName) {
+} else if (preConfiguredSetName == 'Product3') {
     passedEntityNames = [
             'ProdCatalogInvFacility',
             'ProductContent',
@@ -88,13 +88,13 @@ if ('Product1' == preConfiguredSetName) {
             'ProductPromoCodeParty',
             'ProductPromoCond'
     ] as LinkedHashSet
-} else if ('Product4' == preConfiguredSetName) {
+} else if (preConfiguredSetName == 'Product4') {
     passedEntityNames = [
             'InventoryItem',
             'ProductFeatureCatGrpAppl',
             'ProductFeatureGroupAppl'
     ] as LinkedHashSet
-} else if ('CatalogExport' == preConfiguredSetName) {
+} else if (preConfiguredSetName == 'CatalogExport') {
     passedEntityNames = [
             'ProdCatalogCategoryType',
             'ProdCatalog',
@@ -151,7 +151,7 @@ if ('Product1' == preConfiguredSetName) {
 if (entitySyncId) {
     passedEntityNames = org.apache.ofbiz.entityext.synchronization.EntitySyncContext.getEntitySyncModelNamesToUse(dispatcher, entitySyncId)
 }
-checkAll = 'true' == parameters.checkAll
+checkAll = parameters.checkAll == 'true'
 tobrowser = parameters.tobrowser != null
 context.tobrowser = tobrowser
 

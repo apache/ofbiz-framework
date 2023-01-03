@@ -17,7 +17,7 @@
  * under the License.
  */
 // get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM
-if (inventoryItem && 'NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
+if (inventoryItem && inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
     physicalInventoryAndVariances = from('PhysicalInventoryAndVariance')
             .where('inventoryItemId', inventoryItemId).orderBy('-physicalInventoryDate', '-physicalInventoryId').queryList()
     physicalInventoryAndVarianceDatas = new ArrayList(physicalInventoryAndVariances.size())

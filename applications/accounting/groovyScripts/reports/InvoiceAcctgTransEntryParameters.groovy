@@ -37,8 +37,8 @@ if (invoice) {
     context.referenceNumber = invoice.get('referenceNumber')
 }
 partyId = null
-if ('PURCHASE_INVOICE' == invoice.get('invoiceTypeId')
-        || 'PURCHASE_INVOICE' == invoice.getRelatedOne('InvoiceType', false).get('parentTypeId')) {
+if (invoice.get('invoiceTypeId') == 'PURCHASE_INVOICE'
+        || invoice.getRelatedOne('InvoiceType', false).get('parentTypeId') == 'PURCHASE_INVOICE') {
     partyId = invoice.get('partyIdFrom')
 } else {
     partyId = invoice.get('partyId')

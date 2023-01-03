@@ -41,7 +41,7 @@ Map copyAgreement() {
             createAgreementItemInMap.agreementId = agreementIdTo
             result = run service: 'createAgreementItem', with: createAgreementItemInMap
         }
-        if ('Y' == parameters.copyAgreementTerms) {
+        if (parameters.copyAgreementTerms == 'Y') {
             agreementTerms = agreement.getRelated('AgreementTerm', null, null, false)
             agreementTerms.each { agreementTerm ->
                 Map createAgreementTermInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementTerm',
@@ -51,7 +51,7 @@ Map copyAgreement() {
                 result = run service: 'createAgreementTerm', with: createAgreementTermInMap
             }
         }
-        if ('Y' == parameters.copyAgreementProducts) {
+        if (parameters.copyAgreementProducts == 'Y') {
             agreementProductAppls = agreement.getRelated('AgreementProductAppl', null, null, false)
             agreementProductAppls.each { agreementProductAppl ->
                 Map createAgreementProductApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementProductAppl',
@@ -60,7 +60,7 @@ Map copyAgreement() {
                 result = run service: 'createAgreementProductAppl', with: createAgreementProductApplInMap
             }
         }
-        if ('Y' == parameters.copyAgreementFacilities) {
+        if (parameters.copyAgreementFacilities == 'Y') {
             agreementFacilityAppls = agreement.getRelated('AgreementFacilityAppl', null, null, false)
             agreementFacilityAppls.each { agreementFacilityAppl ->
                 Map createAgreementFacilityApplInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementFacilityAppl',
@@ -69,7 +69,7 @@ Map copyAgreement() {
                 result = run service: 'createAgreementFacilityAppl', with: createAgreementFacilityApplInMap
             }
         }
-        if ('Y' == parameters.copyAgreementParties) {
+        if (parameters.copyAgreementParties == 'Y') {
             agreementPartyApplics = agreement.getRelated('AgreementPartyApplic', null, null, false)
             agreementPartyApplics.each { agreementPartyApplic ->
                 Map createAgreementPartyApplicInMap = dispatcher.getDispatchContext().makeValidContext('createAgreementPartyApplic',

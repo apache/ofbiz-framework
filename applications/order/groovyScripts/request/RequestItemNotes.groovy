@@ -23,7 +23,7 @@ showAll = parameters.showAll ?: 'false'
 context.showAll = showAll
 
 fields = [custRequestId: custRequestId]
-if ('false' == showAll) {
+if (showAll == 'false') {
     fields.custRequestItemSeqId = custRequestItemSeqId
 }
 notes = from('CustRequestItemNoteView').where(fields).orderBy('-noteDateTime').queryList()

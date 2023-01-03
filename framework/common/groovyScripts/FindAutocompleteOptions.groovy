@@ -76,15 +76,15 @@ if (searchFields && fieldValue) {
     }
     context.returnField = returnField
     context.displayFieldsSet = displayFieldsSet
-    if ('STARTS_WITH' == searchType) {
+    if (searchType == 'STARTS_WITH') {
         searchValue = fieldValue.toUpperCase() + '%'
-    } else if ('EQUALS' == searchType) {
+    } else if (searchType == 'EQUALS') {
         searchValue = fieldValue
     } else {//default is CONTAINS
         searchValue = '%' + fieldValue.toUpperCase() + '%'
     }
     searchFieldsList.each { fieldName ->
-        if ('EQUALS' == searchType) {
+        if (searchType == 'EQUALS') {
             orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue))
             return //in case of EQUALS, we search only a match for the returned field
         } else {

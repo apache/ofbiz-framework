@@ -37,7 +37,7 @@ if (invoice) {
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
     // home of the customer.)
-    if ('PURCHASE_INVOICE' == invoice.invoiceTypeId) {
+    if (invoice.invoiceTypeId == 'PURCHASE_INVOICE') {
         billingAddress = InvoiceWorker.getSendFromAddress(invoice)
     } else {
         billingAddress = InvoiceWorker.getBillToAddress(invoice)
@@ -67,7 +67,7 @@ if (invoice) {
         // get party tax id for VAT taxes: they are required in invoices by EU
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
         taxRate = invoiceItem.getRelatedOne('TaxAuthorityRateProduct', false)
-        if (taxRate && 'VAT_TAX' == taxRate.taxAuthorityRateTypeId) {
+        if (taxRate && taxRate.taxAuthorityRateTypeId == 'VAT_TAX') {
             taxInfo = from('PartyTaxAuthInfo')
                 .where('partyId', billToParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
                 .filterByDate(invoice.invoiceDate)

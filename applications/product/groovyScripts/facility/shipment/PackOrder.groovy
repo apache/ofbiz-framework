@@ -131,7 +131,7 @@ if (orderId) {
             context.carrierShipmentBoxTypes = carrierShipmentBoxTypes
         }
 
-        if ('ORDER_APPROVED' == orderHeader.statusId) {
+        if (orderHeader.statusId == 'ORDER_APPROVED') {
             if (shipGroupSeqId) {
                 if (shipment) {
                     request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels',

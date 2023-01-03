@@ -172,8 +172,8 @@ GenericValue issueImmediateForInventoryItemInline(GenericValue inventoryItem) {
     GenericValue lastNonSerInventoryItem
     // only do something with this inventoryItem if there is more inventory to issue
     if (parameters.quantityNotIssued > (BigDecimal.ZERO)) {
-        if ('SERIALIZED_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
-            if ('INV_AVAILABLE' == inventoryItem.statusId) {
+        if (inventoryItem.inventoryItemTypeId == 'SERIALIZED_INV_ITEM') {
+            if (inventoryItem.statusId == 'INV_AVAILABLE') {
                 // change status on inventoryItem
                 inventoryItem.statusId = 'INV_DELIVERED'
                 run service: 'updateInventoryItem', with: inventoryItem.getAllFields()

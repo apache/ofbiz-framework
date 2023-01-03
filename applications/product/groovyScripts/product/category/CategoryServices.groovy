@@ -309,7 +309,7 @@ Map copyCategoryProductMembers() {
     }
     delegator.storeAll(pcmsToStore)
 
-    if ('Y' == parameters.recurse) {
+    if (parameters.recurse == 'Y') {
         // call this service for each sub-category in the rollup with the same productCategoryIdTo
         Map lookupChildrenMap = [parentProductCategoryId: parameters.productCategoryId]
         query = from('ProductCategoryRollup').where(lookupChildrenMap)

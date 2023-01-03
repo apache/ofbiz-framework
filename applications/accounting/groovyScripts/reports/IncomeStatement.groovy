@@ -93,7 +93,7 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
@@ -137,7 +137,7 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
@@ -180,7 +180,7 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
@@ -224,7 +224,7 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
@@ -267,7 +267,7 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
@@ -309,9 +309,9 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
-   } else {
+        } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)
         }
         BigDecimal debitAmount = (BigDecimal)accountMap.get('D')
@@ -351,7 +351,7 @@ if (transactionTotals) {
             accountMap.put('balance', BigDecimal.ZERO)
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)

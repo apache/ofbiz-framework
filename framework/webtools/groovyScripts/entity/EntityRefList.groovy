@@ -20,7 +20,7 @@ controlPath = parameters._CONTROL_PATH_
 context.controlPath = controlPath
 
 if (security.hasPermission('ENTITY_MAINT', session)) {
-    forstatic = 'true' == parameters.forstatic
+    forstatic = parameters.forstatic == 'true'
     context.forstatic = forstatic
 
     reader = delegator.getModelReader()

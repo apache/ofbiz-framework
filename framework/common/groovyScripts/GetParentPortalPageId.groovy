@@ -57,7 +57,7 @@ if (userLogin && parameters.portalPageId) {
         if (portalPage.parentPortalPageId) {
             context.parameters.parentPortalPageId = portalPage.parentPortalPageId
         } else {
-            if ('_NA_' == portalPage.ownerUserLoginId) {
+            if (portalPage.ownerUserLoginId == '_NA_') {
                 context.parameters.parentPortalPageId = portalPage.portalPageId
             } else {
                 context.parameters.parentPortalPageId = portalPage.originalPortalPageId

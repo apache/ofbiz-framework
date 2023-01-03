@@ -475,7 +475,7 @@ if (selectedService) {
 
     showWsdl = parameters.show_wsdl
 
-    if ('true' == showWsdl) {
+    if (showWsdl == 'true') {
         try {
             wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:" +
                     "${EntityUtilProperties.getPropertyValue('url', 'port.http', '80', delegator)}${parameters._CONTROL_PATH_}/SOAPService")
@@ -516,34 +516,34 @@ if (!selectedService) {
             constraintName = consArr[0]
             constraintVal = consArr[1]
 
-            if ('engine_name' == constraintName) {
+            if (constraintName == 'engine_name') {
                 canIncludeService = curServiceModel.getEngineName() == constraintVal
-                if ('NA' == constraintVal) {
+                if (constraintVal == 'NA') {
                     canIncludeService = curServiceModel.getEngineName() ? false : true
                 }
             }
 
-            if (canIncludeService && 'default_entity_name' == constraintName) {
+            if (canIncludeService && constraintName == 'default_entity_name') {
                 canIncludeService = curServiceModel.getDefaultEntityName() == constraintVal
-                if ('NA' == constraintVal) {
+                if (constraintVal == 'NA') {
                     canIncludeService = curServiceModel.getDefaultEntityName() ? false : true
                 }
             }
 
-            if (canIncludeService && 'location' == constraintName) {
+            if (canIncludeService && constraintName == 'location') {
                 canIncludeService = curServiceModel.getLocation() == constraintVal
-                if ('NA' == constraintVal) {
+                if (constraintVal == 'NA') {
                     canIncludeService = curServiceModel.getLocation() ? false : true
                 }
             }
 
-            if (canIncludeService && 'definitionLocation' == constraintName) {
+            if (canIncludeService && constraintName == 'definitionLocation') {
                 canIncludeService = curServiceModel.getDefinitionLocation() == constraintVal
             }
 
-            if (canIncludeService && 'alpha' == constraintName) {
+            if (canIncludeService && constraintName == 'alpha') {
                 canIncludeService = (serviceName[0]) == constraintVal
-                if ('NA' == constraintVal) {
+                if (constraintVal == 'NA') {
                     canIncludeService = true
                 }
             }

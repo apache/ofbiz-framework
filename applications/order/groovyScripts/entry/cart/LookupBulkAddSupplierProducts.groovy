@@ -100,7 +100,7 @@ for (supplierProduct in supplierProducts) {
             orderReadHelper = new OrderReadHelper(orderHeader)
             orderItems = orderReadHelper.getOrderItems()
             orderItems.each { orderItem ->
-                if (productId == orderItem.productId && 'ITEM_APPROVED' == orderItem.statusId) {
+                if (productId == orderItem.productId && orderItem.statusId == 'ITEM_APPROVED') {
                     if (!orderItem.cancelQuantity) {
                         cancelQuantity = 0.0
                     }

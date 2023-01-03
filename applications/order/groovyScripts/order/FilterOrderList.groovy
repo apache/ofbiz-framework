@@ -48,7 +48,7 @@ if ((state.hasFilter('filterPartiallyReceivedPOs') ||
         orderHeaderList) {
     orderHeaderList.each { orderHeader ->
         orderReadHelper = OrderReadHelper.getHelper(orderHeader)
-        if ('PURCHASE_ORDER' == orderHeader.orderTypeId) {
+        if (orderHeader.orderTypeId == 'PURCHASE_ORDER') {
             if (orderReadHelper.getRejectedOrderItems() &&
                     state.hasFilter('filterPOsWithRejectedItems')) {
                 filterPOsWithRejectedItems.add(orderHeader.get('orderId'))
@@ -70,7 +70,7 @@ if (state.hasFilter('filterAuthProblems') && orderHeaderList) {
         orderReadHelper = OrderReadHelper.getHelper(orderHeader)
         paymentPrefList = orderReadHelper.getPaymentPreferences()
         paymentPrefList.each { paymentPref ->
-            if ('PAYMENT_NOT_AUTH' == paymentPref.statusId) {
+            if (paymentPref.statusId == 'PAYMENT_NOT_AUTH') {
                 filterAuthProblems.add(orderHeader.orderId)
             }
         }

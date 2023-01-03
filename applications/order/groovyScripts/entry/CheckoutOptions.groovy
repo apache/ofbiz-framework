@@ -34,7 +34,7 @@ if (shoppingCart) {
     context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods()
     // Reassign items requiring drop-shipping to new or existing drop-ship groups
     Map<String, Object> createDropShipGroupResult = shoppingCart.createDropShipGroups(dispatcher)
-    if ('error' == createDropShipGroupResult.get('responseMessage')) {
+    if (createDropShipGroupResult.get('responseMessage') == 'error') {
         Debug.logError((String)createDropShipGroupResult.get('errorMessage'), module)
         request.setAttribute('_ERROR_MESSAGE_', (String)createDropShipGroupResult.get('errorMessage'))
         return 'error'

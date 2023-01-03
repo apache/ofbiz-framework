@@ -41,7 +41,7 @@ orderAdjustments = cart.makeAllAdjustments()
 orderItemShipGroupInfo = cart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
-        if ('OrderAdjustment' == osiInfo.getEntityName()) {
+        if (osiInfo.getEntityName() == 'OrderAdjustment') {
             // shipping / tax adjustment(s)
             orderAdjustments.add(osiInfo)
         }
@@ -68,11 +68,11 @@ if (paymentMethods) {
     context.paymentMethod = paymentMethod
 }
 
-if ('CREDIT_CARD' == paymentMethod?.paymentMethodTypeId) {
+if (paymentMethod?.paymentMethodTypeId == 'CREDIT_CARD') {
     creditCard = paymentMethod.getRelatedOne('CreditCard', true)
     context.creditCard = creditCard
     context.formattedCardNumber = ContactHelper.formatCreditCard(creditCard)
-} else if ('EFT_ACCOUNT' == paymentMethod?.paymentMethodTypeId) {
+} else if (paymentMethod?.paymentMethodTypeId == 'EFT_ACCOUNT') {
     eftAccount = paymentMethod.getRelatedOne('EftAccount', true)
     context.eftAccount = eftAccount
 }

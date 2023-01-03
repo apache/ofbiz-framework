@@ -25,7 +25,7 @@ if (billingAccountId) {
             orderId = orderHeader.orderId
             orderBillingAcc = from('OrderHeaderAndPaymentPref').where('orderId', orderId).queryFirst()
             orderBillingAccMap = [:]
-            if ('EXT_BILLACT' == orderBillingAcc.paymentMethodTypeId && 'PAYMENT_NOT_RECEIVED' == orderBillingAcc.paymentStatusId) {
+            if (orderBillingAcc.paymentMethodTypeId == 'EXT_BILLACT' && orderBillingAcc.paymentStatusId == 'PAYMENT_NOT_RECEIVED') {
                 orderBillingAccMap.putAll(orderBillingAcc)
                 orderId = orderBillingAcc.orderId
                 orderBillingAccMap.orderId = orderId

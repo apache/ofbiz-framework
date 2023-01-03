@@ -21,17 +21,17 @@ productId = parameters.productId
 if (productId) {
     productContents  = from('ProductContent').where('productId', productId).queryList()
     productContents.each { productContent ->
-        if ('PAGE_TITLE' == productContent.productContentTypeId) {
+        if (productContent.productContentTypeId == 'PAGE_TITLE') {
             contentTitle  = from('Content').where('contentId', productContent.contentId).queryOne()
             dataTextTitle  = from('ElectronicText').where('dataResourceId', contentTitle.dataResourceId).queryOne()
             context.title = dataTextTitle.textData
         }
-        if ('META_KEYWORD' == productContent.productContentTypeId) {
+        if (productContent.productContentTypeId == 'META_KEYWORD') {
             contentMetaKeyword  = from('Content').where('contentId', productContent.contentId).queryOne()
             dataTextMetaKeyword  = from('ElectronicText').where('dataResourceId', contentMetaKeyword.dataResourceId).queryOne()
             context.metaKeyword = dataTextMetaKeyword.textData
         }
-        if ('META_DESCRIPTION' == productContent.productContentTypeId) {
+        if (productContent.productContentTypeId == 'META_DESCRIPTION') {
             contentMetaDescription  = from('Content').where('contentId', productContent.contentId).queryOne()
             dataTextMetaDescription  = from('ElectronicText').where('dataResourceId', contentMetaDescription.dataResourceId).queryOne()
             context.metaDescription = dataTextMetaDescription.textData

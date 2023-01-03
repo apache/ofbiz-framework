@@ -77,7 +77,7 @@ if (orderId) {
 }
 roleTypeId = 'PLACING_CUSTOMER'
 partyId = returnHeader.fromPartyId
-if ('VENDOR_RETURN' == returnHeaderTypeId) {
+if (returnHeaderTypeId == 'VENDOR_RETURN') {
     roleTypeId = 'BILL_FROM_VENDOR'
     partyId = returnHeader.toPartyId
 }

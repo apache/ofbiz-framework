@@ -91,7 +91,7 @@ Map updatePartyRate() {
     newEntity.create()
 
     //check other default rate to desactive them
-    if ('Y' == newEntity.defaultRate) {
+    if (newEntity.defaultRate == 'Y') {
         partyRates = from('PartyRate').where([partyId: partyId, defaultRate: 'Y']).queryList()
         partyRates.each { partyDefaultRate ->
             partyDefaultRate.defaultRate = 'N'

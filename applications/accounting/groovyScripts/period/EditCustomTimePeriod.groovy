@@ -57,19 +57,19 @@ periodTypes = from('PeriodType').orderBy('description').cache(true).queryList()
 context.periodTypes = periodTypes
 
 newPeriodTypeId = 'FISCAL_YEAR'
-if ('FISCAL_YEAR' == currentCustomTimePeriod?.periodTypeId) {
+if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_YEAR') {
     newPeriodTypeId = 'FISCAL_QUARTER'
 }
-if ('FISCAL_QUARTER' == currentCustomTimePeriod?.periodTypeId) {
+if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_QUARTER') {
     newPeriodTypeId = 'FISCAL_MONTH'
 }
-if ('FISCAL_MONTH' == currentCustomTimePeriod?.periodTypeId) {
+if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_MONTH') {
     newPeriodTypeId = 'FISCAL_WEEK'
 }
-if ('FISCAL_BIWEEK' == currentCustomTimePeriod?.periodTypeId) {
+if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_BIWEEK') {
     newPeriodTypeId = 'FISCAL_WEEK'
 }
-if ('FISCAL_WEEK' == currentCustomTimePeriod?.periodTypeId) {
+if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_WEEK') {
     newPeriodTypeId = ''
 }
 

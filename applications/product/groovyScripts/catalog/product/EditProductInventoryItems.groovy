@@ -27,7 +27,7 @@ if (product) {
             'parentTypeId', 'MARKETING_PKG')
     context.isMarketingPackage = (isMarketingPackage ? 'true' : 'false')
     //If product is virtual gather summary data from variants
-    if (product.isVirtual && 'Y' == product.isVirtual) {
+    if (product.isVirtual && product.isVirtual == 'Y') {
         //Get the virtual product feature types
         result = runService('getProductFeaturesByType', [productId: productId, productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
         featureTypeIds = result.productFeatureTypes
@@ -69,7 +69,7 @@ if (product) {
         manufacturingOutQuantitySummaryByFacility = [:]
         // The warehouse list is selected
         showAllFacilities = parameters.showAllFacilities
-        if (showAllFacilities && 'Y' == showAllFacilities) {
+        if (showAllFacilities && showAllFacilities == 'Y') {
             facilityList = from('Facility').queryList()
         } else {
             facilityList = from('ProductFacility').where('productId', productId).queryList()
@@ -154,7 +154,7 @@ if (product) {
         // outgoing products (materials)
         manufacturingOutQuantitySummaryByFacility = resultOutput.summaryOutByFacility
 
-        showEmpty = 'true' == request.getParameter('showEmpty')
+        showEmpty = request.getParameter('showEmpty') == 'true'
 
         // Find oustanding purchase orders for this item.
         purchaseOrders = InventoryWorker.getOutstandingPurchaseOrders(productId, delegator)

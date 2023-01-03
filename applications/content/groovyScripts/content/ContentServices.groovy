@@ -248,7 +248,7 @@ Map createArticleContent() {
     String origContentAssocTypeId = parameters.contentAssocTypeId
     String contentAssocTypeId = parameters.contentAssocTypeId
     String ownerContentId = parameters.threadContentId
-    if ('PUBLISH_LINK' == origContentAssocTypeId) {
+    if (origContentAssocTypeId == 'PUBLISH_LINK') {
         ownerContentId = parameters.pubPtContentId
     }
     String contentIdFrom = parameters.contentIdFrom
@@ -269,7 +269,7 @@ Map createArticleContent() {
         subDescript = textData.substring(0, subStringLen)
         logInfo('subDescript: ' + subDescript)
     }
-    if ('PUBLISH_LINK' == contentAssocTypeId) {
+    if (contentAssocTypeId == 'PUBLISH_LINK') {
         ownerContentId = pubPtContentId
     }
     //determine of we need to create complex template structure or simple content structure
@@ -349,7 +349,7 @@ Map createArticleContent() {
                                                  partyId: userLogin.partyId]
     }
     // If a response, still link it to the publish point
-    if ('RESPONSE' == origContentAssocTypeId) {
+    if (origContentAssocTypeId == 'RESPONSE') {
         run service: 'createContentAssoc', with: [contentId: pubPtContentId,
                                                   contentIdTo: contentId,
                                                   contentAssocTypeId: 'RESPONSE']
@@ -416,10 +416,10 @@ Map getDataResource() {
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
     if (dataResource) {
         resultData.dataResource = dataResource
-        if ('ELECTRONIC_TEXT' == dataResource.dataResourceTypeId) {
+        if (dataResource.dataResourceTypeId == 'ELECTRONIC_TEXT') {
             resultData.electronicText = dataResource.getRelatedOne('ElectronicText', false)
         }
-        if ('IMAGE_OBJECT' == dataResource.dataResourceTypeId) {
+        if (dataResource.dataResourceTypeId == 'IMAGE_OBJECT') {
             resultData.imageDataResource = dataResource.getRelatedOne('ImageDataResource', false)
         }
     }

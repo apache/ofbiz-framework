@@ -63,10 +63,10 @@ Map updateContactMech() {
 Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage
     if (!stateProvinceGeoId) {
-        if ('USA' == countryGeoId) {
+        if (countryGeoId == 'USA') {
             errorMessage = 'PartyStateInUsMissing'
         }
-        if ('CAN' == countryGeoId) {
+        if (countryGeoId == 'CAN') {
             errorMessage = 'PartyProvinceInCanadaMissing'
         }
     }

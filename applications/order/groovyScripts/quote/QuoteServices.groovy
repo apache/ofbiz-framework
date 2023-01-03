@@ -213,7 +213,7 @@ Map copyQuote() {
     String quoteIdTo = serviceResult.quoteId
 
     // Copy quoteItems.
-    if ('Y' == parameters.copyQuoteItems) {
+    if (parameters.copyQuoteItems == 'Y') {
         List quoteItems = quote.getRelated('QuoteItem', null, null, false)
         for (GenericValue quoteItem : quoteItems) {
             Map serviceContext = dctx.makeValidContext('createQuoteItem', ModelService.IN_PARAM,
@@ -226,7 +226,7 @@ Map copyQuote() {
     }
 
     // Copy quoteAdjustments.
-    if ('Y' == parameters.copyQuoteAdjustments) {
+    if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quote.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustement : quoteAdjustments) {
             if (!quoteAdjustment.quoteItemSeqId) {
@@ -241,7 +241,7 @@ Map copyQuote() {
     }
 
     // Copy quoteRoles.
-    if ('Y' == parameters.copyQuoteRoles) {
+    if (parameters.copyQuoteRoles == 'Y') {
         List quoteRoles = quote.getRelated('QuoteRole', null, null, false)
         for (GenericValue quoteRole : quoteRoles) {
             if (quoteRole.roleTypeId != 'REQ_TAKER') {
@@ -256,7 +256,7 @@ Map copyQuote() {
     }
 
     // Copy quoteAttributes.
-    if ('Y' == parameters.copyQuoteAttributes) {
+    if (parameters.copyQuoteAttributes == 'Y') {
         List quoteAttributes = quote.getRelated('QuoteAttribute', null, null, false)
         for (GenericValue quoteAttribute : quoteAttributes) {
             Map serviceContext = dctx.makeValidContext('createQuoteAttribute', ModelService.IN_PARAM,
@@ -269,7 +269,7 @@ Map copyQuote() {
     }
 
     // Copy quoteCoefficients.
-    if ('Y' == parameters.copyQuoteCoefficients) {
+    if (parameters.copyQuoteCoefficients == 'Y') {
         List quoteCoefficients = quote.getRelated('QuoteCoefficient', null, null, false)
         for (GenericValue quoteCoefficient : quoteCoefficients) {
             Map serviceContext = dctx.makeValidContext('createQuoteCoefficient', ModelService.IN_PARAM,
@@ -282,7 +282,7 @@ Map copyQuote() {
     }
 
     // Copy quoteTerms.
-    if ('Y' == parameters.copyQuoteTerms) {
+    if (parameters.copyQuoteTerms == 'Y') {
         List quoteTerms = quote.getRelated('QuoteTerm', null, null, false)
         for (GenericValue quoteTerm : quoteTerms) {
             Map serviceContext = dctx.makeValidContext('createQuoteTerm', ModelService.IN_PARAM,
@@ -409,7 +409,7 @@ Map copyQuoteItem() {
         input.quoteItemSeqId = null
     }
     Map serviceResult = run service: 'createQuoteItem', with: input
-    if ('Y' == parameters.copyQuoteAdjustments) {
+    if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quoteItem.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustment : quoteAdjustments) {
             Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,

@@ -30,7 +30,7 @@ if (!partyId && userLoginId) {
     }
 }
 
-context.showOld = 'true' == parameters.SHOW_OLD
+context.showOld = parameters.SHOW_OLD == 'true'
 context.partyId = partyId
 context.party = from('Party').where('partyId', partyId).queryOne()
 context.nowStr = UtilDateTime.nowTimestamp().toString()

@@ -41,10 +41,10 @@ Map createProductionRunPartyAssign() {
  */
 Map createProductionRunAssoc() {
     Map serviceContext = [workEffortAssocTypeId: 'WORK_EFF_PRECEDENCY']
-    if ('WF_PREDECESSOR' == parameters.workFlowSequenceTypeId) {
+    if (parameters.workFlowSequenceTypeId == 'WF_PREDECESSOR') {
         serviceContext.workEffortIdFrom = parameters.productionRunIdTo
         serviceContext.workEffortIdTo = parameters.productionRunId
-    } else if ('WF_SUCCESSOR' == parameters.workFlowSequenceTypeId) {
+    } else if (parameters.workFlowSequenceTypeId == 'WF_SUCCESSOR') {
         serviceContext.workEffortIdFrom = parameters.productionRunId
         serviceContext.workEffortIdTo = parameters.productionRunIdTo
     }
@@ -138,7 +138,7 @@ Map issueProductionRunTaskComponent() {
                 return serviceResult
             }
             // if the task is in completed status we want to make WEIA for the added product as well
-            if ('PRUN_COMPLETED' == workEffort.currentStatusId) {
+            if (workEffort.currentStatusId == 'PRUN_COMPLETED') {
                 productId = parameters.productId
             }
         }
@@ -296,8 +296,8 @@ Map issueProductionRunTaskComponentInline(Map parameters,
                                           GenericValue lastNonSerInventoryItem) {
 
     if (parameters.quantityNotIssued > 0) {
-        if ('SERIALIZED_INV_ITEM' == inventoryItem.inventoryItemTypeId &&
-                'INV_AVAILABLE' == inventoryItem.statusId) {
+        if (inventoryItem.inventoryItemTypeId == 'SERIALIZED_INV_ITEM' &&
+                inventoryItem.statusId == 'INV_AVAILABLE') {
             inventoryItem.statusId = 'INV_DELIVERED'
             inventoryItem.store()
             Map serviceResult = run service: 'assignInventoryToWorkEffort', with: [workEffortId: parameters.workEffortId,
@@ -308,8 +308,8 @@ Map issueProductionRunTaskComponentInline(Map parameters,
             }
             parameters.quantityNotIssued = parameters.quantityNotIssued - 1
         }
-        if ((!inventoryItem.statusId || 'INV_AVAILABLE' == inventoryItem.statusId) &&
-                'NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId) {
+        if ((!inventoryItem.statusId || inventoryItem.statusId == 'INV_AVAILABLE') &&
+                inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
             BigDecimal inventoryItemQuantity = 'Y' != parameters.useReservedItems ?
                     inventoryItem.availableToPromiseTotal :
                     inventoryItem.quantityOnHandTotal
@@ -353,7 +353,7 @@ Map issueProductionRunTaskComponentInline(Map parameters,
 Map issueInventoryItemToWorkEffort() {
     GenericValue inventoryItem = parameters.inventoryItem
     BigDecimal quantityIssued = 0.0
-    if ('SERIALIZED_INV_ITEM' == inventoryItem.inventoryItemTypeId && inventoryItem.statusId) {
+    if (inventoryItem.inventoryItemTypeId == 'SERIALIZED_INV_ITEM' && inventoryItem.statusId) {
         inventoryItem.statusId = 'INV_DELIVERED'
         inventoryItem.store()
         quantityIssued = 1
@@ -364,7 +364,7 @@ Map issueInventoryItemToWorkEffort() {
             return serviceResult
         }
     }
-    if ('NON_SERIAL_INV_ITEM' == inventoryItem.inventoryItemTypeId &&
+    if (inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM' &&
             inventoryItem.availableToPromiseTotal &&
             inventoryItem.availableToPromiseTotal > 0) {
         quantityIssued = !parameters.quantity || parameters.quantity > inventoryItem.availableToPromiseTotal ?

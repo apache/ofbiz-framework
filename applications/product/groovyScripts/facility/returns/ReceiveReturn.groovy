@@ -33,13 +33,13 @@ returnItems = null
 if (returnId) {
     returnHeader = from('ReturnHeader').where('returnId', returnId).queryOne()
     if (returnHeader) {
-        if ('RETURN_ACCEPTED' == returnHeader.statusId) {
+        if (returnHeader.statusId == 'RETURN_ACCEPTED') {
             returnItems = returnHeader.getRelated('ReturnItem', null, null, false)
-        } else if ('RETURN_REQUESTED' == returnHeader.statusId) {
+        } else if (returnHeader.statusId == 'RETURN_REQUESTED') {
             uiLabelMap = UtilProperties.getResourceBundleMap('ProductErrorUiLabels', locale)
             ProductReturnRequestedOK = uiLabelMap.ProductReturnRequestedOK
             request.setAttribute('_EVENT_MESSAGE_', ProductReturnRequestedOK + ' (#' + returnId.toString() + ')' )
-        }  else if ('RETURN_RECEIVED' == !returnHeader.statusId) {
+        }  else if (!returnHeader.statusId == 'RETURN_RECEIVED') {
             uiLabelMap = UtilProperties.getResourceBundleMap('ProductErrorUiLabels', locale)
             ProductReturnNotYetAcceptedOrAlreadyReceived = uiLabelMap.ProductReturnNotYetAcceptedOrAlreadyReceived
             request.setAttribute('_ERROR_MESSAGE_', ProductReturnNotYetAcceptedOrAlreadyReceived + ' (#' + returnId.toString() + ')' )

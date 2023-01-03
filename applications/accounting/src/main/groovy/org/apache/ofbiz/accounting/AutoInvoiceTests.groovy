@@ -130,7 +130,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         assert invoiceItems
 
         for (GenericValue invoiceItem : invoiceItems) {
-            if (invoiceItem.productId && 'WG-9943-B3' == invoiceItem.productId) {
+            if (invoiceItem.productId && invoiceItem.productId == 'WG-9943-B3') {
                 invoiceTotal = invoiceTotal.add(invoiceItem.quantity * (invoiceItem.amount * 0.03 + 1))
             }
         }

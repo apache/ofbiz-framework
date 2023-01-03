@@ -25,7 +25,7 @@ mode = shoppingCart.getOrderType()
 
 promoShowLimit = 3
 
-if ('SALES_ORDER' == mode) {
+if (mode == 'SALES_ORDER') {
     //Get Promo Text Data
     productPromosAll = ProductPromoWorker.getStoreProductPromos(delegator, dispatcher, request)
     //Make sure that at least one promo has non-empty promoText

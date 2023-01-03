@@ -100,7 +100,7 @@ if (orderId) {
         List exprs = UtilMisc.toList(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'ITEM_APPROVED'))
         orderItems = orh.getOrderItemsByCondition(exprs)
         context.orderItems = orderItems
-        if ('ORDER_APPROVED' == orderHeader.statusId) {
+        if (orderHeader.statusId == 'ORDER_APPROVED') {
             context.isOrderStatusApproved = true
             if (shipGroupSeqId) {
                 productStoreId = orh.getProductStoreId()

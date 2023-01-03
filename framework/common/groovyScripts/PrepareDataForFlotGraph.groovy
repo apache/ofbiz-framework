@@ -20,7 +20,7 @@ chartData = context.chartData
 chartType = context.chartType
 labelFieldName = context.labelFieldName
 dataFieldName = context.dataFieldName
-if ('Pie' == chartType) {
+if (chartType == 'Pie') {
     iter = chartData.iterator()
     first = true
     dataText = ''
@@ -33,7 +33,7 @@ if ('Pie' == chartType) {
         dataText = dataText + entry.get(labelFieldName) + ',' + entry.get(dataFieldName)
     }
     context.dataText = dataText
-} else if ('Bars' == chartType) {
+} else if (chartType == 'Bars') {
     iter = chartData.iterator()
     i = 1
     dataText = ''

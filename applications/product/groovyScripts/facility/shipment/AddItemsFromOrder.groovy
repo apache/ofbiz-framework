@@ -46,7 +46,7 @@ if (orderId && shipment) {
         context.orderHeaderStatus = orderHeader.getRelatedOne('StatusItem', false)
         context.orderType = orderHeader.getRelatedOne('OrderType', false)
 
-        isSalesOrder = 'SALES_ORDER' == orderHeader.orderTypeId
+        isSalesOrder = orderHeader.orderTypeId == 'SALES_ORDER'
         context.isSalesOrder = isSalesOrder
 
         orderItemShipGroup = null

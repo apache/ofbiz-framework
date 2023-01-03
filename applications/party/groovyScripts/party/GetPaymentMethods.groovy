@@ -21,7 +21,7 @@ import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.accounting.payment.BillingAccountWorker
 
 partyId = parameters.partyId ?: userLogin.partyId
-showOld = 'true' == parameters.SHOW_OLD
+showOld = parameters.SHOW_OLD == 'true'
 
 currencyUomId = null
 billingAccounts = []

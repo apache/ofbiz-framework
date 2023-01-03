@@ -356,7 +356,7 @@ Map createFuturePeriod() {
         parameters.organizationPartyId = party.partyId
         createCustomTimePeriod = from('SystemProperty')
                 .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.create').queryOne()
-        if ('Y' == createCustomTimePeriod.systemPropertyValue) {
+        if (createCustomTimePeriod.systemPropertyValue == 'Y') {
             // get list of CustomTypePeriod types
             applTypes = from('SystemProperty')
                     .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.applType').queryOne()
@@ -375,12 +375,12 @@ Map createFuturePeriod() {
                         .where('systemResourceId', 'general', 'systemPropertyId', systemPropertyId).queryOne()
                 if (applTypeGrain) {
                     grain = applTypeGrain.systemPropertyValue
-                    if ('MONTH' == grain) {
+                    if (grain == 'MONTH') {
                         periodCal.add(Calendar.MONTH, 1)
                         monthName = new SimpleDateFormat('MMM').format(periodCal.getTime())
                         year = periodCal.get(Calendar.YEAR)
                         month = (periodCal.get(Calendar.MONTH) + 1).toString()
-                        if ( 1 == month.length()) {
+                        if (month.length() == 1) {
                             month = '0' + month
                         }
                         periodCal.set(Calendar.DATE, 1)

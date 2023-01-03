@@ -47,7 +47,7 @@ orderAdjustments = shoppingCart.makeAllAdjustments()
 orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
-        if ('OrderAdjustment' == osiInfo.getEntityName()) {
+        if (osiInfo.getEntityName() == 'OrderAdjustment') {
             // shipping / tax adjustment(s)
             orderAdjustments.add(osiInfo)
         }
@@ -72,7 +72,7 @@ productStoreId = shoppingCart.getProductStoreId()
 context.productStoreId = productStoreId
 
 partyId = shoppingCart.getPartyId()
-if ('_NA_' == partyId) {
+if (partyId == '_NA_') {
     partyId = null
 }
 context.partyId = partyId

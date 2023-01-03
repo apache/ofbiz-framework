@@ -36,7 +36,7 @@ listPartyPostalAddress = from('PartyAndPostalAddress').where('partyId', partyId)
 partyPostalAddress = EntityUtil.getFirst(EntityUtil.filterByDate(listPartyPostalAddress))
 context.partyPostalAddress = partyPostalAddress
 
-if ('productstore' == tabButtonItemTop) {
+if (tabButtonItemTop == 'productstore') {
     if (findResultSize == 0) {
         request.setAttribute('_ERROR_MESSAGE_', 'Facility not set!')
         context.showScreen = 'message'
@@ -44,7 +44,7 @@ if ('productstore' == tabButtonItemTop) {
     } else {
         context.showScreen = 'origin'
     }
-} else if ('facility' == tabButtonItemTop) {
+} else if (tabButtonItemTop == 'facility') {
     facilityId = parameters.facilityId
     if (!facilityId && request.getAttribute('facilityId')) {
         facilityId = request.getAttribute('facilityId')

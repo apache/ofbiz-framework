@@ -42,12 +42,12 @@ if (orderHeader) {
     orderShipmentHistories = []
     shipmentMethodHistories.each { shipmentMethodHistory ->
         orderShipmentHistory = [:]
-        if ('shipmentMethodTypeId' == shipmentMethodHistory.changedFieldName) {
+        if (shipmentMethodHistory.changedFieldName == 'shipmentMethodTypeId') {
             shipmentMethodType = from('ShipmentMethodType').where('shipmentMethodTypeId', shipmentMethodHistory.newValueText).queryOne()
             if (shipmentMethodType != null) {
                 carrierPartyHistories.each { carrierPartyHistory ->
                     if (carrierPartyHistory.lastUpdatedTxStamp == shipmentMethodHistory.lastUpdatedTxStamp) {
-                        if ('_NA_' == carrierPartyHistory.newValueText) {
+                        if (carrierPartyHistory.newValueText == '_NA_') {
                             orderShipmentHistory.shipmentMethod = shipmentMethodType.description
                         } else {
                             orderShipmentHistory.shipmentMethod = carrierPartyHistory.newValueText + ' ' + shipmentMethodType.description

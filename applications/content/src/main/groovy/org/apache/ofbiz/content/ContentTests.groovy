@@ -50,7 +50,7 @@ class ContentTests extends OFBizTestCase {
                 .where('dataCategoryId', 'TEST_DATA_CATEGORY_1')
                 .queryOne()
         assert dataCategory
-        assert 'Test Data Category 1' == dataCategory.categoryName
+        assert dataCategory.categoryName == 'Test Data Category 1'
     }
 
     void testUpdateDataCategory() {
