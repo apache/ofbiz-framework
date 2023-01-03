@@ -62,7 +62,7 @@ quoteItems.each { quoteItem ->
     }
     profit = unitPrice - averageCost
     percProfit = averageCost != 0 ? (profit / unitPrice) * 100.00 : 0.00
-    quoteItemAndCostInfo = new java.util.HashMap(quoteItem)
+    quoteItemAndCostInfo = new HashMap(quoteItem)
     quoteItemAndCostInfo.averageCost = averageCost
     quoteItemAndCostInfo.profit = profit
     quoteItemAndCostInfo.percProfit = percProfit

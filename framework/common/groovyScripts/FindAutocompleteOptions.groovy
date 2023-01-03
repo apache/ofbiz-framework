@@ -68,7 +68,7 @@ if (conditionDates) {
 if (searchFields && fieldValue) {
     List<String> searchFieldsList = StringUtil.toList(searchFields)
     displayFieldsSet = StringUtil.toSet(displayFields)
-    if (context.description && fieldValue instanceof java.lang.String) {
+    if (context.description && fieldValue instanceof String) {
         returnField = parameters.searchValueFieldName
     } else {
         returnField = searchFieldsList[0] //default to first element of searchFields
@@ -102,7 +102,7 @@ Map conditionFields = context.conditionFields
 if (conditionFields) {
     // these fields are for additonal conditions, this is a Map of name/value pairs
     for (conditionFieldEntry in conditionFields.entrySet()) {
-        if (conditionFieldEntry.getValue() instanceof java.util.List) {
+        if (conditionFieldEntry.getValue() instanceof List) {
             List orCondFields = []
             conditionFieldEntry.getValue().each { entry ->
                 orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()),

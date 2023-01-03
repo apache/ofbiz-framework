@@ -25,6 +25,8 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.product.ProductWorker
 
+import java.sql.Timestamp
+
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 context.assocTypes = from('ProductAssocType').queryList()
@@ -211,10 +213,10 @@ if (product) {
         }
         context.hazmat = hazmat
     }
-    java.sql.Timestamp salesThru = product.getTimestamp('salesDiscontinuationDate')
+    Timestamp salesThru = product.getTimestamp('salesDiscontinuationDate')
     if (!salesThru) {
         salesthru = '[&nbsp;]'
-    } else if (salesThru.after(new java.util.Date())) {
+    } else if (salesThru.after(new Date())) {
         salesthru = "<span style='color: blue'>[x]</span>"
     } else {
         salesthru = "<span style='color: red'>[x]</span>"
@@ -260,15 +262,15 @@ if (product) {
             salesThru = assocProduct.getTimestamp('salesDiscontinuationDate')
             if (!salesThru) {
                 featureSalesThru.put(assocProduct.productId, "<span style='color: blue'>[&nbsp;]</span>")
-            } else if (salesThru.after(new java.util.Date())) {
+            } else if (salesThru.after(new Date())) {
                 featureSalesThru.put(assocProduct.productId, "<span style='color: blue'>[x]</span>")
             } else {
                 featureSalesThru.put(assocProduct.productId, "<span style='color: red'>[x]</span>")
             }
-            java.sql.Timestamp thruDate = productAssoc.getTimestamp('thruDate')
+            Timestamp thruDate = productAssoc.getTimestamp('thruDate')
             if (!thruDate) {
                 featureThruDate.put(assocProduct.productId, "<span style='color: blue'>[&nbsp;]</span>")
-            } else if (thruDate.after(new java.util.Date())) {
+            } else if (thruDate.after(new Date())) {
                 featureThruDate.put(assocProduct.productId, "<span style='color: blue'>[x]</span>")
             } else {
                 featureThruDate.put(assocProduct.productId, "<span style='color: red'>[x]</span>")

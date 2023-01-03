@@ -63,7 +63,7 @@ quoteItems.each { quoteItem ->
         logError('Problems getting the averageCost for quoteItem: ' + quoteItem)
     }
 
-    quoteItemAndCostInfo = new java.util.HashMap(quoteItem)
+    quoteItemAndCostInfo = new HashMap(quoteItem)
     quoteItemAndCostInfo.averageCost = averageCost
     quoteItemAndCostInfo.costToPriceMult = costToPriceMult
     quoteItemAndCostInfo.defaultQuoteUnitPrice = defaultQuoteUnitPrice
