@@ -119,7 +119,7 @@ context.doNotPreselectDefaultCountryGeoId = 'Y'
 
 // create the fromDate for calendar
 fromCal = Calendar.getInstance()
-fromCal.setTime(new java.util.Date())
+fromCal.setTime(new Date())
 fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK))
 fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY))
 fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE))
@@ -132,7 +132,7 @@ context.fromDateStr = fromStr
 
 // create the thruDate for calendar
 toCal = Calendar.getInstance()
-toCal.setTime(new java.util.Date())
+toCal.setTime(new Date())
 toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK))
 toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY))
 toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE))

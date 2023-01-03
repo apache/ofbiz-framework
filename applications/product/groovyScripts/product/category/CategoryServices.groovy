@@ -111,7 +111,7 @@ Map updateProductCategory() {
  */
 Map addProductToCategories() {
     Map addProductToCategoryMap = dispatcher.dispatchContext.makeValidContext('addProductToCategory', ModelService.IN_PARAM, parameters)
-    if (parameters.categories instanceof java.util.List) {
+    if (parameters.categories instanceof List) {
         for (def category : parameters.categories) {
             addProductToCategoryMap.productCategoryId = category
             run service: 'addProductToCategory', with: addProductToCategoryMap
@@ -218,7 +218,7 @@ Map addProductCategoryToCategory() {
  * Add ProductCategory to Categories
  */
 Map addProductCategoryToCategories() {
-    if (parameters.categories instanceof java.util.List) {
+    if (parameters.categories instanceof List) {
         for (def category : parameters.categories) {
             // note the the user must be associated with the parent category with the role limited permission
             Map res = checkCategoryRelatedPermission('addProductCategoryToCategories', 'CREATE', category, null)

@@ -47,7 +47,7 @@ if (mode == 'SALES_ORDER') {
     if (productPromosRandomTemp.size() > promoShowLimit) {
         productPromos = new ArrayList(promoShowLimit)
         for (i = 0; i < promoShowLimit; i++) {
-            randomIndex = Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1)) as int
+            randomIndex = Math.round(Math.random() * (productPromosRandomTemp.size() - 1)) as int
             productPromos.add(productPromosRandomTemp.remove(randomIndex))
         }
     } else {

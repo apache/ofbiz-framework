@@ -117,7 +117,7 @@ if (fileType) {
         context.filenameToUse = filenameToUse
 
         characterEncoding = request.getCharacterEncoding()
-        imageUrl = imageUrlPrefix + '/' + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
+        imageUrl = imageUrlPrefix + '/' + filePathPrefix + URLEncoder.encode(filenameToUse, characterEncoding)
 
         try {
             file = new File(imageServerPath + '/' + filePathPrefix, defaultFileName)

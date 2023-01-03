@@ -243,7 +243,7 @@ if (orderHeader) {
 
     // create the actualDate for calendar
     actualDateCal = Calendar.getInstance()
-    actualDateCal.setTime(new java.util.Date())
+    actualDateCal.setTime(new Date())
     actualDateCal.set(Calendar.HOUR_OF_DAY, actualDateCal.getActualMinimum(Calendar.HOUR_OF_DAY))
     actualDateCal.set(Calendar.MINUTE, actualDateCal.getActualMinimum(Calendar.MINUTE))
     actualDateCal.set(Calendar.SECOND, actualDateCal.getActualMinimum(Calendar.SECOND))

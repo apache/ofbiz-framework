@@ -27,7 +27,7 @@ if ('AND' != searchOperator && 'OR' != searchOperator) {
 
 //create the fromDate for calendar
 fromCal = Calendar.getInstance()
-fromCal.setTime(new java.util.Date())
+fromCal.setTime(new Date())
 fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY))
 fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE))
 fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND))
@@ -39,7 +39,7 @@ context.put('fromDateStr', fromStr)
 
 // create the thruDate for calendar
 toCal = Calendar.getInstance()
-toCal.setTime(new java.util.Date())
+toCal.setTime(new Date())
 toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY))
 toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE))
 toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND))
