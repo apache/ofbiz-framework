@@ -46,7 +46,6 @@ if (priceRuleId) {
     context.productPriceActions = productPriceActions
     context.productPriceCondAdd = productPriceCondAdd
     context.productPriceActionAdd = productPriceActionAdd
-
 } else {
     context.productPriceRules = null
     context.productPriceConds = null

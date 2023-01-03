@@ -463,7 +463,6 @@ Map productOrderYear() {
                             + monthsToInclude + ' months.')
                 }
                 compareBase = orderSubTotal <=> condValue as BigDecimal
-
             }
         } catch (GenericServiceException e) {
             logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')

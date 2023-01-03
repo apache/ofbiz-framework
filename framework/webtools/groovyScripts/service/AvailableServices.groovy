@@ -164,7 +164,6 @@ List getEcaListForService(String selectedService) {
                         serviceName.setAccessible(false)
 
                         actionsList.add(actionMap)
-
                     } else {  // FIXME : we should also show field-names and values for set operation
                         setMap = [:]
 

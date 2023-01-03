@@ -101,7 +101,6 @@ if (action) {
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction)
     }
-
 }
 
 inventoryItemGrandTotals = []

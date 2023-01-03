@@ -36,5 +36,4 @@ if (!context.extInfo || context.extInfo == 'N') {
     if (!context.extInfo) {
         context.extInfo == 'N'
     }
-
 }

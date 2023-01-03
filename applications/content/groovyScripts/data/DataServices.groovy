@@ -325,7 +325,6 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
                 result = run service: 'updateOtherDataResource', with: serviceContext
                 break
         }
-
     } else {
         switch (mode) {
             case 'IMAGE_OBJECT':

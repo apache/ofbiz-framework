@@ -44,7 +44,6 @@ Map getProductRequirementMethod() {
         }
     }
     return [order: order, requirementMethodId: requirementMethodId]
-
 }
 
 /*

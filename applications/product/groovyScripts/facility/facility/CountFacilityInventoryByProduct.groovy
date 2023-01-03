@@ -345,7 +345,6 @@ if (action) {
         context.overrideListSize = productListSize
         context.highIndex = highIndex
         context.lowIndex = lowIndex
-
     } catch (GenericEntityException e) {
         errMsg = 'Failure in operation, rolling back transaction'
         logError(e, errMsg)
