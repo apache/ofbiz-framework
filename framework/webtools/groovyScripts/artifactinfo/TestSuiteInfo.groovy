@@ -31,7 +31,7 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuit
         Element documentElement = testSuiteResource.getDocument().getDocumentElement()
         String suiteName = testSuiteResource.getDocument().getDocumentElement().getAttribute('suite-name')
         boolean firstLine = true
-        for (Element testCaseElement : UtilXml.childElementList(documentElement, ['test-case', 'test-group'] as Set)) {
+        UtilXml.childElementList(documentElement, ['test-case', 'test-group'] as Set).each { Element testCaseElement ->
             testList << [suiteName: suiteName,
                          caseName: testCaseElement.getAttribute('case-name'),
                          firstSuiteLine: firstLine ? 'Y' : 'N']

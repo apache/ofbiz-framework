@@ -503,7 +503,7 @@ Map balanceItemIssuancesForShipment() {
                         orderItemSeqId: issuance.orderItemSeqId)
                 .queryList()
         BigDecimal issuanceQuantity = BigDecimal.ZERO
-        for (GenericValue receipt : receipts) {
+        receipts.each { GenericValue receipt ->
             issuanceQuantity = issuanceQuantity + receipt.quantityAccepted + receipt.quantityRejected
         }
         issuance.quantity = issuanceQuantity
@@ -860,10 +860,10 @@ Map quickDropShipOrder() {
                         orderItemAssocTypeId: 'DROP_SHIPMENT')
                 .queryList()
         if (orderItemAssocs) {
-            for (GenericValue orderItemAssoc : orderItemAssocs) {
+            orderItemAssocs.each { GenericValue orderItemAssoc ->
                 Map serviceResultCOIS = run service: 'changeOrderItemStatus', with: [orderId: orderItemAssoc.orderId,
-                                                                      orderItemSeqId: orderItemAssoc.orderItemSeqId,
-                                                                      statusId: 'ITEM_COMPLETED']
+                                                                                     orderItemSeqId: orderItemAssoc.orderItemSeqId,
+                                                                                     statusId: 'ITEM_COMPLETED']
                 if (ServiceUtil.isError(serviceResultCOIS)) {
                     return serviceResultCOIS
                 }
@@ -980,12 +980,12 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
         Map serviceResult = run service: 'createShipment', with: shipmentContext
         GenericValue shipment = from('Shipment').where(shipmentId: serviceResult.shipmentId).queryOne()
         if (orderHeader.orderTypeId == 'SALES_ORDER') {
-            for (GenericValue orderItemAndShipGroupAssoc : perShipGroupItemList) {
+            perShipGroupItemList.each { GenericValue orderItemAndShipGroupAssoc ->
                 // just get the OrderItemShipGrpInvResAndItem records for this facility and this ship group,
                 // since that is what this shipment is for
                 List itemResList = orderItemAndShipGroupAssoc.getRelated('OrderItemShipGrpInvResAndItem',
                         [facilityId: orderItemShipGrpInvResFacilityId], null, false)
-                for (GenericValue itemRes : itemResList) {
+                itemResList.each { GenericValue itemRes ->
                     run service: 'issueOrderItemShipGrpInvResToShipment', with: [shipmentId: shipment.shipmentId,
                                                                                  orderId: itemRes.orderId,
                                                                                  orderItemSeqId: itemRes.orderItemSeqId,
@@ -996,7 +996,7 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
                 }
             }
         } else { // Issue all purchase order items
-            for (GenericValue item : orderItemAndShipGroupAssocList) {
+            orderItemAndShipGroupAssocList.each { GenericValue item ->
                 run service: 'issueOrderItemToShipment', with: [shipmentId: shipment.shipmentId,
                                                                 orderId: item.orderId,
                                                                 orderItemSeqId: item.orderItemSeqId,
@@ -1011,7 +1011,7 @@ Map createShipmentForFacilityAndShipGroup(GenericValue orderHeader, List orderIt
                         shipmentId: shipment.shipmentId)
                 .queryList()
         String shipmentPackageSeqId = 'New'
-        for (GenericValue itemIssuance: itemIssuances) {
+        itemIssuances.each { GenericValue itemIssuance ->
             Map serviceResultASCTP = run service: 'addShipmentContentToPackage', with: [shipmentId: itemIssuance.shipmentId,
                                                                                         shipmentItemSeqId: itemIssuance.shipmentItemSeqId,
                                                                                         quantity: itemIssuance.quantity,
@@ -1078,7 +1078,7 @@ Map createOrderShipmentPlan () {
         parameters.shipmentId = serviceResult.shipmentId
         GenericValue shipment = from('Shipment').where(parameters).queryOne()
         List orderItems = orderHeader.getRelated('OrderItem', null, null, false)
-        for (GenericValue orderItem : orderItems) {
+        orderItems.each { GenericValue orderItem ->
             GenericValue itemProduct = from('Product').where(productId: orderItem.productId).cache().queryOne()
 
             // make sure the OrderItem is for a Product that has a ProductType with isPhysical=Y

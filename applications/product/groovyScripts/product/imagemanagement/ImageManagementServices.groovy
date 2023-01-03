@@ -462,7 +462,7 @@ Map removeImageBySize() {
         List contentAssocs = from('ContentAssoc').where(contentId: productContentAndInfo.contentId, contentAssocTypeId: 'IMAGE_THUMBNAIL',
             mapKey: parameters.mapKey).queryList()
         if (contentAssocs) {
-            for (GenericValue contentAssoc : contentAssocs) {
+            contentAssocs.each { GenericValue contentAssoc ->
                 contentAssoc.remove()
                 Map removeContent = [contentId: contentAssoc.contentIdTo, productId: parameters.productId]
                 Map serviceResult = run service: 'removeProductContentForImageManagement', with: removeContent

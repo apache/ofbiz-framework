@@ -33,7 +33,7 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSui
     }
 
     boolean firstLine = true
-    for (Element testCaseElement : getTestCaseResultsForSuite(suiteName)) {
+    getTestCaseResultsForSuite(suiteName).each { Element testCaseElement ->
         List<Element> children = UtilXml.childElementList(testCaseElement)
         Element child = children ? children[0] : null
         String details = ''

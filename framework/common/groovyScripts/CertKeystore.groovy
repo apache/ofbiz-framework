@@ -36,9 +36,10 @@ for (ComponentConfig cc: allComponentConfigs) {
         componentName = cc.getComponentName()
         store = ['componentId': componentName]
         store.componentName = componentName
-        for (KeystoreInfo ks : cc.getKeystoreInfos()) {keystoreName = ks.getName()
+        cc.getKeystoreInfos().each { KeystoreInfo ks ->
+            keystoreName = ks.getName()
             store.keystoreName = ks.getName()
-            }
+        }
         stores.add(store)
     }
 }

@@ -34,14 +34,11 @@ for (rit = modelEntity.getRelationsIterator(); rit.hasNext();) {
 
     modelRelation = rit.next()
     relFields = []
-    for (kit = modelRelation.getKeyMaps().iterator(); kit.hasNext();) {
-        mapFields = [:]
-        keyMap = kit.next()
-        mapFields.fieldName = keyMap.getFieldName()
-        mapFields.relFieldName = keyMap.getRelFieldName()
-
-        relFields.add(mapFields)
+    modelRelation.getKeyMaps().each { keyMap ->
+        relFields << [fieldName: keyMap.getFieldName(),
+                      relFieldName: keyMap.getRelFieldName()]
     }
+
     mapRelation.relFields = relFields
     mapRelation.title = modelRelation.getTitle()
     mapRelation.relEntityName = modelRelation.getRelEntityName()

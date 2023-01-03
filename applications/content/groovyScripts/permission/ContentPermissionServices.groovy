@@ -404,7 +404,7 @@ Map checkContentOperationSecurity(String contentOperationId, String contentPurpo
                     logVerbose('Passed status check; now checking role(s)')
 
                     // first check passed; now we test for the role membership(s)
-                    for (String thisPartyId : partyIdList) {
+                    partyIdList.each { String thisPartyId ->
                         if (!hasPermission) {
                             String checkRoleTypeId = operation.roleTypeId
                             String checkPartyId = thisPartyId
