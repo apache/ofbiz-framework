@@ -546,7 +546,7 @@ Map copyToProductVariants() {
                 delegator.removeByCondition(it, productVariantContext)
             }
             List foundValues = from(it).where(productFindContext).queryList()
-            for (GenericValue foundValue : foundValues) {
+            foundValues.each { GenericValue foundValue ->
                 GenericValue newTempValue = foundValue.clone()
                 newTempValue.productId = newProduct.productIdTo
                 newTempValue.create()

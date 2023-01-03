@@ -875,11 +875,9 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                      .filterByDate(searchTimestamp)
                      .cache(useCache == 'Y')
                      .queryList()
-            for (GenericValue PartyRelationship : PartyRelationshipList) {
-                if ( !relatedPartyIdList.contains(PartyRelationship.partyIdTo) &&
-                      !newRelatedPartyIdList.contains(PartyRelationship.partyIdTo)) {
-                    newRelatedPartyIdList << PartyRelationship.partyIdTo
-                      }
+            PartyRelationshipList.findAll { partyRel ->
+                !relatedPartyIdList.contains(partyRel.partyIdTo) && !newRelatedPartyIdList.contains(partyRel.partyIdTo) }.each {
+               newRelatedPartyIdList << it.partyIdTo
             }
 
             if (includeFromToSwitched == 'Y') {
@@ -902,11 +900,9 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                         .filterByDate(searchTimestamp)
                         .cache(useCache == 'Y')
                         .queryList()
-                for (GenericValue PartyRelationship : PartyRelationshipList) {
-                    if ( !relatedPartyIdList.contains(PartyRelationship.partyIdFrom) &&
-                         !newRelatedPartyIdList.contains(PartyRelationship.partyIdFrom)) {
-                        newRelatedPartyIdList << PartyRelationship.partyIdFrom
-                         }
+                PartyRelationshipList.findAll { partyRel ->
+                    !relatedPartyIdList.contains(partyRel.partyFrom) && !newRelatedPartyIdList.contains(partyRel.partyIdFrom) }.each {
+                    newRelatedPartyIdList << it.partyIdFrom
                 }
             }
         }
@@ -943,11 +939,9 @@ Map getChildRoleTypesInline (List roleTypeIdListName) {
             roleTypeIdAlreadySearchedList << roleTypeId
 
             List RoleTypeList = from('RoleType').where(parentTypeId: roleTypeId).cache().queryList()
-            for (GenericValue newRoleType : RoleTypeList) {
-                if ( !roleTypeIdListName.contains(newRoleType.roleTypeId) &&
-                        !newRoleTypeIdList.contains(newRoleType.roleTypeId)) {
-                    newRoleTypeIdList << newRoleType.roleTypeId
-                }
+            RoleTypeList.findAll { roleType ->
+                !roleTypeIdListName.contains(roleType.roleTypeId) && !newRoleTypeIdList.contains(roleType.roleTypeId) }.each {
+                newRoleTypeIdList << it.roleTypeId
             }
         }
     }

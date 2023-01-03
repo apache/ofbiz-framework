@@ -741,7 +741,7 @@ Map createExchangeOrderAssoc() {
         for (GenericValue returnItem : returnItems) {
             Map orderItemAssocMap = [orderId: parameters.originOrderId, orderItemSeqId: returnItem.orderItemSeqId]
             Long orderItemCounter = (Long) 1
-            for (GenericValue orderItem : orderItems) {
+            orderItems.each { GenericValue orderItem ->
                 if (returnItemCounter == orderItemCounter) {
                     orderItemAssocMap.toOrderId = parameters.orderId
                     orderItemAssocMap.toOrderItemSeqId = orderItem.orderItemSeqId
@@ -768,7 +768,7 @@ Map createExchangeOrderAssoc() {
         for (GenericValue orderItem : orderItems) {
             Map orderItemAssocMap = [toOrderId: parameters.orderId, toOrderItemSeqId: orderItem.orderItemSeqId]
             Long returnItemCounter = (Long) 1
-            for (GenericValue returnItem : returnItems) {
+            returnItems.each { GenericValue returnItem ->
                 if (orderItemCounter == returnItemCounter) {
                     orderItemAssocMap.orderId = parameters.originOrderId
                     orderItemAssocMap.orderItemSeqId = returnItem.orderItemSeqId

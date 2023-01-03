@@ -301,7 +301,7 @@ Map calculateProductCosts() {
         Map costsByType = serviceResultGTC.costsByType
         totalTaskCost += taskCost
         totalTaskCost = totalTaskCost.setScale(6)
-        for (Map.Entry entry : costsByType.entrySet()) {
+        costsByType.entrySet().each { Map.Entry entry ->
             if (totalCostsByType."${entry.key}") {
                 totalCostsByType."${entry.key}" = entry.value + totalCostByType."${entry.key}"
             } else {

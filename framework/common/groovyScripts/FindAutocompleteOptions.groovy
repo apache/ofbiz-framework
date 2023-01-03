@@ -104,7 +104,7 @@ if (conditionFields) {
     for (conditionFieldEntry in conditionFields.entrySet()) {
         if (conditionFieldEntry.getValue() instanceof java.util.List) {
             List orCondFields = []
-            for (entry in conditionFieldEntry.getValue()) {
+            conditionFieldEntry.getValue().each { entry ->
                 orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()),
                         EntityOperator.EQUALS, entry))
             }

@@ -140,7 +140,7 @@ Map checkImageUrlForCategoryAndProduct() {
                         .filterByDate()
                         .queryList()
                 if (variantProducts) {
-                    for (Map variantProduct : variantProducts) {
+                    variantProducts.each { Map variantProduct ->
                         Map res = run service: 'checkImageUrlForProduct', with: [productId: variantProduct.productIdTo]
                         filesImageMap = res.filesImageMap
                         if (filesImageMap) {
@@ -354,7 +354,7 @@ Map createMissingCategoryAndProductAltUrls() {
                     .orderBy('-fromDate')
                     .cache()
                     .queryList()
-            for (Map productCategoryMember: productCategoryMemberList) {
+            productCategoryMemberList.each { Map productCategoryMember ->
                 String memberProductId = productCategoryMember.productId
                 List productContentAndInfoList = from('ProductContentAndInfo')
                         .where('productId', memberProductId, 'productContentTypeId', 'ALTERNATIVE_URL')
@@ -366,10 +366,10 @@ Map createMissingCategoryAndProductAltUrls() {
                 } else {
                     GenericValue product = from('Product').where('productId', memberProductId).queryOne()
                     Map createSimpleTextContentForProductCtx = [
-                        fromDate: now,
-                        productContentTypeId: 'ALTERNATIVE_URL',
-                        localeString: 'en',
-                        productId: memberProductId
+                            fromDate: now,
+                            productContentTypeId: 'ALTERNATIVE_URL',
+                            localeString: 'en',
+                            productId: memberProductId
                     ]
                     createSimpleTextContentForProductCtx.text = product.internalName ?: product.productName
                     if (createSimpleTextContentForProductCtx.text) {

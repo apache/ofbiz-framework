@@ -231,15 +231,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                 }
                 mapRelation.relatedFieldsList = relatedFieldsList
                 mapRelation.relType = 'one'
-
-                String findString = 'entityName=' + relatedEntity.getEntityName()
-                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                    if (value.get(keyMap.getFieldName())) {
-                        findString += '&' + keyMap.getRelFieldName() + '=' + value.get(keyMap.getFieldName())
-                    }
-                }
-                String encodeFindString = UtilFormatOut.encodeQuery(findString)
-                mapRelation.encodeRelatedEntityFindString = encodeFindString
+                mapRelation.encodeRelatedEntityFindString = buildFindString(relatedEntity, relation, value)
 
                 relationFieldList << mapRelation
             }
@@ -248,20 +240,21 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
         if (value) {
             if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), '_VIEW', session)) {
                 mapRelation.relType = 'many'
-
-                String findString = 'entityName=' + relatedEntity.getEntityName()
-                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                    if (value.get(keyMap.getFieldName())) {
-                        findString += '&' + keyMap.getRelFieldName() + '=' + value.get(keyMap.getFieldName())
-                    }
-                }
-                String encodeFindString = UtilFormatOut.encodeQuery(findString)
-                mapRelation.encodeRelatedEntityFindString = encodeFindString
+                mapRelation.encodeRelatedEntityFindString = buildFindString(relatedEntity, relation, value)
 
                 relationFieldList << mapRelation
             }
         }
     }
 }
+
+private String buildFindString(ModelEntity relatedEntity, ModelRelation relation, value) {
+    String findString = 'entityName=' + relatedEntity.getEntityName()
+    relation.getKeyMaps().findAll { keyMap -> value.get(keyMap.getFieldName()) }.each { keyMap ->
+        findString += '&' + keyMap.getRelFieldName() + '=' + value.get(keyMap.getFieldName())
+    }
+    return UtilFormatOut.encodeQuery(findString)
+}
+
 context.relationFieldList = UtilMisc.sortMaps(relationFieldList, ['sortName'])
 context.relSize = (relationFieldList.size() + 2)

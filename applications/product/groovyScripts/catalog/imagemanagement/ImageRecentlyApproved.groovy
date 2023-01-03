@@ -54,7 +54,7 @@ for (i in 0..limit) {
 
     List time = []
     if (tempTimeList.size > 0) {
-        for (j in 0..tempTimeList.size - 1) {
+        0..tempTimeList.size - 1.each { j ->
             time.add(sdfTime.format(tempTimeList.get(j).get(0)))
         }
     }
