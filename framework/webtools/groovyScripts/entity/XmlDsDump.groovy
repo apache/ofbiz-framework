@@ -305,7 +305,6 @@ if (passedEntityNames) {
                             if (numberWritten % 500 == 0 || numberWritten == 1) {
                                 Debug.log("Records written [$curEntityName]: $numberWritten")
                             }
-
                         }
                         if (writer) {
                             writer.println('</entity-engine-xml>')

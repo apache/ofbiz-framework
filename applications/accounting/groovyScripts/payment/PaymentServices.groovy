@@ -931,7 +931,6 @@ Map createMatchingPaymentApplication() {
                         invoiceId = invoice.invoiceId
                         amountApplied = payment.amount
                     }
-
                 }
             }
 
@@ -959,5 +958,4 @@ Map createMatchingPaymentApplication() {
                 " the amount: ${createPaymentApplicationCtx.amountApplied} (can be disabled in accounting.properties)")
     }
     return success()
-
 }

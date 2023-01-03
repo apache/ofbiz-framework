@@ -518,7 +518,6 @@ if (product) {
                                                 + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     }
                                 }
-
                             }
                         }
                         amt.append(' } ')

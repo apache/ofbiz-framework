@@ -534,7 +534,6 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
                     .where(["${roleEntityField}": checkId,
                             partyId: checkPartyId])
                     .queryCount() > 0
-
         }
         logVerbose("Checking for ContentRole: [party] - ${checkPartyId} [role] - ${checkRoleTypeId} [content] - ${checkId} :: ${foundRoles}")
     }

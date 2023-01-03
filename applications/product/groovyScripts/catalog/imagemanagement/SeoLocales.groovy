@@ -52,7 +52,6 @@ contentAssocs.each { contentAssoc ->
         electronicText = from('ElectronicText').where('dataResourceId', content.dataResourceId).queryOne()
         productTextData = electronicText.textData
     }
-
 }
 
 if (productTextData == null) {

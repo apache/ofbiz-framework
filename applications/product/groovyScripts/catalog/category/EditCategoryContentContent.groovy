@@ -54,5 +54,4 @@ if (prodCatContentTypeId == 'RELATED_URL') {
     }
     context.contentFormName = 'EditCategoryContentDownload'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateDownloadContentCategory}"
-
 }

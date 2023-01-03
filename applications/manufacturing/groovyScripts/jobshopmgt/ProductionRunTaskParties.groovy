@@ -36,7 +36,6 @@ if (productionRunId) {
                 }
             }
         }
-
     }
 }
 context.productionRunTaskParties = taskPartyAssocList

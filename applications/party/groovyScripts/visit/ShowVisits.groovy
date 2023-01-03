@@ -65,7 +65,6 @@ try {
         highIndex = visitListSize
     }
     context.visitSize = visitListSize
-
 } catch (Exception e) {
     String errMsg = 'Failure in operation, rolling back transaction'
     logError(e, errMsg)

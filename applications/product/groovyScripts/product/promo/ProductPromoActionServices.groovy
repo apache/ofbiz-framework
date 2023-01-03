@@ -412,7 +412,6 @@ Map productPrice() {
                 cartItemsUsed.add(cartItem)
             }
         }
-
     }
 
     if (totalAmount > desiredAmount && quantityDesired == 0) {
@@ -428,7 +427,6 @@ Map productPrice() {
     }
     result.actionResultInfo = actionResultInfo
     return result
-
 }
 
 Map productOrderPercent() {

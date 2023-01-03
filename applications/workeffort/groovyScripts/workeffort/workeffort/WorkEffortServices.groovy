@@ -112,7 +112,6 @@ Map checkAndUpdateWorkEffort() {
             if (!ServiceUtil.isSuccess(serviceResult)) {
                 return error(serviceResult.errorMessage)
             }
-
         }
     }
     if ((parameters.estimatedArrivalDate

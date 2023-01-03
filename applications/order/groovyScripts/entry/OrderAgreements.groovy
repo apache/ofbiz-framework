@@ -41,7 +41,6 @@ if (shoppingCart.getOrderType() == 'PURCHASE_ORDER') {
             EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, supplierPartyId),
             EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'SUPPLIER')
     ], EntityOperator.AND)
-
 } else {
     // for a sales order, orderPartyId = billToCustomer (the customer)
     customerPartyId = shoppingCart.getOrderPartyId()
@@ -57,7 +56,6 @@ if (shoppingCart.getOrderType() == 'PURCHASE_ORDER') {
             EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, customerPartyId),
             EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'CUSTOMER')
     ], EntityOperator.AND)
-
 }
 
 agreements = from('Agreement').where(agreementCondition).filterByDate().cache(true).queryList()

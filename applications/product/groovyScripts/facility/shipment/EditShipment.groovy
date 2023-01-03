@@ -54,5 +54,4 @@ if (shipment) {
     context.destinationPostalAddress = destinationPostalAddress
     context.originTelecomNumber = originTelecomNumber
     context.destinationTelecomNumber = destinationTelecomNumber
-
 }
