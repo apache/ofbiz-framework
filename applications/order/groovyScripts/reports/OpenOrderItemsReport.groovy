@@ -103,11 +103,11 @@ try {
         listPrice = 0.0
 
         productPrices.each { productPriceMap ->
-            if ('AVERAGE_COST' == productPriceMap.productPriceTypeId) {
+            if (productPriceMap.productPriceTypeId == 'AVERAGE_COST') {
                 costPrice = productPriceMap.price
-            } else if ('DEFAULT_PRICE' == productPriceMap.productPriceTypeId) {
+            } else if (productPriceMap.productPriceTypeId == 'DEFAULT_PRICE') {
                 retailPrice = productPriceMap.price
-            } else if ('LIST_PRICE' == productPriceMap.productPriceTypeId) {
+            } else if (productPriceMap.productPriceTypeId == 'LIST_PRICE') {
                 listPrice = productPriceMap.price
             }
         }

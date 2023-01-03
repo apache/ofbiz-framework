@@ -121,10 +121,10 @@ while (pkIterator.hasNext()) {
             (useValue ? '' : UtilFormatOut.checkNull(parameters.get(fieldName)))
     String javaType = StringUtil.split(type.getJavaType(), '.').last()
     String fieldType = javaType
-    if ('Timestamp' == javaType) {
+    if (javaType == 'Timestamp') {
         fieldType = 'DateTime'
     } else {
-        if ('String' == javaType) {
+        if (javaType == 'String') {
             if (type.stringLength() <= 80) {
                 fieldType = 'StringOneRow'
             } else if (type.stringLength() > 255) {
@@ -156,10 +156,10 @@ while (noPkIterator.hasNext()) {
     String javaType = StringUtil.split(type.getJavaType(), '.').last()
     String stringLength = ''
     String fieldType = javaType
-    if ('Timestamp' == javaType) {
+    if (javaType == 'Timestamp') {
         fieldType = 'DateTime'
     } else {
-        if ('String' == javaType) {
+        if (javaType == 'String') {
             if (type.stringLength() <= 80) {
                 fieldType = 'StringOneRow'
             } else if (type.stringLength() > 255) {
@@ -193,7 +193,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     mapRelation.relatedTable = relatedEntity.getEntityName()
     mapRelation.relCreate = relCreate
 
-    if ('one' == relation.getType() || 'one-nofk' == relation.getType()) {
+    if (relation.getType() == 'one' || relation.getType() == 'one-nofk') {
         if (value) {
             if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), '_VIEW', session)) {
                 Iterator tempIter = UtilMisc.toIterator(value.getRelated(relation.getTitle() + relatedEntity.getEntityName(), null, null, false))
@@ -215,7 +215,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
 
                     String javaType = StringUtil.split(type.getJavaType(), '.').last()
                     String fieldType = javaType
-                    if ('Timestamp' == javaType) {
+                    if (javaType == 'Timestamp') {
                         fieldType = 'DateTime'
                     }
 

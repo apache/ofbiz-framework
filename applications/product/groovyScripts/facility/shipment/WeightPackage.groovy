@@ -95,7 +95,7 @@ if (shipmentId) {
 
         }
     }
-    if (shipment.statusId && 'SHIPMENT_PACKED' == shipment.statusId) {
+    if (shipment.statusId && shipment.statusId == 'SHIPMENT_PACKED') {
         orderId = null
     }
     shipmentPackageRouteSegs = from('ShipmentPackageRouteSeg').where('shipmentId', shipmentId).queryList()
@@ -122,7 +122,7 @@ if (orderId) {
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader)
         GenericValue orderItemShipGroup = orderReadHelper.getOrderItemShipGroup(shipGroupSeqId)
         carrierPartyId = orderItemShipGroup.carrierPartyId
-        if ('ORDER_APPROVED' == orderHeader.statusId) {
+        if (orderHeader.statusId == 'ORDER_APPROVED') {
             if (shipGroupSeqId) {
                 if (shipment) {
                     productStoreId = orderReadHelper.getProductStoreId()

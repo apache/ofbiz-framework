@@ -41,6 +41,6 @@ class ProductConfigTests extends OFBizTestCase {
                 .where('configItemId', 'testConfigItemId')
                 .queryFirst()
         assert productConfigOption
-        assert 'Test Config Option' == productConfigOption.configOptionName
+        assert productConfigOption.configOptionName == 'Test Config Option'
     }
 }

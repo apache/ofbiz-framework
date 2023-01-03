@@ -103,7 +103,7 @@ transactionTotals.each { transactionTotal ->
         accountMap.remove('debitCreditFlag')
         accountMap.remove('amount')
     }
-    if ('C' == transactionTotal.debitCreditFlag) {
+    if (transactionTotal.debitCreditFlag == 'C') {
         accountMap.C = ((BigDecimal)accountMap.get('C')).add(transactionTotal.amount)
         accountMap.balance = (accountMap.balance).subtract(transactionTotal.amount)
     } else {
@@ -148,7 +148,7 @@ if (transactionTotals) {
             accountMap.balance = BigDecimal.ZERO
         }
         UtilMisc.addToBigDecimalInMap(accountMap, transactionTotal.debitCreditFlag, transactionTotal.amount)
-        if ('D' == transactionTotal.debitCreditFlag) {
+        if (transactionTotal.debitCreditFlag == 'D') {
             balanceTotalDebit = balanceTotalDebit.add(transactionTotal.amount)
         } else {
             balanceTotalCredit = balanceTotalCredit.add(transactionTotal.amount)

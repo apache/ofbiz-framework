@@ -25,7 +25,7 @@ activeOnly = 'false' != request.getParameter('activeOnly')
 context.activeOnly = activeOnly
 
 // if the completeRequested was set, then we'll lookup only requested status
-completeRequested = 'true' == request.getParameter('completeRequested')
+completeRequested = request.getParameter('completeRequested') == 'true'
 context.completeRequested = completeRequested
 
 // get the 'to' this facility transfers

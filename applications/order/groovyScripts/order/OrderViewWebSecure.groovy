@@ -30,8 +30,8 @@ if (orderHeader) {
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
     hasPermission = false
     canViewInternalDetails = false
-    if (('SALES_ORDER' == orderHeader.orderTypeId && security.hasEntityPermission('ORDERMGR', '_VIEW', session))
-        || ('PURCHASE_ORDER' == orderHeader.orderTypeId && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session))) {
+    if ((orderHeader.orderTypeId == 'SALES_ORDER' && security.hasEntityPermission('ORDERMGR', '_VIEW', session))
+        || (orderHeader.orderTypeId == 'PURCHASE_ORDER' && security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session))) {
         hasPermission = true
         canViewInternalDetails = true
     } else if (security.hasEntityPermission('ORDERMGR_ROLE', '_VIEW', session)) {
@@ -51,7 +51,7 @@ if (orderHeader) {
     if (parameters.localDispatcherName == 'ecommerce') {
         List errMsgList = []
         if (orderHeader.createdBy == person.partyId
-        || ('anonymous' == orderHeader.createdBy && 'Y' == allowAnonymousView)) {
+        || (orderHeader.createdBy == 'anonymous' && allowAnonymousView == 'Y')) {
             hasPermission = true
             canViewInternalDetails = true
         } else {

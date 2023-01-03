@@ -21,7 +21,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
-if ('Y' == parameters.noConditionFind) {
+if (parameters.noConditionFind == 'Y') {
     List exprListForParameters = []
 
     finAccountRoles = from('FinAccountRole').where('finAccountId', finAccountId, 'roleTypeId', 'DIVISION').filterByDate().queryList()

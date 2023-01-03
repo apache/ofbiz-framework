@@ -87,7 +87,7 @@ Map getInvoicePaymentInfoList() {
 
     for (invoiceTerm in invoiceTerms) {
         GenericValue termType = from('TermType').where('termTypeId', invoiceTerm.termTypeId).cache().queryOne()
-        if ('FIN_PAYMENT_TERM' == termType.parentTypeId) {
+        if (termType.parentTypeId == 'FIN_PAYMENT_TERM') {
             Map invoicePaymentInfo = [invoiceId: invoice.invoiceId,
                                       invoiceTermId: invoiceTerm.invoiceTermId,
                                       termTypeId: invoiceTerm.termTypeId,
@@ -180,7 +180,7 @@ Map createPaymentAndApplicationForParty() {
     List invoiceIds = []
     String paymentId
     parameters.invoices.each { GenericValue invoice ->
-        if ('INVOICE_READY' == invoice.statusId) {
+        if (invoice.statusId == 'INVOICE_READY') {
             Map serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -210,7 +210,7 @@ Map createPaymentAndApplicationForParty() {
         paymentId = serviceResult.paymentId
 
         parameters.invoices.each { GenericValue invoice ->
-            if ('INVOICE_READY' == invoice.statusId) {
+            if (invoice.statusId == 'INVOICE_READY') {
                 serviceResult = run service: 'getInvoicePaymentInfoList', with: invoice.getAllFields()
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
@@ -472,7 +472,7 @@ Map cancelPaymentBatch() {
             .queryList()
 
     if (paymentGroupMemberAndTransList) {
-        if ('FINACT_TRNS_APPROVED' == paymentGroupMemberAndTransList[0].finAccountTransStatusId) {
+        if (paymentGroupMemberAndTransList[0].finAccountTransStatusId == 'FINACT_TRNS_APPROVED') {
             return error(label('AccountingErrorUiLabels', 'AccountingTransactionIsAlreadyReconciled'))
         }
 
@@ -609,13 +609,13 @@ Map createPaymentAndPaymentGroupForInvoices() {
 Map createPaymentFromOrder() {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (orderHeader) {
-        if ('PURCHASE_ORDER' == orderHeader.orderTypeId) {
+        if (orderHeader.orderTypeId == 'PURCHASE_ORDER') {
             String purchaseAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.purchaseorder.autocreate', 'Y')
             if (purchaseAutoCreate != 'Y') {
                 return error('payment not created from approved order because config' +
                         ' (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
             }
-        } else if ('SALES_ORDER' == orderHeader.orderTypeId) {
+        } else if (orderHeader.orderTypeId == 'SALES_ORDER') {
             String salesAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.salesorder.autocreate', 'Y')
             if (salesAutoCreate != 'Y') {
                 return error('payment not created from approved order because config' +
@@ -642,7 +642,7 @@ Map createPaymentFromOrder() {
 
         GenericValue agreement
         String organizationPartyId
-        if ('PURCHASE_ORDER' == orderHeader.orderTypeId) {
+        if (orderHeader.orderTypeId == 'PURCHASE_ORDER') {
             agreement = from('Agreement')
                     .where(partyIdFrom: orderRoleFrom.partyId,
                             partyIdTo: orderRoleTo.partyId,
@@ -811,14 +811,14 @@ Map setPaymentStatus() {
         }
 
         // check if the payment fully applied when set to confirmed
-        if ('PMNT_CONFIRMED' == parameters.statusId &&
+        if (parameters.statusId == 'PMNT_CONFIRMED' &&
                 PaymentWorker.getPaymentNotApplied(payment) != 0) {
             return failure(label('AccountingUiLabels', 'AccountingPSNotConfirmedNotFullyApplied'))
         }
     }
 
     // if new status is cancelled delete existing payment applications
-    if ('PMNT_CANCELLED' == parameters.statusId) {
+    if (parameters.statusId == 'PMNT_CANCELLED') {
         from('PaymentApplication')
                 .where(paymentId: payment.paymentId)
                 .queryList()

@@ -576,7 +576,7 @@ Map splitShipmentItemByQuantity() {
  */
 Map createShipmentPackage() {
     GenericValue newEntity = makeValue('ShipmentPackage', parameters)
-    if ('New' == newEntity.shipmentPackageSeqId) {
+    if (newEntity.shipmentPackageSeqId == 'New') {
         newEntity.shipmentPackageSeqId = null
     }
 
@@ -773,7 +773,7 @@ Map quickShipEntireOrder() {
         return error(UtilProperties.getMessage('ProductUiLabels',
                 'FacilityShipmentNotCreatedForNotReserveInventory', [productStore: productStore], locale))
     }
-    if ('Y' == productStore.explodeOrderItems) {
+    if (productStore.explodeOrderItems == 'Y') {
         // can't insert duplicate rows in shipmentPackageContent
         return errorMessage(UtilProperties.getMessage('ProductUiLabels',
                 'FacilityShipmentNotCreatedForExplodesOrderItems', [productStore: productStore], locale))

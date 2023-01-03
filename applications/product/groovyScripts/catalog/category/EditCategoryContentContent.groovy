@@ -31,7 +31,7 @@ if (['PAGE_TITLE', 'META_KEYWORD', 'META_DESCRIPTION'].contains(prodCatContentTy
     context.contentFormName = 'EditCategoryContentSEO'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateSEOContentCategory}"
 }
-if ('RELATED_URL' == prodCatContentTypeId) {
+if (prodCatContentTypeId == 'RELATED_URL') {
     contentList = from('ContentDataResourceView').where('contentId', contentId).queryList()
     if (contentList) {
         context.contentId = contentList.get(0).contentId
@@ -43,11 +43,11 @@ if ('RELATED_URL' == prodCatContentTypeId) {
     }
     context.contentFormName = 'EditCategoryContentRelatedUrl'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
-}else if ('VIDEO' == prodCatContentTypeId || 'CATEGORY_IMAGE' == prodCatContentTypeId) {
+}else if (prodCatContentTypeId == 'VIDEO' || prodCatContentTypeId == 'CATEGORY_IMAGE') {
     if (content) {
         context.fileDataResourceId = content.dataResourceId
     }
-    if ('CATEGORY_IMAGE' == prodCatContentTypeId) {
+    if (prodCatContentTypeId == 'CATEGORY_IMAGE') {
         context.dataResourceTypeId = 'IMAGE_OBJECT'
     } else {
         context.dataResourceTypeId = 'VIDEO_OBJECT'

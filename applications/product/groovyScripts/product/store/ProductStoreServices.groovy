@@ -38,11 +38,11 @@ Map createProductStore() {
     if (!security.hasEntityPermission('CATALOG', '_CREATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
     }
-    if ('Y' == parameters.oneInventoryFacility
+    if (parameters.oneInventoryFacility == 'Y'
             && !parameters.inventoryFacilityId) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
     }
-    if ('Y' == parameters.showPriceWithVatTax) {
+    if (parameters.showPriceWithVatTax == 'Y') {
         if (!parameters.vatTaxAuthGeoId) {
             return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
         }
@@ -75,7 +75,7 @@ Map updateProductStore() {
     if (!security.hasEntityPermission('CATALOG', '_UPDATE', parameters.userLogin)) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogUpdatePermissionError', parameters.locale))
     }
-    if ('Y' == parameters.oneInventoryFacility && !parameters.inventoryFacilityId) {
+    if (parameters.oneInventoryFacility == 'Y' && !parameters.inventoryFacilityId) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'InventoryFacilityIdRequired', parameters.locale))
     }
     GenericValue store = from('ProductStore').where(productStoreId: parameters.productStoreId).queryOne()
@@ -84,7 +84,7 @@ Map updateProductStore() {
 
     // visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567
     store.visualThemeId = parameters.ecomThemeId
-    if ('Y' == store.showPricesWithVatTax) {
+    if (store.showPricesWithVatTax == 'Y') {
         if (!store.vatTaxAuthGeoId) {
             return error(UtilProperties.getMessage('ProductUiLabels', 'ProductVatTaxAuthGeoNotSet', parameters.locale))
         }
@@ -97,7 +97,7 @@ Map updateProductStore() {
     // update the ProductStoreFacility record
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     if (oldFacilityId != store.inventoryFacilityId) {
-        if ('Y' == store.oneInventoryFacility) {
+        if (store.oneInventoryFacility == 'Y') {
             // expire all the facilities
             EntityConditionBuilder exprBldr = new EntityConditionBuilder()
             EntityCondition thruDateCondition = exprBldr.OR {
@@ -139,7 +139,7 @@ Map reserveStoreInventory() {
     parameters.priority = orderHeader.priority
 
     // if prodCatalog is set to not reserve inventory, break here
-    if ('N' == productStore.reserveInventory) {
+    if (productStore.reserveInventory == 'N') {
         // note: if not set, defaults to yes, reserve inventory
         logVerbose('ProductStore with id [' + productStore.productStoreId + '], is set to NOT reserve inventory, not reserving inventory')
         result.quantityNotReserved = parameters.quantity
@@ -175,7 +175,7 @@ Map reserveStoreInventory() {
             }
         }
     } else {
-        if ('Y' == productStore.oneInventoryFacility) {
+        if (productStore.oneInventoryFacility == 'Y') {
             if (!productStore.inventoryFacilityId) {
                 return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNoSpecifiedInventoryFacility', parameters.locale))
             }
@@ -281,13 +281,13 @@ Map isStoreInventoryAvailable() {
     // TODO: what to do with ASSET_USAGE? Only done elsewhere? Would need date/time range info to check availability
 
     // if prodCatalog is set to not check inventory break here
-    if ('N' == productStore.checkInventory) {
+    if (productStore.checkInventory == 'N') {
         logVerbose("ProductStore with id ${productStore.productStoreId}, is set to NOT check inventory," +
                 ' returning true for inventory available check')
         result.available = 'Y'
         return result
     }
-    if ('Y' == productStore.oneInventoryFacility) {
+    if (productStore.oneInventoryFacility == 'Y') {
         if (!productStore.inventoryFacilityId) {
             return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNotCheckAvailability', parameters.locale))
         }

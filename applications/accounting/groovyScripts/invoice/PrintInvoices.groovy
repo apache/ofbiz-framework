@@ -58,7 +58,7 @@ invoiceIds.each { invoiceId ->
         invoicesMap.invoiceTotal = invoiceTotal
         invoicesMap.invoiceNoTaxTotal = invoiceNoTaxTotal
 
-        if ('PURCHASE_INVOICE' == invoice.invoiceTypeId) {
+        if (invoice.invoiceTypeId == 'PURCHASE_INVOICE') {
             billingAddress = InvoiceWorker.getSendFromAddress(invoice)
         } else {
             billingAddress = InvoiceWorker.getBillToAddress(invoice)

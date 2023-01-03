@@ -22,7 +22,7 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
-if ('Y' == parameters.noConditionFind) {
+if (parameters.noConditionFind == 'Y') {
     List paymentCond = []
     payments = []
     finAccountId = parameters.finAccountId

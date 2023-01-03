@@ -67,12 +67,12 @@ if (cart) {
         context.checkOutPaymentId = checkOutPaymentId
         if (!orderParty) {
             paymentMethod = from('PaymentMethod').where('paymentMethodId', checkOutPaymentId).queryOne()
-            if ('CREDIT_CARD' == paymentMethod?.paymentMethodTypeId) {
+            if (paymentMethod?.paymentMethodTypeId == 'CREDIT_CARD') {
                 paymentMethodType = 'CC'
                 account = paymentMethod.getRelatedOne('CreditCard', false)
                 context.creditCard = account
                 context.paymentMethodType = paymentMethodType
-            } else if ('EFT_ACCOUNT' == paymentMethod.paymentMethodTypeId) {
+            } else if (paymentMethod.paymentMethodTypeId == 'EFT_ACCOUNT') {
                 paymentMethodType = 'EFT'
                 account = paymentMethod.getRelatedOne('EftAccount', false)
                 context.eftAccount = account

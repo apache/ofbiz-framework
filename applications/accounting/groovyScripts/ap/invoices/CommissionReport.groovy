@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 
 import java.sql.Timestamp
 
-if ('Y' == parameters.isSearch) {
+if (parameters.isSearch == 'Y') {
     fromDate = parameters.fromDate
     thruDate = parameters.thruDate
     partyId = parameters.partyId

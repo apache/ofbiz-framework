@@ -275,8 +275,8 @@ if (product) {
     context.mainProducts = mainProducts
 
     // Special Variant Code
-    if ('Y' == product.isVirtual) {
-        if ('VV_FEATURETREE' == ProductWorker.getProductVirtualVariantMethod(delegator, productId)) {
+    if (product.isVirtual == 'Y') {
+        if (ProductWorker.getProductVirtualVariantMethod(delegator, productId) == 'VV_FEATURETREE') {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(product)
         } else {
             featureMap = runService('getProductFeatureSet', [productId: productId])
@@ -680,7 +680,7 @@ if (product) {
     }
 
     // get reservation start date for rental product
-    if ('ASSET_USAGE' == productTypeId || 'ASSET_USAGE_OUT_IN' == productTypeId) {
+    if (productTypeId == 'ASSET_USAGE' || productTypeId == 'ASSET_USAGE_OUT_IN') {
         context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0, 10)
         // should be tomorrow.
     }

@@ -139,7 +139,7 @@ if (fileType) {
                         if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf('.') + 1))
                                 && 'original' != fileType) {
                             file.delete()
-                        } else if (file.isFile() && 'original' == fileType && file.getName() != defaultFileName) {
+                        } else if (file.isFile() && fileType == 'original' && file.getName() != defaultFileName) {
                             file.delete()
                         }
                     }
@@ -158,11 +158,11 @@ if (fileType) {
             product.set(fileType + 'ImageUrl', imageUrl)
 
             // call scaleImageInAllSize
-            if ('original' == fileType) {
+            if (fileType == 'original') {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, 'main', '0')
 
-                if (result.containsKey('responseMessage') && 'success' == result.get('responseMessage')) {
+                if (result.containsKey('responseMessage') && result.get('responseMessage') == 'success') {
                     imgMap = result.get('imageUrlMap')
                     imgMap.each { key, value ->
                         product.set(key + 'ImageUrl', value)

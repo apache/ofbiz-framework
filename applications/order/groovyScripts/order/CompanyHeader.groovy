@@ -88,17 +88,17 @@ if (orderHeader) {
     referenceDate = orderHeader.orderDate
     // for sales order, the logo party is the "BILL_FROM_VENDOR" of the order.
     // If that's not available, we'll use the OrderHeader's ProductStore's payToPartyId
-    if ('SALES_ORDER' == orderHeader.orderTypeId) {
+    if (orderHeader.orderTypeId == 'SALES_ORDER') {
         if (orh.getBillFromParty()) {
             partyId = orh.getBillFromParty().partyId
         } else {
             productStore = orderHeader.getRelatedOne('ProductStore', false)
-            if ('SALES_ORDER' == orderHeader.orderTypeId && productStore?.payToPartyId) {
+            if (orderHeader.orderTypeId == 'SALES_ORDER' && productStore?.payToPartyId) {
                 partyId = productStore.payToPartyId
             }
         }
     // purchase orders - use the BILL_TO_CUSTOMER of the order
-    } else if ('PURCHASE_ORDER' == orderHeader.orderTypeId) {
+    } else if (orderHeader.orderTypeId == 'PURCHASE_ORDER') {
         GenericValue billToParty = orh.getBillToParty()
         if (billToParty) {
             partyId = billToParty.partyId
@@ -111,16 +111,16 @@ if (orderHeader) {
     }
 } else if (invoice) {
     referenceDate = invoice.invoiceDate
-    if ('SALES_INVOICE' == invoice.invoiceTypeId && invoice.partyIdFrom) {
+    if (invoice.invoiceTypeId == 'SALES_INVOICE' && invoice.partyIdFrom) {
         partyId = invoice.partyIdFrom
     }
-    if ('PURCHASE_INVOICE' == invoice.invoiceTypeId || 'CUST_RTN_INVOICE' == invoice.invoiceTypeId && invoice.partyId) {
+    if (invoice.invoiceTypeId == 'PURCHASE_INVOICE' || invoice.invoiceTypeId == 'CUST_RTN_INVOICE' && invoice.partyId) {
         partyId = invoice.partyId
     }
 } else if (returnHeader) {
-    if ('CUSTOMER_RETURN' == returnHeader.returnHeaderTypeId && returnHeader.toPartyId) {
+    if (returnHeader.returnHeaderTypeId == 'CUSTOMER_RETURN' && returnHeader.toPartyId) {
         partyId = returnHeader.toPartyId
-    } else if ('VENDOR_RETURN' == returnHeader.returnHeaderTypeId && returnHeader.fromPartyId) {
+    } else if (returnHeader.returnHeaderTypeId == 'VENDOR_RETURN' && returnHeader.fromPartyId) {
         partyId = returnHeader.fromPartyId
     }
 } else if (quote) {
@@ -233,7 +233,7 @@ if (emails) {
         i = selContacts.iterator()
         while (i.hasNext())    {
             email = i.next().getRelatedOne('ContactMech', false)
-            if ('ELECTRONIC_ADDRESS' == email.contactMechTypeId)    {
+            if (email.contactMechTypeId == 'ELECTRONIC_ADDRESS')    {
                 context.email = email
                 break
             }
@@ -258,7 +258,7 @@ if (websiteUrls) {
         Iterator i = selContacts.iterator()
         while (i.hasNext())    {
             website = i.next().getRelatedOne('ContactMech', false)
-            if ('WEB_ADDRESS' == website.contactMechTypeId) {
+            if (website.contactMechTypeId == 'WEB_ADDRESS') {
                 context.website = website
                 break
             }

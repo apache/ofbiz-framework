@@ -22,7 +22,7 @@ import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.webapp.stats.ServerHitBin
 
 clearBins = parameters.clear
-if ('true' == clearBins) {
+if (clearBins == 'true') {
     ServerHitBin.requestSinceStarted.clear()
     ServerHitBin.eventSinceStarted.clear()
     ServerHitBin.viewSinceStarted.clear()

@@ -58,7 +58,7 @@ if (productionRunId) {
 
         context.canDeclareAndProduce = 'N'
 
-        if (lastTask && ('PRUN_RUNNING' == lastTask.currentStatusId || 'PRUN_COMPLETED' == lastTask.currentStatusId)) {
+        if (lastTask && (lastTask.currentStatusId == 'PRUN_RUNNING' || lastTask.currentStatusId == 'PRUN_COMPLETED')) {
             context.canDeclareAndProduce = 'Y'
         }
         maxQuantity = quantityDeclared - quantityProduced
@@ -99,7 +99,7 @@ if (productionRunId) {
         //---------------
         // routingTask update sub-screen
         routingTaskId = parameters.routingTaskId
-        if (routingTaskId && ('UpdateRoutingTask' == actionForm || 'EditRoutingTask' == actionForm)) {
+        if (routingTaskId && (actionForm == 'UpdateRoutingTask' || actionForm == 'EditRoutingTask')) {
             routingTask = from('WorkEffort').where('workEffortId', routingTaskId).queryOne()
             Map routingTaskData = routingTask.getAllFields()
             routingTaskData.estimatedSetupMillis = routingTask.getDouble('estimatedSetupMillis')
@@ -134,7 +134,7 @@ if (productionRunId) {
         String completeTaskId = null // which task has the [Complete] button next to it
         productionRunRoutingTasks.each { task ->
             // only PRUN_RUNNING tasks can have items issued or production run completed
-            if ('PRUN_RUNNING' == task.currentStatusId) {
+            if (task.currentStatusId == 'PRUN_RUNNING') {
                 // Use WorkEffortGoodStandard to figure out if there are products which are needed for this task (PRUNT_PRODNEEDED)
                 // and which have not been issued (ie, WEGS_CREATED).
                 // If so this task should have products issued
@@ -154,9 +154,9 @@ if (productionRunId) {
             if (!startTaskId &&
                   !issueTaskId &&
                   !completeTaskId &&
-                  ('PRUN_CREATED' == task.currentStatusId ||
-                          'PRUN_SCHEDULED' == task.currentStatusId ||
-                          'PRUN_DOC_PRINTED' == task.currentStatusId)) {
+                  (task.currentStatusId == 'PRUN_CREATED' ||
+                          task.currentStatusId == 'PRUN_SCHEDULED' ||
+                          task.currentStatusId == 'PRUN_DOC_PRINTED')) {
                 startTaskId = task.workEffortId
             }
         }
@@ -205,13 +205,13 @@ if (productionRunId) {
                 componentData.issuedQuantity = totalIssued
                 componentData.returnedQuantity = totalReturned
                 componentData.currentStatusId = productionRunTask.currentStatusId
-                if ('PRUN_RUNNING' == productionRunTask.currentStatusId) {
+                if (productionRunTask.currentStatusId == 'PRUN_RUNNING') {
                     componentData.isRunning = 'Y'
                 } else {
                     componentData.isRunning = 'null'
                 }
                 productionRunComponentsData.add(componentData)
-                if ('PRUN_RUNNING' == productionRunTask.currentStatusId && 'WEGS_CREATED' == component.getString('statusId')) {
+                if (productionRunTask.currentStatusId == 'PRUN_RUNNING' && component.getString('statusId') == 'WEGS_CREATED') {
                     productionRunComponentsDataReadyForIssuance.add(componentData)
                 } else if (totalIssued > 0.0) {
                     productionRunComponentsAlreadyIssued.add(componentData)

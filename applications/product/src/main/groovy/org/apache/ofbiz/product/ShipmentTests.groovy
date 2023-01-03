@@ -135,7 +135,7 @@ class ShipmentTests extends OFBizTestCase {
                 .where('shipmentId', shipmentId)
                 .queryOne()
         assert shipment
-        assert 'SHIPMENT_SHIPPED' == shipment.statusId
+        assert shipment.statusId == 'SHIPMENT_SHIPPED'
     }
 
     void testReceiveInventoryNonSerialized() {
@@ -197,7 +197,7 @@ class ShipmentTests extends OFBizTestCase {
                 .where('shipmentId', shipment.shipmentId, 'shipmentRouteSegmentId', shipmentRouteSegmentId)
                 .queryOne()
         assert shipmentRouteSegment
-        assert '9998' == shipmentRouteSegment.shipmentId
+        assert shipmentRouteSegment.shipmentId == '9998'
         assert shipmentRouteSegment.shipmentRouteSegmentId == shipmentRouteSegmentId
     }
 }

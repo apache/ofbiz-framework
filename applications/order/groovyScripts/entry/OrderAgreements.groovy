@@ -26,7 +26,7 @@ shoppingCart = ShoppingCartEvents.getCartObject(request)
 context.cart = shoppingCart
 
 // get applicable agreements for order entry
-if ('PURCHASE_ORDER' == shoppingCart.getOrderType()) {
+if (shoppingCart.getOrderType() == 'PURCHASE_ORDER') {
     // for a purchase order, orderPartyId = billFromVendor (the supplier)
     supplierPartyId = shoppingCart.getOrderPartyId()
     customerPartyId = shoppingCart.getBillToCustomerPartyId()
@@ -72,7 +72,7 @@ if (agreementRoles) {
 
 // catalog id collection, current catalog id and name
 productStoreId = shoppingCart.getProductStoreId()
-if ('SALES_ORDER' == shoppingCart.getOrderType() && productStoreId) {
+if (shoppingCart.getOrderType() == 'SALES_ORDER' && productStoreId) {
     catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, shoppingCart.getOrderPartyId())
 } else {
     catalogCol = CatalogWorker.getAllCatalogIds(request)

@@ -27,7 +27,7 @@ cart = session.getAttribute('shoppingCart')
 
 if (cart) {
     createNewShipGroup = request.getParameter('createNewShipGroup')
-    if ('Y' == createNewShipGroup) {
+    if (createNewShipGroup == 'Y') {
         cart.addShipInfo()
     }
 
@@ -43,7 +43,7 @@ if (cart) {
     // nuke the event messages
     request.removeAttribute('_EVENT_MESSAGE_')
 
-    if ('SALES_ORDER' == cart.getOrderType()) {
+    if (cart.getOrderType() == 'SALES_ORDER') {
         if ('_NA_' != orderPartyId) {
             orderParty = from('Party').where('partyId', orderPartyId).queryOne()
             if (orderParty) {

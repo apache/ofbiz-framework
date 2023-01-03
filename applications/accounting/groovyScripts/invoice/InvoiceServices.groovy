@@ -44,10 +44,10 @@ Map getNextInvoiceId() {
             customMethodName = customMethod.customMethodName
         } else {
             //retrieve service from deprecated enumeration see OFBIZ-3765 beware of OFBIZ-3557
-            if ('INVSQ_ENF_SEQ' == partyAcctgPreference.oldInvoiceSequenceEnumId) {
+            if (partyAcctgPreference.oldInvoiceSequenceEnumId == 'INVSQ_ENF_SEQ') {
                 customMethodName = 'invoiceSequenceEnforced'
             }
-            if ('INVSQ_RESTARTYR' == partyAcctgPreference.oldInvoiceSequenceEnumId) {
+            if (partyAcctgPreference.oldInvoiceSequenceEnumId == 'INVSQ_RESTARTYR') {
                 customMethodName = 'invoiceSequenceRestart'
             }
         }

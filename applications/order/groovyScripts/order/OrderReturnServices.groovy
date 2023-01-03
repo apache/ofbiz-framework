@@ -60,7 +60,7 @@ Map createReturnHeader() {
         }
     } else {
         // no toPartyId was specified. use destination facility to determine the party of the return
-        if ('CUSTOMER_RETURN' == returnHeaderTypeId && parameters.destinationFacilityId) {
+        if (returnHeaderTypeId == 'CUSTOMER_RETURN' && parameters.destinationFacilityId) {
             GenericValue destinationFacility = from('Facility')
                     .where(facilityId: parameters.destinationFacilityId)
                     .cache()
@@ -92,7 +92,7 @@ Map createReturnHeader() {
                                                                              userLogin: systemLogin]
     GenericValue partyAcctgPreference = serviceResult.partyAccountingPreference
 
-    if (partyAcctgPreference && 'Y' == partyAcctgPreference.useInvoiceIdForReturns) {
+    if (partyAcctgPreference && partyAcctgPreference.useInvoiceIdForReturns == 'Y') {
         Map serviceResultInvoice = run service: 'getNextInvoiceId', with: [partyId: parameters.toPartyId]
         newEntity.returnId = serviceResultInvoice.invoiceId
     } else {
@@ -106,7 +106,7 @@ Map createReturnHeader() {
         newEntity.entryDate = nowTimestamp
     }
     if (!newEntity.statusId || !hasCreatePermission) {
-        newEntity.statusId = 'CUSTOMER_RETURN' == returnHeaderTypeId ? 'RETURN_REQUESTED' : 'SUP_RETURN_REQUESTED'
+        newEntity.statusId = returnHeaderTypeId == 'CUSTOMER_RETURN' ? 'RETURN_REQUESTED' : 'SUP_RETURN_REQUESTED'
     }
     newEntity.createdBy = userLogin.userLoginId
     newEntity.create()
@@ -121,7 +121,7 @@ Map updateReturnHeader() {
     Map result = success()
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
     // test the total return amount vs the total order amount
-    if ('RETURN_ACCEPTED' == parameters.statusId) {
+    if (parameters.statusId == 'RETURN_ACCEPTED') {
         // get the list of ReturnItems.  Note: return may be associated with many different orders
         List returnItems = from('ReturnItem').where(returnId: returnHeader.returnId).distinct().queryList()
 
@@ -131,7 +131,7 @@ Map updateReturnHeader() {
         // check them all to make sure that the return total does not exceed order total.
         for (GenericValue returnItem : returnItems) {
             if (!returnHeader.paymentMethodId && !parameters.paymentMethodId &&
-                    ('RTN_CSREPLACE' == returnItem.returnTypeId || 'RTN_REPAIR_REPLACE' == returnItem.returnTypeId)) {
+                    (returnItem.returnTypeId == 'RTN_CSREPLACE' || returnItem.returnTypeId == 'RTN_REPAIR_REPLACE')) {
                 return informError('OrderReturnPaymentMethodNeededForThisTypeOfReturn')
             }
             // tally up the return total amount
@@ -197,8 +197,8 @@ Map createReturnItem() {
         return informError('OrderReturnItemTypeIsNotDefined')
     }
 
-    if (!returnHeader?.paymentMethodId && 'RETURN_ACCEPTED' == returnHeader.statusId
-            && ('RTN_CSREPLACE' == parameters.returnTypeId || 'RTN_REPAIR_REPLACE' == parameters.returnTypeId)) {
+    if (!returnHeader?.paymentMethodId && returnHeader.statusId == 'RETURN_ACCEPTED'
+            && (parameters.returnTypeId == 'RTN_CSREPLACE' || parameters.returnTypeId == 'RTN_REPAIR_REPLACE')) {
         return informError('OrderReturnPaymentMethodNeededForThisTypeOfReturn')
     }
     if (parameters.returnQuantity == (BigDecimal.ZERO)) {
@@ -258,7 +258,7 @@ Map createReturnItem() {
     newEntity.create()
     newEntity.refresh()
 
-    if (orderItem && !parameters.includeAdjustments || 'Y' == parameters.includeAdjustments) {
+    if (orderItem && !parameters.includeAdjustments || parameters.includeAdjustments == 'Y') {
         // create return adjustments for all adjustments associated with the order item
         List orderAdjustments = delegator.getRelated('OrderAdjustment', null, null, orderItem, false)
         for (GenericValue orderAdjustment : orderAdjustments) {
@@ -323,7 +323,7 @@ Map updateReturnItemsStatus() {
  */
 Map removeReturnItem() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
-    if ('CUSTOMER_RETURN' == returnHeader.returnHeaderTypeId) {
+    if (returnHeader.returnHeaderTypeId == 'CUSTOMER_RETURN') {
         if ('RETURN_REQUESTED' != returnHeader.statusId) {
             return informError('OrderCannotRemoveItemsOnceReturnIsApproved')
         }
@@ -432,7 +432,7 @@ Map quickReturnFromOrder() {
     // get primary information from the order header
     GenericValue orderHeader = from('OrderHeader').where(orderId: parameters.orderId).queryOne()
     String returnHeaderTypeId = parameters.returnHeaderTypeId
-    String roleTypeId = 'CUSTOMER_RETURN' == returnHeaderTypeId ? 'BILL_TO_CUSTOMER' : 'BILL_FROM_VENDOR'
+    String roleTypeId = returnHeaderTypeId == 'CUSTOMER_RETURN' ? 'BILL_TO_CUSTOMER' : 'BILL_FROM_VENDOR'
 
     // find the bill to customer; for return's fromPartyId
     GenericValue orderRole = from('OrderRole').where(orderId: orderHeader.orderId, roleTypeId: roleTypeId).queryFirst()
@@ -443,7 +443,7 @@ Map quickReturnFromOrder() {
         returnHeaderTypeId: returnHeaderTypeId]
     // get the return to party for customer return and return from party for vendor return from the product store
     GenericValue productStore = delegator.getRelatedOne('ProductStore', orderHeader, false)
-    if ('CUSTOMER_RETURN' == returnHeaderTypeId) {
+    if (returnHeaderTypeId == 'CUSTOMER_RETURN') {
         createHeaderCtx.fromPartyId = orderRole.partyId
         createHeaderCtx.toPartyId = productStore.payToPartyId
         createHeaderCtx.destinationFacilityId = createHeaderCtx.destinationFacilityId ?: productStore.inventoryFacilityId
@@ -479,7 +479,7 @@ Map quickReturnFromOrder() {
 
         // get the matching return item type from the order item type
         String orderItemTypeId = orderItem.orderItemTypeId
-        if ('PRODUCT_ORDER_ITEM' == orderItemTypeId) {
+        if (orderItemTypeId == 'PRODUCT_ORDER_ITEM') {
             // Check if orderItemTypeId equals PRODUCT_ORDER_ITEM,
             // if so, use ProductType and ReturnItemTypeMap to get ReturnItemType
             String productTypeId = from('Product')
@@ -550,10 +550,10 @@ Map quickReturnFromOrder() {
     }
     // update the header status
     Map updateHeaderCtx = [returnId: returnId]
-    updateHeaderCtx.statusId = 'CUSTOMER_RETURN' == returnHeaderTypeId ? 'RETURN_ACCEPTED' : 'SUP_RETURN_ACCEPTED'
+    updateHeaderCtx.statusId = returnHeaderTypeId == 'CUSTOMER_RETURN' ? 'RETURN_ACCEPTED' : 'SUP_RETURN_ACCEPTED'
     run service: 'updateReturnHeader', with: updateHeaderCtx
 
-    if ('CUSTOMER_RETURN' == returnHeaderTypeId) {
+    if (returnHeaderTypeId == 'CUSTOMER_RETURN') {
         // auto-receive this return if we passed in the flag
         if (parameters.receiveReturn) {
             run service: 'quickReceiveReturn', with: [returnId: returnId]
@@ -606,9 +606,9 @@ Map cancelReturnItems() {
  */
 Map cancelReplacementOrderItems() {
     GenericValue returnItem = from('ReturnItems').where(parameters).queryOne()
-    if ('RTN_REPLACE' == returnItem.returnTypeId
-            || 'RTN_CSREPLACE' == returnItem.returnTypeId
-            || 'RTN_REPAIR_REPLACE' == returnItem.returnTypeId) {
+    if (returnItem.returnTypeId == 'RTN_REPLACE'
+            || returnItem.returnTypeId == 'RTN_CSREPLACE'
+            || returnItem.returnTypeId == 'RTN_REPAIR_REPLACE') {
         // get the returned order item
         GenericValue orderItem = delegator.getRelatedOne('OrderItem', returnItem, false)
         // get the order items of the replacement order associated to the returned item
@@ -654,11 +654,11 @@ Map processRepairReplacementReturn() {
  */
 Map processWaitReplacementReservedReturn() {
     GenericValue returnHeader = from('ReturnHeader').where(parameters).queryOne()
-    if ('RETURN_ACCEPTED' == returnHeader.statusId) {
+    if (returnHeader.statusId == 'RETURN_ACCEPTED') {
         run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
                                                         returnTypeId: 'RTN_WAIT_REPLACE_RES']
     }
-    if ('RETURN_RECEIVED' == returnHeader.statusId) {
+    if (returnHeader.statusId == 'RETURN_RECEIVED') {
         GenericValue returnItem = from('ReturnItem')
                 .where(returnId: returnHeader.returnId,
                         returnTypeId: 'RTN_WAIT_REPLACE_RES')
@@ -668,12 +668,12 @@ Map processWaitReplacementReservedReturn() {
             GenericValue returnItemResponse = delegator.getRelatedOne('ReturnItemResponse', returnItem, false)
             GenericValue orderHeader = from('OrderHeader').where(orderId: returnItemResponse.replacementOrderId).queryOne()
             if (orderHeader) {
-                if ('ORDER_HOLD' == orderHeader.statusId) {
+                if (orderHeader.statusId == 'ORDER_HOLD') {
                     run service: 'changeOrderStatus', with: [statusId: 'ORDER_APPROVED',
                                                              orderId: returnItemResponse.replacementOrderId,
                                                              setItemStatus: 'Y']
                 }
-                if ('ORDER_CANCELLED' == orderHeader.statusId) {
+                if (orderHeader.statusId == 'ORDER_CANCELLED') {
                     run service: 'processReplacementReturn', with: [returnId: parameters.returnId,
                                                                     returnTypeId: 'RTN_WAIT_REPLACE_RES']
                 }
@@ -715,7 +715,7 @@ Map processRefundImmediatelyReturn() {
  */
 Map getStatusItemsForReturn() {
     Map result = success()
-    if ('CUSTOMER_RETURN' == parameters.returnHeaderTypeId) {
+    if (parameters.returnHeaderTypeId == 'CUSTOMER_RETURN') {
         List statusItems = from('StatusItem').where(statusTypeId: 'ORDER_RETURN_STTS').queryList()
         result.statusItems = statusItems
     } else {
@@ -881,7 +881,7 @@ Map updateReturnContactMech() {
     List returnContactMechList = from('ReturnContactMech').where(createReturnContactMechMap).queryList()
     // If returnContactMechList value is null then create new entry in ReturnContactMech entity
     if (!returnContactMechList) {
-        if ('SHIPPING_LOCATION' == parameters.contactMechPurposeTypeId) {
+        if (parameters.contactMechPurposeTypeId == 'SHIPPING_LOCATION') {
             returnHeader.originContactMechId = createReturnContactMechMap.contactMechId
             returnHeader.store()
         }
@@ -898,7 +898,7 @@ Map createReturnItemForRental() {
     Map result = success()
     GenericValue orderHeader = from('OrderHeader').where(orderId: parameters.orderId).queryOne()
 
-    if ('SALES_ORDER' == orderHeader.orderTypeId) {
+    if (orderHeader.orderTypeId == 'SALES_ORDER') {
         GenericValue orderRole = from('OrderRole')
                 .where(orderId: orderHeader.orderId,
                 roleTypeId: 'BILL_TO_CUSTOMER')

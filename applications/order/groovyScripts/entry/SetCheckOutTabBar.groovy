@@ -28,7 +28,7 @@ shoppingCart = ShoppingCartEvents.getCartObject(request)
 // ----------------------------------
 checkoutSteps.add([label: 'OrderOrderItems', uri: 'orderentry', enabled: 'Y'])
 
-if ('PURCHASE_ORDER' == shoppingCart.getOrderType()) {
+if (shoppingCart.getOrderType() == 'PURCHASE_ORDER') {
     checkoutSteps.add([label: 'OrderOrderTerms', uri: 'setOrderTerm', enabled: 'Y'])
 }
 checkoutSteps.add([label: 'FacilityShipping', uri: 'setShipping', enabled: 'Y'])
@@ -36,7 +36,7 @@ if (shoppingCart.getShipGroupSize() > 1) {
     checkoutSteps.add([label: 'OrderShipGroups', uri: 'SetItemShipGroups', enabled: 'Y'])
 }
 checkoutSteps.add([label: 'CommonOptions', uri: 'setOptions', enabled: 'Y'])
-if ('SALES_ORDER' == shoppingCart.getOrderType()) {
+if (shoppingCart.getOrderType() == 'SALES_ORDER') {
     checkoutSteps.add([label: 'OrderOrderTerms', uri: 'setOrderTerm', enabled: 'Y'])
     checkoutSteps.add([label: 'AccountingPayment', uri: 'setBilling', enabled: 'Y'])
 }
@@ -49,7 +49,7 @@ isLastStep = 'N'
 enabled = 'Y'
 checkoutSteps.eachWithIndex { checkoutStep, i ->
     checkoutStep.put('enabled', enabled)
-    if ('Y' == enabled) {
+    if (enabled == 'Y') {
         if (i == (checkoutSteps.size() - 1)) {
             isLastStep = 'Y'
         }

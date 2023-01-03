@@ -129,7 +129,7 @@ Map updateProductQuickAdminName() {
 
     GenericValue lookedUpValue = from('Product').where(parameters).queryOne()
     lookedUpValue.productName = parameters.productName
-    if ('Y' == lookedUpValue.isVirtual) {
+    if (lookedUpValue.isVirtual == 'Y') {
         lookedUpValue.internalName = lookedUpValue.productName
     }
 
@@ -138,7 +138,7 @@ Map updateProductQuickAdminName() {
 
     lookedUpValue.store()
 
-    if ('Y' == lookedUpValue.isVirtual) {
+    if (lookedUpValue.isVirtual == 'Y') {
         // get all variant products, to update their productNames
         Map variantProductAssocMap = [productId: parameters.productId, productAssocTypeId: 'PRODUCT_VARIANT']
 
@@ -333,7 +333,7 @@ Map indexProductKeywords() {
     //will be passed and we can save a few cycles looking that up
     GenericValue productInstance = parameters.productInstance ?: from('Product').where(parameters).queryOne()
     //induce keywords if autoCreateKeywords is empty or Y
-    if (!productInstance.autoCreateKeywords || 'Y' == productInstance.autoCreateKeywords) {
+    if (!productInstance.autoCreateKeywords || productInstance.autoCreateKeywords == 'Y') {
         KeywordIndex.indexKeywords(productInstance)
     }
     return success()
@@ -399,7 +399,7 @@ Map createProductReview() {
 
     // code to check for auto-approved reviews (store setting)
     GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
-    if (productStore && 'Y' == productStore.autoApproveReviews) {
+    if (productStore && productStore.autoApproveReviews == 'Y') {
         newEntity.statusId = 'PRR_APPROVED'
     }
 
@@ -769,7 +769,7 @@ Map updateProductGroupOrder() {
     productGroupOrder.setNonPKFields(parameters)
     productGroupOrder.store()
 
-    if ('GO_CREATED' == productGroupOrder.statusId) {
+    if (productGroupOrder.statusId == 'GO_CREATED') {
         GenericValue jobSandbox = from('JobSandbox').where(jobId: productGroupOrder.jobId).queryOne()
         if (jobSandbox) {
             jobSandbox.runTime = parameters.thruDate
@@ -840,7 +840,7 @@ Map checkOrderItemForProductGroupOrder() {
     for (GenericValue orderItem : orderItems) {
         String productId = orderItem.productId
         GenericValue product = from('Product').where(productId: orderItem.productId).queryOne()
-        if ('Y' == product.isVariant) {
+        if (product.isVariant == 'Y') {
             GenericValue variantProductAssoc = from('ProductAssoc')
                     .where(productIdTo: orderItem.productId, productAssocTypeId: 'PRODUCT_VARIANT')
                     .filterByDate()
@@ -883,8 +883,8 @@ Map cancleOrderItemGroupOrder() {
             GenericValue productGroupOrder = from('ProductGroupOrder')
                     .where(groupOrderId: orderItemGroupOrder.groupOrderId).queryOne()
             if (productGroupOrder) {
-                if ('GO_CREATED' == productGroupOrder.statusId) {
-                    if ('ITEM_CANCELLED' == orderItem.statusId) {
+                if (productGroupOrder.statusId == 'GO_CREATED') {
+                    if (orderItem.statusId == 'ITEM_CANCELLED') {
                         BigDecimal cancelQuantity = orderItem.cancelQuantity ?: orderItem.quantity
                         productGroupOrder.soldOrderQty -= cancelQuantity
                     }

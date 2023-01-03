@@ -21,7 +21,7 @@ boolean isCalOwner = false
 List partyAssignments = from('WorkEffortPartyAssignment')
         .where('workEffortId', parameters.workEffortId, 'partyId', parameters.userLogin.partyId).filterByDate().queryList()
 for (partyAssign in partyAssignments) {
-    if ('CAL_OWNER' == partyAssign.roleTypeId || 'CAL_DELEGATE' == partyAssign.roleTypeId) {
+    if (partyAssign.roleTypeId == 'CAL_OWNER' || partyAssign.roleTypeId == 'CAL_DELEGATE') {
         isCalOwner = true
         break
     }

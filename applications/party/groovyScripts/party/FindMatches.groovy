@@ -29,7 +29,7 @@ if (match) {
     address2 = parameters.address2 ?: null
     city = parameters.city ?: null
     state = parameters.stateProvinceGeoId ?: null
-    if ('ANY' == state) {
+    if (state == 'ANY') {
         state = null
     }
     postalCode = parameters.postalCode ?: null

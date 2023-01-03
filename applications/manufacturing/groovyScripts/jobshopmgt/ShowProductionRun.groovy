@@ -28,7 +28,7 @@ if (productionRunId) {
     GenericValue productionRun = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
     if (productionRun) {
         // If this is a task, get the parent production run
-        if (productionRun.getString('workEffortTypeId') != null && 'PROD_ORDER_TASK' == productionRun.getString('workEffortTypeId')) {
+        if (productionRun.getString('workEffortTypeId') != null && productionRun.getString('workEffortTypeId') == 'PROD_ORDER_TASK') {
             productionRun = from('WorkEffort').where('workEffortId', productionRun.getString('workEffortParentId')).queryOne()
         }
     }
@@ -36,9 +36,9 @@ if (productionRunId) {
     if (!productionRun) {
         return 'error'
     }
-    if ('PRUN_CREATED' == productionRun.getString('currentStatusId') ||
-            'PRUN_SCHEDULED' == productionRun.getString('currentStatusId') ||
-            'PRUN_CANCELLED' == productionRun.getString('currentStatusId')) {
+    if (productionRun.getString('currentStatusId') == 'PRUN_CREATED' ||
+            productionRun.getString('currentStatusId') == 'PRUN_SCHEDULED' ||
+            productionRun.getString('currentStatusId') == 'PRUN_CANCELLED') {
         return 'docs_not_printed'
     } else {
         return 'docs_printed'

@@ -816,7 +816,7 @@ Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelation
     if (roleTypeIdFrom) {
         roleTypeIdFromList = [roleTypeIdFrom]
     }
-    if ('Y' == roleTypeIdFromIncludeAllChildTypes) {
+    if (roleTypeIdFromIncludeAllChildTypes == 'Y') {
         List roleTypeIdListName = roleTypeIdFromList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
         roleTypeIdFromList = res.childRoleTypeIdList
@@ -826,7 +826,7 @@ Map followPartyRelationshipsInline(List relatedPartyIdList, String partyRelation
     if (roleTypeIdTo) {
         roleTypeIdToList = [roleTypeIdTo]
     }
-    if ('Y' == roleTypeIdToInclueAllChildTypes) {
+    if (roleTypeIdToInclueAllChildTypes == 'Y') {
         List roleTypeIdListName = roleTypeIdToList
         Map res = getChildRoleTypesInline(roleTypeIdListName)
         roleTypeIdToList = res.childRoleTypeIdList
@@ -873,7 +873,7 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                      .where(condition)
                      .orderBy('-fromDate')
                      .filterByDate(searchTimestamp)
-                     .cache('Y' == useCache)
+                     .cache(useCache == 'Y')
                      .queryList()
             for (GenericValue PartyRelationship : PartyRelationshipList) {
                 if ( !relatedPartyIdList.contains(PartyRelationship.partyIdTo) &&
@@ -882,7 +882,7 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                       }
             }
 
-            if ('Y' == includeFromToSwitched) {
+            if (includeFromToSwitched == 'Y') {
                 entityConditionList = [EntityCondition.makeCondition('partyIdTo', relatedPartyId)]
                 // The roles are reversed
                 if (roleTypeIdFromList) {
@@ -900,7 +900,7 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                         .where(condition)
                         .orderBy('-fromDate')
                         .filterByDate(searchTimestamp)
-                        .cache('Y' == useCache)
+                        .cache(useCache == 'Y')
                         .queryList()
                 for (GenericValue PartyRelationship : PartyRelationshipList) {
                     if ( !relatedPartyIdList.contains(PartyRelationship.partyIdFrom) &&
@@ -915,7 +915,7 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
     // if we found new ones, add them to the master list and if recurse=Y then recurse
     if (newRelatedPartyIdList) {
         relatedPartyIdList = newRelatedPartyIdList
-        if ('Y' == recurse) {
+        if (recurse == 'Y') {
             logVerbose("Recursively calling followPartyRelationshipsInlineRecurse NewRelatedPartyIdList=${newRelatedPartyIdList}")
             Map res = followPartyRelationshipsInlineRecurse(relatedPartyIdList, roleTypeIdFromList, roleTypeIdToList,
                 partyRelationshipTypeId, includeFromToSwitched, recurse, searchTimestamp, useCache)

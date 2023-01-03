@@ -34,7 +34,7 @@ Map createCommunicationEvent() {
     GenericValue newCommEvent
 
     // check for forward only if created by a user and not incoming email by system
-    if ('FORWARD' == parameters.action
+    if (parameters.action == 'FORWARD'
             && parameters.origCommEventId) {
         newCommEvent = from('CommunicationEvent')
                 .where('communicationEventId', parameters.origCommEventId)
@@ -312,7 +312,7 @@ Map deleteCommunicationEvent() {
     contentAssocs.each { contentAssoc ->
         contentAssoc.remove()
         //Delete content and dataresource too if requested
-        if ('Y' == parameters.delContentDataResource) {
+        if (parameters.delContentDataResource == 'Y') {
             List<GenericValue> contents = contentAssoc.getRelated('FromContent', null, null, false)
             contents.each { content ->
                 content.removeRelated('ContentRole')
@@ -439,7 +439,7 @@ Map removeCommunicationEventRole() {
     if (eventRole) {
         eventRole.remove()
 
-        if ('Y' == parameters.deleteCommEventIfLast
+        if (parameters.deleteCommEventIfLast == 'Y'
                 && from('CommunicationEventRole')
                     .where('communicationEventId', eventRole.communicationEventId)
                     .queryCount() == 0) {
@@ -526,8 +526,8 @@ Map setCommunicationEventStatus() {
         }
         communicationEvent.statusId = parameters.statusId
         communicationEvent.store()
-        if ('COM_COMPLETE' == parameters.statusId) {
-            if ('Y' == parameters.setRoleStatusToComplete) {
+        if (parameters.statusId == 'COM_COMPLETE') {
+            if (parameters.setRoleStatusToComplete == 'Y') {
                 //if the status of the communicationevent is set to complete, all roles need to be set to complete,
                 //which means the commevent was dealt with and no further action is required by any
                 // of the other participants/addressees
@@ -577,7 +577,7 @@ Map setCommEventRoleToRead() {
     }
 
     if (eventRole
-            && 'COM_ROLE_CREATED' == eventRole.statusId) {
+            && eventRole.statusId == 'COM_ROLE_CREATED') {
         GenericValue userLogin = from('UserLogin').where(userLoginId: 'system').queryOne()
 
         Map updStatMap = [*:parameters]

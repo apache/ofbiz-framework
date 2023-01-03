@@ -30,7 +30,7 @@ returnHistoryList = from('EntityAuditLog').where(commonReturnHistoryCond).queryL
 
 orderReturnItemHistories = []
 returnHistoryList.each { returnHistory ->
-    if ('returnTypeId' == entityField || 'returnReasonId' == entityField) {
+    if (entityField == 'returnTypeId' || entityField == 'returnReasonId') {
         if (returnHistory.newValueText.toString() != returnHistory.oldValueText.toString()) {
             orderReturnItemHistories.add(returnHistory)
         }

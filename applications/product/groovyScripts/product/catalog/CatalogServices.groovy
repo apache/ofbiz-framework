@@ -130,7 +130,7 @@ Map checkImageUrlForCategoryAndProduct() {
             /* Case for virtual product
                get related assoc product */
             Map product = productCategoryMember.getRelatedOne('Product', false)
-            if ('Y' == product.isVirtual) {
+            if (product.isVirtual == 'Y') {
                 Map virtualProductContext = [
                     productId: product.productId,
                     productAssocTypeId: 'PRODUCT_VARIANT'
@@ -172,7 +172,7 @@ Map checkImageUrlForCategoryAndProduct() {
  */
 void fileImageExists(String map, String key, Map<?, ?> filesImageMap, List<?> fileExists, List<?> fileNotExists) {
     if (filesImageMap."${map}"?."${key}") {
-        if ('Y' == filesImageMap."${map}".isExists) {
+        if (filesImageMap."${map}".isExists == 'Y') {
             fileExists.add(filesImageMap."${map}"."${key}")
         } else {
             fileNotExists.add(filesImageMap."${map}"."${key}")
@@ -243,7 +243,7 @@ Map imageUrlCheck(GenericValue prodOrCat, String imageType, LinkedHashMap<Object
         filesImageMap."${imageType}Map" = [:]
         filesImageMap."${imageType}Map"."${imageType}" = prodOrCat."${imageType}"
         filesImageMap."${imageType}Map".isExists = isExists
-        if ('N' == isExists) {
+        if (isExists == 'N') {
             prodOrCat."${imageType}" = null
         }
     }

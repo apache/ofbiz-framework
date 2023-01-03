@@ -30,7 +30,7 @@ partyId = cart.getOrderPartyId()
 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 
-if ('SALES_ORDER' == cart.getOrderType()) {
+if (cart.getOrderType() == 'SALES_ORDER') {
     catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId)
 } else {
     catalogCol = CatalogWorker.getAllCatalogIds(request)

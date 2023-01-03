@@ -35,7 +35,7 @@ context.facility = facility
 context.facilityType = facilityType
 context.facilityId = facilityId
 
-showOld = 'true' == request.getParameter('SHOW_OLD')
+showOld = request.getParameter('SHOW_OLD') == 'true'
 context.showOld = new Boolean(showOld)
 
 context.contactMeches = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facilityId, showOld, null)

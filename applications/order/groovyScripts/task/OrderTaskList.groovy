@@ -27,10 +27,10 @@ context.userLogin = userLogin
 sort = parameters.sort
 sortOrder = ['currentStatusId', '-priority', 'orderDate']
 if (sort) {
-    if ('name' == sort) {
+    if (sort == 'name') {
         sortOrder.add(0, 'firstName')
         sortOrder.add(0, 'lastName')
-    } else if ('grandTotal' == sort) {
+    } else if (sort == 'grandTotal') {
         sortOrder.add(0, '-grandTotal')
     } else {
         sortOrder.add(0, sort)

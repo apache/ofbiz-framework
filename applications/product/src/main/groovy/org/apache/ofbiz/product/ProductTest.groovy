@@ -89,9 +89,9 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert 'Test_type' == product.productTypeId
-        assert 'Test_name_C' == product.productName
-        assert 'This is product description' == product.description
+        assert product.productTypeId == 'Test_type'
+        assert product.productName == 'Test_name_C'
+        assert product.description == 'This is product description'
     }
 
     void testQuickAddVariant() {
@@ -112,8 +112,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productVariantId)
                 .queryOne()
         assert product
-        assert 'N' == product.isVirtual
-        assert 'Y' == product.isVariant
+        assert product.isVirtual == 'N'
+        assert product.isVariant == 'Y'
         assert !product.primaryProductCategoryId
 
         GenericValue productAssoc = from('ProductAssoc')
@@ -358,6 +358,6 @@ class ProductTest extends OFBizTestCase {
                 .where('productCategoryId', productCategoryId)
                 .queryOne()
         assert productCategory
-        assert 'USAGE_CATEGORY' == productCategory.productCategoryTypeId
+        assert productCategory.productCategoryTypeId == 'USAGE_CATEGORY'
     }
 }
