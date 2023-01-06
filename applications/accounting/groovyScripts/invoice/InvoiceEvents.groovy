@@ -25,9 +25,9 @@ import org.apache.ofbiz.service.ServiceUtil
 Map createInvoiceItemPayrol() {
     List<GenericValue> payRolList = from('InvoiceItemType').queryList()
     from('InvoiceItemType')
-            .where('parentTypeId', 'PAYROL')
-            .queryList()
-            .each { payRolGroup ->
+        .where('parentTypeId', 'PAYROL')
+        .queryList()
+        .each { payRolGroup ->
             payRolList.each { payRol ->
                 if (payRol.parentTypeId == payRolGroup.invoiceItemTypeId) {
                     Map createInvoiceItem = [invoiceId: parameters.invoiceId,
@@ -47,8 +47,8 @@ Map createInvoiceItemPayrol() {
                         }
                     }
                 }
-                }
             }
+        }
 
     return  success()
 }

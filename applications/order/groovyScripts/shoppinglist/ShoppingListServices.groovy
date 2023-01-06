@@ -182,38 +182,38 @@ Map calculateShoppingListDeepTotalPrice() {
 
     BigDecimal totalPrice = (BigDecimal) 0.0
     from('ShoppingListItem')
-            .where(shoppingListId: parameters.shoppingListId)
-            .cache()
-            .queryList()
-            .each {
-                BigDecimal itemPrice = it.modifiedPrice
-                if (!itemPrice) {
-                    GenericValue product = from('Product').where(productId: it.productId).cache().queryOne()
-                    Map serviceResultCPP = run service: 'calculateProductPrice', with: [*: calcPriceInBaseMap,
-                                                                                        product: product,
-                                                                                        quantity: it.quantity]
-                    if (!ServiceUtil.isSuccess(serviceResultCPP)) {
-                        return error(serviceResultCPP.errorMessage)
-                    }
-                    itemPrice = serviceResultCPP.price
+        .where(shoppingListId: parameters.shoppingListId)
+        .cache()
+        .queryList()
+        .each {
+            BigDecimal itemPrice = it.modifiedPrice
+            if (!itemPrice) {
+                GenericValue product = from('Product').where(productId: it.productId).cache().queryOne()
+                Map serviceResultCPP = run service: 'calculateProductPrice', with: [*: calcPriceInBaseMap,
+                                                                                    product: product,
+                                                                                    quantity: it.quantity]
+                if (!ServiceUtil.isSuccess(serviceResultCPP)) {
+                    return error(serviceResultCPP.errorMessage)
                 }
-                BigDecimal shoppingListItemQuantity = it.quantity ?: (BigDecimal) 1.0
-                totalPrice += (itemPrice * shoppingListItemQuantity)
+                itemPrice = serviceResultCPP.price
             }
+            BigDecimal shoppingListItemQuantity = it.quantity ?: (BigDecimal) 1.0
+            totalPrice += (itemPrice * shoppingListItemQuantity)
+        }
 
     from('ShoppingList')
-            .where(parentShoppingListId: parameters.shoppingListId,
-                    partyId: userLogin.partyId)
-            .cache()
-            .queryList()
-            .each {
-                Map serviceResultCSLDTP = run service: 'calculateShoppingListDeepTotalPrice', with: [*             : calcPriceInBaseMap,
-                                                                                                     shoppingListId: it.shoppingListId]
-                if (!ServiceUtil.isSuccess(serviceResultCSLDTP)) {
-                    return error(serviceResultCSLDTP.errorMessage)
-                }
-                totalPrice += serviceResultCSLDTP.totalPrice
+        .where(parentShoppingListId: parameters.shoppingListId,
+                partyId: userLogin.partyId)
+        .cache()
+        .queryList()
+        .each {
+            Map serviceResultCSLDTP = run service: 'calculateShoppingListDeepTotalPrice', with: [*             : calcPriceInBaseMap,
+                                                                                                 shoppingListId: it.shoppingListId]
+            if (!ServiceUtil.isSuccess(serviceResultCSLDTP)) {
+                return error(serviceResultCSLDTP.errorMessage)
             }
+            totalPrice += serviceResultCSLDTP.totalPrice
+        }
 
     result.totalPrice = totalPrice
     return result
@@ -306,12 +306,12 @@ Map addSuggestionsToShoppingList() {
 
 private List<GenericValue> linkProductToShoppingList(String productId, String shoppingListId) {
     from('ProductAssoc')
-            .where(productId: productId,
-                    productAssocTypeId: 'PRODUCT_COMPLEMENT')
-            .filterByDate()
-            .queryList().each {
-        run service: 'addDistinctShoppingListItem', with: [productId: it.productIdTo,
-                                                           shoppingListId: shoppingListId,
-                                                           quantity: (BigDecimal) 1]
-    }
+        .where(productId: productId,
+                productAssocTypeId: 'PRODUCT_COMPLEMENT')
+        .filterByDate()
+        .queryList().each {
+                        run service: 'addDistinctShoppingListItem', with: [productId: it.productIdTo,
+                                                                           shoppingListId: shoppingListId,
+                                                                           quantity: (BigDecimal) 1]
+        }
 }

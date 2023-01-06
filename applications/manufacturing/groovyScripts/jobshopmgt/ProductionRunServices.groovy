@@ -65,12 +65,12 @@ Map issueProductionRunTask() {
     parameters.failIfItemsAreNotOnHand = parameters.failIfItemsAreNotOnHand ?: 'Y'
     if (workEffort && 'PRUN_CANCELLED' != workEffort.currentStatusId) {
         from('WorkEffortGoodStandard')
-                .where(workEffortId: workEffort.workEffortId,
-                        statusId: 'WEGS_CREATED',
-                        workEffortGoodStdTypeId: 'PRUNT_PROD_NEEDED')
-                .filterByDate()
-                .queryList()
-                .each { component ->
+            .where(workEffortId: workEffort.workEffortId,
+                    statusId: 'WEGS_CREATED',
+                    workEffortGoodStdTypeId: 'PRUNT_PROD_NEEDED')
+            .filterByDate()
+            .queryList()
+            .each { component ->
                 if (component.productId) {
                     Map callSvcMap = component.getAllFields()
                     BigDecimal totalIssuance = 0.0
@@ -78,10 +78,9 @@ Map issueProductionRunTask() {
                             .where(workEffortId: workEffort.workEffortId,
                                     productId: component.productId)
                             .queryList()
+                            .findAll { it.quantity }
                             .each { issuance ->
-                                if (issuance.quantity) {
-                                    totalIssuance += issuance.quantity
-                                }
+                                totalIssuance += issuance.quantity
                             }
                     if (totalIssuance != 0) {
                         callSvcMap.quantity = component.estimatedQuantity - totalIssuance
@@ -97,7 +96,7 @@ Map issueProductionRunTask() {
                     }
                 }
                 logInfo("Issued inventory for workEffortId ${workEffort.workEffortId}")
-                }
+        }
     }
     return success()
 }

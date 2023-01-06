@@ -30,8 +30,8 @@ if (productStore) {
     context.productStoreId = productStore.productStoreId
 }
 if (productStore) {
-   facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne()
-   webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst()
+    facility = from('Facility').where('facilityId', productStore.inventoryFacilityId).queryOne()
+    webSite = from('WebSite').where('productStoreId', productStore.productStoreId).queryFirst()
 
     if (!facility) {
         errMsgList.add('Facility not set!')
