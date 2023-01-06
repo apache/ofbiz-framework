@@ -75,6 +75,7 @@ binding.setVariable('recordValues', recordValues)
 ClassLoader loader = Thread.currentThread().getContextClassLoader()
 GroovyShell shell = new GroovyShell(loader, binding, configuration)
 
+/* codenarc-disable ReturnNullFromCatchBlock */
 if (groovyProgram) {
     try {
         // Check if a webshell is not uploaded but allow "import"
@@ -105,3 +106,4 @@ if (groovyProgram) {
         return
     }
 }
+/* codenarc-enable ReturnNullFromCatchBlock */
