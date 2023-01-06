@@ -77,7 +77,7 @@ abstract class GroovyBaseScript extends Script {
     }
 
     Map run(Map args) throws ExecutionServiceException {
-        return runService((String)args.get('service'), (Map)args.get('with', new HashMap()))
+        return runService((String)args.get('service'), (Map)args.get('with', [:]))
     }
 
     Map makeValue(String entityName) throws ExecutionServiceException {

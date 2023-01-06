@@ -153,7 +153,7 @@ if (shipmentPlans) {
             workInProgress = 'true'
             productionRunsId = ''
             productionRuns.each { productionRun ->
-                productionRunRow = new HashMap()
+                productionRunRow = [:]
                 productionRunRow.put('productionRunId', productionRun.workEffortId)
                 ProductionRun productionRunWrapper = new ProductionRun(productionRun.workEffortId, delegator, dispatcher)
                 productionRunRow.put('productionRunEstimatedCompletionDate', productionRunWrapper.getEstimatedCompletionDate())

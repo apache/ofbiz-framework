@@ -21,7 +21,7 @@ import org.apache.ofbiz.product.store.ProductStoreWorker
 
 productStore = ProductStoreWorker.getProductStore(request)
 
-productStorePaymentMethodTypeIdMap = new HashMap()
+productStorePaymentMethodTypeIdMap = [:]
 productStorePaymentSettingList = productStore.getRelated('ProductStorePaymentSetting', null, null, true)
 productStorePaymentSettingIter = productStorePaymentSettingList.iterator()
 while (productStorePaymentSettingIter.hasNext()) {
