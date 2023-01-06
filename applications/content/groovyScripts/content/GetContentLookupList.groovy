@@ -52,7 +52,7 @@ while (fieldIterator.hasNext()) {
             try {
                 findByEntity.setString(field.getName(), fval)
             } catch (NumberFormatException nfe) {
-                logError(nfe, 'Caught an exception : ' + nfe.toString())
+                logError(nfe, 'Caught an exception : ' + nfe)
                 errMsgList.add('Entered value is non-numeric for numeric field: ' + field.getName())
             }
         }
@@ -90,7 +90,7 @@ if ((highIndex - lowIndex + 1) > 0) {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, 'Error looking up entity values in WebTools Entity Data Maintenance', e)
         } catch (GenericEntityException e2) {
-            logError(e2, 'Could not rollback transaction: ' + e2.toString())
+            logError(e2, 'Could not rollback transaction: ' + e2)
         }
         // after rolling back, rethrow the exception
         throw e

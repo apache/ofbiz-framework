@@ -120,7 +120,7 @@ Map productGWP() {
                         product = null
                     }
                 } catch (GenericServiceException e) {
-                    String errMsg = 'Fatal error calling inventory checking services: ' + e.toString()
+                    String errMsg = 'Fatal error calling inventory checking services: ' + e
                     logError(e, errMsg)
                     throw new CartItemModifyException(errMsg)
                 }
@@ -153,7 +153,7 @@ Map productGWP() {
                     optionProductIdIter.remove()
                 }
             } catch (GenericServiceException e) {
-                String errMsg = 'Fatal error calling inventory checking services: ' + e.toString()
+                String errMsg = 'Fatal error calling inventory checking services: ' + e
                 logError(e, errMsg)
                 throw new CartItemModifyException(errMsg)
             }
