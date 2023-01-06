@@ -84,8 +84,6 @@ Map updateContentSEOForCategory() {
 
 /**
  * This method updates the content for the parameters given
- * @param param
- * @param typeId
  */
 Map updateContent(String param, String typeId) {
     if (parameters."${param}") {

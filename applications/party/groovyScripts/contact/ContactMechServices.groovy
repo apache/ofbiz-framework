@@ -57,8 +57,6 @@ Map updateContactMech() {
 
 /**
  * locale function to control if the state province is mandatoring
- * @param countryGeoId
- * @param stateProvinceGeoId
  */
 Map hasValidStateProvince(String countryGeoId, String stateProvinceGeoId) {
     String errorMessage

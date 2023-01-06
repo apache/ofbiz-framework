@@ -250,8 +250,6 @@ Map isStoreInventoryRequired() {
 
 /**
  * Is Store Inventory Required
- * @param product
- * @param productStore
  */
 String isStoreInventoryRequiredInline(GenericValue product, GenericValue productStore) {
     String requireInventory = product.requireInventory

@@ -218,8 +218,6 @@ Map attachUploadToDataResource() {
 
 /**
  * Attach an uploaded file to a data resource as a Local File-Type (Local, OfBiz or Context)
- *
- * @param absolute
  */
 Map saveLocalFileDataResource(String mode) {
     Map result = success()
