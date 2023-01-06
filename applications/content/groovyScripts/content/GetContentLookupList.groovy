@@ -41,7 +41,7 @@ String curFindString = ''
 ModelReader reader = delegator.getModelReader()
 ModelEntity modelEntity = reader.getModelEntity('ContentAssocViewTo')
 GenericEntity findByEntity = makeValue('ContentAssocViewTo')
-List errMsgList = new ArrayList()
+List errMsgList = []
 Iterator fieldIterator = modelEntity.getFieldsIterator()
 while (fieldIterator.hasNext()) {
     ModelField field = fieldIterator.next()

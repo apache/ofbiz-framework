@@ -38,11 +38,11 @@ if (contentAssocPK.isPrimaryKey()) {
 
 if (contentAssoc) {
     SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml',
-            'contentAssocOut', contentAssoc, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
+            'contentAssocOut', contentAssoc, contentAssocDataResourceViewFrom, [], Locale.getDefault())
 } else {
     contentAssocPK.setAllFields(context, false, 'ca', null) //set all field, pk and non
     SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml',
-            'contentAssocOut', contentAssocPK, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
+            'contentAssocOut', contentAssocPK, contentAssocDataResourceViewFrom, [], Locale.getDefault())
 }
 logInfo('in cmseditaddprep, contentAssocDataResourceViewFrom:' + contentAssocDataResourceViewFrom)
 
@@ -65,7 +65,7 @@ dataResourceId = dataResourceId ?: context.drDataResourceId ?: context.dataResou
 if (dataResourceId) {
     dataResource = from('DataResource').where('dataResourceId', dataResourceId).cache(true).queryOne()
     SimpleMapProcessor.runSimpleMapProcessor('component://content/minilang/ContentManagementMapProcessors.xml',
-            'dataResourceOut', dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault())
+            'dataResourceOut', dataResource, contentAssocDataResourceViewFrom, [], Locale.getDefault())
     templateRoot = [:]
     FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response)
     txt = DataResourceWorker.getDataResourceText(dataResource, 'text/html', Locale.getDefault(), templateRoot, delegator, true)

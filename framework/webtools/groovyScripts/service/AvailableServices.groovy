@@ -75,8 +75,8 @@ List getEcaListForService(String selectedService) {
             actions.setAccessible(true)
             actionsVal = actions.get(curRule)
             if (actionsVal) {
-                actionsList = new ArrayList()
-                setsList = new ArrayList()
+                actionsList = []
+                setsList = []
                 actionsVal.each { curAction ->
                     actionClass = curAction.getClass()
                     if (org.apache.ofbiz.service.eca.ServiceEcaAction == actionClass) {

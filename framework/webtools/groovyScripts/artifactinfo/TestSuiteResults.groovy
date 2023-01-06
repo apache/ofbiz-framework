@@ -58,7 +58,7 @@ private List<? extends Element> getTestCaseResultsForSuite(String suiteName) {
         Element resultElement = results.getDocumentElement()
         return UtilXml.childElementList(resultElement, ['testcase'] as Set)
     }
-    return new ArrayList<Element>()
+    return []
 }
 
 private String getTestSuiteName(ComponentConfig.TestSuiteInfo testSuiteInfo) {
