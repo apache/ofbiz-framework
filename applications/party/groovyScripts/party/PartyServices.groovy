@@ -387,7 +387,7 @@ Map getPartyPostalAddress () {
         } else if (address.containsKey('paAddress1')) {
             ['address1', 'address2', 'directions', 'city', 'postalCode',
              'stateProvinceGeoId', 'countyGeoId', 'countryGeoId'].each { value ->
-                String prefixedValue = 'pa'+value.capitalize()
+                String prefixedValue = 'pa' + value.capitalize()
                 if (address."$prefixedValue") {
                     resultMap."$value" = address."$prefixedValue"
                 }
