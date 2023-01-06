@@ -372,9 +372,6 @@ Map productAMDISC() {
     return result
 }
 
-/**
- *
- */
 Map productPrice() {
     Map result = success()
 

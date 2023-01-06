@@ -29,7 +29,6 @@ import java.sql.Timestamp
 //Methods for DataResource
 /**
  * Create a Data Resource
- *
  */
 
 Map createDataResource() {
@@ -72,7 +71,6 @@ Map createDataResource() {
 
 /**
  * Create a Data Resource and return the data resource type
- *
  */
 Map createDataResourceAndAssocToContent() {
     GenericValue content = from('Content').where(parameters).queryOne()
@@ -138,7 +136,6 @@ Map getElectronicText() {
 
 /**
  * Attach an uploaded file to a data resource
- *
  */
 Map attachUploadToDataResource() {
     boolean isUpdate = false
