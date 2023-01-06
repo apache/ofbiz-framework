@@ -40,7 +40,7 @@ if (addedFeatureTypes == null) {
     session.setAttribute('addedFeatureTypes', addedFeatureTypes)
 }
 
-featuresByType = new HashMap()
+featuresByType = [:]
 String[] addFeatureTypeId = request.getParameterValues('addFeatureTypeId')
 List addFeatureTypeIdList = []
 if (addFeatureTypeId) {
