@@ -44,7 +44,8 @@ Map partyIdPermissionCheck(Map parameters) {
     if (partyId && userLogin.partyId && partyId == userLogin.partyId) {
         hasPermission = true
     } else {
-        String resourceDescription = parameters.resourceDescription ?: UtilProperties.getPropertyValue('CommonUiLabels', 'CommonPermissionThisOperation')
+        String resourceDescription = parameters.resourceDescription ?: UtilProperties.getPropertyValue('CommonUiLabels',
+                'CommonPermissionThisOperation')
         String failMessage = UtilProperties.getMessage('PartyUiLabels',
                 'PartyPermissionErrorPartyId', [resourceDescription: resourceDescription], parameters.locale)
         hasPermission = false

@@ -62,7 +62,8 @@ Map updateRateAmount() {
  */
 Map expireRateAmount() {
     GenericValue lookedUpValue = delegator.makeValidValue('RateAmount', parameters)
-    lookedUpValue.rateCurrencyUomId = lookedUpValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+    lookedUpValue.rateCurrencyUomId = lookedUpValue.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
+            'currency.uom.id.default')
     lookedUpValue = from('RateAmount').where(lookedUpValue).queryOne()
     if (lookedUpValue) {
         Timestamp previousDay = UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), 5, -1)
@@ -163,7 +164,8 @@ Map getRateAmount() {
     }
     if (serviceName) {
         Map serviceContextMap = new HashMap<>(parameters)
-        serviceContextMap.rateCurrencyUomId = serviceContextMap.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default', 'USD')
+        serviceContextMap.rateCurrencyUomId = serviceContextMap.rateCurrencyUomId ?: UtilProperties.getPropertyValue('general.properties',
+                'currency.uom.id.default', 'USD')
         Map result = run service: serviceName, with: serviceContextMap
         serviceContextMap.ratesList = result.ratesList
         result = run service: 'filterRateAmountList', with: serviceContextMap
