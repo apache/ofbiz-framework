@@ -89,19 +89,19 @@ if (groovyProgram) {
         recordValues = shell.getVariable('recordValues')
         xmlDoc = GenericValue.makeXmlDocument(recordValues)
         context.put('xmlDoc', xmlDoc)
-    } catch(MultipleCompilationErrorsException e) {
+    } catch (MultipleCompilationErrorsException e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(groovy.lang.MissingPropertyException e) {
+    } catch (groovy.lang.MissingPropertyException e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(NullPointerException e) {
+    } catch (NullPointerException e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(Exception e) {
+    } catch (Exception e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
     }
