@@ -105,7 +105,7 @@ abstract class GroovyBaseScript extends Script {
         return from(entityName).where(fields).cache(useCache).queryOne()
     }
 
-/* codenarc-disable NoDef */
+    /* codenarc-disable NoDef, MethodReturnTypeRequired */
     def success() {
         return success(null, null)
     }
