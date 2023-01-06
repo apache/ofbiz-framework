@@ -549,7 +549,7 @@ Map setCommunicationEventStatus() {
                             .queryOne()
             //found a mispelling in minilang so ...
             if (communicationEventRole
-                    && !'COM_ROLE_COMPLETED' == communicationEventRole.statusId) {
+                    && 'COM_ROLE_COMPLETED' != communicationEventRole.statusId) {
                 Map updateRoleMap = [*:communicationEventRole]
                 updateRoleMap.statusId = 'COM_ROLE_COMPLETED'
                 run service: 'updateCommunicationEventRole', with: updateRoleMap

@@ -20,7 +20,7 @@ import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-Boolean actualCurrency = new Boolean(context.actualCurrency)
+Boolean actualCurrency = Boolean.valueOf(context.actualCurrency)
 if (actualCurrency == null) {
     actualCurrency = true
 }

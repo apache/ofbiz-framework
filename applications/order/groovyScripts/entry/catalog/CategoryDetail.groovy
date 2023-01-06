@@ -95,7 +95,7 @@ if (members) {
     for (i = 0; i < members.size(); i++) {
         productCategoryMember = (GenericValue) members.get(i)
         if (productCategoryMember.get('quantity') != null && productCategoryMember.getDouble('quantity').doubleValue() > 0.0) {
-            context.put('hasQuantities', new Boolean(true))
+            context.put('hasQuantities', true)
             break
         }
     }
