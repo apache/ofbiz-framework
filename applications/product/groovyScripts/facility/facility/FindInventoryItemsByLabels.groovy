@@ -42,7 +42,7 @@ for (int i = 1; i <= numberOfFields; i++) {
     inventoryItemLabelId = parameters.get('inventoryItemLabelId_' + i)
     if (inventoryItemLabelId) {
         inventoryItemAndLabelsView.addMemberEntity('IL' + i, 'InventoryItemLabelAppl')
-        inventoryItemAndLabelsView.addViewLink('II', 'IL' + i, new Boolean(false), ModelKeyMap.makeKeyMapList('inventoryItemId'))
+        inventoryItemAndLabelsView.addViewLink('II', 'IL' + i, false, ModelKeyMap.makeKeyMapList('inventoryItemId'))
     }
 }
 andCondition = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId)]

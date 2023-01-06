@@ -28,7 +28,7 @@ contentAssocDataResourceViewFrom = makeValue('ContentAssocDataResourceViewFrom')
 contentId = context.contentId
 
 contentAssocPK = makeValue('ContentAssoc')
-contentAssocPK.setAllFields(context, false, 'ca', new Boolean(true))
+contentAssocPK.setAllFields(context, false, 'ca', true)
 logInfo('in cmseditaddprep, contentAssocPK:' + contentAssocPK)
 
 contentAssoc = null
