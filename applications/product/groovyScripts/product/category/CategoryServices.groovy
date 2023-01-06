@@ -429,7 +429,6 @@ Map removeExpiredCategoryProductMembers() {
 
 /**
  * Create a Product in a Category along with special information such as features
- *
  */
 Map createProductInCategory() {
     Map res = checkCategoryRelatedPermission('createProductInCategory', 'CREATE', null, null)

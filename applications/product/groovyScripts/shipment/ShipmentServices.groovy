@@ -1098,9 +1098,6 @@ Map createOrderShipmentPlan () {
     return result
 }
 
-/**
- *
- */
 Map issueSerializedInvToShipmentPackageAndSetTracking() {
     /*
      *  If serialNumber is provided, Then compare it with the serialNumber of inventoryItem on reservation. If they don't match,
