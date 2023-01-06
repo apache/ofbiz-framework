@@ -76,12 +76,16 @@ if (searchFields && fieldValue) {
     }
     context.returnField = returnField
     context.displayFieldsSet = displayFieldsSet
-    if (searchType == 'STARTS_WITH') {
-        searchValue = fieldValue.toUpperCase() + '%'
-    } else if (searchType == 'EQUALS') {
-        searchValue = fieldValue
-    } else {//default is CONTAINS
-        searchValue = '%' + fieldValue.toUpperCase() + '%'
+    switch (searchType) {
+        case 'STARTS_WITH':
+            searchValue = fieldValue.toUpperCase() + '%'
+            break
+        case 'EQUALS':
+            searchValue = fieldValue
+            break
+        default:
+            searchValue = '%' + fieldValue.toUpperCase() + '%'
+            break
     }
     searchFieldsList.each { fieldName ->
         if (searchType == 'EQUALS') {

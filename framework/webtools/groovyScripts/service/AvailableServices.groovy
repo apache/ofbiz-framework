@@ -384,12 +384,15 @@ if (selectedService) {
                     permObj = [:]
                     permObj.action = curPermObj.action
                     permType = curPermObj.permissionType
-                    if (permType == 1) {
-                        permType = 'Simple Permission'
-                    } else if (permType == 2) {
-                        permType = 'Entity Permission'
-                    } else if (permType == 3) {
-                        permType = 'Role Member'
+                    switch (permType) {
+                        case 1:
+                            permType = 'Simple Permission'
+                            break
+                        case 2:
+                            permType = 'Entity Permission'
+                            break
+                        case 3:
+                            permType = 'Role Member'
                     }
                     permObj.permType = permType
                     permObj.nameOrRole = curPermObj.nameOrRole

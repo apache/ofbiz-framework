@@ -40,74 +40,89 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
         modelEntities = delegator.getModelEntityMapByGroup(groupName)
         modelEntityNames = new TreeSet(modelEntities.keySet())
 
-        if (option == 'checkupdatetables') {
-            fieldsToRepair = null
-            if (repair) {
-                fieldsToRepair = []
-            }
-            dbUtil.checkDb(modelEntities, fieldsToRepair, messages, checkPks, checkFks, checkFkIdx, addMissing)
-            if (fieldsToRepair) {
-                dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages)
-            }
-        } else if (option == 'removetables') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
+        switch (option) {
+            case 'checkupdatetables':
+                fieldsToRepair = null
+                if (repair) {
+                    fieldsToRepair = []
+                }
+                dbUtil.checkDb(modelEntities, fieldsToRepair, messages, checkPks, checkFks, checkFkIdx, addMissing)
+                if (fieldsToRepair) {
+                    dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages)
+                }
+                break
+            case 'removetables':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.deleteTable(modelEntity, messages)
+                }
+                break
+            case 'removetable':
+                modelEntity = modelEntities[entityName]
                 dbUtil.deleteTable(modelEntity, messages)
-            }
-        } else if (option == 'removetable') {
-            modelEntity = modelEntities[entityName]
-            dbUtil.deleteTable(modelEntity, messages)
-        } else if (option == 'removepks') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
+                break
+            case 'removepks':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.deletePrimaryKey(modelEntity, messages)
+                }
+                break
+            case 'removepk':
+                modelEntity = modelEntities[entityName]
                 dbUtil.deletePrimaryKey(modelEntity, messages)
-            }
-        } else if (option == 'removepk') {
-            modelEntity = modelEntities[entityName]
-            dbUtil.deletePrimaryKey(modelEntity, messages)
-        } else if (option == 'createpks') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
+                break
+            case 'createpks':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.createPrimaryKey(modelEntity, messages)
+                }
+                break
+            case 'createpk':
+                modelEntity = modelEntities[entityName]
                 dbUtil.createPrimaryKey(modelEntity, messages)
-            }
-        } else if (option == 'createpk') {
-            modelEntity = modelEntities[entityName]
-            dbUtil.createPrimaryKey(modelEntity, messages)
-        } else if (option == 'createfkidxs') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.createForeignKeyIndices(modelEntity, messages)
-            }
-        } else if (option == 'removefkidxs') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.deleteForeignKeyIndices(modelEntity, messages)
-            }
-        } else if (option == 'createfks') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.createForeignKeys(modelEntity, modelEntities, messages)
-            }
-        } else if (option == 'removefks') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages)
-            }
-        } else if (option == 'createidx') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.createDeclaredIndices(modelEntity, messages)
-            }
-        } else if (option == 'removeidx') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.deleteDeclaredIndices(modelEntity, messages)
-            }
-        } else if (option == 'updateCharsetCollate') {
-            modelEntityNames.each { modelEntityName ->
-                modelEntity = modelEntities[modelEntityName]
-                dbUtil.updateCharacterSetAndCollation(modelEntity, messages)
-            }
+                break
+            case 'createfkidxs':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.createForeignKeyIndices(modelEntity, messages)
+                }
+                break
+            case 'removefkidxs':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.deleteForeignKeyIndices(modelEntity, messages)
+                }
+                break
+            case 'createfks':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.createForeignKeys(modelEntity, modelEntities, messages)
+                }
+                break
+            case 'removefks':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages)
+                }
+                break
+            case 'createidx':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.createDeclaredIndices(modelEntity, messages)
+                }
+                break
+            case 'removeidx':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.deleteDeclaredIndices(modelEntity, messages)
+                }
+                break
+            case 'updateCharsetCollate':
+                modelEntityNames.each { modelEntityName ->
+                    modelEntity = modelEntities[modelEntityName]
+                    dbUtil.updateCharacterSetAndCollation(modelEntity, messages)
+                }
+                break
         }
         miter = messages.iterator()
         context.miters = miter

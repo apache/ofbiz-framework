@@ -200,14 +200,16 @@ Map getRateAmount() {
 //Generic fonction to resolve a rate amount from a pk field
 Map getRatesAmountsFrom(String field) {
     String entityName = null
-    if (field == 'workEffortId') {
-        entityName = 'WorkEffort'
-    }
-    if (field == 'partyId') {
-        entityName = 'Party'
-    }
-    if (field == 'emplPositionTypeId') {
-        entityName = 'EmplPositionType'
+    switch (field) {
+        case 'workEffortId':
+            entityName = 'WorkEffort'
+            break
+        case 'partyId':
+            entityName = 'Party'
+            break
+        case 'emplPositionTypeId':
+            entityName = 'EmplPositionType'
+            break
     }
 
     Map condition = [rateTypeId: parameters.rateTypeId,

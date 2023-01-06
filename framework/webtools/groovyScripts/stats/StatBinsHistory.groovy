@@ -31,12 +31,16 @@ try {
 }
 
 binList = null
-if (type == ServerHitBin.REQUEST) {
-    binList = ServerHitBin.requestHistory.get(id)
-} else if (type == ServerHitBin.EVENT) {
-    binList = ServerHitBin.eventHistory.get(id)
-} else if (type == ServerHitBin.VIEW) {
-    binList = ServerHitBin.viewHistory.get(id)
+switch (type) {
+    case ServerHitBin.REQUEST:
+        binList = ServerHitBin.requestHistory.get(id)
+        break
+    case ServerHitBin.EVENT:
+        binList = ServerHitBin.eventHistory.get(id)
+        break
+    case ServerHitBin.VIEW:
+        binList = ServerHitBin.viewHistory.get(id)
+        break
 }
 
 if (binList) {
