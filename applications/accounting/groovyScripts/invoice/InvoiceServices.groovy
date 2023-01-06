@@ -112,18 +112,18 @@ Map invoiceSequenceRestart() {
     if (partyAcctgPreference.lastInvoiceRestartDate) {
         //first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year?
         curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
-                partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0l)
+                partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0L)
         if (partyAcctgPreference.lastInvoiceRestartDate < curYearFiscalStartDate && nowTimestamp >= curYearFiscalStartDate) {
             //less than fiscal year start, we need to reset it
-            partyAcctgPreference.lastInvoiceNumber = 1l
+            partyAcctgPreference.lastInvoiceNumber = 1L
             partyAcctgPreference.lastInvoiceRestartDate = nowTimestamp
         } else {
             //greater than or equal to fiscal year start or nowTimestamp hasn't yet hit the current year fiscal start date, we're okay, just increment
-            partyAcctgPreference.lastInvoiceNumber += 1l
+            partyAcctgPreference.lastInvoiceNumber += 1L
         }
     } else {
         //if no lastInvoiceRestartDate then it's easy, just start now with 1
-        partyAcctgPreference.lastInvoiceNumber = 1l
+        partyAcctgPreference.lastInvoiceNumber = 1L
         partyAcctgPreference.lastInvoiceRestartDate = nowTimestamp
     }
     delegator.store(partyAcctgPreference)

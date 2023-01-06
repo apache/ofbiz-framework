@@ -138,7 +138,7 @@ Map getOrderedSummaryInformation() {
     result = success()
     result.totalGrandAmount = orderInfo ? orderInfo.totalGrandAmount : BigDecimal.ZERO
     result.totalSubRemainingAmount = orderInfo ? orderInfo.totalSubRemainingAmount : BigDecimal.ZERO
-    result.totalOrders = orderInfo ? orderInfo.totalOrders : 0l
+    result.totalOrders = orderInfo ? orderInfo.totalOrders : 0L
 
     return result
 }

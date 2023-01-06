@@ -62,7 +62,7 @@ Map createProduct() {
     newEntity.createdByUserLogin = userLogin.userLoginId
     newEntity.isVariant = newEntity.isVariant ?: 'N'
     newEntity.isVirtual = newEntity.isVirtual ?: 'N'
-    newEntity.billOfMaterialLevel = newEntity.billOfMaterialLevel ?: 0l
+    newEntity.billOfMaterialLevel = newEntity.billOfMaterialLevel ?: 0L
     newEntity.create()
 
 /*
@@ -365,7 +365,7 @@ Map discontinueProductSales() {
 }
 
 Map countProductView() {
-    long weight = parameters.weight ?: 1l
+    long weight = parameters.weight ?: 1L
 
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
     if (productCalculatedInfo) {
@@ -822,8 +822,8 @@ Map createJobForProductGroupOrder() {
                          serviceName: 'checkProductGroupOrderExpired',
                          runAsUser: 'system',
                          runtimeDataId: runtimeDataId,
-                         maxRecurrenceCount: 1l,
-                         priority: 50l]
+                         maxRecurrenceCount: 1L,
+                         priority: 50L]
         delegator.create('JobSandbox', jobFields)
 
         productGroupOrder.jobId = jobFields.jobId
@@ -852,7 +852,7 @@ Map checkOrderItemForProductGroupOrder() {
                 .filterByDate()
                 .queryFirst()
         if (productGroupOrder) {
-            productGroupOrder.soldOrderQty = productGroupOrder.soldOrderQty ?: 0l
+            productGroupOrder.soldOrderQty = productGroupOrder.soldOrderQty ?: 0L
             productGroupOrder.soldOrderQty += orderItem.quantity
             productGroupOrder.store()
 
