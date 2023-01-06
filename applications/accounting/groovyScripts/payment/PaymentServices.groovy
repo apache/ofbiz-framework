@@ -337,23 +337,23 @@ Map getInvoicePaymentInfoListByDueDateOffset() {
     }
 
     from('Invoice')
-            .where(condition)
-            .orderBy('invoiceDate')
-            .queryList()
-            .each {
-                Map serviceResult = run service: 'getInvoicePaymentInfoList', with: [invoice: it]
-                if (ServiceUtil.isError(serviceResult)) {
-                    return serviceResult
-                }
-                invoicePaymentInfoList = serviceResult.invoicePaymentInfoList
-                if (invoicePaymentInfoList) {
-                    invoicePaymentInfoList.each { Map invoicePaymentInfo ->
-                        if (invoicePaymentInfo.outstandingAmount > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
-                            filteredInvoicePaymentInfoList << invoicePaymentInfo
-                        }
+        .where(condition)
+        .orderBy('invoiceDate')
+        .queryList()
+        .each {
+            Map serviceResult = run service: 'getInvoicePaymentInfoList', with: [invoice: it]
+            if (ServiceUtil.isError(serviceResult)) {
+                return serviceResult
+            }
+            invoicePaymentInfoList = serviceResult.invoicePaymentInfoList
+            if (invoicePaymentInfoList) {
+                invoicePaymentInfoList.each { Map invoicePaymentInfo ->
+                    if (invoicePaymentInfo.outstandingAmount > 0 && invoicePaymentInfo.dueDate.before(asOfDate)) {
+                        filteredInvoicePaymentInfoList << invoicePaymentInfo
                     }
                 }
             }
+        }
 
     return success(invoicePaymentInfoList: filteredInvoicePaymentInfoList)
 }
@@ -368,29 +368,29 @@ Map voidPayment() {
                             statusId: 'PMNT_VOID']
     run service: 'setPaymentStatus', with: paymentStatusCtx
     from('PaymentApplication')
-            .where(paymentId: paymentId)
-            .queryList()
-            .each { it ->
-                Map invoice = from('Invoice').where(invoiceId: it.invoiceId).queryOne()
-                if (invoice.statusId == 'INVOICE_PAID') {
-                    run service: 'setInvoiceStatus', with: [*: invoice.getAllFields(),
-                                                            paidDate: null,
-                                                            statusId: 'INVOICE_READY']
-                }
-                run service: 'removePaymentApplication', with: [paymentApplicationId: it.paymentApplicationId]
+        .where(paymentId: paymentId)
+        .queryList()
+        .each { it ->
+            Map invoice = from('Invoice').where(invoiceId: it.invoiceId).queryOne()
+            if (invoice.statusId == 'INVOICE_PAID') {
+                run service: 'setInvoiceStatus', with: [*: invoice.getAllFields(),
+                                                        paidDate: null,
+                                                        statusId: 'INVOICE_READY']
             }
+            run service: 'removePaymentApplication', with: [paymentApplicationId: it.paymentApplicationId]
+        }
 
     from('AcctgTrans')
-            .where(invoiceId: null,
-                    paymentId: paymentId)
-            .queryList()
-            .each { it ->
-                Map result = run service: 'copyAcctgTransAndEntries', with: [fromAcctgTransId: it.acctgTransId,
-                                                                             revert: 'Y']
-                if (it.isPosted == 'Y') {
-                    run service: 'postAcctgTrans', with: [acctgTransId: result.acctgTransId]
-                }
+        .where(invoiceId: null,
+                paymentId: paymentId)
+        .queryList()
+        .each { it ->
+            Map result = run service: 'copyAcctgTransAndEntries', with: [fromAcctgTransId: it.acctgTransId,
+                                                                         revert: 'Y']
+            if (it.isPosted == 'Y') {
+                run service: 'postAcctgTrans', with: [acctgTransId: result.acctgTransId]
             }
+        }
     return success([finAccountTransId: payment.finAccountTransId,
                     statusId: 'FINACT_TRNS_CANCELED'])
 }

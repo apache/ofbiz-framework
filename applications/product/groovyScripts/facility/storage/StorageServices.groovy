@@ -27,7 +27,8 @@ def createFacilityLocation() {
     GenericValue newEntity = makeValue('FacilityLocation', parameters)
 
     String locationSeqId = "${parameters.areaId ?: ''}${parameters.aisleId ?: ''}${parameters.sectionId ?: ''}"
-                            +"${parameters.levelId ?: ''}${parameters.positionId ?: ''}"
+    +"${parameters.levelId ?: ''}${parameters.positionId ?: ''}"
+
     if (locationSeqId) {
         int i = 1
         String nextLocationSeqId = locationSeqId

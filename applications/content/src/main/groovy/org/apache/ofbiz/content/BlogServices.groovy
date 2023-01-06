@@ -108,27 +108,27 @@ Map getBlogEntry() {
     GenericValue content = from('Content').where(parameters).cache().queryOne()
     GenericValue mainContent, articleText, dataResource, summaryContent, summaryText, imageContent
     from('ContentAssoc')
-            .where(contentId: content.contentId)
-            .filterByDate()
-            .cache()
-            .queryList()
-            .each {
-                switch (it.mapKey) {
-                    case 'ARTICLE':
-                        mainContent = it.getRelatedOne('ToContent', true)
-                        dataResource = mainContent.getRelatedOne('DataResource', true)
-                        articleText = dataResource.getRelatedOne('ElectronicText', true)
-                        break
-                    case 'SUMMARY':
-                        summaryContent = it.getRelatedOne('ToContent', true)
-                        dataResource = summaryContent.getRelatedOne('DataResource', true)
-                        summaryText = dataResource.getRelatedOne('ElectronicText', true)
-                        break
-                    case 'IMAGE':
-                        imageContent = it.getRelatedOne('ToContent', true)
-                        break
-                }
+        .where(contentId: content.contentId)
+        .filterByDate()
+        .cache()
+        .queryList()
+        .each {
+            switch (it.mapKey) {
+                case 'ARTICLE':
+                    mainContent = it.getRelatedOne('ToContent', true)
+                    dataResource = mainContent.getRelatedOne('DataResource', true)
+                    articleText = dataResource.getRelatedOne('ElectronicText', true)
+                    break
+                case 'SUMMARY':
+                    summaryContent = it.getRelatedOne('ToContent', true)
+                    dataResource = summaryContent.getRelatedOne('DataResource', true)
+                    summaryText = dataResource.getRelatedOne('ElectronicText', true)
+                    break
+                case 'IMAGE':
+                    imageContent = it.getRelatedOne('ToContent', true)
+                    break
             }
+        }
 
     Map resultMap = [blogContentId: parameters.blogContentId,
                      contentId: content.contentId,
@@ -246,27 +246,27 @@ Map updateBlogEntry() {
 Map getOwnedOrPublishedBlogEntries() {
     List blogList = []
     from('ContentAssocViewTo')
-            .where(contentIdStart: parameters.contentId,
-                    caContentAssocTypeId: 'PUBLISH_LINK')
-            .orderBy('-caFromDate')
-            .filterByDate()
-            .cache()
-            .queryList()
-            .each {
-                Map serviceResult = run service: 'genericContentPermission',
+        .where(contentIdStart: parameters.contentId,
+                caContentAssocTypeId: 'PUBLISH_LINK')
+        .orderBy('-caFromDate')
+        .filterByDate()
+        .cache()
+        .queryList()
+        .each {
+            Map serviceResult = run service: 'genericContentPermission',
+                    with: [*: it.getAllFields(),
+                           ownerContentId: parameters.contentId,
+                           mainAction: 'VIEW']
+            if (!serviceResult.hasPermission) {
+                serviceResult = run service: 'genericContentPermission',
                         with: [*: it.getAllFields(),
                                ownerContentId: parameters.contentId,
-                               mainAction: 'VIEW']
-                if (!serviceResult.hasPermission) {
-                    serviceResult = run service: 'genericContentPermission',
-                            with: [*: it.getAllFields(),
-                                   ownerContentId: parameters.contentId,
-                                   mainAction: 'UPDATE']
-                }
-                if (serviceResult.hasPermission) {
-                    blogList << it
-                }
+                               mainAction: 'UPDATE']
             }
+            if (serviceResult.hasPermission) {
+                blogList << it
+            }
+        }
     return success([blogList: blogList,
                     blogContentId: parameters.blogContentId])
 }

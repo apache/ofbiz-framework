@@ -877,7 +877,7 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                      .queryList()
             PartyRelationshipList.findAll { partyRel ->
                 !relatedPartyIdList.contains(partyRel.partyIdTo) && !newRelatedPartyIdList.contains(partyRel.partyIdTo) }.each {
-               newRelatedPartyIdList << it.partyIdTo
+                newRelatedPartyIdList << it.partyIdTo
             }
 
             if (includeFromToSwitched == 'Y') {

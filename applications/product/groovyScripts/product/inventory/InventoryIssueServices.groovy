@@ -98,17 +98,17 @@ Map issueImmediatelyFulfilledOrderItem() {
         Map lookupFieldMap = [productId: orderItem.productId,
                               facilityId: orderHeader.originFacilityId]
         from('InventoryItem')
-                .where(lookupFieldMap)
-                .orderBy(orderBy)
-                .queryList()
-                .each { inventoryItem ->
-                    // this is a little trick to get the InventoryItem value object without doing a query, possible
-                    // since all fields on InventoryItem are also on InventoryItemAndLocation with the same names
-                    GenericValue tmpLastNonSerInventoryItem = issueImmediateForInventoryItemInline(inventoryItem)
-                    if (tmpLastNonSerInventoryItem) {
-                        lastNonSerInventoryItem = tmpLastNonSerInventoryItem
-                    }
+            .where(lookupFieldMap)
+            .orderBy(orderBy)
+            .queryList()
+            .each { inventoryItem ->
+                // this is a little trick to get the InventoryItem value object without doing a query, possible
+                // since all fields on InventoryItem are also on InventoryItemAndLocation with the same names
+                GenericValue tmpLastNonSerInventoryItem = issueImmediateForInventoryItemInline(inventoryItem)
+                if (tmpLastNonSerInventoryItem) {
+                    lastNonSerInventoryItem = tmpLastNonSerInventoryItem
                 }
+            }
 
         parameters.quantityNotIssued = orderItem.quantity
         // if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found,

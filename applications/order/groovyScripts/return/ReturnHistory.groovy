@@ -35,7 +35,7 @@ returnHistoryList.each { returnHistory ->
             orderReturnItemHistories.add(returnHistory)
         }
     } else if (returnHistory.oldValueText as BigDecimal != returnHistory.newValueText as BigDecimal) {
-            orderReturnItemHistories.add(returnHistory)
+        orderReturnItemHistories.add(returnHistory)
     }
 }
 context.orderReturnItemHistories = orderReturnItemHistories
