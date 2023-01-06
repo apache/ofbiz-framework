@@ -133,13 +133,6 @@ Map removeShoppingListItem() {
     return success()
 }
 
-private void updateLastAdminModified(GenericValue shoppingList, GenericValue userLogin) {
-    if (shoppingList.partyId != userLogin.partyId) {
-        shoppingList.lastAdminModified = UtilDateTime.nowTimestamp()
-        shoppingList.store()
-    }
-}
-
 /**
  * Adds a shopping list item if one with the same productId does not exist
  */
@@ -315,4 +308,11 @@ private List<GenericValue> linkProductToShoppingList(String productId, String sh
                                                                            shoppingListId: shoppingListId,
                                                                            quantity: (BigDecimal) 1]
         }
+}
+
+private void updateLastAdminModified(GenericValue shoppingList, GenericValue userLogin) {
+    if (shoppingList.partyId != userLogin.partyId) {
+        shoppingList.lastAdminModified = UtilDateTime.nowTimestamp()
+        shoppingList.store()
+    }
 }
