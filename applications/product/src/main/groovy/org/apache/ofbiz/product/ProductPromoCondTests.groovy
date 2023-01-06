@@ -268,12 +268,12 @@ class ProductPromoCondTests extends OFBizTestCase {
     void testRecurrencePromo() {
         String condValue = 'TEST_PROMO'
         ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
-        GenericValue reccurenceRule = delegator.makeValue('RecurrenceRule', [recurrenceRuleId: condValue, frequency: 'DAILY', intervalNumber: 1l,
-                                                                       countNumber: -1l, byDayList: 'MO,TU,WE,TH,FR,SA,SU'])
+        GenericValue reccurenceRule = delegator.makeValue('RecurrenceRule', [recurrenceRuleId: condValue, frequency: 'DAILY', intervalNumber: 1L,
+                                                                       countNumber: -1L, byDayList: 'MO,TU,WE,TH,FR,SA,SU'])
         delegator.createOrStore(reccurenceRule)
         GenericValue reccurenceInfo = delegator.makeValue('RecurrenceInfo',
                 [recurrenceInfoId: condValue, startDateTime: Timestamp.valueOf('2008-01-01 00:00:00.000'),
-                 recurrenceRuleId: condValue, recurrenceCount: 0l])
+                 recurrenceRuleId: condValue, recurrenceCount: 0L])
         delegator.createOrStore(reccurenceInfo)
 
         // call service promo
