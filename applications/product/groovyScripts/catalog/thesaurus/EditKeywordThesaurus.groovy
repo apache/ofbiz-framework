@@ -60,7 +60,7 @@ if ((specialCharKeywordThesaurus.size() > 0 && newKeywordThesaurus.size() < 20) 
 
 //create list for a-z
 letterList = []
-for (i = 'a'; i<= 'z'; i++) {
+for (i = 'a'; i <= 'z'; i++) {
     letterList.add(i)
 }
 
