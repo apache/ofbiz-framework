@@ -185,7 +185,8 @@ defaultDimensionUomId = null
 if (facility) {
     defaultDimensionUomId = facility.defaultDimensionUomId
 }
-defaultDimensionUomId = defaultDimensionUomId ?: EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.dimension.uom', 'LEN_in', delegator)
+defaultDimensionUomId = defaultDimensionUomId ?: EntityUtilProperties.getPropertyValue('shipment',
+        'shipment.default.dimension.uom', 'LEN_in', delegator)
 context.defaultDimensionUom = from('Uom').where('uomId', defaultDimensionUomId).cache().queryOne()
 context.defaultDimensionUomId = defaultDimensionUomId
 

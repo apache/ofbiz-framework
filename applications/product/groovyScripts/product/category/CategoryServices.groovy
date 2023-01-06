@@ -736,7 +736,8 @@ Map checkCategoryPermissionWithViewPurchaseAllow() {
     boolean hasPermission = true
 
     // Set up for a call to ckeckCategoryRelatedPermission below, but callingMethodName is needed sooner
-    String resourceDescription = parameters.resourceDescription ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
+    String resourceDescription = parameters.resourceDescription ?: UtilProperties.getMessage('CommonUiLabels',
+            'CommonPermissionThisOperation', parameters.locale)
     String callingMethodName = resourceDescription
 
     EntityCondition condition = EntityCondition.makeCondition([

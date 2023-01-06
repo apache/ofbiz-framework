@@ -32,7 +32,8 @@ Map createShoppingList() {
     newEntity.shoppingListTypeId = newEntity.shoppingListTypeId ?: 'SLT_WISH_LIST'
     newEntity.isPublic = newEntity.isPublic ?: 'N'
 
-    newEntity.listName = newEntity.listName ?: UtilProperties.getMessage('OrderUiLabels', 'OrderNewShoppingList', parameters.locale) ?: 'New Shopping List'
+    newEntity.listName = newEntity.listName ?: UtilProperties.getMessage('OrderUiLabels',
+            'OrderNewShoppingList', parameters.locale) ?: 'New Shopping List'
 
     newEntity.isActive = newEntity.isActive ?: newEntity.shoppingListTypeId == 'SLT_AUTO_REODR' ? 'N' : 'Y'
 
