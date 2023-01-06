@@ -164,11 +164,6 @@ Map checkImageUrlForCategoryAndProduct() {
  * the lists filesExist and filesNotExist.
  * <p>
  * The lists filesExist and filesNotExist are filled with the new values.
- * @param map
- * @param key
- * @param filesImageMap
- * @param fileExists
- * @param fileNotExists
  */
 void fileImageExists(String map, String key, Map<?, ?> filesImageMap, List<?> fileExists, List<?> fileNotExists) {
     if (filesImageMap."${map}"?."${key}") {
@@ -232,9 +227,6 @@ Map checkImageUrlForProduct() {
 /**
  * This method fills filesImageMap with the needed content and sets the relevant type in
  * the prodOrCat (product or category) map to null, if there is no image existent for this type
- * @param prodOrCat
- * @param filesImageMap
- * @param imageType
  */
 Map imageUrlCheck(GenericValue prodOrCat, String imageType, LinkedHashMap<Object, Object> filesImageMap) {
     if (prodOrCat."${imageType}") {

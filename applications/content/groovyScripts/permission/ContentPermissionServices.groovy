@@ -95,12 +95,6 @@ Map genericContentPermission() {
 
 /**
  * Check user can view content
- * @param hasPermission
- * @param contentId
- * @param contentOperationId
- * @param contentPurposeTypeId
- * @param roleEntity
- * @param roleEntityField
  */
 Map viewContentPermission(Boolean hasPermission, String contentId, String contentOperationId,
                           String contentPurposeTypeId, String roleEntity,
@@ -141,13 +135,6 @@ Map viewContentPermission(Boolean hasPermission, String contentId, String conten
 
 /**
  * Check user can create new content
- * @param hasPermission
- * @param ownerContentId
- * @param contentOperationId
- * @param statusId
- * @param contentPurposeTypeId
- * @param roleEntity
- * @param roleEntityField
  */
 Map createContentPermission(Boolean hasPermission, String ownerContentId, String contentOperationId,
                             String statusId, String contentPurposeTypeId,
@@ -228,13 +215,6 @@ Map createContentPermission(Boolean hasPermission, String ownerContentId, String
 
 /**
  * Check user can update existing content
- * @param hasPermission
- * @param contentId
- * @param ownerContentId
- * @param contentOperationId
- * @param contentPurposeTypeId
- * @param roleEntity
- * @param roleEntityField
  */
 Map updateContentPermission(Boolean hasPermission, String contentId, String ownerContentId,
                             String contentOperationId, String contentPurposeTypeId,
@@ -325,11 +305,6 @@ Map updateContentPermission(Boolean hasPermission, String contentId, String owne
 
 /**
  * method to check operation security
- * @param contentOperationId
- * @param contentPurposeTypeId
- * @param checkId
- * @param roleEntity
- * @param roleEntityField
  */
 Map checkContentOperationSecurity(String contentOperationId, String contentPurposeTypeId, String checkId,
                                   String roleEntity, String roleEntityField) {
@@ -484,11 +459,6 @@ Map checkOwnership() {
 // method the check Content Role associations
 /**
  * Check users role associations with Content
- * @param roleEntity
- * @param roleEntityField
- * @param checkId
- * @param checkPartyId
- * @param checkRoleTypeId
  */
 Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId, String checkPartyId, String checkRoleTypeId) {
     Boolean hasPermission
@@ -542,7 +512,6 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
 
 /**
  * Find all content purposes for the specified content
- * @param checkId
  */
 Map findAllContentPurposes(String checkId) {
     if (!checkId) {
