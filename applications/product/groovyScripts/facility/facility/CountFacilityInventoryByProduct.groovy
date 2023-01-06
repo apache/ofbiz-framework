@@ -67,7 +67,7 @@ if (action) {
             hasOffsetQOH = true
             searchParameterString = searchParameterString + '&offsetQOHQty=' + offsetQOH
         } catch (NumberFormatException nfe) {
-            logError(nfe, 'Caught an exception : ' + nfe.toString())
+            logError(nfe, 'Caught an exception : ' + nfe)
             request.setAttribute('_ERROR_MESSAGE', 'An entered value seems non-numeric')
         }
     }
@@ -77,7 +77,7 @@ if (action) {
             hasOffsetATP = true
             searchParameterString = searchParameterString + '&offsetATPQty=' + offsetATP
         } catch (NumberFormatException nfe) {
-            logError(nfe, 'Caught an exception : ' + nfe.toString())
+            logError(nfe, 'Caught an exception : ' + nfe)
             request.setAttribute('_ERROR_MESSAGE', 'An entered value seems non-numeric')
         }
     }
@@ -181,7 +181,7 @@ if (action) {
             checkTime = UtilDateTime.toTimestamp(cal.getTime())
             searchParameterString += '&monthsInPastLimit=' + monthsInPastLimitStr
         } catch (Exception e) {
-            logError(e, 'Caught an exception : ' + e.toString())
+            logError(e, 'Caught an exception : ' + e)
             request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
         }
     }
@@ -279,7 +279,7 @@ if (action) {
                         try {
                             salesUsageQuantity += salesUsageItem.getDouble('quantity').doubleValue()
                         } catch (Exception e) {
-                            logError(e, 'Caught an exception : ' + e.toString())
+                            logError(e, 'Caught an exception : ' + e)
                             request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
                         }
                     }
@@ -301,7 +301,7 @@ if (action) {
                         try {
                             productionUsageQuantity += productionUsageItem.getDouble('quantity').doubleValue()
                         } catch (Exception e) {
-                            logError(e, 'Caught an exception : ' + e.toString())
+                            logError(e, 'Caught an exception : ' + e)
                             request.setAttribute('_ERROR_MESSAGE', 'An exception occured please check the log')
                         }
                     }
@@ -352,7 +352,7 @@ if (action) {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            logError(e2, 'Could not rollback transaction: ' + e2.toString())
+            logError(e2, 'Could not rollback transaction: ' + e2)
         }
         // after rolling back, rethrow the exception
         throw e

@@ -26,7 +26,7 @@ type = -1
 try {
     type = Integer.valueOf(typeStr)
 } catch (NumberFormatException nfe) {
-    logError(nfe, 'Caught an exception : ' + nfe.toString())
+    logError(nfe, 'Caught an exception : ' + nfe)
     errMsgList.add('Entered value is non-numeric for numeric field: ' + field.getName())
 }
 

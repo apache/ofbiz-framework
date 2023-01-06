@@ -33,7 +33,7 @@ Map createShipmentReceipt() {
     GenericValue newEntity = makeValue('ShipmentReceipt')
     newEntity.setNonPKFields(parameters)
 
-    String receiptId = delegator.getNextSeqId('ShipmentReceipt').toString()
+    String receiptId = delegator.getNextSeqId('ShipmentReceipt')
     newEntity.receiptId = receiptId
     result.receiptId = receiptId
 

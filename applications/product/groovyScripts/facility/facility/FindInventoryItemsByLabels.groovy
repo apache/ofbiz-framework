@@ -89,7 +89,7 @@ if (andCondition.size() > 1) {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            logError(e2, 'Could not rollback transaction: ' + e2.toString())
+            logError(e2, 'Could not rollback transaction: ' + e2)
         }
         // after rolling back, rethrow the exception
         throw e
