@@ -41,9 +41,8 @@ if (tabButtonItemTop == 'productstore') {
         request.setAttribute('_ERROR_MESSAGE_', 'Facility not set!')
         context.showScreen = 'message'
         return
-    } else {
-        context.showScreen = 'origin'
     }
+    context.showScreen = 'origin'
 } else if (tabButtonItemTop == 'facility') {
     facilityId = parameters.facilityId
     if (!facilityId && request.getAttribute('facilityId')) {

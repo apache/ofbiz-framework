@@ -406,15 +406,14 @@ Map productOrderHist() {
                 logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: '
                         + ServiceUtil.getErrorMessage(result))
                 return serviceResult
-            } else {
-                BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
-                BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
-                if (Debug.verboseOn()) {
-                    logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
-                            + monthsToInclude + ' months.')
-                }
-                compareBase = orderSubTotalAndCartSubTotal <=> condValue as BigDecimal
             }
+            BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
+            BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
+            if (Debug.verboseOn()) {
+                logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
+                        + monthsToInclude + ' months.')
+            }
+            compareBase = orderSubTotalAndCartSubTotal <=> condValue as BigDecimal
         } catch (GenericServiceException e) {
             logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
             return ServiceUtil.returnError('Error getting order history')
@@ -456,14 +455,13 @@ Map productOrderYear() {
                 logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: '
                         + ServiceUtil.getErrorMessage(result))
                 return serviceResult
-            } else {
-                BigDecimal orderSubTotal = result.get('totalSubRemainingAmount')
-                if (Debug.verboseOn()) {
-                    logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
-                            + monthsToInclude + ' months.')
-                }
-                compareBase = orderSubTotal <=> condValue as BigDecimal
             }
+            BigDecimal orderSubTotal = result.get('totalSubRemainingAmount')
+            if (Debug.verboseOn()) {
+                logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
+                        + monthsToInclude + ' months.')
+            }
+            compareBase = orderSubTotal <=> condValue as BigDecimal
         } catch (GenericServiceException e) {
             logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
             return ServiceUtil.returnError('Error getting order history')
@@ -513,13 +511,12 @@ Map productOrderLastYear() {
                 logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: '
                         + ServiceUtil.getErrorMessage(result))
                 return serviceResult
-            } else {
-                Double orderSubTotal = (Double) result.get('totalSubRemainingAmount')
-                if (Debug.verboseOn()) {
-                    logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
-                }
-                compareBase = orderSubTotal <=> condValue as Double
             }
+            Double orderSubTotal = (Double) result.get('totalSubRemainingAmount')
+            if (Debug.verboseOn()) {
+                logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
+            }
+            compareBase = orderSubTotal <=> condValue as Double
         } catch (GenericServiceException e) {
             logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
             return ServiceUtil.returnError('Error getting order history')

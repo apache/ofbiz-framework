@@ -40,9 +40,8 @@ if (productionRunId) {
             productionRun.getString('currentStatusId') == 'PRUN_SCHEDULED' ||
             productionRun.getString('currentStatusId') == 'PRUN_CANCELLED') {
         return 'docs_not_printed'
-    } else {
-        return 'docs_printed'
     }
+    return 'docs_printed'
 }
 
 return 'error'

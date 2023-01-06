@@ -239,9 +239,8 @@ Map saveLocalFileDataResource(String mode) {
             result.dataResourceId = dataResource.dataResourceId
             result.mimeTypeId = dataResource.mimeTypeId
             return result
-        } else {
-            errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
         }
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
     }
     String uploadPath = null
     switch (mode) {
@@ -298,9 +297,8 @@ Map saveExtFileDataResource(boolean isUpdate, String mode) {
             result.dataResourceId = dataResource.dataResourceId
             result.mimeTypeId = dataResource.mimeTypeId
             return result
-        } else {
-            errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
         }
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
     }
     // update the data resource with file data
     dataResource.dataResourceTypeId = parameters.dataResourceTypeId
