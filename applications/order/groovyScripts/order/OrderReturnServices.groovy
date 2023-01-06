@@ -148,7 +148,7 @@ Map updateReturnHeader() {
                 logInfo("Available amount for return on order # ${returnItem.orderId} is " +
                         "[${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}]")
 
-                if (availableReturnTotal < (-0.01 as BigDecimal)) {
+                if (availableReturnTotal < -0.01) {
                     return informError('OrderReturnPriceCannotExceedTheOrderTotal')
                 }
             } else {

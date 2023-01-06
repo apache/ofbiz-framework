@@ -27,8 +27,8 @@ if (context.message) {
     result.result = message
     logInfo("----- Message is: $message -----")
 } else {
-    result.successMessage = (String) 'Got no message but finished fine anyway'
-    result.result = (String) '[no message received]'
+    result.successMessage = 'Got no message but finished fine anyway'
+    result.result = '[no message received]'
     logInfo('----- No message received -----')
 }
 return result
@@ -43,8 +43,8 @@ public Map testMethod() {
         result.result = message
         logInfo("----- Message is: $message -----")
     } else {
-        result.successMessage = (String) 'Got no message but finished fine anyway'
-        result.result = (String) '[no message received]'
+        result.successMessage = 'Got no message but finished fine anyway'
+        result.result = '[no message received]'
         logInfo('----- No message received -----')
     }
     return result
@@ -60,8 +60,8 @@ public Map testMethod(Map context) {
         result.result = message
         logInfo("----- Message is: $message -----")
     } else {
-        result.successMessage = (String) 'Got no message but finished fine anyway'
-        result.result = (String) '[no message received]'
+        result.successMessage = 'Got no message but finished fine anyway'
+        result.result = '[no message received]'
         logInfo('----- No message received -----')
     }
     return result

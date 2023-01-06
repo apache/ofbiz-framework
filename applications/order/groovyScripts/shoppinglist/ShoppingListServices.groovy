@@ -79,8 +79,8 @@ Map createShoppingListItem() {
     if (shoppingListItems) {
         GenericValue shoppingListItem = shoppingListItems[0]
 
-        shoppingListItem.quantity = shoppingListItem.quantity ?: (BigDecimal) 0.0
-        parameters.quantity = parameters.quantity ?: (BigDecimal) 0.0
+        shoppingListItem.quantity = shoppingListItem.quantity ?: 0.0
+        parameters.quantity = parameters.quantity ?: 0.0
 
         BigDecimal totalQty = shoppingListItem.quantity + parameters.quantity
         Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem,
@@ -180,7 +180,7 @@ Map calculateShoppingListDeepTotalPrice() {
         }
     }
 
-    BigDecimal totalPrice = (BigDecimal) 0.0
+    BigDecimal totalPrice = 0.0
     from('ShoppingListItem')
         .where(shoppingListId: parameters.shoppingListId)
         .cache()
@@ -197,7 +197,7 @@ Map calculateShoppingListDeepTotalPrice() {
                 }
                 itemPrice = serviceResultCPP.price
             }
-            BigDecimal shoppingListItemQuantity = it.quantity ?: (BigDecimal) 1.0
+            BigDecimal shoppingListItemQuantity = it.quantity ?: 1.0
             totalPrice += (itemPrice * shoppingListItemQuantity)
         }
 
