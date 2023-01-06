@@ -33,7 +33,7 @@ import org.w3c.dom.Document
 ModelEntity modelEntity = null
 try {
     modelEntity = delegator.getModelEntity(parameters.entityName)
-} catch(GenericEntityException e) {
+} catch (GenericEntityException e) {
     logError("The entityName ${parameters.entityName} isn't found", 'FindGeneric.groovy')
 }
 
