@@ -96,7 +96,7 @@ if (shipmentPlans) {
         }
         Dimension dim = new Dimension(width, height)
         if (!dimensionToProducts.containsKey(dim)) {
-            dimensionToProducts.put(dim, new ArrayList())
+            dimensionToProducts.put(dim, [])
         }
         prodList = (List)dimensionToProducts.get(dim)
         prodList.add(product)
