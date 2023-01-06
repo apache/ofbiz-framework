@@ -406,7 +406,7 @@ if (orderHeader) {
         if (productId) {  // avoid order items without productIds, such as bulk order items
             resultOutput = runService('getProductManufacturingSummaryByFacility', [productId: productId])
             manufacturingInQuantitySummaryByFacility = resultOutput.summaryInByFacility
-            Double productionQuantity = 0
+            BigDecimal productionQuantity = 0
             manufacturingInQuantitySummaryByFacility.values().each { manQuantity ->
                 productionQuantity += manQuantity.estimatedQuantityTotal
             }

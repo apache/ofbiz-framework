@@ -113,7 +113,7 @@ if (purchaseOrder) {
         if (orderShipments) {
             orderShipments.each { orderShipment ->
                 exprs.add(EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, orderShipment.orderItemSeqId))
-                double orderShipmentQty = orderShipment.getDouble('quantity').doubleValue()
+                BigDecimal orderShipmentQty = orderShipment.getDouble('quantity').doubleValue()
                 if (shippedQuantities.containsKey(orderShipment.orderItemSeqId)) {
                     orderShipmentQty += ((Double)shippedQuantities.get(orderShipment.orderItemSeqId)).doubleValue()
                 }
@@ -124,7 +124,7 @@ if (purchaseOrder) {
             issuances = shipment.getRelated('ItemIssuance', [orderId: purchaseOrderId], null, false)
             issuances.each { issuance ->
                 exprs.add(EntityCondition.makeCondition('orderItemSeqId', EntityOperator.EQUALS, issuance.orderItemSeqId))
-                double issuanceQty = issuance.getDouble('quantity').doubleValue()
+                BigDecimal issuanceQty = issuance.getDouble('quantity').doubleValue()
                 if (shippedQuantities.containsKey(issuance.orderItemSeqId)) {
                     issuanceQty += ((Double)shippedQuantities.get(issuance.orderItemSeqId)).doubleValue()
                 }

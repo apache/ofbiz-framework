@@ -76,7 +76,7 @@ Map receiveInventoryProduct () {
     Map result = success()
     List successMessageList = []
     String currentInventoryItemId
-    Double loops = 1.0
+    BigDecimal loops = 1.0
     if (parameters.inventoryItemTypeId == 'SERIALIZED_INV_ITEM') {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
         if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal.ONE))) {
@@ -105,7 +105,7 @@ Map receiveInventoryProduct () {
         }
     }
 
-    for (Double currentLoop = 0; currentLoop < loops; currentLoop++) {
+    for (BigDecimal currentLoop = 0; currentLoop < loops; currentLoop++) {
         logInfo("receiveInventoryProduct Looping and creating inventory info - ${currentLoop}")
 
         // if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns);

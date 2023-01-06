@@ -512,7 +512,7 @@ Map productOrderLastYear() {
                         + ServiceUtil.getErrorMessage(result))
                 return serviceResult
             }
-            Double orderSubTotal = (Double) result.get('totalSubRemainingAmount')
+            BigDecimal orderSubTotal = (BigDecimal) result.get('totalSubRemainingAmount')
             if (Debug.verboseOn()) {
                 logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
             }
