@@ -238,8 +238,8 @@ Map checkAndCreateBatchForValidPayments() {
             .where(EntityCondition.makeCondition('paymentId', EntityOperator.IN, parameters.paymentIds))
             .queryList()
             .stream()
-            .filter {!UtilAccounting.isReceipt(it)}
-            .map {it.paymentId}
+            .filter { !UtilAccounting.isReceipt(it) }
+            .map { it.paymentId }
             .collect()
             .toList()
     if (disbursementPaymentIds) {
@@ -577,7 +577,7 @@ Map createPaymentAndPaymentGroupForInvoices() {
         }
     }
     Map partyInvoices = [:]
-    parameters.invoiceIds.each {invoiceId ->
+    parameters.invoiceIds.each { invoiceId ->
         GenericValue invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
         UtilMisc.addToListInMap(invoice, partyInvoices, invoice.partyIdFrom)
     }
