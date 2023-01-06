@@ -309,9 +309,9 @@ Map issueProductionRunTaskComponentInline(Map parameters,
         }
         if ((!inventoryItem.statusId || inventoryItem.statusId == 'INV_AVAILABLE') &&
                 inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
-            BigDecimal inventoryItemQuantity = 'Y' != parameters.useReservedItems ?
-                    inventoryItem.availableToPromiseTotal :
-                    inventoryItem.quantityOnHandTotal
+            BigDecimal inventoryItemQuantity = 'Y' == parameters.useReservedItems ?
+                    inventoryItem.quantityOnHandTotal :
+                    inventoryItem.availableToPromiseTotal
 
             // reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it
             if (inventoryItemQuantity && inventoryItemQuantity > 0) {

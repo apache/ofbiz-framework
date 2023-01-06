@@ -76,5 +76,5 @@ context.quoteItemAndCostInfos = quoteItemAndCostInfos
 
 context.totalCost = totalCost
 context.totalPrice = totalPrice
-context.totalCostMult = (totalCost != 0 ? totalPrice / totalCost : 0)
+context.totalCostMult = totalCost == 0 ? 0 : totalPrice / totalCost
 
