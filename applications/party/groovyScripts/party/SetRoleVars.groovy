@@ -20,29 +20,35 @@
 roleTypeId = parameters.roleTypeId
 roleTypeAndParty = from('RoleTypeAndParty').where('partyId', parameters.partyId, 'roleTypeId', roleTypeId).queryFirst()
 if (roleTypeAndParty) {
-    if (roleTypeId == 'ACCOUNT') {
-        context.accountDescription = roleTypeAndParty.description
-    } else if (roleTypeId == 'CONTACT') {
-        context.contactDescription = roleTypeAndParty.description
-    } else if (roleTypeId == 'LEAD') {
-        context.leadDescription = roleTypeAndParty.description
-        partyRelationships = from('PartyRelationship')
-                .where('partyIdTo', parameters.partyId, 'roleTypeIdFrom', 'ACCOUNT_LEAD', 'roleTypeIdTo', 'LEAD',
-                        'partyRelationshipTypeId', 'EMPLOYMENT')
-                .filterByDate().queryFirst()
-        if (partyRelationships) {
-            context.partyGroupId = partyRelationships.partyIdFrom
-            context.partyId = parameters.partyId
-        }
-    } else if (roleTypeId == 'ACCOUNT_LEAD') {
-        context.accountLeadDescription = roleTypeAndParty.description
-        partyRelationships = from('PartyRelationship')
-                .where('partyIdFrom', parameters.partyId, 'roleTypeIdFrom', 'ACCOUNT_LEAD', 'roleTypeIdTo', 'LEAD',
-                        'partyRelationshipTypeId', 'EMPLOYMENT')
-                .filterByDate().queryFirst()
-        if (partyRelationships) {
-            context.partyGroupId = parameters.partyId
-            context.partyId = partyRelationships.partyIdTo
-        }
+    switch (roleTypeId) {
+        case 'ACCOUNT':
+            context.accountDescription = roleTypeAndParty.description
+            break
+        case 'CONTACT':
+            context.contactDescription = roleTypeAndParty.description
+            break
+        case 'LEAD':
+            context.leadDescription = roleTypeAndParty.description
+            partyRelationships = from('PartyRelationship')
+                    .where('partyIdTo', parameters.partyId, 'roleTypeIdFrom', 'ACCOUNT_LEAD', 'roleTypeIdTo', 'LEAD',
+                            'partyRelationshipTypeId', 'EMPLOYMENT')
+                    .filterByDate().queryFirst()
+            if (partyRelationships) {
+                context.partyGroupId = partyRelationships.partyIdFrom
+                context.partyId = parameters.partyId
+            }
+            break
+            break
+        case 'ACCOUNT_LEAD':
+            context.accountLeadDescription = roleTypeAndParty.description
+            partyRelationships = from('PartyRelationship')
+                    .where('partyIdFrom', parameters.partyId, 'roleTypeIdFrom', 'ACCOUNT_LEAD', 'roleTypeIdTo', 'LEAD',
+                            'partyRelationshipTypeId', 'EMPLOYMENT')
+                    .filterByDate().queryFirst()
+            if (partyRelationships) {
+                context.partyGroupId = parameters.partyId
+                context.partyId = partyRelationships.partyIdTo
+            }
+            break
     }
 }

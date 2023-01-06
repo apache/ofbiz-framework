@@ -39,113 +39,119 @@ if (parameters.entityName) {
 int maxRecordsPerFile = maxRecStr ? (maxRecStr as int) : 0
 
 preConfiguredSetName = parameters.preConfiguredSetName
-if (preConfiguredSetName == 'Product1') {
-    passedEntityNames = [
-            'DataResource',
-            'Facility',
-            'ProdCatalog',
-            'Product',
-            'ProductCategory',
-            'ProductFeatureCategory',
-            'ProductFeatureType',
-            'ProductPriceRule',
-            'ProductPromo'
-    ] as LinkedHashSet
-} else if (preConfiguredSetName == 'Product2') {
-    passedEntityNames = [
-            'Content',
-            'ElectronicText',
-            'FacilityLocation',
-            'ProdCatalogCategory',
-            'ProdCatalogRole',
-            'ProductAssoc',
-            'ProductAttribute',
-            'ProductCategoryMember',
-            'ProductCategoryRollup',
-            'ProductFacility',
-            'ProductFeature',
-            'ProductFeatureCategoryAppl',
-            'ProductKeyword',
-            'ProductPrice',
-            'ProductPriceAction',
-            'ProductPriceCond',
-            'ProductPromoCode',
-            'ProductPromoCategory',
-            'ProductPromoProduct',
-            'ProductPromoRule'
-    ] as LinkedHashSet
-} else if (preConfiguredSetName == 'Product3') {
-    passedEntityNames = [
-            'ProdCatalogInvFacility',
-            'ProductContent',
-            'ProductFacilityLocation',
-            'ProductFeatureAppl',
-            'ProductFeatureDataResource',
-            'ProductFeatureGroup',
-            'ProductPriceChange',
-            'ProductPromoAction',
-            'ProdPromoCodeContactMech',
-            'ProductPromoCodeParty',
-            'ProductPromoCond'
-    ] as LinkedHashSet
-} else if (preConfiguredSetName == 'Product4') {
-    passedEntityNames = [
-            'InventoryItem',
-            'ProductFeatureCatGrpAppl',
-            'ProductFeatureGroupAppl'
-    ] as LinkedHashSet
-} else if (preConfiguredSetName == 'CatalogExport') {
-    passedEntityNames = [
-            'ProdCatalogCategoryType',
-            'ProdCatalog',
-            'ProductCategoryType',
-            'ProductCategory',
-            'ProductCategoryRollup',
-            'ProdCatalogCategory',
-            'ProductFeatureType',
-            'ProductFeatureCategory',
+switch (preConfiguredSetName) {
+    case 'Product1':
+        passedEntityNames = [
+                'DataResource',
+                'Facility',
+                'ProdCatalog',
+                'Product',
+                'ProductCategory',
+                'ProductFeatureCategory',
+                'ProductFeatureType',
+                'ProductPriceRule',
+                'ProductPromo'
+        ] as LinkedHashSet
+        break
+    case 'Product2':
+        passedEntityNames = [
+                'Content',
+                'ElectronicText',
+                'FacilityLocation',
+                'ProdCatalogCategory',
+                'ProdCatalogRole',
+                'ProductAssoc',
+                'ProductAttribute',
+                'ProductCategoryMember',
+                'ProductCategoryRollup',
+                'ProductFacility',
+                'ProductFeature',
+                'ProductFeatureCategoryAppl',
+                'ProductKeyword',
+                'ProductPrice',
+                'ProductPriceAction',
+                'ProductPriceCond',
+                'ProductPromoCode',
+                'ProductPromoCategory',
+                'ProductPromoProduct',
+                'ProductPromoRule'
+        ] as LinkedHashSet
+        break
+    case 'Product3':
+        passedEntityNames = [
+                'ProdCatalogInvFacility',
+                'ProductContent',
+                'ProductFacilityLocation',
+                'ProductFeatureAppl',
+                'ProductFeatureDataResource',
+                'ProductFeatureGroup',
+                'ProductPriceChange',
+                'ProductPromoAction',
+                'ProdPromoCodeContactMech',
+                'ProductPromoCodeParty',
+                'ProductPromoCond'
+        ] as LinkedHashSet
+        break
+    case 'Product4':
+        passedEntityNames = [
+                'InventoryItem',
+                'ProductFeatureCatGrpAppl',
+                'ProductFeatureGroupAppl'
+        ] as LinkedHashSet
+        break
+    case 'CatalogExport':
+        passedEntityNames = [
+                'ProdCatalogCategoryType',
+                'ProdCatalog',
+                'ProductCategoryType',
+                'ProductCategory',
+                'ProductCategoryRollup',
+                'ProdCatalogCategory',
+                'ProductFeatureType',
+                'ProductFeatureCategory',
 
-            'DataResource',
-            'Content',
-            'ElectronicText',
+                'DataResource',
+                'Content',
+                'ElectronicText',
 
-            'ProductType',
-            'Product',
-            'ProductAttribute',
-            'GoodIdentificationType',
-            'GoodIdentification',
-            'ProductPriceType',
-            'ProductPrice',
+                'ProductType',
+                'Product',
+                'ProductAttribute',
+                'GoodIdentificationType',
+                'GoodIdentification',
+                'ProductPriceType',
+                'ProductPrice',
 
-            'ProductPriceRule',
-            'ProductPriceCond',
-            'ProductPriceAction',
-            //'ProductPriceChange',
+                'ProductPriceRule',
+                'ProductPriceCond',
+                'ProductPriceAction',
+                //'ProductPriceChange',
 
-            'ProductPromo',
-            'ProductPromoCode',
-            'ProductPromoCategory',
-            'ProductPromoProduct',
-            'ProductPromoRule',
-            'ProductPromoAction',
-            'ProdPromoCodeContactMech',
-            'ProductPromoCodeParty',
-            'ProductPromoCond',
+                'ProductPromo',
+                'ProductPromoCode',
+                'ProductPromoCategory',
+                'ProductPromoProduct',
+                'ProductPromoRule',
+                'ProductPromoAction',
+                'ProdPromoCodeContactMech',
+                'ProductPromoCodeParty',
+                'ProductPromoCond',
 
-            'ProductCategoryMember',
-            'ProductAssoc',
-            'ProductContent',
+                'ProductCategoryMember',
+                'ProductAssoc',
+                'ProductContent',
 
-            'ProductFeature',
-            'ProductFeatureCategoryAppl',
-            'ProductFeatureAppl',
-            'ProductFeatureDataResource',
-            'ProductFeatureGroup',
-            'ProductFeatureCatGrpAppl',
-            'ProductFeatureGroupAppl',
+                'ProductFeature',
+                'ProductFeatureCategoryAppl',
+                'ProductFeatureAppl',
+                'ProductFeatureDataResource',
+                'ProductFeatureGroup',
+                'ProductFeatureCatGrpAppl',
+                'ProductFeatureGroupAppl',
 
-            //'ProductKeyword',
-    ] as LinkedHashSet
+                //'ProductKeyword',
+        ] as LinkedHashSet
+        break
 }
 
 if (entitySyncId) {

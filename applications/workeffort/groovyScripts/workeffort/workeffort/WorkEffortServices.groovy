@@ -96,14 +96,16 @@ Map checkAndUpdateWorkEffort() {
             estShipWe.estimatedCompletionDate = parameters.estimatedShipDate
             estShipWe.facilityId = parameters.originFacilityId
             if ((parameters.statusId) && (parameters.statusId != lookedUpValue.statusId)) {
-                if (parameters.statusId == 'SHIPMENT_CANCELLED') {
-                    estShipWe.currentStatusId = 'CAL_CANCELLED'
-                }
-                if (parameters.statusId == 'SHIPMENT_PACKED') {
-                    estShipWe.currentStatusId = 'CAL_CONFIRMED'
-                }
-                if (parameters.statusId == 'SHIPMENT_SHIPPED') {
-                    estShipWe.currentStatusId = 'CAL_COMPLETED'
+                switch (parameters.statusId) {
+                    case 'SHIPMENT_CANCELLED':
+                        estShipWe.currentStatusId = 'CAL_CANCELLED'
+                        break
+                    case 'SHIPMENT_PACKED':
+                        estShipWe.currentStatusId = 'CAL_CONFIRMED'
+                        break
+                    case 'SHIPMENT_SHIPPED':
+                        estShipWe.currentStatusId = 'CAL_COMPLETED'
+                        break
                 }
             }
             Map estShipWeUpdMap = [:]

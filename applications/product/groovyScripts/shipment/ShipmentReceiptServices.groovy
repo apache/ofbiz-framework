@@ -92,16 +92,21 @@ Map receiveInventoryProduct () {
 
     //Status for Non serialized and Serialized inventory are different, lets make sure correct status is stored in database
     if (parameters.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
-        if (parameters.statusId == 'INV_DEFECTIVE') {
-            // This status may come from the Receive Return Screen
-            parameters.statusId = 'INV_NS_DEFECTIVE'
-        } else if (parameters.statusId == 'INV_ON_HOLD') {
-            parameters.statusId = 'INV_NS_ON_HOLD'
-        } else if (parameters.statusId == 'INV_RETURNED') {
-            parameters.statusId = 'INV_NS_RETURNED'
-        } else {
-            // Any other status should be just set to null, if it is not a valid status for Non Serialized inventory
-            parameters.statusId = null
+        switch (parameters.statusId) {
+            case 'INV_DEFECTIVE':
+                // This status may come from the Receive Return Screen
+                parameters.statusId = 'INV_NS_DEFECTIVE'
+                break
+            case 'INV_ON_HOLD':
+                parameters.statusId = 'INV_NS_ON_HOLD'
+                break
+            case 'INV_RETURNED':
+                parameters.statusId = 'INV_NS_RETURNED'
+                break
+            default:
+                // Any other status should be just set to null, if it is not a valid status for Non Serialized inventory
+                parameters.statusId = null
+                break
         }
     }
 

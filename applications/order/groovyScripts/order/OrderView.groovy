@@ -305,14 +305,19 @@ if (orderHeader) {
             supplierContactMechValueMaps.each { supplierContactMechValueMap ->
                 contactMechPurposes = supplierContactMechValueMap.partyContactMechPurposes
                 contactMechPurposes.each { contactMechPurpose ->
-                    if (contactMechPurpose.contactMechPurposeTypeId == 'GENERAL_LOCATION') {
-                        context.supplierGeneralContactMechValueMap = supplierContactMechValueMap
-                    } else if (contactMechPurpose.contactMechPurposeTypeId == 'SHIPPING_LOCATION') {
-                        context.supplierShippingContactMechValueMap = supplierContactMechValueMap
-                    } else if (contactMechPurpose.contactMechPurposeTypeId == 'BILLING_LOCATION') {
-                        context.supplierBillingContactMechValueMap = supplierContactMechValueMap
-                    } else if (contactMechPurpose.contactMechPurposeTypeId == 'PAYMENT_LOCATION') {
-                        context.supplierPaymentContactMechValueMap = supplierContactMechValueMap
+                    switch (contactMechPurpose.contactMechPurposeTypeId) {
+                        case 'GENERAL_LOCATION':
+                            context.supplierGeneralContactMechValueMap = supplierContactMechValueMap
+                            break
+                        case 'SHIPPING_LOCATION':
+                            context.supplierShippingContactMechValueMap = supplierContactMechValueMap
+                            break
+                        case 'BILLING_LOCATION':
+                            context.supplierBillingContactMechValueMap = supplierContactMechValueMap
+                            break
+                        case 'PAYMENT_LOCATION':
+                            context.supplierPaymentContactMechValueMap = supplierContactMechValueMap
+                            break
                     }
                 }
             }

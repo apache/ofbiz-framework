@@ -56,21 +56,27 @@ context.allCustomTimePeriods = allCustomTimePeriods
 periodTypes = from('PeriodType').orderBy('description').cache(true).queryList()
 context.periodTypes = periodTypes
 
-newPeriodTypeId = 'FISCAL_YEAR'
-if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_YEAR') {
-    newPeriodTypeId = 'FISCAL_QUARTER'
-}
-if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_QUARTER') {
-    newPeriodTypeId = 'FISCAL_MONTH'
-}
-if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_MONTH') {
-    newPeriodTypeId = 'FISCAL_WEEK'
-}
-if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_BIWEEK') {
-    newPeriodTypeId = 'FISCAL_WEEK'
-}
-if (currentCustomTimePeriod?.periodTypeId == 'FISCAL_WEEK') {
-    newPeriodTypeId = ''
+String newPeriodTypeId
+
+switch (currentCustomTimePeriod?.periodTypeId) {
+    case 'FISCAL_YEAR':
+        newPeriodTypeId = 'FISCAL_QUARTER'
+        break
+    case 'FISCAL_QUARTER':
+        newPeriodTypeId = 'FISCAL_MONTH'
+        break
+    case 'FISCAL_MONTH':
+        newPeriodTypeId = 'FISCAL_WEEK'
+        break
+    case 'FISCAL_BIWEEK':
+        newPeriodTypeId = 'FISCAL_WEEK'
+        break
+    case 'FISCAL_WEEK':
+        newPeriodTypeId = ''
+        break
+    default:
+        newPeriodTypeId = 'FISCAL_YEAR'
+        break
 }
 
 context.newPeriodTypeId = newPeriodTypeId

@@ -26,26 +26,37 @@ contentAssocs.each { contentAssoc ->
     content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
     localeString = content.localeString
 
-    if (serverLocal == 'au') {
-        nameLocal = 'en_AU'
-    } else if (serverLocal == 'ca') {
-        nameLocal = 'en_CA'
-    } else if (serverLocal == 'de') {
-        nameLocal = 'de'
-    } else if (serverLocal == 'ie') {
-        nameLocal = 'en_IE'
-    } else if (serverLocal == 'fr') {
-        nameLocal = 'fr'
-    } else if (serverLocal == 'es') {
-        nameLocal = 'es'
-    } else if (serverLocal == 'it') {
-        nameLocal = 'it'
-    } else if (serverLocal == 'uk') {
-        nameLocal = 'en_GB'
-    } else if (serverLocal == 'sg') {
-        nameLocal = 'en_SG'
-    } else {
-        nameLocal = 'en_US'
+    switch (serverLocal) {
+        case 'au':
+            nameLocal = 'en_AU'
+            break
+        case 'ca':
+            nameLocal = 'en_CA'
+            break
+        case 'de':
+            nameLocal = 'de'
+            break
+        case 'ie':
+            nameLocal = 'en_IE'
+            break
+        case 'fr':
+            nameLocal = 'fr'
+            break
+        case 'es':
+            nameLocal = 'es'
+            break
+        case 'it':
+            nameLocal = 'it'
+            break
+        case 'uk':
+            nameLocal = 'en_GB'
+            break
+        case 'sg':
+            nameLocal = 'en_SG'
+            break
+        default:
+            nameLocal = 'en_US'
+            break
     }
 
     if (localeString == nameLocal) {
