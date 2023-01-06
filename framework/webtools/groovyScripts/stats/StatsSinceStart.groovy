@@ -65,7 +65,7 @@ while (iterator.hasNext()) {
 }
 context.viewList = viewList
 
-private LinkedHashMap<String, String> prepareRequestIdMap(bin) {
+private LinkedHashMap<String, String> prepareRequestIdMap(Object bin) {
     return [
             requestId: bin.getId(),
             requestType: bin.getType(),

@@ -105,6 +105,7 @@ abstract class GroovyBaseScript extends Script {
         return from(entityName).where(fields).cache(useCache).queryOne()
     }
 
+/* codenarc-disable NoDef */
     def success() {
         return success(null, null)
     }
@@ -135,6 +136,7 @@ abstract class GroovyBaseScript extends Script {
         }
         return result
     }
+    /* codenarc-enable */
     Map failure(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (message) {

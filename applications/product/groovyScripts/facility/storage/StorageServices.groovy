@@ -23,7 +23,7 @@ import org.apache.ofbiz.entity.GenericValue
 /**
  * Create a Facility Location
  */
-def createFacilityLocation() {
+Map createFacilityLocation() {
     GenericValue newEntity = makeValue('FacilityLocation', parameters)
 
     String locationSeqId = "${parameters.areaId ?: ''}${parameters.aisleId ?: ''}${parameters.sectionId ?: ''}"

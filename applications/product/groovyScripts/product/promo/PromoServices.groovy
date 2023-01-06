@@ -20,7 +20,7 @@ package product.promo
 
 import org.apache.ofbiz.entity.GenericValue
 
-def createProductPromoCond() {
+Map createProductPromoCond() {
     if (parameters.carrierShipmentMethod) {
         parameters.otherValue = parameters.carrierShipmentMethod
     }
@@ -30,7 +30,7 @@ def createProductPromoCond() {
     return success([productPromoCondSeqId: newEntity.productPromoCondSeqId])
 }
 
-def updateProductPromoCond() {
+Map updateProductPromoCond() {
     GenericValue lookedUpValue = from('ProductPromoCond').where(parameters).queryOne()
     if (lookedUpValue) {
         if (parameters.carrierShipmentMethod) {

@@ -24,7 +24,7 @@ modelEntity = reader.getModelEntity(entityName)
 
 context.plainTableName = modelEntity.getPlainTableName()
 
-def hasEntityDataViewPermision = security.hasEntityPermission('ENTITY_DATA', '_VIEW', session)
+boolean hasEntityDataViewPermision = security.hasEntityPermission('ENTITY_DATA', '_VIEW', session)
 hasViewPermission = hasEntityDataViewPermision || security.hasEntityPermission(modelEntity.getPlainTableName(), '_VIEW', session)
 context.hasViewPermission = hasViewPermission
 

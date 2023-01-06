@@ -22,7 +22,7 @@ package product.supplier
 /**
  * Get all supplier information for a product feature
  */
-def getSupplierProductFeatures() {
+Map getSupplierProductFeatures() {
     return success([supplierProductFeatures: from('SupplierProductFeature')
             .where(partyId: parameters.partyId,
                     productFeatureId: parameters.productFeatureId)
