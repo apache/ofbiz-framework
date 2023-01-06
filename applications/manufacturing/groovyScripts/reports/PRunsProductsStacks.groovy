@@ -68,9 +68,9 @@ if (allProductionRuns) {
             qtyInLastStack = stackQty
         }
         for (int i = 1; i < numOfStacks; i++) {
-            stackInfos.add([stackNum: '' + i, numOfStacks: '' + numOfStacks, qty: stackQty])
+            stackInfos.add([stackNum: i as String, numOfStacks: numOfStacks as String, qty: stackQty])
         }
-        stackInfos.add([stackNum: '' + numOfStacks, numOfStacks: '' + numOfStacks, qty: qtyInLastStack])
+        stackInfos.add([stackNum: numOfStacks as String, numOfStacks: numOfStacks as String, qty: qtyInLastStack])
 
         productionRunMap = [productionRun: productionRun,
                             product: productionRunProduct,

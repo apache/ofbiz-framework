@@ -252,7 +252,7 @@ if (inlineProduct) {
                     // build dynamic lists
                     if (variantTree) {
                         variantTree.values().eachWithIndex { varTree, topLevelKeysCt ->
-                            cnt = '' + topLevelKeysCt
+                            cnt = topLevelKeysCt as String
                             if (varTree instanceof Map) {
                                 jsBuf.append(buildNext(varTree, featureOrder, featureOrder[1], cnt, featureTypes))
                             }
