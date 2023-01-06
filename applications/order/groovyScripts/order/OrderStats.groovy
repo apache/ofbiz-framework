@@ -30,8 +30,8 @@ BigDecimal calcItemTotal(List headers) {
     return total
 }
 
-double calcItemCount(List items) {
-    double count = 0.00
+BigDecimal calcItemCount(List items) {
+    BigDecimal count = 0.00
     items.each { item ->
         count += item.quantity ?: 0.00
     }

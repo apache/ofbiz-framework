@@ -24,7 +24,7 @@ shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 context.shipmentIdPar = shipment.shipmentId
 context.date = new Date()
-Double fixedAssetTime = new Double(0)
+BigDecimal fixedAssetTime = BigDecimal.ZERO
 records = []
 if (shipment) {
     shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList()
