@@ -28,7 +28,6 @@ if (carrierShipmentString) {
     request.setAttribute('roleTypeId', st.nextToken())
     request.setAttribute('shipmentMethodTypeId', st.nextToken())
     return 'success'
-} else {
-    return 'error'
 }
+return 'error'
 

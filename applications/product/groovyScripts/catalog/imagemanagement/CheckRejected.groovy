@@ -45,6 +45,4 @@ else {
 if (rejected) {
     return 'rejected'
 }
-else {
-    return 'approved'
-}
+return 'approved'

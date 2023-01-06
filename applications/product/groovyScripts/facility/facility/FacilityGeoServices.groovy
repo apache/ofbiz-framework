@@ -26,15 +26,14 @@ Map createUpdateFacilityGeoPoint() {
     if (parameters.geoPointId) {
         Map serviceResult = run service: 'updateGeoPoint', with: parameters
         return serviceResult
-    } else {
-        Map serviceResult = run service: 'createGeoPoint', with: parameters
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return serviceResult
-        }
-        String geoPointId = result.geoPointId
-        GenericValue facility = from('Facility').where(parameters).queryOne()
-        facility.geoPointId = geoPointId
-        facility.store()
-        return success()
     }
+    Map serviceResult = run service: 'createGeoPoint', with: parameters
+    if (!ServiceUtil.isSuccess(serviceResult)) {
+        return serviceResult
+    }
+    String geoPointId = result.geoPointId
+    GenericValue facility = from('Facility').where(parameters).queryOne()
+    facility.geoPointId = geoPointId
+    facility.store()
+    return success()
 }

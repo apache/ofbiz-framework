@@ -152,11 +152,10 @@ if (purchaseOrder && facility) {
                 if (ServiceUtil.isError(serviceResults)) {
                     request.setAttribute('_ERROR_MESSAGE_', ServiceUtil.getErrorMessage(serviceResults))
                     return
-                } else {
-                    convertedValue = serviceResults.convertedValue
-                    if (convertedValue) {
-                        item.unitPrice = convertedValue
-                    }
+                }
+                convertedValue = serviceResults.convertedValue
+                if (convertedValue) {
+                    item.unitPrice = convertedValue
                 }
             }
         }

@@ -82,12 +82,11 @@ Map getNextQuoteId() {
             if (quote) {
                 // Return alert if ID already exists
                 return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId], locale))
-            } else {
-                // Check the provided ID
-                String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)
-                if (errorMessage) {
-                    return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteGetNextIdError', locale) + errorMessage)
-                }
+            }
+            // Check the provided ID
+            String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)
+            if (errorMessage) {
+                return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteGetNextIdError', locale) + errorMessage)
             }
         } else {
             quoteId = delegator.getNextSeqId('Quote')

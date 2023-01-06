@@ -619,10 +619,9 @@ Map deleteShipmentPackage() {
         String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels',
                 'ProductErrorShipmentPackageCannotBeDeleted', locale)
         return error(errorMessage)
-    } else {
-        GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
-        lookedUpValue.remove()
     }
+    GenericValue lookedUpValue = from('ShipmentPackage').where(parameters).queryOne()
+    lookedUpValue.remove()
     return success()
 }
 
