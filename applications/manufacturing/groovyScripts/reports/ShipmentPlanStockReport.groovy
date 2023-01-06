@@ -42,7 +42,7 @@ if (shipment) {
 
         inputPar = [productId: orderLine.productId,
                     quantity: shipmentPlan.quantity,
-                    fromDate: '' + new Date(),
+                    fromDate: new Date() as String,
                     userLogin: userLogin]
 
         result = [:]
