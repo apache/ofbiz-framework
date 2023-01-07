@@ -256,7 +256,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
-                                            <include-form name="ListTimeEntries" location="component://accounting/widget/InvoiceForms.xml"/>
+                                            <include-grid name="ListTimeEntries" location="component://accounting/widget/InvoiceForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -370,7 +370,7 @@ under the License.
                                         <if-compare field="notAppliedAmount" operator="greater" value="0"/>
                                     </condition>
                                         <widgets>
-                                            <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} 
+                                            <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})}
                                                 ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
                                                 <include-grid name="EditInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
                                             </screenlet>
@@ -390,7 +390,7 @@ under the License.
                                                     </or>
                                                 </condition>
                                                 <widgets>
-                                                    <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}] 
+                                                    <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}]
                                                         ${uiLabelMap.AccountingPaymentSentForm} [${invoice.partyId}]">
                                                         <section>
                                                             <condition>
@@ -416,7 +416,7 @@ under the License.
                                             </screenlet>
                                         </widgets>
                                         <fail-widgets>
-                                            <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} 
+                                            <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})}
                                                 ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
                                                 <include-grid name="EditInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
                                             </screenlet>
@@ -434,8 +434,8 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <screenlet 
-                                    title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} 
+                                <screenlet
+                                    title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})}
                                         ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
                                         navigation-form-name="ListInvoiceApplications">
                                     <include-grid name="ListInvoiceApplications" location="component://accounting/widget/InvoiceForms.xml"/>
