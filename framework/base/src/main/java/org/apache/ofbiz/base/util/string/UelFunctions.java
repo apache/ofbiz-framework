@@ -182,7 +182,6 @@ import org.xml.sax.SAXException;
  * <tr><td><code>util:size(Object)</code></td><td>Returns the size of <code>Maps</code>,
  * <tr><td><code>screen:id(ScreenStack)</code></td><td>Returns the id of the current screen,
  * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
- * <tr><td><code>util:urlExists(String)</code></td><td>Returns <code>true</code> if the specified URL exists.</td></tr>
  * <tr><td colspan="2"><b><code>dom:</code> contains <code>org.w3c.dom.*</code> functions</b></td></tr>
  * <tr><td><code>dom:readHtmlDocument(String)</code></td><td>Reads an HTML file and returns a <code>org.w3c.dom.Document</code> instance.</td></tr>
  * <tr><td><code>dom:readXmlDocument(String)</code></td><td>Reads an XML file and returns a <code>org.w3c.dom.Document</code> instance.</td></tr>
