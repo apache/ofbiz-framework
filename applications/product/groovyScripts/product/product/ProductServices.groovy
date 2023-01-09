@@ -552,7 +552,7 @@ def checkProductRelatedPermission(String callingMethodName, String checkAction) 
     if (!(security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)
             || (roleCategories && security.hasEntityPermission("CATALOG_ROLE", "_${checkAction}", parameters.userLogin))
             || (parameters.alternatePermissionRoot &&
-            security.hasEntityPermission(parameters.alternatePermissionRoot, checkAction, parameters.userLogin)))) {
+            security.hasEntityPermission(parameters.alternatePermissionRoot, "_${checkAction}", parameters.userLogin)))) {
         String checkActionLabel = "ProductCatalog${checkAction.charAt(0)}${checkAction.substring(1).toLowerCase()}PermissionError"
         return error(UtilProperties.getMessage("ProductUiLabels", checkActionLabel,
                 [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
