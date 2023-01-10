@@ -45,8 +45,8 @@ if (modelEntity) {
     ModelReader entityModelReader = delegator.getModelReader()
     //create the search form with auto-fields-entity
     String dynamicAutoEntityFieldSearchForm = """<?xml version="1.0" encoding="UTF-8"?>
-    <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xmlns="http://ofbiz.apache.org/Widget-Form" 
+    <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form"
         xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
         <form name="FindGeneric" type="single" target="entity/find/${entityName}">
            <auto-fields-entity entity-name="${entityName}" default-field-type="find" include-internal="true"/>
@@ -92,8 +92,8 @@ if (modelEntity) {
 
     //prepare the result list from performFind
     String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?>
-        <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-            xmlns="http://ofbiz.apache.org/Widget-Form" 
+        <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://ofbiz.apache.org/Widget-Form"
             xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
             <form name="ListGeneric" type="list" target="entity/find/${entityName}" list-name="listIt" paginate-target="entity/find/${entityName}"
               odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar" header-row-style="header-row-2">
