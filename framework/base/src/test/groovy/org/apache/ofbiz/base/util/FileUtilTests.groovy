@@ -33,7 +33,7 @@ public class FileUtilTests {
         File originalReadme = new File(fileName)
 
         //validate zipStream from README.adoc is not null
-        def zipStream = FileUtil.zipFileStream(originalReadme.newInputStream(), fileName)
+        ByteArrayInputStream zipStream = FileUtil.zipFileStream(originalReadme.newInputStream(), fileName)
         assert zipStream
 
         //ensure no zip already exists

@@ -144,6 +144,7 @@ abstract class GroovyBaseScript extends Script {
         }
         return ServiceUtil.returnFailure()
     }
+    /* codenarc-disable NoDef, MethodReturnTypeRequired */
     def error(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
@@ -158,6 +159,7 @@ abstract class GroovyBaseScript extends Script {
         }
         return ServiceUtil.returnError()
     }
+    /* codenarc-enable */
 
     void logInfo(String message) {
         Debug.logInfo(message, getModule())
