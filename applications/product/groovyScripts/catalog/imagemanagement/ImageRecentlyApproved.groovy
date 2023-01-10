@@ -29,7 +29,7 @@ import java.time.format.DateTimeFormatter
 int limit = 13 // set number of days
 DateTimeFormatter sdf = DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss')
 DateTimeFormatter sdf2 = DateTimeFormatter.ofPattern('EEEE dd/MM/yyyy', locale)
-SimpleDateFormat sdfTime = new SimpleDateFormat('HH:mm')
+SimpleDateFormat sdfTime = new SimpleDateFormat('HH:mm', locale)
 LocalDateTime today = LocalDateTime.now()
 
 for (i in 0..limit) {

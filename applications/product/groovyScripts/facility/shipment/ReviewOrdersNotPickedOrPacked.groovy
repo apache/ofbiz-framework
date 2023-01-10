@@ -28,7 +28,7 @@ condList.add(EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS,
 condList.add(EntityCondition.makeCondition('pickSheetPrintedDate', EntityOperator.NOT_EQUAL, null))
 orderHeaders = from('OrderHeader').where(condList).queryList()
 orders = []
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a")
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a", locale)
 orderHeaders.each { orderHeader ->
     itemIssuanceList = from('ItemIssuance').where('orderId', orderHeader.orderId).queryList()
     if (itemIssuanceList) {
