@@ -18,6 +18,7 @@
  */
 
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
+
 taskPartyAssocList = []
 productionRunId = parameters.productionRunId ?: parameters.workEffortId
 if (productionRunId) {
