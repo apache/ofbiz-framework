@@ -19,6 +19,7 @@
 
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
+
 planId = parameters.planId
 planName = parameters.planName
 planTypeId = parameters.planTypeId
