@@ -377,7 +377,7 @@ Map createFuturePeriod() {
                     grain = applTypeGrain.systemPropertyValue
                     if (grain == 'MONTH') {
                         periodCal.add(Calendar.MONTH, 1)
-                        monthName = new SimpleDateFormat('MMM').format(periodCal.getTime())
+                        monthName = new SimpleDateFormat('MMM', locale).format(periodCal.getTime())
                         year = periodCal.get(Calendar.YEAR)
                         month = (periodCal.get(Calendar.MONTH) + 1).toString()
                         if (month.length() == 1) {

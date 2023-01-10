@@ -26,7 +26,7 @@ userLoginId = userLogin.userLoginId
 userLogin = from('UserLogin').where('userLoginId', userLoginId).queryOne()
 userLoginNameView = from('PartyNameView').where('partyId', userLogin.get('partyId')).queryOne()
 userLoginName = userLoginNameView.getString('firstName') + ' ' + userLoginNameView.getString('lastName')
-dateFormatter = new java.text.SimpleDateFormat('dd MMMMM yyyy')
+dateFormatter = new java.text.SimpleDateFormat('dd MMMMM yyyy', locale)
 
 invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
 if (invoice) {
