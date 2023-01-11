@@ -34,7 +34,7 @@ if (context.message) {
 return result
 
 // GroovyEngine will invoke the no-arg method.
-public Map testMethod() {
+Map testMethod() {
     logInfo('----- no-arg testMethod invoked -----')
     result = ServiceUtil.returnSuccess()
     if (context.message) {
@@ -51,7 +51,7 @@ public Map testMethod() {
 }
 
 // ScriptEngine (JSR-223) will invoke the arg method.
-public Map testMethod(Map context) {
+Map testMethod(Map context) {
     logInfo('----- arg testMethod invoked -----')
     result = ServiceUtil.returnSuccess()
     if (context.message) {
