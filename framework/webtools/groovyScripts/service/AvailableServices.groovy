@@ -29,7 +29,7 @@ List getEcaListForService(String selectedService) {
     ecaMap = org.apache.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService)
 
     if (!ecaMap) {
-        return null
+        return []
     }
 
     //ecaMap is a HashMap so get keyset & iterate
