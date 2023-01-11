@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
-
 shipmentId = parameters.shipmentId
 items = []
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()

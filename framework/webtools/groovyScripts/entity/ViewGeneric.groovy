@@ -24,7 +24,6 @@ import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelField
 import org.apache.ofbiz.entity.model.ModelFieldType
 import org.apache.ofbiz.entity.model.ModelRelation
-import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
