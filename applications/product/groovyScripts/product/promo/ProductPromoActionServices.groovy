@@ -187,7 +187,7 @@ Map productGWP() {
         }
         if (!product) {
             // no product found to add as GWP, just return
-            return
+            return [*:result, actionResultInfo: parameters.actionResultInfo]
         }
 
         // pass null for cartLocation to add to end of cart, pass false for doPromotions to avoid infinite recursion
