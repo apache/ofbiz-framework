@@ -18,8 +18,6 @@
  */
 
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
 facilityId = context.get('facilityId')
