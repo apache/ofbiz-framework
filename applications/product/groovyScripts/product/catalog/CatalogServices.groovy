@@ -228,7 +228,7 @@ Map checkImageUrlForProduct() {
  * This method fills filesImageMap with the needed content and sets the relevant type in
  * the prodOrCat (product or category) map to null, if there is no image existent for this type
  */
-Map imageUrlCheck(GenericValue prodOrCat, String imageType, LinkedHashMap<Object, Object> filesImageMap) {
+Map imageUrlCheck(GenericValue prodOrCat, String imageType, Map<Object, Object> filesImageMap) {
     if (prodOrCat."${imageType}") {
         Map res = run service: 'checkImageUrl', with: [imageUrl: prodOrCat."${imageType}"]
         String isExists = res.isExists
