@@ -32,7 +32,7 @@ class ServicePurgeTest extends GroovyScriptTestCase {
         GenericValue sysUserLogin = delegator.findOne('UserLogin', true, 'userLoginId', 'system')
         String jobId = delegator.getNextSeqId('JobSandbox')
 
-        def createRuntimeResult = dispatcher.runSync('createRuntimeData', [
+        Map createRuntimeResult = dispatcher.runSync('createRuntimeData', [
                 runtimeInfo: 'This is a runtimeInfo',
                 userLogin: sysUserLogin
         ])
