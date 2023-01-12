@@ -43,7 +43,7 @@ if (prodCatContentTypeId == 'RELATED_URL') {
     }
     context.contentFormName = 'EditCategoryContentRelatedUrl'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
-}else if (prodCatContentTypeId == 'VIDEO' || prodCatContentTypeId == 'CATEGORY_IMAGE') {
+} else if (prodCatContentTypeId == 'VIDEO' || prodCatContentTypeId == 'CATEGORY_IMAGE') {
     if (content) {
         context.fileDataResourceId = content.dataResourceId
     }

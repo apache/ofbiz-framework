@@ -207,7 +207,7 @@ if (action) {
                 if ((offsetQOHQty && resultMap.offsetQOHQtyAvailable < offsetQOH) && (offsetATPQty && resultMap.offsetATPQtyAvailable < offsetATP)) {
                     rows.add(oneInventory)
                 }
-            }else if (offsetQOHQty || offsetATPQty) {
+            } else if (offsetQOHQty || offsetATPQty) {
                 if ((offsetQOHQty && resultMap.offsetQOHQtyAvailable < offsetQOH) || (offsetATPQty && resultMap.offsetATPQtyAvailable < offsetATP)) {
                     rows.add(oneInventory)
                 }
