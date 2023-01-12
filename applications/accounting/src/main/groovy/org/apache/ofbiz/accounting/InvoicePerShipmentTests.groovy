@@ -33,7 +33,7 @@ import org.springframework.mock.web.MockHttpServletResponse
 
 import javax.servlet.http.HttpSession
 
-public class InvoicePerShipmentTests extends OFBizTestCase {
+class InvoicePerShipmentTests extends OFBizTestCase {
 
     InvoicePerShipmentTests(String name) {
         super(name)
