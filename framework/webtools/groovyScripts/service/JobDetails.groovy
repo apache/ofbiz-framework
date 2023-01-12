@@ -27,7 +27,7 @@ context.job = job
 if (job) {
     GenericValue runtimeData = job.getRelatedOne('RuntimeData', false)
     if (runtimeData) {
-        runtimeInfoMap = UtilGenerics.checkMap(XmlSerializer.deserialize(runtimeData.getString('runtimeInfo'), delegator), String.class, Object.class)
+        runtimeInfoMap = UtilGenerics.checkMap(XmlSerializer.deserialize(runtimeData.getString('runtimeInfo'), delegator), String, Object)
         runtimeInfoList = []
         runtimeInfoMap.each { key, value ->
             valueMap = [key: key, value: value.toString()]
