@@ -98,9 +98,6 @@ if (groovyProgram) {
     } catch (IllegalArgumentException e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch (NullPointerException e) {
-        request.setAttribute('_ERROR_MESSAGE_', e)
-        return
     } catch (Exception e) {
         request.setAttribute('_ERROR_MESSAGE_', e)
         return
