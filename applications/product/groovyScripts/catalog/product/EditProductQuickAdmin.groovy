@@ -136,7 +136,7 @@ if (product) {
     List selectableFeatureAppls = EntityUtil.filterByAnd(productFeatureAndAppls, [productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
     selectableFeatureLookup = [:]
     // get feature types that are deleteable from selectable features section
-    Set selectableFeatureTypes = new HashSet()
+    Set selectableFeatureTypes = [] as Set
 
     Iterator selectableFeatureAndApplIter = selectableFeatureAppls.iterator()
     while (selectableFeatureAndApplIter) {
