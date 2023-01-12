@@ -58,7 +58,7 @@ selected.each { row ->
 }
 paymentGroupMembers = from('PaymentGroupMember').where('paymentGroupId', parameters.paymentGroupId).filterByDate().queryList()
 //in the case of a multiple payments, paymentId List is supplied.
-paymentGroupMembers.each { paymentGropupMember->
-    payments.add(paymentGropupMember.getRelatedOne('Payment', false))
+paymentGroupMembers.each { paymentGroupMember ->
+    payments.add(paymentGroupMember.getRelatedOne('Payment', false))
 }
 context.payments = payments
