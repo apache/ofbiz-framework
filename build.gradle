@@ -18,7 +18,7 @@
  */
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
-import org.asciidoctor.gradle.AsciidoctorTask
+import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
 /* ========================================================
  * Project setup
@@ -29,14 +29,15 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '2.2.1' // Don't update as long as we don't use Java 11, it's needed by version 3
-    id 'org.asciidoctor.convert' version '2.4.0' // About org.asciidoctor.jvm.convert as it says itself: "If you need a production-ready version of the AsciidoctorJ plugin for Gradle use a 1.5.x release of 'org.asciidoctor.convert' instead"
-    id 'org.owasp.dependencycheck' version '6.3.1' apply false
-    id 'se.patrikerdes.use-latest-versions' version '0.2.17' apply false
-    id 'com.github.ben-manes.versions' version '0.39.0' apply false
+    id 'at.bxm.svntools' version '3.1'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'org.asciidoctor.jvm.pdf' version '3.3.2'
+    id 'org.owasp.dependencycheck' version '7.4.4' apply false
+    id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
+    id 'com.github.ben-manes.versions' version '0.42.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version "3.1.0"
+    id "com.github.node-gradle.node" version "3.5.0"
 }
 
 /* OWASP plugin
@@ -103,7 +104,7 @@ javadoc {
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/javase/8/docs/api',
+            'https://docs.oracle.com/javase/17/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-2.5.18/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
@@ -124,9 +125,10 @@ node {
     npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
 }
 
-
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+java {
+    sourceCompatibility(JavaVersion.VERSION_17)
+    targetCompatibility(JavaVersion.VERSION_17)
+}
 
 // Java compile options, syntax gradlew -PXlint:none build
 tasks.withType(JavaCompile) {
@@ -283,10 +285,8 @@ dependencies {
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
-    junitReport 'junit:junit:4.13.1'
-    junitReport 'org.apache.ant:ant-junit:1.10.11'
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    asciidoctor 'org.jruby:jruby-complete:9.2.19.0' // bug workaround - see OFBIZ-9873
+    junitReport 'junit:junit:4.13.2'
+    junitReport 'org.apache.ant:ant-junit:1.10.12'
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
@@ -574,7 +574,14 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    backends 'html5', 'pdf'
+    outputOptions {
+        // I hate we have to do this - but jruby (asciidoctorj-pdf) and windows don't mix well
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            backends 'html5'
+        } else {
+            backends 'html5', 'pdf'
+        }
+    }
     attributes \
         'doctype': 'book',
         'revnumber': 'Trunk',
