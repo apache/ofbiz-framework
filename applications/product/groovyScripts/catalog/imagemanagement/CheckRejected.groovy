@@ -42,7 +42,4 @@ else {
     }
 }
 
-if (rejected) {
-    return 'rejected'
-}
-return 'approved'
+return rejected ? 'rejected' : 'approved'
