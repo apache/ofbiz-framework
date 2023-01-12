@@ -178,7 +178,7 @@ class AutoPaymentTests extends OFBizTestCase {
         */
         Map serviceCtx = [
                 organizationPartyId: 'Company',
-                checkStartNumber: new Long('100101'),
+                checkStartNumber: 100101L,
                 invoiceIds: ['8000', '8008'],
                 paymentMethodTypeId: 'COMPANY_CHECK',
                 paymentMethodId: 'SC_CHECKING',
@@ -443,7 +443,7 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceResult.clear()
         Map invoiceServiceCtx = [
                 organizationPartyId: 'Company',
-                checkStartNumber: new Long('100100'),
+                checkStartNumber: 100100L,
                 invoiceIds: ['8007'],
                 paymentMethodTypeId: 'COMPANY_CHECK',
                 paymentMethodId: 'SC_CHECKING',
