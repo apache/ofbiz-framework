@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.ServiceUtil
 // codenarc-disable AbstractClassWithoutAbstractMethod
 abstract class GroovyBaseScript extends Script {
 
-    static final String module = GroovyBaseScript.getName()
+    static final String MODULE = GroovyBaseScript.getName()
 
     String getModule() {
         return this.class.getName()
