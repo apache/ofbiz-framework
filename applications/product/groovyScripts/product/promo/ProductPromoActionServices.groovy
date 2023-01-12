@@ -76,7 +76,7 @@ Map productGWP() {
             }
         }
 
-        List<String> optionProductIds = new LinkedList<>()
+        List<String> optionProductIds = [] as Queue
         String productId = productPromoAction.getString('productId')
 
         GenericValue product = null
@@ -387,7 +387,7 @@ Map productPrice() {
 
     Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp)
 
-    List<ShoppingCartItem> cartItemsUsed = new LinkedList<>()
+    List<ShoppingCartItem> cartItemsUsed = [] as Queue
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
     while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
