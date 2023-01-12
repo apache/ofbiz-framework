@@ -54,14 +54,14 @@ if (shipment) {
             record = new HashMap(recordGroup)
             record.componentId = oneComponent.getProduct().productId
             record.componentName = oneComponent.getProduct().internalName
-            record.componentQuantity = new Float(oneComponent.getQuantity())
+            record.componentQuantity = oneComponent.getQuantity()
             facilityId = shipment.originFacilityId
-            float qty = 0
+            BigDecimal qty = 0
             if (facilityId) {
                 if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
                     serviceInput = [productId: oneComponent.getProduct().productId, facilityId: facilityId]
                     serviceOutput = runService('getInventoryAvailableByFacility', serviceInput)
-                    qha = serviceOutput.quantityOnHandTotal ?: 0.0
+                    BigDecimal qha = serviceOutput.quantityOnHandTotal ?: 0.0
                     inventoryStock.put(oneComponent.getProduct().productId, qha)
                 }
                 qty = inventoryStock[oneComponent.getProduct().productId]
