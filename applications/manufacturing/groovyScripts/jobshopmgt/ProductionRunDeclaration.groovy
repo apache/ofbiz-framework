@@ -44,7 +44,7 @@ if (productionRunId) {
         inventoryItems = from('WorkEffortInventoryProduced').where('workEffortId', productionRunId).queryList()
         context.inventoryItems = inventoryItems
         if (inventoryItems) {
-            lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.get(inventoryItems.size() - 1)
+            lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.last()
             lastInventoryItem = lastWorkEffortInventoryProduced.getRelatedOne('InventoryItem', false)
             context.lastLotId = lastInventoryItem.lotId
         }

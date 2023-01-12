@@ -51,7 +51,7 @@ if (name) {
         names.add(name.substring(lastBlank))
     }
     if (names && names.size() > 0) { //lastname
-        context.lastName = names[names.size() - 1]
+        context.lastName = names.last()
         if (names.size() > 1) { // firstname
             context.firstName = names[0]
         }
