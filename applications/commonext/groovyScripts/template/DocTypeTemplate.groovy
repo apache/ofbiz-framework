@@ -1,4 +1,3 @@
-package org.apache.ofbiz.common.template
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,6 +16,7 @@ package org.apache.ofbiz.common.template
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.ofbiz.common.template
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelUtil
