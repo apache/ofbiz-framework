@@ -25,7 +25,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class PartyStatusChangeTests extends OFBizTestCase {
 
-    public PartyStatusChangeTests(String name) {
+    PartyStatusChangeTests(String name) {
         super(name)
     }
 

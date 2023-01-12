@@ -28,7 +28,7 @@ import org.apache.ofbiz.order.order.OrderReadHelper
 
 class PaymentApplicationTests extends OFBizTestCase {
 
-    public PaymentApplicationTests(String name) {
+    PaymentApplicationTests(String name) {
         super(name)
     }
 

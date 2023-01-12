@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
 
 class ProductConfigTests extends OFBizTestCase {
 
-    public ProductConfigTests(String name) {
+    ProductConfigTests(String name) {
         super(name)
     }
 

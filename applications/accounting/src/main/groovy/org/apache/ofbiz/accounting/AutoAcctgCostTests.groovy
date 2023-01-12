@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgCostTests extends OFBizTestCase {
 
-    public AutoAcctgCostTests(String name) {
+    AutoAcctgCostTests(String name) {
         super(name)
     }
 

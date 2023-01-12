@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgAgreementTests extends OFBizTestCase {
 
-    public AutoAcctgAgreementTests(String name) {
+    AutoAcctgAgreementTests(String name) {
         super(name)
     }
 

@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class OrderTests extends OFBizTestCase {
 
-    public OrderTests(String name) {
+    OrderTests(String name) {
         super(name)
     }
 

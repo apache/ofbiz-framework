@@ -25,7 +25,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgLedgerTests extends OFBizTestCase {
 
-    public AutoAcctgLedgerTests(String name) {
+    AutoAcctgLedgerTests(String name) {
         super(name)
     }
     void testCreateAcctgTrans() {

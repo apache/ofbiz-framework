@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class InventoryTests extends OFBizTestCase {
 
-    public InventoryTests(String name) {
+    InventoryTests(String name) {
         super(name)
     }
 

@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ContactMechWorkerTests extends OFBizTestCase {
 
-    public ContactMechWorkerTests(String name) {
+    ContactMechWorkerTests(String name) {
         super(name)
     }
 
