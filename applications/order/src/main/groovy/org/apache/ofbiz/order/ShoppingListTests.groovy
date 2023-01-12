@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ShoppingListTests extends OFBizTestCase {
 
-    public ShoppingListTests(String name) {
+    ShoppingListTests(String name) {
         super(name)
     }
 

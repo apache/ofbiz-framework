@@ -27,7 +27,7 @@ import java.sql.Timestamp
 
 class AutoAcctgPaymentTests extends OFBizTestCase {
 
-    public AutoAcctgPaymentTests(String name) {
+    AutoAcctgPaymentTests(String name) {
         super(name)
     }
     void testCreatePayment() {

@@ -30,7 +30,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoPaymentTests extends OFBizTestCase {
 
-    public AutoPaymentTests(String name) {
+    AutoPaymentTests(String name) {
         super(name)
     }
 

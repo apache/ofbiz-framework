@@ -26,7 +26,7 @@ import java.sql.Timestamp
 
 class FixedAssetTests extends OFBizTestCase {
 
-    public FixedAssetTests(String name) {
+    FixedAssetTests(String name) {
         super(name)
     }
     void testCreateFixedAssetRegistration() {

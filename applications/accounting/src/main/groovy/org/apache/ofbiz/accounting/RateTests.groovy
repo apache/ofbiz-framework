@@ -27,7 +27,7 @@ import java.sql.Timestamp
 
 class RateTests extends OFBizTestCase {
 
-    public RateTests(String name) {
+    RateTests(String name) {
         super(name)
     }
 

@@ -23,7 +23,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class TestCustRequestPermissionCheck extends OFBizTestCase {
 
-    public TestCustRequestPermissionCheck(String name) {
+    TestCustRequestPermissionCheck(String name) {
         super(name)
     }
 

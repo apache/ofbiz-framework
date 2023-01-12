@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class MarketingTests extends OFBizTestCase {
 
-    public MarketingTests(String name) {
+    MarketingTests(String name) {
         super(name)
     }
 

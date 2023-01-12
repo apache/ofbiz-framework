@@ -31,7 +31,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class QuoteTests extends OFBizTestCase {
 
-    public QuoteTests(String name) {
+    QuoteTests(String name) {
         super(name)
     }
 

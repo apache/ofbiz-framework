@@ -26,7 +26,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgFixedAssetTests extends OFBizTestCase {
 
-    public AutoAcctgFixedAssetTests(String name) {
+    AutoAcctgFixedAssetTests(String name) {
         super(name)
     }
 

@@ -27,7 +27,7 @@ import org.apache.ofbiz.shipment.packing.PackingSession
 
 class ShipmentTests extends OFBizTestCase {
 
-    public ShipmentTests(String name) {
+    ShipmentTests(String name) {
         super(name)
     }
 

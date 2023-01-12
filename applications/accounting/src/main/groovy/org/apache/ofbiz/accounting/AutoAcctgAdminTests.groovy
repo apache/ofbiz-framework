@@ -24,7 +24,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgAdminTests extends OFBizTestCase {
 
-    public AutoAcctgAdminTests(String name) {
+    AutoAcctgAdminTests(String name) {
         super(name)
     }
 

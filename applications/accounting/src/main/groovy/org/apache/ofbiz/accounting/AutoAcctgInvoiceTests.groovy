@@ -27,7 +27,7 @@ import java.sql.Timestamp
 
 class AutoAcctgInvoiceTests extends OFBizTestCase {
 
-    public AutoAcctgInvoiceTests(String name) {
+    AutoAcctgInvoiceTests(String name) {
         super(name)
     }
 
