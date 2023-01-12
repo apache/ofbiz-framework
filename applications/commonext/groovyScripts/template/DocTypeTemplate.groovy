@@ -30,19 +30,26 @@ def getFieldTypeName(String entityName) {
  * If no value found, do a recursive search on parentType
  */
 def getCustomScreenTemplate(String entityTypeName, String fieldTypeValue) {
-    if (! fieldTypeValue) {
-        return null
-    }
-    GenericValue tplCustScreen = from("PartyPrefDocTypeTplAndCustomScreen")
-            .where(getFieldTypeName(entityTypeName), fieldTypeValue)
-            .cache()
-            .queryFirst()
-    if (tplCustScreen) {
-        return tplCustScreen
-    }
-    // No template found for this type, try if the parent had
-    String parentTypeValue = from(entityTypeName).where().cache().queryFirst().parentTypeId
-    return getCustomScreenTemplate(entityTypeName, parentTypeValue)
+  if (!fieldTypeValue) {
+    return null
+  }
+
+  GenericValue tplCustScreen = from("PartyPrefDocTypeTplAndCustomScreen")
+      .where(getFieldTypeName(entityTypeName), fieldTypeValue)
+      .cache()
+      .queryFirst()
+
+  if (tplCustScreen) {
+    return tplCustScreen
+  }
+
+  // No template found for this type, try if the parent had
+  String parentTypeValue = from(entityTypeName)
+      .where(getFieldTypeName(entityTypeName), fieldTypeValue)
+      .cache()
+      .queryFirst()
+      .parentTypeId
+  return getCustomScreenTemplate(entityTypeName, parentTypeValue)
 }
 
 // first resolve the document reference passed on the context
