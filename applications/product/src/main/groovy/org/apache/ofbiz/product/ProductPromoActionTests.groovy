@@ -33,32 +33,6 @@ class ProductPromoActionTests extends OFBizTestCase {
         super(name)
     }
 
-    private ShoppingCart loadOrder(String orderId) {
-        Map<String, Object> serviceCtx = [orderId: orderId,
-                skipInventoryChecks: true, // the items are already reserved, no need to check again
-                skipProductChecks: true, // the products are already in the order, no need to check their validity now
-                userLogin: getUserLogin('system')]
-        Map<String, Object> loadCartResp = dispatcher.runSync('loadCartFromOrder', serviceCtx)
-
-        return loadCartResp.shoppingCart
-    }
-
-    private Map prepareConditionMap(ShoppingCart cart, BigDecimal amount, boolean persist) {
-        GenericValue productPromoAction = delegator.makeValue('ProductPromoAction', [amount: amount, orderAdjustmentTypeId: 'PROMOTION_ADJUSTMENT'])
-        if (persist) {
-            GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
-            delegator.createOrStore(productPromo)
-            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
-            delegator.createOrStore(productPromoRule)
-            productPromoAction.productPromoId = 'TEST'
-            productPromoAction.productPromoRuleId = '01'
-            productPromoAction.productPromoActionSeqId = '01'
-            delegator.createOrStore(productPromoAction)
-        }
-        return [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), actionResultInfo: new ActionResultInfo(),
-                productPromoAction: productPromoAction]
-    }
-
     /**
      * This test check if the function productTaxPercent work correctly
      *  1. test failed with passing non valid value
@@ -355,6 +329,32 @@ class ProductPromoActionTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.actionResultInfo.ranAction
         assert serviceResult.actionResultInfo.totalDiscountAmount != null
+    }
+
+    private ShoppingCart loadOrder(String orderId) {
+        Map<String, Object> serviceCtx = [orderId: orderId,
+                                          skipInventoryChecks: true, // the items are already reserved, no need to check again
+                                          skipProductChecks: true, // the products are already in the order, no need to check their validity now
+                                          userLogin: getUserLogin('system')]
+        Map<String, Object> loadCartResp = dispatcher.runSync('loadCartFromOrder', serviceCtx)
+
+        return loadCartResp.shoppingCart
+    }
+
+    private Map prepareConditionMap(ShoppingCart cart, BigDecimal amount, boolean persist) {
+        GenericValue productPromoAction = delegator.makeValue('ProductPromoAction', [amount: amount, orderAdjustmentTypeId: 'PROMOTION_ADJUSTMENT'])
+        if (persist) {
+            GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
+            delegator.createOrStore(productPromo)
+            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
+            delegator.createOrStore(productPromoRule)
+            productPromoAction.productPromoId = 'TEST'
+            productPromoAction.productPromoRuleId = '01'
+            productPromoAction.productPromoActionSeqId = '01'
+            delegator.createOrStore(productPromoAction)
+        }
+        return [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), actionResultInfo: new ActionResultInfo(),
+                productPromoAction: productPromoAction]
     }
 
 }

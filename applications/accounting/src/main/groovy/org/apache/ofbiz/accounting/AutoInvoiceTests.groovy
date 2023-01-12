@@ -105,12 +105,6 @@ class AutoInvoiceTests extends OFBizTestCase {
         assertInvoiceTotal(invoiceId, amount)
     }
 
-    private void assertInvoiceTotal(String invoiceId, BigDecimal amount) {
-        GenericValue invoice =  EntityQuery.use(delegator).from('Invoice').where('invoiceId', invoiceId).queryOne()
-        BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
-        assert  invoiceTotal == amount
-    }
-
     // Test case for Commission Run
     void testCommissionRun() {
         /*
@@ -300,6 +294,12 @@ class AutoInvoiceTests extends OFBizTestCase {
             assert totalUndepositedDebitAmount == serviceResult.debitTotal
             assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
         }
+    }
+
+    private void assertInvoiceTotal(String invoiceId, BigDecimal amount) {
+        GenericValue invoice =  EntityQuery.use(delegator).from('Invoice').where('invoiceId', invoiceId).queryOne()
+        BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
+        assert  invoiceTotal == amount
     }
 
 }
