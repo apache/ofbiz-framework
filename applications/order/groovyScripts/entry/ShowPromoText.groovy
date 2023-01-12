@@ -20,6 +20,8 @@
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
+import java.security.SecureRandom
+
 shoppingCart = ShoppingCartEvents.getCartObject(request)
 mode = shoppingCart.getOrderType()
 
@@ -47,7 +49,7 @@ if (mode == 'SALES_ORDER') {
     if (productPromosRandomTemp.size() > promoShowLimit) {
         productPromos = new ArrayList(promoShowLimit)
         for (i = 0; i < promoShowLimit; i++) {
-            randomIndex = Math.round(Math.random() * (productPromosRandomTemp.size() - 1)) as int
+            randomIndex = Math.round(new SecureRandom().nextInt() * (productPromosRandomTemp.size() - 1)) as int
             productPromos.add(productPromosRandomTemp.remove(randomIndex))
         }
     } else {
