@@ -869,13 +869,13 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
             EntityCondition condition = EntityCondition.makeCondition(entityConditionList)
 
             // get the newest (highest date) first
-            List PartyRelationshipList = from('PartyRelationship')
+            List partyRelationshipList = from('PartyRelationship')
                      .where(condition)
                      .orderBy('-fromDate')
                      .filterByDate(searchTimestamp)
                      .cache(useCache == 'Y')
                      .queryList()
-            PartyRelationshipList.findAll { partyRel ->
+            partyRelationshipList.findAll { partyRel ->
                 !relatedPartyIdList.contains(partyRel.partyIdTo) && !newRelatedPartyIdList.contains(partyRel.partyIdTo) }.each {
                 newRelatedPartyIdList << it.partyIdTo
             }
@@ -894,13 +894,13 @@ Map followPartyRelationshipsInlineRecurse (List relatedPartyIdList, List roleTyp
                 }
                 condition = EntityCondition.makeCondition(entityConditionList)
 
-                PartyRelationshipList = from('PartyRelationship')
+                partyRelationshipList = from('PartyRelationship')
                         .where(condition)
                         .orderBy('-fromDate')
                         .filterByDate(searchTimestamp)
                         .cache(useCache == 'Y')
                         .queryList()
-                PartyRelationshipList.findAll { partyRel ->
+                partyRelationshipList.findAll { partyRel ->
                     !relatedPartyIdList.contains(partyRel.partyFrom) && !newRelatedPartyIdList.contains(partyRel.partyIdFrom) }.each {
                     newRelatedPartyIdList << it.partyIdFrom
                 }
@@ -938,8 +938,8 @@ Map getChildRoleTypesInline (List roleTypeIdListName) {
         if (!roleTypeIdAlreadySearchedList.contains(roleTypeId)) {
             roleTypeIdAlreadySearchedList << roleTypeId
 
-            List RoleTypeList = from('RoleType').where(parentTypeId: roleTypeId).cache().queryList()
-            RoleTypeList.findAll { roleType ->
+            List roleTypeList = from('RoleType').where(parentTypeId: roleTypeId).cache().queryList()
+            roleTypeList.findAll { roleType ->
                 !roleTypeIdListName.contains(roleType.roleTypeId) && !newRoleTypeIdList.contains(roleType.roleTypeId) }.each {
                 newRoleTypeIdList << it.roleTypeId
             }
