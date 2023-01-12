@@ -493,7 +493,7 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
             logVerbose("Doing lookup [${roleEntity}] with roleTypeId : ${checkRoleTypeId}")
             // looking up a specific role
             hasPermission = from("${roleEntity}")
-                    .where(["${roleEntityField}": checkId,
+                    .where([(roleEntityField): checkId,
                             roleTypeId: checkRoleTypeId,
                             partyId: checkPartyId])
                     .queryCount() > 0
@@ -501,7 +501,7 @@ Map checkRoleSecurity(String roleEntity, String roleEntityField, String checkId,
             logVerbose('Doing lookup without roleTypeId')
             // looking up any role
             hasPermission = from("${roleEntity}")
-                    .where(["${roleEntityField}": checkId,
+                    .where([(roleEntityField): checkId,
                             partyId: checkPartyId])
                     .queryCount() > 0
         }
