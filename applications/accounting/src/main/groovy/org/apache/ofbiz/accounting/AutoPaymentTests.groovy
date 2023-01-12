@@ -477,7 +477,7 @@ class AutoPaymentTests extends OFBizTestCase {
         assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
     }
 
-    void disabledTestUpdatePaymentMethodAddress() {
+    void testDisabledTestUpdatePaymentMethodAddress() {
         // Create a new Postal Address, set the bare minimum necessary, this test isn't about the postal address
         Map serviceCtx = [
                 address1: '2003 Open Blvd',
