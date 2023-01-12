@@ -18,6 +18,9 @@
  *******************************************************************************/
 import org.apache.ofbiz.testtools.GroovyScriptTestCase
 
+/**
+ * Class validating groovyScripts test engine.
+ */
 class SimpleTests extends GroovyScriptTestCase {
 
     void testTrue() {
