@@ -35,7 +35,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         serviceCtx.paymentTypeId = 'CUSTOMER_PAYMENT'
         serviceCtx.partyIdFrom = 'Company'
         serviceCtx.partyIdTo = 'DemoCustCompany'
-        serviceCtx.amount = new BigDecimal('100.00')
+        serviceCtx.amount = 100.00
         serviceCtx.paymentMethodTypeId = 'COMPANY_CHECK'
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPayment', serviceCtx)

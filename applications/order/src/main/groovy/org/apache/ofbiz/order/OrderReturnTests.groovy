@@ -175,7 +175,7 @@ class OrderReturnTests extends OFBizTestCase {
                 shipmentItemSeqId: '00001',
                 returnId: '1009',
                 returnItemSeqId: '00001',
-                quantity: new BigDecimal('2.0000'),
+                quantity: 2.0000,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createReturnItemShipment', serviceCtx)
