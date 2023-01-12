@@ -53,4 +53,5 @@ class ServicePurgeTest extends GroovyScriptTestCase {
         assert EntityQuery.use(delegator).from('JobSandbox').where('jobId', jobId).queryCount() == 0
         assert EntityQuery.use(delegator).from('RuntimeData').where('runtimeDataId', runtimeDataId).queryCount() == 0
     }
+
 }

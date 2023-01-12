@@ -191,4 +191,5 @@ abstract class GroovyBaseScript extends Script {
         }
         return UtilProperties.getMessage(ressource, message, locale)
     }
+
 }

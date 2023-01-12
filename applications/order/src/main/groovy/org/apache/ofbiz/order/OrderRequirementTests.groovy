@@ -91,4 +91,5 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('addRequirementTask', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+
 }

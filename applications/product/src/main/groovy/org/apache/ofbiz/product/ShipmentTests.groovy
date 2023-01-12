@@ -201,4 +201,5 @@ class ShipmentTests extends OFBizTestCase {
         assert shipmentRouteSegment.shipmentId == '9998'
         assert shipmentRouteSegment.shipmentRouteSegmentId == shipmentRouteSegmentId
     }
+
 }

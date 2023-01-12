@@ -72,4 +72,5 @@ class PartyStatusChangeTests extends OFBizTestCase {
         assert statusId == party.statusId
         assert serviceResult.oldStatusId == 'PARTY_DISABLED'
     }
+
 }

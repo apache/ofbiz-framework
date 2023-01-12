@@ -40,4 +40,5 @@ class ProductFeatureTypeTests extends OFBizTestCase {
         GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
         assert productFeatureType.productFeatureTypeId == 'testProdFeat'
     }
+
 }

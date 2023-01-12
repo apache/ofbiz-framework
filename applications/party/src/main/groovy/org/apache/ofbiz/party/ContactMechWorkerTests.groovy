@@ -177,4 +177,5 @@ class ContactMechWorkerTests extends OFBizTestCase {
         }
         assert foundPostalAddress && foundEmail && foundPhone
     }
+
 }

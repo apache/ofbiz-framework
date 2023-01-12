@@ -361,4 +361,5 @@ class ProductTest extends OFBizTestCase {
         assert productCategory
         assert productCategory.productCategoryTypeId == 'USAGE_CATEGORY'
     }
+
 }

@@ -91,4 +91,5 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
                 .where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
         assert paymentContent
     }
+
 }

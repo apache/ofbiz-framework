@@ -64,4 +64,5 @@ public class FileUtilTests {
 
         assert FileUtils.contentEquals(originalReadme, new File(zipFilePath, fileName))
     }
+
 }

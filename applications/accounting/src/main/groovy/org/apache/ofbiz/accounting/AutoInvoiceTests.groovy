@@ -302,4 +302,5 @@ class AutoInvoiceTests extends OFBizTestCase {
             assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
         }
     }
+
 }

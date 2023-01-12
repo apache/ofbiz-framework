@@ -44,4 +44,5 @@ class ProductConfigTests extends OFBizTestCase {
         assert productConfigOption
         assert productConfigOption.configOptionName == 'Test Config Option'
     }
+
 }

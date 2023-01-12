@@ -44,4 +44,5 @@ class ProductTests extends OFBizTestCase {
             assert prodCategory.productCategoryTypeId == 'BEST_SELL_CATEGORY'
         }
     }
+
 }

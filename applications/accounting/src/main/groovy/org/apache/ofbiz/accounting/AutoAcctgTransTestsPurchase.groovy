@@ -193,4 +193,5 @@ class AutoAcctgTransTestsPurchase extends OFBizTestCase {
 
         assert debitTotal == creditTotal
     }
+
 }

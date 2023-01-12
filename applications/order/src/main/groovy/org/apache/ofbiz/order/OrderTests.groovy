@@ -105,4 +105,5 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createATPRequirementsForOrder', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+
 }

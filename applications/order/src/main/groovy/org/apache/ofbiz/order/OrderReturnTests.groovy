@@ -223,4 +223,5 @@ class OrderReturnTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('processRepairReplacementReturn', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+
 }

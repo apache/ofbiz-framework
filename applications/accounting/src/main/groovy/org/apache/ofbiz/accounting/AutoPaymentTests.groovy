@@ -533,4 +533,5 @@ class AutoPaymentTests extends OFBizTestCase {
         assert noEftAccountsNewContactMech == noEftAccounts9000Before
         assert noCreditCardsNewContactMech == noCreditCards9000Before
     }
+
 }

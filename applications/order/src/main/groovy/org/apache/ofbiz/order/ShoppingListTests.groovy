@@ -150,4 +150,5 @@ class ShoppingListTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(resultMap)
         assert !shoppingListItem
     }
+
 }

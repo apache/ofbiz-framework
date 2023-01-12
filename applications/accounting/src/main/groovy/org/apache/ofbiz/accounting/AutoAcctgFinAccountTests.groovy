@@ -194,4 +194,5 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert finAccountTrans.statusId == 'FINACT_TRNS_APPROVED'
         assert finAccountTrans.oldStatusId == 'FINACT_TRNS_CREATED'
     }
+
 }
