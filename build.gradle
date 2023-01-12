@@ -94,10 +94,6 @@ distributions.main.contents.from(rootDir) {
     include 'framework/**', 'applications/**', 'themes/**', 'plugins/**'
 }
 
-asciidoctorj {
-//    jrubyVersion = '9.2.19.0'
-}
-
 javadoc {
     title='OFBiz trunk API'
     failOnError = true
@@ -108,7 +104,7 @@ javadoc {
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/javase/11/docs/api',
+            'https://docs.oracle.com/javase/17/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-3.0.13/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
@@ -130,8 +126,8 @@ node {
 }
 
 java {
-    sourceCompatibility(JavaVersion.VERSION_11)
-    targetCompatibility(JavaVersion.VERSION_11)
+    sourceCompatibility(JavaVersion.VERSION_17)
+    targetCompatibility(JavaVersion.VERSION_17)
 }
 
 // Java compile options, syntax gradlew -PXlint:none build
