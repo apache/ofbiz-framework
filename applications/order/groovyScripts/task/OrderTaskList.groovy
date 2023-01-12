@@ -94,7 +94,7 @@ context.now = nowTimestamp
 // purchase order schedule
 poList = from('OrderHeaderAndRoles').where('partyId', userLogin.partyId, 'orderTypeId', 'PURCHASE_ORDER').queryList()
 poIter = poList.iterator()
-listedPoIds = new HashSet()
+listedPoIds = [] as Set
 while (poIter.hasNext()) {
     poGv = poIter.next()
     poOrderId = poGv.orderId
