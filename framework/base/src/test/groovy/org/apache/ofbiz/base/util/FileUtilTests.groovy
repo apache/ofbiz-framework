@@ -21,7 +21,7 @@ package org.apache.ofbiz.base.util
 import org.apache.commons.io.FileUtils
 import org.junit.Test
 
-public class FileUtilTests {
+class FileUtilTests {
 
     /**
      * Test FileUtil zipFileStream and unzipFileToFolder methods, using README.adoc
