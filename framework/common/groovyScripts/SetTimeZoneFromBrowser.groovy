@@ -19,7 +19,7 @@
 
 import org.apache.ofbiz.service.ServiceUtil
 
-Map SetTimeZoneFromBrowser() {
+Map setTimeZoneFromBrowser() {
     userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
     if (userLogin) {
         if (!userLogin.lastTimeZone || userLogin.lastTimeZone == 'null') {
