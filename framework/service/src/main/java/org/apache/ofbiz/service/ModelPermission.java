@@ -262,6 +262,11 @@ public class ModelPermission implements Serializable {
             } else {
                 resp = dispatcher.runSync(permission.getName(), ctx);
             }
+
+            if (ServiceUtil.isError(resp)) {
+                return resp;
+            }
+
             failMessage = (String) resp.get("failMessage");
         } catch (GenericServiceException e) {
             Debug.logError(failMessage + e.getMessage(), MODULE);
@@ -271,7 +276,7 @@ public class ModelPermission implements Serializable {
             Debug.logVerbose("Service permission result : hasPermission " + resp.get("hasPermission") + ", failMessage " + failMessage, MODULE);
         }
         if (permissionReturnErrorOnFailure
-                && (UtilValidate.isNotEmpty(failMessage) || !((Boolean) resp.get("hasPermission")).booleanValue())) {
+                && (UtilValidate.isNotEmpty(failMessage) || resp.get("hasPermission") == null || !(Boolean) resp.get("hasPermission"))) {
             if (UtilValidate.isEmpty(failMessage)) {
                 failMessage = UtilProperties.getMessage(RESOURCE, "ServicePermissionErrorRefused", locale);
             }
