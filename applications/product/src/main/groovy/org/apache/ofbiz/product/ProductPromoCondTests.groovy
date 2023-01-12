@@ -31,11 +31,11 @@ class ProductPromoCondTests extends OFBizTestCase {
         super(name)
     }
 
-    Map prepareConditionMap(ShoppingCart cart, String condValue) {
+    private Map prepareConditionMap(ShoppingCart cart, String condValue) {
         return prepareConditionMap(cart, condValue, false)
     }
 
-    Map prepareConditionMap(ShoppingCart cart, String condValue, boolean persist) {
+    private Map prepareConditionMap(ShoppingCart cart, String condValue, boolean persist) {
         GenericValue productPromoCond = delegator.makeValue('ProductPromoCond', [condValue: condValue])
         if (persist) {
             GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
@@ -50,7 +50,7 @@ class ProductPromoCondTests extends OFBizTestCase {
         return  [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
     }
 
-    ShoppingCart loadOrder(String orderId) {
+    private ShoppingCart loadOrder(String orderId) {
         Map<String, Object> serviceCtx = [orderId: orderId,
                 skipInventoryChecks: true, // the items are already reserved, no need to check again
                 skipProductChecks: true, // the products are already in the order, no need to check their validity now

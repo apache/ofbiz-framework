@@ -105,7 +105,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         assertInvoiceTotal(invoiceId, amount)
     }
 
-    void assertInvoiceTotal(String invoiceId, BigDecimal amount) {
+    private void assertInvoiceTotal(String invoiceId, BigDecimal amount) {
         GenericValue invoice =  EntityQuery.use(delegator).from('Invoice').where('invoiceId', invoiceId).queryOne()
         BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
         assert  invoiceTotal == amount

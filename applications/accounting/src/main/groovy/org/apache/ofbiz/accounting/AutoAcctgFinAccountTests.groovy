@@ -178,7 +178,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert serviceResult.finAccountAuthId != null
     }
 
-    void setFinAccountTransStatus() {
+    void testSetFinAccountTransStatus() {
         Map serviceCtx = [
                 finAccountTransId: '1010',
                 statusId: 'FINACT_TRNS_APPROVED',
