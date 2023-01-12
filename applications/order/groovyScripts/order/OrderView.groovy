@@ -203,22 +203,22 @@ if (orderHeader) {
         } else {
             quantityOrdered = quantity
         }
-        OISGAssContents = []
+        List oisgAssContents = []
         shipGroups.each { shipGroup ->
-            OISGAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated('OrderItemShipGroupAssoc', null, null, false),
+            oisgAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated('OrderItemShipGroupAssoc', null, null, false),
                     [orderItemSeqId: orderItem.getString('orderItemSeqId')]))
         }
         BigDecimal totalQuantityPlanned = 0
-        OISGAssContents.each { OISGAssContent ->
-            BigDecimal cancelQty = OISGAssContent.get('cancelQuantity')
-            BigDecimal qty = OISGAssContent.get('quantity')
+        oisgAssContents.each { oisgAssContent ->
+            BigDecimal cancelQty = oisgAssContent.get('cancelQuantity')
+            BigDecimal qty = oisgAssContent.get('quantity')
             if (qty != null) {
                 totalQuantityPlanned = totalQuantityPlanned.add(qty)
             }
             if (cancelQty != null) {
-                OISGAssContent.set('quantity', qty.subtract(cancelQty))
+                oisgAssContent.set('quantity', qty.subtract(cancelQty))
             } else {
-                OISGAssContent.set('quantity', qty)
+                oisgAssContent.set('quantity', qty)
             }
         }
         totalQuantityToPlan = totalQuantityPlanned - quantityOrdered
@@ -231,7 +231,7 @@ if (orderHeader) {
         }
         orderItemData = [:]
         orderItemData.put('orderItem', orderItem)
-        orderItemData.put('OISGAssContents', OISGAssContents)
+        orderItemData.put('OISGAssContents', oisgAssContents)
         orderItemData.put('product', orderItem.getRelatedOne('Product', false))
         orderItemData.put('quantityOrdered', quantityOrdered)
         orderItemData.put('totalQuantityPlanned', totalQuantityPlanned)
