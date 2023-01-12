@@ -29,6 +29,7 @@ import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResu
 import org.apache.ofbiz.service.ServiceUtil
 
 class ProductPromoActionTests extends OFBizTestCase {
+
     public ProductPromoActionTests(String name) {
         super(name)
     }

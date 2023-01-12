@@ -27,6 +27,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoInvoiceTests extends OFBizTestCase {
+
     public AutoInvoiceTests(String name) {
         super(name)
     }

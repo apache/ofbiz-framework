@@ -25,6 +25,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import java.sql.Timestamp
 
 class FixedAssetTests extends OFBizTestCase {
+
     public FixedAssetTests(String name) {
         super(name)
     }

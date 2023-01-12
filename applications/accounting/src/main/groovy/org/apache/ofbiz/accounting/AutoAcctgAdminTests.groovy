@@ -23,6 +23,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgAdminTests extends OFBizTestCase {
+
     public AutoAcctgAdminTests(String name) {
         super(name)
     }

@@ -25,6 +25,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgTransTestsSales extends OFBizTestCase {
+
     public AutoAcctgTransTestsSales(String name) {
         super(name)
     }

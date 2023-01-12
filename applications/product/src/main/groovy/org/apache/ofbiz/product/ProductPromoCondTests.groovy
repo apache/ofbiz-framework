@@ -26,6 +26,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
 class ProductPromoCondTests extends OFBizTestCase {
+
     public ProductPromoCondTests(String name) {
         super(name)
     }

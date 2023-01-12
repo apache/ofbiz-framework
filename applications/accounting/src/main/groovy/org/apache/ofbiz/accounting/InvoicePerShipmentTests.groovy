@@ -34,6 +34,7 @@ import org.springframework.mock.web.MockHttpServletResponse
 import javax.servlet.http.HttpSession
 
 public class InvoicePerShipmentTests extends OFBizTestCase {
+
     public InvoicePerShipmentTests(String name) {
         super(name)
     }

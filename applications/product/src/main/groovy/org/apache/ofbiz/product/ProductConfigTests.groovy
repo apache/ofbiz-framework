@@ -23,6 +23,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
 class ProductConfigTests extends OFBizTestCase {
+
     public ProductConfigTests(String name) {
         super(name)
     }

@@ -23,6 +23,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class PartyTests extends OFBizTestCase {
+
     public PartyTests(String name) {
         super(name)
     }
