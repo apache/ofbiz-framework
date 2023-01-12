@@ -28,6 +28,7 @@ import org.apache.ofbiz.service.LocalDispatcher
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
+// codenarc-disable AbstractClassWithoutAbstractMethod
 abstract class GroovyBaseScript extends Script {
 
     static final String module = GroovyBaseScript.class.getName()
