@@ -31,37 +31,6 @@ class ProductPromoCondTests extends OFBizTestCase {
         super(name)
     }
 
-    private Map prepareConditionMap(ShoppingCart cart, String condValue) {
-        return prepareConditionMap(cart, condValue, false)
-    }
-
-    private Map prepareConditionMap(ShoppingCart cart, String condValue, boolean persist) {
-        GenericValue productPromoCond = delegator.makeValue('ProductPromoCond', [condValue: condValue])
-        if (persist) {
-            GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
-            delegator.createOrStore(productPromo)
-            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
-            delegator.createOrStore(productPromoRule)
-            productPromoCond.productPromoId = 'TEST'
-            productPromoCond.productPromoRuleId = '01'
-            productPromoCond.productPromoCondSeqId = '01'
-            delegator.createOrStore(productPromoCond)
-        }
-        return  [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
-    }
-
-    private ShoppingCart loadOrder(String orderId) {
-        Map<String, Object> serviceCtx = [orderId: orderId,
-                skipInventoryChecks: true, // the items are already reserved, no need to check again
-                skipProductChecks: true, // the products are already in the order, no need to check their validity now
-                includePromoItems: false,
-                createAsNewOrder: 'Y',
-                userLogin: getUserLogin('system')]
-        Map<String, Object> loadCartResp = dispatcher.runSync('loadCartFromOrder', serviceCtx)
-
-        return loadCartResp.shoppingCart
-    }
-
     /**
      * This test check if the function productPartyID work correctly
      *  1. test success with a valid partyId
@@ -377,6 +346,37 @@ class ProductPromoCondTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('productPromoCondProductTotal', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase < 0
+    }
+
+    private Map prepareConditionMap(ShoppingCart cart, String condValue) {
+        return prepareConditionMap(cart, condValue, false)
+    }
+
+    private Map prepareConditionMap(ShoppingCart cart, String condValue, boolean persist) {
+        GenericValue productPromoCond = delegator.makeValue('ProductPromoCond', [condValue: condValue])
+        if (persist) {
+            GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
+            delegator.createOrStore(productPromo)
+            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
+            delegator.createOrStore(productPromoRule)
+            productPromoCond.productPromoId = 'TEST'
+            productPromoCond.productPromoRuleId = '01'
+            productPromoCond.productPromoCondSeqId = '01'
+            delegator.createOrStore(productPromoCond)
+        }
+        return  [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
+    }
+
+    private ShoppingCart loadOrder(String orderId) {
+        Map<String, Object> serviceCtx = [orderId: orderId,
+                                          skipInventoryChecks: true, // the items are already reserved, no need to check again
+                                          skipProductChecks: true, // the products are already in the order, no need to check their validity now
+                                          includePromoItems: false,
+                                          createAsNewOrder: 'Y',
+                                          userLogin: getUserLogin('system')]
+        Map<String, Object> loadCartResp = dispatcher.runSync('loadCartFromOrder', serviceCtx)
+
+        return loadCartResp.shoppingCart
     }
 
 }

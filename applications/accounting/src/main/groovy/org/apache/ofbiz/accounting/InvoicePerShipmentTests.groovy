@@ -39,6 +39,48 @@ class InvoicePerShipmentTests extends OFBizTestCase {
         super(name)
     }
 
+    void testInvoicePerShipmentSetFalse() {
+        /* Test Invoice Per Shipment
+         Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
+         Step 2) Create order and approve order.
+         Step 3) Pack Shipment For Ship Group.
+         Step 4) Check invoice should not created.
+         */
+        List invoices = testInvoicePerShipment('GZ-1000', 'N')
+        assert UtilValidate.isEmpty(invoices)
+    }
+
+    void testInvoicePerShipmentSetTrue() {
+        /* Test Invoice Per Shipment
+         Step 1) Set create.invoice.per.shipment=Y in accounting.properties file.
+         Step 2) Create order and approve order.
+         Step 3) Pack Shipment For Ship Group.
+         Step 4) Check invoice should be created.
+         */
+        List invoices = testInvoicePerShipment('GZ-1000', 'Y')
+        assert UtilValidate.isNotEmpty(invoices)
+    }
+
+    void testInvoicePerShipmentSetOrderFalse() {
+        /* Test Invoice Per Shipment
+         Step 1) Create order and set invoicePerShipment=N.
+         Step 2) Pack Shipment For Ship Group.
+         Step 3) Check invoice should not be created.
+         */
+        List invoices = testInvoicePerShipment('GZ-2644', 'N')
+        assert UtilValidate.isEmpty(invoices)
+    }
+
+    void testInvoicePerShipmentSetOrderTrue() {
+        /* Test Invoice Per Shipment
+         Step 1) Create order and set invoicePerShipment=Y
+         Step 2) Pack Shipment For Ship Group.
+         Step 3) Check invoice should be created.
+         */
+        List invoices = testInvoicePerShipment('GZ-2644', 'Y')
+        assert UtilValidate.isNotEmpty(invoices)
+    }
+
     private List testInvoicePerShipment(String productId, String invoicePerShipment) {
         MockHttpServletRequest request = new MockHttpServletRequest()
         MockHttpServletResponse response = new MockHttpServletResponse()
@@ -138,47 +180,6 @@ class InvoicePerShipmentTests extends OFBizTestCase {
         // Step 4
         List invoices = from('OrderItemBillingAndInvoiceAndItem').where('orderId', orderHeader.orderId).queryList()
         return invoices
-    }
-    void testInvoicePerShipmentSetFalse() {
-        /* Test Invoice Per Shipment
-         Step 1) Set create.invoice.per.shipment=N in accounting.properties file.
-         Step 2) Create order and approve order.
-         Step 3) Pack Shipment For Ship Group.
-         Step 4) Check invoice should not created.
-         */
-        List invoices = testInvoicePerShipment('GZ-1000', 'N')
-        assert UtilValidate.isEmpty(invoices)
-    }
-
-    void testInvoicePerShipmentSetTrue() {
-        /* Test Invoice Per Shipment
-         Step 1) Set create.invoice.per.shipment=Y in accounting.properties file.
-         Step 2) Create order and approve order.
-         Step 3) Pack Shipment For Ship Group.
-         Step 4) Check invoice should be created.
-         */
-        List invoices = testInvoicePerShipment('GZ-1000', 'Y')
-        assert UtilValidate.isNotEmpty(invoices)
-    }
-
-    void testInvoicePerShipmentSetOrderFalse() {
-        /* Test Invoice Per Shipment
-         Step 1) Create order and set invoicePerShipment=N.
-         Step 2) Pack Shipment For Ship Group.
-         Step 3) Check invoice should not be created.
-         */
-        List invoices = testInvoicePerShipment('GZ-2644', 'N')
-        assert UtilValidate.isEmpty(invoices)
-    }
-
-    void testInvoicePerShipmentSetOrderTrue() {
-        /* Test Invoice Per Shipment
-         Step 1) Create order and set invoicePerShipment=Y
-         Step 2) Pack Shipment For Ship Group.
-         Step 3) Check invoice should be created.
-         */
-        List invoices = testInvoicePerShipment('GZ-2644', 'Y')
-        assert UtilValidate.isNotEmpty(invoices)
     }
 
 }
