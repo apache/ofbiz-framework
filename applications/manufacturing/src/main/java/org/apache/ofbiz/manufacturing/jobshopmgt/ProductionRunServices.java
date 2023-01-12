@@ -846,8 +846,8 @@ public class ProductionRunServices {
             if (oneTask.getString("workEffortId").equals(taskId)) {
                 theTask = oneTask;
             } else {
-                if (theTask == null && allPrecTaskCompletedOrRunning && (!"PRUN_COMPLETED".equals(oneTask.getString("currentStatusId")) && !
-                        "PRUN_RUNNING".equals(oneTask.getString("currentStatusId")))) {
+                if (theTask == null && allPrecTaskCompletedOrRunning && (!"PRUN_COMPLETED".equals(oneTask.getString("currentStatusId"))
+                        && !"PRUN_RUNNING".equals(oneTask.getString("currentStatusId")))) {
                     allPrecTaskCompletedOrRunning = false;
                 }
                 if (allTaskCompleted && !"PRUN_COMPLETED".equals(oneTask.getString("currentStatusId"))) {

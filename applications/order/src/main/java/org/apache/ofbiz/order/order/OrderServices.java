@@ -1270,8 +1270,8 @@ public class OrderServices {
                                     + "] is not in a proper status for reservation", MODULE);
                             continue;
                         }
-                        if (UtilValidate.isNotEmpty(orderItem.getString("productId")) &&   // only reserve product items, ignore non-product items
-                                !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {  // ignore for rental
+                        if (UtilValidate.isNotEmpty(orderItem.getString("productId")) // only reserve product items, ignore non-product items
+                                && !"RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {  // ignore for rental
                             try {
                                 // get the product of the order item
                                 GenericValue product = orderItem.getRelatedOne("Product", false);
