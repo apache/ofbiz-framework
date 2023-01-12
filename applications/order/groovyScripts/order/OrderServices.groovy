@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import groovy.time.TimeCategory
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
@@ -89,12 +89,10 @@ Map getOrderedSummaryInformation() {
     }
     */
     Timestamp fromDate = null, thruDate = null
-    Date now = new Date()
+    Timestamp now = UtilDateTime.nowTimestamp()
     if (monthsToInclude) {
-        use(TimeCategory) {
-            thruDate = now.toTimestamp()
-            fromDate = (now - monthsToInclude.months).toTimestamp()
-        }
+        thruDate = now
+        fromDate = UtilDateTime.adjustTimestamp(now, Calendar.MONTH, -monthsToInclude)
     }
 
     roleTypeId = roleTypeId ?: 'PLACING_CUSTOMER'

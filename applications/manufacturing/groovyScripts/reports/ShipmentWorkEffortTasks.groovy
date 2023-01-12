@@ -23,7 +23,6 @@ shipmentId = parameters.shipmentId
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 context.shipmentIdPar = shipment.shipmentId
-context.date = new Date()
 BigDecimal fixedAssetTime = BigDecimal.ZERO
 records = []
 if (shipment) {
