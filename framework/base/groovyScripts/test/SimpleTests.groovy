@@ -18,7 +18,7 @@
  *******************************************************************************/
 import org.apache.ofbiz.testtools.GroovyScriptTestCase
 
-class BaseTest extends GroovyScriptTestCase {
+class SimpleTests extends GroovyScriptTestCase {
     void testTrue() {
         assert 1 + 1 == 2
     }
