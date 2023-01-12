@@ -34,75 +34,75 @@ class AutoInvoiceTests extends OFBizTestCase {
 
     void testInvoiceWorkerGetInvoiceTotal() {
         String invoiceId = 'demo10000'
-        BigDecimal amount = new BigDecimal('323.54')
+        BigDecimal amount = 323.54
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = 'demo10001'
-        amount = new BigDecimal('36.43')
+        amount = 36.43
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = 'demo10002'
-        amount = new BigDecimal('56.99')
+        amount = 56.99
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = 'demo11000'
-        amount = new BigDecimal('20.00')
+        amount = 20.00
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = 'demo11001'
-        amount = new BigDecimal('543.23')
+        amount = 543.23
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = 'demo1200'
-        amount = new BigDecimal('511.23')
+        amount = 511.23
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8000'
-        amount = new BigDecimal('60.00')
+        amount = 60.00
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8001'
-        amount = new BigDecimal('10.00')
+        amount = 10.00
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8002'
-        amount = new BigDecimal('36.43')
+        amount = 36.43
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8003'
-        amount = new BigDecimal('46.43')
+        amount = 46.43
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8004'
-        amount = new BigDecimal('33.99')
+        amount = 33.99
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8100'
-        amount = new BigDecimal('1320.00')
+        amount = 1320.00
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8005'
-        amount = new BigDecimal('33.99')
+        amount = 33.99
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8006'
-        amount = new BigDecimal('46.43')
+        amount = 46.43
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8007'
-        amount = new BigDecimal('36.43')
+        amount = 36.43
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8008'
-        amount = new BigDecimal('48.00')
+        amount = 48.00
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8009'
-        amount = new BigDecimal('127.09')
+        amount = 127.09
         assertInvoiceTotal(invoiceId, amount)
 
         invoiceId = '8010'
-        amount = new BigDecimal('179.97')
+        amount = 179.97
         assertInvoiceTotal(invoiceId, amount)
     }
 
@@ -122,8 +122,8 @@ class AutoInvoiceTests extends OFBizTestCase {
                 1 ) Two commission will be creating for the parties DemoCustAgent and DemoRepAll (like 10000 and 10001 invoiceId).
                 2 ) Its amountTotal will be same as commission cost of associated products.
         */
-        BigDecimal invoiceTotal = new BigDecimal('0')
-        BigDecimal amountTotal = new BigDecimal('0')
+        BigDecimal invoiceTotal = 0
+        BigDecimal amountTotal = 0
 
         List<GenericValue> invoiceItems = from('InvoiceItem')
                 .where('invoiceId', '8100')
@@ -203,8 +203,8 @@ class AutoInvoiceTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('cancelInvoice', cancelInvoiceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        BigDecimal totalPayableDebitAmount = payableDebitTotal.add(new BigDecimal('48'))
-        BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.add(new BigDecimal('48'))
+        BigDecimal totalPayableDebitAmount = payableDebitTotal.add(48)
+        BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.add(48)
         serviceResult.clear()
         serviceCtx.glAccountId = '210000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
@@ -212,8 +212,8 @@ class AutoInvoiceTests extends OFBizTestCase {
         assert totalPayableDebitAmount == serviceResult.debitTotal
         assert totalPayableDebitCreditDifference == serviceResult.debitCreditDifference
 
-        BigDecimal totalUnInvoicedCreditAmount = uninvoicedCreditTotal.add(new BigDecimal('48'))
-        BigDecimal totalUnInvoicedDebitCreditDifference = uninvoicedDebitCreditDifference.subtract(new BigDecimal('48'))
+        BigDecimal totalUnInvoicedCreditAmount = uninvoicedCreditTotal.add(48)
+        BigDecimal totalUnInvoicedDebitCreditDifference = uninvoicedDebitCreditDifference.subtract(48)
         serviceResult.clear()
         serviceCtx.glAccountId = '214000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
@@ -279,10 +279,10 @@ class AutoInvoiceTests extends OFBizTestCase {
                 .where('paymentGroupId', '9000')
                 .queryFirst()
         if (paymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != paymentGroupMemberAndTrans.finAccountTransStatusId) {
-            BigDecimal tempBig = new BigDecimal('82.86')
+            BigDecimal tempBig = 82.86
 
             BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)
-            BigDecimal totalPayableCreditAmount = new BigDecimal('165.72').add(payableCreditTotal)
+            BigDecimal totalPayableCreditAmount = 165.72G.add(payableCreditTotal)
             BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.subtract(tempBig)
             serviceResult.clear()
             serviceCtx.glAccountId = '210000'

@@ -455,7 +455,7 @@ class AutoPaymentTests extends OFBizTestCase {
         String paymentGroupId = serviceResult.paymentGroupId
         assert paymentGroupId
 
-        BigDecimal tempBig = new BigDecimal('36.43')
+        BigDecimal tempBig = 36.43
 
         BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)
         BigDecimal totalPayableDebitCreditDifference = tempBig.add(payableDebitCreditDifference)
