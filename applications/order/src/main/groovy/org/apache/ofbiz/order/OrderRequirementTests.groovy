@@ -22,6 +22,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class OrderRequirementTests extends OFBizTestCase {
+
     public OrderRequirementTests(String name) {
         super(name)
     }

@@ -24,6 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ContentTests extends OFBizTestCase {
+
     public ContentTests(String name) {
         super(name)
     }

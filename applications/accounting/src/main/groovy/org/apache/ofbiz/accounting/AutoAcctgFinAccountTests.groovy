@@ -24,6 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgFinAccountTests extends OFBizTestCase {
+
     public AutoAcctgFinAccountTests(String name) {
         super(name)
     }

@@ -25,6 +25,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class PartyContactMechTests extends OFBizTestCase {
+
     public PartyContactMechTests(String name) {
         super(name)
     }

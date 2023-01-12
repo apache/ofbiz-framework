@@ -26,6 +26,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.shipment.packing.PackingSession
 
 class ShipmentTests extends OFBizTestCase {
+
     public ShipmentTests(String name) {
         super(name)
     }

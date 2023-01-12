@@ -29,6 +29,7 @@ import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 
 abstract class GroovyBaseScript extends Script {
+
     public static final String module = GroovyBaseScript.class.getName()
 
     String getModule() {

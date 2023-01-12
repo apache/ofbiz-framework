@@ -26,6 +26,7 @@ import org.springframework.mock.web.MockHttpServletResponse
 import org.apache.ofbiz.product.product.ProductEvents
 
 class ProductTagTest extends OFBizTestCase {
+
     public ProductTagTest(String name) {
         super(name)
     }

@@ -23,6 +23,7 @@ import org.apache.ofbiz.party.contact.ContactMechWorker
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ContactMechWorkerTests extends OFBizTestCase {
+
     public ContactMechWorkerTests(String name) {
         super(name)
     }

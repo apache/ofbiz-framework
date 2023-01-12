@@ -26,6 +26,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import java.sql.Timestamp
 
 class ProductTest extends OFBizTestCase {
+
     public ProductTest(String name) {
         super(name)
     }

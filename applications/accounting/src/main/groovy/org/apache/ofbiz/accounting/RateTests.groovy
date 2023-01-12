@@ -26,6 +26,7 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import java.sql.Timestamp
 
 class RateTests extends OFBizTestCase {
+
     public RateTests(String name) {
         super(name)
     }

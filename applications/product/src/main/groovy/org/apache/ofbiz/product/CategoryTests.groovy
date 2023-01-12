@@ -24,6 +24,7 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class CategoryTests extends OFBizTestCase {
+
     public CategoryTests(String name) {
         super(name)
     }
