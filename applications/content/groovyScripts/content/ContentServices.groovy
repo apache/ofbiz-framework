@@ -28,7 +28,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityListIterator
 import org.apache.ofbiz.service.GenericServiceException
 
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.base.util.UtilDateTime
