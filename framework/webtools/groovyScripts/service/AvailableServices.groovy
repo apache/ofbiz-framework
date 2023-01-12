@@ -326,7 +326,7 @@ List getEcaListForService(String selectedService) {
 }
 
 //Local Dispatchers
-dispArrList = new TreeSet()
+dispArrList = [] as SortedSet
 dispArrList.addAll(ServiceContainer.getAllDispatcherNames())
 context.dispArrList = dispArrList
 

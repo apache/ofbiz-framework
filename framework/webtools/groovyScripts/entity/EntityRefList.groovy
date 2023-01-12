@@ -28,7 +28,7 @@ if (security.hasPermission('ENTITY_MAINT', session)) {
     entities = new TreeSet(ec)
     search = parameters.search
 
-    packageNames = new TreeSet()
+    packageNames = [] as SortedSet
     ec.each { eName ->
         ent = reader.getModelEntity(eName)
         packageNames.add(ent.getPackageName())
