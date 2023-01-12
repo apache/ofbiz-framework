@@ -83,7 +83,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 10d, resultMap.shippingEstimateAmount as Double
+        assert 10d == resultMap.shippingEstimateAmount
     }
 
     void testCalculateSimpleShipmentCostPercentValue() {
@@ -101,7 +101,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 0.4d, resultMap.shippingEstimateAmount as Double
+        assert 0.4d == resultMap.shippingEstimateAmount
     }
 
     void testCalculateWeightBreakShipmentCostFlatValue() {
@@ -120,7 +120,7 @@ class ShipmentCostTests extends OFBizTestCase {
 
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 9d, resultMap.shippingEstimateAmount as Double
+        assert 9d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -137,7 +137,7 @@ class ShipmentCostTests extends OFBizTestCase {
 
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 10d, resultMap.shippingEstimateAmount as Double
+        assert 10d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -153,7 +153,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 11d, resultMap.shippingEstimateAmount as Double
+        assert 11d == resultMap.shippingEstimateAmount as Double
     }
 
     void testCalculateQuantityBreakShipmentCostFlatValue() {
@@ -171,7 +171,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 12d, resultMap.shippingEstimateAmount as Double
+        assert 12d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -187,7 +187,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 13d, resultMap.shippingEstimateAmount as Double
+        assert 13d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -203,7 +203,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 14d, resultMap.shippingEstimateAmount as Double
+        assert 14d == resultMap.shippingEstimateAmount as Double
     }
 
     void testCalculatePriceBreakShipmentCostFlatValue() {
@@ -221,7 +221,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 15d, resultMap.shippingEstimateAmount as Double
+        assert 15d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -237,7 +237,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 16d, resultMap.shippingEstimateAmount as Double
+        assert 16d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -253,7 +253,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 17d, resultMap.shippingEstimateAmount as Double
+        assert 17d == resultMap.shippingEstimateAmount as Double
     }
 
     void testCalculatePriceAndWeightBreakShipmentCostFlatValue() {
@@ -271,7 +271,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 18d, resultMap.shippingEstimateAmount as Double
+        assert 18d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -287,7 +287,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 19d, resultMap.shippingEstimateAmount as Double
+        assert 19d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -303,7 +303,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 20d, resultMap.shippingEstimateAmount as Double
+        assert 20d == resultMap.shippingEstimateAmount as Double
 
         serviceCtx = [
                 shippableItemInfo: [[:]],
@@ -319,7 +319,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 21d, resultMap.shippingEstimateAmount as Double
+        assert 21d == resultMap.shippingEstimateAmount as Double
     }
 
     void testPriceBreakOverRangeAndFailedShipmentCost() {
@@ -355,7 +355,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 1d, resultMap.shippingEstimateAmount as Double
+        assert 1d == resultMap.shippingEstimateAmount as Double
     }
 
     void testCalculateMultipleWithBreakShipmentCostFlatValue() {
@@ -374,7 +374,7 @@ class ShipmentCostTests extends OFBizTestCase {
         ]
         Map resultMap = dispatcher.runSync('calcShipmentCostEstimate', serviceCtx)
         assert ServiceUtil.isSuccess(resultMap)
-        assertEquals 2d, resultMap.shippingEstimateAmount as Double
+        assert 2d == resultMap.shippingEstimateAmount as Double
     }
 
 }
