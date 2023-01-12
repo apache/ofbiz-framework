@@ -33,7 +33,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
         List partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, 'DemoCustomer', true)
         assert partyContactMechValueMaps
         assert partyContactMechValueMaps.size() == 7
-        boolean foundPostalAddress, foundTelecom, foundEmailAddress, foundFtpAddress = false
+        boolean foundPostalAddress = false, foundTelecom = false, foundEmailAddress = false, foundFtpAddress = false
         partyContactMechValueMaps.forEach {
             Map partyContactMechValueMap ->
                 switch (partyContactMechValueMap?.contactMech?.contactMechId) {
@@ -108,7 +108,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
         assert orderContactMechValueMaps
         assert orderContactMechValueMaps.size() == 3
 
-        boolean foundBillingAddress, foundShippingAddress, foundOrderEmail = false
+        boolean foundBillingAddress = false, foundShippingAddress = false, foundOrderEmail = false
         orderContactMechValueMaps.forEach { Map orderContactMechValueMap ->
             switch (orderContactMechValueMap.contactMech?.contactMechId) {
                 case '9015':
@@ -144,7 +144,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
         assert workEffortContactMechValueMaps
         assert workEffortContactMechValueMaps.size() == 3
 
-        boolean foundPostalAddress, foundPhone, foundEmail = false
+        boolean foundPostalAddress = false, foundPhone = false, foundEmail = false
         workEffortContactMechValueMaps.forEach { Map workEffortContactMechValueMap ->
             switch (workEffortContactMechValueMap.contactMech?.contactMechId) {
                 case '9015':
