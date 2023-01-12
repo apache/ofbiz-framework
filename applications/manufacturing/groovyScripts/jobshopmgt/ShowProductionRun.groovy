@@ -36,12 +36,7 @@ if (productionRunId) {
     if (!productionRun) {
         return 'error'
     }
-    if (productionRun.getString('currentStatusId') == 'PRUN_CREATED' ||
-            productionRun.getString('currentStatusId') == 'PRUN_SCHEDULED' ||
-            productionRun.getString('currentStatusId') == 'PRUN_CANCELLED') {
-        return 'docs_not_printed'
-    }
-    return 'docs_printed'
+    return ['PRUN_CREATED', 'PRUN_SCHEDULED', 'PRUN_CANCELLED'].contains(productionRun.currentStatusId) ? 'docs_not_printed' : 'docs_printed'
 }
 
 return 'error'
