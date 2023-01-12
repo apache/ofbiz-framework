@@ -114,11 +114,10 @@ if (cart) {
         // Ship to another party
         if (context.shipToPartyId != orderPartyId) {
             shipToParty = from('Party').where('partyId', context.shipToPartyId).queryOne()
-            if (shipToParty)
-        {
+            if (shipToParty) {
                 shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)
                 context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList
-        }
+            }
         }
     }
 }
