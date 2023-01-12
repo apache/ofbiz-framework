@@ -142,14 +142,14 @@ if (fileType) {
                 // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
                 if (filenameToUse.startsWith(productId + '.')) {
                     File[] files = targetDir.listFiles()
-                    for(File file : files) {
+                    for (File file : files) {
                         if (file.isFile() && file.getName() != defaultFileName && file.getName().startsWith(productId + '.')) {
                             file.delete()
                         }
                     }
                 } else {
                     File[] files = targetDir.listFiles()
-                    for(File file : files) {
+                    for (File file : files) {
                         if (file.isFile() && file.getName() != defaultFileName) {
                             file.delete()
                         }
