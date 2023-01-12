@@ -309,7 +309,7 @@ Map issueProductionRunTaskComponentInline(Map parameters,
         }
         if ((!inventoryItem.statusId || inventoryItem.statusId == 'INV_AVAILABLE') &&
                 inventoryItem.inventoryItemTypeId == 'NON_SERIAL_INV_ITEM') {
-            BigDecimal inventoryItemQuantity = 'Y' == parameters.useReservedItems ?
+            BigDecimal inventoryItemQuantity = parameters.useReservedItems == 'Y' ?
                     inventoryItem.quantityOnHandTotal :
                     inventoryItem.availableToPromiseTotal
 
