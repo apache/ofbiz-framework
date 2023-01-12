@@ -52,7 +52,7 @@ Map getNextInvoiceId() {
             }
         }
     } else {
-        logWarning('Acctg preference not defined for partyId [${parameters.partyId}]')
+        logWarning("Acctg preference not defined for partyId [${parameters.partyId}]")
     }
 
     String invoiceIdTemp = ''
