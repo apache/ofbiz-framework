@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.accounting
 
-import org.apache.ofbiz.base.util.UtilDateTime
-
 import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.IN
 import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
+
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
