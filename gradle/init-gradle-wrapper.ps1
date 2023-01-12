@@ -17,17 +17,19 @@
 
 md -force gradle/wrapper
 
+# download raw format from https://github.com/gradle/gradle/tree/v7.6.0/gradle/wrapper
 If ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage") {
     Set-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -name "__PSLockdownPolicy" -Value 8
-    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v6.5.1/gradle/wrapper/gradle-wrapper.jar
+    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v7.6.0/gradle/wrapper/gradle-wrapper.jar
     Set-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -name "__PSLockdownPolicy" -Value 4
 } else {
-    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v6.5.1/gradle/wrapper/gradle-wrapper.jar
+    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v7.6.0/gradle/wrapper/gradle-wrapper.jar
 }
 
-$expected = "33b0acb4572934fc1dd7d5880c65036724974e06"
-$actual = (Get-FileHash gradle\wrapper\gradle-wrapper.jar -Algorithm SHA1).Hash.ToLower()
-@{$true = 'OK: Checksum match'; $false = "ERROR: Checksum mismatch!`nExpected: $expected`nActual: $actual"}[$actual -eq $expected]
+# https://docs.gradle.org/current/userguide/gradle_wrapper.html#wrapper_checksum_verification
+$expected = Invoke-RestMethod -Uri https://services.gradle.org/distributions/gradle-7.6-wrapper.jar.sha256
+$actual = (Get-FileHash gradle\wrapper\gradle-wrapper.jar -Algorithm SHA256).Hash.ToLower()
+@{$true = 'OK: Checksum match'; $false = "ERROR: Checksum mismatch!`nExpected: $expected`nActual:   $actual"}[$actual -eq $expected]
 
 if (!$true) {
     Remove-Item gradle\wrapper\gradle-wrapper.jar
