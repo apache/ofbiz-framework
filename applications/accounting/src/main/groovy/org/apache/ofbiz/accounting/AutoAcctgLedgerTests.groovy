@@ -54,4 +54,5 @@ class AutoAcctgLedgerTests extends OFBizTestCase {
                 .where('acctgTransId', '1000', 'acctgTransEntrySeqId', serviceResult.acctgTransEntrySeqId).queryOne()
         assert acctgTransEntry != null
     }
+
 }

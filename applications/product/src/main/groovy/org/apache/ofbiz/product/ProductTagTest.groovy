@@ -125,4 +125,5 @@ class ProductTagTest extends OFBizTestCase {
         assert checkProductKeywordApprove3 != null
         assert checkProductKeywordApprove3.statusId == 'KW_APPROVED'
     }
+
 }

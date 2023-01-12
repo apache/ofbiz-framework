@@ -143,4 +143,5 @@ class FixedAssetTests extends OFBizTestCase {
                 .filterByDate().queryFirst()
         assert fixedAssetGeoPoint
     }
+
 }

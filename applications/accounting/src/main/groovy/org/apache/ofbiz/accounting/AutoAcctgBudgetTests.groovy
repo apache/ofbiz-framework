@@ -53,4 +53,5 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         assert ! budgetStatuses?.isEmpty()
         assert budgetStatuses[0].statusId == 'BG_APPROVED'
     }
+
 }

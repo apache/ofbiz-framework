@@ -40,4 +40,5 @@ class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
         assert paymentGatewayConfig
         assert paymentGatewayConfig.description  == 'Test Payment Gateway Config Id'
     }
+
 }

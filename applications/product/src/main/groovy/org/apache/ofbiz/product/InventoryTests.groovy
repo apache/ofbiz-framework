@@ -51,4 +51,5 @@ class InventoryTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.physicalInventoryId
     }
+
 }

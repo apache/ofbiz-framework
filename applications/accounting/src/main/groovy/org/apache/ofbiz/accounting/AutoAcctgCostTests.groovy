@@ -57,4 +57,5 @@ class AutoAcctgCostTests extends OFBizTestCase {
 
         assert serviceResult.unitCost == 9
     }
+
 }

@@ -378,4 +378,5 @@ class ProductPromoCondTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase < 0
     }
+
 }

@@ -357,4 +357,5 @@ class ProductPromoActionTests extends OFBizTestCase {
         assert serviceResult.actionResultInfo.ranAction
         assert serviceResult.actionResultInfo.totalDiscountAmount != null
     }
+
 }

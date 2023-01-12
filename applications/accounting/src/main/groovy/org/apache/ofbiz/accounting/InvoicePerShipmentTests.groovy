@@ -180,4 +180,5 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         List invoices = testInvoicePerShipment('GZ-2644', 'Y')
         assert UtilValidate.isNotEmpty(invoices)
     }
+
 }

@@ -35,4 +35,5 @@ class TestCustRequestPermissionCheck extends OFBizTestCase {
         Map result = dispatcher.runSync('custRequestPermissionCheck', serviceCtx)
         assert ServiceUtil.isSuccess(result)
     }
+
 }

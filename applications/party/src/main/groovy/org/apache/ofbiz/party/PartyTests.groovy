@@ -47,4 +47,5 @@ class PartyTests extends OFBizTestCase {
         assert postalAddress != null
         postalAddress.city = 'City of Industry'
     }
+
 }

@@ -62,4 +62,5 @@ class ProductPriceTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(resultMap)
         assert resultMap.defaultPrice == 10
     }
+
 }

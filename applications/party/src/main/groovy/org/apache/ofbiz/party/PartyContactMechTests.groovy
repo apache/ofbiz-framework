@@ -431,4 +431,5 @@ class PartyContactMechTests extends OFBizTestCase {
                 .filterByDate().queryFirst()
         assert partyContactMechPurpose
     }
+
 }

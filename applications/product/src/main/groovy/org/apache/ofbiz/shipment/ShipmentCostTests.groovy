@@ -376,4 +376,5 @@ class ShipmentCostTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(resultMap)
         assertEquals 2d, resultMap.shippingEstimateAmount as Double
     }
+
 }

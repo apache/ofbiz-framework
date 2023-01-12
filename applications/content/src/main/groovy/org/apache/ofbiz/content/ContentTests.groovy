@@ -185,4 +185,5 @@ class ContentTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.view
     }
+
 }
