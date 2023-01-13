@@ -192,16 +192,18 @@ if (action) {
         resultMap = runService('getProductInventoryAndFacilitySummary',
                 [productId: oneProd.productId, minimumStock: minimumStock, facilityId: oneProd.facilityId, checkTime: checkTime, statusId: statusId])
         if (resultMap) {
-            oneInventory.totalAvailableToPromise = resultMap.totalAvailableToPromise
-            oneInventory.totalQuantityOnHand = resultMap.totalQuantityOnHand
-            oneInventory.quantityOnOrder = resultMap.quantityOnOrder
-            oneInventory.offsetQOHQtyAvailable = resultMap.offsetQOHQtyAvailable
-            oneInventory.offsetATPQtyAvailable = resultMap.offsetATPQtyAvailable
-            oneInventory.quantityUom = resultMap.quantityUomId
-            oneInventory.usageQuantity = resultMap.usageQuantity
-            oneInventory.defaultPrice = resultMap.defaultPrice
-            oneInventory.listPrice = resultMap.listPrice
-            oneInventory.wholeSalePrice = resultMap.wholeSalePrice
+            oneInventory << [
+                    totalAvailableToPromise: resultMap.totalAvailableToPromise,
+                    totalQuantityOnHand: resultMap.totalQuantityOnHand,
+                    quantityOnOrder: resultMap.quantityOnOrder,
+                    offsetQOHQtyAvailable: resultMap.offsetQOHQtyAvailable,
+                    offsetATPQtyAvailable: resultMap.offsetATPQtyAvailable,
+                    quantityUom: resultMap.quantityUomId,
+                    usageQuantity: resultMap.usageQuantity,
+                    defaultPrice: resultMap.defaultPrice,
+                    listPrice: resultMap.listPrice,
+                    wholeSalePrice: resultMap.wholeSalePrice
+            ]
             if (offsetQOHQty && offsetATPQty) {
                 if ((offsetQOHQty && resultMap.offsetQOHQtyAvailable < offsetQOH) && (offsetATPQty && resultMap.offsetATPQtyAvailable < offsetATP)) {
                     rows.add(oneInventory)

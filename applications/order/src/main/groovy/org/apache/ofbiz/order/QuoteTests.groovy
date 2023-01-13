@@ -380,6 +380,7 @@ class QuoteTests extends OFBizTestCase {
     }
 
     // Test createQuoteFromCart
+    @SuppressWarnings('UnnecessaryObjectReferences')
     void testCreateQuoteFromCart() {
         String productId = 'SV-1001'
         String partyId = 'DemoCustomer'

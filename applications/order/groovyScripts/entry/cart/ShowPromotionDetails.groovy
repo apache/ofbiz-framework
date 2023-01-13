@@ -38,17 +38,17 @@ ProductPromoWorker.makeProductPromoCondActionIdSets(productPromoId, productIdsCo
 productIds = new TreeSet(productIdsCond)
 productIds.addAll(productIdsAction)
 
-context.productPromoId = productPromoId
-context.productPromo = productPromo
-context.promoAutoDescription = promoAutoDescription
-
-context.productPromoCategoryIncludeList = productPromoCategoryIncludeList
-context.productPromoCategoryExcludeList = productPromoCategoryExcludeList
-context.productPromoCategoryAlwaysList = productPromoCategoryAlwaysList
-
-context.productIdsCond = productIdsCond
-context.productIdsAction = productIdsAction
-context.productIds = productIds as List
+context << [
+        productPromoId: productPromoId,
+        productPromo: productPromo,
+        promoAutoDescription: promoAutoDescription,
+        productPromoCategoryIncludeList: productPromoCategoryIncludeList,
+        productPromoCategoryExcludeList: productPromoCategoryExcludeList,
+        productPromoCategoryAlwaysList: productPromoCategoryAlwaysList,
+        productIdsCond: productIdsCond,
+        productIdsAction: productIdsAction,
+        productIds: productIds as List
+]
 
 viewIndex = 0
 viewSize = 10

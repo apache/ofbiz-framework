@@ -39,107 +39,112 @@ int maxRecordsPerFile = maxRecStr ? (maxRecStr as int) : 0
 
 preConfiguredSetName = parameters.preConfiguredSetName
 if ('Product1'.equals(preConfiguredSetName)) {
-    passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add('DataResource')
-    passedEntityNames.add('Facility')
-    passedEntityNames.add('ProdCatalog')
-    passedEntityNames.add('Product')
-    passedEntityNames.add('ProductCategory')
-    passedEntityNames.add('ProductFeatureCategory')
-    passedEntityNames.add('ProductFeatureType')
-    passedEntityNames.add('ProductPriceRule')
-    passedEntityNames.add('ProductPromo')
+    passedEntityNames = [
+            'DataResource',
+            'Facility',
+            'ProdCatalog',
+            'Product',
+            'ProductCategory',
+            'ProductFeatureCategory',
+            'ProductFeatureType',
+            'ProductPriceRule',
+            'ProductPromo'
+    ] as LinkedHashSet
 } else if ('Product2'.equals(preConfiguredSetName)) {
-    passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add('Content')
-    passedEntityNames.add('ElectronicText')
-    passedEntityNames.add('FacilityLocation')
-    passedEntityNames.add('ProdCatalogCategory')
-    passedEntityNames.add('ProdCatalogRole')
-    passedEntityNames.add('ProductAssoc')
-    passedEntityNames.add('ProductAttribute')
-    passedEntityNames.add('ProductCategoryMember')
-    passedEntityNames.add('ProductCategoryRollup')
-    passedEntityNames.add('ProductFacility')
-    passedEntityNames.add('ProductFeature')
-    passedEntityNames.add('ProductFeatureCategoryAppl')
-    passedEntityNames.add('ProductKeyword')
-    passedEntityNames.add('ProductPrice')
-    passedEntityNames.add('ProductPriceAction')
-    passedEntityNames.add('ProductPriceCond')
-    passedEntityNames.add('ProductPromoCode')
-    passedEntityNames.add('ProductPromoCategory')
-    passedEntityNames.add('ProductPromoProduct')
-    passedEntityNames.add('ProductPromoRule')
+    passedEntityNames = [
+            'Content',
+            'ElectronicText',
+            'FacilityLocation',
+            'ProdCatalogCategory',
+            'ProdCatalogRole',
+            'ProductAssoc',
+            'ProductAttribute',
+            'ProductCategoryMember',
+            'ProductCategoryRollup',
+            'ProductFacility',
+            'ProductFeature',
+            'ProductFeatureCategoryAppl',
+            'ProductKeyword',
+            'ProductPrice',
+            'ProductPriceAction',
+            'ProductPriceCond',
+            'ProductPromoCode',
+            'ProductPromoCategory',
+            'ProductPromoProduct',
+            'ProductPromoRule'
+    ] as LinkedHashSet
 } else if ('Product3'.equals(preConfiguredSetName)) {
-    passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add('ProdCatalogInvFacility')
-    passedEntityNames.add('ProductContent')
-    passedEntityNames.add('ProductFacilityLocation')
-    passedEntityNames.add('ProductFeatureAppl')
-    passedEntityNames.add('ProductFeatureDataResource')
-    passedEntityNames.add('ProductFeatureGroup')
-    passedEntityNames.add('ProductPriceChange')
-    passedEntityNames.add('ProductPromoAction')
-    passedEntityNames.add('ProdPromoCodeContactMech')
-    passedEntityNames.add('ProductPromoCodeParty')
-    passedEntityNames.add('ProductPromoCond')
+    passedEntityNames = [
+            'ProdCatalogInvFacility',
+            'ProductContent',
+            'ProductFacilityLocation',
+            'ProductFeatureAppl',
+            'ProductFeatureDataResource',
+            'ProductFeatureGroup',
+            'ProductPriceChange',
+            'ProductPromoAction',
+            'ProdPromoCodeContactMech',
+            'ProductPromoCodeParty',
+            'ProductPromoCond'
+    ] as LinkedHashSet
 } else if ('Product4'.equals(preConfiguredSetName)) {
-    passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add('InventoryItem')
-    passedEntityNames.add('ProductFeatureCatGrpAppl')
-    passedEntityNames.add('ProductFeatureGroupAppl')
+    passedEntityNames = [
+            'InventoryItem',
+            'ProductFeatureCatGrpAppl',
+            'ProductFeatureGroupAppl'
+    ] as LinkedHashSet
 } else if ('CatalogExport'.equals(preConfiguredSetName)) {
-    passedEntityNames = new LinkedHashSet()
-    passedEntityNames.add('ProdCatalogCategoryType')
-    passedEntityNames.add('ProdCatalog')
-    passedEntityNames.add('ProductCategoryType')
-    passedEntityNames.add('ProductCategory')
-    passedEntityNames.add('ProductCategoryRollup')
-    passedEntityNames.add('ProdCatalogCategory')
-    passedEntityNames.add('ProductFeatureType')
-    passedEntityNames.add('ProductFeatureCategory')
+    passedEntityNames = [
+            'ProdCatalogCategoryType',
+            'ProdCatalog',
+            'ProductCategoryType',
+            'ProductCategory',
+            'ProductCategoryRollup',
+            'ProdCatalogCategory',
+            'ProductFeatureType',
+            'ProductFeatureCategory',
 
-    passedEntityNames.add('DataResource')
-    passedEntityNames.add('Content')
-    passedEntityNames.add('ElectronicText')
+            'DataResource',
+            'Content',
+            'ElectronicText',
 
-    passedEntityNames.add('ProductType')
-    passedEntityNames.add('Product')
-    passedEntityNames.add('ProductAttribute')
-    passedEntityNames.add('GoodIdentificationType')
-    passedEntityNames.add('GoodIdentification')
-    passedEntityNames.add('ProductPriceType')
-    passedEntityNames.add('ProductPrice')
+            'ProductType',
+            'Product',
+            'ProductAttribute',
+            'GoodIdentificationType',
+            'GoodIdentification',
+            'ProductPriceType',
+            'ProductPrice',
 
-    passedEntityNames.add('ProductPriceRule')
-    passedEntityNames.add('ProductPriceCond')
-    passedEntityNames.add('ProductPriceAction')
-    //passedEntityNames.add("ProductPriceChange")
+            'ProductPriceRule',
+            'ProductPriceCond',
+            'ProductPriceAction',
+            //'ProductPriceChange',
 
-    passedEntityNames.add('ProductPromo')
-    passedEntityNames.add('ProductPromoCode')
-    passedEntityNames.add('ProductPromoCategory')
-    passedEntityNames.add('ProductPromoProduct')
-    passedEntityNames.add('ProductPromoRule')
-    passedEntityNames.add('ProductPromoAction')
-    passedEntityNames.add('ProdPromoCodeContactMech')
-    passedEntityNames.add('ProductPromoCodeParty')
-    passedEntityNames.add('ProductPromoCond')
+            'ProductPromo',
+            'ProductPromoCode',
+            'ProductPromoCategory',
+            'ProductPromoProduct',
+            'ProductPromoRule',
+            'ProductPromoAction',
+            'ProdPromoCodeContactMech',
+            'ProductPromoCodeParty',
+            'ProductPromoCond',
 
-    passedEntityNames.add('ProductCategoryMember')
-    passedEntityNames.add('ProductAssoc')
-    passedEntityNames.add('ProductContent')
+            'ProductCategoryMember',
+            'ProductAssoc',
+            'ProductContent',
 
-    passedEntityNames.add('ProductFeature')
-    passedEntityNames.add('ProductFeatureCategoryAppl')
-    passedEntityNames.add('ProductFeatureAppl')
-    passedEntityNames.add('ProductFeatureDataResource')
-    passedEntityNames.add('ProductFeatureGroup')
-    passedEntityNames.add('ProductFeatureCatGrpAppl')
-    passedEntityNames.add('ProductFeatureGroupAppl')
+            'ProductFeature',
+            'ProductFeatureCategoryAppl',
+            'ProductFeatureAppl',
+            'ProductFeatureDataResource',
+            'ProductFeatureGroup',
+            'ProductFeatureCatGrpAppl',
+            'ProductFeatureGroupAppl',
 
-    //passedEntityNames.add("ProductKeyword")
+            //'ProductKeyword',
+    ] as LinkedHashSet
 }
 
 if (entitySyncId) {

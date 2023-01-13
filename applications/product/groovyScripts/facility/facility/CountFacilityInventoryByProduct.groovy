@@ -80,6 +80,7 @@ if (action) {
         }
     }
 
+/* codenarc-disable */
     prodView.addMemberEntity('PRFA', 'ProductFacility')
     prodView.addAlias('PRFA', 'productId', null, null, null, Boolean.TRUE, null)
     prodView.addAlias('PRFA', 'minimumStock', null, null, null, Boolean.TRUE, null)
@@ -215,6 +216,7 @@ if (action) {
         productionUsageViewEntity.addAlias('II', 'facilityId')
         productionUsageViewEntity.addAlias('II', 'productId')
     }
+/* codenarc-enable */
 
     whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND)
 
@@ -246,16 +248,17 @@ if (action) {
                 }
             }
 
-            oneInventory = [:]
-            oneInventory.productId = oneProd.productId
-            oneInventory.minimumStock = oneProd.getBigDecimal('minimumStock')
-            oneInventory.reorderQuantity = oneProd.getBigDecimal('reorderQuantity')
-            oneInventory.daysToShip = oneProd.getString('daysToShip')
-            oneInventory.totalQuantityOnHand = oneProd.totalQuantityOnHandTotal
-            oneInventory.totalAvailableToPromise = oneProd.totalAvailableToPromiseTotal
-            oneInventory.offsetQOHQtyAvailable = offsetQOHQtyAvailable
-            oneInventory.offsetATPQtyAvailable = offsetATPQtyAvailable
-            oneInventory.quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(oneProd.productId, delegator)
+            oneInventory = [
+                    productId: oneProd.productId,
+                    minimumStock: oneProd.getBigDecimal('minimumStock'),
+                    reorderQuantity: oneProd.getBigDecimal('reorderQuantity'),
+                    daysToShip: oneProd.getString('daysToShip'),
+                    totalQuantityOnHand: oneProd.totalQuantityOnHandTotal,
+                    totalAvailableToPromise: oneProd.totalAvailableToPromiseTotal,
+                    offsetQOHQtyAvailable: offsetQOHQtyAvailable,
+                    offsetATPQtyAvailable: offsetATPQtyAvailable,
+                    quantityOnOrder: InventoryWorker.getOutstandingPurchasedQuantity(oneProd.productId, delegator)
+            ]
 
 
             if (checkTime) {

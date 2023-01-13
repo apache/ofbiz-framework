@@ -51,12 +51,14 @@ supplerPartyRoleAndPartyDetails = from('PartyRoleAndPartyDetail').where(roleType
 // get the GoodIdentification types
 goodIdentificationTypes = from('GoodIdentificationType').orderBy('description').queryList()
 
-context.searchCategoryId = searchCategoryId
-context.searchCategory = searchCategory
-context.productFeaturesByTypeMap = productFeaturesByTypeMap
-context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered
-context.searchOperator = searchOperator
-context.searchConstraintStrings = searchConstraintStrings
-context.searchSortOrderString = searchSortOrderString
-context.supplerPartyRoleAndPartyDetails = supplerPartyRoleAndPartyDetails
-context.goodIdentificationTypes = goodIdentificationTypes
+context << [
+        searchCategoryId: searchCategoryId,
+        searchCategory: searchCategory,
+        productFeaturesByTypeMap: productFeaturesByTypeMap,
+        productFeatureTypeIdsOrdered: productFeatureTypeIdsOrdered,
+        searchOperator: searchOperator,
+        searchConstraintStrings: searchConstraintStrings,
+        searchSortOrderString: searchSortOrderString,
+        supplerPartyRoleAndPartyDetails: supplerPartyRoleAndPartyDetails,
+        goodIdentificationTypes: goodIdentificationTypes
+]

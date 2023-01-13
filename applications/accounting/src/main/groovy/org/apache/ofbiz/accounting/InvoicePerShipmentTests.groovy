@@ -112,21 +112,20 @@ public class InvoicePerShipmentTests extends OFBizTestCase {
         packingSession.setPrimaryOrderId(orderHeader.orderId)
         packingSession.setPrimaryShipGroupSeqId('00001')
 
-        Map packInput = [:]
-        packInput.orderId = orderHeader.orderId
-        packInput.shipGroupSeqId = '00001'
-        packInput.packingSession = packingSession
-        packInput.nextPackageSeq = 1
-        packInput.userLogin = userLogin
-
-        // Items
-        packInput.selInfo = [_1: 'Y']
-        packInput.pkgInfo = [_1: '1']
-        packInput.qtyInfo = [_1: '1']
-        packInput.prdInfo = [_1: productId]
-        packInput.iteInfo = [_1: '00001']
-        packInput.wgtInfo = [_1: '0']
-        packInput.numPackagesInfo = [_1: '1']
+        Map packInput = [
+                orderId: orderHeader.orderId,
+                shipGroupSeqId: '00001',
+                packingSession: packingSession,
+                nextPackageSeq: 1,
+                userLogin: userLogin,
+                selInfo: [_1: 'Y'],
+                pkgInfo: [_1: '1'],
+                qtyInfo: [_1: '1'],
+                prdInfo: [_1: productId],
+                iteInfo: [_1: '00001'],
+                wgtInfo: [_1: '0'],
+                numPackagesInfo: [_1: '1']
+        ]
 
         Map serviceResult = dispatcher.runSync('packBulkItems', packInput)
         assert ServiceUtil.isSuccess(serviceResult)

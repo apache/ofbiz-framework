@@ -59,23 +59,24 @@ if (paymentMethodTypeId && paymentServiceTypeEnumId) {
 }
 
 if (!paymentMethodTypeId || !paymentServiceTypeEnumId) {
-    customMethods = []
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_AUTH'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_CAPTURE'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_REAUTH'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_REFUND'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_RELEASE'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_CREDIT'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'EFT_AUTH'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'EFT_RELEASE'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_AUTH'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_CAPTURE'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_REFUND'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_RELEASE'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_AUTH'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_CAPTURE'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_REFUND'))
-    customMethods.add(EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_RELEASE'))
+    List customMethods = [
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_AUTH'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_CAPTURE'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_REAUTH'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_REFUND'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_RELEASE'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'CC_CREDIT'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'EFT_AUTH'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'EFT_RELEASE'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_AUTH'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_CAPTURE'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_REFUND'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'FIN_RELEASE'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_AUTH'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_CAPTURE'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_REFUND'),
+            EntityCondition.makeCondition('customMethodTypeId', EntityOperator.EQUALS, 'GIFT_RELEASE')
+    ]
     customMethodsCond = EntityCondition.makeCondition(customMethods, EntityOperator.OR)
 }
 if ('PRDS_PAY_EXTERNAL' == paymentServiceTypeEnumId) {

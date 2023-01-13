@@ -53,13 +53,14 @@ if (listSize < highIndex) {
     highIndex = listSize
 }
 
-context.partyId = partyId
-context.visitId = visitId
-context.visit = visit
-context.serverHits = serverHits
-
-context.viewIndex = viewIndex
-context.viewSize = viewSize
-context.listSize = listSize
-context.lowIndex = lowIndex
-context.highIndex = highIndex
+context << [
+        partyId: partyId,
+        visitId: visitId,
+        visit: visit,
+        serverHits: serverHits,
+        viewIndex: viewIndex,
+        viewSize: viewSize,
+        listSize: listSize,
+        lowIndex: lowIndex,
+        highIndex: highIndex
+]

@@ -42,17 +42,18 @@ if (shipment) {
                 }
                 tasks = from('WorkEffort').where('workEffortParentId', productionRun.workEffortId, 'workEffortTypeId', 'PROD_ORDER_TASK').queryList()
                 tasks.each { task ->
-                    record = [:]
-                    record.productId = productionRunProduct.productId
-                    record.productName = productionRunProduct.internalName
-                    record.fixedAssetId = task.fixedAssetId
-                    record.priority = task.getLong('priority')
-                    record.workEffortId = productionRun.workEffortId
-                    record.taskId = task.workEffortId
-                    record.taskName = task.workEffortName
-                    record.taskDescription = task.description
-                    record.taskEstimatedTime = task.getDouble('estimatedMilliSeconds')
-                    record.taskEstimatedSetup = task.getDouble('estimatedSetupMillis')
+                    record = [
+                            productId: productionRunProduct.productId,
+                            productName: productionRunProduct.internalName,
+                            fixedAssetId: task.fixedAssetId,
+                            priority: task.getLong('priority'),
+                            workEffortId: productionRun.workEffortId,
+                            taskId: task.workEffortId,
+                            taskName: task.workEffortName,
+                            taskDescription: task.description,
+                            taskEstimatedTime: task.getDouble('estimatedMilliSeconds'),
+                            taskEstimatedSetup: task.getDouble('estimatedSetupMillis'),
+                    ]
                     records.add(record)
                     if(task.getDouble('estimatedMilliSeconds') != null){
                         fixedAssetTime = fixedAssetTime + task.getDouble('estimatedMilliSeconds')

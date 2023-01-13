@@ -36,17 +36,18 @@ expr = EntityCondition.makeCondition(EntityCondition.makeCondition('showInSelect
                                      EntityCondition.makeCondition('showInSelect', EntityOperator.NOT_EQUAL, 'N'))
 productCategories = from('ProductCategory').where(expr).orderBy('description').queryList()
 
-context.applicationTypes = applicationTypes
-context.productCategories = productCategories
-
-context.noConditionFind = result.noConditionFind
-context.productIds = result.productIds
-context.viewIndex = result.viewIndex
-context.viewSize = result.viewSize
-context.listSize = result.listSize
-context.lowIndex = result.lowIndex
-context.highIndex = result.highIndex
-context.paging = result.paging
-context.previousViewSize = result.previousViewSize
-context.searchConstraintStrings = result.searchConstraintStrings
-context.searchSortOrderString = result.searchSortOrderString
+context << [
+        applicationTypes: applicationTypes,
+        productCategories: productCategories,
+        noConditionFind: result.noConditionFind,
+        productIds: result.productIds,
+        viewIndex: result.viewIndex,
+        viewSize: result.viewSize,
+        listSize: result.listSize,
+        lowIndex: result.lowIndex,
+        highIndex: result.highIndex,
+        paging: result.paging,
+        previousViewSize: result.previousViewSize,
+        searchConstraintStrings: result.searchConstraintStrings,
+        searchSortOrderString: result.searchSortOrderString
+]

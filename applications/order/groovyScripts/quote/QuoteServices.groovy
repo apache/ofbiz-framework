@@ -512,15 +512,17 @@ Map createQuoteFromCart() {
         }
 
         if (parameters.applyStorePromotions != 'N' || createQuoteItemInMap.isPromo != 'Y') {
-            createQuoteItemInMap.quoteId = quote.quoteId
-            createQuoteItemInMap.productId = item.getProductId()
-            createQuoteItemInMap.quantity = item.getQuantity()
-            createQuoteItemInMap.selectedAmount = item.getSelectedAmount()
-            createQuoteItemInMap.quoteUnitPrice = item.getBasePrice()
-            createQuoteItemInMap.comments = item.getItemComment()
-            createQuoteItemInMap.reservStart = item.getReservStart()
-            createQuoteItemInMap.reservLength = item.getReservLength()
-            createQuoteItemInMap.reservPersons = item.getReservPersons()
+            createQuoteItemInMap << [
+                    quoteId: quote.quoteId,
+                    productId: item.getProductId(),
+                    quantity: item.getQuantity(),
+                    selectedAmount: item.getSelectedAmount(),
+                    quoteUnitPrice: item.getBasePrice(),
+                    comments: item.getItemComment(),
+                    reservStart: item.getReservStart(),
+                    reservLength: item.getReservLength(),
+                    reservPersons: item.getReservPersons()
+            ]
 
             Map serviceQuoteItemResult = run service: 'createQuoteItem', with: createQuoteItemInMap
             //and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId)

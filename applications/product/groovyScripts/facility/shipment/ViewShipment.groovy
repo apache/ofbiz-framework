@@ -29,19 +29,21 @@ context.shipmentId = shipmentId
 context.shipment = shipment
 
 if (shipment) {
-    context.shipmentType = shipment.getRelatedOne('ShipmentType', false)
-    context.statusItem = shipment.getRelatedOne('StatusItem', false)
-    context.primaryOrderHeader = shipment.getRelatedOne('PrimaryOrderHeader', false)
-    context.toPerson = shipment.getRelatedOne('ToPerson', false)
-    context.toPartyGroup = shipment.getRelatedOne('ToPartyGroup', false)
-    context.fromPerson = shipment.getRelatedOne('FromPerson', false)
-    context.fromPartyGroup = shipment.getRelatedOne('FromPartyGroup', false)
-    context.originFacility = shipment.getRelatedOne('OriginFacility', false)
-    context.destinationFacility = shipment.getRelatedOne('DestinationFacility', false)
-    context.originPostalAddress = shipment.getRelatedOne('OriginPostalAddress', false)
-    context.destinationPostalAddress = shipment.getRelatedOne('DestinationPostalAddress', false)
-    context.originTelecomNumber = shipment.getRelatedOne('OriginTelecomNumber', false)
-    context.destinationTelecomNumber = shipment.getRelatedOne('DestinationTelecomNumber', false)
+    context << [
+            shipmentType: shipment.getRelatedOne('ShipmentType', false),
+            statusItem: shipment.getRelatedOne('StatusItem', false),
+            primaryOrderHeader: shipment.getRelatedOne('PrimaryOrderHeader', false),
+            toPerson: shipment.getRelatedOne('ToPerson', false),
+            toPartyGroup: shipment.getRelatedOne('ToPartyGroup', false),
+            fromPerson: shipment.getRelatedOne('FromPerson', false),
+            fromPartyGroup: shipment.getRelatedOne('FromPartyGroup', false),
+            originFacility: shipment.getRelatedOne('OriginFacility', false),
+            destinationFacility: shipment.getRelatedOne('DestinationFacility', false),
+            originPostalAddress: shipment.getRelatedOne('OriginPostalAddress', false),
+            destinationPostalAddress: shipment.getRelatedOne('DestinationPostalAddress', false),
+            originTelecomNumber: shipment.getRelatedOne('OriginTelecomNumber', false),
+            destinationTelecomNumber: shipment.getRelatedOne('DestinationTelecomNumber', false)
+    ]
 }
 
 // check permission
