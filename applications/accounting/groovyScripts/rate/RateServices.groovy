@@ -54,8 +54,7 @@ def updateRateAmount() {
             return error(UtilProperties.getMessage('AccountingErrorUiLabels', 'AccountingUpdateRateAmountAlreadyExist', locale))
         }
     }
-    if (updating) newEntity.store()
-    else newEntity.create()
+    updating ? newEntity.store() : newEntity.create()
     return success()
 }
 
