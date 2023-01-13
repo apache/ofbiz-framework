@@ -20,11 +20,7 @@ import org.apache.ofbiz.testtools.GroovyScriptTestCase
 
 class BaseTest extends GroovyScriptTestCase {
     void testTrue() {
-        assert 1, 1
-    }
-
-    void testFalse() {
-        assertNotSame 1, 0
+        assert 1 + 1 == 2
     }
 
     void testDelegator() {
