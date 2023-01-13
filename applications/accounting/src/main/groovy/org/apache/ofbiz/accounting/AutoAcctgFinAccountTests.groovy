@@ -184,15 +184,20 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
                 statusId: 'FINACT_TRNS_APPROVED',
                 userLogin: userLogin
         ]
+        GenericValue finAccountTrans = from('FinAccountTrans')
+                .where('finAccountTransId', '1010')
+                .queryOne()
+        String oldStatusId =  finAccountTrans.statusId
+
         Map serviceResult = dispatcher.runSync('setFinAccountTransStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountTrans = from('FinAccountTrans')
+         finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', '1010')
                 .queryOne()
         assert finAccountTrans
         assert finAccountTrans.statusId == 'FINACT_TRNS_APPROVED'
-        assert finAccountTrans.oldStatusId == 'FINACT_TRNS_CREATED'
+        assert oldStatusId == 'FINACT_TRNS_CREATED'
     }
 
 }
