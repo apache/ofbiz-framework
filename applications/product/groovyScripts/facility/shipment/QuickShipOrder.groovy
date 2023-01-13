@@ -49,21 +49,23 @@ if (shipmentId) {
         request.setAttribute('_EVENT_MESSAGE_', null)
 
         // set the shipment context info
-        context.shipmentType = shipment.getRelatedOne('ShipmentType', true)
-        context.statusItem = shipment.getRelatedOne('StatusItem', false)
-        context.primaryOrderHeader = shipment.getRelatedOne('PrimaryOrderHeader', false)
-        context.toPerson = shipment.getRelatedOne('ToPerson', false)
-        context.toPartyGroup = shipment.getRelatedOne('ToPartyGroup', false)
-        context.fromPerson = shipment.getRelatedOne('FromPerson', false)
-        context.fromPartyGroup = shipment.getRelatedOne('FromPartyGroup', false)
-        context.originFacility = shipment.getRelatedOne('OriginFacility', false)
-        context.destinationFacility = shipment.getRelatedOne('DestinationFacility', false)
-        context.originPostalAddress = shipment.getRelatedOne('OriginPostalAddress', false)
-        context.destinationPostalAddress = shipment.getRelatedOne('DestinationPostalAddress', false)
-        context.shipmentPackages = shipment.getRelated('ShipmentPackage', null, ['shipmentPackageSeqId'], false)
-        context.shipmentRoutes = shipment.getRelated('ShipmentRouteSegment', null, ['shipmentRouteSegmentId'], false)
-        context.shipment = shipment
-        context.shipmentId = shipmentId
+        context << [
+                shipmentType: shipment.getRelatedOne('ShipmentType', true),
+                statusItem: shipment.getRelatedOne('StatusItem', false),
+                primaryOrderHeader: shipment.getRelatedOne('PrimaryOrderHeader', false),
+                toPerson: shipment.getRelatedOne('ToPerson', false),
+                toPartyGroup: shipment.getRelatedOne('ToPartyGroup', false),
+                fromPerson: shipment.getRelatedOne('FromPerson', false),
+                fromPartyGroup: shipment.getRelatedOne('FromPartyGroup', false),
+                originFacility: shipment.getRelatedOne('OriginFacility', false),
+                destinationFacility: shipment.getRelatedOne('DestinationFacility', false),
+                originPostalAddress: shipment.getRelatedOne('OriginPostalAddress', false),
+                destinationPostalAddress: shipment.getRelatedOne('DestinationPostalAddress', false),
+                shipmentPackages: shipment.getRelated('ShipmentPackage', null, ['shipmentPackageSeqId'], false),
+                shipmentRoutes: shipment.getRelated('ShipmentRouteSegment', null, ['shipmentRouteSegmentId'], false),
+                shipment: shipment,
+                shipmentId: shipmentId
+        ]
 
         weightUoms = from('Uom').where('uomTypeId', 'WEIGHT_MEASURE').orderBy('description').queryList()
         defaultWeightUom = EntityUtilProperties.getPropertyValue('shipment', 'shipment.default.weight.uom', delegator)

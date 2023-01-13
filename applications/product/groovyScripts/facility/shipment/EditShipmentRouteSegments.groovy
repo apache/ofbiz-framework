@@ -35,21 +35,22 @@ if (shipment) {
     shipmentRouteSegmentDatas = [] as LinkedList
     if (shipmentRouteSegments) {
         shipmentRouteSegments.each { shipmentRouteSegment ->
-            shipmentRouteSegmentData = [:]
-            shipmentRouteSegmentData.shipmentRouteSegment = shipmentRouteSegment
-            shipmentRouteSegmentData.originFacility = shipmentRouteSegment.getRelatedOne('OriginFacility', false)
-            shipmentRouteSegmentData.destFacility = shipmentRouteSegment.getRelatedOne('DestFacility', false)
-            shipmentRouteSegmentData.originPostalAddress = shipmentRouteSegment.getRelatedOne('OriginPostalAddress', false)
-            shipmentRouteSegmentData.originTelecomNumber = shipmentRouteSegment.getRelatedOne('OriginTelecomNumber', false)
-            shipmentRouteSegmentData.destPostalAddress = shipmentRouteSegment.getRelatedOne('DestPostalAddress', false)
-            shipmentRouteSegmentData.destTelecomNumber = shipmentRouteSegment.getRelatedOne('DestTelecomNumber', false)
-            shipmentRouteSegmentData.shipmentMethodType = shipmentRouteSegment.getRelatedOne('ShipmentMethodType', false)
-            shipmentRouteSegmentData.carrierPerson = shipmentRouteSegment.getRelatedOne('CarrierPerson', false)
-            shipmentRouteSegmentData.carrierPartyGroup = shipmentRouteSegment.getRelatedOne('CarrierPartyGroup', false)
-            shipmentRouteSegmentData.shipmentPackageRouteSegs = shipmentRouteSegment.getRelated('ShipmentPackageRouteSeg', null, null, false)
-            shipmentRouteSegmentData.carrierServiceStatusItem = shipmentRouteSegment.getRelatedOne('CarrierServiceStatusItem', false)
-            shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne('CurrencyUom', false)
-            shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne('BillingWeightUom', false)
+            shipmentRouteSegmentData = [
+                    shipmentRouteSegment: shipmentRouteSegment,
+                    originFacility: shipmentRouteSegment.getRelatedOne('OriginFacility', false),
+                    destFacility: shipmentRouteSegment.getRelatedOne('DestFacility', false),
+                    originPostalAddress: shipmentRouteSegment.getRelatedOne('OriginPostalAddress', false),
+                    originTelecomNumber: shipmentRouteSegment.getRelatedOne('OriginTelecomNumber', false),
+                    destPostalAddress: shipmentRouteSegment.getRelatedOne('DestPostalAddress', false),
+                    destTelecomNumber: shipmentRouteSegment.getRelatedOne('DestTelecomNumber', false),
+                    shipmentMethodType: shipmentRouteSegment.getRelatedOne('ShipmentMethodType', false),
+                    carrierPerson: shipmentRouteSegment.getRelatedOne('CarrierPerson', false),
+                    carrierPartyGroup: shipmentRouteSegment.getRelatedOne('CarrierPartyGroup', false),
+                    shipmentPackageRouteSegs: shipmentRouteSegment.getRelated('ShipmentPackageRouteSeg', null, null, false),
+                    carrierServiceStatusItem: shipmentRouteSegment.getRelatedOne('CarrierServiceStatusItem', false),
+                    currencyUom: shipmentRouteSegment.getRelatedOne('CurrencyUom', false),
+                    billingWeightUom: shipmentRouteSegment.getRelatedOne('BillingWeightUom', false),
+            ]
             if (shipmentRouteSegment.carrierServiceStatusId) {
                 shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails =
                         from('StatusValidChangeToDetail')

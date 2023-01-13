@@ -253,17 +253,19 @@ if (ownerAcctgPref) {
     }
 }
 
-context.facilityId = facilityId
-context.facility = facility
-context.purchaseOrder = purchaseOrder
-context.product = product
-context.shipments = shipments
-context.shipment = shipment
-context.shippedQuantities = shippedQuantities
-context.purchaseOrderItems = purchaseOrderItems
-context.receivedQuantities = receivedQuantities
-context.salesOrderItems = salesOrderItems
-context.rejectReasons = rejectReasons
-context.inventoryItemTypes = inventoryItemTypes
-context.facilities = facilities
-context.standardCosts = standardCosts
+context << [
+        facilityId: facilityId,
+        facility: facility,
+        purchaseOrder: purchaseOrder,
+        product: product,
+        shipments: shipments,
+        shipment: shipment,
+        shippedQuantities: shippedQuantities,
+        purchaseOrderItems: purchaseOrderItems,
+        receivedQuantities: receivedQuantities,
+        salesOrderItems: salesOrderItems,
+        rejectReasons: rejectReasons,
+        inventoryItemTypes: inventoryItemTypes,
+        facilities: facilities,
+        standardCosts: standardCosts
+]

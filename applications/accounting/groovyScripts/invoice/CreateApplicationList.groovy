@@ -29,16 +29,17 @@ invoiceApplications = [] // to pass back to the screen with payment applications
 // retrieve related applications with null itemnumber
 invoiceAppls = invoice.getRelated('PaymentApplication', [invoiceItemSeqId: null], null, false)
 invoiceAppls.each { invoiceAppl ->
-    itemmap = [:]
-    itemmap.invoiceId = invoiceAppl.invoiceId
-    itemmap.invoiceItemSeqId = invoiceAppl.invoiceItemSeqId
-    itemmap.total = InvoiceWorker.getInvoiceTotal(invoice)
-    itemmap.paymentApplicationId = invoiceAppl.paymentApplicationId
-    itemmap.paymentId = invoiceAppl.paymentId
-    itemmap.billingAccountId = invoiceAppl.billingAccountId
-    itemmap.taxAuthGeoId = invoiceAppl.taxAuthGeoId
-    itemmap.amountToApply = invoiceAppl.amountApplied
-    itemmap.amountApplied = invoiceAppl.amountApplied
+    itemmap = [
+            invoiceId: invoiceAppl.invoiceId,
+            invoiceItemSeqId: invoiceAppl.invoiceItemSeqId,
+            total: InvoiceWorker.getInvoiceTotal(invoice),
+            paymentApplicationId: invoiceAppl.paymentApplicationId,
+            paymentId: invoiceAppl.paymentId,
+            billingAccountId: invoiceAppl.billingAccountId,
+            taxAuthGeoId: invoiceAppl.taxAuthGeoId,
+            amountToApply: invoiceAppl.amountApplied,
+            amountApplied: invoiceAppl.amountApplied
+    ]
     invoiceApplications.add(itemmap)
 }
 
@@ -55,16 +56,17 @@ invoice.getRelated('InvoiceItem', null, null, false).each { item ->
     }
     // get relation payment applications for every item(can be more than 1 per item number)
     item.getRelated('PaymentApplication', null, null, false).each { paymentApplication ->
-        itemmap = [:]
-        itemmap.putAll(item)
-        itemmap.total = NumberFormat.getInstance(locale).format(itemTotal)
-        itemmap.paymentApplicationId = paymentApplication.paymentApplicationId
-        itemmap.paymentId = paymentApplication.paymentId
-        itemmap.toPaymentId = paymentApplication.toPaymentId
-        itemmap.amountApplied = paymentApplication.getBigDecimal('amountApplied')
-        itemmap.amountToApply = paymentApplication.getBigDecimal('amountApplied')
-        itemmap.billingAccountId = paymentApplication.billingAccountId
-        itemmap.taxAuthGeoId = paymentApplication.taxAuthGeoId
+        itemmap = [
+                *: item,
+                total: NumberFormat.getInstance(locale).format(itemTotal),
+                paymentApplicationId: paymentApplication.paymentApplicationId,
+                paymentId: paymentApplication.paymentId,
+                toPaymentId: paymentApplication.toPaymentId,
+                amountApplied: paymentApplication.getBigDecimal('amountApplied'),
+                amountToApply: paymentApplication.getBigDecimal('amountApplied'),
+                billingAccountId: paymentApplication.billingAccountId,
+                taxAuthGeoId: paymentApplication.taxAuthGeoId
+        ]
         invoiceApplications.add(itemmap)
     }
 }

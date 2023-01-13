@@ -46,18 +46,19 @@ if (!description) {
 productContent = from('ProductContent')
         .where('contentId', contentId, 'productId', productId, 'productContentTypeId', productContentTypeId, 'fromDate', fromDate).queryOne()
 if (!productContent) {
-    productContent = [:]
-    productContent.productId = productId
-    productContent.contentId = contentId
-    productContent.productContentTypeId = productContentTypeId
-    productContent.fromDate = fromDate
-    productContent.thruDate = parameters.thruDate
-    productContent.purchaseFromDate = parameters.purchaseFromDate
-    productContent.purchaseThruDate = parameters.purchaseThruDate
-    productContent.useCountLimit = parameters.useCountLimit
-    productContent.useTime = parameters.useTime
-    productContent.useTimeUomId = parameters.useTimeUomId
-    productContent.useRoleTypeId = parameters.useRoleTypeId
+    productContent = [
+            productId: productId,
+            contentId: contentId,
+            productContentTypeId: productContentTypeId,
+            fromDate: fromDate,
+            thruDate: parameters.thruDate,
+            purchaseFromDate: parameters.purchaseFromDate,
+            purchaseThruDate: parameters.purchaseThruDate,
+            useCountLimit: parameters.useCountLimit,
+            useTime: parameters.useTime,
+            useTimeUomId: parameters.useTimeUomId,
+            useRoleTypeId: parameters.useRoleTypeId,
+    ]
 }
 context.productContent = productContent
 

@@ -63,26 +63,27 @@ if (productionRunId) {
         }
         maxQuantity = quantityDeclared - quantityProduced
 
-        productionRunData = [:]
-        productionRunData.workEffortId = productionRunId
-        productionRunData.productId = productionRun.getProductProduced().productId
-        productionRunData.product = productionRun.getProductProduced()
+        productionRunData = [
+                workEffortId: productionRunId,
+                productId: productionRun.getProductProduced().productId,
+                product: productionRun.getProductProduced(),
+                quantityToProduce: quantityToProduce,
+                quantityProduced: quantityProduced,
+                quantityRejected: quantityRejected,
+                quantityRemaining: quantityToProduce - quantityProduced,
+                estimatedCompletionDate: productionRun.getEstimatedCompletionDate(),
+                productionRunName: productionRun.getProductionRunName(),
+                description: productionRun.getDescription(),
+                estimatedStartDate: productionRun.getEstimatedStartDate(),
+                actualStartDate: productionRun.getGenericValue().getTimestamp('actualStartDate'),
+                actualCompletionDate: productionRun.getGenericValue().getTimestamp('actualCompletionDate'),
+                currentStatusId: productionRun.getGenericValue().currentStatusId,
+                facilityId: productionRun.getGenericValue().facilityId
+        ]
         if (maxQuantity > 0 && !'WIP'.equals(productionRun.getProductProduced().productTypeId)) {
             productionRunData.quantity = maxQuantity
             context.canProduce = 'Y'
         }
-        productionRunData.quantityToProduce = quantityToProduce
-        productionRunData.quantityProduced = quantityProduced
-        productionRunData.quantityRejected = quantityRejected
-        productionRunData.quantityRemaining = quantityToProduce - quantityProduced
-        productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate()
-        productionRunData.productionRunName = productionRun.getProductionRunName()
-        productionRunData.description = productionRun.getDescription()
-        productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate()
-        productionRunData.actualStartDate = productionRun.getGenericValue().getTimestamp('actualStartDate')
-        productionRunData.actualCompletionDate = productionRun.getGenericValue().getTimestamp('actualCompletionDate')
-        productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId
-        productionRunData.facilityId = productionRun.getGenericValue().facilityId
 
         manufacturer = from('WorkEffortPartyAssignment')
                 .where('workEffortId', productionRunId, 'roleTypeId', 'MANUFACTURER').filterByDate().queryFirst()

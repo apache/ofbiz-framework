@@ -106,16 +106,18 @@ if (billingAddress) context.billingAddress = billingAddress
 billingAccount = cart.getBillingAccountId() ? from('BillingAccount').where('billingAccountId', cart.getBillingAccountId()).queryOne() : null
 if (billingAccount) context.billingAccount = billingAccount
 
-context.customerPoNumber = cart.getPoNumber()
-context.carrierPartyId = cart.getCarrierPartyId()
-context.shipmentMethodTypeId = cart.getShipmentMethodTypeId()
-context.shippingInstructions = cart.getShippingInstructions()
-context.maySplit = cart.getMaySplit()
-context.giftMessage = cart.getGiftMessage()
-context.isGift = cart.getIsGift()
-context.shipBeforeDate = cart.getShipBeforeDate()
-context.shipAfterDate = cart.getShipAfterDate()
-context.defaultReserveAfterDate = cart.getDefaultReserveAfterDate()
+context << [
+        customerPoNumber: cart.getPoNumber(),
+        carrierPartyId: cart.getCarrierPartyId(),
+        shipmentMethodTypeId: cart.getShipmentMethodTypeId(),
+        shippingInstructions: cart.getShippingInstructions(),
+        maySplit: cart.getMaySplit(),
+        giftMessage: cart.getGiftMessage(),
+        isGift: cart.getIsGift(),
+        shipBeforeDate: cart.getShipBeforeDate(),
+        shipAfterDate: cart.getShipAfterDate(),
+        defaultReserveAfterDate: cart.getDefaultReserveAfterDate()
+]
 
 shipmentMethodType = from('ShipmentMethodType').where('shipmentMethodTypeId', cart.getShipmentMethodTypeId()).queryOne()
 if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description

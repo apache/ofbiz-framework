@@ -115,20 +115,17 @@ for (supplierProduct in supplierProducts) {
         productFacilityList.each { productFacility ->
             result = runService('getInventoryAvailableByFacility', ['productId': productId, 'facilityId': productFacility.facilityId])
             qohAtp = result.quantityOnHandTotal.toPlainString() + '/' + result.availableToPromiseTotal.toPlainString()
-            productInfoMap = [:]
-
-            productInfoMap.internalName = product.internalName
-
-            productInfoMap.productId = productId
-            productInfoMap.qohAtp = qohAtp
-            productInfoMap.quantityOnOrder = quantityOnOrder
-
-            productInfoMap.supplierProductId = supplierProduct.supplierProductId
-            productInfoMap.lastPrice = supplierProduct.lastPrice
-            productInfoMap.orderQtyIncrements = supplierProduct.orderQtyIncrements
-            productInfoMap.minimumOrderQuantity = supplierProduct.minimumOrderQuantity
-
-            productInfoMap.minimumStock = productFacility.minimumStock
+            productInfoMap = [
+                    internalName: product.internalName,
+                    productId: productId,
+                    qohAtp: qohAtp,
+                    quantityOnOrder: quantityOnOrder,
+                    supplierProductId: supplierProduct.supplierProductId,
+                    lastPrice: supplierProduct.lastPrice,
+                    orderQtyIncrements: supplierProduct.orderQtyIncrements,
+                    minimumOrderQuantity: supplierProduct.minimumOrderQuantity,
+                    minimumStock: productFacility.minimumStock,
+            ]
 
             newProductList.add(productInfoMap)
         }

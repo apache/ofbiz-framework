@@ -954,16 +954,18 @@ Map createReturnItemForRental() {
          * }
          */
 
-        createReturnCtx.orderId = orderHeader.orderId
-        createReturnCtx.currencyUomId = orderHeader.currencyUom
-        createReturnCtx.fromPartyId = orderRole.partyId
-        createReturnCtx.toPartyId = productStore.payToPartyId
-        createReturnCtx.returnHeaderTypeId = 'CUSTOMER_RETURN'
-        createReturnCtx.returnReasonId = 'RTN_NORMAL_RETURN'
-        createReturnCtx.returnTypeId = 'RTN_RENTAL'
-        createReturnCtx.returnItemTypeId = 'RET_FDPROD_ITEM'
-        createReturnCtx.expectedItemStatus = 'INV_RETURNED'
-        createReturnCtx.returnPrice = BigDecimal.ZERO
+        createReturnCtx << [
+                orderId: orderHeader.orderId,
+                currencyUomId: orderHeader.currencyUom,
+                fromPartyId: orderRole.partyId,
+                toPartyId: productStore.payToPartyId,
+                returnHeaderTypeId: 'CUSTOMER_RETURN',
+                returnReasonId: 'RTN_NORMAL_RETURN',
+                returnTypeId: 'RTN_RENTAL',
+                returnItemTypeId: 'RET_FDPROD_ITEM',
+                expectedItemStatus: 'INV_RETURNED',
+                returnPrice: BigDecimal.ZERO,
+        ]
 
         List orderItems = from('OrderItemAndProduct')
                 .where(orderId: orderHeader.orderId,

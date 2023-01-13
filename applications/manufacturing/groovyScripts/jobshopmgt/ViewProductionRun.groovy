@@ -30,16 +30,17 @@ if (productionRunId) {
         context.productionRunId = productionRunId
         context.productionRun = productionRun.getGenericValue()
         // Prepare production run header data
-        productionRunData = [:]
-        productionRunData.productionRunId = productionRunId
-        productionRunData.productId = productionRun.getProductProduced().productId
-        productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId
-        productionRunData.facilityId = productionRun.getGenericValue().facilityId
-        productionRunData.workEffortName = productionRun.getProductionRunName()
-        productionRunData.description = productionRun.getDescription()
-        productionRunData.quantity = productionRun.getQuantity()
-        productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate()
-        productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate()
+        productionRunData = [
+                productionRunId: productionRunId,
+                productId: productionRun.getProductProduced().productId,
+                currentStatusId: productionRun.getGenericValue().currentStatusId,
+                facilityId: productionRun.getGenericValue().facilityId,
+                workEffortName: productionRun.getProductionRunName(),
+                description: productionRun.getDescription(),
+                quantity: productionRun.getQuantity(),
+                estimatedStartDate: productionRun.getEstimatedStartDate(),
+                estimatedCompletionDate: productionRun.getEstimatedCompletionDate()
+        ]
 
         manufacturer = from('WorkEffortPartyAssignment')
                 .where('workEffortId', productionRunId, 'roleTypeId', 'MANUFACTURER').filterByDate().queryFirst()

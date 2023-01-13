@@ -43,18 +43,19 @@ if (type == ServerHitBin.REQUEST) {
 if (binList) {
     requestList = []
     binList.each { bin ->
-        requestIdMap = [:]
         if (bin != null) {
-            requestIdMap.requestId = bin.getId()
-            requestIdMap.requestType = bin.getType()
-            requestIdMap.startTime = bin.getStartTimeString()
-            requestIdMap.endTime = bin.getEndTimeString()
-            requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
-            requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
-            requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
-            requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
-            requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
-            requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+            Map requestIdMap = [
+                    requestId: bin.getId(),
+                    requestType: bin.getType(),
+                    startTime: bin.getStartTimeString(),
+                    endTime: bin.getEndTimeString(),
+                    lengthMins: UtilFormatOut.formatQuantity(bin.getBinLengthMinutes()),
+                    numberHits: UtilFormatOut.formatQuantity(bin.getNumberHits()),
+                    minTime: UtilFormatOut.formatQuantity(bin.getMinTimeSeconds()),
+                    avgTime: UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds()),
+                    maxTime: UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds()),
+                    hitsPerMin: UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+            ]
             requestList.add(requestIdMap)
         }
     }

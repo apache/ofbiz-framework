@@ -78,16 +78,18 @@ if (orderHeader) {
     backorderQuantity = orderReadHelper.getOrderBackorderQuantity()
     orderTerms = orderHeader.getRelated('OrderTerm', null, null, false)
 
-    context.orderHeader = orderHeader
-    context.backorderQuantity = backorderQuantity
-    context.comments = comments
-    context.orderReadHelper = orderReadHelper
-    context.orderItems = orderItems
-    context.orderAdjustments = orderAdjustments
-    context.orderHeaderAdjustments = orderHeaderAdjustments
-    context.orderSubTotal = orderSubTotal
-    context.currencyUomId = orderReadHelper.getCurrency()
-    context.orderTerms = orderTerms
+    context << [
+            orderHeader: orderHeader,
+            backorderQuantity: backorderQuantity,
+            comments: comments,
+            orderReadHelper: orderReadHelper,
+            orderItems: orderItems,
+            orderAdjustments: orderAdjustments,
+            orderHeaderAdjustments: orderHeaderAdjustments,
+            orderSubTotal: orderSubTotal,
+            currencyUomId: orderReadHelper.getCurrency(),
+            orderTerms: orderTerms
+    ]
 
     // get sales reps
     context.salesReps = orderHeader.getRelated('OrderRole', [orderId: orderHeader.orderId, roleTypeId: 'SALES_REP'], null, false)
