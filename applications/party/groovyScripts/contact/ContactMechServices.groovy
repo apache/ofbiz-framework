@@ -225,7 +225,9 @@ def createFtpAddress() {
         GenericValue ftpAddress = makeValue('FtpAddress', parameters)
         ftpAddress.contactMechId = contactMechId
         ftpAddress.create()
-    } else return error('Error creating contactMech')
+    } else {
+        return error('Error creating contactMech')
+    }
 
     Map resultMap = success()
     resultMap.contactMechId = contactMechId

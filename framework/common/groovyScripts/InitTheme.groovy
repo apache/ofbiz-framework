@@ -25,8 +25,11 @@ import org.apache.ofbiz.widget.renderer.VisualTheme
 String visualThemeId = context.visualThemeId
 VisualTheme visualTheme
 if (!visualThemeId) visualThemeId = parameters?.visualThemeId
-if (visualThemeId) visualTheme = ThemeFactory.getVisualThemeFromId(visualThemeId)
-else visualTheme = ThemeFactory.resolveVisualTheme(context.request?:null)
+if (visualThemeId) {
+    visualTheme = ThemeFactory.getVisualThemeFromId(visualThemeId)
+} else {
+    visualTheme = ThemeFactory.resolveVisualTheme(context.request ?: null)
+}
 
 if (visualTheme) {
     ModelTheme modelTheme = visualTheme.getModelTheme()
