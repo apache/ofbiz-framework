@@ -93,7 +93,7 @@ public final class RenderableFtlFormElementsBuilder {
         return RenderableFtlMacroCall.builder()
                 .name("renderTooltip")
                 .stringParameter("tooltip", tooltip)
-                .stringParameter("tooltipStyle", modelFormField.getTitleStyle())
+                .stringParameter("tooltipStyle", modelFormField.getTooltipStyle())
                 .build();
     }
 
