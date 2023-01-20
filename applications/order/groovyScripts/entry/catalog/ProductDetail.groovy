@@ -46,9 +46,9 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     int ct = 0
     StringBuffer buf = new StringBuffer()
     buf.append('function listFT' + current + prefix + '() { ')
-    buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options.length = 1;")
-    buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\""
-            + featureTypes[current] + "\",\"\",true,true);")
+    buf.append('document.forms["addform"].elements["FT' + current + '"].options.length = 1;')
+    buf.append('document.forms["addform"].elements["FT' + current + '"].options[0] = new Option("'
+            + featureTypes[current] + '","",true,true);')
     map.each { key, value ->
         String optValue = null
 
@@ -58,8 +58,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
             optValue = prefix + '_' + ct
         }
 
-        buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[" + (ct + 1) + "] = new Option(\""
-                + key + "\",\"" + optValue + "\");")
+        buf.append('document.forms["addform"].elements["FT' + current + '"].options[' + (ct + 1) + '] = new Option("'
+                + key + '","' + optValue + '");')
         ct++
     }
     buf.append(' }')
@@ -110,7 +110,7 @@ if (product) {
     featureOrder = []
 
     variantInfoJS = new StringBuffer()
-    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
+    variantInfoJS.append('<script language="JavaScript" type="text/javascript">\n    jQuery(document).ready(function(jQuery) {\n')
 
     // set this as a last viewed
     LAST_VIEWED_TO_KEEP = 10 // modify this to change the number of last viewed to keep
@@ -324,28 +324,28 @@ if (product) {
 
                 if (variantTree && imageMap) {
                     jsBuf = new StringBuffer()
-                    jsBuf.append("<script type=\"application/javascript\">")
+                    jsBuf.append('<script type="application/javascript">')
                     jsBuf.append('var DET = new Array(' + variantTree.size() + ');')
                     jsBuf.append('var IMG = new Array(' + variantTree.size() + ');')
                     jsBuf.append('var OPT = new Array(' + featureOrder.size() + ');')
                     jsBuf.append('var VIR = new Array(' + virtualVariant.size() + ');')
                     jsBuf.append('var detailImageUrl = null;')
                     featureOrder.eachWithIndex { feature, i ->
-                        jsBuf.append('OPT[' + i + "] = \"FT" + feature + "\";")
+                        jsBuf.append('OPT[' + i + '] = "FT' + feature + '";')
                     }
                     virtualVariant.eachWithIndex { variant, i ->
-                        jsBuf.append('VIR[' + i + "] = \"" + variant + "\";")
+                        jsBuf.append('VIR[' + i + '] = "' + variant + '";')
                     }
 
                     // build the top level
                     topLevelName = featureOrder[0]
                     jsBuf.append('function list' + topLevelName + '() {')
-                    jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options.length = 1;")
-                    jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[0] = new Option(\""
-                            + featureTypes[topLevelName] + "\",\"\",true,true);")
+                    jsBuf.append('document.forms["addform"].elements["FT' + topLevelName + '"].options.length = 1;')
+                    jsBuf.append('document.forms["addform"].elements["FT' + topLevelName + '"].options[0] = new Option("'
+                            + featureTypes[topLevelName] + '","",true,true);')
                     if (variantTree) {
                         featureOrder.each { featureKey ->
-                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + featureKey + "\"].options.length = 1;")
+                            jsBuf.append('document.forms["addform"].elements["FT' + featureKey + '"].options.length = 1;')
                         }
                         firstDetailImage = null
                         firstLargeImage = null
@@ -378,10 +378,10 @@ if (product) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage
                             }
 
-                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options["
-                                    + (counter + 1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
-                            jsBuf.append('DET[' + counter + "] = \"" + detailImageUrl + "\";")
-                            jsBuf.append('IMG[' + counter + "] = \"" + largeImageUrl + "\";")
+                            jsBuf.append('document.forms["addform"].elements["FT' + topLevelName + '"].options['
+                                    + (counter + 1) + '] = new Option("' + key + '","' + opt + '");')
+                            jsBuf.append('DET[' + counter + '] = "' + detailImageUrl + '";')
+                            jsBuf.append('IMG[' + counter + '] = "' + largeImageUrl + '";')
 
                             firstDetailImage = firstDetailImage ?: detailImageUrl
                             firstLargeImage = firstLargeImage ?: largeImage
@@ -455,12 +455,12 @@ if (product) {
                             } else {
                                 variantPriceMap = runService('calculatePurchasePrice', priceContext)
                             }
-                            amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: 'N') + "\"; ")
+                            amt.append(' if (sku == "' + variant.productId + '") return "' + (variant.requireAmount ?: 'N') + '"; ')
                             variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '"
                                     + (variant.requireAmount ?: 'N') + "';\n")
                             if (variantPriceMap && variantPriceMap.price) {
-                                variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \""
-                                        + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                variantPriceJS.append('  if (sku == "' + variant.productId + '") return "'
+                                        + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + '"; ')
                                 variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '"
                                         + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                             }
@@ -506,14 +506,14 @@ if (product) {
                                             }
                                         }
                                         variantPriceList.add(virtualPriceMap)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \""
-                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                        variantPriceJS.append('  if (sku == "' + virtual.productId + '") return "'
+                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + '"; ')
                                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
                                                 + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     } else {
                                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
-                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \""
-                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                                        variantPriceJS.append('  if (sku == "' + virtual.productId + '") return "'
+                                                + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + '"; ')
                                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
                                                 + UtilFormatOut.formatCurrency(variantPriceMap.price, currencyUomId, locale, 10) + "';\n")
                                     }
@@ -537,7 +537,7 @@ if (product) {
         if (isAlternativePacking) {
             // get alternative product price when product doesn't have any feature
             jsBuf = new StringBuffer()
-            jsBuf.append("<script type=\"application/javascript\">")
+            jsBuf.append('<script type="application/javascript">')
 
             // make a list of variant sku with requireAmount
             virtualVariantsRes = runService('getAssociatedProducts',
@@ -567,14 +567,14 @@ if (product) {
                         virtualPriceMap = runService('calculateProductPrice', priceContext)
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \""
-                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                        variantPriceJS.append(' if (sku == "' + virtual.productId + '") return "'
+                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + '"; ')
                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
                                 + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     } else {
                         virtualPriceMap = runService('calculatePurchasePrice', priceContext)
-                        variantPriceJS.append(" if (sku == \"" + virtual.productId + "\") return \""
-                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "\"; ")
+                        variantPriceJS.append(' if (sku == "' + virtual.productId + '") return "'
+                                + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + '"; ')
                         variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '"
                                 + UtilFormatOut.formatCurrency(virtualPriceMap.price, currencyUomId, locale, 10) + "';\n")
                     }
