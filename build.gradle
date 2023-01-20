@@ -305,6 +305,8 @@ dependencies {
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
         implementation fileTree(dir: libDir, include: '**/*.jar')
     }
+    // specify last codenarc version for java 17 compliance
+    codenarc('org.codenarc:CodeNarc:3.2.0')
 }
 
 def excludedJavaSources = [
