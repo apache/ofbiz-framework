@@ -31,7 +31,7 @@ Map getFieldTypeName(String entityName) {
  */
 Map getCustomScreenTemplate(String entityTypeName, String fieldTypeValue) {
   if (!fieldTypeValue) {
-    return null
+    return [:]
   }
 
   GenericValue tplCustScreen = from('PartyPrefDocTypeTplAndCustomScreen')
