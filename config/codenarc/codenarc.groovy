@@ -149,12 +149,6 @@ ruleset {
     StatelessSingleton
     ToStringReturnsNull
 
-    // rulesets/enhanced.xml
-    CloneWithoutCloneable
-    JUnitAssertEqualsConstantActualValue
-    MissingOverrideAnnotation
-    UnsafeImplementationAsMap
-
     // rulesets/exceptions.xml
     CatchArrayIndexOutOfBoundsException
     CatchError
