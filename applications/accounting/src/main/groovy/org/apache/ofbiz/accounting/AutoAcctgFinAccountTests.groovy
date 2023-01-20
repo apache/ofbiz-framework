@@ -187,12 +187,12 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         GenericValue finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', '1010')
                 .queryOne()
-        String oldStatusId =  finAccountTrans.statusId
+        String oldStatusId = finAccountTrans.statusId
 
         Map serviceResult = dispatcher.runSync('setFinAccountTransStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-         finAccountTrans = from('FinAccountTrans')
+        finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', '1010')
                 .queryOne()
         assert finAccountTrans
