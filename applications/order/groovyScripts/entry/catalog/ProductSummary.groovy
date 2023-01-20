@@ -101,7 +101,7 @@ if (product) {
     categoryId = parameters.category_id ?: request.getAttribute('productCategoryId')
 
     variantInfoJS = new StringBuffer()
-    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
+    variantInfoJS.append('<script language="JavaScript" type="text/javascript">\n    jQuery(document).ready(function(jQuery) {\n')
 
     // get the product price
     if (cart.isSalesOrder()) {
@@ -160,7 +160,7 @@ if (product) {
 
         // get alternative product price when product doesn't have any feature
         jsBuf = new StringBuffer()
-        jsBuf.append("<script type=\"application/javascript\">")
+        jsBuf.append('<script type="application/javascript">')
 
         // make a list of variant sku with requireAmount
         virtualVariantsRes = runService('getAssociatedProducts',
@@ -198,7 +198,7 @@ if (product) {
                 } else {
                     price = UtilProperties.getResourceBundleMap('CommonUiLabels', locale).get('CommonNA')
                 }
-                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + price + "\"; ")
+                variantPriceJS.append('  if (sku == "' + virtual.productId + '") return "' + price + '"; ')
                 variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + price + "';\n")
             }
             variantPriceJS.append(' } ')

@@ -42,14 +42,14 @@ import org.apache.ofbiz.entity.util.EntityFindOptions
 EntityFindOptions findOptions = new EntityFindOptions()
 findOptions.setMaxRows(3)
 
-List products = delegator.findList("Product", null, null, null, findOptions, false)
+List products = delegator.findList('Product', null, null, null, findOptions, false)
 if (products != null) {
     recordValues.addAll(products)
 }
 
 // Get the last record created from the Product entity
-condition = EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null)
-product = EntityQuery.use(delegator).from("Product").where(condition).orderBy("-productId").queryFirst()
+condition = EntityCondition.makeCondition('productId', EntityOperator.NOT_EQUAL, null)
+product = EntityQuery.use(delegator).from('Product').where(condition).orderBy('-productId').queryFirst()
 if (product) {
     recordValues << product
 }
