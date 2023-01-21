@@ -242,7 +242,7 @@ under the License.
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ManufacturingOrderItems}">
-                            <include-form name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                            <include-grid name="ListProductionRunOrderItems" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
                             <include-grid name="ListProductionRunDeclRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
