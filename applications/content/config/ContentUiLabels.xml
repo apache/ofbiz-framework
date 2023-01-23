@@ -783,6 +783,7 @@
     </property>
     <property key="ContentConvertDocumentsTreeSuccessful">
         <value xml:lang="en">Convert Documents Tree Successful. Total : ${counterLine} rows</value>
+        <value xml:lang="en">Succès de la convertion de l'arbre de document. Total : ${counterLine} lignes</value>
     </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
@@ -1737,6 +1738,7 @@
     </property>
     <property key="ContentMimeTypeNotSupported">
         <value xml:lang="en">Mime Type not supported</value>
+        <value xml:lang="fr">Mime Type non supporté</value>
     </property>
     <property key="ContentNavigate">
         <value xml:lang="da">Naviger</value>
@@ -1777,6 +1779,7 @@
     </property>
     <property key="ContentNoContentFilePassed">
         <value xml:lang="en">No file content passed for: ${fileName}</value>
+        <value xml:lang="fr">Pas de contenu passé pour : ${fileName}</value>
         <value xml:lang="it">Nessun file contenuto passato per:  ${fileName}</value>
         <value xml:lang="ja">ファイルコンテンツが渡されませんでした: ${fileName}</value>
         <value xml:lang="pt">Nenhum conteúdo de arquivo passado para: ${nome}</value>
@@ -1786,6 +1789,7 @@
     </property>
     <property key="ContentNoContentFound">
         <value xml:lang="en">Content record not found for ID ${contentId}</value>
+        <value xml:lang="fr">Aucun contenu trouvé sous la réf ${contentId}</value>
         <value xml:lang="it">Contenuto non trovato ${contentId}</value>
         <value xml:lang="ja">ID ${contentId} のコンテンツレコードが見つかりません</value>
         <value xml:lang="pt">Registro de conteúdo não encontrado para o ID ${contentId}</value>
@@ -1795,6 +1799,7 @@
     </property>
     <property key="ContentNoQuestionsSurveyFound">
         <value xml:lang="en">No questions found for survey ID: ${survey.surveyId}</value>
+        <value xml:lang="fr">Aucune question trouvée sur le questionnaire : ${survey.surveyId}</value>
         <value xml:lang="it">Nessuna domanda sondaggio trovata con ID: ${surveyLookup.surveyId}</value>
         <value xml:lang="ja">評価ID: ${survey.surveyId} の質問がみつかりません</value>
         <value xml:lang="pt">Nenhuma pergunta encontrada para pesquisa com ID: ${survey.surveyId}</value>
@@ -1804,6 +1809,7 @@
     </property>
     <property key="ContentNoSurveyFound">
         <value xml:lang="en">No survey found for survey ID: ${surveyLookup.surveyId}</value>
+        <value xml:lang="fr">Aucun questionnaire trouvé sour la réf ${surveyLookup.surveyId}</value>
         <value xml:lang="it">Nessun sondaggio trovato con ID: ${surveyLookup.surveyId}</value>
         <value xml:lang="ja">評価ID: ${surveyLookup.surveyId} の評価がみつかりません</value>
         <value xml:lang="pt">Nenhuma pesquisa encontrada para ID de pesquisa: ${surveyLookup.surveyId}</value>
@@ -1813,6 +1819,7 @@
     </property>
     <property key="ContentNoUploadedContentFound">
         <value xml:lang="en">No uploaded content found in context</value>
+        <value xml:lang="fr">Pas de contenu trouvé à charger</value>
         <value xml:lang="it">Nessun contenuto caricato trovato</value>
         <value xml:lang="ja">コンテキストにアップロードされたコンテンツが見つかりません</value>
         <value xml:lang="pt">Nenhum conteúdo carregado encontrado no contexto</value>
@@ -1874,6 +1881,7 @@
     </property>
     <property key="ContentPDFGeneratingError">
         <value xml:lang="en">Error generating PDF: ${errorString}</value>
+        <value xml:lang="fr">Erreur lors de la génération du PDF : ${errorString}</value>
         <value xml:lang="it">Errore di generazione PDF: ${errorString}</value>
         <value xml:lang="ja">PDFの生成中にエラー: ${errorString}</value>
         <value xml:lang="pt">Erro ao gerar PDF: ${errorString}</value>
@@ -2209,6 +2217,7 @@
     </property>
     <property key="ContentSecurityCreatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
+        <value xml:lang="fr">La création de ${resourceDescription} ne vous est pas authorisé·e, vous devez avoir la permission CONTENTMGR_CREATE ou CONTENTMGR_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_CREATE o CONTENTMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CONTENTMGR_CREATE または CONTENTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_CREATE ou CONTENTMGR_ADMIN</value>
@@ -2218,6 +2227,7 @@
     </property>
     <property key="ContentSecurityDeletePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission</value>
+        <value xml:lang="fr">La suppression de ${resourceDescription} ne vous est pas authorisé·e, vous devez avoir la permission CONTENTMGR_DELETE ou CONTENTMGR_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_DELETE o CONTENTMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CONTENTMGR_DELETE または CONTENTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_DELETE ou CONTENTMGR_ADMIN</value>
@@ -2227,6 +2237,7 @@
     </property>
     <property key="ContentSecurityUpdatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission</value>
+        <value xml:lang="fr">L'édition de ${resourceDescription} ne vous est pas authorisé·e, vous devez avoir la permission CONTENTMGR_UPDATE ou CONTENTMGR_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_UPDATE o CONTENTMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CONTENTMGR_UPDATE または CONTENTMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_UPDATE ou CONTENTMGR_ADMIN</value>
@@ -3213,6 +3224,7 @@
     </property>
     <property key="ContentWebSiteAddError">
         <value xml:lang="en">Web Site Add Error</value>
+        <value xml:lang="fr">Ajouter une erreur sur le site web</value>
     </property>
     <property key="ContentWebSiteAddMenu">
         <value xml:lang="da">Opret menu</value>
@@ -3229,6 +3241,7 @@
     </property>
     <property key="ContentWebSiteAddNewErrors">
         <value xml:lang="en">Web Site Add New Errors</value>
+        <value xml:lang="en">Nouvelles erreurs du site web</value>
     </property>
     <property key="ContentWebSiteAddNewMenus">
         <value xml:lang="da">Højreklik for at oprette ny menu</value>
@@ -3503,6 +3516,7 @@
     <property key="FormFieldTitle_caCratedDate">
         <value xml:lang="da">Oprettet dato</value>
         <value xml:lang="en">ca Created Date</value>
+        <value xml:lang="fr">Date de création</value>
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="ja">CA作成日</value>
         <value xml:lang="nl">Datum aangemaakt</value>
@@ -3838,6 +3852,7 @@
     <property key="FormFieldTitle_contentStatusId">
         <value xml:lang="da">Status ID</value>
         <value xml:lang="en">Status ID</value>
+        <value xml:lang="fr">Statut ID</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="ja">ステータスID</value>
         <value xml:lang="nl">Status ID</value>
@@ -4431,6 +4446,7 @@
     <property key="FormFieldTitle_ftlContentId">
         <value xml:lang="da">Ftl indholds ID</value>
         <value xml:lang="en">Ftl Content ID</value>
+        <value xml:lang="fr">Réf contenu Ftl</value>
         <value xml:lang="it">Contenuto ftl</value>
         <value xml:lang="ja">FTLコンテンツID</value>
         <value xml:lang="pt">Id de conteúdo FTL</value>
@@ -6642,6 +6658,7 @@
     <property key="PageTitleEditWebSitePathAlias">
         <value xml:lang="de">WebSite Pfad Alias bearbeiten</value>
         <value xml:lang="en">Edit WebSite Path Alias</value>
+        <value xml:lang="fr">Éditer les alias de chemin d'accès du site web</value>
         <value xml:lang="nl">Wijzigen WebSite Path Alias</value>
         <value xml:lang="zh">编辑网站路径别名</value>
     </property>
@@ -7141,6 +7158,7 @@
     </property>
     <property key="PageTitleWebSiteSEO">
         <value xml:lang="en">Generate Missing SEO URL's</value>
+        <value xml:lang="fr">Générer les URL SEO manquantes</value>
         <value xml:lang="ja">SEO URLの生成に失敗しました</value>
         <value xml:lang="pt">Gerar URL's faltantes para SEO</value>
         <value xml:lang="vi">Sinh lại các URL dành cho SEO bị thiếu</value>
