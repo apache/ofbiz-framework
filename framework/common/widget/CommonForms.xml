@@ -36,6 +36,8 @@ under the License.
     commonFormLocations.CommonInLineEditList ?: 'component://common-theme/widget/CommonForms.xml'}"/>
     <form name="CommonDynamicList" extends="CommonDynamicList" extends-resource="${groovy:
     commonFormLocations.CommonDynamicList ?: 'component://common-theme/widget/CommonForms.xml'}"/>
+    <form name="CommonDynamicMulti" extends="CommonDynamicMulti" extends-resource="${groovy:
+    commonFormLocations.CommonDynamicMulti ?: 'component://common-theme/widget/CommonForms.xml'}"/>
 
     <form name="CommonBasicSingle" extends="CommonBasicSingle" extends-resource="${groovy:
     commonFormLocations.CommonBasicSingle ?: 'component://common-theme/widget/CommonForms.xml'}"/>

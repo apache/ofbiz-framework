@@ -166,6 +166,7 @@ under the License.
             <form name="CommonSimpleList"/>
             <form name="CommonBasicList"/>
             <form name="CommonDynamicList"/>
+            <form name="CommonDynamicMulti"/>
             <form name="CommonInLineEditList"/>
             <form name="CommonBasicSingle"/>
             <form name="CommonDynamicSingle"/>

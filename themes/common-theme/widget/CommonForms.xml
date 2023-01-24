@@ -40,6 +40,11 @@ under the License.
         <on-event-update-area event-type="paginate"/>
         <on-event-update-area event-type="submit"/>
     </form>
+    <form name="CommonDynamicMulti" type="multi"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <on-event-update-area event-type="sort-column"/>
+        <on-event-update-area event-type="paginate"/>
+    </form>
     <form name="CommonInLineEditList" type="list" default-table-style="basic-table hover-bar"
           odd-row-style="alternate-row" header-row-style="header-row-2" separate-columns="true"/>
 
