@@ -401,7 +401,6 @@ gitHooks {
 // Checks OFBiz Groovy coding conventions.
 codenarc {
     setConfigFile(new File('config/codenarc/codenarc.groovy'))
-//    reportFormat("text")
 }
 
 // Eclipse plugin settings
