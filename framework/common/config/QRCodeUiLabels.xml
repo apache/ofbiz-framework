@@ -36,8 +36,8 @@
         <value xml:lang="zh">无法写格式为{0}的图片。</value>
     </property>
     <property key="GeneratedTextNotMatchOriginal">
-        <value xml:lang="en">The text in generated QR code doesn't match the original: <br/>[Text in QR code]{0} <br/>[Original text]{1}</value>
-        <value xml:lang="zh">二维码中的文字信息与原信息不一致：<br/>[二维码中文字]{0}<br/>[原信息文字]{1}</value>
+        <value xml:lang="en">The text in generated QR code doesn't match the original: &lt;br/&gt;[Text in QR code]{0} &lt;br/&gt;[Original text]{1}</value>
+        <value xml:lang="zh">二维码中的文字信息与原信息不一致：&lt;br/&gt;[二维码中文字]{0} &lt;br/&gt;[原信息文字]{1}</value>
     </property>
     <property key="ParameterCannotEmpty">
         <value xml:lang="en">The {0} parameter cannot be empty in generateQRCodeImage service!</value>
