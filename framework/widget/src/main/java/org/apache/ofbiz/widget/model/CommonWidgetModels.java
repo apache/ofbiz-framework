@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -772,6 +774,26 @@ public final class CommonWidgetModels {
                 return returnValue;
             }
             return null;
+        }
+    }
+
+    /**
+     * Object dedicate to the creation of parameter object
+     */
+    public static class ParameterFactory {
+
+        /**
+         * For an entry map return a parameter after convert correctly the value
+         * @param entry
+         * @return
+         */
+        public static Parameter create(Map.Entry<String, Object> entry) {
+            try {
+                return new CommonWidgetModels.Parameter(entry.getKey(),
+                        (String) ObjectType.simpleTypeOrObjectConvert(entry.getValue(), "String", null, null), false);
+            } catch (GeneralException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
