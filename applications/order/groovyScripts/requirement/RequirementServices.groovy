@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-package org.apache.ofbiz.order.requirement
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
@@ -29,74 +28,75 @@ import java.sql.Timestamp
 /**
  * Delete a requirement after deleting related entity records
  */
-def deleteRequirementAndRelated() {
-    GenericValue requirement = from("Requirement").where(parameters).queryOne()
+Map deleteRequirementAndRelated() {
+    GenericValue requirement = from('Requirement').where(parameters).queryOne()
     if (requirement) {
-        requirement.removeRelated("RequirementAttribute")
-        requirement.removeRelated("RequirementRole")
-        requirement.removeRelated("RequirementStatus")
-        requirement.removeRelated("RequirementCustRequest")
+        requirement.removeRelated('RequirementAttribute')
+        requirement.removeRelated('RequirementRole')
+        requirement.removeRelated('RequirementStatus')
+        requirement.removeRelated('RequirementCustRequest')
         requirement.remove()
         return success()
     }
-    return error("Entity value not found with name: requirement Method = deleteRequirementAndRelated")
+    return error('Entity value not found with name: requirement Method = deleteRequirementAndRelated')
 }
 
 /**
  * If the requirement is a product requirement (purchasing) try to assign it to the primary supplier
  */
-def autoAssignRequirementToSupplier() {
-    GenericValue requirement = from("Requirement").where(parameters).queryOne()
+Map autoAssignRequirementToSupplier() {
+    GenericValue requirement = from('Requirement').where(parameters).queryOne()
     if (requirement) {
-        if (requirement.requirementTypeId == "PRODUCT_REQUIREMENT"
+        if (requirement.requirementTypeId == 'PRODUCT_REQUIREMENT'
                 && requirement.productId
                 && requirement.quantity) {
-            EntityCondition condition = new EntityConditionBuilder().AND() {
+            EntityCondition condition = new EntityConditionBuilder().AND {
                 EQUALS(productId: requirement.productId)
                 LESS_THAN_EQUAL_TO(minimumOrderQuantity: requirement.quantity)
             }
-            EntityQuery supplierProductsQuery = from("SupplierProduct").where(condition).orderBy("lastPrice", "supplierPrefOrderId")
+            EntityQuery supplierProductsQuery = from('SupplierProduct').where(condition).orderBy('lastPrice', 'supplierPrefOrderId')
             if (requirement.requiredByDate) {
-                supplierProductsQuery.filterByDate((Timestamp) requirement.requiredByDate, "availableFromDate", "availableThruDate")
+                supplierProductsQuery.filterByDate((Timestamp) requirement.requiredByDate, 'availableFromDate', 'availableThruDate')
             }
             GenericValue supplierProduct = supplierProductsQuery.queryFirst()
             if (supplierProduct?.partyId) {
-                delegator.createOrStore("RequirementRole", [requirementId: requirement.requirementId,
-                                                            partyId      : supplierProduct.partyId,
-                                                            roleTypeId   : "SUPPLIER",
-                                                            fromDate     : UtilDateTime.nowTimestamp()])
+                delegator.createOrStore('RequirementRole', [requirementId: requirement.requirementId,
+                                                            partyId: supplierProduct.partyId,
+                                                            roleTypeId: 'SUPPLIER',
+                                                            fromDate: UtilDateTime.nowTimestamp()])
             }
         }
         return success()
     }
-    return error("Entity value not found with name: requirement Method = autoAssignRequirementToSupplier")
+    return error('Entity value not found with name: requirement Method = autoAssignRequirementToSupplier')
 }
 
 /**
  * Create the inventory transfers required to fulfill the requirement
  */
-def createTransferFromRequirement() {
-    GenericValue requirement = from("Requirement").where(parameters).queryOne()
+Map createTransferFromRequirement() {
+    GenericValue requirement = from('Requirement').where(parameters).queryOne()
     if (!requirement) {
-        return error("Entity value not found with name: requirement Method = createTransferFromRequirement")
+        return error('Entity value not found with name: requirement Method = createTransferFromRequirement')
     }
     try {
-        Map serviceResult = run service: "createInventoryTransfersForProduct",
-                with: [productId   : requirement.productId,
-                       facilityId  : parameters.fromFacilityId,
+        Map serviceResult = run service: 'createInventoryTransfersForProduct',
+                with: [productId: requirement.productId,
+                       facilityId: parameters.fromFacilityId,
                        facilityIdTo: requirement.facilityId,
-                       quantity    : requirement.quantity,
-                       sendDate    : requirement.requiredByDate]
+                       quantity: requirement.quantity,
+                       sendDate: requirement.requiredByDate]
         BigDecimal quantityNotTransferred = serviceResult.quantityNotTransferred
         if (quantityNotTransferred > 0) {
             // we create a new requirement for the quantity not transferred (because not available)
-            run service: "createRequirement", with: [*       : requirement.getAllFields(),
+            run service: 'createRequirement', with: [*: requirement.getAllFields(),
                                                      quantity: quantityNotTransferred]
         }
-        run service: "updateRequirement", with: [requirementId: requirement.requirementId,
-                                                 statusId     : "REQ_ORDERED"]
+        run service: 'updateRequirement', with: [requirementId: requirement.requirementId,
+                                                 statusId: 'REQ_ORDERED']
     } catch (Exception e) {
-        return error("Failed to create the requirement with " + e.toString())
+        return error('Failed to create the requirement with ' + e)
     }
+    return success()
 }
 
