@@ -54,7 +54,7 @@ public class ModelFormTest {
     }
 
     @Test
-    public void testCreateUpdateAreaFromJWTWithParametersMapList() throws  ConversionException {
+    public void testCreateUpdateAreaFromJWTWithParametersMapList() throws ConversionException {
         JSONConverters.MapToJSON converter = new JSONConverters.MapToJSON();
         context.put(CommonWidgetModels.JWT_CALLBACK, JWTManager.createJwt(delegator,
                 Map.of("areaId", "myAreaId",
