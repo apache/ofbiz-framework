@@ -43,6 +43,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -1947,9 +1948,8 @@ public class PartyServices {
      * @return the result of the service execution
      */
     public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator delegator = dctx.getDelegator();
+        Delegator delegator = DelegatorFactory.getDelegator("default-no-eca");
         Locale locale = (Locale) context.get("locale");
-        delegator.setEntityEcaHandler(null);
 
         String partyIdTo = (String) context.get("partyIdTo");
         String partyId = (String) context.get("partyId");
@@ -2125,14 +2125,6 @@ public class PartyServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
-        }
-
-        // remove all previous party roles
-        try {
-            delegator.removeByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e, MODULE);
-            // if this fails no problem
         }
 
         // update the non-existing attributes
