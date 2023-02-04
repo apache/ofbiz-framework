@@ -21,6 +21,7 @@ package org.apache.ofbiz.security;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +39,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -61,7 +61,6 @@ import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.ImageWriteException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.formats.gif.GifImageParser;
-import org.apache.commons.imaging.formats.jpeg.JpegImageParser;
 import org.apache.commons.imaging.formats.png.PngImageParser;
 import org.apache.commons.imaging.formats.tiff.TiffImageParser;
 import org.apache.commons.io.FileUtils;
@@ -148,7 +147,7 @@ public class SecuredUpload {
                 // More about that: https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
                 if (fileToCheck.length() > 259) {
                     Debug.logError("Uploaded file name too long", MODULE);
-                } else if (p.toString().contains(imageServerUrl.replaceAll("/", "\\\\"))) {
+                } else if (p.toString().contains(imageServerUrl.replace("/", "\\"))) {
                     // TODO check this is still useful in at least 1 case
                     if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
                         wrongFile = false;
@@ -362,8 +361,8 @@ public class SecuredUpload {
                 Image initialSizedImage = resizedImage.getScaledInstance(originalWidth, originalHeight, Image.SCALE_SMOOTH);
 
                 // Save image by overwriting the provided source file content
-                BufferedImage sanitizedImage = new BufferedImage(initialSizedImage.getWidth(null), initialSizedImage.getHeight(null),
-                        BufferedImage.TYPE_INT_RGB);
+                int type = originalImage.getTransparency() == Transparency.OPAQUE ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+                BufferedImage sanitizedImage = new BufferedImage(initialSizedImage.getWidth(null), initialSizedImage.getHeight(null), type);
                 Graphics bg = sanitizedImage.getGraphics();
                 bg.drawImage(initialSizedImage, 0, 0, null);
                 bg.dispose();
@@ -371,7 +370,7 @@ public class SecuredUpload {
                 if (!fallbackOnApacheCommonsImaging) {
                     ImageIO.write(sanitizedImage, formatName, fos);
                 } else {
-                    ImageParser imageParser;
+                    ImageParser<?> imageParser;
                     // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
                     // the image format. See reference link in the class header
                     switch (formatName) {
@@ -384,13 +383,13 @@ public class SecuredUpload {
                     case "PNG":
                         imageParser = new PngImageParser();
                         break;
-                    case "JPEG":
-                        imageParser = new JpegImageParser();
-                        break;
+                    // case "JPEG":
+                    // imageParser = new JpegImageParser(); // Does not provide imageParser.writeImage used below
+                    // break;
                     default:
                         throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
                     }
-                    imageParser.writeImage(sanitizedImage, fos, new HashMap<>());
+                    imageParser.writeImage(sanitizedImage, fos, null);
                 }
                 // Set state flag
                 safeState = true;
