@@ -25,12 +25,12 @@ under the License.
     <version>1.0</version>
 
     <!-- Permission Services -->
-    <service name="facilityGenericPermission" engine="simple"
-        location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
+    <service name="facilityGenericPermission" engine="groovy"
+        location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="checkProductFacilityRelatedPermission" engine="simple"
-            location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
+    <service name="checkProductFacilityRelatedPermission" engine="groovy"
+            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="checkProductFacilityRelatedPermission">
         <description>ProductFacility Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
