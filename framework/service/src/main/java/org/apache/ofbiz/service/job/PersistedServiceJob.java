@@ -305,10 +305,15 @@ public class PersistedServiceJob extends GenericServiceJob {
             if (context == null) {
                 context = new HashMap<>();
             }
+
             // check the runAsUser
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (UtilValidate.isNotEmpty(jobValue.getString("runAsUser"))) {
                 context.put("userLogin", ServiceUtil.getUserLogin(getDctx(), context, jobValue.getString("runAsUser")));
+            } else if (userLogin != null) {
+                userLogin.refresh();
             }
+
         } catch (GenericEntityException e) {
             Debug.logError(e, "PersistedServiceJob.getContext(): Entity Exception", MODULE);
         } catch (SerializeException e) {
