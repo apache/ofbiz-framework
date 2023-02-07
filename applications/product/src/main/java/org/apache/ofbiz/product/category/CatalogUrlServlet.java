@@ -161,7 +161,9 @@ public class CatalogUrlServlet extends HttpServlet {
             List<String> trail = CategoryWorker.getTrail(request);
             trail = CategoryWorker.adjustTrail(trail, currentCategoryId, previousCategoryId);
             for (String trailCategoryId: trail) {
-                if ("TOP".equals(trailCategoryId)) continue;
+                if ("TOP".equals(trailCategoryId)) {
+                    continue;
+                }
                 urlBuilder.append("/");
                 urlBuilder.append(trailCategoryId);
             }
@@ -187,7 +189,9 @@ public class CatalogUrlServlet extends HttpServlet {
         if (UtilValidate.isNotEmpty(currentCategoryId)) {
             crumb = CategoryWorker.adjustTrail(crumb, currentCategoryId, previousCategoryId);
             for (String trailCategoryId: crumb) {
-                if ("TOP".equals(trailCategoryId)) continue;
+                if ("TOP".equals(trailCategoryId)) {
+                    continue;
+                }
                 urlBuilder.append("/");
                 urlBuilder.append(trailCategoryId);
             }

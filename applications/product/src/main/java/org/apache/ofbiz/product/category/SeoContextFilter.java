@@ -213,7 +213,6 @@ public final class SeoContextFilter implements Filter {
                     if (!redirectPath.toLowerCase(Locale.getDefault()).startsWith("http")) {
                         redirectPath = httpRequest.getContextPath() + redirectPath;
                     }
-                    // httpResponse.sendRedirect(redirectPath);
                     if ("".equals(uri) || "/".equals(uri)) {
                         // redirect without any url change in browser
                         RequestDispatcher rd = request.getRequestDispatcher(redirectPath);
