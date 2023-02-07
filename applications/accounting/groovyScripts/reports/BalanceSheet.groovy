@@ -101,7 +101,12 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId))
     lastTimePeriodHistories = from("GlAccountAndHistory").where(timePeriodAndExprs).queryList()
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
-        Map accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "D", lastTimePeriodHistory.getBigDecimal("postedDebits"), "C", lastTimePeriodHistory.getBigDecimal("postedCredits"))
+        // Contra accounts are CREDIT accounts and act to offset the value of any asset DEBIT accounts they correspond
+        // to. These contra accounts shall be listed in the asset section of the balance sheet with the intention of
+        // reducing overall asset values. We therefore negate the opening credit balance of the contra account, treating
+        // it as if it was an asset account with a negative value.
+        def endingBalance = lastTimePeriodHistory.getBigDecimal("endingBalance").negate()
+        Map accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", endingBalance, "D", lastTimePeriodHistory.getBigDecimal("postedDebits"), "C", lastTimePeriodHistory.getBigDecimal("postedCredits"))
         contraAssetOpeningBalances.put(lastTimePeriodHistory.glAccountId, accountMap)
     }
     timePeriodAndExprs = []
