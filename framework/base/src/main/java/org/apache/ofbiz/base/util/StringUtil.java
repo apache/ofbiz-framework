@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.ofbiz.base.lang.IsEmpty;
 
 /**
  * Misc String Utility Functions
@@ -407,20 +408,25 @@ public final class StringUtil {
     }
 
     /**
-     * A super-lightweight object to wrap a String object. Mainly used with FTL templates
-     * to avoid the general HTML auto-encoding that is now done through the Screen Widget.
+     * A super-lightweight object to wrap a String object. Mainly used with FTL
+     * templates to avoid the general HTML auto-encoding that is now done through
+     * the Screen Widget.
      */
-    public static class StringWrapper {
+    public static class StringWrapper implements IsEmpty {
         public static final StringWrapper EMPTY_STRING_WRAPPER = new StringWrapper("");
 
         private String theString;
-        protected StringWrapper() { }
+
+        protected StringWrapper() {
+        }
+
         public StringWrapper(String theString) {
             this.theString = theString;
         }
 
         /**
          * Fairly simple method used for the plus (+) base concatenation in Groovy.
+         *
          * @param value
          * @return the wrapped string, plus the value
          */
@@ -434,6 +440,13 @@ public final class StringUtil {
         @Override
         public String toString() {
             return this.theString;
+        }
+
+        /**
+         * @return true, if wrapped string is null or empty; false otherwise
+         */
+        public boolean isEmpty() {
+            return (theString == null || theString.isEmpty());
         }
     }
 }
