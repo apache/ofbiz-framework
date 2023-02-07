@@ -205,16 +205,28 @@ enum RootClass {DEBIT, CREDIT}
  * @param openingBalances Map of GL Account IDs to AccountBalance objects representing the opening balance of the GL
  * Account for the current time period.
  * @param accountClassIds The collection of Account Class IDs used to define the queried GL Accounts.
- * @param rootClass Define whether the collection of Account Class IDs are ultimately Debit or Credit accounts. This
- * controls how the balance of the account is calculated:
+ * @param rootClass Define whether the collection of Account Class IDs should be treated as Debit or Credit accounts.
+ * This controls how the balance of the account is calculated:
  *  Debit account balance = totalDebits - totalCredits
  *  Credit account balance = totalCredits - totalDebits
+ * @param Specify whether the opening account balances should be negated, having the effect of switching the credits
+ * to debits, and vice-versa.
  */
 def calculateBalances = { Map<String, AccountBalance> openingBalances,
                           Collection<String> accountClassIds,
-                          RootClass rootClass ->
+                          RootClass rootClass,
+                          boolean negateOpeningBalances = false ->
 
-    def accountBalancesByGlAccountId = [:] << openingBalances
+    Map<String, AccountBalance> accountBalancesByGlAccountId = openingBalances.collectEntries {
+        glAccountId, accountBalance ->
+            [glAccountId, new AccountBalance(
+                    glAccountId: glAccountId,
+                    accountCode: accountBalance.accountCode,
+                    accountName: accountBalance.accountName,
+                    balance: negateOpeningBalances ? accountBalance.balance.negate() : accountBalance.balance,
+                    D: accountBalance.D,
+                    C: accountBalance.C,)]
+    }
 
     getAccountEntrySumsForClassIds(accountClassIds).each { entrySum ->
         def existingAccountBalance = accountBalancesByGlAccountId.getOrDefault(
@@ -282,7 +294,7 @@ def longtermAssetBalanceTotal = sumAccountBalances(longtermAssetAccountBalances.
 // regular asset accounts in order to offset the total of all assets. We therefore, when calculating balances, treat
 // these accounts as DEBIT accounts, resulting in zero or negative balances.
 def contraAssetAccountBalances =
-        calculateBalances(contraAssetOpeningBalances, contraAssetAccountClassIds, RootClass.DEBIT)
+        calculateBalances(contraAssetOpeningBalances, contraAssetAccountClassIds, RootClass.DEBIT, true)
 def contraAssetBalanceTotal = sumAccountBalances(contraAssetAccountBalances.values())
 def contraAssetAccountBalanceList = sortAccountBalancesConvertToMaps(contraAssetAccountBalances.values())
 assetAccountBalanceList.addAll(contraAssetAccountBalanceList)
