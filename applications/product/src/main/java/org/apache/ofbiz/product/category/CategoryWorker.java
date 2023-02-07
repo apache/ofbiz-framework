@@ -216,7 +216,9 @@ public final class CategoryWorker {
     }
 
     public static long categoryMemberCount(GenericValue category) {
-        if (category == null) return 0;
+        if (category == null) {
+            return 0;
+        }
         Delegator delegator = category.getDelegator();
         long count = 0;
         try {
@@ -229,7 +231,9 @@ public final class CategoryWorker {
     }
 
     public static long categoryRollupCount(GenericValue category) {
-        if (category == null) return 0;
+        if (category == null) {
+            return 0;
+        }
         Delegator delegator = category.getDelegator();
         long count = 0;
         try {
@@ -281,13 +285,12 @@ public final class CategoryWorker {
                     }
                 }
                 return trail;
-            } else {
-                // current category is not in the list, and no previous category was specified, go back to the beginning
-                trail.clear();
-                trail.add("TOP");
-                if (UtilValidate.isNotEmpty(previousCategoryId)) {
-                    trail.add(previousCategoryId);
-                }
+            }
+            // current category is not in the list, and no previous category was specified, go back to the beginning
+            trail.clear();
+            trail.add("TOP");
+            if (UtilValidate.isNotEmpty(previousCategoryId)) {
+                trail.add(previousCategoryId);
             }
         }
 
@@ -339,14 +342,17 @@ public final class CategoryWorker {
 
         if (UtilValidate.isNotEmpty(crumb)) {
             return crumb.get(crumb.size() - 1);
-        } else {
-            return null;
         }
+        return null;
     }
 
     public static boolean isProductInCategory(Delegator delegator, String productId, String productCategoryId) throws GenericEntityException {
-        if (productCategoryId == null) return false;
-        if (UtilValidate.isEmpty(productId)) return false;
+        if (productCategoryId == null) {
+            return false;
+        }
+        if (UtilValidate.isEmpty(productId)) {
+            return false;
+        }
 
         List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember")
                 .where("productCategoryId", productCategoryId, "productId", productId)
@@ -446,9 +452,8 @@ public final class CategoryWorker {
                         parentProductCategoryId = trailCategoryId;
                         if (trailElements.contains(trailCategoryId)) {
                             break;
-                        } else {
-                            trailElements.add(trailCategoryId);
                         }
+                        trailElements.add(trailCategoryId);
                     }
                 } else {
                     parentProductCategoryId = null;
