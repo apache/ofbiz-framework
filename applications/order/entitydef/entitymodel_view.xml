@@ -764,6 +764,10 @@ under the License.
         <key-map field-name="orderId"/>
         <key-map field-name="orderItemSeqId"/>
       </relation>
+      <relation type="many" rel-entity-name="OrderItemAttribute">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
     </view-entity>
     <view-entity entity-name="OrderItemAndShipGrpInvResAndItem"
             package-name="org.apache.ofbiz.order.order"
