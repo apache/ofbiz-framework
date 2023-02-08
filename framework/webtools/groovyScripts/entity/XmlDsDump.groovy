@@ -36,7 +36,7 @@ if (parameters.entityName) {
 }
 
 // get the max records per file setting and convert to a int
-int maxRecordsPerFile = maxRecStr ? (maxRecStr as int) : 0
+int maxRecordsPerFile = maxRecStr && maxRecStr.isInteger() ? (maxRecStr as int) : 0
 
 preConfiguredSetName = parameters.preConfiguredSetName
 switch (preConfiguredSetName) {
