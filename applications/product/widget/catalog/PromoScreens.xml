@@ -239,6 +239,12 @@ under the License.
                     </condition-list>
                     <order-by field-name="-createdDate"/>
                 </entity-condition>
+                <entity-and entity-name="ProductPromoUse" list="productPromoUses">
+                    <field-map field-name="productPromoId" from-field="productPromoId"/>
+                </entity-and>
+                <entity-and entity-name="ProductPromoCode" list="productPromoCodes">
+                    <field-map field-name="productPromoId" from-field="productPromoId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
@@ -269,7 +275,9 @@ under the License.
                                 </container>
                             </fail-widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.PageTitleFindProductPromotionCode}">
+                        <screenlet title="${uiLabelMap.PageTitleFindProductPromotionCode}: ${groovy: productPromoUses.size()} / ${groovy: 
+                        [org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(productPromoCodes, 'useLimitPerCode', false).sum(), 
+                        productPromo.useLimitPerPromotion].min()} ${uiLabelMap.PageTitleFindProductPromotionCodeRedeemed}">
                             <include-grid name="ListProductPromoCodes" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>
                         <platform-specific>

@@ -7415,6 +7415,21 @@
         <value xml:lang="zh">重复使用信息标识</value>
         <value xml:lang="zh-TW">重複使用資訊識別</value>
     </property>
+    <property key="FormFieldTitle_redeemedCodesCount">
+        <value xml:lang="de">Eingelöst</value>
+        <value xml:lang="en">Redeemed</value>
+        <value xml:lang="es">Redimido</value>
+        <value xml:lang="fr">Encaissé</value>
+        <value xml:lang="it">Riscattato</value>
+        <value xml:lang="ja">止揚された</value>
+        <value xml:lang="nl">Afgelost</value>
+        <value xml:lang="ro">Răscumpărat</value>
+        <value xml:lang="ru">выкуплено</value>
+        <value xml:lang="th">แลกแล้ว</value>
+        <value xml:lang="vi">Chuộc lại</value>
+        <value xml:lang="zh">赎回了</value>
+        <value xml:lang="zh-TW">贖回了</value>
+    </property>
     <property key="FormFieldTitle_rejectionId">
         <value xml:lang="de">Ablehnung ID</value>
         <value xml:lang="en">Rejection ID</value>
@@ -11398,6 +11413,21 @@
         <value xml:lang="vi">Tìm mã khuyến mại sản phẩm</value>
         <value xml:lang="zh">查找产品促销代码</value>
         <value xml:lang="zh-TW">尋找產品促銷代碼</value>
+    </property>
+    <property key="PageTitleFindProductPromotionCodeRedeemed">
+        <value xml:lang="de">eingelöst</value>
+        <value xml:lang="en">redeemed</value>
+        <value xml:lang="es">redimido</value>
+        <value xml:lang="fr">encaissé</value>
+        <value xml:lang="it">riscattato</value>
+        <value xml:lang="ja">止揚された</value>
+        <value xml:lang="nl">afgelost</value>
+        <value xml:lang="ro">răscumpărat</value>
+        <value xml:lang="ru">выкуплено</value>
+        <value xml:lang="th">แลกแล้ว</value>
+        <value xml:lang="vi">chuộc lại</value>
+        <value xml:lang="zh">赎回了</value>
+        <value xml:lang="zh-TW">贖回了</value>
     </property>
     <property key="PageTitleFindProductStocktake">
         <value xml:lang="en">Find Product Stocktake</value>
