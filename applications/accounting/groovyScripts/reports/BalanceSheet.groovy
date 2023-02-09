@@ -79,11 +79,8 @@ class AccountBalance {
     String accountCode
     String accountName
     BigDecimal balance
-    public BigDecimal D
-    public BigDecimal C
     def asMap() {
-        [glAccountId: glAccountId, accountCode: accountCode, accountName: accountName,
-         balance: balance, D: D, C: C]
+        [glAccountId: glAccountId, accountCode: accountCode, accountName: accountName, balance: balance]
     }
 }
 
@@ -117,8 +114,6 @@ def getLastPeriodClosingBalancesForAccountClassIds = { List<String> accountClass
                         accountCode: history.accountCode,
                         accountName: history.accountName,
                         balance: history.getBigDecimal("endingBalance"),
-                        D: history.getBigDecimal("postedDebits"),
-                        C: history.getBigDecimal("postedCredits")
                 )
         }.each {
             retVal.put(it.glAccountId, it)
@@ -209,24 +204,15 @@ enum RootClass {DEBIT, CREDIT}
  * This controls how the balance of the account is calculated:
  *  Debit account balance = totalDebits - totalCredits
  *  Credit account balance = totalCredits - totalDebits
- * @param Specify whether the opening account balances should be negated, having the effect of switching the credits
- * to debits, and vice-versa.
+ * @param negateBalances Specify whether balances should be negated after they have been calculated according to the
+ * debit/credit flag of any accounts for which transaction entries are found.
  */
 def calculateBalances = { Map<String, AccountBalance> openingBalances,
                           Collection<String> accountClassIds,
                           RootClass rootClass,
-                          boolean negateOpeningBalances = false ->
+                          boolean negateBalances = false ->
 
-    Map<String, AccountBalance> accountBalancesByGlAccountId = openingBalances.collectEntries {
-        glAccountId, accountBalance ->
-            [glAccountId, new AccountBalance(
-                    glAccountId: glAccountId,
-                    accountCode: accountBalance.accountCode,
-                    accountName: accountBalance.accountName,
-                    balance: negateOpeningBalances ? accountBalance.balance.negate() : accountBalance.balance,
-                    D: accountBalance.D,
-                    C: accountBalance.C,)]
-    }
+    Map<String, AccountBalance> accountBalancesByGlAccountId = [*:openingBalances]
 
     getAccountEntrySumsForClassIds(accountClassIds).each { entrySum ->
         def existingAccountBalance = accountBalancesByGlAccountId.getOrDefault(
@@ -235,28 +221,35 @@ def calculateBalances = { Map<String, AccountBalance> openingBalances,
                         glAccountId: entrySum.glAccountId,
                         accountCode: entrySum.accountCode,
                         accountName: entrySum.accountName,
-                        balance: 0.0,
-                        D: 0.0,
-                        C: 0.0,
+                        balance: 0.0
                 ))
 
-        def combinedDebitAmount = existingAccountBalance.D +
-                (entrySum.debitCreditFlag == "D" ? entrySum.amount : 0.0)
-        def combinedCreditAmount = existingAccountBalance.C +
-                (entrySum.debitCreditFlag == "C" ? entrySum.amount : 0.0)
+        def transactionSumsDebitAmount = entrySum.debitCreditFlag == "D" ? entrySum.amount : 0.0
+        def transactionSumsCreditAmount = entrySum.debitCreditFlag == "C" ? entrySum.amount : 0.0
 
+        def currentBalance = existingAccountBalance.balance
         def combinedBalance = rootClass == RootClass.DEBIT ?
-                combinedDebitAmount - combinedCreditAmount :
-                combinedCreditAmount - combinedDebitAmount
+                currentBalance + transactionSumsDebitAmount - transactionSumsCreditAmount :
+                currentBalance + transactionSumsCreditAmount - transactionSumsDebitAmount
 
         accountBalancesByGlAccountId.put(entrySum.glAccountId, new AccountBalance(
                 glAccountId: entrySum.glAccountId,
                 accountCode: entrySum.accountCode,
                 accountName: entrySum.accountName,
-                balance: combinedBalance,
-                D: combinedDebitAmount,
-                C: combinedCreditAmount
+                balance: combinedBalance
         ))
+    }
+
+    if (negateBalances) {
+        accountBalancesByGlAccountId = accountBalancesByGlAccountId.collectEntries {
+            glAccountId, accountBalance ->
+                [(glAccountId): new AccountBalance(
+                        glAccountId: glAccountId,
+                        accountCode: accountBalance.accountCode,
+                        accountName: accountBalance.accountName,
+                        balance: negateBalances ? accountBalance.balance.negate() : accountBalance.balance)]
+
+        } as Map<String, AccountBalance>
     }
 
     accountBalancesByGlAccountId
@@ -291,10 +284,10 @@ def longtermAssetBalanceTotal = sumAccountBalances(longtermAssetAccountBalances.
 
 // CONTRA ASSETS
 // Contra assets are accounts of class CREDIT, but for the purposes of the balance sheet, they will be listed alongside
-// regular asset accounts in order to offset the total of all assets. We therefore, when calculating balances, treat
-// these accounts as DEBIT accounts, resulting in zero or negative balances.
+// regular asset accounts in order to offset the total of all assets. We therefore negate these balances before
+// including them in sums with the asset accounts.
 def contraAssetAccountBalances =
-        calculateBalances(contraAssetOpeningBalances, contraAssetAccountClassIds, RootClass.DEBIT, true)
+        calculateBalances(contraAssetOpeningBalances, contraAssetAccountClassIds, RootClass.CREDIT, true)
 def contraAssetBalanceTotal = sumAccountBalances(contraAssetAccountBalances.values())
 def contraAssetAccountBalanceList = sortAccountBalancesConvertToMaps(contraAssetAccountBalances.values())
 assetAccountBalanceList.addAll(contraAssetAccountBalanceList)
@@ -328,15 +321,12 @@ if (retainedEarningsAccount) {
             glAccountId: retainedEarningsGlAccount.glAccountId,
             accountCode: retainedEarningsGlAccount.accountCode,
             accountName: retainedEarningsGlAccount.accountName,
-            balance: 0.0,
-            D: 0.0,
-            C: 0.0,
+            balance: 0.0
     ))
 
-    retainedEarningsAccountBalance.C += netIncome
     retainedEarningsAccountBalance.balance += netIncome
 
-    equityAccountBalances.put(retainedEarningsGlAccount.glAccountId, retainedEarningsAccountBalance)
+    equityAccountBalances.put(retainedEarningsGlAccount.glAccountId as String, retainedEarningsAccountBalance)
 }
 
 def equityBalanceTotal = sumAccountBalances(equityAccountBalances.values())
