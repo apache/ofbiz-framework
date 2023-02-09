@@ -212,7 +212,7 @@ def calculateBalances = { Map<String, AccountBalance> openingBalances,
                           RootClass rootClass,
                           boolean negateBalances = false ->
 
-    def accountBalancesByGlAccountId = [:] as Map<String, AccountBalance> << openingBalances
+    Map<String, AccountBalance>  accountBalancesByGlAccountId = [*:openingBalances]
 
     getAccountEntrySumsForClassIds(accountClassIds).each { entrySum ->
         def existingAccountBalance = accountBalancesByGlAccountId.getOrDefault(
