@@ -142,6 +142,10 @@ tasks.withType(JavaCompile) {
     if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
 }
 
+def getCurrentGitBranch() {
+    return "git branch --show-current".execute().text.trim()
+}
+
 // defines the footer files for git info
 def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 
@@ -358,10 +362,10 @@ jar.manifest.attributes(
 
 // Checks OFBiz Java coding conventions.
 checkstyle {
-    // Defining a maximum number of “tolerated” errors ensures that
+    // Defining a maximum number of "tolerated" errors ensures that
     // this number cannot increase in the future. It corresponds to
     // the sum of errors found last time it was changed after using the
-    // ‘checkstyle’ tool present in the framework and in the official
+    // 'checkstyle' tool present in the framework and in the official
     // plugins.
     tasks.checkstyleMain.maxErrors = 0
     // Currently there are no errors so we can show new one when they appear
@@ -954,7 +958,8 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
     if (project.hasProperty('pluginId')) {
         // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
         task pullPluginFromSvn(type: SvnCheckout) {
-            svnUrl = "https://github.com/apache/ofbiz-plugins/trunk/${pluginId}"
+            def currentBranch = getCurrentGitBranch()
+            svnUrl = "https://github.com/apache/ofbiz-plugins/" + currentBranch + "/${pluginId}"
             workspaceDir = "${pluginsDir}/${pluginId}"
         }
         dependsOn pullPluginFromSvn
@@ -972,7 +977,8 @@ task pullAllPluginsSource(group: ofbizPlugin,
     }
     task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
         // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
-        svnUrl = "https://github.com/apache/ofbiz-plugins/trunk"
+        def currentBranch = getCurrentGitBranch()
+        svnUrl = "https://github.com/apache/ofbiz-plugins/" + currentBranch
         workspaceDir = "${pluginsDir}"
     }
     dependsOn pullPluginsFromSvn
