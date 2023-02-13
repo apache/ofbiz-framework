@@ -959,7 +959,7 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
         // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
         task pullPluginFromSvn(type: SvnCheckout) {
             def currentBranch = getCurrentGitBranch()
-            svnUrl = "https://github.com/apache/ofbiz-plugins/" + currentBranch + "/${pluginId}"
+            svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch + "/${pluginId}"
             workspaceDir = "${pluginsDir}/${pluginId}"
         }
         dependsOn pullPluginFromSvn
@@ -978,7 +978,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
     task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
         // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
         def currentBranch = getCurrentGitBranch()
-        svnUrl = "https://github.com/apache/ofbiz-plugins/" + currentBranch
+        svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch
         workspaceDir = "${pluginsDir}"
     }
     dependsOn pullPluginsFromSvn
