@@ -142,6 +142,7 @@ tasks.withType(JavaCompile) {
     if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
 }
 
+// Only used for release branches
 def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
 }
@@ -969,8 +970,8 @@ task pullPluginSource(group: ofbizPlugin, description: 'Download and install a p
     if (project.hasProperty('pluginId')) {
         // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
         task pullPluginFromSvn(type: SvnCheckout) {
-            def currentBranch = getCurrentGitBranch()
-            svnUrl = "https://github.com/apache/ofbiz-plugins/" + currentBranch + "/${pluginId}"
+            def currentBranch = getCurrentGitBranch() // Only used for release branches
+            svnUrl = "https://github.com/apache/ofbiz-plugins/trunk/${pluginId}"
             workspaceDir = "${pluginsDir}/${pluginId}"
         }
         dependsOn pullPluginFromSvn
@@ -988,8 +989,8 @@ task pullAllPluginsSource(group: ofbizPlugin,
     }
     task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
         // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
-        def currentBranch = getCurrentGitBranch()
-        svnUrl = "https://github.com/apache/ofbiz-plugins/" + currentBranch
+        def currentBranch = getCurrentGitBranch() // Only used for release branches
+        svnUrl = "https://github.com/apache/ofbiz-plugins/trunk"
         workspaceDir = "${pluginsDir}"
     }
     dependsOn pullPluginsFromSvn
