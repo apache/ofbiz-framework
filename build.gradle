@@ -1000,6 +1000,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
             svnUrl = "https://github.com/apache/ofbiz-plugins/trunk"
         } else {
             svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch
+        }
         workspaceDir = "${pluginsDir}"
     }
     dependsOn pullPluginsFromSvn
