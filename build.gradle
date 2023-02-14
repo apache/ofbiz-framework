@@ -95,10 +95,10 @@ distributions.main.contents.from(rootDir) {
 }
 
 javadoc {
-    title='OFBiz trunk API'
+    title="OFBiz " + getCurrentGitBranch() + " API"
     failOnError = true
     options {
-        source '8'
+        source '17'
         encoding 'UTF-8'
         charSet 'UTF-8'
         // Those external Javadoc links should correspond to the actual
@@ -591,7 +591,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
     outputOptions {
-        // I hate we have to do this - but jruby (asciidoctorj-pdf) and windows don't mix well
+        // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
         if (System.properties['os.name'].toLowerCase().contains('windows')) {
             backends 'html5'
         } else {
@@ -600,7 +600,7 @@ tasks.withType(AsciidoctorTask) { task ->
     }
     attributes \
         'doctype': 'book',
-        'revnumber': 'Trunk',
+        'revnumber': getCurrentGitBranch(),
         'experimental': '',
         'allow-uri-read': true,
         'icons': 'font',
