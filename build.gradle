@@ -86,9 +86,7 @@ application {
             : ['-Xms128M','-Xmx1024M',
             '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
             '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
-            '--add-opens=java.base/java.util=ALL-UNNAMED', // OFBIZ-12726
-            '--add-opens=java.base/sun.nio.ch=ALL-UNNAMED', // OFBIZ-12758 ???
-            '--add-opens=java.base/java.io=ALL-UNNAMED' // OFBIZ-12758 ???
+            '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
             ]
 }
 
@@ -116,7 +114,7 @@ javadoc {
 
 node {
     download = true
-    version = "13.14.0"
+    version = "16.13.1"
     // npmVersion will be the one that comes default with node
 
     // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
