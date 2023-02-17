@@ -599,7 +599,7 @@ tasks.withType(AsciidoctorTask) { task ->
         if (System.properties['os.name'].toLowerCase().contains('windows')) {
             backends = ['html5']
         } else {
-            backends = ['html5', 'pdf']
+            backends = ['html5']
         }
     }
     attributes \
