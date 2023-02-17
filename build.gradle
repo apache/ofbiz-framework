@@ -597,9 +597,9 @@ tasks.withType(AsciidoctorTask) { task ->
     outputOptions {
         // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
         if (System.properties['os.name'].toLowerCase().contains('windows')) {
-            backends 'html5'
+            backends = ['html5']
         } else {
-            backends 'html5', 'pdf'
+            backends = ['html5', 'pdf']
         }
     }
     attributes \
