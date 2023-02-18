@@ -595,12 +595,13 @@ tasks.withType(AsciidoctorTask) { task ->
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
     outputOptions {
-        // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
+        backends = ['html5']
+        /* I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
         if (System.properties['os.name'].toLowerCase().contains('windows')) {
             backends = ['html5']
         } else {
             backends = ['html5']
-        }
+        }*/
     }
     attributes \
         'doctype': 'book',
