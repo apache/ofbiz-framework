@@ -26,12 +26,10 @@ image:https://ci2.apache.org/badges/ofbizBranch22Framework.svg[link=https://ci2.
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=release22.01[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
 image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
-////
-image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
-////
+//image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 
 If you are reading this file in AsciiDoc format you may want to see it at
-https://nightlies.apache.org/ofbiz/next/readme/html5/[HTML]
+https://nightlies.apache.org/ofbiz/next/readme/html5/README.html[HTML]
 or https://ci.apache.org/projects/ofbiz/site/next/readme/pdf/README.pdf[PDF] format
 
 ---
