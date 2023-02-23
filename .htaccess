@@ -1,4 +1,3 @@
- <files rREADME.html>
-        order allow,deny
+ <files README.*>
         allow from all
 </files>
