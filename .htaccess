@@ -1,0 +1,4 @@
+ <files rREADME.html>
+        order allow,deny
+        allow from all
+</files>
