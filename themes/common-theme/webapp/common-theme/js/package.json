@@ -10,7 +10,7 @@
         "flot": "^4.2.3",
         "inputmask": "^5.0.7",
         "jquery": "^3.6.3",
-        "jquery-migrate": "^3.4.0",
+        "jquery-migrate": "^3.4.1",
         "jquery-ui-dist": "^1.13.2",
         "jquery-validation": "^1.19.5",
         "jquery.browser": "^0.1.0",
