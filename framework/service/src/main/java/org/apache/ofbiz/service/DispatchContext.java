@@ -173,29 +173,14 @@ public class DispatchContext implements Serializable {
      */
     public static Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context)
             throws GenericServiceException {
-        Map<String, Object> newContext;
-
-        int modeInt = 0;
-        if (mode.equalsIgnoreCase(ModelService.IN_PARAM)) {
-            modeInt = 1;
-        } else if (mode.equalsIgnoreCase(ModelService.OUT_PARAM)) {
-            modeInt = 2;
+        if (model == null || mode == null) {
+            throw new GenericServiceException("Model service or mode is null! Should never happen.");
         }
-
-        if (model == null) {
-            throw new GenericServiceException("Model service is null! Should never happen.");
-        }
-        switch (modeInt) {
-        case 1:
-            newContext = model.makeValid(context, ModelService.IN_PARAM, true, null);
-            break;
-        case 2:
-            newContext = model.makeValid(context, ModelService.OUT_PARAM, true, null);
-            break;
-        default:
+        String upperCaseMode = mode.toUpperCase();
+        if (!List.of(ModelService.IN_PARAM, ModelService.OUT_PARAM).contains(upperCaseMode)) {
             throw new GenericServiceException("Invalid mode, should be either IN or OUT");
         }
-        return newContext;
+        return model.makeValid(context, upperCaseMode, true, null);
     }
 
     /**

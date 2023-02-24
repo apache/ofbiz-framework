@@ -158,6 +158,20 @@ public class ModelParam implements Serializable {
     }
 
     /**
+     * Gets fail message.
+     * @param locale the locale
+     * @return the primary fail message
+     */
+    public String getFailMessage(Locale locale) {
+        String message = getPrimaryFailMessage(locale);
+        if (UtilValidate.isNotEmpty(message)) {
+            return message;
+        }
+        return UtilProperties.getMessage(ServiceUtil.getResource(),
+                "ModelService.following_required_parameter_missing", locale) + " " + getName();
+    }
+
+    /**
      * Gets short display description.
      * @return the short display description
      */

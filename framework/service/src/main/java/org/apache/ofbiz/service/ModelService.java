@@ -67,6 +67,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -1116,124 +1117,218 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param locale the actual locale to use
      */
     public void validate(Map<String, Object> context, String mode, Locale locale) throws ServiceValidationException {
-        Map<String, String> requiredInfo = new HashMap<>();
-        Map<String, String> optionalInfo = new HashMap<>();
+        validate(this.contextParamList, context, mode, locale);
+    }
+
+    /**
+     * Validates a Map against the IN or OUT parameter information for a given list of modelParam
+     * this is used for recursive validation of map and list modelParam in service definition
+     * @param modelParamList List of paramList to validate
+     * @param context the context
+     * @param mode Test either mode IN or mode OUT
+     * @param locale the actual locale to use
+     */
+    public void validate(List<ModelParam> modelParamList, Map<String, Object> context, String mode, Locale locale)
+            throws ServiceValidationException {
+        // do not validate results with errors
+        if (mode.equals(OUT_PARAM) && resultServiceContainsError(context)) {
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
+            }
+            return;
+        }
+
+        final Map<String, ModelParam> requiredInfo = prepareRequiredParamsMap(mode, modelParamList);
+        final Map<String, ModelParam> optionalInfo = prepareOptionalParamsMap(mode, modelParamList);
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + context, MODULE);
         }
 
-        // do not validate results with errors
-        if (mode.equals(OUT_PARAM) && context != null && context.containsKey(RESPONSE_MESSAGE)) {
-            if (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE)) || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE))) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : response was an error, not validating.", MODULE);
-                }
-                return;
-            }
-        }
-
-        // get the info values
-        for (ModelParam modelParam: this.contextParamList) {
-            if (IN_OUT_PARAM.equals(modelParam.getMode()) || mode.equals(modelParam.getMode())) {
-                if (modelParam.isOptional()) {
-                    optionalInfo.put(modelParam.getName(), modelParam.getType());
-                } else {
-                    requiredInfo.put(modelParam.getName(), modelParam.getType());
-                }
-            }
-        }
 
         // get the test values
-        Map<String, Object> requiredTest = new HashMap<>();
-        Map<String, Object> optionalTest = new HashMap<>();
-
-        if (context == null) {
-            context = new HashMap<>();
-        }
-        requiredTest.putAll(context);
-
-        List<String> requiredButNull = new LinkedList<>();
-        List<String> keyList = new LinkedList<>();
-        keyList.addAll(requiredTest.keySet());
-        for (String key: keyList) {
-            Object value = requiredTest.get(key);
-
-            if (!requiredInfo.containsKey(key)) {
-                requiredTest.remove(key);
-                optionalTest.put(key, value);
-            } else if (value == null) {
-                requiredButNull.add(key);
-            }
-        }
-
-        // check for requiredButNull fields and return an error since null values are not allowed for required fields
-        if (!requiredButNull.isEmpty()) {
-            List<String> missingMsg = new LinkedList<>();
-            for (String missingKey: requiredButNull) {
-                String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
-                if (message == null) {
-                    String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(),
-                            "ModelService.following_required_parameter_missing", locale);
-                    message = errMsg + " [" + this.name + "." + missingKey + "]";
-                }
-                missingMsg.add(message);
-            }
-            throw new ServiceValidationException(missingMsg, this, requiredButNull, null, mode);
-        }
+        Map<String, Object> requiredValues = resolveRequiredValues(requiredInfo, context, locale, mode);
+        Map<String, Object> optionalValues = resolveOptionalValues(optionalInfo, context);
+        checkUnwantedParameter(modelParamList, context, mode);
 
         if (Debug.verboseOn()) {
-            StringBuilder requiredNames = new StringBuilder();
-
-            for (String key: requiredInfo.keySet()) {
-                if (requiredNames.length() > 0) {
-                    requiredNames.append(", ");
-                }
-                requiredNames.append(key);
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - "
-                        + requiredTest.size() + " / " + requiredInfo.size(), MODULE);
-            }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - "
-                        + optionalTest.size() + " / " + optionalInfo.size(), MODULE);
-            }
+            String requiredNames = String.join(", ", requiredInfo.keySet());
+            Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, MODULE);
+            Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Required - "
+                    + requiredValues.size() + " / " + requiredInfo.size(), MODULE);
+            Debug.logVerbose("[ModelService.validate] : {" + name + "} : (" + mode + ") Optional - "
+                    + optionalValues.size() + " / " + optionalInfo.size(), MODULE);
         }
         try {
-            validate(requiredInfo, requiredTest, true, this, mode, locale);
-            validate(optionalInfo, optionalTest, false, this, mode, locale);
+            validate(requiredInfo, requiredValues, true, this, mode, locale);
+            validate(optionalInfo, optionalValues, false, this, mode, locale);
         } catch (ServiceValidationException e) {
-            Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e.toString(), MODULE);
+            Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e, MODULE);
             throw e;
         }
 
         // required and type validation complete, do allow-html validation
         if (IN_PARAM.equals(mode)) {
-            List<String> errorMessageList = new LinkedList<>();
-            for (ModelParam modelParam : this.contextInfo.values()) {
-                // the param is a String, allow-html is not any, and we are looking at an IN parameter during input parameter validation
-                if (context.get(modelParam.getName()) != null && ("String".equals(modelParam.getType())
-                        || "java.lang.String".equals(modelParam.getType()))
-                        && !"any".equals(modelParam.getAllowHtml()) && (IN_OUT_PARAM.equals(modelParam.getMode())
-                        || IN_PARAM.equals(modelParam.getMode()))) {
-                    String value = (String) context.get(modelParam.getName());
-                    if ("none".equals(modelParam.getAllowHtml())) {
-                        UtilCodec.checkStringForHtmlStrictNone(modelParam.getName(), value, errorMessageList, (Locale) context.get("locale"));
-                    } else if ("safe".equals(modelParam.getAllowHtml())) {
-                        UtilCodec.checkStringForHtmlSafe(modelParam.getName(), value, errorMessageList,
-                                (Locale) context.get("locale"),
+            Map<String, ModelParam> allModelParams = new HashMap<>(requiredInfo);
+            allModelParams.putAll(optionalInfo);
+            Map<String, Object> allValues = new HashMap<>(requiredValues);
+            allValues.putAll(optionalValues);
+            allowHtmlValidation(allValues, allModelParams, locale);
+        }
+    }
+
+    /**
+     * Check the presence of not desired parameters in context.
+     * @param modelParamList List of parameters
+     * @param context the context
+     * @param mode The mode (IN/OUT)
+     * @throws ServiceValidationException When parameters should not be present in context
+     */
+    private void checkUnwantedParameter(List<ModelParam> modelParamList, Map<String, Object> context, String mode)
+            throws ServiceValidationException {
+        if (context == null) {
+            return;
+        }
+        List<String> paramNames = modelParamList.stream().map(ModelParam::getName).collect(Collectors.toList());
+        // This is to see if the info set contains all from the test set
+        List<String> unwantedParamNames = context.keySet().stream()
+                .filter(k -> !paramNames.contains(k))
+                .collect(Collectors.toList());
+        List<String> errorMessageList = unwantedParamNames.stream()
+                .map(k -> "Unknown parameter found: [" + k + "]")
+                .collect(Collectors.toList());
+        if (UtilValidate.isNotEmpty(errorMessageList)) {
+            throw new ServiceValidationException(errorMessageList, this, null, unwantedParamNames, mode);
+        }
+    }
+
+    /**
+     * Validate IN String service parameters according HTML data
+     * @param values all values
+     * @param modelParams service parameters to analyse
+     * @param locale the locale
+     * @throws ServiceValidationException
+     */
+    private void allowHtmlValidation(Map<String, Object> values, Map<String, ModelParam> modelParams, Locale locale)
+            throws ServiceValidationException {
+        List<String> errorMessageList = new LinkedList<>();
+        final List<String> allowHtmls = List.of("none", "safe");
+        final List<String> modes = List.of(IN_OUT_PARAM, IN_PARAM);
+        modelParams.values()
+                .stream()
+                .filter(v -> v.getAllowHtml() != null)
+                .filter(v -> allowHtmls.contains(v.getAllowHtml()))
+                .filter(v -> modes.contains(v.getMode()))
+                .filter(v -> v.getType().endsWith("String"))
+                .filter(v -> values.get(v.getName()) != null)
+                .collect(Collectors.toList())
+                .forEach(p -> {
+                    String paramName = p.getName();
+                    String value = String.valueOf(values.get(paramName));
+                    if ("none".equals(p.getAllowHtml())) {
+                        UtilCodec.checkStringForHtmlStrictNone(paramName, value, errorMessageList, locale);
+                    } else {
+                        UtilCodec.checkStringForHtmlSafe(paramName, value, errorMessageList, locale,
                                 EntityUtilProperties.getPropertyAsBoolean("owasp", "sanitizer.enable", true));
                     }
-                }
-            }
-            if (!errorMessageList.isEmpty()) {
-                throw new ServiceValidationException(errorMessageList, this, mode);
+                });
+        if (!errorMessageList.isEmpty()) {
+            throw new ServiceValidationException(errorMessageList, this, IN_PARAM);
+        }
+    }
+
+    /**
+     * Check that all required service parameters are present and not null in context
+     * and Build a map with all required values if true.
+     * @param requiredInfo Map of requiredParameters
+     * @param context the context
+     * @param locale the locale
+     * @param mode The mode (IN/OUT)
+     * @return Map of required values
+     * @throws ServiceValidationException when required values are found null
+     */
+    private Map<String, Object> resolveRequiredValues(Map<String, ModelParam> requiredInfo, Map<String, Object> context,
+                                                      Locale locale, String mode)
+            throws ServiceValidationException {
+        Map<String, Object> requiredValues = new HashMap<>();
+        if (context != null) {
+            requiredValues = requiredInfo.keySet()
+                    .stream()
+                    .filter(k -> context.containsKey(k) && context.get(k) != null)
+                    .collect(Collectors.toMap(k -> k, context::get));
+
+            List<String> requiredButNull = requiredInfo.keySet()
+                    .stream()
+                    .filter(k -> context.get(k) == null)
+                    .collect(Collectors.toList());
+
+            // check for requiredButNull fields and return an error since null values are not allowed for required fields
+            if (UtilValidate.isNotEmpty(requiredButNull)) {
+                List<String> missingMsg = requiredButNull.stream()
+                        .map(k -> requiredInfo.get(k).getFailMessage(locale))
+                        .collect(Collectors.toList());
+                throw new ServiceValidationException(missingMsg, this, requiredButNull, null, mode);
             }
         }
+        return requiredValues;
+    }
+
+    /**
+     * Build a map with all optional values
+     * @param optionalInfo Map of optional parameters
+     * @param context the context
+     * @return Map of optional values
+     */
+    private Map<String, Object> resolveOptionalValues(Map<String, ModelParam> optionalInfo, Map<String, Object> context) {
+        Map<String, Object> optionalValues = new HashMap<>();
+        if (context != null) {
+            optionalValues = optionalInfo.keySet()
+                    .stream()
+                    .filter(k -> context.containsKey(k) && context.get(k) != null)
+                    .collect(Collectors.toMap(k -> k, context::get));
+        }
+        return optionalValues;
+    }
+
+    private static boolean resultServiceContainsError(Map<String, Object> context) {
+        return context != null && context.containsKey(RESPONSE_MESSAGE)
+                && (RESPOND_ERROR.equals(context.get(RESPONSE_MESSAGE))
+                || RESPOND_FAIL.equals(context.get(RESPONSE_MESSAGE)));
+    }
+
+    /**
+     * Return map of required service parameters in given mode
+     * @param mode The mode (IN/OUT)
+     * @param modelParams List of parameters to analyse
+     * @return Map of name and ModelParam object that are required
+     */
+    private Map<String, ModelParam> prepareRequiredParamsMap(String mode, List<ModelParam> modelParams) {
+        return prepareParamsMap(mode, modelParams, false);
+    }
+    /**
+     * Return map of optional service parameters in given mode
+     * @param mode The mode (IN/OUT)
+     * @param modelParams List of parameters to analyse
+     * @return Map of name and ModelParam object that are optional
+     */
+    private Map<String, ModelParam> prepareOptionalParamsMap(String mode, List<ModelParam> modelParams) {
+        return prepareParamsMap(mode, modelParams, true);
+    }
+
+    /**
+     * Return map of service parameters in given mode
+     * @param mode The mode (IN/OUT)
+     * @param modelParams List of parameters to analyse
+     * @param optional boolean that indicates if optional
+     * @return Map of filtered name and ModelParam object
+     */
+    private Map<String, ModelParam> prepareParamsMap(String mode, List<ModelParam> modelParams, boolean optional) {
+        // get the info values
+        final List<String> modes = List.of(IN_OUT_PARAM, mode);
+        return modelParams.stream()
+                .filter(p -> modes.contains(p.getMode()))
+                .filter(p -> optional == p.isOptional())
+                .collect(Collectors.toMap(ModelParam::getName, p -> p, (p1, p2) -> p1));
     }
 
     /**
@@ -1254,32 +1349,32 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /**
      * Validates a map of name, object types to a map of name, objects
-     * @param info The map of name, object types
-     * @param test The map to test its value types.
+     * @param modelParamMap The map of name, modelParam
+     * @param values The map to test its value types.
      * @param reverse Test the maps in reverse.
      */
-    public static void validate(Map<String, String> info, Map<String, ? extends Object> test, boolean reverse, ModelService model,
-                                String mode, Locale locale) throws ServiceValidationException {
-        if (info == null || test == null) {
+    public void validate(Map<String, ModelParam> modelParamMap, Map<String, ?> values, boolean reverse, ModelService model,
+                         String mode, Locale locale) throws ServiceValidationException {
+        if (modelParamMap == null || values == null) {
             throw new ServiceValidationException("Cannot validate NULL maps", model);
         }
 
         // * Validate keys first
-        Set<String> testSet = test.keySet();
-        Set<String> keySet = info.keySet();
+        Set<String> valuesSet = values.keySet();
+        Set<String> modelParamSet = modelParamMap.keySet();
 
         // Quick check for sizes
-        if (info.isEmpty() && test.isEmpty()) {
+        if (modelParamMap.isEmpty() && values.isEmpty()) {
             return;
         }
         // This is to see if the test set contains all from the info set (reverse)
-        if (reverse && !testSet.containsAll(keySet)) {
-            Set<String> missing = new TreeSet<>(keySet);
+        if (reverse && !valuesSet.containsAll(modelParamSet)) {
+            Set<String> missing = new TreeSet<>(modelParamSet);
 
-            missing.removeAll(testSet);
+            missing.removeAll(valuesSet);
             List<String> missingMsgs = new LinkedList<>();
             for (String key: missing) {
-                String msg = model.getParam(key).getPrimaryFailMessage(locale);
+                String msg = modelParamMap.get(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.getResource(), "ModelService.following_required_parameter_missing",
                             locale);
@@ -1288,41 +1383,17 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 missingMsgs.add(msg);
             }
 
-            List<String> missingCopy = new LinkedList<>();
-            missingCopy.addAll(missing);
+            List<String> missingCopy = new LinkedList<>(missing);
             throw new ServiceValidationException(missingMsgs, model, missingCopy, null, mode);
-        }
-
-        // This is to see if the info set contains all from the test set
-        if (!keySet.containsAll(testSet)) {
-            Set<String> extra = new TreeSet<>(testSet);
-
-            extra.removeAll(keySet);
-            List<String> extraMsgs = new LinkedList<>();
-            for (String key: extra) {
-                ModelParam param = model.getParam(key);
-                String msg = null;
-                if (param != null) {
-                    msg = param.getPrimaryFailMessage(locale);
-                }
-                if (msg == null) {
-                    msg = "Unknown parameter found: [" + model.name + "." + key + "]";
-                }
-                extraMsgs.add(msg);
-            }
-
-            List<String> extraCopy = new LinkedList<>();
-            extraCopy.addAll(extra);
-            throw new ServiceValidationException(extraMsgs, model, null, extraCopy, mode);
         }
 
         // * Validate types next
         List<String> typeFailMsgs = new LinkedList<>();
-        for (String key: testSet) {
-            ModelParam param = model.getParam(key);
+        for (String key: valuesSet) {
+            ModelParam param = modelParamMap.get(key);
 
-            Object testObject = test.get(key);
-            String infoType = info.get(key);
+            Object testObject = values.get(key);
+            String infoType = modelParamMap.get(key).getType();
 
             if (UtilValidate.isNotEmpty(param.getValidators())) {
                 for (ModelParam.ModelParamValidator val: param.getValidators()) {
@@ -1365,6 +1436,25 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
         if (!typeFailMsgs.isEmpty()) {
             throw new ServiceValidationException(typeFailMsgs, model, mode);
+        }
+
+        for (String paramName : modelParamSet) {
+            List<ModelParam> childrenModelParams = modelParamMap.get(paramName).getChildren();
+            if (UtilValidate.isNotEmpty(childrenModelParams)
+                    && UtilValidate.isNotEmpty(values.get(paramName))) {
+                if (modelParamMap.get(paramName).getType().endsWith("Map")) {
+                    validate(childrenModelParams,
+                            UtilGenerics.cast(values.get(paramName)),
+                            mode, locale);
+                } else if (modelParamMap.get(paramName).getType().endsWith("List")) {
+                    List<Map<String, Object>> subParameters = UtilGenerics.cast(values.get(paramName));
+                    if (UtilValidate.isNotEmpty(subParameters)) {
+                        for (Map<String, Object> paramMap : subParameters) {
+                            validate(childrenModelParams, paramMap, mode, locale);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1431,10 +1521,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     }
 
     /**
-     * Gets the parameter names of the specified mode (IN/OUT/INOUT). The
+     * Gets the parameter names of the specified mode (IN/OUT). The
      * parameters will be returned in the order specified in the file.
      * Note: IN and OUT will also contains INOUT parameters.
-     * @param mode The mode (IN/OUT/INOUT)
+     * @param mode The mode (IN/OUT)
      * @param optional True if to include optional parameters
      * @param internal True to include internal parameters
      * @return List of parameter names
@@ -1510,21 +1600,32 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
      * @param source The source map
      * @param mode The mode which to build the new map
      * @param includeInternal When false will exclude internal fields
+     * @param errorMessages List of errorMessages
+     * @param timeZone The TimeZone
+     * @param locale Locale to use to do some type conversion
+     * @return
+     */
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages,
+                                         TimeZone timeZone, Locale locale) {
+        return makeValid(this.contextParamList, source, mode, includeInternal, errorMessages, timeZone, locale);
+    }
+    /**
+     * Creates a new Map based from an existing map with just valid parameters.
+     * Tries to convert parameters to required type.
+     * @param modelParams Model parameters to validate
+     * @param source The source map
+     * @param mode The mode which to build the new map
+     * @param includeInternal When false will exclude internal fields
      * @param errorMessages the list of error messages
      * @param timeZone TimeZone to use to do some type conversion
      * @param locale Locale to use to do some type conversion
      */
-    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages,
+    public Map<String, Object> makeValid(List<ModelParam> modelParams, Map<String, ? extends Object> source, String mode,
+                                         boolean includeInternal, List<Object> errorMessages,
                                          TimeZone timeZone, Locale locale) {
         Map<String, Object> target = new HashMap<>();
 
-        if (source == null) {
-            return target;
-        }
-        if (!IN_PARAM.equals(mode) && !OUT_PARAM.equals(mode) && !IN_OUT_PARAM.equals(mode)) {
-            return target;
-        }
-        if (contextInfo.isEmpty()) {
+        if (source == null || contextInfo.isEmpty() || !List.of(IN_PARAM, OUT_PARAM, IN_OUT_PARAM).contains(mode)) {
             return target;
         }
 
@@ -1550,42 +1651,57 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             }
         }
 
-        for (ModelParam param: contextParamList) {
-            if (param.getMode().equals(IN_OUT_PARAM) || param.getMode().equals(mode)) {
-                String key = param.getName();
+        for (ModelParam modelParam: modelParams) {
+            if (!modelParam.getMode().equals(IN_OUT_PARAM) && !modelParam.getMode().equals(mode)) {
+                continue;
+            }
+            String paramName = modelParam.getName();
 
-                // internal map of strings
-                if (UtilValidate.isNotEmpty(param.getStringMapPrefix()) && !source.containsKey(key)) {
-                    Map<String, Object> paramMap = makePrefixMap(source, param);
-                    if (UtilValidate.isNotEmpty(paramMap)) {
-                        target.put(key, paramMap);
-                    }
-                // internal list of strings
-                } else if (UtilValidate.isNotEmpty(param.getStringListSuffix()) && !source.containsKey(key)) {
-                    List<Object> paramList = makeSuffixList(source, param);
-                    if (UtilValidate.isNotEmpty(paramList)) {
-                        target.put(key, paramList);
-                    }
-                // other attributes
-                } else {
-                    if (source.containsKey(key)) {
-                        if ((param.getInternal() && includeInternal) || (!param.getInternal())) {
-                            Object value = source.get(key);
+            // internal map of strings
+            if (UtilValidate.isNotEmpty(modelParam.getStringMapPrefix()) && !source.containsKey(paramName)) {
+                Map<String, Object> paramMap = makePrefixMap(source, modelParam);
+                if (UtilValidate.isNotEmpty(paramMap)) {
+                    target.put(paramName, paramMap);
+                }
+            // internal list of strings
+            } else if (UtilValidate.isNotEmpty(modelParam.getStringListSuffix()) && !source.containsKey(paramName)) {
+                List<Object> paramList = makeSuffixList(source, modelParam);
+                if (UtilValidate.isNotEmpty(paramList)) {
+                    target.put(paramName, paramList);
+                }
+            // other attributes
+            } else if (source.containsKey(paramName)) {
+                if (!modelParam.getInternal() || includeInternal) {
+                    Object value = source.get(paramName);
 
-                            try {
-                                // no need to fail on type conversion; the validator will catch this
-                                value = ObjectType.simpleTypeOrObjectConvert(value, param.getType(), null, timeZone, locale, false);
-                            } catch (GeneralException e) {
-                                String errMsg = "Type conversion of field [" + key + "] to type [" + param.getType() + "] failed for value \""
-                                        + value + "\": " + e.toString();
-                                Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
-                                if (errorMessages != null) {
-                                    errorMessages.add(errMsg);
-                                }
-                            }
-                            target.put(key, value);
+                    try {
+                        // no need to fail on type conversion; the validator will catch this
+                        value = ObjectType.simpleTypeOrObjectConvert(value, modelParam.getType(), null, timeZone, locale, false);
+                    } catch (GeneralException e) {
+                        String errMsg = "Type conversion of field [" + paramName + "] to type [" + modelParam.getType() + "] failed for value \""
+                                + value + "\": " + e;
+                        Debug.logWarning("[ModelService.makeValid] : " + errMsg, MODULE);
+                        if (errorMessages != null) {
+                            errorMessages.add(errMsg);
                         }
                     }
+                    if (UtilValidate.isNotEmpty(modelParam.getChildren())) {
+                        if (modelParam.getType().endsWith("Map")) {
+                            value = makeValid(modelParam.getChildren(), UtilGenerics.cast(value), mode,
+                                    includeInternal, errorMessages, timeZone, locale);
+                        } else if (modelParam.getType().endsWith("List")) {
+                            List<Map<String, Object>> subParameters = UtilGenerics.cast(value);
+                            if (UtilValidate.isNotEmpty(subParameters)) {
+                                List<Map<String, Object>> valueList = new LinkedList<>();
+                                for (Map<String, Object> paramMap : subParameters) {
+                                    valueList.add(makeValid(modelParam.getChildren(), paramMap, mode,
+                                            includeInternal, errorMessages, timeZone, locale));
+                                }
+                                value = valueList;
+                            }
+                        }
+                    }
+                    target.put(paramName, value);
                 }
             }
         }
