@@ -30,7 +30,7 @@ image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.
 
 If you are reading this file in AsciiDoc format you may want to see it at
 https://nightlies.apache.org/ofbiz/next/readme/html5/README.html[HTML]
-or https://ci.apache.org/projects/ofbiz/site/next/readme/pdf/README.pdf[PDF] format
+or https://nightlies.apache.org/ofbiz/next/readme/pdf/README.pdf[PDF] format
 
 ---
 
