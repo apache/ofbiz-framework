@@ -1,6 +1,3 @@
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.service.ServiceUtil
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,6 +16,10 @@ import org.apache.ofbiz.service.ServiceUtil
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Check Facility Related Permission
@@ -97,3 +98,92 @@ def checkProductFacilityRelatedPermission() {
     }
 }
 
+/**
+ * Create an InventoryItem
+ * @return
+ */
+def createInventoryItem() {
+
+    GenericValue product = from("Product").where(productId: parameters.productId).queryOne()
+
+    // Check if this product can or not have a lotId
+    if (product.lotIdFilledIn == "Mandatory" && !parameters.lotId) {
+        return error(label("ProductErrorUiLabels", "ProductLotIdMandatory", [parameters: parameters]))
+    } else if (product.lotIdFilledIn == "Forbidden" && parameters.lotId) {
+        return error(label("ProductErrorUiLabels", "ProductLotIdForbidden", [parameters: parameters]))
+    }
+
+    // If this InventoryItem is returned by a manufacturing task, don't create a lot
+    if (parameters.isReturned == "N" && parameters.lotId) {
+        // Create the lot if if doesn't already exist.
+        List<GenericValue> lotList = from("Lot").where(lotId: parameters.lotId).queryList()
+        if (!lotList) {
+            GenericValue lot = makeValue("Lot")
+            lot.lotId = parameters.lotId
+            lot.create()
+        }
+    }
+
+    GenericValue inventoryItem = makeValue("InventoryItem")
+    // TODO: make sure availableToPromiseTotal and quantityOnHandTotal are not changed
+    inventoryItem.setNonPKFields(parameters)
+
+    if (!inventoryItem.facilityId) {
+        return error(label("ProductUiLabels", "FacilityInventoryItemsMissingFacilityId"))
+    }
+
+    // if inventoryItem's ownerPartyId is empty, get the ownerPartyId from the facility
+    if (!inventoryItem.ownerPartyId) {
+        GenericValue facility = delegator.getRelatedOne("Facility", inventoryItem, false)
+        inventoryItem.ownerPartyId = facility.ownerPartyId
+        // if inventoryItem's ownerPartyId is still empty, return an error message
+        if (!inventoryItem.ownerPartyId) {
+            return error(label("ProductUiLabels", "FacilityInventoryItemsMissingOwnerPartyId"))
+        }
+    }
+
+    // if inventoryItem's currencyUomId is empty, get the currencyUomId
+    // from the party accounting preferences of the owner of the inventory item
+    if (!inventoryItem.currencyUomId) {
+        Map partyAccountingPreferencesCallMap = [organizationPartyId: inventoryItem.ownerPartyId]
+        Map serviceResult = run service: "getPartyAccountingPreferences", with: partyAccountingPreferencesCallMap
+        Map accPref = serviceResult.partyAccountingPreference
+        inventoryItem.currencyUomId = accPref.baseCurrencyUomId
+        if (!inventoryItem.currencyUomId) {
+            inventoryItem.currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+        }
+        // if inventoryItem's currencyUomId is still empty, return an error message
+        if (!inventoryItem.currencyUomId) {
+            return error(label("ProductUiLabels", "FacilityInventoryItemsMissingCurrencyId"))
+        }
+    }
+
+    // if inventoryItem's unitCost is empty, get the product's standard
+    // cost by calling the getProductCost service
+    if (!inventoryItem.unitCost) {
+        // TODO: create a new service getProductStdCost that calls getProductCost
+        Map inputMap = [productId: inventoryItem.productId, currencyUomId: inventoryItem.currencyUomId, costComponentTypePrefix: "EST_STD"]
+        Map productCostResult = run service: "getProductCost", with: inputMap
+        if (!ServiceUtil.isSuccess(productCostResult)) {
+            return productCostResult
+        }
+        inventoryItem.unitCost = productCostResult.productCost
+    }
+
+    // if inventoryItem's unitCost is still empty, or negative return an error message
+    // TODO/WARNING: getProductCost returns 0 even if no std costs are found
+    if (!inventoryItem.unitCost && inventoryItem.unitCost != (BigDecimal) 0) {
+        return error(label("ProductUiLabels", "FacilityInventoryItemsMissingUnitCost"))
+    }
+
+    // if you don't want inventory item with unitCost = 0, change the operator
+    // attribute from "less" to "less-equals".
+    if (inventoryItem.unitCost < (BigDecimal) 0) {
+        return error(label("ProductUiLabels", "FacilityInventoryItemsNegativeUnitCost"))
+    }
+
+    inventoryItem.inventoryItemId = delegator.getNextSeqId("InventoryItem")
+    inventoryItem.create()
+
+    return success([inventoryItemId: inventoryItem.inventoryItemId])
+}
