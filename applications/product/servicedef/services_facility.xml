@@ -35,8 +35,8 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
     <!-- Product Inventory Services -->
-    <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
+    <service name="createInventoryItem" default-entity-name="InventoryItem" engine="groovy"
+                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -104,12 +104,6 @@ under the License.
         </type-validate>
         </attribute>
 
-    </service>
-    <service name="inventoryItemCheckSetDefaultValues" default-entity-name="InventoryItem" engine="simple"
-                location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="inventoryItemCheckSetDefaultValues" auth="false">
-        <description>Check and, if empty, fills with default values ownerPartyId, currencyUomId, unitCost</description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
-        <attribute name="inventoryItem" type="Map" mode="IN" optional="true"/>
     </service>
     <service name="createInventoryItemDetail" default-entity-name="InventoryItemDetail" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemDetail" auth="true">
