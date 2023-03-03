@@ -56,7 +56,6 @@ context.eventList = eventList
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()))
 viewList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:]
     statsId = iterator.next()
     bin = ServerHitBin.viewSinceStarted.get(statsId)
     if (bin) {
