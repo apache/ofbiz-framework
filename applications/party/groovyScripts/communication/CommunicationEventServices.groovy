@@ -483,7 +483,7 @@ def sendEmailDated() {
     List<GenericValue> communicationEvents = from("CommunicationEvent").where(conditions).queryList()
     communicationEvents.each { communicationEvent ->
         // run service don't cover the new transaction need
-        serviceContext.communicationEvent = communicationEvent
+        serviceContext.communicationEventId = communicationEvent.communicationEventId
         dispatcher.runSync("sendCommEventAsEmail", serviceContext, 7200, true)
     }
 
