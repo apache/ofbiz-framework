@@ -31,6 +31,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.partyDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                         <decorator-section-include name="body"/>
