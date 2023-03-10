@@ -39,9 +39,16 @@ if (trackingCodeId) {
     orderConditionList.add(EntityCondition.makeCondition('trackingCodeId', EntityOperator.EQUALS, trackingCodeId))
 }
 
-visits = select('trackingCodeId', 'visitId').from('TrackingCodeAndVisit').where(visitConditionList).orderBy('trackingCodeId').queryList()
+visits = select('trackingCodeId', 'visitId')
+    .from('TrackingCodeAndVisit')
+    .where(visitConditionList)
+    .orderBy('trackingCodeId')
+    .queryList()
 orders = select('trackingCodeId', 'orderId', 'grandTotal')
-        .from('TrackingCodeAndOrderHeader').where(orderConditionList).orderBy('trackingCodeId').queryList()
+        .from('TrackingCodeAndOrderHeader')
+        .where(orderConditionList)
+        .orderBy('trackingCodeId')
+        .queryList()
 
 // use this helper to build a List of visits, orders, order totals, and conversion rates
 trackingCodeVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, 'trackingCodeId')
