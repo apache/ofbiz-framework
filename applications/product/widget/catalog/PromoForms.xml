@@ -100,12 +100,21 @@ under the License.
     </form>
     <grid name="ListProductPromoCodes" list-name="productPromoCodes"
         odd-row-style="alternate-row" default-table-style="basic-table">
+        <row-actions>
+            <entity-and entity-name="ProductPromoUse" list="usages">
+                <field-map field-name="productPromoId" from-field="productPromoId"/>
+                <field-map field-name="productPromoCodeId" from-field="productPromoCodeId"/>
+            </entity-and>
+        </row-actions>
         <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>
         <field name="productPromoId"><hidden/></field>
         <field name="productPromoCodeId" widget-style="buttontext">
             <hyperlink description="${productPromoCodeId}" target="EditProductPromoCode" also-hidden="false">
                 <parameter param-name="productPromoCodeId"/>
             </hyperlink>
+        </field>
+        <field name="usages" title="${uiLabelMap.FormFieldTitle_redeemedCodesCount}">
+            <display description="${groovy: usages.size()} / ${useLimitPerCode}"></display>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductPromoCode" also-hidden="false">
