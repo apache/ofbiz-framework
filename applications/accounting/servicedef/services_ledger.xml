@@ -193,12 +193,12 @@ under the License.
         <override name="glFiscalTypeId" optional="false"/>
     </service>
     <!-- AcctgTrans services -->
-    <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="create" auth="true">
-        <description>Create a AcctgTrans record.  isPosted is forced to "N"</description>
+    <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="groovy" auth="true"
+             location="component://accounting/groovyScripts/ledger/GeneralLedgerServices.groovy" invoke="createAcctgTrans" >
+        <description>Create a AcctgTrans record with isPosted set to "N"</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTrans"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <override name="isPosted" default-value="N"/>
     </service>
     <service name="updateAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="update" auth="true">
         <description>Update a AcctgTrans record</description>
