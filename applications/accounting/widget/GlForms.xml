@@ -730,15 +730,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="transactionDate"  position="1"></field>
+        <field name="transactionDate"  position="1" required-field="true" />
         <field name="scheduledPostingDate"  position="2"></field>
-        <field name="isPosted"  position="1">
-            <drop-down allow-empty="true">
-                <option key="N" description="${uiLabelMap.CommonNo}"/>
-                <option key="Y" description="${uiLabelMap.CommonYes}"/>
-            </drop-down>
-        </field>
-        <field name="postedDate" position="2"><date-time/></field>
         <field name="receiptId"  position="1"></field>
         <field name="theirAcctgTransId"  position="2"></field>
         <field name="voucherRef" position="1"></field>
