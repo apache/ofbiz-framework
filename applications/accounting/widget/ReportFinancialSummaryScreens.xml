@@ -304,18 +304,21 @@ under the License.
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
+                <entity-one entity-name="CustomTimePeriod" value-field="customTimePeriod" auto-field-map="true" use-cache="true"/>
                 <script location="component://accounting/groovyScripts/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container style="h3">
+                        <container style="h1">
                             <label text="${uiLabelMap.AccountingTrialBalance}"/>
+                        </container>
+                        <container style="h2">
+                            <label text="${uiLabelMap.AccountingTimePeriod}: ${customTimePeriod.periodName}: ${customTimePeriod.fromDate} - ${customTimePeriod.thruDate}"/>
                         </container>
                         <container style="h3">
                             <label text="${uiLabelMap.AccountingConsolidatedDataFromDivisions}"/>
                         </container>
-                        <include-form name="TrialBalanceFinancialTimePeriodSelection" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         <include-grid name="TrialBalanceReport" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         <container style="h3">
                             <label text="${uiLabelMap.AccountingDebitFlag}: ${postedDebitsTotal}"/>
