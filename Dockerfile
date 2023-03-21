@@ -3,7 +3,7 @@ FROM eclipse-temurin:17 as builder
 
 # Git is used for various OFBiz build tasks.
 RUN apt-get update \
-    && apt-get install -y git \
+    && apt-get install -y --no-install-recommends git \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /builder
@@ -19,7 +19,14 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
     ["./gradlew", "--console", "plain"]
 
 # Copy all OFBiz sources.
-COPY . .
+COPY applications/ applications/
+COPY config/ config/
+COPY framework/ framework/
+COPY gradle/ gradle/
+COPY lib/ lib/
+COPY plugins/ plugins/
+COPY themes/ themes/
+COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings.gradle .
 
 # Build OFBiz while mounting a gradle cache
 RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
@@ -67,6 +74,8 @@ CMD ["bin/ofbiz"]
 # that is ready to go for demo purposes.
 FROM runtimebase as demo
 
+USER ofbiz
+
 RUN /ofbiz/bin/ofbiz --load-data
 RUN mkdir --parents /ofbiz/runtime/container_state
 RUN touch /ofbiz/runtime/container_state/data_loaded
@@ -80,6 +89,8 @@ VOLUME ["/ofbiz/config", "/ofbiz/runtime", "/ofbiz/lib-extra"]
 ###################################################################################
 # Runtime image with no data loaded.
 FROM runtimebase as runtime
+
+USER ofbiz
 
 VOLUME ["/docker-entrypoint-hooks"]
 VOLUME ["/ofbiz/config", "/ofbiz/runtime", "/ofbiz/lib-extra"]
