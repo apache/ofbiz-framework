@@ -24,6 +24,7 @@ COPY config/ config/
 COPY framework/ framework/
 COPY gradle/ gradle/
 COPY lib/ lib/
+# We use a regex to match the plugins directory to avoid a build error when the directory doesn't exist.
 COPY plugin[s]/ plugins/
 COPY themes/ themes/
 COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings.gradle .
