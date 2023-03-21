@@ -5,3 +5,7 @@ Dockerfile
 /runtime/
 /themes/common-theme/webapp/common/js/node_modules/
 /themes/common-theme/webapp/common-theme/js/node_modules/
+/plugins/.svn
+/plugins/.github
+/plugins/.git
+

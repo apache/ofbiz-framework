@@ -24,7 +24,7 @@ COPY config/ config/
 COPY framework/ framework/
 COPY gradle/ gradle/
 COPY lib/ lib/
-COPY plugins/ plugins/
+COPY plugin[s]/ plugins/
 COPY themes/ themes/
 COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings.gradle .
 
