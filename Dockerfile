@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM eclipse-temurin:17 as builder
+FROM eclipse-temurin:17 AS builder
 
 # Git is used for various OFBiz build tasks.
 RUN apt-get update \
@@ -24,7 +24,8 @@ COPY config/ config/
 COPY framework/ framework/
 COPY gradle/ gradle/
 COPY lib/ lib/
-COPY plugins/ plugins/
+# We use a regex to match the plugins directory to avoid a build error when the directory doesn't exist.
+COPY plugin[s]/ plugins/
 COPY themes/ themes/
 COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings.gradle .
 
@@ -35,7 +36,7 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
 
 ###################################################################################
 
-FROM eclipse-temurin:17 as runtimebase
+FROM eclipse-temurin:17 AS runtimebase
 
 RUN ["useradd", "ofbiz"]
 
@@ -72,7 +73,7 @@ CMD ["bin/ofbiz"]
 ###################################################################################
 # Load demo data before defining volumes. This results in a container image
 # that is ready to go for demo purposes.
-FROM runtimebase as demo
+FROM runtimebase AS demo
 
 USER ofbiz
 
@@ -88,7 +89,7 @@ VOLUME ["/ofbiz/config", "/ofbiz/runtime", "/ofbiz/lib-extra"]
 
 ###################################################################################
 # Runtime image with no data loaded.
-FROM runtimebase as runtime
+FROM runtimebase AS runtime
 
 USER ofbiz
 
