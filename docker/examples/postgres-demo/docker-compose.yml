@@ -1,0 +1,26 @@
+version: "2.4"
+
+services:
+  db:
+    image: postgres:13
+    mem_limit: 300M
+    memswap_limit: 300M
+    cpu_shares: 200
+    restart: "no"
+    volumes:
+      - ./postgres-initdb.d:/docker-entrypoint-initdb.d
+    env_file:
+      - postgres.env
+      - ofbiz-postgres.env
+
+  ofbiz:
+    image: ofbiz-docker
+    mem_limit: 1600M
+    memswap_limit: 1600M
+    cpu_shares: 200
+    ports:
+      - 8443:8443
+    env_file:
+      - ofbiz-postgres.env
+    environment:
+      OFBIZ_DATA_LOAD: demo

@@ -1,0 +1,114 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Build and push docker images
+
+on:
+  push:
+    branches: [ experimental-docker ]
+    tags:
+      - '**'
+
+jobs:
+  docker_build:
+    name: Build and push OFBiz docker container images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out OFBiz sources
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      ############################################################################
+      # Build and push a container image of the OFBiz Framework without any data loaded.
+      - name: Determine metadata (tags, labels) for Docker runtime build
+        id: runtimemeta
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        with:
+          images: ghcr.io/apache/ofbiz
+          tags: |
+            # Extract container tag from git tag.
+            type=match,pattern=release(.*),group=1
+            # Build container tag based on branch name and string '-snapshot'
+            type=ref,event=branch,suffix=-snapshot,priority=650
+
+      - name: Build and push runtime docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          target: runtime
+          push: true
+          tags: ${{ steps.runtimemeta.outputs.tags }}
+          labels: ${{ steps.runtimemeta.outputs.labels }}
+
+      ############################################################################
+      # Build and push a container image of the OFBiz Framework preloaded with demo data
+      - name: Determine metadata (tags, labels) for Docker demo-preload build
+        id: demometa
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        with:
+          images: ghcr.io/apache/ofbiz
+          tags: |
+            type=match,pattern=release(.*),group=1,suffix=-preloaddemo
+            type=ref,event=branch,suffix=-preloaddemo-snapshot,priority=650
+
+      - name: Build and push demo docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          target: demo
+          push: true
+          tags: ${{ steps.demometa.outputs.tags }}
+          labels: ${{ steps.demometa.outputs.labels }}
+
+        ############################################################################
+        # Build and push a container image of the OFBiz Framework plus Plugins,
+        # without any data loaded.
+        # We need to use gradle to download sources as plugins might include an install
+        # task in their own build.gradle files. If the project drops support for plugins'
+        # install tasks then we can replace the JDK and gradle related steps below with
+        # a git checkout from the https://github.com/apache/ofbiz-plugins repository.
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3.6.0
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: 'gradle'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew pullAllPluginsSource
+      - name: Determine metadata (tags, labels) for Docker framework with plugins build
+        id: pluginsmeta
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        with:
+          images: ghcr.io/apache/ofbiz
+          tags: |
+            type=match,pattern=release(.*),group=1,suffix=-plugins
+            type=ref,event=branch,suffix=-plugins-snapshot,priority=650
+
+      - name: Build and push framework with plugins docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          target: runtime
+          push: true
+          tags: ${{ steps.pluginsmeta.outputs.tags }}
+          labels: ${{ steps.pluginsmeta.outputs.labels }}
