@@ -82,19 +82,20 @@ if (action) {
         }
     }
 
-/* codenarc-disable */
-    prodView.addMemberEntity('PRFA', 'ProductFacility')
-    prodView.addAlias('PRFA', 'productId', null, null, null, Boolean.TRUE, null)
-    prodView.addAlias('PRFA', 'minimumStock', null, null, null, Boolean.TRUE, null)
-    prodView.addAlias('PRFA', 'reorderQuantity', null, null, null, Boolean.TRUE, null)
-    prodView.addAlias('PRFA', 'daysToShip', null, null, null, Boolean.TRUE, null)
-    prodView.addAlias('PRFA', 'facilityId', null, null, null, Boolean.TRUE, null)
+    prodView.with {
+        addMemberEntity('PRFA', 'ProductFacility')
+        addAlias('PRFA', 'productId', null, null, null, Boolean.TRUE, null)
+        addAlias('PRFA', 'minimumStock', null, null, null, Boolean.TRUE, null)
+        addAlias('PRFA', 'reorderQuantity', null, null, null, Boolean.TRUE, null)
+        addAlias('PRFA', 'daysToShip', null, null, null, Boolean.TRUE, null)
+        addAlias('PRFA', 'facilityId', null, null, null, Boolean.TRUE, null)
 
-    prodView.addMemberEntity('PROD', 'Product')
-    prodView.addViewLink('PROD', 'PRFA', Boolean.FALSE, ModelKeyMap.makeKeyMapList('productId'))
-    prodView.addAlias('PROD', 'internalName', null, null, null, Boolean.TRUE, null)
-    prodView.addAlias('PROD', 'isVirtual', null, null, null, Boolean.TRUE, null)
-    prodView.addAlias('PROD', 'salesDiscontinuationDate', null, null, null, Boolean.TRUE, null)
+        addMemberEntity('PROD', 'Product')
+        addViewLink('PROD', 'PRFA', Boolean.FALSE, ModelKeyMap.makeKeyMapList('productId'))
+        addAlias('PROD', 'internalName', null, null, null, Boolean.TRUE, null)
+        addAlias('PROD', 'isVirtual', null, null, null, Boolean.TRUE, null)
+        addAlias('PROD', 'salesDiscontinuationDate', null, null, null, Boolean.TRUE, null)
+    }
     if (productTypeId) {
         prodView.addAlias('PROD', 'productTypeId', null, null, null, Boolean.TRUE, null)
         conditionMap.productTypeId = productTypeId
@@ -188,36 +189,37 @@ if (action) {
 
     if (checkTime) {
         // Construct a dynamic view entity to search against for sales usage quantities
-        salesUsageViewEntity = new DynamicViewEntity()
-        salesUsageViewEntity.addMemberEntity('OI', 'OrderItem')
-        salesUsageViewEntity.addMemberEntity('OH', 'OrderHeader')
-        salesUsageViewEntity.addMemberEntity('ItIss', 'ItemIssuance')
-        salesUsageViewEntity.addMemberEntity('InvIt', 'InventoryItem')
-        salesUsageViewEntity.addViewLink('OI', 'OH', false, ModelKeyMap.makeKeyMapList('orderId'))
-        salesUsageViewEntity.addViewLink('OI', 'ItIss', false, ModelKeyMap.makeKeyMapList('orderId', 'orderId', 'orderItemSeqId', 'orderItemSeqId'))
-        salesUsageViewEntity.addViewLink('ItIss', 'InvIt', false, ModelKeyMap.makeKeyMapList('inventoryItemId'))
-        salesUsageViewEntity.addAlias('OI', 'productId')
-        salesUsageViewEntity.addAlias('OH', 'statusId')
-        salesUsageViewEntity.addAlias('OH', 'orderTypeId')
-        salesUsageViewEntity.addAlias('OH', 'orderDate')
-        salesUsageViewEntity.addAlias('ItIss', 'inventoryItemId')
-        salesUsageViewEntity.addAlias('ItIss', 'quantity')
-        salesUsageViewEntity.addAlias('InvIt', 'facilityId')
+        salesUsageViewEntity = new DynamicViewEntity().with {
+            addMemberEntity('OI', 'OrderItem')
+            addMemberEntity('OH', 'OrderHeader')
+            addMemberEntity('ItIss', 'ItemIssuance')
+            addMemberEntity('InvIt', 'InventoryItem')
+            addViewLink('OI', 'OH', false, ModelKeyMap.makeKeyMapList('orderId'))
+            addViewLink('OI', 'ItIss', false, ModelKeyMap.makeKeyMapList('orderId', 'orderId', 'orderItemSeqId', 'orderItemSeqId'))
+            addViewLink('ItIss', 'InvIt', false, ModelKeyMap.makeKeyMapList('inventoryItemId'))
+            addAlias('OI', 'productId')
+            addAlias('OH', 'statusId')
+            addAlias('OH', 'orderTypeId')
+            addAlias('OH', 'orderDate')
+            addAlias('ItIss', 'inventoryItemId')
+            addAlias('ItIss', 'quantity')
+            addAlias('InvIt', 'facilityId')
+        }
 
         // Construct a dynamic view entity to search against for production usage quantities
-        productionUsageViewEntity = new DynamicViewEntity()
-        productionUsageViewEntity.addMemberEntity('WEIA', 'WorkEffortInventoryAssign')
-        productionUsageViewEntity.addMemberEntity('WE', 'WorkEffort')
-        productionUsageViewEntity.addMemberEntity('II', 'InventoryItem')
-        productionUsageViewEntity.addViewLink('WEIA', 'WE', false, ModelKeyMap.makeKeyMapList('workEffortId'))
-        productionUsageViewEntity.addViewLink('WEIA', 'II', false, ModelKeyMap.makeKeyMapList('inventoryItemId'))
-        productionUsageViewEntity.addAlias('WEIA', 'quantity')
-        productionUsageViewEntity.addAlias('WE', 'actualCompletionDate')
-        productionUsageViewEntity.addAlias('WE', 'workEffortTypeId')
-        productionUsageViewEntity.addAlias('II', 'facilityId')
-        productionUsageViewEntity.addAlias('II', 'productId')
+        productionUsageViewEntity = new DynamicViewEntity().with {
+            addMemberEntity('WEIA', 'WorkEffortInventoryAssign')
+            addMemberEntity('WE', 'WorkEffort')
+            addMemberEntity('II', 'InventoryItem')
+            addViewLink('WEIA', 'WE', false, ModelKeyMap.makeKeyMapList('workEffortId'))
+            addViewLink('WEIA', 'II', false, ModelKeyMap.makeKeyMapList('inventoryItemId'))
+            addAlias('WEIA', 'quantity')
+            addAlias('WE', 'actualCompletionDate')
+            addAlias('WE', 'workEffortTypeId')
+            addAlias('II', 'facilityId')
+            addAlias('II', 'productId')
+        }
     }
-/* codenarc-enable */
 
     whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND)
 
