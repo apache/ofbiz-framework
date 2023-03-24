@@ -76,6 +76,7 @@ Environment variables are used in `docker-entrypoint.sh` to control configuratio
 |OFBIZ_CONTENT_URL_PREFIX | <empty> | Used to set the content.url.prefix.secure and content.url.prefix.standard properties in `framework/webapp/config/url.properties`. |
 |OFBIZ_ENABLE_AJP_PORT | *empty* | Enable the AJP (Apache JServe Protocol) port to allow communication with OFBiz via a reverse proxy. Enabled when this environment variable contains a non-empty value. |
 |OFBIZ_SKIP_DB_DRIVER_DOWNLOAD | *empty* | Any non-empty value will cause the docker-entrypoint.sh script to skip downloading of any database drivers. |
+|OFBIZ_DISABLE_COMPONENTS | plugins/birt/ofbiz-component.xml | Commas seperated list of paths to ofbiz-component.xml files of the components that should not be loaded. | 
 
 ### Hooks
 At various steps of initialisation, the `docker-entrypoint.sh` script will check for

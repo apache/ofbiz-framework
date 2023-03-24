@@ -38,6 +38,11 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
 
 FROM eclipse-temurin:17 AS runtimebase
 
+# xsltproc is used to disable OFBiz components during first run.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends xsltproc \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN ["useradd", "ofbiz"]
 
 # Create directories used to mount volumes where hooks into the startup process can be placed.
@@ -60,6 +65,7 @@ RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz.tar
 RUN ["mkdir", "/ofbiz/runtime", "/ofbiz/config", "/ofbiz/lib-extra"]
 
 COPY docker/docker-entrypoint.sh .
+COPY docker/disable-component.xslt .
 COPY docker/send_ofbiz_stop_signal.sh .
 COPY docker/templates templates
 
