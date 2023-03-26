@@ -20,7 +20,11 @@ services:
     cpu_shares: 200
     ports:
       - 8443:8443
+    volumes:
+      - ./after-config-applied.d:/docker-entrypoint-hooks/after-config-applied.d
     env_file:
       - ofbiz-postgres.env
     environment:
       OFBIZ_DATA_LOAD: demo
+      OFBIZ_HOST: example.internal
+      OFBIZ_CONTENT_URL_PREFIX: https://example.internal:8443
