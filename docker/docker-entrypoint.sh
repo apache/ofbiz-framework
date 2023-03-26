@@ -54,7 +54,7 @@
 # OFBIZ_CONTENT_URL_PREFIX
 # Used to set the content.url.prefix.secure and content.url.prefix.standard properties in
 # framework/webapp/config/url.properties.
-# Default: <empty>>
+# Default: <empty>
 #
 # OFBIZ_ENABLE_AJP_PORT
 # Enable the AJP (Apache JServe Protocol) port to allow communication with OFBiz via a reverse proxy.
@@ -192,7 +192,7 @@ run_init_hooks() {
 # If required, load data into OFBiz.
 load_data() {
   if [ ! -f "$CONTAINER_DATA_LOADED" ]; then
-    run_init_hooks /docker-entrypoint-hooks/before-data-load.d/*
+    run_init_hooks before-data-load /docker-entrypoint-hooks/before-data-load.d/*
 
     case "$OFBIZ_DATA_LOAD" in
     none) ;;
@@ -215,7 +215,7 @@ load_data() {
 
     touch "$CONTAINER_DATA_LOADED"
 
-    run_init_hooks /docker-entrypoint-hooks/after-data-load.d/*
+    run_init_hooks after-data-load /docker-entrypoint-hooks/after-data-load.d/*
   fi
 }
 
@@ -294,7 +294,7 @@ disable_components() {
 # in the classpath and override the build-time copies of the properties in ofbiz.jar.
 apply_configuration() {
   if [ ! -f "$CONTAINER_CONFIG_APPLIED" ]; then
-    run_init_hooks /docker-entrypoint-hooks/before-config-applied.d/*
+    run_init_hooks before-config-applied /docker-entrypoint-hooks/before-config-applied.d/*
 
     if [ -n "$OFBIZ_ENABLE_AJP_PORT" ]; then
       # Configure tomcat to listen for AJP connections on all interfaces within the container.
@@ -320,7 +320,7 @@ apply_configuration() {
     fi
 
     touch "$CONTAINER_CONFIG_APPLIED"
-    run_init_hooks /docker-entrypoint-hooks/after-config-applied.d/*
+    run_init_hooks after-config-applied /docker-entrypoint-hooks/after-config-applied.d/*
   fi
 }
 
