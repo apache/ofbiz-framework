@@ -80,6 +80,11 @@
 # OFBIZ_POSTGRES_TENANT_USER        Default: ofbiztenant
 # OFBIZ_POSTGRES_TENANT_PASSWORD    Default: ofbiztenant
 #
+# OFBIZ_DISABLE_COMPONENTS
+# Prevents loading of ofbiz-components.
+# Contains a comma separated list of relative paths from the ofbiz sources directory to the ofbiz-component.xml files
+# that should be prevented from loading.
+# Default: plugins/birt/ofbiz-component.xml
 #
 # Hooks are executed at the various stages of the initialisation process by executing scripts in the following
 # directories. Scripts must be executable and have the .sh extension:
@@ -140,6 +145,8 @@ ofbiz_setup_env() {
   OFBIZ_POSTGRES_TENANT_DB=${OFBIZ_POSTGRES_TENANT_DB:-ofbiztenant}
   OFBIZ_POSTGRES_TENANT_USER=${OFBIZ_POSTGRES_TENANT_USER:-ofbiztenant}
   OFBIZ_POSTGRES_TENANT_PASSWORD=${OFBIZ_POSTGRES_TENANT_PASSWORD:-ofbiztenant}
+
+  OFBIZ_DISABLE_COMPONENTS=${OFBIZ_DISABLE_COMPONENTS-plugins/birt/ofbiz-component.xml}
 }
 
 ###############################################################################
@@ -246,6 +253,42 @@ load_admin_user() {
 }
 
 ###############################################################################
+# Modify the given ofbiz-component configuration XML file to set the root
+# component's 'enabled' attribute to false.
+# $1 - Path to the XML file to be modified.
+disable_component() {
+  XML_FILE="/ofbiz/$1"
+  if [ -f "$XML_FILE" ]; then
+    TMPFILE=$(mktemp)
+
+    xsltproc /ofbiz/disable-component.xslt "$XML_FILE" > "$TMPFILE"
+    mv "$TMPFILE" "$XML_FILE"
+  else
+    echo "Cannot find ofbiz-component configuration file. Not disabling component: $XML_FILE"
+  fi
+}
+
+###############################################################################
+# Modify the given ofbiz-component configuration XML files to set their root
+# components' 'enabled' attribute to false.
+# $1 - Comma separated list of paths to configuration XML files to be modified.
+disable_components() {
+  COMMA_SEPARATED_PATHS="$1"
+
+  if [ -n "$COMMA_SEPARATED_PATHS" ]; then
+
+    # Split the comma separated paths into separate arguments.
+    IFS=,
+    set "$COMMA_SEPARATED_PATHS"
+
+    while [ -n "$1" ]; do
+      disable_component "$1"
+      shift
+    done
+  fi
+}
+
+###############################################################################
 # Apply any configuration changes required.
 # Changed property files need to be placed in /ofbiz/config so they appear earlier
 # in the classpath and override the build-time copies of the properties in ofbiz.jar.
@@ -270,6 +313,10 @@ apply_configuration() {
         --expression="s#content.url.prefix.secure=.*#content.url.prefix.secure=${OFBIZ_CONTENT_URL_PREFIX}#;" \
         --expression="s#content.url.prefix.standard=.*#content.url.prefix.standard=${OFBIZ_CONTENT_URL_PREFIX}#;" \
         framework/webapp/config/url.properties >config/url.properties
+    fi
+
+    if [ -n "$OFBIZ_DISABLE_COMPONENTS" ]; then
+      disable_component "$OFBIZ_DISABLE_COMPONENTS"
     fi
 
     touch "$CONTAINER_CONFIG_APPLIED"
