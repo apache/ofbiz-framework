@@ -13,6 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#############################################################################
+# Local testing of this workflow can be carried out using
+# act (https://github.com/nektos/act).
+#
+# Act will set an environment variable, ACT, to indicate that it is running the workflow.
+# This environment variable is used to skip some build steps, such as logging in to
+# a container registry or pushing container images.
+#
+# On first run, act will prompt you to select a micro, medium or large runner image. This
+# workflow can be run using the medium image.
+#
+# Some actions, such as docker/metadata-action, require a GITHUB_TOKEN. To meet this
+# requirement when using act you will need to create a Personal Access Token on GitHub.
+# You can then run act using a command similar to:
+#   act --job docker_build --secret GITHUB_TOKEN
+# Act will then prompt you to enter your token.
+
+
 name: Build and push docker images
 
 on:
@@ -30,6 +48,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to the Container registry
+        if: ${{ !env.ACT }}
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           registry: ghcr.io
@@ -54,7 +73,7 @@ jobs:
         with:
           context: .
           target: runtime
-          push: true
+          push: ${{ !env.ACT }}
           tags: ${{ steps.runtimemeta.outputs.tags }}
           labels: ${{ steps.runtimemeta.outputs.labels }}
 
@@ -74,7 +93,7 @@ jobs:
         with:
           context: .
           target: demo
-          push: true
+          push: ${{ !env.ACT }}
           tags: ${{ steps.demometa.outputs.tags }}
           labels: ${{ steps.demometa.outputs.labels }}
 
@@ -109,6 +128,6 @@ jobs:
         with:
           context: .
           target: runtime
-          push: true
+          push: ${{ !env.ACT }}
           tags: ${{ steps.pluginsmeta.outputs.tags }}
           labels: ${{ steps.pluginsmeta.outputs.labels }}
