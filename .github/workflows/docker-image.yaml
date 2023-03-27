@@ -68,6 +68,24 @@ jobs:
             # Build container tag based on branch name and string '-snapshot'
             type=ref,event=branch,suffix=-snapshot,priority=650
 
+      - name: Update VERSION file
+        run: |
+          # Populate the VERSION file based on the outputs of the metadata-action above.
+          # The same VERSION file will be used for all container images built in this workflow.
+
+          # Set the version label for this build.
+          echo "${{fromJSON(steps.runtimemeta.outputs.json).labels['org.opencontainers.image.version']}}. " > VERSION
+
+          # Append the git commit SHA.
+          echo '${uiLabelMap.CommonRevision}:' "${{fromJSON(steps.runtimemeta.outputs.json).labels['org.opencontainers.image.revision']}}. " >> VERSION
+
+          # Append the timestamp.
+          echo '${uiLabelMap.CommonBuiltOn}:' "${{fromJSON(steps.runtimemeta.outputs.json).labels['org.opencontainers.image.created']}}. " >> VERSION
+
+          echo "Version file contents:"
+          cat VERSION
+
+
       - name: Build and push runtime docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:

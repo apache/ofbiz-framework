@@ -64,9 +64,13 @@ RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz.tar
 # Create directories for OFBiz volume mountpoints.
 RUN ["mkdir", "/ofbiz/runtime", "/ofbiz/config", "/ofbiz/lib-extra"]
 
-COPY docker/docker-entrypoint.sh .
+# Append the java runtime version to the OFBiz VERSION file.
+COPY VERSION .
+RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | sed 's/.*Runtime Environment //; s/ (build.*//;')" >> /ofbiz/VERSION
+
+COPY --chmod=755 docker/docker-entrypoint.sh .
 COPY docker/disable-component.xslt .
-COPY docker/send_ofbiz_stop_signal.sh .
+COPY --chmod=755 docker/send_ofbiz_stop_signal.sh .
 COPY docker/templates templates
 
 EXPOSE 8443
