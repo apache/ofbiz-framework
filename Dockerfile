@@ -65,13 +65,12 @@ RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz.tar
 RUN ["mkdir", "/ofbiz/runtime", "/ofbiz/config", "/ofbiz/lib-extra"]
 
 # Append the java runtime version to the OFBiz VERSION file.
-COPY VERSION .
+COPY --chmod=644 --chown=ofbiz:ofbiz VERSION .
 RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | sed 's/.*Runtime Environment //; s/ (build.*//;')" >> /ofbiz/VERSION
 
-COPY --chmod=755 docker/docker-entrypoint.sh .
-COPY docker/disable-component.xslt .
-COPY --chmod=755 docker/send_ofbiz_stop_signal.sh .
-COPY docker/templates templates
+COPY --chmod=755 --chown=ofbiz:ofbiz docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
+COPY --chmod=644 --chown=ofbiz:ofbiz docker/disable-component.xslt .
+COPY --chmod=644 --chown=ofbiz:ofbiz docker/templates templates
 
 EXPOSE 8443
 EXPOSE 8009
