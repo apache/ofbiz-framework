@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="AV" geoCode="GT-16" geoId="GT-16" geoName="Alta Verapaz" geoTypeId="STATE"/>
+    <Geo abbreviation="BV" geoCode="GT-15" geoId="GT-15" geoName="Baja Verapaz" geoTypeId="STATE"/>
+    <Geo abbreviation="SJ" geoCode="GT-04" geoId="GT-04" geoName="Chimaltenango" geoTypeId="STATE"/>
+    <Geo abbreviation="CQ" geoCode="GT-20" geoId="GT-20" geoName="Chiquimula" geoTypeId="STATE"/>
+    <Geo abbreviation="PR" geoCode="GT-02" geoId="GT-02" geoName="El Progreso" geoTypeId="STATE"/>
+    <Geo abbreviation="ES" geoCode="GT-05" geoId="GT-05" geoName="Escuintla" geoTypeId="STATE"/>
+    <Geo abbreviation="GU" geoCode="GT-01" geoId="GT-01" geoName="Guatemala" geoTypeId="STATE"/>
+    <Geo abbreviation="HU" geoCode="GT-13" geoId="GT-13" geoName="Huehuetenango" geoTypeId="STATE"/>
+    <Geo abbreviation="IZ" geoCode="GT-18" geoId="GT-18" geoName="Izabal" geoTypeId="STATE"/>
+    <Geo abbreviation="JA" geoCode="GT-21" geoId="GT-21" geoName="Jalapa" geoTypeId="STATE"/>
+    <Geo abbreviation="JU" geoCode="GT-22" geoId="GT-22" geoName="Jutiapa" geoTypeId="STATE"/>
+    <Geo abbreviation="PE" geoCode="GT-17" geoId="GT-17" geoName="Petén" geoTypeId="STATE"/>
+    <Geo abbreviation="QZ" geoCode="GT-09" geoId="GT-09" geoName="Quetzaltenango" geoTypeId="STATE"/>
+    <Geo abbreviation="QC" geoCode="GT-14" geoId="GT-14" geoName="Quiché" geoTypeId="STATE"/>
+    <Geo abbreviation="RE" geoCode="GT-11" geoId="GT-11" geoName="Retalhuleu" geoTypeId="STATE"/>
+    <Geo abbreviation="SA" geoCode="GT-03" geoId="GT-03" geoName="Sacatepéquez" geoTypeId="STATE"/>
+    <Geo abbreviation="SM" geoCode="GT-12" geoId="GT-12" geoName="San Marcos" geoTypeId="STATE"/>
+    <Geo abbreviation="SR" geoCode="GT-06" geoId="GT-06" geoName="Santa Rosa" geoTypeId="STATE"/>
+    <Geo abbreviation="SO" geoCode="GT-07" geoId="GT-07" geoName="Sololá" geoTypeId="STATE"/>
+    <Geo abbreviation="SU" geoCode="GT-10" geoId="GT-10" geoName="Suchitepéquez" geoTypeId="STATE"/>
+    <Geo abbreviation="TO" geoCode="GT-08" geoId="GT-08" geoName="Totonicapán" geoTypeId="STATE"/>
+    <Geo abbreviation="ZA" geoCode="GT-19" geoId="GT-19" geoName="Zacapa" geoTypeId="STATE"/>
+
+    <!-- Associations -->
+    <GeoAssoc geoId="GTM" geoIdTo="GT-16" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-15" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-20" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-02" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-05" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-01" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-13" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-18" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-21" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-22" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-17" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-09" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-14" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-11" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-12" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-07" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-10" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-08" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="GTM" geoIdTo="GT-19" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
