@@ -339,7 +339,7 @@ configure_database() {
         --expression="s/@OLAP_PASSWORD@/$OFBIZ_POSTGRES_OLAP_PASSWORD/;" \
         --expression="s/@TENANT_DB@/$OFBIZ_POSTGRES_TENANT_DB/;" \
         --expression="s/@TENANT_USERNAME@/$OFBIZ_POSTGRES_TENANT_USER/;" \
-        --expression="s/@TENAN_PASSWORD@/$OFBIZ_POSTGRES_TENANT_PASSWORD/;" \
+        --expression="s/@TENANT_PASSWORD@/$OFBIZ_POSTGRES_TENANT_PASSWORD/;" \
         templates/postgres-entityengine.xml > config/entityengine.xml
 
       if [ -z "$OFBIZ_SKIP_DB_DRIVER_DOWNLOAD" ]; then
