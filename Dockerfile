@@ -68,9 +68,12 @@ RUN ["mkdir", "/ofbiz/runtime", "/ofbiz/config", "/ofbiz/lib-extra"]
 COPY --chmod=644 --chown=ofbiz:ofbiz VERSION .
 RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | sed 's/.*Runtime Environment //; s/ (build.*//;')" >> /ofbiz/VERSION
 
-COPY --chmod=755 --chown=ofbiz:ofbiz docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
-COPY --chmod=644 --chown=ofbiz:ofbiz docker/disable-component.xslt .
-COPY --chmod=644 --chown=ofbiz:ofbiz docker/templates templates
+# Leave executable scripts owned by root and non-writable, addressing sonarcloud rule,
+# https://sonarcloud.io/organizations/apache/rules?open=docker%3AS6504&rule_key=docker%3AS6504
+COPY --chmod=555 docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
+
+COPY --chmod=444 docker/disable-component.xslt .
+COPY --chmod=444 docker/templates templates
 
 EXPOSE 8443
 EXPOSE 8009
