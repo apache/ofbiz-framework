@@ -18,6 +18,7 @@
  */
 
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create or update GeoPoint assigned to facility
@@ -29,7 +30,7 @@ Map createUpdateFacilityGeoPoint() {
         if (!ServiceUtil.isSuccess(serviceResult)) {
             return serviceResult
         }
-        String geoPointId = result.geoPointId
+        String geoPointId = serviceResult.geoPointId
         GenericValue facility = from("Facility").where(parameters).queryOne()
         facility.geoPointId = geoPointId
         facility.store()
