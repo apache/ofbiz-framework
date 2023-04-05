@@ -189,7 +189,7 @@ if (action) {
 
     if (checkTime) {
         // Construct a dynamic view entity to search against for sales usage quantities
-        salesUsageViewEntity = new DynamicViewEntity().with {
+        salesUsageViewEntity = new DynamicViewEntity().with { dve ->
             addMemberEntity('OI', 'OrderItem')
             addMemberEntity('OH', 'OrderHeader')
             addMemberEntity('ItIss', 'ItemIssuance')
@@ -204,10 +204,11 @@ if (action) {
             addAlias('ItIss', 'inventoryItemId')
             addAlias('ItIss', 'quantity')
             addAlias('InvIt', 'facilityId')
+            return dve
         }
 
         // Construct a dynamic view entity to search against for production usage quantities
-        productionUsageViewEntity = new DynamicViewEntity().with {
+        productionUsageViewEntity = new DynamicViewEntity().with { dve ->
             addMemberEntity('WEIA', 'WorkEffortInventoryAssign')
             addMemberEntity('WE', 'WorkEffort')
             addMemberEntity('II', 'InventoryItem')
@@ -218,6 +219,7 @@ if (action) {
             addAlias('WE', 'workEffortTypeId')
             addAlias('II', 'facilityId')
             addAlias('II', 'productId')
+            return dve
         }
     }
 
