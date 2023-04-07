@@ -471,7 +471,7 @@ Map sendEmailDated() {
     communicationEvents.each { communicationEvent ->
         // run service don't cover the new transaction need
         serviceContext.communicationEventId = communicationEvent.communicationEventId
-        dispatcher.runSync("sendCommEventAsEmail", serviceContext, 7200, true)
+        dispatcher.runSync('sendCommEventAsEmail', serviceContext, 7200, true)
     }
 
     // sending of internal notes of a contactlist

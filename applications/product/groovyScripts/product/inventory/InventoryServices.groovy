@@ -34,15 +34,15 @@ import org.apache.ofbiz.service.ServiceUtil
  */
 def checkFacilityRelatedPermission(String callingMethodName, String checkAction, String alternatePermissionRoot) {
     if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage("CommonUiLabels", "CommonPermissionThisOperation", parameters.locale)
+        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
     if (!checkAction) {
-        checkAction = "UPDATE"
+        checkAction = 'UPDATE'
     }
-    if (!security.hasEntityPermission("CATALOG", "_${checkAction}", parameters.userLogin)
-            && (!security.hasEntityPermission("FACILITY", "_${checkAction}", parameters.userLogin))
+    if (!security.hasEntityPermission('CATALOG', "_${checkAction}", parameters.userLogin)
+            && (!security.hasEntityPermission('FACILITY', "_${checkAction}", parameters.userLogin))
             && ((!alternatePermissionRoot) || !security.hasEntityPermission("${alternatePermissionRoot}", "_${checkAction}", parameters.userLogin))) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogCreatePermissionError", parameters.locale))
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
     }
     return success();
 }
@@ -55,7 +55,7 @@ def checkFacilityRelatedPermission(String callingMethodName, String checkAction,
 def facilityGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage("ProductUiLabels", "ProductMissingMainActionInPermissionService", parameters.locale))
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale))
     }
     String callingMethodName = parameters.resourceDescription
     Map permissionResult = checkFacilityRelatedPermission(callingMethodName, mainAction, null)
@@ -66,7 +66,7 @@ def facilityGenericPermission() {
     } else {
         Map result = failure()
         result.hasPermission = false
-        result.failMessage = UtilProperties.getMessage("ProductUiLabels", "ProductFacilityPermissionError", binding.variables, parameters.locale)
+        result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
         return result
     }
 }
@@ -78,18 +78,18 @@ def facilityGenericPermission() {
 def checkProductFacilityRelatedPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonPermissionMainActionAttributeMissing", parameters.locale))
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
     }
     String resourceDescription = parameters.resourceDescription
     if (!resourceDescription) {
-        resourceDescription = UtilProperties.getMessage("CommonUiLabels", "CommonPermissionThisOperation", parameters.locale)
+        resourceDescription = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
-    parameters.altPermission = "FACILITY"
-    Map serviceResult = run service: "checkProductRelatedPermission", with: parameters
+    parameters.altPermission = 'FACILITY'
+    Map serviceResult = run service: 'checkProductRelatedPermission', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
         Map result = failure()
         result.hasPermission = false
-        result.failMessage = UtilProperties.getMessage("ProductUiLabels", "ProductFacilityPermissionError", binding.variables, parameters.locale)
+        result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
         return result
     } else {
         Map result = success()
@@ -104,41 +104,41 @@ def checkProductFacilityRelatedPermission() {
  */
 def createInventoryItem() {
 
-    GenericValue product = from("Product").where(productId: parameters.productId).queryOne()
+    GenericValue product = from('Product').where(productId: parameters.productId).queryOne()
 
     // Check if this product can or not have a lotId
-    if (product.lotIdFilledIn == "Mandatory" && !parameters.lotId) {
-        return error(label("ProductErrorUiLabels", "ProductLotIdMandatory", [parameters: parameters]))
-    } else if (product.lotIdFilledIn == "Forbidden" && parameters.lotId) {
-        return error(label("ProductErrorUiLabels", "ProductLotIdForbidden", [parameters: parameters]))
+    if (product.lotIdFilledIn == 'Mandatory' && !parameters.lotId) {
+        return error(label('ProductErrorUiLabels', 'ProductLotIdMandatory', [parameters: parameters]))
+    } else if (product.lotIdFilledIn == 'Forbidden' && parameters.lotId) {
+        return error(label('ProductErrorUiLabels', 'ProductLotIdForbidden', [parameters: parameters]))
     }
 
     // If this InventoryItem is returned by a manufacturing task, don't create a lot
-    if (parameters.isReturned == "N" && parameters.lotId) {
+    if (parameters.isReturned == 'N' && parameters.lotId) {
         // Create the lot if if doesn't already exist.
-        List<GenericValue> lotList = from("Lot").where(lotId: parameters.lotId).queryList()
+        List<GenericValue> lotList = from('Lot').where(lotId: parameters.lotId).queryList()
         if (!lotList) {
-            GenericValue lot = makeValue("Lot")
+            GenericValue lot = makeValue('Lot')
             lot.lotId = parameters.lotId
             lot.create()
         }
     }
 
-    GenericValue inventoryItem = makeValue("InventoryItem")
+    GenericValue inventoryItem = makeValue('InventoryItem')
     // TODO: make sure availableToPromiseTotal and quantityOnHandTotal are not changed
     inventoryItem.setNonPKFields(parameters)
 
     if (!inventoryItem.facilityId) {
-        return error(label("ProductUiLabels", "FacilityInventoryItemsMissingFacilityId"))
+        return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingFacilityId'))
     }
 
     // if inventoryItem's ownerPartyId is empty, get the ownerPartyId from the facility
     if (!inventoryItem.ownerPartyId) {
-        GenericValue facility = delegator.getRelatedOne("Facility", inventoryItem, false)
+        GenericValue facility = delegator.getRelatedOne('Facility', inventoryItem, false)
         inventoryItem.ownerPartyId = facility.ownerPartyId
         // if inventoryItem's ownerPartyId is still empty, return an error message
         if (!inventoryItem.ownerPartyId) {
-            return error(label("ProductUiLabels", "FacilityInventoryItemsMissingOwnerPartyId"))
+            return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingOwnerPartyId'))
         }
     }
 
@@ -146,7 +146,7 @@ def createInventoryItem() {
     // from the party accounting preferences of the owner of the inventory item
     if (!inventoryItem.currencyUomId) {
         Map partyAccountingPreferencesCallMap = [organizationPartyId: inventoryItem.ownerPartyId]
-        Map serviceResult = run service: "getPartyAccountingPreferences", with: partyAccountingPreferencesCallMap
+        Map serviceResult = run service: 'getPartyAccountingPreferences', with: partyAccountingPreferencesCallMap
         Map accPref = serviceResult.partyAccountingPreference
         inventoryItem.currencyUomId = accPref.baseCurrencyUomId
         if (!inventoryItem.currencyUomId) {
@@ -154,7 +154,7 @@ def createInventoryItem() {
         }
         // if inventoryItem's currencyUomId is still empty, return an error message
         if (!inventoryItem.currencyUomId) {
-            return error(label("ProductUiLabels", "FacilityInventoryItemsMissingCurrencyId"))
+            return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingCurrencyId'))
         }
     }
 
@@ -162,8 +162,8 @@ def createInventoryItem() {
     // cost by calling the getProductCost service
     if (!inventoryItem.unitCost) {
         // TODO: create a new service getProductStdCost that calls getProductCost
-        Map inputMap = [productId: inventoryItem.productId, currencyUomId: inventoryItem.currencyUomId, costComponentTypePrefix: "EST_STD"]
-        Map productCostResult = run service: "getProductCost", with: inputMap
+        Map inputMap = [productId: inventoryItem.productId, currencyUomId: inventoryItem.currencyUomId, costComponentTypePrefix: 'EST_STD']
+        Map productCostResult = run service: 'getProductCost', with: inputMap
         if (!ServiceUtil.isSuccess(productCostResult)) {
             return productCostResult
         }
@@ -173,16 +173,16 @@ def createInventoryItem() {
     // if inventoryItem's unitCost is still empty, or negative return an error message
     // TODO/WARNING: getProductCost returns 0 even if no std costs are found
     if (!inventoryItem.unitCost && inventoryItem.unitCost != (BigDecimal) 0) {
-        return error(label("ProductUiLabels", "FacilityInventoryItemsMissingUnitCost"))
+        return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingUnitCost'))
     }
 
     // if you don't want inventory item with unitCost = 0, change the operator
     // attribute from "less" to "less-equals".
     if (inventoryItem.unitCost < (BigDecimal) 0) {
-        return error(label("ProductUiLabels", "FacilityInventoryItemsNegativeUnitCost"))
+        return error(label('ProductUiLabels', 'FacilityInventoryItemsNegativeUnitCost'))
     }
 
-    inventoryItem.inventoryItemId = delegator.getNextSeqId("InventoryItem")
+    inventoryItem.inventoryItemId = delegator.getNextSeqId('InventoryItem')
     inventoryItem.create()
 
     return success([inventoryItemId: inventoryItem.inventoryItemId])

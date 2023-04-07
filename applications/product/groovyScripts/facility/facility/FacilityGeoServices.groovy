@@ -33,7 +33,7 @@ Map createUpdateFacilityGeoPoint() {
             return serviceResult
         }
         String geoPointId = serviceResult.geoPointId
-        GenericValue facility = from("Facility").where(parameters).queryOne()
+        GenericValue facility = from('Facility').where(parameters).queryOne()
         facility.geoPointId = geoPointId
         facility.store()
         return success()
