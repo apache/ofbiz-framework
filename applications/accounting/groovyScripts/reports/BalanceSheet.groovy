@@ -256,13 +256,11 @@ Closure<Map<String,AccountBalance>> calculateBalances = { Map<String, AccountBal
 }
 
 static List<Map<String, Serializable>> sortAccountBalancesConvertToMaps(Collection<AccountBalance> accountBalances) {
-    accountBalances.sort { a, b -> (a.accountCode <=> b.accountCode) }
-            .collect { it.asMap() }
+    return accountBalances.sort { a, b -> (a.accountCode <=> b.accountCode) } *.asMap()
 }
 
 static BigDecimal sumAccountBalances(Collection<AccountBalance> accountBalances) {
-    accountBalances.collect { it.balance }
-            .inject(BigDecimal.ZERO) { acc, val -> acc + val }
+    return accountBalances*.balance.inject(BigDecimal.ZERO) { acc, val -> acc + val }
 }
 
 // ASSETS
