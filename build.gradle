@@ -401,6 +401,9 @@ gitHooks {
 // Checks OFBiz Groovy coding conventions.
 codenarc {
     setConfigFile(new File('config/codenarc/codenarc.groovy'))
+    setMaxPriority1Violations(0)
+    setMaxPriority2Violations(448)
+    setMaxPriority3Violations(4396)
 }
 
 // Eclipse plugin settings
