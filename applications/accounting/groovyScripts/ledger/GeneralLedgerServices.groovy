@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 
 /**
