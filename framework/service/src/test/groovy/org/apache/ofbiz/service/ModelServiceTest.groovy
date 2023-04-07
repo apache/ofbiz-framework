@@ -33,9 +33,10 @@ import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.eq
 
 class ModelServiceTest {
-    private MockedStatic<UtilProperties> utilities
     private static final String SERVICE_CACHE_NAME = "service.ModelServiceMapByModel"
-    private static final UtilCache<String, Map<String, ModelService>> MODEL_SERVICE_MAP_BY_MODEL = UtilCache.createUtilCache(SERVICE_CACHE_NAME, 0, 0, false)
+    private static final UtilCache<String, Map<String, ModelService>> MODEL_SERVICE_MAP_BY_MODEL =
+            UtilCache.createUtilCache(SERVICE_CACHE_NAME, 0, 0, false)
+    private MockedStatic<UtilProperties> utilities
 
     @BeforeEach
     void initMock() {
@@ -170,7 +171,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test
+    @Test(expected = ServiceValidationException.class)
     void callValidateServiceWithOneComplexParameterOnlyOneRequiredEmbeddedMissing() {
         String serviceXml = """<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -184,7 +185,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test
+    @Test(expected = ServiceValidationException.class)
     void callValidateServiceWithOneComplexParameterOnlyOneRequiredAndOneOptionalEmbeddedMissing() {
         String serviceXml = """<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -237,10 +238,14 @@ class ModelServiceTest {
                    <attribute name="otherParam" type="String" mode="IN" optional="true"/>
                </attribute>
            </service>"""
-        createModelService(serviceXml)
-                .validate([header: [headerParam: [subHeaderParam: "true"],
-                                    otherParam: "true"]],
-                        'IN', Locale.default)
+        try {
+            createModelService(serviceXml)
+                    .validate([header: [headerParam: [subHeaderParam: "true"],
+                                        otherParam: "true"]],
+                            'IN', Locale.default)
+        } catch (ServiceValidationException ignored) {
+            Assert.fail('Paramètre complexe non identifié')
+        }
     }
 
     @Test(expected = ServiceValidationException.class)
@@ -266,10 +271,14 @@ class ModelServiceTest {
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                <attribute name="header" type="java.util.Map" mode="IN" optional="false"/>
            </service>"""
-        createModelService(serviceXml)
-                .validate([header: [headerParam: [subHeaderParam: "true", otherParam: "false"],
-                                    otherParam: "true"]],
-                        'IN', Locale.default)
+        try {
+            createModelService(serviceXml)
+                    .validate([header: [headerParam: [subHeaderParam: "true", otherParam: "false"],
+                                        otherParam: "true"]],
+                            'IN', Locale.default)
+        } catch (ServiceValidationException ignored) {
+            Assert.fail('Map should not have been analyzed')
+        }
     }
 
     @Test
@@ -281,10 +290,14 @@ class ModelServiceTest {
                    <attribute name="otherParam" type="String" mode="IN" optional="true"/>
                </attribute>
            </service>"""
-        createModelService(serviceXml)
-                .validate([header: [[headerParam: 'line1', otherParam: 'Good'],
-                                    [headerParam: 'line2', otherParam: 'Good']]],
-                        'IN', Locale.default)
+        try {
+            createModelService(serviceXml)
+                    .validate([header: [[headerParam: 'line1', otherParam: 'Good'],
+                                        [headerParam: 'line2', otherParam: 'Good']]],
+                            'IN', Locale.default)
+        } catch (ServiceValidationException ignored) {
+            Assert.fail('Complex List Parameter Error')
+        }
     }
 
     @Test(expected = ServiceValidationException.class)
@@ -325,7 +338,11 @@ class ModelServiceTest {
         MODEL_SERVICE_MAP_BY_MODEL.put("", ['toImplement': reader.createModelService(servicesElement1, 'TEST'),
                                             'testParam': modelService])
 
-        modelService.validate([header: [headerParam: 'line1', otherParam: 'Good']], 'IN', Locale.default)
+        try {
+            modelService.validate([header: [headerParam: 'line1', otherParam: 'Good']], 'IN', Locale.default)
+        } catch (ServiceValidationException ignored) {
+            Assert.fail('Complex implement not valid')
+        }
     }
 
     @Test
