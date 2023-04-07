@@ -72,6 +72,7 @@ if (!fromDate) {
 GenericValue lastClosedTimePeriod = (GenericValue)lastClosedTimePeriodResult.lastClosedTimePeriod
 
 class AccountBalance {
+
     String glAccountId
     String accountCode
     String accountName
@@ -79,6 +80,7 @@ class AccountBalance {
     Map asMap() {
         [glAccountId: glAccountId, accountCode: accountCode, accountName: accountName, balance: balance]
     }
+
 }
 
 /**
@@ -132,11 +134,13 @@ Map<String, AccountBalance> equityOpeningBalances = getLastPeriodClosingBalances
 List balanceTotalList = []
 
 class AccountEntrySum {
+
     String glAccountId
     String accountCode
     String accountName
     String debitCreditFlag
     BigDecimal amount
+
 }
 
 /**
@@ -187,7 +191,7 @@ Closure<List<AccountEntrySum>> getAccountEntrySumsForClassIds = { Collection<Str
     getAccountEntrySumsForCondition(conditions)
 }
 
-enum RootClass {DEBIT, CREDIT}
+enum RootClass { DEBIT, CREDIT }
 
 /**
  * Calculates balances of the organization's GL Accounts which correspond to the given collection of Account Class IDs.
@@ -245,7 +249,6 @@ Closure<Map<String,AccountBalance>> calculateBalances = { Map<String, AccountBal
                         accountCode: accountBalance.accountCode,
                         accountName: accountBalance.accountName,
                         balance: negateBalances ? accountBalance.balance.negate() : accountBalance.balance)]
-
         } as Map<String, AccountBalance>
     }
 
