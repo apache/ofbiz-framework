@@ -33,6 +33,7 @@ import org.mockito.Mockito
 import org.w3c.dom.Element
 
 class ModelServiceTest {
+
     private static final String SERVICE_CACHE_NAME = 'service.ModelServiceMapByModel'
     private static final UtilCache<String, Map<String, ModelService>> MODEL_SERVICE_MAP_BY_MODEL =
             UtilCache.createUtilCache(SERVICE_CACHE_NAME, 0, 0, false)
@@ -396,4 +397,5 @@ class ModelServiceTest {
         }
         assert sanitizedContext.someList[0].quantity instanceof BigDecimal
     }
+
 }
