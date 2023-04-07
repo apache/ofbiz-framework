@@ -63,12 +63,11 @@ def facilityGenericPermission() {
         Map result = success()
         result.hasPermission = true
         return result
-    } else {
-        Map result = failure()
-        result.hasPermission = false
-        result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
-        return result
     }
+    Map result = failure()
+    result.hasPermission = false
+    result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
+    return result
 }
 
 /**
@@ -91,11 +90,10 @@ def checkProductFacilityRelatedPermission() {
         result.hasPermission = false
         result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
         return result
-    } else {
-        Map result = success()
-        result.hasPermission = true
-        return result
     }
+    Map result = success()
+    result.hasPermission = true
+    return result
 }
 
 /**
