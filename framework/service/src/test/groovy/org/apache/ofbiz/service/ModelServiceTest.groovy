@@ -166,7 +166,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test(expected = ServiceValidationException)
+    @Test
     void callValidateServiceWithOneComplexParameterOnlyOneRequiredEmbeddedMissing() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -175,13 +175,17 @@ class ModelServiceTest {
                    <attribute name="otherParam" type="String" mode="IN" optional="true"/>
                </attribute>
            </service>'''
-        createModelService(serviceXml)
-                .validate([header: [headerParam: 'foo']],
-                        'IN', Locale.default)
+        try {
+            createModelService(serviceXml)
+                    .validate([header: [headerParam: 'foo']],
+                            'IN', Locale.default)
+        } catch (ServiceValidationException ignored) {
+            Assert.fail('Missing optional should not throw exception')
+        }
     }
 
-    @Test(expected = ServiceValidationException)
-    void callValidateServiceWithOneComplexParameterOnlyOneRequiredAndOneOptionalEmbeddedMissing() {
+    @Test
+    void callValidateServiceWithOneComplexParameterOnlyOneRequiredAndOneOptionalEmbedded() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
                <attribute name="header" type="java.util.Map" mode="IN" optional="false">
@@ -189,9 +193,13 @@ class ModelServiceTest {
                    <attribute name="otherParam" type="String" mode="IN" optional="true"/>
                </attribute>
            </service>'''
-        createModelService(serviceXml)
-                .validate([header: [headerParam: 'foo', otherParam: 'Good']],
-                        'IN', Locale.default)
+        try {
+            createModelService(serviceXml)
+                    .validate([header: [headerParam: 'foo', otherParam: 'Good']],
+                            'IN', Locale.default)
+        } catch (ServiceValidationException ignored) {
+            Assert.fail('Complex parameter control error')
+        }
     }
 
     @Test(expected = ServiceValidationException)
@@ -351,7 +359,7 @@ class ModelServiceTest {
         try {
             sanitizedContext = DispatchContext.makeValidContext(fo, 'IN', [quantity: 20])
         } catch (GeneralServiceException ignored) {
-            assert false
+            Assert.fail('Error calling with integer for BigDecimal')
         }
         assert sanitizedContext.quantity instanceof BigDecimal
     }
@@ -369,7 +377,7 @@ class ModelServiceTest {
         try {
             sanitizedContext = DispatchContext.makeValidContext(fo, 'IN', [someMap: [quantity: 20]])
         } catch (GeneralServiceException ignored) {
-            assert false
+            Assert.fail('Error calling with integer for BigDecimal in Map')
         }
         assert sanitizedContext.someMap.quantity instanceof BigDecimal
     }
@@ -387,7 +395,7 @@ class ModelServiceTest {
         try {
             sanitizedContext = DispatchContext.makeValidContext(fo, 'IN', [someList: [[quantity: 20]]])
         } catch (GeneralServiceException ignored) {
-            assert false
+            Assert.fail('Error calling with integer for BigDecimal in List')
         }
         assert sanitizedContext.someList[0].quantity instanceof BigDecimal
     }
