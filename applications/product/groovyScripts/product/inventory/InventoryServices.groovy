@@ -27,29 +27,26 @@ import org.apache.ofbiz.service.ServiceUtil
  * A method to centralize facility security code, meant to be called in-line with
  * call-simple-method, and the checkAction and callingMethodName attributes should be in the method context
  *
- * @param callingMethodName
+ * @param callingMethodName Name of the calling method.
  * @param checkAction The permission action to test for.
  * @return Success response if permission is granted, error response otherwise with the error message describing
  * the missing permission.
  */
 Map checkFacilityRelatedPermission(String callingMethodName, String checkAction, String alternatePermissionRoot) {
-    if (!callingMethodName) {
-        callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
-    }
-    if (!checkAction) {
-        checkAction = 'UPDATE'
-    }
+    callingMethodName = callingMethodName ?: UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
+    checkAction = checkAction ?: 'UPDATE'
+
     if (!security.hasEntityPermission('CATALOG', "_${checkAction}", parameters.userLogin)
             && (!security.hasEntityPermission('FACILITY', "_${checkAction}", parameters.userLogin))
             && ((!alternatePermissionRoot) || !security.hasEntityPermission("${alternatePermissionRoot}", "_${checkAction}", parameters.userLogin))) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductCatalogCreatePermissionError', parameters.locale))
     }
-    return success();
+    return success()
 }
 
 /**
  * Main permission logic
- * @return
+ * @return Map with hasPermission boolean and potential failure message.
  */
 Map facilityGenericPermission() {
     String mainAction = parameters.mainAction
@@ -71,16 +68,12 @@ Map facilityGenericPermission() {
 
 /**
  * ProductFacility Permission Checking Logic
- * @return
+ * @return Map with hasPermission boolean and potential failure message.
  */
 Map checkProductFacilityRelatedPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
         return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
-    }
-    String resourceDescription = parameters.resourceDescription
-    if (!resourceDescription) {
-        resourceDescription = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
     parameters.altPermission = 'FACILITY'
     Map serviceResult = run service: 'checkProductRelatedPermission', with: parameters
@@ -97,10 +90,8 @@ Map checkProductFacilityRelatedPermission() {
 
 /**
  * Create an InventoryItem
- * @return
  */
 Map createInventoryItem() {
-
     GenericValue product = from('Product').where(productId: parameters.productId).queryOne()
 
     // Check if this product can or not have a lotId
@@ -146,9 +137,8 @@ Map createInventoryItem() {
         Map serviceResult = run service: 'getPartyAccountingPreferences', with: partyAccountingPreferencesCallMap
         Map accPref = serviceResult.partyAccountingPreference
         inventoryItem.currencyUomId = accPref.baseCurrencyUomId
-        if (!inventoryItem.currencyUomId) {
-            inventoryItem.currencyUomId = UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
-        }
+        inventoryItem.currencyUomId = inventoryItem.currencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
+
         // if inventoryItem's currencyUomId is still empty, return an error message
         if (!inventoryItem.currencyUomId) {
             return error(label('ProductUiLabels', 'FacilityInventoryItemsMissingCurrencyId'))
