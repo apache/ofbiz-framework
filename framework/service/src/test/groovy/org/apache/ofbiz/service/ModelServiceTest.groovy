@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.service
 
+import static org.mockito.ArgumentMatchers.any
+import static org.mockito.Mockito.eq
+
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.base.util.cache.UtilCache
@@ -28,9 +31,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.mockito.MockedStatic
 import org.mockito.Mockito
 import org.w3c.dom.Element
-
-import static org.mockito.ArgumentMatchers.any
-import static org.mockito.Mockito.eq
 
 class ModelServiceTest {
     private static final String SERVICE_CACHE_NAME = "service.ModelServiceMapByModel"
