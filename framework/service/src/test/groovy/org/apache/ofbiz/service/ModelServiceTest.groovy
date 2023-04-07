@@ -52,12 +52,6 @@ class ModelServiceTest {
         UtilCache.clearAllCaches()
     }
 
-    private static ModelService createModelService(String serviceXml) {
-        Element serviceElement = UtilXml.readXmlDocument(serviceXml, false).getDocumentElement()
-        return new ModelServiceReader(true, new URL('http://ofbiz.apache.org'), null, null)
-                .createModelService(serviceElement, 'TEST')
-    }
-
     @Test
     void callValidateServiceWithOneSingleRequiredParam() {
         String serviceXml = '''<service name="testParam" engine="java"
@@ -396,6 +390,12 @@ class ModelServiceTest {
             assert false
         }
         assert sanitizedContext.someList[0].quantity instanceof BigDecimal
+    }
+
+    private static ModelService createModelService(String serviceXml) {
+        Element serviceElement = UtilXml.readXmlDocument(serviceXml, false).getDocumentElement()
+        return new ModelServiceReader(true, new URL('http://ofbiz.apache.org'), null, null)
+                .createModelService(serviceElement, 'TEST')
     }
 
 }
