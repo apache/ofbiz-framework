@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * @return Success response if permission is granted, error response otherwise with the error message describing
  * the missing permission.
  */
-def checkFacilityRelatedPermission(String callingMethodName, String checkAction, String alternatePermissionRoot) {
+Map checkFacilityRelatedPermission(String callingMethodName, String checkAction, String alternatePermissionRoot) {
     if (!callingMethodName) {
         callingMethodName = UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionThisOperation', parameters.locale)
     }
@@ -51,7 +51,7 @@ def checkFacilityRelatedPermission(String callingMethodName, String checkAction,
  * Main permission logic
  * @return
  */
-def facilityGenericPermission() {
+Map facilityGenericPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductMissingMainActionInPermissionService', parameters.locale))
@@ -73,7 +73,7 @@ def facilityGenericPermission() {
  * ProductFacility Permission Checking Logic
  * @return
  */
-def checkProductFacilityRelatedPermission() {
+Map checkProductFacilityRelatedPermission() {
     String mainAction = parameters.mainAction
     if (!mainAction) {
         return error(UtilProperties.getMessage('CommonUiLabels', 'CommonPermissionMainActionAttributeMissing', parameters.locale))
@@ -99,7 +99,7 @@ def checkProductFacilityRelatedPermission() {
  * Create an InventoryItem
  * @return
  */
-def createInventoryItem() {
+Map createInventoryItem() {
 
     GenericValue product = from('Product').where(productId: parameters.productId).queryOne()
 
