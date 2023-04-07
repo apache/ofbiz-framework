@@ -47,7 +47,6 @@ def checkFacilityRelatedPermission(String callingMethodName, String checkAction,
     return success();
 }
 
-
 /**
  * Main permission logic
  * @return
