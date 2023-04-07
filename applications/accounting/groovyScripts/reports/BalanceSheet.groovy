@@ -344,7 +344,8 @@ balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingLongTermAssets', 'ba
 
 context.contraAssetBalanceTotal = contraAssetBalanceTotal
 balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAccumulatedDepreciation', 'balance', contraAssetBalanceTotal))
-balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAssets', 'balance', (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + contraAssetBalanceTotal)))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAssets', 'balance',
+        (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + contraAssetBalanceTotal)))
 
 context.liabilityAccountBalanceList = liabilityAccountBalanceList
 context.liabilityBalanceTotal = liabilityBalanceTotal
