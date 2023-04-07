@@ -41,7 +41,7 @@ class ModelServiceTest {
 
     @BeforeEach
     void initMock() {
-        utilities = Mockito.mockStatic(UtilProperties.class)
+        utilities = Mockito.mockStatic(UtilProperties)
         utilities.when(UtilProperties.getMessage(eq(ModelService.RESOURCE), any(), any())).thenReturn('Failed')
         utilities.when(UtilProperties.createProperties(eq('debug.properties'))).thenReturn(new Properties())
     }
@@ -98,7 +98,7 @@ class ModelServiceTest {
         }
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithNullRequiredParam() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -124,7 +124,7 @@ class ModelServiceTest {
         }
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneSingleRequiredParamMissing() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -152,7 +152,7 @@ class ModelServiceTest {
         }
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneComplexParameterAllRequiredEmbeddedMissing() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -166,7 +166,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneComplexParameterOnlyOneRequiredEmbeddedMissing() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -180,7 +180,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneComplexParameterOnlyOneRequiredAndOneOptionalEmbeddedMissing() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -194,7 +194,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneComplexParameterAndUnexpectedEmbeededParam() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -208,7 +208,7 @@ class ModelServiceTest {
                         'IN', Locale.default)
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneComplexParameterAndBadListValue() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -243,7 +243,7 @@ class ModelServiceTest {
         }
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithTwoComplexLevelParameterUnwantedParameter() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -295,7 +295,7 @@ class ModelServiceTest {
         }
     }
 
-    @Test(expected = ServiceValidationException.class)
+    @Test(expected = ServiceValidationException)
     void callValidateServiceWithOneComplexParameterAsListAndUnwantedParameter() {
         String serviceXml = '''<service name="testParam" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
