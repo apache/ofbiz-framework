@@ -105,8 +105,16 @@ public class SecuredUpload {
     private static final List<String> DENIEDFILEEXTENSIONS = getDeniedFileExtensions();
     private static final List<String> DENIEDWEBSHELLTOKENS = getDeniedWebShellTokens();
     private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
+    private static final Boolean ALLOWSTRINGCONCATENATIONINUPLOADEDFILES =
+            UtilProperties.getPropertyAsBoolean("security", "allowStringConcatenationInUploadedFiles", false);
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
+        String contentWithoutSpaces = content.replace(" ", "");
+        if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
+                && !ALLOWSTRINGCONCATENATIONINUPLOADEDFILES) {
+            Debug.logInfo("The uploaded file contains a string concatenation. It can't be uploaded for security reason", MODULE);
+            return false;
+        }
         return content != null ? DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token.toLowerCase(), allowed)) : false;
     }
 
