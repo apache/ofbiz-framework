@@ -125,6 +125,14 @@ node {
     npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
 }
 
+tasks.getByName("distTar") {
+    dependsOn "npmInstall"
+}
+
+tasks.getByName("distZip") {
+    dependsOn "npmInstall"
+}
+
 java {
     sourceCompatibility(JavaVersion.VERSION_17)
     targetCompatibility(JavaVersion.VERSION_17)
