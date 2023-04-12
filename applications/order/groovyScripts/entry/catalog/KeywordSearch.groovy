@@ -25,21 +25,23 @@
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.product.ProductSearchSession
 
-module = "KeywordSearch.groovy"
+module = 'KeywordSearch.groovy'
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
-request.getSession().setAttribute("dispatcher",dispatcher)
+request.getSession().setAttribute('dispatcher', dispatcher)
 ProductSearchSession.processSearchParameters(parameters, request)
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request)
 result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId)
 
-context.productIds = result.productIds
-context.viewIndex = result.viewIndex
-context.viewSize = result.viewSize
-context.listSize = result.listSize
-context.lowIndex = result.lowIndex
-context.highIndex = result.highIndex
-context.paging = result.paging
-context.previousViewSize = result.previousViewSize
-context.searchConstraintStrings = result.searchConstraintStrings
-context.searchSortOrderString = result.searchSortOrderString
+context << [
+        productIds: result.productIds,
+        viewIndex: result.viewIndex,
+        viewSize: result.viewSize,
+        listSize: result.listSize,
+        lowIndex: result.lowIndex,
+        highIndex: result.highIndex,
+        paging: result.paging,
+        previousViewSize: result.previousViewSize,
+        searchConstraintStrings: result.searchConstraintStrings,
+        searchSortOrderString: result.searchSortOrderString
+]

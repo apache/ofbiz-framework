@@ -21,7 +21,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.party.contact.ContactHelper
 
 if (party) {
-    emailAddress = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false))
+    emailAddress = EntityUtil.getFirst(ContactHelper.getContactMech(party, 'PRIMARY_EMAIL', 'EMAIL_ADDRESS', false))
     if (emailAddress) {
         context.sendTo = emailAddress.infoString
     }

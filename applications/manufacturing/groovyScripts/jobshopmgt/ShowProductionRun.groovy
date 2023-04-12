@@ -20,35 +20,23 @@
 // The only required parameter is "productionRunId".
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 
-delegator = request.getAttribute("delegator")
+delegator = request.getAttribute('delegator')
 
-productionRunId = request.getParameter("productionRunId")
-if (!productionRunId) {
-    productionRunId = request.getParameter("workEffortId")
-}
+productionRunId = request.getParameter('productionRunId') ?: request.getParameter('workEffortId')
 if (productionRunId) {
-
-    GenericValue productionRun = from("WorkEffort").where("workEffortId", productionRunId).queryOne();
+    GenericValue productionRun = from('WorkEffort').where('workEffortId', productionRunId).queryOne()
     if (productionRun) {
         // If this is a task, get the parent production run
-        if (productionRun.getString("workEffortTypeId") != null && "PROD_ORDER_TASK".equals(productionRun.getString("workEffortTypeId"))) {
-            productionRun = from("WorkEffort").where("workEffortId", productionRun.getString("workEffortParentId")).queryOne();
+        if (productionRun.getString('workEffortTypeId') != null && productionRun.getString('workEffortTypeId') == 'PROD_ORDER_TASK') {
+            productionRun = from('WorkEffort').where('workEffortId', productionRun.getString('workEffortParentId')).queryOne()
         }
     }
 
     if (!productionRun) {
-        return "error"
+        return 'error'
     }
-    if ("PRUN_CREATED".equals(productionRun.getString("currentStatusId")) ||
-            "PRUN_SCHEDULED".equals(productionRun.getString("currentStatusId")) ||
-            "PRUN_CANCELLED".equals(productionRun.getString("currentStatusId"))) {
-        return "docs_not_printed"
-    } else {
-        return "docs_printed"
-    }
+    return ['PRUN_CREATED', 'PRUN_SCHEDULED', 'PRUN_CANCELLED'].contains(productionRun.currentStatusId) ? 'docs_not_printed' : 'docs_printed'
 }
 
-return "error"
+return 'error'

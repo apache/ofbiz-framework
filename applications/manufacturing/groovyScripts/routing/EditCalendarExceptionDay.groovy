@@ -17,31 +17,31 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.util.ObjectType
 
-if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+if (security.hasEntityPermission('MANUFACTURING', '_VIEW', session)) {
     context.hasPermission = Boolean.TRUE
 } else {
     context.hasPermission = Boolean.FALSE
 }
 techDataCalendar = [:]
 
-calendarId = parameters.calendarId ?: request.getAttribute("calendarId")
+calendarId = parameters.calendarId ?: request.getAttribute('calendarId')
 if (calendarId) {
-    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne()
+    techDataCalendar = from('TechDataCalendar').where('calendarId', calendarId).queryOne()
     context.techDataCalendar = techDataCalendar
 }
 if (techDataCalendar) {
-    calendarExceptionDays = techDataCalendar.getRelated("TechDataCalendarExcDay", null, null, false)
+    calendarExceptionDays = techDataCalendar.getRelated('TechDataCalendarExcDay', null, null, false)
     context.calendarExceptionDays = calendarExceptionDays
 }
 
-exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute("exceptionDateStartTime")
-exceptionDateStartTime = ObjectType.simpleTypeOrObjectConvert(exceptionDateStartTime, "Timestamp", null, null)
+exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute('exceptionDateStartTime')
+exceptionDateStartTime = ObjectType.simpleTypeOrObjectConvert(exceptionDateStartTime, 'Timestamp', null, null)
 
 if (exceptionDateStartTime) {
-    calendarExceptionDay = from("TechDataCalendarExcDay").where("calendarId", calendarId , "exceptionDateStartTime", exceptionDateStartTime).queryOne()
+    calendarExceptionDay = from('TechDataCalendarExcDay')
+            .where('calendarId', calendarId , 'exceptionDateStartTime', exceptionDateStartTime).queryOne()
     if (calendarExceptionDay) {
         context.calendarExceptionDay = calendarExceptionDay
     }

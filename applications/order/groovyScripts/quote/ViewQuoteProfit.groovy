@@ -47,9 +47,9 @@ quoteItems.each { quoteItem ->
 
     try {
         if (currency && quoteItem.productId) {
-            productPrice = from("ProductPrice")
-                              .where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : "AVERAGE_COST")
-                              .filterByDate(issueDate)
+            productPrice = from('ProductPrice')
+                    .where(productId: quoteItem.productId, currencyUomId: currency, productPriceTypeId: 'AVERAGE_COST')
+                    .filterByDate(issueDate)
                               .queryFirst()
             if (productPrice?.price != null) {
                 averageCost = productPrice.price * selectedAmount
@@ -58,11 +58,11 @@ quoteItems.each { quoteItem ->
         totalCost += (averageCost * quantity)
         totalPrice += (unitPrice * quantity * selectedAmount)
     } catch (Exception exc) {
-        logError("Problems getting the averageCost for quoteItem: " + quoteItem)
+        logError('Problems getting the averageCost for quoteItem: ' + quoteItem)
     }
     profit = unitPrice - averageCost
-    percProfit = averageCost != 0 ? (profit / unitPrice) * 100.00 : 0.00
-    quoteItemAndCostInfo = new java.util.HashMap(quoteItem)
+    percProfit = averageCost == 0 ? 0.00 : (profit / unitPrice) * 100.00
+    quoteItemAndCostInfo = new HashMap(quoteItem)
     quoteItemAndCostInfo.averageCost = averageCost
     quoteItemAndCostInfo.profit = profit
     quoteItemAndCostInfo.percProfit = percProfit
@@ -77,4 +77,4 @@ context.quoteItemAndCostInfos = quoteItemAndCostInfos
 context.totalCost = totalCost
 context.totalPrice = totalPrice
 context.totalProfit = totalProfit
-context.totalPercProfit = totalCost != 0 ? (totalProfit / totalPrice) * 100.00: 0.00
+context.totalPercProfit = totalCost == 0 ? 0.00 : (totalProfit / totalPrice) * 100.00

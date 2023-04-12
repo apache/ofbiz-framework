@@ -17,9 +17,7 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.product.feature.*
+import org.apache.ofbiz.product.feature.ParametricSearch
 import org.apache.ofbiz.product.product.ProductSearch
 import org.apache.ofbiz.webapp.stats.VisitHandler
 
@@ -36,14 +34,14 @@ productIds = ProductSearch.parametricKeywordSearch(featureIdSet, null, delegator
 // get the product for each ID
 products = new ArrayList(productIds.size())
 productIds.each { productId ->
-    product = from("Product").where("productId", productId).cache(true).queryOne()
+    product = from('Product').where('productId', productId).cache(true).queryOne()
     products.add(product)
 }
 
 productFeatureAndTypeDatas = new ArrayList(featureIdByType.size())
 featureIdByType.each { featureIdByTypeEntry ->
-    productFeatureType = from("ProductFeatureType").where("productFeatureTypeId", featureIdByTypeEntry.key).cache(true).queryOne()
-    productFeature = from("ProductFeature").where("productFeatureId", featureIdByTypeEntry.value).cache(true).queryOne()
+    productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', featureIdByTypeEntry.key).cache(true).queryOne()
+    productFeature = from('ProductFeature').where('productFeatureId', featureIdByTypeEntry.value).cache(true).queryOne()
     productFeatureAndTypeData = [:]
     productFeatureAndTypeData.productFeatureType = productFeatureType
     productFeatureAndTypeData.productFeature = productFeature

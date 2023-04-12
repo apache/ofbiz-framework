@@ -24,7 +24,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class PartyStatusChangeTests extends OFBizTestCase {
-    public PartyStatusChangeTests(String name) {
+
+    PartyStatusChangeTests(String name) {
         super(name)
     }
 
@@ -42,12 +43,12 @@ class PartyStatusChangeTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setPartyStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue party = from("Party")
+        GenericValue party = from('Party')
                 .where('partyId', partyId)
                 .queryOne()
         assert party
-        assert statusId.equals(party.statusId)
-        assert 'PARTY_ENABLED'.equals(serviceResult.oldStatusId)
+        assert statusId == party.statusId
+        assert serviceResult.oldStatusId == 'PARTY_ENABLED'
     }
 
     // Test case for changing party status to PARTY_ENABLED
@@ -64,11 +65,12 @@ class PartyStatusChangeTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('setPartyStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue party = from("Party")
+        GenericValue party = from('Party')
                 .where('partyId', partyId)
                 .queryOne()
         assert party
-        assert statusId.equals(party.statusId)
-        assert 'PARTY_DISABLED'.equals(serviceResult.oldStatusId)
+        assert statusId == party.statusId
+        assert serviceResult.oldStatusId == 'PARTY_DISABLED'
     }
+
 }

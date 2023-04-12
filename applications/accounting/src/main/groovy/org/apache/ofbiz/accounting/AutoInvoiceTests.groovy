@@ -16,8 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-
- package org.apache.ofbiz.accounting;
+package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -27,88 +26,83 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoInvoiceTests extends OFBizTestCase {
-    public AutoInvoiceTests(String name) {
+
+    AutoInvoiceTests(String name) {
         super(name)
     }
-    void testInvoiceWorkerGetInvoiceTotal(){
 
-        String invoiceId="demo10000"
-        BigDecimal amount = new BigDecimal('323.54')
+    void testInvoiceWorkerGetInvoiceTotal() {
+        String invoiceId = 'demo10000'
+        BigDecimal amount = 323.54
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="demo10001"
-        amount = new BigDecimal('36.43')
+        invoiceId = 'demo10001'
+        amount = 36.43
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="demo10002"
-        amount = new BigDecimal('56.99')
+        invoiceId = 'demo10002'
+        amount = 56.99
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="demo11000"
-        amount = new BigDecimal('20.00')
+        invoiceId = 'demo11000'
+        amount = 20.00
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="demo11001"
-        amount = new BigDecimal('543.23')
+        invoiceId = 'demo11001'
+        amount = 543.23
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="demo1200"
-        amount = new BigDecimal('511.23')
+        invoiceId = 'demo1200'
+        amount = 511.23
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8000"
-        amount = new BigDecimal('60.00')
+        invoiceId = '8000'
+        amount = 60.00
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8001"
-        amount = new BigDecimal('10.00')
+        invoiceId = '8001'
+        amount = 10.00
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8002"
-        amount = new BigDecimal('36.43')
+        invoiceId = '8002'
+        amount = 36.43
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8003"
-        amount = new BigDecimal('46.43')
+        invoiceId = '8003'
+        amount = 46.43
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8004"
-        amount = new BigDecimal('33.99')
+        invoiceId = '8004'
+        amount = 33.99
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8100"
-        amount = new BigDecimal('1320.00')
+        invoiceId = '8100'
+        amount = 1320.00
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8005"
-        amount = new BigDecimal('33.99')
+        invoiceId = '8005'
+        amount = 33.99
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8006"
-        amount = new BigDecimal('46.43')
+        invoiceId = '8006'
+        amount = 46.43
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8007"
-        amount = new BigDecimal('36.43')
+        invoiceId = '8007'
+        amount = 36.43
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8008"
-        amount = new BigDecimal('48.00')
+        invoiceId = '8008'
+        amount = 48.00
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8009"
-        amount = new BigDecimal('127.09')
+        invoiceId = '8009'
+        amount = 127.09
         assertInvoiceTotal(invoiceId, amount)
 
-        invoiceId="8010"
-        amount = new BigDecimal('179.97')
+        invoiceId = '8010'
+        amount = 179.97
         assertInvoiceTotal(invoiceId, amount)
-    }
-
-    void assertInvoiceTotal(String invoiceId, BigDecimal amount){
-        GenericValue invoice =  EntityQuery.use(delegator).from('Invoice').where('invoiceId', invoiceId).queryOne()
-        BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
-        assert  invoiceTotal == amount
     }
 
     // Test case for Commission Run
@@ -121,8 +115,8 @@ class AutoInvoiceTests extends OFBizTestCase {
                 1 ) Two commission will be creating for the parties DemoCustAgent and DemoRepAll (like 10000 and 10001 invoiceId).
                 2 ) Its amountTotal will be same as commission cost of associated products.
         */
-        BigDecimal invoiceTotal = new BigDecimal('0')
-        BigDecimal amountTotal = new BigDecimal('0')
+        BigDecimal invoiceTotal = 0
+        BigDecimal amountTotal = 0
 
         List<GenericValue> invoiceItems = from('InvoiceItem')
                 .where('invoiceId', '8100')
@@ -130,7 +124,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         assert invoiceItems
 
         for (GenericValue invoiceItem : invoiceItems) {
-            if (invoiceItem.productId && 'WG-9943-B3'.equals(invoiceItem.productId)) {
+            if (invoiceItem.productId && invoiceItem.productId == 'WG-9943-B3') {
                 invoiceTotal = invoiceTotal.add(invoiceItem.quantity * (invoiceItem.amount * 0.03 + 1))
             }
         }
@@ -147,7 +141,7 @@ class AutoInvoiceTests extends OFBizTestCase {
         for (Map invoice : serviceResult.invoicesCreated) {
             amountTotal = amountTotal.add(InvoiceWorker.getInvoiceTotal(delegator, invoice.commissionInvoiceId))
         }
-        assert invoiceTotal.compareTo(amountTotal) == 0
+        assert invoiceTotal == amountTotal
     }
 
     // Test case to verify GL postings for Cancel Invoice process
@@ -185,14 +179,12 @@ class AutoInvoiceTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal payableDebitTotal = serviceResult.debitTotal
-        BigDecimal payableCreditTotal = serviceResult.creditTotal
         BigDecimal payableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
         serviceCtx.glAccountId = '214000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        BigDecimal uninvoicedDebitTotal = serviceResult.debitTotal
         BigDecimal uninvoicedCreditTotal = serviceResult.creditTotal
         BigDecimal uninvoicedDebitCreditDifference = serviceResult.debitCreditDifference
 
@@ -204,23 +196,23 @@ class AutoInvoiceTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('cancelInvoice', cancelInvoiceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        BigDecimal totalPayableDebitAmount = payableDebitTotal.add(new BigDecimal('48'))
-        BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.add(new BigDecimal('48'))
+        BigDecimal totalPayableDebitAmount = payableDebitTotal.add(48)
+        BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.add(48)
         serviceResult.clear()
         serviceCtx.glAccountId = '210000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert totalPayableDebitAmount.compareTo(serviceResult.debitTotal) == 0
-        assert totalPayableDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalPayableDebitAmount == serviceResult.debitTotal
+        assert totalPayableDebitCreditDifference == serviceResult.debitCreditDifference
 
-        BigDecimal totalUnInvoicedCreditAmount = uninvoicedCreditTotal.add(new BigDecimal('48'))
-        BigDecimal totalUnInvoicedDebitCreditDifference = uninvoicedDebitCreditDifference.subtract(new BigDecimal('48'))
+        BigDecimal totalUnInvoicedCreditAmount = uninvoicedCreditTotal.add(48)
+        BigDecimal totalUnInvoicedDebitCreditDifference = uninvoicedDebitCreditDifference.subtract(48)
         serviceResult.clear()
         serviceCtx.glAccountId = '214000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert totalUnInvoicedCreditAmount.compareTo(serviceResult.creditTotal) == 0
-        assert totalUnInvoicedDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalUnInvoicedCreditAmount == serviceResult.creditTotal
+        assert totalUnInvoicedDebitCreditDifference == serviceResult.debitCreditDifference
     }
 
     // Test case to verify GL postings for Cancel Check Run process
@@ -232,7 +224,8 @@ class AutoInvoiceTests extends OFBizTestCase {
               * GL Accounts associated with Invoices are ACCOUNTS PAYABLE (210000) and GENERAL CHECKING ACCOUNT (111100)
 
             Post condition : After Cancel Check Run process accounting transactions are automatically posted to the GL.
-              * ACCOUNTS PAYABLE 210000  - debitTotal increased of $82.86 ; creditTotal increased of $165.72 ; debitCreditDifference decreased of $82.86
+              * ACCOUNTS PAYABLE 210000  - debitTotal increased of $82.86 ; creditTotal increased of $165.72
+                                                                          ; debitCreditDifference decreased of $82.86
               * GENERAL CHECKING ACCOUNT 111100 - debitTotal increased of $82.86 ; debitCreditDifference increased of $82.86
         */
         Map serviceCtx = [
@@ -265,7 +258,6 @@ class AutoInvoiceTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal undepositedDebitTotal = serviceResult.debitTotal
-        BigDecimal undepositedCreditTotal = serviceResult.creditTotal
         BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
@@ -279,19 +271,19 @@ class AutoInvoiceTests extends OFBizTestCase {
         GenericValue paymentGroupMemberAndTrans = from('PmtGrpMembrPaymentAndFinAcctTrans')
                 .where('paymentGroupId', '9000')
                 .queryFirst()
-        if (paymentGroupMemberAndTrans && !'FINACT_TRNS_APPROVED'.equals(paymentGroupMemberAndTrans.finAccountTransStatusId)) {
-            BigDecimal tempBig = new BigDecimal('82.86')
+        if (paymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != paymentGroupMemberAndTrans.finAccountTransStatusId) {
+            BigDecimal tempBig = 82.86
 
             BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)
-            BigDecimal totalPayableCreditAmount = new BigDecimal('165.72').add(payableCreditTotal)
+            BigDecimal totalPayableCreditAmount = 165.72G.add(payableCreditTotal)
             BigDecimal totalPayableDebitCreditDifference = payableDebitCreditDifference.subtract(tempBig)
             serviceResult.clear()
             serviceCtx.glAccountId = '210000'
             serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
             assert ServiceUtil.isSuccess(serviceResult)
-            assert totalPayableDebitAmount.compareTo(serviceResult.debitTotal) == 0
-            assert totalPayableCreditAmount.compareTo(serviceResult.creditTotal) == 0
-            assert totalPayableDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+            assert totalPayableDebitAmount == serviceResult.debitTotal
+            assert totalPayableCreditAmount == serviceResult.creditTotal
+            assert totalPayableDebitCreditDifference == serviceResult.debitCreditDifference
 
             BigDecimal totalUndepositedDebitAmount = tempBig.add(undepositedDebitTotal)
             BigDecimal totalUndepositedDebitCreditDifference = tempBig.add(undepositedDebitCreditDifference)
@@ -299,8 +291,15 @@ class AutoInvoiceTests extends OFBizTestCase {
             serviceCtx.glAccountId = '111100'
             serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
             assert ServiceUtil.isSuccess(serviceResult)
-            assert totalUndepositedDebitAmount.compareTo(serviceResult.debitTotal) == 0
-            assert totalUndepositedDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+            assert totalUndepositedDebitAmount == serviceResult.debitTotal
+            assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
         }
     }
+
+    private void assertInvoiceTotal(String invoiceId, BigDecimal amount) {
+        GenericValue invoice =  EntityQuery.use(delegator).from('Invoice').where('invoiceId', invoiceId).queryOne()
+        BigDecimal invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice)
+        assert  invoiceTotal == amount
+    }
+
 }

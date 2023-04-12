@@ -19,7 +19,7 @@
 
 import org.apache.ofbiz.service.ServiceUtil
 
-logInfo("-=-=-=- TEST GROOVY SERVICE -=-=-=-")
+logInfo('-=-=-=- TEST GROOVY SERVICE -=-=-=-')
 result = ServiceUtil.returnSuccess()
 if (context.message) {
     String message = context.message
@@ -27,15 +27,15 @@ if (context.message) {
     result.result = message
     logInfo("----- Message is: $message -----")
 } else {
-    result.successMessage = (String) "Got no message but finished fine anyway"
-    result.result = (String) "[no message received]"
-    logInfo("----- No message received -----")
+    result.successMessage = 'Got no message but finished fine anyway'
+    result.result = '[no message received]'
+    logInfo('----- No message received -----')
 }
 return result
 
 // GroovyEngine will invoke the no-arg method.
-public Map testMethod() {
-    logInfo("----- no-arg testMethod invoked -----")
+Map testMethod() {
+    logInfo('----- no-arg testMethod invoked -----')
     result = ServiceUtil.returnSuccess()
     if (context.message) {
         String message = context.message
@@ -43,16 +43,16 @@ public Map testMethod() {
         result.result = message
         logInfo("----- Message is: $message -----")
     } else {
-        result.successMessage = (String) "Got no message but finished fine anyway"
-        result.result = (String) "[no message received]"
-        logInfo("----- No message received -----")
+        result.successMessage = 'Got no message but finished fine anyway'
+        result.result = '[no message received]'
+        logInfo('----- No message received -----')
     }
     return result
 }
 
 // ScriptEngine (JSR-223) will invoke the arg method.
-public Map testMethod(Map context) {
-    logInfo("----- arg testMethod invoked -----")
+Map testMethod(Map context) {
+    logInfo('----- arg testMethod invoked -----')
     result = ServiceUtil.returnSuccess()
     if (context.message) {
         String message = context.message
@@ -60,9 +60,9 @@ public Map testMethod(Map context) {
         result.result = message
         logInfo("----- Message is: $message -----")
     } else {
-        result.successMessage = (String) "Got no message but finished fine anyway"
-        result.result = (String) "[no message received]"
-        logInfo("----- No message received -----")
+        result.successMessage = 'Got no message but finished fine anyway'
+        result.result = '[no message received]'
+        logInfo('----- No message received -----')
     }
     return result
 }

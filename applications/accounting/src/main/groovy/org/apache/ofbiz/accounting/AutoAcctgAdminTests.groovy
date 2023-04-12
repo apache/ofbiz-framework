@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgAdminTests extends OFBizTestCase {
-    public AutoAcctgAdminTests(String name) {
+
+    AutoAcctgAdminTests(String name) {
         super(name)
     }
 
@@ -33,7 +34,7 @@ class AutoAcctgAdminTests extends OFBizTestCase {
                 uomIdTo: 'USD',
                 userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync("getFXConversion", serviceCtx)
+        Map serviceResult = dispatcher.runSync('getFXConversion', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
 

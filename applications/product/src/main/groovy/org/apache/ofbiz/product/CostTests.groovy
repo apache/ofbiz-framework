@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class CostTests extends OFBizTestCase {
-    public CostTests(String name) {
+
+    CostTests(String name) {
         super(name)
     }
 
@@ -39,18 +40,23 @@ class CostTests extends OFBizTestCase {
         assert ServiceUtil.isSuccess(resultMap)
 
         List<GenericValue> costComponents = from('CostComponent').where('productId', productId).filterByDate().queryList()
-        BigDecimal costTotalAmount = BigDecimal.ZERO;
+        BigDecimal costTotalAmount = BigDecimal.ZERO
 
         for (GenericValue costComponent : costComponents) {
             assert costComponent.costUomId == 'USD'
-            if (costComponent.costComponentTypeId == 'EST_STD_ROUTE_COST') {
-                assert costComponent.cost == 10
-            } else if (costComponent.costComponentTypeId == 'EST_STD_MAT_COST') {
-                assert costComponent.cost == 39
-            } else if (costComponent.costComponentTypeId == 'EST_STD_OTHER_COST') {
-                assert costComponent.cost == 31
-            } else if (costComponent.costComponentTypeId == 'EST_STD_GEN_COST') {
-                assert costComponent.cost == 4
+            switch (costComponent.costComponentTypeId) {
+                case 'EST_STD_ROUTE_COST':
+                    assert costComponent.cost == 10
+                    break
+                case 'EST_STD_MAT_COST':
+                    assert costComponent.cost == 39
+                    break
+                case 'EST_STD_OTHER_COST':
+                    assert costComponent.cost == 31
+                    break
+                case 'EST_STD_GEN_COST':
+                    assert costComponent.cost == 4
+                    break
             }
             costTotalAmount += costComponent.cost
         }

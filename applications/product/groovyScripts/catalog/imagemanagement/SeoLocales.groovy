@@ -17,51 +17,52 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.model.*
-
-import javax.servlet.*
-import javax.servlet.http.*
-
-Locale locale = UtilHttp.getLocale(request)
 String serverName = request.getServerName()
-String serverLocal = serverName.substring(serverName.lastIndexOf(".") + 1)
+String serverLocal = serverName.substring(serverName.lastIndexOf('.') + 1)
 
-def nameLocal
-def productTextData
+String nameLocal
+String productTextData
 contentAssocs.each { contentAssoc ->
+    content = from('Content').where('contentId', contentAssoc.contentIdTo).queryOne()
+    localeString = content.localeString
 
-content = from("Content").where("contentId", contentAssoc.contentIdTo).queryOne()
-localeString = content.localeString
-
-    if ("au" == serverLocal) {
-        nameLocal = "en_AU"
-    } else if ("ca" == serverLocal) {
-        nameLocal = "en_CA"
-    } else if ("de" == serverLocal) {
-        nameLocal = "de"
-    } else if ("ie" == serverLocal) {
-        nameLocal = "en_IE"
-    } else if ("fr" == serverLocal) {
-        nameLocal = "fr"
-    } else if ("es" == serverLocal) {
-        nameLocal = "es"
-    } else if ("it" == serverLocal) {
-        nameLocal = "it"
-    } else if ("uk" == serverLocal) {
-        nameLocal = "en_GB"
-    } else if ("sg" == serverLocal) {
-        nameLocal = "en_SG"
-    } else {
-        nameLocal = "en_US"
+    switch (serverLocal) {
+        case 'au':
+            nameLocal = 'en_AU'
+            break
+        case 'ca':
+            nameLocal = 'en_CA'
+            break
+        case 'de':
+            nameLocal = 'de'
+            break
+        case 'ie':
+            nameLocal = 'en_IE'
+            break
+        case 'fr':
+            nameLocal = 'fr'
+            break
+        case 'es':
+            nameLocal = 'es'
+            break
+        case 'it':
+            nameLocal = 'it'
+            break
+        case 'uk':
+            nameLocal = 'en_GB'
+            break
+        case 'sg':
+            nameLocal = 'en_SG'
+            break
+        default:
+            nameLocal = 'en_US'
+            break
     }
-    
+
     if (localeString == nameLocal) {
-            electronicText = from("ElectronicText").where("dataResourceId", content.dataResourceId).queryOne()
-            productTextData = electronicText.textData
+        electronicText = from('ElectronicText').where('dataResourceId', content.dataResourceId).queryOne()
+        productTextData = electronicText.textData
     }
-
 }
 
 if (productTextData == null) {
@@ -69,6 +70,4 @@ if (productTextData == null) {
 } else {
     context.productTextData = productTextData
 }
-
-
 

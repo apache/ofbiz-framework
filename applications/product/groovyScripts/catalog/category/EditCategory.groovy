@@ -17,74 +17,73 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.base.util.string.*
+import org.apache.ofbiz.base.util.HttpRequestFileUpload
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.string.FlexibleStringExpander
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 if (productCategory) {
-    context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType", false)
+    context.productCategoryType = productCategory.getRelatedOne('ProductCategoryType', false)
 }
 
 primaryParentCategory = null
-primParentCatIdParam = request.getParameter("primaryParentCategoryId")
+primParentCatIdParam = request.getParameter('primaryParentCategoryId')
 if (productCategory) {
-    primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory", false)
+    primaryParentCategory = productCategory.getRelatedOne('PrimaryParentProductCategory', false)
 } else if (primParentCatIdParam) {
-    primaryParentCategory = from("ProductCategory").where("productCategoryId", primParentCatIdParam).queryOne()
+    primaryParentCategory = from('ProductCategory').where('productCategoryId', primParentCatIdParam).queryOne()
 }
 context.primaryParentCategory = primaryParentCategory
 
-
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId()
-imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator)
-imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context)
-imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), context)
-imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath
-imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix
+imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator)
+imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.server.path', delegator), context)
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix', delegator), context)
+imageServerPath = imageServerPath.endsWith('/') ? imageServerPath.substring(0, imageServerPath.length() - 1) : imageServerPath
+imageUrlPrefix = imageUrlPrefix.endsWith('/') ? imageUrlPrefix.substring(0, imageUrlPrefix.length() - 1) : imageUrlPrefix
 context.imageFilenameFormat = imageFilenameFormat
 context.imageServerPath = imageServerPath
 context.imageUrlPrefix = imageUrlPrefix
 
 filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat)
-context.imageNameCategory = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "category", id : productCategoryId])
-context.imageNameLinkOne  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkOne", id : productCategoryId])
-context.imageNameLinkTwo  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkTwo", id : productCategoryId])
-
+context.imageNameCategory = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'categories', type: 'category', id: productCategoryId])
+context.imageNameLinkOne = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'categories', type: 'linkOne', id: productCategoryId])
+context.imageNameLinkTwo = imageUrlPrefix + '/' + filenameExpander.expandString([location: 'categories', type: 'linkTwo', id: productCategoryId])
 
 // UPLOADING STUFF
 
 forLock = new Object()
 contentType = null
-fileType = request.getParameter("upload_file_type")
+fileType = request.getParameter('upload_file_type')
 if (fileType) {
     context.fileType = fileType
 
-    String fileLocation = filenameExpander.expandString([location : "categories", type : fileType, id : productCategoryId])
-    String filePathPrefix = ""
+    String fileLocation = filenameExpander.expandString([location: 'categories', type: fileType, id: productCategoryId])
+    String filePathPrefix = ''
     String filenameToUse = fileLocation
-    if (fileLocation.lastIndexOf("/") != -1) {
-        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1) // adding 1 to include the trailing slash
-        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1)
+    if (fileLocation.lastIndexOf('/') != -1) {
+        filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1) // adding 1 to include the trailing slash
+        filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1)
     }
 
     int i1
-    if (contentType && (i1 = contentType.indexOf("boundary=")) != -1) {
+    if (contentType && (i1 = contentType.indexOf('boundary=')) != -1) {
         contentType = contentType.substring(i1 + 9)
-        contentType = "--" + contentType
+        contentType = '--' + contentType
     }
 
-    defaultFileName = filenameToUse + "_temp"
+    defaultFileName = filenameToUse + '_temp'
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)
-    uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix)
-    if (!uploadObject.doUpload(request, "Image")) {
+    uploadObject.setSavePath(imageServerPath + '/' + filePathPrefix)
+    if (!uploadObject.doUpload(request, 'Image')) {
         try {
-            (new File(imageServerPath + "/" + filePathPrefix, defaultFileName)).delete()
+            (new File(imageServerPath + '/' + filePathPrefix, defaultFileName)).delete()
         } catch (Exception e) {
             logError(e, "error deleting existing file (not necessarily a problem, except if it's a webshell!)")
         }
-        String errorMessage = UtilProperties.getMessage("SecurityUiLabels","SupportedImageFormats", locale)
+        String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedImageFormats', locale)
         logError(errorMessage)
         return error(errorMessage)
     }
@@ -95,21 +94,21 @@ if (fileType) {
     }
 
     if (clientFileName) {
-        if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
-            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."))
+        if (clientFileName.lastIndexOf('.') > 0 && clientFileName.lastIndexOf('.') < clientFileName.length()) {
+            filenameToUse += clientFileName.substring(clientFileName.lastIndexOf('.'))
         } else {
-            filenameToUse += ".jpg"
+            filenameToUse += '.jpg'
         }
 
         context.clientFileName = clientFileName
         context.filenameToUse = filenameToUse
 
         characterEncoding = request.getCharacterEncoding()
-        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding)
+        imageUrl = imageUrlPrefix + '/' + filePathPrefix + URLEncoder.encode(filenameToUse, characterEncoding)
 
         try {
-            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName)
-            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse)
+            file = new File(imageServerPath + '/' + filePathPrefix, defaultFileName)
+            file1 = new File(imageServerPath + '/' + filePathPrefix, filenameToUse)
             try {
                 file1.delete()
             } catch (Exception e) {
@@ -122,7 +121,7 @@ if (fileType) {
 
         if (imageUrl) {
             context.imageUrl = imageUrl
-            productCategory.set(fileType + "ImageUrl", imageUrl)
+            productCategory.set(fileType + 'ImageUrl', imageUrl)
             productCategory.store()
         }
     }

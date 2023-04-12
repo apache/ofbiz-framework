@@ -29,7 +29,7 @@ import org.apache.ofbiz.order.order.OrderReadHelper
 // so we'll take a best effort approach to limit the size of the results
 maxRows = null
 // TODO: Find a way to get the pagination parameters for a given form
-if (!parameters.containsKey("VIEW_INDEX_2")) {
+if (!parameters.containsKey('VIEW_INDEX_2')) {
     // There's only one set of pagination parameters so it must be for us
     if (parameters.VIEW_SIZE_1) {
         if (parameters.VIEW_INDEX_1) {
@@ -39,9 +39,7 @@ if (!parameters.containsKey("VIEW_INDEX_2")) {
         }
     }
 }
-if (!maxRows) {
-    maxRows = 50
-}
+maxRows = maxRows ?: 50
 
 productId = parameters.productId
 supplier = null
@@ -49,10 +47,10 @@ supplierPartyId = null
 
 orderId = parameters.orderId
 if (orderId) {
-    orderItemShipGroup = from("OrderItemShipGroup").orderBy("orderId").queryFirst()
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
-    supplier = from("OrderHeaderAndRoles").where("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR").queryFirst()
-    context.shipGroupSeqId =  orderItemShipGroup.shipGroupSeqId 
+    orderItemShipGroup = from('OrderItemShipGroup').orderBy('orderId').queryFirst()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
+    supplier = from('OrderHeaderAndRoles').where('orderId', orderId, 'roleTypeId', 'BILL_FROM_VENDOR').queryFirst()
+    context.shipGroupSeqId =  orderItemShipGroup.shipGroupSeqId
     context.orderHeader = orderHeader
 }
 
@@ -62,22 +60,19 @@ conditionList = []
 
 if (productId) {
     // make sure the look up is case insensitive
-    conditionList.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue("productId")),
-                                     EntityOperator.LIKE, productId.toUpperCase() + "%"))
+    conditionList.add(EntityCondition.makeCondition(EntityFunction.upper(EntityFieldValue.makeFieldValue('productId')),
+                                     EntityOperator.LIKE, productId.toUpperCase() + '%'))
 }
-if (!supplier) {
-    supplierPartyId = shoppingCart.getOrderPartyId()
-} else {
-    supplierPartyId = supplier.getString("partyId")
-}
-conditionList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, supplierPartyId))
+supplierPartyId = supplier?.partyId ?: shoppingCart.getOrderPartyId()
+conditionList.add(EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, supplierPartyId))
 
-conditionList.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()))
-conditionList.add(EntityCondition.makeConditionDate("availableFromDate", "availableThruDate"))
+conditionList.add(EntityCondition.makeCondition('currencyUomId', EntityOperator.EQUALS, shoppingCart.getCurrency()))
+conditionList.add(EntityCondition.makeConditionDate('availableFromDate', 'availableThruDate'))
 
-supplierProducts = select("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity", "orderQtyIncrements").from("SupplierProduct")
+supplierProducts = select('productId', 'supplierProductId', 'supplierProductName', 'lastPrice', 'minimumOrderQuantity', 'orderQtyIncrements')
+        .from('SupplierProduct')
                     .where(conditionList)
-                    .orderBy("productId")
+                    .orderBy('productId')
                     .queryList()
 
 newProductList = []
@@ -86,9 +81,9 @@ for (supplierProduct in supplierProducts) {
 
     String facilityId = parameters.facilityId
     if (facilityId) {
-        productFacilityList = from("ProductFacility").where("productId", productId, "facilityId", facilityId).cache(true).queryList()
+        productFacilityList = from('ProductFacility').where('productId', productId, 'facilityId', facilityId).cache(true).queryList()
     } else {
-        productFacilityList = from("ProductFacility").where("productId", productId).cache(true).queryList()
+        productFacilityList = from('ProductFacility').where('productId', productId).cache(true).queryList()
     }
     if (newProductList.size() >= maxRows) {
         // We've got enough results to display, keep going to get the result size but skip the heavy stuff
@@ -96,12 +91,12 @@ for (supplierProduct in supplierProducts) {
     } else {
         quantityOnOrder = 0.0
         // find approved purchase orders
-        orderHeaders = from("OrderHeader").where("orderTypeId", "PURCHASE_ORDER", "statusId", "ORDER_APPROVED").orderBy("orderId DESC").queryList()
+        orderHeaders = from('OrderHeader').where('orderTypeId', 'PURCHASE_ORDER', 'statusId', 'ORDER_APPROVED').orderBy('orderId DESC').queryList()
         orderHeaders.each { orderHeader ->
             orderReadHelper = new OrderReadHelper(orderHeader)
             orderItems = orderReadHelper.getOrderItems()
             orderItems.each { orderItem ->
-                if (productId.equals(orderItem.productId) && "ITEM_APPROVED".equals(orderItem.statusId)) {
+                if (productId == orderItem.productId && orderItem.statusId == 'ITEM_APPROVED') {
                     if (!orderItem.cancelQuantity) {
                         cancelQuantity = 0.0
                     }
@@ -110,25 +105,22 @@ for (supplierProduct in supplierProducts) {
                 }
             }
         }
-        product = from("Product").where("productId", productId).cache(true).queryOne()
+        product = from('Product').where('productId', productId).cache(true).queryOne()
         productFacilityList.each { productFacility ->
-            result = runService('getInventoryAvailableByFacility', ["productId" : productId, "facilityId" : productFacility.facilityId])
-            qohAtp = result.quantityOnHandTotal.toPlainString() + "/" + result.availableToPromiseTotal.toPlainString()
-            productInfoMap = [:]
-            
-            productInfoMap.internalName = product.internalName
-    
-            productInfoMap.productId = productId
-            productInfoMap.qohAtp = qohAtp
-            productInfoMap.quantityOnOrder = quantityOnOrder
-    
-            productInfoMap.supplierProductId = supplierProduct.supplierProductId
-            productInfoMap.lastPrice = supplierProduct.lastPrice
-            productInfoMap.orderQtyIncrements = supplierProduct.orderQtyIncrements
-            productInfoMap.minimumOrderQuantity = supplierProduct.minimumOrderQuantity
+            result = runService('getInventoryAvailableByFacility', ['productId': productId, 'facilityId': productFacility.facilityId])
+            qohAtp = result.quantityOnHandTotal.toPlainString() + '/' + result.availableToPromiseTotal.toPlainString()
+            productInfoMap = [
+                    internalName: product.internalName,
+                    productId: productId,
+                    qohAtp: qohAtp,
+                    quantityOnOrder: quantityOnOrder,
+                    supplierProductId: supplierProduct.supplierProductId,
+                    lastPrice: supplierProduct.lastPrice,
+                    orderQtyIncrements: supplierProduct.orderQtyIncrements,
+                    minimumOrderQuantity: supplierProduct.minimumOrderQuantity,
+                    minimumStock: productFacility.minimumStock,
+            ]
 
-            productInfoMap.minimumStock = productFacility.minimumStock
-    
             newProductList.add(productInfoMap)
         }
     }

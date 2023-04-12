@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ProductTests extends OFBizTestCase {
-    public ProductTests(String name) {
+
+    ProductTests(String name) {
         super(name)
     }
 
@@ -43,4 +44,5 @@ class ProductTests extends OFBizTestCase {
             assert prodCategory.productCategoryTypeId == 'BEST_SELL_CATEGORY'
         }
     }
+
 }

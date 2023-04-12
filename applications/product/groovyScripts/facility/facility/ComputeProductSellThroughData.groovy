@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import java.math.MathContext
 import java.sql.Timestamp
 
 if (parameters.fromDateSellThrough) {
@@ -29,11 +28,14 @@ if (parameters.fromDateSellThrough) {
     } catch (Exception e) {
         logError(e, module)
     }
-    inventoryCountResult = runService('countProductInventoryOnHand', [productId : productId, facilityId : facilityId, inventoryCountDate : fromDate, userLogin : userLogin])
+    inventoryCountResult = runService('countProductInventoryOnHand',
+            [productId: productId, facilityId: facilityId, inventoryCountDate: fromDate, userLogin: userLogin])
     if (inventoryCountResult.quantityOnHandTotal && inventoryCountResult.quantityOnHandTotal > 0) {
-        inventoryShippedForSalesResult = runService('countProductInventoryShippedForSales', [productId : productId, facilityId : facilityId, fromDate : fromDate, thruDate : thruDate, userLogin : userLogin])
+        inventoryShippedForSalesResult = runService('countProductInventoryShippedForSales',
+                [productId: productId, facilityId: facilityId, fromDate: fromDate, thruDate: thruDate, userLogin: userLogin])
         context.sellThroughInitialInventory = inventoryCountResult.quantityOnHandTotal
         context.sellThroughInventorySold = inventoryShippedForSalesResult.quantityOnHandTotal
-        context.sellThroughPercentage = new BigDecimal(inventoryShippedForSalesResult.quantityOnHandTotal / inventoryCountResult.quantityOnHandTotal * 100, new java.math.MathContext(2))
+        context.sellThroughPercentage = new BigDecimal(
+                inventoryShippedForSalesResult.quantityOnHandTotal / inventoryCountResult.quantityOnHandTotal * 100, new java.math.MathContext(2))
     }
 }

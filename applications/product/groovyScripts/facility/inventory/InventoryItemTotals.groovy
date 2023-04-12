@@ -17,11 +17,12 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.entity.transaction.*
+import org.apache.ofbiz.entity.GenericEntityException
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.transaction.TransactionUtil
 
-action = request.getParameter("action")
+action = request.getParameter('action')
 
 inventoryItemTotals = []
 qohGrandTotal = 0.0
@@ -31,30 +32,30 @@ retailPriceGrandTotal = 0.0
 totalCostPriceGrandTotal = 0.0
 totalRetailPriceGrandTotal = 0.0
 boolean beganTransaction = false
-searchParameterString = "action=Y&facilityId=" + facilityId
+searchParameterString = 'action=Y&facilityId=' + facilityId
 if (action) {
-    conditions = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")]
-    conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null))
+    conditions = [EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INV_DELIVERED')]
+    conditions.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, null))
     conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR)
     try {
         beganTransaction = TransactionUtil.begin()
-        invItemListItr = from("InventoryItem").where(conditionList).orderBy("productId").queryIterator()
+        invItemListItr = from('InventoryItem').where(conditionList).orderBy('productId').queryIterator()
         while ((inventoryItem = invItemListItr.next()) != null) {
             productId = inventoryItem.productId
-            product = from("Product").where("productId", productId).queryOne()
-            productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne()
+            product = from('Product').where('productId', productId).queryOne()
+            productFacility = from('ProductFacility').where('productId', productId, 'facilityId', facilityId).queryOne()
             if (productFacility) {
-                quantityOnHandTotal = inventoryItem.getDouble("quantityOnHandTotal")
-                availableToPromiseTotal = inventoryItem.getDouble("availableToPromiseTotal")
-                costPrice = inventoryItem.getDouble("unitCost")
+                quantityOnHandTotal = inventoryItem.getDouble('quantityOnHandTotal')
+                availableToPromiseTotal = inventoryItem.getDouble('availableToPromiseTotal')
+                costPrice = inventoryItem.getDouble('unitCost')
                 retailPrice = 0.0
                 totalCostPrice = 0.0
                 totalRetailPrice = 0.0
-                productPrices = product.getRelated("ProductPrice", null, null, false)
+                productPrices = product.getRelated('ProductPrice', null, null, false)
                 if (productPrices) {
                     productPrices.each { productPrice ->
-                        if (("DEFAULT_PRICE").equals(productPrice.productPriceTypeId)) {
-                            retailPrice = productPrice.getDouble("price")
+                        if (productPrice.productPriceTypeId == 'DEFAULT_PRICE') {
+                            retailPrice = productPrice.getDouble('price')
                         }
                     }
                 }
@@ -79,20 +80,20 @@ if (action) {
                     retailPriceGrandTotal += retailPrice
                 }
 
-                resultMap = [productId : product.productId, quantityOnHand : quantityOnHandTotal, availableToPromise : availableToPromiseTotal,
-                             costPrice : costPrice, retailPrice : retailPrice, totalCostPrice : totalCostPrice, totalRetailPrice : totalRetailPrice]
+                resultMap = [productId: product.productId, quantityOnHand: quantityOnHandTotal, availableToPromise: availableToPromiseTotal,
+                             costPrice: costPrice, retailPrice: retailPrice, totalCostPrice: totalCostPrice, totalRetailPrice: totalRetailPrice]
                 inventoryItemTotals.add(resultMap)
             }
         }
         invItemListItr.close()
     } catch (GenericEntityException e) {
-        errMsg = "Failure in operation, rolling back transaction"
+        errMsg = 'Failure in operation, rolling back transaction'
         logError(e, errMsg)
         try {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            logError(e2, "Could not rollback transaction: " + e2.toString())
+            logError(e2, 'Could not rollback transaction: ' + e2)
         }
         // after rolling back, rethrow the exception
         throw e
@@ -100,12 +101,11 @@ if (action) {
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction)
     }
-
 }
 
 inventoryItemGrandTotals = []
-inventoryItemGrandTotals.add([qohGrandTotal : qohGrandTotal, atpGrandTotal : atpGrandTotal,
-                              totalCostPriceGrandTotal : totalCostPriceGrandTotal, totalRetailPriceGrandTotal : totalRetailPriceGrandTotal])
+inventoryItemGrandTotals.add([qohGrandTotal: qohGrandTotal, atpGrandTotal: atpGrandTotal,
+                              totalCostPriceGrandTotal: totalCostPriceGrandTotal, totalRetailPriceGrandTotal: totalRetailPriceGrandTotal])
 
 context.searchParameterString = searchParameterString
 context.inventoryItemTotals = inventoryItemTotals

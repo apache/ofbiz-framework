@@ -24,7 +24,6 @@ import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelField
 import org.apache.ofbiz.entity.model.ModelFieldType
 import org.apache.ofbiz.entity.model.ModelRelation
-import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
@@ -38,14 +37,14 @@ ModelEntity entity = reader.getModelEntity(entityName)
 context.entity = entity
 context.plainTableName = entity.getPlainTableName()
 
-boolean hasAllView = security.hasEntityPermission("ENTITY_DATA", "_VIEW", session)
-boolean hasAllCreate = security.hasEntityPermission("ENTITY_DATA", "_CREATE", session)
-boolean hasAllUpdate = security.hasEntityPermission("ENTITY_DATA", "_UPDATE", session)
-boolean hasAllDelete = security.hasEntityPermission("ENTITY_DATA", "_DELETE", session)
-boolean hasViewPermission = hasAllView || security.hasEntityPermission(entity.getPlainTableName(), "_VIEW", session)
-boolean hasCreatePermission = hasAllCreate || security.hasEntityPermission(entity.getPlainTableName(), "_CREATE", session)
-boolean hasUpdatePermission = hasAllUpdate || security.hasEntityPermission(entity.getPlainTableName(), "_UPDATE", session)
-boolean hasDeletePermission = hasAllDelete || security.hasEntityPermission(entity.getPlainTableName(), "_DELETE", session)
+boolean hasAllView = security.hasEntityPermission('ENTITY_DATA', '_VIEW', session)
+boolean hasAllCreate = security.hasEntityPermission('ENTITY_DATA', '_CREATE', session)
+boolean hasAllUpdate = security.hasEntityPermission('ENTITY_DATA', '_UPDATE', session)
+boolean hasAllDelete = security.hasEntityPermission('ENTITY_DATA', '_DELETE', session)
+boolean hasViewPermission = hasAllView || security.hasEntityPermission(entity.getPlainTableName(), '_VIEW', session)
+boolean hasCreatePermission = hasAllCreate || security.hasEntityPermission(entity.getPlainTableName(), '_CREATE', session)
+boolean hasUpdatePermission = hasAllUpdate || security.hasEntityPermission(entity.getPlainTableName(), '_UPDATE', session)
+boolean hasDeletePermission = hasAllDelete || security.hasEntityPermission(entity.getPlainTableName(), '_DELETE', session)
 
 context.hasAllView = hasAllView
 context.hasAllCreate = hasAllCreate
@@ -55,7 +54,6 @@ context.hasViewPermission = hasViewPermission
 context.hasCreatePermission = hasCreatePermission
 context.hasUpdatePermission = hasUpdatePermission
 context.hasDeletePermission = hasDeletePermission
-
 
 // Resolve and prepare pkValues from request to support rest or oldest request call
 Map<String, String> pkNamesValuesMap = null
@@ -99,9 +97,9 @@ if (value) {
 
 context.pkNotFound = !value && !findByPK.getAllFields().isEmpty()
 
-String lastUpdateMode = parameters.get("_method")
-if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) &&
-    lastUpdateMode != null && "DELETE" != lastUpdateMode) {
+String lastUpdateMode = parameters.get('_method')
+if ((session.getAttribute('_ERROR_MESSAGE_') != null || request.getAttribute('_ERROR_MESSAGE_') != null) &&
+    lastUpdateMode != null && 'DELETE' != lastUpdateMode) {
     //if we are updating and there is an error, do not use the entity data for the fields, use parameters to get the old value
     useValue = false
 }
@@ -115,21 +113,21 @@ while (pkIterator.hasNext()) {
     ModelField field = pkIterator.next()
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
 
-    String stringLength = ""
+    String stringLength = ''
     String fieldName = field.getName()
     String fieldValue = findByPK && useValue ?
             UtilFormatOut.safeToString(findByPK.get(fieldName)) :
-            (useValue ? "" : UtilFormatOut.checkNull(parameters.get(fieldName)))
-    String javaType = StringUtil.split(type.getJavaType(), ".").last()
+            (useValue ? '' : UtilFormatOut.checkNull(parameters.get(fieldName)))
+    String javaType = StringUtil.split(type.getJavaType(), '.').last()
     String fieldType = javaType
-    if ("Timestamp" == javaType) {
-        fieldType = "DateTime"
+    if (javaType == 'Timestamp') {
+        fieldType = 'DateTime'
     } else {
-        if ("String" == javaType) {
+        if (javaType == 'String') {
             if (type.stringLength() <= 80) {
-                fieldType = "StringOneRow"
+                fieldType = 'StringOneRow'
             } else if (type.stringLength() > 255) {
-                fieldType = "Textarea"
+                fieldType = 'Textarea'
             }
             stringLength = type.stringLength().toString()
         }
@@ -154,17 +152,17 @@ while (noPkIterator.hasNext()) {
             UtilFormatOut.safeToString(value.get(fieldName)) :
             UtilFormatOut.checkNull(parameters.get(fieldName))
 
-    String javaType = StringUtil.split(type.getJavaType(), ".").last()
-    String stringLength = ""
+    String javaType = StringUtil.split(type.getJavaType(), '.').last()
+    String stringLength = ''
     String fieldType = javaType
-    if ("Timestamp" == javaType) {
-        fieldType = "DateTime"
+    if (javaType == 'Timestamp') {
+        fieldType = 'DateTime'
     } else {
-        if ("String" == javaType) {
+        if (javaType == 'String') {
             if (type.stringLength() <= 80) {
-                fieldType = "StringOneRow"
+                fieldType = 'StringOneRow'
             } else if (type.stringLength() > 255) {
-                fieldType = "Textarea"
+                fieldType = 'Textarea'
             }
             stringLength = type.stringLength().toString()
         }
@@ -185,7 +183,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     ModelRelation relation = entity.getRelation(relIndex)
     ModelEntity relatedEntity = reader.getModelEntity(relation.getRelEntityName())
 
-    boolean relCreate = security.hasEntityPermission(relatedEntity.getPlainTableName(), "_CREATE", session)
+    boolean relCreate = security.hasEntityPermission(relatedEntity.getPlainTableName(), '_CREATE', session)
 
     mapRelation.type = relation.getType()
     mapRelation.title = relation.getTitle()
@@ -194,9 +192,9 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     mapRelation.relatedTable = relatedEntity.getEntityName()
     mapRelation.relCreate = relCreate
 
-    if ("one" == relation.getType() || "one-nofk" == relation.getType()) {
+    if (relation.getType() == 'one' || relation.getType() == 'one-nofk') {
         if (value) {
-            if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
+            if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), '_VIEW', session)) {
                 Iterator tempIter = UtilMisc.toIterator(value.getRelated(relation.getTitle() + relatedEntity.getEntityName(), null, null, false))
                 GenericValue valueRelated = null
                 if (tempIter && tempIter.hasNext()) {
@@ -212,12 +210,12 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                     String fieldName = field.getName()
 
                     String fieldValue =  valueRelated ?
-                            UtilFormatOut.safeToString(valueRelated.get(fieldName)) : ""
+                            UtilFormatOut.safeToString(valueRelated.get(fieldName)) : ''
 
-                    String javaType = StringUtil.split(type.getJavaType(), ".").last()
+                    String javaType = StringUtil.split(type.getJavaType(), '.').last()
                     String fieldType = javaType
-                    if ("Timestamp" == javaType) {
-                        fieldType = "DateTime"
+                    if (javaType == 'Timestamp') {
+                        fieldType = 'DateTime'
                     }
 
                     mapRelatedFields.name = fieldName
@@ -231,38 +229,31 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                     mapRelation.valueRelatedPk = valueRelated.getPrimaryKey().toString()
                 }
                 mapRelation.relatedFieldsList = relatedFieldsList
-                mapRelation.relType = "one"
-
-                String findString = "entityName=" + relatedEntity.getEntityName()
-                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                    if (value.get(keyMap.getFieldName())) {
-                        findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName())
-                    }
-                }
-                String encodeFindString = UtilFormatOut.encodeQuery(findString)
-                mapRelation.encodeRelatedEntityFindString = encodeFindString
+                mapRelation.relType = 'one'
+                mapRelation.encodeRelatedEntityFindString = buildFindString(relatedEntity, relation, value)
 
                 relationFieldList << mapRelation
             }
         }
-    } else if (relation.getType() == "many") {
+    } else if (relation.getType() == 'many') {
         if (value) {
-            if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
-                mapRelation.relType = "many"
-
-                String findString = "entityName=" + relatedEntity.getEntityName()
-                for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                    if (value.get(keyMap.getFieldName())) {
-                        findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName())
-                    }
-                }
-                String encodeFindString = UtilFormatOut.encodeQuery(findString)
-                mapRelation.encodeRelatedEntityFindString = encodeFindString
+            if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), '_VIEW', session)) {
+                mapRelation.relType = 'many'
+                mapRelation.encodeRelatedEntityFindString = buildFindString(relatedEntity, relation, value)
 
                 relationFieldList << mapRelation
             }
         }
     }
 }
-context.relationFieldList = UtilMisc.sortMaps(relationFieldList, ["sortName"])
+
+private String buildFindString(ModelEntity relatedEntity, ModelRelation relation, Map value) {
+    String findString = 'entityName=' + relatedEntity.getEntityName()
+    relation.getKeyMaps().findAll { keyMap -> value.get(keyMap.getFieldName()) }.each { keyMap ->
+        findString += '&' + keyMap.getRelFieldName() + '=' + value.get(keyMap.getFieldName())
+    }
+    return UtilFormatOut.encodeQuery(findString)
+}
+
+context.relationFieldList = UtilMisc.sortMaps(relationFieldList, ['sortName'])
 context.relSize = (relationFieldList.size() + 2)

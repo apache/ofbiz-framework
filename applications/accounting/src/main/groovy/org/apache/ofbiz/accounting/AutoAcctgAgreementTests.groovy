@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgAgreementTests extends OFBizTestCase {
-    public AutoAcctgAgreementTests(String name) {
+
+    AutoAcctgAgreementTests(String name) {
         super(name)
     }
 
@@ -55,9 +56,9 @@ class AutoAcctgAgreementTests extends OFBizTestCase {
         GenericValue agreement = from('Agreement')
                 .where('agreementId', serviceResult.agreementId)
                 .queryOne()
-        List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", null, null, false)
-        List<GenericValue> agreementTerms = agreement.getRelated("AgreementTerm", null, null, false)
-        List<GenericValue> agreementProductAppls = agreement.getRelated("AgreementProductAppl", null, null, false)
+        List<GenericValue> agreementItems = agreement.getRelated('AgreementItem', null, null, false)
+        List<GenericValue> agreementTerms = agreement.getRelated('AgreementTerm', null, null, false)
+        List<GenericValue> agreementProductAppls = agreement.getRelated('AgreementProductAppl', null, null, false)
 
         assert agreement
         assert agreementItems

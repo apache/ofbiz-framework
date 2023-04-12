@@ -33,8 +33,8 @@ import org.w3c.dom.Document
 ModelEntity modelEntity = null
 try {
     modelEntity = delegator.getModelEntity(parameters.entityName)
-} catch(GenericEntityException e) {
-    logError("The entityName ${parameters.entityName} isn't found", "FindGeneric.groovy")
+} catch (GenericEntityException e) {
+    logError("The entityName ${parameters.entityName} isn't found", 'FindGeneric.groovy')
 }
 
 if (modelEntity) {
@@ -44,7 +44,10 @@ if (modelEntity) {
     context.entityName = entityName
     ModelReader entityModelReader = delegator.getModelReader()
     //create the search form with auto-fields-entity
-    String dynamicAutoEntityFieldSearchForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    String dynamicAutoEntityFieldSearchForm = """<?xml version="1.0" encoding="UTF-8"?>
+    <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
         <form name="FindGeneric" type="single" target="entity/find/${entityName}">
            <auto-fields-entity entity-name="${entityName}" default-field-type="find" include-internal="true"/>
             <field name="_method"><hidden value="GET"/></field>
@@ -55,19 +58,19 @@ if (modelEntity) {
     //call modelEntity to complete information on the field type
     modelEntity.getFieldsUnmodifiable().each {
         modelField ->
-            if (! modelEntity.getAutomaticFieldNames().contains(modelField.name)) {
-                ModelFieldType type = delegator.getEntityFieldType(modelEntity, modelField.getType())
-                dynamicAutoEntityFieldSearchForm +=
-                        "<field name=\"${modelField.name}\" tooltip=\"${modelField.getName()}" +
-                                (modelField.getIsPk() ? '* ': ' ') +
-                                " / ${modelField.getType()} (${type.getJavaType()} - ${type.getSqlType()})\">"
+        if (! modelEntity.getAutomaticFieldNames().contains(modelField.name)) {
+            ModelFieldType type = delegator.getEntityFieldType(modelEntity, modelField.getType())
+            dynamicAutoEntityFieldSearchForm +=
+            "<field name=\"${modelField.name}\" tooltip=\"${modelField.getName()}" +
+            (modelField.getIsPk() ? '* ' : ' ') +
+            " / ${modelField.getType()} (${type.getJavaType()} - ${type.getSqlType()})\">"
 
-                //In general when your research some entity on the pk field, you check on element, so help by set as default equals comparison
-                if (modelField.getIsPk() && type.getJavaType() == 'String') {
-                    dynamicAutoEntityFieldSearchForm += '<text-find default-option="equals"/>'
-                }
-                dynamicAutoEntityFieldSearchForm += '</field>'
+            //In general when your research some entity on the pk field, you check on element, so help by set as default equals comparison
+            if (modelField.getIsPk() && type.getJavaType() == 'String') {
+                dynamicAutoEntityFieldSearchForm += '<text-find default-option="equals"/>'
             }
+            dynamicAutoEntityFieldSearchForm += '</field>'
+        }
     }
     dynamicAutoEntityFieldSearchForm = dynamicAutoEntityFieldSearchForm + '</form></forms>'
     logVerbose(dynamicAutoEntityFieldSearchForm)
@@ -80,7 +83,7 @@ if (modelEntity) {
         modelForm = entry.getValue()
     }
 
-    String formRendererLocationTheme = context.visualTheme.getModelTheme().getFormRendererLocation("screen")
+    String formRendererLocationTheme = context.visualTheme.getModelTheme().getFormRendererLocation('screen')
     MacroFormRenderer renderer = new MacroFormRenderer(formRendererLocationTheme, request, response)
     FormRenderer dynamicAutoEntitySearchFormRenderer = new FormRenderer(modelForm, renderer)
     Writer writer = new StringWriter()
@@ -88,7 +91,10 @@ if (modelEntity) {
     context.dynamicAutoEntitySearchForm = writer
 
     //prepare the result list from performFind
-    String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?><forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?>
+        <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://ofbiz.apache.org/Widget-Form"
+            xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
             <form name="ListGeneric" type="list" target="entity/find/${entityName}" list-name="listIt" paginate-target="entity/find/${entityName}"
               odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar" header-row-style="header-row-2">
             <actions>
@@ -96,7 +102,7 @@ if (modelEntity) {
                     <field-map field-name="inputFields" from-field="parameters"/>
                     <field-map field-name="entityName" value="${entityName}"/>"""
     if (fieldsToSelect) {
-    dynamicAutoEntityFieldListForm += """
+        dynamicAutoEntityFieldListForm += """
                     <field-map field-name="fieldList" value="${fieldsToSelect}"/>"""
     }
     dynamicAutoEntityFieldListForm += """
@@ -108,11 +114,14 @@ if (modelEntity) {
             <field name="entityName"><hidden value="${entityName}"/></field>"""
     modelEntity.getFieldsUnmodifiable().each {
         modelField ->
-            dynamicAutoEntityFieldListForm +=
+        dynamicAutoEntityFieldListForm +=
                     "<field name=\"${modelField.name}\" sort-field=\"true\"/>"
     }
     dynamicAutoEntityFieldListForm += """
-            <field name="viewGeneric" title=" "><hyperlink target="\${groovy: 'entity/find/' + org.apache.ofbiz.entity.util.EntityUtil.entityToPath(delegator, '${entityName}', context)}" description="view"/></field>
+            <field name="viewGeneric" title=" ">
+                <hyperlink description="view"
+                    target="\${groovy: 'entity/find/' + org.apache.ofbiz.entity.util.EntityUtil.entityToPath(delegator, '${entityName}', context)}"/>
+            </field>
             <sort-order><sort-field name="viewGeneric"/></sort-order>
             </form></forms>"""
 
@@ -130,7 +139,7 @@ if (modelEntity) {
     context.dynamicAutoEntityListForm = writerList
 }
 
-def getFieldsToSelect(ModelEntity modelEntity) {
+List<String> getFieldsToSelect(ModelEntity modelEntity) {
     groupByFields = []
     functionFields = []
 
@@ -147,7 +156,6 @@ def getFieldsToSelect(ModelEntity modelEntity) {
     List<String> fieldsToSelect = []
 
     if (groupByFields || functionFields) {
-
         for (String groupByField : groupByFields) {
             fieldsToSelect.add(groupByField)
         }

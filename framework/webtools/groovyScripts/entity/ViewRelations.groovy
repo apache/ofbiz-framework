@@ -16,13 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.entity.Delegator
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.entity.model.ModelReader
-import org.apache.ofbiz.entity.model.ModelEntity
-import org.apache.ofbiz.entity.model.ModelRelation
-import org.apache.ofbiz.entity.model.ModelKeyMap
-
 entityName = parameters.entityName
 context.entityName = entityName
 
@@ -31,7 +24,8 @@ modelEntity = reader.getModelEntity(entityName)
 
 context.plainTableName = modelEntity.getPlainTableName()
 
-hasViewPermission = security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_VIEW", session)
+boolean hasEntityDataViewPermision = security.hasEntityPermission('ENTITY_DATA', '_VIEW', session)
+hasViewPermission = hasEntityDataViewPermision || security.hasEntityPermission(modelEntity.getPlainTableName(), '_VIEW', session)
 context.hasViewPermission = hasViewPermission
 
 relations = []
@@ -40,14 +34,11 @@ for (rit = modelEntity.getRelationsIterator(); rit.hasNext();) {
 
     modelRelation = rit.next()
     relFields = []
-    for (kit = modelRelation.getKeyMaps().iterator(); kit.hasNext();) {
-        mapFields = [:]
-        keyMap = kit.next()
-        mapFields.fieldName = keyMap.getFieldName()
-        mapFields.relFieldName = keyMap.getRelFieldName()
-
-        relFields.add(mapFields)
+    modelRelation.getKeyMaps().each { keyMap ->
+        relFields << [fieldName: keyMap.getFieldName(),
+                      relFieldName: keyMap.getRelFieldName()]
     }
+
     mapRelation.relFields = relFields
     mapRelation.title = modelRelation.getTitle()
     mapRelation.relEntityName = modelRelation.getRelEntityName()

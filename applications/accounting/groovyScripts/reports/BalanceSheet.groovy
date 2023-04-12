@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.accounting.util.UtilAccounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilMisc
@@ -30,16 +29,14 @@ import org.apache.ofbiz.party.party.PartyWorker
 
 import java.sql.Timestamp
 
-uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)
+uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
 
-if (!thruDate) {
-    thruDate = UtilDateTime.nowTimestamp()
-}
+thruDate = thruDate ?: UtilDateTime.nowTimestamp()
 if (!glFiscalTypeId) {
     return
 }
-organizationPartyId =null
-if(context.organizationPartyId) {
+organizationPartyId = null
+if (context.organizationPartyId) {
     organizationPartyId = context.organizationPartyId
 } else {
     organizationPartyId = parameters.get('ApplicationDecorator|organizationPartyId')
@@ -48,25 +45,25 @@ if(context.organizationPartyId) {
 List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, 'GROUP_ROLLUP')
 partyIds.add(organizationPartyId)
 
-
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
-GenericValue assetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "ASSET").cache(true).queryOne()
+GenericValue assetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'ASSET').cache(true).queryOne()
 List assetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(assetGlAccountClass)
-GenericValue contraAssetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CONTRA_ASSET").cache(true).queryOne()
+GenericValue contraAssetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CONTRA_ASSET').cache(true).queryOne()
 List contraAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(contraAssetGlAccountClass)
-GenericValue liabilityGlAccountClass = from("GlAccountClass").where("glAccountClassId", "LIABILITY").cache(true).queryOne()
+GenericValue liabilityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'LIABILITY').cache(true).queryOne()
 List liabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(liabilityGlAccountClass)
-GenericValue equityGlAccountClass = from("GlAccountClass").where("glAccountClassId", "EQUITY").cache(true).queryOne()
+GenericValue equityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'EQUITY').cache(true).queryOne()
 List equityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(equityGlAccountClass)
-GenericValue currentAssetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CURRENT_ASSET").cache(true).queryOne()
+GenericValue currentAssetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CURRENT_ASSET').cache(true).queryOne()
 List currentAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentAssetGlAccountClass)
-GenericValue longtermAssetGlAccountClass = from("GlAccountClass").where("glAccountClassId", "LONGTERM_ASSET").cache(true).queryOne()
+GenericValue longtermAssetGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'LONGTERM_ASSET').cache(true).queryOne()
 List longtermAssetAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(longtermAssetGlAccountClass)
-GenericValue currentLiabilityGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CURRENT_LIABILITY").cache(true).queryOne()
+GenericValue currentLiabilityGlAccountClass = from('GlAccountClass').where('glAccountClassId', 'CURRENT_LIABILITY').cache(true).queryOne()
 List currentLiabilityAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(currentLiabilityGlAccountClass)
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": organizationPartyId, "findDate": thruDate,"userLogin": userLogin])
+Map lastClosedTimePeriodResult = runService('findLastClosedDate',
+        ['organizationPartyId': organizationPartyId, 'findDate': thruDate, 'userLogin': userLogin])
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate
 if (!fromDate) {
     return
@@ -75,13 +72,15 @@ if (!fromDate) {
 GenericValue lastClosedTimePeriod = (GenericValue)lastClosedTimePeriodResult.lastClosedTimePeriod
 
 class AccountBalance {
+
     String glAccountId
     String accountCode
     String accountName
     BigDecimal balance
-    def asMap() {
+    Map asMap() {
         [glAccountId: glAccountId, accountCode: accountCode, accountName: accountName, balance: balance]
     }
+
 }
 
 /**
@@ -95,25 +94,25 @@ class AccountBalance {
  * @return Map of GL Account IDs to AccountBalances for the lastClosedTimePeriod, or an empty map if
  *  lastClosedTimePeriod is null
  */
-def getLastPeriodClosingBalancesForAccountClassIds = { List<String> accountClassIds ->
+Closure<Map<String, AccountBalance>> getLastPeriodClosingBalancesForAccountClassIds = { List<String> accountClassIds ->
     Map<String, AccountBalance> retVal = [:]
 
     if (lastClosedTimePeriod) {
-        def lastPeriodHistoryConditions = [
-                EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds),
-                EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, accountClassIds),
-                EntityCondition.makeCondition("endingBalance", EntityOperator.NOT_EQUAL, BigDecimal.ZERO),
-                EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS,
+        List<EntityExpr> lastPeriodHistoryConditions = [
+                EntityCondition.makeCondition('organizationPartyId', EntityOperator.IN, partyIds),
+                EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, accountClassIds),
+                EntityCondition.makeCondition('endingBalance', EntityOperator.NOT_EQUAL, BigDecimal.ZERO),
+                EntityCondition.makeCondition('customTimePeriodId', EntityOperator.EQUALS,
                         lastClosedTimePeriod.customTimePeriodId)
         ]
 
-        from("GlAccountAndHistory").where(lastPeriodHistoryConditions).queryList().collect {
+        from('GlAccountAndHistory').where(lastPeriodHistoryConditions).queryList().collect {
             history ->
                 new AccountBalance(
                         glAccountId: history.glAccountId,
                         accountCode: history.accountCode,
                         accountName: history.accountName,
-                        balance: history.getBigDecimal("endingBalance"),
+                        balance: history.getBigDecimal('endingBalance'),
                 )
         }.each {
             retVal.put(it.glAccountId, it)
@@ -124,22 +123,24 @@ def getLastPeriodClosingBalancesForAccountClassIds = { List<String> accountClass
 }
 
 // Get the opening balances of all the accounts
-def assetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(assetAccountClassIds)
-def contraAssetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(contraAssetAccountClassIds)
-def currentAssetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(currentAssetAccountClassIds)
-def longtermAssetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(longtermAssetAccountClassIds)
-def liabilityOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(liabilityAccountClassIds)
-def currentLiabilityOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(currentLiabilityAccountClassIds)
-def equityOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(equityAccountClassIds)
+Map<String, AccountBalance> assetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(assetAccountClassIds)
+Map<String, AccountBalance> contraAssetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(contraAssetAccountClassIds)
+Map<String, AccountBalance> currentAssetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(currentAssetAccountClassIds)
+Map<String, AccountBalance> longtermAssetOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(longtermAssetAccountClassIds)
+Map<String, AccountBalance> liabilityOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(liabilityAccountClassIds)
+Map<String, AccountBalance> currentLiabilityOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(currentLiabilityAccountClassIds)
+Map<String, AccountBalance> equityOpeningBalances = getLastPeriodClosingBalancesForAccountClassIds(equityAccountClassIds)
 
 List balanceTotalList = []
 
 class AccountEntrySum {
+
     String glAccountId
     String accountCode
     String accountName
     String debitCreditFlag
     BigDecimal amount
+
 }
 
 /**
@@ -151,11 +152,11 @@ class AccountEntrySum {
  *
  * @return A collection of AccountEntrySum objects for the conditions.
  */
-def getAccountEntrySumsForCondition = { Collection<EntityExpr> conditions ->
-    from("AcctgTransEntrySums")
+Closure<List<AccountEntrySum>> getAccountEntrySumsForCondition = { Collection<EntityExpr> conditions ->
+    from('AcctgTransEntrySums')
             .where(conditions)
-            .orderBy("glAccountId")
-            .select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount")
+            .orderBy('glAccountId')
+            .select('glAccountId', 'accountName', 'accountCode', 'debitCreditFlag', 'amount')
             .queryList()
             .collect { entrySum ->
                 new AccountEntrySum(
@@ -163,7 +164,7 @@ def getAccountEntrySumsForCondition = { Collection<EntityExpr> conditions ->
                         accountName: entrySum.accountName,
                         accountCode: entrySum.accountCode,
                         debitCreditFlag: entrySum.debitCreditFlag,
-                        amount: entrySum.getBigDecimal("amount")
+                        amount: entrySum.getBigDecimal('amount')
                 )
             }
 }
@@ -176,21 +177,21 @@ def getAccountEntrySumsForCondition = { Collection<EntityExpr> conditions ->
  *
  * @return A collection of AccountEntrySum objects corresponding to the given accountClassIds.
  */
-def getAccountEntrySumsForClassIds = { Collection<String> accountClassIds ->
-    def conditions = [
-            EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, accountClassIds),
-            EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds),
-            EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"),
-            EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId),
-            EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.NOT_EQUAL, "PERIOD_CLOSING"),
-            EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
-            EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate)
+Closure<List<AccountEntrySum>> getAccountEntrySumsForClassIds = { Collection<String> accountClassIds ->
+    List conditions = [
+            EntityCondition.makeCondition('glAccountClassId', EntityOperator.IN, accountClassIds),
+            EntityCondition.makeCondition('organizationPartyId', EntityOperator.IN, partyIds),
+            EntityCondition.makeCondition('isPosted', EntityOperator.EQUALS, 'Y'),
+            EntityCondition.makeCondition('glFiscalTypeId', EntityOperator.EQUALS, glFiscalTypeId),
+            EntityCondition.makeCondition('acctgTransTypeId', EntityOperator.NOT_EQUAL, 'PERIOD_CLOSING'),
+            EntityCondition.makeCondition('transactionDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate),
+            EntityCondition.makeCondition('transactionDate', EntityOperator.LESS_THAN, thruDate)
     ]
 
     getAccountEntrySumsForCondition(conditions)
 }
 
-enum RootClass {DEBIT, CREDIT}
+enum RootClass { DEBIT, CREDIT }
 
 /**
  * Calculates balances of the organization's GL Accounts which correspond to the given collection of Account Class IDs.
@@ -207,15 +208,15 @@ enum RootClass {DEBIT, CREDIT}
  * @param negateBalances Specify whether balances should be negated after they have been calculated according to the
  * debit/credit flag of any accounts for which transaction entries are found.
  */
-def calculateBalances = { Map<String, AccountBalance> openingBalances,
-                          Collection<String> accountClassIds,
-                          RootClass rootClass,
-                          boolean negateBalances = false ->
+Closure<Map<String,AccountBalance>> calculateBalances = { Map<String, AccountBalance> openingBalances,
+                                                          Collection<String> accountClassIds,
+                                                          RootClass rootClass,
+                                                          boolean negateBalances = false ->
 
     Map<String, AccountBalance> accountBalancesByGlAccountId = [*:openingBalances]
 
     getAccountEntrySumsForClassIds(accountClassIds).each { entrySum ->
-        def existingAccountBalance = accountBalancesByGlAccountId.getOrDefault(
+        AccountBalance existingAccountBalance = accountBalancesByGlAccountId.getOrDefault(
                 entrySum.glAccountId,
                 new AccountBalance(
                         glAccountId: entrySum.glAccountId,
@@ -224,11 +225,11 @@ def calculateBalances = { Map<String, AccountBalance> openingBalances,
                         balance: 0.0
                 ))
 
-        def transactionSumsDebitAmount = entrySum.debitCreditFlag == "D" ? entrySum.amount : 0.0
-        def transactionSumsCreditAmount = entrySum.debitCreditFlag == "C" ? entrySum.amount : 0.0
+        BigDecimal transactionSumsDebitAmount = entrySum.debitCreditFlag == 'D' ? entrySum.amount : 0.0
+        BigDecimal transactionSumsCreditAmount = entrySum.debitCreditFlag == 'C' ? entrySum.amount : 0.0
 
-        def currentBalance = existingAccountBalance.balance
-        def combinedBalance = rootClass == RootClass.DEBIT ?
+        BigDecimal currentBalance = existingAccountBalance.balance
+        BigDecimal combinedBalance = rootClass == RootClass.DEBIT ?
                 currentBalance + transactionSumsDebitAmount - transactionSumsCreditAmount :
                 currentBalance + transactionSumsCreditAmount - transactionSumsDebitAmount
 
@@ -248,76 +249,76 @@ def calculateBalances = { Map<String, AccountBalance> openingBalances,
                         accountCode: accountBalance.accountCode,
                         accountName: accountBalance.accountName,
                         balance: negateBalances ? accountBalance.balance.negate() : accountBalance.balance)]
-
         } as Map<String, AccountBalance>
     }
 
     accountBalancesByGlAccountId
 }
 
-static def sortAccountBalancesConvertToMaps(Collection<AccountBalance> accountBalances) {
-    accountBalances.sort { a, b -> (a.accountCode <=> b.accountCode) }
-            .collect { it.asMap() }
+static List<Map<String, Serializable>> sortAccountBalancesConvertToMaps(Collection<AccountBalance> accountBalances) {
+    return accountBalances.sort { a, b -> (a.accountCode <=> b.accountCode) } *.asMap()
 }
 
-static def sumAccountBalances(Collection<AccountBalance> accountBalances) {
-    accountBalances.collect { it.balance }
-            .inject(BigDecimal.ZERO) { acc, val -> acc + val }
+static BigDecimal sumAccountBalances(Collection<AccountBalance> accountBalances) {
+    return accountBalances*.balance.inject(BigDecimal.ZERO) { acc, val -> acc + val }
 }
 
 // ASSETS
-def assetAccountBalances = calculateBalances(assetOpeningBalances, assetAccountClassIds, RootClass.DEBIT)
-def assetBalanceTotal = sumAccountBalances(assetAccountBalances.values())
-def assetAccountBalanceList = sortAccountBalancesConvertToMaps(assetAccountBalances.values())
+Map<String, AccountBalance> assetAccountBalances = calculateBalances(assetOpeningBalances, assetAccountClassIds, RootClass.DEBIT)
+BigDecimal assetBalanceTotal = sumAccountBalances(assetAccountBalances.values())
+List<Map<String, Serializable>> assetAccountBalanceList = sortAccountBalancesConvertToMaps(assetAccountBalances.values())
 assetAccountBalanceList.add([accountName: uiLabelMap.AccountingTotalAssets, balance: assetBalanceTotal]
         as LinkedHashMap<String, Serializable>)
 
 // CURRENT ASSETS
-def currentAssetAccountBalances =
+Map<String, AccountBalance> currentAssetAccountBalances =
         calculateBalances(currentAssetOpeningBalances, currentAssetAccountClassIds, RootClass.DEBIT)
-def currentAssetBalanceTotal = sumAccountBalances(currentAssetAccountBalances.values())
+BigDecimal currentAssetBalanceTotal = sumAccountBalances(currentAssetAccountBalances.values())
 
 // LONGTERM ASSETS
-def longtermAssetAccountBalances =
+Map<String, AccountBalance> longtermAssetAccountBalances =
         calculateBalances(longtermAssetOpeningBalances, longtermAssetAccountClassIds, RootClass.DEBIT)
-def longtermAssetBalanceTotal = sumAccountBalances(longtermAssetAccountBalances.values())
+BigDecimal longtermAssetBalanceTotal = sumAccountBalances(longtermAssetAccountBalances.values())
 
 // CONTRA ASSETS
 // Contra assets are accounts of class CREDIT, but for the purposes of the balance sheet, they will be listed alongside
 // regular asset accounts in order to offset the total of all assets. We therefore negate these balances before
 // including them in sums with the asset accounts.
-def contraAssetAccountBalances =
+Map<String, AccountBalance> contraAssetAccountBalances =
         calculateBalances(contraAssetOpeningBalances, contraAssetAccountClassIds, RootClass.CREDIT, true)
-def contraAssetBalanceTotal = sumAccountBalances(contraAssetAccountBalances.values())
-def contraAssetAccountBalanceList = sortAccountBalancesConvertToMaps(contraAssetAccountBalances.values())
+BigDecimal contraAssetBalanceTotal = sumAccountBalances(contraAssetAccountBalances.values())
+List<Map<String, Serializable>> contraAssetAccountBalanceList = sortAccountBalancesConvertToMaps(contraAssetAccountBalances.values())
 assetAccountBalanceList.addAll(contraAssetAccountBalanceList)
-assetAccountBalanceList.add(["accountName": uiLabelMap.AccountingTotalAccumulatedDepreciation,
-                             "balance": contraAssetBalanceTotal]
+assetAccountBalanceList.add([accountName: uiLabelMap.AccountingTotalAccumulatedDepreciation,
+                             balance: contraAssetBalanceTotal]
         as LinkedHashMap<String, Serializable>)
 
 // LIABILITY
-def liabilityAccountBalances = calculateBalances(liabilityOpeningBalances, liabilityAccountClassIds, RootClass.CREDIT)
-def liabilityBalanceTotal = sumAccountBalances(liabilityAccountBalances.values())
-def liabilityAccountBalanceList = sortAccountBalancesConvertToMaps(liabilityAccountBalances.values())
+Map<String, AccountBalance> liabilityAccountBalances = calculateBalances(liabilityOpeningBalances, liabilityAccountClassIds, RootClass.CREDIT)
+BigDecimal liabilityBalanceTotal = sumAccountBalances(liabilityAccountBalances.values())
+List<Map<String, Serializable>> liabilityAccountBalanceList = sortAccountBalancesConvertToMaps(liabilityAccountBalances.values())
 liabilityAccountBalanceList.add([accountName: uiLabelMap.AccountingTotalLiabilities, balance: liabilityBalanceTotal]
         as LinkedHashMap<String, Serializable>)
 
 // CURRENT LIABILITY
-def currentLiabilityAccountBalances =
+Map<String, AccountBalance> currentLiabilityAccountBalances =
         calculateBalances(currentLiabilityOpeningBalances, currentLiabilityAccountClassIds, RootClass.CREDIT)
-def currentLiabilityBalanceTotal = sumAccountBalances(currentLiabilityAccountBalances.values())
+BigDecimal currentLiabilityBalanceTotal = sumAccountBalances(currentLiabilityAccountBalances.values())
 
 // EQUITY
-def equityAccountBalances = calculateBalances(equityOpeningBalances, equityAccountClassIds, RootClass.CREDIT)
+Map<String, AccountBalance> equityAccountBalances = calculateBalances(equityOpeningBalances, equityAccountClassIds, RootClass.CREDIT)
 
 // Add the "retained earnings" account
-Map netIncomeResult = runService('prepareIncomeStatement', ["organizationPartyId": organizationPartyId, "glFiscalTypeId": glFiscalTypeId, "fromDate": fromDate, "thruDate": thruDate, "userLogin": userLogin])
+Map netIncomeResult = runService('prepareIncomeStatement',
+        [organizationPartyId: organizationPartyId, glFiscalTypeId: glFiscalTypeId,
+         fromDate: fromDate, 'thruDate': thruDate, userLogin: userLogin])
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome
-GenericValue retainedEarningsAccount = from("GlAccountTypeDefault").where("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", organizationPartyId).cache(true).queryOne()
+GenericValue retainedEarningsAccount = from('GlAccountTypeDefault')
+        .where('glAccountTypeId', 'RETAINED_EARNINGS', 'organizationPartyId', organizationPartyId).cache(true).queryOne()
 if (retainedEarningsAccount) {
-    GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne("GlAccount", false)
+    GenericValue retainedEarningsGlAccount = retainedEarningsAccount.getRelatedOne('GlAccount', false)
 
-    def retainedEarningsAccountBalance = equityAccountBalances.getOrDefault(retainedEarningsGlAccount.glAccountId, new AccountBalance(
+    AccountBalance retainedEarningsAccountBalance = equityAccountBalances.getOrDefault(retainedEarningsGlAccount.glAccountId, new AccountBalance(
             glAccountId: retainedEarningsGlAccount.glAccountId,
             accountCode: retainedEarningsGlAccount.accountCode,
             accountName: retainedEarningsGlAccount.accountName,
@@ -329,34 +330,35 @@ if (retainedEarningsAccount) {
     equityAccountBalances.put(retainedEarningsGlAccount.glAccountId as String, retainedEarningsAccountBalance)
 }
 
-def equityBalanceTotal = sumAccountBalances(equityAccountBalances.values())
-def equityAccountBalanceList = sortAccountBalancesConvertToMaps(equityAccountBalances.values())
-equityAccountBalanceList.add(UtilMisc.toMap("accountName", uiLabelMap.AccountingTotalEquities, "balance", equityBalanceTotal))
+BigDecimal equityBalanceTotal = sumAccountBalances(equityAccountBalances.values())
+List<Map<String, Serializable>> equityAccountBalanceList = sortAccountBalancesConvertToMaps(equityAccountBalances.values())
+equityAccountBalanceList.add(UtilMisc.toMap('accountName', uiLabelMap.AccountingTotalEquities, 'balance', equityBalanceTotal))
 
 context.assetBalanceTotal = assetBalanceTotal
 context.assetAccountBalanceList = assetAccountBalanceList
 
 context.currentAssetBalanceTotal = currentAssetBalanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingCurrentAssets", "balance", currentAssetBalanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingCurrentAssets', 'balance', currentAssetBalanceTotal))
 
 context.longtermAssetBalanceTotal = longtermAssetBalanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssets", "balance", longtermAssetBalanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingLongTermAssets', 'balance', longtermAssetBalanceTotal))
 
 context.contraAssetBalanceTotal = contraAssetBalanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAccumulatedDepreciation", "balance", contraAssetBalanceTotal))
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAssets", "balance", (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + contraAssetBalanceTotal)))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAccumulatedDepreciation', 'balance', contraAssetBalanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalAssets', 'balance',
+        (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + contraAssetBalanceTotal)))
 
 context.liabilityAccountBalanceList = liabilityAccountBalanceList
 context.liabilityBalanceTotal = liabilityBalanceTotal
 
 context.currentLiabilityBalanceTotal = currentLiabilityBalanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingCurrentLiabilities", "balance", currentLiabilityBalanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingCurrentLiabilities', 'balance', currentLiabilityBalanceTotal))
 
 context.equityAccountBalanceList = equityAccountBalanceList
 context.equityBalanceTotal = equityBalanceTotal
 
 context.liabilityEquityBalanceTotal = liabilityBalanceTotal + equityBalanceTotal
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingEquities", "balance", context.equityBalanceTotal))
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalLiabilitiesAndEquities", "balance", context.liabilityEquityBalanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingEquities', 'balance', context.equityBalanceTotal))
+balanceTotalList.add(UtilMisc.toMap('totalName', 'AccountingTotalLiabilitiesAndEquities', 'balance', context.liabilityEquityBalanceTotal))
 
 context.balanceTotalList = balanceTotalList

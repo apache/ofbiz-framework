@@ -26,39 +26,9 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
 class ProductPromoCondTests extends OFBizTestCase {
-    public ProductPromoCondTests(String name) {
+
+    ProductPromoCondTests(String name) {
         super(name)
-    }
-
-    Map prepareConditionMap(ShoppingCart cart, String condValue) {
-        return prepareConditionMap(cart, condValue, false)
-    }
-
-    Map prepareConditionMap(ShoppingCart cart, String condValue, boolean persist) {
-        GenericValue productPromoCond = delegator.makeValue("ProductPromoCond", [condValue: condValue])
-        if (persist) {
-            GenericValue productPromo = delegator.makeValue("ProductPromo", [productPromoId: 'TEST'])
-            delegator.createOrStore(productPromo)
-            GenericValue productPromoRule = delegator.makeValue("ProductPromoRule", [productPromoId: 'TEST', productPromoRuleId:'01'])
-            delegator.createOrStore(productPromoRule)
-            productPromoCond.productPromoId = 'TEST'
-            productPromoCond.productPromoRuleId = '01'
-            productPromoCond.productPromoCondSeqId = '01'
-            delegator.createOrStore(productPromoCond)
-        }
-        return  [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
-    }
-
-    ShoppingCart loadOrder(String orderId) {
-        Map<String, Object> serviceCtx = [orderId: orderId,
-                skipInventoryChecks: true, // the items are already reserved, no need to check again
-                skipProductChecks: true, // the products are already in the order, no need to check their validity now
-                includePromoItems: false,
-                createAsNewOrder: 'Y',
-                userLogin: getUserLogin("system")]
-        Map<String, Object> loadCartResp = dispatcher.runSync("loadCartFromOrder", serviceCtx)
-
-        return loadCartResp.shoppingCart
     }
 
     /**
@@ -67,21 +37,21 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testPartyIdPromo() {
-        String condValue = "FrenchCustomer"
-        ShoppingCart cart = new ShoppingCart(delegator, "9000", Locale.getDefault(), "EUR")
+        String condValue = 'FrenchCustomer'
+        ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
         cart.setOrderPartyId(condValue)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondPartyID", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondPartyID', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        cart.setOrderPartyId("OtherPartyId")
-        serviceResult = dispatcher.runSync("productPromoCondPartyID", serviceContext)
+        cart.setOrderPartyId('OtherPartyId')
+        serviceResult = dispatcher.runSync('productPromoCondPartyID', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase != 0
     }
@@ -92,15 +62,15 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testNewACCTPromo() {
-        String condValue = "1095"
-        GenericValue frenchCustomer = delegator.makeValue("Party", [partyId: "FrenchCustomer", createdDate: Timestamp.valueOf("2010-01-01 00:00:00")])
+        String condValue = '1095'
+        GenericValue frenchCustomer = delegator.makeValue('Party', [partyId: 'FrenchCustomer', createdDate: Timestamp.valueOf('2010-01-01 00:00:00')])
         frenchCustomer.store()
-        ShoppingCart cart = new ShoppingCart(delegator, "9000", Locale.getDefault(), "EUR")
+        ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-        cart.setOrderPartyId("FrenchCustomer")
+        cart.setOrderPartyId('FrenchCustomer')
         cart.getPartyDaysSinceCreated(nowTimestamp)
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondNewACCT", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondNewACCT', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
@@ -110,7 +80,7 @@ class ProductPromoCondTests extends OFBizTestCase {
         frenchCustomer.createdDate = nowTimestamp
         frenchCustomer.store()
         cart.getPartyDaysSinceCreated(nowTimestamp)
-        serviceResult = dispatcher.runSync("productPromoCondNewACCT", serviceContext)
+        serviceResult = dispatcher.runSync('productPromoCondNewACCT', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase < 0
     }
@@ -121,20 +91,20 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testPartyClassPromo() {
-        String condValue = "PROMO_TEST"
-        GenericValue partyClassGroup = delegator.makeValue("PartyClassificationGroup", [partyClassificationGroupId: condValue])
+        String condValue = 'PROMO_TEST'
+        GenericValue partyClassGroup = delegator.makeValue('PartyClassificationGroup', [partyClassificationGroupId: condValue])
         delegator.createOrStore(partyClassGroup)
-        GenericValue partyClassification = delegator.makeValue("PartyClassification",
-                [partyId: "FrenchCustomer", partyClassificationGroupId: condValue,
-                 fromDate: Timestamp.valueOf("2010-01-01 00:00:00"),
+        GenericValue partyClassification = delegator.makeValue('PartyClassification',
+                [partyId: 'FrenchCustomer', partyClassificationGroupId: condValue,
+                 fromDate: Timestamp.valueOf('2010-01-01 00:00:00'),
                  thruDate: null])
         delegator.createOrStore(partyClassification)
-        ShoppingCart cart = new ShoppingCart(delegator, "9000", Locale.getDefault(), "EUR")
-        cart.setOrderPartyId("FrenchCustomer")
+        ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
+        cart.setOrderPartyId('FrenchCustomer')
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondPartyClass", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondPartyClass', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
@@ -142,9 +112,9 @@ class ProductPromoCondTests extends OFBizTestCase {
 
         //2.test promo nonvalid
         partyClassification.refresh()
-        partyClassification.thruDate = Timestamp.valueOf("2010-01-01 00:00:00")
+        partyClassification.thruDate = Timestamp.valueOf('2010-01-01 00:00:00')
         partyClassification.store()
-        serviceResult = dispatcher.runSync("productPromoCondPartyClass", serviceContext)
+        serviceResult = dispatcher.runSync('productPromoCondPartyClass', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 1
     }
@@ -155,30 +125,30 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testPartyGMPromo() {
-        String condValue = "HUMAN_RES"
-        ShoppingCart cart = new ShoppingCart(delegator, "9000", Locale.getDefault(), "EUR")
+        String condValue = 'HUMAN_RES'
+        ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
         cart.setOrderPartyId(condValue)
-        GenericValue partyRole = delegator.makeValue("PartyRole", [partyId: "FrenchCustomer", roleTypeId: "_NA_"])
+        GenericValue partyRole = delegator.makeValue('PartyRole', [partyId: 'FrenchCustomer', roleTypeId: '_NA_'])
         delegator.createOrStore(partyRole)
         partyRole.partyId = condValue
         delegator.createOrStore(partyRole)
-        GenericValue relation = delegator.makeValue("PartyRelationship", [partyIdFrom: "FrenchCustomer", roleTypeIdFrom: "_NA_",
-                                               partyIdTo: condValue, roleTypeIdTo: "_NA_",
-                                               fromDate: Timestamp.valueOf("2010-01-01 00:00:00"),
-                                               partyRelationshipTypeId: "GROUP_ROLLUP"])
+        GenericValue relation = delegator.makeValue('PartyRelationship', [partyIdFrom: 'FrenchCustomer', roleTypeIdFrom: '_NA_',
+                                               partyIdTo: condValue, roleTypeIdTo: '_NA_',
+                                               fromDate: Timestamp.valueOf('2010-01-01 00:00:00'),
+                                               partyRelationshipTypeId: 'GROUP_ROLLUP'])
         delegator.createOrStore(relation)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondPartyGM", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondPartyGM', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        cart.setOrderPartyId("OtherPartyId")
-        serviceResult = dispatcher.runSync("productPromoCondPartyGM", serviceContext)
+        cart.setOrderPartyId('OtherPartyId')
+        serviceResult = dispatcher.runSync('productPromoCondPartyGM', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 1
     }
@@ -189,23 +159,23 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testRoleTypePromo() {
-        String condValue = "APPROVER"
-        ShoppingCart cart = new ShoppingCart(delegator, "9000", Locale.getDefault(), "EUR")
-        cart.setOrderPartyId("FrenchCustomer")
-        GenericValue partyRole = delegator.makeValue("PartyRole", [partyId: "FrenchCustomer", roleTypeId: condValue])
+        String condValue = 'APPROVER'
+        ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
+        cart.setOrderPartyId('FrenchCustomer')
+        GenericValue partyRole = delegator.makeValue('PartyRole', [partyId: 'FrenchCustomer', roleTypeId: condValue])
         delegator.createOrStore(partyRole)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondRoleType", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondRoleType', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        cart.setOrderPartyId("OtherPartyId")
-        serviceResult = dispatcher.runSync("productPromoCondRoleType", serviceContext)
+        cart.setOrderPartyId('OtherPartyId')
+        serviceResult = dispatcher.runSync('productPromoCondRoleType', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase != 0
     }
@@ -216,23 +186,24 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testCondGeoIdPromo() {
-        ShoppingCart cart = loadOrder("DEMO10090")
-        cart.setShippingContactMechId(0, "9200")
-        GenericValue productPromoCond = from("ProductPromoCond").where("productPromoId", "9022", "productPromoRuleId", "01", "productPromoCondSeqId", "01").queryOne()
+        ShoppingCart cart = loadOrder('DEMO10090')
+        cart.setShippingContactMechId(0, '9200')
+        GenericValue productPromoCond = from('ProductPromoCond')
+                .where('productPromoId', '9022', 'productPromoRuleId', '01', 'productPromoCondSeqId', '01').queryOne()
 
         // call service promo
         Map<String, Object> serviceContext = [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondGeoID", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondGeoID', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        cart = loadOrder("DEMO10091")
-        cart.setShippingContactMechId(0, "10000")
+        cart = loadOrder('DEMO10091')
+        cart.setShippingContactMechId(0, '10000')
         serviceContext.shoppingCart = cart
-        serviceResult = dispatcher.runSync("productPromoCondGeoID", serviceContext)
+        serviceResult = dispatcher.runSync('productPromoCondGeoID', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase != 0
     }
@@ -243,18 +214,18 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testCondOrderTotalPromo() {
-        String condValue = "34.56"
+        String condValue = '34.56'
         // call service promo
-        Map<String, Object> serviceContext = prepareConditionMap(loadOrder("DEMO10090"), condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondOrderTotal", serviceContext)
+        Map<String, Object> serviceContext = prepareConditionMap(loadOrder('DEMO10090'), condValue)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondOrderTotal', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        serviceContext.shoppingCart = loadOrder("Demo1002")
-        serviceResult = dispatcher.runSync("productPromoCondOrderTotal", serviceContext)
+        serviceContext.shoppingCart = loadOrder('Demo1002')
+        serviceResult = dispatcher.runSync('productPromoCondOrderTotal', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase > 0
     }
@@ -265,27 +236,28 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testRecurrencePromo() {
-        String condValue = "TEST_PROMO"
-        ShoppingCart cart = new ShoppingCart(delegator, "9000", Locale.getDefault(), "EUR")
-        GenericValue reccurenceRule = delegator.makeValue("RecurrenceRule", [recurrenceRuleId: condValue, frequency: "DAILY", intervalNumber: 1l,
-                                                                       countNumber: -1l, byDayList: "MO,TU,WE,TH,FR,SA,SU"])
+        String condValue = 'TEST_PROMO'
+        ShoppingCart cart = new ShoppingCart(delegator, '9000', Locale.getDefault(), 'EUR')
+        GenericValue reccurenceRule = delegator.makeValue('RecurrenceRule', [recurrenceRuleId: condValue, frequency: 'DAILY', intervalNumber: 1L,
+                                                                       countNumber: -1L, byDayList: 'MO,TU,WE,TH,FR,SA,SU'])
         delegator.createOrStore(reccurenceRule)
-        GenericValue reccurenceInfo = delegator.makeValue("RecurrenceInfo", [recurrenceInfoId: condValue, startDateTime: Timestamp.valueOf("2008-01-01 00:00:00.000"),
-                                                                       recurrenceRuleId: condValue, recurrenceCount: 0l])
+        GenericValue reccurenceInfo = delegator.makeValue('RecurrenceInfo',
+                [recurrenceInfoId: condValue, startDateTime: Timestamp.valueOf('2008-01-01 00:00:00.000'),
+                 recurrenceRuleId: condValue, recurrenceCount: 0L])
         delegator.createOrStore(reccurenceInfo)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondPromoRecurrence", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondPromoRecurrence', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        condValue = "3"
+        condValue = '3'
         serviceContext = prepareConditionMap(cart, condValue)
-        serviceResult = dispatcher.runSync("productPromoCondPromoRecurrence", serviceContext)
+        serviceResult = dispatcher.runSync('productPromoCondPromoRecurrence', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase != 0
     }
@@ -296,14 +268,14 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testShipTotalPromo() {
-        String condValue = "20"
+        String condValue = '20'
         BigDecimal amount = BigDecimal.valueOf(25)
-        ShoppingCart cart = loadOrder("DEMO10090")
+        ShoppingCart cart = loadOrder('DEMO10090')
         cart.setItemShipGroupEstimate(amount, 0)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondOrderShipTotal", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondOrderShipTotal', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
@@ -312,7 +284,7 @@ class ProductPromoCondTests extends OFBizTestCase {
         //2.test promo nonvalid
         amount = BigDecimal.valueOf(19)
         cart.setItemShipGroupEstimate(amount, 0)
-        serviceResult = dispatcher.runSync("productPromoCondOrderShipTotal", serviceContext)
+        serviceResult = dispatcher.runSync('productPromoCondOrderShipTotal', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase <= 0
     }
@@ -323,26 +295,26 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testProductAmountPromo() {
-        String condValue = "30"
-        String orderId = "DEMO10090"
+        String condValue = '30'
+        String orderId = 'DEMO10090'
         ShoppingCart cart = loadOrder(orderId)
 
         // call service promo
         Map<String, Object> serviceContext = prepareConditionMap(cart, condValue, true)
-        GenericValue productPromoProduct = delegator.makeValue("ProductPromoProduct",
+        GenericValue productPromoProduct = delegator.makeValue('ProductPromoProduct',
                 [productPromoId: 'TEST', productPromoRuleId: '01', productPromoCondSeqId: '01',
                  productId: 'GZ-2644', productPromoApplEnumId: 'PPPA_INCLUDE', productPromoActionSeqId: '_NA_'])
         delegator.createOrStore(productPromoProduct)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondProductAmount", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondProductAmount', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase == 0
 
         //2.test promo nonvalid
-        condValue = "50"
+        condValue = '50'
         serviceContext = prepareConditionMap(cart, condValue, true)
-        serviceResult = dispatcher.runSync("productPromoCondProductAmount", serviceContext)
+        serviceResult = dispatcher.runSync('productPromoCondProductAmount', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase != 0
     }
@@ -353,27 +325,58 @@ class ProductPromoCondTests extends OFBizTestCase {
      *  2. test failed with passing non valid value
      */
     void testProductTotalPromo() {
-        String orderId = "Demo1002"
+        String orderId = 'Demo1002'
         ShoppingCart cart = loadOrder(orderId)
 
         // call service promo
-        Map<String, Object> serviceContext = prepareConditionMap(cart, "50", true)
-        GenericValue productPromoProduct = delegator.makeValue("ProductPromoProduct",
+        Map<String, Object> serviceContext = prepareConditionMap(cart, '50', true)
+        GenericValue productPromoProduct = delegator.makeValue('ProductPromoProduct',
             [productPromoId: 'TEST', productPromoRuleId: '01', productPromoCondSeqId: '01',
              productId: 'WG-1111', productPromoApplEnumId: 'PPPA_INCLUDE', productPromoActionSeqId: '_NA_'])
         delegator.createOrStore(productPromoProduct)
-        Map<String, Object> serviceResult = dispatcher.runSync("productPromoCondProductTotal", serviceContext)
+        Map<String, Object> serviceResult = dispatcher.runSync('productPromoCondProductTotal', serviceContext)
 
         //Check result service
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase >= 0
 
-
         //2.test promo nonvalid
         cart = loadOrder(orderId)
-        serviceContext = prepareConditionMap(cart, "150", true)
-        serviceResult = dispatcher.runSync("productPromoCondProductTotal", serviceContext)
+        serviceContext = prepareConditionMap(cart, '150', true)
+        serviceResult = dispatcher.runSync('productPromoCondProductTotal', serviceContext)
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.compareBase < 0
     }
+
+    private Map prepareConditionMap(ShoppingCart cart, String condValue) {
+        return prepareConditionMap(cart, condValue, false)
+    }
+
+    private Map prepareConditionMap(ShoppingCart cart, String condValue, boolean persist) {
+        GenericValue productPromoCond = delegator.makeValue('ProductPromoCond', [condValue: condValue])
+        if (persist) {
+            GenericValue productPromo = delegator.makeValue('ProductPromo', [productPromoId: 'TEST'])
+            delegator.createOrStore(productPromo)
+            GenericValue productPromoRule = delegator.makeValue('ProductPromoRule', [productPromoId: 'TEST', productPromoRuleId: '01'])
+            delegator.createOrStore(productPromoRule)
+            productPromoCond.productPromoId = 'TEST'
+            productPromoCond.productPromoRuleId = '01'
+            productPromoCond.productPromoCondSeqId = '01'
+            delegator.createOrStore(productPromoCond)
+        }
+        return  [shoppingCart: cart, nowTimestamp: UtilDateTime.nowTimestamp(), productPromoCond: productPromoCond]
+    }
+
+    private ShoppingCart loadOrder(String orderId) {
+        Map<String, Object> serviceCtx = [orderId: orderId,
+                                          skipInventoryChecks: true, // the items are already reserved, no need to check again
+                                          skipProductChecks: true, // the products are already in the order, no need to check their validity now
+                                          includePromoItems: false,
+                                          createAsNewOrder: 'Y',
+                                          userLogin: getUserLogin('system')]
+        Map<String, Object> loadCartResp = dispatcher.runSync('loadCartFromOrder', serviceCtx)
+
+        return loadCartResp.shoppingCart
+    }
+
 }

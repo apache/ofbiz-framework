@@ -27,11 +27,11 @@ productId = parameters.productId
 lookupFlag = parameters.lookupFlag
 
 // blank param list
-paramList = ""
+paramList = ''
 inventoryList = []
 
 if (lookupFlag) {
-    paramList = paramList + "&lookupFlag=" + lookupFlag
+    paramList = paramList + '&lookupFlag=' + lookupFlag
     andExprs = []
 
     //define main condition
@@ -41,25 +41,28 @@ if (lookupFlag) {
 
     eventDate = parameters.eventDate
     if (eventDate?.length() > 8) {
-    eventDate = eventDate.trim()
-    if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000"
-    paramList = paramList + "&eventDate=" + eventDate
-        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeOrObjectConvert(eventDate, "Timestamp", null, null)))
+        eventDate = eventDate.trim()
+        if (eventDate.length() < 14) {
+            eventDate = eventDate + ' ' + '00:00:00.000'
+        }
+        paramList = paramList + '&eventDate=' + eventDate
+        andExprs.add(EntityCondition.makeCondition('eventDate', EntityOperator.GREATER_THAN,
+                ObjectType.simpleTypeOrObjectConvert(eventDate, 'Timestamp', null, null)))
     }
 
     if (productId) {
-        paramList = paramList + "&productId=" + productId
-        andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+        paramList = paramList + '&productId=' + productId
+        andExprs.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
     }
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"))
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"))
-    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"))
+    andExprs.add(EntityCondition.makeCondition('mrpEventTypeId', EntityOperator.NOT_EQUAL, 'INITIAL_QOH'))
+    andExprs.add(EntityCondition.makeCondition('mrpEventTypeId', EntityOperator.NOT_EQUAL, 'ERROR'))
+    andExprs.add(EntityCondition.makeCondition('mrpEventTypeId', EntityOperator.NOT_EQUAL, 'REQUIRED_MRP'))
 
     mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND)
 
     if ( mainCond) {
-    // do the lookup
-        inventoryList = from("MrpEvent").where(mainCond).orderBy("productId", "eventDate").queryList()
+        // do the lookup
+        inventoryList = from('MrpEvent').where(mainCond).orderBy('productId', 'eventDate').queryList()
     }
 
     context.inventoryList = inventoryList
@@ -68,17 +71,20 @@ context.paramList = paramList
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0)
-viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
+viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE) : modelTheme.getDefaultViewSize() ?: 20
 listSize = 0
-if (inventoryList)
+if (inventoryList) {
     listSize = inventoryList.size()
+}
 
 lowIndex = viewIndex * viewSize
 highIndex = (viewIndex + 1) * viewSize
-if (listSize < highIndex)
+if (listSize < highIndex) {
     highIndex = listSize
-if ( highIndex < 1 )
+}
+if ( highIndex < 1 ) {
     highIndex = 0
+}
 context.viewIndex = viewIndex
 context.listSize = listSize
 context.highIndex = highIndex

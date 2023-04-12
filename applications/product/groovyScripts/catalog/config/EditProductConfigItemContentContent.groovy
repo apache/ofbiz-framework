@@ -17,24 +17,21 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.base.util.*
+contentId = request.getParameter('contentId') ?: null
 
-contentId = request.getParameter("contentId") ?: null
+confItemContentTypeId = request.getParameter('confItemContentTypeId')
 
-confItemContentTypeId = request.getParameter("confItemContentTypeId")
+description = request.getParameter('description') ?: null
 
-description = request.getParameter("description") ?: null
-
-productContent = from("ProdConfItemContent").where("contentId", contentId, "configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId, "fromDate", fromDate).queryOne()
+productContent = from('ProdConfItemContent')
+        .where('contentId', contentId, 'configItemId', configItemId, 'confItemContentTypeId', confItemContentTypeId, 'fromDate', fromDate).queryOne()
 if (!productContent) {
     productContent = [:]
     productContent.configItemId = configItemId
     productContent.contentId = contentId
     productContent.confItemContentTypeId = confItemContentTypeId
     productContent.fromDate = fromDate
-    productContent.thruDate = request.getParameter("thruDate")
+    productContent.thruDate = request.getParameter('thruDate')
 }
 context.productContent = productContent
 
@@ -44,7 +41,7 @@ Map content = null
 
 context.contentId = contentId
 if (contentId) {
-    content = from("Content").where("contentId", contentId).queryOne()
+    content = from('Content').where('contentId', contentId).queryOne()
     context.content = content
 } else {
     content = [:]
@@ -56,9 +53,9 @@ if (contentId) {
 //Assume it is a generic simple text content
 textData = [:]
 if (contentId && content) {
-    textDr = content.getRelatedOne("DataResource", false)
+    textDr = content.getRelatedOne('DataResource', false)
     if (textDr) {
-        text = textDr.getRelatedOne("ElectronicText", false)
+        text = textDr.getRelatedOne('ElectronicText', false)
         if (text) {
             textData.text = text.textData
             textData.textDataResourceId = text.dataResourceId

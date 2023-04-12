@@ -16,38 +16,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.ofbiz.base.util.StringUtil
 chartData = context.chartData
 chartType = context.chartType
 labelFieldName = context.labelFieldName
 dataFieldName = context.dataFieldName
-if("Pie" == chartType){
+if (chartType == 'Pie') {
     iter = chartData.iterator()
     first = true
-    dataText = ""
-    while(iter.hasNext()){
+    dataText = ''
+    while (iter.hasNext()) {
         entry = iter.next()
-        if(!first){
-            dataText = dataText + ","
+        if (!first) {
+            dataText = dataText + ','
         }
         first = false
-        dataText = dataText + entry.get(labelFieldName) + "," + entry.get(dataFieldName)
+        dataText = dataText + entry.get(labelFieldName) + ',' + entry.get(dataFieldName)
     }
     context.dataText = dataText
-}
-else if("Bars" == chartType){
+} else if (chartType == 'Bars') {
     iter = chartData.iterator()
     i = 1
-    dataText = ""
-    labels = ""
-    while(iter.hasNext()){
+    dataText = ''
+    labels = ''
+    while (iter.hasNext()) {
         entry = iter.next()
-        if(i!=1){
-            dataText = dataText + ","
-            labels = labels + ","
+        if (i != 1) {
+            dataText = dataText + ','
+            labels = labels + ','
         }
-        dataText = dataText + i + "," + entry.get(dataFieldName)
+        dataText = dataText + i + ',' + entry.get(dataFieldName)
         labels = labels + entry.get(labelFieldName)
         i++
     }

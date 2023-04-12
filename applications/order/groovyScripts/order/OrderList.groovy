@@ -21,8 +21,8 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.order.order.OrderListState
 
-partyId = request.getParameter("partyId")
-facilityId = request.getParameter("facilityId")
+partyId = request.getParameter('partyId')
+facilityId = request.getParameter('facilityId')
 
 state = OrderListState.getInstance(request)
 state.update(request)
@@ -30,16 +30,16 @@ context.state = state
 
 // check permission for each order type
 hasPermission = false
-if (security.hasEntityPermission("ORDERMGR", "_VIEW", session)) {
-    if (state.hasType("view_SALES_ORDER") || (!(state.hasType("view_SALES_ORDER")) && !(state.hasType("view_PURCHASE_ORDER")))) {
+if (security.hasEntityPermission('ORDERMGR', '_VIEW', session)) {
+    if (state.hasType('view_SALES_ORDER') || (!(state.hasType('view_SALES_ORDER')) && !(state.hasType('view_PURCHASE_ORDER')))) {
         hasPermission = true
-        salesOrdersCondition = EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")
+        salesOrdersCondition = EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')
     }
 }
-if (security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session)) {
-    if (state.hasType("view_PURCHASE_ORDER") || (!(state.hasType("view_SALES_ORDER")) && !(state.hasType("view_PURCHASE_ORDER")))) {
+if (security.hasEntityPermission('ORDERMGR', '_PURCHASE_VIEW', session)) {
+    if (state.hasType('view_PURCHASE_ORDER') || (!(state.hasType('view_SALES_ORDER')) && !(state.hasType('view_PURCHASE_ORDER')))) {
         hasPermission = true
-        purchaseOrdersCondition = EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER")
+        purchaseOrdersCondition = EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'PURCHASE_ORDER')
     }
 }
 context.hasPermission = hasPermission
@@ -48,9 +48,9 @@ orderHeaderList = state.getOrders(facilityId, filterDate, delegator)
 context.orderHeaderList = orderHeaderList
 
 // a list of order type descriptions
-ordertypes = from("OrderType").cache(true).queryList()
+ordertypes = from('OrderType').cache(true).queryList()
 ordertypes.each { type ->
-    context["descr_" + type.orderTypeId] = type.get("description",locale)
+    context['descr_' + type.orderTypeId] = type.get('description', locale)
 }
 
 context.filterDate = filterDate

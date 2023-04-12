@@ -19,14 +19,14 @@
 
 custRequestId = parameters.custRequestId
 custRequestItemSeqId = parameters.custRequestItemSeqId
-showAll = parameters.showAll ?: "false"
+showAll = parameters.showAll ?: 'false'
 context.showAll = showAll
 
-fields = [custRequestId : custRequestId]
-if ("false".equals(showAll)) {
+fields = [custRequestId: custRequestId]
+if (showAll == 'false') {
     fields.custRequestItemSeqId = custRequestItemSeqId
 }
-notes = from("CustRequestItemNoteView").where(fields).orderBy("-noteDateTime").queryList()
+notes = from('CustRequestItemNoteView').where(fields).orderBy('-noteDateTime').queryList()
 if (notes) {
     context.notes = notes
 }

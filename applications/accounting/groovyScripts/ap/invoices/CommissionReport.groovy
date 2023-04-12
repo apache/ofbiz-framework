@@ -17,42 +17,43 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
 
 import java.sql.Timestamp
 
-if ("Y".equals(parameters.isSearch)) {
+if (parameters.isSearch == 'Y') {
     fromDate = parameters.fromDate
     thruDate = parameters.thruDate
     partyId = parameters.partyId
     productId = parameters.productId
     invoiceItemAndAssocProductCond = []
     if (productId) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId))
     }
     if (partyId) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, partyId))
     }
     if (fromDate) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('fromDate',
+                EntityOperator.GREATER_THAN_EQUAL_TO, Timestamp.valueOf(fromDate)))
     }
     if (thruDate) {
-        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
+        invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition('thruDate', EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)))
     }
     invoiceItemAndAssocProductList = []
-    invoiceItemAndAssocProductList = from("InvoiceItemAndAssocProduct").where(invoiceItemAndAssocProductCond).queryList()
+    invoiceItemAndAssocProductList = from('InvoiceItemAndAssocProduct').where(invoiceItemAndAssocProductCond).queryList()
 
-    //filtering invoiceItemAndAssocProductList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
+    //filtering invoiceItemAndAssocProductList for each productId with updating quantity,
+    // commission amount and number of order which generated sales invoices.
     totalQuantity = BigDecimal.ZERO
     totalNumberOfOrders = BigDecimal.ZERO
     totalCommissionAmount = BigDecimal.ZERO
     totalNetSales = BigDecimal.ZERO
     commissionReportList = []
     if (invoiceItemAndAssocProductList) {
-        productIds = EntityUtil.getFieldListFromEntityList(invoiceItemAndAssocProductList, "productId", true)
+        productIds = EntityUtil.getFieldListFromEntityList(invoiceItemAndAssocProductList, 'productId', true)
         productIds.each { productId ->
             quantity = BigDecimal.ZERO
             commissionAmount = BigDecimal.ZERO
@@ -64,13 +65,13 @@ if ("Y".equals(parameters.isSearch)) {
             salesAgentAndTermAmtMap = [:]
             salesInvoiceIds = []
             invoiceItemAndAssocProductList.each { invoiceItemAndAssocProduct ->
-                if (productId.equals(invoiceItemAndAssocProduct.productId)) {
+                if (productId == invoiceItemAndAssocProduct.productId) {
                     partyIdTermAmountMap = [:]
                     partyIdTermAmountKey = null
                     assocProductId = invoiceItemAndAssocProduct.productId
                     productName = invoiceItemAndAssocProduct.productName
                     quantity = quantity.add(invoiceItemAndAssocProduct.quantity)
-                    commissionAmount = commissionAmount.add(invoiceItemAndAssocProduct.termAmount.multiply(invoiceItemAndAssocProduct.quantity))
+                    commissionAmount = commissionAmount.add(invoiceItemAndAssocProduct.termAmount * invoiceItemAndAssocProduct.quantity)
                     termAmount = termAmount.add(invoiceItemAndAssocProduct.termAmount)
                     partyIdTermAmountMap.partyId = invoiceItemAndAssocProduct.partyIdFrom
                     partyIdTermAmountMap.termAmount = invoiceItemAndAssocProduct.termAmount
@@ -87,14 +88,14 @@ if ("Y".equals(parameters.isSearch)) {
             commissionReportMap.quantity = quantity
             commissionReportMap.salesAgentAndTermAmtMap = salesAgentAndTermAmtMap
             commissionReportMap.commissionAmount = commissionAmount
-            commissionReportMap.netSale = invoiceItemProductAmount.multiply(quantity)
+            commissionReportMap.netSale = invoiceItemProductAmount * quantity
             commissionReportMap.salesInvoiceIds = salesInvoiceIds
             commissionReportMap.numberOfOrders = salesInvoiceIds.size()
             commissionReportList.add(commissionReportMap)
             totalQuantity = totalQuantity.add(quantity)
             totalNumberOfOrders = totalNumberOfOrders.add(salesInvoiceIds.size())
             totalCommissionAmount = totalCommissionAmount.add(commissionAmount)
-            totalNetSales = totalNetSales.add(invoiceItemProductAmount.multiply(quantity))
+            totalNetSales = totalNetSales.add(invoiceItemProductAmount * quantity)
         }
     }
     context.commissionReportList = commissionReportList

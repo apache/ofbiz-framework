@@ -18,7 +18,7 @@
  */
 
 import org.apache.ofbiz.product.product.ProductEvents
-import org.apache.ofbiz.product.product.ProductContentWrapper;
+import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker
@@ -40,41 +40,40 @@ context.productFeatureTypeIds = productFeatureTypeIds
 productFeatureTypeMap = [:]
 context.productFeatureTypeMap = productFeatureTypeMap
 
-
 compareList.each { product ->
     productData = [:]
     productDataMap[product.productId] = productData
-    
+
     productData.productContentWrapper = ProductContentWrapper.makeProductContentWrapper(product, request)
 
-    priceContext = [product : product, currencyUomId : cart.getCurrency(),
-        autoUserLogin : autoUserLogin, userLogin : userLogin]
+    priceContext = [product: product, currencyUomId: cart.getCurrency(),
+                    autoUserLogin: autoUserLogin, userLogin: userLogin]
     priceContext.webSiteId = webSiteId
     priceContext.prodCatalogId = catalogId
     priceContext.productStoreId = productStoreId
     priceContext.agreementId = cart.getAgreementId()
-    priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
-    priceContext.checkIncludeVat = "Y"
+    priceContext.partyId = cart.getPartyId() // IMPORTANT: otherwise it'll be calculating prices
+                                             // using the logged in user which could be a CSR instead of the customer
+    priceContext.checkIncludeVat = 'Y'
     productData.priceMap = runService('calculateProductPrice', priceContext)
-    
+
     condList = [
-                EntityCondition.makeCondition("productId", product.productId),
-                EntityUtil.getFilterByDateExpr(),
-                EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.IN, ["STANDARD_FEATURE", "DISTINGUISHING_FEAT", "SELECTABLE_FEATURE"])
-               ]
-    productFeatureAppls = from("ProductFeatureAppl").where(condList).orderBy("sequenceNum").cache(true).queryList()
+            EntityCondition.makeCondition('productId', product.productId),
+            EntityUtil.getFilterByDateExpr(),
+            EntityCondition.makeCondition('productFeatureApplTypeId', EntityOperator.IN,
+                    ['STANDARD_FEATURE', 'DISTINGUISHING_FEAT', 'SELECTABLE_FEATURE'])
+    ]
+    productFeatureAppls = from('ProductFeatureAppl').where(condList).orderBy('sequenceNum').cache(true).queryList()
     productFeatureAppls.each { productFeatureAppl ->
-        productFeature = productFeatureAppl.getRelatedOne("ProductFeature", true)
-        if (!productData[productFeature.productFeatureTypeId]) {
-            productData[productFeature.productFeatureTypeId] = [:]
-        }
-        if (!productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId]) {
-            productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] = []
-        }
+        productFeature = productFeatureAppl.getRelatedOne('ProductFeature', true)
+        productData[productFeature.productFeatureTypeId] = productData[productFeature.productFeatureTypeId] ?: [:]
+        productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] =
+                productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] ?: []
         productData[productFeature.productFeatureTypeId][productFeatureAppl.productFeatureApplTypeId] << productFeature
         productFeatureTypeIds << productFeature.productFeatureTypeId
-    } 
+    }
 }
 productFeatureTypeIds.each { productFeatureTypeId ->
-    productFeatureTypeMap[productFeatureTypeId] = from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeId).cache(true).queryOne()
+    productFeatureTypeMap[productFeatureTypeId] = from('ProductFeatureType')
+            .where('productFeatureTypeId', productFeatureTypeId).cache(true).queryOne()
 }

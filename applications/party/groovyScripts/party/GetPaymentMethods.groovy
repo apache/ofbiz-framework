@@ -21,14 +21,18 @@ import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.accounting.payment.BillingAccountWorker
 
 partyId = parameters.partyId ?: userLogin.partyId
-showOld = "true".equals(parameters.SHOW_OLD)
+showOld = parameters.SHOW_OLD == 'true'
 
 currencyUomId = null
 billingAccounts = []
 if (partyId) {
-    billingAccountAndRoles = from("BillingAccountAndRole").where("partyId", partyId).queryList()
-    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId
-    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
+    billingAccountAndRoles = from('BillingAccountAndRole').where('partyId', partyId).queryList()
+    if (billingAccountAndRoles) {
+        currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId
+    }
+    if (currencyUomId) {
+        billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
+    }
 }
 context.billingAccounts = billingAccounts
 context.showOld = showOld

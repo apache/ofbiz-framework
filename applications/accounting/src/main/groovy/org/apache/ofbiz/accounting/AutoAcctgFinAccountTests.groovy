@@ -23,10 +23,9 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-import java.sql.Timestamp
-
 class AutoAcctgFinAccountTests extends OFBizTestCase {
-    public AutoAcctgFinAccountTests(String name) {
+
+    AutoAcctgFinAccountTests(String name) {
         super(name)
     }
 
@@ -103,7 +102,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
                 finAccountId: '1004',
                 partyId: 'DEMO_COMPANY',
                 roleTypeId: 'SUPPLIER',
-                fromDate: UtilDateTime.toTimestamp("11/03/2016 00:00:00"),
+                fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                 thruDate: UtilDateTime.nowTimestamp(),
                 userLogin: userLogin
         ]
@@ -122,7 +121,7 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
                 finAccountId: '1004',
                 partyId: 'DEMO_COMPANY',
                 roleTypeId: 'SUPPLIER',
-                fromDate: UtilDateTime.toTimestamp("11/03/2016 00:00:00"),
+                fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('deleteFinAccountRole', serviceCtx)
@@ -179,20 +178,26 @@ class AutoAcctgFinAccountTests extends OFBizTestCase {
         assert serviceResult.finAccountAuthId != null
     }
 
-    void setFinAccountTransStatus() {
+    void testSetFinAccountTransStatus() {
         Map serviceCtx = [
                 finAccountTransId: '1010',
                 statusId: 'FINACT_TRNS_APPROVED',
                 userLogin: userLogin
         ]
+        GenericValue finAccountTrans = from('FinAccountTrans')
+                .where('finAccountTransId', '1010')
+                .queryOne()
+        String oldStatusId = finAccountTrans.statusId
+
         Map serviceResult = dispatcher.runSync('setFinAccountTransStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue finAccountTrans = from('FinAccountTrans')
+        finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', '1010')
                 .queryOne()
         assert finAccountTrans
         assert finAccountTrans.statusId == 'FINACT_TRNS_APPROVED'
-        assert finAccountTrans.oldStatusId == 'FINACT_TRNS_CREATED'
+        assert oldStatusId == 'FINACT_TRNS_CREATED'
     }
+
 }

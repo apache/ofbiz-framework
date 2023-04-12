@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.testtools.TestRunContainer
@@ -29,38 +28,40 @@ List testList = []
 for (ComponentConfig.TestSuiteInfo testSuiteInfo : ComponentConfig.getAllTestSuiteInfos(parameters.compName)) {
     String suiteName = getTestSuiteName(testSuiteInfo)
     // if a suiteName has been requested, limit result to it.
-    if (parameters.suiteName && suiteName != parameters.suiteName) continue
+    if (parameters.suiteName && suiteName != parameters.suiteName) {
+        continue
+    }
 
     boolean firstLine = true
-    for (Element testCaseElement : getTestCaseResultsForSuite(suiteName)) {
+    getTestCaseResultsForSuite(suiteName).each { Element testCaseElement ->
         List<Element> children = UtilXml.childElementList(testCaseElement)
         Element child = children ? children[0] : null
-        String details = ""
+        String details = ''
         if (child) {
-             details = UtilXml.getAttributeValueIgnorePrefix(child, 'message') ?: child.getNodeValue()
+            details = UtilXml.getAttributeValueIgnorePrefix(child, 'message') ?: child.getNodeValue()
         }
-        testList << [testName        : testCaseElement.getAttribute('name'),
-                     success         : child == null,
-                     details         : details,
-                     suiteName       : suiteName,
+        testList << [testName: testCaseElement.getAttribute('name'),
+                     success: child == null,
+                     details: details,
+                     suiteName: suiteName,
                      displaySuiteName: firstLine,
-                     time            : testCaseElement.getAttribute('time')]
+                     time: testCaseElement.getAttribute('time')]
         firstLine = false
     }
 }
 context.results = testList
 
 private List<? extends Element> getTestCaseResultsForSuite(String suiteName) {
-    File xmlFile = new File(TestRunContainer.LOG_DIR + suiteName + ".xml")
+    File xmlFile = new File(TestRunContainer.LOG_DIR + suiteName + '.xml')
     if (xmlFile.exists()) {
         Document results = UtilXml.readXmlDocument(xmlFile.getText())
         Element resultElement = results.getDocumentElement()
-        return UtilXml.childElementList(resultElement, ["testcase"] as Set)
+        return UtilXml.childElementList(resultElement, ['testcase'] as Set)
     }
-    return new ArrayList<Element>()
+    return []
 }
 
 private String getTestSuiteName(ComponentConfig.TestSuiteInfo testSuiteInfo) {
     Element documentElement = testSuiteInfo.createResourceHandler().getDocument().getDocumentElement()
-    return documentElement.getAttribute("suite-name")
+    return documentElement.getAttribute('suite-name')
 }

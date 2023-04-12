@@ -28,12 +28,11 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityListIterator
 import org.apache.ofbiz.service.GenericServiceException
 
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 
-def createTextAndUploadedContent() {
+Map createTextAndUploadedContent() {
     Map result = success()
 
     Map serviceResult = run service: 'createContent', with: parameters
@@ -53,28 +52,30 @@ def createTextAndUploadedContent() {
     return result
 }
 
-def findAssocContent() {
-    EntityCondition condition = new EntityConditionBuilder().AND() {
+Map findAssocContent() {
+    EntityCondition condition = new EntityConditionBuilder().AND {
         EQUALS(contentId: parameters.contentId)
         IN(mapKey: parameters.mapKeys)
     }
-    List contentAssocs = from("ContentAssoc")
+    List contentAssocs = from('ContentAssoc')
             .where(condition)
             .filterByDate()
             .cache()
             .queryList()
 
     Map result = success()
-    if (contentAssocs) result.contentAssocs = contentAssocs
+    if (contentAssocs) {
+        result.contentAssocs = contentAssocs
+    }
     return result
 }
 
-def updateSingleContentPurpose() {
-    delegator.removeByAnd("ContentPurpose", [contentId: parameters.contentId])
-    run service : "createContentPurpose", with: parameters
+Map updateSingleContentPurpose() {
+    delegator.removeByAnd('ContentPurpose', [contentId: parameters.contentId])
+    run service: 'createContentPurpose', with: parameters
 }
 
-def createEmailContent() {
+Map createEmailContent() {
     Map result = success()
     Map createContentMap = [*: parameters]
 
@@ -109,8 +110,8 @@ def createEmailContent() {
     return result
 }
 
-def deactivateAllContentRoles() {
-    List contentRoles = from("ContentRole")
+Map deactivateAllContentRoles() {
+    List contentRoles = from('ContentRole')
             .where(contentId: parameters.contentId,
                     partyId: parameters.partyId,
                     roleTypeId: parameters.roleTypeId)
@@ -122,16 +123,16 @@ def deactivateAllContentRoles() {
     return success()
 }
 
-def createContentAlternativeUrl() {
+Map createContentAlternativeUrl() {
     //create Content Alternative URLs.
-    String contentCreated = "N"
-    defaultLocaleString = parameters.locale ?: "en"
+    String contentCreated = 'N'
+    defaultLocaleString = parameters.locale ?: 'en'
     EntityListIterator contents
 
     EntityCondition entryExprs
     EntityCondition contentTypeExprs = EntityCondition.makeCondition(EntityOperator.OR,
-        'contentTypeId', "DOCUMENT",
-        'contentTypeId', "WEB_SITE_PUB_PT")
+        'contentTypeId', 'DOCUMENT',
+        'contentTypeId', 'WEB_SITE_PUB_PT')
     if (parameters.contentId) {
         entryExprs = new EntityConditionBuilder().AND(contentTypeExprs) {
             NOT_EQUAL(contentName: null)
@@ -143,31 +144,50 @@ def createContentAlternativeUrl() {
         }
     }
 
-    contents = select("contentId", "contentName", "localeString")
-            .from("Content")
+    contents = select('contentId', 'contentName', 'localeString')
+            .from('Content')
             .where(entryExprs)
             .queryIterator()
 
     GenericValue content
-    while (content = contents.next()) {
+    while (contents.hasNext()) {
+        content = contents.next()
         String localeString = content.localeString ?: defaultLocaleString
-        List contentAssocDataResources = select("contentIdStart", "dataResourceId", "localeString", "drObjectInfo", "caFromDate", "caThruDate")
-                .from("ContentAssocDataResourceViewTo")
-                .where(caContentAssocTypeId: "ALTERNATIVE_URL",
+        List contentAssocDataResources = select('contentIdStart', 'dataResourceId', 'localeString', 'drObjectInfo', 'caFromDate', 'caThruDate')
+                .from('ContentAssocDataResourceViewTo')
+                .where(caContentAssocTypeId: 'ALTERNATIVE_URL',
                         contentIdStart: content.contentId,
                         localeString: localeString.toString())
-                .filterByDate("caFromDate", "caThruDate")
+                .filterByDate('caFromDate', 'caThruDate')
                 .queryList()
-        if (!contentAssocDataResources) {
+        if (contentAssocDataResources) {
+            if (contentAssocDataResources
+                    && contentAssocDataResources[0].drObjectInfo
+                    && content.contentName) {
+                String uri = UrlServletHelper.invalidCharacter(content.contentName)
+                if (uri) {
+                    try {
+                        serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
+                                      objectInfo: "/${uri}'${content.contentId}-content"]
+                        if (ServiceUtil.isSuccess(serviceResult)) {
+                            contentIdTo = serviceResult.contentId
+                        }
+                    } catch (GenericServiceException e) {
+                        logError(e.getMessage())
+                    }
+                    contentCreated = 'Y'
+                }
+            }
+        } else {
             if (content.contentName) {
                 String uri = UrlServletHelper.invalidCharacter(content.contentName)
                 if (uri) {
                     try {
-                        Map serviceResult = run service: "createDataResource", with: [dataResourceId: delegator.getNextSeqId("DataResource"),
-                                                                                      dataResourceTypeId: "URL_RESOURCE",
+                        Map serviceResult = run service: 'createDataResource', with: [dataResourceId: delegator.getNextSeqId('DataResource'),
+                                                                                      dataResourceTypeId: 'URL_RESOURCE',
                                                                                       localeString: localeString.toString(),
                                                                                       objectInfo: "${uri}-${content.contentId}-content",
-                                                                                      statusId: "CTNT_IN_PROGRESS"]
+                                                                                      statusId: 'CTNT_IN_PROGRESS']
                         if (ServiceUtil.isSuccess(serviceResult)) {
                             dataResourceId = serviceResult.dataResourceId
                         }
@@ -176,9 +196,9 @@ def createContentAlternativeUrl() {
                     }
                     if (dataResourceId) {
                         try {
-                            serviceResult = run service: "createContent", with: [dataResourceId: dataResourceId,
+                            serviceResult = run service: 'createContent', with: [dataResourceId: dataResourceId,
                                                                                  localeString: localeString.toString(),
-                                                                                 statusId: "CTNT_IN_PROGRESS"]
+                                                                                 statusId: 'CTNT_IN_PROGRESS']
                             if (ServiceUtil.isSuccess(serviceResult)) {
                                 contentIdTo = serviceResult.contentId
                             }
@@ -187,9 +207,9 @@ def createContentAlternativeUrl() {
                         }
                         if (contentIdTo) {
                             try {
-                                serviceResult = run service: "createContentAssoc", with: [contentId: content.contentId,
+                                serviceResult = run service: 'createContentAssoc', with: [contentId: content.contentId,
                                                                                           contentIdTo: contentIdTo,
-                                                                                          contentAssocTypeId: "ALTERNATIVE_URL"]
+                                                                                          contentAssocTypeId: 'ALTERNATIVE_URL']
                                 if (ServiceUtil.isSuccess(serviceResult)) {
                                     contentIdTo = serviceResult.contentId
                                 }
@@ -198,54 +218,36 @@ def createContentAlternativeUrl() {
                             }
                         }
                     }
-                    contentCreated = "Y"
+                    contentCreated = 'Y'
                 }
             }
-        } else {
-            if (contentAssocDataResources
-                    && contentAssocDataResources[0].drObjectInfo
-                    && content.contentName) {
-                    String uri = UrlServletHelper.invalidCharacter(content.contentName)
-                    if (uri) {
-                        try {
-                            serviceResult = run service: "updateDataResource", with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
-                                                                                      objectInfo: "/${uri}'${content.contentId}-content"]
-                            if (ServiceUtil.isSuccess(serviceResult)) {
-                                contentIdTo = serviceResult.contentId
-                            }
-                        } catch (GenericServiceException e) {
-                            logError(e.getMessage())
-                        }
-                        contentCreated = "Y"
-                    }
-                }
         }
     }
     return [*: success(),
             contentCreated: contentCreated]
 }
 
-def updateEmailContent() {
+Map updateEmailContent() {
     if (parameters.subjectDataResourceId) {
-        run service: "updateElectronicText", with: [dataResourceId: parameters.subjectDataResourceId,
+        run service: 'updateElectronicText', with: [dataResourceId: parameters.subjectDataResourceId,
                                                     textData: parameters.subject]
     }
     if (parameters.plainBodyDataResourceId) {
-        run service: "updateElectronicText", with: [dataResourceId: parameters.plainBodyDataResourceId,
+        run service: 'updateElectronicText', with: [dataResourceId: parameters.plainBodyDataResourceId,
                                                     textData: parameters.plainBody]
     }
     if (parameters.htmlBodyDataResourceId) {
-        run service: "updateElectronicText", with: [dataResourceId: parameters.htmlBodyDataResourceId,
+        run service: 'updateElectronicText', with: [dataResourceId: parameters.htmlBodyDataResourceId,
                                                     textData: parameters.htmlBody]
     }
 }
 
-def createArticleContent() {
+Map createArticleContent() {
     // Post a new Content article Entry
     String origContentAssocTypeId = parameters.contentAssocTypeId
     String contentAssocTypeId = parameters.contentAssocTypeId
     String ownerContentId = parameters.threadContentId
-    if ("PUBLISH_LINK" == origContentAssocTypeId) {
+    if (origContentAssocTypeId == 'PUBLISH_LINK') {
         ownerContentId = parameters.pubPtContentId
     }
     String contentIdFrom = parameters.contentIdFrom
@@ -255,18 +257,18 @@ def createArticleContent() {
     String contentId = null
     if (textData) {
         int textDataLen = textData.length()
-        logInfo("textDataLen: " + textDataLen)
+        logInfo('textDataLen: ' + textDataLen)
         int descriptLen = 0
         if (parameters.descriptLen) {
             descriptLen = (int) parameters.descriptLen
-            logInfo("descriptLen: " + descriptLen)
+            logInfo('descriptLen: ' + descriptLen)
         }
         int subStringLen = Math.min(descriptLen, textDataLen)
-        logInfo("subStringLen: " + subStringLen)
+        logInfo('subStringLen: ' + subStringLen)
         subDescript = textData.substring(0, subStringLen)
-        logInfo("subDescript: " + subDescript)
+        logInfo('subDescript: ' + subDescript)
     }
-    if ("PUBLISH_LINK" == contentAssocTypeId) {
+    if (contentAssocTypeId == 'PUBLISH_LINK') {
         ownerContentId = pubPtContentId
     }
     //determine of we need to create complex template structure or simple content structure
@@ -279,21 +281,21 @@ def createArticleContent() {
                           contentIdFrom: parameters.contentIdFrom,
                           partyId: userLogin.partyId,
                           ownerContentId: ownerContentId,
-                          dataTemplateTypeId: "SCREEN_COMBINED",
-                          mapKey: "MAIN"]
-        Map serviceResult = run service: "createContent", with: createMain
+                          dataTemplateTypeId: 'SCREEN_COMBINED',
+                          mapKey: 'MAIN']
+        Map serviceResult = run service: 'createContent', with: createMain
         if (ServiceUtil.isSuccess(serviceResult)) {
             contentId = serviceResult.contentId
         }
         // reset contentIdFrom to new contentId
-        contentAssocTypeId = "SUB_CONTENT"
+        contentAssocTypeId = 'SUB_CONTENT'
         contentIdFrom = contentId
     }
     if (parameters.uploadedFile) {
         // create image data
-        Map createImage = [dataResourceTypeId: "LOCAL_FILE",
-                           dataTemplateTypeId: "NONE",
-                           mapKey: "IMAGE",
+        Map createImage = [dataResourceTypeId: 'LOCAL_FILE',
+                           dataTemplateTypeId: 'NONE',
+                           mapKey: 'IMAGE',
                            ownerContentId: ownerContentId,
                            contentName: parameters.contentName,
                            description: subDescript,
@@ -304,18 +306,18 @@ def createArticleContent() {
                            uploadedFile: parameters.uploadedFile,
                            _uploadedFile_fileName: parameters._uploadedFile_fileName,
                            _uploadedFile_contentType: parameters._uploadedFile_contentType]
-        Map serviceResult = run service: "createContentFromUploadedFile", with: createImage
-        String imageContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
+        Map serviceResult = run service: 'createContentFromUploadedFile', with: createImage
+        String imageContentId = ServiceUtil.isSuccess(serviceResult) ? serviceResult.contentId : null
         if (!contentId) {
             contentIdFrom = imageContentId
             contentId = imageContentId
-            contentAssocTypeId = "SUB_CONTENT"
+            contentAssocTypeId = 'SUB_CONTENT'
         }
     }
     if (textData) {
-        Map serviceResult = run service: "createTextContent", with: [dataResourceTypeId: "ELECTRONIC_TEXT",
-                                                                     dataTemplateTypeId: "NONE",
-                                                                     mapKey: "MAIN",
+        Map serviceResult = run service: 'createTextContent', with: [dataResourceTypeId: 'ELECTRONIC_TEXT',
+                                                                     dataTemplateTypeId: 'NONE',
+                                                                     mapKey: 'MAIN',
                                                                      ownerContentId: ownerContentId,
                                                                      contentName: parameters.contentName,
                                                                      description: subDescript,
@@ -324,18 +326,18 @@ def createArticleContent() {
                                                                      textData: textData,
                                                                      contentIdFrom: contentIdFrom,
                                                                      partyId: userLogin.partyId]
-        String textContentId = ServiceUtil.isSuccess(serviceResult)? serviceResult.contentId : null
+        String textContentId = ServiceUtil.isSuccess(serviceResult) ? serviceResult.contentId : null
         if (!contentId) {
             contentIdFrom = textContentId
             contentId = textContentId
-            contentAssocTypeId = "SUB_CONTENT"
+            contentAssocTypeId = 'SUB_CONTENT'
         }
     }
     // we should have a primary (at least) contentId
     if (contentId && parameters.summaryData) {
-        run service: "createTextContent", with: [dataResourceTypeId: "ELECTRONIC_TEXT",
-                                                 dataTemplateTypeId: "NONE",
-                                                 mapKey: "SUMMARY",
+        run service: 'createTextContent', with: [dataResourceTypeId: 'ELECTRONIC_TEXT',
+                                                 dataTemplateTypeId: 'NONE',
+                                                 mapKey: 'SUMMARY',
                                                  ownerContentId: ownerContentId,
                                                  contentName: parameters.contentName,
                                                  description: parameters.description,
@@ -346,24 +348,24 @@ def createArticleContent() {
                                                  partyId: userLogin.partyId]
     }
     // If a response, still link it to the publish point
-    if ("RESPONSE" == origContentAssocTypeId) {
-        run service: "createContentAssoc", with: [contentId: pubPtContentId,
+    if (origContentAssocTypeId == 'RESPONSE') {
+        run service: 'createContentAssoc', with: [contentId: pubPtContentId,
                                                   contentIdTo: contentId,
-                                                  contentAssocTypeId: "RESPONSE"]
+                                                  contentAssocTypeId: 'RESPONSE']
     }
     Map result = success()
     result.contentId = contentId
     return result
 }
 
-def setContentStatus() {
+Map setContentStatus() {
     Map result = success()
-    GenericValue content = from("Content").where(parameters).queryOne()
+    GenericValue content = from('Content').where(parameters).queryOne()
     if (content) {
         String oldStatusId = content.statusId
         result.oldStatusId = oldStatusId
         if (oldStatusId != parameters.statusId) {
-            GenericValue statusChange = from("StatusValidChange")
+            GenericValue statusChange = from('StatusValidChange')
                     .where(statusId: oldStatusId,
                             statusIdTo: parameters.statusId)
                     .cache()
@@ -382,37 +384,41 @@ def setContentStatus() {
     return result
 }
 
-def createDownloadContent() {
+Map createDownloadContent() {
     Map serviceResult = success()
-    Map result = runService("createOtherDataResource", [dataResourceContent: parameters.file])
-    if (ServiceUtil.isError(result)) return result
-    Map serviceCtx = dispatcher.dispatchContext.makeValidContext("createContent", ModelService.IN_PARAM, parameters)
+    Map result = runService('createOtherDataResource', [dataResourceContent: parameters.file])
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
+    Map serviceCtx = dispatcher.dispatchContext.makeValidContext('createContent', ModelService.IN_PARAM, parameters)
     serviceCtx.dataResourceId = result.dataResourceId
-    result = runService("createContent", serviceCtx)
-    if (ServiceUtil.isError(result)) return result
+    result = runService('createContent', serviceCtx)
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
     serviceResult.contentId = result.contentId
     return serviceResult
 }
 
-def updateDownloadContent() {
+Map updateDownloadContent() {
     if (parameters.fileDataResourceId) {
-        return runService("updateOtherDataResource", [dataResourceId: parameters.fileDataResourceId,
+        return runService('updateOtherDataResource', [dataResourceId: parameters.fileDataResourceId,
                                                                   dataResourceContent: parameters.file])
     }
     return success()
 }
 
-def getDataResource() {
+Map getDataResource() {
     Map result = success()
     Map resultData = [:]
 
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
     if (dataResource) {
         resultData.dataResource = dataResource
-        if ("ELECTRONIC_TEXT" == dataResource.dataResourceTypeId) {
+        if (dataResource.dataResourceTypeId == 'ELECTRONIC_TEXT') {
             resultData.electronicText = dataResource.getRelatedOne('ElectronicText', false)
         }
-        if ("IMAGE_OBJECT" == dataResource.dataResourceTypeId) {
+        if (dataResource.dataResourceTypeId == 'IMAGE_OBJECT') {
             resultData.imageDataResource = dataResource.getRelatedOne('ImageDataResource', false)
         }
     }
@@ -420,13 +426,13 @@ def getDataResource() {
     return result
 }
 
-def getContentAndDataResource () {
+Map getContentAndDataResource () {
     Map result = success()
     Map resultDataContent = [:]
-    GenericValue content = from("Content").where("contentId", parameters.contentId).queryOne()
+    GenericValue content = from('Content').where('contentId', parameters.contentId).queryOne()
     resultDataContent.content = content
     if (content && content.dataResourceId) {
-        Map serviceResult = run service: "getDataResource", with: [dataResourceId: content.dataResourceId]
+        Map serviceResult = run service: 'getDataResource', with: [dataResourceId: content.dataResourceId]
         if (serviceResult) {
             Map resultData = serviceResult.resultData
             resultDataContent.dataResource = resultData.dataResource
@@ -440,20 +446,20 @@ def getContentAndDataResource () {
 
 /* create content from data resource
    This method will create a skeleton content record from a data resource */
-def createContentFromDataResource() {
-    GenericValue dataResource = from("DataResource").where(parameters).queryOne()
+Map createContentFromDataResource() {
+    GenericValue dataResource = from('DataResource').where(parameters).queryOne()
     if (! dataResource) {
-        return error(UtilProperties.getMessage("ContentUiLabels", "ContentDataResourceNotFound",
+        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound',
                 [dataResourceId: parameters.dataResourceId], parameters.locale))
     }
     parameters.contentName = parameters.contentName ?: dataResource.dataResourceName
-    parameters.contentTypeId = parameters.contentTypeId ?: "DOCUMENT"
-    parameters.statusId = parameters.statusId ?: "CTNT_INITIAL_DRAFT"
+    parameters.contentTypeId = parameters.contentTypeId ?: 'DOCUMENT'
+    parameters.statusId = parameters.statusId ?: 'CTNT_INITIAL_DRAFT'
     parameters.mimeTypeId = parameters.mimeTypeId ?: dataResource.mimeTypeId
-    Map result = run service: "createContent", with: parameters
+    Map result = run service: 'createContent', with: parameters
     return result
 }
-def deleteContentKeywords() {
+Map deleteContentKeywords() {
     GenericValue content = from('Content').where(parameters).queryOne()
     if (content) {
         content.removeRelated('ContentKeyword')
@@ -465,66 +471,63 @@ def deleteContentKeywords() {
 // ImageDataResource, etc. entities (if needed) by calling persistContentAndAssoc.
 // It then takes the passed in contentId, communicationEventId and fromDate primary keys
 // and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
-def updateCommContentDataResource() {
+Map updateCommContentDataResource() {
     Map serviceResult = run service: 'persistContentAndAssoc', with: parameters
-    run service: 'updateCommEventContentAssoc', with: [contentId           : serviceResult.contentId,
-                                                       fromDate            : parameters.fromDate,
+    run service: 'updateCommEventContentAssoc', with: [contentId: serviceResult.contentId,
+                                                       fromDate: parameters.fromDate,
                                                        communicationEventId: parameters.communicationEventId,
-                                                       sequenceNum         : parameters.sequenceNum,
-                                                       userLogin           : userLogin]
+                                                       sequenceNum: parameters.sequenceNum,
+                                                       userLogin: userLogin]
 
-    return [*                   : success(),
-            contentId           : serviceResult.contentId,
-            dataResourceId      : serviceResult.dataResourceId,
-            drDataResourceId    : serviceResult.drDataResourceId,
-            caContentIdTo       : serviceResult.caContentIdTo,
-            caContentId         : serviceResult.caContentId,
+    return [*: success(),
+            contentId: serviceResult.contentId,
+            dataResourceId: serviceResult.dataResourceId,
+            drDataResourceId: serviceResult.drDataResourceId,
+            caContentIdTo: serviceResult.caContentIdTo,
+            caContentId: serviceResult.caContentId,
             caContentAssocTypeId: serviceResult.caContentAssocTypeId,
-            caFromDate          : serviceResult.caFromDate,
-            caSequenceNum       : serviceResult.caSequenceNum,
-            roleTypeList        : serviceResult.roleTypeList]
+            caFromDate: serviceResult.caFromDate,
+            caSequenceNum: serviceResult.caSequenceNum,
+            roleTypeList: serviceResult.roleTypeList]
 }
 
-def indexContentKeywords() {
+Map indexContentKeywords() {
     // this service is meant to be called from an entity ECA for entities that include a contentId
     // if it is the Content entity itself triggering this action, then a [contentInstance] parameter
     // will be passed and we can save a few cycles looking that up
-    GenericValue contentInstance = parameters.contentInstance
-    if (!contentInstance) {
-        contentInstance = from("Content").where("contentId", parameters.contentId).queryOne()
-    }
+    GenericValue contentInstance = parameters.contentInstance ?: from('Content').where('contentId', parameters.contentId).queryOne()
     ContentKeywordIndex.indexKeywords(contentInstance)
     return success()
 }
 
-def forceIndexContentKeywords() {
-    content = from("Content").where("contentId", parameters.contentId).queryOne()
+Map forceIndexContentKeywords() {
+    content = from('Content').where('contentId', parameters.contentId).queryOne()
     ContentKeywordIndex.forceIndexKeywords(content)
     return success()
 }
 
-def createSimpleTextContent() {
-    Map serviceResult = run service: 'createDataResource', with: [*                 : parameters,
+Map createSimpleTextContent() {
+    Map serviceResult = run service: 'createDataResource', with: [*: parameters,
                                                                   dataResourceTypeId: 'ELECTRONIC_TEXT',
                                                                   dataTemplateTypeId: 'FTL']
 
-    run service: 'createElectronicText', with: [*             : parameters,
-                                                textData      : parameters.text,
+    run service: 'createElectronicText', with: [*: parameters,
+                                                textData: parameters.text,
                                                 dataResourceId: serviceResult.dataResourceId]
 
-    serviceResult = run service: 'createContent', with: [*             : parameters,
-                                                         contentTypeId : 'DOCUMENT',
+    serviceResult = run service: 'createContent', with: [*: parameters,
+                                                         contentTypeId: 'DOCUMENT',
                                                          dataResourceId: serviceResult.dataResourceId]
 
     return serviceResult
 }
 
-def updateSimpleTextContent() {
+Map updateSimpleTextContent() {
     Map result = success()
 
     if (parameters.textDataResourceId) {
         run service: 'updateElectronicText', with: [dataResourceId: parameters.textDataResourceId,
-                                                    textData      : parameters.text]
+                                                    textData: parameters.text]
         result.dataResourceId = parameters.textdataResourceId
         result.textData = parameters.text
     }

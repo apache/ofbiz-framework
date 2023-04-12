@@ -33,17 +33,18 @@ if (!searchCategoryId) {
     currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
     searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId)
 }
-searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne()
+searchCategory = from('ProductCategory').where('productCategoryId', searchCategoryId).queryOne()
 
 productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator)
 productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List
-if(productFeatureTypeIdsOrdered) {
-    context.productFeatureTypes = from("ProductFeatureType").where(EntityCondition.makeCondition("productFeatureTypeId", EntityOperator.IN, productFeatureTypeIdsOrdered)).queryList()
+if (productFeatureTypeIdsOrdered) {
+    context.productFeatureTypes = from('ProductFeatureType')
+            .where(EntityCondition.makeCondition('productFeatureTypeId', EntityOperator.IN, productFeatureTypeIdsOrdered)).queryList()
 }
 
 searchOperator = parameters.SEARCH_OPERATOR
-if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
-  searchOperator = "OR"
+if ('AND' != searchOperator && 'OR' != searchOperator) {
+    searchOperator = 'OR'
 }
 
 searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator)

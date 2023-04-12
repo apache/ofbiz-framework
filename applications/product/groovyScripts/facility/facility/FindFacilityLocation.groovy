@@ -17,36 +17,35 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilHttp
 
 facilityId = parameters.facilityId
 context.facilityId = facilityId
 
-lookup = request.getParameter("look_up")
-itemId = request.getParameter("inventoryItemId")
+lookup = request.getParameter('look_up')
+itemId = request.getParameter('inventoryItemId')
 if (itemId) {
-    session.setAttribute("inventoryItemId", itemId)
+    session.setAttribute('inventoryItemId', itemId)
 }
 
-itemId = session.getAttribute("inventoryItemId")
+itemId = session.getAttribute('inventoryItemId')
 context.itemId = itemId
 
-facility = from("Facility").where("facilityId", facilityId).queryOne()
+facility = from('Facility').where('facilityId', facilityId).queryOne()
 context.facility = facility
 
 request.getParameterMap().forEach(request.&setAttribute)
 if (lookup) {
     reqParamMap = UtilHttp.getParameterMap(request)
     paramMap = new HashMap(reqParamMap)
-    paramMap.remove("look_up")
+    paramMap.remove('look_up')
     reqParamMap.keySet().each { key ->
         value = paramMap.get(key)
         if (!value || value.length() == 0) {
             paramMap.remove(key)
         }
     }
-    foundLocations = from("FacilityLocation").where(paramMap).queryList()
+    foundLocations = from('FacilityLocation').where(paramMap).queryList()
     if (foundLocations) {
         context.foundLocations = foundLocations
     }

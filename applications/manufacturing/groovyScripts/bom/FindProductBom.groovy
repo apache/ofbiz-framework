@@ -23,25 +23,27 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 
 condList = []
 if (parameters.productId) {
-    cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId)
+    cond = EntityCondition.makeCondition('productId', EntityOperator.EQUALS, parameters.productId)
     condList.add(cond)
 }
 if (parameters.productIdTo) {
-    cond = EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, parameters.productIdTo)
+    cond = EntityCondition.makeCondition('productIdTo', EntityOperator.EQUALS, parameters.productIdTo)
     condList.add(cond)
 }
 if (parameters.productAssocTypeId) {
-    cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, parameters.productAssocTypeId)
+    cond = EntityCondition.makeCondition('productAssocTypeId', EntityOperator.EQUALS, parameters.productAssocTypeId)
     condList.add(cond)
 } else {
-    bomAssocTypeIds = EntityUtil.getFieldListFromEntityList(select("productAssocTypeId").from("ProductAssocType").where("parentTypeId", "PRODUCT_COMPONENT").queryList(), "productAssocTypeId", true)
-    cond = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.IN, bomAssocTypeIds)
+    bomAssocTypeIds = EntityUtil.getFieldListFromEntityList(
+            select('productAssocTypeId').from('ProductAssocType').where('parentTypeId', 'PRODUCT_COMPONENT').queryList(),
+            'productAssocTypeId', true)
+    cond = EntityCondition.makeCondition('productAssocTypeId', EntityOperator.IN, bomAssocTypeIds)
     condList.add(cond)
 }
-bomListIterator = select("productId", "internalName", "productAssocTypeId")
-                    .from("ProductAndAssoc")
+bomListIterator = select('productId', 'internalName', 'productAssocTypeId')
+                    .from('ProductAndAssoc')
                     .where(condList)
-                    .orderBy("productId", "productAssocTypeId").distinct()
+                    .orderBy('productId', 'productAssocTypeId').distinct()
                     .cursorScrollInsensitive()
                     .cache(true)
                     .queryIterator()

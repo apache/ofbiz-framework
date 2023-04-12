@@ -30,22 +30,22 @@ context.returnHeaderTypeId = returnHeaderTypeId
 partyId = parameters.party_id
 
 if (partyId) {
-    if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
+    if (returnHeaderTypeId == 'VENDOR_RETURN') {
         context.toPartyId = partyId
     }
-    party = from("Party").where("partyId", partyId).queryOne()
+    party = from('Party').where('partyId', partyId).queryOne()
     context.party = party
 }
 
-returnHeaders = from("ReturnHeader").where("statusId", "RETURN_REQUESTED").queryList()
+returnHeaders = from('ReturnHeader').where('statusId', 'RETURN_REQUESTED').queryList()
 context.returnHeaders = returnHeaders
 
 // put in the return to party information from the order header
 if (orderId) {
-    order = from("OrderHeader").where("orderId", orderId).queryOne()
-    productStore = order.getRelatedOne("ProductStore", false)
+    order = from('OrderHeader').where('orderId', orderId).queryOne()
+    productStore = order.getRelatedOne('ProductStore', false)
     if (productStore) {
-        if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
+        if (returnHeaderTypeId == 'VENDOR_RETURN') {
             context.partyId = productStore.payToPartyId
         } else {
             context.destinationFacilityId = ProductStoreWorker.determineSingleFacilityForStore(delegator, productStore.productStoreId)
@@ -61,38 +61,37 @@ if (orderId) {
 
 // payment method info
 if (partyId) {
-    creditCardList = from("PaymentMethodAndCreditCard").where("partyId", partyId).filterByDate().queryList()
+    creditCardList = from('PaymentMethodAndCreditCard').where('partyId', partyId).filterByDate().queryList()
     if (creditCardList) {
         context.creditCardList = creditCardList
     }
-    eftAccountList = from("PaymentMethodAndEftAccount").where("partyId", partyId).filterByDate().queryList()
+    eftAccountList = from('PaymentMethodAndEftAccount').where('partyId', partyId).filterByDate().queryList()
     if (eftAccountList) {
         context.eftAccountList = eftAccountList
     }
 }
 
-
-returnTypes = from("ReturnType").orderBy("sequenceId").queryList()
+returnTypes = from('ReturnType').orderBy('sequenceId').queryList()
 context.returnTypes = returnTypes
 
-returnReasons = from("ReturnReason").orderBy("sequenceId").queryList()
+returnReasons = from('ReturnReason').orderBy('sequenceId').queryList()
 context.returnReasons = returnReasons
 
-itemStts = from("StatusItem").where("statusTypeId", "INV_SERIALIZED_STTS").orderBy("sequenceId").queryList()
+itemStts = from('StatusItem').where('statusTypeId', 'INV_SERIALIZED_STTS').orderBy('sequenceId').queryList()
 context.itemStts = itemStts
 
 typeMap = [:]
-returnItemTypeMap = from("ReturnItemTypeMap").where("returnHeaderTypeId", returnHeaderTypeId).queryList()
+returnItemTypeMap = from('ReturnItemTypeMap').where('returnHeaderTypeId', returnHeaderTypeId).queryList()
 returnItemTypeMap.each { value ->
     typeMap[value.returnItemMapKey] = value.returnItemTypeId
 }
 context.returnItemTypeMap = typeMap
 
 if (orderId) {
-    returnRes = runService('getReturnableItems', [orderId : orderId])
+    returnRes = runService('getReturnableItems', [orderId: orderId])
     context.returnableItems = returnRes.returnableItems
-    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+    orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
     context.orderHeader = orderHeader
 }
 
-context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false)
+context.shippingContactMechList = ContactHelper.getContactMech(party, 'SHIPPING_LOCATION', 'POSTAL_ADDRESS', false)

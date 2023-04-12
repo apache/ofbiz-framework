@@ -22,7 +22,7 @@ import org.apache.ofbiz.party.contact.ContactMechWorker
 partyId = parameters.partyId
 context.partyId = partyId
 
-Map mechMap = new HashMap()
+Map mechMap = [:]
 ContactMechWorker.getContactMechAndRelated(request, partyId, mechMap)
 context.mechMap = mechMap
 
@@ -32,7 +32,7 @@ context.paymentMethodId = parameters.paymentMethodId
 
 cmNewPurposeTypeId = parameters.contactMechPurposeTypeId
 if (cmNewPurposeTypeId) {
-    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne()
+    contactMechPurposeType = from('ContactMechPurposeType').where('contactMechPurposeTypeId', cmNewPurposeTypeId).queryOne()
     if (contactMechPurposeType) {
         context.contactMechPurposeType = contactMechPurposeType
     } else {
@@ -40,4 +40,4 @@ if (cmNewPurposeTypeId) {
     }
     context.cmNewPurposeTypeId = cmNewPurposeTypeId
 }
-context.donePage = parameters.DONE_PAGE ?:"viewprofile?party_id=" + partyId + "&partyId=" + partyId
+context.donePage = parameters.DONE_PAGE ?: 'viewprofile?party_id=' + partyId + '&partyId=' + partyId

@@ -19,22 +19,24 @@
 
 productCategoryId = parameters.productCategoryId
 if (productCategoryId) {
-    productCategoryContents  = from("ProductCategoryContent").where("productCategoryId", productCategoryId).queryList()
-    productCategoryContents.each{ productCategoryContent->
-        if ("PAGE_TITLE" == productCategoryContent.prodCatContentTypeId) {
-            contentTitle  = from("Content").where("contentId", productCategoryContent.contentId).queryOne()
-            dataTextTitle  = from("ElectronicText").where("dataResourceId", contentTitle.dataResourceId).queryOne()
-            context.title = dataTextTitle.textData
-        }
-        if ("META_KEYWORD" == productCategoryContent.prodCatContentTypeId) {
-            contentMetaKeyword  = from("Content").where("contentId", productCategoryContent.contentId).queryOne()
-            dataTextMetaKeyword  = from("ElectronicText").where("dataResourceId", contentMetaKeyword.dataResourceId).queryOne()
-            context.metaKeyword = dataTextMetaKeyword.textData
-        }
-        if ("META_DESCRIPTION" == productCategoryContent.prodCatContentTypeId) {
-            contentMetaDescription  = from("Content").where("contentId", productCategoryContent.contentId).queryOne()
-            dataTextMetaDescription  = from("ElectronicText").where("dataResourceId", contentMetaDescription.dataResourceId).queryOne()
-            context.metaDescription = dataTextMetaDescription.textData
+    productCategoryContents  = from('ProductCategoryContent').where('productCategoryId', productCategoryId).queryList()
+    productCategoryContents.each { productCategoryContent ->
+        switch (productCategoryContent.prodCatContentTypeId) {
+            case 'PAGE_TITLE':
+                contentTitle = from('Content').where('contentId', productCategoryContent.contentId).queryOne()
+                dataTextTitle = from('ElectronicText').where('dataResourceId', contentTitle.dataResourceId).queryOne()
+                context.title = dataTextTitle.textData
+                break
+            case 'META_KEYWORD':
+                contentMetaKeyword = from('Content').where('contentId', productCategoryContent.contentId).queryOne()
+                dataTextMetaKeyword = from('ElectronicText').where('dataResourceId', contentMetaKeyword.dataResourceId).queryOne()
+                context.metaKeyword = dataTextMetaKeyword.textData
+                break
+            case 'META_DESCRIPTION':
+                contentMetaDescription = from('Content').where('contentId', productCategoryContent.contentId).queryOne()
+                dataTextMetaDescription = from('ElectronicText').where('dataResourceId', contentMetaDescription.dataResourceId).queryOne()
+                context.metaDescription = dataTextMetaDescription.textData
+                break
         }
     }
 }

@@ -18,10 +18,11 @@
  */
 
 import org.apache.ofbiz.service.ModelService
+
 context.invoicePaymentInfoList = []
 
 if (parameters.invoiceTypeId) { // it's not the initialisation but a real search request
-    serviceCtx = dispatcher.getDispatchContext().makeValidContext("getInvoicePaymentInfoListByDueDateOffset", ModelService.IN_PARAM, parameters)
-    result = runService("getInvoicePaymentInfoListByDueDateOffset", serviceCtx)
-    context.invoicePaymentInfoList = result.invoicePaymentInfoList 
+    serviceCtx = dispatcher.getDispatchContext().makeValidContext('getInvoicePaymentInfoListByDueDateOffset', ModelService.IN_PARAM, parameters)
+    result = runService('getInvoicePaymentInfoListByDueDateOffset', serviceCtx)
+    context.invoicePaymentInfoList = result.invoicePaymentInfoList
 }

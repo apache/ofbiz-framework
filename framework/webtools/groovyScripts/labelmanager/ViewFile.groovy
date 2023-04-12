@@ -16,25 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.net.URI
-import org.apache.ofbiz.base.util.*
-import org.w3c.dom.*
-import java.io.ByteArrayOutputStream
-import org.apache.commons.lang.StringEscapeUtils
 
-fileString = ""
+import org.apache.ofbiz.base.util.FileUtil
+import org.apache.ofbiz.base.util.UtilXml
+import org.w3c.dom.Document
+
+fileString = ''
 if (parameters.fileName) {
     file = new File(parameters.fileName)
-    if (parameters.fileName.endsWith(".xml")) {
+    if (parameters.fileName.endsWith('.xml')) {
         Document document = UtilXml.readXmlDocument(file.toURL(), false)
         ByteArrayOutputStream os = new ByteArrayOutputStream()
-        UtilXml.writeXmlDocument(document, os, "UTF-8", true, true, 4)
+        UtilXml.writeXmlDocument(document, os, 'UTF-8', true, true, 4)
         os.close()
         fileString = os.toString()
-    } else if (parameters.fileName.endsWith(".properties")) {
-        fileString = FileUtil.readString("UTF-8", file)
+    } else if (parameters.fileName.endsWith('.properties')) {
+        fileString = FileUtil.readString('UTF-8', file)
     }
-    rows = fileString.split(System.getProperty("line.separator"))
+    rows = fileString.split(System.getProperty('line.separator'))
     context.rows = rows.size()
 }
 context.fileString = fileString

@@ -17,9 +17,6 @@
  * under the License.
  */
 
-
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 
 /**
@@ -28,7 +25,7 @@ import org.apache.ofbiz.entity.GenericValue
  * @param parameters Contains all attributes for service interface, interfaceAcctgTrans.
  * @return Success response containing the AcctgTrans primary key, error response otherwise.
  */
-def createAcctgTrans() {
+Map createAcctgTrans() {
     GenericValue newAcctgTrans = makeValue('AcctgTrans', [*:parameters, isPosted: 'N'])
     newAcctgTrans.acctgTransId = delegator.getNextSeqId('AcctgTrans')
     newAcctgTrans.create()

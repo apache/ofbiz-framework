@@ -23,14 +23,11 @@ import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 
-Boolean actualCurrency = new Boolean(context.actualCurrency)
+Boolean actualCurrency = Boolean.valueOf(context.actualCurrency)
 if (actualCurrency == null) {
     actualCurrency = true
 }
-actualCurrencyUomId = context.actualCurrencyUomId
-if (!actualCurrencyUomId) {
-    actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId
-}
+actualCurrencyUomId = context.actualCurrencyUomId ?:  context.defaultOrganizationPartyCurrencyUomId
 //get total/unapplied/applied invoices separated by sales/purch amount:
 totalInvSaApplied = BigDecimal.ZERO
 totalInvSaNotApplied = BigDecimal.ZERO
@@ -39,36 +36,40 @@ totalInvPuNotApplied = BigDecimal.ZERO
 
 invExprs =
     EntityCondition.makeCondition([
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_IN_PROCESS"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_WRITEOFF"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_IN_PROCESS'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_WRITEOFF'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'INVOICE_CANCELLED'),
         EntityCondition.makeCondition([
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
-                ],EntityOperator.AND),
+                EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+            ], EntityOperator.AND),
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
-                ],EntityOperator.AND)
-            ],EntityOperator.OR)
-        ],EntityOperator.AND)
+                EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
+            ], EntityOperator.AND)
+        ], EntityOperator.OR)
+    ], EntityOperator.AND)
 
-invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
+invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (invoice = invIterator.next()) {
-    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", invoice.getString("invoiceTypeId"), "parentTypeId", "PURCHASE_INVOICE")
-    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, "InvoiceType", "invoiceTypeId", (String) invoice.getString("invoiceTypeId"), "parentTypeId", "SALES_INVOICE")
+while (invIterator.hasNext()) {
+    invoice = invIterator.next()
+    Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId',
+            invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')
+    Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', (String) invoice.getString('invoiceTypeId'),
+            'parentTypeId', 'SALES_INVOICE')
     if (isPurchaseInvoice) {
-        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
-        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     }
     else if (isSalesInvoice) {
-        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
-        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     }
     else {
-        logError("InvoiceType: " + invoice.invoiceTypeId + " without a valid parentTypeId: " + invoice.parentTypeId + " !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE")
+        logError('InvoiceType: ' + invoice.invoiceTypeId + ' without a valid parentTypeId: ' + invoice.parentTypeId
+                + ' !!!! Should be either PURCHASE_INVOICE or SALES_INVOICE')
     }
 }
 
@@ -82,33 +83,35 @@ totalPayOutNotApplied = BigDecimal.ZERO
 
 payExprs =
     EntityCondition.makeCondition([
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_NOTPAID'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_CANCELLED'),
         EntityCondition.makeCondition([
                EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
                 ], EntityOperator.AND),
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
                 ], EntityOperator.AND)
             ], EntityOperator.OR)
         ], EntityOperator.AND)
 
-payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
+payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payment = payIterator.next()) {
-    if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {
-        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
-        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+while (payIterator.hasNext()) {
+    payment = payIterator.next()
+    if (payment.parentTypeId == 'DISBURSEMENT' || payment.parentTypeId == 'TAX_PAYMENT') {
+        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     }
-    else if ("RECEIPT".equals(payment.parentTypeId)) {
-        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
-        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+    else if (payment.parentTypeId == 'RECEIPT') {
+        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     }
     else {
-        logError("PaymentTypeId: " + payment.paymentTypeId + " without a valid parentTypeId: " + payment.parentTypeId + " !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT")
+        logError('PaymentTypeId: ' + payment.paymentTypeId + ' without a valid parentTypeId: ' + payment.parentTypeId
+                + ' !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT')
     }
 }
 payIterator.close()

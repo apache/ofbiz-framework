@@ -24,11 +24,12 @@ import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 import org.apache.ofbiz.order.order.OrderReadHelper
 
 if (productCategoryIdPar) {
-    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
+    category = from('ProductCategory').where('productCategoryId', productCategoryIdPar).queryOne()
     context.category = category
 }
 
-allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV").orderBy("productId").queryList()
+allProductionRuns = from('WorkEffortAndGoods')
+        .where('workEffortName', planName, 'statusId', 'WEGS_CREATED', 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV').orderBy('productId').queryList()
 productionRuns = []
 
 if (allProductionRuns) {
@@ -40,33 +41,35 @@ if (allProductionRuns) {
                 return
             }
         }
-        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne()
+        productionRunProduct = from('Product').where('productId', productionRun.productId).queryOne()
         String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId)
 
-        productionRunOrder = from("WorkOrderItemFulfillment").where("workEffortId", rootProductionRunId).queryFirst()
+        productionRunOrder = from('WorkOrderItemFulfillment').where('workEffortId', rootProductionRunId).queryFirst()
         OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId)
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTask = from("WorkEffort").where("workEffortParentId", productionRun.workEffortId, "workEffortName", taskNamePar).queryFirst()
+        productionRunTask = from('WorkEffort').where('workEffortParentId', productionRun.workEffortId, 'workEffortName', taskNamePar).queryFirst()
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             return
         }
 
-        productionRunMap = [productionRun : productionRun,
-                                          product : productionRunProduct,
-                                          productionRunTask : productionRunTask,
-                                          productionRunOrder : productionRunOrder,
-                                          customer : orh.getPlacingParty(),
-                                          address : orh.getShippingAddress()]
-        allProductionComponents = from("WorkEffortAndGoods").where("workEffortId", productionRunTask.workEffortId, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED").orderBy("productId").queryList()
-        
+        productionRunMap = [productionRun: productionRun,
+                            product: productionRunProduct,
+                            productionRunTask: productionRunTask,
+                            productionRunOrder: productionRunOrder,
+                            customer: orh.getPlacingParty(),
+                            address: orh.getShippingAddress()]
+        allProductionComponents = from('WorkEffortAndGoods')
+                .where('workEffortId', productionRunTask.workEffortId, 'statusId', 'WEGS_CREATED',
+                        'workEffortGoodStdTypeId', 'PRUNT_PROD_NEEDED').orderBy('productId').queryList()
+
         componentList = []
 
         if (allProductionComponents) {
             allProductionComponents.each { productionComponent ->
-                productionRunProductComp = from("Product").where("productId", productionComponent.productId).queryOne()
-                productionRunProductMap = [component : productionComponent,componentProduct : productionRunProductComp]
+                productionRunProductComp = from('Product').where('productId', productionComponent.productId).queryOne()
+                productionRunProductMap = [component: productionComponent, componentProduct: productionRunProductComp]
                 componentList.add(productionRunProductMap)
             }
         }

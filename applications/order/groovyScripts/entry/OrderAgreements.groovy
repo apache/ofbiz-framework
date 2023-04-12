@@ -22,13 +22,11 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.catalog.CatalogWorker
 
-
 shoppingCart = ShoppingCartEvents.getCartObject(request)
 context.cart = shoppingCart
 
 // get applicable agreements for order entry
-if ('PURCHASE_ORDER'.equals(shoppingCart.getOrderType())) {
-
+if (shoppingCart.getOrderType() == 'PURCHASE_ORDER') {
     // for a purchase order, orderPartyId = billFromVendor (the supplier)
     supplierPartyId = shoppingCart.getOrderPartyId()
     customerPartyId = shoppingCart.getBillToCustomerPartyId()
@@ -43,9 +41,7 @@ if ('PURCHASE_ORDER'.equals(shoppingCart.getOrderType())) {
             EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, supplierPartyId),
             EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'SUPPLIER')
     ], EntityOperator.AND)
-
 } else {
-
     // for a sales order, orderPartyId = billToCustomer (the customer)
     customerPartyId = shoppingCart.getOrderPartyId()
     companyPartyId = shoppingCart.getBillFromVendorPartyId()
@@ -60,22 +56,21 @@ if ('PURCHASE_ORDER'.equals(shoppingCart.getOrderType())) {
             EntityCondition.makeCondition('partyId', EntityOperator.EQUALS, customerPartyId),
             EntityCondition.makeCondition('roleTypeId', EntityOperator.EQUALS, 'CUSTOMER')
     ], EntityOperator.AND)
-
 }
 
-agreements = from("Agreement").where(agreementCondition).filterByDate().cache(true).queryList()
+agreements = from('Agreement').where(agreementCondition).filterByDate().cache(true).queryList()
 if (agreements) {
     context.agreements = agreements
 }
 
-agreementRoles = from("AgreementRole").where(agreementRoleCondition).cache(true).queryList()
+agreementRoles = from('AgreementRole').where(agreementRoleCondition).cache(true).queryList()
 if (agreementRoles) {
     context.agreementRoles = agreementRoles
 }
 
 // catalog id collection, current catalog id and name
 productStoreId = shoppingCart.getProductStoreId()
-if ('SALES_ORDER' == shoppingCart.getOrderType() && productStoreId) {
+if (shoppingCart.getOrderType() == 'SALES_ORDER' && productStoreId) {
     catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, shoppingCart.getOrderPartyId())
 } else {
     catalogCol = CatalogWorker.getAllCatalogIds(request)
@@ -90,5 +85,5 @@ if (catalogCol) {
 }
 
 // currencies and shopping cart currency
-context.currencies = from("Uom").where("uomTypeId", "CURRENCY_MEASURE").cache(true).queryList()
+context.currencies = from('Uom').where('uomTypeId', 'CURRENCY_MEASURE').cache(true).queryList()
 context.currencyUomId = shoppingCart.getCurrency()

@@ -25,12 +25,14 @@ import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
 
-def getNextInvoiceId() {
+Map getNextInvoiceId() {
     result = success()
 
     // try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where(parameters).queryOne()
-    if (Debug.infoOn()) logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
+    if (Debug.infoOn()) {
+        logInfo("In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
+    }
 
     String customMethodName = null
     String invoiceIdPrefix = ''
@@ -42,35 +44,37 @@ def getNextInvoiceId() {
             customMethodName = customMethod.customMethodName
         } else {
             //retrieve service from deprecated enumeration see OFBIZ-3765 beware of OFBIZ-3557
-            if ('INVSQ_ENF_SEQ' == partyAcctgPreference.oldInvoiceSequenceEnumId) {
+            if (partyAcctgPreference.oldInvoiceSequenceEnumId == 'INVSQ_ENF_SEQ') {
                 customMethodName = 'invoiceSequenceEnforced'
             }
-            if ('INVSQ_RESTARTYR' == partyAcctgPreference.oldInvoiceSequenceEnumId) {
+            if (partyAcctgPreference.oldInvoiceSequenceEnumId == 'INVSQ_RESTARTYR') {
                 customMethodName = 'invoiceSequenceRestart'
             }
         }
     } else {
-        logWarning('Acctg preference not defined for partyId [${parameters.partyId}]')
+        logWarning("Acctg preference not defined for partyId [${parameters.partyId}]")
     }
 
     String invoiceIdTemp = ''
     if (customMethodName) {
         parameters.partyAcctgPreference = partyAcctgPreference
         Map serviceResult = run service: customMethodName, with: parameters
-        if (ServiceUtil.isError(serviceResult)) return serviceResult
+        if (ServiceUtil.isError(serviceResult)) {
+            return serviceResult
+        }
         invoiceIdTemp = serviceResult.invoiceId
     } else {
         logInfo('In createInvoice sequence enum Standard')
         //default to the default sequencing: INVSQ_STANDARD
         invoiceIdTemp = parameters.invoiceId
-        if (!invoiceIdTemp) {
-            invoiceIdTemp = delegator.getNextSeqId('Invoice', 1)
-        } else {
+        if (invoiceIdTemp) {
             //check the provided ID
             errorMsg = UtilValidate.checkValidDatabaseId(invoiceIdTemp)
             if (errorMsg != null) {
                 return error("In getNextInvoiceId ${errorMsg}")
             }
+        } else {
+            invoiceIdTemp = delegator.getNextSeqId('Invoice', 1)
         }
     }
 
@@ -79,7 +83,7 @@ def getNextInvoiceId() {
     return result
 }
 
-def invoiceSequenceEnforced() {
+Map invoiceSequenceEnforced() {
     result = success()
 
     logInfo('In createInvoice sequence enum Enforced')
@@ -97,7 +101,7 @@ def invoiceSequenceEnforced() {
     return result
 }
 
-def invoiceSequenceRestart() {
+Map invoiceSequenceRestart() {
     result = success()
 
     logInfo('In createInvoice sequence enum Enforced')
@@ -105,21 +109,22 @@ def invoiceSequenceRestart() {
     //this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    if (!partyAcctgPreference.lastInvoiceRestartDate) {
-        //if no lastInvoiceRestartDate then it's easy, just start now with 1
-        partyAcctgPreference.lastInvoiceNumber = 1l
-        partyAcctgPreference.lastInvoiceRestartDate = nowTimestamp
-    } else {
+    if (partyAcctgPreference.lastInvoiceRestartDate) {
         //first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year?
-        curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp, partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0l)
+        curYearFiscalStartDate = UtilDateTime.getYearStart(nowTimestamp,
+                partyAcctgPreference.fiscalYearStartDay, partyAcctgPreference.fiscalYearStartMonth, 0L)
         if (partyAcctgPreference.lastInvoiceRestartDate < curYearFiscalStartDate && nowTimestamp >= curYearFiscalStartDate) {
             //less than fiscal year start, we need to reset it
-            partyAcctgPreference.lastInvoiceNumber = 1l
+            partyAcctgPreference.lastInvoiceNumber = 1L
             partyAcctgPreference.lastInvoiceRestartDate = nowTimestamp
         } else {
             //greater than or equal to fiscal year start or nowTimestamp hasn't yet hit the current year fiscal start date, we're okay, just increment
-            partyAcctgPreference.lastInvoiceNumber += 1l
+            partyAcctgPreference.lastInvoiceNumber += 1L
         }
+    } else {
+        //if no lastInvoiceRestartDate then it's easy, just start now with 1
+        partyAcctgPreference.lastInvoiceNumber = 1L
+        partyAcctgPreference.lastInvoiceRestartDate = nowTimestamp
     }
     delegator.store(partyAcctgPreference)
 

@@ -26,52 +26,54 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import java.sql.Timestamp
 
 class RateTests extends OFBizTestCase {
-    public RateTests(String name) {
+
+    RateTests(String name) {
         super(name)
     }
 
     void testExpirePartyRate() {
-        Timestamp fromDate = UtilDateTime.toTimestamp("07/04/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
         Map serviceCtx = [
-                partyId   : "TEST_PARTY",
-                rateTypeId          : 'AVERAGE_PAY_RATE',
-                rateAmountFromDate   : fromDate,
-                fromDate            :  fromDate,
-                userLogin              : userLogin
-
+                partyId: 'TEST_PARTY',
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                rateAmountFromDate: fromDate,
+                fromDate: fromDate,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('expirePartyRate', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue partyRate = from("PartyRate").where("rateTypeId", "AVERAGE_PAY_RATE", "partyId", "TEST_PARTY", "fromDate", fromDate).queryOne()
+        GenericValue partyRate = from('PartyRate').where('rateTypeId', 'AVERAGE_PAY_RATE', 'partyId', 'TEST_PARTY', 'fromDate', fromDate).queryOne()
         assert partyRate
         assert partyRate.thruDate
     }
 
     void testUpdateRateAmount() {
-        Timestamp fromDate = UtilDateTime.toTimestamp("04/07/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
         Map serviceCtx = [
-                periodTypeId   : "RATE_HOUR",
-                rateTypeId          : 'OVERTIME',
-                rateCurrencyUomId   : "USD",
-                rateAmount          :  BigDecimal.valueOf(25),
-                emplPositionTypeId  : "TEST_EMPLOYEE",
-                fromDate            :  fromDate,
-                userLogin              : userLogin
+                periodTypeId: 'RATE_HOUR',
+                rateTypeId: 'OVERTIME',
+                rateCurrencyUomId: 'USD',
+                rateAmount: BigDecimal.valueOf(25),
+                emplPositionTypeId: 'TEST_EMPLOYEE',
+                fromDate: fromDate,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updateRateAmount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue rateAmount = from("RateAmount").where("rateTypeId", "OVERTIME", "workEffortId", "_NA_", "rateCurrencyUomId", "USD", "emplPositionTypeId", "TEST_EMPLOYEE", "partyId", "_NA_", "periodTypeId", "RATE_HOUR", "fromDate", fromDate).queryOne()
+        GenericValue rateAmount = from('RateAmount')
+                .where('rateTypeId', 'OVERTIME', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', 'TEST_EMPLOYEE',
+                        'partyId', '_NA_', 'periodTypeId', 'RATE_HOUR', 'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.rateAmount == 25
     }
 
     void testGetRateAmount() {
         Map serviceCtx = [
-                rateTypeId            : 'AVERAGE_PAY_RATE',
-                workEffortId          : 'Test_effort',
-                userLogin              : userLogin
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                workEffortId: 'Test_effort',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRateAmount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -80,11 +82,11 @@ class RateTests extends OFBizTestCase {
 
     void testGetRatesAmountsFromWorkEffortId() {
         Map serviceCtx = [
-                periodTypeId           : 'RATE_HOUR',
-                rateCurrencyUomId     : 'USD',
-                rateTypeId            : 'AVERAGE_PAY_RATE',
-                workEffortId          : 'Test_effort',
-                userLogin              : userLogin
+                periodTypeId: 'RATE_HOUR',
+                rateCurrencyUomId: 'USD',
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                workEffortId: 'Test_effort',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRatesAmountsFromWorkEffortId', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -93,11 +95,11 @@ class RateTests extends OFBizTestCase {
 
     void testGetRatesAmountsFromPartyId() {
         Map serviceCtx = [
-                periodTypeId    : 'RATE_HOUR',
-                rateCurrencyUomId   : 'USD',
-                rateTypeId          : 'AVERAGE_PAY_RATE',
-                partyId          : 'TEST_PARTY',
-                userLogin              : userLogin
+                periodTypeId: 'RATE_HOUR',
+                rateCurrencyUomId: 'USD',
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                partyId: 'TEST_PARTY',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRatesAmountsFromPartyId', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -106,11 +108,11 @@ class RateTests extends OFBizTestCase {
 
     void testGetRatesAmountsFromEmplPositionTypeId() {
         Map serviceCtx = [
-                periodTypeId    : 'RATE_HOUR',
-                rateCurrencyUomId   : 'USD',
-                rateTypeId          : 'AVERAGE_PAY_RATE',
-                emplPositionTypeId          : 'TEST_EMPLOYEE',
-                userLogin              : userLogin
+                periodTypeId: 'RATE_HOUR',
+                rateCurrencyUomId: 'USD',
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                emplPositionTypeId: 'TEST_EMPLOYEE',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('getRatesAmountsFromEmplPositionTypeId', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -118,21 +120,23 @@ class RateTests extends OFBizTestCase {
     }
 
     void testUpdatePartyRate() {
-        Timestamp fromDate = UtilDateTime.toTimestamp("04/07/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
         Map serviceCtx = [
-                partyId     : "TEST_PARTY",
-                periodTypeId   : "RATE_MONTH",
-                rateTypeId          : 'DISCOUNTED',
-                rateAmount          :  BigDecimal.valueOf(75),
-                fromDate            :  fromDate,
-                userLogin              : userLogin
+                partyId: 'TEST_PARTY',
+                periodTypeId: 'RATE_MONTH',
+                rateTypeId: 'DISCOUNTED',
+                rateAmount: BigDecimal.valueOf(75),
+                fromDate: fromDate,
+                userLogin: userLogin
 
         ]
         Map serviceResult = dispatcher.runSync('updatePartyRate', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue rateAmount = from("RateAmount").where("rateTypeId", "DISCOUNTED", "workEffortId", "_NA_", "rateCurrencyUomId", "USD", "emplPositionTypeId", "_NA_", "partyId", "TEST_PARTY", "periodTypeId", "RATE_MONTH", "fromDate", fromDate).queryOne()
-        GenericValue partyRate = from("PartyRate").where("rateTypeId", "DISCOUNTED", "partyId", "TEST_PARTY", "fromDate", fromDate).queryOne()
+        GenericValue rateAmount = from('RateAmount')
+                .where('rateTypeId', 'DISCOUNTED', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD', 'emplPositionTypeId', '_NA_',
+                        'partyId', 'TEST_PARTY', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
+        GenericValue partyRate = from('PartyRate').where('rateTypeId', 'DISCOUNTED', 'partyId', 'TEST_PARTY', 'fromDate', fromDate).queryOne()
 
         assert rateAmount
         assert partyRate
@@ -140,11 +144,11 @@ class RateTests extends OFBizTestCase {
     }
 
     void testFilterRateAmountList() {
-        List<GenericValue> amountList = from("RateAmount").where("rateTypeId", "AVERAGE_PAY_RATE", "rateCurrencyUomId", "USD").queryList()
+        List<GenericValue> amountList = from('RateAmount').where('rateTypeId', 'AVERAGE_PAY_RATE', 'rateCurrencyUomId', 'USD').queryList()
         Map serviceCtx = [
-                ratesList   : amountList,
-                rateTypeId          : 'AVERAGE_PAY_RATE',
-                userLogin              : userLogin
+                ratesList: amountList,
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('filterRateAmountList', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -152,19 +156,21 @@ class RateTests extends OFBizTestCase {
     }
 
     void testExpireRateAmount() {
-        Timestamp fromDate = UtilDateTime.toTimestamp("07/04/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
         Map serviceCtx = [
-                emplPositionTypeId   : 'TEST_EMPLOYEE',
-                rateTypeId          : 'AVERAGE_PAY_RATE',
-                periodTypeId   : 'RATE_MONTH',
-                fromDate            :  fromDate,
-                userLogin              : userLogin
+                emplPositionTypeId: 'TEST_EMPLOYEE',
+                rateTypeId: 'AVERAGE_PAY_RATE',
+                periodTypeId: 'RATE_MONTH',
+                fromDate: fromDate,
+                userLogin: userLogin
 
         ]
         Map serviceResult = dispatcher.runSync('expireRateAmount', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
-        GenericValue rateAmount = from("RateAmount").where("rateTypeId", "AVERAGE_PAY_RATE", "workEffortId", "_NA_", "rateCurrencyUomId", "USD", "emplPositionTypeId", "TEST_EMPLOYEE", "partyId", "_NA_", "periodTypeId", "RATE_MONTH", "fromDate", fromDate).queryOne()
+        GenericValue rateAmount = from('RateAmount')
+                .where('rateTypeId', 'AVERAGE_PAY_RATE', 'workEffortId', '_NA_', 'rateCurrencyUomId', 'USD',
+                        'emplPositionTypeId', 'TEST_EMPLOYEE', 'partyId', '_NA_', 'periodTypeId', 'RATE_MONTH', 'fromDate', fromDate).queryOne()
         assert rateAmount
         assert rateAmount.thruDate
     }

@@ -17,49 +17,43 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-
-shipmentId = request.getParameter("shipmentId")
-if (!shipmentId) {
-    shipmentId = context.shipmentId
-}
+shipmentId = request.getParameter('shipmentId') ?: context.shipmentId
 
 shipment = null
 if (shipmentId) {
-    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+    shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 }
 
 if (shipment) {
-    shipmentItems = shipment.getRelated("ShipmentItem", null, ['shipmentItemSeqId'], false)
+    shipmentItems = shipment.getRelated('ShipmentItem', null, ['shipmentItemSeqId'], false)
     shipmentItemDatas = [] as LinkedList
     if (shipmentItems) {
         shipmentItems.each { shipmentItem ->
-            shipmentPackageContents = shipmentItem.getRelated("ShipmentPackageContent", null, null, false)
+            shipmentPackageContents = shipmentItem.getRelated('ShipmentPackageContent', null, null, false)
             totalQuantityPackaged = 0
             shipmentPackageContents.each { shipmentPackageContent ->
                 if (shipmentPackageContent.quantity) {
-                    totalQuantityPackaged += shipmentPackageContent.getDouble("quantity")
+                    totalQuantityPackaged += shipmentPackageContent.getDouble('quantity')
                 }
             }
 
             totalQuantityToPackage = 0
             if (shipmentItem.quantity) {
-                totalQuantityToPackage = shipmentItem.getDouble("quantity") - totalQuantityPackaged
+                totalQuantityToPackage = shipmentItem.getDouble('quantity') - totalQuantityPackaged
             }
 
             shipmentItemData = [:]
             shipmentItemData.shipmentItem = shipmentItem
             shipmentItemData.shipmentPackageContents = shipmentPackageContents
-            shipmentItemData.itemIssuances = shipmentItem.getRelated("ItemIssuance", null, null, false)
-            shipmentItemData.orderShipments = shipmentItem.getRelated("OrderShipment", null, null, false)
-            shipmentItemData.product = shipmentItem.getRelatedOne("Product", false)
+            shipmentItemData.itemIssuances = shipmentItem.getRelated('ItemIssuance', null, null, false)
+            shipmentItemData.orderShipments = shipmentItem.getRelated('OrderShipment', null, null, false)
+            shipmentItemData.product = shipmentItem.getRelatedOne('Product', false)
             shipmentItemData.totalQuantityPackaged = totalQuantityPackaged
             shipmentItemData.totalQuantityToPackage = totalQuantityToPackage
             shipmentItemDatas.add(shipmentItemData)
         }
     }
-    shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false)
+    shipmentPackages = shipment.getRelated('ShipmentPackage', null, ['shipmentPackageSeqId'], false)
 
     context.shipment = shipment
     context.shipmentItemDatas = shipmentItemDatas

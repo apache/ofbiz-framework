@@ -25,32 +25,32 @@ context.orderId = orderId
 
 orderHeader = null
 if (orderId) {
-    orderHeader = from("OrderHeader").where(orderId : orderId).queryOne()
+    orderHeader = from('OrderHeader').where(orderId: orderId).queryOne()
 }
 
 if (orderHeader) {
-    shipmentMethodCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItemShipGroup"),
-                          EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "shipmentMethodTypeId"),
-                          EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")]
-    shipmentMethodHistories = from("EntityAuditLog").where(shipmentMethodCond).orderBy("-changedDate").queryList()
+    shipmentMethodCond = [EntityCondition.makeCondition('changedEntityName', EntityOperator.EQUALS, 'OrderItemShipGroup'),
+                          EntityCondition.makeCondition('changedFieldName', EntityOperator.EQUALS, 'shipmentMethodTypeId'),
+                          EntityCondition.makeCondition('pkCombinedValueText', EntityOperator.LIKE, orderId + '%')]
+    shipmentMethodHistories = from('EntityAuditLog').where(shipmentMethodCond).orderBy('-changedDate').queryList()
 
-    carrierPartyCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItemShipGroup"),
-                        EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "carrierPartyId"),
-                        EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")]
-    carrierPartyHistories = from("EntityAuditLog").where(carrierPartyCond).queryList()
+    carrierPartyCond = [EntityCondition.makeCondition('changedEntityName', EntityOperator.EQUALS, 'OrderItemShipGroup'),
+                        EntityCondition.makeCondition('changedFieldName', EntityOperator.EQUALS, 'carrierPartyId'),
+                        EntityCondition.makeCondition('pkCombinedValueText', EntityOperator.LIKE, orderId + '%')]
+    carrierPartyHistories = from('EntityAuditLog').where(carrierPartyCond).queryList()
 
     orderShipmentHistories = []
     shipmentMethodHistories.each { shipmentMethodHistory ->
         orderShipmentHistory = [:]
-        if ("shipmentMethodTypeId".equals(shipmentMethodHistory.changedFieldName)) {
-            shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", shipmentMethodHistory.newValueText).queryOne()
-            if (shipmentMethodType != null){
+        if (shipmentMethodHistory.changedFieldName == 'shipmentMethodTypeId') {
+            shipmentMethodType = from('ShipmentMethodType').where('shipmentMethodTypeId', shipmentMethodHistory.newValueText).queryOne()
+            if (shipmentMethodType != null) {
                 carrierPartyHistories.each { carrierPartyHistory ->
                     if (carrierPartyHistory.lastUpdatedTxStamp == shipmentMethodHistory.lastUpdatedTxStamp) {
-                        if ("_NA_".equals(carrierPartyHistory.newValueText)) {
+                        if (carrierPartyHistory.newValueText == '_NA_') {
                             orderShipmentHistory.shipmentMethod = shipmentMethodType.description
                         } else {
-                            orderShipmentHistory.shipmentMethod = carrierPartyHistory.newValueText + " " + shipmentMethodType.description
+                            orderShipmentHistory.shipmentMethod = carrierPartyHistory.newValueText + ' ' + shipmentMethodType.description
                         }
                     }
                 }
@@ -63,25 +63,26 @@ if (orderHeader) {
     }
     context.orderShipmentHistories = orderShipmentHistories
 
-    changedByInfoCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItem"),
-                         EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "changeByUserLoginId"),
-                         EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")]
-    changedByInfoHistories = from("EntityAuditLog").where(changedByInfoCond).orderBy("-changedDate").queryList()
+    changedByInfoCond = [EntityCondition.makeCondition('changedEntityName', EntityOperator.EQUALS, 'OrderItem'),
+                         EntityCondition.makeCondition('changedFieldName', EntityOperator.EQUALS, 'changeByUserLoginId'),
+                         EntityCondition.makeCondition('pkCombinedValueText', EntityOperator.LIKE, orderId + '%')]
+    changedByInfoHistories = from('EntityAuditLog').where(changedByInfoCond).orderBy('-changedDate').queryList()
 
     orderUnitPriceHistories = []
-    unitPriceCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItem"),
-                     EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "unitPrice"),
-                     EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")]
-    unitPriceHistories = from("EntityAuditLog").where(unitPriceCond).orderBy("-changedDate").queryList()
+    unitPriceCond = [EntityCondition.makeCondition('changedEntityName', EntityOperator.EQUALS, 'OrderItem'),
+                     EntityCondition.makeCondition('changedFieldName', EntityOperator.EQUALS, 'unitPrice'),
+                     EntityCondition.makeCondition('pkCombinedValueText', EntityOperator.LIKE, orderId + '%')]
+    unitPriceHistories = from('EntityAuditLog').where(unitPriceCond).orderBy('-changedDate').queryList()
     unitPriceHistories.each { unitPriceHistory ->
         orderUnitPriceHistory = [:]
-        if  ((unitPriceHistory.oldValueText) && (unitPriceHistory.newValueText)) {
-            if ((Float.valueOf(unitPriceHistory.oldValueText)).compareTo(Float.valueOf(unitPriceHistory.newValueText)) != 0) {
+        if ((unitPriceHistory.oldValueText) && (unitPriceHistory.newValueText)) {
+            if (unitPriceHistory.oldValueText as BigDecimal != unitPriceHistory.newValueText as BigDecimal) {
                 orderUnitPriceHistory.oldValue = unitPriceHistory.oldValueText
                 orderUnitPriceHistory.newValue = unitPriceHistory.newValueText
                 orderUnitPriceHistory.changedDate = unitPriceHistory.changedDate
-                orderItemSeqId = (unitPriceHistory.pkCombinedValueText).substring((unitPriceHistory.pkCombinedValueText).indexOf("::") + 2, (unitPriceHistory.pkCombinedValueText).length())
-                orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne()
+                orderItemSeqId = (unitPriceHistory.pkCombinedValueText)
+                        .substring((unitPriceHistory.pkCombinedValueText).indexOf('::') + 2, (unitPriceHistory.pkCombinedValueText).length())
+                orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
                 orderUnitPriceHistory.productId = orderItem.productId
                 changedByInfoHistories.each { changedByInfoHistory ->
                     if (changedByInfoHistory.lastUpdatedTxStamp == unitPriceHistory.lastUpdatedTxStamp) {
@@ -99,23 +100,24 @@ if (orderHeader) {
 
     context.orderUnitPriceHistories = orderUnitPriceHistories
     orderQuantityHistories = []
-    quantityCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItem"),
-                    EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "quantity"),
-                    EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")]
-    quantityHistories = from("EntityAuditLog").where(quantityCond).orderBy("-changedDate").queryList()
+    quantityCond = [EntityCondition.makeCondition('changedEntityName', EntityOperator.EQUALS, 'OrderItem'),
+                    EntityCondition.makeCondition('changedFieldName', EntityOperator.EQUALS, 'quantity'),
+                    EntityCondition.makeCondition('pkCombinedValueText', EntityOperator.LIKE, orderId + '%')]
+    quantityHistories = from('EntityAuditLog').where(quantityCond).orderBy('-changedDate').queryList()
     quantityHistories.each { quantityHistory ->
         orderQuantityHistory = [:]
         if ((quantityHistory.oldValueText) && (quantityHistory.newValueText)) {
-            if ((Float.valueOf(quantityHistory.oldValueText)).compareTo(Float.valueOf(quantityHistory.newValueText)) != 0) {
+            if (quantityHistory.oldValueText as BigDecimal != quantityHistory.newValueText as BigDecimal) {
                 orderQuantityHistory.oldValue =  new BigDecimal(quantityHistory.oldValueText)
                 orderQuantityHistory.newValue = quantityHistory.newValueText
                 orderQuantityHistory.changedDate = quantityHistory.changedDate
-                orderItemSeqId = (quantityHistory.pkCombinedValueText).substring((quantityHistory.pkCombinedValueText).indexOf("::") + 2, (quantityHistory.pkCombinedValueText).length())
-                orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne()
+                orderItemSeqId = (quantityHistory.pkCombinedValueText)
+                        .substring((quantityHistory.pkCombinedValueText).indexOf('::') + 2, (quantityHistory.pkCombinedValueText).length())
+                orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
                 orderQuantityHistory.productId = orderItem.productId
                 changedByInfoHistories.each { changedByInfoHistory ->
                     if (changedByInfoHistory.lastUpdatedTxStamp == quantityHistory.lastUpdatedTxStamp) {
-                        if(changedByInfoHistory.newValueText) {
+                        if (changedByInfoHistory.newValueText) {
                             orderQuantityHistory.changedByUser = changedByInfoHistory.newValueText
                         } else {
                             orderQuantityHistory.changedByUser = changedByInfoHistory.oldValueText

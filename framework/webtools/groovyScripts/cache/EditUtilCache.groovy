@@ -16,10 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.cache.UtilCache
-import org.apache.ofbiz.base.util.cache.CacheLine
+
 import org.apache.ofbiz.base.util.UtilFormatOut
-import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.base.util.cache.UtilCache
 
 cacheName = parameters.UTIL_CACHE_NAME
 context.cacheName = cacheName
@@ -27,20 +26,20 @@ context.cacheName = cacheName
 if (cacheName) {
     utilCache = UtilCache.findCache(cacheName)
     if (utilCache) {
-        cache = [:]
-
-        cache.cacheName = utilCache.getName()
-        cache.cacheSize = UtilFormatOut.formatQuantity(utilCache.size())
-        cache.hitCount = UtilFormatOut.formatQuantity(utilCache.getHitCount())
-        cache.missCountTot = UtilFormatOut.formatQuantity(utilCache.getMissCountTotal())
-        cache.missCountNotFound = UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound())
-        cache.missCountExpired = UtilFormatOut.formatQuantity(utilCache.getMissCountExpired())
-        cache.missCountSoftRef = UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef())
-        cache.removeHitCount = UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount())
-        cache.removeMissCount = UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount())
-        cache.maxInMemory = UtilFormatOut.formatQuantity(utilCache.getMaxInMemory())
-        cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime())
-        cache.useSoftReference = utilCache.getUseSoftReference().toString()
+        cache = [
+                cacheName: utilCache.getName(),
+                cacheSize: UtilFormatOut.formatQuantity(utilCache.size()),
+                hitCount: UtilFormatOut.formatQuantity(utilCache.getHitCount()),
+                missCountTot: UtilFormatOut.formatQuantity(utilCache.getMissCountTotal()),
+                missCountNotFound: UtilFormatOut.formatQuantity(utilCache.getMissCountNotFound()),
+                missCountExpired: UtilFormatOut.formatQuantity(utilCache.getMissCountExpired()),
+                missCountSoftRef: UtilFormatOut.formatQuantity(utilCache.getMissCountSoftRef()),
+                removeHitCount: UtilFormatOut.formatQuantity(utilCache.getRemoveHitCount()),
+                removeMissCount: UtilFormatOut.formatQuantity(utilCache.getRemoveMissCount()),
+                maxInMemory: UtilFormatOut.formatQuantity(utilCache.getMaxInMemory()),
+                expireTime: UtilFormatOut.formatQuantity(utilCache.getExpireTime()),
+                useSoftReference: utilCache.getUseSoftReference().toString()
+        ]
 
         exp = utilCache.getExpireTime()
         hrs = Math.floor(exp / (60 * 60 * 1000))

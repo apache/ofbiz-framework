@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
 
 class ProductConfigTests extends OFBizTestCase {
-    public ProductConfigTests(String name) {
+
+    ProductConfigTests(String name) {
         super(name)
     }
 
@@ -41,6 +42,7 @@ class ProductConfigTests extends OFBizTestCase {
                 .where('configItemId', 'testConfigItemId')
                 .queryFirst()
         assert productConfigOption
-        assert 'Test Config Option'.equals(productConfigOption.configOptionName)
+        assert productConfigOption.configOptionName == 'Test Config Option'
     }
+
 }

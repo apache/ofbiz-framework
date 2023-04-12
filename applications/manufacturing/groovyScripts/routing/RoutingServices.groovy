@@ -24,9 +24,8 @@ import org.apache.ofbiz.entity.GenericValue
 
 /**
  * "Get the product's routing and routing tasks
- * @return
  */
-def getProductRouting() {
+Map getProductRouting() {
     Map result = success()
 
     // If applicableDate has been passed use the value with all filter-by-date calls
@@ -35,27 +34,27 @@ def getProductRouting() {
     GenericValue routingGS = null
     GenericValue routing = null
     List tasks = null
-    Map lookupRouting = [productId: parameters.productId, workEffortGoodStdTypeId: "ROU_PROD_TEMPLATE"]
+    Map lookupRouting = [productId: parameters.productId, workEffortGoodStdTypeId: 'ROU_PROD_TEMPLATE']
 
     // If a workEffortId has been passed, use it to look up the desired routing
     if (parameters.workEffortId) {
         lookupRouting.workEffortId = parameters.workEffortId
-        routingGS = from("WorkEffortGoodStandard")
+        routingGS = from('WorkEffortGoodStandard')
                 .where(lookupRouting)
                 .filterByDate(filterDate)
                 .queryFirst()
 
         // If the routing is not associated with our product and it's a variant, then check to see if it's virtual product has the routing
         if (!routingGS) {
-            GenericValue virtualProductAssoc = from("ProductAssoc")
+            GenericValue virtualProductAssoc = from('ProductAssoc')
                     .where(productIdTo: parameters.productId,
-                            productAssocTypeId: "PRODUCT_VARIANT")
+                            productAssocTypeId: 'PRODUCT_VARIANT')
                     .filterByDate(filterDate)
                     .queryFirst()
             if (virtualProductAssoc) {
                 lookupRouting.productId = virtualProductAssoc.productId
                 // Consider the validity against a date passed as (optional) parameter
-                routingGS = from("WorkEffortGoodStandard")
+                routingGS = from('WorkEffortGoodStandard')
                         .where(lookupRouting)
                         .filterByDate(filterDate)
                         .queryFirst()
@@ -67,24 +66,24 @@ def getProductRouting() {
     else {
         // Consider the validity against a date passed as (optional) parameter
         // TODO: we should consider the quantity to select the best routing
-        routingGS = from("WorkEffortGoodStandard")
+        routingGS = from('WorkEffortGoodStandard')
                 .where(lookupRouting)
                 .filterByDate(filterDate)
                 .queryFirst()
 
         // If there are no routings associated with our product and it's a variant, then check to see if it's virtual product has a routing
         if (!routingGS) {
-            GenericValue virtualProductAssoc = from("ProductAssoc")
+            GenericValue virtualProductAssoc = from('ProductAssoc')
                     .where(productIdTo: parameters.productId,
-                            productAssocTypeId: "PRODUCT_VARIANT")
+                            productAssocTypeId: 'PRODUCT_VARIANT')
                     .filterByDate(filterDate)
                     .queryFirst()
             if (virtualProductAssoc) {
                 lookupRouting.productId = virtualProductAssoc.productId
-                lookupRouting.workEffortGoodStdTypeId = "ROU_PROD_TEMPLATE"
+                lookupRouting.workEffortGoodStdTypeId = 'ROU_PROD_TEMPLATE'
                 // Consider the validity against a date passed as (optional) parameter
                 // TODO: we should consider the quantity to select the best routing
-                routingGS = from("WorkEffortGoodStandard")
+                routingGS = from('WorkEffortGoodStandard')
                         .where(lookupRouting)
                         .filterByDate(filterDate)
                         .queryFirst()
@@ -92,18 +91,18 @@ def getProductRouting() {
         }
     }
     if (routingGS) {
-        routing = from("WorkEffort").where(workEffortId: routingGS.workEffortId).queryOne()
+        routing = from('WorkEffort').where(workEffortId: routingGS.workEffortId).queryOne()
     } else {
         // The default routing is used when no explicit routing is associated to the product and the ignoreDefaultRouting is not equals to Y
-        if (!parameters.ignoreDefaultRouting || parameters.ignoreDefaultRouting == "N") {
-            routing = from("WorkEffort").where(workEffortId: "DEFAULT_ROUTING").queryOne()
+        if (!parameters.ignoreDefaultRouting || parameters.ignoreDefaultRouting == 'N') {
+            routing = from('WorkEffort').where(workEffortId: 'DEFAULT_ROUTING').queryOne()
         }
     }
     if (routing) {
-        tasks = from("WorkEffortAssoc")
+        tasks = from('WorkEffortAssoc')
                 .where(workEffortIdFrom: routing.workEffortId,
-                        workEffortAssocTypeId: "ROUTING_COMPONENT")
-                .orderBy("sequenceNum")
+                        workEffortAssocTypeId: 'ROUTING_COMPONENT')
+                .orderBy('sequenceNum')
                 .filterByDate()
                 .queryList()
     }
@@ -114,14 +113,13 @@ def getProductRouting() {
 
 /**
  * Get the routing task assocs of a given routing
- * @return
  */
-def getRoutingTaskAssocs() {
+Map getRoutingTaskAssocs() {
     Map result = success()
-    result.routingTaskAssocs = from("WorkEffortAssoc")
+    result.routingTaskAssocs = from('WorkEffortAssoc')
             .where(workEffortIdFrom: parameters.workEffortId,
-                    workEffortAssocTypeId: "ROUTING_COMPONENT")
-            .orderBy("sequenceNum")
+                    workEffortAssocTypeId: 'ROUTING_COMPONENT')
+            .orderBy('sequenceNum')
             .filterByDate()
             .queryList()
     return result

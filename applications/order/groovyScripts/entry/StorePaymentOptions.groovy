@@ -21,11 +21,11 @@ import org.apache.ofbiz.product.store.ProductStoreWorker
 
 productStore = ProductStoreWorker.getProductStore(request)
 
-productStorePaymentMethodTypeIdMap = new HashMap()
-productStorePaymentSettingList = productStore.getRelated("ProductStorePaymentSetting", null, null, true)
+productStorePaymentMethodTypeIdMap = [:]
+productStorePaymentSettingList = productStore.getRelated('ProductStorePaymentSetting', null, null, true)
 productStorePaymentSettingIter = productStorePaymentSettingList.iterator()
 while (productStorePaymentSettingIter.hasNext()) {
     productStorePaymentSetting = productStorePaymentSettingIter.next()
-    productStorePaymentMethodTypeIdMap.put(productStorePaymentSetting.get("paymentMethodTypeId"), true)
+    productStorePaymentMethodTypeIdMap.put(productStorePaymentSetting.get('paymentMethodTypeId'), true)
 }
-context.put("productStorePaymentMethodTypeIdMap", productStorePaymentMethodTypeIdMap)
+context.put('productStorePaymentMethodTypeIdMap', productStorePaymentMethodTypeIdMap)

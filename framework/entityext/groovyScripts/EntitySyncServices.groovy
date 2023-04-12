@@ -17,16 +17,17 @@
  * under the License.
  */
 
-def entitySyncPermissionCheck() {
-    parameters.primaryPermission = "ENTITY_SYNC"
-    Map serviceResult = run service: "genericBasePermissionCheck", with: parameters
+Map entitySyncPermissionCheck() {
+    parameters.primaryPermission = 'ENTITY_SYNC'
+    Map serviceResult = run service: 'genericBasePermissionCheck', with: parameters
     return serviceResult
 }
 
-def resetEntitySyncStatus() {
-	entitySyncRecord = from("EntitySync").where("entitySyncId", parameters.entitySyncId).queryOne()
-    if(entitySyncRecord && "ESR_RUNNING".equals(entitySyncRecord.runStatusId)) {
-        entitySyncRecord.runStatusId = "ESR_NOT_STARTED"
+Map resetEntitySyncStatus() {
+    entitySyncRecord = from('EntitySync').where('entitySyncId', parameters.entitySyncId).queryOne()
+    if (entitySyncRecord && entitySyncRecord.runStatusId == 'ESR_RUNNING') {
+        entitySyncRecord.runStatusId = 'ESR_NOT_STARTED'
         entitySyncRecord.store()
     }
+    return success()
 }

@@ -20,14 +20,14 @@
 import org.apache.ofbiz.base.util.UtilHttp
 
 requestParams = UtilHttp.getParameterMap(request)
-calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId")
+calendarId = requestParams.get('calendarId') ?: request.getAttribute('calendarId')
 if (calendarId != null) {
-    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne()
+    techDataCalendar = from('TechDataCalendar').where('calendarId', calendarId).queryOne()
     context.techDataCalendar = techDataCalendar
 }
 
 tryEntity = true
-errorMessage = request.getAttribute("_ERROR_MESSAGE_")
+errorMessage = request.getAttribute('_ERROR_MESSAGE_')
 if (errorMessage) {
     tryEntity = false
 }
@@ -36,10 +36,8 @@ calendarData = context.techDataCalendar
 if (!tryEntity) {
     calendarData = requestParams ?: [:]
 }
-if (!calendarData) {
-    calendarData = [:]
-}
+calendarData = calendarData ?: [:]
 context.calendarData = calendarData
 
-allCalendarWeek = from("TechDataCalendarWeek").queryList()
+allCalendarWeek = from('TechDataCalendarWeek').queryList()
 context.calendarWeeks = allCalendarWeek

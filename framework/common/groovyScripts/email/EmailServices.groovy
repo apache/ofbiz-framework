@@ -1,8 +1,3 @@
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.ModelService
-import org.apache.ofbiz.service.ServiceUtil
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,30 +17,33 @@ import org.apache.ofbiz.service.ServiceUtil
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ServiceUtil
+
  /**
   * Send Mail from Email Template Setting
-  * @return
   */
-def sendMailFromTemplateSetting() {
+Map sendMailFromTemplateSetting() {
     Map result = success()
     // if partyIdTo provided but no emailAddress, get it from the partyContactMech
     if (!parameters.sendTo && !parameters.partyIdTo) {
-        logError("PartyId or SendTo should be specified!")
-        return error(UtilProperties.getMessage("CommonUiLabels", "CommonEmailShouldBeSpecified", parameters.locale))
+        logError('PartyId or SendTo should be specified!')
+        return error(UtilProperties.getMessage('CommonUiLabels', 'CommonEmailShouldBeSpecified', parameters.locale))
     }
     if (parameters.partyIdTo && !parameters.sendTo) {
         Map getEmail = [partyId: parameters.partyIdTo]
-        Map serviceResult = run service: "getPartyEmail", with: getEmail
+        Map serviceResult = run service: 'getPartyEmail', with: getEmail
         if (!ServiceUtil.isSuccess(serviceResult)) {
             return serviceResult
         }
         parameters.sendTo = serviceResult.emailAddress
         if (!parameters.sendTo) {
             logInfo("PartyId: ${parameters.partyIdTo} has no valid email address, not sending email")
-            return result;
+            return result
         }
     }
-    GenericValue emailTemplateSetting = from("EmailTemplateSetting").where(parameters).queryOne()
+    GenericValue emailTemplateSetting = from('EmailTemplateSetting').where(parameters).queryOne()
     if (emailTemplateSetting) {
         Map emailParams = [:]
         emailParams.bodyScreenUri = emailTemplateSetting.bodyScreenLocation
@@ -54,19 +52,19 @@ def sendMailFromTemplateSetting() {
         if (emailTemplateSetting.fromAddress) {
             emailParams.sendFrom = emailTemplateSetting.fromAddress
         } else {
-            emailParams.sendFrom = UtilProperties.getPropertyValue("general", "defaultFromEmailAddress", "ofbizsupport@example.com")
+            emailParams.sendFrom = UtilProperties.getPropertyValue('general', 'defaultFromEmailAddress', 'ofbizsupport@example.com')
         }
         emailParams.sendCc = emailTemplateSetting.ccAddress
         emailParams.sendBcc = emailTemplateSetting.bccAddress
         emailParams.subject = emailTemplateSetting.subject
-        emailParams.contentType = emailTemplateSetting.contentType ?: "text/html"
+        emailParams.contentType = emailTemplateSetting.contentType ?: 'text/html'
         if (parameters.custRequestId) {
             Map bodyParameters = [custRequestId: parameters.custRequestId]
             emailParams.bodyParameters = bodyParameters
         }
         // copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc
         emailParams << parameters
-        Map sendMailResult = run service: "sendMailFromScreen", with: emailParams
+        Map sendMailResult = run service: 'sendMailFromScreen', with: emailParams
         if (!ServiceUtil.isSuccess(sendMailResult)) {
             return sendMailResult
         }
@@ -78,15 +76,4 @@ def sendMailFromTemplateSetting() {
     }
     return result
 }
-
-
-
-
-
-
-
-
-
-
-
 

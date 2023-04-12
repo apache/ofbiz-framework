@@ -20,12 +20,14 @@
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 
+import java.security.SecureRandom
+
 shoppingCart = ShoppingCartEvents.getCartObject(request)
 mode = shoppingCart.getOrderType()
 
 promoShowLimit = 3
 
-if ("SALES_ORDER".equals(mode)) {
+if (mode == 'SALES_ORDER') {
     //Get Promo Text Data
     productPromosAll = ProductPromoWorker.getStoreProductPromos(delegator, dispatcher, request)
     //Make sure that at least one promo has non-empty promoText
@@ -34,7 +36,7 @@ if ("SALES_ORDER".equals(mode)) {
     productPromosAllShowable = new ArrayList(productPromosAll.size())
     productPromosAll.each { productPromo ->
         promoText = productPromo.promoText
-        if (promoText  && !"N".equals(productPromo.showToCustomer)) {
+        if (promoText  && 'N' != productPromo.showToCustomer) {
             showPromoText = true
             promoToShow++
             productPromosAllShowable.add(productPromo)
@@ -47,7 +49,7 @@ if ("SALES_ORDER".equals(mode)) {
     if (productPromosRandomTemp.size() > promoShowLimit) {
         productPromos = new ArrayList(promoShowLimit)
         for (i = 0; i < promoShowLimit; i++) {
-            randomIndex = Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1)) as int
+            randomIndex = Math.round(new SecureRandom().nextInt() * (productPromosRandomTemp.size() - 1)) as int
             productPromos.add(productPromosRandomTemp.remove(randomIndex))
         }
     } else {

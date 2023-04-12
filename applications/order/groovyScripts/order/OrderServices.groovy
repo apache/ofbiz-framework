@@ -17,9 +17,9 @@
  * under the License.
  */
 
-
-import groovy.time.TimeCategory
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 
 import java.sql.Timestamp
@@ -27,7 +27,7 @@ import java.sql.Timestamp
 /**
  * Service to get the next OrderId
  */
-def getNextOrderId() {
+Map getNextOrderId() {
     GenericValue partyAcctgPreference
     GenericValue customMethod
     String customMethodName
@@ -65,8 +65,12 @@ def getNextOrderId() {
 
     // use orderIdTemp along with the orderIdPrefix to create the real ID
     String orderId = ''
-    if (productStore) orderId += productStore.orderNumberPrefix ?: ""
-    if (partyAcctgPreference) orderId += partyAcctgPreference.orderIdPrefix ?: ""
+    if (productStore) {
+        orderId += productStore.orderNumberPrefix ?: ''
+    }
+    if (partyAcctgPreference) {
+        orderId += partyAcctgPreference.orderIdPrefix ?: ''
+    }
     orderId += orderIdTemp.toString()
 
     return success([orderId: orderId])
@@ -75,7 +79,7 @@ def getNextOrderId() {
 /**
  * Service to get Summary Information About Orders for a Customer
  */
-def getOrderedSummaryInformation() {
+Map getOrderedSummaryInformation() {
     /*
     // The permission checking is commented out to make this service work also when triggered from ecommerce
     if (!security.hasEntityPermission('ORDERMGR', '_VIEW', session && !parameters.partyId.equals(userLogin.partyId))) {
@@ -85,12 +89,10 @@ def getOrderedSummaryInformation() {
     }
     */
     Timestamp fromDate = null, thruDate = null
-    Date now = new Date()
+    Timestamp now = UtilDateTime.nowTimestamp()
     if (monthsToInclude) {
-        use(TimeCategory) {
-            thruDate = now.toTimestamp()
-            fromDate = (now - monthsToInclude.months).toTimestamp()
-        }
+        thruDate = now
+        fromDate = UtilDateTime.adjustTimestamp(now, Calendar.MONTH, -monthsToInclude)
     }
 
     roleTypeId = roleTypeId ?: 'PLACING_CUSTOMER'
@@ -100,7 +102,7 @@ def getOrderedSummaryInformation() {
     //find the existing exchange rates
     exprBldr = new EntityConditionBuilder()
 
-    def condition = exprBldr.AND() {
+    EntityCondition condition = exprBldr.AND {
         EQUALS(partyId: partyId)
         EQUALS(roleTypeId: roleTypeId)
         EQUALS(orderTypeId: orderTypeId)
@@ -110,7 +112,7 @@ def getOrderedSummaryInformation() {
     if (fromDate) {
         condition = exprBldr.AND(condition) {
             condition
-            exprBldr.OR() {
+            exprBldr.OR {
                 GREATER_THAN_EQUAL_TO(orderDate: fromDate)
                 EQUALS(orderDate: null)
             }
@@ -120,7 +122,7 @@ def getOrderedSummaryInformation() {
     if (thruDate) {
         condition = exprBldr.AND(condition) {
             condition
-            exprBldr.OR() {
+            exprBldr.OR {
                 LESS_THAN_EQUAL_TO(orderDate: thruDate)
                 EQUALS(orderDate: null)
             }
@@ -134,7 +136,7 @@ def getOrderedSummaryInformation() {
     result = success()
     result.totalGrandAmount = orderInfo ? orderInfo.totalGrandAmount : BigDecimal.ZERO
     result.totalSubRemainingAmount = orderInfo ? orderInfo.totalSubRemainingAmount : BigDecimal.ZERO
-    result.totalOrders = orderInfo ? orderInfo.totalOrders : 0l
+    result.totalOrders = orderInfo ? orderInfo.totalOrders : 0L
 
     return result
 }

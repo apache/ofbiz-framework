@@ -22,14 +22,14 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.accounting.payment.BillingAccountWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
-cart = session.getAttribute("shoppingCart")
+cart = session.getAttribute('shoppingCart')
 currencyUomId = cart.getCurrency()
-userLogin = session.getAttribute("userLogin")
+userLogin = session.getAttribute('userLogin')
 partyId = cart.getPartyId()
-party = from("Party").where("partyId", partyId).cache(true).queryOne()
+party = from('Party').where('partyId', partyId).cache(true).queryOne()
 productStoreId = ProductStoreWorker.getProductStoreId(request)
 
-checkOutPaymentId = ""
+checkOutPaymentId = ''
 if (cart) {
     if (cart.getPaymentMethodIds()) {
         checkOutPaymentId = cart.getPaymentMethodIds().get(0)
@@ -38,19 +38,21 @@ if (cart) {
     }
 }
 
-finAccounts = from("FinAccountAndRole").where("partyId", partyId, "roleTypeId", "OWNER").filterByDate(UtilDateTime.nowTimestamp(), "fromDate", "thruDate", "roleFromDate", "roleThruDate").queryList()
+finAccounts = from('FinAccountAndRole')
+        .where('partyId', partyId, 'roleTypeId', 'OWNER')
+        .filterByDate(UtilDateTime.nowTimestamp(), 'fromDate', 'thruDate', 'roleFromDate', 'roleThruDate')
+        .queryList()
 context.finAccounts = finAccounts
 
 context.shoppingCart = cart
 context.userLogin = userLogin
 context.productStoreId = productStoreId
 context.checkOutPaymentId = checkOutPaymentId
-context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"], false), true)
+context.paymentMethodList = EntityUtil.filterByDate(party.getRelated('PaymentMethod', null, ['paymentMethodTypeId'], false), true)
 
 billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher)
 if (billingAccountList) {
     context.selectedBillingAccountId = cart.getBillingAccountId()
     context.billingAccountList = billingAccountList
 }
-
 

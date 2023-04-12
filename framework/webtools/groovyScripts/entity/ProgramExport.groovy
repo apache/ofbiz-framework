@@ -26,8 +26,9 @@ String groovyProgram = null
 recordValues = []
 errMsgList = []
 
-if (!parameters.groovyProgram) {
-
+if (parameters.groovyProgram) {
+    groovyProgram = parameters.groovyProgram
+} else {
     groovyProgram = '''
 // Use the List variable recordValues to fill it with GenericValue maps.
 // full groovy syntax is available
@@ -41,68 +42,65 @@ import org.apache.ofbiz.entity.util.EntityFindOptions
 EntityFindOptions findOptions = new EntityFindOptions()
 findOptions.setMaxRows(3)
 
-List products = delegator.findList("Product", null, null, null, findOptions, false)
+List products = delegator.findList('Product', null, null, null, findOptions, false)
 if (products != null) {
     recordValues.addAll(products)
 }
 
 // Get the last record created from the Product entity
-condition = EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null)
-product = EntityQuery.use(delegator).from("Product").where(condition).orderBy("-productId").queryFirst()
+condition = EntityCondition.makeCondition('productId', EntityOperator.NOT_EQUAL, null)
+product = EntityQuery.use(delegator).from('Product').where(condition).orderBy('-productId').queryFirst()
 if (product) {
     recordValues << product
 }
 
 '''
     parameters.groovyProgram = groovyProgram
-} else {
-    groovyProgram = parameters.groovyProgram
 }
 
 // Add imports for script.
-def importCustomizer = new ImportCustomizer()
-importCustomizer.addImport("org.apache.ofbiz.entity.GenericValue")
-importCustomizer.addImport("org.apache.ofbiz.entity.model.ModelEntity")
-importCustomizer.addImport("org.apache.ofbiz.entity.condition.EntityCondition")
-importCustomizer.addImport("org.apache.ofbiz.entity.condition.EntityOperator")
-importCustomizer.addImport("org.apache.ofbiz.entity.util.EntityQuery")
-def configuration = new CompilerConfiguration()
+ImportCustomizer importCustomizer = new ImportCustomizer()
+importCustomizer.addImport('org.apache.ofbiz.entity.GenericValue')
+importCustomizer.addImport('org.apache.ofbiz.entity.model.ModelEntity')
+importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityCondition')
+importCustomizer.addImport('org.apache.ofbiz.entity.condition.EntityOperator')
+importCustomizer.addImport('org.apache.ofbiz.entity.util.EntityQuery')
+CompilerConfiguration configuration = new CompilerConfiguration()
 configuration.addCompilationCustomizers(importCustomizer)
 
 Binding binding = new Binding()
-binding.setVariable("delegator", delegator)
-binding.setVariable("recordValues", recordValues)
+binding.setVariable('delegator', delegator)
+binding.setVariable('recordValues', recordValues)
 
 ClassLoader loader = Thread.currentThread().getContextClassLoader()
-def shell = new GroovyShell(loader, binding, configuration)
+GroovyShell shell = new GroovyShell(loader, binding, configuration)
 
+/* codenarc-disable ReturnNullFromCatchBlock */
 if (groovyProgram) {
     try {
         // Check if a webshell is not uploaded but allow "import"
-        if (!SecuredUpload.isValidText(groovyProgram, ["import"])) {
-            logError("================== Not executed for security reason ==================")
-            request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
+        if (!SecuredUpload.isValidText(groovyProgram, ['import'])) {
+            logError('================== Not executed for security reason ==================')
+            request.setAttribute('_ERROR_MESSAGE_', 'Not executed for security reason')
             return
         }
         shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)
-        recordValues = shell.getVariable("recordValues")
+        recordValues = shell.getVariable('recordValues')
         xmlDoc = GenericValue.makeXmlDocument(recordValues)
-        context.put("xmlDoc", xmlDoc)
-    } catch(MultipleCompilationErrorsException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+        context.put('xmlDoc', xmlDoc)
+    } catch (MultipleCompilationErrorsException e) {
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(groovy.lang.MissingPropertyException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+    } catch (groovy.lang.MissingPropertyException e) {
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(IllegalArgumentException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+    } catch (IllegalArgumentException e) {
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
-    } catch(NullPointerException e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
-        return
-    } catch(Exception e) {
-        request.setAttribute("_ERROR_MESSAGE_", e)
+    } catch (Exception e) {
+        request.setAttribute('_ERROR_MESSAGE_', e)
         return
     }
 }
+/* codenarc-enable ReturnNullFromCatchBlock */

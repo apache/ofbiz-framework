@@ -17,9 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.webapp.stats.*
+import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.webapp.stats.ServerHitBin
 
 id = parameters.statsId
 typeStr = parameters.type
@@ -27,34 +26,39 @@ type = -1
 try {
     type = Integer.valueOf(typeStr)
 } catch (NumberFormatException nfe) {
-    logError(nfe, "Caught an exception : " + nfe.toString())
-    errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName())
+    logError(nfe, 'Caught an exception : ' + nfe)
+    errMsgList.add('Entered value is non-numeric for numeric field: ' + field.getName())
 }
 
 binList = null
-if (type == ServerHitBin.REQUEST) {
-    binList = ServerHitBin.requestHistory.get(id)
-} else if (type == ServerHitBin.EVENT) {
-    binList = ServerHitBin.eventHistory.get(id)
-} else if (type == ServerHitBin.VIEW) {
-    binList = ServerHitBin.viewHistory.get(id)
+switch (type) {
+    case ServerHitBin.REQUEST:
+        binList = ServerHitBin.requestHistory.get(id)
+        break
+    case ServerHitBin.EVENT:
+        binList = ServerHitBin.eventHistory.get(id)
+        break
+    case ServerHitBin.VIEW:
+        binList = ServerHitBin.viewHistory.get(id)
+        break
 }
 
 if (binList) {
     requestList = []
     binList.each { bin ->
-        requestIdMap = [:]
         if (bin != null) {
-            requestIdMap.requestId = bin.getId()
-            requestIdMap.requestType = bin.getType()
-            requestIdMap.startTime = bin.getStartTimeString()
-            requestIdMap.endTime = bin.getEndTimeString()
-            requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
-            requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
-            requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
-            requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
-            requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
-            requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+            Map requestIdMap = [
+                    requestId: bin.getId(),
+                    requestType: bin.getType(),
+                    startTime: bin.getStartTimeString(),
+                    endTime: bin.getEndTimeString(),
+                    lengthMins: UtilFormatOut.formatQuantity(bin.getBinLengthMinutes()),
+                    numberHits: UtilFormatOut.formatQuantity(bin.getNumberHits()),
+                    minTime: UtilFormatOut.formatQuantity(bin.getMinTimeSeconds()),
+                    avgTime: UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds()),
+                    maxTime: UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds()),
+                    hitsPerMin: UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+            ]
             requestList.add(requestIdMap)
         }
     }

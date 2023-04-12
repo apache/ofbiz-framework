@@ -20,18 +20,18 @@
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 
-def createSystemInfoNote() {
+Map createSystemInfoNote() {
     parameters.noteParty = parameters.noteParty ?: userLogin.partyId
-    GenericValue noteData = makeValue("NoteData", parameters)
+    GenericValue noteData = makeValue('NoteData', parameters)
     noteData.noteDateTime = UtilDateTime.nowTimestamp()
-    noteData.noteName = "SYSTEMNOTE"
+    noteData.noteName = 'SYSTEMNOTE'
     noteData.setNextSeqId()
     noteData.create()
     return success()
 }
 
-def deleteSystemInfoNote() {
-    GenericValue noteData = from("NoteData").where(noteId: parameters.noteId).queryOne()
+Map deleteSystemInfoNote() {
+    GenericValue noteData = from('NoteData').where(noteId: parameters.noteId).queryOne()
     noteData.removeRelated('CustRequestItemNote')
     noteData.removeRelated('CustRequestNote')
     noteData.removeRelated('MarketingCampaignNote')
@@ -43,16 +43,16 @@ def deleteSystemInfoNote() {
     return success()
 }
 
-def deleteAllSystemNotes() {
-    delegator.removeByAnd("NoteData", [noteParty: userLogin.partyId, noteName: "SYSTEMNOTE"])
+Map deleteAllSystemNotes() {
+    delegator.removeByAnd('NoteData', [noteParty: userLogin.partyId, noteName: 'SYSTEMNOTE'])
     return success()
 }
 
-def getSystemInfoNotes() {
-    List systemInfoNotes = from("NoteData")
+Map getSystemInfoNotes() {
+    List systemInfoNotes = from('NoteData')
             .where(noteParty: userLogin.partyId,
-                    noteName: "SYSTEMNOTE")
-            .orderBy("-noteDateTime")
+                    noteName: 'SYSTEMNOTE')
+            .orderBy('-noteDateTime')
             .queryList()
     if (systemInfoNotes) {
         return success(systemInfoNotes: systemInfoNotes)
@@ -60,12 +60,12 @@ def getSystemInfoNotes() {
     return success()
 }
 
-def getLastSystemInfoNote() {
+Map getLastSystemInfoNote() {
     Map result = success()
-    List systemInfoNotes = from("NoteData")
-            .where(noteParty: userLogin ? userLogin.partyId : "_NA_",
-                    noteName: "SYSTEMNOTE")
-            .orderBy("-noteDateTime")
+    List systemInfoNotes = from('NoteData')
+            .where(noteParty: userLogin ? userLogin.partyId : '_NA_',
+                    noteName: 'SYSTEMNOTE')
+            .orderBy('-noteDateTime')
             .queryList()
     if (systemInfoNotes) {
         result.lastSystemInfoNote1 = systemInfoNotes[0]
@@ -79,26 +79,26 @@ def getLastSystemInfoNote() {
     return result
 }
 
-def getSystemInfoStatus() {
+Map getSystemInfoStatus() {
     List systemInfoStatus = []
-    List comms = from("CommunicationEventAndRole")
+    List comms = from('CommunicationEventAndRole')
             .where(partyId: userLogin.partyId,
-                    statusId: "COM_ROLE_COMPLETED")
-            .orderBy("-entryDate")
+                    statusId: 'COM_ROLE_COMPLETED')
+            .orderBy('-entryDate')
             .queryList()
     if (comms) {
-        systemInfoStatus << [noteInfo: "Open communication events: " + comms.size(), noteDateTime: comms[0].entryDate]
+        systemInfoStatus << [noteInfo: 'Open communication events: ' + comms.size(), noteDateTime: comms[0].entryDate]
     }
 
-    List assigns = from("WorkEffortAndPartyAssign")
+    List assigns = from('WorkEffortAndPartyAssign')
             .where(partyId: userLogin.partyId,
-                    statusId: "PAS_ASSIGNED",
-                    workEffortTypeId: "TASK")
-            .orderBy("-fromDate")
+                    statusId: 'PAS_ASSIGNED',
+                    workEffortTypeId: 'TASK')
+            .orderBy('-fromDate')
             .filterByDate()
             .queryList()
     if (assigns) {
-        systemInfoStatus << [noteInfo: "Assigned and not completed tasks: " + assigns.size(), noteDateTime: assigns[0].fromDate]
+        systemInfoStatus << [noteInfo: 'Assigned and not completed tasks: ' + assigns.size(), noteDateTime: assigns[0].fromDate]
     }
     return success(systemInfoStatus: systemInfoStatus)
 }

@@ -16,14 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-
 package org.apache.ofbiz.order
 
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class OrderTests extends OFBizTestCase {
-    public OrderTests(String name) {
+
+    OrderTests(String name) {
         super(name)
     }
 
@@ -104,4 +104,5 @@ class OrderTests extends OFBizTestCase {
         Map serviceResult = dispatcher.runSync('createATPRequirementsForOrder', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+
 }

@@ -16,23 +16,22 @@
 * specific language governing permissions and limitations
 * under the License.
 */
-
 package org.apache.ofbiz.webtools.log
 
 import org.apache.ofbiz.base.util.FileUtil
 import org.apache.ofbiz.base.util.UtilProperties
 
-String ofbizLogDir = UtilProperties.getPropertyValue("debug", "log4j.appender.css.dir", "runtime/logs/")
-if (!ofbizLogDir.startsWith("/")) {
-    ofbizLogDir = System.getProperty("ofbiz.home") + "/" + ofbizLogDir
+String ofbizLogDir = UtilProperties.getPropertyValue('debug', 'log4j.appender.css.dir', 'runtime/logs/')
+if (!ofbizLogDir.startsWith('/')) {
+    ofbizLogDir = System.getProperty('ofbiz.home') + '/' + ofbizLogDir
 }
-if (!ofbizLogDir.endsWith("/")) {
-    ofbizLogDir = ofbizLogDir.concat("/")
+if (!ofbizLogDir.endsWith('/')) {
+    ofbizLogDir = ofbizLogDir.concat('/')
 }
 
 File runTimeLogDir = FileUtil.getFile(ofbizLogDir)
 File[] listLogFiles = runTimeLogDir.listFiles()
-String ofbizLogRegExp = UtilProperties.getPropertyValue("debug", "log4j.appender.css.fileNameRegExp", "[(ofbiz)|(error)].*")
+String ofbizLogRegExp = UtilProperties.getPropertyValue('debug', 'log4j.appender.css.fileNameRegExp', '[(ofbiz)|(error)].*')
 List listLogFileNames = []
 for (int i = 0; i < listLogFiles.length; i++) {
     if (listLogFiles[i].isFile()) {
@@ -55,16 +54,16 @@ if (parameters.logFileName && listLogFileNames.contains(parameters.logFileName))
                 }
             }
             type = ''
-            if (line.contains(" |I| ")) {
+            if (line.contains(' |I| ')) {
                 type = 'INFO'
-            } else if (line.contains(" |W| ")) {
+            } else if (line.contains(' |W| ')) {
                 type = 'WARN'
-            } else if (line.contains(" |E| ")) {
+            } else if (line.contains(' |E| ')) {
                 type = 'ERROR'
-            } else if (line.contains(" |D| ")) {
+            } else if (line.contains(' |D| ')) {
                 type = 'DEBUG'
             }
-            logLines.add([type: type, line:line])
+            logLines.add([type: type, line: line])
         }
     } catch (Exception e) {
         logError(e, module)

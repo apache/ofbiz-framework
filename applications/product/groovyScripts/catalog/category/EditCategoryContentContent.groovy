@@ -17,28 +17,22 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.util.*
-import org.apache.ofbiz.base.util.*
-import java.sql.Timestamp
+import org.apache.ofbiz.base.util.UtilProperties
 
-uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale)
+uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
 
-contentId = parameters.contentId
-if (!contentId) {
-    contentId = null
-}
+contentId = parameters.contentId ?: null
 
 prodCatContentTypeId = parameters.prodCatContentTypeId
-context.contentFormName = "EditCategoryContentSimpleText"
+context.contentFormName = 'EditCategoryContentSimpleText'
 context.contentFormTitle = "${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
 
-if (("PAGE_TITLE".equals(prodCatContentTypeId))||("META_KEYWORD".equals(prodCatContentTypeId))||("META_DESCRIPTION".equals(prodCatContentTypeId))) {
-    context.contentFormName = "EditCategoryContentSEO"
+if (['PAGE_TITLE', 'META_KEYWORD', 'META_DESCRIPTION'].contains(prodCatContentTypeId)) {
+    context.contentFormName = 'EditCategoryContentSEO'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateSEOContentCategory}"
 }
-if ("RELATED_URL".equals(prodCatContentTypeId)) {
-    contentList = from("ContentDataResourceView").where("contentId", contentId).queryList()
+if (prodCatContentTypeId == 'RELATED_URL') {
+    contentList = from('ContentDataResourceView').where('contentId', contentId).queryList()
     if (contentList) {
         context.contentId = contentList.get(0).contentId
         context.dataResourceId = contentList.get(0).dataResourceId
@@ -47,18 +41,17 @@ if ("RELATED_URL".equals(prodCatContentTypeId)) {
         context.url = contentList.get(0).drObjectInfo
         context.localeString = contentList.get(0).localeString
     }
-    context.contentFormName = "EditCategoryContentRelatedUrl"
+    context.contentFormName = 'EditCategoryContentRelatedUrl'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
-}else if ("VIDEO".equals(prodCatContentTypeId) || "CATEGORY_IMAGE".equals(prodCatContentTypeId)) {
+} else if (prodCatContentTypeId == 'VIDEO' || prodCatContentTypeId == 'CATEGORY_IMAGE') {
     if (content) {
         context.fileDataResourceId = content.dataResourceId
     }
-    if("CATEGORY_IMAGE".equals(prodCatContentTypeId)){
-        context.dataResourceTypeId = "IMAGE_OBJECT"
-    }else{
-        context.dataResourceTypeId = "VIDEO_OBJECT"
+    if (prodCatContentTypeId == 'CATEGORY_IMAGE') {
+        context.dataResourceTypeId = 'IMAGE_OBJECT'
+    } else {
+        context.dataResourceTypeId = 'VIDEO_OBJECT'
     }
-    context.contentFormName = "EditCategoryContentDownload"
+    context.contentFormName = 'EditCategoryContentDownload'
     context.contentFormTitle = "${uiLabelMap.ProductUpdateDownloadContentCategory}"
-    
 }

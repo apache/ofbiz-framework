@@ -17,58 +17,55 @@
  * under the License.
  */
 
-import java.util.Collection
-import java.util.List
+import org.apache.ofbiz.base.util.UtilMisc
 
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo
-
-import org.apache.ofbiz.base.util.*
 
 Collection <ComponentConfig> components = ComponentConfig.getAllComponents()
 List componentList = []
 
 components.each { component ->
-     List<WebappInfo> webApps = component.getWebappInfos()
-     webApps.each { webApp ->
-         componentMap = [:]
-         componentMap.compName = component.getComponentName()
-         componentMap.rootLocation =  component.rootLocation().toString()
-         componentMap.enabled = (component.enabled() == true? "Y" : "N")
-         componentMap.webAppName = webApp.getName()
-         componentMap.contextRoot = webApp.getContextRoot()
-         componentMap.webAppName = webApp.getName()
-         componentMap.contextRoot = webApp.getContextRoot()
-         componentMap.location = webApp.location().toString()
-         componentList.add(componentMap)
-     }
-     if (!webApps) {
-         componentMap = [:]
-         componentMap.compName = component.getComponentName()
-         componentMap.rootLocation =  component.rootLocation().toString()
-         componentMap.enabled = (component.enabled() == true? "Y" : "N")
-         componentList.add(componentMap)
-         componentMap.webAppName = ""
-         componentMap.contextRoot = ""
-         componentMap.location = ""
-         componentMap.webAppName = ""
-         componentMap.contextRoot = ""
-         componentMap.location = ""
-     }
+    List<WebappInfo> webApps = component.getWebappInfos()
+    webApps.each { webApp ->
+        componentMap = [:]
+        componentMap.compName = component.getComponentName()
+        componentMap.rootLocation =  component.rootLocation().toString()
+        componentMap.enabled = (component.enabled() == true ? 'Y' : 'N')
+        componentMap.webAppName = webApp.getName()
+        componentMap.contextRoot = webApp.getContextRoot()
+        componentMap.webAppName = webApp.getName()
+        componentMap.contextRoot = webApp.getContextRoot()
+        componentMap.location = webApp.location().toString()
+        componentList.add(componentMap)
+    }
+    if (!webApps) {
+        componentMap = [:]
+        componentMap.compName = component.getComponentName()
+        componentMap.rootLocation =  component.rootLocation().toString()
+        componentMap.enabled = (component.enabled() == true ? 'Y' : 'N')
+        componentList.add(componentMap)
+        componentMap.webAppName = ''
+        componentMap.contextRoot = ''
+        componentMap.location = ''
+        componentMap.webAppName = ''
+        componentMap.contextRoot = ''
+        componentMap.location = ''
+    }
 }
 
 // sort the entries
-componentList = UtilMisc.sortMaps(componentList, UtilMisc.toList("+compName"))
+componentList = UtilMisc.sortMaps(componentList, UtilMisc.toList('+compName'))
 
 // make the list more readable
 lastComp = null
 for (int entry = 0; entry < componentList.size(); entry++) {
     compSave = componentList[entry].compName
-    if (lastComp != null && compSave.equals(lastComp)) {
-        componentList[entry].compName = ""
-        componentList[entry].rootLocation = ""
-        componentList[entry].enabled = ""
-    }    
+    if (lastComp != null && compSave == lastComp) {
+        componentList[entry].compName = ''
+        componentList[entry].rootLocation = ''
+        componentList[entry].enabled = ''
+    }
     lastComp = compSave
 }
 context.componentList = componentList

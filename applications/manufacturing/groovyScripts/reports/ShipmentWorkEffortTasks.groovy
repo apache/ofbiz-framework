@@ -20,39 +20,42 @@
 import org.apache.ofbiz.entity.GenericValue
 
 shipmentId = parameters.shipmentId
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 context.shipmentIdPar = shipment.shipmentId
-context.date = new Date()
-Double fixedAssetTime = new Double(0)
+BigDecimal fixedAssetTime = BigDecimal.ZERO
 records = []
 if (shipment) {
-    shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList()
+    shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList()
     shipmentPlans.each { shipmentPlan ->
-        productionRuns = from("WorkOrderItemFulfillment").where("orderId", shipmentPlan.orderId, "orderItemSeqId", shipmentPlan.orderItemSeqId).orderBy("workEffortId").queryList()
+        productionRuns = from('WorkOrderItemFulfillment')
+                .where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId).orderBy('workEffortId').queryList()
         if (productionRuns) {
             productionRuns.each { productionRun ->
                 productionRunProduct = [:]
-                productionRunProducts = from("WorkEffortGoodStandard").where("workEffortId", productionRun.workEffortId , "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED").queryList()
+                productionRunProducts = from('WorkEffortGoodStandard')
+                        .where('workEffortId', productionRun.workEffortId , 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV', 'statusId', 'WEGS_CREATED')
+                        .queryList()
                 if (productionRunProducts) {
-                    productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne("Product", false)
+                    productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne('Product', false)
                 }
-                tasks = from("WorkEffort").where("workEffortParentId", productionRun.workEffortId, "workEffortTypeId", "PROD_ORDER_TASK").queryList()
+                tasks = from('WorkEffort').where('workEffortParentId', productionRun.workEffortId, 'workEffortTypeId', 'PROD_ORDER_TASK').queryList()
                 tasks.each { task ->
-                    record = [:]
-                    record.productId = productionRunProduct.productId
-                    record.productName = productionRunProduct.internalName
-                    record.fixedAssetId = task.fixedAssetId
-                    record.priority = task.getLong("priority")
-                    record.workEffortId = productionRun.workEffortId
-                    record.taskId = task.workEffortId
-                    record.taskName = task.workEffortName
-                    record.taskDescription = task.description
-                    record.taskEstimatedTime = task.getDouble("estimatedMilliSeconds")
-                    record.taskEstimatedSetup = task.getDouble("estimatedSetupMillis")
+                    record = [
+                            productId: productionRunProduct.productId,
+                            productName: productionRunProduct.internalName,
+                            fixedAssetId: task.fixedAssetId,
+                            priority: task.getLong('priority'),
+                            workEffortId: productionRun.workEffortId,
+                            taskId: task.workEffortId,
+                            taskName: task.workEffortName,
+                            taskDescription: task.description,
+                            taskEstimatedTime: task.getDouble('estimatedMilliSeconds'),
+                            taskEstimatedSetup: task.getDouble('estimatedSetupMillis'),
+                    ]
                     records.add(record)
-                    if(task.getDouble("estimatedMilliSeconds") != null){
-                        fixedAssetTime = fixedAssetTime + task.getDouble("estimatedMilliSeconds")
+                    if (task.getDouble('estimatedMilliSeconds') != null) {
+                        fixedAssetTime = fixedAssetTime + task.getDouble('estimatedMilliSeconds')
                     }
                 }
             }
@@ -63,10 +66,10 @@ if (shipment) {
 
     // check permission
     hasPermission = false
-    if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+    if (security.hasEntityPermission('MANUFACTURING', '_VIEW', session)) {
         hasPermission = true
     }
     context.hasPermission = hasPermission
 }
 
-return "success"
+return 'success'

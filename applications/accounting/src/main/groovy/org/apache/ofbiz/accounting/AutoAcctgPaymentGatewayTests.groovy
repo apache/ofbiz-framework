@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
-    public AutoAcctgPaymentGatewayTests(String name) {
+
+    AutoAcctgPaymentGatewayTests(String name) {
         super(name)
     }
 
@@ -39,4 +40,5 @@ class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
         assert paymentGatewayConfig
         assert paymentGatewayConfig.description  == 'Test Payment Gateway Config Id'
     }
+
 }

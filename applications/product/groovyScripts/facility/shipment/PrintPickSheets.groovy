@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,10 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.order.OrderReadHelper
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.order.order.OrderReadHelper
 
 toPrintOrders = []
 maxNumberOfOrders = parameters.maxNumberOfOrdersToPrint
@@ -29,7 +28,7 @@ int printListCounter = 0
 printGroupName = parameters.printGroupName
 if (printGroupName != null) {
     pickMoveInfoList.each { pickMoveInfo ->
-        groupName = pickMoveInfo.groupName 
+        groupName = pickMoveInfo.groupName
         if (groupName == printGroupName) {
             toPrintOrders.add(pickMoveInfo.orderReadyToPickInfoList)
         }
@@ -45,9 +44,9 @@ if (toPrintOrders) {
     orderInfoList = []
     itemInfoList = []
     orderHeaderList = []
-    orderChargeList =[]
+    orderChargeList = []
     toPrintOrders.each { toPrintOrder ->
-        if(toPrintOrder) {
+        if (toPrintOrder) {
             orderHeaders = toPrintOrder.orderHeader
             orderItemShipGroups = toPrintOrder.orderItemShipGroup
             orderItemShipGrpInvResList = toPrintOrder.orderItemShipGrpInvResList
@@ -60,16 +59,18 @@ if (toPrintOrders) {
                     orderMap.orderId = orderId
                     orderMap.orderDate = orderHeader.orderDate
                     billingOrderContactMechs = []
-                    billingOrderContactMechs = from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION").queryList()
+                    billingOrderContactMechs = from('OrderContactMech')
+                            .where('orderId', orderId, 'contactMechPurposeTypeId', 'BILLING_LOCATION').queryList()
                     if (billingOrderContactMechs.size() > 0) {
                         billingContactMechId = EntityUtil.getFirst(billingOrderContactMechs).contactMechId
-                        billingAddress = from("PostalAddress").where("contactMechId", billingContactMechId).queryOne()
+                        billingAddress = from('PostalAddress').where('contactMechId', billingContactMechId).queryOne()
                     }
-                    shippingContactMechId = from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION").queryFirst().contactMechId
-                    shippingAddress = from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne()
+                    shippingContactMechId = from('OrderContactMech')
+                            .where('orderId', orderId, 'contactMechPurposeTypeId', 'SHIPPING_LOCATION').queryFirst().contactMechId
+                    shippingAddress = from('PostalAddress').where('contactMechId', shippingContactMechId).queryOne()
                     orderItemShipGroups.each { orderItemShipGroup ->
                         if (orderItemShipGroup.orderId == orderId) {
-                            orderMap.shipmentMethodType = EntityUtil.getFirst(orderItemShipGroup.getRelated("ShipmentMethodType", null, null, false)).description
+                            orderMap.shipmentMethodType = orderItemShipGroup.getRelated('ShipmentMethodType', null, null, false)[0]?.description
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId
                             orderMap.shipGroupSeqId = orderItemShipGroup.shipGroupSeqId
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId
@@ -83,13 +84,13 @@ if (toPrintOrders) {
                         orderInfoMap = [:]
                         orderInfoMap.(orderHeader.orderId) = orderMap
                     }
-                    addInMap = "true"
+                    addInMap = 'true'
                     orderItemMap = [:]
                     orderItemShipGrpInvResInfoList.each { orderItemShipGrpInvResInfos ->
                         orderItemShipGrpInvResInfos.each { orderItemShipGrpInvResInfo ->
-                            if (orderItemShipGrpInvResInfo.orderItemShipGrpInvRes.orderId == orderId && "true" == addInMap) {
+                            if (orderItemShipGrpInvResInfo.orderItemShipGrpInvRes.orderId == orderId && addInMap == 'true') {
                                 orderItemMap.(orderHeader.orderId) = orderItemShipGrpInvResInfos
-                                addInMap = "false"
+                                addInMap = 'false'
                             }
                         }
                     }
@@ -103,7 +104,8 @@ if (toPrintOrders) {
                     context.orderSubTotal = orderSubTotal
                     otherAdjAmount = orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, true, false, false)
                     shippingAmount = orderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true)
-                    shippingAmount = shippingAmount.add(orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true))
+                    shippingAmount = shippingAmount.add(
+                            orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true))
                     taxAmount = orderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false)
                     taxAmount = taxAmount.add(orderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false))
                     grandTotal = orderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments)
@@ -127,5 +129,5 @@ if (toPrintOrders) {
             }
         }
     }
-    UtilHttp.setContentDisposition(response, "orderPickSheet.pdf")
+    UtilHttp.setContentDisposition(response, 'orderPickSheet.pdf')
 }

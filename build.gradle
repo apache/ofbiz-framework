@@ -28,6 +28,7 @@ plugins {
     id 'groovy'
     id 'eclipse'
     id 'checkstyle'
+    id 'codenarc'
     id 'maven-publish'
     id 'at.bxm.svntools' version '3.1'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
@@ -49,7 +50,7 @@ plugins {
  * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
  */
 if (project.hasProperty('enableOwasp')) {
-     apply plugin: 'org.owasp.dependencycheck'
+    apply plugin: 'org.owasp.dependencycheck'
 }
 
 /* DependencyUpdates plugin
@@ -68,8 +69,8 @@ if (project.hasProperty('enableOwasp')) {
  *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
  */
 if (project.hasProperty('enableDependencyUpdates')) {
-     apply plugin: 'com.github.ben-manes.versions'
-     apply plugin: 'se.patrikerdes.use-latest-versions'
+    apply plugin: 'com.github.ben-manes.versions'
+    apply plugin: 'se.patrikerdes.use-latest-versions'
 }
 
 apply from: 'common.gradle'
@@ -114,7 +115,7 @@ javadoc {
 
 node {
     download = true
-    version = "16.13.1"
+    version = '16.13.1'
     // npmVersion will be the one that comes default with node
 
     // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
@@ -122,7 +123,7 @@ node {
     nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common-theme/js")
     // If you set a "CI" env var then ci only will be used:
     // https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/faq.md#how-do-i-use-npm-ci-instead-of-npm-install
-    npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
+    npmInstallCommand = System.getenv('CI') ? 'ci' : 'install'
 }
 
 tasks.getByName("distTar") {
@@ -142,9 +143,9 @@ java {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     if (!project.hasProperty('Xlint:none')) {
-    options.compilerArgs << "-Xlint:all"
-    // Exclude varargs warnings which are not silenced by @SafeVarargs.
-        options.compilerArgs << "-Xlint:-varargs"
+        options.compilerArgs << '-Xlint:all'
+        // Exclude varargs warnings which are not silenced by @SafeVarargs.
+        options.compilerArgs << '-Xlint:-varargs'
     }
     // Executes on each compilation so that if dependencies are not downloaded yet or some new dependencies are added they get automatically downloaded
     if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
@@ -162,18 +163,18 @@ def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 defaultTasks 'jar', 'test'
 
 allprojects {
-    repositories{
+    repositories {
         mavenCentral()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
         maven {
             // org.restlet and org.restlet.ext.servlet
-            url "https://maven.restlet.talend.com"
+            url 'https://maven.restlet.talend.com'
         }
         maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url "https://packages.atlassian.com/maven-3rdparty/"
+            url 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
@@ -186,7 +187,7 @@ allprojects {
             }
         }
         maven {
-            url "https://clojars.org/repo"
+            url 'https://clojars.org/repo'
         }
         maven {
             // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
@@ -317,6 +318,8 @@ dependencies {
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
         implementation fileTree(dir: libDir, include: '**/*.jar')
     }
+    // specify last codenarc version for java 17 compliance
+    codenarc('org.codenarc:CodeNarc:3.2.0')
 }
 
 def excludedJavaSources = [
@@ -395,17 +398,25 @@ gitHooks {
     hooks = ['pre-push': 'checkstyleMain']
 }
 
+// Checks OFBiz Groovy coding conventions.
+codenarc {
+    setConfigFile(new File('config/codenarc/codenarc.groovy'))
+    setMaxPriority1Violations(0)
+    setMaxPriority2Violations(448)
+    setMaxPriority3Violations(4396)
+}
+
 // Eclipse plugin settings
 eclipse.classpath.file.whenMerged { classpath ->
     /* The code inside this block removes unnecessary entries
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def fileSep = System.getProperty("file.separator")
+    def fileSep = System.getProperty('file.separator')
 
     activeComponents().each { component ->
         def componentName = component.toString() - rootDir.toString() - fileSep
-        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", "/") : componentName
+        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", '/') : componentName
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
@@ -423,7 +434,7 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
-    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
 /* ========================================================
@@ -538,11 +549,11 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) {
         doLast {
             def filterTokens = ['tenantId': tenantId,
-                'tenantName': project.hasProperty('tenantName')? tenantName : tenantId,
-                'domainName': project.hasProperty('domainName')? domainName : 'org.apache.ofbiz',
-                'db-IP': project.hasProperty('dbIp')? dbIp : '',
-                'db-User': project.hasProperty('dbUser')? dbUser : '',
-                'db-Password': project.hasProperty('dbPassword')? dbPassword : '']
+                'tenantName': project.hasProperty('tenantName') ? tenantName : tenantId,
+                'domainName': project.hasProperty('domainName') ? domainName : 'org.apache.ofbiz',
+                'db-IP': project.hasProperty('dbIp') ? dbIp : '',
+                'db-User': project.hasProperty('dbUser') ? dbUser : '',
+                'db-Password': project.hasProperty('dbPassword') ? dbPassword : '']
 
             generateFileFromTemplate(databaseTemplateFile, 'runtime/tmp',
                 filterTokens, 'tmpFilteredTenantData.xml')
@@ -649,7 +660,7 @@ task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}"
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
-      }
+    }
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
@@ -666,9 +677,9 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}/docs/asciidoc"
     outputDir file("${buildDir}/asciidoc/ofbiz")
     doLast {
-      activeComponents().each { component ->
-          delete "${rootDir}/docs/asciidoc/images/${component.name}"
-      }
+        activeComponents().each { component ->
+            delete "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
     }
 }
 
@@ -689,10 +700,10 @@ task generatePluginDocumentation(group: docsGroup) {
                     outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                     doLast { println "Documentation generated for plugin ${component.name}" }
                 } else {
-                      println "No documentation found for plugin ${component.name}"
-                  }
-            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-            mustRunAfter deletePluginDocumentation
+                    println "No documentation found for plugin ${component.name}"
+                }
+                doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
             doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
@@ -758,18 +769,18 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         def gitFolder = rootProject.file('.git')
 
         if (!gitFolder.exists()) {
-          println ("Git is not used")
-          return
+            println ('Git is not used')
+            return
         }
 
         def branchOutput = new ByteArrayOutputStream()
-        exec{
+        exec {
             commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
             standardOutput = branchOutput
         }
         branch = branchOutput.toString()
         def revisionOutput = new ByteArrayOutputStream()
-        exec{
+        exec {
             commandLine 'git', 'rev-parse', 'HEAD'
             standardOutput = revisionOutput
         }
@@ -807,7 +818,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
                 'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
-            mkdir pluginDir+'/'+it
+            mkdir pluginDir + '/' + it
         }
 
         [   [tempName:'ofbiz-component.xml', newName:'ofbiz-component.xml', location:''],
@@ -909,8 +920,8 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
             publications {
                 ofbizPluginPublication(MavenPublication) {
                     artifactId pluginId
-                    groupId project.hasProperty('pluginGroup')? pluginGroup :'org.apache.ofbiz.plugin'
-                    version project.hasProperty('pluginVersion')? pluginVersion :'0.1.0-SNAPSHOT'
+                    groupId project.hasProperty('pluginGroup') ? pluginGroup : 'org.apache.ofbiz.plugin'
+                    version project.hasProperty('pluginVersion') ? pluginVersion : '0.1.0-SNAPSHOT'
 
                     artifact createPluginArchive
 
@@ -1129,14 +1140,14 @@ def createOfbizBackgroundCommandTask(taskName) {
 
     task (taskName) {
         doLast {
-            spawnProcess([gradlew, "--no-daemon", serverCommand])
+            spawnProcess([gradlew, '--no-daemon', serverCommand])
         }
     }
 }
 
 def spawnProcess(command) {
     ProcessBuilder pb = new ProcessBuilder(command)
-    File consoleLog = file("${rootDir}/runtime/logs/console.log");
+    File consoleLog = file("${rootDir}/runtime/logs/console.log")
 
     pb.directory(file("${rootDir}"))
     pb.redirectErrorStream(true)
@@ -1152,7 +1163,7 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
 
 def deleteAllInDirWithExclusions(dirName, exclusions) {
     ant.delete (includeEmptyDirs: 'true', verbose: 'on') {
-        fileset(dir: dirName, includes: '**/*', erroronmissingdir: "false") {
+        fileset(dir: dirName, includes: '**/*', erroronmissingdir: 'false') {
             exclusions.each { exclusion ->
                 exclude name: exclusion
             }
@@ -1188,7 +1199,7 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 }
 
 def gradlewSubprocess(commandList) {
-    exec { commandLine(gradlew, "--no-daemon", *commandList) }
+    exec { commandLine(gradlew, '--no-daemon', *commandList) }
 }
 
 

@@ -22,8 +22,6 @@
  * should not contain order component's specific code.
  */
 
-import java.lang.*
-import java.util.*
 import org.apache.ofbiz.product.catalog.CatalogWorker
 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
@@ -34,14 +32,14 @@ context.quickAddCats = quickAddCategories
 context.categoryId = categoryId
 
 if (categoryId) {
-    fields = [productCategoryId : categoryId, defaultViewSize : 10,
-            limitView : false, prodCatalogId : currentCatalogId, checkViewAllow : true]
+    fields = [productCategoryId: categoryId, defaultViewSize: 10,
+              limitView: false, prodCatalogId: currentCatalogId, checkViewAllow: true]
     result = runService('getProductCategoryAndLimitedMembers', fields)
     if (result) {
         result.each { key, value ->
             context[key] = value
         }
     }
-    productCategory = from("ProductCategory").where("productCategoryId", categoryId).queryOne()
+    productCategory = from('ProductCategory').where('productCategoryId', categoryId).queryOne()
     context.productCategory = productCategory
 }

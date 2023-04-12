@@ -21,7 +21,7 @@ import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-Boolean actualCurrency = new Boolean(context.actualCurrency)
+Boolean actualCurrency = Boolean.valueOf(context.actualCurrency)
 if (actualCurrency == null) {
     actualCurrency = true
 }
@@ -29,40 +29,41 @@ findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE
 
 payExprs =
     EntityCondition.makeCondition([
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
-        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_NOTPAID'),
+        EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'PMNT_CANCELLED'),
         EntityCondition.makeCondition([
                EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, parameters.partyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, context.defaultOrganizationPartyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, parameters.partyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, context.defaultOrganizationPartyId)
                 ], EntityOperator.AND),
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, context.defaultOrganizationPartyId),
-                EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, parameters.partyId)
+                EntityCondition.makeCondition('partyIdTo', EntityOperator.EQUALS, context.defaultOrganizationPartyId),
+                EntityCondition.makeCondition('partyIdFrom', EntityOperator.EQUALS, parameters.partyId)
                 ], EntityOperator.AND)
             ], EntityOperator.OR)
         ], EntityOperator.AND)
 
 paymentList = []
-payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
+payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payment = payIterator.next()) {
-    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP)
+while (payIterator.hasNext()) {
+    payment = payIterator.next()
+    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     if (unAppliedAmount.signum() == 1) {
-        if (actualCurrency.equals(true) && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
+        if (actualCurrency == true && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
             amount = payment.actualCurrencyAmount
             paymentCurrencyUomId = payment.actualCurrencyUomId
         } else {
             amount = payment.amount
             paymentCurrencyUomId = payment.currencyUomId
         }
-        paymentList.add([paymentId : payment.paymentId,
-                         effectiveDate : payment.effectiveDate,
-                         unAppliedAmount : unAppliedAmount,
-                         amount : amount,
-                         paymentCurrencyUomId : paymentCurrencyUomId,
-                         paymentTypeId : payment.paymentTypeId,
-                         paymentParentTypeId : payment.parentTypeId])
+        paymentList.add([paymentId: payment.paymentId,
+                         effectiveDate: payment.effectiveDate,
+                         unAppliedAmount: unAppliedAmount,
+                         amount: amount,
+                         paymentCurrencyUomId: paymentCurrencyUomId,
+                         paymentTypeId: payment.paymentTypeId,
+                         paymentParentTypeId: payment.parentTypeId])
     }
 }
 payIterator.close()

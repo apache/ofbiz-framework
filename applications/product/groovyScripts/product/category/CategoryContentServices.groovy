@@ -24,24 +24,23 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 
-
 /**
  * Create Content For Product Category
  */
-def createCategoryContent() {
-    GenericValue newEntity = makeValue("ProductCategoryContent")
+Map createCategoryContent() {
+    GenericValue newEntity = makeValue('ProductCategoryContent')
     newEntity.setPKFields(parameters, true)
     newEntity.setNonPKFields(parameters, true)
 
-    if(!newEntity.fromDate) {
+    if (!newEntity.fromDate) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
         newEntity.fromDate  = nowTimestamp
     }
 
     newEntity.create()
 
-    Map updateContent = dispatcher.getDispatchContext().makeValidContext("updateContent", ModelService.IN_PARAM, parameters)
-    run service: "updateContent", with: updateContent
+    Map updateContent = dispatcher.getDispatchContext().makeValidContext('updateContent', ModelService.IN_PARAM, parameters)
+    run service: 'updateContent', with: updateContent
     Map result = success()
     result.contentId = newEntity.contentId
     result.productCategoryId = newEntity.productCategoryId
@@ -52,50 +51,48 @@ def createCategoryContent() {
 /**
  * Update Content For Category
  */
-def updateCategoryContent() {
-    GenericValue lookupPKMap = makeValue("ProductCategoryContent")
+Map updateCategoryContent() {
+    GenericValue lookupPKMap = makeValue('ProductCategoryContent')
     lookupPKMap.setPKFields(parameters, true)
-    Map lookedUpValue = from("ProductCategoryContent").where(lookupPKMap).queryOne()
+    Map lookedUpValue = from('ProductCategoryContent').where(lookupPKMap).queryOne()
     lookedUpValue.setNonPKFields(parameters, true)
     lookedUpValue.store()
 
-    Map updateContent = dispatcher.getDispatchContext().makeValidContext("updateContent", ModelService.IN_PARAM, parameters)
-    run service: "updateContent", with: updateContent
+    Map updateContent = dispatcher.getDispatchContext().makeValidContext('updateContent', ModelService.IN_PARAM, parameters)
+    run service: 'updateContent', with: updateContent
 }
 
 /**
  * Create Simple Text Content For Product Category
  */
-def createSimpleTextContentForCategory() {
-    Map createCategoryContentMap = dispatcher.getDispatchContext().makeValidContext("createCategoryContent", ModelService.IN_PARAM, parameters)
-    Map createSimpleTextMap = dispatcher.getDispatchContext().makeValidContext("createSimpleTextContent", ModelService.IN_PARAM, parameters)
-    Map cstcRes = run service: "createSimpleTextContent", with: createSimpleTextMap
+Map createSimpleTextContentForCategory() {
+    Map createCategoryContentMap = dispatcher.getDispatchContext().makeValidContext('createCategoryContent', ModelService.IN_PARAM, parameters)
+    Map createSimpleTextMap = dispatcher.getDispatchContext().makeValidContext('createSimpleTextContent', ModelService.IN_PARAM, parameters)
+    Map cstcRes = run service: 'createSimpleTextContent', with: createSimpleTextMap
     createCategoryContentMap.contentId = cstcRes.contentId
-    run service: "createCategoryContent", with: createCategoryContentMap
+    run service: 'createCategoryContent', with: createCategoryContentMap
 }
 
 /**
  * Update SEO Content For Product Category
  */
-def updateContentSEOForCategory() {
-    updateContent("title", "PAGE_TITLE")
-    updateContent("metaKeyword", "META_KEYWORD")
-    updateContent("metaDiscription", "META_DESCRIPTION")
+Map updateContentSEOForCategory() {
+    updateContent('title', 'PAGE_TITLE')
+    updateContent('metaKeyword', 'META_KEYWORD')
+    updateContent('metaDiscription', 'META_DESCRIPTION')
 }
 
 /**
  * This method updates the content for the parameters given
- * @param param
- * @param typeId
  */
-def updateContent(param, typeId) {
+Map updateContent(String param, String typeId) {
     if (parameters."${param}") {
-        List productCategoryContents = from("ProductCategoryContentAndInfo")
-            .where("productCategoryId", parameters.productCategoryId, "prodCatContentTypeId", typeId)
+        List productCategoryContents = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', parameters.productCategoryId, 'prodCatContentTypeId', typeId)
             .queryList()
         if (productCategoryContents) {
             Map productCategoryContent = EntityUtil.getFirst(productCategoryContents)
-            Map electronicText = from("ElectronicText").where("dataResourceId", productCategoryContent).queryOne()
+            Map electronicText = from('ElectronicText').where('dataResourceId', productCategoryContent).queryOne()
             if (electronicText) {
                 electronicText.textData = parameters."${param}"
                 electronicText.store()
@@ -106,7 +103,7 @@ def updateContent(param, typeId) {
                 prodCatContentTypeId: typeId,
                 text: parameters."${param}"
             ]
-            run service: "createSimpleTextContentForCategory", with: createTextContentMap
+            run service: 'createSimpleTextContentForCategory', with: createTextContentMap
         }
     }
 }
@@ -114,62 +111,62 @@ def updateContent(param, typeId) {
 /**
  * Create Related URL Content For Product Category
  */
-def createRelatedUrlContentForCategory() {
+Map createRelatedUrlContentForCategory() {
     String url = parameters.url
     url = url.trim()
-    if (url.indexOf("&quot;http://&quot;") != 0) {
-        url = "&quot;http://&quot;" + url
+    if (url.indexOf('&quot;http://&quot;') != 0) {
+        url = '&quot;http://&quot;' + url
     }
     Map dataResource = [
         dataRescourceName: parameters.title,
-        dataRescourceTypeId: "URL_RESOURCE",
-        mimeTypeId: "text/plain",
+        dataRescourceTypeId: 'URL_RESOURCE',
+        mimeTypeId: 'text/plain',
         objectInfo: url,
         localeString: parameters.localeString
     ]
-    Map rescRes = run service: "createDataResource", with: dataResource
+    Map rescRes = run service: 'createDataResource', with: dataResource
     parameters.dataResourceId = rescRes.dataResourceId
     Map content = [
-        contentTypeId:"DOCUMENT",
-        dataResourceId: parameters.dataResourceId,
-        contentName: parameters.title,
-        description: parameters.description,
-        localeString: parameters.localeString,
-        createdByUserLogin: parameters.userLogin.userLoginId
+            contentTypeId: 'DOCUMENT',
+            dataResourceId: parameters.dataResourceId,
+            contentName: parameters.title,
+            description: parameters.description,
+            localeString: parameters.localeString,
+            createdByUserLogin: parameters.userLogin.userLoginId
     ]
-    Map contRes = run service: "createContent", with: content
+    Map contRes = run service: 'createContent', with: content
     parameters.contentId = contRes.contentId
-    Map createCategoryContentMap = dispatcher.getDispatchContext().makeValidContext("createCategoryContent", ModelService.IN_PARAM, parameters)
-    run service: "createContentCategory", with: createCategoryContentMap
+    Map createCategoryContentMap = dispatcher.getDispatchContext().makeValidContext('createCategoryContent', ModelService.IN_PARAM, parameters)
+    run service: 'createContentCategory', with: createCategoryContentMap
 }
 
 /**
  * Update Related URL Content For Product Category
  */
-def updateRelatedUrlContentForCategory() {
-    Map updateCategoryContent = dispatcher.getDispatchContext().makeValidContext("updateCategoryContent", ModelService.IN_PARAM, parameters)
-    run service: "updateCategoryContent", with: updateCategoryContent
+Map updateRelatedUrlContentForCategory() {
+    Map updateCategoryContent = dispatcher.getDispatchContext().makeValidContext('updateCategoryContent', ModelService.IN_PARAM, parameters)
+    run service: 'updateCategoryContent', with: updateCategoryContent
     Map dataResource = [
         dataResourceId: parameters.dataResourceId,
         dataResourceName: parameters.title,
         objectInfo: parameters.url,
         localeString: parameters.localeString
     ]
-    run service: "updateDataResource", with: dataResource
+    run service: 'updateDataResource', with: dataResource
     Map updateContent = [
         contentId: parameters.contentId,
         contentName: parameters.title,
         description: parameters.description,
         localeString: parameters.localeString
     ]
-    run service: "updateContent", with: updateContent
+    run service: 'updateContent', with: updateContent
 }
 
 /**
  * Create Download Content For Category
  */
-def createDownloadContentForCategory() {
-    Map createCategoryContent = dispatcher.getDispatchContext().makeValidContext("createCategoryContent", ModelService.IN_PARAM, parameters)
+Map createDownloadContentForCategory() {
+    Map createCategoryContent = dispatcher.getDispatchContext().makeValidContext('createCategoryContent', ModelService.IN_PARAM, parameters)
     // create data resource
     Map data = [
         dataResourceTypeId: parameters.dataResourceTypeId,
@@ -177,30 +174,30 @@ def createDownloadContentForCategory() {
         mimeTypeId: parameters._uploadedFile_contentType,
         uploadedFile: parameters.uploadedFile
     ]
-    Map creDatRes = run service: "createDataResource", with: data
+    Map creDatRes = run service: 'createDataResource', with: data
     parameters.dataResourceId = creDatRes.dataResourceId
     // create attach upload to data resource
-    Map attachMap = dispatcher.getDispatchContext().makeValidContext("attachUploadToDataResource", ModelService.IN_PARAM, parameters)
+    Map attachMap = dispatcher.getDispatchContext().makeValidContext('attachUploadToDataResource', ModelService.IN_PARAM, parameters)
     attachMap = [
         uploadedFile: parameters.uploadedFile,
         _uploadedFile_fileName: parameters._uploadedFile_fileName,
         _uploadedFile_contentType: parameters._uploadedFile_contentType
     ]
-    run service: "attachUploadToDataResource", with: attachMap
+    run service: 'attachUploadToDataResource', with: attachMap
     // create content from dataResource
-    Map contentMap = dispatcher.getDispatchContext().makeValidContext("createContentFromDataResource", ModelService.IN_PARAM, parameters)
-    contentMap.contentTypeId = "DOCUMENT"
-    Map creConRes = run service: "createContentFromDataResource", with: contentMap
+    Map contentMap = dispatcher.getDispatchContext().makeValidContext('createContentFromDataResource', ModelService.IN_PARAM, parameters)
+    contentMap.contentTypeId = 'DOCUMENT'
+    Map creConRes = run service: 'createContentFromDataResource', with: contentMap
     createCategoryContent.contentId = creConRes.contentId
 
     createCategoryContent.contentId = parameters.contentId
-    run service: "createCategoryContent", with: createCategoryContent
+    run service: 'createCategoryContent', with: createCategoryContent
 }
 
 /**
  * Update Download Content For Category
  */
-def updateDownloadContentForCategory() {
+Map updateDownloadContentForCategory() {
     Map attachMap = [
         uploadedFile: parameters.uploadedFile,
         _uploadedFile_fileName: parameters._uploadedFile_fileName,
@@ -208,8 +205,8 @@ def updateDownloadContentForCategory() {
         mimeTypeId: parameters._uploadedFile_contentType,
         dataResourceId: parameters.fileDataResourceId
     ]
-    run service: "attachUploadToDataResource", with: attachMap
+    run service: 'attachUploadToDataResource', with: attachMap
 
-    Map updateCategoryContent = dispatcher.getDispatchContext().makeValidContext("updateCategoryContent", ModelService.IN_PARAM, parameters)
-    run sevrice: "updateCategoryContent", with: updateCategoryContent
+    Map updateCategoryContent = dispatcher.getDispatchContext().makeValidContext('updateCategoryContent', ModelService.IN_PARAM, parameters)
+    run sevrice: 'updateCategoryContent', with: updateCategoryContent
 }

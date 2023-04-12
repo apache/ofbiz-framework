@@ -20,7 +20,7 @@
 /*
  * lookupParty is deprecated, and only present for backward compatibility during the deprecation time
  */
-def lookupParty() {
+Map lookupParty() {
     Map serviceResult = run service: 'performFindParty', with: parameters
     List lookupResult = []
     serviceResult.listIt.getCompleteList().each {

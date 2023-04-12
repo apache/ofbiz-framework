@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class ProductFeatureTypeTests extends OFBizTestCase {
-    public ProductFeatureTypeTests(String name) {
+
+    ProductFeatureTypeTests(String name) {
         super(name)
     }
 
@@ -39,4 +40,5 @@ class ProductFeatureTypeTests extends OFBizTestCase {
         GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
         assert productFeatureType.productFeatureTypeId == 'testProdFeat'
     }
+
 }

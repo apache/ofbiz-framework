@@ -1,3 +1,6 @@
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,16 +20,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.condition.*
-
-ppCond = EntityCondition.makeCondition("portletCategoryId", EntityOperator.EQUALS, parameters.portletCategoryId)
-categories = delegator.findList("PortletPortletCategory", ppCond, null, null, null, false)
+ppCond = EntityCondition.makeCondition('portletCategoryId', EntityOperator.EQUALS, parameters.portletCategoryId)
+categories = delegator.findList('PortletPortletCategory', ppCond, null, null, null, false)
 
 portalPortlets = []
-    categories.each { category ->
-    pCond = EntityCondition.makeCondition("portalPortletId", EntityOperator.EQUALS, category.get("portalPortletId"))
-    listPortalPortlets = delegator.findList("PortalPortlet", pCond, null, null, null, false)
+categories.each { category ->
+    pCond = EntityCondition.makeCondition('portalPortletId', EntityOperator.EQUALS, category.get('portalPortletId'))
+    listPortalPortlets = delegator.findList('PortalPortlet', pCond, null, null, null, false)
 
     inMap = [:]
     listPortalPortlets.each { listPortalPortlet ->
@@ -45,5 +45,5 @@ portalPortlets = []
     }
 }
 
-context.portletCat = delegator.findList("PortletCategory", null, null, null, null, false)
+context.portletCat = delegator.findList('PortletCategory', null, null, null, null, false)
 context.portalPortlets = portalPortlets

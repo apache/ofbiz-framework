@@ -34,7 +34,7 @@ if (product) {
     ProductConfigWorker.fillProductConfigWrapper(configWrapper, request)
 
     if (!configWrapper.isCompleted()) {
-        configId = request.getParameter("configId")
+        configId = request.getParameter('configId')
         if (configId) {
             configWrapper.loadConfig(delegator, configId)
         } else {
@@ -43,11 +43,11 @@ if (product) {
     }
     ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator)
     if (!ProductStoreWorker.isStoreInventoryAvailable(request, configWrapper, 1.0)) {
-        context.productNotAvailable = "Y"
+        context.productNotAvailable = 'Y'
     }
     context.configwrapper = configWrapper
     context.configId = configWrapper.getConfigId()
     context.totalPrice = configWrapper.getTotalPrice()
-    context.renderSingleChoiceWithRadioButtons = "Y"
-    context.showOffsetPrice = "Y"
+    context.renderSingleChoiceWithRadioButtons = 'Y'
+    context.showOffsetPrice = 'Y'
 }

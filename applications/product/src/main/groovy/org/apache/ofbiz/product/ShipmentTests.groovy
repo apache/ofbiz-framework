@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-
 package org.apache.ofbiz.product
 
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -26,7 +25,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.shipment.packing.PackingSession
 
 class ShipmentTests extends OFBizTestCase {
-    public ShipmentTests(String name) {
+
+    ShipmentTests(String name) {
         super(name)
     }
 
@@ -135,7 +135,7 @@ class ShipmentTests extends OFBizTestCase {
                 .where('shipmentId', shipmentId)
                 .queryOne()
         assert shipment
-        assert 'SHIPMENT_SHIPPED'.equals(shipment.statusId)
+        assert shipment.statusId == 'SHIPMENT_SHIPPED'
     }
 
     void testReceiveInventoryNonSerialized() {
@@ -159,10 +159,10 @@ class ShipmentTests extends OFBizTestCase {
                 .where('inventoryItemId', inventoryItemId)
                 .queryOne()
         assert inventoryItem
-        assert inventoryItem.productId.equals(serviceCtx.productId)
-        assert inventoryItem.facilityId.equals(serviceCtx.facilityId)
-        assert inventoryItem.quantityOnHandTotal.compareTo(serviceCtx.quantityAccepted) == 0
-        assert inventoryItem.availableToPromiseTotal.compareTo(serviceCtx.quantityAccepted) == 0
+        assert inventoryItem.productId == serviceCtx.productId
+        assert inventoryItem.facilityId == serviceCtx.facilityId
+        assert inventoryItem.quantityOnHandTotal == serviceCtx.quantityAccepted
+        assert inventoryItem.availableToPromiseTotal == serviceCtx.quantityAccepted
 
         List inventoryItemDetails = from('InventoryItemDetail')
                 .where('inventoryItemId', inventoryItemId)
@@ -173,8 +173,8 @@ class ShipmentTests extends OFBizTestCase {
                 .where('inventoryItemId', inventoryItemId)
                 .orderBy('datetimeReceived').queryFirst()
         assert shipmentReceipt
-        assert shipmentReceipt.quantityAccepted.compareTo(serviceCtx.quantityAccepted) == 0
-        assert shipmentReceipt.productId.equals(serviceCtx.productId)
+        assert shipmentReceipt.quantityAccepted == serviceCtx.quantityAccepted
+        assert shipmentReceipt.productId == serviceCtx.productId
     }
 
     void testCreateShipmentRouteSegment() {
@@ -197,7 +197,8 @@ class ShipmentTests extends OFBizTestCase {
                 .where('shipmentId', shipment.shipmentId, 'shipmentRouteSegmentId', shipmentRouteSegmentId)
                 .queryOne()
         assert shipmentRouteSegment
-        assert '9998'.equals(shipmentRouteSegment.shipmentId)
-        assert shipmentRouteSegment.shipmentRouteSegmentId.equals(shipmentRouteSegmentId)
+        assert shipmentRouteSegment.shipmentId == '9998'
+        assert shipmentRouteSegment.shipmentRouteSegmentId == shipmentRouteSegmentId
     }
+
 }

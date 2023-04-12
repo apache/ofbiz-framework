@@ -33,27 +33,25 @@ import org.apache.ofbiz.entity.util.EntityUtil
 orderPaymentPreferenceId = context.orderPaymentPreferenceId
 
 // first purpose: retrieve orderId and paymentPreferenceId
-if (!orderPaymentPreferenceId) {
-  paymentGatewayResponse = context.paymentGatewayResponse
-  orderPaymentPreference = paymentGatewayResponse.getRelatedOne("OrderPaymentPreference", false)
-  context.orderId = orderPaymentPreference.orderId
-  context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
-} else {
+if (orderPaymentPreferenceId) {
     // second purpose: grab the latest gateway response of the orderpaymentpreferenceId
-    orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne()
-    gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, ["transactionDate DESC"], false)
-    EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"))
-    
-    if (gatewayResponses) {
+    orderPaymentPreference = from('OrderPaymentPreference').where('orderPaymentPreferenceId', orderPaymentPreferenceId).queryOne()
+    gatewayResponses = orderPaymentPreference.getRelated('PaymentGatewayResponse', null, ['transactionDate DESC'], false)
+    EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition('transCodeEnumId', EntityOperator.EQUALS, 'PGT_AUTHORIZE'))
+
+    if (gatewayResponses) {  // TODO: some kind of error telling user to re-authorize (else part)
         latestAuth = gatewayResponses[0]
         context.paymentGatewayResponse = latestAuth
-    } else {
-        // todo: some kind of error telling user to re-authorize
     }
-    
+
     context.orderId = orderPaymentPreference.orderId
+} else {
+    paymentGatewayResponse = context.paymentGatewayResponse
+    orderPaymentPreference = paymentGatewayResponse.getRelatedOne('OrderPaymentPreference', false)
+    context.orderId = orderPaymentPreference.orderId
+    context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId
 }
 // get the list of payments associated to gateway response
 if (context.paymentGatewayResponse) {
-    context.payments = context.paymentGatewayResponse.getRelated("Payment", null, null, false)
+    context.payments = context.paymentGatewayResponse.getRelated('Payment', null, null, false)
 }

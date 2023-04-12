@@ -16,14 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.ofbiz.base.util.Debug
-
 session = context.session
-menuContext = session.getAttribute("menuContext")
+menuContext = session.getAttribute('menuContext')
 
 if (!menuContext) {
     menuContext = [:]
-    session.setAttribute("menuContext", menuContext)
+    session.setAttribute('menuContext', menuContext)
 }
-context.menuContext = menuContext;
+context.menuContext = menuContext

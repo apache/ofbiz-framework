@@ -16,20 +16,20 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-
 package org.apache.ofbiz.accounting
-
-import org.apache.ofbiz.base.util.UtilDateTime;
 
 import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.IN
 import static org.apache.ofbiz.entity.condition.EntityCondition.makeCondition
+
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoPaymentTests extends OFBizTestCase {
-    public AutoPaymentTests(String name) {
+
+    AutoPaymentTests(String name) {
         super(name)
     }
 
@@ -178,7 +178,7 @@ class AutoPaymentTests extends OFBizTestCase {
         */
         Map serviceCtx = [
                 organizationPartyId: 'Company',
-                checkStartNumber: new Long('100101'),
+                checkStartNumber: 100101L,
                 invoiceIds: ['8000', '8008'],
                 paymentMethodTypeId: 'COMPANY_CHECK',
                 paymentMethodId: 'SC_CHECKING',
@@ -223,7 +223,7 @@ class AutoPaymentTests extends OFBizTestCase {
                 .where('paymentGroupId', paymentGroupId)
                 .queryList()
         GenericValue firstPaymentGroupMemberAndTrans = EntityUtil.getFirst(paymentGroupMemberAndTransList)
-        if (firstPaymentGroupMemberAndTrans && !'FINACT_TRNS_APPROVED'.equals(firstPaymentGroupMemberAndTrans.finAccountTransStatusId)) {
+        if (firstPaymentGroupMemberAndTrans && 'FINACT_TRNS_APPROVED' != firstPaymentGroupMemberAndTrans.finAccountTransStatusId) {
             for (GenericValue aymentGroupMemberAndTrans : paymentGroupMemberAndTransList) {
                 assert aymentGroupMemberAndTrans.thruDate
                 assert aymentGroupMemberAndTrans.statusId == 'PMNT_VOID'
@@ -255,7 +255,7 @@ class AutoPaymentTests extends OFBizTestCase {
                     .queryOne()
             assert finAccountTrans
             assert ['DEPOSIT', 'WITHDRAWAL'].contains(finAccountTrans.finAccountTransTypeId)
-            assert finAccountTrans.amount.compareTo(payment.amount) == 0
+            assert finAccountTrans.amount == payment.amount
         }
     }
 
@@ -285,7 +285,7 @@ class AutoPaymentTests extends OFBizTestCase {
         GenericValue finAccountTrans = from('FinAccountTrans')
                 .where('finAccountTransId', finAccountTransId)
                 .queryOne()
-        assert paymentRunningTotal.compareTo(finAccountTrans.amount) == 0
+        assert paymentRunningTotal == finAccountTrans.amount
     }
 
     // Test case for fin account trans
@@ -354,14 +354,12 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
         BigDecimal receivableDebitTotal = serviceResult.debitTotal
-        BigDecimal receivableCreditTotal = serviceResult.creditTotal
         BigDecimal receivableDebitCreditDifference = serviceResult.debitCreditDifference
 
         serviceResult.clear()
         serviceCtx.glAccountId = '112000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        BigDecimal undepositedDebitTotal = serviceResult.debitTotal
         BigDecimal undepositedCreditTotal = serviceResult.creditTotal
         BigDecimal undepositedDebitCreditDifference = serviceResult.debitCreditDifference
 
@@ -379,8 +377,8 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '120000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert serviceResult
-        assert totalReceivableDebitAmount.compareTo(serviceResult.debitTotal) == 0
-        assert totalReceivableDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalReceivableDebitAmount == serviceResult.debitTotal
+        assert totalReceivableDebitCreditDifference == serviceResult.debitCreditDifference
 
         BigDecimal totalUndepositedCreditAmount = undepositedCreditTotal.add(new BigDecimal('20'))
         BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(new BigDecimal('20'))
@@ -388,8 +386,8 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '112000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert serviceResult
-        assert totalUndepositedCreditAmount.compareTo(serviceResult.creditTotal) == 0
-        assert totalUndepositedDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalUndepositedCreditAmount == serviceResult.creditTotal
+        assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
     }
 
     // Test case to verify GL postings for Check Run process
@@ -445,7 +443,7 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceResult.clear()
         Map invoiceServiceCtx = [
                 organizationPartyId: 'Company',
-                checkStartNumber: new Long('100100'),
+                checkStartNumber: 100100L,
                 invoiceIds: ['8007'],
                 paymentMethodTypeId: 'COMPANY_CHECK',
                 paymentMethodId: 'SC_CHECKING',
@@ -456,7 +454,7 @@ class AutoPaymentTests extends OFBizTestCase {
         String paymentGroupId = serviceResult.paymentGroupId
         assert paymentGroupId
 
-        BigDecimal tempBig = new BigDecimal('36.43')
+        BigDecimal tempBig = 36.43
 
         BigDecimal totalPayableDebitAmount = tempBig.add(payableDebitTotal)
         BigDecimal totalPayableDebitCreditDifference = tempBig.add(payableDebitCreditDifference)
@@ -464,9 +462,9 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '210000'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert totalPayableDebitAmount.compareTo(serviceResult.debitTotal) == 0
-        assert payableCreditTotal.compareTo(serviceResult.creditTotal) == 0
-        assert totalPayableDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert totalPayableDebitAmount == serviceResult.debitTotal
+        assert payableCreditTotal == serviceResult.creditTotal
+        assert totalPayableDebitCreditDifference == serviceResult.debitCreditDifference
 
         BigDecimal totalUndepositedCreditAmount = tempBig.add(undepositedCreditTotal)
         BigDecimal totalUndepositedDebitCreditDifference = undepositedDebitCreditDifference.subtract(tempBig)
@@ -474,64 +472,9 @@ class AutoPaymentTests extends OFBizTestCase {
         serviceCtx.glAccountId = '111100'
         serviceResult = dispatcher.runSync('getAcctgTransEntriesAndTransTotal', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert undepositedDebitTotal.compareTo(serviceResult.debitTotal) == 0
-        assert totalUndepositedCreditAmount.compareTo(serviceResult.creditTotal) == 0
-        assert totalUndepositedDebitCreditDifference.compareTo(serviceResult.debitCreditDifference) == 0
+        assert undepositedDebitTotal == serviceResult.debitTotal
+        assert totalUndepositedCreditAmount == serviceResult.creditTotal
+        assert totalUndepositedDebitCreditDifference == serviceResult.debitCreditDifference
     }
 
-    void disabledTestUpdatePaymentMethodAddress() {
-        // Create a new Postal Address, set the bare minimum necessary, this test isn't about the postal address
-        Map serviceCtx = [
-                address1: '2003 Open Blvd',
-                city: 'Open City',
-                postalCode: '999999',
-                userLogin: userLogin
-        ]
-        Map serviceResult = dispatcher.runSync('createPartyPostalAddress', serviceCtx)
-        assert ServiceUtil.isSuccess(serviceResult)
-        String contactMechId = serviceResult.contactMechId
-
-        // Count the number of EftAccounts and CreditCards associated to the oldContactMechId, use to verify at the end
-        long noEftAccounts9000Before = from('EftAccount')
-                .where(makeCondition('contactMechId', '9000'))
-                .queryCount()
-        long noCreditCards9000Before = from('CreditCard')
-                .where(makeCondition('contactMechId', '9000'))
-                .queryCount()
-
-        // Run the actual service to be tested
-        serviceCtx.clear()
-        serviceResult.clear()
-        serviceCtx = [
-                oldContactMechId: '9000',
-                contactMechId: contactMechId,
-                userLogin: userLogin
-        ]
-        serviceResult = dispatcher.runSync('updatePaymentMethodAddress', serviceCtx)
-        assert serviceResult
-
-        // Count the number EftAccounts and CreditCards now associated with the oldContactMechId (should be zero for both)
-        long noEftAccounts9000After = from('EftAccount')
-                .where(makeCondition('contactMechId', '9000'))
-                .queryCount()
-        long noCreditCards9000After = from('CreditCard')
-                .where(makeCondition('contactMechId', '9000'))
-                .queryCount()
-
-        // Old contactMech should no longer have any payment methods associated to it
-        assert noEftAccounts9000After == 0
-        assert noCreditCards9000After == 0
-
-        // Count the number of EftAccounts and CreditCards associated to the oldContactMechId, use to verify at the end
-        long noEftAccountsNewContactMech = from('EftAccount')
-                .where(makeCondition('contactMechId', contactMechId))
-                .queryCount()
-        long noCreditCardsNewContactMech = from('CreditCard')
-                .where(makeCondition('contactMechId', contactMechId))
-                .queryCount()
-
-        // New contactMech should have the same number of payment methods as the old did
-        assert noEftAccountsNewContactMech == noEftAccounts9000Before
-        assert noCreditCardsNewContactMech == noCreditCards9000Before
-    }
 }

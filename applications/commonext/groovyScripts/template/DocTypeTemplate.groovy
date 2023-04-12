@@ -1,4 +1,3 @@
-package org.apache.ofbiz.common.template
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,11 +16,12 @@ package org.apache.ofbiz.common.template
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.ofbiz.common.template
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelUtil
 
-def getFieldTypeName(String entityName) {
+Map getFieldTypeName(String entityName) {
     return ModelUtil.lowerFirstChar(entityName) + 'Id'
 }
 
@@ -29,39 +29,39 @@ def getFieldTypeName(String entityName) {
  * For a entityTypeName and a value return the matching templating document screen
  * If no value found, do a recursive search on parentType
  */
-def getCustomScreenTemplate(String entityTypeName, String fieldTypeValue) {
-  if (!fieldTypeValue) {
-    return null
-  }
+Map getCustomScreenTemplate(String entityTypeName, String fieldTypeValue) {
+    if (!fieldTypeValue) {
+        return [:]
+    }
 
-  GenericValue tplCustScreen = from("PartyPrefDocTypeTplAndCustomScreen")
-      .where(getFieldTypeName(entityTypeName), fieldTypeValue)
-      .cache()
-      .queryFirst()
+    GenericValue tplCustScreen = from('PartyPrefDocTypeTplAndCustomScreen')
+            .where(getFieldTypeName(entityTypeName), fieldTypeValue)
+            .cache()
+            .queryFirst()
 
-  if (tplCustScreen) {
-    return tplCustScreen
-  }
+    if (tplCustScreen) {
+        return tplCustScreen
+    }
 
-  // No template found for this type, try if the parent had
-  String parentTypeValue = from(entityTypeName)
-      .where(getFieldTypeName(entityTypeName), fieldTypeValue)
-      .cache()
-      .queryFirst()
-      .parentTypeId
-  return getCustomScreenTemplate(entityTypeName, parentTypeValue)
+    // No template found for this type, try if the parent had
+    String parentTypeValue = from(entityTypeName)
+            .where(getFieldTypeName(entityTypeName), fieldTypeValue)
+            .cache()
+            .queryFirst()
+            .parentTypeId
+    return getCustomScreenTemplate(entityTypeName, parentTypeValue)
 }
 
 // first resolve the document reference passed on the context
-String entityName = ""
-String entityTypeName = ""
+String entityName = ''
+String entityTypeName = ''
 if (parameters.orderId) {
-    entityName = "OrderHeader"
-    entityTypeName = "OrderType"
+    entityName = 'OrderHeader'
+    entityTypeName = 'OrderType'
 } else if (parameters.invoiceId) {
-    entityName ="Invoice"
+    entityName = 'Invoice'
 } else if (parameters.quoteId) {
-    entityName = "Quote"
+    entityName = 'Quote'
 }
 
 // second ask for this entity the custom screen to use

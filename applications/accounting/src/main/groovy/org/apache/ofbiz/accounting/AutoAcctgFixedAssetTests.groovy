@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -25,7 +24,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgFixedAssetTests extends OFBizTestCase {
-    public AutoAcctgFixedAssetTests(String name) {
+
+    AutoAcctgFixedAssetTests(String name) {
         super(name)
     }
 
@@ -67,14 +67,14 @@ class AutoAcctgFixedAssetTests extends OFBizTestCase {
         Map serviceCtx = [
                         fixedAssetId: '1000',
                         fixedAssetStdCostTypeId: 'SETUP_COST',
-                        fromDate: UtilDateTime.toTimestamp("11/03/2016 00:00:00"),
+                        fromDate: UtilDateTime.toTimestamp('11/03/2016 00:00:00'),
                         userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('cancelFixedAssetStdCost', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue fixedAssetStdCost = from('FixedAssetStdCost')
-                .where('fixedAssetId', '1000', 'fixedAssetStdCostTypeId', 'SETUP_COST', 'fromDate', UtilDateTime.toTimestamp("11/03/2016 00:00:00"))
+                .where('fixedAssetId', '1000', 'fixedAssetStdCostTypeId', 'SETUP_COST', 'fromDate', UtilDateTime.toTimestamp('11/03/2016 00:00:00'))
                 .queryFirst()
 
         assert fixedAssetStdCost

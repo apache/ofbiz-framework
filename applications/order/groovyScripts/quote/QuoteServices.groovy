@@ -34,7 +34,7 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Set the Quote status to ordered.
  */
-def checkUpdateQuoteStatus() {
+Map checkUpdateQuoteStatus() {
     GenericValue quote = from('Quote').where(parameters).queryOne()
     if (!quote) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
@@ -47,7 +47,7 @@ def checkUpdateQuoteStatus() {
 /**
  * Get new Quote sequence Id.
  */
-def getNextQuoteId() {
+Map getNextQuoteId() {
     // Try to find PartyAcctgPreference for parameters.partyId, see if we need any special quote number sequencing
     GenericValue partyAcctgPreference = from('PartyAcctgPreference').where('partyId', parameters.partyId).queryOne()
     logInfo("In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}")
@@ -82,20 +82,19 @@ def getNextQuoteId() {
             if (quote) {
                 // Return alert if ID already exists
                 return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId], locale))
-            } else {
-                // Check the provided ID
-                String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)
-                if (errorMessage) {
-                    return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteGetNextIdError', locale) + errorMessage)
-                }
+            }
+            // Check the provided ID
+            String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)
+            if (errorMessage) {
+                return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteGetNextIdError', locale) + errorMessage)
             }
         } else {
-            quoteId = delegator.getNextSeqId("Quote")
+            quoteId = delegator.getNextSeqId('Quote')
         }
     }
 
     if (partyAcctgPreference) {
-        quoteId = "${partyAcctgPreference.quoteIdPrefix?:''}${quoteId}"
+        quoteId = "${partyAcctgPreference.quoteIdPrefix ?: ''}${quoteId}"
     }
     return [successMessage: null, quoteId: quoteId]
 }
@@ -103,12 +102,12 @@ def getNextQuoteId() {
 /**
  * Enforced Sequence (no gaps, per organization).
  */
-def quoteSequenceEnforced() {
+Map quoteSequenceEnforced() {
     logInfo('In getNextQuoteId sequence enum Enforced')
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     // This is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 
-    partyAcctgPreference.lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ? partyAcctgPreference.lastQuoteNumber + 1: new Long('1')
+    partyAcctgPreference.lastQuoteNumber = partyAcctgPreference.lastQuoteNumber ? partyAcctgPreference.lastQuoteNumber + 1 : 1L
 
     partyAcctgPreference.store()
     return [successMessage: null, quoteId: partyAcctgPreference.lastQuoteNumber]
@@ -117,7 +116,7 @@ def quoteSequenceEnforced() {
 /**
  * Create a new Quote.
  */
-def createQuote() {
+Map createQuote() {
     if (parameters.partyId
             && parameters.partyId != userLogin.partyId
             && !security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
@@ -138,7 +137,7 @@ def createQuote() {
         Map serviceResult = run service: 'getNextQuoteId', with: [partyId: productStore.payToPartyId]
         newEntity.quoteId = serviceResult.quoteId
     } else {
-        newEntity.quoteId = delegator.getNextSeqId("Quote")
+        newEntity.quoteId = delegator.getNextSeqId('Quote')
     }
 
     // Finally create the record (should not exist already).
@@ -149,7 +148,7 @@ def createQuote() {
     // This is not done if they are the same e.g. a logged in customer that is
     // creating a quote for its own sake.
     if (parameters.partyId != userLogin.partyId) {
-        Map serviceResult = run service: 'createQuoteRole', with: [
+        run service: 'createQuoteRole', with: [
             quoteId: newEntity.quoteId,
             partyId: userLogin.partyId,
             roleTypeId: 'REQ_TAKER'
@@ -158,13 +157,13 @@ def createQuote() {
 
     // Set ProductStore's payToPartyId as internal organisation for quote.
     if (productStore?.payToPartyId) {
-        Map serviceResult = run service: 'createQuoteRole', with: [
+        run service: 'createQuoteRole', with: [
             quoteId: newEntity.quoteId,
             partyId: productStore.payToPartyId,
             roleTypeId: 'INTERNAL_ORGANIZATIO'
         ]
     }
-    def msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale)
+    String msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale)
     return [successMessage: msg, quoteId: newEntity.quoteId]
 }
 
@@ -172,20 +171,18 @@ def createQuote() {
  * Update an existing quote.
  * @return quoteId
  */
-def updateQuote() {
+Map updateQuote() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuote', locale))
     }
     quoteId = parameters.quoteId
     GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
 
-    if (!parameters.statusId) {
-        parameters.statusId = quote.statusId
-    }
+    parameters.statusId = parameters.statusId ?: quote.statusId
 
     if (parameters.statusId != quote.statusId) {
         // Check if the status change is a valid change.
-        GenericValue validChange = from("StatusValidChange").where('statusId', quote.statusId, 'statusIdTo', parameters.statusId).queryOne()
+        GenericValue validChange = from('StatusValidChange').where('statusId', quote.statusId, 'statusIdTo', parameters.statusId).queryOne()
 
         if (!validChange) {
             logError("The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change")
@@ -203,7 +200,7 @@ def updateQuote() {
 /**
  * Copy an existing Quote.
  */
-def copyQuote() {
+Map copyQuote() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuote', locale))
     }
@@ -215,10 +212,11 @@ def copyQuote() {
     String quoteIdTo = serviceResult.quoteId
 
     // Copy quoteItems.
-    if ('Y' == parameters.copyQuoteItems) {
+    if (parameters.copyQuoteItems == 'Y') {
         List quoteItems = quote.getRelated('QuoteItem', null, null, false)
         for (GenericValue quoteItem : quoteItems) {
-            Map serviceContext = dctx.makeValidContext('createQuoteItem', ModelService.IN_PARAM, [*: quoteItem, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteItem', ModelService.IN_PARAM,
+                    [*: quoteItem, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteItem', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -227,11 +225,12 @@ def copyQuote() {
     }
 
     // Copy quoteAdjustments.
-    if ('Y' == parameters.copyQuoteAdjustments) {
+    if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quote.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustement : quoteAdjustments) {
             if (!quoteAdjustment.quoteItemSeqId) {
-                Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM, [*: quoteAdjustement, quoteId: quoteIdTo, userLogin: userLogin])
+                Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
+                        [*: quoteAdjustement, quoteId: quoteIdTo, userLogin: userLogin])
                 serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
@@ -241,11 +240,12 @@ def copyQuote() {
     }
 
     // Copy quoteRoles.
-    if ('Y' == parameters.copyQuoteRoles) {
+    if (parameters.copyQuoteRoles == 'Y') {
         List quoteRoles = quote.getRelated('QuoteRole', null, null, false)
         for (GenericValue quoteRole : quoteRoles) {
             if (quoteRole.roleTypeId != 'REQ_TAKER') {
-                Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM, [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
+                Map serviceContext = dctx.makeValidContext('createQuoteRole', ModelService.IN_PARAM,
+                        [*: quoteRole, quoteId: quoteIdTo, userLogin: userLogin])
                 serviceResult = dispatcher.runSync('createQuoteRole', serviceContext)
                 if (ServiceUtil.isError(serviceResult)) {
                     return serviceResult
@@ -255,10 +255,11 @@ def copyQuote() {
     }
 
     // Copy quoteAttributes.
-    if ('Y' == parameters.copyQuoteAttributes) {
+    if (parameters.copyQuoteAttributes == 'Y') {
         List quoteAttributes = quote.getRelated('QuoteAttribute', null, null, false)
         for (GenericValue quoteAttribute : quoteAttributes) {
-            Map serviceContext = dctx.makeValidContext('createQuoteAttribute', ModelService.IN_PARAM, [*: quoteAttribute, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteAttribute', ModelService.IN_PARAM,
+                    [*: quoteAttribute, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteAttribute', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -267,10 +268,11 @@ def copyQuote() {
     }
 
     // Copy quoteCoefficients.
-    if ('Y' == parameters.copyQuoteCoefficients) {
+    if (parameters.copyQuoteCoefficients == 'Y') {
         List quoteCoefficients = quote.getRelated('QuoteCoefficient', null, null, false)
         for (GenericValue quoteCoefficient : quoteCoefficients) {
-            Map serviceContext = dctx.makeValidContext('createQuoteCoefficient', ModelService.IN_PARAM, [*: quoteCoefficient, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteCoefficient', ModelService.IN_PARAM,
+                    [*: quoteCoefficient, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteCoefficient', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -279,21 +281,22 @@ def copyQuote() {
     }
 
     // Copy quoteTerms.
-    if ('Y' == parameters.copyQuoteTerms) {
+    if (parameters.copyQuoteTerms == 'Y') {
         List quoteTerms = quote.getRelated('QuoteTerm', null, null, false)
         for (GenericValue quoteTerm : quoteTerms) {
-            Map serviceContext = dctx.makeValidContext('createQuoteTerm', ModelService.IN_PARAM, [*: quoteTerm, quoteId: quoteIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteTerm', ModelService.IN_PARAM,
+                    [*: quoteTerm, quoteId: quoteIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteTerm', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
             }
         }
     }
-    def msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale);
+    String msg = UtilProperties.getMessage('OrderUiLabels', 'OrderOrderQuoteCreatedSuccessfully', locale)
     return [successMessage: msg, quoteId: quoteIdTo]
 }
 
-def ensureWorkEffortAndCreateQuoteWorkEffort() {
+Map ensureWorkEffortAndCreateQuoteWorkEffort() {
     String workEffortId = parameters.workEffortId
     if (!workEffortId) {
         Map serviceResult = run service: 'createWorkEffort', with: parameters
@@ -315,7 +318,7 @@ def ensureWorkEffortAndCreateQuoteWorkEffort() {
 /**
  * Create a new QuoteItem, calculate the quoteUnitPrice from config or productPrice if not given.
  */
-def createQuoteItem() {
+Map createQuoteItem() {
     GenericValue quote = from('Quote').where(parameters).queryOne()
     if (!quote) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteDoesNotExists', locale))
@@ -335,7 +338,8 @@ def createQuoteItem() {
         }
         if (product?.productTypeId?.startsWith('AGGREGATED')
                 && parameters.configId) {
-            ProductConfigWrapper configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, parameters.configId, product.productId, null, null, null, null, locale, userLogin)
+            ProductConfigWrapper configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, parameters.configId,
+                    product.productId, null, null, null, null, locale, userLogin)
             quoteItem.quoteUnitPrice = configWrapper.getTotalPrice()
         } else {
             Map serviceResult = run service: 'calculateProductPrice', with: [
@@ -353,7 +357,7 @@ def createQuoteItem() {
 /**
  * Update an existing QuoteItem.
  */
-def updateQuoteItem() {
+Map updateQuoteItem() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunUpdateQuoteItem', locale))
     }
@@ -371,7 +375,7 @@ def updateQuoteItem() {
 /**
  * Remove a QuoteItem.
  */
-def removeQuoteItem() {
+Map removeQuoteItem() {
     Map pksQuoteItem = [quoteId: parameters.quoteId, quoteItemSeqId: parameters.quoteItemSeqId]
     GenericValue quoteItem = from('QuoteItem').where(pksQuoteItem).queryOne()
     if (!quoteItem) {
@@ -386,7 +390,7 @@ def removeQuoteItem() {
 /**
  * Copy an existing QuoteItem.
  */
-def copyQuoteItem() {
+Map copyQuoteItem() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCopyQuoteItem', locale))
     }
@@ -404,10 +408,11 @@ def copyQuoteItem() {
         input.quoteItemSeqId = null
     }
     Map serviceResult = run service: 'createQuoteItem', with: input
-    if ('Y' == parameters.copyQuoteAdjustments) {
+    if (parameters.copyQuoteAdjustments == 'Y') {
         List quoteAdjustments = quoteItem.getRelated('QuoteAdjustment', null, null, false)
         for (GenericValue quoteAdjustment : quoteAdjustments) {
-            Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM, [*: quoteAdjustment, quoteId: parameters.quoteIdTo, quoteItemSeqId: parameters.quoteItemSeqIdTo, userLogin: userLogin])
+            Map serviceContext = dctx.makeValidContext('createQuoteAdjustment', ModelService.IN_PARAM,
+                    [*: quoteAdjustment, quoteId: parameters.quoteIdTo, quoteItemSeqId: parameters.quoteItemSeqIdTo, userLogin: userLogin])
             serviceResult = dispatcher.runSync('createQuoteAdjustment', serviceContext)
             if (ServiceUtil.isError(serviceResult)) {
                 return serviceResult
@@ -421,7 +426,7 @@ def copyQuoteItem() {
 /**
  * Create a new Quote and QuoteItem for a given CustRequest.
  */
-def createQuoteAndQuoteItemForRequest() {
+Map createQuoteAndQuoteItemForRequest() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest', locale))
     }
@@ -440,9 +445,7 @@ def createQuoteAndQuoteItemForRequest() {
         quoteName: custRequest.custRequestName,
         currencyUomId: custRequest.maximumAmountUomId
     ]
-    if (!input.statusId) {
-        input.statusId = 'QUO_CREATED'
-    }
+    input.statusId = input.statusId ?: 'QUO_CREATED'
     Map serviceResult = run service: 'createQuote', with: input
     String quoteId = serviceResult.quoteId
 
@@ -465,7 +468,7 @@ def createQuoteAndQuoteItemForRequest() {
 /**
  * Create a Quote from a ShoppingCart.
  */
-def createQuoteFromCart() {
+Map createQuoteFromCart() {
     ShoppingCart cart = (ShoppingCart) parameters.cart
 
     Map createQuoteInMap = parameters
@@ -504,15 +507,17 @@ def createQuoteFromCart() {
         }
 
         if (parameters.applyStorePromotions != 'N' || createQuoteItemInMap.isPromo != 'Y') {
-            createQuoteItemInMap.quoteId = quote.quoteId
-            createQuoteItemInMap.productId = item.getProductId()
-            createQuoteItemInMap.quantity = item.getQuantity()
-            createQuoteItemInMap.selectedAmount = item.getSelectedAmount()
-            createQuoteItemInMap.quoteUnitPrice = item.getBasePrice()
-            createQuoteItemInMap.comments = item.getItemComment()
-            createQuoteItemInMap.reservStart = item.getReservStart()
-            createQuoteItemInMap.reservLength = item.getReservLength()
-            createQuoteItemInMap.reservPersons = item.getReservPersons()
+            createQuoteItemInMap << [
+                    quoteId: quote.quoteId,
+                    productId: item.getProductId(),
+                    quantity: item.getQuantity(),
+                    selectedAmount: item.getSelectedAmount(),
+                    quoteUnitPrice: item.getBasePrice(),
+                    comments: item.getItemComment(),
+                    reservStart: item.getReservStart(),
+                    reservLength: item.getReservLength(),
+                    reservPersons: item.getReservPersons()
+            ]
 
             Map serviceQuoteItemResult = run service: 'createQuoteItem', with: createQuoteItemInMap
             //and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId)
@@ -532,7 +537,7 @@ def createQuoteFromCart() {
 /**
  * Create a Quote from a Shopping List.
  */
-def createQuoteFromShoppingList() {
+Map createQuoteFromShoppingList() {
     Map serviceResult = run service: 'loadCartFromShoppingList', with: parameters
     serviceResult = run service: 'createQuoteFromCart', with: [
         cart: serviceResult.shoppingCart,
@@ -544,7 +549,7 @@ def createQuoteFromShoppingList() {
 /**
  * Auto update a QuoteItem price.
  */
-def autoUpdateQuotePrice() {
+Map autoUpdateQuotePrice() {
     if (!security.hasEntityPermission('ORDERMGR', '_UPDATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoUpdateQuotePrice', locale))
     }
@@ -564,7 +569,7 @@ def autoUpdateQuotePrice() {
 /**
  * Create a Quote from a CustRequest.
  */
-def createQuoteFromCustRequest() {
+Map createQuoteFromCustRequest() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateQuoteFromCustRequest', locale))
     }
@@ -606,7 +611,7 @@ def createQuoteFromCustRequest() {
     List custRequestItems = from('CustRequestItem').where(exprdCond).queryList()
 
     custRequestItems.each { GenericValue custRequestItem ->
-        Map serviceCQIResult = run service: 'createQuoteItem', with: [*:custRequestItem, quoteId: quoteId]
+        run service: 'createQuoteItem', with: [*:custRequestItem, quoteId: quoteId]
     }
 
     // Roles
@@ -624,7 +629,7 @@ def createQuoteFromCustRequest() {
 /**
  * Auto create QuoteAdjustments.
  */
-def autoCreateQuoteAdjustments() {
+Map autoCreateQuoteAdjustments() {
     if (!security.hasEntityPermission('ORDERMGR', '_CREATE', userLogin)) {
         return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunAutoCreateQuoteAdjustments', locale))
     }
@@ -685,7 +690,7 @@ def autoCreateQuoteAdjustments() {
 /**
  * Create a new Note associated with a Quote
  */
-def createQuoteNote() {
+Map createQuoteNote() {
     // Passed in field will be noteInfo, which matches entity, but service expects field called note.
     Map serviceContext = dctx.makeValidContext('createNote', ModelService.IN_PARAM, [*: parameters, note: parameters.noteInfo])
     Map serviceResult = dispatcher.runSync('createNote', serviceContext)
@@ -702,9 +707,9 @@ def createQuoteNote() {
 /**
  * Create a Quote adjustment
  */
-def createQuoteAdjustment() {
+Map createQuoteAdjustment() {
     GenericValue quoteAdjustment = makeValue('QuoteAdjustment', parameters)
-    quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId("QuoteAdjustment")
+    quoteAdjustment.quoteAdjustmentId = delegator.getNextSeqId('QuoteAdjustment')
     quoteAdjustment.createdByUserLogin = userLogin.userLoginId
     quoteAdjustment.createdDate = UtilDateTime.nowTimestamp()
     quoteAdjustment.create()

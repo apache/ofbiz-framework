@@ -21,7 +21,7 @@ import org.apache.ofbiz.common.geo.GeoWorker
 
 if (partyId) {
     context.partyId = partyId
-    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null)
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'PartyAndGeoPoint', 'partyId', partyId, null, null)
     if (latestGeoPoint) {
         context.geoPointId = latestGeoPoint.geoPointId
         context.latitude = latestGeoPoint.latitude

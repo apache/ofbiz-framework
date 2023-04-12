@@ -26,7 +26,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import java.sql.Timestamp
 
 class ProductTest extends OFBizTestCase {
-    public ProductTest(String name) {
+
+    ProductTest(String name) {
         super(name)
     }
 
@@ -47,8 +48,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert internalName.equals(product.internalName)
-        assert productTypeId.equals(product.productTypeId)
+        assert internalName == product.internalName
+        assert productTypeId == product.productTypeId
     }
 
     void testUpdateProduct() {
@@ -69,8 +70,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert productName.equals(product.productName)
-        assert description.equals(product.description)
+        assert productName == product.productName
+        assert description == product.description
     }
 
     void testDuplicateProduct() {
@@ -89,9 +90,9 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productId)
                 .queryOne()
         assert product
-        assert 'Test_type'.equals(product.productTypeId)
-        assert 'Test_name_C'.equals(product.productName)
-        assert 'This is product description'.equals(product.description)
+        assert product.productTypeId == 'Test_type'
+        assert product.productName == 'Test_name_C'
+        assert product.description == 'This is product description'
     }
 
     void testQuickAddVariant() {
@@ -112,8 +113,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productId', productVariantId)
                 .queryOne()
         assert product
-        assert 'N'.equals(product.isVirtual)
-        assert 'Y'.equals(product.isVariant)
+        assert product.isVirtual == 'N'
+        assert product.isVariant == 'Y'
         assert !product.primaryProductCategoryId
 
         GenericValue productAssoc = from('ProductAssoc')
@@ -187,10 +188,10 @@ class ProductTest extends OFBizTestCase {
                 .where('productReviewId', serviceResult.productReviewId)
                 .queryOne()
         assert productReview
-        assert productId.equals(review.productId)
-        assert productStoreId.equals(review.productStoreId)
-        assert productReview.equals(review.productReview)
-        assert productRating.compareTo(review.productRating) == 0
+        assert productId == review.productId
+        assert productStoreId == review.productStoreId
+        assert productReview == review.productReview
+        assert productRating == review.productRating
     }
 
     void testUpdateProductReview() {
@@ -211,8 +212,8 @@ class ProductTest extends OFBizTestCase {
                 .where('productReviewId', productReviewId)
                 .queryOne()
         assert productReview
-        assert productReview.equals(review.productReview)
-        assert productRating.compareTo(review.productRating) == 0
+        assert productReview == review.productReview
+        assert productRating == review.productRating
     }
 
     void testFindProductById() {
@@ -232,7 +233,7 @@ class ProductTest extends OFBizTestCase {
         String productStoreGroupId = 'Test_group'
         String currencyUomId = 'USD'
         BigDecimal price = new BigDecimal('30')
-        Timestamp fromDate = UtilDateTime.toTimestamp("04/07/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('04/07/2013 00:00:00')
 
         Map serviceCtx = [
                 productId: productId,
@@ -256,7 +257,7 @@ class ProductTest extends OFBizTestCase {
                               'fromDate', fromDate)
                 .queryOne()
         assert productPrice
-        assert price.compareTo(productPrice.price) == 0
+        assert price == productPrice.price
     }
 
     void testUpdateProductPrice() {
@@ -266,7 +267,7 @@ class ProductTest extends OFBizTestCase {
         String productStoreGroupId = 'Test_group'
         String currencyUomId = 'USD'
         BigDecimal price = new BigDecimal('50')
-        Timestamp fromDate = UtilDateTime.toTimestamp("07/04/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
 
         Map serviceCtx = [
                 productId: productId,
@@ -296,7 +297,7 @@ class ProductTest extends OFBizTestCase {
         serviceCtx.price = price
         serviceResult = dispatcher.runSync('updateProductPrice', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
-        assert price.compareTo(serviceResult.oldPrice) != 0
+        assert price != serviceResult.oldPrice
 
         GenericValue productPrice = from('ProductPrice')
                 .where('productId', productId,
@@ -308,7 +309,7 @@ class ProductTest extends OFBizTestCase {
                 .queryOne()
         assert productPrice
         assert productPrice.price
-        assert price.compareTo(productPrice.price) == 0
+        assert price == productPrice.price
     }
 
     void testDeleteProductPrice() {
@@ -317,7 +318,7 @@ class ProductTest extends OFBizTestCase {
         String productPricePurposeId = 'COMPONENT_PRICE'
         String productStoreGroupId = 'Test_group'
         String currencyUomId = 'USD'
-        Timestamp fromDate = UtilDateTime.toTimestamp("07/04/2013 00:00:00")
+        Timestamp fromDate = UtilDateTime.toTimestamp('07/04/2013 00:00:00')
 
         Map serviceCtx = [
                 productId: productId,
@@ -358,6 +359,7 @@ class ProductTest extends OFBizTestCase {
                 .where('productCategoryId', productCategoryId)
                 .queryOne()
         assert productCategory
-        assert 'USAGE_CATEGORY'.equals(productCategory.productCategoryTypeId)
+        assert productCategory.productCategoryTypeId == 'USAGE_CATEGORY'
     }
+
 }

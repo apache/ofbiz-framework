@@ -20,5 +20,4 @@
 import javax.print.PrintServiceLookup
 
 printServices = PrintServiceLookup.lookupPrintServices(null, null)
-printServiceNames = printServices.collect { it.getName() }
-context.printers = printServiceNames
+context.printers = printServices*.getName()

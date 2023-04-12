@@ -21,19 +21,20 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.order.order.OrderReadHelper
 
 shipmentId = parameters.shipmentId
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 
 context.shipmentIdPar = shipment.shipmentId
 
 if (shipment) {
-    shipmentPackages = from("ShipmentPackage").where("shipmentId", shipmentId).queryList()
+    shipmentPackages = from('ShipmentPackage').where('shipmentId', shipmentId).queryList()
     records = []
     orderReaders = [:]
     shipmentPackages.each { shipmentPackage ->
-        shipmentPackageComponents = from("ShipmentPackageContent").where("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.shipmentPackageSeqId).queryList()
+        shipmentPackageComponents = from('ShipmentPackageContent')
+                .where('shipmentId', shipmentId, 'shipmentPackageSeqId', shipmentPackage.shipmentPackageSeqId).queryList()
         shipmentPackageComponents.each { shipmentPackageComponent ->
-            shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem", false)
-            orderShipments = shipmentItem.getRelated("OrderShipment", null, null, false)
+            shipmentItem = shipmentPackageComponent.getRelatedOne('ShipmentItem', false)
+            orderShipments = shipmentItem.getRelated('OrderShipment', null, null, false)
             orderShipment = EntityUtil.getFirst(orderShipments)
 
             String orderId = null
@@ -54,7 +55,7 @@ if (shipment) {
             record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId
             record.orderId = orderId
             record.orderItemSeqId = orderItemSeqId
-            product = from("Product").where("productId", record.productId).queryOne()
+            product = from('Product').where('productId', record.productId).queryOne()
             record.productName = product.internalName
             record.shipDate = shipment.estimatedShipDate
             // ---
@@ -62,7 +63,7 @@ if (shipment) {
             if (orderReaders.containsKey(orderId)) {
                 orderReadHelper = (OrderReadHelper)orderReaders.get(orderId)
             } else {
-                orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+                orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
                 orderReadHelper = new OrderReadHelper(orderHeader)
                 orderReaders.put(orderId, orderReadHelper)
             }
@@ -80,10 +81,10 @@ if (shipment) {
 
     // check permission
     hasPermission = false
-    if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+    if (security.hasEntityPermission('MANUFACTURING', '_VIEW', session)) {
         hasPermission = true
     }
     context.hasPermission = hasPermission
 }
 
-return "success"
+return 'success'

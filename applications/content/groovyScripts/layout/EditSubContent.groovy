@@ -24,14 +24,13 @@ import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
 import freemarker.template.WrappingTemplateModel
 
-
 Locale locale = UtilHttp.getLocale(request)
 if (currentValue) {
     dataResourceId = currentValue.drDataResourceId
     dataResourceTypeId = currentValue.drDataResourceTypeId
     if (dataResourceTypeId) {
         mimeTypeId = currentValue.drMimeTypeId
-        rootDir = request.getSession().getServletContext().getRealPath("/")
+        rootDir = request.getSession().getServletContext().getRealPath('/')
         wrapper = FreeMarkerWorker.getDefaultOfbizWrapper()
         WrappingTemplateModel.setDefaultObjectWrapper(wrapper)
         templateRoot = [:]
@@ -40,7 +39,7 @@ if (currentValue) {
         ctx.rootDir = rootDir
         // webSiteId and https need to go here, too
         templateRoot.context = ctx
-        currentValue.drDataTemplateTypeId = "NONE"
+        currentValue.drDataTemplateTypeId = 'NONE'
         textData = DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, templateRoot, locale, mimeTypeId, false)
         context.textData = textData
     }

@@ -17,34 +17,29 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilHttp
 
 Map paramMap = UtilHttp.getParameterMap(request)
-def rejected = false
+boolean rejected = false
 int rowCount = UtilHttp.getMultiFormRowCount(paramMap)
 if (rowCount > 1) {
     for (int i = 0; i < rowCount; i++) {
         String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i
-        if(paramMap.get("checkStatusId" +thisSuffix)){
-            def temp = paramMap.get("checkStatusId" +thisSuffix)
-            def splitTemp = temp.split("/")
-            if("IM_REJECTED".equals(splitTemp[0])){
+        if (paramMap.get('checkStatusId' + thisSuffix)) {
+            String temp = paramMap.get('checkStatusId' + thisSuffix)
+            String[] splitTemp = temp.split('/')
+            if (splitTemp[0] == 'IM_REJECTED') {
                 rejected = true
             }
         }
     }
 }
 else {
-    def temp = paramMap.get("checkStatusId_o_0")
-    def splitTemp = temp.split("/")
-    if("IM_REJECTED".equals(splitTemp[0])){
+    String temp = paramMap.get('checkStatusId_o_0')
+    String[] splitTemp = temp.split('/')
+    if (splitTemp[0] == 'IM_REJECTED') {
         rejected = true
     }
 }
 
-if(rejected){
-    return "rejected"
-}
-else {
-    return "approved"
-}
+return rejected ? 'rejected' : 'approved'

@@ -24,18 +24,19 @@ paramMap = UtilHttp.getParameterMap(request)
 contentId = context.contentId
 dataResourceId = context.dataResourceId
 
-productFeatureList = from("ProductFeature").cache(true).queryList()
+productFeatureList = from('ProductFeature').cache(true).queryList()
 featureList = [] as ArrayList
 if (dataResourceId) {
     productFeatureList.each { productFeature ->
         productFeatureId = productFeature.productFeatureId
         description = productFeature.description
-        productFeatureDataResource = from("ProductFeatureDataResource").where("productFeatureId", productFeatureId, "dataResourceId", dataResourceId).cache(true).queryOne()
+        productFeatureDataResource = from('ProductFeatureDataResource')
+                .where('productFeatureId', productFeatureId, 'dataResourceId', dataResourceId).cache(true).queryOne()
         if (productFeatureDataResource) {
             feature = []
             feature.productFeatureId = productFeatureId
             feature.dataResourceId = dataResourceId
-            feature.action = "Y"
+            feature.action = 'Y'
             feature.description = description
             featureList.add(feature)
         }

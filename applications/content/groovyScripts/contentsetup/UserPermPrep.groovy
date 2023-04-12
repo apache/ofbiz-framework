@@ -22,15 +22,15 @@ import org.apache.ofbiz.content.ContentManagementWorker
 import org.apache.ofbiz.entity.model.ModelUtil
 
 paramMap = UtilHttp.getParameterMap(request)
-forumId = ContentManagementWorker.getFromSomewhere("webSitePublishPoint", paramMap, request, context)
-blogRoles = from("RoleType").where("parentTypeId", "BLOG").cache(true).queryList()
+forumId = ContentManagementWorker.getFromSomewhere('webSitePublishPoint', paramMap, request, context)
+blogRoles = from('RoleType').where('parentTypeId', 'BLOG').cache(true).queryList()
 
 if (forumId) {
     siteRoleMap = [:]
-    for (int i=0; i < blogRoles.size(); i++) {
+    for (int i = 0; i < blogRoles.size(); i++) {
         roleType = blogRoles.get(i)
         roleTypeId = roleType.roleTypeId
-        filteredRoleList = from("ContentRole").where("contentId", forumId, "roleTypeId", roleTypeId).filterByDate().queryList()
+        filteredRoleList = from('ContentRole').where('contentId', forumId, 'roleTypeId', roleTypeId).filterByDate().queryList()
         cappedBlogRoleName = ModelUtil.dbNameToVarName(roleTypeId)
 
         filteredRoleList.each { contentRole ->
@@ -42,8 +42,8 @@ if (forumId) {
                 map.partyId = partyId
                 siteRoleMap.put(partyId, map)
             }
-            map.put( cappedBlogRoleName, "Y")
-            map.put( cappedBlogRoleName + "FromDate", fromDate)
+            map.put( cappedBlogRoleName, 'Y')
+            map.put( cappedBlogRoleName + 'FromDate', fromDate)
         }
     }
     siteList = new ArrayList(siteRoleMap.values())

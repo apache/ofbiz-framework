@@ -22,21 +22,19 @@ import org.apache.ofbiz.service.ServiceUtil
 
 /**
  * Create or update GeoPoint assigned to facility
- * @return
  */
 Map createUpdateFacilityGeoPoint() {
-    if (!parameters.geoPointId) {
-        Map serviceResult = run service: "createGeoPoint", with: parameters
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return serviceResult
-        }
-        String geoPointId = serviceResult.geoPointId
-        GenericValue facility = from("Facility").where(parameters).queryOne()
-        facility.geoPointId = geoPointId
-        facility.store()
-        return success();
-    } else {
-        Map serviceResult = run service: "updateGeoPoint", with: parameters
+    if (parameters.geoPointId) {
+        Map serviceResult = run service: 'updateGeoPoint', with: parameters
         return serviceResult
     }
+    Map serviceResult = run service: 'createGeoPoint', with: parameters
+    if (!ServiceUtil.isSuccess(serviceResult)) {
+        return serviceResult
+    }
+    String geoPointId = serviceResult.geoPointId
+    GenericValue facility = from('Facility').where(parameters).queryOne()
+    facility.geoPointId = geoPointId
+    facility.store()
+    return success()
 }

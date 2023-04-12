@@ -26,10 +26,10 @@ import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.category.CategoryContentWrapper
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
-detailScreen = "categorydetail"
+detailScreen = 'categorydetail'
 catalogName = CatalogWorker.getCatalogName(request)
 
-productCategoryId = request.getAttribute("productCategoryId") ?: parameters.category_id
+productCategoryId = request.getAttribute('productCategoryId') ?: parameters.category_id
 context.productCategoryId = productCategoryId
 
 context.productStore = ProductStoreWorker.getProductStore(request)
@@ -38,31 +38,34 @@ pageTitle = null
 metaDescription = null
 metaKeywords = null
 
-category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne()
+category = from('ProductCategory').where('productCategoryId', productCategoryId).cache(true).queryOne()
 if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen
     }
-    categoryPageTitle = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "PAGE_TITLE").cache(true).queryList()
+    categoryPageTitle = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'PAGE_TITLE').cache(true).queryList()
     if (categoryPageTitle) {
-        pageTitle = from("ElectronicText").where("dataResourceId", categoryPageTitle.get(0).dataResourceId).cache(true).queryOne()
+        pageTitle = from('ElectronicText').where('dataResourceId', categoryPageTitle.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryMetaDescription = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_DESCRIPTION").cache(true).queryList()
+    categoryMetaDescription = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'META_DESCRIPTION').cache(true).queryList()
     if (categoryMetaDescription) {
-        metaDescription = from("ElectronicText").where("dataResourceId", categoryMetaDescription.get(0).dataResourceId).cache(true).queryOne()
+        metaDescription = from('ElectronicText').where('dataResourceId', categoryMetaDescription.get(0).dataResourceId).cache(true).queryOne()
     }
-    categoryMetaKeywords = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_KEYWORD").cache(true).queryList()
+    categoryMetaKeywords = from('ProductCategoryContentAndInfo')
+            .where('productCategoryId', productCategoryId, 'prodCatContentTypeId', 'META_KEYWORD').cache(true).queryList()
     if (categoryMetaKeywords) {
-        metaKeywords = from("ElectronicText").where("dataResourceId", categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
+        metaKeywords = from('ElectronicText').where('dataResourceId', categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne()
     }
     categoryContentWrapper = new CategoryContentWrapper(category, request)
-    
-    categoryDescription = categoryContentWrapper.get("DESCRIPTION", "html")
+
+    categoryDescription = categoryContentWrapper.get('DESCRIPTION', 'html')
 
     if (pageTitle) {
         context.title = pageTitle.textData
     } else {
-        context.title = categoryContentWrapper.get("CATEGORY_NAME", "html")
+        context.title = categoryContentWrapper.get('CATEGORY_NAME', 'html')
     }
 
     if (metaDescription) {
@@ -77,7 +80,7 @@ if (category) {
         context.metaKeywords = metaKeywords.textData
     } else {
         if (categoryDescription) {
-            context.metaKeywords = categoryDescription + ", " + catalogName
+            context.metaKeywords = categoryDescription + ', ' + catalogName
         } else {
             context.metaKeywords = catalogName
         }
@@ -92,6 +95,6 @@ if (templatePathPrefix) {
 }
 context.detailScreen = detailScreen
 
-request.setAttribute("productCategoryId", productCategoryId)
-request.setAttribute("defaultViewSize", 10)
-request.setAttribute("limitView", true)
+request.setAttribute('productCategoryId', productCategoryId)
+request.setAttribute('defaultViewSize', 10)
+request.setAttribute('limitView', true)

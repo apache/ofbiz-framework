@@ -21,20 +21,21 @@
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.apache.ofbiz.entity.util.EntityUtil
+
+import org.apache.ofbiz.entity.GenericValue
 
 // Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
 // The separateRootType function will return the list of category of given catalog.
 // PLEASE NOTE : The structure of the list of separateRootType function is according to the JSON_DATA plugin of the jsTree.
 
-List separateRootType(roots) {
-    if(roots) {
+List separateRootType(List<GenericValue> roots) {
+    if (roots) {
         prodRootTypeTree = []
         roots.each { root ->
             prodCateMap = [:]
-            productCategory = root.getRelatedOne("ProductCategory", false)
-            prodCateMap.productCategoryId = productCategory.getString("productCategoryId")
-            prodCateMap.categoryName = productCategory.getString("categoryName")
+            productCategory = root.getRelatedOne('ProductCategory', false)
+            prodCateMap.productCategoryId = productCategory.getString('productCategoryId')
+            prodCateMap.categoryName = productCategory.getString('categoryName')
             prodCateMap.isCatalog = false
             prodCateMap.isCategoryType = true
             prodRootTypeTree.add(prodCateMap)
@@ -45,15 +46,15 @@ List separateRootType(roots) {
 
 completedTree =  []
 // Get the Catalogs
-prodCatalogs = from("ProdCatalog").queryList()
+prodCatalogs = from('ProdCatalog').queryList()
 if (prodCatalogs) {
     prodCatalogs.each { prodCatalog ->
         prodCatalogMap = [:]
-        prodCatalogMap.productCategoryId = prodCatalog.getString("prodCatalogId")
-        prodCatalogMap.categoryName = prodCatalog.getString("catalogName")
+        prodCatalogMap.productCategoryId = prodCatalog.getString('prodCatalogId')
+        prodCatalogMap.categoryName = prodCatalog.getString('catalogName')
         prodCatalogMap.isCatalog = true
         prodCatalogMap.isCategoryType = false
-        prodCatalogCategories = from("ProdCatalogCategory").where("prodCatalogId", prodCatalog.prodCatalogId).filterByDate().queryList()
+        prodCatalogCategories = from('ProdCatalogCategory').where('prodCatalogId', prodCatalog.prodCatalogId).filterByDate().queryList()
         if (prodCatalogCategories) {
             prodCatalogMap.child = separateRootType(prodCatalogCategories)
         }

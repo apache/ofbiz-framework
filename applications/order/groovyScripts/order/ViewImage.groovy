@@ -19,16 +19,16 @@
 
 import org.apache.ofbiz.order.order.OrderContentWrapper
 
-orderId = request.getParameter("orderId")
-orderItemSeqId = request.getParameter("orderItemSeqId")
-orderContentTypeId = request.getParameter("orderContentTypeId")
+orderId = request.getParameter('orderId')
+orderItemSeqId = request.getParameter('orderItemSeqId')
+orderContentTypeId = request.getParameter('orderContentTypeId')
 
 order = null
 if (orderId && !orderItemSeqId) {
-    order = from("OrderHeader").where("orderId", orderId).queryOne()
+    order = from('OrderHeader').where('orderId', orderId).queryOne()
 }
 if (orderId && orderItemSeqId) {
-    order = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne()
+    order = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
 }
 
 wrapper = OrderContentWrapper.makeOrderContentWrapper(order, request)

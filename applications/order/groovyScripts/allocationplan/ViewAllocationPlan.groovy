@@ -16,16 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.math.RoundingMode
 
-import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.party.PartyHelper
 
+import java.math.RoundingMode
+
 planId = parameters.planId
 allocationPlanInfo = [:]
-allocationPlanHeader = from("AllocationPlanHeader").where("planId", planId).queryFirst()
+allocationPlanHeader = from('AllocationPlanHeader').where('planId', planId).queryFirst()
 if (allocationPlanHeader) {
     allocationPlanInfo.planId = planId
     allocationPlanInfo.planName = allocationPlanHeader.planName
@@ -35,7 +34,7 @@ if (allocationPlanHeader) {
     allocationPlanInfo.createdDate = allocationPlanHeader.createdStamp
 
     //Get product information
-    product = from("Product").where("productId", allocationPlanHeader.productId).queryOne()
+    product = from('Product').where('productId', allocationPlanHeader.productId).queryOne()
     if (product) {
         allocationPlanInfo.productName = product.internalName
     }
@@ -44,11 +43,11 @@ if (allocationPlanHeader) {
     // are obtained (calling the "getInventoryAvailableByFacility" service)
     totalATP = 0
     totalQOH = 0
-    facilityList = from("ProductFacility").where("productId", allocationPlanHeader.productId).queryList()
+    facilityList = from('ProductFacility').where('productId', allocationPlanHeader.productId).queryList()
     facilityIterator = facilityList.iterator()
     while (facilityIterator) {
         facility = facilityIterator.next()
-        result = runService('getInventoryAvailableByFacility', [productId : allocationPlanHeader.productId, facilityId : facility.facilityId])
+        result = runService('getInventoryAvailableByFacility', [productId: allocationPlanHeader.productId, facilityId: facility.facilityId])
         totalATP = totalATP + result.availableToPromiseTotal
         totalQOH = totalQOH + result.quantityOnHandTotal
     }
@@ -63,7 +62,8 @@ if (allocationPlanHeader) {
     allocatedQuantityTotal = 0.0
     allocatedValueTotal = 0.0
 
-    allocationPlanItems = from("AllocationPlanAndItem").where("planId", planId, "productId", allocationPlanInfo.productId).orderBy("prioritySeqId").queryList()
+    allocationPlanItems = from('AllocationPlanAndItem')
+            .where('planId', planId, 'productId', allocationPlanInfo.productId).orderBy('prioritySeqId').queryList()
     allocationPlanItems.each { allocationPlanItem ->
         newSummaryMap = [:]
         itemMap = [:]
@@ -76,10 +76,10 @@ if (allocationPlanHeader) {
         itemMap.productId = allocationPlanItem.productId
         itemMap.statusId = allocationPlanItem.planItemStatusId
 
-        orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()
+        orderHeader = from('OrderHeader').where('orderId', orderId).queryOne()
         if (orderHeader) {
             salesChannelEnumId = orderHeader.salesChannelEnumId
-            salesChannel = from("Enumeration").where("enumId", salesChannelEnumId).queryOne()
+            salesChannel = from('Enumeration').where('enumId', salesChannelEnumId).queryOne()
             if (salesChannel) {
                 itemMap.salesChannel = salesChannel.description
                 newSummaryMap.salesChannel = salesChannel.description
@@ -91,7 +91,7 @@ if (allocationPlanHeader) {
                 itemMap.partyName = PartyHelper.getPartyName(placingParty)
             }
 
-            orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne()
+            orderItem = from('OrderItem').where('orderId', orderId, 'orderItemSeqId', orderItemSeqId).queryOne()
             unitPrice = 0
             orderedQuantity = 0
             if (orderItem) {
@@ -103,7 +103,7 @@ if (allocationPlanHeader) {
                 } else {
                     orderedQuantity = quantity
                 }
-                orderedValue = orderedQuantity.multiply(unitPrice);
+                orderedValue = orderedQuantity * unitPrice
                 orderedQuantityTotal = orderedQuantityTotal.add(orderedQuantity)
                 orderedValueTotal = orderedValueTotal.add(orderedValue)
                 itemMap.orderedQuantity = orderedQuantity
@@ -113,10 +113,10 @@ if (allocationPlanHeader) {
 
                 // Reserved quantity
                 reservedQuantity = 0
-                reservations = orderItem.getRelated("OrderItemShipGrpInvRes", null, null, false)
+                reservations = orderItem.getRelated('OrderItemShipGrpInvRes', null, null, false)
                 reservations.each { reservation ->
-                    quantityAvailable = reservation.quantity?reservation.quantity:0.0
-                    quantityNotAvailable = reservation.quantityNotAvailable?reservation.quantityNotAvailable:0.0
+                    quantityAvailable = reservation.quantity ? reservation.quantity : 0.0
+                    quantityNotAvailable = reservation.quantityNotAvailable ? reservation.quantityNotAvailable : 0.0
                     reservedQuantity += (quantityAvailable - quantityNotAvailable)
                 }
                 reservedQuantityTotal = reservedQuantityTotal.add(reservedQuantity)
@@ -127,7 +127,7 @@ if (allocationPlanHeader) {
             }
             allocatedQuantity = allocationPlanItem.allocatedQuantity
             if (allocatedQuantity) {
-                allocatedValue = allocatedQuantity.multiply(unitPrice);
+                allocatedValue = allocatedQuantity * unitPrice
                 allocatedQuantityTotal = allocatedQuantityTotal.add(allocatedQuantity)
                 allocatedValueTotal = allocatedValueTotal.add(allocatedValue)
                 itemMap.allocatedQuantity = allocatedQuantity
@@ -138,7 +138,7 @@ if (allocationPlanHeader) {
 
             allocationPercentage = 0.0
             if (allocatedQuantity && allocatedQuantity != 0 && orderedQuantity != 0) {
-                allocationPercentage = (allocatedQuantity.divide(orderedQuantity, 2, RoundingMode.HALF_UP)).multiply(100)
+                allocationPercentage = (allocatedQuantity.divide(orderedQuantity, 2, RoundingMode.HALF_UP)) * 100
             }
             itemMap.allocationPercentage = allocationPercentage
             newSummaryMap.allocationPercentage = allocationPercentage
@@ -148,24 +148,22 @@ if (allocationPlanHeader) {
                 existingSummaryMap.orderedQuantity += newSummaryMap.orderedQuantity
                 existingSummaryMap.orderedValue += newSummaryMap.orderedValue
                 if (existingSummaryMap.allocatedQuantity) {
-                    if (!newSummaryMap.allocatedQuantity) {
-                        newSummaryMap.allocatedQuantity = 0
-                    }
+                    newSummaryMap.allocatedQuantity = newSummaryMap.allocatedQuantity ?: 0
                     existingSummaryMap.allocatedQuantity += newSummaryMap.allocatedQuantity
                 } else {
                     existingSummaryMap.allocatedQuantity = newSummaryMap.allocatedQuantity
                 }
                 if (existingSummaryMap.allocatedValue) {
-                    if (!newSummaryMap.allocatedValue) {
-                        newSummaryMap.allocatedValue = 0
-                    }
+                    newSummaryMap.allocatedValue = newSummaryMap.allocatedValue ?: 0
                     existingSummaryMap.allocatedValue += newSummaryMap.allocatedValue
                 } else {
                     existingSummaryMap.allocatedValue = newSummaryMap.allocatedValue
                 }
                 allocationPercentage = 0.0
-                if (existingSummaryMap.orderedQuantity && existingSummaryMap.orderedQuantity != 0 && existingSummaryMap.allocatedQuantity && existingSummaryMap.allocatedQuantity != 0) {
-                    allocationPercentage = (existingSummaryMap.allocatedQuantity.divide(existingSummaryMap.orderedQuantity, 2, RoundingMode.HALF_UP)).multiply(100)
+                if (existingSummaryMap.orderedQuantity && existingSummaryMap.orderedQuantity != 0
+                        && existingSummaryMap.allocatedQuantity && existingSummaryMap.allocatedQuantity != 0) {
+                    allocationPercentage = (existingSummaryMap.allocatedQuantity
+                            .divide(existingSummaryMap.orderedQuantity, 2, RoundingMode.HALF_UP)) * 100
                 }
                 existingSummaryMap.allocationPercentage = allocationPercentage
                 summaryMap.put(salesChannelEnumId, existingSummaryMap)
@@ -177,7 +175,7 @@ if (allocationPlanHeader) {
     }
     allocationPercentageTotal = 0.0
     if (orderedQuantityTotal != 0.0 && allocatedQuantityTotal != 0.0) {
-        allocationPercentageTotal = (allocatedQuantityTotal.divide(orderedQuantityTotal, 2, RoundingMode.HALF_UP)).multiply(100)
+        allocationPercentageTotal = (allocatedQuantityTotal.divide(orderedQuantityTotal, 2, RoundingMode.HALF_UP)) * 100
     }
     allocationPlanInfo.orderedQuantityTotal = orderedQuantityTotal
     allocationPlanInfo.orderedValueTotal = orderedValueTotal

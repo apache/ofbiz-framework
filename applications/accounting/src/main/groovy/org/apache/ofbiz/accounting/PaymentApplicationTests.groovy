@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
@@ -27,16 +26,16 @@ import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.order.order.OrderReadHelper
 
 class PaymentApplicationTests extends OFBizTestCase {
-    
-    public PaymentApplicationTests(String name) {
+
+    PaymentApplicationTests(String name) {
         super(name)
     }
 
     void testInvoiceAppl() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.invoiceId = "appltest10000"
-        serviceInMap.paymentId = "appltest10000"
+        serviceInMap.invoiceId = 'appltest10000'
+        serviceInMap.paymentId = 'appltest10000'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -63,8 +62,8 @@ class PaymentApplicationTests extends OFBizTestCase {
 
     void testToPayment() {
         Map serviceInMap = [:]
-        serviceInMap.paymentId = "appltest10000"
-        serviceInMap.toPaymentId = "appltest10001"
+        serviceInMap.paymentId = 'appltest10000'
+        serviceInMap.toPaymentId = 'appltest10001'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -94,8 +93,8 @@ class PaymentApplicationTests extends OFBizTestCase {
     void testBillingAppl() {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.paymentId = "appltest10000"
-        serviceInMap.billingAccountId = "appltest10000"
+        serviceInMap.paymentId = 'appltest10000'
+        serviceInMap.billingAccountId = 'appltest10000'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -109,7 +108,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         GenericValue payment = from('Payment').where('paymentId', serviceInMap.paymentId).queryOne()
         assert payment
 
-        assert paymentApplication !=null
+        assert paymentApplication != null
         assert paymentApplication.billingAccountId == serviceInMap.billingAccountId
         assert paymentApplication.paymentId == serviceInMap.paymentId
         assert paymentApplication.amountApplied == payment.amount
@@ -117,7 +116,7 @@ class PaymentApplicationTests extends OFBizTestCase {
         notAppliedPayment = PaymentWorker.getPaymentNotApplied(delegator, serviceInMap.paymentId)
 
         GenericValue billingAccount = from('BillingAccount').where('billingAccountId', serviceInMap.billingAccountId).queryOne()
-        BigDecimal appliedBillling= OrderReadHelper.getBillingAccountBalance(billingAccount)
+        BigDecimal appliedBillling = OrderReadHelper.getBillingAccountBalance(billingAccount)
         assert appliedBillling
 
         assert notAppliedPayment == BigDecimal.ZERO
@@ -127,8 +126,8 @@ class PaymentApplicationTests extends OFBizTestCase {
     void testTaxGeoId () {
         Map serviceInMap = [:]
         //from the test data
-        serviceInMap.paymentId = "appltest10000"
-        serviceInMap.taxAuthGeoId = "UT"
+        serviceInMap.paymentId = 'appltest10000'
+        serviceInMap.taxAuthGeoId = 'UT'
         serviceInMap.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPaymentApplication', serviceInMap)
         assert ServiceUtil.isSuccess(serviceResult)

@@ -17,26 +17,11 @@
  * under the License.
  */
 
-import java.util.ArrayList
-import java.util.HashMap
-import java.util.Iterator
-import java.util.List
-import java.util.Map
-import java.sql.Timestamp
-
-import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.service.DispatchContext
-import org.apache.ofbiz.service.ModelService
-import org.apache.ofbiz.service.ModelParam
-import org.apache.ofbiz.service.RunningService
-import org.apache.ofbiz.service.engine.GenericEngine
 import org.apache.ofbiz.service.config.ServiceConfigUtil
 
 savedSyncResult = null
-if (session.getAttribute("_SAVED_SYNC_RESULT_") != null) {
-    savedSyncResult = session.getAttribute("_SAVED_SYNC_RESULT_")
+if (session.getAttribute('_SAVED_SYNC_RESULT_') != null) {
+    savedSyncResult = session.getAttribute('_SAVED_SYNC_RESULT_')
 }
 
 serviceName = parameters.SERVICE_NAME
@@ -48,7 +33,7 @@ e = request.getParameterNames()
 while (e.hasMoreElements()) {
     paramName = e.nextElement()
     paramValue = parameters[paramName]
-    scheduleOptions.add([name : paramName, value : paramValue])
+    scheduleOptions.add([name: paramName, value: paramValue])
 }
 
 context.scheduleOptions = scheduleOptions
@@ -69,9 +54,10 @@ if (serviceName) {
             }
             serviceParam = null
             if (savedSyncResult?.get(par.name)) {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)]
+                serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N',
+                                defaultValue: par.defaultValue, value: savedSyncResult.get(par.name)]
             } else {
-                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue]
+                serviceParam = [name: par.name, type: par.type, optional: par.optional ? 'Y' : 'N', defaultValue: par.defaultValue]
             }
             serviceParameters.add(serviceParam)
         }

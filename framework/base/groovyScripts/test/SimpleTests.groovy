@@ -18,13 +18,13 @@
  *******************************************************************************/
 import org.apache.ofbiz.testtools.GroovyScriptTestCase
 
-class BaseTest extends GroovyScriptTestCase {
-    void testTrue() {
-        assert 1, 1
-    }
+/**
+ * Class validating groovyScripts test engine.
+ */
+class SimpleTests extends GroovyScriptTestCase {
 
-    void testFalse() {
-        assertNotSame 1, 0
+    void testTrue() {
+        assert 1 + 1 == 2
     }
 
     void testDelegator() {
@@ -38,4 +38,5 @@ class BaseTest extends GroovyScriptTestCase {
     void testSecurity() {
         assert security
     }
+
 }

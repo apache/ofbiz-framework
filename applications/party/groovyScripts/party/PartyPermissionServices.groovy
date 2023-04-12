@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,9 +26,9 @@ import org.apache.ofbiz.entity.GenericValue
 /**
  * Party Manager base permission logic
  */
-def basePermissionCheck() {
-    parameters.primaryPermission = "PARTYMGR"
-    Map serviceResult = run service: "genericBasePermissionCheck", with: parameters
+Map basePermissionCheck() {
+    parameters.primaryPermission = 'PARTYMGR'
+    Map serviceResult = run service: 'genericBasePermissionCheck', with: parameters
     return serviceResult
 }
 
@@ -36,7 +36,7 @@ def basePermissionCheck() {
 /**
  * Party ID Permission Check
  */
-def partyIdPermissionCheck(Map parameters) {
+Map partyIdPermissionCheck(Map parameters) {
     Map result = success()
     Boolean hasPermission
     String partyId = parameters.partyId
@@ -44,12 +44,10 @@ def partyIdPermissionCheck(Map parameters) {
     if (partyId && userLogin.partyId && partyId == userLogin.partyId) {
         hasPermission = true
     } else {
-        String resourceDescription = parameters.resourceDescription
-        if (!resourceDescription) {
-            resourceDescription = UtilProperties.getPropertyValue("CommonUiLabels", "CommonPermissionThisOperation")
-        }
-        String failMessage = UtilProperties.getMessage("PartyUiLabels",
-                "PartyPermissionErrorPartyId", [resourceDescription: resourceDescription], parameters.locale)
+        String resourceDescription = parameters.resourceDescription ?: UtilProperties.getPropertyValue('CommonUiLabels',
+                'CommonPermissionThisOperation')
+        String failMessage = UtilProperties.getMessage('PartyUiLabels',
+                'PartyPermissionErrorPartyId', [resourceDescription: resourceDescription], parameters.locale)
         hasPermission = false
         result.failMessage = failMessage
     }
@@ -62,8 +60,8 @@ def partyIdPermissionCheck(Map parameters) {
 /**
  * Base Permission Plus Party ID Permission Check
  */
-def basePlusPartyIdPermissionCheck() {
-    Map result = run service: "basePermissionCheck", with: parameters
+Map basePlusPartyIdPermissionCheck() {
+    Map result = run service: 'basePermissionCheck', with: parameters
     if (!result.hasPermission) {
         result = partyIdPermissionCheck(parameters)
     }
@@ -77,7 +75,7 @@ def basePlusPartyIdPermissionCheck() {
 /**
  * Party status permission logic
  */
-def partyStatusPermissionCheck() {
+Map partyStatusPermissionCheck() {
     Map result = success()
     Boolean hasPermission = false
     if (parameters.partyId && parameters.partyId == userLogin.partyId) {
@@ -85,8 +83,8 @@ def partyStatusPermissionCheck() {
         result.hasPermission = hasPermission
     }
     if (!hasPermission) {
-        parameters.altPermission = "PARTYMGR_STS"
-        result = run service: "basePermissionCheck", with: parameters
+        parameters.altPermission = 'PARTYMGR_STS'
+        result = run service: 'basePermissionCheck', with: parameters
     }
     return result
 }
@@ -96,9 +94,9 @@ def partyStatusPermissionCheck() {
 /**
  * Party group permission logic
  */
-def partyGroupPermissionCheck() {
-    parameters.altPermission = "PARTYMGR_GRP"
-    Map result = run service: "partyStatusPermissionCheck", with: parameters
+Map partyGroupPermissionCheck() {
+    parameters.altPermission = 'PARTYMGR_GRP'
+    Map result = run service: 'partyStatusPermissionCheck', with: parameters
     return result
 }
 
@@ -106,9 +104,9 @@ def partyGroupPermissionCheck() {
 /**
  * Party datasource permission logic
  */
-def partyDatasourcePermissionCheck() {
-    parameters.altPermission = "PARTYMGR_SRC"
-    Map result = run service: "basePermissionCheck", with: parameters
+Map partyDatasourcePermissionCheck() {
+    parameters.altPermission = 'PARTYMGR_SRC'
+    Map result = run service: 'basePermissionCheck', with: parameters
     return result
 }
 
@@ -116,9 +114,9 @@ def partyDatasourcePermissionCheck() {
 /**
  * Party role permission logic
  */
-def partyRolePermissionCheck() {
-    parameters.altPermission = "PARTYMGR_ROLE"
-    Map result = run service: "partyStatusPermissionCheck", with: parameters
+Map partyRolePermissionCheck() {
+    parameters.altPermission = 'PARTYMGR_ROLE'
+    Map result = run service: 'partyStatusPermissionCheck', with: parameters
     return result
 }
 
@@ -126,14 +124,14 @@ def partyRolePermissionCheck() {
 /**
  * Party relationship permission logic
  */
-def partyRelationshipPermissionCheck() {
+Map partyRelationshipPermissionCheck() {
     Map result = success()
-    if (!parameters.partyIdFrom) {
+    if (parameters.partyIdFrom) {
+        parameters.altPermission = 'PARTYMGR_REL'
+        result = run service: 'basePermissionCheck', with: parameters
+    } else {
         parameters.partyIdFrom = userLogin.partyId
         result.hasPermission = true
-    } else {
-        parameters.altPermission = "PARTYMGR_REL"
-        result = run service: "basePermissionCheck", with: parameters
     }
     return result
 }
@@ -143,14 +141,14 @@ def partyRelationshipPermissionCheck() {
 /**
  * Party contact mech permission logic
  */
-def partyContactMechPermissionCheck() {
+Map partyContactMechPermissionCheck() {
     Map result = success()
     if (!parameters.partyId || userLogin.partyId == parameters.partyId) {
         Boolean hasPermission = true
         result.hasPermission = hasPermission
     } else {
-        parameters.altPermission = "PARTYMGR_PCM"
-        result = run service: "basePermissionCheck", with: parameters
+        parameters.altPermission = 'PARTYMGR_PCM'
+        result = run service: 'basePermissionCheck', with: parameters
     }
     return result
 }
@@ -159,39 +157,38 @@ def partyContactMechPermissionCheck() {
 /**
  * Accept and Decline PartyInvitation Permission Logic
  */
-def accAndDecPartyInvitationPermissionCheck() {
+Map accAndDecPartyInvitationPermissionCheck() {
     Map result = success()
     Boolean hasPermission = false
-    if (security.hasEntityPermission("PARTYMGR_UPDATE", "_UPDATE", parameters.userLogin)) {
+    if (security.hasEntityPermission('PARTYMGR_UPDATE', '_UPDATE', parameters.userLogin)) {
         hasPermission = true
         result.hasPermission = hasPermission
     }
     if (!hasPermission) {
-        GenericValue partyInvitation = from("PartyInvitation").where(parameters).queryOne()
-        if (!partyInvitation?.partyId) {
-            if (!partyInvitation?.emailAddress) {
-                return error(UtilProperties.getMessage("PartyUiLabels",
-                        "PartyInvitationNotValidError", parameters.locale))
-            } else {
-                Map serviceResult = run service: "findPartyFromEmailAddress", with: [address: partyInvitation.emailAddress]
-                String partyId = serviceResult.partyId
-                if (partyId && partyId == userLogin.partyId) {
-                    hasPermission = true
-                    result.hasPermission = hasPermission
-                } else {
-                    return error(UtilProperties.getMessage("PartyUiLabels",
-                            "PartyInvitationNotValidError", parameters.locale))
-                }
-            }
-        } else {
+        GenericValue partyInvitation = from('PartyInvitation').where(parameters).queryOne()
+        if (partyInvitation?.partyId) {
             if (partyInvitation.partyId == userLogin.partyId) {
                 hasPermission = true
                 result.hasPermission = hasPermission
             }
+        } else {
+            if (!partyInvitation?.emailAddress) {
+                return error(UtilProperties.getMessage('PartyUiLabels',
+                        'PartyInvitationNotValidError', parameters.locale))
+            }
+            Map serviceResult = run service: 'findPartyFromEmailAddress', with: [address: partyInvitation.emailAddress]
+            String partyId = serviceResult.partyId
+            if (partyId && partyId == userLogin.partyId) {
+                hasPermission = true
+                result.hasPermission = hasPermission
+            } else {
+                return error(UtilProperties.getMessage('PartyUiLabels',
+                        'PartyInvitationNotValidError', parameters.locale))
+            }
         }
     }
     if (!hasPermission) {
-        String failMessage = UtilProperties.getMessage("PartyUiLabels", "PartyInvitationAccAndDecPermissionError", parameters.locale)
+        String failMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationAccAndDecPermissionError', parameters.locale)
         logWarning(failMessage)
         result.failMessage = failMessage
         result.hasPermission = hasPermission
@@ -203,51 +200,50 @@ def accAndDecPartyInvitationPermissionCheck() {
 /**
  * Cancel PartyInvitation Permission Logic
  */
-def cancelPartyInvitationPermissionCheck() {
+Map cancelPartyInvitationPermissionCheck() {
     Map result = success()
     Boolean hasPermission = false
-    if (security.hasEntityPermission("PARTYMGR_UPDATE", "_UPDATE", parameters.userLogin)) {
+    if (security.hasEntityPermission('PARTYMGR_UPDATE', '_UPDATE', parameters.userLogin)) {
         hasPermission = true
         result.hasPermission = hasPermission
     }
     if (!hasPermission) {
-        GenericValue partyInvitation = from("PartyInvitation").where(parameters).queryOne()
+        GenericValue partyInvitation = from('PartyInvitation').where(parameters).queryOne()
         if (partyInvitation?.partyIdFrom
                 && partyInvitation.partyIdFrom == userLogin.partyId) {
             hasPermission = true
             result.hasPermission = hasPermission
         }
         if (!hasPermission) {
-            if (!partyInvitation?.partyId) {
-                if (!partyInvitation?.emailAddress) {
-                    String errorMessage = UtilProperties.getMessage("PartyUiLabels", "PartyInvitationNotValidError", parameters.locale)
-                    logError(errorMessage)
-                    return error(errorMessage)
-                } else {
-                    Map findPartyCtx = [address: partyInvitation.emailAddress]
-                    Map serviceResult = run service: "findPartyFromEmailAddress", with: findPartyCtx
-                    String partyId = serviceResult.partyId
-                    if (partyId) {
-                        if (partyId == userLogin.partyId) {
-                            hasPermission = true
-                            result.hasPermission = hasPermission
-                        }
-                    } else {
-                        String errorMessage = UtilProperties.getMessage("PartyUiLabels", "PartyInvitationNotValidError", parameters.locale)
-                        logError(errorMessage)
-                        return error(errorMessage)
-                    }
-                }
-            } else {
+            if (partyInvitation?.partyId) {
                 if (partyInvitation?.partyId == userLogin.partyId) {
                     hasPermission = true
                     result.hasPermission = hasPermission
+                }
+            } else {
+                if (!partyInvitation?.emailAddress) {
+                    String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
+                    logError(errorMessage)
+                    return error(errorMessage)
+                }
+                Map findPartyCtx = [address: partyInvitation.emailAddress]
+                Map serviceResult = run service: 'findPartyFromEmailAddress', with: findPartyCtx
+                String partyId = serviceResult.partyId
+                if (partyId) {
+                    if (partyId == userLogin.partyId) {
+                        hasPermission = true
+                        result.hasPermission = hasPermission
+                    }
+                } else {
+                    String errorMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationNotValidError', parameters.locale)
+                    logError(errorMessage)
+                    return error(errorMessage)
                 }
             }
         }
     }
     if (!hasPermission) {
-        String failMessage = UtilProperties.getMessage("PartyUiLabels", "PartyInvitationCancelPermissionError", parameters.locale)
+        String failMessage = UtilProperties.getMessage('PartyUiLabels', 'PartyInvitationCancelPermissionError', parameters.locale)
         logWarning(failMessage)
         result.failMessage = failMessage
         result.hasPermission = hasPermission
@@ -260,21 +256,21 @@ def cancelPartyInvitationPermissionCheck() {
 /**
  * Communication Event permission logic
  */
-def partyCommunicationEventPermissionCheck() {
+Map partyCommunicationEventPermissionCheck() {
     Map result = success()
-    if (parameters.communicationEventTypeId == "EMAIL_COMMUNICATION" && parameters.mainAction == "CREATE") {
-        parameters.altPermission = "PARTYMGR_CME-EMAIL"
-    } else if (parameters.communicationEventTypeId == "COMMENT_NOTE" && parameters.mainAction == "CREATE") {
-        parameters.altPermission = "PARTYMGR_CME-NOTE"
+    if (parameters.communicationEventTypeId == 'EMAIL_COMMUNICATION' && parameters.mainAction == 'CREATE') {
+        parameters.altPermission = 'PARTYMGR_CME-EMAIL'
+    } else if (parameters.communicationEventTypeId == 'COMMENT_NOTE' && parameters.mainAction == 'CREATE') {
+        parameters.altPermission = 'PARTYMGR_CME-NOTE'
     } else if (parameters.partyIdFrom != userLogin.partyId
             && parameters.partyIdTo != userLogin.partyId
             && parameters.partyId != userLogin.partyId) { // <- update role
-        parameters.altPermission = "PARTYMGR_CME"
+        parameters.altPermission = 'PARTYMGR_CME'
     } else {
         result.hasPermission = true
     }
     if (!result.hasPermission) {
-        result = run service: "basePermissionCheck", with: parameters
+        result = run service: 'basePermissionCheck', with: parameters
     }
     return result
 }

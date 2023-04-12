@@ -17,8 +17,9 @@
  * under the License.
  */
 
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.entity.condition.*
 
 facilityId = parameters.facilityId
 
@@ -27,18 +28,18 @@ productId = parameters.productId ? parameters.productId.trim() : null
 internalName = parameters.internalName ? parameters.internalName.trim() : null
 
 // build conditions
-conditions = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-              EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM")
+conditions = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
+              EntityCondition.makeCondition('inventoryItemTypeId', EntityOperator.EQUALS, 'NON_SERIAL_INV_ITEM')
              ]
 if (productId) {
-    conditions.add(EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId + "%"))
+    conditions.add(EntityCondition.makeCondition('productId', EntityOperator.LIKE, productId + '%'))
 }
 if (internalName) {
-    conditions.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, internalName + "%"))
+    conditions.add(EntityCondition.makeCondition('internalName', EntityOperator.LIKE, internalName + '%'))
 }
 
 if (conditions.size() > 2) {
-    physicalInventory = from("ProductInventoryItem").where(conditions).orderBy("productId").queryList()
+    physicalInventory = from('ProductInventoryItem').where(conditions).orderBy('productId').queryList()
 
     // also need the overal product QOH and ATP for each product
     atpMap = [:]
@@ -52,7 +53,7 @@ if (conditions.size() > 2) {
 
     // for each product, call the inventory counting service
     productIds.each { productId ->
-        result = runService('getInventoryAvailableByFacility', [facilityId : facilityId, productId : productId])
+        result = runService('getInventoryAvailableByFacility', [facilityId: facilityId, productId: productId])
         if (ServiceUtil.isSuccess(result)) {
             atpMap.put(productId, result.availableToPromiseTotal)
             qohMap.put(productId, result.quantityOnHandTotal)

@@ -26,20 +26,20 @@ roleData = [:]
 partyData = [:]
 
 additionalPartyRole.each { roleTypeId, partyList ->
-    roleData[roleTypeId] = from("RoleType").where("roleTypeId", roleTypeId).queryOne()
+    roleData[roleTypeId] = from('RoleType').where('roleTypeId', roleTypeId).queryOne()
 
     partyList.each { partyId ->
         partyMap = [:]
         partyMap.partyId = partyId
-        party = from("Party").where("partyId", partyId).cache(true).queryOne()
-        if ("PERSON".equals(party.partyTypeId)) {
-            party = party.getRelatedOne("Person", true)
-            partyMap.type = "person"
+        party = from('Party').where('partyId', partyId).cache(true).queryOne()
+        if (party.partyTypeId == 'PERSON') {
+            party = party.getRelatedOne('Person', true)
+            partyMap.type = 'person'
             partyMap.firstName = party.firstName
             partyMap.lastName = party.lastName
         } else {
-            party = party.getRelatedOne("PartyGroup", true)
-            partyMap.type = "group"
+            party = party.getRelatedOne('PartyGroup', true)
+            partyMap.type = 'group'
             partyMap.groupName = party.groupName
         }
         partyData[partyId] = partyMap

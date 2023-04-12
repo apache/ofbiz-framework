@@ -22,7 +22,7 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 
-if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
+if (security.hasEntityPermission('MANUFACTURING', '_VIEW', session)) {
     context.hasPermission = Boolean.TRUE
 } else {
     context.hasPermission = Boolean.FALSE
@@ -30,14 +30,14 @@ if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
 
 // -----------------------------
 // Report's parameters
-selectWorkEffortNameParameter = "O-PREL_A" // sezionatura
-selectPrimaryCategoryIdParameter = "CABINETS" // struttura
+selectWorkEffortNameParameter = 'O-PREL_A' // sezionatura
+selectPrimaryCategoryIdParameter = 'CABINETS' // struttura
 // -----------------------------
 
-shipmentId = request.getParameter("shipmentId")
+shipmentId = request.getParameter('shipmentId')
 context.shipmentId = shipmentId
 
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()
 context.shipment = shipment
 
 // dimensionsByFeatureMap [key=feature; value=productsByShapeMap]
@@ -50,13 +50,15 @@ productIdToQuantity = [:] // key=productId, value=quantity
 productIdToProduct = [:] // key=productId, value=product
 dimensionToProducts = [:] // key=Dimension, value=list of products
 dimensionToQuantity = [:] // key=Dimension, value=tot qty (of products)
-    
-shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList()
+
+shipmentPlans = from('OrderShipment').where('shipmentId', shipmentId).queryList()
 
 if (shipmentPlans) {
     shipmentPlans.each { shipmentPlan ->
         // Select the production run, if available
-        weIds = from("WorkOrderItemFulfillment").where("orderId", shipmentPlan.orderId, "orderItemSeqId", shipmentPlan.orderItemSeqId).orderBy("workEffortId").queryList() // TODO: add shipmentId
+        weIds = from('WorkOrderItemFulfillment')
+                .where('orderId', shipmentPlan.orderId, 'orderItemSeqId', shipmentPlan.orderItemSeqId)
+                .orderBy('workEffortId').queryList() // TODO: add shipmentId
         weId = EntityUtil.getFirst(weIds)
         productionRunTree = [] as ArrayList
         // TODO
@@ -67,7 +69,7 @@ if (shipmentPlans) {
                 if (ProductionRunHelper.hasTask(delegator, selectWorkEffortNameParameter, oneProductionRun.getGenericValue().workEffortId)) {
                     product = oneProductionRun.getProductProduced()
                     primaryCategory = product.primaryProductCategoryId
-                    if (primaryCategory && selectPrimaryCategoryIdParameter.equals(primaryCategory)) {
+                    if (primaryCategory && selectPrimaryCategoryIdParameter == primaryCategory) {
                         productId = product.productId
                         productIdToProduct.put(productId, product)
                         if (!productIdToQuantity.containsKey(productId)) {
@@ -94,7 +96,7 @@ if (shipmentPlans) {
         }
         Dimension dim = new Dimension(width, height)
         if (!dimensionToProducts.containsKey(dim)) {
-            dimensionToProducts.put(dim, new ArrayList())
+            dimensionToProducts.put(dim, [])
         }
         prodList = (List)dimensionToProducts.get(dim)
         prodList.add(product)

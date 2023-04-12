@@ -43,16 +43,17 @@ import java.sql.Timestamp
  * This function return success if the conditions have been met for the product amount
  * @return result
  */
-def productAmount() {
+Map productAmount() {
     Map result = success()
     int compareBase = -1
-    result.operatorEnumId = "PPC_EQ"
+    result.operatorEnumId = 'PPC_EQ'
 
     GenericValue productPromoCond = parameters.productPromoCond
     ShoppingCart cart = parameters.shoppingCart
     String condValue = productPromoCond.condValue
 
-    // this type of condition requires items involved to not be involved in any other quantity consuming cond/action, and does not pro-rate the price, just uses the base price
+    // this type of condition requires items involved to not be involved in any other quantity consuming cond/action,
+    // and does not pro-rate the price, just uses the base price
     BigDecimal amountNeeded = BigDecimal.ZERO
     if (condValue) {
         amountNeeded = new BigDecimal(condValue)
@@ -62,7 +63,7 @@ def productAmount() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (amountNeeded.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (amountNeeded > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         GenericValue product = cartItem.getProduct()
@@ -80,12 +81,12 @@ def productAmount() {
             // reduce amount still needed to qualify for promo (amountNeeded)
             BigDecimal quantity = cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, false)
             // get pro-rated amount based on discount
-            amountNeeded = amountNeeded.subtract(quantity.multiply(basePrice))
+            amountNeeded = amountNeeded.subtract(quantity * basePrice)
         }
     }
 
     // if amountNeeded > 0 then the promo condition failed, so remove candidate promo uses and increment the promoQuantityUsed to restore it
-    if (amountNeeded.compareTo(BigDecimal.ZERO) > 0) {
+    if (amountNeeded > 0) {
         // failed, reset the entire rule, ie including all other conditions that might have been done before
         cart.resetPromoRuleUse(productPromoCond.productPromoId, productPromoCond.productPromoRuleId)
         compareBase = -1
@@ -102,7 +103,7 @@ def productAmount() {
  * This function return success if the conditions have been met for the product total
  * @return result
  */
-def productTotal() {
+Map productTotal() {
     Map result = success()
     int compareBase = -1
 
@@ -123,15 +124,14 @@ def productTotal() {
             GenericValue product = cartItem.getProduct()
             String parentProductId = cartItem.getParentProductId()
             boolean passedItemConds = ProductPromoWorker.checkConditionsForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp)
-            if (passedItemConds && !cartItem.getIsPromo() 
+            if (passedItemConds && !cartItem.getIsPromo()
                     && (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId)))
                     && (!product || 'N' != product.includeInPromotions)) {
-
                 // just count the entire sub-total of the item
                 amountAvailable = amountAvailable.add(cartItem.getItemSubTotal())
             }
         }
-        compareBase = amountAvailable.compareTo(amountNeeded)
+        compareBase = amountAvailable <=> amountNeeded
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -141,7 +141,7 @@ def productTotal() {
  * This function return success if the conditions have been met for the product quantity
  * @return result
  */
-def productQuant() {
+Map productQuant() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -150,10 +150,8 @@ def productQuant() {
     String condValue = productPromoCond.condValue
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
 
-    if (!operatorEnumId) {
-        // if the operator is not specified in the condition, then assume as default PPC_EQ (for backward compatibility)
-        operatorEnumId = "PPC_EQ"
-    }
+    // if the operator is not specified in the condition, then assume as default PPC_EQ (for backward compatibility)
+    operatorEnumId = operatorEnumId ?: 'PPC_EQ'
     BigDecimal quantityNeeded = BigDecimal.ONE
     if (condValue) {
         quantityNeeded = new BigDecimal(condValue)
@@ -163,7 +161,7 @@ def productQuant() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityNeeded.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityNeeded > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         GenericValue product = cartItem.getProduct()
@@ -173,12 +171,13 @@ def productQuant() {
                 (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId))) &&
                 (!product || 'N' != product.includeInPromotions)) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
-            quantityNeeded = quantityNeeded.subtract(cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, "PPC_EQ" != operatorEnumId))
+            quantityNeeded = quantityNeeded.subtract(
+                    cartItem.addPromoQuantityCandidateUse(quantityNeeded, productPromoCond, 'PPC_EQ' != operatorEnumId))
         }
     }
 
     // if quantityNeeded > 0 then the promo condition failed, so remove candidate promo uses and increment the promoQuantityUsed to restore it
-    if (quantityNeeded.compareTo(BigDecimal.ZERO) > 0) {
+    if (quantityNeeded > 0) {
         // failed, reset the entire rule, ie including all other conditions that might have been done before
         cart.resetPromoRuleUse(productPromoCond.productPromoId, productPromoCond.productPromoRuleId)
         compareBase = -1
@@ -195,7 +194,7 @@ def productQuant() {
  * This function return success if the conditions have been met for new accounts
  * @return result
  */
-def productNewACCT() {
+Map productNewACCT() {
     // promotion description="Account Days Since Created"
     Map result = success()
 
@@ -207,7 +206,7 @@ def productNewACCT() {
     if (condValue) {
         BigDecimal acctDays = cart.getPartyDaysSinceCreated(nowTimestamp)
         if (acctDays) {
-            compareBase = acctDays.compareTo(new BigDecimal(condValue))
+            compareBase = acctDays <=> condValue as BigDecimal
         }
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -218,7 +217,7 @@ def productNewACCT() {
  * This function return success if the conditions have been met for the party ID
  * @return result
  */
-def productPartyID() {
+Map productPartyID() {
     Map result = success()
 
     Map productPromoCond = parameters.productPromoCond
@@ -227,7 +226,7 @@ def productPartyID() {
     String partyId = cart.getPartyId()
     int compareBase = 1
     if (partyId && condValue) {
-        compareBase = partyId.compareTo(condValue)
+        compareBase = partyId <=> condValue
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -237,7 +236,7 @@ def productPartyID() {
  * This function return success if the conditions have been met for the party group member
  * @return result
  */
-def productPartyGM() {
+Map productPartyGM() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -251,9 +250,12 @@ def productPartyGM() {
         if (partyId == groupPartyId) {
             compareBase = 0
         } else {
-            // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
+            // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member,
+            // so the partyIdFrom is the groupPartyId
             // and from/thru date within range
-            List<GenericValue> partyRelationshipList = from("PartyRelationship").where("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate().queryList()
+            List<GenericValue> partyRelationshipList = from('PartyRelationship')
+                    .where('partyIdFrom', groupPartyId, 'partyIdTo', partyId, 'partyRelationshipTypeId', 'GROUP_ROLLUP')
+                    .cache(true).filterByDate().queryList()
 
             if (partyRelationshipList) {
                 compareBase = 0
@@ -270,7 +272,7 @@ def productPartyGM() {
  * This function return success if the  conditions have been met for the party class
  * @return result
  */
-def productPartyClass() {
+Map productPartyClass() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -283,9 +285,10 @@ def productPartyClass() {
         String partyClassificationGroupId = condValue
         // find any PartyClassification
         // and from/thru date within range
-        List<GenericValue> partyClassificationList = from("PartyClassification").where("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId).cache(true).filterByDate().queryList()
+        List<GenericValue> partyClassificationList = from('PartyClassification')
+                .where('partyId', partyId, 'partyClassificationGroupId', partyClassificationGroupId).cache(true).filterByDate().queryList()
         // then 0 (equals), otherwise 1 (not equals)
-        compareBase = partyClassificationList? 0: 1
+        compareBase = partyClassificationList ? 0 : 1
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -295,7 +298,7 @@ def productPartyClass() {
  * This function return success if the conditions have been met for the role type
  * @return result
  */
-def productRoleType() {
+Map productRoleType() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -306,9 +309,9 @@ def productRoleType() {
     int compareBase = 1
     if (partyId && condValue) {
         // if a PartyRole exists for this partyId and the specified roleTypeId
-        GenericValue partyRole = from("PartyRole").where("partyId", partyId, "roleTypeId", condValue).cache(true).queryOne()
+        GenericValue partyRole = from('PartyRole').where('partyId', partyId, 'roleTypeId', condValue).cache(true).queryOne()
         // then 0 (equals), otherwise 1 (not equals)
-        compareBase = partyRole? 0: 1
+        compareBase = partyRole ? 0 : 1
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -318,7 +321,7 @@ def productRoleType() {
  * This function return success if the conditions have been met for the shipping destination
  * @return result
  */
-def productGeoID() {
+Map productGeoID() {
     Map result = success()
 
     GenericValue productPromoCond = parameters.productPromoCond
@@ -334,7 +337,7 @@ def productGeoID() {
                 || condValue == shippingAddress.stateProvinceGeoId) {
             compareBase = 0
         } else {
-            List<GenericValue> geoAssocList = from("GeoAssoc").where("geoIdTo", condValue).queryList()
+            List<GenericValue> geoAssocList = from('GeoAssoc').where('geoIdTo', condValue).queryList()
             for (GenericValue geo : geoAssocList) {
                 if (geo.geoId == shippingAddress.countryGeoId
                         || geo.geoId == shippingAddress.countyGeoId
@@ -354,7 +357,7 @@ def productGeoID() {
  * This function return success if the conditions have been met for the product order total
  * @return result
  */
-def productOrderTotal() {
+Map productOrderTotal() {
     Map result = success()
     int compareBase = 1
 
@@ -364,8 +367,10 @@ def productOrderTotal() {
 
     if (condValue) {
         BigDecimal orderSubTotal = cart.getSubTotalForPromotions()
-        if (Debug.infoOn()) logInfo("Doing order total compare: orderSubTotal=" + orderSubTotal)
-        compareBase = orderSubTotal.compareTo(new BigDecimal(condValue))
+        if (Debug.infoOn()) {
+            logInfo('Doing order total compare: orderSubTotal=' + orderSubTotal)
+        }
+        compareBase = orderSubTotal <=> condValue as BigDecimal
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -375,7 +380,7 @@ def productOrderTotal() {
  * This function return success if the conditions have been met for the product order sub-total X in last Y Months
  * @return result
  */
-def productOrderHist() {
+Map productOrderHist() {
     // description="Order sub-total X in last Y Months"
     GenericValue productPromoCond = parameters.productPromoCond
     ShoppingCart cart = parameters.shoppingCart
@@ -385,7 +390,7 @@ def productOrderHist() {
     GenericValue userLogin = cart.getUserLogin()
     Map result = success()
     int compareBase = -1
-    result.operatorEnumId = "PPC_GTE"
+    result.operatorEnumId = 'PPC_GTE'
 
     if (partyId && userLogin && condValue) {
         // call the getOrderedSummaryInformation service to get the sub-total
@@ -393,22 +398,25 @@ def productOrderHist() {
         if (otherValue != null) {
             monthsToInclude = Integer.parseInt(otherValue)
         }
-        Map<String, Object> serviceIn = [partyId: partyId, roleTypeId: "PLACING_CUSTOMER", orderTypeId: "SALES_ORDER", statusId: "ORDER_COMPLETED",
+        Map<String, Object> serviceIn = [partyId: partyId, roleTypeId: 'PLACING_CUSTOMER', orderTypeId: 'SALES_ORDER', statusId: 'ORDER_COMPLETED',
                                          monthsToInclude: Integer.valueOf(monthsToInclude), userLogin: userLogin]
         try {
-            Map<String, Object> serviceResult = run service: "getOrderedSummaryInformation", with: serviceIn
+            Map<String, Object> serviceResult = run service: 'getOrderedSummaryInformation', with: serviceIn
             if (ServiceUtil.isError(serviceResult)) {
-                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
+                logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_HIST ProductPromo condition input value: '
+                        + ServiceUtil.getErrorMessage(result))
                 return serviceResult
-            } else {
-                BigDecimal orderSubTotal = serviceResult.get("totalSubRemainingAmount")
-                BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
-                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.")
-                compareBase = orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue))
             }
+            BigDecimal orderSubTotal = serviceResult.get('totalSubRemainingAmount')
+            BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal())
+            if (Debug.verboseOn()) {
+                logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
+                        + monthsToInclude + ' months.')
+            }
+            compareBase = orderSubTotalAndCartSubTotal <=> condValue as BigDecimal
         } catch (GenericServiceException e) {
-            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
-            return ServiceUtil.returnError("Error getting order history")
+            logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
+            return ServiceUtil.returnError('Error getting order history')
         }
     }
     result.compareBase = compareBase
@@ -419,7 +427,7 @@ def productOrderHist() {
  * This function return success if the conditions have been met for the product order of the current year
  * @return result
  */
-def productOrderYear() {
+Map productOrderYear() {
     Map result = success()
     compareBase = 1
 
@@ -435,26 +443,28 @@ def productOrderYear() {
         Calendar calendar = Calendar.getInstance()
         calendar.setTime(nowTimestamp)
         int monthsToInclude = calendar.get(Calendar.MONTH) + 1
-        Map<String, Object> serviceIn = UtilMisc.<String, Object> toMap("partyId", partyId,
-                "roleTypeId", "PLACING_CUSTOMER",
-                "orderTypeId", "SALES_ORDER",
-                "statusId", "ORDER_COMPLETED",
-                "monthsToInclude", Integer.valueOf(monthsToInclude),
-                "userLogin", userLogin)
+        Map<String, Object> serviceIn = UtilMisc.<String, Object> toMap('partyId', partyId,
+                'roleTypeId', 'PLACING_CUSTOMER',
+                'orderTypeId', 'SALES_ORDER',
+                'statusId', 'ORDER_COMPLETED',
+                'monthsToInclude', Integer.valueOf(monthsToInclude),
+                'userLogin', userLogin)
         try {
-            Map<String, Object> serviceResult = dispatcher.runSync("getOrderedSummaryInformation", serviceIn)
+            Map<String, Object> serviceResult = dispatcher.runSync('getOrderedSummaryInformation', serviceIn)
             if (ServiceUtil.isError(result)) {
-                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
+                logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: '
+                        + ServiceUtil.getErrorMessage(result))
                 return serviceResult
-            } else {
-                BigDecimal orderSubTotal = result.get("totalSubRemainingAmount")
-                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.")
-                compareBase = orderSubTotal.compareTo(new BigDecimal((condValue)))
-
             }
+            BigDecimal orderSubTotal = result.get('totalSubRemainingAmount')
+            if (Debug.verboseOn()) {
+                logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for the last '
+                        + monthsToInclude + ' months.')
+            }
+            compareBase = orderSubTotal <=> condValue as BigDecimal
         } catch (GenericServiceException e) {
-            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
-            return ServiceUtil.returnError("Error getting order history")
+            logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
+            return ServiceUtil.returnError('Error getting order history')
         }
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -465,7 +475,7 @@ def productOrderYear() {
  * This function return success if the conditions have been met for the product order last year
  * @return result
  */
-def productOrderLastYear() {
+Map productOrderLastYear() {
     // description="Order sub-total X since beginning of last year"
     Map result = success()
     compareBase = 1
@@ -488,26 +498,28 @@ def productOrderLastYear() {
         Calendar thruDateCalendar = Calendar.getInstance()
         thruDateCalendar.set(lastYear, 12, 0, 0, 0)
         Timestamp thruDate = new Timestamp(thruDateCalendar.getTime().getTime())
-        Map<String, Object> serviceIn = UtilMisc.toMap("partyId", partyId,
-                "roleTypeId", "PLACING_CUSTOMER",
-                "orderTypeId", "SALES_ORDER",
-                "statusId", "ORDER_COMPLETED",
-                "fromDate", fromDate,
-                "thruDate", thruDate,
-                "userLogin", userLogin)
+        Map<String, Object> serviceIn = UtilMisc.toMap('partyId', partyId,
+                'roleTypeId', 'PLACING_CUSTOMER',
+                'orderTypeId', 'SALES_ORDER',
+                'statusId', 'ORDER_COMPLETED',
+                'fromDate', fromDate,
+                'thruDate', thruDate,
+                'userLogin', userLogin)
         try {
-            Map<String, Object> serviceResult = dispatcher.runSync("getOrderedSummaryInformation", serviceIn)
+            Map<String, Object> serviceResult = dispatcher.runSync('getOrderedSummaryInformation', serviceIn)
             if (ServiceUtil.isError(serviceResult)) {
-                logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result))
+                logError('Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: '
+                        + ServiceUtil.getErrorMessage(result))
                 return serviceResult
-            } else {
-                Double orderSubTotal = (Double) result.get("totalSubRemainingAmount")
-                if (Debug.verboseOn()) logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for last year.")
-                compareBase = orderSubTotal.compareTo(Double.valueOf(condValue))
             }
+            BigDecimal orderSubTotal = (BigDecimal) result.get('totalSubRemainingAmount')
+            if (Debug.verboseOn()) {
+                logVerbose('Doing order history sub-total compare: orderSubTotal=' + orderSubTotal + ', for last year.')
+            }
+            compareBase = orderSubTotal <=> condValue as Double
         } catch (GenericServiceException e) {
-            logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.")
-            return ServiceUtil.returnError("Error getting order history")
+            logError(e, 'Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.')
+            return ServiceUtil.returnError('Error getting order history')
         }
     }
     result.compareBase = Integer.valueOf(compareBase)
@@ -518,14 +530,14 @@ def productOrderLastYear() {
  * This function return success if the conditions have been met for the product promo recurrence
  * @return result
  */
-def productPromoRecurrence() {
+Map productPromoRecurrence() {
     Map result = success()
     int compareBase = 1
     GenericValue productPromoCond = parameters.productPromoCond
     String condValue = productPromoCond.condValue
 
     if (condValue) {
-        GenericValue recurrenceInfo = from("RecurrenceInfo").where("recurrenceInfoId", condValue).cache().queryOne();
+        GenericValue recurrenceInfo = from('RecurrenceInfo').where('recurrenceInfoId', condValue).cache().queryOne()
         if (recurrenceInfo) {
             RecurrenceInfo recurrence = null
             try {
@@ -549,7 +561,7 @@ def productPromoRecurrence() {
  * This function return success if the conditions have been met for the product total shipping
  * @return result
  */
-def productShipTotal() {
+Map productShipTotal() {
     Map result = success()
     compareBase = 1
 
@@ -560,9 +572,9 @@ def productShipTotal() {
     if (condValue) {
         BigDecimal orderTotalShipping = cart.getTotalShipping()
         if (Debug.verboseOn()) {
-            logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping)
+            logVerbose('Doing order total Shipping compare: ordertotalShipping=' + orderTotalShipping)
         }
-        compareBase = orderTotalShipping.compareTo(new BigDecimal(condValue))
+        compareBase =  orderTotalShipping <=> condValue as BigDecimal
     }
     result.compareBase = Integer.valueOf(compareBase)
     return result
@@ -572,7 +584,7 @@ def productShipTotal() {
  * This function do nothing except to return true for the product list price minimum amount
  * @return true
  */
-def productListPriceMinAmount() {
+boolean productListPriceMinAmount() {
     // does nothing on order level, only checked on item level, so ignore by always considering passed
     return true
 }
@@ -581,7 +593,7 @@ def productListPriceMinAmount() {
  * This function do nothing except to return true for the product list percent minimum amount
  * @return true
  */
-def productListPriceMinPercent() {
+boolean productListPriceMinPercent() {
     // does nothing on order level, only checked on item level, so ignore by always considering passed
     return true
 }

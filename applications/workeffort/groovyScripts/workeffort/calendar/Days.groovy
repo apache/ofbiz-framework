@@ -17,11 +17,10 @@
  * under the License.
  */
 
-import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.service.ModelService
+
+import java.sql.Timestamp
 
 String startParam = parameters.startTime
 Timestamp start = null
@@ -37,14 +36,14 @@ Timestamp prev = UtilDateTime.getDayStart(start, -1, timeZone, locale)
 context.prevMillis = new Long(prev.getTime()).toString()
 Timestamp next = UtilDateTime.getDayStart(start, 1, timeZone, locale)
 context.nextMillis = new Long(next.getTime()).toString()
-Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", ModelService.IN_PARAM, parameters)
-serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", start, "numPeriods", 24, "periodType", Calendar.HOUR, "locale", locale, "timeZone", timeZone))
+Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('getWorkEffortEventsByPeriod', ModelService.IN_PARAM, parameters)
+serviceCtx.putAll([userLogin: userLogin, start: start, numPeriods: 24, periodType: Calendar.HOUR, locale: locale, timeZone: timeZone])
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList
 }
 Map result = runService('getWorkEffortEventsByPeriod', serviceCtx)
-context.put("periods", result.get("periods"))
-context.put("maxConcurrentEntries", result.get("maxConcurrentEntries"))
-context.put("start", start)
-context.put("prev", prev)
-context.put("next", next)
+context.put('periods', result.get('periods'))
+context.put('maxConcurrentEntries', result.get('maxConcurrentEntries'))
+context.put('start', start)
+context.put('prev', prev)
+context.put('next', next)

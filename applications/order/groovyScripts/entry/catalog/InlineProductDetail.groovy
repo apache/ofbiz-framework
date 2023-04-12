@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import java.lang.*
-import java.util.*
 import java.text.NumberFormat
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag
@@ -27,10 +25,10 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.product.product.ProductContentWrapper
-import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
-inlineProductId = request.getAttribute("inlineProductId")
-inlineCounter = request.getAttribute("inlineCounter")
+inlineProductId = request.getAttribute('inlineProductId')
+inlineCounter = request.getAttribute('inlineCounter')
 context.inlineCounter = inlineCounter
 context.inlineProductId = inlineProductId
 
@@ -39,12 +37,12 @@ catalogName = CatalogWorker.getCatalogName(request)
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 
 if (inlineProductId) {
-    inlineProduct = from("Product").where("productId", inlineProductId).cache(true).queryOne()
+    inlineProduct = from('Product').where('productId', inlineProductId).cache(true).queryOne()
     if (inlineProduct) {
         context.product = inlineProduct
         contentWrapper = new ProductContentWrapper(inlineProduct, request)
-        context.put("title", contentWrapper.get("PRODUCT_NAME", "html"))
-        context.put("metaDescription", contentWrapper.get("DESCRIPTION", "html"))
+        context.put('title', contentWrapper.get('PRODUCT_NAME', 'html'))
+        context.put('metaDescription', contentWrapper.get('DESCRIPTION', 'html'))
         productTemplate = product.detailScreen
         if (productTemplate) {
             detailScreen = productTemplate
@@ -59,29 +57,31 @@ if (templatePathPrefix) {
 context.detailScreen = detailScreen
 
 String buildNext(Map map, List order, String current, String prefix, Map featureTypes) {
-    def ct = 0
-    def buf = new StringBuffer()
-    buf.append("function listFT" + inlineCounter + current + prefix + "() { ")
-    buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options.length = 1;")
-    buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options[0] = new Option(\"" + featureTypes[current] + "\",\"\",true,true);")
+    int ct = 0
+    StringBuffer buf = new StringBuffer()
+    buf.append('function listFT' + inlineCounter + current + prefix + '() { ')
+    buf.append('document.forms["configform"].elements["FT' + inlineCounter + current + '"].options.length = 1;')
+    buf.append('document.forms["configform"].elements["FT' + inlineCounter + current + '"].options[0] = new Option("'
+            + featureTypes[current] + '","",true,true);')
     map.each { key, value ->
-        def optValue = null
+        String optValue = null
 
-        if (order.indexOf(current) == (order.size()-1)) {
+        if (order.indexOf(current) == (order.size() - 1)) {
             optValue = value.iterator().next()
         } else {
-            optValue = prefix + "_" + ct
+            optValue = prefix + '_' + ct
         }
 
-        buf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + current + "\"].options[" + (ct + 1) + "] = new Option(\"" + key + "\",\"" + optValue + "\");")
+        buf.append('document.forms["configform"].elements["FT' + inlineCounter + current + '"].options[' + (ct + 1) + '] = new Option("'
+                + key + '","' + optValue + '");')
         ct++
     }
-    buf.append(" }")
-    if (order.indexOf(current) < (order.size()-1)) {
+    buf.append(' }')
+    if (order.indexOf(current) < (order.size() - 1)) {
         ct = 0
         map.each { key, value ->
-            def nextOrder = order.get(order.indexOf(current)+1)
-            def newPrefix = prefix + "_" + ct
+            String nextOrder = order.get(order.indexOf(current) + 1)
+            String newPrefix = prefix + '_' + ct
             buf.append(buildNext(value, order, nextOrder, newPrefix, featureTypes))
             ct++
         }
@@ -103,56 +103,55 @@ if (inlineProduct) {
     featureOrder = []
 
     variantInfoJS = new StringBuffer()
-    variantInfoJS.append("<script language=\"JavaScript\" type=\"text/javascript\">\n    jQuery(document).ready(function(jQuery) {\n")
+    variantInfoJS.append('<script language="JavaScript" type="text/javascript">\n    jQuery(document).ready(function(jQuery) {\n')
 
     // make the productContentWrapper
     productContentWrapper = new ProductContentWrapper(inlineProduct, request)
     context.productContentWrapper = productContentWrapper
 
     // get the main detail image (virtual or single product)
-    mainDetailImage = productContentWrapper.get("DETAIL_IMAGE_URL", "url")
+    mainDetailImage = productContentWrapper.get('DETAIL_IMAGE_URL', 'url')
     if (mainDetailImage) {
         mainDetailImageUrl = ContentUrlTag.getContentPrefix(request) + mainDetailImage
         context.mainDetailImageUrl = mainDetailImageUrl.toString()
     }
 
-
     // get the product price
     webSiteId = WebSiteWorker.getWebSiteId(request)
-    autoUserLogin = request.getSession().getAttribute("autoUserLogin")
+    autoUserLogin = request.getSession().getAttribute('autoUserLogin')
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service
-        priceContext = [product : inlineProduct, prodCatalogId : currentCatalogId,
-            currencyUomId : cart.getCurrency(), autoUserLogin : autoUserLogin]
+        priceContext = [product: inlineProduct, prodCatalogId: currentCatalogId,
+                        currencyUomId: cart.getCurrency(), autoUserLogin: autoUserLogin]
         priceContext.webSiteId = webSiteId
         priceContext.productStoreId = productStoreId
-        priceContext.checkIncludeVat = "Y"
+        priceContext.checkIncludeVat = 'Y'
         priceContext.agreementId = cart.getAgreementId()
         priceContext.partyId = cart.getPartyId() // IMPORTANT: must put this in, or price will be calculated for the CSR instead of the customer
         priceMap = runService('calculateProductPrice', priceContext)
         context.priceMap = priceMap
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : inlineProduct, currencyUomId : cart.getCurrency(),
-                partyId : cart.getPartyId(), userLogin : userLogin]
+        priceContext = [product: inlineProduct, currencyUomId: cart.getCurrency(),
+                        partyId: cart.getPartyId(), userLogin: userLogin]
         priceMap = runService('calculatePurchasePrice', priceContext)
         context.priceMap = priceMap
     }
-
 
     context.variantTree = null
     context.variantTreeSize = null
     context.variantSample = null
     context.variantSampleKeys = null
     context.variantSampleSize = null
-    if ("Y".equals(inlineProduct.isVirtual)) {
-        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, inlineProductId))) {
+    if (inlineProduct.isVirtual == 'Y') {
+        if (ProductWorker.getProductVirtualVariantMethod(delegator, inlineProductId) == 'VV_FEATURETREE') {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(inlineProduct)
         } else {
-            featureMap = runService("getProductFeatureSet", [productId : inlineProductId])
+            featureMap = runService('getProductFeatureSet', [productId: inlineProductId])
             featureSet = featureMap.featureSet
             if (featureSet) {
-                variantTreeMap = runService('getProductVariantTree', [productId : inlineProductId, featureOrder : featureSet, productStoreId : productStoreId])
+                variantTreeMap = runService('getProductVariantTree',
+                        [productId: inlineProductId, featureOrder: featureSet, productStoreId: productStoreId])
                 variantTree = variantTreeMap.variantTree
                 imageMap = variantTreeMap.variantSample
                 virtualVariant = variantTreeMap.virtualVariant
@@ -171,8 +170,8 @@ if (inlineProduct) {
                 if (variantTree) {
                     featureOrder = new LinkedList(featureSet)
                     featureOrder.each { featureKey ->
-                        featureValue = from("ProductFeatureType").where("productFeatureTypeId", featureKey).cache(true).queryOne()
-                        fValue = featureValue.get("description") ?: featureValue.productFeatureTypeId
+                        featureValue = from('ProductFeatureType').where('productFeatureTypeId', featureKey).cache(true).queryOne()
+                        fValue = featureValue.get('description') ?: featureValue.productFeatureTypeId
                         featureTypes[featureKey] = fValue
                     }
                 }
@@ -184,27 +183,28 @@ if (inlineProduct) {
 
                 if (variantTree && imageMap) {
                     jsBuf = new StringBuffer()
-                    jsBuf.append("<script type=\"application/javascript\">")
-                    jsBuf.append("var DET" + inlineCounter + "= new Array(" + variantTree.size() + ");")
-                    jsBuf.append("var IMG" + inlineCounter + " = new Array(" + variantTree.size() + ");")
-                    jsBuf.append("var OPT" + inlineCounter + " = new Array(" + featureOrder.size() + ");")
-                    jsBuf.append("var VIR" + inlineCounter + " = new Array(" + virtualVariant.size() + ");")
-                    jsBuf.append("var detailImageUrl" + inlineCounter + " = null;")
+                    jsBuf.append('<script type="application/javascript">')
+                    jsBuf.append('var DET' + inlineCounter + '= new Array(' + variantTree.size() + ');')
+                    jsBuf.append('var IMG' + inlineCounter + ' = new Array(' + variantTree.size() + ');')
+                    jsBuf.append('var OPT' + inlineCounter + ' = new Array(' + featureOrder.size() + ');')
+                    jsBuf.append('var VIR' + inlineCounter + ' = new Array(' + virtualVariant.size() + ');')
+                    jsBuf.append('var detailImageUrl' + inlineCounter + ' = null;')
                     featureOrder.eachWithIndex { feature, i ->
-                        jsBuf.append("OPT" + inlineCounter + "[" + i + "] = \"FT" + inlineCounter + feature + "\";")
+                        jsBuf.append('OPT' + inlineCounter + '[' + i + '] = "FT' + inlineCounter + feature + '";')
                     }
                     virtualVariant.eachWithIndex { variant, i ->
-                        jsBuf.append("VIR" + inlineCounter + "[" + i + "] = \"" + variant + "\";")
+                        jsBuf.append('VIR' + inlineCounter + '[' + i + '] = "' + variant + '";')
                     }
 
                     // build the top level
                     topLevelName = featureOrder[0]
-                    jsBuf.append("function list" + inlineCounter + topLevelName + "() {")
-                    jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options.length = 1;")
-                    jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[0] = new Option(\"" + featureTypes[topLevelName] + "\",\"\",true,true);")
+                    jsBuf.append('function list' + inlineCounter + topLevelName + '() {')
+                    jsBuf.append('document.forms["configform"].elements["FT' + inlineCounter + topLevelName + '"].options.length = 1;')
+                    jsBuf.append('document.forms["configform"].elements["FT' + inlineCounter + topLevelName + '"].options[0] = new Option("'
+                            + featureTypes[topLevelName] + '","",true,true);')
                     if (variantTree) {
                         featureOrder.each { featureKey ->
-                            jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + featureKey + "\"].options.length = 1;")
+                            jsBuf.append('document.forms["configform"].elements["FT' + inlineCounter + featureKey + '"].options.length = 1;')
                         }
                         firstDetailImage = null
                         firstLargeImage = null
@@ -220,8 +220,8 @@ if (inlineProduct) {
                             contentWrapper = new ProductContentWrapper(imageMap[key], request)
 
                             // initial image paths
-                            detailImage = contentWrapper.get("DETAIL_IMAGE_URL", "url") ?: productContentWrapper.get("DETAIL_IMAGE_URL", "url")
-                            largeImage = contentWrapper.get("LARGE_IMAGE_URL", "url") ?: productContentWrapper.get("LARGE_IMAGE_URL", "url")
+                            detailImage = contentWrapper.get('DETAIL_IMAGE_URL', 'url') ?: productContentWrapper.get('DETAIL_IMAGE_URL', 'url')
+                            largeImage = contentWrapper.get('LARGE_IMAGE_URL', 'url') ?: productContentWrapper.get('LARGE_IMAGE_URL', 'url')
 
                             // full image URLs
                             detailImageUrl = null
@@ -235,27 +235,24 @@ if (inlineProduct) {
                                 largeImageUrl = ContentUrlTag.getContentPrefix(request) + largeImage
                             }
 
-                            jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + topLevelName + "\"].options[" + (counter+1) + "] = new Option(\"" + key + "\",\"" + opt + "\");")
-                            jsBuf.append("DET" + inlineCounter + "[" + counter + "] = \"" + detailImageUrl +"\";")
-                            jsBuf.append("IMG" + inlineCounter + "[" + counter + "] = \"" + largeImageUrl +"\";")
+                            jsBuf.append('document.forms["configform"].elements["FT' + inlineCounter + topLevelName + '"].options['
+                                    + (counter + 1) + '] = new Option("' + key + '","' + opt + '");')
+                            jsBuf.append('DET' + inlineCounter + '[' + counter + '] = "' + detailImageUrl + '";')
+                            jsBuf.append('IMG' + inlineCounter + '[' + counter + '] = "' + largeImageUrl + '";')
 
-                            if (!firstDetailImage) {
-                                firstDetailImage = detailImageUrl
-                            }
-                            if (!firstLargeImage) {
-                                firstLargeImage = largeImage
-                            }
+                            firstDetailImage = firstDetailImage ?: detailImageUrl
+                            firstLargeImage = firstLargeImage ?: largeImage
                             counter++
                         }
                         context.firstDetailImage = firstDetailImage
                         context.firstLargeImage = firstLargeImage
                     }
-                    jsBuf.append("}")
+                    jsBuf.append('}')
 
                     // build dynamic lists
                     if (variantTree) {
                         variantTree.values().eachWithIndex { varTree, topLevelKeysCt ->
-                            cnt = "" + topLevelKeysCt
+                            cnt = topLevelKeysCt as String
                             if (varTree instanceof Map) {
                                 jsBuf.append(buildNext(varTree, featureOrder, featureOrder[1], cnt, featureTypes))
                             }
@@ -263,14 +260,15 @@ if (inlineProduct) {
                     }
 
                     // make a list of variant sku with requireAmount
-                    variantsRes = runService('getAssociatedProducts', [productId : inlineProductId, type : "PRODUCT_VARIANT", checkViewAllow : true, prodCatalogId : currentCatalogId])
+                    variantsRes = runService('getAssociatedProducts',
+                            [productId: inlineProductId, type: 'PRODUCT_VARIANT', checkViewAllow: true, prodCatalogId: currentCatalogId])
                     variants = variantsRes.assocProducts
                     if (variants) {
                         amt = new StringBuffer()
-                        amt.append("function checkAmtReq" + inlineCounter + "(sku) { ")
+                        amt.append('function checkAmtReq' + inlineCounter + '(sku) { ')
                         // Create the javascript to return the price for each variant
                         variantPriceJS = new StringBuffer()
-                        variantPriceJS.append("function getVariantPrice" + inlineCounter + "(sku) { ")
+                        variantPriceJS.append('function getVariantPrice' + inlineCounter + '(sku) { ')
                         // Format to apply the currency code to the variant price in the javascript
                         productStore = ProductStoreWorker.getProductStore(request)
                         localeString = productStore.defaultLocaleString
@@ -279,30 +277,33 @@ if (inlineProduct) {
                         }
                         numberFormat = NumberFormat.getCurrencyInstance(locale)
                         variants.each { variantAssoc ->
-                            variant = variantAssoc.getRelatedOne("AssocProduct", false)
+                            variant = variantAssoc.getRelatedOne('AssocProduct', false)
                             // Get the price for each variant. Reuse the priceContext already setup for virtual product above and replace the product
                             if (cart.isSalesOrder()) {
                                 // sales order: run the "calculateProductPrice" service
                                 priceContext.product = variant
                                 variantPriceMap = runService('calculateProductPrice', priceContext)
                             }
-                            amt.append(" if (sku == \"" + variant.productId + "\") return \"" + (variant.requireAmount ?: "N") + "\"; ")
-                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '" + (variant.requireAmount ?: "N") + "';\n")
-                            variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.price) + "\"; ")
-                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '" + numberFormat.format(variantPriceMap.price) + "';\n")
+                            amt.append(' if (sku == "' + variant.productId + '") return "' + (variant.requireAmount ?: 'N') + '"; ')
+                            variantInfoJS.append("        variantReqAmounts['" + variant.productId + "'] = '"
+                                    + (variant.requireAmount ?: 'N') + "';\n")
+                            variantPriceJS.append('  if (sku == "' + variant.productId + '") return "'
+                                    + numberFormat.format(variantPriceMap.price) + '"; ')
+                            variantInfoJS.append("        variantPrices['" + variant.productId + "'] = '"
+                                    + numberFormat.format(variantPriceMap.price) + "';\n")
                         }
-                        amt.append(" } ")
-                        variantPriceJS.append(" } ")
+                        amt.append(' } ')
+                        variantPriceJS.append(' } ')
                     }
                     jsBuf.append(amt.toString())
                     jsBuf.append(variantPriceJS.toString())
-                    jsBuf.append("</script>")
+                    jsBuf.append('</script>')
 
                     context.virtualJavaScript = jsBuf
                 }
             }
         }
     }
-    variantInfoJS.append("    });\n</script>\n")
+    variantInfoJS.append('    });\n</script>\n')
     context.variantInfoJavaScript = variantInfoJS
 }

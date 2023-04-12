@@ -17,23 +17,23 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.UtilHttp
 
 Map paramMap = UtilHttp.getParameterMap(request)
-def result
+String result
 int rowCount = UtilHttp.getMultiFormRowCount(paramMap)
 if (rowCount > 1) {
     for (int i = 0; i < rowCount; i++) {
         String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i
-        if(paramMap.get("action" +thisSuffix)){
-                result = paramMap.get("action" +thisSuffix)
+        if (paramMap.get('action' + thisSuffix)) {
+            result = paramMap.get('action' + thisSuffix)
         }
     }
 }
 else {
-    result = paramMap.get("action_o_0")
+    result = paramMap.get('action_o_0')
 }
 if (result == null) {
-    result = "noAction"
+    result = 'noAction'
 }
 return result

@@ -34,23 +34,23 @@ if (productId) {
     reservedQuantityTotal = 0.0
 
     ecl = EntityCondition.makeCondition([
-                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-                            EntityCondition.makeCondition("statusId", EntityOperator.IN, ["ALLOC_PLAN_CREATED", "ALLOC_PLAN_APPROVED"]),
-                            EntityCondition.makeCondition("planTypeId", EntityOperator.EQUALS, "SALES_ORD_ALLOCATION")],
+                            EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId),
+                            EntityCondition.makeCondition('statusId', EntityOperator.IN, ['ALLOC_PLAN_CREATED', 'ALLOC_PLAN_APPROVED']),
+                            EntityCondition.makeCondition('planTypeId', EntityOperator.EQUALS, 'SALES_ORD_ALLOCATION')],
                         EntityOperator.AND)
-    allocationPlanHeader = from("AllocationPlanHeader").where(ecl).queryFirst()
+    allocationPlanHeader = from('AllocationPlanHeader').where(ecl).queryFirst()
     if (allocationPlanHeader == null) {
         ecl = EntityCondition.makeCondition([
-                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-                                EntityCondition.makeCondition("orderStatusId", EntityOperator.EQUALS, "ORDER_APPROVED"),
-                                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
+                                EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId),
+                                EntityCondition.makeCondition('orderStatusId', EntityOperator.EQUALS, 'ORDER_APPROVED'),
+                                EntityCondition.makeCondition('orderTypeId', EntityOperator.EQUALS, 'SALES_ORDER')],
                             EntityOperator.AND)
-        orderAndItemList = from("OrderHeaderAndItems").where(ecl).queryList()
+        orderAndItemList = from('OrderHeaderAndItems').where(ecl).queryList()
         orderAndItemList.each { orderAndItem ->
             itemMap = [:]
             salesChannelEnumId = orderAndItem.salesChannelEnumId
             itemMap.salesChannelEnumId = salesChannelEnumId
-            salesChannel = from("Enumeration").where("enumId", salesChannelEnumId).queryOne()
+            salesChannel = from('Enumeration').where('enumId', salesChannelEnumId).queryOne()
             if (salesChannel) {
                 itemMap.salesChannel = salesChannel.description
             }
@@ -74,7 +74,7 @@ if (productId) {
             } else {
                 orderedQuantity = quantity
             }
-            orderedValue = orderedQuantity.multiply(unitPrice)
+            orderedValue = orderedQuantity * unitPrice
             orderedQuantityTotal = orderedQuantityTotal.add(orderedQuantity)
             orderedValueTotal = orderedValueTotal.add(orderedValue)
             itemMap.orderedQuantity = orderedQuantity
@@ -82,7 +82,8 @@ if (productId) {
 
             // Reserved quantity
             reservedQuantity = 0.0
-            reservations = from("OrderItemShipGrpInvRes").where("orderId", orderAndItem.orderId, "orderItemSeqId", orderAndItem.orderItemSeqId).queryList()
+            reservations = from('OrderItemShipGrpInvRes')
+                    .where('orderId', orderAndItem.orderId, 'orderItemSeqId', orderAndItem.orderItemSeqId).queryList()
             reservations.each { reservation ->
                 if (reservation.quantity) {
                     reservedQuantity += reservation.quantity

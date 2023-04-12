@@ -19,12 +19,10 @@
 
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.security.Security
-import org.apache.ofbiz.webapp.stats.*
+import org.apache.ofbiz.webapp.stats.ServerHitBin
 
 clearBins = parameters.clear
-if ("true".equals(clearBins)) {
+if (clearBins == 'true') {
     ServerHitBin.requestSinceStarted.clear()
     ServerHitBin.eventSinceStarted.clear()
     ServerHitBin.viewSinceStarted.clear()
@@ -34,21 +32,10 @@ if ("true".equals(clearBins)) {
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.requestSinceStarted.keySet()))
 requestList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:]
     statsId = iterator.next()
     bin = ServerHitBin.requestSinceStarted.get(statsId)
     if (bin) {
-        requestIdMap.requestId = bin.getId()
-        requestIdMap.requestType = bin.getType()
-        requestIdMap.startTime = bin.getStartTimeString()
-        requestIdMap.endTime = bin.getEndTimeString()
-        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
-        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
-        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
-        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
-        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
-        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
-        requestList.add(requestIdMap)
+        requestList.add(prepareRequestIdMap(bin))
     }
 }
 context.requestList = requestList
@@ -57,45 +44,38 @@ context.requestList = requestList
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.eventSinceStarted.keySet()))
 eventList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:]
     statsId = iterator.next()
     bin = ServerHitBin.eventSinceStarted.get(statsId)
     if (bin) {
-        requestIdMap.requestId = bin.getId()
-        requestIdMap.requestType = bin.getType()
-        requestIdMap.startTime = bin.getStartTimeString()
-        requestIdMap.endTime = bin.getEndTimeString()
-        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
-        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
-        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
-        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
-        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
-        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
-        eventList.add(requestIdMap)
+        eventList.add(prepareRequestIdMap(bin))
     }
 }
 context.eventList = eventList
-
 
 // Views
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()))
 viewList = []
 while (iterator.hasNext()) {
-    requestIdMap = [:]
     statsId = iterator.next()
     bin = ServerHitBin.viewSinceStarted.get(statsId)
     if (bin) {
-        requestIdMap.requestId = bin.getId()
-        requestIdMap.requestType = bin.getType()
-        requestIdMap.startTime = bin.getStartTimeString()
-        requestIdMap.endTime = bin.getEndTimeString()
-        requestIdMap.lengthMins = UtilFormatOut.formatQuantity(bin.getBinLengthMinutes())
-        requestIdMap.numberHits = UtilFormatOut.formatQuantity(bin.getNumberHits())
-        requestIdMap.minTime = UtilFormatOut.formatQuantity(bin.getMinTimeSeconds())
-        requestIdMap.avgTime = UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds())
-        requestIdMap.maxTime = UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds())
-        requestIdMap.hitsPerMin = UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
-        viewList.add(requestIdMap)
+        viewList.add(prepareRequestIdMap(bin))
     }
 }
 context.viewList = viewList
+
+private Map<String, String> prepareRequestIdMap(Object bin) {
+    return [
+            requestId: bin.getId(),
+            requestType: bin.getType(),
+            startTime: bin.getStartTimeString(),
+            endTime: bin.getEndTimeString(),
+            lengthMins: UtilFormatOut.formatQuantity(bin.getBinLengthMinutes()),
+            numberHits: UtilFormatOut.formatQuantity(bin.getNumberHits()),
+            minTime: UtilFormatOut.formatQuantity(bin.getMinTimeSeconds()),
+            avgTime: UtilFormatOut.formatQuantity(bin.getAvgTimeSeconds()),
+            maxTime: UtilFormatOut.formatQuantity(bin.getMaxTimeSeconds()),
+            hitsPerMin: UtilFormatOut.formatQuantity(bin.getHitsPerMinute())
+    ]
+}
+

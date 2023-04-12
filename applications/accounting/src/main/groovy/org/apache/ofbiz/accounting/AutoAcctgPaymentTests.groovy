@@ -26,7 +26,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import java.sql.Timestamp
 
 class AutoAcctgPaymentTests extends OFBizTestCase {
-    public AutoAcctgPaymentTests(String name) {
+
+    AutoAcctgPaymentTests(String name) {
         super(name)
     }
     void testCreatePayment() {
@@ -34,7 +35,7 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
         serviceCtx.paymentTypeId = 'CUSTOMER_PAYMENT'
         serviceCtx.partyIdFrom = 'Company'
         serviceCtx.partyIdTo = 'DemoCustCompany'
-        serviceCtx.amount = new BigDecimal('100.00')
+        serviceCtx.amount = 100.00
         serviceCtx.paymentMethodTypeId = 'COMPANY_CHECK'
         serviceCtx.userLogin = userLogin
         Map serviceResult = dispatcher.runSync('createPayment', serviceCtx)
@@ -85,8 +86,10 @@ class AutoAcctgPaymentTests extends OFBizTestCase {
             fromDate: nowTimestamp,
             userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync('createPaymentContent', serviceCtx)
-        GenericValue paymentContent = from('PaymentContent').where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
+        dispatcher.runSync('createPaymentContent', serviceCtx)
+        GenericValue paymentContent = from('PaymentContent')
+                .where(paymentId: '1006', paymentContentTypeId: 'COMMENTS', contentId: '1006').filterByDate().queryFirst()
         assert paymentContent
     }
+
 }

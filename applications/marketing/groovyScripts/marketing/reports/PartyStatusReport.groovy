@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,19 +22,19 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 
 conditionList = []
 if (fromDate) {
-    conditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
+    conditionList.add(EntityCondition.makeCondition('fromDate', EntityOperator.GREATER_THAN_EQUAL_TO, fromDate))
 }
 if (statusDate) {
-    conditionList.add(EntityCondition.makeCondition("statusDate", EntityOperator.GREATER_THAN_EQUAL_TO, statusDate))
+    conditionList.add(EntityCondition.makeCondition('statusDate', EntityOperator.GREATER_THAN_EQUAL_TO, statusDate))
 }
 if (thruDate) {
-    conditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
+    conditionList.add(EntityCondition.makeCondition('fromDate', EntityOperator.LESS_THAN_EQUAL_TO, thruDate))
 }
 if (contactListId) {
-    conditionList.add(EntityCondition.makeCondition("contactListId", EntityOperator.EQUALS, contactListId))
+    conditionList.add(EntityCondition.makeCondition('contactListId', EntityOperator.EQUALS, contactListId))
 }
 if (statusId) {
-    conditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId))
+    conditionList.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, statusId))
 }
-partyStatusLists = from("ContactListPartyStatus").where(conditionList).queryList()
+partyStatusLists = from('ContactListPartyStatus').where(conditionList).queryList()
 context.partyStatusLists = partyStatusLists

@@ -23,12 +23,15 @@ import org.apache.ofbiz.entity.GenericValue
 productionRunId = parameters.productionRunId ?: parameters.workEffortId
 context.productionRunId = productionRunId
 
-delivGoodStandard = from("WorkEffortGoodStandard").where("workEffortId", productionRunId, "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED").orderBy("-fromDate").queryFirst()
+delivGoodStandard = from('WorkEffortGoodStandard')
+        .where('workEffortId', productionRunId, 'workEffortGoodStdTypeId', 'PRUN_PROD_DELIV', 'statusId', 'WEGS_CREATED')
+        .orderBy('-fromDate')
+        .queryFirst()
 if (delivGoodStandard) {
     context.delivProductId = delivGoodStandard.productId
 }
 if (context.delivProductId && (parameters.partyId || parameters.contentLocale)) {
-    delivProductContents = from("ProductContentAndInfo").where("productId", context.delivProductId).orderBy("-fromDate").filterByDate().queryList()
+    delivProductContents = from('ProductContentAndInfo').where('productId', context.delivProductId).orderBy('-fromDate').filterByDate().queryList()
     context.delivProductContents = delivProductContents
 
     Locale contentLocale = null
@@ -37,8 +40,9 @@ if (context.delivProductId && (parameters.partyId || parameters.contentLocale)) 
     }
     delivProductContentsForLocaleAndUser = []
     delivProductContents.each { delivProductContent ->
-        GenericValue content = ContentWorker.findContentForRendering(delegator, delivProductContent.contentId, contentLocale, parameters.partyId, parameters.roleTypeId, true)
-        delivProductContentsForLocaleAndUser.add(from("ContentDataResourceView").where("contentId", content.contentId).queryFirst())
+        GenericValue content = ContentWorker.findContentForRendering(delegator, delivProductContent.contentId, contentLocale,
+                parameters.partyId, parameters.roleTypeId, true)
+        delivProductContentsForLocaleAndUser.add(from('ContentDataResourceView').where('contentId', content.contentId).queryFirst())
     }
     context.delivProductContentsForLocaleAndUser = delivProductContentsForLocaleAndUser
 }

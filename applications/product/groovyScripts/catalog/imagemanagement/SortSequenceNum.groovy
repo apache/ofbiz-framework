@@ -17,17 +17,15 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.base.util.*
-
-allSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE").queryList()
-nullSequenceNums = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", null).queryList()
+allSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE').queryList()
+nullSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', null).queryList()
 productContents = allSequenceNums - nullSequenceNums
-def duplicate = 0
-if(parameters.sequenceNum){
-    findExisted = from("ProductContent").where("productId", parameters.productId, "productContentTypeId", "IMAGE", "sequenceNum", (Long)parameters.sequenceNum).queryList()
+int duplicate = 0
+if (parameters.sequenceNum) {
+    findExisted = from('ProductContent')
+            .where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', (Long) parameters.sequenceNum).queryList()
     duplicate = findExisted.size()
 }
-if(duplicate > 1){
-    context.parameters.sequenceNum = (Long)productContents.sequenceNum[productContents.size()-1] + 1
+if (duplicate > 1) {
+    context.parameters.sequenceNum = (Long)productContents.sequenceNum[productContents.size() - 1] + 1
 }

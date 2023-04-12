@@ -22,17 +22,18 @@ import org.apache.ofbiz.party.contact.ContactHelper
 
 partyId = parameters.partyId
 if (partyId) {
-    party =  from("Party").where("partyId", partyId).queryOne()
-    person = party.getRelatedOne("Person", false)
-    contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName, suffix : person.suffix]
-    partyRelationship = from("PartyRelationship")
-                            .where("partyIdTo", partyId, "roleTypeIdTo", "EMPLOYEE", "roleTypeIdFrom", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT")
-                            .orderBy("-fromDate")
+    party =  from('Party').where('partyId', partyId).queryOne()
+    person = party.getRelatedOne('Person', false)
+    contactDetailMap = [partyId: partyId, firstName: person.firstName, lastName: person.lastName, suffix: person.suffix]
+    partyRelationship = from('PartyRelationship')
+                            .where('partyIdTo', partyId, 'roleTypeIdTo', 'EMPLOYEE',
+                                    'roleTypeIdFrom', 'LEAD', 'partyRelationshipTypeId', 'EMPLOYMENT')
+                            .orderBy('-fromDate')
                             .filterByDate()
                             .queryFirst()
     if (partyRelationship) {
         contactDetailMap.title = partyRelationship.positionTitle
-        partyGroup = from("PartyGroup").where("partyId", partyRelationship.partyIdFrom).queryOne()
+        partyGroup = from('PartyGroup').where('partyId', partyRelationship.partyIdFrom).queryOne()
         if (partyGroup) {
             if (partyGroup.groupName) {
                 contactDetailMap.groupName = partyGroup.groupName
@@ -45,10 +46,10 @@ if (partyId) {
             }
         }
     }
-    generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "GENERAL_LOCATION", "POSTAL_ADDRESS", false))
+    generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, 'GENERAL_LOCATION', 'POSTAL_ADDRESS', false))
     if (generalContactMech) {
         contactDetailMap.addrContactMechId = generalContactMech.contactMechId
-        postalAddress = generalContactMech.getRelatedOne("PostalAddress", false)
+        postalAddress = generalContactMech.getRelatedOne('PostalAddress', false)
         if (postalAddress) {
             contactDetailMap.address1 = postalAddress.address1
             contactDetailMap.city = postalAddress.city
@@ -61,15 +62,15 @@ if (partyId) {
             }
         }
     }
-    emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false))
+    emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, 'PRIMARY_EMAIL', 'EMAIL_ADDRESS', false))
     if (emailContactMech) {
         contactDetailMap.emailAddress = emailContactMech.infoString
         contactDetailMap.emailContactMechId = emailContactMech.contactMechId
     }
-    phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_PHONE", "TELECOM_NUMBER", false))
+    phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, 'PRIMARY_PHONE', 'TELECOM_NUMBER', false))
     if (phoneContactMech) {
         contactDetailMap.phoneContactMechId = phoneContactMech.contactMechId
-        telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber", false)
+        telecomNumber = phoneContactMech.getRelatedOne('TelecomNumber', false)
         if (telecomNumber) {
             countryCode = telecomNumber.countryCode
             if (countryCode) {
@@ -85,9 +86,9 @@ if (partyId) {
             }
         }
     }
-    partyDataSource = EntityUtil.getFirst(party.getRelated("PartyDataSource", null, null, false))
+    partyDataSource = EntityUtil.getFirst(party.getRelated('PartyDataSource', null, null, false))
     if (partyDataSource) {
-        dataSource = partyDataSource.getRelatedOne("DataSource", false)
+        dataSource = partyDataSource.getRelatedOne('DataSource', false)
         contactDetailMap.leadSource = dataSource.description
     }
 }

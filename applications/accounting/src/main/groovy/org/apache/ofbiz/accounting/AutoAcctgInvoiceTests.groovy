@@ -26,7 +26,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import java.sql.Timestamp
 
 class AutoAcctgInvoiceTests extends OFBizTestCase {
-    public AutoAcctgInvoiceTests(String name) {
+
+    AutoAcctgInvoiceTests(String name) {
         super(name)
     }
 

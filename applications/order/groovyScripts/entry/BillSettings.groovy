@@ -21,29 +21,29 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.accounting.payment.BillingAccountWorker
 
-cart = session.getAttribute("shoppingCart")
+cart = session.getAttribute('shoppingCart')
 orderPartyId = cart.getPartyId()
 currencyUomId = cart.getCurrency()
 context.cart = cart
-context.paymentMethodType = request.getParameter("paymentMethodType")
+context.paymentMethodType = request.getParameter('paymentMethodType')
 
 // nuke the event messages
-request.removeAttribute("_EVENT_MESSAGE_")
+request.removeAttribute('_EVENT_MESSAGE_')
 
 // If there's a paymentMethodId request attribute, the user has just created a new payment method,
 //  so put the new paymentMethodId in the context for the UI
-newPaymentMethodId=request.getAttribute("paymentMethodId")
+newPaymentMethodId = request.getAttribute('paymentMethodId')
 if (newPaymentMethodId) {
     context.checkOutPaymentId = newPaymentMethodId
 }
 
-if (orderPartyId && !"_NA_".equals(orderPartyId)) {
-    orderParty = from("Party").where("partyId", orderPartyId).queryOne()
-    orderPerson = orderParty.getRelatedOne("Person", false)
+if (orderPartyId && '_NA_' != orderPartyId) {
+    orderParty = from('Party').where('partyId', orderPartyId).queryOne()
+    orderPerson = orderParty.getRelatedOne('Person', false)
     context.orderParty = orderParty
     context.orderPerson = orderPerson
     if (orderParty) {
-        context.paymentMethodList = EntityUtil.filterByDate(orderParty.getRelated("PaymentMethod", null, null, false), true)
+        context.paymentMethodList = EntityUtil.filterByDate(orderParty.getRelated('PaymentMethod', null, null, false), true)
 
         billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, orderPartyId, delegator, dispatcher)
         if (billingAccountList) {
@@ -53,9 +53,9 @@ if (orderPartyId && !"_NA_".equals(orderPartyId)) {
     }
 }
 
-if (request.getParameter("useShipAddr") && cart.getShippingContactMechId()) {
+if (request.getParameter('useShipAddr') && cart.getShippingContactMechId()) {
     shippingContactMech = cart.getShippingContactMechId()
-    postalAddress = from("PostalAddress").where("contactMechId", shippingContactMech).queryOne()
+    postalAddress = from('PostalAddress').where('contactMechId', shippingContactMech).queryOne()
     context.postalFields = postalAddress
 } else {
     context.postalFields = UtilHttp.getParameterMap(request)
@@ -66,20 +66,20 @@ if (cart) {
         checkOutPaymentId = cart.getPaymentMethodIds().get(0)
         context.checkOutPaymentId = checkOutPaymentId
         if (!orderParty) {
-            paymentMethod = from("PaymentMethod").where("paymentMethodId", checkOutPaymentId).queryOne()
-            if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
-                paymentMethodType = "CC"
-                account = paymentMethod.getRelatedOne("CreditCard", false)
+            paymentMethod = from('PaymentMethod').where('paymentMethodId', checkOutPaymentId).queryOne()
+            if (paymentMethod?.paymentMethodTypeId == 'CREDIT_CARD') {
+                paymentMethodType = 'CC'
+                account = paymentMethod.getRelatedOne('CreditCard', false)
                 context.creditCard = account
                 context.paymentMethodType = paymentMethodType
-            } else if ("EFT_ACCOUNT".equals(paymentMethod.paymentMethodTypeId)) {
-                paymentMethodType = "EFT"
-                account = paymentMethod.getRelatedOne("EftAccount", false)
+            } else if (paymentMethod.paymentMethodTypeId == 'EFT_ACCOUNT') {
+                paymentMethodType = 'EFT'
+                account = paymentMethod.getRelatedOne('EftAccount', false)
                 context.eftAccount = account
                 context.paymentMethodType = paymentMethodType
             }
             if (account) {
-                address = account.getRelatedOne("PostalAddress", false)
+                address = account.getRelatedOne('PostalAddress', false)
                 context.postalAddress = address
             }
         }

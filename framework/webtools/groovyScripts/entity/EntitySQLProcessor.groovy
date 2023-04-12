@@ -18,28 +18,23 @@
  */
 
 import org.apache.ofbiz.entity.jdbc.SQLProcessor
-import java.sql.ResultSet
-import java.sql.ResultSetMetaData
-import java.sql.SQLException
-import java.util.ArrayList
-import java.util.Iterator
-import org.apache.ofbiz.entity.*
-import org.apache.ofbiz.entity.model.ModelGroupReader
 
-sqlCommand = context.request.getParameter("sqlCommand")
+sqlCommand = context.request.getParameter('sqlCommand')
 
-resultMessage = ""
+resultMessage = ''
 rs = null
 columns = []
 records = []
 mgr = delegator.getModelGroupReader()
 groups = []
-for (String group : mgr.getGroupNames(delegator.getDelegatorName())) groups.add(0,["group":group]) //use for list-option in widget drop-down
+mgr.getGroupNames(delegator.getDelegatorName()).each { String group ->
+    groups.add(0, ['group': group]) //use for list-option in widget drop-down
+}
 
 if (sqlCommand && selGroup) {
     du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup))
     try {
-        if (sqlCommand.toUpperCase().startsWith("SELECT")) {
+        if (sqlCommand.toUpperCase().startsWith('SELECT')) {
             rs = du.executeQuery(sqlCommand)
             if (rs) {
                 rsmd = rs.getMetaData()
@@ -60,13 +55,13 @@ if (sqlCommand && selGroup) {
                     }
                     records.add(record)
                 }
-                resultMessage = "Returned " + (rowLimitReached? "top " + rowLimit : "" + records.size()) + " rows."
+                resultMessage = 'Returned ' + (rowLimitReached ? 'top ' + rowLimit : records.size() as String) + ' rows.'
                 rs.close()
             }
         } else {
-            if (sqlCommand.toUpperCase().contains("SYSCS_UTIL.SYSCS_EXPORT_TABLE")
-                    || sqlCommand.toUpperCase().contains("JSP")) {
-                context.resultMessage = "Not executed for security reason"
+            if (sqlCommand.toUpperCase().contains('SYSCS_UTIL.SYSCS_EXPORT_TABLE')
+                    || sqlCommand.toUpperCase().contains('JSP')) {
+                context.resultMessage = 'Not executed for security reason'
                 context.groups = groups
                 context.columns = columns
                 context.records = records

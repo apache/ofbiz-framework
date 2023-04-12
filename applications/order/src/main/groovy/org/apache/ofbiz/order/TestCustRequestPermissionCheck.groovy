@@ -18,13 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.order
 
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class TestCustRequestPermissionCheck extends OFBizTestCase {
-    public TestCustRequestPermissionCheck(String name) {
+
+    TestCustRequestPermissionCheck(String name) {
         super(name)
     }
 
@@ -36,4 +35,5 @@ class TestCustRequestPermissionCheck extends OFBizTestCase {
         Map result = dispatcher.runSync('custRequestPermissionCheck', serviceCtx)
         assert ServiceUtil.isSuccess(result)
     }
+
 }

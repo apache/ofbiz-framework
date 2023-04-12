@@ -17,54 +17,49 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.*
-import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityFindOptions
 
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.util.List
-import java.util.Set
 
-def limit = 13 // set number of days
-def sdf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-def sdf2 = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy", locale);
-def sdfTime = new SimpleDateFormat("HH:mm")
-def today = LocalDateTime.now()
+int limit = 13 // set number of days
+DateTimeFormatter sdf = DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss')
+DateTimeFormatter sdf2 = DateTimeFormatter.ofPattern('EEEE dd/MM/yyyy', locale)
+SimpleDateFormat sdfTime = new SimpleDateFormat('HH:mm', locale)
+LocalDateTime today = LocalDateTime.now()
 
-for (i in 0..limit){
-    def timeStampDate1 = Timestamp.valueOf(today.minusDays(i+1).format(sdf).toString())
-    def timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
+for (i in 0..limit) {
+    Timestamp timeStampDate1 = Timestamp.valueOf(today.minusDays(i + 1).format(sdf).toString())
+    Timestamp timeStampDate2 = Timestamp.valueOf(today.minusDays(i).format(sdf).toString())
     // make condition for distinct productId
-    def exprs = []
-    exprs.add(EntityCondition.makeCondition("productContentTypeId",EntityOperator.EQUALS, "IMAGE"))
-    exprs.add(EntityCondition.makeCondition("statusId",EntityOperator.EQUALS, "IM_APPROVED"))
-    exprs.add(EntityCondition.makeCondition("purchaseFromDate", EntityOperator.GREATER_THAN_EQUAL_TO, timeStampDate1))
-    exprs.add(EntityCondition.makeCondition("purchaseFromDate", EntityOperator.LESS_THAN, timeStampDate2))
+    List exprs = []
+    exprs.add(EntityCondition.makeCondition('productContentTypeId', EntityOperator.EQUALS, 'IMAGE'))
+    exprs.add(EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'IM_APPROVED'))
+    exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.GREATER_THAN_EQUAL_TO, timeStampDate1))
+    exprs.add(EntityCondition.makeCondition('purchaseFromDate', EntityOperator.LESS_THAN, timeStampDate2))
     // query result
-    def productContentAndInfoList = select("productId").from("ProductContentAndInfo").where(exprs).distinct().queryList()
-    
+    List<GenericValue> productContentAndInfoList = select('productId').from('ProductContentAndInfo').where(exprs).distinct().queryList()
+
     // finding time
-    def timeList = from("ProductContentAndInfo").where(exprs).orderBy("productId").queryList()
-    def groupByTimeList =  timeList.groupBy{it.productId}
-    def tempTimeList = []
-    groupByTimeList.each() {
-        key,value -> tempTimeList.add(value.purchaseFromDate)
+    List<GenericValue> timeList = from('ProductContentAndInfo').where(exprs).orderBy('productId').queryList()
+    Map groupByTimeList = timeList.groupBy { it.productId }
+    List tempTimeList = []
+    groupByTimeList.each {
+        key, value -> tempTimeList.add(value.purchaseFromDate)
     }
 
-    def time = []
-    if(tempTimeList.size > 0){
-        for(j in 0..tempTimeList.size-1){
+    List time = []
+    if (tempTimeList.size > 0) {
+        0..tempTimeList.size - 1.each { j ->
             time.add(sdfTime.format(tempTimeList.get(j).get(0)))
         }
     }
-    def showDate = sdf2.format(today-i)
-    
+    String showDate = sdf2.format(today - i)
+
     switch (i) {
         case 0: context.approved_0 = productContentAndInfoList; context.time_0 = time; context.date0 = showDate
             context.timeStampDate1_0 = timeStampDate1; context.timeStampDate2_0 = timeStampDate2; break
@@ -94,6 +89,6 @@ for (i in 0..limit){
             context.timeStampDate1_12 = timeStampDate1; context.timeStampDate2_12 = timeStampDate2; break
         case 13: context.approved_13 = productContentAndInfoList; context.time_13 = time; context.date13 = showDate
             context.timeStampDate1_13 = timeStampDate1; context.timeStampDate2_13 = timeStampDate2; break
-        default: context.error = "error"
+        default: context.error = 'error'
     }
 }

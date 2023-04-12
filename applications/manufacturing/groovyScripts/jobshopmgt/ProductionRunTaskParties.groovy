@@ -18,17 +18,18 @@
  */
 
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
+
 taskPartyAssocList = []
 productionRunId = parameters.productionRunId ?: parameters.workEffortId
 if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher)
     if (productionRun.exist()) {
         productionRunTasks = productionRun.getProductionRunRoutingTasks()
-        
+
         if (productionRunTasks) {
             productionRunTasks.each { prodRunTask ->
                 prodRunTaskId = prodRunTask.workEffortId
-                taskPartyAssocs = from("WorkEffortPartyAssignment").where("workEffortId", prodRunTaskId).queryList()
+                taskPartyAssocs = from('WorkEffortPartyAssignment').where('workEffortId', prodRunTaskId).queryList()
                 if (taskPartyAssocs) {
                     taskPartyAssocs.each { taskPartyAssoc ->
                         taskPartyAssocList.add(taskPartyAssoc)
@@ -36,7 +37,6 @@ if (productionRunId) {
                 }
             }
         }
-        
     }
 }
 context.productionRunTaskParties = taskPartyAssocList

@@ -29,16 +29,17 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuit
 
     try {
         Element documentElement = testSuiteResource.getDocument().getDocumentElement()
-        String suiteName = testSuiteResource.getDocument().getDocumentElement().getAttribute("suite-name")
+        String suiteName = testSuiteResource.getDocument().getDocumentElement().getAttribute('suite-name')
         boolean firstLine = true
-        for (Element testCaseElement : UtilXml.childElementList(documentElement, ["test-case", "test-group"] as Set)) {
-            testList << [suiteName     : suiteName,
-                         caseName      : testCaseElement.getAttribute("case-name"),
+        UtilXml.childElementList(documentElement, ['test-case', 'test-group'] as Set).each { Element testCaseElement ->
+            testList << [suiteName: suiteName,
+                         caseName: testCaseElement.getAttribute('case-name'),
                          firstSuiteLine: firstLine ? 'Y' : 'N']
             firstLine = false
         }
     } catch (GenericConfigException e) {
-        String errMsg = "Error reading XML document from ResourceHandler for loader [${testSuiteResource.getLoaderName()}] and location [${testSuiteResource.getLocation()}]"
+        String errMsg = "Error reading XML document from ResourceHandler for loader [${testSuiteResource.getLoaderName()}]" +
+                " and location [${testSuiteResource.getLocation()}]"
         logError(e, errMsg)
         throw new IllegalArgumentException(errMsg)
     }

@@ -22,7 +22,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class OrderRequirementTests extends OFBizTestCase {
-    public OrderRequirementTests(String name) {
+
+    OrderRequirementTests(String name) {
         super(name)
     }
     // Requirement related test services
@@ -87,7 +88,8 @@ class OrderRequirementTests extends OFBizTestCase {
             workEffortId: '9000',
             userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync("addRequirementTask", serviceCtx)
+        Map serviceResult = dispatcher.runSync('addRequirementTask', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+
 }

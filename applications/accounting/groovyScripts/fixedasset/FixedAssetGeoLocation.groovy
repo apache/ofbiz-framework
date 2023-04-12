@@ -17,22 +17,23 @@
  * under the License.
  */
 
-
-import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.common.geo.GeoWorker
 
-uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale)
+uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
 
 if (fixedAsset) {
-    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "FixedAssetAndGeoPoint", "fixedAssetId", fixedAssetId, null, null)
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'FixedAssetAndGeoPoint', 'fixedAssetId', fixedAssetId, null, null)
     if (latestGeoPoint) {
         context.latestGeoPoint = latestGeoPoint
-        if (latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
-            List geoPoints = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "fixedAssetId", fixedAssetId,
-                            "link", UtilMisc.toMap("url", "EditFixedAsset?fixedAssetId="+ fixedAssetId, "label", uiLabelMap.AccountingFixedAsset + " " + fixedAsset.fixedAssetName)))
-            
-            Map geoChart = UtilMisc.toMap("width", "500px", "height", "450px", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints)
+        if (latestGeoPoint.containsKey('latitude') && latestGeoPoint.containsKey('longitude')) {
+            List geoPoints = [[lat: latestGeoPoint.latitude, lon: latestGeoPoint.longitude, fixedAssetId: fixedAssetId,
+                               link: [url: 'EditFixedAsset?fixedAssetId=' + fixedAssetId,
+                                      label: uiLabelMap.AccountingFixedAsset + ' ' + fixedAsset.fixedAssetName]
+                              ]
+            ]
+
+            Map geoChart = [width: '500px', height: '450px', controlUI: 'small', dataSourceId: latestGeoPoint.dataSourceId, points: geoPoints]
             context.geoChart = geoChart
         }
         if (latestGeoPoint.elevationUomId) {

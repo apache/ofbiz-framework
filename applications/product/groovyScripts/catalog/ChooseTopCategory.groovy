@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.category.*
+import org.apache.ofbiz.product.category.CategoryWorker
 
-CategoryWorker.getCategoriesWithNoParent(request, "noParentCategories")
-noParentCategories = request.getAttribute("noParentCategories")
+CategoryWorker.getCategoriesWithNoParent(request, 'noParentCategories')
+noParentCategories = request.getAttribute('noParentCategories')
 context.noParentCategories = noParentCategories

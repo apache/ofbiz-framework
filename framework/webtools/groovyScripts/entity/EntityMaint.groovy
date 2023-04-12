@@ -16,31 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.UtilValidate
+
+import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.DelegatorFactory
-import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.model.ModelGroupReader
-import org.apache.ofbiz.entity.model.ModelReader
-import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelViewEntity
 import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.base.util.UtilProperties
 
 if (delegator.getDelegatorTenantId() == null) {
     mgr = delegator.getModelGroupReader()
     entityGroups = mgr.getGroupNames(delegator.getDelegatorName()).toArray().sort()
 } else {
     Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName())
-    entityGroups = EntityUtil.getFieldListFromEntityList(baseDelegator.findList("TenantDataSource", EntityCondition.makeCondition("tenantId", EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()), ['entityGroupName'] as Set, ['entityGroupName'], null, false), 'entityGroupName', false)
+    entityGroups = EntityUtil.getFieldListFromEntityList(
+            baseDelegator.findList('TenantDataSource',
+                    EntityCondition.makeCondition('tenantId', EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()),
+                    ['entityGroupName'] as Set, ['entityGroupName'], null, false),
+            'entityGroupName', false)
 }
 
 context.entityGroups = []
-context.entityGroups.add(["name" : UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsAll", locale), "value" : ""])
+context.entityGroups.add(['name': UtilProperties.getMessage('WebtoolsUiLabels', 'WebtoolsAll', locale), 'value': ''])
 for (String entityGroup : entityGroups) {
-    context.entityGroups.add(["name" : entityGroup, "value" : entityGroup])
+    context.entityGroups.add(['name': entityGroup, 'value': entityGroup])
 }
 
 filterByGroupName = parameters.filterByGroupName
@@ -54,7 +54,7 @@ entities = new TreeSet(reader.getEntityNames())
 
 entitiesList = []
 firstChars = []
-firstChar = ""
+firstChar = ''
 entities.each { entityName ->
     entity = reader.getModelEntity(entityName)
     entityGroupName = delegator.getEntityGroupName(entity.getEntityName())
@@ -62,25 +62,26 @@ entities.each { entityName ->
     if (!entityGroups.contains(entityGroupName)) {
         return
     }
-    if (filterByGroupName && !filterByGroupName.equals(entityGroupName)) {
+    if (filterByGroupName && filterByGroupName != entityGroupName) {
         return
     }
-    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase().replace(" ", ""))) {
+    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase().replace(' ', ''))) {
         return
     }
-    viewEntity = "N"
+    viewEntity = 'N'
     if (entity instanceof ModelViewEntity) {
-        viewEntity = "Y"
+        viewEntity = 'Y'
     }
 
-    entityPermissionView = "N"
-    if (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(entity.getPlainTableName(), "_VIEW", session)) {
-        entityPermissionView = "Y"
+    entityPermissionView = 'N'
+    if (security.hasEntityPermission('ENTITY_DATA', '_VIEW', session) || security.hasEntityPermission(entity.getPlainTableName(), '_VIEW', session)) {
+        entityPermissionView = 'Y'
     }
 
-    entityPermissionCreate = "N"
-    if (security.hasEntityPermission("ENTITY_DATA", "_CREATE", session) || security.hasEntityPermission(entity.getPlainTableName(), "_CREATE", session)) {
-        entityPermissionCreate = "Y"
+    entityPermissionCreate = 'N'
+    if (security.hasEntityPermission('ENTITY_DATA', '_CREATE', session)
+            || security.hasEntityPermission(entity.getPlainTableName(), '_CREATE', session)) {
+        entityPermissionCreate = 'Y'
     }
 
     entityMap = [:]

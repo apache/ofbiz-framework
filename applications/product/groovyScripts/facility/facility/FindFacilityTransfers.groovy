@@ -17,47 +17,48 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
 //default this to true, ie only show active
-activeOnly = !"false".equals(request.getParameter("activeOnly"))
+activeOnly = 'false' != request.getParameter('activeOnly')
 context.activeOnly = activeOnly
 
 // if the completeRequested was set, then we'll lookup only requested status
-completeRequested = "true".equals(request.getParameter("completeRequested"))
+completeRequested = request.getParameter('completeRequested') == 'true'
 context.completeRequested = completeRequested
 
 // get the 'to' this facility transfers
 if (activeOnly) {
-    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId),
-               EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"),
-               EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED")]
+    exprsTo = [EntityCondition.makeCondition('facilityIdTo', EntityOperator.EQUALS, facilityId),
+               EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'IXF_COMPLETE'),
+               EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'IXF_CANCELLED')]
 } else {
-    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId)]
+    exprsTo = [EntityCondition.makeCondition('facilityIdTo', EntityOperator.EQUALS, facilityId)]
 }
 if (completeRequested) {
-    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId),
-               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "IXF_REQUESTED")]
+    exprsTo = [EntityCondition.makeCondition('facilityIdTo', EntityOperator.EQUALS, facilityId),
+               EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'IXF_REQUESTED')]
 }
-toTransfers = from("InventoryTransfer").where(exprsTo).orderBy("sendDate").queryList()
+toTransfers = from('InventoryTransfer').where(exprsTo).orderBy('sendDate').queryList()
 if (toTransfers) {
     context.toTransfers = toTransfers
 }
 
 // get the 'from' this facility transfers
 if (activeOnly) {
-    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"),
-                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED")]
+    exprsFrom = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
+                 EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'IXF_COMPLETE'),
+                 EntityCondition.makeCondition('statusId', EntityOperator.NOT_EQUAL, 'IXF_CANCELLED')]
 } else {
-    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)]
+    exprsFrom = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId)]
 }
 if (completeRequested) {
-    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "IXF_REQUESTED")]
+    exprsFrom = [EntityCondition.makeCondition('facilityId', EntityOperator.EQUALS, facilityId),
+                 EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'IXF_REQUESTED')]
 }
 ecl = EntityCondition.makeCondition(exprsFrom, EntityOperator.AND)
-fromTransfers = from("InventoryTransfer").where(exprsFrom).orderBy("sendDate").queryList()
+fromTransfers = from('InventoryTransfer').where(exprsFrom).orderBy('sendDate').queryList()
 if (fromTransfers) {
     context.fromTransfers = fromTransfers
 }

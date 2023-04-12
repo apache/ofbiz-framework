@@ -1,13 +1,3 @@
-import java.sql.Timestamp
-
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.content.data.DataResourceWorker
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.service.ModelService
-import org.apache.ofbiz.service.ServiceUtil
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,22 +17,26 @@ import org.apache.ofbiz.service.ServiceUtil
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.service.ModelService
+import org.apache.ofbiz.service.ServiceUtil
+
+import java.sql.Timestamp
 
 //Methods for DataResource
 /**
  * Create a Data Resource
- *
- * @return
  */
 
-def createDataResource() {
+Map createDataResource() {
     Map result = success()
 
-    GenericValue newEntity = makeValue("DataResource", parameters)
+    GenericValue newEntity = makeValue('DataResource', parameters)
 
-    if (!newEntity.dataResourceId) {
-        newEntity.dataResourceId = delegator.getNextSeqId("DataResource")
-    }
+    newEntity.dataResourceId = newEntity.dataResourceId ?: delegator.getNextSeqId('DataResource')
 
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     GenericValue userLogin = parameters.userLogin
@@ -52,14 +46,14 @@ def createDataResource() {
     newEntity.createdDate = nowTimestamp
 
     if (!parameters.dataTemplateTypeId) {
-        newEntity.dataTemplateTypeId = "NONE"
+        newEntity.dataTemplateTypeId = 'NONE'
     }
 
     if (!parameters.statusId) {
         //get first status item
-        GenericValue statusItem = from("StatusItem")
-            .where("statusTypeId", "CONTENT_STATUS")
-            .orderBy("sequenceId")
+        GenericValue statusItem = from('StatusItem')
+            .where('statusTypeId', 'CONTENT_STATUS')
+            .orderBy('sequenceId')
             .queryFirst()
         newEntity.statusId = statusItem.statusId
     }
@@ -77,39 +71,36 @@ def createDataResource() {
 
 /**
  * Create a Data Resource and return the data resource type
- *
- * @return
  */
-def createDataResourceAndAssocToContent() {
-
-    GenericValue content = from("Content").where(parameters).queryOne()
+Map createDataResourceAndAssocToContent() {
+    GenericValue content = from('Content').where(parameters).queryOne()
     if (!content) {
-        return error(UtilProperties.getMessage("ContentErrorUiLabels", "layoutEvents.content_empty", parameters.locale))
+        return error(UtilProperties.getMessage('ContentErrorUiLabels', 'layoutEvents.content_empty', parameters.locale))
     }
 
-    Map serviceResult = run service: "createDataResource", with: parameters
+    Map serviceResult = run service: 'createDataResource', with: parameters
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return serviceResult
     }
     GenericValue dataResource = serviceResult.dataResource
 
     Map contentCtx = [:]
-    if (parameters.templateDataResource && parameters.templateDataResource == "Y") {
-        contentCtx.put("templateDataResourceId", parameters.dataResourceId)
+    if (parameters.templateDataResource && parameters.templateDataResource == 'Y') {
+        contentCtx.put('templateDataResourceId', parameters.dataResourceId)
     } else {
-        contentCtx.put("dataRessourceId", parameters.dataResourceId)
+        contentCtx.put('dataRessourceId', parameters.dataResourceId)
     }
-    contentCtx.put("contentId", parameters.contentId)
+    contentCtx.put('contentId', parameters.contentId)
 
-    Map result = run service: "updateContent", with: contentCtx
+    Map result = run service: 'updateContent', with: contentCtx
     if (!ServiceUtil.isSuccess(result)) {
         return result
     }
 
     result.contentId = parameters.contentId
     if (dataResource.dataResourceTypeId &&
-        (dataResource.dataResourceTypeId == "ELECTRONIC_TEXT" ||
-            dataResource.dataResourceTypeId == "IMAGE_OBJECT")) {
+        (dataResource.dataResourceTypeId == 'ELECTRONIC_TEXT' ||
+            dataResource.dataResourceTypeId == 'IMAGE_OBJECT')) {
         result.put(ModelService.RESPONSE_MESSAGE, "${dataResource.dataResourceTypeId}")
     }
     return result
@@ -117,29 +108,27 @@ def createDataResourceAndAssocToContent() {
 
 /**
  * Get Electronic Text
- * @return
  */
-def getElectronicText() {
+Map getElectronicText() {
     Map result = success()
-    GenericValue userLogin = parameters.userLogin
     GenericValue currentContent = parameters.content
     logInfo("GETELECTRONICTEXT, currentContent:${currentContent}")
 
     if (!currentContent) {
         if (parameters.contentId) {
-            currentContent = from("Content").where(parameters).queryOne()
+            currentContent = from('Content').where(parameters).queryOne()
         }
         if (!currentContent) {
-            return error(UtilProperties.getMessage("ContentUiLabels", "ContentNeitherContentSupplied", parameters.locale))
+            return error(UtilProperties.getMessage('ContentUiLabels', 'ContentNeitherContentSupplied', parameters.locale))
         }
     }
     if (!currentContent.dataResourceId) {
-        return error(UtilProperties.getMessage("ContentUiLabels", "ContentDataResourceNotFound", parameters.locale))
+        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
     }
     result.dataResourceId = currentContent.dataResourceId
-    GenericValue eText = from("ElectronicText").where("dataResourceId", currentContent.dataResourceId).queryOne()
+    GenericValue eText = from('ElectronicText').where('dataResourceId', currentContent.dataResourceId).queryOne()
     if (!eText) {
-        return error(UtilProperties.getMessage("ContentUiLabels", "ContentElectronicTextNotFound", parameters.locale))
+        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentElectronicTextNotFound', parameters.locale))
     }
     result.textData = eText.textData
     return result
@@ -147,23 +136,21 @@ def getElectronicText() {
 
 /**
  * Attach an uploaded file to a data resource
- *
- * @return
  */
-def attachUploadToDataResource() {
+Map attachUploadToDataResource() {
     boolean isUpdate = false
-    boolean forceLocal = UtilProperties.getPropertyValue("content.properties", "content.upload.always.local.file")
+    boolean forceLocal = UtilProperties.getPropertyValue('content.properties', 'content.upload.always.local.file')
     List validLocalFileTypes = [
-        "LOCAL_FILE",
-        "OFBIZ_FILE",
-        "CONTEXT_FILE",
-        "LOCAL_FILE_BIN",
-        "OFBIZ_FILE_BIN",
-        "CONTEXT_FILE_BIN"
+        'LOCAL_FILE',
+        'OFBIZ_FILE',
+        'CONTEXT_FILE',
+        'LOCAL_FILE_BIN',
+        'OFBIZ_FILE_BIN',
+        'CONTEXT_FILE_BIN'
     ]
     boolean isValidLocalType = parameters.dataResourceTypeId in validLocalFileTypes
     if (forceLocal && !isValidLocalType) {
-        parameters.dataResourceTypeId = "LOCAL_FILE"
+        parameters.dataResourceTypeId = 'LOCAL_FILE'
     }
 
     if (!parameters.dataResourceTypeId) {
@@ -171,51 +158,51 @@ def attachUploadToDataResource() {
         if (parameters._uploadedFile_contentType) {
             switch (parameters._uploadedFile_contentType) {
                 case ~/image.*/:
-                    parameters.dataResourceTypeId = "IMAGE_OBJECT"
+                    parameters.dataResourceTypeId = 'IMAGE_OBJECT'
                     break
                 case ~/video.*/:
-                    parameters.dataResourceTypeId = "VIDEO_OBJECT"
+                    parameters.dataResourceTypeId = 'VIDEO_OBJECT'
                     break
                 case ~/audio.*/:
-                    parameters.dataResourceTypeId = "AUDIO_OBJECT"
+                    parameters.dataResourceTypeId = 'AUDIO_OBJECT'
                     break
                 default:
-                    parameters.dataResourceTypeId = "OTHER_OBJECT"
+                    parameters.dataResourceTypeId = 'OTHER_OBJECT'
             }
         } else {
-            parameters.dataResourceTypeId = "OTHER_OBJECT"
+            parameters.dataResourceTypeId = 'OTHER_OBJECT'
         }
     }
     switch (parameters.dataResourceTypeId) {
-        case ["LOCAL_FILE", "LOCAL_FILE_BIN", "OFBIZ_FILE", "OFBIZ_FILE_BIN", "CONTEXT_FILE", "CONTEXT_FILE_BIN"]:
+        case ['LOCAL_FILE', 'LOCAL_FILE_BIN', 'OFBIZ_FILE', 'OFBIZ_FILE_BIN', 'CONTEXT_FILE', 'CONTEXT_FILE_BIN']:
             return saveLocalFileDataResource(parameters.dataResourceTypeId)
-        case "IMAGE_OBJECT":
-            GenericValue dataResObj = from("ImageDataResource")
-                .where("dataResourceId", parameters.dataResourceId)
+        case 'IMAGE_OBJECT':
+            GenericValue dataResObj = from('ImageDataResource')
+                .where('dataResourceId', parameters.dataResourceId)
                 .queryOne()
             if (dataResObj) {
                 isUpdate = true
             }
             break
-        case "VIDEO_OBJECT":
-            GenericValue dataResObj = from("VideoDataResource")
-                .where("dataResourceId", parameters.dataResourceId)
+        case 'VIDEO_OBJECT':
+            GenericValue dataResObj = from('VideoDataResource')
+                .where('dataResourceId', parameters.dataResourceId)
                 .queryOne()
             if (dataResObj) {
                 isUpdate = true
             }
             break
-        case "AUDIO_OBJECT":
-            GenericValue dataResObj = from("AudioDataResource")
-                .where("dataResourceId", parameters.dataResourceId)
+        case 'AUDIO_OBJECT':
+            GenericValue dataResObj = from('AudioDataResource')
+                .where('dataResourceId', parameters.dataResourceId)
                 .queryOne()
             if (dataResObj) {
                 isUpdate = true
             }
             break
-        case "OTHER_OBJECT":
-            GenericValue dataResObj = from("OtherDataResource")
-                .where("dataResourceId", parameters.dataResourceId)
+        case 'OTHER_OBJECT':
+            GenericValue dataResObj = from('OtherDataResource')
+                .where('dataResourceId', parameters.dataResourceId)
                 .queryOne()
             if (dataResObj) {
                 isUpdate = true
@@ -228,21 +215,18 @@ def attachUploadToDataResource() {
 
 /**
  * Attach an uploaded file to a data resource as a Local File-Type (Local, OfBiz or Context)
- *
- * @param absolute
- * @return
  */
-def saveLocalFileDataResource(String mode) {
+Map saveLocalFileDataResource(String mode) {
     Map result = success()
     List errorList = []
     boolean isUpdate = false
-    GenericValue dataResource = from("DataResource").where(parameters).queryOne()
-    if (!dataResource) {
-        errorList.add(UtilProperties.getMessage("ContentUiLabels", "ContentDataResourceNotFound", parameters.locale))
-    } else {
+    GenericValue dataResource = from('DataResource').where(parameters).queryOne()
+    if (dataResource) {
         if (dataResource.objectInfo) {
             isUpdate = true
         }
+    } else {
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
     }
     if (!parameters._uploadedFile_fileName) {
         if (isUpdate) {
@@ -250,31 +234,30 @@ def saveLocalFileDataResource(String mode) {
             result.dataResourceId = dataResource.dataResourceId
             result.mimeTypeId = dataResource.mimeTypeId
             return result
-        } else {
-            errorList.add(UtilProperties.getMessage("ContentUiLabels", "ContentNoUploadedContentFound", parameters.locale))
         }
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
     }
     String uploadPath = null
     switch (mode) {
-        case ["LOCAL_FILE", "LOCAL_FILE_BIN"]:
+        case ['LOCAL_FILE', 'LOCAL_FILE_BIN']:
             uploadPath = DataResourceWorker.getDataResourceContentUploadPath(delegator, true)
-			break
-        case ["OFBIZ_FILE", "OFBIZ_FILE_BIN"]:
+            break
+        case ['OFBIZ_FILE', 'OFBIZ_FILE_BIN']:
             uploadPath = DataResourceWorker.getDataResourceContentUploadPath(delegator, false)
-			break
-        case ["CONTEXT_FILE", "CONTEXT_FILE_BIN"]:
+            break
+        case ['CONTEXT_FILE', 'CONTEXT_FILE_BIN']:
             uploadPath = parameters.rootDir
-			break
+            break
     }
     if (!uploadPath) {
-        errorList.add(UtilProperties.getMessage("ContentErrorUiLabels", "uploadContentAndImage.noRootDirProvided", parameters.locale))
+        errorList.add(UtilProperties.getMessage('ContentErrorUiLabels', 'uploadContentAndImage.noRootDirProvided', parameters.locale))
     }
     if (errorList) {
         return ServiceUtil.returnError(errorList)
     }
     logInfo("[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}")
-    GenericValue extension = from("FileExtension")
-        .where("mimeTypeId", parameters._uploadedFile_contentType)
+    GenericValue extension = from('FileExtension')
+        .where('mimeTypeId', parameters._uploadedFile_contentType)
         .queryFirst()
     dataResource.dataResourceName = parameters._uploadedFile_fileName
     dataResource.objectInfo = extension ?
@@ -283,25 +266,25 @@ def saveLocalFileDataResource(String mode) {
     dataResource.dataResourceTypeId = parameters.dataResourceTypeId
     dataResource.store()
 
-    ModelService cafService = dispatcher.getDispatchContext().getModelService("createAnonFile")
-    Map fileCtx = cafService.makeValid(dataResource, "IN")
+    ModelService cafService = dispatcher.getDispatchContext().getModelService('createAnonFile')
+    Map fileCtx = cafService.makeValid(dataResource, 'IN')
     fileCtx.binData = parameters.uploadedFile
     fileCtx.dataResource = dataResource
-    result = run service: "createAnonFile", with: fileCtx
+    result = run service: 'createAnonFile', with: fileCtx
     result.dataResourceId = dataResource.dataResourceId
     result.mimeTypeId = dataResource.mimeTypeId
 
     return result
 }
 
-def saveExtFileDataResource(boolean isUpdate, String mode) {
+Map saveExtFileDataResource(boolean isUpdate, String mode) {
     Map result = success()
     List errorList = []
-    GenericValue dataResource = from("DataResource")
-        .where("dataResourceId", parameters.dataResourceId)
+    GenericValue dataResource = from('DataResource')
+        .where('dataResourceId', parameters.dataResourceId)
         .queryOne()
     if (!dataResource) {
-        errorList.add(UtilProperties.getMessage("ContentUiLabels", "ContentDataResourceNotFound", parameters.locale))
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound', parameters.locale))
     }
     if (!parameters._uploadedFile_fileName) {
         if (isUpdate) {
@@ -309,9 +292,8 @@ def saveExtFileDataResource(boolean isUpdate, String mode) {
             result.dataResourceId = dataResource.dataResourceId
             result.mimeTypeId = dataResource.mimeTypeId
             return result
-        } else {
-            errorList.add(UtilProperties.getMessage("ContentUiLabels", "ContentNoUploadedContentFound", parameters.locale))
         }
+        errorList.add(UtilProperties.getMessage('ContentUiLabels', 'ContentNoUploadedContentFound', parameters.locale))
     }
     // update the data resource with file data
     dataResource.dataResourceTypeId = parameters.dataResourceTypeId
@@ -323,33 +305,32 @@ def saveExtFileDataResource(boolean isUpdate, String mode) {
 
     if (isUpdate) {
         switch (mode) {
-            case "IMAGE_OBJECT":
-                result = run service: "updateImageDataResource", with: serviceContext
+            case 'IMAGE_OBJECT':
+                result = run service: 'updateImageDataResource', with: serviceContext
                 break
-            case "VIDEO_OBJECT":
-                result = run service: "updateVideoDataResource", with: serviceContext
+            case 'VIDEO_OBJECT':
+                result = run service: 'updateVideoDataResource', with: serviceContext
                 break
-            case "AUDIO_OBJECT":
-                result = run service: "updateAudioDataResource", with: serviceContext
+            case 'AUDIO_OBJECT':
+                result = run service: 'updateAudioDataResource', with: serviceContext
                 break
-            case "OTHER_OBJECT":
-                result = run service: "updateOtherDataResource", with: serviceContext
+            case 'OTHER_OBJECT':
+                result = run service: 'updateOtherDataResource', with: serviceContext
                 break
         }
-
     } else {
         switch (mode) {
-            case "IMAGE_OBJECT":
-                result = run service: "createImageDataResource", with: serviceContext
+            case 'IMAGE_OBJECT':
+                result = run service: 'createImageDataResource', with: serviceContext
                 break
-            case "VIDEO_OBJECT":
-                result = run service: "createVideoDataResource", with: serviceContext
+            case 'VIDEO_OBJECT':
+                result = run service: 'createVideoDataResource', with: serviceContext
                 break
-            case "AUDIO_OBJECT":
-                result = run service: "createAudioDataResource", with: serviceContext
+            case 'AUDIO_OBJECT':
+                result = run service: 'createAudioDataResource', with: serviceContext
                 break
-            case "OTHER_OBJECT":
-                result = run service: "createOtherDataResource", with: serviceContext
+            case 'OTHER_OBJECT':
+                result = run service: 'createOtherDataResource', with: serviceContext
                 break
         }
     }
@@ -362,25 +343,25 @@ def saveExtFileDataResource(boolean isUpdate, String mode) {
 
 Map prepareServiceContext(GenericValue dataResource, String mode) {
     switch (mode) {
-        case "IMAGE_OBJECT":
-            ModelService service = dispatcher.getDispatchContext().getModelService("createImageDataResource")
-            Map serviceContext = service.makeValid(dataResource, "IN")
+        case 'IMAGE_OBJECT':
+            ModelService service = dispatcher.getDispatchContext().getModelService('createImageDataResource')
+            Map serviceContext = service.makeValid(dataResource, 'IN')
             serviceContext.imageData = parameters.uploadedFile
             serviceContext.dataResource = dataResource
             return serviceContext
-        case "VIDEO_OBJECT":
-            ModelService service = dispatcher.getDispatchContext().getModelService("updateVideoDataResource")
-            Map serviceContext = service.makeValid(dataResource, "IN")
+        case 'VIDEO_OBJECT':
+            ModelService service = dispatcher.getDispatchContext().getModelService('updateVideoDataResource')
+            Map serviceContext = service.makeValid(dataResource, 'IN')
             serviceContext.videoData = parameters.uploadedFile
             return serviceContext
-        case "AUDIO_OBJECT":
-            ModelService service = dispatcher.getDispatchContext().getModelService("createAudioDataResource")
-            Map serviceContext = service.makeValid(dataResource, "IN")
+        case 'AUDIO_OBJECT':
+            ModelService service = dispatcher.getDispatchContext().getModelService('createAudioDataResource')
+            Map serviceContext = service.makeValid(dataResource, 'IN')
             serviceContext.audioData
             return serviceContext
-        case "OTHER_OBJECT":
-            ModelService service = dispatcher.getDispatchContext().getModelService("createOtherDataResource")
-            Map serviceContext = service.makeValid(dataResource, "IN")
+        case 'OTHER_OBJECT':
+            ModelService service = dispatcher.getDispatchContext().getModelService('createOtherDataResource')
+            Map serviceContext = service.makeValid(dataResource, 'IN')
             serviceContext.dataResourceContent = parameters.uploadedFile
             return serviceContext
     }

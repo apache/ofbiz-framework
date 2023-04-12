@@ -23,18 +23,20 @@ import org.apache.ofbiz.service.ServiceUtil
 /**
  * Create a new order conversation
  */
-def createOrderConversation() {
+Map createOrderConversation() {
     Map<String, Object> createCommunicationEventMap = dispatcher.getDispatchContext()
             .makeValidContext('createCommunicationEvent', 'IN', parameters)
     createCommunicationEventMap.entryDate = UtilDateTime.nowTimestamp()
-    createCommunicationEventMap.statusId = "COM_ENTERED"
-    def result = dispatcher.runSync('createCommunicationEvent', createCommunicationEventMap)
-    if (ServiceUtil.isError(result)) return result
+    createCommunicationEventMap.statusId = 'COM_ENTERED'
+    Map result = dispatcher.runSync('createCommunicationEvent', createCommunicationEventMap)
+    if (ServiceUtil.isError(result)) {
+        return result
+    }
 
     if (parameters.communicationEventPrpTypId) {
         Map<String, Object> createCommunicationEventPurposeMap = dispatcher.getDispatchContext()
                 .makeValidContext('createCommunicationEventPurpose', 'IN', parameters)
         createCommunicationEventPurposeMap.communicationEventId = result.communicationEventId
-        return dispatcher.runSync('createCommunicationEventPurpose', createCommunicationEventPurposeMap);
+        return dispatcher.runSync('createCommunicationEventPurpose', createCommunicationEventPurposeMap)
     }
 }

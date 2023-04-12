@@ -23,17 +23,10 @@ import org.apache.ofbiz.product.catalog.CatalogWorker
 
 productId = parameters.productId
 if (productId) {
-
-    quantityOnHandTotal = parameters.quantityOnHandTotal
-    if (!quantityOnHandTotal) {
-        quantityOnHandTotal = 0
-    }
+    quantityOnHandTotal = parameters.quantityOnHandTotal ?: 0
     context.quantityOnHandTotal = quantityOnHandTotal
 
-    availableToPromiseTotal = parameters.availableToPromiseTotal
-    if (!availableToPromiseTotal) {
-        availableToPromiseTotal = 0
-    }
+    availableToPromiseTotal = parameters.availableToPromiseTotal ?: 0
     context.availableToPromiseTotal = availableToPromiseTotal
 }
 context.productId = productId
@@ -54,7 +47,7 @@ orderAdjustments = shoppingCart.makeAllAdjustments()
 orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
-        if ("OrderAdjustment".equals(osiInfo.getEntityName())) {
+        if (osiInfo.getEntityName() == 'OrderAdjustment') {
             // shipping / tax adjustment(s)
             orderAdjustments.add(osiInfo)
         }
@@ -69,7 +62,7 @@ taxAmount = OrderReadHelper.getOrderTaxByTaxAuthGeoAndParty(orderAdjustments).ta
 context.orderTaxTotal = taxAmount
 
 // get all the possible gift wrap options
-allgiftWraps = from("ProductFeature").where("productFeatureTypeId", "GIFT_WRAP").orderBy("defaultSequenceNum").queryList()
+allgiftWraps = from('ProductFeature').where('productFeatureTypeId', 'GIFT_WRAP').orderBy('defaultSequenceNum').queryList()
 context.allgiftWraps = allgiftWraps
 
 context.contentPathPrefix = CatalogWorker.getContentPathPrefix(request)
@@ -79,43 +72,46 @@ productStoreId = shoppingCart.getProductStoreId()
 context.productStoreId = productStoreId
 
 partyId = shoppingCart.getPartyId()
-if ("_NA_".equals(partyId)) partyId = null
+if (partyId == '_NA_') {
+    partyId = null
+}
 context.partyId = partyId
 
 defaultDesiredDeliveryDate = shoppingCart.getDefaultItemDeliveryDate()
-if (!defaultDesiredDeliveryDate) {
-    defaultDesiredDeliveryDate = (new java.sql.Date(System.currentTimeMillis())).toString()
+if (defaultDesiredDeliveryDate) {
+    context.useAsDefaultDesiredDeliveryDate =  'true'
 } else {
-    context.useAsDefaultDesiredDeliveryDate =  "true"
+    defaultDesiredDeliveryDate = (new java.sql.Date(System.currentTimeMillis())).toString()
 }
 context.defaultDesiredDeliveryDate = defaultDesiredDeliveryDate
 
 defaultComment = shoppingCart.getDefaultItemComment()
 if (defaultComment) {
-    context.useAsDefaultComment = "true"
+    context.useAsDefaultComment = 'true'
 }
 context.defaultComment = defaultComment
 
 // get all party shopping lists
 if (partyId) {
-  shoppingLists = from("ShoppingList").where("partyId", partyId).queryList()
-  context.shoppingLists = shoppingLists
+    shoppingLists = from('ShoppingList').where('partyId', partyId).queryList()
+    context.shoppingLists = shoppingLists
 }
 
 // get product inventory summary for each shopping cart item
-productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne()
+productStore = from('ProductStore').where('productStoreId', productStoreId).cache(true).queryOne()
 context.productStore = productStore
 productStoreFacilityId = null
 if (productStore) {
     productStoreFacilityId = productStore.inventoryFacilityId
 }
 context.facilityId = productStoreFacilityId
-inventorySummary = runService('getProductInventorySummaryForItems', [orderItems : shoppingCart.makeOrderItems(dispatcher), facilityId : productStoreFacilityId])
+inventorySummary = runService('getProductInventorySummaryForItems',
+        [orderItems: shoppingCart.makeOrderItems(dispatcher), facilityId: productStoreFacilityId])
 context.availableToPromiseMap = inventorySummary.availableToPromiseMap
 context.quantityOnHandMap = inventorySummary.quantityOnHandMap
 context.mktgPkgATPMap = inventorySummary.mktgPkgATPMap
 context.mktgPkgQOHMap = inventorySummary.mktgPkgQOHMap
 
 // get purchase order item types
-purchaseOrderItemTypeList = from("OrderItemType").where("parentTypeId", "PURCHASE_SPECIFIC").cache(true).queryList()
+purchaseOrderItemTypeList = from('OrderItemType').where('parentTypeId', 'PURCHASE_SPECIFIC').cache(true).queryList()
 context.purchaseOrderItemTypeList = purchaseOrderItemTypeList

@@ -17,7 +17,6 @@
  * under the License.
  */
 
-
 /**
  * This script finds and places in the context of the form current (un-expired) contact mechs for the logged in user and the
  * party for whom the communication event is intended.  It currently just does searches for email but should be
@@ -30,11 +29,17 @@ partyIdFrom = context.partyIdFrom
 partyIdTo = context.partyIdTo
 
 if (parameters.communicationEventTypeId) {
-   if ("EMAIL_COMMUNICATION".equals(parameters.communicationEventTypeId)) {
-      userEmailAddresses = from("PartyContactWithPurpose").where("contactMechTypeId", "EMAIL_ADDRESS" , "partyId", partyIdFrom).filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate").queryList()
-      context.userEmailAddresses = userEmailAddresses
+    if (parameters.communicationEventTypeId == 'EMAIL_COMMUNICATION') {
+        userEmailAddresses = from('PartyContactWithPurpose')
+                .where('contactMechTypeId', 'EMAIL_ADDRESS' , 'partyId', partyIdFrom)
+                .filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate')
+                .queryList()
+        context.userEmailAddresses = userEmailAddresses
 
-      targetEmailAddresses = from("PartyContactWithPurpose").where("contactMechTypeId", "EMAIL_ADDRESS", "partyId", partyIdTo).filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate").queryList()
-      context.targetEmailAddresses = targetEmailAddresses
-   }
+        targetEmailAddresses = from('PartyContactWithPurpose')
+                .where('contactMechTypeId', 'EMAIL_ADDRESS', 'partyId', partyIdTo)
+                .filterByDate(UtilDateTime.nowTimestamp(), 'contactFromDate', 'contactThruDate')
+                .queryList()
+        context.targetEmailAddresses = targetEmailAddresses
+    }
 }

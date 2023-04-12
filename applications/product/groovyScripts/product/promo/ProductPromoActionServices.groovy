@@ -40,7 +40,7 @@ import org.apache.ofbiz.service.ServiceUtil
  * This function return success if conditions are valid and generate gift with purchase
  * @return result
  */
-def productGWP() {
+Map productGWP() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -48,21 +48,22 @@ def productGWP() {
     ShoppingCart cart = parameters.shoppingCart
     String productStoreId = cart.getProductStoreId()
 
-    // the code was in there for this, so even though I don't think we want to restrict this, just adding this flag to make it easy to change could make option dynamic, but now implied by the use limit
+    // the code was in there for this, so even though I don't think we want to restrict this,
+    // just adding this flag to make it easy to change could make option dynamic, but now implied by the use limit
     boolean allowMultipleGwp = true
 
     Integer itemLoc = ProductPromoWorker.findPromoItem(productPromoAction, cart)
     if (!allowMultipleGwp && itemLoc != null) {
         if (Debug.verboseOn()) {
-            logVerbose("Not adding promo item, already there action: " + productPromoAction)
+            logVerbose('Not adding promo item, already there action: ' + productPromoAction)
         }
         actionResultInfo.ranAction = false
     } else {
         BigDecimal quantity
         if (productPromoAction.quantity != null) {
-            quantity = productPromoAction.getBigDecimal("quantity")
+            quantity = productPromoAction.getBigDecimal('quantity')
         } else {
-            if ("Y" == productPromoAction.get("useCartQuantity")) {
+            if (productPromoAction.get('useCartQuantity') == 'Y') {
                 quantity = BigDecimal.ZERO
                 List<ShoppingCartItem> used = ProductPromoWorker.getCartItemsUsed(cart, productPromoAction)
                 for (ShoppingCartItem item : used) {
@@ -75,21 +76,25 @@ def productGWP() {
             }
         }
 
-        List<String> optionProductIds = new LinkedList<>()
-        String productId = productPromoAction.getString("productId")
+        List<String> optionProductIds = [] as Queue
+        String productId = productPromoAction.getString('productId')
 
         GenericValue product = null
         if (productId) {
-            product = from("Product").where("productId", productId).cache().queryOne()
+            product = from('Product').where('productId', productId).cache().queryOne()
             if (product == null) {
-                String errMsg = "GWP Product not found with ID [" + productId + "] for ProductPromoAction [" + productPromoAction.get("productPromoId") + ":" + productPromoAction.get("productPromoRuleId") + ":" + productPromoAction.get("productPromoActionSeqId") + "]"
+                String errMsg = 'GWP Product not found with ID [' + productId + '] for ProductPromoAction [' +
+                        productPromoAction.get('productPromoId') + ':' + productPromoAction.get('productPromoRuleId')
+                + ':' + productPromoAction.get('productPromoActionSeqId') + ']'
                 logError(errMsg)
                 throw new CartItemModifyException(errMsg)
             }
-            if ("Y" == product.getString("isVirtual")) {
-                List<GenericValue> productAssocs = EntityUtil.filterByDate(product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum"), true))
+            if (product.getString('isVirtual') == 'Y') {
+                List<GenericValue> productAssocs = EntityUtil.filterByDate(
+                        product.getRelated('MainProductAssoc', UtilMisc.toMap('productAssocTypeId', 'PRODUCT_VARIANT'),
+                                UtilMisc.toList('sequenceNum'), true))
                 for (GenericValue productAssoc : productAssocs) {
-                    optionProductIds.add(productAssoc.getString("productIdTo"))
+                    optionProductIds.add(productAssoc.getString('productIdTo'))
                 }
                 productId = null
                 product = null
@@ -103,17 +108,19 @@ def productGWP() {
                     for (ShoppingCartItem item : matchingItems) {
                         quantityAlreadyInCart = quantityAlreadyInCart.add(item.getQuantity())
                     }
-                    Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object> toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)))
+                    Map<String, Object> invReqResult = dispatcher.runSync('isStoreInventoryAvailable',
+                            [productStoreId: productStoreId, productId: productId, product: product, quantity: quantity.add(quantityAlreadyInCart)])
                     if (ServiceUtil.isError(invReqResult)) {
-                        logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult)
+                        logError('Error calling isStoreInventoryAvailable service, result is: ' + invReqResult)
                         throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
-                    } else if ("Y" != invReqResult.get("available")) {
-                        logWarning(UtilProperties.getMessage(resource_error, "OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", UtilMisc.toMap("productId", productId, "productPromoAction", productPromoAction), cart.getLocale()))
+                    } else if ('Y' != invReqResult.get('available')) {
+                        logWarning(UtilProperties.getMessage(resource_error, 'OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction',
+                                UtilMisc.toMap('productId', productId, 'productPromoAction', productPromoAction), cart.getLocale()))
                         productId = null
                         product = null
                     }
                 } catch (GenericServiceException e) {
-                    String errMsg = "Fatal error calling inventory checking services: " + e.toString()
+                    String errMsg = 'Fatal error calling inventory checking services: ' + e
                     logError(e, errMsg)
                     throw new CartItemModifyException(errMsg)
                 }
@@ -137,15 +144,16 @@ def productGWP() {
                     quantityAlreadyInCart = quantityAlreadyInCart.add(item.getQuantity())
                 }
 
-                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object> toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", quantity.add(quantityAlreadyInCart)))
+                Map<String, Object> invReqResult = dispatcher.runSync('isStoreInventoryAvailable',
+                        [productStoreId: productStoreId, productId: optionProductId, product: product, quantity: quantity.add(quantityAlreadyInCart)])
                 if (ServiceUtil.isError(invReqResult)) {
-                    logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult)
+                    logError('Error calling isStoreInventoryAvailable service, result is: ' + invReqResult)
                     throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
-                } else if ("Y" != invReqResult.get("available")) {
+                } else if ('Y' != invReqResult.get('available')) {
                     optionProductIdIter.remove()
                 }
             } catch (GenericServiceException e) {
-                String errMsg = "Fatal error calling inventory checking services: " + e.toString()
+                String errMsg = 'Fatal error calling inventory checking services: ' + e
                 logError(e, errMsg)
                 throw new CartItemModifyException(errMsg)
             }
@@ -161,9 +169,11 @@ def productGWP() {
                 }
                 optionProductIds.remove(alternateGwpProductId)
                 productId = alternateGwpProductId
-                product = from("Product").where("productId", productId).cache().queryOne()
+                product = from('Product').where('productId', productId).cache().queryOne()
             } else {
-                logWarning(UtilProperties.getMessage(resource_error, "OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId", UtilMisc.toMap("alternateGwpProductId", alternateGwpProductId), cart.getLocale()))
+                logWarning(UtilProperties.getMessage(resource_error,
+                        'OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId',
+                        [alternateGwpProductId: alternateGwpProductId], cart.getLocale()))
             }
         }
 
@@ -173,18 +183,19 @@ def productGWP() {
             Iterator<String> optionProductIdTempIter = optionProductIds.iterator()
             productId = optionProductIdTempIter.next()
             optionProductIdTempIter.remove()
-            product = from("Product").where("productId", productId).cache().queryOne()
+            product = from('Product').where('productId', productId).cache().queryOne()
         }
         if (!product) {
             // no product found to add as GWP, just return
-            return
+            return [*:result, actionResultInfo: parameters.actionResultInfo]
         }
 
         // pass null for cartLocation to add to end of cart, pass false for doPromotions to avoid infinite recursion
         ShoppingCartItem gwpItem = null
         try {
             // just leave the prodCatalogId null, this line won't be associated with a catalog
-            gwpItem = ShoppingCartItem.makeItem(null, product, null, quantity, null, null, null, null, null, null, null, null, null, null, null, null, dispatcher, cart, Boolean.FALSE, Boolean.TRUE, null, Boolean.FALSE, Boolean.FALSE)
+            gwpItem = ShoppingCartItem.makeItem(null, product, null, quantity, null, null, null, null, null, null,
+                    null, null, null, null, null, null, dispatcher, cart, Boolean.FALSE, Boolean.TRUE, null, Boolean.FALSE, Boolean.FALSE)
             if (optionProductIds.size() > 0) {
                 gwpItem.setAlternativeOptionProductIds(optionProductIds)
             } else {
@@ -195,13 +206,13 @@ def productGWP() {
             throw e
         }
 
-        BigDecimal discountAmount = quantity.multiply(gwpItem.getBasePrice()).negate()
-        ProductPromoWorker.doOrderItemPromoAction(productPromoAction, gwpItem, discountAmount, "amount", delegator)
+        BigDecimal discountAmount = quantity * (gwpItem.getBasePrice()).negate()
+        ProductPromoWorker.doOrderItemPromoAction(productPromoAction, gwpItem, discountAmount, 'amount', delegator)
 
         // set promo after create note that to setQuantity we must clear this flag, setQuantity, then re-set the flag
         gwpItem.setIsPromo(true)
         if (Debug.verboseOn()) {
-            logVerbose("gwpItem adjustments: " + gwpItem.getAdjustments())
+            logVerbose('gwpItem adjustments: ' + gwpItem.getAdjustments())
         }
 
         actionResultInfo.ranAction = true
@@ -215,7 +226,7 @@ def productGWP() {
  * This function return success, if conditions are valid shipping will be set free
  * @return result
  */
-def productActFreeShip() {
+Map productActFreeShip() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -236,14 +247,14 @@ def productActFreeShip() {
  * This function return success, if conditions are valid so X Product for Y% Discount
  * @return result
  */
-def productDISC() {
+Map productDISC() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal quantityDesired = !productPromoAction.quantity? BigDecimal.ONE : productPromoAction.getBigDecimal("quantity")
+    BigDecimal quantityDesired = productPromoAction.quantity ? productPromoAction.getBigDecimal('quantity') : BigDecimal.ONE
     BigDecimal startingQuantity = quantityDesired
     BigDecimal discountAmountTotal = BigDecimal.ZERO
 
@@ -251,42 +262,45 @@ def productDISC() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         GenericValue product = cartItem.getProduct()
         String parentProductId = cartItem.getParentProductId()
         boolean passedItemConds = ProductPromoWorker.checkConditionsForItem(productPromoAction, cart, cartItem, delegator, dispatcher, nowTimestamp)
-        
+
         if (passedItemConds && !cartItem.getIsPromo()
                 && (productIds.contains(cartItem.getProductId()) || (parentProductId && productIds.contains(parentProductId)))
-                && (!product || "N" != product.includeInPromotions)) {
+                && (!product || 'N' != product.includeInPromotions)) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false)
-            if (quantityUsed.compareTo(BigDecimal.ZERO) > 0) {
+            if (quantityUsed > 0) {
                 quantityDesired = quantityDesired.subtract(quantityUsed)
 
                 // create an adjustment and add it to the cartItem that implements the promotion action
-                BigDecimal percentModifier = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal("amount").movePointLeft(2)
-                BigDecimal lineAmount = quantityUsed.multiply(cartItem.getBasePrice()).multiply(cartItem.getRentalAdjustment())
-                BigDecimal discountAmount = lineAmount.multiply(percentModifier).negate()
+                BigDecimal percentModifier = productPromoAction.amount ? productPromoAction.getBigDecimal('amount').movePointLeft(2) : BigDecimal.ZERO
+                BigDecimal lineAmount = quantityUsed * cartItem.getBasePrice() * cartItem.getRentalAdjustment()
+                BigDecimal discountAmount = lineAmount * percentModifier.negate()
                 discountAmountTotal = discountAmountTotal.add(discountAmount)
-                // not doing this any more, now distributing among conditions and actions (see call below): doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
+                // not doing this any more, now distributing among conditions and actions (see call below):
+                // doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
             }
         }
     }
 
-    if (quantityDesired.compareTo(startingQuantity) == 0) {
+    if (quantityDesired == startingQuantity) {
         // couldn't find any (or enough) cart items to give a discount to, don't consider action run
         actionResultInfo.ranAction = false
         // clear out any action uses for this so they don't become part of anything else
-        cart.resetPromoRuleUse(productPromoAction.getString("productPromoId"), productPromoAction.getString("productPromoRuleId"))
+        cart.resetPromoRuleUse(productPromoAction.getString('productPromoId'), productPromoAction.getString('productPromoRuleId'))
     } else {
         BigDecimal totalAmount = ProductPromoWorker.getCartItemsUsedTotalAmount(cart, productPromoAction)
         if (Debug.verboseOn()) {
-            logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal)
+            logVerbose('Applying promo [' + productPromoAction.getPrimaryKey() + ']\n totalAmount='
+                    + totalAmount + ', discountAmountTotal=' + discountAmountTotal)
         }
-        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
+        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount,
+                ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = discountAmountTotal
         actionResultInfo.quantityLeftInAction = quantityDesired
@@ -297,16 +311,15 @@ def productDISC() {
 
 /**
  * This function return success, if conditions are valid so X Product for Y Discount
- * @return
  */
-def productAMDISC() {
+Map productAMDISC() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal quantityDesired = !productPromoAction.quantity? BigDecimal.ONE : productPromoAction.getBigDecimal("quantity")
+    BigDecimal quantityDesired = productPromoAction.quantity ? productPromoAction.getBigDecimal('quantity') : BigDecimal.ONE
     BigDecimal startingQuantity = quantityDesired
     BigDecimal discountAmountTotal = BigDecimal.ZERO
 
@@ -314,7 +327,7 @@ def productAMDISC() {
 
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         String parentProductId = cartItem.getParentProductId()
@@ -322,32 +335,35 @@ def productAMDISC() {
         boolean passedItemConds = ProductPromoWorker.checkConditionsForItem(productPromoAction, cart, cartItem, delegator, dispatcher, nowTimestamp)
         if (passedItemConds && !cartItem.getIsPromo() &&
                 (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
-                (!product || "N" != product.getString("includeInPromotions"))) {
+                (!product || 'N' != product.getString('includeInPromotions'))) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false)
             quantityDesired = quantityDesired.subtract(quantityUsed)
 
             // create an adjustment and add it to the cartItem that implements the promotion action
-            BigDecimal discount = !productPromoAction.amount? BigDecimal.ZERO : productPromoAction.getBigDecimal("amount")
+            BigDecimal discount = productPromoAction.amount ? productPromoAction.getBigDecimal('amount') : BigDecimal.ZERO
             // don't allow the discount to be greater than the price
-            if (discount.compareTo(cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())) > 0) {
-                discount = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment())
+            if (discount > cartItem.getBasePrice() * cartItem.getRentalAdjustment()) {
+                discount = cartItem.getBasePrice() * cartItem.getRentalAdjustment()
             }
-            BigDecimal discountAmount = quantityUsed.multiply(discount).negate()
+            BigDecimal discountAmount = quantityUsed * discount.negate()
             discountAmountTotal = discountAmountTotal.add(discountAmount)
-            // not doing this any more, now distributing among conditions and actions (see call below): doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
+            // not doing this any more, now distributing among conditions and actions (see call below):
+            // doOrderItemPromoAction(productPromoAction, cartItem, discountAmount, "amount", delegator)
         }
     }
 
-    if (quantityDesired.compareTo(startingQuantity) == 0) {
+    if (quantityDesired == startingQuantity) {
         // couldn't find any cart items to give a discount to, don't consider action run
         actionResultInfo.ranAction = false
     } else {
         BigDecimal totalAmount = ProductPromoWorker.getCartItemsUsedTotalAmount(cart, productPromoAction)
         if (Debug.verboseOn()) {
-            logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal)
+            logVerbose('Applying promo [' + productPromoAction.getPrimaryKey() + ']\n totalAmount='
+                    + totalAmount + ', discountAmountTotal=' + discountAmountTotal)
         }
-        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
+        ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount,
+                ProductPromoWorker.getCartItemsUsed(cart, productPromoAction), productPromoAction, delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = discountAmountTotal
         actionResultInfo.quantityLeftInAction = quantityDesired
@@ -356,29 +372,25 @@ def productAMDISC() {
     return result
 }
 
-/**
- *
- * @return
- */
-def productPrice() {
-
+Map productPrice() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    // with this we want the set of used items to be one price, so total the price for all used items, subtract the amount we want them to cost, and create an adjustment for what is left
-    BigDecimal quantityDesired = !productPromoAction.quantity? BigDecimal.ONE : productPromoAction.getBigDecimal("quantity")
-    BigDecimal desiredAmount = !productPromoAction.amount? BigDecimal.ZERO : productPromoAction.getBigDecimal("amount")
+    // with this we want the set of used items to be one price, so total the price for all used items,
+    // subtract the amount we want them to cost, and create an adjustment for what is left
+    BigDecimal quantityDesired = productPromoAction.quantity ? productPromoAction.getBigDecimal('quantity') : BigDecimal.ONE
+    BigDecimal desiredAmount = productPromoAction.amount ? productPromoAction.getBigDecimal('amount') : BigDecimal.ZERO
     BigDecimal totalAmount = BigDecimal.ZERO
 
     Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp)
 
-    List<ShoppingCartItem> cartItemsUsed = new LinkedList<>()
+    List<ShoppingCartItem> cartItemsUsed = [] as Queue
     List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false)
     Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator()
-    while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
+    while (quantityDesired > 0 && lineOrderedByBasePriceIter.hasNext()) {
         ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next()
         // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
         String parentProductId = cartItem.getParentProductId()
@@ -388,19 +400,18 @@ def productPrice() {
         if (passedItemConds &&
                 !cartItem.getIsPromo() &&
                 (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
-                (product == null || "N" != product.getString("includeInPromotions"))) {
+                (product == null || 'N' != product.getString('includeInPromotions'))) {
             // reduce quantity still needed to qualify for promo (quantityNeeded)
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false)
-            if (quantityUsed.compareTo(BigDecimal.ZERO) > 0) {
+            if (quantityUsed > 0) {
                 quantityDesired = quantityDesired.subtract(quantityUsed)
-                totalAmount = totalAmount.add(quantityUsed.multiply(cartItem.getBasePrice()).multiply(cartItem.getRentalAdjustment()))
+                totalAmount = totalAmount.add(quantityUsed * cartItem.getBasePrice() * cartItem.getRentalAdjustment())
                 cartItemsUsed.add(cartItem)
             }
         }
-
     }
 
-    if (totalAmount.compareTo(desiredAmount) > 0 && quantityDesired.compareTo(BigDecimal.ZERO) == 0) {
+    if (totalAmount > desiredAmount && quantityDesired == 0) {
         BigDecimal discountAmountTotal = totalAmount.subtract(desiredAmount).negate()
         ProductPromoWorker.distributeDiscountAmount(discountAmountTotal, totalAmount, cartItemsUsed, productPromoAction, delegator)
         actionResultInfo.ranAction = true
@@ -409,31 +420,30 @@ def productPrice() {
     } else {
         actionResultInfo.ranAction = false
         // clear out any action uses for this so they don't become part of anything else
-        cart.resetPromoRuleUse(productPromoAction.getString("productPromoId"), productPromoAction.getString("productPromoRuleId"))
+        cart.resetPromoRuleUse(productPromoAction.getString('productPromoId'), productPromoAction.getString('productPromoRuleId'))
     }
     result.actionResultInfo = actionResultInfo
     return result
-
 }
 
-def productOrderPercent() {
+Map productOrderPercent() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal percentage = !productPromoAction.amount ? BigDecimal.ZERO : productPromoAction.getBigDecimal("amount")
+    BigDecimal percentage = productPromoAction.amount ? productPromoAction.getBigDecimal('amount') : BigDecimal.ZERO
     percentage = percentage.movePointLeft(2).negate()
     Set<String> productIds = ProductPromoWorker.getPromoRuleActionProductIds(productPromoAction, delegator, nowTimestamp)
     BigDecimal amount = BigDecimal.ZERO
-    if (!productIds) {
-        amount = cart.getSubTotalForPromotions().multiply(percentage)
+    if (productIds) {
+        amount = cart.getSubTotalForPromotions(productIds) * percentage
     } else {
-        amount = cart.getSubTotalForPromotions(productIds).multiply(percentage)
+        amount = cart.getSubTotalForPromotions() * percentage
     }
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
-        ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator)
+    if (amount != 0) {
+        ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = amount
     }
@@ -441,21 +451,22 @@ def productOrderPercent() {
     return result
 }
 
-def productOrderAmount() {
+Map productOrderAmount() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal amount = (!productPromoAction.amount? BigDecimal.ZERO : productPromoAction.getBigDecimal("amount")).negate()
-    // if amount is greater than the order sub total, set equal to order sub total, this normally wouldn't happen because there should be a condition that the order total be above a certain amount, but just in case...
+    BigDecimal amount = (productPromoAction.amount ? productPromoAction.getBigDecimal('amount') : BigDecimal.ZERO).negate()
+    // if amount is greater than the order sub total, set equal to order sub total, this normally wouldn't happen because
+    // there should be a condition that the order total be above a certain amount, but just in case...
     BigDecimal subTotal = cart.getSubTotalForPromotions()
-    if (amount.negate().compareTo(subTotal) > 0) {
+    if (amount.negate() > subTotal) {
         amount = subTotal.negate()
     }
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
-        ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator)
+    if (amount != 0) {
+        ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = amount
     }
@@ -463,7 +474,7 @@ def productOrderAmount() {
     return result
 }
 
-def productSpecialPrice() {
+Map productSpecialPrice() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
@@ -483,13 +494,13 @@ def productSpecialPrice() {
         }
 
         // get difference between basePrice and specialPromoPrice and adjust for that
-        BigDecimal difference = cartItem.getBasePrice().multiply(cartItem.getRentalAdjustment()).subtract(cartItem.getSpecialPromoPrice()).negate()
+        BigDecimal difference = (cartItem.getBasePrice() * cartItem.getRentalAdjustment()).subtract(cartItem.getSpecialPromoPrice()).negate()
 
-        if (difference.compareTo(BigDecimal.ZERO) != 0) {
+        if (difference != 0) {
             BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(cartItem.getQuantity(), productPromoAction, false)
             if (quantityUsed > BigDecimal.ZERO) {
-                BigDecimal amount = difference.multiply(quantityUsed)
-                ProductPromoWorker.doOrderItemPromoAction(productPromoAction, cartItem, amount, "amount", delegator)
+                BigDecimal amount = difference * quantityUsed
+                ProductPromoWorker.doOrderItemPromoAction(productPromoAction, cartItem, amount, 'amount', delegator)
                 actionResultInfo.ranAction = true
                 actionResultInfo.totalDiscountAmount = amount
             }
@@ -499,25 +510,24 @@ def productSpecialPrice() {
     return result
 }
 
-def productShipCharge() {
+Map productShipCharge() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal percentage = (!productPromoAction.amount? BigDecimal.ZERO : (productPromoAction.getBigDecimal("amount").movePointLeft(2))).negate()
-    BigDecimal amount = cart.getTotalShipping().multiply(percentage)
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
-
-        int existingOrderPromoIndex = cart.getAdjustmentPromoIndex(productPromoAction.getString("productPromoId"))
-        if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal("amount") == amount) {
+    BigDecimal percentage = (productPromoAction.amount ? (productPromoAction.getBigDecimal('amount').movePointLeft(2)) : BigDecimal.ZERO).negate()
+    BigDecimal amount = cart.getTotalShipping() * percentage
+    if (amount != 0) {
+        int existingOrderPromoIndex = cart.getAdjustmentPromoIndex(productPromoAction.getString('productPromoId'))
+        if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal('amount') == amount) {
             actionResultInfo.ranAction = false  // already ran, no need to repeat
         } else {
-            if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal("amount") != amount) {
+            if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal('amount') != amount) {
                 cart.removeAdjustment(existingOrderPromoIndex)
             }
-            ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator)
+            ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
             actionResultInfo.ranAction = true
             actionResultInfo.totalDiscountAmount = amount
         }
@@ -526,24 +536,21 @@ def productShipCharge() {
     return result
 }
 
-def productTaxPercent() {
+Map productTaxPercent() {
     Map result = success()
 
     GenericValue productPromoAction = parameters.productPromoAction
     ActionResultInfo actionResultInfo = parameters.actionResultInfo
     ShoppingCart cart = parameters.shoppingCart
 
-    BigDecimal percentage = (!productPromoAction.amount? BigDecimal.ZERO : (productPromoAction.getBigDecimal("amount").movePointLeft(2))).negate()
-    BigDecimal amount = cart.getTotalSalesTax().multiply(percentage)
-    if (amount.compareTo(BigDecimal.ZERO) != 0) {
-        ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator)
+    BigDecimal percentage = (productPromoAction.amount ? (productPromoAction.getBigDecimal('amount').movePointLeft(2)) : BigDecimal.ZERO).negate()
+    BigDecimal amount = cart.getTotalSalesTax() * percentage
+    if (amount != 0) {
+        ProductPromoWorker.doOrderPromoAction(productPromoAction, cart, amount, 'amount', delegator)
         actionResultInfo.ranAction = true
         actionResultInfo.totalDiscountAmount = amount
     }
     result.actionResultInfo = actionResultInfo
     return result
 }
-
-
-
 

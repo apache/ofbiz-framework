@@ -17,14 +17,13 @@
  * under the License.
  */
 
-
 import org.apache.ofbiz.entity.GenericValue
 
 /*
  * Create OrderRequirementCommitment and Requirement for items with automatic requirement upon ordering
  */
-def checkCreateOrderRequirement() {
-    def reqMap = getProductRequirementMethod()
+Map checkCreateOrderRequirement() {
+    Map reqMap = getProductRequirementMethod()
     GenericValue order = reqMap.order
     if (order.orderTypeId == 'SALES_ORDER' && reqMap.requirementMethodId == 'PRODRQM_AUTO') {
         createRequirementAndCommitment()
@@ -32,7 +31,7 @@ def checkCreateOrderRequirement() {
     success()
 }
 
-def getProductRequirementMethod() {
+Map getProductRequirementMethod() {
     GenericValue order = from('OrderHeader').where(parameters).queryOne()
     GenericValue product = from('Product').where(parameters).queryOne()
     String requirementMethodId = product ? product.requirementMethodId : ''
@@ -45,13 +44,12 @@ def getProductRequirementMethod() {
         }
     }
     return [order: order, requirementMethodId: requirementMethodId]
-
 }
 
 /*
  * create a requirement and commitment for it
  */
-def createRequirementAndCommitment() {
+Map createRequirementAndCommitment() {
     Map createRequirement = [requirementTypeId: 'PRODUCT_REQUIREMENT']
     Map returnMap = success()
 
@@ -63,7 +61,7 @@ def createRequirementAndCommitment() {
         }
         Map result = run service: 'createRequirement', with: createRequirement
         returnMap.requirementId = result.requirementId
-        // create the OrderRequirementCommitment to record the Requirement created for an order item 
+        // create the OrderRequirementCommitment to record the Requirement created for an order item
 
         run service: 'createOrderRequirementCommitment', with: [*:parameters, requirementId: result.requirementId]
     }

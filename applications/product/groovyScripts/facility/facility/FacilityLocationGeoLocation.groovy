@@ -17,32 +17,34 @@
  * under the License.
  */
 
- import org.apache.ofbiz.base.util.*
- import org.apache.ofbiz.common.geo.*
- import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.common.geo.GeoWorker
 
 facilityId = parameters.facilityId
 locationSeqId = parameters.locationSeqId
 
-uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale)
-uiLabelMap.addBottomResourceBundle("CommonUiLabels")
+uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
+uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 if (facilityId && locationSeqId) {
-    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "FacilityLocationAndGeoPoint", "facilityId", facilityId, "locationSeqId", locationSeqId)
+    latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'FacilityLocationAndGeoPoint', 'facilityId', facilityId, 'locationSeqId', locationSeqId)
     context.latestGeoPoint = latestGeoPoint
 
-    List geoCenter = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "zoom", "13"))
+    if (latestGeoPoint && latestGeoPoint.containsKey('latitude') && latestGeoPoint.containsKey('longitude')) {
+        List geoPoints = UtilMisc.toList(UtilMisc.toMap('lat', latestGeoPoint.latitude, 'lon', latestGeoPoint.longitude, 'facilityId', facilityId,
+                'link', UtilMisc.toMap('url', 'EditFacilityLocation?facilityId=' + facilityId + '&locationSeqId=' + locationSeqId,
+                'label', uiLabelMap.ProductFacilityLocation  + ' ' + uiLabelMap.CommonOf + ' ' + facilityId + '/' + locationSeqId)))
 
-    if (latestGeoPoint && latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
-        List geoPoints = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "facilityId", facilityId,
-                "link", UtilMisc.toMap("url", "EditFacilityLocation?facilityId="+ facilityId + "&locationSeqId=" + locationSeqId,
-                "label", uiLabelMap.ProductFacilityLocation  + " " + uiLabelMap.CommonOf + " " + facilityId + "/" + locationSeqId)))
-
-        Map geoChart = UtilMisc.toMap("width", "500px", "height", "450px", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints)
+        Map geoChart = UtilMisc.toMap('width', '500px',
+                'height', '450px',
+                'controlUI' , 'small',
+                'dataSourceId', latestGeoPoint.dataSourceId,
+                'points', geoPoints)
         context.geoChart = geoChart
     }
     if (latestGeoPoint && latestGeoPoint.elevationUomId) {
-        elevationUom = from("Uom").where("uomId", latestGeoPoint.elevationUomId).queryOne()
+        elevationUom = from('Uom').where('uomId', latestGeoPoint.elevationUomId).queryOne()
         context.elevationUomAbbr = elevationUom.abbreviation
     }
 }

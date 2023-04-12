@@ -26,7 +26,6 @@ orderTerms = cart.getOrderTerms()
 context.orderTerms = orderTerms
 
 if (request.getParameter('createNew') == 'Y') {
-
     termIndexStr = request.getParameter('termIndex')
     if (termIndexStr) {
         try {
@@ -34,21 +33,19 @@ if (request.getParameter('createNew') == 'Y') {
 
             orderTerm = orderTerms[termIndex]
             if (orderTerm) {
-               context.termTypeId = orderTerm.termTypeId
-               context.termValue = orderTerm.termValue
-               context.termDays = orderTerm.termDays
-               context.textValue = orderTerm.textValue
-               context.description = orderTerm.description
+                context.termTypeId = orderTerm.termTypeId
+                context.termValue = orderTerm.termValue
+                context.termDays = orderTerm.termDays
+                context.textValue = orderTerm.textValue
+                context.description = orderTerm.description
 
-               context.termIndex = termIndexStr
+                context.termIndex = termIndexStr
             }
-
         } catch (NumberFormatException nfe) {
             Debug.log("Error parsing termIndex: ${termIndexStr}")
-            request.setAttribute("_ERROR_MESSAGE", "Error parsing termIndex: ${termIndexStr}")
+            request.setAttribute('_ERROR_MESSAGE', "Error parsing termIndex: ${termIndexStr}")
         }
     }
-
 }
 
-context.termTypes = from("TermType").queryList();
+context.termTypes = from('TermType').queryList()

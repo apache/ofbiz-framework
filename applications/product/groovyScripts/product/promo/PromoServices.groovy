@@ -20,18 +20,18 @@ package product.promo
 
 import org.apache.ofbiz.entity.GenericValue
 
-def createProductPromoCond() {
+Map createProductPromoCond() {
     if (parameters.carrierShipmentMethod) {
         parameters.otherValue = parameters.carrierShipmentMethod
     }
-    GenericValue newEntity = makeValue("ProductPromoCond", parameters)
-    delegator.setNextSubSeqId(newEntity, "productPromoCondSeqId", 2, 1)
+    GenericValue newEntity = makeValue('ProductPromoCond', parameters)
+    delegator.setNextSubSeqId(newEntity, 'productPromoCondSeqId', 2, 1)
     newEntity.create()
     return success([productPromoCondSeqId: newEntity.productPromoCondSeqId])
 }
 
-def updateProductPromoCond() {
-    GenericValue lookedUpValue = from("ProductPromoCond").where(parameters).queryOne()
+Map updateProductPromoCond() {
+    GenericValue lookedUpValue = from('ProductPromoCond').where(parameters).queryOne()
     if (lookedUpValue) {
         if (parameters.carrierShipmentMethod) {
             parameters.otherValue = parameters.carrierShipmentMethod
@@ -40,5 +40,5 @@ def updateProductPromoCond() {
         lookedUpValue.store()
         return success()
     }
-    return error(label("ServiceErrorUiLabels", "ServiceValueNotFound"))
+    return error(label('ServiceErrorUiLabels', 'ServiceValueNotFound'))
 }

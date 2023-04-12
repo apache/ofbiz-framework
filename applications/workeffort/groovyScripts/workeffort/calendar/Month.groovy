@@ -17,11 +17,10 @@
  * under the License.
  */
 
-import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.service.ModelService
+
+import java.sql.Timestamp
 
 String startParam = parameters.startTime
 Timestamp start = null
@@ -37,18 +36,20 @@ tempCal = UtilDateTime.toCalendar(start, timeZone, locale)
 numDays = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH)
 prev = UtilDateTime.getMonthStart(start, -1, timeZone, locale)
 context.prevMillis = new Long(prev.getTime()).toString()
-next = UtilDateTime.getDayStart(start, numDays+1, timeZone, locale)
+next = UtilDateTime.getDayStart(start, numDays + 1, timeZone, locale)
 context.nextMillis = new Long(next.getTime()).toString()
 end = UtilDateTime.getMonthEnd(start, timeZone, locale)
 //Find out what date to get from
 getFrom = null
 prevMonthDays =  tempCal.get(Calendar.DAY_OF_WEEK) - tempCal.getFirstDayOfWeek()
-if (prevMonthDays < 0) prevMonthDays += 7
+if (prevMonthDays < 0) {
+    prevMonthDays += 7
+}
 tempCal.add(Calendar.DATE, -prevMonthDays)
 numDays += prevMonthDays
 getFrom = new Timestamp(tempCal.getTimeInMillis())
 firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR)
-context.put("firstWeekNum", firstWeekNum)
+context.put('firstWeekNum', firstWeekNum)
 // also get days until the end of the week at the end of the month
 lastWeekCal = UtilDateTime.toCalendar(end, timeZone, locale)
 monthEndDay = lastWeekCal.get(Calendar.DAY_OF_WEEK)
@@ -59,15 +60,16 @@ if (followingMonthDays < 0) {
     followingMonthDays += 7
 }
 numDays += followingMonthDays
-Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", ModelService.IN_PARAM, parameters)
-serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "calendarType", "VOID", "numPeriods", numDays, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone))
+Map serviceCtx = dispatcher.getDispatchContext().makeValidContext('getWorkEffortEventsByPeriod', ModelService.IN_PARAM, parameters)
+serviceCtx.putAll([userLogin: userLogin, start: getFrom, calendarType: 'VOID',
+                   numPeriods: numDays, periodType: Calendar.DATE, locale: locale, timeZone: timeZone])
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList
 }
 result = runService('getWorkEffortEventsByPeriod', serviceCtx)
-context.put("periods",result.get("periods"))
-context.put("maxConcurrentEntries", result.get("maxConcurrentEntries"))
-context.put("start", start)
-context.put("end", end)
-context.put("prev", prev)
-context.put("next", next)
+context.put('periods', result.get('periods'))
+context.put('maxConcurrentEntries', result.get('maxConcurrentEntries'))
+context.put('start', start)
+context.put('end', end)
+context.put('prev', prev)
+context.put('next', next)

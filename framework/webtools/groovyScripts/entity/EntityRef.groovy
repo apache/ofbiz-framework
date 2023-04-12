@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.security.CsrfUtil;
+import org.apache.ofbiz.security.CsrfUtil
 
 controlPath = parameters._CONTROL_PATH_
 list = "$controlPath/view/entityref_list"
@@ -31,8 +31,8 @@ if (search) {
     list = "$list?forstatic=$forstatic"
     main = "$main?forstatic=$forstatic"
 }
-tokenList = CsrfUtil.generateTokenForNonAjax(request, "view/entityref_list")
-tokenMain = CsrfUtil.generateTokenForNonAjax(request, "view/entityref_main")
+tokenList = CsrfUtil.generateTokenForNonAjax(request, 'view/entityref_list')
+tokenMain = CsrfUtil.generateTokenForNonAjax(request, 'view/entityref_main')
 list = CsrfUtil.addOrUpdateTokenInUrl(list, tokenList)
 main = CsrfUtil.addOrUpdateTokenInUrl(main, tokenMain)
 context.encodeUrlList = response.encodeURL(list)

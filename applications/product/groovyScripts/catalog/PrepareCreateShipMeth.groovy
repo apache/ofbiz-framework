@@ -16,21 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import java.util.StringTokenizer
-import org.apache.ofbiz.base.util.UtilValidate
-
-String carrierShipmentString = request.getParameter("carrierShipmentString")
+String carrierShipmentString = request.getParameter('carrierShipmentString')
 if (carrierShipmentString) {
-    StringTokenizer st = new StringTokenizer(carrierShipmentString, "|")
+    StringTokenizer st = new StringTokenizer(carrierShipmentString, '|')
     if (st.countTokens() != 3) {
-        return "error"
+        return 'error'
     }
-    request.setAttribute("addCarrierShipMeth", "Y")
-    request.setAttribute("partyId", st.nextToken())
-    request.setAttribute("roleTypeId", st.nextToken())
-    request.setAttribute("shipmentMethodTypeId", st.nextToken())
-    return "success"
-} else {
-    return "error"
+    request.setAttribute('addCarrierShipMeth', 'Y')
+    request.setAttribute('partyId', st.nextToken())
+    request.setAttribute('roleTypeId', st.nextToken())
+    request.setAttribute('shipmentMethodTypeId', st.nextToken())
+    return 'success'
 }
+return 'error'

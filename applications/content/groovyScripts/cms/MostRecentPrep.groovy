@@ -23,24 +23,23 @@ import org.apache.ofbiz.content.ContentManagementWorker
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 
-
-logInfo("in mostrecentprep(1):")
+logInfo('in mostrecentprep(1):')
 paramMap = UtilHttp.getParameterMap(request)
-forumId = ContentManagementWorker.getFromSomewhere("moderatedSiteId", paramMap, request, context)
+forumId = ContentManagementWorker.getFromSomewhere('moderatedSiteId', paramMap, request, context)
 
 if (forumId) {
     exprList = [] as ArrayList
     fromDate = UtilDateTime.nowTimestamp()
-    thruExpr2 = EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null)
+    thruExpr2 = EntityCondition.makeCondition('caThruDate', EntityOperator.EQUALS, null)
     exprList.add(thruExpr2)
-    statusIdExpr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CTNT_IN_PROGRESS")
+    statusIdExpr = EntityCondition.makeCondition('statusId', EntityOperator.EQUALS, 'CTNT_IN_PROGRESS')
     exprList.add(statusIdExpr)
-    contentIdToExpr = EntityCondition.makeCondition("caContentId", EntityOperator.EQUALS, forumId)
+    contentIdToExpr = EntityCondition.makeCondition('caContentId', EntityOperator.EQUALS, forumId)
     exprList.add(contentIdToExpr)
     expr = EntityCondition.makeCondition(exprList, EntityOperator.AND)
-    entityList = from("ContentAssocViewFrom").where(exprList).orderBy("-caFromDate").queryList()
+    entityList = from('ContentAssocViewFrom').where(exprList).orderBy('-caFromDate').queryList()
 
-    logInfo("in mostrecentprep(1), entityList.size():" + entityList.size())
-    logInfo("in mostrecentprep(1), entityList:" + entityList)
+    logInfo('in mostrecentprep(1), entityList.size():' + entityList.size())
+    logInfo('in mostrecentprep(1), entityList:' + entityList)
     context.mostRecentList = entityList
 }

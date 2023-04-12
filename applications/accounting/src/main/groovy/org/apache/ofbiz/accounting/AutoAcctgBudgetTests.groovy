@@ -23,7 +23,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgBudgetTests extends OFBizTestCase {
-    public AutoAcctgBudgetTests(String name) {
+
+    AutoAcctgBudgetTests(String name) {
         super(name)
     }
 
@@ -46,10 +47,11 @@ class AutoAcctgBudgetTests extends OFBizTestCase {
         serviceCtx.budgetId = '9999'
         serviceCtx.statusId = 'BG_APPROVED'
         serviceCtx.userLogin = userLogin
-        Map result = dispatcher.runSync('updateBudgetStatus', serviceCtx)
+        dispatcher.runSync('updateBudgetStatus', serviceCtx)
 
         List<GenericValue> budgetStatuses = from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
         assert ! budgetStatuses?.isEmpty()
         assert budgetStatuses[0].statusId == 'BG_APPROVED'
     }
+
 }

@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.ofbiz.accounting
 
 import org.apache.ofbiz.entity.GenericValue
@@ -25,7 +24,8 @@ import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 class AutoAcctgTransTestsSales extends OFBizTestCase {
-    public AutoAcctgTransTestsSales(String name) {
+
+    AutoAcctgTransTestsSales(String name) {
         super(name)
     }
 
@@ -35,12 +35,15 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
             Precondition :
               1. create a sales order
               2. from the order view screen, approve the order
-              3. from the order view screen, create a shipment to the customer (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)
+              3. from the order view screen, create a shipment to the customer
+              (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)
 
             Following process is tested by test case:
-              1. issue (assign) the order items to the shipment: select the "Order Items" tab and then click on "Issue All"; this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
+              1. issue (assign) the order items to the shipment: select the "Order Items" tab and then click on "Issue All";
+              this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
 
-            Post condition: all order items will be issued and it will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
+            Post condition: all order items will be issued and it will generate and post to the GL the accounting transaction
+            for the items taken from the warehouse and ready to be shipped
               * Credit; in account:140000 - Account Type:"INVENTORY_ACCOUNT"
               * Debit; in account:500000 - Account Type:"COGS_ACCOUNT"
         */
@@ -88,12 +91,17 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
             Precondition:
               1. Create a sales order
               2. From the order view screen, approve the order
-              3. From the order view screen, create a shipment to the customer (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)
+              3. From the order view screen, create a shipment to the customer
+                (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)
               4. Issue the order items to the shipment: select the "Order Items" tab and then click on "Issue All."
-              5. From the shipment detail screen of the shipment created in the previous step (there is a link to it from the order detail screen), set the status of the shipment to "pack"(Click on "Edit" and then from statusId drop down select statusId = "Pack" and then click update); this action will generate a sales invoice
+              5. From the shipment detail screen of the shipment created in the previous step
+                (there is a link to it from the order detail screen), set the status of the shipment to "pack"
+                (Click on "Edit" and then from statusId drop down select statusId = "Pack" and then click update);
+                 this action will generate a sales invoice
 
             Following process is tested by test case:
-              1. Go to the invoice detail screen (there is a link to the invoice from the order detail screen) and click on the "set status to ready"; this action will generate and post to the GL the accounting transaction for the sales invoice
+              1. Go to the invoice detail screen (there is a link to the invoice from the order detail screen) and click on the "set status to ready";
+                 this action will generate and post to the GL the accounting transaction for the sales invoice
 
             Post condition: "Set status to ready"; This action will generate and post to the GL the accounting transaction for the sales invoice
               * Credit; in account=400000 - Account Type="SALES_ACCOUNT"
@@ -136,7 +144,8 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
 
         checkEntriesBalance(acctgTransEntryList)
 
-        List<GenericValue> accountsReceivableEntries = EntityUtil.filterByAnd(acctgTransEntryList, [glAccountTypeId: 'ACCOUNTS_RECEIVABLE', glAccountId: '120000'])
+        List<GenericValue> accountsReceivableEntries = EntityUtil.filterByAnd(acctgTransEntryList,
+                [glAccountTypeId: 'ACCOUNTS_RECEIVABLE', glAccountId: '120000'])
         assert accountsReceivableEntries
 
         List<GenericValue> salesAccountEntries = EntityUtil.filterByAnd(acctgTransEntryList, [glAccountId: '401000'])
@@ -147,7 +156,7 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
         assert paymentAcctgTrans
         assert paymentAcctgTrans.glJournalId != 'ERROR_JOURNAL'
 
-        acctgTransEntryList.clear();
+        acctgTransEntryList.clear()
         acctgTransEntryList = from('AcctgTransEntry')
                 .where('acctgTransId', paymentAcctgTrans.acctgTransId)
                 .queryList()
@@ -164,12 +173,14 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
         /*
             Precondition :-
               1. Click on the Payment top menu in the Accounting application, then click on the "Create New Payment" link.
-              2. In the "New incoming payment" box, set the customer id in the "From Party ID" field; then set "Payment Type ID" = "Customer Payment" and a proper "Payment Method Type" (e.g. "Electronic Funds Transfer"); then set the "amount" and submit the form
+              2. In the "New incoming payment" box, set the customer id in the "From Party ID" field; then set "Payment Type ID" = "Customer Payment"
+                 and a proper "Payment Method Type" (e.g. "Electronic Funds Transfer"); then set the "amount" and submit the form
 
             Following process is tested by test case:
               1. From the payment detail screen, when you are ready to post the payment to the GL, click on the "Status to Received" link
 
-            Post condition: "Status to Received", Received Payments. When you are ready to post the payment to the GL this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped:
+            Post condition: "Status to Received", Received Payments. When you are ready to post the payment to the GL this action will generate
+              and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped:
               * Credit; in glAccountId=126000 - glAccountTypeId="ACCOUNTS_RECEIVABLE - UNAPPLIED PAYMENTS"
               * Debit; in glAccountId=112000 - glAccountTypeId="UNDEPOSITED_RECEIPTS"
          */
@@ -226,6 +237,7 @@ class AutoAcctgTransTestsSales extends OFBizTestCase {
             }
         }
 
-        assert debitTotal.compareTo(creditTotal) == 0
+        assert debitTotal == creditTotal
     }
+
 }

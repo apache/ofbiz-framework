@@ -16,13 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.apache.ofbiz.base.util.cache.UtilCache
-import org.apache.ofbiz.base.util.cache.CacheLine
+
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.security.Security
+import org.apache.ofbiz.base.util.cache.UtilCache
 
-context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session)
+context.hasUtilCacheEdit = security.hasEntityPermission('UTIL_CACHE', '_EDIT', session)
 
 cacheName = parameters.UTIL_CACHE_NAME
 context.cacheName = cacheName
@@ -46,7 +45,7 @@ if (cacheName) {
 }
 context.totalSize = UtilFormatOut.formatQuantity(totalSize)
 sortField = parameters.sortField
-if (sortField) { 
+if (sortField) {
     context.cacheElementsList = UtilMisc.sortMaps(cacheElementsList, UtilMisc.toList(sortField))
 } else {
     context.cacheElementsList = cacheElementsList

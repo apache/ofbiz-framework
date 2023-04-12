@@ -17,22 +17,26 @@
  * under the License.
  *******************************************************************************/
 
-def testPingSuccess() {
+Map testPingSuccess() {
     Map returnMap = success('Service result success')
-    if (parameters.ping) returnMap.pong = parameters.ping
+    if (parameters.ping) {
+        returnMap.pong = parameters.ping
+    }
     return returnMap
 }
 
-def testPingError() {
+Map testPingError() {
     Map returnMap = error('Service result error')
-    if (parameters.ping) returnMap.pong = parameters.ping
+    if (parameters.ping) {
+        returnMap.pong = parameters.ping
+    }
     return returnMap
 }
 
-def testPingSuccessWithDSLCall() {
+Map testPingSuccessWithDSLCall() {
     run service: 'testGroovyPingSuccess', with: parameters
 }
 
-def testPingErrorWithDSLCall() {
+Map testPingErrorWithDSLCall() {
     run service: 'testGroovyPingError', with: parameters
 }
