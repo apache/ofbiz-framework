@@ -38,6 +38,7 @@ RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
     ["./gradlew", "--console", "plain"]
 
 # Copy all OFBiz sources.
+COPY buildSrc/ buildSrc/
 COPY applications/ applications/
 COPY config/ config/
 COPY framework/ framework/
