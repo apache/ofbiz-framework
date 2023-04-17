@@ -32,8 +32,8 @@ import java.sql.Timestamp
 List mainAndConds = []
 List orExprs = []
 String entityName = context.entityName
-List searchFields = context.searchFields
-List displayFields = context.displayFields ?: searchFields
+String searchFields = context.searchFields
+String displayFields = context.displayFields ?: searchFields
 boolean searchDistinct = Boolean.valueOf(context.searchDistinct ?: false)
 
 String searchValueFieldName = parameters.term
