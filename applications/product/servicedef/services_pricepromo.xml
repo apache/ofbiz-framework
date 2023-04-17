@@ -49,6 +49,7 @@ under the License.
         <attribute name="basePrice" type="BigDecimal" mode="OUT" optional="false"><!-- will only be different from price if there is a display price adjustment, for example: checkIncludeVat=Y and a VAT amount was found --></attribute>
         <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="listPrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="discountRate" type="BigDecimal" mode="OUT" optional="true" />
         <attribute name="defaultPrice" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="competitivePrice" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="averageCost" type="BigDecimal" mode="OUT" optional="true"/>

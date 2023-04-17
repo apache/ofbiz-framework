@@ -135,6 +135,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     private BigDecimal reservNthPPPerc = BigDecimal.ZERO;
     private BigDecimal listPrice = BigDecimal.ZERO;
+    private BigDecimal discountRate = null;
     /**
      * flag to know if the price have been modified
      */
@@ -1412,6 +1413,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         }
 
                         this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
+                        this.discountRate = (BigDecimal) priceResult.get("discountRate");
                     }
 
                     this.orderItemPriceInfos = UtilGenerics.cast(priceResult.get("orderItemPriceInfos"));
@@ -2500,6 +2502,14 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public void setListPrice(BigDecimal listPrice) {
         this.listPrice = listPrice;
+    }
+
+    /**
+     * Returns the DiscountRate
+     * @return discountRate
+     */
+    public BigDecimal getDiscountRate() {
+        return discountRate;
     }
 
     /**

@@ -4376,6 +4376,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 orderItem.set("selectedAmount", item.getSelectedAmount());
                 orderItem.set("unitPrice", item.getBasePrice());
                 orderItem.set("unitListPrice", item.getListPrice());
+                orderItem.set("discountRate", item.getDiscountRate());
                 orderItem.set("isModifiedPrice", item.getIsModifiedPrice() ? "Y" : "N");
                 orderItem.set("isPromo", item.getIsPromo() ? "Y" : "N");
 
