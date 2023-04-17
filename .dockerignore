@@ -27,4 +27,5 @@ Dockerfile
 /plugins/.svn
 /plugins/.github
 /plugins/.git
-
+/buildSrc/.gradle
+/buildSrc/build

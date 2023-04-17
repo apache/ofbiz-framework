@@ -37,7 +37,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.42.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version "3.5.0"
+    id "com.github.node-gradle.node" version '3.5.1' apply false
 }
 
 /* OWASP plugin
@@ -112,27 +112,6 @@ javadoc {
     }
 }
 
-node {
-    download = true
-    version = "16.13.1"
-    // npmVersion will be the one that comes default with node
-
-    // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
-    // Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common/js")
-    // If you set a "CI" env var then ci only will be used:
-    // https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/faq.md#how-do-i-use-npm-ci-instead-of-npm-install
-    npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
-}
-
-tasks.getByName("distTar") {
-    dependsOn "npmInstall"
-}
-
-tasks.getByName("distZip") {
-    dependsOn "npmInstall"
-}
-
 java {
     sourceCompatibility(JavaVersion.VERSION_17)
     targetCompatibility(JavaVersion.VERSION_17)
@@ -146,8 +125,6 @@ tasks.withType(JavaCompile) {
     // Exclude varargs warnings which are not silenced by @SafeVarargs.
         options.compilerArgs << "-Xlint:-varargs"
     }
-    // Executes on each compilation so that if dependencies are not downloaded yet or some new dependencies are added they get automatically downloaded
-    if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
 }
 
 def getCurrentGitBranch() {
@@ -1054,11 +1031,6 @@ task cleanXtra(group: cleanupGroup, description: 'Clean extra generated files li
 task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer files') {
     doLast {
         delete gitFooterFile
-    }
-}
-task cleanNpm(group: cleanupGroup, description: 'clean node modules') {
-    doLast {
-        delete "${project.projectDir}/themes/common-theme/webapp/common/js/node_modules"
     }
 }
 /*
