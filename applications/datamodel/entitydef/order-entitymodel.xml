@@ -549,6 +549,7 @@ under the License.
       <field name="unitListPrice" type="currency-precise"></field>
       <field name="unitAverageCost" type="currency-amount"></field>
       <field name="unitRecurringPrice" type="currency-amount"></field>
+      <field name="discountRate" type="fixed-point"></field>
       <field name="isModifiedPrice" type="indicator"></field>
       <field name="recurringFreqUomId" type="id"></field>
       <field name="itemDescription" type="description"></field>
