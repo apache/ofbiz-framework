@@ -1,6 +1,6 @@
 {
-    "name": "ofbiz-framework",
-    "description": "ofbiz-framework NPM dependencies configuration",
+    "name": "ofbiz-common-theme",
+    "description": "ofbiz-framework common-theme NPM dependencies configuration",
     "repository": "https://github.com/apache/ofbiz-framework.git",
     "license": "Apache-2.0",
     "dependencies": {
