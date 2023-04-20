@@ -30,6 +30,11 @@
 #   act --job docker_build --secret GITHUB_TOKEN
 # Act will then prompt you to enter your token.
 
+#############################################################################
+# Docker push will only occur if configuration variable DO_DOCKER_PUSH is set to 'true'.
+# This ensures that repository forks do not attempt push to the ghcr.io/apache/ofbiz container registry.
+# See https://docs.github.com/en/actions/learn-github-actions/variables#defining-configuration-variables-for-multiple-workflows
+# for more information on configuring variables for a repository.
 
 name: Build and push docker images
 
@@ -48,7 +53,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to the Container registry
-        if: ${{ !env.ACT }}
+        if: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           registry: ghcr.io
@@ -91,7 +96,7 @@ jobs:
         with:
           context: .
           target: runtime
-          push: ${{ !env.ACT }}
+          push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
           tags: ${{ steps.runtimemeta.outputs.tags }}
           labels: ${{ steps.runtimemeta.outputs.labels }}
 
@@ -111,7 +116,7 @@ jobs:
         with:
           context: .
           target: demo
-          push: ${{ !env.ACT }}
+          push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
           tags: ${{ steps.demometa.outputs.tags }}
           labels: ${{ steps.demometa.outputs.labels }}
 
@@ -146,6 +151,6 @@ jobs:
         with:
           context: .
           target: runtime
-          push: ${{ !env.ACT }}
+          push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
           tags: ${{ steps.pluginsmeta.outputs.tags }}
           labels: ${{ steps.pluginsmeta.outputs.labels }}
