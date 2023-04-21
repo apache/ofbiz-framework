@@ -31,7 +31,6 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.StringUtil.StringWrapper;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -40,10 +39,8 @@ import org.apache.ofbiz.content.content.ContentWrapper;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelUtil;
+import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 
@@ -54,8 +51,8 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
 
     private static final String MODULE = ProductConfigItemContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
-    private static final UtilCache<String, String> CONFIG_ITEM_CONTENT_CACHE = UtilCache.createUtilCache("configItem.content", true);
-    // use soft reference to free up memory if needed
+    private static final UtilCache<String, String> CONFIG_ITEM_CONTENT_CACHE = UtilCache.createUtilCache(
+            "configItem.content.rendered", true); // use soft reference to free up memory if needed
 
     private transient LocalDispatcher dispatcher;
     private String dispatcherName;
@@ -87,7 +84,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         this.delegatorName = delegator.getDelegatorName();
         this.productConfigItem = productConfigItem;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", this.delegator);
+        this.mimeTypeId = ContentWrapper.getDefaultMimeTypeId(this.delegator);
     }
 
     @Override
@@ -121,8 +118,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId,
                                                            HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8",
-                productConfigItem.getDelegator());
+        String mimeTypeId = ContentWrapper.getDefaultMimeTypeId(productConfigItem.getDelegator());
         return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, UtilHttp.getLocale(request), mimeTypeId,
                 productConfigItem.getDelegator(), dispatcher, encoderType);
     }
@@ -134,32 +130,46 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
 
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale,
                                                            String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
-        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
-        String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
-        String cacheKey = confItemContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productConfigItem.get("configItemId")
-                + SEPARATOR + encoderType + SEPARATOR + delegator;
+        if (productConfigItem == null) {
+            return null;
+        }
+        /* Look for a previously cached entry (may also be an entry with null value if
+         * there was no content to retrieve)
+         */
+        String cacheKey = confItemContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR
+                + productConfigItem.get("configItemId") + SEPARATOR + encoderType + SEPARATOR + delegator;
+        String cachedValue = CONFIG_ITEM_CONTENT_CACHE.get(cacheKey);
+        if (cachedValue != null || CONFIG_ITEM_CONTENT_CACHE.containsKey(cacheKey)) {
+            return cachedValue;
+        }
+
+        // Get content of given contentTypeId
+        boolean doCache = true;
+        String outString = null;
+
         try {
-            String cachedValue = CONFIG_ITEM_CONTENT_CACHE.get(cacheKey);
-            if (cachedValue != null) {
-                return cachedValue;
-            }
             Writer outWriter = new StringWriter();
             getProductConfigItemContentAsText(null, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher,
                     outWriter, false);
-            String outString = outWriter.toString();
-            if (UtilValidate.isEmpty(outString)) {
-                outString = productConfigItem.getModelEntity().isField(candidateFieldName) ? productConfigItem.getString(candidateFieldName) : "";
-                outString = outString == null ? "" : outString;
-            }
-            outString = encoder.sanitize(outString, null);
-            CONFIG_ITEM_CONTENT_CACHE.put(cacheKey, outString);
-            return outString;
+            outString = outWriter.toString();
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering ProdConfItemContent, inserting empty String", MODULE);
-            String candidateOut = productConfigItem.getModelEntity().isField(candidateFieldName)
-                    ? productConfigItem.getString(candidateFieldName) : "";
-            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
+            Debug.logError(e, "Error rendering ProdConfItemContent", MODULE);
+            doCache = false;
         }
+
+        /* If we did not found any content (or got an error), get the content of a
+         * candidateFieldName matching the given contentTypeId
+         */
+        if (UtilValidate.isEmpty(outString)) {
+            outString = ContentWrapper.getCandidateFieldValue(productConfigItem, confItemContentTypeId);
+        }
+        // Encode found content via given encoderType
+        outString = ContentWrapper.encodeContentValue(outString, encoderType);
+
+        if (doCache) {
+            CONFIG_ITEM_CONTENT_CACHE.put(cacheKey, outString);
+        }
+        return outString;
     }
 
     public static void getProductConfigItemContentAsText(String configItemId, GenericValue productConfigItem, String confItemContentTypeId,
@@ -181,7 +191,7 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         }
 
         if (UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
+            mimeTypeId = ContentWrapper.getDefaultMimeTypeId(delegator);
         }
 
         GenericValue productConfigItemContent = EntityQuery.use(delegator).from("ProdConfItemContent")
@@ -198,23 +208,17 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
             inContext.put("productConfigItemContent", productConfigItemContent);
             ContentWorker.renderContentAsText(dispatcher, productConfigItemContent.getString("contentId"), outWriter, inContext, locale,
                     mimeTypeId, null, null, cache);
-            return;
-        }
-
-        String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
-        ModelEntity productConfigItemModel = delegator.getModelEntity("ProductConfigItem");
-        if (productConfigItemModel.isField(candidateFieldName)) {
-            if (productConfigItem == null) {
-                productConfigItem = EntityQuery.use(delegator).from("ProductConfigItem").where("configItemId", configItemId).cache().queryOne();
-            }
+        } else {
+            String candidateValue = null;
             if (productConfigItem != null) {
-                String candidateValue = productConfigItem.getString(candidateFieldName);
-                if (UtilValidate.isNotEmpty(candidateValue)) {
-                    outWriter.write(candidateValue);
-                    return;
-                }
+                candidateValue = ContentWrapper.getCandidateFieldValue(productConfigItem, confItemContentTypeId);
+            } else {
+                candidateValue = ContentWrapper.getCandidateFieldValue(delegator, "ProductConfigItem", EntityCondition
+                        .makeCondition("configItemId", configItemId), confItemContentTypeId, cache);
+            }
+            if (UtilValidate.isNotEmpty(candidateValue)) {
+                outWriter.write(candidateValue);
             }
         }
     }
 }
-

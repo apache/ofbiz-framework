@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -51,8 +50,8 @@ public class OrderContentWrapper implements ContentWrapper {
     private static final String MODULE = OrderContentWrapper.class.getName();
     private static final String SEPARATOR = "::";    // cache key separator
 
-    private static final UtilCache<String, String> ORDER_CONTENT_CACHE = UtilCache.createUtilCache("order.content", true);
-    // use soft reference to free up memory if needed
+    private static final UtilCache<String, String> ORDER_CONTENT_CACHE = UtilCache.createUtilCache(
+            "order.content.rendered", true); // use soft reference to free up memory if needed
 
     public static OrderContentWrapper makeOrderContentWrapper(GenericValue order, HttpServletRequest request) {
         return new OrderContentWrapper(order, request);
@@ -74,8 +73,7 @@ public class OrderContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.order = order;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8",
-                (Delegator) request.getAttribute("delegator"));
+        this.mimeTypeId = ContentWrapper.getDefaultMimeTypeId((Delegator) request.getAttribute("delegator"));
     }
 
     @Override
@@ -86,7 +84,7 @@ public class OrderContentWrapper implements ContentWrapper {
 
     public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", order.getDelegator());
+        String mimeTypeId = ContentWrapper.getDefaultMimeTypeId(order.getDelegator());
         return getOrderContentAsText(order, orderContentTypeId, UtilHttp.getLocale(request), mimeTypeId, order.getDelegator(), dispatcher,
                 encoderType);
     }
@@ -98,32 +96,40 @@ public class OrderContentWrapper implements ContentWrapper {
 
     public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, String mimeTypeId, Delegator delegator,
                                                LocalDispatcher dispatcher, String encoderType) {
+        if (order == null) {
+            return null;
+        }
+        String orderItemSeqId = ("OrderItem".equals(order.getEntityName()) ? order.getString("orderItemSeqId")
+                : "_NA_");
+
+        /* Look for a previously cached entry (may also be an entry with null value if
+         * there was no content to retrieve)
+         */
         /* caching: there is one cache created, "order.content"  Each order's content is cached with a key of
          * contentTypeId::locale::mimeType::orderId::orderItemSeqId, or whatever the SEPARATOR is defined above to be.
          */
-        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
 
-        String orderItemSeqId = ("OrderItem".equals(order.getEntityName()) ? order.getString("orderItemSeqId") : "_NA_");
-
-        String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get("orderId") + SEPARATOR
-                + orderItemSeqId + SEPARATOR + encoderType + SEPARATOR + delegator;
-        try {
-            String cachedValue = ORDER_CONTENT_CACHE.get(cacheKey);
-            if (cachedValue != null) {
-                return cachedValue;
-            }
-
-            Writer outWriter = new StringWriter();
-            getOrderContentAsText(null, null, order, orderContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, false);
-            String outString = outWriter.toString();
-            outString = encoder.sanitize(outString, null);
-            ORDER_CONTENT_CACHE.put(cacheKey, outString);
-            return outString;
-
-        } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering OrderContent, inserting empty String", MODULE);
-            return "";
+        String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get(
+                "orderId") + SEPARATOR + orderItemSeqId + SEPARATOR + encoderType + SEPARATOR + delegator;
+        String cachedValue = ORDER_CONTENT_CACHE.get(cacheKey);
+        if (cachedValue != null || ORDER_CONTENT_CACHE.containsKey(cacheKey)) {
+            return cachedValue;
         }
+
+        // Get content of given contentTypeId
+        String outString = null;
+
+        try {
+            Writer outWriter = new StringWriter();
+            getOrderContentAsText(null, orderItemSeqId, order, orderContentTypeId, locale, mimeTypeId, delegator,
+                    dispatcher, outWriter, false);
+            // Encode found content via given encoderType
+            outString = ContentWrapper.encodeContentValue(outWriter.toString(), encoderType);
+            ORDER_CONTENT_CACHE.put(cacheKey, outString);
+        } catch (GeneralException | IOException e) {
+            Debug.logError(e, "Error rendering OrderContent", MODULE);
+        }
+        return outString;
     }
 
     public static void getOrderContentAsText(String orderId, String orderItemSeqId, GenericValue order, String orderContentTypeId, Locale locale,
@@ -165,4 +171,3 @@ public class OrderContentWrapper implements ContentWrapper {
         }
     }
 }
-
