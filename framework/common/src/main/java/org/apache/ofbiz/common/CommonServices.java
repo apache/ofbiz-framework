@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.common;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
