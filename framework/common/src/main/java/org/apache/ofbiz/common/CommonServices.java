@@ -433,18 +433,6 @@ public class CommonServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> simpleMapListTest(DispatchContext dctx, Map<String, ?> context) {
-        List<String> listOfStrings = checkCollection(context.get("listOfStrings"), String.class);
-        Map<String, String> mapOfStrings = checkMap(context.get("mapOfStrings"), String.class, String.class);
-
-        for (String str: listOfStrings) {
-            String v = mapOfStrings.get(str);
-            Debug.logInfo("SimpleMapListTest: " + str + " -> " + v, MODULE);
-        }
-
-        return ServiceUtil.returnSuccess();
-    }
-
     public static Map<String, Object> mcaTest(DispatchContext dctx, Map<String, ?> context) {
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
         MimeMessage message = wrapper.getMessage();
