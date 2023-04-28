@@ -215,13 +215,6 @@ under the License.
         <description>Test the Route engine</description>
     </service>
 
-    <service name="simpleMapListTest" engine="java" auth="false" export="true"
-            location="org.apache.ofbiz.common.CommonServices" invoke="simpleMapListTest">
-        <description>To test XML-RPC handling of Maps and Lists</description>
-        <attribute name="listOfStrings" type="List" mode="IN"/>
-        <attribute name="mapOfStrings" type="Map" mode="IN"/>
-    </service>
-
     <service name="testJavaScript" engine="javascript" auth="false"
         location="component://common/minilang/JavaScriptTest.js" invoke="">
         <description>Test JavaScript Service</description>

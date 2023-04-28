@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.common;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -428,18 +425,6 @@ public class CommonServices {
             if (ServiceUtil.isError(contentResp)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResp));
             }
-        }
-
-        return ServiceUtil.returnSuccess();
-    }
-
-    public static Map<String, Object> simpleMapListTest(DispatchContext dctx, Map<String, ?> context) {
-        List<String> listOfStrings = checkCollection(context.get("listOfStrings"), String.class);
-        Map<String, String> mapOfStrings = checkMap(context.get("mapOfStrings"), String.class, String.class);
-
-        for (String str: listOfStrings) {
-            String v = mapOfStrings.get(str);
-            Debug.logInfo("SimpleMapListTest: " + str + " -> " + v, MODULE);
         }
 
         return ServiceUtil.returnSuccess();

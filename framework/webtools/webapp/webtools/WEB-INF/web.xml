@@ -34,10 +34,6 @@ under the License.
         <!--<description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>-->
     </context-param>
     <context-param>
-        <param-name>xmlrpc.enabledForExtensions</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable
             in screen def XML files.
         </description>
