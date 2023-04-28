@@ -152,21 +152,6 @@ under the License.
         location="org.apache.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExecOnRollback">
     </service>
 
-    <!-- Call xml rpc from engine -->
-    <service name="testXmlRpcAdd" engine="java" auth="false" location="org.apache.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcAdd" export="true">
-        <attribute name="num1" mode="IN" type="Integer"/>
-        <attribute name="num2" mode="IN" type="Integer"/>
-        <attribute name="resulting" mode="OUT" type="Integer"/>
-    </service>
-    <service name="testXmlRpcLocalEngine" engine="xml-rpc-local" auth="false" invoke="testXmlRpcAdd">
-        <attribute name="num1" mode="IN" type="Integer"/>
-        <attribute name="num2" mode="IN" type="Integer"/>
-        <attribute name="resulting" mode="OUT" type="Integer"/>
-    </service>
-    <service name="testXmlRpcClientAdd" engine="java" auth="false" location="org.apache.ofbiz.service.test.XmlRpcTests" invoke="testXmlRpcClientAdd">
-        <implements service="testServiceInterface"/>
-    </service>
-
     <!--Test permission-->
     <service name="testSimplePermission" engine="java" auth="true"
              location="org.apache.ofbiz.service.test.ServiceEngineTestPermissionServices" invoke="genericTestService">
