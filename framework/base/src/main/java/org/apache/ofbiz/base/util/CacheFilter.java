@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -61,16 +60,6 @@ public class CacheFilter implements Filter {
         String context = ((HttpServletRequest) request).getContextPath();
         String uriWithContext = ((HttpServletRequest) request).getRequestURI();
         String uri = uriWithContext.substring(context.length());
-
-        if ("/control/xmlrpc".equals(uri.toLowerCase())) {
-            // Read request.getReader() as many time you need
-            request = new RequestWrapper((HttpServletRequest) request);
-            String body = request.getReader().lines().collect(Collectors.joining());
-            if (body.contains("</serializable")) {
-                Debug.logError("Content not authorised for security reason", "CacheFilter"); // Cf. OFBIZ-12332
-                return;
-            }
-        }
         chain.doFilter(request, response);
     }
 
