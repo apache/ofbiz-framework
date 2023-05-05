@@ -501,8 +501,8 @@ Map sendEmailDated() {
         Map updCommEventStatusMap = [*:communicationEvent]
         updCommEventStatusMap.statusId = 'COM_COMPLETE'
         run service: 'setCommunicationEventStatus', with: updCommEventStatusMap
-        return success()
     }
+    return success()
 }
 
 /**
