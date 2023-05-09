@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="FindSalesOpportunity">
         <section>
             <actions>
@@ -30,6 +29,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
                     </decorator-section>
@@ -48,7 +50,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditSalesOpportunity">
         <section>
             <actions>
@@ -86,7 +87,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ViewSalesOpportunity">
         <section>
             <actions>
@@ -118,7 +118,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="OpportunityCommEvent">
         <section>
             <actions>
