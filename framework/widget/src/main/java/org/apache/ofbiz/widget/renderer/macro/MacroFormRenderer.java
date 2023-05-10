@@ -1912,7 +1912,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
                 ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
-                        prepLinkText + "' + this.value + '", context);
+                        prepLinkText + "' + (this.value - 1) + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
