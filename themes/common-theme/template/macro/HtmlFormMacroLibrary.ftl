@@ -442,7 +442,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderDateFindField id name formName defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty className="" alert=false imgSrc="" value="" isTimeType=false isDateType=false conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
+<#macro renderDateFindField id name formName defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty language="" className="" alert=false imgSrc="" value="" isTimeType=false isDateType=false conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="" disabled=false>
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}" <@renderDisabled disabled />/>
   </#if>
@@ -455,6 +455,14 @@ under the License.
   <#local timePicker = "/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js,/common/js/node_modules/@chinchilla-software/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css"/>
   <#local timePickerLang = Static["org.apache.ofbiz.common.JsLanguageFilesMappingUtil"].getFile("dateTime", .locale)/>
   <span class="view-calendar">
+    <#if language?matches("fr.*")>
+      <select <@renderDisabled disabled /> <#if name?has_content> name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
+        <option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
+        <option value="sameDay"<#if defaultOptionFrom=="sameDay"> selected="selected"</#if>>${opSameDay}</option><#rt/>
+        <option value="greaterThanFromDayStart"<#if defaultOptionFrom=="greaterThanFromDayStart"> selected="selected"</#if>>${opGreaterThanFromDayStart}</option><#rt/>
+        <option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected="selected"</#if>>${opGreaterThan}</option><#rt/>
+      </select><#rt/>
+    </#if>
     <input id="${id}_fld0_value" type="text" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if name?has_content> name="${name?html}_fld0_value"</#if>
         <#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if>
@@ -471,16 +479,26 @@ under the License.
     <#if titleStyle?has_content>
       <span class="${titleStyle}"><#rt/>
     </#if>
-    <select <@renderDisabled disabled /> <#if name?has_content> name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
-      <option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
-      <option value="sameDay"<#if defaultOptionFrom=="sameDay"> selected="selected"</#if>>${opSameDay}</option><#rt/>
-      <option value="greaterThanFromDayStart"<#if defaultOptionFrom=="greaterThanFromDayStart"> selected="selected"</#if>>${opGreaterThanFromDayStart}</option><#rt/>
-      <option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected="selected"</#if>>${opGreaterThan}</option><#rt/>
-    </select><#rt/>
+      <#if !language?matches("fr.*")>
+        <select <@renderDisabled disabled /> <#if name?has_content> name="${name}_fld0_op"</#if> class="selectBox"><#rt/>
+          <option value="equals"<#if defaultOptionFrom=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
+          <option value="sameDay"<#if defaultOptionFrom=="sameDay"> selected="selected"</#if>>${opSameDay}</option><#rt/>
+          <option value="greaterThanFromDayStart"<#if defaultOptionFrom=="greaterThanFromDayStart"> selected="selected"</#if>>${opGreaterThanFromDayStart}</option><#rt/>
+          <option value="greaterThan"<#if defaultOptionFrom=="greaterThan"> selected="selected"</#if>>${opGreaterThan}</option><#rt/>
+        </select><#rt/>
+      </#if>
     <#if titleStyle?has_content>
       </span><#rt/>
     </#if>
     <#rt/>
+    <#if language?matches("fr.*")>
+      <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox" <@renderDisabled disabled />><#rt/>
+        <option value="opLessThan"<#if defaultOptionThru=="opLessThan"> selected="selected"</#if>>${opLessThan}</option><#rt/>
+        <option value="upToDay"<#if defaultOptionThru=="upToDay"> selected="selected"</#if>>${opUpToDay}</option><#rt/>
+        <option value="upThruDay"<#if defaultOptionThru=="upThruDay"> selected="selected"</#if>>${opUpThruDay}</option><#rt/>
+        <option value="empty"<#if defaultOptionFrom=="empty"> selected="selected"</#if>>${opIsEmpty}</option><#rt/>
+      </select><#rt/>
+    </#if>
     <input id="${id}_fld1_value" type="text" <@renderClass className alert?c /> <@renderDisabled disabled />
         <#if name?has_content> name="${name}_fld1_value"</#if>
         <#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if>
@@ -496,12 +514,14 @@ under the License.
     <#if titleStyle?has_content>
       <span class="${titleStyle}"><#rt/>
     </#if>
-    <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox" <@renderDisabled disabled />><#rt/>
-      <option value="opLessThan"<#if defaultOptionThru=="opLessThan"> selected="selected"</#if>>${opLessThan}</option><#rt/>
-      <option value="upToDay"<#if defaultOptionThru=="upToDay"> selected="selected"</#if>>${opUpToDay}</option><#rt/>
-      <option value="upThruDay"<#if defaultOptionThru=="upThruDay"> selected="selected"</#if>>${opUpThruDay}</option><#rt/>
-      <option value="empty"<#if defaultOptionFrom=="empty"> selected="selected"</#if>>${opIsEmpty}</option><#rt/>
-    </select><#rt/>
+      <#if !language?matches("fr.*")>
+        <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox" <@renderDisabled disabled />><#rt/>
+          <option value="opLessThan"<#if defaultOptionThru=="opLessThan"> selected="selected"</#if>>${opLessThan}</option><#rt/>
+          <option value="upToDay"<#if defaultOptionThru=="upToDay"> selected="selected"</#if>>${opUpToDay}</option><#rt/>
+          <option value="upThruDay"<#if defaultOptionThru=="upThruDay"> selected="selected"</#if>>${opUpThruDay}</option><#rt/>
+          <option value="empty"<#if defaultOptionFrom=="empty"> selected="selected"</#if>>${opIsEmpty}</option><#rt/>
+        </select><#rt/>
+      </#if>
     <#if titleStyle?has_content>
       </span>
     </#if>
