@@ -530,6 +530,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         StringBuilder items = new StringBuilder();
+        List<String> checkedByDefault = checkField.getCheckedByDefault(context);
+        List<String> unCheckedByDefault = checkField.getUncheckedByDefault(context);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();
             if (modelFormField.shouldBeRed(context)) {
@@ -548,18 +550,30 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
 
         List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
+        String stringCheckedByDefault = String.join(",", checkedByDefault);
         items.append("[");
         for (ModelFormField.OptionValue optionValue : allOptionValues) {
-            if (items.length() > 1) {
-                items.append(",");
+            boolean checked;
+
+            if (UtilValidate.isNotEmpty(currentValueList)) {
+                checked = currentValueList.contains(optionValue.getKey());
+            } else {
+                if (UtilValidate.isNotEmpty(unCheckedByDefault)) {
+                    checked = !unCheckedByDefault.contains(optionValue.getKey());
+                } else if (UtilValidate.isNotEmpty(checkedByDefault)) {
+                    checked = checkedByDefault.contains(optionValue.getKey());
+                } else checked = allChecked;
             }
-            items.append("{'value':'");
-            items.append(optionValue.getKey());
-            items.append("', 'description':'" + encode(optionValue.getDescription(), modelFormField, context));
-            if (UtilValidate.isNotEmpty(currentValueList) && currentValueList.contains(optionValue.getKey())) {
-                items.append("', 'checked':'" + Boolean.TRUE);
-            }
-            items.append("'}");
+            String data = String.format(
+                    "{'value':'%s', 'description':'%s', 'checked':'%s'}",
+                    optionValue.getKey(),
+                    encode(optionValue.getDescription(), modelFormField, context),
+                    checked);
+            items.append(data);
+            items.append(",");
+        }
+        if (items.length() > 0) {
+            items.deleteCharAt(items.length() - 1);
         }
         items.append("]");
         StringWriter sr = new StringWriter();
@@ -574,9 +588,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(id);
         sr.append("\" conditionGroup=\"");
         sr.append(conditionGroup);
-        sr.append("\" allChecked=");
-        sr.append((allChecked != null && currentValueList == null ? Boolean.toString(allChecked) : "\"\""));
-        sr.append(" currentValue=\"");
+        sr.append("\" currentValue=\"");
         sr.append(currentValue);
         sr.append("\" name=\"");
         sr.append(name);

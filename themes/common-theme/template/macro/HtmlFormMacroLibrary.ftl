@@ -202,10 +202,10 @@ under the License.
   <#list items as item>
     <span <@renderClass className alert />><#rt/>
       <input <@renderDisabled disabled /> type="checkbox"<#if (item_index == 0)> id="${id}"</#if><#rt/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-        <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked>
-        <#elseif item.checked?has_content && item.checked?boolean> checked="checked"</#if>
-        name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
-        ${item.description?default("")}
+        name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>
+        <#if allChecked?has_content && allChecked> checked="checked" </#if>
+        <#if item.checked?has_content && item.checked?boolean> checked="checked"</#if>/><#rt/>
+      ${item.description?default("")}
     </span>
   </#list>
 </#macro>

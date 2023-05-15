@@ -22,12 +22,16 @@ under the License.
 
     <form name="FindQuotes" target="FindQuote" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="quoteTypeId[]" value="OTHER_QUOTE"/>
+            <set field="quoteTypeId[]" value="PROPOSAL"/>
+        </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="find"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
-            <drop-down allow-empty="true">
+            <check all-checked="false" unchecked-by-default="quoteTypeId">
                 <entity-options entity-name="QuoteType" key-field-name="quoteTypeId"/>
-            </drop-down>
+            </check>
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
