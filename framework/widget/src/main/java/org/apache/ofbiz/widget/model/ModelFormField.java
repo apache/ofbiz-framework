@@ -1123,22 +1123,6 @@ public final class ModelFormField {
         }
 
         /**
-         * Gets checked by default.
-         * @return the checked by default
-         */
-        public String getCheckedByDefault() {
-            return checkedByDefault;
-        }
-
-        /**
-         * Gets unchecked by default.
-         * @return the unchecked by default
-         */
-        public String getUncheckedByDefault() {
-            return unCheckedByDefault;
-        }
-
-        /**
          * Is all checked boolean.
          * @param context the context
          * @return the boolean

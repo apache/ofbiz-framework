@@ -69,8 +69,6 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitModelField(checkField.getModelFormField());
         writer.append("<check");
         visitAttribute("all-checked", checkField.getAllChecked());
-        visitAttribute("checked-by-default", checkField.getCheckedByDefault());
-        visitAttribute("unchecked-by-default", checkField.getUncheckedByDefault());
         visitFieldInfoWithOptions(checkField);
         writer.append("</check></field>");
     }
