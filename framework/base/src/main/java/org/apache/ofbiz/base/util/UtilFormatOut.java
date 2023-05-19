@@ -117,11 +117,14 @@ public final class UtilFormatOut {
         return formatNumber(price, AMOUNT_FORMAT, null, null);
     }
 
-    /** Formats a double into a properly formatted currency string based on isoCode and Locale
-     * @param price The price double to be formatted
-     * @param isoCode the currency ISO code
-     * @param locale The Locale used to format the number
-     * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
+    /**
+     * Formats a double into a properly formatted currency string based on isoCode and Locale
+     *
+     * @param price                 The price double to be formatted
+     * @param isoCode               the currency ISO code
+     * @param locale                The Locale used to format the number
+     * @param maximumFractionDigits The maximum number of fraction digits used; if
+     *                              set to -1 than the default value for the locale
      * @return A String with the formatted price
      */
     public static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
@@ -139,11 +142,15 @@ public final class UtilFormatOut {
         return nf.format(price);
     }
 
-    /** Formats a BigDecimal into a properly formatted currency string based on isoCode and Locale
-     * @param price The price BigDecimal to be formatted
-     * @param isoCode the currency ISO code
-     * @param locale The Locale used to format the number
-     * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
+    /**
+     * Formats a double into a properly formatted currency string based on isoCode and Locale
+     *
+     * @param price                 The price BigDecimal to be formatted
+     * @param isoCode               the currency ISO code
+     * @param locale                The Locale used to format the number
+     * @param maximumFractionDigits The maximum number of fraction digits used; if
+     *                              set to -1 than the default value for the locale
+     *                              is used
      * @return A String with the formatted price
      */
     public static String formatCurrency(BigDecimal price, String isoCode, Locale locale, int maximumFractionDigits) {
