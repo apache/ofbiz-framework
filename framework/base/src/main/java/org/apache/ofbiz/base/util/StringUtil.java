@@ -439,7 +439,6 @@ public final class StringUtil {
         /**
          * @return true, if wrapped string is null or empty; false otherwise
          */
-        @Override
         public boolean isEmpty() {
             return (theString == null || theString.isEmpty());
         }
