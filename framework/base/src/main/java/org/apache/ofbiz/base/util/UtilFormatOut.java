@@ -26,9 +26,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import com.ibm.icu.text.DecimalFormat;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+
+import com.ibm.icu.text.DecimalFormat;
 
 /**
  * General output formatting functions - mainly for helping in JSPs

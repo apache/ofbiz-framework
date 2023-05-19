@@ -270,7 +270,7 @@ public final class UtilValidate {
      *  first character is allowed to be + or - as well.
      *  Does not accept floating point, exponential notation, etc.
      */
-    private static boolean isSignedInteger(String s) {
+    public static boolean isSignedInteger(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -1130,7 +1130,7 @@ public final class UtilValidate {
      *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096 (16 digits)
      *   @return  true, if the credit card number is a valid Solo card number, false otherwise
      */
-    private static boolean isSolo(String cc) {
+    public static boolean isSolo(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
         if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) && ("63".equals(first2digs) || "6767".equals(first4digs))) {
@@ -1143,7 +1143,7 @@ public final class UtilValidate {
      *   @param    cc - a string representing a credit card number; Sample number: 4175000000000001(16 digits)
      *   @return  true, if the credit card number is a valid Visa Electron card number, false otherwise
      */
-    private static boolean isVisaElectron(String cc) {
+    public static boolean isVisaElectron(String cc) {
         String first6digs = cc.substring(0, 6);
         String first4digs = cc.substring(0, 4);
 
@@ -1311,7 +1311,7 @@ public final class UtilValidate {
         return isValidPhoneNumber(phoneNumber, geoId, delegator);
     }
 
-    private static boolean isValidPhoneNumber(String phoneNumber, String geoId, Delegator delegator) {
+    public static boolean isValidPhoneNumber(String phoneNumber, String geoId, Delegator delegator) {
         boolean isValid = false;
         try {
             GenericValue geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();

@@ -21,11 +21,9 @@ package org.apache.ofbiz.common.geo;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
-import com.ibm.icu.util.LocaleData;
-import com.ibm.icu.util.ULocale;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -34,6 +32,9 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
+
+import com.ibm.icu.util.LocaleData;
+import com.ibm.icu.util.ULocale;
 
 /**
  * Worker methods for Geos
