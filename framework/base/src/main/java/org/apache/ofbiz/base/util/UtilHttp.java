@@ -516,7 +516,7 @@ public final class UtilHttp {
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
      */
-    private static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> attributeMap = new HashMap<>();
 
         // look at all request attributes
@@ -551,7 +551,7 @@ public final class UtilHttp {
      * Create a map from a HttpSession object
      * @return The resulting Map
      */
-    private static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> sessionMap = new HashMap<>();
         HttpSession session = request.getSession();
 
@@ -587,7 +587,7 @@ public final class UtilHttp {
      * Create a map from a ServletContext object
      * @return The resulting Map
      */
-    private static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
+    public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> servletCtxMap = new HashMap<>();
 
         // look at all servlet context attributes
@@ -894,7 +894,7 @@ public final class UtilHttp {
         setTimeZone(request.getSession(), UtilDateTime.toTimeZone(tzId));
     }
 
-    private static void setTimeZone(HttpSession session, TimeZone timeZone) {
+    public static void setTimeZone(HttpSession session, TimeZone timeZone) {
         session.setAttribute(SESSION_KEY_TIMEZONE, timeZone);
     }
 

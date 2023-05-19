@@ -617,7 +617,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A time String in the format HH:MM:SS or HH:MM
      */
-    private static String toTimeString(java.util.Date date) {
+    public static String toTimeString(java.util.Date date) {
         if (date == null) {
             return "";
         }
@@ -635,7 +635,7 @@ public final class UtilDateTime {
      * @param second The second int
      * @return A time String in the format HH:MM:SS or HH:MM
      */
-    private static String toTimeString(int hour, int minute, int second) {
+    public static String toTimeString(int hour, int minute, int second) {
         String hourStr;
         String minuteStr;
         String secondStr;
@@ -816,7 +816,7 @@ public final class UtilDateTime {
         return getWeekStart(stamp, daysLater, 0, timeZone, locale);
     }
 
-    private static Timestamp getWeekStart(Timestamp stamp, int daysLater, int weeksLater, TimeZone timeZone, Locale locale) {
+    public static Timestamp getWeekStart(Timestamp stamp, int daysLater, int weeksLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
         tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
@@ -842,7 +842,7 @@ public final class UtilDateTime {
         return getMonthStart(stamp, daysLater, 0, timeZone, locale);
     }
 
-    private static Timestamp getMonthStart(Timestamp stamp, int daysLater, int monthsLater, TimeZone timeZone, Locale locale) {
+    public static Timestamp getMonthStart(Timestamp stamp, int daysLater, int monthsLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), 1, 0, 0, 0);
         tempCal.add(Calendar.MONTH, monthsLater);
@@ -875,7 +875,7 @@ public final class UtilDateTime {
                 ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()), timeZone, locale);
     }
 
-    private static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater, TimeZone timeZone, Locale locale) {
+    public static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), Calendar.JANUARY, 1, 0, 0, 0);
         tempCal.add(Calendar.YEAR, yearsLater);
@@ -892,7 +892,7 @@ public final class UtilDateTime {
         return getMonthEnd(new Timestamp(tempCal.getTimeInMillis()), timeZone, locale);
     }
 
-    private static int weekNumber(Timestamp stamp, TimeZone timeZone, Locale locale) {
+    public static int weekNumber(Timestamp stamp, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         return tempCal.get(Calendar.WEEK_OF_YEAR);
     }
@@ -997,7 +997,7 @@ public final class UtilDateTime {
     /**
      * Localized String to Timestamp conversion. To be used in tandem with timeStampToString().
      */
-    private static Timestamp stringToTimeStamp(String dateTimeString, String dateTimeFormat, TimeZone tz, Locale locale) throws ParseException {
+    public static Timestamp stringToTimeStamp(String dateTimeString, String dateTimeFormat, TimeZone tz, Locale locale) throws ParseException {
         DateFormat dateFormat = toDateTimeFormat(dateTimeFormat, tz, locale);
         Date parsedDate = dateFormat.parse(dateTimeString);
         return new Timestamp(parsedDate.getTime());
@@ -1013,7 +1013,7 @@ public final class UtilDateTime {
     /**
      * Localized Timestamp to String conversion. To be used in tandem with stringToTimeStamp().
      */
-    private static String timeStampToString(Timestamp stamp, String dateTimeFormat, TimeZone tz, Locale locale) {
+    public static String timeStampToString(Timestamp stamp, String dateTimeFormat, TimeZone tz, Locale locale) {
         DateFormat dateFormat = toDateTimeFormat(dateTimeFormat, tz, locale);
         return dateFormat.format(stamp);
     }

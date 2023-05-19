@@ -143,7 +143,7 @@ public final class StringUtil {
      * @param trim Trim whitespace off fields
      * @return a Map of name/value pairs
      */
-    private static Map<String, String> strToMap(String str, String delim, boolean trim) {
+    public static Map<String, String> strToMap(String str, String delim, boolean trim) {
         return strToMap(str, delim, trim, null);
 
     }
@@ -157,7 +157,7 @@ public final class StringUtil {
      *        and want to replace "=" to avoid clashes with parameters values in a not encoded URL, default to "="
      * @return a Map of name/value pairs
      */
-    private static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
+    public static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
         if (UtilValidate.isEmpty(str)) {
             return null;
         }
@@ -445,6 +445,7 @@ public final class StringUtil {
         /**
          * @return true, if wrapped string is null or empty; false otherwise
          */
+        @Override
         public boolean isEmpty() {
             return (theString == null || theString.isEmpty());
         }

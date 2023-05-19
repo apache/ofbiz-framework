@@ -270,7 +270,7 @@ public final class UtilValidate {
      *  first character is allowed to be + or - as well.
      *  Does not accept floating point, exponential notation, etc.
      */
-    private static boolean isSignedInteger(String s) {
+    public static boolean isSignedInteger(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -302,7 +302,7 @@ public final class UtilValidate {
      * Returns true if string s is an integer &gt; 0.
      * NOTE: using the Java Long object for greatest precision
      */
-    private static boolean isPositiveInteger(String s) {
+    public static boolean isPositiveInteger(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -318,7 +318,7 @@ public final class UtilValidate {
     /**
      * Returns true if string s is an integer &gt;= 0
      */
-    private static boolean isNonnegativeInteger(String s) {
+    public static boolean isNonnegativeInteger(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -662,7 +662,7 @@ public final class UtilValidate {
      *  For Year 2000 compliance, you are advised
      *  to use 4-digit year numbers everywhere.
      */
-    private static boolean isYear(String s) {
+    public static boolean isYear(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -691,7 +691,7 @@ public final class UtilValidate {
     }
 
     /** isMonth returns true if string s is a valid month number between 1 and 12. */
-    private static boolean isMonth(String s) {
+    public static boolean isMonth(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -699,7 +699,7 @@ public final class UtilValidate {
     }
 
     /** isDay returns true if string s is a valid day number between 1 and 31. */
-    private static boolean isDay(String s) {
+    public static boolean isDay(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -707,14 +707,14 @@ public final class UtilValidate {
     }
 
     /** Given integer argument year, returns number of days in February of that year. */
-    private static int daysInFebruary(int year) {
+    public static int daysInFebruary(int year) {
         // February has 29 days in any year evenly divisible by four,
         // EXCEPT for centurial years which are not also divisible by 400.
         return (((year % 4 == 0) && ((!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28);
     }
 
     /** isHour returns true if string s is a valid number between 0 and 23. */
-    private static boolean isHour(String s) {
+    public static boolean isHour(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -888,7 +888,7 @@ public final class UtilValidate {
         return false;
     }
     /** isTime returns true if string arguments hour, minute, and second form a valid time. */
-    private static boolean isTime(String hour, String minute, String second) {
+    public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
         return isHour(hour) && isMinute(minute) && isSecond(second);
     }
@@ -924,7 +924,7 @@ public final class UtilValidate {
      * @param stPassed a string representing a valuelink gift card
      * @return true, if the number passed simple checks
      */
-    private static boolean isValueLinkCard(String stPassed) {
+    public static boolean isValueLinkCard(String stPassed) {
         if (isEmpty(stPassed)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -936,7 +936,7 @@ public final class UtilValidate {
      * @param stPassed a string representing a gift card
      * @return tru, if the number passed simple checks
      */
-    private static boolean isOFBGiftCard(String stPassed) {
+    public static boolean isOFBGiftCard(String stPassed) {
         if (isEmpty(stPassed)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -986,7 +986,7 @@ public final class UtilValidate {
      * @param stPassed a string representing a credit card number
      * @return true, if the credit card number passes the Luhn Mod-10 test, false otherwise
      */
-    private static boolean isCreditCard(String stPassed) {
+    public static boolean isCreditCard(String stPassed) {
         if (isEmpty(stPassed)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -1000,7 +1000,7 @@ public final class UtilValidate {
      * @param cc a string representing a credit card number; Sample number: 4111 1111 1111 1111(16 digits)
      * @return true, if the credit card number is a valid VISA number, false otherwise
      */
-    private static boolean isVisa(String cc) {
+    public static boolean isVisa(String cc) {
         if (((cc.length() == 16) || (cc.length() == 13)) && ("4".equals(cc.substring(0, 1)))) {
             return isCreditCard(cc);
         }
@@ -1012,7 +1012,7 @@ public final class UtilValidate {
      *           through 2720. All have 16 digits; Sample number: 5500 0000 0000 0004(16 digits)
      * @return true, if the credit card number is a valid MasterCard  number, false otherwise
      */
-    private static boolean isMasterCard(String cc) {
+    public static boolean isMasterCard(String cc) {
         int first2digs = Integer.parseInt(cc.substring(0, 2));
         int first4digs = Integer.parseInt(cc.substring(0, 4));
 
@@ -1027,7 +1027,7 @@ public final class UtilValidate {
      *   @param    cc - a string representing a credit card number; Sample number: 340000000000009(15 digits)
      *   @return  true, if the credit card number is a valid American Express number, false otherwise
      */
-    private static boolean isAmericanExpress(String cc) {
+    public static boolean isAmericanExpress(String cc) {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
         int seconddig = Integer.parseInt(cc.substring(1, 2));
 
@@ -1042,7 +1042,7 @@ public final class UtilValidate {
      *   @param    cc - a string representing a credit card number; Sample number: 30000000000004(14 digits)
      *   @return  true, if the credit card number is a valid Diner's Club number, false otherwise
      */
-    private static boolean isDinersClub(String cc) {
+    public static boolean isDinersClub(String cc) {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
         int seconddig = Integer.parseInt(cc.substring(1, 2));
 
@@ -1056,7 +1056,7 @@ public final class UtilValidate {
      *   @param    cc - a string representing a credit card number; Sample number: 30000000000004(14 digits)
      *   @return  true, if the credit card number is a valid Carte Blanche number, false otherwise
      */
-    private static boolean isCarteBlanche(String cc) {
+    public static boolean isCarteBlanche(String cc) {
         return isDinersClub(cc);
     }
 
@@ -1065,7 +1065,7 @@ public final class UtilValidate {
      *                Sample number: 6011000000000004(16 digits)
      *   @return  true, if the credit card number is a valid Discover card number, false otherwise
      */
-    private static boolean isDiscover(String cc) {
+    public static boolean isDiscover(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
 
@@ -1079,7 +1079,7 @@ public final class UtilValidate {
      *   @param    cc - a string representing a credit card number; Sample number: 201400000000009(15 digits)
      *   @return  true, if the credit card number is a valid enRoute card number, false, otherwise
      */
-    private static boolean isEnRoute(String cc) {
+    public static boolean isEnRoute(String cc) {
         String first4digs = cc.substring(0, 4);
 
         if ((cc.length() == 15) && ("2014".equals(first4digs) || "2149".equals(first4digs))) {
@@ -1093,7 +1093,7 @@ public final class UtilValidate {
      *                 with 35 have 16 digits;Sample number: 3088000000000009(16 digits)
      *   @return  true, if the credit card number is a valid JCB card number, false otherwise
      */
-    private static boolean isJCB(String cc) {
+    public static boolean isJCB(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
 
@@ -1108,7 +1108,7 @@ public final class UtilValidate {
      *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096(16 digits)
      *   @return  true, if the credit card number is a valid Switch card number, false otherwise
      */
-    private static boolean isSwitch(String cc) {
+    public static boolean isSwitch(String cc) {
         String first4digs = cc.substring(0, 4);
         String first6digs = cc.substring(0, 6);
 
@@ -1130,7 +1130,7 @@ public final class UtilValidate {
      *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096 (16 digits)
      *   @return  true, if the credit card number is a valid Solo card number, false otherwise
      */
-    private static boolean isSolo(String cc) {
+    public static boolean isSolo(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
         if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) && ("63".equals(first2digs) || "6767".equals(first4digs))) {
@@ -1143,7 +1143,7 @@ public final class UtilValidate {
      *   @param    cc - a string representing a credit card number; Sample number: 4175000000000001(16 digits)
      *   @return  true, if the credit card number is a valid Visa Electron card number, false otherwise
      */
-    private static boolean isVisaElectron(String cc) {
+    public static boolean isVisaElectron(String cc) {
         String first6digs = cc.substring(0, 6);
         String first4digs = cc.substring(0, 4);
 
@@ -1311,7 +1311,7 @@ public final class UtilValidate {
         return isValidPhoneNumber(phoneNumber, geoId, delegator);
     }
 
-    private static boolean isValidPhoneNumber(String phoneNumber, String geoId, Delegator delegator) {
+    public static boolean isValidPhoneNumber(String phoneNumber, String geoId, Delegator delegator) {
         boolean isValid = false;
         try {
             GenericValue geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();

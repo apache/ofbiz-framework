@@ -23,9 +23,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import com.ibm.icu.text.RuleBasedNumberFormat;
-import java.util.Map;
 
 public final class UtilNumber {
 
@@ -270,7 +270,7 @@ public final class UtilNumber {
      * @param   value - The name of the mode (e.g., "ROUND_HALF_UP")
      * @return  RoundingMode - The rounding mode value of the mode (e.g, RoundingMode.HALF_UP) or null if the input was bad.
      */
-    private static RoundingMode roundingModeFromString(String value) {
+    public static RoundingMode roundingModeFromString(String value) {
         if (value == null) {
             return null;
         }
@@ -324,7 +324,7 @@ public final class UtilNumber {
      * @param   locale - the Locale
      * @return  formatted string or an empty string if there was an error
      */
-    private static String formatRuleBasedAmount(double amount, String ruleSet, String rule, Locale locale) {
+    public static String formatRuleBasedAmount(double amount, String ruleSet, String rule, Locale locale) {
         RuleBasedNumberFormat formatter = new RuleBasedNumberFormat(ruleSet, locale);
         String result = "";
         try {
@@ -366,7 +366,7 @@ public final class UtilNumber {
      * @param roundingMode  the RoundingMode rounding mode to apply
      * @return          The formatted string or "" if there were errors.
      */
-    private static String toPercentString(Number number, int scale, RoundingMode roundingMode) {
+    public static String toPercentString(Number number, int scale, RoundingMode roundingMode) {
         // convert to BigDecimal
         if (!(number instanceof BigDecimal)) {
             number = new BigDecimal(number.doubleValue());

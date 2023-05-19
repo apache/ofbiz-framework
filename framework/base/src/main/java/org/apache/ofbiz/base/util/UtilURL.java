@@ -148,7 +148,7 @@ public final class UtilURL {
         return url;
     }
 
-    private static URL fromOfbizHomePath(String filename) {
+    public static URL fromOfbizHomePath(String filename) {
         String ofbizHome = System.getProperty("ofbiz.home");
         if (ofbizHome == null) {
             Debug.logWarning("No ofbiz.home property set in environment", MODULE);

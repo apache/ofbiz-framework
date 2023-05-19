@@ -65,7 +65,7 @@ public class UtilTimer {
     /**
      * Start timer.
      */
-    private void startTimer() {
+    public void startTimer() {
         startTime = System.currentTimeMillis();
         realStartTime = startTime;
         this.lastMessageTime = startTime;
@@ -141,21 +141,21 @@ public class UtilTimer {
     /** Returns the number of seconds since the timer started
      * @return The number of seconds since the timer started
      */
-    private double secondsSinceStart() {
+    public double secondsSinceStart() {
         return (timeSinceStart()) / 1000.0;
     }
 
     /** Returns the number of seconds since the last time timerString was called
      * @return The number of seconds since the last time timerString was called
      */
-    private double secondsSinceLast() {
+    public double secondsSinceLast() {
         return (timeSinceLast()) / 1000.0;
     }
 
     /** Returns the number of milliseconds since the timer started
      * @return The number of milliseconds since the timer started
      */
-    private long timeSinceStart() {
+    public long timeSinceStart() {
         long currentTime = System.currentTimeMillis();
 
         return currentTime - startTime;
@@ -227,11 +227,11 @@ public class UtilTimer {
 
     // static logging timer - be sure to close the timer when finished!
 
-    private static UtilTimer getTimer(String timerName) {
+    public static UtilTimer getTimer(String timerName) {
         return getTimer(timerName, true);
     }
 
-    private static UtilTimer getTimer(String timerName, boolean log) {
+    public static UtilTimer getTimer(String timerName, boolean log) {
         UtilTimer timer = STATIC_TIMERS.get(timerName);
         if (timer == null) {
             timer = new UtilTimer(timerName, false);
