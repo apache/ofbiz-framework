@@ -29,7 +29,7 @@ under the License.
         <auto-fields-entity entity-name="Quote" default-field-type="find"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
-            <check all-checked="false" unchecked-by-default="quoteTypeId">
+            <check all-checked="false">
                 <entity-options entity-name="QuoteType" key-field-name="quoteTypeId"/>
             </check>
         </field>

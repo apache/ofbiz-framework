@@ -531,7 +531,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String action = modelFormField.getAction(context);
         StringBuilder items = new StringBuilder();
         List<String> checkedByDefault = checkField.getCheckedByDefault(context);
-        List<String> unCheckedByDefault = checkField.getUncheckedByDefault(context);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();
             if (modelFormField.shouldBeRed(context)) {
@@ -558,9 +557,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 checked = currentValueList.contains(optionValue.getKey());
             } else {
-                if (UtilValidate.isNotEmpty(unCheckedByDefault)) {
-                    checked = !unCheckedByDefault.contains(optionValue.getKey());
-                } else if (UtilValidate.isNotEmpty(checkedByDefault)) {
+                if (UtilValidate.isNotEmpty(checkedByDefault)) {
                     checked = checkedByDefault.contains(optionValue.getKey());
                 } else checked = allChecked;
             }

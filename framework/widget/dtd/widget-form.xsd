@@ -885,22 +885,6 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="checked-by-default" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>
-                        The purpose of this attribute is to specify which values should be pre-selected or pre-checked.
-                        /!\ not compatible with all-checked="true" and unchecked-by-default
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="unchecked-by-default" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>
-                        This attribute is similar to the "checked-by-default" attribute but represents the variables whose values should be unchecked by default
-                        /!\ not compatible with all-checked="true" and checked-by-default
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="container" substitutionGroup="AllFields">
