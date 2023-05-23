@@ -530,7 +530,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         StringBuilder items = new StringBuilder();
-        List<String> checkedByDefault = checkField.getCheckedByDefault(context);
+        //List<String> checkedByDefault = checkField.getCheckedByDefault(context);
+        List<String> checkedByDefault = context.containsKey(checkField.getModelFormField().getAttributeName())
+                ? StringUtil.toList(context.get(checkField.getModelFormField().getAttributeName()).toString())
+                : List.of();
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();
             if (modelFormField.shouldBeRed(context)) {
