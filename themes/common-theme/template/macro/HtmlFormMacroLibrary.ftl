@@ -236,19 +236,27 @@ under the License.
     <#if title?has_content> alt="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
     <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>/>
   <#else>
-    <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /> <@renderDisabled disabled />
+    <input type="submit" <@renderClass className alert /> <@renderDisabled disabled />
       <#if id?has_content> id="${id}"</#if><#rt/>
       <#if name??> name="${name}"</#if>
       <#if title?has_content> value="${title}"</#if>
       <#if event?has_content> ${event}="${action}"</#if>
-      <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}')"
-        <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
-      <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+      <#if !containerId?has_content>
+          <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
+          <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
       </#if>/>
       <#if containerId?has_content>
         <#-- the form will be submit by ajax, we inform that perss enter need to call  -->
         <script>
-            $("form[name='${formName}']").keypress(function(e) {
+            $("form[name='${formName}']")
+            .submit(function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($(this).valid()) {
+                    <#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}');
+                }
+            })
+            .keypress(function(e) {
               if (e.which === 13 && ! $(e.target).is('textarea')) {
                 e.preventDefault();
                 $("#${id!}").click();
