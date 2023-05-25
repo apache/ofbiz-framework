@@ -530,7 +530,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         StringBuilder items = new StringBuilder();
-        //List<String> checkedByDefault = checkField.getCheckedByDefault(context);
         List<String> checkedByDefault = context.containsKey(checkField.getModelFormField().getAttributeName())
                 ? StringUtil.toList(context.get(checkField.getModelFormField().getAttributeName()).toString())
                 : List.of();
@@ -552,7 +551,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
 
         List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
-        String stringCheckedByDefault = String.join(",", checkedByDefault);
+        //String stringCheckedByDefault = String.join(",", checkedByDefault);
         items.append("[");
         for (ModelFormField.OptionValue optionValue : allOptionValues) {
             boolean checked;

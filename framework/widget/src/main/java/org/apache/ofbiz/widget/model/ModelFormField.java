@@ -1073,30 +1073,25 @@ public final class ModelFormField {
         public static final String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
         private final FlexibleStringExpander allChecked;
 
-        private final String checkedByDefault;
 
         private CheckField(CheckField original, ModelFormField modelFormField) {
             super(original, modelFormField);
             this.allChecked = original.allChecked;
-            this.checkedByDefault = original.checkedByDefault;
         }
 
         public CheckField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
-            checkedByDefault = element.getAttribute("checked-by-default");
         }
 
         public CheckField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.CHECK, modelFormField);
             this.allChecked = FlexibleStringExpander.getInstance("");
-            this.checkedByDefault = "";
         }
 
         public CheckField(ModelFormField modelFormField) {
             super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.CHECK, modelFormField);
             this.allChecked = FlexibleStringExpander.getInstance("");
-            this.checkedByDefault = "";
         }
 
         @Override
@@ -2416,13 +2411,11 @@ public final class ModelFormField {
         }
 
         private final FlexibleStringExpander noCurrentSelectedKey;
-        private final String checkedByDefault;
         private final List<OptionSource> optionSources;
 
         public FieldInfoWithOptions(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
-            this.checkedByDefault = element.getAttribute("checked-by-default");
             // read all option and entity-options sub-elements, maintaining order
             ArrayList<OptionSource> optionSources = new ArrayList<>();
             List<? extends Element> childElements = UtilXml.childElementList(element);
@@ -2449,7 +2442,6 @@ public final class ModelFormField {
         protected FieldInfoWithOptions(FieldInfoWithOptions original, ModelFormField modelFormField) {
             super(original.getFieldSource(), original.getFieldType(), modelFormField);
             this.noCurrentSelectedKey = original.noCurrentSelectedKey;
-            this.checkedByDefault = original.checkedByDefault;
             if (original.optionSources.isEmpty()) {
                 this.optionSources = original.optionSources;
             } else {
@@ -2464,14 +2456,12 @@ public final class ModelFormField {
         protected FieldInfoWithOptions(int fieldSource, int fieldType, List<OptionSource> optionSources) {
             super(fieldSource, fieldType, null);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
-            this.checkedByDefault = "";
             this.optionSources = Collections.unmodifiableList(new ArrayList<>(optionSources));
         }
 
         public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
-            this.checkedByDefault = "";
             this.optionSources = Collections.emptyList();
         }
 
@@ -2504,25 +2494,6 @@ public final class ModelFormField {
          */
         public String getNoCurrentSelectedKey(Map<String, Object> context) {
             return this.noCurrentSelectedKey.expandString(context);
-        }
-
-        /**
-         * Gets checked by default.
-         * @return the checked by default
-         */
-        public String getCheckedByDefault() {
-            return checkedByDefault;
-        }
-
-        /**
-         * Gets checked by default.
-         * @param context the context
-         * @return the checked by default
-         */
-        public List<String> getCheckedByDefault(Map<String, Object> context) {
-            return context.containsKey(this.getModelFormField().attributeName)
-                    ? StringUtil.toList(context.get(this.getModelFormField().attributeName).toString())
-                    : List.of();
         }
 
         /**

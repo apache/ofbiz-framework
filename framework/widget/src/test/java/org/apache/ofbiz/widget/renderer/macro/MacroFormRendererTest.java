@@ -26,11 +26,7 @@ import static org.hamcrest.Matchers.startsWith;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -282,7 +278,9 @@ public class MacroFormRendererTest {
     public void checkFieldMacroRendered(@Mocked ModelFormField.CheckField checkField) throws IOException {
         final List<ModelFormField.OptionValue> optionValues = ImmutableList.of(
                 new ModelFormField.OptionValue("KEY1", "DESC1"),
-                new ModelFormField.OptionValue("KEY2", "DESC2"));
+                new ModelFormField.OptionValue("KEY2", "DESC2"),
+                new ModelFormField.OptionValue("KEY3", "DESC3"),
+                new ModelFormField.OptionValue("KEY4", "DESC4"));
 
         new Expectations() {
             {
@@ -297,11 +295,46 @@ public class MacroFormRendererTest {
         macroFormRenderer.renderCheckField(appendable, ImmutableMap.of(), checkField);
         assertAndGetMacroString("renderCheckField", ImmutableMap.of(
                 "currentValue", "KEY2",
-                "items", ImmutableList.of("{'value':'KEY1', 'description':'DESC1'}",
-                        "{'value':'KEY2', 'description':'DESC2', 'checked':'true'}")));
-    }
+                "items", ImmutableList.of(
+                        "{'value':'KEY1', 'description':'DESC1', 'checked':'false'}",
+                        "{'value':'KEY2', 'description':'DESC2', 'checked':'true'}",
+                        "{'value':'KEY3', 'description':'DESC3', 'checked':'false'}",
+                        "{'value':'KEY4', 'description':'DESC4', 'checked':'false'}")));
+        new Expectations() {
+            {
+                modelFormField.getEntry(withNotNull());
+                result = "";
 
-    @Test
+                checkField.getModelFormField().getAttributeName();
+                result = "FieldName";
+
+
+            }
+        };
+
+        StringWriter writer = new StringWriter();
+        Map<String, Object> context = new HashMap<>();
+        LinkedList<String> fieldName = new LinkedList<>();
+        fieldName.add("KEY1");
+        fieldName.add("KEY3");
+        context.put("FieldName", fieldName);
+
+        try {
+            macroFormRenderer.renderCheckField(writer, context, checkField);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String renderedString = writer.toString();
+        assertAndGetMacroString("renderCheckField", ImmutableMap.of(
+                "items", ImmutableList.of(
+                        "{'value':'KEY1', 'description':'DESC1', 'checked':'true'}",
+                        "{'value':'KEY2', 'description':'DESC2', 'checked':'false'}",
+                        "{'value':'KEY3', 'description':'DESC3', 'checked':'true'}",
+                        "{'value':'KEY4', 'description':'DESC4', 'checked':'false'}")));
+
+    }
+        @Test
     public void radioFieldMacroRendered(@Mocked ModelFormField.RadioField radioField) throws IOException {
         final List<ModelFormField.OptionValue> optionValues = ImmutableList.of(
                 new ModelFormField.OptionValue("KEY1", "DESC1"),
