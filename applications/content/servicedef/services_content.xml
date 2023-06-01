@@ -349,8 +349,8 @@
     </service>
 
     <!-- Alternative URLs services -->
-    <service name="createMissingContentAltUrls" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="createMissingContentAltUrls" auth="true" use-transaction="false">
+    <service name="createMissingContentAltUrls" engine="groovy" auth="true" use-transaction="false"
+                location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createMissingContentAltUrls">
         <description>Create missing Content Alternative URLs</description>
         <attribute name="prodCatalogId" mode="IN" type="String" optional="true"/>
         <attribute name="webSiteId" mode="IN" type="String" optional="true"/>

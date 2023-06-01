@@ -533,3 +533,108 @@ Map updateSimpleTextContent() {
     }
     return result
 }
+
+/**
+ * create missing content alternative urls.
+ */
+Map createMissingContentAltUrls() {
+    List contentCreatedList = []
+    if (parameters.prodCatalogId) {
+        List productCategorieIds = []
+        // Get all categories
+        from('ProdCatalogCategory')
+                .where(prodCatalogId: parameters.prodCatalogId)
+                .getFieldList('productCategoryId')
+                .each { String productCategoryId ->
+                    productCategorieIds.addAll(createMissingCategoryContentAltUrlInline(productCategoryId))
+                }
+        // Create Content Alternative URLs for Product Category Content
+        EntityCondition condition = new EntityConditionBuilder().AND {
+            NOT_EQUAL(prodCatContentTypeId: 'ALTERNATIVE_URL')
+            IN(productCategoryId: productCategorieIds)
+        }
+        from('ProductCategoryContentAndInfo')
+                .where(condition)
+                .filterByDate()
+                .orderBy('-fromDate')
+                .getFieldList('contentId')
+                .each { String contentId ->
+                    Map serviceResult = run service: 'createContentAlternativeUrl', with: [contentId: contentId]
+                    contentCreatedList << serviceResult.contentCreated
+                }
+
+        //Create Content Alternative URLs for Product Content
+        condition = new EntityConditionBuilder().AND {
+            IN(productCategoryId: productCategorieIds)
+        }
+        List productIds = from('ProductCategoryMember')
+                .where(condition)
+                .filterByDate()
+                .orderBy('-fromDate')
+                .getFieldList('productId')
+
+        condition = new EntityConditionBuilder().AND {
+            NOT_EQUAL(productContentTypeId: 'ALTERNATIVE_URL')
+            IN(productId: productIds)
+        }
+        from('ProductContentAndInfo')
+                .where(condition)
+                .filterByDate()
+                .orderBy('-fromDate')
+                .getFieldList('contentId')
+                .each { String contentId ->
+                    Map serviceResult = run service: 'createContentAlternativeUrl', with: [contentId: contentId]
+                    contentCreatedList << serviceResult.contentCreated
+                }
+    }
+
+    //Create Content Alternative URLs for WebSite Content and children
+    if (parameters.webSiteId) {
+        from('WebSiteContent')
+                .where(webSiteId: parameters.webSiteId)
+                .getFieldList('contentId')
+                .each { String contentId ->
+                    contentCreatedList.addAll(createMissingContentAltUrlInline(contentId))
+                }
+    }
+    long totalParse = contentCreatedList.size()
+    long contentsUpdated = contentCreatedList.stream().filter {it == 'Y'}.count()
+    return success([contentsUpdated: contentsUpdated, contentsNotUpdated: totalParse - contentsUpdated])
+}
+
+/**
+ * recursive call to get all productCategoryId from children
+ * @param parentProductCategoryId
+ * @return
+ */
+List createMissingCategoryContentAltUrlInline(String parentProductCategoryId) {
+    List productCategoryIds = []
+    from('ProductCategoryRollup')
+            .where(parentProductCategoryId: parentProductCategoryId)
+            .filterByDate()
+            .getFieldList('productCategoryId')
+            .each { String productCategoryId ->
+                productCategoryIds << productCategoryId
+                productCategoryIds.addAll(createMissingCategoryContentAltUrlInline(productCategoryId))
+            }
+    return productCategoryIds
+}
+
+/**
+ * call createContentAlternativeUrl on all subContent and return the result for analyse
+ * @param contentId
+ * @return
+ */
+List createMissingContentAltUrlInline(String contentId) {
+    List contentCreatedList = []
+    from('ContentAssoc')
+            .where(contentId: contentId)
+            .filterByDate()
+            .getFieldList('contentIdTo')
+            .each { String contentIdTo ->
+                Map serviceResult = run service: 'createContentAlternativeUrl', with: [contentId: contentIdTo]
+                contentCreatedList << serviceResult.contentCreated
+                contentCreatedList.addAll(createMissingContentAltUrlInline(contentIdTo))
+            }
+    return contentCreatedList
+}
