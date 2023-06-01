@@ -667,3 +667,80 @@ Map createCommContentDataResource() {
                     roleTypeList: persistServiceResult.roleTypeList,
                     fromDate: serviceResult.fromDate])
 }
+
+/**
+ * Remove a Content Record, related resource(s) and assocs.
+ * @return
+ */
+Map removeContentAndRelated() {
+    GenericValue content = from('Content').where(parameters).queryOne()
+    if (content) {
+        content.removeRelated('ContentAttribute')
+        content.removeRelated('ContentRole')
+        content.removeRelated('ContentKeyword')
+        content.removeRelated('FromContentAssoc')
+        content.removeRelated('ToContentAssoc')
+        content.remove()
+        GenericValue dataResource = content.getRelatedOne('DataResource', false)
+        if (dataResource) {
+            dataResource.removeRelated("ElectronicText")
+            dataResource.removeRelated("ImageDataResource")
+            dataResource.removeRelated("OtherDataResource")
+            dataResource.removeRelated("VideoDataResource")
+            dataResource.removeRelated("DataResourceRole")
+            dataResource.remove()
+        }
+    }
+    return success()
+}
+
+/**
+ * copy a content, electronic text and assocs and set status in progress
+ * @return
+ */
+Map copyContentAndElectronicTextandAssoc() {
+    Map getContentResult = run service: 'getContent', with: parameters
+    GenericValue content = getContentResult.view
+    if (content.dataResourceId) {
+        Map getElectronicTextResult = run service: 'getElectronicText', with: content.getAllFields()
+        Map dataResourceResult = run service: 'createDataResource', with: [dataResourceTypeId: 'ELECTRONIC_TEXT']
+        run service: 'createElectronicText', with: [dataResourceId: dataResourceResult.dataResourceId,
+                                                    textData      : getElectronicTextResult.textData]
+        content.dataResourceId = dataResourceResult.dataResourceId
+    }
+    Map contentResult = run service: 'createContent', with: [*: content.getAllFields(),
+                                                             contentId: null,
+                                                             statusId: null]
+    from('ContentAssoc')
+            .where(contentId: content.contentId)
+            .queryList()
+            .each {
+                run service: 'createContentAssoc', with: [*: it.getAllFields(),
+                                                          contentId: contentResult.contentId]
+            }
+    from('ContentAssoc')
+            .where(contentIdTo: content.contentId)
+            .queryList()
+            .each {
+                run service: 'createContentAssoc', with: [*: it.getAllFields(),
+                                                          contentIdTo: contentResult.contentId]
+            }
+    return success([contentId: contentResult.contentId])
+}
+
+/**
+ * @deprecated use createContentAssoc instead
+ * Associate Content
+ * @return
+ */
+Map assocContent() {
+    GenericValue currentContent = from('Content').where(contentId: parameters.contentIdTo).cache().queryOne()
+    GenericValue fromContent = from('Content').where(contentId: parameters.contentIdFrom).cache().queryOne()
+
+    if (currentContent && fromContent) {
+        Map serviceResult = run service: 'createContentAssoc', with: [*: parameters,
+                                                                      contentId: fromContent.contentId]
+        return serviceResult
+    }
+    return error('Contents to assoc not exist')
+}

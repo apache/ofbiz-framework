@@ -32,12 +32,12 @@
     </service>
 
     <!-- Content services? -->
-    <service name="getPublicForumMessage" engine="simple" default-entity-name="Content" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="getPublicForumMessage">
+    <service name="getPublicForumMessage" engine="group" default-entity-name="Content" auth="true">
         <description>Get Content and resource information</description>
-        <permission-service service-name="genericContentPermission" main-action="VIEW"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <attribute mode="OUT" name="resultData" optional="true" type="java.util.Map"/>
+        <deprecated use-instead="getContentAndDataResource" since="Release 22.01"/>
+        <group>
+            <invoke name="getContentAndDataResource"/>
+        </group>
     </service>
 
     <service name="getContentAndDataResource" engine="groovy" default-entity-name="Content" auth="true"
