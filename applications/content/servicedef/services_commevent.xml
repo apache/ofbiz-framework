@@ -35,8 +35,8 @@ under the License.
         Second, it must create a CommEventContentAssoc record.
             The fromData should be defaulted if not passed in.
     -->
-    <service name="createCommContentDataResource" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
+    <service name="createCommContentDataResource" engine="groovy"
+             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createCommContentDataResource">
         <description>Create CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false">

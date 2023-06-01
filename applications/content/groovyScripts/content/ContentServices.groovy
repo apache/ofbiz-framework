@@ -150,8 +150,7 @@ Map createContentAlternativeUrl() {
             .queryIterator()
 
     GenericValue content
-    while (contents.hasNext()) {
-        content = contents.next()
+    while (content = contents.next()) {
         String localeString = content.localeString ?: defaultLocaleString
         List contentAssocDataResources = select('contentIdStart', 'dataResourceId', 'localeString', 'drObjectInfo', 'caFromDate', 'caThruDate')
                 .from('ContentAssocDataResourceViewTo')
@@ -637,4 +636,34 @@ List createMissingContentAltUrlInline(String contentId) {
                 contentCreatedList.addAll(createMissingContentAltUrlInline(contentIdTo))
             }
     return contentCreatedList
+}
+
+/**
+ * This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
+ * by calling persistContentAndAssoc.
+ *
+ * It then takes the contentId coming out of that service, the passed in communicationEventId
+ * and calls the "createCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
+ */
+Map createCommContentDataResource() {
+
+    // let's take a guess at what the dataResourceTypeId should be if it is empty
+    if (!parameters.dataResourceTypeId && parameters.drMimeTypeId) {
+        parameters.dataResourceTypeId = parameters.drMimeTypeId.startsWith('text') ?
+                'ELECTRONIC_TEXT' : 'IMAGE_OBJECT'
+    }
+    Map persistServiceResult = run service: 'persistContentAndAssoc', with: parameters
+    Map serviceResult = run service: 'createCommEventContentAssoc', with: [contentId: persistServiceResult.contentId,
+                                                       communicationEventId: parameters.communicationEventId,
+                                                       sequenceNum: parameters.sequenceNum]
+    return success([contentId: persistServiceResult.contentId,
+                    dataResourceId: persistServiceResult.dataResourceId,
+                    drDataResourceId: persistServiceResult.drDataResourceId,
+                    caContentIdTo: persistServiceResult.caContentIdTo,
+                    caContentId: persistServiceResult.caContentId,
+                    caContentAssocTypeId: persistServiceResult.caContentAssocTypeId,
+                    caFromDate: persistServiceResult.caFromDate,
+                    caSequenceNum: persistServiceResult.caSequenceNum,
+                    roleTypeList: persistServiceResult.roleTypeList,
+                    fromDate: serviceResult.fromDate])
 }
