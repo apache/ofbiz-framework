@@ -67,7 +67,7 @@ Map genericContentPermission() {
 
     //  mainAction based call outs
     if (hasPermission) {
-        logInfo("Admin permission found: ${parameters.primaryPermission}_${mainAction}")
+        logVerbose("Admin permission found: ${parameters.primaryPermission}_${mainAction}")
     } else {
         switch (parameters.mainAction) {
             case 'VIEW':
@@ -88,7 +88,7 @@ Map genericContentPermission() {
                 hasPermission = serviceUCP.hasPermission ?: false
         } // all other actions use main base check
     }
-    logInfo("Permission service [${mainAction} / ${parameters.contentId}] completed; returning hasPermission = ${hasPermission}")
+    logVerbose("Permission service [${mainAction} / ${parameters.contentId}] completed; returning hasPermission = ${hasPermission}")
 
     return success(hasPermission: hasPermission)
 }

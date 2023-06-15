@@ -135,8 +135,8 @@ public final class ServiceEcaRule implements java.io.Serializable {
         boolean allCondTrue = true;
         for (ServiceEcaCondition ec: conditions) {
             if (!ec.eval(serviceName, dctx, context)) {
-                if (Debug.infoOn()) {
-                    Debug.logInfo("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got false for condition: " + ec, MODULE);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got false for condition: " + ec, MODULE);
                 }
                 allCondTrue = false;
                 break;

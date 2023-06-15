@@ -38,7 +38,7 @@ Map genericBasePermissionCheck() {
     String altPermission = parameters.altPermission
     String altPermissionList = ''
     if (altPermission) {
-        logInfo("Checking for alternate permission ${altPermission}_${mainAction}")
+        logVerbose("Checking for alternate permission ${altPermission}_${mainAction}")
         altPermissionList = ", ${altPermission}_${mainAction}, ${altPermission}_ADMIN"
     }
     // altPermission is not a required field; no need to add Error
