@@ -124,6 +124,7 @@ under the License.
         <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="shoppingListItemAttributes" type="Map" mode="IN" optional="true"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateShoppingListItem" engine="groovy" auth="true"

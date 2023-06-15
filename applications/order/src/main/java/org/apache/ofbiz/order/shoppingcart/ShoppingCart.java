@@ -652,12 +652,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     reserveAfterDate, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
                     this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE);
         }
-        // add order item attributes
-        if (UtilValidate.isNotEmpty(orderItemAttributes)) {
-            for (Entry<String, String> entry : orderItemAttributes.entrySet()) {
-                item.setOrderItemAttribute(entry.getKey(), entry.getValue());
-            }
-        }
 
         return this.addItem(0, item);
 
@@ -5013,7 +5007,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     }
 
                     List<GenericValue> supplierProducts = UtilGenerics.cast(getSuppliersForProductResult.get("supplierProducts"));
-
                     if (supplierProducts.isEmpty()) {
                         return ServiceUtil.returnError(
                             "Sorry! No supplier available to droship product #" + productId + " with quantity "
