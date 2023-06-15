@@ -286,7 +286,7 @@ under the License.
       <view-link entity-alias="PCC" rel-entity-alias="CO">
         <key-map field-name="contentId"/>
       </view-link>
-      <view-link entity-alias="CO" rel-entity-alias="DR">
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
         <key-map field-name="dataResourceId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
@@ -3104,7 +3104,7 @@ under the License.
       <view-link entity-alias="PC" rel-entity-alias="CO">
         <key-map field-name="contentId"/>
       </view-link>
-      <view-link entity-alias="CO" rel-entity-alias="DR">
+      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
         <key-map field-name="dataResourceId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
