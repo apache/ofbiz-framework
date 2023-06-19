@@ -129,13 +129,13 @@ Map reserveStoreInventory() {
     Map result = success()
     BigDecimal quantityNotReserved
 
-    GenericValue productStore = from('ProductStore').where(parameters).cache().queryOne()
+    GenericValue productStore = from('ProductStore').where(productStoreId: parameters.productStoreId).cache().queryOne()
     if (!productStore) {
         return error(UtilProperties.getMessage('ProductUiLabels', 'ProductProductStoreNotFound', parameters.locale))
     }
 
-    GenericValue product = from('Product').where(parameters).cache().queryOne()
-    GenericValue orderHeader = from('OrderHeader').where(parameters).cache().queryOne()
+    GenericValue product = from('Product').where(productId: parameters.productId).cache().queryOne()
+    GenericValue orderHeader = from('OrderHeader').where(orderId: parameters.orderId).cache().queryOne()
     parameters.priority = orderHeader.priority
 
     // if prodCatalog is set to not reserve inventory, break here
@@ -240,8 +240,8 @@ Map reserveStoreInventory() {
  * Is Store Inventory Required
  */
 Map isStoreInventoryRequired() {
-    GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
-    GenericValue product = parameters.product ?: from('Product').where(parameters).cache().queryOne()
+    GenericValue productStore = parameters.productStore ?: from('ProductStore').where(productStoreId: parameters.productStoreId).cache().queryOne()
+    GenericValue product = parameters.product ?: from('Product').where(productId: parameters.productId).cache().queryOne()
 
     Map result = success()
     result.requireInventory = isStoreInventoryRequiredInline(product, productStore)
@@ -263,8 +263,8 @@ String isStoreInventoryRequiredInline(GenericValue product, GenericValue product
  */
 Map isStoreInventoryAvailable() {
     Map result = success()
-    GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
-    GenericValue product = parameters.product ?: from('Product').where(parameters).cache().queryOne()
+    GenericValue productStore = parameters.productStore ?: from('ProductStore').where(productStoreId: parameters.productStoreId).cache().queryOne()
+    GenericValue product = parameters.product ?: from('Product').where(productId: parameters.productId).cache().queryOne()
 
     BigDecimal availableToPromiseTotal
     String available
@@ -354,8 +354,8 @@ Map isStoreInventoryAvailable() {
  */
 Map isStoreInventoryAvailableOrNotRequired() {
     Map result = success()
-    GenericValue productStore = parameters.productStore ?: from('ProductStore').where(parameters).cache().queryOne()
-    GenericValue product = parameters.product ?: from('Product').where(parameters).cache().queryOne()
+    GenericValue productStore = parameters.productStore ?: from('ProductStore').where(productStoreId: parameters.productStoreId).cache().queryOne()
+    GenericValue product = parameters.product ?: from('Product').where(productId: parameters.productId).cache().queryOne()
     if ('Y' != isStoreInventoryRequiredInline(product, productStore)) {
         result.availableOrNotRequired = 'Y'
     } else {
@@ -430,7 +430,7 @@ Map productStoreGenericPermission() {
  * When product store group hierarchy has been operate, synchronize primaryParentGroupId with ProductStoreGroupRollup
  */
 Map checkProductStoreGroupRollup() {
-    GenericValue productStoreGroup = from('ProductStoreGroup').where(parameters).queryOne()
+    GenericValue productStoreGroup = from('ProductStoreGroup').where(productStoreGroupId: parameters.productStoreGroupId).queryOne()
     if (parameters.primaryParentGroupId) {
         if (from('ProductStoreGroupRollup')
                 .where(productStoreGroupId: productStoreGroup.productStoreGroupId,
@@ -442,7 +442,8 @@ Map checkProductStoreGroupRollup() {
                                                                 fromDate: UtilDateTime.nowTimestamp()]
         }
     } else {
-        GenericValue productStoreGroupRollup = from('ProductStoreGroupRollup').where(parameters).queryOne()
+        GenericValue productStoreGroupRollup = from('ProductStoreGroupRollup').where(productStoreGroupId: parameters.productStoreGroupId,
+                parentGroupId: parameters.parentGroupId, fromDate: parameters.fromDate).queryOne()
         if (productStoreGroupRollup) {
             productStoreGroup.primaryParentGroupId = productStoreGroupRollup.parentGroupId
             run service: 'updateProductStoreGroup', with: productStoreGroup.getAllFields()
