@@ -157,17 +157,22 @@ under the License.
             <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
             <!-- SSL connector attributes -->
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
-            <property name="algorithm" value="SunX509"/>
-            <!-- the clientAuth to "want" in order to receive certs from the client;
-                note that this isn't set this way by default because with certain browsers
-                (like Safari) it breaks access via HTTPS, so until that problem is fixed
-                the default will be false
-            <property name="clientAuth" value="false"/>
-            -->
-            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
-            <property name="keystoreType" value="JKS"/>
-            <property name="keyAlias" value="ofbiz"/>
-            <property name="keyPass" value="changeit"/>
+            <property name="default" value="sslHostConfig">
+                <property name="keyManagerAlgorithm" value="SunX509"/>
+                <!-- the certificateVerification to "want" in order to receive certs from the client;
+                    note that this isn't set this way by default because with certain browsers
+                    (like Safari) it breaks access via HTTPS, so until that problem is fixed
+                    the default will be false
+                <property name="certificateVerification" value="false"/>
+                -->
+                <property name="default" value="certificate">
+                    <property name="certificateType" value="RSA"/>
+                    <property name="certificateKeystoreFile" value="framework/base/config/ofbizssl.jks"/>
+                    <property name="certificateKeystoreType" value="JKS"/>
+                    <property name="certificateKeyAlias" value="ofbiz"/>
+                    <property name="certificateKeyPassword" value="changeit"/>
+                </property>
+            </property>
         </property>
     </container>
     <container name="catalina-container-test" loaders="test" class="org.apache.ofbiz.catalina.container.CatalinaContainer">
@@ -225,10 +230,15 @@ under the License.
             <property name="compression" value="on"/>
             <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
-            <property name="algorithm" value="SunX509"/>
-            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
-            <property name="keystorePass" value="changeit"/>
-            <property name="keystoreType" value="JKS"/>
+            <property name="default" value="sslHostConfig">
+                <property name="keyManagerAlgorithm" value="SunX509"/>
+                <property name="default" value="certificate">
+                    <property name="certificateType" value="RSA"/>
+                    <property name="certificateKeystoreFile" value="framework/base/config/ofbizssl.jks"/>
+                    <property name="certificateKeystorePassword" value="changeit"/>
+                    <property name="certificateKeystoreType" value="JKS"/>
+                </property>
+            </property>
         </property>
     </container>
     <!--
