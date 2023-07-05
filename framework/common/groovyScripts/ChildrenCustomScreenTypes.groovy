@@ -1,7 +1,3 @@
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.util.EntityTypeUtil
-import org.apache.ofbiz.entity.util.EntityUtil
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,6 +16,11 @@ import org.apache.ofbiz.entity.util.EntityUtil
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.util.EntityTypeUtil
+import org.apache.ofbiz.entity.util.EntityUtil
+
 
 List customScreenTypeIds = []
 if (context.customScreenTypeId) {
