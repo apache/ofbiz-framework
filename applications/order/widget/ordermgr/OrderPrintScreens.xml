@@ -123,8 +123,8 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/groovyScripts/return/ReturnHeader.groovy"/>
-                <script location="component://order/groovyScripts/return/ReturnItems.groovy"/>
+                <script location="component://order/groovyScripts/orderReturn/ReturnHeader.groovy"/>
+                <script location="component://order/groovyScripts/orderReturn/ReturnItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
