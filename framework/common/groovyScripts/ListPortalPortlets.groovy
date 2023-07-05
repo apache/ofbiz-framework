@@ -1,6 +1,3 @@
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,6 +16,9 @@ import org.apache.ofbiz.entity.condition.EntityOperator
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 
 ppCond = EntityCondition.makeCondition('portletCategoryId', EntityOperator.EQUALS, parameters.portletCategoryId)
 categories = delegator.findList('PortletPortletCategory', ppCond, null, null, null, false)
