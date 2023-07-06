@@ -421,7 +421,7 @@ under the License.
     </form>
     <form name="AddPartyPrefDocTypeTpl" type="single" target="createPartyPrefDocTypeTpl" title="" >
         <actions>
-            <script location="component://common/groovyScripts/ChildrenCustomScreenTypes.groovy"/>
+            <script location="component://common/src/main/groovy/org/apache/ofbiz/ChildrenCustomScreenTypes.groovy"/>
         </actions>
         <field name="partyId"><hidden/></field>
         <field name="fromDate"><date-time type="date"/></field>
@@ -563,7 +563,7 @@ under the License.
     <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://accounting/groovyScripts/admin/ListInvoiceItemTypesGlAccount.groovy"/>
+            <script location="component://accounting/src/main/groovy/org/apache/ofbiz/admin/ListInvoiceItemTypesGlAccount.groovy"/>
         </actions>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId"><hidden/></field>
@@ -617,7 +617,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="invItemTypePrefix" value="PINV"/>
-            <script location="component://accounting/groovyScripts/admin/ListInvoiceItemTypesGlAccount.groovy"/>
+            <script location="component://accounting/src/main/groovy/org/apache/ofbiz/admin/ListInvoiceItemTypesGlAccount.groovy"/>
         </actions>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId"><hidden/></field>

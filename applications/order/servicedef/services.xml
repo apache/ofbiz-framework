@@ -663,7 +663,7 @@ under the License.
     </service>
     <!-- Order View Services -->
     <service name="getOrderedSummaryInformation" engine="groovy"
-            location="component://order/groovyScripts/order/OrderServices.groovy" invoke="getOrderedSummaryInformation">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/OrderServices.groovy" invoke="getOrderedSummaryInformation">
         <description>Get Ordered Summary Information</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -715,20 +715,20 @@ under the License.
 
     <!-- Order Delivery Services -->
     <service name="createOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="groovy"
-            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="createOrderDeliverySchedule">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/OrderDeliveryServices.groovy" invoke="createOrderDeliverySchedule">
         <description>Creates a delivery schedule for the specified order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="orderItemSeqId" optional="true"/>
     </service>
     <service name="updateOrderDeliverySchedule" default-entity-name="OrderDeliverySchedule" engine="groovy"
-            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="updateOrderDeliverySchedule">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/OrderDeliveryServices.groovy" invoke="updateOrderDeliverySchedule">
         <description>Update an existing delivery schedule for a specified purchase order</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="sendOrderDeliveryScheduleNotification" engine="groovy"
-            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="sendOrderDeliveryScheduleNotification">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/OrderDeliveryServices.groovy" invoke="sendOrderDeliveryScheduleNotification">
         <description>Send Order Delivery Schedule Notification</description>
         <attribute name="orderId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -739,7 +739,7 @@ under the License.
     </service>
 
     <service name="checkSupplierRelatedOrderPermission" engine="groovy"
-            location="component://order/groovyScripts/order/OrderDeliveryServices.groovy" invoke="checkSupplierRelatedOrderPermissionService">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/OrderDeliveryServices.groovy" invoke="checkSupplierRelatedOrderPermissionService">
         <description>Check Supplier Related Order Permission</description>
         <attribute name="orderId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -851,7 +851,7 @@ under the License.
     </service>
 
     <service name="getNextOrderId" engine="groovy"
-        location="component://order/groovyScripts/order/OrderServices.groovy" invoke="getNextOrderId">
+        location="component://order/src/main/groovy/org/apache/ofbiz/order/OrderServices.groovy" invoke="getNextOrderId">
         <description>Get the Next Order ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="storeOrder" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false">
@@ -904,7 +904,7 @@ under the License.
         <auto-attributes entity-name="CommunicationEventOrder" include="pk" mode="IN"/>
     </service>
     <service name="createOrderConversation" engine="groovy" invoke="createOrderConversation" auth="true"
-             location="component://order/groovyScripts/communications/CommunicationServices.groovy">
+             location="component://order/src/main/groovy/org/apache/ofbiz/communications/CommunicationServices.groovy">
         <description>Create a order conversation</description>
         <implements service="createCommunicationEvent"/>
         <implements service="createCommunicationEventPurpose"/>

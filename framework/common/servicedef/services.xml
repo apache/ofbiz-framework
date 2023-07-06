@@ -26,12 +26,12 @@ under the License.
 
     <!-- Common Permission Service -->
     <service name="commonGenericPermission" engine="groovy"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="commonGenericPermission">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="commonGenericPermission">
         <implements service="permissionInterface"/>
     </service>
 
     <service name="commonGetAllCrudPermissions" engine="groovy"
-        location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="getAllCrudPermissions" auth="false">
+        location="component://common/src/main/groovy/org/apache/ofbiz/permission/CommonPermissionServices.groovy" invoke="getAllCrudPermissions" auth="false">
         <description>Returns all CRUD and View Permissions</description>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -186,7 +186,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createFuturePeriod" engine="groovy"
-            location="component://common/groovyScripts/CommonServices.groovy" invoke="createFuturePeriod" auth="true">
+            location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="createFuturePeriod" auth="true">
         <description>Create a future CustomTimePeriod</description>
     </service>
 
@@ -292,7 +292,7 @@ under the License.
 
     <!-- Keyword Thesaurus services -->
     <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
-            location="component://common/groovyScripts/CommonServices.groovy" invoke="createKeywordThesaurus" auth="true">
+            location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="createKeywordThesaurus" auth="true">
         <description>Create a Keyword Thesaurus</description>
         <permission-service service-name="catalogPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -306,7 +306,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="deleteKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="groovy"
-            location="component://common/groovyScripts/CommonServices.groovy" invoke="deleteKeywordThesaurus" auth="true">
+            location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="deleteKeywordThesaurus" auth="true">
         <description>Delete a Keyword Thesaurus</description>
         <permission-service service-name="catalogPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -320,7 +320,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="convertUom" default-entity-name="UomConversion" engine="groovy"
-            location="component://common/groovyScripts/CommonServices.groovy" invoke="convertUom" auth="false">
+            location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="convertUom" auth="false">
         <description>Make a unit of measure conversion, first using UomConversionDated, then with UomConversion</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
@@ -332,7 +332,7 @@ under the License.
         <attribute name="defaultRoundingMode" mode="IN" type="String" optional="true"/>
     </service>
     <service name="convertUomCustom" default-entity-name="UomConversion" engine="groovy"
-            location="component://common/groovyScripts/CommonServices.groovy" invoke="convertUomCustom" auth="false">
+            location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="convertUomCustom" auth="false">
         <description>Make a unit of measure conversion, using CustomMethod entity</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
@@ -342,7 +342,7 @@ under the License.
     </service>
     
     <service name="checkUomConversion" engine="groovy" default-entity-name="UomConversion"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="checkUomConversion">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="checkUomConversion">
         <description>Returns true if an UomConversion record exists</description>
         <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -350,7 +350,7 @@ under the License.
     </service>
     
     <service name="checkUomConversionDated" engine="groovy" default-entity-name="UomConversionDated"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="checkUomConversionDated">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="checkUomConversionDated">
         <description>Returns true if an UomConversionDated record exists</description>
         <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -358,7 +358,7 @@ under the License.
     </service>
     
     
-    <service name="getFileUploadProgressStatus" engine="groovy" location="component://common/groovyScripts/CommonServices.groovy" invoke="getFileUploadProgressStatus" auth="false">
+    <service name="getFileUploadProgressStatus" engine="groovy" location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.apache.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
         <attribute name="contentLength" mode="OUT" type="Long" optional="true"/>
@@ -449,7 +449,7 @@ under the License.
 
     <!-- common permission services -->
     <service name="genericBasePermissionCheck" engine="groovy"
-             location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="genericBasePermissionCheck">
+             location="component://common/src/main/groovy/org/apache/ofbiz/permission/CommonPermissionServices.groovy" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -538,7 +538,7 @@ under the License.
 
     <!-- Visual theme services -->
     <service name="getVisualThemeResources" engine="groovy"
-            location="component://common/groovyScripts/CommonServices.groovy" invoke="getVisualThemeResources">
+            location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getVisualThemeResources">
         <description>Get a visual theme resources Map. Call with visualThemeId String,
             and optional themeResources Map. Returns themeResources Map - a
             Map of Lists, where the resourceTypeEnumId is the key and the value
@@ -594,7 +594,7 @@ under the License.
 
     <!-- ==============Permission Checking Service============= -->
     <service name="visualThemePermissionCheck" engine="groovy"
-        location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="visualThemePermissionCheck">
+        location="component://common/src/main/groovy/org/apache/ofbiz/permission/CommonPermissionServices.groovy" invoke="visualThemePermissionCheck">
         <description>Visual Theme Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
@@ -761,7 +761,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="linkGeos" engine="groovy" auth="true"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="linkGeos">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="linkGeos">
         <description>Link Geos to another Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <attribute name="geoIds" type="List" mode="IN" optional="true"/>
@@ -769,18 +769,18 @@ under the License.
         <attribute name="geoAssocTypeId" type="String" mode="IN"/>
     </service>
     <service name="getRelatedGeos" engine="groovy" auth="false"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="getRelatedGeos">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getRelatedGeos">
         <attribute name="geoId" mode="IN" type="String"/>
         <attribute name="geoAssocTypeId" mode="IN" type="String"/>
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
     <service name="getCountryList" engine="groovy" auth="false"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="getCountryList">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getCountryList">
         <description>Get a list of country and associated states from Geo</description>
         <attribute name="countryList" mode="OUT" type="java.util.List"/>
     </service>
     <service name="getAssociatedStateList" engine="groovy" auth="false"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="getAssociatedStateList">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getAssociatedStateList">
         <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
@@ -812,17 +812,17 @@ under the License.
     </service>
     
     <service name="getServerTimestamp" engine="groovy" auth="false"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="getServerTimestamp">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getServerTimestamp">
         <attribute name="serverTimestamp" mode="OUT" type="Timestamp"/>
     </service>
     
     <service name="getServerTimeZone" engine="groovy" auth="false"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="getServerTimeZone">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getServerTimeZone">
         <attribute name="serverTimeZone" mode="OUT" type="String"/>
     </service>
     
     <service name="getServerTimestampAsLong" engine="groovy" auth="false"
-        location="component://common/groovyScripts/CommonServices.groovy" invoke="getServerTimestampAsLong">
+        location="component://common/src/main/groovy/org/apache/ofbiz/CommonServices.groovy" invoke="getServerTimestampAsLong">
         <attribute name="serverTimestamp" mode="OUT" type="Long"/>
     </service>
     
@@ -966,7 +966,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/groovyScripts/SetTimeZoneFromBrowser.groovy" invoke="setTimeZoneFromBrowser" auth="true">
+    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/src/main/groovy/org/apache/ofbiz/SetTimeZoneFromBrowser.groovy" invoke="setTimeZoneFromBrowser" auth="true">
         <description>Set locale from browser.</description>
         <attribute name="localeName" type="String" mode="IN" optional="true"/>
     </service>

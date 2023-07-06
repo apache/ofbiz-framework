@@ -51,7 +51,7 @@ under the License.
     <screen name="orderShortcuts">
         <section>
             <actions>
-                <script location="component://order/groovyScripts/entry/ShoppingList.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShoppingList.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/template/entry/OrderShortcuts.ftl"/></html></platform-specific>
@@ -67,8 +67,8 @@ under the License.
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
-                <script location="component://order/groovyScripts/entry/ShowCart.groovy"/>
-                <script location="component://order/groovyScripts/entry/ShowPromoText.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShowCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShowPromoText.groovy"/>
                 <entity-condition entity-name="ProductStorePromoAndAppl" list="allProductPromos" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="manualOnly" value="Y"/>
@@ -101,8 +101,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleOrderShowCart"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
-                <script location="component://order/groovyScripts/entry/ShowCart.groovy"/>
-                <script location="component://order/groovyScripts/entry/ShowPromoText.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShowCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShowPromoText.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -118,8 +118,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleShowAllPromotions"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
-                <script location="component://order/groovyScripts/entry/ShowCart.groovy"/>
-                <script location="component://order/groovyScripts/entry/ShowPromoText.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShowCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/ShowPromoText.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -135,7 +135,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleShowPromotionDetails"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
-                <script location="component://order/groovyScripts/entry/cart/ShowPromotionDetails.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/cart/ShowPromotionDetails.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -168,7 +168,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://order/groovyScripts/entry/cart/LookupBulkAddProducts.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/cart/LookupBulkAddProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -183,7 +183,7 @@ under the License.
      <section>
             <actions>
                 <set field="titleProperty" value="PageTitleLookupBulkAddSupplierProduct"/>
-                <script location="component://order/groovyScripts/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -198,7 +198,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderAddGiftCertificate"/>
-                <script location="component://order/groovyScripts/entry/AddGiftCertificates.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/entry/AddGiftCertificates.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -215,7 +215,7 @@ under the License.
      <section>
             <actions>
                 <set field="titleProperty" value="OrderAssociatedProducts"/>
-                <script location="component://order/groovyScripts/lookup/LookupAssociatedProducts.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/lookup/LookupAssociatedProducts.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
