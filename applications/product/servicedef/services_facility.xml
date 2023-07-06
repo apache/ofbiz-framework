@@ -26,17 +26,17 @@ under the License.
 
     <!-- Permission Services -->
     <service name="facilityGenericPermission" engine="groovy"
-        location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="facilityGenericPermission">
+        location="component://product/groovyScripts/product/inventory/InventoryServicesScript.groovy" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="checkProductFacilityRelatedPermission" engine="groovy"
-            location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="checkProductFacilityRelatedPermission">
+            location="component://product/groovyScripts/product/inventory/InventoryServicesScript.groovy" invoke="checkProductFacilityRelatedPermission">
         <description>ProductFacility Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
     <!-- Product Inventory Services -->
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="groovy"
-                location="component://product/groovyScripts/product/inventory/InventoryServices.groovy" invoke="createInventoryItem" auth="true">
+                location="component://product/groovyScripts/product/inventory/InventoryServicesScript.groovy" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>

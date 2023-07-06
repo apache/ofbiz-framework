@@ -88,7 +88,7 @@ under the License.
     </service>
 
     <service name="createProductPriceCond" default-entity-name="ProductPriceCond" engine="groovy"
-                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="createProductPriceCond" auth="true">
+                location="component://product/groovyScripts/product/price/PriceServicesScript.groovy" invoke="createProductPriceCond" auth="true">
         <description>Create a ProductPriceCond</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -97,7 +97,7 @@ under the License.
         <override name="productPriceCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="groovy"
-                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="updateProductPriceCond" auth="true">
+                location="component://product/groovyScripts/product/price/PriceServicesScript.groovy" invoke="updateProductPriceCond" auth="true">
         <description>Update a ProductPriceCond</description>
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -258,7 +258,7 @@ under the License.
     </service>
     
     <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="groovy" invoke="createProductPromoCond"
-             location="component://product/groovyScripts/product/promo/PromoServices.groovy" auth="true">
+             location="component://product/groovyScripts/product/promo/PromoServicesScript.groovy" auth="true">
         <description>Create a ProductPromo</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -267,7 +267,7 @@ under the License.
         <override name="productPromoCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="groovy" invoke="updateProductPromoCond"
-             location="component://product/groovyScripts/product/promo/PromoServices.groovy" auth="true">
+             location="component://product/groovyScripts/product/promo/PromoServicesScript.groovy" auth="true">
         <description>Update a ProductPromo</description>
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN"/>
@@ -332,7 +332,7 @@ under the License.
     </service>
 
     <service name="getAssociatedPriceRulesConds" engine="groovy" auth="false"
-        location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="getAssociatedPriceRulesConds">
+        location="component://product/groovyScripts/product/price/PriceServicesScript.groovy" invoke="getAssociatedPriceRulesConds">
         <description>Set the Value options for selected Price Rule Condition Input</description>
         <attribute name="inputParamEnumId" mode="IN" type="String"/>
         <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->
