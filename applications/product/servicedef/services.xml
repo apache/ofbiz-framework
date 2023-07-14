@@ -1243,12 +1243,6 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
     </service>
-    <service name="checkProductRelatedPermission" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductRelatedPermissionCall">
-        <attribute name="callingMethodName" mode="IN" type="String"/>
-        <attribute name="checkAction" mode="IN" type="String"/>
-        <attribute name="productId" mode="IN" type="String"/>
-    </service>
     <!-- Product Attribute Services -->
     <service name="createProductAttribute" default-entity-name="ProductAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductAttribute</description>
