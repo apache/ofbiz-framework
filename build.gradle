@@ -81,7 +81,7 @@ ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 ext.pluginsDir = "${rootDir}/plugins"
 
 application {
-    mainClassName = 'org.apache.ofbiz.base.start.Start'
+    mainClass = 'org.apache.ofbiz.base.start.Start'
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
             ? jvmArgs.tokenize()
             : ['-Xms128M','-Xmx1024M',
@@ -367,7 +367,7 @@ tasks.named('compileGroovyScriptsGroovy') {
 
 jar.manifest.attributes(
     'Implementation-Title': project.name,
-    'Main-Class': application.mainClassName,
+    'Main-Class': application.mainClass,
     'Class-Path': getJarClasspath()
 )
 
@@ -1108,7 +1108,7 @@ def createOfbizCommandTask(taskName, arguments) {
     task(type: JavaExec, dependsOn: classes, taskName) {
         jvmArgs(application.applicationDefaultJvmArgs)
         classpath = sourceSets.main.runtimeClasspath
-        main = application.mainClassName
+        mainClass = application.mainClass
         args arguments
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             finalizedBy(createTestReports)
