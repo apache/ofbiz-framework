@@ -368,6 +368,8 @@ public class SQLProcessor implements AutoCloseable {
             Debug.logVerbose("[SQLProcessor.prepareStatement] sql=" + sql, MODULE);
         }
 
+        this.sql = sql;
+
         if (connection == null) {
             getConnection();
         }
@@ -393,7 +395,7 @@ public class SQLProcessor implements AutoCloseable {
             }
             this.setFetchSize(ps, fetchSize);
         } catch (SQLException sqle) {
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + this.sql, sqle);
         }
     }
 
@@ -408,7 +410,7 @@ public class SQLProcessor implements AutoCloseable {
             resultSet = ps.executeQuery();
         } catch (SQLException sqle) {
             this.checkLockWaitInfo(sqle);
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + this.sql, sqle);
         }
 
         return resultSet;
@@ -440,7 +442,7 @@ public class SQLProcessor implements AutoCloseable {
             this.checkLockWaitInfo(sqle);
             // don't display this here, may not be critical, allow handling further up...
             // Debug.logError(sqle, "SQLProcessor.executeUpdate() : ERROR : ", MODULE);
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + this.sql, sqle);
         }
     }
 
@@ -469,7 +471,7 @@ public class SQLProcessor implements AutoCloseable {
         try {
             return resultSet.next();
         } catch (SQLException sqle) {
-            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + this.sql, sqle);
         }
     }
 
@@ -850,7 +852,7 @@ public class SQLProcessor implements AutoCloseable {
         // see if there is a lock wait timeout error, if so try to get and print more info about it
         //   the string for Derby is "A lock could not be obtained within the time requested"
         //   the string for MySQL is "Lock wait timeout exceeded; try restarting transaction"
-        if (eMsg.indexOf("A lock could not be obtained within the time requested") >= 0 || eMsg.indexOf("Lock wait timeout exceeded") >= 0) {
+        if (eMsg.contains("A lock could not be obtained within the time requested") || eMsg.contains("Lock wait timeout exceeded")) {
             Debug.logWarning(sqle, "Lock wait timeout error found in thread [" + Thread.currentThread().getId() + "]: (" + eMsg
                     + ") when executing the SQL [" + sql + "]", MODULE);
             TransactionUtil.printAllThreadsTransactionBeginStacks();
