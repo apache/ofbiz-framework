@@ -1,1 +1,0 @@
-g ofbiz --debug-jvm

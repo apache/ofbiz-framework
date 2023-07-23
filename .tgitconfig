@@ -1,4 +1,0 @@
-[hook "prepush"]
-	cmdline = C:\\projectsASF\\Git\\ofbiz-framework\\.git\\hooks\\pre-push
-	wait = false
-	show = true
