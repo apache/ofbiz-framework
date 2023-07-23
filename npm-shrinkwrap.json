@@ -1,0 +1,10 @@
+{
+  "name": "ofbiz-framework",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "ofbiz-framework"
+    }
+  }
+}

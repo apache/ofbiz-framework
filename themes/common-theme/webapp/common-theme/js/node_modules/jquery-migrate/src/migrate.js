@@ -1,0 +1,15 @@
+import "./version.js";
+import "./compareVersions.js";
+import "./main.js";
+import "./jquery/core.js";
+import "./jquery/ajax.js";
+import "./jquery/attributes.js";
+import "./jquery/css.js";
+import "./jquery/data.js";
+import "./jquery/effects.js";
+import "./jquery/event.js";
+import "./jquery/manipulation.js";
+import "./jquery/offset.js";
+import "./jquery/serialize.js";
+import "./jquery/traversing.js";
+import "./jquery/deferred.js";

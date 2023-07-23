@@ -1,0 +1,50 @@
+{
+  "name": "ofbiz-framework",
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "dompurify": {
+      "version": "2.4.5",
+      "resolved": "https://registry.npmjs.org/dompurify/-/dompurify-2.4.5.tgz",
+      "integrity": "sha512-jggCCd+8Iqp4Tsz0nIvpcb22InKEBrGz5dw3EQJMs8HPJDsKbFIO3STYtAvCfDx26Muevn1MHVI0XxjgFfmiSA=="
+    },
+    "flot": {
+      "version": "4.2.3",
+      "resolved": "https://registry.npmjs.org/flot/-/flot-4.2.3.tgz",
+      "integrity": "sha512-r1t2gfhILE6dt7cnYDHX/D2VHERyD0YoV0UdFJg5dWbjkcu05MugfhNY7VspfBFTa+hjVNYVZw6/t9ZyYNen+w=="
+    },
+    "jquery": {
+      "version": "3.6.4",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.6.4.tgz",
+      "integrity": "sha512-v28EW9DWDFpzcD9O5iyJXg3R3+q+mET5JhnjJzQUZMHOv67bpSIHq81GEYpPNZHG+XXHsfSme3nxp/hndKEcsQ=="
+    },
+    "jquery-migrate": {
+      "version": "3.4.1",
+      "resolved": "https://registry.npmjs.org/jquery-migrate/-/jquery-migrate-3.4.1.tgz",
+      "integrity": "sha512-6RaV23lLAYccu8MtLfy2sIxOvx+bulnWHm/pvffAi7KOzPk1sN9IYglpkl1ZNCj1FSgSNDPS2fSZ1hWsXc200Q=="
+    },
+    "jquery-ui-dist": {
+      "version": "1.13.2",
+      "resolved": "https://registry.npmjs.org/jquery-ui-dist/-/jquery-ui-dist-1.13.2.tgz",
+      "integrity": "sha512-oVDRd1NLtTbBwpRKAYdIRgpWVDzeBhfy7Gu0RmY6JEaZtmBq6kDn1pm5SgDiAotrnDS+RoTRXO6xvcNTxA9tOA==",
+      "requires": {
+        "jquery": ">=1.8.0 <4.0.0"
+      }
+    },
+    "jquery-validation": {
+      "version": "1.19.5",
+      "resolved": "https://registry.npmjs.org/jquery-validation/-/jquery-validation-1.19.5.tgz",
+      "integrity": "sha512-X2SmnPq1mRiDecVYL8edWx+yTBZDyC8ohWXFhXdtqFHgU9Wd4KHkvcbCoIZ0JaSaumzS8s2gXSkP8F7ivg/8ZQ=="
+    },
+    "jquery.browser": {
+      "version": "0.1.0",
+      "resolved": "https://registry.npmjs.org/jquery.browser/-/jquery.browser-0.1.0.tgz",
+      "integrity": "sha512-5GjtLzzEBzxs/nwSVpCbSdk0acssfKsP7Upp43zmdHVV1Vb6E9VayyqPAQlfLrTeZL3YSWocCbkOvKdAc2CN4g=="
+    },
+    "trumbowyg": {
+      "version": "2.27.3",
+      "resolved": "https://registry.npmjs.org/trumbowyg/-/trumbowyg-2.27.3.tgz",
+      "integrity": "sha512-mEFhPSrF3dobjnGSSW7BfnmX5Pnv9T4KIoATOHxFOHtb1exE0L2hNPxCr6Bh4iFRJQD4UErleyKCapKf2yImKw=="
+    }
+  }
+}

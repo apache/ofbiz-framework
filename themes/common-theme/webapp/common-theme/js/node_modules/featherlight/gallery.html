@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<title>Featherlight – The ultra slim jQuery lightbox.</title>
+		<link href="assets/stylesheets/bootstrap.min.css" rel="stylesheet" />
+		<link type="text/css" rel="stylesheet" href="release/featherlight.min.css" />
+		<link type="text/css" rel="stylesheet" href="release/featherlight.gallery.min.css" />
+		<style type="text/css">
+			@media all {
+				.lightbox { display: none; }
+				.fl-page h1,
+				.fl-page h3,
+				.fl-page h4 {
+					font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+					font-weight: 100;
+					letter-spacing: 1px;
+				}
+				.fl-page h1 { font-size: 110px; margin-bottom: 0.5em; }
+				.fl-page h1 i { font-style: normal; color: #ddd; }
+				.fl-page h1 span { font-size: 30px; color: #333;}
+				.fl-page h3 { text-align: right; }
+				.fl-page h3 { font-size: 15px; }
+				.fl-page h4 { font-size: 2em; }
+				.fl-page .jumbotron { margin-top: 2em; }
+				.fl-page .btn-download { float: right; margin-top: -40px; }
+				.fl-page .btn-default { vertical-align: bottom; }
+
+				.fl-page .row { margin-top: 2em;}
+
+				.fl-page .btn-lg span { font-size: 0.7em; }
+				.fl-page .footer { margin-top: 3em; color: #aaa; font-size: 0.9em;}
+				.fl-page .footer a { color: #999; text-decoration: none; margin-right: 0.75em;}
+				.fl-page .github { margin: 2em 0; }
+				.fl-page .github a { vertical-align: top; }
+
+				/* customized gallery */
+
+				.featherlight-gallery2 {
+					background: rgba(100,100,100,0.5);
+				}
+				.featherlight-gallery2 .featherlight-content {
+					background: #000;
+				}
+				.featherlight-gallery2 .featherlight-next:hover,
+				.featherlight-gallery2 .featherlight-previous:hover {
+					background: rgba(0,0,0,0.5);
+				}
+				.featherlight-gallery2 .featherlight-next:hover span,
+				.featherlight-gallery2 .featherlight-previous:hover span {
+					font-size: 25px;
+					line-height: 25px;
+					margin-top: -12.5px;
+					color: #fff;
+				}
+				.featherlight-gallery2  .featherlight-close {
+					background: transparent;
+					color: #fff;
+					font-size: 1.2em;
+				}
+				.featherlight-gallery2.featherlight-last-slide .featherlight-next,
+				.featherlight-gallery2.featherlight-first-slide .featherlight-previous {
+					display: none;
+				}
+
+				/* text slide */
+				.thumbnail a { text-decoration: none; }
+				.blurb {
+					display: inline-block;
+					width: 150px;
+					height: 150px;
+				}
+				.blurb h2 { text-align: center;}
+				.blurb .detail { display: none;}
+				.blurb .teaser {
+					font-style: italic;
+					text-align: center;
+				}
+				.featherlight .blurb {
+					display: inline-block;
+					width: 500px;
+					height: 300px;
+					color: #99f;
+				}
+				.featherlight .blurb .detail {
+					color: #ddf;
+					font-size: large;
+					display: inherit;
+				}
+				.featherlight .blurb .teaser { display: none;}
+
+			}
+			@media(max-width: 768px){
+				.fl-page h1 span { display: block; }
+				.fl-page .btn-download { float: none; margin-bottom: 1em; }
+			}
+		</style>
+	</head>
+	<body class="fl-page">
+		<div class="container">
+			<div class="jumbotron">
+				<h1>Featherlight<i>.Gallery.js</i>
+					<br/><span> An extension for the ultra slim jQuery lightbox Featherlight.</span></h1>
+				<div class="btn-group btn-download">
+					<a class="btn btn-lg btn-info" href="https://github.com/noelboss/featherlight/">
+						<i class="glyphicon glyphicon-eye-open"></i>
+						github
+					</a>
+					<a class="btn btn-lg btn-success" href="https://github.com/noelboss/featherlight/archive/1.7.14.zip">
+						<i class="glyphicon glyphicon-arrow-down"></i>
+						Download <span>(1.7.14)</span>
+					</a>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Example Gallery</h2>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery" href="assets/images/two_birds.jpg"><img src="assets/images/two_birds.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery" href="assets/images/droplets.jpg"><img src="assets/images/droplets.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery" href="assets/images/blue.jpg"><img src="assets/images/blue.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery" href="assets/images/feed.jpg"><img src="assets/images/feed.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery" href="assets/images/black.jpg"><img src="assets/images/black.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery" href="assets/images/red_and_yellow.jpg"><img src="assets/images/red_and_yellow.thumb.jpg" /></a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-2">
+					<a class="thumbnail gallery2" href=".blurb">
+						<div class="blurb">
+							<h2>A different example</h2>
+							<p class="teaser">click me!</p>
+							<span class="detail">
+								<p>Featherlight Gallery inherit all the goodies of Featherlight.</p>
+								<p>In particular, the different content filters are available and a gallery can have mixed content. For example, this slide that is not an image.</p>
+								<p>This gallery also demonstrates the use of a css variant.</p>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery2" href="assets/images/droplets.jpg"><img src="assets/images/droplets.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery2" href="assets/images/blue.jpg"><img src="assets/images/blue.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery2" href="assets/images/feed.jpg"><img src="assets/images/feed.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery2" href="assets/images/black.jpg"><img src="assets/images/black.thumb.jpg" /></a>
+				</div>
+				<div class="col-lg-2">
+					<a class="thumbnail gallery2" href="assets/images/red_and_yellow.jpg"><img src="assets/images/red_and_yellow.thumb.jpg" /></a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Featherlight Gallery made simple</h2>
+					<p>To create a gallery, simply include <kbd>featherlight.gallery.min.js</kbd> and <kbd>featherlight.gallery.min.css</kbd> after the regular featherlight files and
+						call it like this:
+					</p>
+					<p>
+						<pre>$(document).ready(function(){
+	$('.gallery').featherlightGallery();
+});</pre>
+					</p>
+
+					<a class="doc btn btn-lg btn-default" href="https://github.com/noelboss/featherlight/#featherlight-gallery">
+						View Gallery Documentation
+					</a>
+				</div>
+			</div>
+
+			<div class="row github text-center">
+				<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=noelboss&amp;repo=Featherlight&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+				<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=noelboss&amp;repo=Featherlight&amp;type=fork&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="102px" height="20px"></iframe>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-via="noelboss" data-related="featherlight" data-dnt="true">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			</div>
+
+			<div class="footer text-right">
+				<p><a href="//noelboss.com">&copy; Noël Bossart.</a> Made in Switzerland.</p>
+			</div>
+		</div>
+
+		<script src="assets/javascripts/jquery-1.7.0.min.js"></script>
+		<script src="release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script>
+			$(document).ready(function(){
+				$('.gallery').featherlightGallery({
+					gallery: {
+						fadeIn: 300,
+						fadeOut: 300
+					},
+					openSpeed:    300,
+					closeSpeed:   300
+				});
+				$('.gallery2').featherlightGallery({
+					gallery: {
+						next: 'next »',
+						previous: '« previous'
+					},
+					variant: 'featherlight-gallery2'
+				});
+			});
+
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+
+			ga('create', 'UA-5342062-6', 'noelboss.github.io');
+			ga('send', 'pageview');
+		</script>
+	</body>
+</html>

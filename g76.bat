@@ -1,0 +1,1 @@
+gradlew wrapper --gradle-version=7.6 --distribution-type=bin
