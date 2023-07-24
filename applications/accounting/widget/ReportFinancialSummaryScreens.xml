@@ -89,7 +89,7 @@ under the License.
                             <field-map field-name="productCategoryId" from-field="rootProductCategoryId"/>
                         </entity-one>
 
-                        <script location="component://accounting/groovyScripts/reports/SalesInvoiceByProductCategorySummary.groovy"/>
+                        <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/SalesInvoiceByProductCategorySummary.groovy"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
@@ -225,7 +225,7 @@ under the License.
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
-                <script location="component://accounting/groovyScripts/reports/TrialBalance.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -279,7 +279,7 @@ under the License.
                     <condition-expr field-name="partyId" operator="in" from-field="partyIds"/>
                 </entity-condition>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
-                <script location="component://accounting/groovyScripts/reports/TrialBalance.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
                 <container>
@@ -305,7 +305,7 @@ under the License.
                 </entity-condition>
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <entity-one entity-name="CustomTimePeriod" value-field="customTimePeriod" auto-field-map="true" use-cache="true"/>
-                <script location="component://accounting/groovyScripts/reports/TrialBalance.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/TrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -346,7 +346,7 @@ under the License.
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -391,7 +391,7 @@ under the License.
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -425,7 +425,7 @@ under the License.
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
             </actions>
             <widgets>
                 <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
@@ -455,7 +455,7 @@ under the License.
                 <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId" default-value="ACTUAL"/>
                 <set field="thruDate" from-field="period1ThruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
                 <set field="assetAccountBalanceList1" from-field="assetAccountBalanceList"/>
                 <set field="liabilityAccountBalanceList1" from-field="liabilityAccountBalanceList"/>
                 <set field="equityAccountBalanceList1" from-field="equityAccountBalanceList"/>
@@ -472,7 +472,7 @@ under the License.
                 <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId" default-value="ACTUAL"/>
                 <set field="thruDate" from-field="period2ThruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
                 <set field="assetAccountBalanceList2" from-field="assetAccountBalanceList"/>
                 <set field="liabilityAccountBalanceList2" from-field="liabilityAccountBalanceList"/>
                 <set field="equityAccountBalanceList2" from-field="equityAccountBalanceList"/>
@@ -485,7 +485,7 @@ under the License.
                 <set field="liabilityEquityBalanceTotal2" from-field="liabilityEquityBalanceTotal"/>
                 <set field="balanceTotalList2" from-field="balanceTotalList"/>
 
-                <script location="component://accounting/groovyScripts/reports/ComparativeBalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeBalanceSheet.groovy"/>
 
             </actions>
             <widgets>
@@ -542,7 +542,7 @@ under the License.
                 <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId" default-value="ACTUAL"/>
                 <set field="thruDate" from-field="period1ThruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
                 <set field="assetAccountBalanceList1" from-field="assetAccountBalanceList"/>
                 <set field="liabilityAccountBalanceList1" from-field="liabilityAccountBalanceList"/>
                 <set field="equityAccountBalanceList1" from-field="equityAccountBalanceList"/>
@@ -559,7 +559,7 @@ under the License.
                 <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId" default-value="ACTUAL"/>
                 <set field="thruDate" from-field="period2ThruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
                 <set field="assetAccountBalanceList2" from-field="assetAccountBalanceList"/>
                 <set field="liabilityAccountBalanceList2" from-field="liabilityAccountBalanceList"/>
                 <set field="equityAccountBalanceList2" from-field="equityAccountBalanceList"/>
@@ -572,7 +572,7 @@ under the License.
                 <set field="liabilityEquityBalanceTotal2" from-field="liabilityEquityBalanceTotal"/>
                 <set field="balanceTotalList2" from-field="balanceTotalList"/>
 
-                <script location="component://accounting/groovyScripts/reports/ComparativeBalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeBalanceSheet.groovy"/>
 
             </actions>
             <widgets>
@@ -613,7 +613,7 @@ under the License.
                 <set field="period1GlFiscalTypeId" from-field="parameters.period1GlFiscalTypeId" default-value="ACTUAL"/>
                 <set field="thruDate" from-field="period1ThruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
                 <set field="assetAccountBalanceList1" from-field="assetAccountBalanceList"/>
                 <set field="liabilityAccountBalanceList1" from-field="liabilityAccountBalanceList"/>
                 <set field="equityAccountBalanceList1" from-field="equityAccountBalanceList"/>
@@ -630,7 +630,7 @@ under the License.
                 <set field="period2GlFiscalTypeId" from-field="parameters.period2GlFiscalTypeId" default-value="ACTUAL"/>
                 <set field="thruDate" from-field="period2ThruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/BalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/BalanceSheet.groovy"/>
                 <set field="assetAccountBalanceList2" from-field="assetAccountBalanceList"/>
                 <set field="liabilityAccountBalanceList2" from-field="liabilityAccountBalanceList"/>
                 <set field="equityAccountBalanceList2" from-field="equityAccountBalanceList"/>
@@ -643,7 +643,7 @@ under the License.
                 <set field="liabilityEquityBalanceTotal2" from-field="liabilityEquityBalanceTotal"/>
                 <set field="balanceTotalList2" from-field="balanceTotalList"/>
 
-                <script location="component://accounting/groovyScripts/reports/ComparativeBalanceSheet.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeBalanceSheet.groovy"/>
 
             </actions>
             <widgets>
@@ -681,8 +681,8 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/MonthSelection.groovy"/>
-                <script location="component://accounting/groovyScripts/reports/TransactionTotals.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/MonthSelection.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -747,7 +747,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/TransactionTotals.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -786,7 +786,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/TransactionTotals.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
                 <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
@@ -818,8 +818,8 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>                
-                <script location="component://accounting/groovyScripts/reports/MonthSelection.groovy"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/MonthSelection.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -863,7 +863,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -899,7 +899,7 @@ under the License.
                 </service>
                 <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
             </actions>
             <widgets>
                 <label style="h3" text="${uiLabelMap.AccountingRevenues}"/>
@@ -938,7 +938,7 @@ under the License.
                 <set field="fromDate" from-field="period1FromDate"/>
                 <set field="thruDate" from-field="period1ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
                 <set field="revenueAccountBalanceList1" from-field="revenueAccountBalanceList"/>
                 <set field="revenueAccountBalanceTotal1" from-field="revenueAccountBalanceTotal"/>
                 <set field="expenseAccountBalanceList1" from-field="expenseAccountBalanceList"/>
@@ -958,7 +958,7 @@ under the License.
                 <set field="fromDate" from-field="period2FromDate"/>
                 <set field="thruDate" from-field="period2ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
                 <set field="revenueAccountBalanceList2" from-field="revenueAccountBalanceList"/>
                 <set field="revenueAccountBalanceTotal2" from-field="revenueAccountBalanceTotal"/>
                 <set field="expenseAccountBalanceList2" from-field="expenseAccountBalanceList"/>
@@ -971,7 +971,7 @@ under the License.
                 <set field="incomeFromOperations2" from-field="incomeFromOperations"/>
                 <set field="netIncome2" from-field="netIncome"/>
                 <set field="balanceTotalList2" from-field="balanceTotalList"/>
-                <script location="component://accounting/groovyScripts/reports/ComparativeIncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeIncomeStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1039,7 +1039,7 @@ under the License.
                 <set field="fromDate" from-field="period1FromDate"/>
                 <set field="thruDate" from-field="period1ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
                 <set field="revenueAccountBalanceList1" from-field="revenueAccountBalanceList"/>
                 <set field="revenueAccountBalanceTotal1" from-field="revenueAccountBalanceTotal"/>
                 <set field="expenseAccountBalanceList1" from-field="expenseAccountBalanceList"/>
@@ -1059,7 +1059,7 @@ under the License.
                 <set field="fromDate" from-field="period2FromDate"/>
                 <set field="thruDate" from-field="period2ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
                 <set field="revenueAccountBalanceList2" from-field="revenueAccountBalanceList"/>
                 <set field="revenueAccountBalanceTotal2" from-field="revenueAccountBalanceTotal"/>
                 <set field="expenseAccountBalanceList2" from-field="expenseAccountBalanceList"/>
@@ -1072,7 +1072,7 @@ under the License.
                 <set field="incomeFromOperations2" from-field="incomeFromOperations"/>
                 <set field="netIncome2" from-field="netIncome"/>
                 <set field="balanceTotalList2" from-field="balanceTotalList"/>
-                <script location="component://accounting/groovyScripts/reports/ComparativeIncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeIncomeStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -1120,7 +1120,7 @@ under the License.
                 <set field="fromDate" from-field="period1FromDate"/>
                 <set field="thruDate" from-field="period1ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
                 <set field="revenueAccountBalanceList1" from-field="revenueAccountBalanceList"/>
                 <set field="revenueAccountBalanceTotal1" from-field="revenueAccountBalanceTotal"/>
                 <set field="expenseAccountBalanceList1" from-field="expenseAccountBalanceList"/>
@@ -1140,7 +1140,7 @@ under the License.
                 <set field="fromDate" from-field="period2FromDate"/>
                 <set field="thruDate" from-field="period2ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/IncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/IncomeStatement.groovy"/>
                 <set field="revenueAccountBalanceList2" from-field="revenueAccountBalanceList"/>
                 <set field="revenueAccountBalanceTotal2" from-field="revenueAccountBalanceTotal"/>
                 <set field="expenseAccountBalanceList2" from-field="expenseAccountBalanceList"/>
@@ -1153,7 +1153,7 @@ under the License.
                 <set field="incomeFromOperations2" from-field="incomeFromOperations"/>
                 <set field="netIncome2" from-field="netIncome"/>
                 <set field="balanceTotalList2" from-field="balanceTotalList"/>
-                <script location="component://accounting/groovyScripts/reports/ComparativeIncomeStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeIncomeStatement.groovy"/>
             </actions>
             <widgets>
                 <label style="h3" text="${uiLabelMap.AccountingRevenues}"/>
@@ -1175,7 +1175,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingGlAccountTrialBalance"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="GlAccountTrialBalance"/>
-                <script location="component://accounting/groovyScripts/reports/GlAccountTrialBalance.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/GlAccountTrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1213,7 +1213,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://accounting/groovyScripts/reports/GlAccountTrialBalance.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/GlAccountTrialBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -1250,7 +1250,7 @@ under the License.
                 </service>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
-                <script location="component://accounting/groovyScripts/reports/CostCenters.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CostCenters.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1299,7 +1299,7 @@ under the License.
                 <set field="partyIds[]" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
-                <script location="component://accounting/groovyScripts/reports/CostCenters.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CostCenters.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -1415,8 +1415,8 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp" default-value="${findLastClosedDateOutMap.lastClosedDate}"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp" default-value="${nowTimestamp}"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/MonthSelection.groovy"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/MonthSelection.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1459,7 +1459,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -1489,7 +1489,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="glFiscalTypeId" from-field="parameters.glFiscalTypeId" default-value="ACTUAL"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
             </actions>
             <widgets>
                 <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>
@@ -1527,7 +1527,7 @@ under the License.
                 <set field="fromDate" from-field="period1FromDate"/>
                 <set field="thruDate" from-field="period1ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
                 <set field="openingCashBalanceList1" from-field="openingCashBalanceList"/>
                 <set field="periodCashBalanceList1" from-field="periodCashBalanceList"/>
                 <set field="closingCashBalanceList1" from-field="closingCashBalanceList"/>
@@ -1539,12 +1539,12 @@ under the License.
                 <set field="fromDate" from-field="period2FromDate"/>
                 <set field="thruDate" from-field="period2ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
                 <set field="openingCashBalanceList2" from-field="openingCashBalanceList"/>
                 <set field="periodCashBalanceList2" from-field="periodCashBalanceList"/>
                 <set field="closingCashBalanceList2" from-field="closingCashBalanceList"/>
                 <set field="cashFlowBalanceTotalList2" from-field="cashFlowBalanceTotalList"/>
-                <script location="component://accounting/groovyScripts/reports/ComparativeCashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeCashFlowStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1612,7 +1612,7 @@ under the License.
                 <set field="fromDate" from-field="period1FromDate"/>
                 <set field="thruDate" from-field="period1ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
                 <set field="openingCashBalanceList1" from-field="openingCashBalanceList"/>
                 <set field="periodCashBalanceList1" from-field="periodCashBalanceList"/>
                 <set field="closingCashBalanceList1" from-field="closingCashBalanceList"/>
@@ -1624,12 +1624,12 @@ under the License.
                 <set field="fromDate" from-field="period2FromDate"/>
                 <set field="thruDate" from-field="period2ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
                 <set field="openingCashBalanceList2" from-field="openingCashBalanceList"/>
                 <set field="periodCashBalanceList2" from-field="periodCashBalanceList"/>
                 <set field="closingCashBalanceList2" from-field="closingCashBalanceList"/>
                 <set field="cashFlowBalanceTotalList2" from-field="cashFlowBalanceTotalList"/>
-                <script location="component://accounting/groovyScripts/reports/ComparativeCashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeCashFlowStatement.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -1676,7 +1676,7 @@ under the License.
                 <set field="fromDate" from-field="period1FromDate"/>
                 <set field="thruDate" from-field="period1ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period1GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
                 <set field="openingCashBalanceList1" from-field="openingCashBalanceList"/>
                 <set field="periodCashBalanceList1" from-field="periodCashBalanceList"/>
                 <set field="closingCashBalanceList1" from-field="closingCashBalanceList"/>
@@ -1688,12 +1688,12 @@ under the License.
                 <set field="fromDate" from-field="period2FromDate"/>
                 <set field="thruDate" from-field="period2ThruDate"/>
                 <set field="glFiscalTypeId" from-field="period2GlFiscalTypeId"/>
-                <script location="component://accounting/groovyScripts/reports/CashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/CashFlowStatement.groovy"/>
                 <set field="openingCashBalanceList2" from-field="openingCashBalanceList"/>
                 <set field="periodCashBalanceList2" from-field="periodCashBalanceList"/>
                 <set field="closingCashBalanceList2" from-field="closingCashBalanceList"/>
                 <set field="cashFlowBalanceTotalList2" from-field="cashFlowBalanceTotalList"/>
-                <script location="component://accounting/groovyScripts/reports/ComparativeCashFlowStatement.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/reports/ComparativeCashFlowStatement.groovy"/>
             </actions>
             <widgets>
                 <label style="h3" text="${uiLabelMap.AccountingOpeningCashBalance}"/>

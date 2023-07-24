@@ -139,8 +139,8 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
-                <script location="component://party/groovyScripts/party/GetContactMechs.groovy"/>
-                <script location="component://party/groovyScripts/party/GetUserLoginPrimaryEmail.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/GetContactMechs.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -172,7 +172,7 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/groovyScripts/party/GetPaymentMethods.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/GetPaymentMethods.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -227,7 +227,7 @@
     <screen name="Cart">
         <section>
             <actions>
-                <script location="component://party/groovyScripts/party/GetCurrentCart.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/GetCurrentCart.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -243,7 +243,7 @@
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/groovyScripts/party/GetLoyaltyPoints.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/GetLoyaltyPoints.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

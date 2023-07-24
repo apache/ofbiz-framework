@@ -388,7 +388,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="effectiveDate"/>
                 </entity-condition>
-                <script location="component://accounting/groovyScripts/admin/FilterOutReceipts.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/admin/FilterOutReceipts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">
@@ -429,7 +429,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="effectiveDate"/>
                 </entity-condition>
-                <script location="component://accounting/groovyScripts/admin/FilterOutReceipts.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/admin/FilterOutReceipts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">

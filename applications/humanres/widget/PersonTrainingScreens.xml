@@ -34,7 +34,7 @@
                         <set field="titleProperty" value="PageTitleCalendarDay"/>
                         <set field="tabButtonItem" value="day"/>
                         <set field="helpAnchor" value="_training_calendar"/>
-                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Days.groovy"/>
+                        <script location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/calendar/Days.groovy"/>
                     </actions>
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortDayView}: ${groovy:org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
@@ -54,7 +54,7 @@
                         </or>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Week.groovy"/>
+                        <script location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/calendar/Week.groovy"/>
                     </actions>
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${groovy:org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
@@ -71,7 +71,7 @@
                         <if-compare field="parameters.period" operator="equals" value="month"/>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Month.groovy"/>
+                        <script location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/calendar/Month.groovy"/>
                     </actions>
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${groovy:org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
@@ -88,7 +88,7 @@
                         <if-compare field="parameters.period" operator="equals" value="upcoming"/>
                     </condition>
                     <actions>
-                        <script location="component://workeffort/groovyScripts/workeffort/calendar/Upcoming.groovy"/>
+                        <script location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/calendar/Upcoming.groovy"/>
                     </actions>
                     <widgets>
                         <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}" navigation-menu-name="Upcoming">
@@ -121,7 +121,7 @@
         <section>
             <actions>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <script location="component:///workeffort/groovyScripts/ical/IsCalOwner.groovy"/>
+                <script location="component:///workeffort/src/main/groovy/org/apache/ofbiz/ical/IsCalOwner.groovy"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="trainingClassTypeId" from-field="workEffort.workEffortName"/>
                 <set field="workEffortTypeId" from-field="workEffort.workEffortTypeId"/>

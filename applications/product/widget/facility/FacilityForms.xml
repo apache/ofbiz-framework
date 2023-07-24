@@ -430,7 +430,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         override-list-size="${overrideListSize}">
         <row-actions>
-            <script location="component://product/groovyScripts/facility/facility/ComputeProductSellThroughData.groovy"/>
+            <script location="component://product/src/main/groovy/org/apache/ofbiz/facility/facility/ComputeProductSellThroughData.groovy"/>
         </row-actions>
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="EditFacilityInventoryItems">

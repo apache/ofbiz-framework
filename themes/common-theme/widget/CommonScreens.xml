@@ -402,7 +402,7 @@ under the License.
                         <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
                         <set field="autocompleterViewSize" from-field="parameters.autocompleterViewSize"
                              default-value="${groovy: modelTheme.getAutocompleterDefaultViewSize()}"/>
-                        <script location="component://common/groovyScripts/FindAutocompleteOptions.groovy"/>
+                        <script location="component://common/src/main/groovy/org/apache/ofbiz/FindAutocompleteOptions.groovy"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="AjaxGlobalDecorator">

@@ -26,7 +26,7 @@ under the License.
 
     <!-- AddressMatchMap services -->
     <service name="createAddressMatchMap" engine="groovy" default-entity-name="AddressMatchMap" auth="true"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="createAddressMatchMap">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="createAddressMatchMap">
         <description>Create an AddressMatchMap record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -46,7 +46,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="clearAddressMatchMap" engine="groovy" default-entity-name="AddressMatchMap" auth="true"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="clearAddressMatchMap">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="clearAddressMatchMap">
         <description>Delete an AddressMatchMap record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
     </service>
@@ -93,7 +93,7 @@ under the License.
     </service>
 
     <service name="createPartyGroupRoleAndContactMechs" engine="groovy" default-entity-name="PartyGroupRoleAndContactMechs"
-            location="component://party/groovyScripts/party/PartySimpleMethods.groovy" invoke="createPartyGroupRoleAndContactMechs">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartySimpleMethods.groovy" invoke="createPartyGroupRoleAndContactMechs">
         <description>Create Party Group Role and Contact Mechs</description>
         <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
             <exclude field-name="partyId"/>
@@ -182,7 +182,7 @@ under the License.
     </service>
 
     <service name="savePartyNameChange" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="savePartyNameChange" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="savePartyNameChange" auth="true">
         <description>Save Party Name Change</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"><!-- if empty, will use userLogin.partyId to handle special case for updatePerson, etc --></attribute>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
@@ -193,7 +193,7 @@ under the License.
         <attribute name="suffix" type="String" mode="IN" optional="true"/>
     </service>
     <service name="getPartyNameForDate" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyNameForDate" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="getPartyNameForDate" auth="true">
         <description>Get Party Name For Date</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -254,7 +254,7 @@ under the License.
     </service>
 
     <service name="setPartyProfileDefaults" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="setPartyProfileDefaults" auth="true">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="setPartyProfileDefaults" auth="true">
         <description>Sets the party (customer) profile defaults</description>
         <permission-service service-name="partyIdPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" entity-name="PartyProfileDefault" include="all" optional="true"/>
@@ -287,7 +287,7 @@ under the License.
     </service>
 
     <service name="lookupParty" engine="groovy"
-        location="component://party/groovyScripts/party/LookupServices.groovy" invoke="lookupParty" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/LookupServices.groovy" invoke="lookupParty" auth="true">
         <description>Performs a lookup for parties</description>
         <deprecated use-instead="performFindParty" since="Upcoming Branch">
             use performFindParty to realize your search, the service lookupParty is inconsistent
@@ -372,7 +372,7 @@ under the License.
 
     <!-- Party Relationship services -->
     <service name="createPartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="createPartyRelationship" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="createPartyRelationship" auth="true">
         <description>
             Create a Relationship between two Parties;
             if partyIdFrom is not specified the partyId of the current userLogin will be used;
@@ -385,7 +385,7 @@ under the License.
         <override name="partyIdTo" optional="false"/>
     </service>
     <service name="updatePartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="updatePartyRelationship" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="updatePartyRelationship" auth="true">
         <description>
             Update a Relationship between two Parties;
             if partyIdFrom is not specified the partyId of the current userLogin will be used;
@@ -400,7 +400,7 @@ under the License.
         <override name="roleTypeIdTo" optional="true"/>
     </service>
     <service name="deletePartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="deletePartyRelationship" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="deletePartyRelationship" auth="true">
         <description>
             Delete a Relationship between two Parties;
             if partyIdFrom is not specified the partyId of the current userLogin will be used;
@@ -445,7 +445,7 @@ under the License.
     </service>
 
     <service name="createPartyRelationshipContactAccount" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="createPartyRelationshipContactAccount" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="createPartyRelationshipContactAccount" auth="true">
         <description>create a company/contact relationship and add the related roles</description>
         <attribute name="accountPartyId" type="String" mode="IN"/>
         <attribute name="contactPartyId" type="String" mode="IN"/>
@@ -624,7 +624,7 @@ under the License.
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createPartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/contact/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
         <description>Create an Ftp Address associated to a party</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
@@ -634,7 +634,7 @@ under the License.
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="updatePartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/contact/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
         <description>Update an Ftp Address associated to a party</description>
         <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" mode="IN" optional="true"/>
@@ -756,7 +756,7 @@ under the License.
         <auto-attributes mode="IN" include="pk"/>
     </service>
     <service name="createPartyIdentifications" engine="groovy" default-entity-name="PartyIdentification"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="createPartyIdentifications">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="createPartyIdentifications">
         <description>create many identifications with format in map identifications : [partyType : TYPE, TYPE : value]</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" mode="IN" type="String"/>
@@ -792,7 +792,7 @@ under the License.
     </service>
 
     <service name="setCommunicationEventStatus" engine="groovy" default-entity-name="CommunicationEvent"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="setCommunicationEventStatus" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="setCommunicationEventStatus" auth="true">
         <description>Set the Communication event Status</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -803,7 +803,7 @@ under the License.
     </service>
 
     <service name="setCommunicationEventRoleStatus" engine="groovy" default-entity-name="CommunicationEventRole"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="setCommunicationEventRoleStatus" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="setCommunicationEventRoleStatus" auth="true">
         <description>Set the Communication event  Status for a specific role</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -826,19 +826,19 @@ under the License.
         <override name="subject" allow-html="safe"/>
     </service>
     <service name="createCommunicationEvent" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="createCommunicationEvent" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="createCommunicationEvent" auth="true">
         <description>Create a Communication Event with permission check</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <implements service="createCommunicationEventInterface"/>
     </service>
     <service name="createCommunicationEventWithoutPermission" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventWithoutPermission" auth="false">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventWithoutPermission" auth="false">
         <description>Create a Communication Event without permission check</description>
         <implements service="createCommunicationEventInterface"/>
     </service>
 
     <service name="updateCommunicationEvent" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="updateCommunicationEvent" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="updateCommunicationEvent" auth="true">
         <description>Update a Communication Event</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
@@ -852,7 +852,7 @@ under the License.
 
 
     <service name="deleteCommunicationEvent" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="deleteCommunicationEvent" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="deleteCommunicationEvent" auth="true">
         <description>Delete a Communication Event, optionally delete the attached content and dataresource</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
@@ -860,7 +860,7 @@ under the License.
     </service>
 
     <service name="deleteCommunicationEventWorkEffort" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="deleteCommunicationEventWorkEffort" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="deleteCommunicationEventWorkEffort" auth="true">
         <description>Delete a Communication Event, optionally delete the attached content and dataresource
             and when this is the only communication event connected to a workeffort delete the workeffort too.</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
@@ -901,14 +901,14 @@ under the License.
     </service>
 
     <service name="createCommunicationEventRole" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventRole" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventRole" auth="true">
         <description>Create a Communication Event Role with permission check</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <implements service="createCommunicationEventRoleInterface"/>
     </service>
 
     <service name="createCommunicationEventRoleWithoutPermission" engine="groovy"
-            location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventRole" auth="true">
+            location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="createCommunicationEventRole" auth="true">
         <description>Create a Communication Event Role without permission check</description>
         <implements service="createCommunicationEventRoleInterface"/>
     </service>
@@ -921,7 +921,7 @@ under the License.
     </service>
 
     <service name="removeCommunicationEventRole" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="removeCommunicationEventRole" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="removeCommunicationEventRole" auth="true">
         <description>Remove a Communication Event Role</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
@@ -953,7 +953,7 @@ under the License.
     </service>
 
     <service name="setCommEventRoleToRead" engine="groovy" default-entity-name="CommunicationEventRole"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="setCommEventRoleToRead" auth="false">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="setCommEventRoleToRead" auth="false">
         <description>Marks a communication event as read</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <override name="communicationEventId" optional="false"/>
@@ -1044,7 +1044,7 @@ under the License.
     </service>
 
     <service name="sendEmailDated" engine="groovy" use-transaction="false"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="sendEmailDated" auth="true">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="sendEmailDated" auth="true">
         <description>Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email</description>
     </service>
 
@@ -1083,7 +1083,7 @@ under the License.
     </service>
 
     <service name="getPartyEmail" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyEmail" auth="false">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="getPartyEmail" auth="false">
         <description>Get the main party Email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
                  <type-validate>
@@ -1100,7 +1100,7 @@ under the License.
     </service>
 
     <service name="getPartyTelephone" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyTelephone" auth="false">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="getPartyTelephone" auth="false">
         <description>Get the party Email Telephone</description>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -1112,7 +1112,7 @@ under the License.
     </service>
 
     <service name="getPartyPostalAddress" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyPostalAddress" auth="false">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="getPartyPostalAddress" auth="false">
         <description>Get the party postal address</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -1146,13 +1146,13 @@ under the License.
     </service>
 
     <service name="sendUpdatePersonalInfoEmailNotification" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="updatedUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="sendCreatePartyEmailNotification" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="sendCreatePartyEmailNotification" auth="false">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="sendCreatePartyEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="false">
              <type-validate>
                  <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
@@ -1178,7 +1178,7 @@ under the License.
         <attribute name="expireDate" type="String" mode="IN" optional="true"/>
     </service>
     <service name="sendVerifyEmailAddressNotification" engine="groovy"
-             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="sendVerifyEmailAddressNotification">
+             location="component://party/src/main/groovy/org/apache/ofbiz/contact/ContactMechServices.groovy" invoke="sendVerifyEmailAddressNotification">
         <attribute name="emailAddress" type="String" mode="IN" optional="false">
              <type-validate>
                  <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingEmailAddress"/>
@@ -1186,7 +1186,7 @@ under the License.
          </attribute>
     </service>
     <service name="verifyEmailAddress" engine="groovy"
-             location="component://party/groovyScripts/contact/ContactMechServices.groovy" invoke="verifyEmailAddress">
+             location="component://party/src/main/groovy/org/apache/ofbiz/contact/ContactMechServices.groovy" invoke="verifyEmailAddress">
         <attribute name="verifyHash" type="String" mode="IN" optional="false">
              <type-validate>
                  <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingVerifyHash"/>
@@ -1196,14 +1196,14 @@ under the License.
 
     <!-- Party Invitation Services -->
     <service name="createPartyInvitation" engine="groovy" default-entity-name="PartyInvitation"
-            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="createPartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyInvitationServices.groovy" invoke="createPartyInvitation">
         <description>Create Party Invitation</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyInvitationId" mode="OUT" optional="false"/>
     </service>
     <service name="updatePartyInvitation" engine="groovy" default-entity-name="PartyInvitation"
-            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <description>Update Party Invitation</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1234,7 +1234,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
     <service name="acceptPartyInvitation" engine="groovy"
-            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="acceptPartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyInvitationServices.groovy" invoke="acceptPartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
              <type-validate>
@@ -1248,7 +1248,7 @@ under the License.
          </attribute>
     </service>
     <service name="declinePartyInvitation" engine="groovy"
-            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -1258,7 +1258,7 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_DECLINED"/>
     </service>
     <service name="cancelPartyInvitation" engine="groovy"
-            location="component://party/groovyScripts/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyInvitationServices.groovy" invoke="updatePartyInvitation">
         <permission-service service-name="cancelPartyInvitationPermissionCheck"/>
         <attribute name="partyInvitationId" type="String" mode="IN"/>
         <attribute name="statusId" type="String" mode="IN" optional="true" default-value="PARTYINV_CANCELLED"/>
@@ -1266,7 +1266,7 @@ under the License.
 
     <!-- Permission checking services-->
     <service name="partyBasePermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
         <description>
             Performs a basic Party Manager security check. The user must have one of the base PARTYMGR
             CRUD+ADMIN permissions.
@@ -1274,14 +1274,14 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
     <service name="basePermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="basePermissionCheck">
         <description>
             Performs a basic security check. The user must have the base PARTYMGR  permission.
         </description>
         <implements service="permissionInterface"/>
     </service>
     <service name="partyIdPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="basePlusPartyIdPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="basePlusPartyIdPermissionCheck">
         <description>
             Performs a party ID security check. The userLogin partyId must equal
             the partyId parameter, or the logged-in user must have the correct permission
@@ -1291,7 +1291,7 @@ under the License.
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="partyStatusPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyStatusPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyStatusPermissionCheck">
         <description>
             Performs a party status security check. The userLogin partyId must equal the partyId parameter OR
             the user must have one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions.
@@ -1300,7 +1300,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="partyGroupPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyGroupPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyGroupPermissionCheck">
         <description>
             Performs a party group security check. The userLogin partyId must equal the partyId parameter OR
             the user has one of the base PARTYMGR or PARTYMGR_GRP CRUD+ADMIN permissions.
@@ -1309,7 +1309,7 @@ under the License.
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="partyDatasourcePermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyDatasourcePermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyDatasourcePermissionCheck">
         <description>
             Performs a party datasource security check. The user must have one of the base PARTYMGR or
             PARTYMGR_SRC CRUD+ADMIN permissions.
@@ -1317,7 +1317,7 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
     <service name="partyRolePermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyRolePermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyRolePermissionCheck">
         <description>
             Performs a party role security check. The user must have one of the base PARTYMGR or
             PARTYMGR_ROLE CRUD+ADMIN permissions.
@@ -1326,7 +1326,7 @@ under the License.
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="partyRelationshipPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyRelationshipPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyRelationshipPermissionCheck">
         <description>
             Performs a party relationship security check. The user must have one of the base PARTYMGR or
             PARTYMGR_REL CRUD+ADMIN permissions.
@@ -1335,7 +1335,7 @@ under the License.
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>
     <service name="partyContactMechPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyContactMechPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyContactMechPermissionCheck">
         <description>
             Performs a party contact mech security check. The userLogin partyId must equal the partyId parameter OR
             the user must have one of the base PARTYMGR or PARTYMGR_PCM CRUD+ADMIN permissions.
@@ -1344,7 +1344,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="accAndDecPartyInvitationPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="accAndDecPartyInvitationPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="accAndDecPartyInvitationPermissionCheck">
         <description>
             Performs accept and decline PartyInvitation security check. The userLogin partyId must equal the
             partyIdTo in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
@@ -1358,7 +1358,7 @@ under the License.
          </attribute>
     </service>
     <service name="cancelPartyInvitationPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="cancelPartyInvitationPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="cancelPartyInvitationPermissionCheck">
         <description>
             Performs cancel PartyInvitation security check. The userLogin partyId must equal the
             partyId/partyIdFrom in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
@@ -1372,7 +1372,7 @@ under the License.
          </attribute>
     </service>
     <service name="partyCommunicationEventPermissionCheck" engine="groovy"
-            location="component://party/groovyScripts/party/PartyPermissionServices.groovy" invoke="partyCommunicationEventPermissionCheck">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyPermissionServices.groovy" invoke="partyCommunicationEventPermissionCheck">
         <description>Party CommunicationEvents Permission Checking Logic</description>
         <implements service="permissionInterface"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
@@ -1400,7 +1400,7 @@ under the License.
         <attribute name="phoneContactMechId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createUpdatePerson" engine="groovy" default-entity-name="Person"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="createUpdatePerson" auth="false">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="createUpdatePerson" auth="false">
         <description>Create and Update a person</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -1468,7 +1468,7 @@ under the License.
     </service>
 
     <service name="quickCreateCustomer" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="quickCreateCustomer">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="quickCreateCustomer">
         <description>Create customer profile on basis of First Name ,Last Name and Email Address</description>
         <attribute name="firstName" type="String" mode="IN" optional="false">
             <type-validate>
@@ -1495,7 +1495,7 @@ under the License.
     </service>
 
     <service name="getPartyMainRole" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartyMainRole">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="getPartyMainRole">
         <description>Get the main role of this party which is a child of the MAIN_ROLE roletypeId</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -1507,7 +1507,7 @@ under the License.
     </service>
 
     <service name="sendContactUsEmailToCompany" engine="groovy"
-             location="component://party/groovyScripts/communication/CommunicationEventServices.groovy" invoke="sendContactUsEmailToCompany" auth="false">
+             location="component://party/src/main/groovy/org/apache/ofbiz/communication/CommunicationEventServices.groovy" invoke="sendContactUsEmailToCompany" auth="false">
         <description>Create communication event and send mail to company</description>
         <implements service="createCommunicationEventWithoutPermission"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
@@ -1526,7 +1526,7 @@ under the License.
     
     <!-- send account activated email notification -->
     <service name="sendAccountActivatedEmailNotification" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="sendAccountActivatedEmailNotification" auth="false">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/PartyServices.groovy" invoke="sendAccountActivatedEmailNotification" auth="false">
         <attribute name="userLoginId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingUserLoginId"/>

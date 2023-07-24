@@ -163,7 +163,7 @@ under the License.
              <actions>
                 <set field="defaultTemplateLocation" value="component://order/widget/ordermgr/QuoteScreens.xml"/>
                 <set field="defaultTemplateName" value="DefaultQuotePDF"/>
-                <script location="component://commonext/groovyScripts/template/DocTypeTemplate.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/template/DocTypeTemplate.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="${templateName}" location="${templateLocation}"/>
@@ -190,7 +190,7 @@ under the License.
                 <set field="listOrderBy[]" value="quoteItemSeqId"/>
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems" order-by-list="listOrderBy"/>
                 <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
-                <script location="component://order/groovyScripts/quote/GetPartyAddress.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/quote/GetPartyAddress.groovy"/>
                 <!--
                 <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
                 <get-related value-name="quote" relation-name="QuoteAttribute" list-name="quoteAttributes"/>
@@ -473,7 +473,7 @@ under the License.
                     <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
-                <script location="component://order/groovyScripts/quote/ManageQuotePrices.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/quote/ManageQuotePrices.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator">
@@ -572,7 +572,7 @@ under the License.
                     <field-map field-name="quoteId" from-field="quote.quoteId"/>
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
-                <script location="component://order/groovyScripts/quote/ViewQuoteProfit.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/quote/ViewQuoteProfit.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator">
@@ -596,7 +596,7 @@ under the License.
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote"/>
                 <get-related-one value-field="quote" relation-name="Party" to-value-field="party"/>
-                <script location="component://order/groovyScripts/quote/GetPartyEmailAddress.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/quote/GetPartyEmailAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator">
