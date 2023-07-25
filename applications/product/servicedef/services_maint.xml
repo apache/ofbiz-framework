@@ -26,7 +26,7 @@ under the License.
 
     <!-- Product Category Maintenance Services -->
     <service name="copyCategoryProductMembers" engine="groovy" transaction-timeout="600"
-            location="component://product/groovyScripts/product/category/CategoryServicesScript.groovy" invoke="copyCategoryProductMembers" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="copyCategoryProductMembers" auth="true">
         <description>Copy Product Members from one Category to Another, optionally filtering by the given valid date (otherwise no date filtering done), and optionally recursing (if recurse=Y) down the from category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -42,7 +42,7 @@ under the License.
         <attribute name="recurse" type="String" mode="IN" optional="true"/>
     </service>
     <service name="expireAllCategoryProductMembers" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServicesScript.groovy" invoke="expireAllCategoryProductMembers" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="expireAllCategoryProductMembers" auth="true">
         <description>Expire All Product Members in a Category optionally using the thruDate specified as the expire date (now timestamp used by default)</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -52,7 +52,7 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="removeExpiredCategoryProductMembers" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServicesScript.groovy" invoke="removeExpiredCategoryProductMembers" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="removeExpiredCategoryProductMembers" auth="true">
         <description>Remove All Expired Product Members in a Category, optionally uses the valid date instead of now to determine if the member has expired</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -110,7 +110,7 @@ under the License.
 
     <!-- Check Urls exists or not related services -->
     <service name="checkImageUrlForAllCategories" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
         <description>check For Image Urls exists or not for all categories</description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="excludeEmpty" type="Boolean" mode="IN" optional="true"/>
@@ -118,14 +118,14 @@ under the License.
     </service>
 
     <service name="getAllCategories" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="getAllCategories">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="getAllCategories">
         <description>Get all categories of a category </description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="categories" type="java.util.List" mode="OUT" optional="true"/>
     </service>
 
     <service name="getRelatedCategories" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="getRelatedCategories">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="getRelatedCategories">
         <description>Get all related categories of a category </description>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -150,7 +150,7 @@ under the License.
     </service>
 
     <service name="checkImageUrlForCategoryAndProduct" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForCategoryAndProduct">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForCategoryAndProduct">
         <description>check For Image Urls exists or not for category</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -161,7 +161,7 @@ under the License.
         <attribute name="fileExists" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     <service name="checkImageUrlForCategory" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForCategory">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForCategory">
         <description>check For Image Urls exists or not For Product</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -171,7 +171,7 @@ under the License.
         <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     <service name="checkImageUrlForProduct" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForProduct">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="checkImageUrlForProduct">
         <description>check For Image Urls exists or not For Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false">
 	     <type-validate>
@@ -182,7 +182,7 @@ under the License.
     </service>
 
     <service name="checkImageUrl" engine="groovy"
-      location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="checkImageUrl">
+      location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="checkImageUrl">
         <description>check For Image Urls exists or not</description>
         <attribute name="imageUrl" type="String" mode="IN" optional="false">
 	     <type-validate>

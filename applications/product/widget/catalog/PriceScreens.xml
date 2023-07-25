@@ -75,7 +75,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
                 <set field="headerItem" value="pricerules"/>
-                <script location="component://product/groovyScripts/catalog/price/EditProductPriceRules.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/price/EditProductPriceRules.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">

@@ -42,7 +42,7 @@ under the License.
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_sfa"/>
                 <set field="applicationTitle" from-field="uiLabelMap.SfaManagerApplication" global="true"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="SFA" global="true"/>
-                <script location="component://common/groovyScripts/GetParentPortalPageId.groovy"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetParentPortalPageId.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -219,8 +219,8 @@ under the License.
 
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
 
-                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
-                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/ViewProfile.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
                 <set field="parameters.partyGroupId" from-field="partyGroupId"/>
             </actions>
@@ -374,8 +374,8 @@ under the License.
 
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
 
-                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
-                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/ViewProfile.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
                 <set field="parameters.partyGroupId" from-field="partyGroupId"/>
                 <set field="DONE_PAGE" value="ViewLeadProfile"/>
@@ -395,8 +395,8 @@ under the License.
 
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
 
-                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
-                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/ViewProfile.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
                 <set field="parameters.partyGroupId" from-field="partyGroupId"/>
                 <set field="DONE_PAGE" value="ViewContactProfile"/>
@@ -475,8 +475,8 @@ under the License.
                 <set field="parameters.roleTypeId" value="ACCOUNT"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
 
-                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
-                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/ViewProfile.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
                 <set field="parameters.partyGroupId" from-field="partyGroupId"/>
                 <set field="DONE_PAGE" value="ViewAccountProfile"/>
@@ -554,8 +554,8 @@ under the License.
 
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
 
-                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
-                <script location="component://party/groovyScripts/party/SetRoleVars.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/ViewProfile.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
                 <set field="parameters.partyGroupId" from-field="partyGroupId"/>
                 <set field="DONE_PAGE" value="ViewAccountLeadProfile"/>

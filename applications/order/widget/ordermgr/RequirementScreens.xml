@@ -123,7 +123,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://order/groovyScripts/requirement/SelectCreatedProposed.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/SelectCreatedProposed.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator" location="${parameters.commonRequirementsDecoratorLocation}">
@@ -151,7 +151,7 @@ under the License.
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="_rowSubmit" value="Y"/>
-                <script location="component://order/groovyScripts/requirement/ApprovedProductRequirements.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/ApprovedProductRequirements.groovy"/>
         </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator" location="${parameters.commonRequirementsDecoratorLocation}">
@@ -224,7 +224,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://order/groovyScripts/requirement/ApprovedProductRequirementsByVendor.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/ApprovedProductRequirementsByVendor.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator" location="${parameters.commonRequirementsDecoratorLocation}">

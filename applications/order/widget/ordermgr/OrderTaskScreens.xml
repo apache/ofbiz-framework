@@ -86,7 +86,7 @@ Also add this back to AppHeader.ftl:
             <actions>
                 <set field="titleProperty" value="OrderOrderTasks"/>
                 <set field="headerItem" value="tasklist"/>
-                <script location="component://order/groovyScripts/task/OrderTaskList.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/task/OrderTaskList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderTaskDecorator">

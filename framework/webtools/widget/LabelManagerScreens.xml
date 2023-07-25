@@ -29,7 +29,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerFindLabels"/>
                 <set field="tabButtonItem" value="labels"/>
-                <script location="component://webtools/groovyScripts/labelmanager/LabelManager.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/labelmanager/LabelManager.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
@@ -63,7 +63,7 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerAddNew"/>
-                <script location="component://webtools/groovyScripts/labelmanager/UpdateManager.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/labelmanager/UpdateManager.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -88,7 +88,7 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerViewReferences"/>
-                <script location="component://webtools/groovyScripts/labelmanager/ViewReferences.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/labelmanager/ViewReferences.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -110,7 +110,7 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerViewFile"/>
-                <script location="component://webtools/groovyScripts/labelmanager/ViewFile.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/labelmanager/ViewFile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

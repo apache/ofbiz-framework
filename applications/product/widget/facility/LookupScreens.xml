@@ -110,9 +110,9 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="InventoryItem"/>
                 <set field="searchFields" value="[inventoryItemId]"/>
-                <script location="component://product/groovyScripts/catalog/GetSupplierInventories.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/GetSupplierInventories.groovy"/>
                 <set field="andCondition" from-field="context.andCondition"/>
-                <script location="component://product/groovyScripts/facility/inventory/LookupInventoryItems.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/LookupInventoryItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

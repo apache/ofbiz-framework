@@ -43,7 +43,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateBudgetStatus" default-entity-name="BudgetStatus" engine="groovy"
-                location="component://accounting/groovyScripts/budget/BudgetServices.groovy" invoke="updateBudgetStatus" auth="true">
+                location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/budget/BudgetServices.groovy" invoke="updateBudgetStatus" auth="true">
         <description>Update a Budget</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

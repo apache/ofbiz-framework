@@ -25,8 +25,8 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
-                <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
-                <script location="component://order/groovyScripts/entry/SetCheckOutTabBar.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SetShoppingCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SetCheckOutTabBar.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -51,9 +51,9 @@ under the License.
                 <set field="headerItem" value="orderentry"/>
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
                 <set field="helpAnchor" value="_quick_finalize_order"/>
-                <script location="component://order/groovyScripts/entry/CheckoutPayment.groovy"/>
-                <script location="component://order/groovyScripts/entry/CheckoutOptions.groovy"/>
-                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/CheckoutPayment.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/CheckoutOptions.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/StorePaymentOptions.groovy"/>
                 <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
             </actions>
             <widgets>
@@ -73,7 +73,7 @@ under the License.
         <section>
             <actions>
                 <set field="stepLabelId" value="PartyParties"/>
-                <script location="component://order/groovyScripts/entry/ShipSettings.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/ShipSettings.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -91,7 +91,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
                 <set field="stepLabelId" value="FacilityShipping"/>
-                <script location="component://order/groovyScripts/entry/ShipSettings.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/ShipSettings.groovy"/>
                 <set field="helpAnchor" value="_set_shipping_address_and_group"/>
             </actions>
             <widgets>
@@ -119,7 +119,7 @@ under the License.
                 <set field="selectedDependentOption" default-value="_none_"/>
                 <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
                 <set field="stepLabelId" value="FacilityShipping"/>
-                <script location="component://order/groovyScripts/entry/ShipSettings.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/ShipSettings.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -138,7 +138,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="SetItemShipGroups"/>
                 <set field="stepLabelId" value="OrderShipGroups"/>
-                <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SetShoppingCart.groovy"/>
                 <set field="helpAnchor" value="_set_item_to_shipgroup"/>
             </actions>
             <widgets>
@@ -157,7 +157,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="OrderOrderOptionSettings"/>
                 <set field="stepLabelId" value="CommonOptions"/>
-                <script location="component://order/groovyScripts/entry/OptionSettings.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/OptionSettings.groovy"/>
                 <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
                 <set field="helpAnchor" value="_order_option_settings"/>
             </actions>
@@ -186,8 +186,8 @@ under the License.
                 <set field="selectedDependentOption" default-value="_none_"/>
                 <set field="stepTitleId" value="OrderOrderEntryPaymentSettings"/>
                 <set field="stepLabelId" value="AccountingPayment"/>
-                <script location="component://order/groovyScripts/entry/BillSettings.groovy"/>
-                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/BillSettings.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/StorePaymentOptions.groovy"/>
                 <set field="helpAnchor" value="_payment_setting"/>
             </actions>
             <widgets>
@@ -207,8 +207,8 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="PartyAdditionalPartyEntry"/>
                 <set field="stepLabelId" value="PartyParties"/>
-                <script location="component://order/groovyScripts/entry/SetAdditionalParty.groovy"/>
-                <script location="component://order/groovyScripts/entry/AdditionalPartyListing.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SetAdditionalParty.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/AdditionalPartyListing.groovy"/>
                 <set field="helpAnchor" value="_additional_party_entry"/>
 
                 <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
@@ -239,7 +239,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="OrderOrderEntryOrderTerms"/>
                 <set field="stepLabelId" value="OrderOrderTerms"/>
-                <script location="component://order/groovyScripts/entry/OrderTerms.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/OrderTerms.groovy"/>
                 <set field="helpAnchor" value="_order_term"/>
             </actions>
             <widgets>
@@ -259,7 +259,7 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderConfirmation"/>
                 <set field="stepLabelId" value="OrderReviewOrder"/>
                 <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
-                <script location="component://order/groovyScripts/entry/CheckoutReview.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/CheckoutReview.groovy"/>
                 <set field="helpAnchor" value="_order_confirmation"/>
             </actions>
             <widgets>
@@ -289,7 +289,7 @@ under the License.
                 <set field="MainColumnStyle" value="rightonly"/>
 
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://order/groovyScripts/entry/CheckoutShippingAddress.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/CheckoutShippingAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -307,8 +307,8 @@ under the License.
                 <set field="MainColumnStyle" value="rightonly"/>
 
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://order/groovyScripts/entry/CheckoutPayment.groovy"/>
-                <script location="component://order/groovyScripts/entry/StorePaymentOptions.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/CheckoutPayment.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -343,7 +343,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleLookupBulkAddSupplierProduct"/>
-                <script location="component://order/groovyScripts/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -369,7 +369,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSplitItemsForShipping"/>
-                <script location="component://order/groovyScripts/entry/SplitShip.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SplitShip.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

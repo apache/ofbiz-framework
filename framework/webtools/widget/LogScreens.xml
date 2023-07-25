@@ -60,7 +60,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleServiceList"/>
                 <set field="tabButtonItem" value="serviceLog"/>
-                <script location="component://webtools/groovyScripts/service/Services.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/Services.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="log-decorator">
@@ -79,7 +79,7 @@ under the License.
              <actions>
                  <set field="titleProperty" value="PageTitleLogConfiguration"/>
                  <set field="tabButtonItem" value="logConfiguration"/>
-                 <script location="component://webtools/groovyScripts/log/LogConfiguration.groovy"/>
+                 <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/log/LogConfiguration.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">

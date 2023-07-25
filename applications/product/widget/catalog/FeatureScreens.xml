@@ -256,7 +256,7 @@
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://product/groovyScripts/catalog/feature/EditFeatureCategoryFeatures.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/feature/EditFeatureCategoryFeatures.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -276,7 +276,7 @@
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureGroup"/>
 
-                <script location="component://product/groovyScripts/catalog/feature/EditFeatureGroups.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/feature/EditFeatureGroups.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -337,7 +337,7 @@
                 <set field="featureNum" from-field="parameters.featureNum" type="Integer"/>
                 <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
                 <set field="tabButtonItem" value="FeatureCategory"/>
-                <script location="component://product/groovyScripts/catalog/feature/QuickAddProductFeatures.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/feature/QuickAddProductFeatures.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">

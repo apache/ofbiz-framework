@@ -26,17 +26,17 @@ under the License.
 
     <!-- Permission Services -->
     <service name="facilityGenericPermission" engine="groovy"
-        location="component://product/groovyScripts/product/inventory/InventoryServicesScript.groovy" invoke="facilityGenericPermission">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryServicesScript.groovy" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="checkProductFacilityRelatedPermission" engine="groovy"
-            location="component://product/groovyScripts/product/inventory/InventoryServicesScript.groovy" invoke="checkProductFacilityRelatedPermission">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryServicesScript.groovy" invoke="checkProductFacilityRelatedPermission">
         <description>ProductFacility Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
     <!-- Product Inventory Services -->
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="groovy"
-                location="component://product/groovyScripts/product/inventory/InventoryServicesScript.groovy" invoke="createInventoryItem" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryServicesScript.groovy" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -806,7 +806,7 @@ under the License.
     </service>
 
     <service name="issueImmediatelyFulfilledOrder" engine="groovy"
-                location="component://product/groovyScripts/product/inventory/InventoryIssueServices.groovy" invoke="issueImmediatelyFulfilledOrder" auth="false">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryIssueServices.groovy" invoke="issueImmediatelyFulfilledOrder" auth="false">
         <description>
             Issues the Inventory for an Order that was Immediately Fulfilled.
             Note that this skips the normal inventory reservation process, and the shipment process (no shipment is created).
@@ -818,7 +818,7 @@ under the License.
         </attribute>
     </service>
     <service name="issueImmediatelyFulfilledOrderItem" engine="groovy"
-                location="component://product/groovyScripts/product/inventory/InventoryIssueServices.groovy" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/inventory/InventoryIssueServices.groovy" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
         <description>
             Issues the Inventory for an Order Item that was Immediately Fulfilled for more info see the issueImmediatelyFulfilledOrder service.
         </description>
@@ -912,7 +912,7 @@ under the License.
     </service>
 
     <service name="createFacilityLocation" default-entity-name="FacilityLocation" engine="groovy" invoke="createFacilityLocation"
-             location="component://product/groovyScripts/facility/storage/StorageServices.groovy" auth="true">
+             location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/storage/StorageServices.groovy" auth="true">
         <description>Create a Facility Location</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1330,7 +1330,7 @@ under the License.
         <attribute name="inventoryItemId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="createUpdateFacilityGeoPoint" engine="groovy" default-entity-name="GeoPoint"
-                location="component://product/groovyScripts/facility/facility/FacilityGeoServices.groovy" invoke="createUpdateFacilityGeoPoint">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/FacilityGeoServices.groovy" invoke="createUpdateFacilityGeoPoint">
         <description>Create or update GeoPoint assigned to facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="facilityId" mode="IN" type="String"/>

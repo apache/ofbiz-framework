@@ -618,7 +618,7 @@ under the License.
                 <set field="tabButtonItem" value="FixedAssetGeoLocation"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
-                <script location="component://accounting/groovyScripts/fixedasset/FixedAssetGeoLocation.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">

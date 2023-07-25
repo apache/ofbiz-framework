@@ -28,7 +28,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsArtifactInfo"/>
                 <set field="tabButtonItem" value="artifactInfo"/>
-                <script location="component://webtools/groovyScripts/artifactinfo/ArtifactInfo.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/artifactinfo/ArtifactInfo.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
@@ -50,7 +50,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
                 <set field="tabButtonItem" value="viewents"/>
-                <script location="component://webtools/groovyScripts/artifactinfo/ComponentList.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/artifactinfo/ComponentList.groovy"/>
                 <set field="viewSize" value="30"/>
             </actions>
             <widgets>
@@ -70,8 +70,8 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
                 <set field="tabButtonItem" value="viewents"/>
-                <script location="component://webtools/groovyScripts/artifactinfo/TestSuiteInfo.groovy"/>
-                <script location="component://webtools/groovyScripts/artifactinfo/TestSuiteResults.groovy"/>
+                <script location="component://webtools/src/test/groovy/org/apache/ofbizwebtools/artifactinfo/TestSuiteInfo.groovy"/>
+                <script location="component://webtools/src/test/groovy/org/apache/ofbizwebtools/artifactinfo/TestSuiteResults.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">

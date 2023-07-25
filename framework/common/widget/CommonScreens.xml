@@ -45,7 +45,7 @@ under the License.
     <screen name="cctypes">
         <section>
             <actions>
-                <script location="component://common/groovyScripts/CcTypes.groovy"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/CcTypes.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="MinimalActions" />
@@ -130,7 +130,7 @@ under the License.
     <screen name="MinimalActions">
         <section>
             <actions>
-                <script location="component://common/groovyScripts/InitTheme.groovy"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/InitTheme.groovy"/>
                 <set field="commonDecoratorLocation" from-field="layoutSettings.VT_COMMON_DECO_LOC" default-value="component://common-theme/widget/CommonScreens.xml" global="true"/>
                 <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" global="true"/>
                 <!-- FIXME this is only temporary a more elaborate solution would be preferred, see OFBIZ-9241 -->

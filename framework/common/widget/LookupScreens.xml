@@ -44,7 +44,7 @@ under the License.
                 <set field="displayFields" value="[geoId, geoName, geoCode]"/>
                 
                 <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <!-- example : script location="component://party/groovyScripts/party/StatusCondition.groovy" /-->
+                <!-- example : script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy" /-->
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -81,7 +81,7 @@ under the License.
                 <set field="displayFields" value="[geoId, geoName, geoCode]"/>
 
                 <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <!-- example : script location="component://party/groovyScripts/party/StatusCondition.groovy" /-->
+                <!-- example : script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy" /-->
                 
             </actions>
             <widgets>
@@ -200,7 +200,7 @@ under the License.
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="inputFields" from-field="parameters"/>
-                <script location="component://common/groovyScripts/GetLocaleList.groovy"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetLocaleList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

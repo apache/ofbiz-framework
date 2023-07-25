@@ -93,7 +93,7 @@ under the License.
             <actions>
                 <set field="partyId" from-field="defaultOrganizationPartyId"/>
                 <set field="helpAnchor" value="_the_human_resources_main_screen"/>
-                <script location="component://humanres/groovyScripts/category/CategoryTree.groovy"></script>
+                <script location="component://humanres/src/main/groovy/org/apache/ofbiz/humanres/category/CategoryTree.groovy"></script>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.FormFieldTitle_company}">
@@ -441,7 +441,7 @@ under the License.
     <screen name="CommonMyCommunicationEventDecorator">
         <section>
             <actions>
-                <script location="component://party/groovyScripts/communication/GetMyCommunicationEventRole.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/communication/GetMyCommunicationEventRole.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

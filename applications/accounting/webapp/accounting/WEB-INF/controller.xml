@@ -187,7 +187,7 @@ under the License.
     </request-map>
     <request-map uri="createInvoiceItemPayrol">
         <security https="true" auth="true"/>
-        <event type="groovy" invoke="createInvoiceItemPayrol" path="component://accounting/groovyScripts/invoice/InvoiceEvents.groovy"/>
+        <event type="groovy" invoke="createInvoiceItemPayrol" path="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceEvents.groovy"/>
         <response name="success" type="view" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>
