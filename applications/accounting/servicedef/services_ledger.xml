@@ -194,7 +194,7 @@ under the License.
     </service>
     <!-- AcctgTrans services -->
     <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="groovy" auth="true"
-             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/GeneralLedgerServices.groovy" invoke="createAcctgTrans" >
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/GeneralLedgerServicesScript.groovy" invoke="createAcctgTrans" >
         <description>Create a AcctgTrans record with isPosted set to "N"</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTrans"/>

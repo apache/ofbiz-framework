@@ -360,7 +360,7 @@ under the License.
 
     <!-- Product content services -->
     <service name="createProductContent" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="createProductContent" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createProductContent" auth="true">
         <description>Add Content To Product</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -368,7 +368,7 @@ under the License.
         <override name="fromDate" default-value="${date:nowTimestamp()}"/>
     </service>
     <service name="updateProductContent" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="updateProductContent" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="updateProductContent" auth="true">
         <description>Update Content To Product</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -379,7 +379,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createEmailContentForProduct" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="createEmailContentForProduct" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createEmailContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
@@ -396,7 +396,7 @@ under the License.
         </group>
     </service>
     <service name="createDownloadContentForProduct" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="createDownloadContentForProduct" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createDownloadContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" entity-name="Content" optional="true"/>
@@ -414,7 +414,7 @@ under the License.
     </service>
 
     <service name="createSimpleTextContentForProduct" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="createSimpleTextContentForProduct" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createSimpleTextContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -431,7 +431,7 @@ under the License.
     </service>
 
     <service name="createSimpleTextContentForAlternateLocale" engine="groovy" 
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="createSimpleTextContentForAlternateLocale">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createSimpleTextContentForAlternateLocale">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="mainContentId" type="String" mode="IN" optional="false"/>
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
@@ -450,7 +450,7 @@ under the License.
     </service>
 
     <service name="uploadProductAdditionalViewImages" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="uploadProductAdditionalViewImages" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="uploadProductAdditionalViewImages" auth="true">
         <description>Upload Additional View Images For Product</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="productId" type="String" mode="INOUT" optional="false"/>
@@ -469,7 +469,7 @@ under the License.
     </service>
 
     <service name="updateContentSEOForProduct" engine="groovy"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServices.groovy" invoke="updateContentSEOForProduct" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="updateContentSEOForProduct" auth="true">
         <description>Update Product SEO</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
@@ -907,7 +907,7 @@ under the License.
 
     <!-- Category content services -->
     <service name="createCategoryContent" default-entity-name="ProductCategoryContent" engine="groovy"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="createCategoryContent" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createCategoryContent" auth="true">
         <description>Add Content To Category</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -916,7 +916,7 @@ under the License.
         <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateCategoryContent" default-entity-name="ProductCategoryContent" engine="groovy"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="updateCategoryContent" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateCategoryContent" auth="true">
         <description>Update Content To Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -928,7 +928,7 @@ under the License.
     </service>
 
     <service name="createSimpleTextContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="createSimpleTextContentForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createSimpleTextContentForCategory" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -945,7 +945,7 @@ under the License.
     </service>
 
     <service name="updateContentSEOForCategory" engine="groovy"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="updateContentSEOForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateContentSEOForCategory" auth="true">
         <description>Update SEO Content For Product Category</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
@@ -954,7 +954,7 @@ under the License.
     </service>
 
     <service name="createRelatedUrlContentForCategory" engine="groovy" default-entity-name="ProductCategoryContent"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="createRelatedUrlContentForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createRelatedUrlContentForCategory" auth="true">
         <description>Create Related URL Content For Product Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -966,7 +966,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateRelatedUrlContentForCategory" engine="groovy" default-entity-name="ProductCategoryContent"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="updateRelatedUrlContentForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateRelatedUrlContentForCategory" auth="true">
         <description>Update Related URL Content For Product Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -979,7 +979,7 @@ under the License.
     </service>
 
     <service name="createDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="createDownloadContentForCategory" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createDownloadContentForCategory" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -988,7 +988,7 @@ under the License.
         <override name="prodCatContentTypeId" optional="false"/>
     </service>
     <service name="updateDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
-        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServices.groovy" invoke="updateDownloadContentForCategory" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateDownloadContentForCategory" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1133,7 +1133,7 @@ under the License.
 
     <!-- Product Config Item content services -->
     <service name="createProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="groovy"
-                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServices.groovy" invoke="createProductConfigItemContent" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServicesScript.groovy" invoke="createProductConfigItemContent" auth="true">
         <description>Add Content To ProductConfigItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1142,7 +1142,7 @@ under the License.
         <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="groovy"
-                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServices.groovy" invoke="updateProductConfigItemContent" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServicesScript.groovy" invoke="updateProductConfigItemContent" auth="true">
         <description>Update Content To ProductConfigItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1154,7 +1154,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="groovy"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServices.groovy" invoke="createSimpleTextContentForProductConfigItem" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServicesScript.groovy" invoke="createSimpleTextContentForProductConfigItem" auth="true">
         <attribute name="configItemId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="contentId" type="String" mode="IN" optional="true"></attribute>
         <auto-attributes include="pk" mode="IN" optional="true"/>

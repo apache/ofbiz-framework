@@ -663,7 +663,7 @@ under the License.
     </service>
     <!-- Order View Services -->
     <service name="getOrderedSummaryInformation" engine="groovy"
-            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServices.groovy" invoke="getOrderedSummaryInformation">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServicesScript.groovy" invoke="getOrderedSummaryInformation">
         <description>Get Ordered Summary Information</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -851,7 +851,7 @@ under the License.
     </service>
 
     <service name="getNextOrderId" engine="groovy"
-        location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServices.groovy" invoke="getNextOrderId">
+        location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServicesScript.groovy" invoke="getNextOrderId">
         <description>Get the Next Order ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="storeOrder" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false">

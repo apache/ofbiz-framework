@@ -43,7 +43,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="deleteRequirementAndRelated" engine="groovy"
-            location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServices.groovy" invoke="deleteRequirementAndRelated">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServicesScript.groovy" invoke="deleteRequirementAndRelated">
         <description>Delete a requirement after deleting related entity records.</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
@@ -111,7 +111,7 @@ under the License.
         <auto-attributes entity-name="OrderRequirementCommitment" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="checkCreateOrderRequirement" engine="groovy" auth="true"
-            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderRequirementServices.groovy" invoke="checkCreateOrderRequirement">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderRequirementServicesScript.groovy" invoke="checkCreateOrderRequirement">
         <description>Create OrderRequirementCommitment and Requirement for items with automatic requirement upon ordering</description>
         <required-permissions join-type="AND">
             <check-permission permission="ORDERMGR" action="_CREATE"/>
@@ -158,13 +158,13 @@ under the License.
     </service>
 
     <service name="autoAssignRequirementToSupplier" engine="groovy" auth="true"
-             location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServices.groovy" invoke="autoAssignRequirementToSupplier">
+             location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServicesScript.groovy" invoke="autoAssignRequirementToSupplier">
         <description>If the requirement is a product requirement (purchasing) try to assign it to the primary supplier</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createTransferFromRequirement" engine="groovy" auth="true"
-             location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServices.groovy" invoke="createTransferFromRequirement">
+             location="component://order/src/main/groovy/org/apache/ofbiz/order/requirement/RequirementServicesScript.groovy" invoke="createTransferFromRequirement">
         <description>Create the inventory transfers required to fulfill the requirement.</description>
         <required-permissions join-type="AND">
             <check-permission permission="ORDERMGR" action="_CREATE"/>
