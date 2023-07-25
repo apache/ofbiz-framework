@@ -197,7 +197,7 @@ under the License.
                     <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
-                <script location="component://accounting/groovyScripts/invoice/CreateApplicationList.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/CreateApplicationList.groovy"/>
                 <set field="parameters.statusId" from-field="invoice.statusId"/>
                 <set field="invoiceAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
@@ -346,8 +346,8 @@ under the License.
                 <set field="helpAnchor" value="_help_for_edit_invoice_applications"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
-                <script location="component://accounting/groovyScripts/invoice/CreateApplicationList.groovy"/>
-                <script location="component://accounting/groovyScripts/invoice/ListNotAppliedPayments.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/CreateApplicationList.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/ListNotAppliedPayments.groovy"/>
                 <set field="invoiceAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
                 <set field="notAppliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
                 <set field="appliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
@@ -473,7 +473,7 @@ under the License.
                     <condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-condition>
-                <script location="component://accounting/groovyScripts/invoice/GetAccountOrganizationAndClass.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/GetAccountOrganizationAndClass.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -811,7 +811,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/groovyScripts/party/GetMyCompany.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetMyCompany.groovy"/>
                 <entity-condition entity-name="Invoice" list="invoices">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>

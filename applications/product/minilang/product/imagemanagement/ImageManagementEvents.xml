@@ -46,7 +46,7 @@ under the License.
         </entity-and>
         <if-not-empty field="productContentAndInfos">
             <first-from-list list="productContentAndInfos" entry="productContentAndInfo"/>
-            <script location="component://product/groovyScripts/catalog/imagemanagement/SetDefaultImage.groovy"/>
+            <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/SetDefaultImage.groovy"/>
             
             <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId" from-field="parameters.productId"/>

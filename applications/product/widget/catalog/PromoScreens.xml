@@ -295,7 +295,7 @@ under the License.
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="FindProductPromoCode"/>
                 <set field="labelTitleProperty" value="ProductPromotionCode"/>
-                <script location="component://product/groovyScripts/catalog/promo/EditProductPromoCode.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/promo/EditProductPromoCode.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">

@@ -24,7 +24,7 @@
 
     <!-- DataResource services -->
     <service name="createDataResource" default-entity-name="DataResource" engine="groovy"
-            location="component://content/groovyScripts/data/DataServices.groovy" invoke="createDataResource" auth="true">
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/data/DataServices.groovy" invoke="createDataResource" auth="true">
         <description>Create a DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -41,7 +41,7 @@
         <override name="dataResourceName" allow-html="safe"/>
     </service>
     <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="groovy"
-            location="component://content/groovyScripts/data/DataServices.groovy" invoke="createDataResourceAndAssocToContent" auth="true">
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/data/DataServices.groovy" invoke="createDataResourceAndAssocToContent" auth="true">
         <description>Create a DataResource and link this data to the content present</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource" optional="true"/>
@@ -148,7 +148,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="getElectronicText" engine="groovy"
-            location="component://content/groovyScripts/data/DataServices.groovy" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/data/DataServices.groovy" invoke="getElectronicText" default-entity-name="ElectronicText" auth="false" >
         <description>Get a ElectronicText: Can pass either content value object or contentId</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
         <attribute mode="IN" name="content" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>

@@ -185,7 +185,7 @@ under the License.
     <form name="EditInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
-            <script location="component://party/groovyScripts/communication/RecentVisitor.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/communication/RecentVisitor.groovy"/>
         </actions>
         <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
         <field name="form"><hidden/></field>
@@ -921,7 +921,7 @@ under the License.
 
     <form name="AllocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address">
         <actions>
-            <script location="component://party/groovyScripts/communication/GetPartyEmailFromCommEventInfo.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/communication/GetPartyEmailFromCommEventInfo.groovy"/>
         </actions>
         <field name="form"><hidden value="list"/></field>
         <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
@@ -1141,7 +1141,7 @@ under the License.
     </form>
     <form name="DisplayConversationMessage" type="single" default-map-name="childCommEvent" default-widget-style="">
         <actions>
-            <script location="component://party/groovyScripts/communication/GetPartyEmailAttachment.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/communication/GetPartyEmailAttachment.groovy"/>
             <set field="hasAttachedContent" value="${groovy: context.attachedContentName != null}" default-value="false" type="Boolean"/>
         </actions>
         <field name="entryDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>

@@ -88,8 +88,8 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ViewProductionRun.groovy"/>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ViewProductionRun.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
@@ -168,8 +168,8 @@ under the License.
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunDeclaration.groovy"/>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunDeclaration.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunAllFixedAssets.groovy"/>
 
                 <set field="productionRunId" from-field="parameters.productionRunId" default-value="${parameters.workEffortId}"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
@@ -301,7 +301,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ManufacturingProductionRun"/>
                 <set field="bodyFontSize" value="10pt"/>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunDeclaration.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunDeclaration.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -434,7 +434,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunTaskParties.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunTaskParties.groovy"/>
             </actions>
             <widgets>
                 <screenlet>
@@ -462,7 +462,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRunTask">
                     <field-map field-name="workEffortId" from-field="routingTaskId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunTasks.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunTasks.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -492,7 +492,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunComponents.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunComponents.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -527,7 +527,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunActualComponents.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunActualComponents.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -559,7 +559,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunFixedAssets.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunFixedAssets.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -601,7 +601,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunCosts.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunCosts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -640,7 +640,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunContent.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -740,7 +740,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="${sortField}"/>
                 </entity-condition>
-                <script location="component://manufacturing/groovyScripts/jobshopmgt/WorkWithShipmentPlans.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/WorkWithShipmentPlans.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">

@@ -1129,7 +1129,7 @@ under the License.
        >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
-            <script location="component://party/groovyScripts/party/UnAppliedInvoicesForParty.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/UnAppliedInvoicesForParty.groovy"/>
         </actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice">
@@ -1151,7 +1151,7 @@ under the License.
        >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
-            <script location="component://party/groovyScripts/party/UnAppliedPaymentsForParty.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/UnAppliedPaymentsForParty.groovy"/>
         </actions>
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
@@ -1177,7 +1177,7 @@ under the License.
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true"/>
             <set field="actualCurrencyUomId" from-field="actualCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
-            <script location="component://party/groovyScripts/party/PartyFinancialHistory.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyFinancialHistory.groovy"/>
         </actions>
         <field position="1" name="totalSalesInvoice"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field position="2" name="totalPurchaseInvoice"><display type="currency" currency="${actualCurrencyUomId}"/></field>
