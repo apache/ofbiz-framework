@@ -139,7 +139,9 @@ Map createInventoryItem() {
         Map partyAccountingPreferencesCallMap = [organizationPartyId: inventoryItem.ownerPartyId]
         Map serviceResult = run service: 'getPartyAccountingPreferences', with: partyAccountingPreferencesCallMap
         Map accPref = serviceResult.partyAccountingPreference
-        inventoryItem.currencyUomId = accPref.baseCurrencyUomId
+        if (accPref) {
+            inventoryItem.currencyUomId = accPref.baseCurrencyUomId
+        }
         inventoryItem.currencyUomId = inventoryItem.currencyUomId ?: UtilProperties.getPropertyValue('general.properties', 'currency.uom.id.default')
 
         // if inventoryItem's currencyUomId is still empty, return an error message
