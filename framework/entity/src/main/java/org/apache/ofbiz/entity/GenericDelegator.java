@@ -1634,7 +1634,7 @@ public class GenericDelegator implements Delegator {
 
             List<GenericValue> cacheList = this.cache.get(entityName, entityCondition, orderBy);
             if (cacheList != null) {
-                return cacheList;
+                return Collections.unmodifiableList(cacheList);
             }
         }
 
