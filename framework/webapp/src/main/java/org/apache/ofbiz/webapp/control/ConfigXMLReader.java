@@ -462,6 +462,14 @@ public final class ConfigXMLReader {
         }
 
         /**
+         * Gets the url.
+         * @return the url
+         */
+        public URL getUrl() {
+            return url;
+        }
+
+        /**
          * Computes the name of an XML element.
          * @param el
          *            the element containing "type" and/or "name" attributes
@@ -737,11 +745,27 @@ public final class ConfigXMLReader {
         }
 
         /**
+         * Is edit boolean.
+         * @return the boolean
+         */
+        public boolean isEdit() {
+            return edit;
+        }
+
+        /**
          * Gets event.
          * @return the event
          */
         public Event getEvent() {
             return event;
+        }
+
+        /**
+         * Gets description.
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
         }
 
         /**
@@ -977,6 +1001,14 @@ public final class ConfigXMLReader {
         }
 
         /**
+         * Gets requestResponse.
+         * @return the requestResponse
+         */
+        public RequestResponse getRequestResponse() {
+            return requestResponse;
+        }
+
+        /**
          * Return the ressource to use
          * @return
          */
@@ -1095,6 +1127,14 @@ public final class ConfigXMLReader {
          */
         public String getEncoding() {
             return encoding;
+        }
+
+        /**
+         * Gets viewMap.
+         * @return the viewMap
+         */
+        public String getViewMap() {
+            return viewMap;
         }
 
         public ViewMap(Element viewMapElement) {
