@@ -380,7 +380,7 @@ public final class UtilHttp {
      * @param pred the predicate filtering parameter names
      * @return a canonicalized parameter map.
      */
-    static Map<String, Object> getPathInfoOnlyParameterMap(String path, Predicate<String> pred) {
+    public static Map<String, Object> getPathInfoOnlyParameterMap(String path, Predicate<String> pred) {
         String path1 = Optional.ofNullable(path).orElse("");
         Map<String, List<String>> allParams = Arrays.stream(path1.split("/"))
                 .filter(segment -> segment.startsWith("~") && segment.contains("="))
