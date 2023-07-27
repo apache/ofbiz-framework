@@ -2951,6 +2951,21 @@ under the License.
         <key-map field-name="productId"/>
       </relation>
     </entity>
+    <entity entity-name="ShoppingListItemAttribute"
+            package-name="org.ofbiz.order.shoppinglist"
+            title="Shopping List Item Attribute Entity">
+      <field name="shoppingListId" type="id"></field>
+      <field name="shoppingListItemSeqId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="shoppingListId"/>
+      <prim-key field="shoppingListItemSeqId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="SHLIST_ITEM_ATTR" rel-entity-name="ShoppingListItem">
+        <key-map field-name="shoppingListId"/>
+        <key-map field-name="shoppingListItemSeqId"/>
+      </relation>
+    </entity>
     <entity entity-name="ShoppingListItemSurvey"
             package-name="org.apache.ofbiz.order.shoppinglist"
             title="Shopping List Item">

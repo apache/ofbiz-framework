@@ -73,41 +73,50 @@ Map updateShoppingList() {
 
 /**
  * Create a ShoppingList Item
+ * @return
  */
 Map createShoppingListItem() {
     Map result = success()
     List shoppingListItems = from('ShoppingListItem')
             .where(productId: parameters.productId,
-                    shoppingListId: parameters.shoppingListId)
+            shoppingListId: parameters.shoppingListId)
             .queryList()
+    // Check if we have a matching ShoppingListItem (with equal ShoppingListItemAttributes!) and update its quantity
     if (shoppingListItems) {
-        GenericValue shoppingListItem = shoppingListItems[0]
-
-        shoppingListItem.quantity = shoppingListItem.quantity ?: 0.0
-        parameters.quantity = parameters.quantity ?: 0.0
-
-        BigDecimal totalQty = shoppingListItem.quantity + parameters.quantity
-        Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem,
-                                                                          quantity: totalQty]
-        if (!ServiceUtil.isSuccess(serviceResult)) {
-            return error(serviceResult.errorMessage)
+        for (GenericValue shoppingListItem : shoppingListItems) {
+            List slItemAttributes = select('attrName', 'attrValue')
+                    .from('ShoppingListItemAttribute')
+                    .where('shoppingListId', parameters.shoppingListId, 'shoppingListItemSeqId', shoppingListItem.shoppingListItemSeqId)
+                    .queryList()
+            if ((!slItemAttributes && !parameters.shoppingListItemAttributes) ||
+                UtilValidate.areEqual(slItemAttributes, parameters.shoppingListItemAttributes)) {
+                    BigDecimal totalquantity = shoppingListItem.quantity + parameters.quantity
+                    result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
+                    Map serviceResult = run service: 'updateShoppingListItem', with: [*       : shoppingListItem,
+                        quantity: totalquantity]
+                    if (!ServiceUtil.isSuccess(serviceResult)) {
+                        return error(serviceResult.errorMessage)
+                    }
+                    // Exit here, because we found an existing item update, otherwise we have to create a new one below
+                    return result
+            }
         }
-        result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
-    } else {
-        GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
-        GenericValue product = from('Product').where(parameters).queryOne()
-        if (!product) {
-            return error(UtilProperties.getMessage('ProductUiLabels', 'ProductErrorProductNotFound', parameters.locale))
-        }
-        GenericValue newEntity = makeValue('ShoppingListItem')
-        newEntity.setNonPKFields(parameters)
-        newEntity.shoppingListId = parameters.shoppingListId
-        delegator.setNextSubSeqId(newEntity, 'shoppingListItemSeqId', 5, 1)
-        newEntity.create()
-
-        result.shoppingListItemSeqId = newEntity.shoppingListItemSeqId
-        updateLastAdminModified(shoppingList, userLogin)
     }
+    // Create new ShoppingListItem
+    GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
+    GenericValue product = from('Product').where(parameters).queryOne()
+    if (!product) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductErrorProductNotFound', parameters.locale))
+    }
+    GenericValue newEntity = makeValue('ShoppingListItem')
+    newEntity.setNonPKFields(parameters)
+    newEntity.shoppingListId = parameters.shoppingListId
+    delegator.setNextSubSeqId(newEntity, 'shoppingListItemSeqId', 5, 1)
+    newEntity.create()
+
+    result.shoppingListItemSeqId = newEntity.shoppingListItemSeqId
+    updateLastAdminModified(shoppingList, userLogin)
+
     return result
 }
 

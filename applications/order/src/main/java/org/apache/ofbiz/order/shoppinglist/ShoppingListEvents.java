@@ -152,10 +152,13 @@ public class ShoppingListEvents {
                     Debug.logInfo("Adding cart item to shopping list [" + shoppingListId + "], allowPromo=" + allowPromo + ", item.getIsPromo()="
                             + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()=" + item.getQuantity(),
                             MODULE);
+                    Map<String, String> itemAttributes = item.getOrderItemAttributes();
                     Map<String, Object> serviceResult = null;
                     try {
-                        Map<String, Object> ctx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "shoppingListId", shoppingListId,
+                        Map<String, Object> ctx = UtilMisc.<String, Object>toMap("userLogin", userLogin,
+                                "shoppingListId", shoppingListId,
                                 "productId", item.getProductId(), "quantity", item.getQuantity());
+                        ctx.put("shoppingListItemAttributes", itemAttributes);
                         ctx.put("reservStart", item.getReservStart());
                         ctx.put("reservLength", item.getReservLength());
                         ctx.put("reservPersons", item.getReservPersons());
@@ -172,6 +175,24 @@ public class ShoppingListEvents {
                         Debug.logError(e, "Problems creating ShoppingList item entity", MODULE);
                         errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.error_adding_item_to_shopping_list", cart.getLocale());
                         throw new IllegalArgumentException(errMsg);
+                    }
+
+                    // store all currenlty existing OrderItemAttributes as ShoppingListItemAttributes
+                    if (UtilValidate.isNotEmpty(itemAttributes)) {
+                        for (Map.Entry<String, String> itemAttrib : itemAttributes.entrySet()) {
+                            try {
+                                GenericValue sliAttrib = delegator.makeValue("ShoppingListItemAttribute", UtilMisc
+                                        .toMap("shoppingListId", shoppingListId,
+                                                "shoppingListItemSeqId", serviceResult.get("shoppingListItemSeqId"),
+                                                "attrName", itemAttrib.getKey(), "attrValue", itemAttrib.getValue()));
+                                delegator.createOrStore(sliAttrib);
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, "Problems creating ShoppingListItemAttribute entity", MODULE);
+                                errMsg = UtilProperties.getMessage(RES_ERROR,
+                                        "shoppinglistevents.error_adding_item_to_shopping_list", cart.getLocale());
+                                throw new IllegalArgumentException(errMsg);
+                            }
+                        }
                     }
                 }
             }
@@ -258,6 +279,9 @@ public class ShoppingListEvents {
         // get the survey info for all the items
         Map<String, List<String>> shoppingListSurveyInfo = getItemSurveyInfos(shoppingListItems);
 
+        // get the itemAttributeInfos for all the items
+        Map<String, Map<String, String>> itemAttributeInfos = getItemAttributeInfos(shoppingListItems);
+
         // add the items
         StringBuilder eventMessage = new StringBuilder();
         for (GenericValue shoppingListItem : shoppingListItems) {
@@ -292,15 +316,13 @@ public class ShoppingListEvents {
                 }
                 // TODO: add code to check for survey response requirement
 
-                // i cannot get the addOrDecrease function to accept a null reservStart field: i get a null pointer exception a null constant works
-                // ....
-                if (reservStart == null) {
-                    cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, attributes, prodCatalogId, configWrapper,
-                            null, null, null, dispatcher);
-                } else {
-                    cart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null,
-                            attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
-                }
+                // add shoppingListItemAttributes as orderItemAttributes to cart item
+                Map<String, String> orderItemAttributes = itemAttributeInfos.get(listId + "." + itemId);
+
+                cart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null,
+                        null, null, null, attributes, orderItemAttributes, prodCatalogId, configWrapper, null, null,
+                        null, dispatcher);
+
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
@@ -554,6 +576,7 @@ public class ShoppingListEvents {
     public static int clearListInfo(Delegator delegator, String shoppingListId) throws GenericEntityException {
         // remove the survey responses first
         delegator.removeByAnd("ShoppingListItemSurvey", UtilMisc.toMap("shoppingListId", shoppingListId));
+        delegator.removeByAnd("ShoppingListItemAttribute", UtilMisc.toMap("shoppingListId", shoppingListId));
 
         // next remove the items
         return delegator.removeByAnd("ShoppingListItem", UtilMisc.toMap("shoppingListId", shoppingListId));
@@ -576,6 +599,37 @@ public class ShoppingListEvents {
             return count;
         }
         return -1;
+    }
+
+    /**
+     * Returns Map keyed on item sequence ID containing a map of item attributes
+     */
+    public static Map<String, Map<String, String>> getItemAttributeInfos(List<GenericValue> items) {
+        Map<String, Map<String, String>> attributeInfos = new HashMap<>();
+        if (UtilValidate.isNotEmpty(items)) {
+            for (GenericValue item : items) {
+                String listId = item.getString("shoppingListId");
+                String itemId = item.getString("shoppingListItemSeqId");
+                String itemKey = listId + "." + itemId;
+
+                try {
+                    List<GenericValue> itemAttributes = item.getRelated("ShoppingListItemAttribute", null, null, true);
+                    for (GenericValue attribute : itemAttributes) {
+                        Map<String, String> attribMap = attributeInfos.get(itemKey);
+                        if (attribMap == null) {
+                            attribMap = new HashMap<>();
+                            attributeInfos.put(itemKey, attribMap);
+                        }
+                        attribMap.put(attribute.getString("attrName"), attribute.getString("attrValue"));
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, "Error loading related ShoppingListItemAttributes for shoppingListItem "
+                            + item);
+                }
+            }
+        }
+
+        return attributeInfos;
     }
 
     /**
