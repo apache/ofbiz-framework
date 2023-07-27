@@ -5367,9 +5367,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         private String productStoreShipMethId = null;
         private Map<String, Object> attributes = new HashMap<>();
 
+        /** get ship before date */
+        public Timestamp getShipBeforeDate() {
+            return shipBeforeDate;
+        }
         /** set ship before date */
         public void setShipBeforeDate(Timestamp shipBeforeDate) {
             this.shipBeforeDate = shipBeforeDate;
+        }
+        /** get ship after date */
+        public Timestamp getShipAfterDate() {
+            return shipAfterDate;
         }
         /** set ship after date */
         public void setShipAfterDate(Timestamp shipAfterDate) {
@@ -5383,9 +5391,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public void setAttribute(String name, Object value) {
             this.attributes.put(name, value);
         }
+        /** get gift message */
+        public String getGiftMessage() {
+            return giftMessage;
+        }
         /** set gift message */
         public void setGiftMessage(String giftMessage) {
             this.giftMessage = giftMessage;
+        }
+        /** get shippingInstructions */
+        public String getShippingInstructions() {
+            return shippingInstructions;
         }
         /** set shipping instructions */
         public void setShippingInstructions(String shippingInstructions) {
@@ -5404,6 +5420,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public String getOrderTypeId() {
             return orderTypeId;
         }
+        /** set order type id */
+        public void setOrderTypeId(String orderTypeId) {
+            this.orderTypeId = orderTypeId;
+        }
         /** get contact mech id */
         public String getContactMechId() {
             return internalContactMechId;
@@ -5419,6 +5439,23 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         /** set carrier party id */
         public void setCarrierPartyId(String carrierPartyId) {
             this.carrierPartyId = carrierPartyId;
+        }
+        /** get carrier roleType id */
+        public String getCarrierRoleTypeId() {
+            return carrierRoleTypeId;
+        }
+        /** set carrier roleType id */
+        public void setCarrierRoleTypeId(String carrierRoleTypeId) {
+            this.carrierRoleTypeId = carrierRoleTypeId;
+        }
+        /** get productStoreShipMeth id */
+        public String getProductStoreShipMethId() {
+            return productStoreShipMethId;
+        }
+
+        /** set productStoreShipMeth id */
+        public void setProductStoreShipMethId(String productStoreShipMethId) {
+            this.productStoreShipMethId = productStoreShipMethId;
         }
         /** get supplier party id */
         public String getSupplierPartyId() {
@@ -5444,6 +5481,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public BigDecimal getShipEstimate() {
             return shipEstimate;
         }
+        /** set ship estimate */
+        public void getShipEstimate(BigDecimal shipEstimate) {
+            this.shipEstimate = shipEstimate;
+        }
         /** get ship group seq id */
         public String getShipGroupSeqId() {
             return shipGroupSeqId;
@@ -5451,6 +5492,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         /** set ship group seq id */
         public void setShipGroupSeqId(String shipGroupSeqId) {
             this.shipGroupSeqId = shipGroupSeqId;
+        }
+        /** get telecom contact mech id */
+        public String getTelecomContactMechId() {
+            return telecomContactMechId;
+        }
+        /** set telecom contact mech id */
+        public void setTelecomContactMechId(String telecomContactMechId) {
+            this.telecomContactMechId = telecomContactMechId;
         }
         /** get associated ship groups eq id */
         public String getAssociatedShipGroupSeqId() {
@@ -5476,11 +5525,23 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public void setVendorPartyId(String vendorPartyId) {
             this.vendorPartyId = vendorPartyId;
         }
+        /** get may split */
+        public String getMaySplit() {
+            return maySplit;
+        }
         /** set may split */
         public void setMaySplit(Boolean maySplit) {
             if (UtilValidate.isNotEmpty(maySplit)) {
                 this.maySplit = maySplit ? "Y" : "N";
             }
+        }
+        /** get isGift */
+        public String getIsGift() {
+            return isGift;
+        }
+        /** set isGift */
+        public void setIsGift(String isGift) {
+            this.isGift = isGift;
         }
         /** get origin address */
         public GenericValue getOriginAddress(ShoppingCart cart) {
@@ -5847,6 +5908,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         private boolean isPresent = false;
         private boolean isSwiped = false;
         private boolean overflow = false;
+        /** get postal code */
+        public String getPostalCode() {
+            return postalCode;
+        }
         /** set postal code */
         public void setPostalCode(String postalCode) {
             this.postalCode = postalCode;
@@ -5862,6 +5927,26 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         /** get payment method type id */
         public String getPaymentMethodTypeId() {
             return this.paymentMethodTypeId;
+        }
+        /** set payment method type id */
+        public void setPaymentMethodTypeId(String paymentMethodTypeId) {
+            this.paymentMethodTypeId = paymentMethodTypeId;
+        }
+        /** get singleUse boolean */
+        public boolean isSingleUse() {
+            return singleUse;
+        }
+        /** set singleUse boolean */
+        public void setSingleUse(boolean singleUse) {
+            this.singleUse = singleUse;
+        }
+        /** get isPresent boolean */
+        public boolean getIsPresent() {
+            return isPresent;
+        }
+        /** set isPresent boolean */
+        public void setIsPresent(boolean isPresent) {
+            this.isPresent = isPresent;
         }
         /** set overflow */
         public void setOverflow(boolean overflow) {
