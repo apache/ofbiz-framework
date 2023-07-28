@@ -37,18 +37,6 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductCategorySummary}">
                             <include-form name="SalesInvoiceByProductCategorySummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductGlAccountSummary}">
-                            <include-form name="SalesInvoiceByProductGlAccountSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitlePaymentByMethodSummary}">
-                            <include-form name="PaymentByMethodSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleInventoryIssueSummary}">
-                            <include-form name="InventoryIssueSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleFinancialAccountSummary}">
-                            <include-form name="FinancialAccountSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -97,107 +85,6 @@ under the License.
                                 <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductCategorySummary}">
                                     <platform-specific>
                                         <html><html-template location="component://accounting/template/reports/SalesInvoiceByProductCategorySummary.ftl"/></html>
-                                    </platform-specific>
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="SalesInvoiceByProductGlAccountSummary">
-        <section>
-            <widgets>
-                <include-screen name="FinancialSummaryDataPrep" share-scope="true"/>
-                <section>
-                    <actions>
-                        <set field="titleProperty" value="PageTitleSalesInvoiceByProductGlAccountSummary"/>
-
-                        <script location="component://accounting/groovyScripts/reports/SalesInvoiceByProductGlAccountSummary.bsh"/>
-                    </actions>
-                    <widgets>
-                        <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet title="${uiLabelMap.PageTitleSalesInvoiceByProductGlAccountSummary}">
-                                    <platform-specific>
-                                        <html><html-template location="component://accounting/template/reports/SalesInvoiceByProductGlAccountSummary.ftl"/></html>
-                                    </platform-specific>
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="PaymentByMethodSummary">
-        <section>
-            <widgets>
-                <include-screen name="FinancialSummaryDataPrep" share-scope="true"/>
-                <section>
-                    <actions>
-                        <set field="titleProperty" value="PageTitlePaymentByMethodSummary"/>
-
-                        <script location="component://accounting/groovyScripts/reports/PaymentByMethodSummary.bsh"/>
-                    </actions>
-                    <widgets>
-                        <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet title="${uiLabelMap.PageTitlePaymentByMethodSummary}">
-                                    <platform-specific>
-                                        <html><html-template location="component://accounting/template/reports/PaymentByMethodSummary.ftl"/></html>
-                                    </platform-specific>
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="InventoryIssueSummary">
-        <section>
-            <widgets>
-                <include-screen name="FinancialSummaryDataPrep" share-scope="true"/>
-                <section>
-                    <actions>
-                        <set field="titleProperty" value="PageTitleInventoryIssueSummary"/>
-
-                        <script location="component://accounting/groovyScripts/reports/InventoryIssueSummary.bsh"/>
-                    </actions>
-                    <widgets>
-                        <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet title="${uiLabelMap.PageTitleInventoryIssueSummary}">
-                                    <platform-specific>
-                                        <html><html-template location="component://accounting/template/reports/InventoryIssueSummary.ftl"/></html>
-                                    </platform-specific>
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="FinancialAccountSummary">
-        <section>
-            <widgets>
-                <include-screen name="FinancialSummaryDataPrep" share-scope="true"/>
-                <section>
-                    <actions>
-                        <set field="titleProperty" value="PageTitleFinancialAccountSummary"/>
-
-                        <script location="component://accounting/groovyScripts/reports/FinancialAccountSummary.bsh"/>
-                    </actions>
-                    <widgets>
-                        <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet title="${uiLabelMap.PageTitleFinancialAccountSummary}">
-                                    <platform-specific>
-                                        <html><html-template location="component://accounting/template/reports/FinancialAccountSummary.ftl"/></html>
                                     </platform-specific>
                                 </screenlet>
                             </decorator-section>
