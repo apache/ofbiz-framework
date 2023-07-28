@@ -78,13 +78,14 @@ component-name-here/
 ├── config/              - Properties and translation labels (i18n)
 ├── data/                - XML data to load into the database
 ├── entitydef/           - Defined database entities
-├── groovyScripts/       - A collection of scripts written in Groovy
 ├── minilang/            - A collection of scripts written in minilang (deprecated)
 ├── ofbiz-component.xml  - The OFBiz main component configuration file
 ├── servicedef           - Defined services.
 ├── src/
     ├── docs/            - component documentation source
+    └── main/groovy/     - A collection of scripts written in Groovy
     └── main/java/       - java source code
+    └── test/groovy/     - A collection of scripts written in Groovy
     └── test/java/       - java unit-tests
 ├── testdef              - Defined integration-tests
 ├── webapp               - One or more Java webapps including the control servlet

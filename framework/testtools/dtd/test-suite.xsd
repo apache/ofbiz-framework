@@ -77,7 +77,7 @@ under the License.
         <xs:attribute type="xs:string" name="class-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    At minimum should extend the junit.framework.TestCase class. If you want to use a GenericDelegator or 
+                    At minimum should extend the junit.framework.TestCase class. If you want to use a GenericDelegator or
                     LocalDispatcher you should extend the OFBizTestCase class and use the ones provided by it.
                 </xs:documentation>
             </xs:annotation>
@@ -99,8 +99,9 @@ under the License.
         <xs:attribute type="xs:string" name="location" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Give the location where is groovy file that contaions the test suite.
-                    You can use a flexible url location like component://mycomponent/groovyScripts/test/MySuiteTest.groovy
+                    Give the location where is groovy file that contains the test suite.
+                    You can use a flexible url location like
+                    component://service/src/test/groovy/org/apache/ofbizservice/test/TestServices.groovy
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
