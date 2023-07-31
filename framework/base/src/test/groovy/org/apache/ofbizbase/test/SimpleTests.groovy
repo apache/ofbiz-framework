@@ -22,7 +22,7 @@ package org.apache.ofbizbase.test
 import org.apache.ofbiz.testtools.GroovyScriptTestCase
 
 /**
- * Class validating groovyScripts test engine.
+ * Class validating groovy scripts test engine.
  */
 class SimpleTests extends GroovyScriptTestCase {
 
