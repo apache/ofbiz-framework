@@ -357,7 +357,7 @@ sourceSets {
 
     groovyScripts {
         groovy {
-            srcDirs += getDirectoryInActiveComponentsIfExists('groovyScripts')
+            srcDirs += getDirectoryInActiveComponentsIfExists('src/main/groovy')
             compileClasspath += sourceSets.main.compileClasspath
             compileClasspath += sourceSets.main.output
         }
@@ -809,7 +809,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def pluginDir = "${pluginsDir}/${pluginId}"
 
         ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
-                'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+                'patches/production', 'src/main/groovy', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
             mkdir pluginDir + '/' + it
         }
