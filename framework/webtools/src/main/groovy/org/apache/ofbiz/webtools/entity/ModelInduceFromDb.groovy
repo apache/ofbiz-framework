@@ -16,8 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.webtools.entity
-
 
 context.inducedText = request.getAttribute('inducedText')

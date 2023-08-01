@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.lookup
-
 
 productId = request.getParameter('productId')
 productVariantId = productId + '_'

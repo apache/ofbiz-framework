@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.party
-
 
 /*
  * lookupParty is deprecated, and only present for backward compatibility during the deprecation time

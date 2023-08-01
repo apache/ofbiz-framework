@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.common
-
 
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.widget.model.ModelTheme

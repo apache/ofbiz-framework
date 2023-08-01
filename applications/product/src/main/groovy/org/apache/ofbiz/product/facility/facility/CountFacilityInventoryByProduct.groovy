@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.facility.facility
-
 
 // This script can be used for testing right now but it should not be used for production because
 // it does not work for marketing packages and more importantly, if there is a new product without any

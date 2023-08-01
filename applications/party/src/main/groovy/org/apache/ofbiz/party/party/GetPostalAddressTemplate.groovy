@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.party
-
 
 postalAddressForTemplate = context.postalAddress
 postalAddressTemplateSuffix = context.postalAddressTemplateSuffix ?: '.ftl'

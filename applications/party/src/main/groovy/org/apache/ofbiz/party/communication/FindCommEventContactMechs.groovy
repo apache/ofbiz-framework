@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.communication
-
 
 /**
  * This script finds and places in the context of the form current (un-expired) contact mechs for the logged in user and the

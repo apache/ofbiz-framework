@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.product.imagemanagement
-
 
 import java.sql.Timestamp
 

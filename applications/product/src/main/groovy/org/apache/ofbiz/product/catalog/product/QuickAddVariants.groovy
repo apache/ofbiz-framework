@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.product
-
 
 result = runService('getProductFeaturesByType', [productId: productId, productFeatureApplTypeId: 'SELECTABLE_FEATURE'])
 context.featureTypes = result.productFeatureTypes

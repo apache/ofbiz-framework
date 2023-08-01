@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.workeffort.workeffort.request
-
 
 Map requests = runService('getCustRequestsByRole', ['userLogin': userLogin])
 

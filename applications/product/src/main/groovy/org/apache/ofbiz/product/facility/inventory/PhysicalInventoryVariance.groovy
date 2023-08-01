@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.facility.inventory
 
 // get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM

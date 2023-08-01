@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.category
-
 
 import org.apache.ofbiz.product.feature.ParametricSearch
 import org.apache.ofbiz.product.product.ProductSearch

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.requirement
-
 
 // Gets an entity list iterator of product requirements by vendor.
 // This report requires a two-level query:  one subquery to merge the

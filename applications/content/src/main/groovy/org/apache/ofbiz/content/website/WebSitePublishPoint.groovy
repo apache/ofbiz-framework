@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.content.website
-
 
 webSiteContent = from('WebSiteContent')
         .where('webSiteId', webSiteId, 'webSiteContentTypeId', 'PUBLISH_POINT').orderBy('-fromDate').cache().filterByDate().queryFirst()

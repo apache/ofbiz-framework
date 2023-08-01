@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.promo
-
 
 productPromoCodeId = request.getParameter('productPromoCodeId') ?: request.getAttribute('productPromoCodeId')
 productPromoCode = from('ProductPromoCode').where('productPromoCodeId', productPromoCodeId).queryOne()

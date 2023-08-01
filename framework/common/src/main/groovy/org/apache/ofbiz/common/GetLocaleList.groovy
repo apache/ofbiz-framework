@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.common
-
 
 import static java.util.stream.Collectors.toList
 import static org.apache.ofbiz.base.util.UtilMisc.availableLocales

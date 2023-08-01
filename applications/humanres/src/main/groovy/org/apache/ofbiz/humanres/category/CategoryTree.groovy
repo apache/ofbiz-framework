@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.humanres.category
-
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.party.party.PartyHelper

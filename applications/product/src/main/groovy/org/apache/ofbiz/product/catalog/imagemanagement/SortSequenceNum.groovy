@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.imagemanagement
-
 
 allSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE').queryList()
 nullSequenceNums = from('ProductContent').where('productId', parameters.productId, 'productContentTypeId', 'IMAGE', 'sequenceNum', null).queryList()

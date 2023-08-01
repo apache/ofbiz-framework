@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.request
-
 
 import org.apache.ofbiz.entity.util.EntityUtil
 

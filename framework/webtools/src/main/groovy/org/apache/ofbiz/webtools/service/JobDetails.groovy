@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.webtools.service
-
 
 import org.apache.ofbiz.entity.Delegator
 import org.apache.ofbiz.entity.GenericValue

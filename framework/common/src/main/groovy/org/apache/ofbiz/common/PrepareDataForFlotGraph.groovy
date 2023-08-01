@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.common
 
 chartData = context.chartData

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.party
-
 
 if (!context.extInfo || context.extInfo == 'N') {
     if (parameters.partyIdentificationTypeId || parameters.idValue) {

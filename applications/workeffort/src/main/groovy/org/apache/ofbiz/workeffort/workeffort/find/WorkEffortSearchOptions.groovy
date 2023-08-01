@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.workeffort.workeffort.find
-
 
 import java.sql.Timestamp
 import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession

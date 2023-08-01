@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.price
-
 
 context.inputParamEnums = from('Enumeration').where('enumTypeId', 'PROD_PRICE_IN_PARAM').orderBy('sequenceId').cache(true).queryList()
 context.condOperEnums = from('Enumeration').where('enumTypeId', 'PROD_PRICE_COND').orderBy('sequenceId').cache(true).queryList()

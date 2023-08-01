@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.webtools.labelmanager
-
 
 import org.apache.ofbiz.webtools.labelmanager.LabelManagerFactory
 import org.apache.ofbiz.webtools.labelmanager.LabelReferences

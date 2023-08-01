@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.accounting.payment
-
 
 // stores
 productStores = from('ProductStore').orderBy('storeName').cache(true).queryList()

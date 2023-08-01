@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.accounting.transaction
 
 import org.apache.ofbiz.order.order.OrderReadHelper

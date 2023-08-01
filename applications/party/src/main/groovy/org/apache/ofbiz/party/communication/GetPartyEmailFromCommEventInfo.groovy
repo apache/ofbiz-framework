@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.communication
-
 
 communicationEvent = from('CommunicationEvent').where('communicationEventId', parameters.communicationEventId).cache(true).queryOne()
 

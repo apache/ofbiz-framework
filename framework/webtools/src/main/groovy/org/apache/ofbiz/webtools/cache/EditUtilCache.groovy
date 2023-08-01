@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.webtools.cache
-
 
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.cache.UtilCache

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.common
-
 
 import java.math.RoundingMode
 import java.sql.Timestamp

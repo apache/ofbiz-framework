@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.thesaurus
-
 
 relationshipEnums = from('Enumeration').where('enumTypeId', 'KW_THES_REL').orderBy('sequenceId').cache(true).queryList()
 

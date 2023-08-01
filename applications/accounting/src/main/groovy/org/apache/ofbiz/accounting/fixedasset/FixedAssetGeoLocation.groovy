@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.accounting.fixedasset
-
 
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.common.geo.GeoWorker

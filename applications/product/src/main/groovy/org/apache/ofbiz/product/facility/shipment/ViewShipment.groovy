@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.facility.shipment
-
 
 shipmentId = parameters.shipmentId ?: request.getAttribute('shipmentId')
 shipment = from('Shipment').where('shipmentId', shipmentId).queryOne()

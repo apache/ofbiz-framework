@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.quote
-
 
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.base.util.UtilProperties

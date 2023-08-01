@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.webtools.geo
-
 
 context.geoPointId = geoPoint.geoPointId
 context.latitude = geoPoint.latitude

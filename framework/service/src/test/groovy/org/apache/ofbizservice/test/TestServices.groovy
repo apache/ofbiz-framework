@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbizservice.test
-
 
 Map testPingSuccess() {
     Map returnMap = success('Service result success')

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.entry.catalog
-
 
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents

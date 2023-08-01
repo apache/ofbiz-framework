@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.facility.facility
-
 
 findResult = from('Facility').queryList()
 findResultSize = findResult.size()

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.task
-
 
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.condition.EntityCondition

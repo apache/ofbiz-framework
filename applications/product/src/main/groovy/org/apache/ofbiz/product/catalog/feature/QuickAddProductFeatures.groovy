@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.feature
-
 
 context.productFeatureTypes = from('ProductFeatureType').orderBy('description').cache(true).queryList()
 

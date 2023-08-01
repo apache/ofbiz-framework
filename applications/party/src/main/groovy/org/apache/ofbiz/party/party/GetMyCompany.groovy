@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.party
-
 
 if (userLogin) {
     companies = from('PartyRelationship').where(partyIdTo: userLogin.partyId, roleTypeIdTo: 'CONTACT', roleTypeIdFrom: 'ACCOUNT').queryList()

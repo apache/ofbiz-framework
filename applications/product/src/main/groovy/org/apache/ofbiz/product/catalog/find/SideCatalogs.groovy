@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.find
-
 
 state = request.getParameter('BrowseCatalogsState')
 isOpen = true

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.product.store
-
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.entity.condition.EntityCondition

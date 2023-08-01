@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.order
-
 
  // this script is used to get the company's logo header information for orders,
 // invoices, and returns.  It can either take order, invoice, returnHeader from

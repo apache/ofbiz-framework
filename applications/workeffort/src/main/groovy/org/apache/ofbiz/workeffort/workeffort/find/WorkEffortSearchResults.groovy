@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.workeffort.workeffort.find
-
 
 import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchEvents
 import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearchSession

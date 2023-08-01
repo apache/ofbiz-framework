@@ -16,14 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.common
-
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtil
-
 
 List customScreenTypeIds = []
 if (context.customScreenTypeId) {

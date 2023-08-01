@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.party
-
 
 roleTypeId = parameters.roleTypeId
 roleTypeAndParty = from('RoleTypeAndParty').where('partyId', parameters.partyId, 'roleTypeId', roleTypeId).queryFirst()

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.accounting.chartofaccounts
-
 
 taxAuthorities = from('TaxAuthority').orderBy('taxAuthGeoId', 'taxAuthPartyId').queryList()
 

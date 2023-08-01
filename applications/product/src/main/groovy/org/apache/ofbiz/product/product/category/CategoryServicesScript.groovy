@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.product.category
-
 
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.entity.util.EntityUtilProperties

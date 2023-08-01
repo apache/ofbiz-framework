@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.facility.shipment
-
 
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.order.order.OrderReadHelper

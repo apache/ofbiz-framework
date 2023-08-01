@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.party.visit
-
 
 partyId = parameters.partyId
 visitId = parameters.visitId

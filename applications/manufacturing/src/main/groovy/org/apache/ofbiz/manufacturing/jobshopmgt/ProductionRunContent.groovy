@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.manufacturing.jobshopmgt
-
 
 import org.apache.ofbiz.content.content.ContentWorker
 import org.apache.ofbiz.entity.GenericValue

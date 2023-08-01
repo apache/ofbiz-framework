@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.manufacturing.jobshopmgt
-
 
 // The only required parameter is "productionRunId".
 

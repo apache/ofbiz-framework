@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.quote
-
 
 costMult = 0.0
 quoteCoefficients.each { quoteCoefficient ->

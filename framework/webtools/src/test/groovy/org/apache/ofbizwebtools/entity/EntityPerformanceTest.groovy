@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbizwebtools.entity
-
 
 import java.text.DecimalFormat
 import org.apache.ofbiz.base.util.cache.UtilCache

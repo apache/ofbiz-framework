@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.entry.catalog
-
 
 product = from('Product').where('productId', parameters.productId).queryOne()
 if (product) {

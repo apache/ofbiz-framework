@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.catalog.product
-
 
 /*
  * For cases when the ApplyFeaturesFromCategory.ftl is actually supposed to get its list of ProductFeatures from a productFeatureGroupId.

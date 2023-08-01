@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.marketing.marketing.contact
-
 
 // figure out the MARKETING_EMAIL of the ContactList owner, for setting in the send email link
 if (!contactList && contactListId) {

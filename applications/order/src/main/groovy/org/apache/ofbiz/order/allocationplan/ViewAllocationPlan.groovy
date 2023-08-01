@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.order.allocationplan
-
 
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.party.PartyHelper

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.manufacturing.mrp
-
 
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.entity.condition.EntityOperator

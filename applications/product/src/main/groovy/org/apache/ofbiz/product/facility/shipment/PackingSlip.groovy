@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.facility.shipment
-
 
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 

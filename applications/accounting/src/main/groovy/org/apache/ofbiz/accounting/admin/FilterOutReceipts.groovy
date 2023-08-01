@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.accounting.admin
 
  // simple script to filter out receipts in a list of payments

@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.common
-
 
 if (geoPoint && geoPoint.elevationUomId) {
     elevationUom = from('Uom').where('uomId', geoPoint.elevationUomId).queryList()

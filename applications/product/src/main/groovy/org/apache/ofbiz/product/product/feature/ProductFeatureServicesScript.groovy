@@ -16,9 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbiz.product.product.feature
-
 
 import java.util.regex.Pattern
 import org.apache.ofbiz.base.util.UtilProperties

@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-
 package org.apache.ofbizbase.test
 
 import org.apache.ofbiz.testtools.GroovyScriptTestCase
