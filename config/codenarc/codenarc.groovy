@@ -294,7 +294,6 @@ ruleset {
     // rulesets/jdbc.xml
     DirectConnectionManagement
     JdbcConnectionReference
-    JdbcResultSetReference
     JdbcStatementReference
 
     // rulesets/junit.xml
