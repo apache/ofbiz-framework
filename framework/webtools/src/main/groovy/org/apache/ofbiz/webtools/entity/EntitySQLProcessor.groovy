@@ -42,7 +42,7 @@ if (sqlCommand && selGroup) {
                 ResultSetMetaData rsmd = rs.getMetaData()
 
                 int numberOfColumns = rsmd.getColumnCount()
-                for (i = 1; i <= numberOfColumns; i++) {
+                for (int i = 1; i <= numberOfColumns; i++) {
                     columns.add(rsmd.getColumnLabel(i))
                 }
 
@@ -54,7 +54,7 @@ if (sqlCommand && selGroup) {
                     }
 
                     List<Object> record = []
-                    for (i = 1; i <= numberOfColumns; i++) {
+                    for (int i = 1; i <= numberOfColumns; i++) {
                         record.add(rs.getObject(i))
                     }
                     records.add(record)
