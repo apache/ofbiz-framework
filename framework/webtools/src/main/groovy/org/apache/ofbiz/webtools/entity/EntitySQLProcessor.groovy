@@ -24,7 +24,7 @@ import java.sql.ResultSetMetaData
 import org.apache.ofbiz.entity.jdbc.SQLProcessor
 import org.apache.ofbiz.entity.model.ModelGroupReader
 
-String sqlCommand = context.request.getParameter('sqlCommand')
+String sqlCommand = context.request.getParameter('sqlCommand') // (see OFBIZ-6567)
 
 String resultMessage = ''
 List<String> columns = []
