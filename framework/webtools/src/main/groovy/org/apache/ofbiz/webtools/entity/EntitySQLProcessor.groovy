@@ -18,46 +18,49 @@
 */
 package org.apache.ofbiz.webtools.entity
 
+import java.sql.ResultSet
+import java.sql.ResultSetMetaData
+
 import org.apache.ofbiz.entity.jdbc.SQLProcessor
+import org.apache.ofbiz.entity.model.ModelGroupReader
 
-sqlCommand = context.request.getParameter('sqlCommand')
+String sqlCommand = context.request.getParameter('sqlCommand')
 
-resultMessage = ''
-rs = null
-columns = []
-records = []
-mgr = delegator.getModelGroupReader()
-groups = []
+String resultMessage = ''
+List<String> columns = []
+List<List<Object>> records = []
+ModelGroupReader mgr = delegator.getModelGroupReader()
+List<Map<String,String>> groups = []
 mgr.getGroupNames(delegator.getDelegatorName()).each { String group ->
     groups.add(0, ['group': group]) //use for list-option in widget drop-down
 }
 
 if (sqlCommand && selGroup) {
-    du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup))
-    try {
+    try (SQLProcessor du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup))) {
         if (sqlCommand.toUpperCase().startsWith('SELECT')) {
-            rs = du.executeQuery(sqlCommand)
-            if (rs) {
-                rsmd = rs.getMetaData()
-                numberOfColumns = rsmd.getColumnCount()
+            try (ResultSet rs = du.executeQuery(sqlCommand)) {
+                ResultSetMetaData rsmd = rs.getMetaData()
+
+                int numberOfColumns = rsmd.getColumnCount()
                 for (i = 1; i <= numberOfColumns; i++) {
                     columns.add(rsmd.getColumnLabel(i))
                 }
-                rowLimitReached = false
+
+                boolean rowLimitReached = false
                 while (rs.next()) {
                     if (records.size() >= rowLimit) {
-                        resultMessage = "Returned top $rowLimit rows."
                         rowLimitReached = true
                         break
                     }
-                    record = []
+
+                    List<Object> record = []
                     for (i = 1; i <= numberOfColumns; i++) {
                         record.add(rs.getObject(i))
                     }
                     records.add(record)
                 }
-                resultMessage = 'Returned ' + (rowLimitReached ? 'top ' + rowLimit : records.size() as String) + ' rows.'
-                rs.close()
+
+                resultMessage = "Returned ${rowLimitReached ? '' : 'top'} ${records.size() as String} rows."
             }
         } else {
             if (sqlCommand.toUpperCase().contains('SYSCS_UTIL.SYSCS_EXPORT_TABLE')
@@ -69,6 +72,7 @@ if (sqlCommand && selGroup) {
                 context.sqlCommand = sqlCommand
                 return
             }
+
             du.prepareStatement(sqlCommand)
             numOfAffectedRows = du.executeUpdate()
             resultMessage = "Affected $numOfAffectedRows rows."
@@ -77,6 +81,7 @@ if (sqlCommand && selGroup) {
         resultMessage = exc.getMessage()
     }
 }
+
 context.groups = groups
 context.resultMessage = resultMessage
 context.columns = columns
