@@ -214,7 +214,7 @@ dependencies {
     implementation 'com.rometools:rome:1.16.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.18'
     implementation 'commons-fileupload:commons-fileupload:1.5'
-    implementation 'commons-net:commons-net:3.8.0'
+    implementation 'commons-net:commons-net:3.9.0'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'javax.transaction:javax.transaction-api:1.3'
