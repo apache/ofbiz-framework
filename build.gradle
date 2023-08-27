@@ -388,7 +388,7 @@ checkstyle {
     showViolations = true
 }
 gitHooks {
-    hooks = ['pre-push': 'checkstyleMain']
+    hooks = ['pre-push': 'check']
 }
 
 // Checks OFBiz Groovy coding conventions.
