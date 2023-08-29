@@ -108,6 +108,12 @@ public class SecuredUpload {
     private static final Boolean ALLOWSTRINGCONCATENATIONINUPLOADEDFILES =
             UtilProperties.getPropertyAsBoolean("security", "allowStringConcatenationInUploadedFiles", false);
 
+    // "(" and ")" for duplicates files
+    private static final String FILENAMEVALIDCHARACTERS_DUPLICATES =
+            UtilProperties.getPropertyValue("security", "fileNameValidCharactersDuplicates", "[a-zA-Z0-9-_ ()]");
+    private static final String FILENAMEVALIDCHARACTERS =
+            UtilProperties.getPropertyValue("security", "fileNameValidCharacters", "[a-zA-Z0-9-_ ]");
+
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
         String contentWithoutSpaces = content.replace(" ", "");
         if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
@@ -157,10 +163,18 @@ public class SecuredUpload {
                     Debug.logError("Uploaded file name too long", MODULE);
                 } else if (p.toString().contains(imageServerUrl.replace("/", "\\"))) {
                     // TODO check this is still useful in at least 1 case
-                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                    if (fileName.matches(
+                            FILENAMEVALIDCHARACTERS_DUPLICATES
+                            .concat("{1,249}.")
+                            .concat(FILENAMEVALIDCHARACTERS)
+                            .concat("{1,10}"))) {
                         wrongFile = false;
                     }
-                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,249}.[a-zA-Z0-9-_ ]{1,10}")) {
+                } else if (fileName.matches(
+                        FILENAMEVALIDCHARACTERS
+                        .concat("{1,249}.")
+                        .concat(FILENAMEVALIDCHARACTERS)
+                        .concat("{1,10}"))) {
                     wrongFile = false;
                 }
             } else { // Suppose a *nix system
@@ -168,10 +182,18 @@ public class SecuredUpload {
                     Debug.logError("Uploaded file name too long", MODULE);
                 } else if (p.toString().contains(imageServerUrl)) {
                     // TODO check this is still useful in at least 1 case
-                    if (fileName.matches("[a-zA-Z0-9-_ ()]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) { // "(" and ")" for duplicates files
+                    if (fileName.matches(
+                            FILENAMEVALIDCHARACTERS_DUPLICATES
+                            .concat("{1,4086}.")
+                            .concat(FILENAMEVALIDCHARACTERS)
+                            .concat("{1,10}"))) {
                         wrongFile = false;
                     }
-                } else if (fileName.matches("[a-zA-Z0-9-_ ]{1,4086}.[a-zA-Z0-9-_ ]{1,10}")) {
+                } else if (fileName.matches(
+                        FILENAMEVALIDCHARACTERS
+                        .concat("{1,4086}.")
+                        .concat(FILENAMEVALIDCHARACTERS)
+                        .concat("{1,10}"))) {
                     wrongFile = false;
                 }
             }
