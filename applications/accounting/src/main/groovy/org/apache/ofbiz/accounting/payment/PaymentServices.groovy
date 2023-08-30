@@ -18,22 +18,21 @@
 */
 package org.apache.ofbiz.accounting.payment
 
+import java.sql.Timestamp
+
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
-import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.accounting.util.UtilAccounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.service.ServiceUtil
-
-import java.sql.Timestamp
-import org.apache.ofbiz.accounting.util.UtilAccounting
 
 Map createPayment() {
     if (!security.hasEntityPermission('ACCOUNTING', '_CREATE', parameters.userLogin) &&
