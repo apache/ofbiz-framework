@@ -18,10 +18,9 @@
 */
 package org.apache.ofbiz.accounting.invoice
 
-import org.apache.ofbiz.accounting.invoice.InvoiceWorker
-import org.apache.ofbiz.base.util.UtilNumber
-
 import java.text.DateFormat
+
+import org.apache.ofbiz.base.util.UtilNumber
 
 invoiceDetailList = []
 invoiceIds.each { invoiceId ->

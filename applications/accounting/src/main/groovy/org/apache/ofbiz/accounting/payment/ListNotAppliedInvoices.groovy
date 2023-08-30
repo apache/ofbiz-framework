@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting.payment
 
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
-import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.base.util.UtilNumber
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator

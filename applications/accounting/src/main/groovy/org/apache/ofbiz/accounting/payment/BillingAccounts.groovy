@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.accounting.payment
 
-import org.apache.ofbiz.accounting.payment.BillingAccountWorker
-
 partyId = parameters.partyId
 currencyUomId = null
 billingAccounts = []
