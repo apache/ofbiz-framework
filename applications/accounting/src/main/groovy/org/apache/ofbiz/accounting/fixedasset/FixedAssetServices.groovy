@@ -125,8 +125,8 @@ Map createMaintsFromMeterReading() {
             .where(productId: fixedAsset.instanceOfProductId,
                     intervalMeterTypeId: parameters.productMeterTypeId)
             .queryList()
-            .each {p ->
-                long repeatCount = p.repeatCount ?: 0l
+            .each { p ->
+                long repeatCount = p.repeatCount ?: 0L
                 EntityCondition cond = new EntityConditionBuilder().AND {
                     EQUALS(fixedAssetId: fixedAsset.fixedAssetId)
                     EQUALS(intervalMeterTypeId: p.intervalMeterTypeId)
@@ -136,12 +136,11 @@ Map createMaintsFromMeterReading() {
                 List maintList = from('FixedAssetMaint')
                         .where(cond)
                         .queryList()
-                long listSize = maintList ? maintList.size(): 0l
+                long listSize = maintList ? maintList.size() : 0L
 
-                BigDecimal maxIntervalQty = maintList ? maintList.stream()
-                        .map { v -> v.intervalQuantity ?: 0 }
-                        .collect()
-                        .max(): 0
+                BigDecimal maxIntervalQty = maintList ? maintList
+                        .findAll(maint -> maint.intervalQuantity)
+                        .max() : 0
 
                 BigDecimal nextIntervalQty = maxIntervalQty + p.intervalQuantity
                 if (parameters.meterValue &&
@@ -171,48 +170,47 @@ Map createMaintsFromTimeInterval() {
     from('FixedAsset')
     .where(cond)
     .queryList()
-    .each {f ->
+    .each { f ->
         cond = new EntityConditionBuilder().AND {
-            EQUALS(productId: f.instanceOfProductId)
-            LIKE(intervalUomId: 'TF_%')
+                EQUALS(productId: f.instanceOfProductId)
+                LIKE(intervalUomId: 'TF_%')
         }
         from('ProductMaint')
-        .where(cond)
-        .queryList()
-        .each {p ->
-            if (timeSwitch.containsKey(p.intervalUomId)) {
-                long repeatCount = p.repeatCount ?: 0
-                long intervalQuantity = p.intervalQuantity ?: 0
-                Calendar calendar = Calendar.instance()
-                calendar.setTime(nowTimestamp)
-                calendar.add(timeSwitch[p.intervalUomId], -p.intervalQuantity)
-                cond = new EntityConditionBuilder().AND {
-                    EQUALS(fixedAssetId: f.fixedAssetId)
-                    EQUALS(intervalUomId: p.intervalUomId)
-                    EQUALS(productMaintTypeId: p.productMaintTypeId)
-                    NOT_EQUAL(statusId: 'FAM_CANCELLED')
+                .where(cond)
+                .queryList()
+                .each { p ->
+                    if (timeSwitch.containsKey(p.intervalUomId)) {
+                        long repeatCount = p.repeatCount ?: 0
+                        long intervalQuantity = p.intervalQuantity ?: 0
+                        Calendar calendar = Calendar.instance()
+                        calendar.setTime(nowTimestamp)
+                        calendar.add(timeSwitch[p.intervalUomId], -intervalQuantity)
+                        cond = new EntityConditionBuilder().AND {
+                            EQUALS(fixedAssetId: f.fixedAssetId)
+                            EQUALS(intervalUomId: p.intervalUomId)
+                            EQUALS(productMaintTypeId: p.productMaintTypeId)
+                            NOT_EQUAL(statusId: 'FAM_CANCELLED')
+                        }
+                        List<GenericValue> maintList = from('FixedAssetMaintWorkEffort')
+                                .where(cond)
+                                .orderBy('maintHistSeqId')
+                                .queryList()
+                        long listSize = maintList ? maintList.size() : 0
+                        Timestamp lastSvcDate = maintList ? maintList.last().actualCompletionDate : null
+                        if (lastSvcDate && lastSvcDate.before(calendar.getTime())
+                                && (repeatCount <= 0 || listSize < repeatCount)) {
+                            run service: 'createFixedAssetMaint', with: [*: p.getAllFields(),
+                                                                         fixedAssetId: f.fixedAssetId,
+                                                                         statusId: 'FAM_CREATED']
+                        }
+                    }
                 }
-                List<GenericValue> maintList = from('FixedAssetMaintWorkEffort')
-                        .where(cond)
-                        .orderBy('maintHistSeqId')
-                        .queryList()
-                long listSize = maintList ? maintList.size(): 0
-                Timestamp lastSvcDate = maintList ? maintList.last().actualCompletionDate: null
-                if (lastSvcDate && lastSvcDate.before(calendar.getTime())
-                        && (repeatCount <= 0 || listSize < repeatCount)) {
-                    run service: 'createFixedAssetMaint', with: [*: p.getAllFields(),
-                                                                 fixedAssetId: f.fixedAssetId,
-                                                                 statusId: 'FAM_CREATED']
-                }
-            }
-        }
     }
     return success()
 }
 
 /**
  * Create a FixedAsset Maintenance Order
- * @return
  */
 Map createFixedAssetMaintOrder() {
     GenericValue lookedUpValue = from('OrderHeader').where(parameters).queryOne()
@@ -221,13 +219,13 @@ Map createFixedAssetMaintOrder() {
     }
 
     // Check if user has not passed in orderItemSeqId then get list of OrderItems from database and default to first item
-    if (!parameters.orderItemSeqId) {
-        parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryList()?.orderItemSeqId
-    } else {
+    if (parameters.orderItemSeqId) {
         lookedUpValue = from('OrderItem').where(parameters).queryOne()
         if (!lookedUpValue) {
             return error(label('AccountingUiLabels', 'AccountingOrderItemWithIdNotFound', parameters))
         }
+    } else {
+        parameters.orderItemSeqId = from('OrderItem').where(orderId: lookedUpValue.orderId).queryList()?.orderItemSeqId
     }
     delegator.create('FixedAssetMaintOrder', parameters)
     return success()
@@ -251,7 +249,6 @@ Map autoAssignFixedAssetPartiesToMaintenance() {
     return success()
 }
 
-
 /**
  * Calculate straight line depreciation to Fixed Asset[ (PC-SV)/expLife ]
  */
@@ -273,7 +270,7 @@ Map straightLineDepreciation() {
             depreciation = (purchaseCost - parameters.salvageValue) / numberOfYears
             depreciation.setScale(2, RoundingMode.HALF_EVEN)
             int intUsageYears =  (numberOfYears < parameters.intUsageYears) ? parameters.intUsageYears : numberOfYears
-            for (int i = 1; i++; i <intUsageYears) {
+            for (int i = 1; i++; i < intUsageYears) {
                 purchaseCost -= depreciation
                 depreciationTotal += depreciation
                 assetDepreciationTillDate << depreciation
@@ -442,7 +439,8 @@ Map checkUpdateFixedAssetDepreciation() {
                 .queryList()
                 .each {
                     if (!fixedAsset.purchaseCostUomId) {
-                        logWarning "Found empty purchaseCostUomId for FixedAsset [${fixedAsset.fixedAssetId}]: setting it to ${creditTransaction.currencyUomId} to match the one used in the gl."
+                        logWarning "Found empty purchaseCostUomId for FixedAsset [${fixedAsset.fixedAssetId}]:" +
+                                " setting it to ${creditTransaction.currencyUomId} to match the one used in the gl."
                         fixedAsset.purchaseCostUomId = it.currencyUomId
                         fixedAsset.store()
                     }
@@ -453,7 +451,8 @@ Map checkUpdateFixedAssetDepreciation() {
                     }
                 }
         if (nonValidUom) {
-            return failure("Found an accounting transaction for depreciation of FixedAsset [${fixedAsset.fixedAssetId}] with a currency that doesn't match the currency used in the fixed asset: the depreciation total in the fixed asset will not be updated.")
+            return failure("Found an accounting transaction for depreciation of FixedAsset [${fixedAsset.fixedAssetId}] with a currency that " +
+                    "doesn't match the currency used in the fixed asset: the depreciation total in the fixed asset will not be updated.")
         }
 
         fixedAsset.depreciation = fixedAsset.depreciation ?: 0
