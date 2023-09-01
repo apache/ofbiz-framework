@@ -120,8 +120,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- FixedAsset Maintenance Create/Update/Delete-->
-    <service name="createFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaint" auth="true">
+    <service name="createFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="groovy"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="createFixedAssetMaint" auth="true">
         <description>Create a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -131,8 +131,8 @@ under the License.
         <attribute name="maintTemplateWorkEffortId" mode="IN" type="String" optional="true"/>
         <override name="maintHistSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
     </service>
-    <service name="updateFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaint" auth="true">
+    <service name="updateFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="groovy"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="updateFixedAssetMaint" auth="true">
         <description>Update a Fixed Asset Maintenance</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -144,12 +144,18 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createMaintsFromTimeInterval" engine="simple" use-transaction="false"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromTimeInterval" auth="true">
+    <service name="createMaintsFromTimeInterval"  engine="groovy"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy"
+             use-transaction="false" invoke="createMaintsFromTimeInterval" auth="true">
         <description>Create Fixed Asset Maintenances from ProductMaint time intervals. Currently works
         with day, month, and year interval types. This service is intended to be run as a regularly
         scheduled job.</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+    </service>
+    <service name="autoAssignFixedAssetPartiesToMaintenance" engine="groovy"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="autoAssignFixedAssetPartiesToMaintenance" auth="true">
+        <attribute name="fixedAssetId" type="String" mode="IN"/>
+        <attribute name="workEffortId" type="String" mode="IN"/>
     </service>
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
     <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="entity-auto" invoke="create" auth="true">
@@ -164,8 +170,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createMaintsFromMeterReading" default-entity-name="FixedAssetMeter" engine="simple"
-             location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromMeterReading" auth="true">
+    <service name="createMaintsFromMeterReading" default-entity-name="FixedAssetMeter" engine="groovy"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="createMaintsFromMeterReading" auth="true">
         <description>Create Maints From Meter Reading</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -176,8 +182,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- FixedAsset Maintenance Order Create/Update/Delete-->
-    <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintOrder" auth="true">
+    <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="groovy"
+                location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="createFixedAssetMaintOrder" auth="true">
         <description>Create a Fixed Asset Maintenance Order</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <attribute name="fixedAssetId" type="String" mode="IN" optional="false"/>
@@ -230,8 +236,8 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="checkUpdateFixedAssetDepreciation" default-entity-name="AcctgTrans" engine="simple"
-              location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="checkUpdateFixedAssetDepreciation" auth="true">
+    <service name="checkUpdateFixedAssetDepreciation" default-entity-name="AcctgTrans" engine="groovy" auth="true"
+                location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="checkUpdateFixedAssetDepreciation">
         <description>If the accounting transaction is a depreciation transaction for a fixed asset, update the depreciation amount in the FixedAsset entity.</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -249,20 +255,20 @@ under the License.
         <attribute name="nextDepreciationAmount" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="plannedPastDepreciationTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="straightLineDepreciation" engine="simple" default-entity-name="FixedAsset"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
+    <service name="straightLineDepreciation" default-entity-name="FixedAsset" engine="groovy" auth="true"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="straightLineDepreciation">
         <description>Straight line depreciation service to Fixed Asset</description>
         <implements service="fixedAssetDepCalcInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="doubleDecliningBalanceDepreciation" engine="simple" default-entity-name="FixedAsset"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="doubleDecliningBalanceDepreciation" auth="true">
+    <service name="doubleDecliningBalanceDepreciation" default-entity-name="FixedAsset" engine="groovy" auth="true"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="doubleDecliningBalanceDepreciation">
         <description>Double declining balance depreciation service to Fixed Asset</description>
         <implements service="fixedAssetDepCalcInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="calculateFixedAssetDepreciation" engine="simple" default-entity-name="FixedAssetDepMethod"
-                location="component://accounting/minilang/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
+    <service name="calculateFixedAssetDepreciation" default-entity-name="FixedAssetDepMethod" engine="groovy" auth="true"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/fixedasset/FixedAssetServices.groovy" invoke="calculateFixedAssetDepreciation">
         <description>Select the depreciation method according to the entry in FixedAssetDepMethod</description>
         <attribute name="fixedAssetId" type="String" mode="IN"/>
         <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="true"/>
