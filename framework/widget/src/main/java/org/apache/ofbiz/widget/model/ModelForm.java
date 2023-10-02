@@ -2511,12 +2511,8 @@ public abstract class ModelForm extends ModelWidget {
         public static ModelForm.UpdateArea fromJwtToken(Map<String, Object> context) {
             Delegator delegator = (Delegator) context.get("delegator");
 
-            String jwtToken = (String) context.get(CommonWidgetModels.JWT_CALLBACK);
-            if (jwtToken == null && context.containsKey("parameters")) {
-                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-                jwtToken = (String) parameters.get(CommonWidgetModels.JWT_CALLBACK);
-            }
-            if (jwtToken == null) return null;
+            String jwtToken = WidgetWorker.getJwtCallback(context);
+            if (UtilValidate.isEmpty(jwtToken)) return null;
 
             Map<String, Object> claims = JWTManager.validateToken(jwtToken, JWTManager.getJWTKey(delegator));
             if (claims.containsKey(ModelService.ERROR_MESSAGE)) {

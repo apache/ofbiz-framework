@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer;
 
+import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import static org.apache.ofbiz.widget.model.ModelFormField.usedFields;
 
 import java.io.IOException;
@@ -56,6 +57,7 @@ import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroupBase;
 import org.apache.ofbiz.widget.model.ModelFormField;
+import org.apache.ofbiz.widget.model.ModelFormFieldBuilder;
 import org.apache.ofbiz.widget.model.ModelGrid;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.html.HtmlWidgetRenderer;
@@ -174,12 +176,30 @@ public class FormRenderer {
     }
 
     private static List<ModelFormField> getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered,
-            List<ModelFormField> fields, int position) {
-        return fields.stream()
+            List<ModelFormField> fields, ModelForm modelForm, int position) {
+        List<ModelFormField> hiddenIgnoredFields = fields.stream()
                 // with position == -1 then gets all the hidden fields
                 .filter(modelFormField -> position == -1 || modelFormField.getPosition() == position)
                 .filter(filteringIgnoredFields(context, alreadyRendered))
                 .collect(Collectors.toList());
+        ModelFormField jwtCallbackField = addJwtTokenHiddenField(context, modelForm);
+        if (jwtCallbackField != null) {
+            hiddenIgnoredFields.add(jwtCallbackField);
+        }
+        return hiddenIgnoredFields;
+    }
+
+    private static ModelFormField addJwtTokenHiddenField(Map<String, Object> context, ModelForm modelForm) {
+        if (UtilValidate.isNotEmpty(WidgetWorker.getJwtCallback(context))) {
+            ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
+            builder.setModelForm(modelForm);
+            builder.setName(CommonWidgetModels.JWT_CALLBACK);
+            builder.setFieldName(CommonWidgetModels.JWT_CALLBACK);
+            ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_EXPLICIT, null);
+            builder.setFieldInfo(hiddenField);
+            return ModelFormField.from(builder);
+        }
+        return null;
     }
 
     private List<FieldGroupBase> getInbetweenList(FieldGroup startFieldGroup, FieldGroup endFieldGroup) {
@@ -869,8 +889,8 @@ public class FormRenderer {
                         innerDisplayHyperlinkFieldsEnd.add(modelFormField);
                         currentPosition = modelFormField.getPosition();
                     }
-                    List<ModelFormField> hiddenIgnoredFieldList = getHiddenIgnoredFields(localContext, null, tempFieldList,
-                            currentPosition);
+                    List<ModelFormField> hiddenIgnoredFieldList = getHiddenIgnoredFields(localContext, null,
+                            tempFieldList, modelForm, currentPosition);
 
                     // Rendering:
                     // the fields in the three lists created in the preprocessing phase
@@ -984,7 +1004,7 @@ public class FormRenderer {
         }
 
         // render all hidden & ignored fields
-        List<ModelFormField> hiddenIgnoredFieldList = getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
+        List<ModelFormField> hiddenIgnoredFieldList = getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, modelForm, -1);
         renderHiddenIgnoredFields(writer, context, formStringRenderer, hiddenIgnoredFieldList);
 
         // render formatting wrapper open

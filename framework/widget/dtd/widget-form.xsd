@@ -1448,6 +1448,14 @@ under the License.
                     <xs:documentation>The message displayed in confirmation box</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="propagate-callback" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>If you are on an edition process with different steps and you want to wait the end of the complete action before using the callback,
+                        use propagate-callback="true". The submit will understand that you want to continue your process and will not close the modal to refresh the screen.
+                        The callback action will be kept within the different steps
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="text" substitutionGroup="AllFields">

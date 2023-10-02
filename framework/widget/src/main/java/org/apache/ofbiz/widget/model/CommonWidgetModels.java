@@ -48,6 +48,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -574,24 +575,8 @@ public final class CommonWidgetModels {
             if (autoEntityParameters != null) {
                 fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, defaultEntityName));
             }
-            propagateCallbackInParameterMap(context, propagateMyCallback, fullParameterMap);
+            fullParameterMap.putAll(UtilGenerics.cast(propagateCallbackInParameterMap(context, propagateMyCallback, getCallback())));
             return fullParameterMap;
-        }
-
-        // If a call back is present on link or present on context, adding it to the parameters list
-        private void propagateCallbackInParameterMap(Map<String, Object> context, boolean propagateMyCallback, Map<String, String> fullParameterMap) {
-            if (getCallback() != null && propagateMyCallback) {
-                fullParameterMap.put(JWT_CALLBACK, getCallback().toJwtToken(context));
-            } else if (context.containsKey(JWT_CALLBACK)) {
-                fullParameterMap.put(JWT_CALLBACK, (String) context.get(JWT_CALLBACK));
-            } else {
-                if (context.containsKey("parameters")) {
-                    Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-                    if (parameters.containsKey(JWT_CALLBACK)) {
-                        fullParameterMap.put(JWT_CALLBACK, (String) parameters.get(JWT_CALLBACK));
-                    }
-                }
-            }
         }
 
         public Map<String, String> getParameterMap(Map<String, Object> context) {
@@ -796,4 +781,22 @@ public final class CommonWidgetModels {
             }
         }
     }
+
+    // If a call back is present on link or present on context, adding it to the parameters list
+    public static Map<String, Object> propagateCallbackInParameterMap(Map<String, Object> context, boolean propagateMyCallback,
+            ModelForm.UpdateArea callBack) {
+        Map<String, Object> fullParameterMap = new HashMap<String, Object>();
+
+        // If the parameter contains the map, the call back will be automatically manage by the form
+        if (fullParameterMap.containsKey("_FORM_NAME_")) return fullParameterMap;
+
+        String currentJwtCallback = WidgetWorker.getJwtCallback(context);
+        if (callBack != null && propagateMyCallback) {
+            fullParameterMap.put(JWT_CALLBACK, callBack.toJwtToken(context));
+        } else if (UtilValidate.isNotEmpty(currentJwtCallback)) {
+            fullParameterMap.put(JWT_CALLBACK, currentJwtCallback);
+        }
+        return fullParameterMap;
+    }
+
 }

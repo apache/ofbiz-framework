@@ -703,7 +703,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
-            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm, "", context);
+            Map<String, Object> extraParams = CommonWidgetModels.propagateCallbackInParameterMap(context,
+                    submitField.getPropagateCallback(), jwtCallback);
+            ajaxUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, extraParams, modelForm, "", context);
         }
         String tabindex = modelFormField.getTabindex();
         boolean disabled = modelFormField.getDisabled(context);
@@ -747,7 +749,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(tabindex);
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
-        sr.append(" />");
+        sr.append(" closeOnSubmit=\"");
+        sr.append(String.valueOf(!submitField.getPropagateCallback()));
+        sr.append("\" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }

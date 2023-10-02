@@ -35,6 +35,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
+import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
@@ -100,17 +101,18 @@ public final class WidgetWorker {
             throw new RuntimeException(msg, e);
         }
 
-        final String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
-        if (isNotEmpty(tokenValue)) {
-            additionalParameters.put(CsrfUtil.getTokenNameNonAjax(), tokenValue);
+        if (!"plain".equals(targetType)) {
+            final String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
+            if (isNotEmpty(tokenValue)) {
+                additionalParameters.put(CsrfUtil.getTokenNameNonAjax(), tokenValue);
+            }
+
+            if (UtilValidate.isNotEmpty(parameterMap)) {
+                parameterMap.forEach(uriBuilder::addParameter);
+            }
+
+            additionalParameters.forEach(uriBuilder::addParameter);
         }
-
-        if (UtilValidate.isNotEmpty(parameterMap)) {
-            parameterMap.forEach(uriBuilder::addParameter);
-        }
-
-        additionalParameters.forEach(uriBuilder::addParameter);
-
         try {
             return uriBuilder.build();
         } catch (URISyntaxException e) {
@@ -283,6 +285,19 @@ public final class WidgetWorker {
             context.put("screenStack", new ScreenRenderer.ScreenStack());
         }
         return (ScreenRenderer.ScreenStack) context.get("screenStack");
+    }
+
+    /**
+     * Returns the jwt callback id if present on the context.
+     * @param context
+     * @return
+     */
+    public static String getJwtCallback(Map<String, Object> context) {
+        String jwtCallback = (String) context.get(CommonWidgetModels.JWT_CALLBACK);
+        if (UtilValidate.isEmpty(jwtCallback) && context.containsKey("parameters")) {
+            jwtCallback = (String) ((Map) context.get("parameters")).get(CommonWidgetModels.JWT_CALLBACK);
+        }
+        return jwtCallback;
     }
 
     public static int getPaginatorNumber(Map<String, Object> context) {

@@ -834,7 +834,7 @@ function errorRetrievingResponseFromServer(xhr, status, exception) {
  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
-function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
+function ajaxSubmitFormUpdateAreas(formName, areaCsvString, close) {
    waitSpinnerShow();
 
    var $form = jQuery("form[name='" + formName + "']");
@@ -864,7 +864,9 @@ function ajaxSubmitFormUpdateAreas(formName, areaCsvString) {
                    areaCsvString += data[variableName] + endString.substring(endString.indexOf("_") + 1)
                }
                ajaxUpdateAreas(areaCsvString);
-               $form.trigger("closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess");
+               if (close === undefined || close == 'true') {
+                    $form.trigger('closeCurrentModalAfterAjaxSubmitFormUpdateAreasInSuccess');
+                }
            }
        }
    }

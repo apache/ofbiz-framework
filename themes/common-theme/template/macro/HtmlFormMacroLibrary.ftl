@@ -228,7 +228,7 @@ under the License.
   </#list>
 </#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false closeOnSubmit="true">
   <#if buttonType=="text-link">
     <a <@renderClass className alert /> href="javascript:document.${formName}.submit()" <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>><#if title?has_content>${title}</#if> </a>
   <#elseif buttonType=="image">
@@ -253,14 +253,15 @@ under the License.
                 e.preventDefault();
                 e.stopPropagation();
                 if ($(this).valid()) {
-                    <#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}');
+                    <#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${formName}', '${ajaxUrl}', '${closeOnSubmit}');
                 }
             })
             .keypress(function(e) {
-              if (e.which === 13 && ! $(e.target).is('textarea')) {
-                e.preventDefault();
-                $("#${id!}").click();
-              }});
+                if (e.which === 13 && ! $(e.target).is('textarea')) {
+                    e.preventDefault();
+                    $("#${id!}").click();
+                }
+            });
         </script>
       </#if>
   </#if>

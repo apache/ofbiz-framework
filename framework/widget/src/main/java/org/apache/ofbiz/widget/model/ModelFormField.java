@@ -4913,6 +4913,7 @@ public final class ModelFormField {
     public static class SubmitField extends FieldInfo {
         private final FlexibleStringExpander backgroundSubmitRefreshTargetExdr;
         private final String buttonType;
+        private final boolean propagateCallback;
         private final FlexibleStringExpander confirmationMsgExdr;
         private final FlexibleStringExpander imageLocation;
         private final boolean requestConfirmation;
@@ -4925,6 +4926,7 @@ public final class ModelFormField {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
             this.imageLocation = FlexibleStringExpander.getInstance(element.getAttribute("image-location"));
             this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
+            this.propagateCallback = "true".equals(element.getAttribute("propagate-callback"));
         }
 
         public SubmitField(int fieldInfo, ModelFormField modelFormField) {
@@ -4934,6 +4936,7 @@ public final class ModelFormField {
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
             this.imageLocation = FlexibleStringExpander.getInstance("");
             this.requestConfirmation = false;
+            this.propagateCallback = false;
         }
 
         public SubmitField(ModelFormField modelFormField) {
@@ -4947,6 +4950,7 @@ public final class ModelFormField {
             this.backgroundSubmitRefreshTargetExdr = original.backgroundSubmitRefreshTargetExdr;
             this.requestConfirmation = original.requestConfirmation;
             this.confirmationMsgExdr = original.confirmationMsgExdr;
+            this.propagateCallback = original.propagateCallback;
         }
 
         @Override
@@ -5041,6 +5045,14 @@ public final class ModelFormField {
          */
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
+        }
+
+        /**
+         * Gets keep callback.
+         * @return
+         */
+        public boolean getPropagateCallback() {
+            return this.propagateCallback;
         }
 
         @Override
