@@ -367,6 +367,8 @@ public final class RenderableFtlFormElementsBuilder {
             builder.intParameter("maxlength", textareaField.getMaxlength());
         }
 
+        builder.stringParameter("placeholder", textareaField.getPlaceholder(context));
+
         builder.stringParameter("tabindex", modelFormField.getTabindex());
 
         builder.stringParameter("value", modelFormField.getEntry(context, textareaField.getDefaultValue(context)));

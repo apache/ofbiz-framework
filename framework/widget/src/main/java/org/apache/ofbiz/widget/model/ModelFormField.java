@@ -5074,6 +5074,7 @@ public final class ModelFormField {
         private final FlexibleStringExpander visualEditorButtons;
         private final boolean visualEditorEnable;
         private final Integer maxlength;
+        private final FlexibleStringExpander placeholder;
 
         public TextareaField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -5114,6 +5115,7 @@ public final class ModelFormField {
             this.maxlength = maxlength;
             this.visualEditorButtons = FlexibleStringExpander.getInstance(element.getAttribute("visual-editor-buttons"));
             this.visualEditorEnable = "true".equals(element.getAttribute("visual-editor-enable"));
+            this.placeholder = FlexibleStringExpander.getInstance(element.getAttribute("placeholder"));
         }
 
         public TextareaField(int fieldSource, ModelFormField modelFormField) {
@@ -5125,6 +5127,7 @@ public final class ModelFormField {
             this.maxlength = null;
             this.visualEditorButtons = FlexibleStringExpander.getInstance("");
             this.visualEditorEnable = false;
+            this.placeholder = FlexibleStringExpander.getInstance("");
         }
 
         public TextareaField(ModelFormField modelFormField) {
@@ -5140,6 +5143,7 @@ public final class ModelFormField {
             this.cols = original.cols;
             this.rows = original.rows;
             this.maxlength = original.maxlength;
+            this.placeholder = original.placeholder;
         }
 
         @Override
@@ -5227,6 +5231,22 @@ public final class ModelFormField {
          */
         public boolean isReadOnly() {
             return readOnly;
+        }
+
+        /**
+         * Returns the placeholder
+         * @return the placeholder
+         */
+        public FlexibleStringExpander getPlaceholder() {
+            return this.placeholder;
+        }
+
+        /**
+         * Returns the placeholder
+         * @return the placeholder
+         */
+        public String getPlaceholder(Map<String, Object> context) {
+            return this.placeholder.expandString(context);
         }
 
         @Override
