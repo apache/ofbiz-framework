@@ -1512,6 +1512,13 @@ under the License.
                         table clean html spellcheck |(separator) Default is that all buttons are shown</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="placeholder">
+                <xs:annotation>
+                    <xs:documentation>
+                        Content of the HTML placeholder attribute (https://developer.mozilla.org/fr/docs/Web/HTML/Element/textarea#placeholder), text to be displayed to the user when textarea is empty. Similar to text input placeholder.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="text-find" substitutionGroup="AllFields">

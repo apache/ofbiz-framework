@@ -69,7 +69,7 @@ under the License.
   /><#t/>
 </#macro>
 
-<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false>
+<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false placeholder="">
   <#if visualEditorEnable?has_content>
     <#local className = className + " visual-editor">
   </#if>
@@ -83,6 +83,7 @@ under the License.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if visualEditorEnable?has_content> data-toolbar="${buttons?default("maxi")}"</#if><#rt/>
     <#if language?has_content> data-language="${language!"en"}"</#if><#rt/>
+    <#if placeholder?has_content> placeholder="${placeholder}"</#if><#rt/>
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
   </textarea><#lt/>

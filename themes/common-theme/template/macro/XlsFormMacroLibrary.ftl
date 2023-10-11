@@ -32,7 +32,7 @@ under the License.
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex readonly placeholder="" delegatorName="default"><@renderItemField value "txf" className/></#macro>
 
-<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false></#macro>
+<#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="" disabled=false placeholder=""></#macro>
 
 <#macro renderDateTimeField name className timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType alert=false isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest=false>
 <#if isTimeType ><@renderItemField value "tf" className/>

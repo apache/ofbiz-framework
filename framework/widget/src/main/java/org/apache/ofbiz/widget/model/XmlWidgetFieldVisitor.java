@@ -312,6 +312,7 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("rows", textareaField.getRows());
         visitAttribute("visual-editor-buttons", textareaField.getVisualEditorButtons());
         visitAttribute("visual-editor-enable", textareaField.getVisualEditorEnable());
+        visitAttribute("placeholder", textareaField.getPlaceholder());
         writer.append("/></field>");
     }
 
