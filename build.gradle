@@ -65,6 +65,10 @@ application {
     applicationDefaultJvmArgs = ['-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=500;maxbytes=500000']
 }
 
+distributions.main.contents.from(rootDir) {
+    include 'framework/**', 'applications/**', 'themes/**', 'plugins/**'
+}
+
 javadoc {
     title='OFBiz R18.12 API'
     failOnError = true
