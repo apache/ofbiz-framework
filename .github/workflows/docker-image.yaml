@@ -1,0 +1,156 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#############################################################################
+# Local testing of this workflow can be carried out using
+# act (https://github.com/nektos/act).
+#
+# Act will set an environment variable, ACT, to indicate that it is running the workflow.
+# This environment variable is used to skip some build steps, such as logging in to
+# a container registry or pushing container images.
+#
+# On first run, act will prompt you to select a micro, medium or large runner image. This
+# workflow can be run using the medium image.
+#
+# Some actions, such as docker/metadata-action, require a GITHUB_TOKEN. To meet this
+# requirement when using act you will need to create a Personal Access Token on GitHub.
+# You can then run act using a command similar to:
+#   act --job docker_build --secret GITHUB_TOKEN
+# Act will then prompt you to enter your token.
+
+#############################################################################
+# Docker push will only occur if configuration variable DO_DOCKER_PUSH is set to 'true'.
+# This ensures that repository forks do not attempt push to the ghcr.io/apache/ofbiz container registry.
+# See https://docs.github.com/en/actions/learn-github-actions/variables#defining-configuration-variables-for-multiple-workflows
+# for more information on configuring variables for a repository.
+
+name: Build and push docker images
+
+on:
+  push:
+    branches: [ release18.12 ]
+    tags:
+      - '**'
+
+jobs:
+  docker_build:
+    name: Build and push OFBiz docker container images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out OFBiz sources
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        if: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      ############################################################################
+      # Build and push a container image of the OFBiz Framework without any data loaded.
+      - name: Determine metadata (tags, labels) for Docker runtime build
+        id: runtimemeta
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        with:
+          images: ghcr.io/apache/ofbiz
+          tags: |
+            # Extract container tag from git tag.
+            type=match,pattern=release(.*),group=1
+            # Build container tag based on branch name and string '-snapshot'
+            type=ref,event=branch,suffix=-snapshot,priority=650
+
+      - name: Update VERSION file
+        run: |
+          # Populate the VERSION file based on the outputs of the metadata-action above.
+          # The same VERSION file will be used for all container images built in this workflow.
+
+          # Set the version label for this build.
+          echo "${{fromJSON(steps.runtimemeta.outputs.json).labels['org.opencontainers.image.version']}}. " > VERSION
+
+          # Append the git commit SHA.
+          echo '${uiLabelMap.CommonRevision}:' "${{fromJSON(steps.runtimemeta.outputs.json).labels['org.opencontainers.image.revision']}}. " >> VERSION
+
+          # Append the timestamp.
+          echo '${uiLabelMap.CommonBuiltOn}:' "${{fromJSON(steps.runtimemeta.outputs.json).labels['org.opencontainers.image.created']}}. " >> VERSION
+
+          echo "Version file contents:"
+          cat VERSION
+
+
+      - name: Build and push runtime docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          target: runtime
+          push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
+          tags: ${{ steps.runtimemeta.outputs.tags }}
+          labels: ${{ steps.runtimemeta.outputs.labels }}
+
+      ############################################################################
+      # Build and push a container image of the OFBiz Framework preloaded with demo data
+      - name: Determine metadata (tags, labels) for Docker demo-preload build
+        id: demometa
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        with:
+          images: ghcr.io/apache/ofbiz
+          tags: |
+            type=match,pattern=release(.*),group=1,suffix=-preloaddemo
+            type=ref,event=branch,suffix=-preloaddemo-snapshot,priority=650
+
+      - name: Build and push demo docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          target: demo
+          push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
+          tags: ${{ steps.demometa.outputs.tags }}
+          labels: ${{ steps.demometa.outputs.labels }}
+
+        ############################################################################
+        # Build and push a container image of the OFBiz Framework plus Plugins,
+        # without any data loaded.
+        # We need to use gradle to download sources as plugins might include an install
+        # task in their own build.gradle files. If the project drops support for plugins'
+        # install tasks then we can replace the JDK and gradle related steps below with
+        # a git checkout from the https://github.com/apache/ofbiz-plugins repository.
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3.6.0
+        with:
+          java-version: 8
+          distribution: temurin
+          cache: 'gradle'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew pullAllPluginsSource
+      - name: Determine metadata (tags, labels) for Docker framework with plugins build
+        id: pluginsmeta
+        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        with:
+          images: ghcr.io/apache/ofbiz
+          tags: |
+            type=match,pattern=release(.*),group=1,suffix=-plugins
+            type=ref,event=branch,suffix=-plugins-snapshot,priority=650
+
+      - name: Build and push framework with plugins docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          target: runtime
+          push: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
+          tags: ${{ steps.pluginsmeta.outputs.tags }}
+          labels: ${{ steps.pluginsmeta.outputs.labels }}
