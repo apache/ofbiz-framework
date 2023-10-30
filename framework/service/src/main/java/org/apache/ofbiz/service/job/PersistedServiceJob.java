@@ -68,12 +68,12 @@ import com.ibm.icu.util.TimeZone;
 public class PersistedServiceJob extends GenericServiceJob {
 
     private static final String MODULE = PersistedServiceJob.class.getName();
-    DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-            .append( DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss") )
+    private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
+            .append(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             .appendOptional(
                     new DateTimeFormatterBuilder()
                             .appendLiteral('.')
-                            .appendValue( ChronoField.MICRO_OF_SECOND, 1, 3, SignStyle.NOT_NEGATIVE).toFormatter())
+                            .appendValue(ChronoField.MICRO_OF_SECOND, 1, 3, SignStyle.NOT_NEGATIVE).toFormatter())
             .toFormatter().withZone(ZonedDateTime.now().getZone());
 
     private final transient Delegator delegator;
@@ -93,9 +93,14 @@ public class PersistedServiceJob extends GenericServiceJob {
         super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req);
         this.delegator = dctx.getDelegator();
         this.jobValue = jobValue;
-        //This solution ensures that the system uses a consistent, UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
-        ZonedDateTime startTimeZD = ZonedDateTime.parse(jobValue.getString("runTime"), formatter).withZoneSameInstant(ZoneId.of("UTC"));
-        this.startTime = UtilValidate.isNotEmpty(jobValue.get("runTimeEpoch")) ? jobValue.getLong("runTimeEpoch") : startTimeZD.toInstant().toEpochMilli();
+        /*
+        This solution ensures that the system uses a consistent,
+         UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
+         */
+        ZonedDateTime startTimeZD = ZonedDateTime.parse(
+                jobValue.getString("runTime"), FORMATTER).withZoneSameInstant(ZoneId.of("UTC"));
+        this.startTime = UtilValidate.isNotEmpty(jobValue.get("runTimeEpoch"))
+                ? jobValue.getLong("runTimeEpoch") : startTimeZD.toInstant().toEpochMilli();
         this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry") : 0;
         Long retryCount = jobValue.getLong("currentRetryCount");
         if (retryCount != null) {
@@ -211,7 +216,10 @@ public class PersistedServiceJob extends GenericServiceJob {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Next runtime returned: " + next, MODULE);
         }
-        //This solution ensures that the system uses a consistent, UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
+        /*
+        This solution ensures that the system uses a consistent,
+        UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
+        */
         ZonedDateTime nextRunTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(next), ZoneId.of("UTC"));
         if (nextRunTime.toInstant().toEpochMilli() > startTime) {
             String pJobId = jobValue.getString("parentJobId");
