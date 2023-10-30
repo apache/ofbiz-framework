@@ -233,7 +233,8 @@ public class PersistedServiceJob extends GenericServiceJob {
             newJob.set("statusId", "SERVICE_PENDING");
             newJob.set("startDateTime", null);
             newJob.set("runByInstanceId", null);
-            newJob.set("runTime", new java.sql.Timestamp(next));
+            newJob.set("runTime", Timestamp.from(nextRunTime.toInstant()));
+            newJob.set("runTimeEpoch", nextRunTime.toInstant().toEpochMilli());
             if (isRetryOnFailure) {
                 newJob.set("currentRetryCount", currentRetryCount + 1);
             } else {
