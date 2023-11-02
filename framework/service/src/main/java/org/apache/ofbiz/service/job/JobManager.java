@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -179,8 +181,27 @@ public final class JobManager {
             return Collections.emptyList();
         }
         // basic query
-        List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime",
-                EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()),
+        /*
+            By adding the runTimeEpoch field to handle DST changes in recurring job scheduling is a practical solution.
+            By storing the runtime epoch in UTC format, to make the system DST-aware, which helps prevent issues related to time changes,
+                especially when the clock is set back by 1 hour during the transition.
+            Additionally, keeping the runtime field while polling is a good practice,
+                as it ensures backward compatibility and provides flexibility in situations where the system sets the jobSandbox.runtime value.
+            This approach allows the system to work with both the new UTC-based runTimeEpoch field and the existing runtime field, as needed.
+            To summarize, by introducing the runTimeEpoch field and handling the transition between UTC epoch time and the runtime field,
+                to  make recurring job scheduling more robust and DST-aware,
+                which should help prevent scheduling issues during Daylight Saving Time changes.
+         */
+        List<EntityCondition> expressions = UtilMisc.toList(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition("runTimeEpoch",
+                                EntityOperator.LESS_THAN_EQUAL_TO, ZonedDateTime.now(ZoneId.of("UTC")).toInstant().toEpochMilli()),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition(
+                                EntityCondition.makeCondition("runTimeEpoch", null),
+                                EntityOperator.AND,
+                                EntityCondition.makeCondition("runTime",
+                                        EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()))),
                 EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
