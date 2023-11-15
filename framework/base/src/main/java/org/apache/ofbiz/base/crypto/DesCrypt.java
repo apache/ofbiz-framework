@@ -130,11 +130,9 @@ public class DesCrypt {
     // return a cipher for a key - DESede/CBC/PKCS5Padding with random IV
     protected static Cipher getCipher(Key key, int mode, IvParameterSpec iv) throws GeneralException {
         // create the Cipher - DESede/CBC/PKCS5Padding
-        // create the Cipher - AES/CBC/PKCS5Padding
         Cipher cipher = null;
         try {
-            //cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
-            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             throw new GeneralException(e);
         }
