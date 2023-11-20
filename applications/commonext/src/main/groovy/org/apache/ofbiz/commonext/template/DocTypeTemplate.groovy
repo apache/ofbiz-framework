@@ -21,7 +21,7 @@ package org.apache.ofbiz.commonext.template
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelUtil
 
-Map getFieldTypeName(String entityName) {
+String getFieldTypeName(String entityName) {
     return ModelUtil.lowerFirstChar(entityName) + 'Id'
 }
 
