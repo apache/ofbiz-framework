@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48px"
+   height="48px"
+   id="svg5526"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="star-white.svg">
+  <defs
+     id="defs5528">
+    <filter
+       color-interpolation-filters="sRGB"
+       id="filter73524"
+       inkscape:label="Drop Shadow">
+      <feFlood
+         id="feFlood73526"
+         result="flood"
+         flood-color="rgb(0,0,0)"
+         flood-opacity="1" />
+      <feComposite
+         id="feComposite73528"
+         result="composite1"
+         operator="in"
+         in2="SourceGraphic"
+         in="flood" />
+      <feGaussianBlur
+         id="feGaussianBlur73530"
+         result="blur"
+         stdDeviation="2"
+         in="composite1" />
+      <feOffset
+         id="feOffset73532"
+         result="offset"
+         dy="1"
+         dx="1" />
+      <feComposite
+         id="feComposite73534"
+         result="composite2"
+         operator="over"
+         in2="offset"
+         in="SourceGraphic" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       id="filter73524-0"
+       inkscape:label="Drop Shadow">
+      <feFlood
+         id="feFlood73526-1"
+         result="flood"
+         flood-color="rgb(0,0,0)"
+         flood-opacity="1" />
+      <feComposite
+         id="feComposite73528-7"
+         result="composite1"
+         operator="in"
+         in2="SourceGraphic"
+         in="flood" />
+      <feGaussianBlur
+         id="feGaussianBlur73530-5"
+         result="blur"
+         stdDeviation="2"
+         in="composite1" />
+      <feOffset
+         id="feOffset73532-8"
+         result="offset"
+         dy="1"
+         dx="1" />
+      <feComposite
+         id="feComposite73534-3"
+         result="composite2"
+         operator="over"
+         in2="offset"
+         in="SourceGraphic" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7"
+     inkscape:cx="1"
+     inkscape:cy="24"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1014"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5531">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <path
+       transform="matrix(0.1828134,-0.01859729,0.01872542,0.18156241,-560.21899,175.6355)"
+       inkscape:transform-center-y="-2.2882944"
+       inkscape:transform-center-x="-0.019819125"
+       d="m 3311.9901,-375.46431 -73.1045,-48.81419 -81.656,32.5482 23.8346,-84.61088 -56.1883,-67.60152 87.835,-3.47822 46.9297,-74.32823 30.4505,82.46122 85.1925,21.66415 -69.0156,54.44205 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.6755161"
+       sodipodi:arg1="1.0471976"
+       sodipodi:r2="66.186127"
+       sodipodi:r1="132.37225"
+       sodipodi:cy="-490.10205"
+       sodipodi:cx="3245.804"
+       sodipodi:sides="5"
+       id="path16837"
+       style="fill:#f0ff08;fill-opacity:1;stroke:none;filter:url(#filter73524)"
+       sodipodi:type="star" />
+  </g>
+</svg>
