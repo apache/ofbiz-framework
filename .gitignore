@@ -36,8 +36,11 @@ desktop.ini
 .*.swp
 .*.swo
 *.patch
+.vscode
 node_modules/
 /docs/asciidoc/images/
 
 #gkouete: Following lines list excluded files related to kapsiki application platform
 /themes/common-theme/webapp/common/js/package-lock.json
+/themes/mandara/webapp/mandara/node_modules
+/themes/mandara/webapp/mandara/package-lock.json

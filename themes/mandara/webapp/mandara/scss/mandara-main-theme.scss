@@ -18,32 +18,32 @@
  *******************************************************************************/
 
 /**COMMON COLOR**/
-@grey-lighter: #f2f3f7;
-@grey-light: #dfe0e4;
-@grey: #b3b3b3;
-@grey-medium: #d7dae7;
-@grey-dark: #3f4254;
-@grey-darker: #181c32;
+$grey-lighter: #f2f3f7;
+$grey-light: #dfe0e4;
+$grey: #b3b3b3;
+$grey-medium: #d7dae7;
+$grey-dark: #3f4254;
+$grey-darker: #181c32;
 
-@danger: #f65644;
-@dangerLight: #fedfdf;
-@success: #1bc5bd;
-@successLight: #c9f7f5;
-@warning: #ff9100;
-@warningLight: #fff6ec;
+$danger: #f65644;
+$dangerLight: #fedfdf;
+$success: #1bc5bd;
+$successLight: #c9f7f5;
+$warning: #ff9100;
+$warningLight: #fff6ec;
 
-@font-color-for-dark: @grey;
-@font-color-for-main: @grey-darker;
-@border-color: @grey-light;
-@shadow-color: rgba(72, 90, 117, 0.05);
+$font-color-for-dark: $grey;
+$font-color-for-main: $grey-darker;
+$border-color: $grey-light;
+$shadow-color: rgba(72, 90, 117, 0.05);
 
-@app-bar-height: 60px;
-@footer-height: 20px;
-@home-menu-tile-height: 80px;
-@home-menu-tile-min-width: 100px;
-@home-menu-tile-max-width: 100px;
+$app-bar-height: 60px;
+$footer-height: 20px;
+$home-menu-tile-height: 80px;
+$home-menu-tile-min-width: 100px;
+$home-menu-tile-max-width: 100px;
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght$300;400;500;600;700 &display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -57,7 +57,7 @@ body {
   font-family: 'Quicksand', sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
-  background: @grey-lighter;
+  background: $grey-lighter;
 }
 
 ul,
@@ -76,7 +76,7 @@ div.clear {
 hr {
   margin: 0.3rem 0;
   border: none;
-  border-bottom: 1px solid @border-color;
+  border-bottom: 1px solid $border-color;
 }
 
 .no-padding {
@@ -93,18 +93,18 @@ span.label {
 }
 
 .INFO {
-  color: @success;
+  color: $success;
   font-weight: 500;
 }
 
 .WARN {
-  color: @warning;
+  color: $warning;
   font-weight: 500;
 }
 
 .ERROR,
 .error {
-  color: @danger;
+  color: $danger;
   font-weight: 500;
 }
 
@@ -119,10 +119,10 @@ a:hover,
   -webkit-transition: 0.5s;
 }
 a {
-  color: @main-color-theme;
+  color: $main-color-theme;
   font-weight: 500;
   &:hover {
-    color: @grey-dark;
+    color: $grey-dark;
   }
 }
 
@@ -130,16 +130,16 @@ input[type='submit'],
 .smallSubmit,
 button {
   display: inline-block;
-  background-color: @main-color-theme;
+  background-color: $main-color-theme;
   border: none;
   border-radius: 0.4rem;
-  color: @light-color-theme;
+  color: $light-color-theme;
   padding: 0.5rem 0.8rem;
   font-size: 1.2rem;
   cursor: pointer;
   &:hover {
-    color: @main-color-theme;
-    background-color: @light-color-theme;
+    color: $main-color-theme;
+    background-color: $light-color-theme;
   }
 }
 .in-line-bar ul {
@@ -162,10 +162,10 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: @main-color-theme;
-  height: @home-menu-tile-height;
+  background-color: $main-color-theme;
+  height: $home-menu-tile-height;
   padding: 5px 10px 5px 10px;
-  border-bottom: solid 1px @border-color;
+  border-bottom: solid 1px $border-color;
   span {
     font-family: 'Quicksand', sans-serif !important;
     font-size: 15px;
@@ -188,13 +188,13 @@ button {
   position: relative;
   margin-left: 5px;
   margin-right: 5px;
-  border: solid 2px @border-color;
+  border: solid 2px $border-color;
   border-radius: 8px;
-  height: @home-menu-tile-height - 4px;
-  min-width: @home-menu-tile-min-width;
-  max-width: @home-menu-tile-max-width;
+  height: $home-menu-tile-height - 4px;
+  min-width: $home-menu-tile-min-width;
+  max-width: $home-menu-tile-max-width;
   &.favoriteItem {
-    border: solid 2px @border-color;
+    border: solid 2px $border-color;
   }
   .menu-link {
     font-size: 10px;
@@ -208,7 +208,7 @@ button {
     right: 5px;
   }
   &:hover {
-    box-shadow: 0 0 15px @shadow-color;
+    box-shadow: 0 0 15px $shadow-color;
     a {
       text-decoration: none;
     }
@@ -218,7 +218,7 @@ button {
 .button-bar,
 .tab-bar {
   &.tab-bar {
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid $border-color;
     padding-bottom: 0.8rem;
   }
   margin-bottom: 0.8rem;
@@ -234,30 +234,30 @@ button {
         background-color: white;
         border-radius: 0.5rem;
         padding: 0.5rem 0.6rem;
-        color: @dark-color-theme;
+        color: $dark-color-theme;
         font-weight: 600;
         font-size: 1.2rem;
       }
       &.selected a,
       &:hover a {
-        color: @light-color-theme;
-        background-color: @main-color-theme;
+        color: $light-color-theme;
+        background-color: $main-color-theme;
       }
     }
     .buttontext {
       a {
-        background: @light-color-theme;
-        color: @main-color-theme;
+        background: $light-color-theme;
+        color: $main-color-theme;
         &:hover {
-          color: @light-color-theme;
-          background: @main-color-theme;
+          color: $light-color-theme;
+          background: $main-color-theme;
         }
       }
     }
   }
   &.button-style-1 > a {
-    background: @light-color-theme;
-    color: @main-color-theme;
+    background: $light-color-theme;
+    color: $main-color-theme;
     padding: 0.5rem 0.8rem;
     column-gap: 1rem;
     border-radius: 0.5rem;
@@ -265,13 +265,13 @@ button {
     margin-right: 0.5rem;
     font-weight: 600;
     &:hover {
-      color: @light-color-theme;
-      background: @main-color-theme;
+      color: $light-color-theme;
+      background: $main-color-theme;
     }
   }
   &.button-style-2 > a {
     background: white;
-    color: @dark-color-theme;
+    color: $dark-color-theme;
     padding: 0.5rem 0.8rem;
     column-gap: 1rem;
     border-radius: 0.5rem;
@@ -279,15 +279,15 @@ button {
     margin-right: 0.5rem;
     font-weight: 600;
     &:hover {
-      color: @light-color-theme;
-      background: @main-color-theme;
+      color: $light-color-theme;
+      background: $main-color-theme;
     }
   }
 }
 
 a.buttontext {
-  background: @light-color-theme;
-  color: @main-color-theme;
+  background: $light-color-theme;
+  color: $main-color-theme;
   padding: 0.5rem 0.8rem;
   column-gap: 1rem;
   border-radius: 0.5rem;
@@ -296,8 +296,8 @@ a.buttontext {
   margin: 0.3rem;
   margin-right: 0.5rem;
   &:hover {
-    color: @light-color-theme;
-    background: @main-color-theme;
+    color: $light-color-theme;
+    background: $main-color-theme;
   }
 }
 
@@ -308,21 +308,23 @@ a.buttontext {
   align-items: center;
   justify-content: space-between;
   font-family: 'Quicksand', sans-serif;
-  background-color: @header-color;
-  height: @app-bar-height;
+  background-color: $header-color;
+  height: $app-bar-height;
   #main-nav-bar-left {
     display: flex;
     align-items: end;
     padding-left: 1rem;
     #company-logo {
-      background: url('images/ofbiz_logo_white.svg') no-repeat center center / cover;
+      background: url('../images/logos/kapsiki_logo_text_only_CL_short_sb.png') no-repeat center center / cover;
       min-height: 50px;
       min-width: 50px;
       margin: 0.7rem 3rem 0.7rem 0;
       @media screen and (min-width: 1232px) {
-        min-height: 50px;
-        min-width: 129px;
-        background: url('images/ofbiz_logo_white.svg') no-repeat center center / cover;
+        min-height: 1.7rem;
+        min-width: 15rem;
+        /*padding: 0 8.5rem 2.5rem 1rem;*/
+        margin: 2rem 1rem 2.1rem 0;
+        background: url('../images/logos/kapsiki_logo_text_only_CL_short_sb.png') no-repeat center center / cover;
       }
     }
     #app-bar-list,
@@ -345,7 +347,7 @@ a.buttontext {
           }
           #app-selected {
             a {
-              color: @font-color-for-main;
+              color: $font-color-for-main;
             }
           }
         }
@@ -358,7 +360,7 @@ a.buttontext {
           font-size: 1.4rem;
           font-weight: 500;
           &:visited {
-            color: @font-color-for-dark;
+            color: $font-color-for-dark;
           }
         }
       }
@@ -372,7 +374,7 @@ a.buttontext {
         align-items: end;
         justify-content: start;
         margin-left: 3rem;
-        height: @app-bar-height;
+        height: $app-bar-height;
         color: white;
         font-size: 1.4rem;
         font-weight: 500;
@@ -386,8 +388,8 @@ a.buttontext {
         &:hover span {
           opacity: 1;
           cursor: pointer;
-          background-color: @light-color-theme;
-          color: @font-color-for-main;
+          background-color: $light-color-theme;
+          color: $font-color-for-main;
         }
       }
       #more-app:hover #more-app-list {
@@ -396,31 +398,31 @@ a.buttontext {
       #more-app-list {
         display: none;
         position: absolute;
-        top: @app-bar-height;
+        top: $app-bar-height;
         z-index: 10;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 4px;
         padding: 0 2rem;
-        box-shadow: 0 0 50px 0 @shadow-color;
+        box-shadow: 0 0 50px 0 $shadow-color;
         li {
           margin: 1rem 0.5rem;
           a {
             display: block;
             padding: 0.2rem 0.5rem;
-            color: @font-color-for-main;
+            color: $font-color-for-main;
             &:hover {
-              color: @main-color-theme;
+              color: $main-color-theme;
             }
           }
         }
         li.selected {
           background-color: rgba(255, 255, 255, 0.9);
           a {
-            color: @main-color-theme;
+            color: $main-color-theme;
           }
           a:hover {
-            color: @font-color-for-main;
-            background-color: @light-color-theme;
+            color: $font-color-for-main;
+            background-color: $light-color-theme;
           }
         }
       }
@@ -458,15 +460,15 @@ a.buttontext {
         gap: 1rem;
         font-size: 1.4rem;
         position: absolute;
-        top: @app-bar-height;
+        top: $app-bar-height;
         right: 2rem;
         background-color: rgba(255, 255, 255, 0.9);
         border-radius: 4px;
         padding: 0 2rem;
-        box-shadow: 0 0 50px 0 @shadow-color;
+        box-shadow: 0 0 50px 0 $shadow-color;
         padding: 2rem;
         z-index: 15;
-        color: @font-color-for-main;
+        color: $font-color-for-main;
         #user-name {
           display: flex;
           justify-content: center;
@@ -479,7 +481,7 @@ a.buttontext {
           }
         }
         #logout {
-          color: @main-color-theme;
+          color: $main-color-theme;
         }
       }
     }
@@ -488,7 +490,7 @@ a.buttontext {
 #app-navigation {
   width: 100%;
   background-color: white;
-  box-shadow: 0 0 15px 0 @shadow-color;
+  box-shadow: 0 0 15px 0 $shadow-color;
   h2 {
     display: none;
   }
@@ -502,15 +504,15 @@ a.buttontext {
         &.selected,
         &:hover {
           a {
-            background-color: @light-color-theme;
+            background-color: $light-color-theme;
             border-radius: 0.5rem;
-            color: @main-color-theme;
+            color: $main-color-theme;
             display: block;
           }
         }
         a {
           padding: 0.5rem 0.8rem;
-          color: @dark-color-theme;
+          color: $dark-color-theme;
           font-weight: 600;
           font-size: 1.2rem;
           display: block;
@@ -530,7 +532,7 @@ a.buttontext {
     .h1 {
       font-size: 1.8rem;
       margin: 1rem 0;
-      color: @font-color-for-main;
+      color: $font-color-for-main;
     }
     &.leftonly {
       width: 87%;
@@ -542,7 +544,7 @@ a.buttontext {
     float: left;
     width: 12%;
     input[type='text'] {
-      width: ~'calc(100% - 2rem)';
+      width: 'calc(100% - 2rem)';
     }
   }
 
@@ -586,17 +588,17 @@ a.buttontext {
 /* ----------------------------------- */
 .screenlet {
   border-radius: 0.5rem;
-  box-shadow: 0 0 15px 0 @shadow-color;
+  box-shadow: 0 0 15px 0 $shadow-color;
   margin-bottom: 2rem;
   overflow: auto;
   .screenlet-title-bar {
     position: relative;
-    color: @main-color-theme;
+    color: $main-color-theme;
     background-color: white;
     padding: 1.2rem 0.8rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid $border-color;
     h1,
     .h1,
     h2,
@@ -604,7 +606,7 @@ a.buttontext {
     h3,
     .h3 {
       background: none;
-      color: @font-color-for-main;
+      color: $font-color-for-main;
     }
     h1,
     .h1 {
@@ -619,7 +621,7 @@ a.buttontext {
       padding: 0.2rem 0.3rem;
       font-size: 1.35rem;
       font-weight: 600;
-      color: @dark-color-theme;
+      color: $dark-color-theme;
     }
     .basic-nav {
       margin-right: 2.7rem;
@@ -632,12 +634,12 @@ a.buttontext {
             color: white;
             font-size: 1.2rem;
             font-weight: 600;
-            background: @main-color-theme;
+            background: $main-color-theme;
             border-radius: 0.3rem;
             text-transform: uppercase;
             &:hover {
-              background: @light-color-theme;
-              color: @main-color-theme;
+              background: $light-color-theme;
+              color: $main-color-theme;
             }
           }
         }
@@ -651,7 +653,7 @@ a.buttontext {
         color: #222;
         display: block;
         &:hover {
-          color: @light-color-theme;
+          color: $light-color-theme;
           text-decoration: none;
         }
       }
@@ -701,10 +703,10 @@ a.buttontext {
     h3 {
       font-size: 1.4rem;
       font-weight: 600;
-      color: @dark-color-theme;
+      color: $dark-color-theme;
       position: relative;
       padding: 1.4rem 1.1rem;
-      border-bottom: 1px solid @border-color;
+      border-bottom: 1px solid $border-color;
     }
     form {
       fieldset {
@@ -714,7 +716,7 @@ a.buttontext {
         > div {
           margin-bottom: 1rem;
           label {
-            color: @grey-dark;
+            color: $grey-dark;
             font-weight: 500;
             font-size: 1.3rem;
           }
@@ -749,14 +751,14 @@ a.buttontext {
 /*        Fieldgroup  Style        */
 /*------------------------------------ */
 .fieldgroup {
-  border-bottom: 1px solid @border-color;
+  border-bottom: 1px solid $border-color;
   padding: 0.5rem;
 }
 .fieldgroup-title-bar {
   padding: 0.2rem 0.3rem;
   font-size: 1.3rem;
   font-weight: 600;
-  color: @dark-color-theme;
+  color: $dark-color-theme;
   ul {
     .expanded,
     .expanded:hover {
@@ -791,9 +793,9 @@ a.buttontext {
       align-items: center;
       a {
         display: block;
-        background: @light-color-theme;
+        background: $light-color-theme;
         border-radius: 0.5rem;
-        color: @main-color-theme;
+        color: $main-color-theme;
         padding: 0.5rem 0.8rem;
         font-weight: 600;
         font-size: 1.2rem;
@@ -803,8 +805,8 @@ a.buttontext {
       padding: 0 1em 0 1em;
       text-decoration: none;
       &:hover {
-        background-color: @light-color-theme;
-        color: @font-color-for-main;
+        background-color: $light-color-theme;
+        color: $font-color-for-main;
       }
     }
     .nav-pagesize,
@@ -827,7 +829,7 @@ a.buttontext {
         background-position: center center;
         background-size: 16px;
         &:hover {
-          background-color: @main-color-theme;
+          background-color: $main-color-theme;
         }
       }
     }
@@ -906,7 +908,7 @@ input[type='text'],
 input[type='time'],
 input[type='url'],
 input[type='week'] {
-  border: 0.15rem solid @border-color;
+  border: 0.15rem solid $border-color;
   padding: 0.5rem 0.8rem;
   border-radius: 0.5rem;
 }
@@ -988,7 +990,7 @@ span.tooltip {
   content: '';
   width: 150px;
   min-width: 150px;
-  background-color: @grey-lighter;
+  background-color: $grey-lighter;
   padding: 2px 20px 2px 20px;
   border-radius: 8px 8px 8px 8px;
   cursor: pointer;
@@ -998,7 +1000,7 @@ span.tooltip {
   content: '';
   position: relative;
   left: -35px;
-  background-color: @main-color-theme;
+  background-color: $main-color-theme;
   min-height: 10px;
   min-width: 10px;
   padding-left: 4px;
@@ -1028,11 +1030,11 @@ span.tooltip {
       text-align: left;
       td {
         padding: 1rem 0.5rem;
-        border-bottom: 0.1em solid @border-color;
-        color: @font-color-for-main;
+        border-bottom: 0.1em solid $border-color;
+        color: $font-color-for-main;
         text-transform: uppercase;
         a {
-          color: @font-color-for-main;
+          color: $font-color-for-main;
         }
       }
     }
@@ -1062,13 +1064,13 @@ span.tooltip {
         color: white;
         font-size: 1.2rem;
         font-weight: 600;
-        background: @main-color-theme;
+        background: $main-color-theme;
         border-radius: 0.3rem;
         text-transform: uppercase;
         margin: 0.5rem 0;
         &:hover {
-          background: @light-color-theme;
-          color: @main-color-theme;
+          background: $light-color-theme;
+          color: $main-color-theme;
         }
       }
     }
@@ -1089,25 +1091,25 @@ span.tooltip {
     }
   }
   .alternate-row {
-    background-color: @grey-lighter;
+    background-color: $grey-lighter;
   }
   .selected {
-    background: @warningLight;
+    background: $warningLight;
   }
   .alternate-rowSelected {
-    background: @warning;
+    background: $warning;
   }
   .Validate {
-    background: @success;
+    background: $success;
   }
   .alternate-rowValidate {
-    background: @successLight;
+    background: $successLight;
   }
   .Warn {
-    background: @danger;
+    background: $danger;
   }
   .alternate-rowWarn {
-    background: @dangerLight;
+    background: $dangerLight;
   }
   .collapsed {
     visibility: collapse;
@@ -1117,9 +1119,9 @@ span.tooltip {
     td {
       padding: 1rem 0.5rem;
       font-weight: 600;
-      color: @grey-dark;
+      color: $grey-dark;
       text-transform: uppercase;
-      background-color: @grey-light;
+      background-color: $grey-light;
       .sort-order-asc {
         background: url(/images/arrow-gr-up.png) no-repeat right;
         padding-right: 20px;
@@ -1131,7 +1133,7 @@ span.tooltip {
       .sort-order {
         background: url(/images/arrow-gr.png) no-repeat right;
         padding-right: 20px;
-        color: @grey-dark;
+        color: $grey-dark;
       }
     }
   }
@@ -1162,7 +1164,7 @@ form .basic-table,
       padding-left: 3rem;
       max-width: 2%;
       font-weight: 600;
-      color: @grey-dark;
+      color: $grey-dark;
     }
   }
 }
@@ -1180,7 +1182,7 @@ form .basic-table,
     width: 0;
     height: 0;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid @border-color;
+    border-bottom: 10px solid $border-color;
     border-left: 10px solid transparent;
   }
   &:after {
@@ -1190,17 +1192,17 @@ form .basic-table,
     width: 0;
     height: 0;
     border-right: 10px solid transparent;
-    border-top: 10px solid @border-color;
+    border-top: 10px solid $border-color;
     border-left: 10px solid transparent;
     @media screen and (max-width: 1349px) {
       right: -5px;
     }
   }
   &.btn-sort-asc:before {
-    border-bottom: 10px solid @light-color-theme;
+    border-bottom: 10px solid $light-color-theme;
   }
   &.btn-sort-desc:after {
-    border-top: 10px solid @light-color-theme;
+    border-top: 10px solid $light-color-theme;
   }
 }
 
@@ -1208,9 +1210,9 @@ form .basic-table,
 /*      Footer Style      */
 /* ---------------------- */
 #footer {
-  background: @footer-color;
+  background: $footer-color;
   padding: 0.5rem 0;
-  height: @footer-height;
+  height: $footer-height;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -1233,7 +1235,7 @@ form .basic-table,
   }
 }
 #footer-offset {
-  height: @footer-height + 10px;
+  height: $footer-height + 10px;
   width: 100%;
 }
 
@@ -1245,7 +1247,7 @@ form .basic-table,
     padding: 0.3rem;
     font-size: 1.8rem;
     font-weight: 600;
-    color: @dark-color-theme;
+    color: $dark-color-theme;
   }
 }
 .webToolList {
@@ -1311,7 +1313,7 @@ form .basic-table,
     height: 1.3rem;
     width: 1.3rem;
     border-radius: 2rem;
-    background-color: @border-color;
+    background-color: $border-color;
     margin-left: 0.5rem;
     font-style: normal;
     cursor: pointer;
@@ -1330,7 +1332,7 @@ form .basic-table,
     top: -3rem;
     opacity: 1;
     line-height: 1rem;
-    background: @grey-light;
+    background: $grey-light;
     padding: 0.8rem 1rem;
     border-radius: 0.3rem;
     font-weight: 500;
@@ -1338,14 +1340,14 @@ form .basic-table,
 }
 
 .select2-container--default .select2-selection--multiple {
-  border-color: @border-color !important;
+  border-color: $border-color !important;
 }
 
 #loginBar {
   width: 30%;
   margin: 0 auto;
   #company-logo {
-    background: url('images/ofbiz_logo.svg') no-repeat center center / auto 100%;
+    background: url('../images/logos/kapsiki_logo_with_CL_lg_txt_default.png') no-repeat center center / auto 100%;
     height: 12rem;
     width: 100%;
     margin: 0.7rem 0 1.2rem 0;
@@ -1356,7 +1358,7 @@ form .basic-table,
   padding: 5rem;
   width: 400px;
   margin: 0 auto;
-  box-shadow: 0 0 15px 15px @shadow-color !important;
+  box-shadow: 0 0 15px 15px $shadow-color !important;
   background-color: white;
   h3 {
     text-align: center;
@@ -1366,7 +1368,7 @@ form .basic-table,
   p {
     text-align: center;
     font-size: 1.5rem;
-    color: @grey;
+    color: $grey;
     font-weight: 500;
   }
   form[name='loginform'],
@@ -1394,7 +1396,7 @@ form .basic-table,
     input[type='text'],
     input[type='password'] {
       border: none;
-      background-color: @grey-light;
+      background-color: $grey-light;
       padding: 1rem;
       font-size: 1.2rem;
       opacity: 0.5;
@@ -1425,7 +1427,7 @@ form .basic-table,
     .link {
       background: transparent;
       padding: 0;
-      color: @main-color-theme;
+      color: $main-color-theme;
       &:hover {
         text-decoration: underline;
       }
@@ -1433,9 +1435,9 @@ form .basic-table,
   }
 }
 .ui-dialog {
-  left: ~'calc(50% - 320px)' !important;
+  left: 'calc(50% - 320px)' !important;
   top: 2rem !important;
-  box-shadow: 0 0 15px 15px @shadow-color !important;
+  box-shadow: 0 0 15px 15px $shadow-color !important;
 }
 
 .hidden {
@@ -1456,10 +1458,10 @@ form .basic-table,
   width: 30%;
   margin: 0 auto;
   #company-logo {
-    background: url('images/ofbiz_logo.svg') no-repeat center center / auto 100%;
-    height: 12rem;
+    background: url('../images/logos/kapsiki_logo_with_CL_lg_txt_default.png') no-repeat center center / auto 100%;
+    height: 3.5rem;
     width: 100%;
-    margin: 0.7rem 0 1.2rem 0;
+    margin: 30rem 0 3.5rem 0;
   }
 }
 
@@ -1467,7 +1469,7 @@ form .basic-table,
   padding: 5rem;
   width: 400px;
   margin: 0 auto;
-  box-shadow: 0 0 15px 15px @shadow-color !important;
+  box-shadow: 0 0 15px 15px $shadow-color !important;
   background-color: white;
   h3 {
     text-align: center;
@@ -1477,7 +1479,7 @@ form .basic-table,
   p {
     text-align: center;
     font-size: 1.5rem;
-    color: @grey;
+    color: $grey;
     font-weight: 500;
   }
   form[name='loginform'],
@@ -1502,7 +1504,7 @@ form .basic-table,
     input[type='text'],
     input[type='password'] {
       border: none;
-      background-color: @grey-light;
+      background-color: $grey-light;
       padding: 1rem;
       font-size: 1.2rem;
       opacity: 0.5;
@@ -1533,7 +1535,7 @@ form .basic-table,
     .link {
       background: transparent;
       padding: 0;
-      color: @main-color-theme;
+      color: $main-color-theme;
       &:hover {
         text-decoration: underline;
       }
@@ -1541,9 +1543,9 @@ form .basic-table,
   }
 }
 .ui-dialog {
-  left: ~'calc(50% - 320px)' !important;
+  left: 'calc(50% - 320px)' !important;
   top: 2rem !important;
-  box-shadow: 0 0 15px 15px @shadow-color !important;
+  box-shadow: 0 0 15px 15px $shadow-color !important;
 }
 
 .hidden {

@@ -1,0 +1,35 @@
+{
+  "name": "mandara",
+  "version": "1.0.0",
+  "description": "Helveticus theme evolution in kapsiki branding",
+  "keywords": [
+    "kapsiki application platform",
+    "kapsiki OFBiz framework",
+    "styles",
+    "css",
+    "scss",
+    "sass",
+    "OFBiz"
+  ],
+  "main": "style.css",
+  "scripts": {
+    "watch:scss": "node-sass scss/mandara.scss css/style.css -w",
+    "compile:scss": "node-sass scss/mandara.scss css/style.comp.css",
+    "concat:css": "concat -o css/style.concat.css css/style.comp.css",
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.concat.css -o css/style.prefix.css",
+    "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+    "cleanup:css": "del-cli --force css/style.comp.css css/style.concat.css css/style.prefix.css",
+    "build:css": "npm-run-all compile:scss concat:css prefix:css compress:css cleanup:css"
+  },
+  "author": "kapsiki digital solutions",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "concat": "^1.0.3",
+    "del-cli": "^5.1.0",
+    "node-sass": "^9.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0"
+  }
+}

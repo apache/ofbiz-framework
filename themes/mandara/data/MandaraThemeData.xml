@@ -19,9 +19,11 @@ under the License.
 -->
 
 <entity-engine-xml>
+  <!-- ghislaink: reducing the number of themes flavors to choose from by commenting out some of them
     <VisualTheme visualThemeId="MANDARA_SAPHIR" visualThemeSetId="BACKOFFICE" description="MANDARA - Sapphire"/>
     <VisualTheme visualThemeId="MANDARA_RUBY" visualThemeSetId="BACKOFFICE" description="MANDARA - Ruby"/>
     <VisualTheme visualThemeId="MANDARA_EMERALD" visualThemeSetId="BACKOFFICE" description="MANDARA - Emerald"/>
     <VisualTheme visualThemeId="MANDARA_AMBER" visualThemeSetId="BACKOFFICE" description="MANDARA - Amber"/>
+  -->
     <VisualTheme visualThemeId="MANDARA_KAPSIKI" visualThemeSetId="BACKOFFICE" description="MANDARA - KAPSIKI"/>
 </entity-engine-xml>

@@ -24,30 +24,32 @@ under the License.
     <visual-themes>
         <visual-theme id="MANDARA_SAPHIR" display-name="Mandara - Saphir">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_SAPHIR', locale)}</description>
-            <screenshot location="/mandara/images/themeMandara_saphir.png"/>
+            <screenshot location="/mandara/images/screenshots/themeMandara_saphir.png"/>
         </visual-theme>
         <visual-theme id="MANDARA_AMBER" display-name="Mandara - Amber">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_AMBER', locale)}</description>
-            <screenshot location="/mandara/images/themeMandara_amber.png"/>
+            <screenshot location="/mandara/images/screenshots/themeMandara_amber.png"/>
         </visual-theme>
         <visual-theme id="MANDARA_RUBY" display-name="Mandara - Ruby">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_RUBY', locale)}</description>
-            <screenshot location="/mandara/images/themeMandara_ruby.png"/>
+            <screenshot location="/mandara/images/screenshots/themeMandara_ruby.png"/>
         </visual-theme>
         <visual-theme id="MANDARA_EMERALD" display-name="Mandara - Emerald">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_EMERALD', locale)}</description>
-            <screenshot location="/mandara/images/themeMandara_emerald.png"/>
+            <screenshot location="/mandara/images/screenshots/themeMandara_emerald.png"/>
         </visual-theme>
         <visual-theme id="MANDARA_KAPSIKI" display-name="Mandara - Kapsiki">
             <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_EMERALD', locale)}</description>
-            <screenshot location="/mandara/images/themeMandara_kapsiki.png"/>
+            <screenshot location="/mandara/images/screenshots/themeMandara_kapsiki.png"/>
         </visual-theme>
     </visual-themes>
 
     <extends location="component://common-theme/widget/Theme.xml"/>
     <theme-properties>
-        <!--header image -->
-        <property name="VT_HDR_IMAGE_URL" value="/mandara/images/kapsiki_logo.svg"/>
+        <!--header image: keeping the default because it is overwritten in the css style -->
+        <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.png"/>
+        <!--FAVICON image: the ending .ico is added automatically by the framework -->
+        <property name="VT_SHORTCUT_ICON" value="/mandara/images/logos/kapsiki-logo"/>
         <!--template location-->
         <property name="VT_HDR_TMPLT_LOC" value="component://mandara/template/includes/Header.ftl"/>
         <property name="VT_FTR_TMPLT_LOC" value="component://mandara/template/includes/Footer.ftl"/>
@@ -60,11 +62,11 @@ under the License.
         <property name="VT_FTR_JAVASCRIPT['add']" value="/mandara/js/mandara.js"/>
         <property name="VT_FTR_JAVASCRIPT['add']" value="/mandara/js/OfbizUtil.js"/>
         <!--Css style-->
-        <property name="VT_STYLESHEET['add']" value="/mandara/flag-icon.min.css"/>
-        <property name="VT_STYLESHEET['add']" value="/mandara/javascript.css"/>
-        <property name="VT_RTL_STYLESHEET['add']" value="/mandara/stylertl.css"/>
-        <property name="VT_HELPSTYLESHEET['add']" value="/mandara/help.css"/>
-        <property name="VT_STYLESHEET['add']" value="/mandara/style.css"/>
+        <property name="VT_STYLESHEET['add']" value="/mandara/css/flag-icon.min.css"/>
+        <property name="VT_STYLESHEET['add']" value="/mandara/css/javascript.css"/>
+        <property name="VT_RTL_STYLESHEET['add']" value="/mandara/css/stylertl.css"/>
+        <property name="VT_HELPSTYLESHEET['add']" value="/mandara/css/help.css"/>
+        <property name="VT_STYLESHEET['add']" value="/mandara/css/style.css"/>
     </theme-properties>
 
     <templates>

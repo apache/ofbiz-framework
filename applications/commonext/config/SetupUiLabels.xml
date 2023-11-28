@@ -50,14 +50,14 @@
         <value xml:lang="zh-TW">設置應用程式</value>
     </property>
     <property key="SetupCompanyName">
-        <value xml:lang="en">OFBiz: Setup Application </value>
-        <value xml:lang="fr">Nom de l'organisation</value>
-        <value xml:lang="it">OFBiz: componente di configurazione</value>
-        <value xml:lang="ja">OFBiz: 設定アプリケーション</value>
-        <value xml:lang="pt-BR">OFBiz: Aplicativo de instalação</value>
-        <value xml:lang="vi">OFBiz: Khởi tạo Ứng dụng</value>
-        <value xml:lang="zh">OFBiz：安装程序</value>
-        <value xml:lang="zh-TW">OFBiz: 設置應用程式</value>
+        <value xml:lang="en">Kapsiki - Setup Application </value>
+        <value xml:lang="fr">Kapsiki - Nom de l'organisation</value>
+        <value xml:lang="it">Kapsiki - componente di configurazione</value>
+        <value xml:lang="ja">Kapsiki - 設定アプリケーション</value>
+        <value xml:lang="pt-BR">Kapsiki - Aplicativo de instalação</value>
+        <value xml:lang="vi">Kapsiki - Khởi tạo Ứng dụng</value>
+        <value xml:lang="zh">Kapsiki - 安装程序</value>
+        <value xml:lang="zh-TW">Kapsiki - 設置應用程式</value>
     </property>
     <property key="SetupCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>

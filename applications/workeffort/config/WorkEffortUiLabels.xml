@@ -2294,19 +2294,19 @@
         <value xml:lang="zh-TW">評論</value>
     </property>
     <property key="WorkEffortCompanyName">
-        <value xml:lang="de">OFBiz: Arbeitseinsatz Manager</value>
-        <value xml:lang="en">OFBiz: WorkEffort Manager</value>
-        <value xml:lang="es">OFBiz: Administración de tareas</value>
-        <value xml:lang="fr">OFBiz: Gestion de tâches</value>
-        <value xml:lang="it">OFBiz: Gestione impegni di lavoro</value>
-        <value xml:lang="ja">OFBiz: 作業成果管理</value>
-        <value xml:lang="nl">OFBiz: WorkEffort Manager</value>
-        <value xml:lang="ro">OFBiz: Gestiune Sarcini de Lucru </value>
-        <value xml:lang="ru">OFBiz: WorkEffort Manager</value>
-        <value xml:lang="th">OFBiz: การจัดการความพยายามในการทำงาน</value>
-        <value xml:lang="vi">OFBiz: Quản lý công việc (Lượng giá nguồn lực)</value>
-        <value xml:lang="zh">OFBiz: 人工服务管理程序</value>
-        <value xml:lang="zh-TW">OFBiz: 工作投入管理程式</value>
+        <value xml:lang="de">Kapsiki - Arbeitseinsatz Manager</value>
+        <value xml:lang="en">Kapsiki - WorkEffort Manager</value>
+        <value xml:lang="es">Kapsiki - Administración de tareas</value>
+        <value xml:lang="fr">Kapsiki - Gestion de tâches</value>
+        <value xml:lang="it">Kapsiki - Gestione impegni di lavoro</value>
+        <value xml:lang="ja">Kapsiki - 作業成果管理</value>
+        <value xml:lang="nl">Kapsiki - WorkEffort Manager</value>
+        <value xml:lang="ro">Kapsiki - Gestiune Sarcini de Lucru </value>
+        <value xml:lang="ru">Kapsiki - WorkEffort Manager</value>
+        <value xml:lang="th">Kapsiki - การจัดการความพยายามในการทำงาน</value>
+        <value xml:lang="vi">Kapsiki - Quản lý công việc (Lượng giá nguồn lực)</value>
+        <value xml:lang="zh">Kapsiki - 人工服务管理程序</value>
+        <value xml:lang="zh-TW">Kapsiki - 工作投入管理程式</value>
     </property>
     <property key="WorkEffortCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>

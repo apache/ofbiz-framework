@@ -601,19 +601,19 @@
     </property>
     <property key="ContentCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحتوى</value>
-        <value xml:lang="da">OFBiz: Indholdsadministration</value>
-        <value xml:lang="de">OFBiz: Inhaltsverwaltung</value>
-        <value xml:lang="en">OFBiz: Content Manager</value>
-        <value xml:lang="es">OFBiz: Administración de Contenidos</value>
-        <value xml:lang="fr">OFBiz: gestion de contenu</value>
-        <value xml:lang="it">OFBiz: Gestione contenuti</value>
-        <value xml:lang="ja">OFBiz: コンテンツ管理</value>
-        <value xml:lang="pt">OFBiz: Gerenciador de conteúdo</value>
-        <value xml:lang="ro">OFBiz: Gestiune Continut</value>
-        <value xml:lang="th">OFBiz:หัวข้อการจัดการ</value>
-        <value xml:lang="vi">OFBiz: Quản trị nội dung</value>
-        <value xml:lang="zh">OFBiz：内容管理</value>
-        <value xml:lang="zh-TW">OFBiz:內容管理</value>
+        <value xml:lang="da">Kapsiki - Indholdsadministration</value>
+        <value xml:lang="de">Kapsiki - Inhaltsverwaltung</value>
+        <value xml:lang="en">Kapsiki - Content Manager</value>
+        <value xml:lang="es">Kapsiki - Administración de Contenidos</value>
+        <value xml:lang="fr">Kapsiki - gestion de contenu</value>
+        <value xml:lang="it">Kapsiki - Gestione contenuti</value>
+        <value xml:lang="ja">Kapsiki - コンテンツ管理</value>
+        <value xml:lang="pt">Kapsiki - Gerenciador de conteúdo</value>
+        <value xml:lang="ro">Kapsiki - Gestiune Continut</value>
+        <value xml:lang="th">Kapsiki - หัวข้อการจัดการ</value>
+        <value xml:lang="vi">Kapsiki - Quản trị nội dung</value>
+        <value xml:lang="zh">Kapsiki - 内容管理</value>
+        <value xml:lang="zh-TW">Kapsiki - 內容管理</value>
     </property>
     <property key="ContentCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
