@@ -413,19 +413,19 @@
         <value xml:lang="zh-TW">活動摘要</value>
     </property>
     <property key="MarketingCompanyName">
-        <value xml:lang="de">OFBiz: Vermarktungsmanager</value>
-        <value xml:lang="en">OFBiz: Marketing Manager</value>
-        <value xml:lang="es">OFBiz: Gestión de Marketing</value>
-        <value xml:lang="fr">OFBiz: Gestion du Marketing</value>
-        <value xml:lang="it">OFBiz: Gestione vendite</value>
-        <value xml:lang="ja">OFBiz: マーケティング管理</value>
-        <value xml:lang="nl">OFBiz: Marketing Manager</value>
-        <value xml:lang="pt-BR">OFBiz: Gerente de Marketing</value>
-        <value xml:lang="ro">OFBiz: Gestione Vendite</value>
-        <value xml:lang="th">OFBiz: การจัดการทางการตลาด</value>
-        <value xml:lang="vi">OFBiz: Quản trị Tiếp thị</value>
-        <value xml:lang="zh">OFBiz: 市场宣传管理</value>
-        <value xml:lang="zh-TW">OFBiz: 行銷管理</value>
+        <value xml:lang="de">Kapsiki - Vermarktungsmanager</value>
+        <value xml:lang="en">Kapsiki - Marketing Manager</value>
+        <value xml:lang="es">Kapsiki - Gestión de Marketing</value>
+        <value xml:lang="fr">Kapsiki - Gestion du Marketing</value>
+        <value xml:lang="it">Kapsiki - Gestione vendite</value>
+        <value xml:lang="ja">Kapsiki - マーケティング管理</value>
+        <value xml:lang="nl">Kapsiki - Marketing Manager</value>
+        <value xml:lang="pt-BR">Kapsiki - Gerente de Marketing</value>
+        <value xml:lang="ro">Kapsiki - Gestione Vendite</value>
+        <value xml:lang="th">Kapsiki - การจัดการทางการตลาด</value>
+        <value xml:lang="vi">Kapsiki - Quản trị Tiếp thị</value>
+        <value xml:lang="zh">Kapsiki - 市场宣传管理</value>
+        <value xml:lang="zh-TW">Kapsiki - 行銷管理</value>
     </property>
     <property key="MarketingCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
@@ -3105,17 +3105,17 @@
         <value xml:lang="zh-TW">關閉日期</value>
     </property>
     <property key="SfaCompanyName">
-        <value xml:lang="de">OFBiz: Vertriebsmanager</value>
-        <value xml:lang="en">OFBiz: SFA Manager</value>
+        <value xml:lang="de">Kapsiki - Vertriebsmanager</value>
+        <value xml:lang="en">Kapsiki - SFA Manager</value>
         <value xml:lang="es">Gestor de fuerzas de ventas</value>
-        <value xml:lang="es-CL">OFBiz: Gestión de Fuerzas de Ventas</value>
-        <value xml:lang="fr">OFBiz: gestion des ventes</value>
-        <value xml:lang="it">OFBiz: Gestione forze di vendita</value>
-        <value xml:lang="ja">OFBiz: 営業支援(SFA)管理</value>
-        <value xml:lang="pt-BR">OFBiz: gestor da equipe de vendas</value>
-        <value xml:lang="vi">OFBiz: Quản trị Chiến dịch tiếp thị</value>
-        <value xml:lang="zh">OFBiz: 销售管理程序</value>
-        <value xml:lang="zh-TW">OFBiz: 營業支援(SFA)管理</value>
+        <value xml:lang="es-CL">Kapsiki - Gestión de Fuerzas de Ventas</value>
+        <value xml:lang="fr">Kapsiki - gestion des ventes</value>
+        <value xml:lang="it">Kapsiki - Gestione forze di vendita</value>
+        <value xml:lang="ja">Kapsiki - 営業支援(SFA)管理</value>
+        <value xml:lang="pt-BR">Kapsiki - gestor da equipe de vendas</value>
+        <value xml:lang="vi">Kapsiki - Quản trị Chiến dịch tiếp thị</value>
+        <value xml:lang="zh">Kapsiki - 销售管理程序</value>
+        <value xml:lang="zh-TW">Kapsiki - 營業支援(SFA)管理</value>
     </property>
     <property key="SfaComplete">
         <value xml:lang="de">Komplett</value>

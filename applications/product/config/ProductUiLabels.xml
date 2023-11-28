@@ -85,20 +85,20 @@
         <value xml:lang="zh-TW">帳單位址和送貨位址相同</value>
     </property>
     <property key="FacilityCompanyName">
-        <value xml:lang="de">OFBiz: Anlagen Verwaltung</value>
-        <value xml:lang="en">OFBiz: Facility Manager</value>
-        <value xml:lang="es">OFBiz: Administrador de Almacén</value>
-        <value xml:lang="es-CL">OFBiz: Administrador de Bodegas</value>
-        <value xml:lang="fr">OFBiz: Gestion de stock</value>
-        <value xml:lang="it">OFBiz: Gestione stabilimenti</value>
-        <value xml:lang="ja">OFBiz: 拠点管理</value>
-        <value xml:lang="nl">OFBiz: Faciliteit Manager</value>
-        <value xml:lang="ro">OFBiz: Gestiune Compartimente</value>
-        <value xml:lang="ru">OFBiz: Управление объектами</value>
-        <value xml:lang="th">OFBiz: การจัดการคลังสินค้า</value>
-        <value xml:lang="vi">OFBiz: Quản trị Chi nhánh / Cơ sở</value>
-        <value xml:lang="zh">OFBiz：场所管理程序</value>
-        <value xml:lang="zh-TW">OFBiz:場所管理程式</value>
+        <value xml:lang="de">Kapsiki - Anlagen Verwaltung</value>
+        <value xml:lang="en">Kapsiki - Facility Manager</value>
+        <value xml:lang="es">Kapsiki - Administrador de Almacén</value>
+        <value xml:lang="es-CL">Kapsiki - Administrador de Bodegas</value>
+        <value xml:lang="fr">Kapsiki - Gestion de stock</value>
+        <value xml:lang="it">Kapsiki - Gestione stabilimenti</value>
+        <value xml:lang="ja">Kapsiki - 拠点管理</value>
+        <value xml:lang="nl">Kapsiki - Faciliteit Manager</value>
+        <value xml:lang="ro">Kapsiki - Gestiune Compartimente</value>
+        <value xml:lang="ru">Kapsiki - Управление объектами</value>
+        <value xml:lang="th">Kapsiki - การจัดการคลังสินค้า</value>
+        <value xml:lang="vi">Kapsiki - Quản trị Chi nhánh / Cơ sở</value>
+        <value xml:lang="zh">Kapsiki - 场所管理程序</value>
+        <value xml:lang="zh-TW">Kapsiki -場所管理程式</value>
     </property>
     <property key="FacilityCompanySubtitle">
         <value xml:lang="de">Teil der Apache OFBiz Familie von Open Source Software</value>
@@ -14657,19 +14657,19 @@
         <value xml:lang="zh-TW">產品型錄分類類型</value>
     </property>
     <property key="ProductCatalogCompanyName">
-        <value xml:lang="de">OFBiz: Katalogverwaltung</value>
-        <value xml:lang="en">OFBiz: Catalog Manager</value>
-        <value xml:lang="es">OFBiz: Administrador del Catálogo</value>
-        <value xml:lang="fr">OFBiz: Gestion des articles</value>
-        <value xml:lang="it">OFBiz: Gestione cataloghi</value>
-        <value xml:lang="ja">OFBiz: カタログ管理</value>
-        <value xml:lang="nl">OFBIZ: Product Mgt</value>
-        <value xml:lang="ro">OFBiz: Gestiune Catalog</value>
-        <value xml:lang="ru">OFBiz: Управление каталогами</value>
-        <value xml:lang="th">OFBiz: การจัดการหมวดหมู่</value>
-        <value xml:lang="vi">Ofbiz: Quản trị Phân loại Trình diễn</value>
-        <value xml:lang="zh">OFBiz：目录管理程序</value>
-        <value xml:lang="zh-TW">OFBiz:型錄管理程式</value>
+        <value xml:lang="de">Kapsiki - Katalogverwaltung</value>
+        <value xml:lang="en">Kapsiki - Catalog Manager</value>
+        <value xml:lang="es">Kapsiki - Administrador del Catálogo</value>
+        <value xml:lang="fr">Kapsiki - Gestion des articles</value>
+        <value xml:lang="it">Kapsiki - Gestione cataloghi</value>
+        <value xml:lang="ja">Kapsiki - カタログ管理</value>
+        <value xml:lang="nl">Kapsiki - Product Mgt</value>
+        <value xml:lang="ro">Kapsiki - Gestiune Catalog</value>
+        <value xml:lang="ru">Kapsiki - Управление каталогами</value>
+        <value xml:lang="th">Kapsiki - การจัดการหมวดหมู่</value>
+        <value xml:lang="vi">Kapsiki - Quản trị Phân loại Trình diễn</value>
+        <value xml:lang="zh">Kapsiki - 目录管理程序</value>
+        <value xml:lang="zh-TW">Kapsiki -型錄管理程式</value>
     </property>
     <property key="ProductCatalogDetailList">
         <value xml:lang="de">Katalog Detailliste</value>

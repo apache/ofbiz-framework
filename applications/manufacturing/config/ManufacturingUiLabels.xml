@@ -1395,19 +1395,19 @@
         <value xml:lang="zh-TW">評論</value>
     </property>
     <property key="ManufacturingCompanyName">
-        <value xml:lang="de">OFBiz: Produktionsverwaltung</value>
-        <value xml:lang="en">OFBiz: Manufacturing Manager</value>
-        <value xml:lang="es">OFBiz: Gestor de producción</value>
-        <value xml:lang="fr">OFBiz: Gestion de production</value>
-        <value xml:lang="it">OFBiz: Gestione della produzione</value>
-        <value xml:lang="ja">OFBiz: 生産管理</value>
-        <value xml:lang="nl">OFBiz: Manufacturing</value>
-        <value xml:lang="pt-BR">OFBiz: Gestão de produção</value>
-        <value xml:lang="ro">OFBiz: Gestiune Productie</value>
-        <value xml:lang="th">OFBiz: การจัดการการผลิต</value>
-        <value xml:lang="vi">OFBiz: Quản trị sản xuất</value>
-        <value xml:lang="zh">OFBiz: 生产管理</value>
-        <value xml:lang="zh-TW">OFBiz: 生產管理</value>
+        <value xml:lang="de">Kapsiki - Produktionsverwaltung</value>
+        <value xml:lang="en">Kapsiki - Manufacturing Manager</value>
+        <value xml:lang="es">Kapsiki - Gestor de producción</value>
+        <value xml:lang="fr">Kapsiki - Gestion de production</value>
+        <value xml:lang="it">Kapsiki - Gestione della produzione</value>
+        <value xml:lang="ja">Kapsiki - 生産管理</value>
+        <value xml:lang="nl">Kapsiki - Manufacturing</value>
+        <value xml:lang="pt-BR">Kapsiki - Gestão de produção</value>
+        <value xml:lang="ro">Kapsiki - Gestiune Productie</value>
+        <value xml:lang="th">Kapsiki - การจัดการการผลิต</value>
+        <value xml:lang="vi">Kapsiki - Quản trị sản xuất</value>
+        <value xml:lang="zh">Kapsiki - 生产管理</value>
+        <value xml:lang="zh-TW">Kapsiki - 生產管理</value>
     </property>
     <property key="ManufacturingCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>

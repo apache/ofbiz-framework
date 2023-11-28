@@ -25,8 +25,8 @@ under the License.
         <value xml:lang="zh-TW">@component-resource-name@應用程式</value>
     </property>
     <property key="@component-resource-name@CompanyName">
-        <value xml:lang="en">OFBiz: @component-resource-name@</value>
-        <value xml:lang="zh-TW">OFBiz: @component-resource-name@</value>
+        <value xml:lang="en">Kapsiki - @component-resource-name@</value>
+        <value xml:lang="zh-TW">Kapsiki - @component-resource-name@</value>
     </property>
     <property key="@component-resource-name@CompanySubtitle">
         <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
