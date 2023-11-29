@@ -6275,18 +6275,6 @@
         <value xml:lang="zh">指定的编号</value>
         <value xml:lang="zh-TW">指定編號</value>
     </property>
-    <property key="FormFieldTitle_oldPickStartDate">
-        <value xml:lang="de">Altes Kommissionierungs-Startdatum</value>
-        <value xml:lang="en">Old Pick Start Date</value>
-        <value xml:lang="es">Antigua fecha de recogida</value>
-        <value xml:lang="fr">Ancienne date de départ du prélèvement</value>
-        <value xml:lang="it">Vecchia Data Inizio Prelievo</value>
-        <value xml:lang="ja">前回ピッキング開始日</value>
-        <value xml:lang="th">วันที่เลือกเดิม</value>
-        <value xml:lang="vi">Ngày bắt đầu Xử lý đặt hàng (Pick) trước đây</value>
-        <value xml:lang="zh">旧的分拣开始日期</value>
-        <value xml:lang="zh-TW">舊的揀貨開始日期</value>
-    </property>
     <property key="FormFieldTitle_oneInventoryFacility">
         <value xml:lang="de">Eine Lagereinrichtung</value>
         <value xml:lang="en">One Inventory Facility</value>
