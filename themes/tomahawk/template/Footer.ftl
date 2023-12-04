@@ -28,7 +28,7 @@ under the License.
        <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
     </li>
     <li class="opposed">${nowTimestamp?datetime?string.short} -
-  <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
+  <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.toZoneId().getDisplayName(Static["java.time.format.TextStyle"].FULL_STANDALONE, locale)}</a>
     </li>
   </ul>
 </div>
