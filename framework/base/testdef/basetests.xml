@@ -22,7 +22,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilObjectTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.base.util.UtilObjectTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
         <groovy-test-suite name="simple" location="component://base/groovyScripts/test/SimpleTests.groovy"/>
