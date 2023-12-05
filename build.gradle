@@ -85,7 +85,7 @@ application {
             ? jvmArgs.tokenize()
             : ['-Xms128M','-Xmx1024M',
             '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
-            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
+//            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
             '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
             ]
 }
