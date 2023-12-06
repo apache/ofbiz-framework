@@ -28,7 +28,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
@@ -116,7 +116,7 @@ public class OrderTestServices {
             return ServiceUtil.returnError(gse.getMessage());
         }
         if (productsList.isEmpty()) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("OrderUiLabels",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage("OrderUiLabels",
                     "OrderCreateTestSalesOrderSingleError",
                     UtilMisc.toMap("productCategoryId", productCategoryId), locale));
         }

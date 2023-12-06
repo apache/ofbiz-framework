@@ -19,13 +19,13 @@
 package org.apache.ofbiz.product.facility.facility
 
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.common.geo.GeoWorker
 
 facilityId = parameters.facilityId
 locationSeqId = parameters.locationSeqId
 
-uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('ProductUiLabels', locale)
 uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 if (facilityId && locationSeqId) {

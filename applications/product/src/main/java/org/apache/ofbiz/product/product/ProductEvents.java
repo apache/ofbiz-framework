@@ -43,6 +43,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -73,7 +74,8 @@ public class ProductEvents {
 
     /**
      * Updates/adds keywords for all products
-     * @param request HTTPRequest object for the current request
+     *
+     * @param request  HTTPRequest object for the current request
      * @param response HTTPResponse object for the current request
      * @return String specifying the exit status of this event
      */
@@ -90,7 +92,7 @@ public class ProductEvents {
         // check permissions before moving on...
         if (!security.hasEntityPermission("CATALOG", "_" + updateMode, request.getSession())) {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
-            errMsg = UtilProperties.getMessage(RESOURCE, "productevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -115,7 +117,6 @@ public class ProductEvents {
                     EntityOperator.OR, EntityCondition.makeCondition("autoCreateKeywords", EntityOperator.NOT_EQUAL, "N"));
         }
 
-
         int numProds = 0;
         int errProds = 0;
 
@@ -135,7 +136,8 @@ public class ProductEvents {
             } catch (GenericEntityException gee) {
                 Debug.logWarning(gee, gee.getMessage(), MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
-                errMsg = UtilProperties.getMessage(RESOURCE, "productevents.error_getting_product_list", messageMap, UtilHttp.getLocale(request));
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.error_getting_product_list", messageMap,
+                        UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
@@ -180,14 +182,14 @@ public class ProductEvents {
 
         if (errProds == 0) {
             Map<String, String> messageMap = UtilMisc.toMap("numProds", Integer.toString(numProds));
-            errMsg = UtilProperties.getMessage(RESOURCE, "productevents.keyword_creation_complete_for_products", messageMap,
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.keyword_creation_complete_for_products", messageMap,
                     UtilHttp.getLocale(request));
             request.setAttribute("_EVENT_MESSAGE_", errMsg);
             return "success";
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("numProds", Integer.toString(numProds));
             messageMap.put("errProds", Integer.toString(errProds));
-            errMsg = UtilProperties.getMessage(RESOURCE, "productevents.keyword_creation_complete_for_products_with_errors", messageMap,
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.keyword_creation_complete_for_products_with_errors", messageMap,
                     UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -196,7 +198,8 @@ public class ProductEvents {
 
     /**
      * Updates ProductAssoc information according to UPDATE_MODE parameter
-     * @param request The HTTPRequest object for the current request
+     *
+     * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
      */
@@ -218,7 +221,7 @@ public class ProductEvents {
         // check permissions before moving on...
         if (!security.hasEntityPermission("CATALOG", "_" + updateMode, request.getSession())) {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
-            errMsg = UtilProperties.getMessage(RESOURCE, "productevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.not_sufficient_permissions", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -232,12 +235,12 @@ public class ProductEvents {
         try {
             if (EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne() == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
-                errMsgList.add(UtilProperties.getMessage(RESOURCE, "productevents.product_with_id_not_found", messageMap,
+                errMsgList.add(UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.product_with_id_not_found", messageMap,
                         UtilHttp.getLocale(request)));
             }
             if (EntityQuery.use(delegator).from("Product").where("productId", productIdTo).queryOne() == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo);
-                errMsgList.add(UtilProperties.getMessage(RESOURCE, "productevents.product_To_with_id_not_found", messageMap,
+                errMsgList.add(UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.product_To_with_id_not_found", messageMap,
                         UtilHttp.getLocale(request)));
             }
         } catch (GenericEntityException e) {
@@ -394,7 +397,7 @@ public class ProductEvents {
             }
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
-            errMsg = UtilProperties.getMessage(RESOURCE, "productevents.specified_update_mode_not_supported", messageMap,
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.specified_update_mode_not_supported", messageMap,
                     UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -403,7 +406,9 @@ public class ProductEvents {
         return "success";
     }
 
-    /** Event to clear the last viewed categories */
+    /**
+     * Event to clear the last viewed categories
+     */
     public static String clearLastViewedCategories(HttpServletRequest request, HttpServletResponse response) {
         // just store a new empty list in the session
         HttpSession session = request.getSession();
@@ -413,7 +418,9 @@ public class ProductEvents {
         return "success";
     }
 
-    /** Event to clear the last vieweed products */
+    /**
+     * Event to clear the last vieweed products
+     */
     public static String clearLastViewedProducts(HttpServletRequest request, HttpServletResponse response) {
         // just store a new empty list in the session
         HttpSession session = request.getSession();
@@ -423,7 +430,9 @@ public class ProductEvents {
         return "success";
     }
 
-    /** Event to clear the last viewed history (products/categories/searchs) */
+    /**
+     * Event to clear the last viewed history (products/categories/searchs)
+     */
     public static String clearAllLastViewed(HttpServletRequest request, HttpServletResponse response) {
         ProductEvents.clearLastViewedCategories(request, response);
         ProductEvents.clearLastViewedProducts(request, response);
@@ -536,6 +545,7 @@ public class ProductEvents {
 
     /**
      * find a specific feature in a given list, then update it or create it if it doesn't exist.
+     *
      * @param delegator
      * @param productId
      * @param uomId
@@ -544,7 +554,7 @@ public class ProductEvents {
      * @throws GenericEntityException
      */
     private static void setOrCreateProdFeature(Delegator delegator, String productId, List<GenericValue> currentProductFeatureAndAppls,
-                                          String uomId, String productFeatureTypeId, BigDecimal numberSpecified) throws GenericEntityException {
+            String uomId, String productFeatureTypeId, BigDecimal numberSpecified) throws GenericEntityException {
 
         GenericValue productFeatureType = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId",
                 productFeatureTypeId).queryOne();
@@ -558,7 +568,7 @@ public class ProductEvents {
 
         // go through each; need to remove? do it now
         boolean foundOneEqual = false;
-        for (GenericValue typeUomProductFeatureAndAppl: typeUomProductFeatureAndApplList) {
+        for (GenericValue typeUomProductFeatureAndAppl : typeUomProductFeatureAndApplList) {
             if ((numberSpecified != null) && (numberSpecified.compareTo(typeUomProductFeatureAndAppl.getBigDecimal("numberSpecified")) == 0)) {
                 foundOneEqual = true;
             } else {
@@ -799,11 +809,11 @@ public class ProductEvents {
                     "PRODUCT_VARIANT"), null, false);
             variantAssocs = EntityUtil.filterByDate(variantAssocs);
             List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", null, variantAssocs, false);
-            for (GenericValue variant: variants) {
+            for (GenericValue variant : variants) {
                 // get the selectable features for the variant
                 List<GenericValue> productFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId",
                         productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);
-                for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
+                for (GenericValue productFeatureAndAppl : productFeatureAndAppls) {
                     GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                     productFeatureApplPK.setPKFields(productFeatureAndAppl);
                     delegator.removeByPrimaryKey(productFeatureApplPK);
@@ -811,7 +821,7 @@ public class ProductEvents {
             }
             List<GenericValue> productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId",
                     productFeatureTypeId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"), null, false);
-            for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
+            for (GenericValue productFeatureAndAppl : productFeatureAndAppls) {
                 GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                 productFeatureApplPK.setPKFields(productFeatureAndAppl);
                 delegator.removeByPrimaryKey(productFeatureApplPK);
@@ -856,7 +866,7 @@ public class ProductEvents {
         }
         String[] categoryIds = request.getParameterValues("categoryId");
         if (categoryIds != null) {
-            for (String categoryId: categoryIds) {
+            for (String categoryId : categoryIds) {
                 try {
                     List<GenericValue> catMembs = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId",
                             categoryId, "productId", productId).filterByDate().queryList();
@@ -913,7 +923,7 @@ public class ProductEvents {
         String[] productFeatureIdArray = request.getParameterValues("productFeatureId");
         if (productFeatureIdArray != null && productFeatureIdArray.length > 0) {
             try {
-                for (String productFeatureId: productFeatureIdArray) {
+                for (String productFeatureId : productFeatureIdArray) {
                     if (!"~~any~~".equals(productFeatureId)) {
                         List<GenericValue> featureAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productId,
                                 "productFeatureId", productFeatureId, "productFeatureApplTypeId", productFeatureApplTypeId).queryList();
@@ -921,9 +931,9 @@ public class ProductEvents {
                             // no existing application for this
                             delegator.create("ProductFeatureAppl",
                                     UtilMisc.toMap("productId", productId,
-                                        "productFeatureId", productFeatureId,
-                                        "productFeatureApplTypeId", productFeatureApplTypeId,
-                                        "fromDate", fromDate));
+                                            "productFeatureId", productFeatureId,
+                                            "productFeatureApplTypeId", productFeatureApplTypeId,
+                                            "fromDate", fromDate));
                         }
                     }
                 }
@@ -936,7 +946,9 @@ public class ProductEvents {
         return "success";
     }
 
-    /** Simple event to set the users initial locale and currency Uom based on website product store */
+    /**
+     * Simple event to set the users initial locale and currency Uom based on website product store
+     */
     public static String setDefaultStoreSettings(HttpServletRequest request, HttpServletResponse response) {
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore != null) {
@@ -978,8 +990,9 @@ public class ProductEvents {
     }
 
     /**
-     * If ProductStore.requireCustomerRole == Y then the loggedin user must be associated with the store in the customer role.
-     * This event method is called from the ProductEvents.storeCheckLogin and ProductEvents.storeLogin
+     * If ProductStore.requireCustomerRole == Y then the loggedin user must be associated with the store in the customer role. This event method is
+     * called from the ProductEvents.storeCheckLogin and ProductEvents.storeLogin
+     *
      * @param request
      * @param response
      * @return String with response, maybe "success" or "error" if logged in user is not associated with the ProductStore in the CUSTOMER role.
@@ -994,7 +1007,7 @@ public class ProductEvents {
                 List<GenericValue> productStoreRoleList = null;
                 try {
                     productStoreRoleList = EntityQuery.use(delegator).from("ProductStoreRole").where("productStoreId",
-                            productStore.get("productStoreId"), "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER")
+                                    productStore.get("productStoreId"), "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER")
                             .filterByDate().queryList();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Database error finding CUSTOMER ProductStoreRole records, required by the ProductStore with ID ["
@@ -1113,8 +1126,9 @@ public class ProductEvents {
         }
 
         if (product == null) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId),
-                    UtilHttp.getLocale(request));
+            String errMsg =
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId),
+                            UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -1131,10 +1145,10 @@ public class ProductEvents {
         if (!alreadyInList) {
             compareList.add(product);
             session.setAttribute("productCompareList", compareList);
-            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("ProductUiLabels", "ProductAddToCompareListSuccess",
+            request.setAttribute("_EVENT_MESSAGE_", UtilPropertiesRuntime.getMessage("ProductUiLabels", "ProductAddToCompareListSuccess",
                     UtilMisc.toMap("name", productName), UtilHttp.getLocale(request)));
         } else {
-            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("ProductUiLabels", "ProductAlreadyInCompareList",
+            request.setAttribute("_EVENT_MESSAGE_", UtilPropertiesRuntime.getMessage("ProductUiLabels", "ProductAlreadyInCompareList",
                     UtilMisc.toMap("name", productName), UtilHttp.getLocale(request)));
         }
         return "success";
@@ -1156,8 +1170,9 @@ public class ProductEvents {
         }
 
         if (product == null) {
-            String errMsg = UtilProperties.getMessage(RESOURCE, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId),
-                    UtilHttp.getLocale(request));
+            String errMsg =
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "productevents.product_with_id_not_found", UtilMisc.toMap("productId", productId),
+                            UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
@@ -1173,7 +1188,7 @@ public class ProductEvents {
         }
         session.setAttribute("productCompareList", compareList);
         String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request, "html");
-        String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductRemoveFromCompareListSuccess", UtilMisc.toMap("name",
+        String eventMsg = UtilPropertiesRuntime.getMessage("ProductUiLabels", "ProductRemoveFromCompareListSuccess", UtilMisc.toMap("name",
                 productName), UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";
@@ -1188,8 +1203,9 @@ public class ProductEvents {
     }
 
     /**
-     * Return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks
-     * in fields where BigDecimal display. Blank meaning null, vs. 0 which means 0
+     * Return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks in fields where BigDecimal display. Blank
+     * meaning null, vs. 0 which means 0
+     *
      * @param bigDecimalString
      * @return a BigDecimal for the parsed value
      * @throws GeneralException
@@ -1199,7 +1215,9 @@ public class ProductEvents {
         return (BigDecimal) ObjectType.simpleTypeOrObjectConvert(request.getParameter(bigDecimalString), "BigDecimal", null, locale);
     }
 
-    /** Event add product tags */
+    /**
+     * Event add product tags
+     */
     public static String addProductTags(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

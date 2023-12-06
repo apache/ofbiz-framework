@@ -40,7 +40,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
@@ -555,7 +555,7 @@ public class FindServices {
                     "thruDateName", thruDateName,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorPreparingConditions",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonFindErrorPreparingConditions",
                     UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
         EntityConditionList<EntityCondition> exprList = UtilGenerics.cast(prepareResult.get("entityConditionList"));
@@ -570,7 +570,7 @@ public class FindServices {
                                                                              "locale", context.get("locale"), "timeZone", context.get("timeZone"),
                                                                              "maxRows", maxRows));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRetrieveIterator",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonFindErrorRetrieveIterator",
                     UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
 
@@ -719,7 +719,7 @@ public class FindServices {
                 listSize = listIt.getResultsSizeAfterPartialList();
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonFindErrorRunning",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonFindErrorRunning",
                     UtilMisc.toMap("entityName", (dynamicViewEntity != null ? dynamicViewEntity.getEntityName() : entityName),
                                    "errorString", e.getMessage()), locale));
         }

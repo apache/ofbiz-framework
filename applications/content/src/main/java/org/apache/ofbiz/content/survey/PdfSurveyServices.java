@@ -37,7 +37,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -214,7 +214,7 @@ public class PdfSurveyServices {
             }
         } catch (GeneralException | DocumentException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentPDFGeneratingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -280,7 +280,7 @@ public class PdfSurveyServices {
             s.close();
         } catch (GeneralException | DocumentException | IOException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentPDFGeneratingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -550,7 +550,7 @@ public class PdfSurveyServices {
             }
         } catch (IOException | GenericServiceException e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPDFGeneratingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentPDFGeneratingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 

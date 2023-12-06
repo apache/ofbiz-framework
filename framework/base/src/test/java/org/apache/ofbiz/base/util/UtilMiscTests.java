@@ -29,7 +29,7 @@ public class UtilMiscTests {
 
     @Test
     public void testLocales() throws Exception {
-        List<Locale> availableLocales = UtilMisc.availableLocales();
+        List<Locale> availableLocales = UtilMiscRuntime.availableLocales();
         for (Locale availableLocale : availableLocales) {
             if (availableLocale.getDisplayName().isEmpty()) {
                 fail("Locale.getDisplayName() is empty");

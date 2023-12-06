@@ -982,7 +982,8 @@ public final class ContactMechWorker {
         }
 
         // no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
-        if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
+        if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId"))
+                && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
             // first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
             GenericValue geo = EntityQuery.use(delegator).from("Geo").where("geoId", postalAddress.getString("countryGeoId") + "-"
                     + postalAddress.getString("postalCode")).cache().queryOne();

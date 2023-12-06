@@ -41,7 +41,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -941,7 +941,7 @@ public final class RenderableFtlFormElementsBuilder {
             ajaxUrl += requestHandler.makeLink(request, response, UtilHttp.removeQueryStringFromTarget(targetUrl));
             ajaxUrl += "," + ajaxParams;
         }
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
         return FlexibleStringExpander.expandString(ajaxUrl, context, locale);
     }
 

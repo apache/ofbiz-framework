@@ -20,6 +20,7 @@ package org.apache.ofbiz.order.shoppinglist
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -245,7 +246,7 @@ Map checkShoppingListItemSecurity() {
     GenericValue shoppingList = from('ShoppingList').where(parameters).queryOne()
     if (shoppingList?.partyId && userLogin.partyId != shoppingList.partyId &&
             !security.hasEntityPermission('PARTYMGR', "_${parameters.permissionAction}", parameters.userLogin)) {
-        return error(UtilProperties.getMessage('OrderErrorUiLabels',
+        return error(UtilPropertiesRuntime.getMessage('OrderErrorUiLabels',
                 'OrderSecurityErrorToRunForAnotherParty',
                 [parentMethodName: parameters.parentMethodName,
                  permissionAction: parameters.permissionAction],

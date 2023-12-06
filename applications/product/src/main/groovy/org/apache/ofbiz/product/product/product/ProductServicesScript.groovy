@@ -20,6 +20,7 @@ package org.apache.ofbiz.product.product.product
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.GenericValue
@@ -583,7 +584,7 @@ Map checkProductRelatedPermission(String callingMethodName, String checkAction) 
             || (parameters.alternatePermissionRoot &&
             security.hasEntityPermission(parameters.alternatePermissionRoot, "_${checkAction}", parameters.userLogin)))) {
         String checkActionLabel = "ProductCatalog${checkAction.charAt(0)}${checkAction.substring(1).toLowerCase()}PermissionError"
-        return error(UtilProperties.getMessage('ProductUiLabels', checkActionLabel,
+        return error(UtilPropertiesRuntime.getMessage('ProductUiLabels', checkActionLabel,
                 [resourceDescription: callingMethodName, mainAction: checkAction], parameters.locale))
     }
     return success()

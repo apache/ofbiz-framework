@@ -84,7 +84,6 @@ application {
             ? jvmArgs.tokenize()
             : ['-Xms128M','-Xmx1024M',
             '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
-//            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
             '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
             ]
 }
@@ -138,6 +137,13 @@ def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 defaultTasks 'jar', 'test'
 
 allprojects {
+    group = 'org.apache.ofbiz'
+    tasks.withType(Javadoc).configureEach {
+        failOnError false
+        options.addStringOption('Xdoclint:gnone', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
+    }
     repositories {
         mavenCentral()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
@@ -205,6 +211,9 @@ configurations.all {
 }
 
 dependencies {
+    implementation project (':base:util')
+    implementation project (':base:crypto')
+    implementation project (':components:datafile')
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
     implementation 'com.google.zxing:core:3.5.2'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'

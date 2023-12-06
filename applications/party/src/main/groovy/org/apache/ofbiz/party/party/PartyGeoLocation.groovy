@@ -19,10 +19,10 @@
 package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.common.geo.GeoWorker
 
-uiLabelMap = UtilProperties.getResourceBundleMap('PartyUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('PartyUiLabels', locale)
 uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 partyId = parameters.partyId ?: parameters.party_id

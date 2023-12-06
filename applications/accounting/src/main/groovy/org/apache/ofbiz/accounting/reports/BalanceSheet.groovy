@@ -21,7 +21,7 @@ package org.apache.ofbiz.accounting.reports
 import org.apache.ofbiz.accounting.util.UtilAccounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityExpr
@@ -30,7 +30,7 @@ import org.apache.ofbiz.party.party.PartyWorker
 
 import java.sql.Timestamp
 
-uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('AccountingUiLabels', locale)
 
 thruDate = thruDate ?: UtilDateTime.nowTimestamp()
 if (!glFiscalTypeId) {

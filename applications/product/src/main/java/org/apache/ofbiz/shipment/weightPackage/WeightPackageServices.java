@@ -49,7 +49,8 @@ public class WeightPackageServices {
         String shipmentBoxTypeId = (String) context.get("shipmentBoxTypeId");
 
         // User can either enter all the dimensions or shipment box type, but not both
-        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) {
+        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(
+                packageHeight)) {
             // Check if user entered any dimensions
             if (UtilValidate.isNotEmpty(shipmentBoxTypeId)) { // check also if user entered shipment box type
                 return ServiceUtil.returnError(UtilProperties.getMessage("ProductErrorUiLabels",
@@ -98,7 +99,8 @@ public class WeightPackageServices {
         Integer weightPackageSeqId = (Integer) context.get("weightPackageSeqId");
 
         // User can either enter all the dimensions or shipment box type, but not both
-        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(packageHeight)) {
+        if (UtilValidate.isNotEmpty(packageLength) || UtilValidate.isNotEmpty(packageWidth) || UtilValidate.isNotEmpty(
+                packageHeight)) {
             // Check if user entered any dimensions
             if (UtilValidate.isNotEmpty(shipmentBoxTypeId)) { // check also if user entered shipment box type
                 weightPackageSession.setDimensionAndShipmentBoxType(weightPackageSeqId);

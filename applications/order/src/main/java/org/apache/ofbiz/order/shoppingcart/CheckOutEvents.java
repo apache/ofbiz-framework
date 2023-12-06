@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -188,7 +189,7 @@ public class CheckOutEvents {
                 BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderInvalidAmountSetForBillingAccount",
+                    request.setAttribute("_ERROR_MESSAGE_", UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderInvalidAmountSetForBillingAccount",
                             UtilMisc.toMap("billingAccountId", billingAccountId), cart.getLocale()));
                     return "error";
                 }
@@ -367,7 +368,7 @@ public class CheckOutEvents {
             BigDecimal billingAccountAmt = null;
             billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
             if (billingAccountAmt == null) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderInvalidAmountSetForBillingAccount",
+                request.setAttribute("_ERROR_MESSAGE_", UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderInvalidAmountSetForBillingAccount",
                         UtilMisc.toMap("billingAccountId", billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                 return "error";
             }
@@ -957,7 +958,7 @@ public class CheckOutEvents {
                 BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if (billingAccountAmt == null) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderInvalidAmountSetForBillingAccount",
+                    request.setAttribute("_ERROR_MESSAGE_", UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderInvalidAmountSetForBillingAccount",
                             UtilMisc.toMap("billingAccountId", billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                     return "error";
                 }

@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -92,7 +93,7 @@ public class ShoppingCartEvents {
                 return "error";
             }
         }
-        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(RESOURCE, "OrderPromoAppliedSuccessfully",
+        request.setAttribute("_EVENT_MESSAGE_", UtilPropertiesRuntime.getMessage(RESOURCE, "OrderPromoAppliedSuccessfully",
                 UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale));
         return "success";
     }
@@ -695,7 +696,7 @@ public class ShoppingCartEvents {
         if (cart.viewCartOnAdd()) {
             return "viewcart";
         }
-        request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("OrderUiLabels", "ItemAddedSuccessfully",
+        request.setAttribute("_EVENT_MESSAGE_", UtilPropertiesRuntime.getMessage("OrderUiLabels", "ItemAddedSuccessfully",
                 UtilMisc.toMap("productId", productId), UtilHttp.getLocale(request)));
         return "success";
     }
@@ -871,7 +872,7 @@ public class ShoppingCartEvents {
                 totalQuantity.doubleValue()));
 
         request.setAttribute("_EVENT_MESSAGE_",
-                UtilProperties.getMessage(RES_ERROR, "cart.add_category_defaults",
+                UtilPropertiesRuntime.getMessage(RES_ERROR, "cart.add_category_defaults",
                         messageMap, locale));
 
         return "success";
@@ -1351,7 +1352,7 @@ public class ShoppingCartEvents {
             try {
                 termValue = new BigDecimal(termValueStr);
             } catch (NumberFormatException e) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderOrderTermValueError",
+                request.setAttribute("_ERROR_MESSAGE_", UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderOrderTermValueError",
                         UtilMisc.toMap("orderTermValue", termValueStr), locale));
                 return "error";
             }
@@ -1361,7 +1362,7 @@ public class ShoppingCartEvents {
             try {
                 termDays = Long.valueOf(termDaysStr);
             } catch (NumberFormatException e) {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(RES_ERROR, "OrderOrderTermDaysError",
+                request.setAttribute("_ERROR_MESSAGE_", UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderOrderTermDaysError",
                         UtilMisc.toMap("orderTermDays", termDaysStr), locale));
                 return "error";
             }

@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.geo.GeoWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -149,7 +150,7 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
@@ -193,7 +194,7 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 
@@ -213,7 +214,7 @@ public class TaxAuthorityServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                         .toMap("errorString", e.toString()), locale));
             }
         }
@@ -221,7 +222,7 @@ public class TaxAuthorityServices {
                 "stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
             String errMsg = UtilProperties.getMessage(RESOURCE, "AccountingTaxNoAddressSpecified", locale);
             if (shippingAddress != null) {
-                errMsg += UtilProperties.getMessage(RESOURCE, "AccountingTaxNoAddressSpecifiedDetails", UtilMisc.toMap(
+                errMsg += UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingTaxNoAddressSpecifiedDetails", UtilMisc.toMap(
                         "contactMechId", shippingAddress.getString("contactMechId"), "address1", shippingAddress.get(
                                 "address1"), "postalCodeGeoId", shippingAddress.get("postalCodeGeoId"),
                         "stateProvinceGeoId", shippingAddress.get("stateProvinceGeoId"), "countryGeoId", shippingAddress
@@ -238,7 +239,7 @@ public class TaxAuthorityServices {
             getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingTaxSettingError", UtilMisc
                     .toMap("errorString", e.toString()), locale));
         }
 

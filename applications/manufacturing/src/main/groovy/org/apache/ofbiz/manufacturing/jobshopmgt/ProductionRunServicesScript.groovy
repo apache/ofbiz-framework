@@ -20,6 +20,7 @@ package org.apache.ofbiz.manufacturing.jobshopmgt
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -213,7 +214,7 @@ Map issueProductionRunTaskComponent() {
                     Map paramMap = [productId: productId,
                                     internalName: product ? product.internalName : '',
                                     parameters: parameters]
-                    return ServiceUtil.returnError((UtilProperties.getMessage('ManufacturingUiLabels',
+                    return ServiceUtil.returnError((UtilPropertiesRuntime.getMessage('ManufacturingUiLabels',
                             'ManufacturingMaterialsNotAvailable', paramMap, parameters.locale)))
                 }
                 if (lastNonSerInventoryItem) {

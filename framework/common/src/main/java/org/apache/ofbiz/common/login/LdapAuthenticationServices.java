@@ -109,7 +109,7 @@ public class LdapAuthenticationServices {
             String currentPassword = userLogin.getString("currentPassword");
             boolean samePassword;
             if (useEncryption) {
-                samePassword = HashCrypt.comparePassword(currentPassword, LoginServices.getHashType(), password);
+                samePassword = HashCrypt.comparePassword(currentPassword, HashCrypt.getHashType(), password);
             } else {
                 samePassword = currentPassword.equals(password);
             }
@@ -117,7 +117,7 @@ public class LdapAuthenticationServices {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Starting password synchronization", MODULE);
                 }
-                userLogin.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(LoginServices.getHashType(), null, password) : password, false);
+                userLogin.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(HashCrypt.getHashType(), null, password) : password, false);
                 Transaction parentTx = null;
                 boolean beganTransaction = false;
                 try {

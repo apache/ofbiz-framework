@@ -27,7 +27,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -102,14 +102,14 @@ public class PartyRelationshipServices {
                     }
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e.getMessage(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "partyrelationshipservices.could_not_create_party_role_write",
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "partyrelationshipservices.could_not_create_party_role_write",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }

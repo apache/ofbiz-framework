@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
@@ -159,7 +160,7 @@ public class SagePayPaymentServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         if (orderPaymentPreference == null) {
-            response = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayOrderPaymenPreferenceIsNull",
+            response = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingSagePayOrderPaymenPreferenceIsNull",
                     UtilMisc.toMap("orderId", orderId, "orderPaymentPreference", null), locale));
         } else {
             response = processCardAuthorisationPayment(dctx, context);
@@ -233,7 +234,7 @@ public class SagePayPaymentServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentAuthentication", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
@@ -289,7 +290,7 @@ public class SagePayPaymentServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentAuthorisation", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingSagePayPaymentAuthorisationException",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
@@ -400,7 +401,7 @@ public class SagePayPaymentServices {
 
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentRefund", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentRefundException",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingSagePayPaymentRefundException",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
@@ -446,7 +447,7 @@ public class SagePayPaymentServices {
 
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentVoid", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentVoidException",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingSagePayPaymentVoidException",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
@@ -507,7 +508,7 @@ public class SagePayPaymentServices {
 
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentRelease", MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "AccountingSagePayPaymentReleaseException",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "AccountingSagePayPaymentReleaseException",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 

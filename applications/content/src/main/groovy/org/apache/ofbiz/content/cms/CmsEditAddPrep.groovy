@@ -19,7 +19,7 @@
 package org.apache.ofbiz.content.cms
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilFormatOut
+import org.apache.ofbiz.base.util.UtilFormatOutBase
 import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.minilang.SimpleMapProcessor
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
@@ -72,7 +72,7 @@ if (dataResourceId) {
     txt = DataResourceWorker.getDataResourceText(dataResource, 'text/html', Locale.getDefault(), templateRoot, delegator, true)
 
     if (txt) {
-        textData = UtilFormatOut.encodeXmlValue(txt)
+        textData = UtilFormatOutBase.encodeXmlValue(txt)
     }
 }
 logInfo('in cmseditaddprep, textData:' + textData)

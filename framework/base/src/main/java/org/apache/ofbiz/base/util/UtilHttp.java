@@ -848,7 +848,7 @@ public final class UtilHttp {
             localeObject = request != null ? request.getLocale() : null;
         }
 
-        return UtilMisc.ensureLocale(localeObject);
+        return UtilMiscRuntime.ensureLocale(localeObject);
     }
 
     /**

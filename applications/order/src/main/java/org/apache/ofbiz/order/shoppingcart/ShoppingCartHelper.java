@@ -38,6 +38,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -551,7 +552,7 @@ public class ShoppingCartHelper {
                     Debug.logError(gee, MODULE);
                 }
                 if (requirement == null) {
-                    return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "OrderRequirementDoesNotExists",
                             UtilMisc.toMap("requirementId", requirementId), cart.getLocale()));
                 }
@@ -575,7 +576,7 @@ public class ShoppingCartHelper {
                         }
                         if (requirementAlreadyInCart) {
                             if (Debug.warningOn()) {
-                                Debug.logWarning(UtilProperties.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding",
+                                Debug.logWarning(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderTheRequirementIsAlreadyInTheCartNotAdding",
                                         UtilMisc.toMap("requirementId", requirementId), cart.getLocale()), MODULE);
                             }
                             continue;
@@ -626,14 +627,14 @@ public class ShoppingCartHelper {
             Debug.logWarning(e.toString(), MODULE);
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
             messageMap.put("message", e.getMessage());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         if (prodCatMemberCol == null) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
-            errMsg = UtilProperties.getMessage(RES_ERROR, "cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
@@ -1090,14 +1091,14 @@ public class ShoppingCartHelper {
             agreement = EntityQuery.use(this.delegator).from("Agreement").where("agreementId", agreementId).cache(true).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCouldNotGetAgreement",
                     UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
                     this.cart.getLocale()) + e.getMessage());
             return result;
         }
 
         if (agreement == null) {
-            result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId",
+            result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCouldNotGetAgreement", UtilMisc.toMap("agreementId",
                     agreementId), this.cart.getLocale()));
         } else {
             // set the agreement id in the cart
@@ -1121,7 +1122,7 @@ public class ShoppingCartHelper {
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementItemsThrough",
+                result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCouldNotGetAgreementItemsThrough",
                         UtilMisc.toMap("agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
                         this.cart.getLocale()) + e.getMessage());
                 return result;
@@ -1144,7 +1145,7 @@ public class ShoppingCartHelper {
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                result = ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderCouldNotGetAgreementTermsThrough", UtilMisc.toMap(
+                result = ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCouldNotGetAgreementTermsThrough", UtilMisc.toMap(
                         "agreementId", agreementId), this.cart.getLocale()) + UtilProperties.getMessage(RES_ERROR, "OrderError",
                         this.cart.getLocale()) + e.getMessage());
                 return result;

@@ -47,6 +47,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.DataModelConstants;
 import org.apache.ofbiz.entity.Delegator;
@@ -215,7 +216,6 @@ public class OrderServices {
                 return resultSecurity;
             }
         }
-
         // get the product store for the order, but it is required only for sales orders
         String productStoreId = (String) context.get("productStoreId");
         GenericValue productStore = null;
@@ -223,7 +223,7 @@ public class OrderServices {
             try {
                 productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorCouldNotFindProductStoreWithID", UtilMisc.toMap("productStoreId", productStoreId), locale) + e.toString());
             }
         }
@@ -247,7 +247,7 @@ public class OrderServices {
 
         // make sure we have a valid order type
         if (orderType == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorInvalidOrderTypeWithID", UtilMisc.toMap("orderTypeId", orderTypeId), locale));
         }
 
@@ -320,14 +320,14 @@ public class OrderServices {
             try {
                 product = EntityQuery.use(delegator).from("Product").where("productId", currentProductId).cache().queryOne();
             } catch (GenericEntityException e) {
-                String errMsg = UtilProperties.getMessage(RES_ERROR, "product.not_found", new Object[]{currentProductId}, locale);
+                String errMsg = UtilProperties.getMessage(RES_ERROR, "product.not_found", new Object[] {currentProductId}, locale);
                 Debug.logError(e, errMsg, MODULE);
                 errorMessages.add(errMsg);
                 continue;
             }
 
             if (product == null) {
-                String errMsg = UtilProperties.getMessage(RES_ERROR, "product.not_found", new Object[]{currentProductId}, locale);
+                String errMsg = UtilProperties.getMessage(RES_ERROR, "product.not_found", new Object[] {currentProductId}, locale);
                 Debug.logError(errMsg, MODULE);
                 errorMessages.add(errMsg);
                 continue;
@@ -337,7 +337,7 @@ public class OrderServices {
                 // check to see if introductionDate hasn't passed yet
                 if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
                     String excMsg = UtilProperties.getMessage(RES_ERROR, "product.not_yet_for_sale",
-                            new Object[]{getProductName(product, itemName), product.getString("productId")}, locale);
+                            new Object[] {getProductName(product, itemName), product.getString("productId")}, locale);
                     Debug.logWarning(excMsg, MODULE);
                     errorMessages.add(excMsg);
                     continue;
@@ -349,16 +349,15 @@ public class OrderServices {
                 // When past orders are imported, they should be imported even if sales discontinuation date is in the past but if the order date
                 // was before it
                 if (orderDate != null && product.get("salesDiscontinuationDate") != null) {
-                    salesDiscontinuationFlag =
-                            orderDate.after(product.getTimestamp("salesDiscontinuationDate")) && nowTimestamp.after(product.getTimestamp(
-                             "salesDiscontinuationDate"));
+                    salesDiscontinuationFlag = orderDate.after(product.getTimestamp("salesDiscontinuationDate"))
+                            && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"));
                 } else if (product.get("salesDiscontinuationDate") != null) {
                     salesDiscontinuationFlag = nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"));
                 }
                 // check to see if salesDiscontinuationDate has passed
                 if (salesDiscontinuationFlag) {
                     String excMsg = UtilProperties.getMessage(RES_ERROR, "product.no_longer_for_sale",
-                            new Object[]{getProductName(product, itemName), product.getString("productId")}, locale);
+                            new Object[] {getProductName(product, itemName), product.getString("productId")}, locale);
                     Debug.logWarning(excMsg, MODULE);
                     errorMessages.add(excMsg);
                     continue;
@@ -376,7 +375,7 @@ public class OrderServices {
                         errorMessages.addAll(errMsgList);
                     } else if (!"Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         String invErrMsg = UtilProperties.getMessage(RES_ERROR, "product.out_of_stock",
-                                new Object[]{getProductName(product, itemName), currentProductId}, locale);
+                                new Object[] {getProductName(product, itemName), currentProductId}, locale);
                         Debug.logWarning(invErrMsg, MODULE);
                         errorMessages.add(invErrMsg);
                         continue;
@@ -409,15 +408,15 @@ public class OrderServices {
                         List<GenericValue> selFixedAssetProduct = null;
                         try {
                             selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", orderItem.getString(
-                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate",
-                                    "thruDate").queryList();
+                                    "productId"), "fixedAssetProductTypeId", "FAPT_USE").filterByDate(nowTimestamp, "fromDate", "thruDate")
+                                    .queryList();
                         } catch (GenericEntityException e) {
                             String excMsg = "Could not find related Fixed Asset for the product: " + orderItem.getString("productId");
                             Debug.logError(excMsg, MODULE);
                             errorMessages.add(excMsg);
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                                     "OrderCouldNotFindRelatedFixedAssetForTheProduct", UtilMisc.toMap("productId",
-                                     orderItem.getString("productId")), locale));
+                                            orderItem.getString("productId")), locale));
                         }
 
                         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
@@ -651,13 +650,13 @@ public class OrderServices {
                             "note", orderInternalNote,
                             "userLogin", userLogin));
                     if (ServiceUtil.isError(noteOutputMap)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                                "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ""), locale),
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
+                                        "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ""), locale),
                                 null, null, noteOutputMap);
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error creating internal notes while creating order: " + e.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", e.toString()), locale));
                 }
             }
@@ -673,13 +672,13 @@ public class OrderServices {
                             "note", orderNote,
                             "userLogin", userLogin));
                     if (ServiceUtil.isError(noteOutputMap)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
-                                "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ""), locale),
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
+                                        "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ""), locale),
                                 null, null, noteOutputMap);
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error creating notes while creating order: " + e.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", e.toString()), locale));
                 }
             }
@@ -699,12 +698,12 @@ public class OrderServices {
                 try {
                     fixedAsset = EntityQuery.use(delegator).from("FixedAsset").where("fixedAssetId", workEffort.get("fixedAssetId")).queryOne();
                 } catch (GenericEntityException e) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "OrderFixedAssetNotFoundFixedAssetId",
                             UtilMisc.toMap("fixedAssetId", workEffort.get("fixedAssetId")), locale));
                 }
                 if (fixedAsset == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "OrderFixedAssetNotFoundFixedAssetId",
                             UtilMisc.toMap("fixedAssetId", workEffort.get("fixedAssetId")), locale));
                 }
@@ -795,7 +794,7 @@ public class OrderServices {
                     // fixed asset
                     if (fixedAsset.get("productionCapacity") != null) {
                         if (newUsedCapacity.compareTo(techDataCalendarExcDay.getBigDecimal("exceptionCapacity")) > 0) {
-                            String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderFixedAssetSoldOut", UtilMisc.toMap("fixedAssetId",
+                            String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderFixedAssetSoldOut", UtilMisc.toMap("fixedAssetId",
                                     workEffort.get("fixedAssetId"), "exceptionDateStartTime",
                                     techDataCalendarExcDay.getString("exceptionDateStartTime")), locale);
                             Debug.logError(errMsg, MODULE);
@@ -974,7 +973,6 @@ public class OrderServices {
             }
         }
 
-
         // set the affiliate -- This is going to be removed...
         String affiliateId = (String) context.get("affiliateId");
         if (UtilValidate.isNotEmpty(affiliateId)) {
@@ -1111,7 +1109,8 @@ public class OrderServices {
                         }
 
                         Map<String, Object> ripCtx = new HashMap<>();
-                        if (UtilValidate.isNotEmpty(inventoryFacilityId) && UtilValidate.isNotEmpty(productId) && orderItem.getBigDecimal("quantity")
+                        if (UtilValidate.isNotEmpty(inventoryFacilityId) && UtilValidate.isNotEmpty(productId)
+                                && orderItem.getBigDecimal("quantity")
                                 .compareTo(BigDecimal.ZERO) > 0) {
                             ripCtx.put("productId", productId);
                             ripCtx.put("facilityId", inventoryFacilityId);
@@ -1218,7 +1217,7 @@ public class OrderServices {
             try {
                 productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             } catch (GenericEntityException e) {
-                throw new GeneralException(UtilProperties.getMessage(RES_ERROR,
+                throw new GeneralException(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorCouldNotFindProductStoreWithID",
                         UtilMisc.toMap("productStoreId", productStoreId), locale) + e.toString());
             }
@@ -1511,7 +1510,7 @@ public class OrderServices {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
-            String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSetGrantTotalOnOrderHeader", UtilMisc.toMap("errorString",
+            String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCouldNotSetGrantTotalOnOrderHeader", UtilMisc.toMap("errorString",
                     e.toString()), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -1532,7 +1531,7 @@ public class OrderServices {
                 try {
                     productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
                 } catch (GenericEntityException e) {
-                    String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                    String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "OrderErrorCouldNotFindProductStoreWithID",
                             UtilMisc.toMap("productStoreId", productStoreId), (Locale) context.get("locale")) + e.toString();
                     Debug.logError(e, errorMessage, MODULE);
@@ -1556,8 +1555,9 @@ public class OrderServices {
                 try {
                     orderHeader.store();
                 } catch (GenericEntityException e) {
-                    String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderCouldNotSetGrantTotalOnOrderHeader", UtilMisc.toMap("errorString",
-                            e.toString()), locale);
+                    String errMsg =
+                            UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCouldNotSetGrantTotalOnOrderHeader", UtilMisc.toMap("errorString",
+                                    e.toString()), locale);
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -1605,7 +1605,7 @@ public class OrderServices {
                     }
 
                     if (resetResult != null && ServiceUtil.isError(resetResult)) {
-                        Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
+                        Debug.logWarning(UtilPropertiesRuntime.getMessage(RES_ERROR,
                                 "OrderErrorCannotResetOrderTotals",
                                 UtilMisc.toMap("orderId", orderId, "resetResult", ServiceUtil.getErrorMessage(resetResult)), locale), MODULE);
                     } else {
@@ -1648,7 +1648,7 @@ public class OrderServices {
         }
 
         if (orderHeader == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorNoValidOrderHeaderFoundForOrderId", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -1747,7 +1747,7 @@ public class OrderServices {
                             if (facilityContactMech != null) {
                                 try {
                                     shippingAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId",
-                                     facilityContactMech.getString("contactMechId")).queryOne();
+                                            facilityContactMech.getString("contactMechId")).queryOne();
                                 } catch (GenericEntityException e) {
                                     Debug.logError(e, MODULE);
                                 }
@@ -1767,7 +1767,7 @@ public class OrderServices {
                     Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productStoreId", orh.getProductStoreId(), "itemProductList",
                             products, "itemAmountList", amounts,
                             "itemShippingList", shipAmts, "itemPriceList", itPrices, "itemQuantityList", itQuantities, "orderShippingAmount",
-                             orderShipping);
+                            orderShipping);
                     serviceContext.put("shippingAddress", shippingAddress);
                     serviceContext.put("orderPromotionsAmount", orderPromotions);
                     if (orh.getBillToParty() != null) {
@@ -1887,7 +1887,7 @@ public class OrderServices {
         }
 
         if (orderHeader == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorNoValidOrderHeaderFoundForOrderId", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -1990,7 +1990,7 @@ public class OrderServices {
         }
         if (orderHeader == null) {
             Debug.logError("OrderHeader came back as null", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderCannotUpdateNullOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -2058,8 +2058,9 @@ public class OrderServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                        String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved",
-                                UtilMisc.toMap("errorString", e.toString()), locale);
+                        String errMsg =
+                                UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderDatabaseErrorCheckingIfWeShouldChangeOrderHeaderStatusToApproved",
+                                        UtilMisc.toMap("errorString", e.toString()), locale);
                         Debug.logError(e, errMsg, MODULE);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -2101,7 +2102,7 @@ public class OrderServices {
                 }
             }
         } else {
-            Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
+            Debug.logWarning(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderReceivedNullForOrderItemRecordsOrderId", UtilMisc.toMap("orderId", orderId), locale), MODULE);
         }
 
@@ -2157,7 +2158,7 @@ public class OrderServices {
             orderItemShipGroupAssocs = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where(fields).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorCannotGetOrderItemAssocEntity", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
         }
 
@@ -2172,7 +2173,7 @@ public class OrderServices {
                 }
 
                 if (orderItem == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                 }
 
@@ -2227,7 +2228,7 @@ public class OrderServices {
                         delegator.storeAll(toStore);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, MODULE);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                                 "OrderUnableToSetCancelQuantity", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                     }
 
@@ -2300,7 +2301,7 @@ public class OrderServices {
                                 dispatcher.runSyncIgnore("cancelOrderItemInvResQty", cancelOrderItemInvResCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, MODULE);
-                                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToUpdateInventoryReservations",
+                                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToUpdateInventoryReservations",
                                         UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                             }
                         }
@@ -2311,29 +2312,29 @@ public class OrderServices {
                             dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, MODULE);
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                                     "OrderUnableToCancelOrderLine", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                         }
                     } else {
                         // reverse the inventory reservation
                         Map<String, Object> invCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString(
-                                "orderItemSeqId"), "shipGroupSeqId",
+                                        "orderItemSeqId"), "shipGroupSeqId",
                                 shipGroupSeqId, "cancelQuantity", thisCancelQty, "userLogin", userLogin);
                         try {
                             dispatcher.runSyncIgnore("cancelOrderItemInvResQty", invCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, MODULE);
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                                     "OrderUnableToUpdateInventoryReservations", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                         }
                     }
                 } else {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "OrderInvalidCancelQuantityCannotCancel", UtilMisc.toMap("thisCancelQty", thisCancelQty), locale));
                 }
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
         }
 
@@ -2409,9 +2410,9 @@ public class OrderServices {
                             "statusId"), "statusIdTo", statusId).queryOne();
 
                     if (statusChange == null) {
-                        Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
+                        Debug.logWarning(UtilPropertiesRuntime.getMessage(RES_ERROR,
                                 "OrderItemStatusNotChangedIsNotAValidChange", UtilMisc.toMap("orderStatusId", orderItem.getString("statusId"),
-                                "statusId", statusId), locale), MODULE);
+                                        "statusId", statusId), locale), MODULE);
                         continue;
                     }
                 } catch (GenericEntityException e) {
@@ -2492,9 +2493,9 @@ public class OrderServices {
             }
 
             if (orderHeader.getString("statusId").equals(statusId)) {
-                Debug.logWarning(UtilProperties.getMessage(RES_ERROR,
+                Debug.logWarning(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId", UtilMisc.toMap("statusId", statusId, "orderId", orderId),
-                         locale), MODULE);
+                        locale), MODULE);
                 return successResult;
             }
             try {
@@ -2503,7 +2504,7 @@ public class OrderServices {
                 if (statusChange == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderErrorCouldNotChangeOrderStatusStatusIsNotAValidChange", locale) + ": [" + orderHeader.getString("statusId") + "] "
-                             + "-> [" + statusId + "]");
+                            + "-> [" + statusId + "]");
                 }
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
@@ -2738,12 +2739,12 @@ public class OrderServices {
         }
 
         if (orderHeader == null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), localePar));
         }
 
         if (orderHeader.get("webSiteId") == null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderWithoutWebSite", UtilMisc.toMap("orderId", orderId), localePar));
         }
 
@@ -2756,7 +2757,7 @@ public class OrderServices {
                     + "emailType=" + emailType, MODULE);
         }
         if (productStoreEmail == null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RES_PRODUCT,
                     "ProductProductStoreEmailSettingsNotValid",
                     UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
                             "emailType", emailType), localePar));
@@ -2789,7 +2790,7 @@ public class OrderServices {
         String emailString = orh.getOrderEmailString();
         if (UtilValidate.isEmpty(emailString)) {
             Debug.logInfo("Customer is not setup to receive emails; no address(s) found [" + orderId + "]", MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderWithoutEmailAddress", UtilMisc.toMap("orderId", orderId), localePar));
         }
 
@@ -3031,7 +3032,9 @@ public class OrderServices {
         return result;
     }
 
-    /** Service to get an order contact mech. */
+    /**
+     * Service to get an order contact mech.
+     */
     public static Map<String, Object> getOrderAddress(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
@@ -3049,13 +3052,13 @@ public class OrderServices {
             }
         } catch (GenericEntityException e) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE,
+            result.put(ModelService.ERROR_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
             return result;
         }
         if (orderHeader == null) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE,
+            result.put(ModelService.ERROR_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
             return result;
         }
@@ -3070,7 +3073,7 @@ public class OrderServices {
                 }
             } catch (GenericEntityException e) {
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-                result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(RESOURCE,
+                result.put(ModelService.ERROR_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE,
                         "OrderOrderContachMechNotFound", UtilMisc.toMap("errorString", e.getMessage()), locale));
                 return result;
             }
@@ -3080,7 +3083,9 @@ public class OrderServices {
         return result;
     }
 
-    /** Service to create a order header note. */
+    /**
+     * Service to create a order header note.
+     */
     public static Map<String, Object> createOrderNote(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -3113,7 +3118,7 @@ public class OrderServices {
             delegator.create(v);
         } catch (GenericEntityException | GenericServiceException ee) {
             Debug.logError(ee, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderNoteCannotBeCreated", UtilMisc.toMap("errorString", ee.getMessage()), locale));
         }
 
@@ -3249,7 +3254,7 @@ public class OrderServices {
                 // create the query expressions
                 itemsExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
                 itemsExprs.add(EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS,
-                        "ITEM_CREATED"),
+                                "ITEM_CREATED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED")), EntityOperator.OR));
                 itemsExprs.add(EntityCondition.makeCondition("dontCancelSetUserLogin", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
                 itemsExprs.add(EntityCondition.makeCondition("dontCancelSetDate", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
@@ -3302,7 +3307,7 @@ public class OrderServices {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "ERROR: Unable to get OrderHeader for orderId : " + orderId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorUnableToGetOrderHeaderForOrderId", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -3313,7 +3318,7 @@ public class OrderServices {
                 orderItems = orderHeader.getRelated("OrderItem", null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "ERROR: Unable to get OrderItem list for orderId : " + orderId, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorUnableToGetOrderItemListForOrderId", UtilMisc.toMap("orderId", orderId), locale));
             }
         }
@@ -3583,7 +3588,9 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    /** Service to invoice service items from order*/
+    /**
+     * Service to invoice service items from order
+     */
     public static Map<String, Object> invoiceServiceItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -3596,7 +3603,7 @@ public class OrderServices {
             orh = new OrderReadHelper(delegator, orderId);
         } catch (IllegalArgumentException e) {
             Debug.logError(e, "ERROR: Unable to get OrderHeader for orderId : " + orderId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorUnableToGetOrderHeaderForOrderId", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -3690,7 +3697,6 @@ public class OrderServices {
             calcTax = Boolean.TRUE;
         }
 
-
         int shipGroupIdx = -1;
         try {
             shipGroupIdx = Integer.parseInt(shipGroupSeqId);
@@ -3700,7 +3706,7 @@ public class OrderServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (shipGroupIdx < 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderShipGroupSeqIdInvalid", UtilMisc.toMap("shipGroupSeqId", shipGroupSeqId), locale));
         }
         if (quantity.compareTo(BigDecimal.ONE) < 0) {
@@ -4353,8 +4359,8 @@ public class OrderServices {
     }
 
     private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart,
-                                               Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax,
-                                               boolean deleteItems) throws GeneralException {
+            Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax,
+            boolean deleteItems) throws GeneralException {
         // get/set the shipping estimates. If it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroupsSize = cart.getShipGroupSize();
         int realShipGroupsSize = (new OrderReadHelper(delegator, orderId)).getOrderItemShipGroups().size();
@@ -4445,7 +4451,7 @@ public class OrderServices {
                 if ("OrderAdjustment".equals(toAdd.getEntityName())) {
                     if ("Y".equals(toAdd.getString("isManual")) && (("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId")))
                             || ("SHIPPING_CHARGES".equals(toAdd.get("orderAdjustmentTypeId"))) || ("SALES_TAX".equals(toAdd.get(
-                                    "orderAdjustmentTypeId"))))) {
+                            "orderAdjustmentTypeId"))))) {
                         toStore.add(toAdd);
                     }
                 }
@@ -4783,6 +4789,7 @@ public class OrderServices {
 
     /**
      * Service to create a payment using an order payment preference.
+     *
      * @return Map
      */
     public static Map<String, Object> createPaymentFromPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -4803,7 +4810,7 @@ public class OrderServices {
             GenericValue orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId",
                     orderPaymentPreferenceId).queryOne();
             if (orderPaymentPreference == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "OrderOrderPaymentCannotBeCreated",
                         UtilMisc.toMap("orderPaymentPreferenceId", "orderPaymentPreferenceId"), locale));
             }
@@ -4910,7 +4917,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (orderHeader == null) {
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
 
@@ -4952,7 +4959,7 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (orderHeader == null) {
-                return ServiceUtil.returnFailure(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
 
@@ -5208,7 +5215,7 @@ public class OrderServices {
                                     sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));
                                     sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
                                 } catch (CartItemModifyException | ItemNotFoundException e) {
-                                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                                             "OrderOrderCreatingDropShipmentsError",
                                             UtilMisc.toMap("orderId", orderId, "errorString", e.getMessage()),
                                             locale));
@@ -5244,7 +5251,7 @@ public class OrderServices {
             }
         } catch (GenericEntityException exc) {
             // TODO: improve error handling
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderCreatingDropShipmentsError",
                     UtilMisc.toMap("orderId", orderId, "errorString", exc.getMessage()),
                     locale));
@@ -5310,6 +5317,7 @@ public class OrderServices {
 
     /**
      * Generates a product requirement for the total cancelled quantity over all order items for each product
+     *
      * @param dctx    the dispatch context
      * @param context the context
      * @return the result of the service execution
@@ -5328,14 +5336,14 @@ public class OrderServices {
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             if (UtilValidate.isEmpty(orderHeader)) {
-                String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale);
                 Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
             }
 
             if (!"PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
-                String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "ProductErrorOrderNotPurchaseOrder", UtilMisc.toMap("orderId", orderId), locale);
                 Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
@@ -5372,7 +5380,7 @@ public class OrderServices {
                 BigDecimal requiredQuantity = (BigDecimal) productRequirementQuantities.get(productId);
                 Map<String, Object> createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.<String, Object>toMap(
                         "requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity,
-                         "userLogin", userLogin));
+                        "userLogin", userLogin));
                 if (ServiceUtil.isError(createRequirementResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createRequirementResult));
                 }
@@ -5388,6 +5396,7 @@ public class OrderServices {
 
     /**
      * Cancels remaining (unreceived) quantities for items of an order. Does not consider received-but-rejected quantities.
+     *
      * @param dctx    the dispatch context
      * @param context the context
      * @return cancels remaining (unreceived) quantities for items of an order
@@ -5405,14 +5414,14 @@ public class OrderServices {
             GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             if (UtilValidate.isEmpty(orderHeader)) {
-                String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale);
                 Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
             }
 
             if (!"PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId"))) {
-                String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorOrderNotPurchaseOrder", UtilMisc.toMap("orderId", orderId), locale);
                 Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
@@ -5614,10 +5623,11 @@ public class OrderServices {
     }
 
     /**
-     * Determines the total amount invoiced for a given order item over all invoices by totalling the item subtotal (via OrderItemBilling),
-     * any adjustments for that item (via OrderAdjustmentBilling), and the item's share of any order-level adjustments (that calculated
-     * by applying the percentage of the items total that the item represents to the order-level adjustments total (also via
-     * OrderAdjustmentBilling). Also returns the quantity invoiced for the item over all invoices, to aid in prorating.
+     * Determines the total amount invoiced for a given order item over all invoices by totalling the item subtotal (via OrderItemBilling), any
+     * adjustments for that item (via OrderAdjustmentBilling), and the item's share of any order-level adjustments (that calculated by applying the
+     * percentage of the items total that the item represents to the order-level adjustments total (also via OrderAdjustmentBilling). Also returns the
+     * quantity invoiced for the item over all invoices, to aid in prorating.
+     *
      * @param dctx    DispatchContext
      * @param context Map
      * @return Map
@@ -5637,14 +5647,14 @@ public class OrderServices {
 
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (UtilValidate.isEmpty(orderHeader)) {
-                String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorOrderIdNotFound", context, locale);
                 Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
             }
             orderItemToCheck = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
             if (UtilValidate.isEmpty(orderItemToCheck)) {
-                String errorMessage = UtilProperties.getMessage(RES_ERROR,
+                String errorMessage = UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "OrderErrorOrderItemNotFound", context, locale);
                 Debug.logError(errorMessage, MODULE);
                 return ServiceUtil.returnError(errorMessage);
@@ -5923,7 +5933,7 @@ public class OrderServices {
                 Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), MODULE);
             }
             Debug.logError(e, "Error while creating new shopping list based automatic reorder" + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderShoppingListCreationError", UtilMisc.toMap("errorString", e.toString()), locale));
         } finally {
             try {
@@ -5933,12 +5943,13 @@ public class OrderServices {
                 Debug.logError(e, "Could not commit transaction for creating new shopping list based automatic reorder", MODULE);
             }
         }
-        return ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
+        return ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage(RESOURCE,
                 "OrderRunSubscriptionAutoReorders", UtilMisc.toMap("count", count), locale));
     }
 
     /**
      * Create an OrderItemShipGroup record
+     *
      * @param dctx
      * @param context
      * @return
@@ -5965,8 +5976,9 @@ public class OrderServices {
             GenericValue carrierRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", carrierPartyId, "roleTypeId", "CARRIER")
                     .cache().queryOne();
             if (UtilValidate.isNotEmpty(carrierPartyId) && UtilValidate.isEmpty(carrierRole)) {
-                String errMsg = mainErrorMessage + UtilProperties.getMessage(RES_ERROR, "OrderCartShipGroupPartyCarrierNotFound", UtilMisc.toMap(
-                        "partyId", carrierPartyId), locale);
+                String errMsg =
+                        mainErrorMessage + UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCartShipGroupPartyCarrierNotFound", UtilMisc.toMap(
+                                "partyId", carrierPartyId), locale);
                 return ServiceUtil.returnError(errMsg);
             }
 
@@ -5978,7 +5990,7 @@ public class OrderServices {
                     GenericValue shipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", carrierPartyId,
                             "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).cache().queryOne();
                     if (UtilValidate.isEmpty(shipmentMethod)) {
-                        String errMsg = mainErrorMessage + UtilProperties.getMessage(RES_ERROR, "OrderCartShipGroupShipmentMethodNotFound",
+                        String errMsg = mainErrorMessage + UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCartShipGroupShipmentMethodNotFound",
                                 UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId), locale);
                         return ServiceUtil.returnError(errMsg);
                     }
@@ -6034,6 +6046,7 @@ public class OrderServices {
 
     /**
      * Remove an OrderItemShipGroup record
+     *
      * @param ctx
      * @param context a map containing in paramaters
      * @return result: a map containing out parameters
@@ -6066,6 +6079,7 @@ public class OrderServices {
 
     /**
      * Create orderItem and shipGroup association
+     *
      * @param dctx
      * @param context
      * @return
@@ -6086,7 +6100,7 @@ public class OrderServices {
         //test orderItem and check status
         GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
         if (orderItem == null) {
-            String errMsg = mainErrorMessage + UtilProperties.getMessage(RES_ERROR, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
+            String errMsg = mainErrorMessage + UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
                     orderId, "orderItemSeqId", orderItemSeqId), locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -6128,8 +6142,9 @@ public class OrderServices {
             GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId",
                     shipGroupSeqId).queryOne();
             if (UtilValidate.isEmpty(orderItemShipGroup)) {
-                String errMsg = mainErrorMessage + UtilProperties.getMessage(RES_ERROR, "OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",
-                        shipGroupSeqId), locale);
+                String errMsg =
+                        mainErrorMessage + UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex",
+                                shipGroupSeqId), locale);
                 return ServiceUtil.returnError(errMsg);
             }
             //now test quantity parameter
@@ -6158,6 +6173,7 @@ public class OrderServices {
 
     /**
      * Update orderItem and shipgroup association
+     *
      * @param dctx
      * @param context
      * @return
@@ -6211,7 +6227,7 @@ public class OrderServices {
         //find OrderItem
         GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
         if (UtilValidate.isEmpty(orderItem)) {
-            String errMsg = mainErrorMessage + UtilProperties.getMessage(RES_ERROR, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
+            String errMsg = mainErrorMessage + UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
                     orderId, "orderItemSeqId", orderItemSeqId), locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -6340,11 +6356,10 @@ public class OrderServices {
     }
 
     /**
-     * Validate OrderItemShipGroupAssoc quantity
-     * This service should be called after updateOrderItemShipGroupAssoc
-     * test if orderItem quantity equals OrderItemShipGroupAssocs quantities
-     * if not then get the last orderItemShipgroupAssoc estimated shipDate and add quantity to this OrderItemShipGroupAssoc
-
+     * Validate OrderItemShipGroupAssoc quantity This service should be called after updateOrderItemShipGroupAssoc test if orderItem quantity equals
+     * OrderItemShipGroupAssocs quantities if not then get the last orderItemShipgroupAssoc estimated shipDate and add quantity to this
+     * OrderItemShipGroupAssoc
+     *
      * @return
      * @throws GeneralException
      */
@@ -6674,9 +6689,9 @@ public class OrderServices {
                     String shipMethTypeDesc = null;
                     try {
                         shipMethTypeDesc = EntityQuery.use(delegator).from("ShipmentMethodType").where("shipmentMethodTypeId",
-                         shipmentMethodTypeId).queryOne().getString("description");
+                                shipmentMethodTypeId).queryOne().getString("description");
                         newShipMethTypeDesc = EntityQuery.use(delegator).from("ShipmentMethodType").where("shipmentMethodTypeId",
-                         shippingMethods.get(0).getString("shipmentMethodTypeId")).queryOne().getString("description");
+                                shippingMethods.get(0).getString("shipmentMethodTypeId")).queryOne().getString("description");
                     } catch (GenericEntityException e) {
                         Debug.logError(e, MODULE);
                     }
@@ -7185,8 +7200,9 @@ public class OrderServices {
                 if (orderItemChange != null) {
                     BigDecimal quantityChanged = orderItemChange.getBigDecimal("quantity");
                     if (quantityChanged.compareTo(BigDecimal.ZERO) < 0) {
-                        GenericValue allocationPlanItem = EntityQuery.use(delegator).from("AllocationPlanItem").where("orderId", orderId,
-                                "orderItemSeqId", orderItemSeqId, "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId"))
+                        GenericValue allocationPlanItem = EntityQuery.use(delegator).from("AllocationPlanItem")
+                                .where("orderId", orderId, "orderItemSeqId", orderItemSeqId,
+                                        "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId"))
                                 .queryFirst();
                         if (allocationPlanItem != null) {
                             BigDecimal revisedQuantity = orderItem.getBigDecimal("quantity");

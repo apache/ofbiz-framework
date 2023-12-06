@@ -18,7 +18,8 @@
 */
 package org.apache.ofbiz.product.facility.returns
 
-import org.apache.ofbiz.base.util.UtilProperties
+
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.util.EntityUtil
 
 facilityId = request.getParameter('facilityId')
@@ -37,11 +38,11 @@ if (returnId) {
         if (returnHeader.statusId == 'RETURN_ACCEPTED') {
             returnItems = returnHeader.getRelated('ReturnItem', null, null, false)
         } else if (returnHeader.statusId == 'RETURN_REQUESTED') {
-            uiLabelMap = UtilProperties.getResourceBundleMap('ProductErrorUiLabels', locale)
+            uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('ProductErrorUiLabels', locale)
             ProductReturnRequestedOK = uiLabelMap.ProductReturnRequestedOK
             request.setAttribute('_EVENT_MESSAGE_', ProductReturnRequestedOK + ' (#' + returnId.toString() + ')' )
         }  else if (!returnHeader.statusId == 'RETURN_RECEIVED') {
-            uiLabelMap = UtilProperties.getResourceBundleMap('ProductErrorUiLabels', locale)
+            uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('ProductErrorUiLabels', locale)
             ProductReturnNotYetAcceptedOrAlreadyReceived = uiLabelMap.ProductReturnNotYetAcceptedOrAlreadyReceived
             request.setAttribute('_ERROR_MESSAGE_', ProductReturnNotYetAcceptedOrAlreadyReceived + ' (#' + returnId.toString() + ')' )
         }

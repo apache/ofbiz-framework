@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.security.Security;
 
@@ -44,10 +45,13 @@ public final class UtilCacheEvents {
     private static final String MODULE = UtilCacheEvents.class.getName();
 
 
-    private UtilCacheEvents() { }
+    private UtilCacheEvents() {
+    }
 
-    /** An HTTP WebEvent handler the specified element from the specified cache
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * An HTTP WebEvent handler the specified element from the specified cache
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return return an HTTP WebEvent handler the specified element from the specified cache
      */
@@ -103,25 +107,27 @@ public final class UtilCacheEvents {
 
             if (key != null) {
                 utilCache.remove(key);
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.removeElementWithKey", UtilMisc.toMap("key",
+                errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.removeElementWithKey", UtilMisc.toMap("key",
                         key.toString()), locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } else {
-                errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name",
+                errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElementNumber", UtilMisc.toMap("name",
                         name, "numString", numString), locale) + ".";
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
         } else {
-            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElement", UtilMisc.toMap("name", name), locale) + ".";
+            errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.couldNotRemoveElement", UtilMisc.toMap("name", name), locale) + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         return "success";
     }
 
-    /** An HTTP WebEvent handler that clears the named cache
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * An HTTP WebEvent handler that clears the named cache
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return return an HTTP WebEvent handler that clears the named cache
      */
@@ -147,18 +153,21 @@ public final class UtilCacheEvents {
 
         if (utilCache != null) {
             utilCache.clear();
-            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
+            errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
             request.setAttribute("_EVENT_MESSAGE_", errMsg);
         } else {
-            errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale) + ".";
+            errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName", UtilMisc.toMap("name", name), locale)
+                    + ".";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         return "success";
     }
 
-    /** An HTTP WebEvent handler that clears all caches
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * An HTTP WebEvent handler that clears all caches
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return return an HTTP WebEvent handler that clears all caches
      */
@@ -178,8 +187,11 @@ public final class UtilCacheEvents {
         request.setAttribute("_EVENT_MESSAGE_", errMsg + " (" + UtilDateTime.nowDateString("yyyy-MM-dd HH:mm:ss") + ").");
         return "success";
     }
-    /** An HTTP WebEvent handler that clears the selected caches
-     * @param request The HTTP request object for the current JSP or Servlet request.
+
+    /**
+     * An HTTP WebEvent handler that clears the selected caches
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return return an HTTP WebEvent handler that clears all caches
      */
@@ -215,10 +227,10 @@ public final class UtilCacheEvents {
                 UtilCache<?, ?> utilCache = UtilCache.findCache(name);
                 if (utilCache != null) {
                     utilCache.clear();
-                    errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
+                    errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.clearCache", UtilMisc.toMap("name", name), locale) + ".";
                     eventList.add(errMsg);
                 } else {
-                    errMsg = UtilProperties.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName",
+                    errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "utilCache.couldNotClearCacheNotFoundName",
                             UtilMisc.toMap("name", name), locale) + ".";
                     eventList.add(errMsg);
                 }
@@ -228,8 +240,10 @@ public final class UtilCacheEvents {
         return "success";
     }
 
-    /** An HTTP WebEvent handler that updates the named cache
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * An HTTP WebEvent handler that updates the named cache
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return return an HTTP WebEvent handler that updates the named cache
      */
@@ -269,7 +283,6 @@ public final class UtilCacheEvents {
         } catch (Exception e) {
             Debug.logError(e, MODULE);
         }
-
 
         UtilCache<?, ?> utilCache = UtilCache.findCache(name);
 

@@ -20,7 +20,7 @@ package org.apache.ofbiz.minilang.method.callops;
 
 import java.io.Serializable;
 
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.minilang.MiniLangValidate;
@@ -73,7 +73,7 @@ public final class FlexibleMessage implements Serializable {
             if (keyFse != null) {
                 propertykey = keyFse.expandString(methodContext.getEnvMap());
             }
-            return UtilProperties.getMessage(propertyResource, propertykey, methodContext.getEnvMap(), methodContext.getLocale());
+            return UtilPropertiesRuntime.getMessage(propertyResource, propertykey, methodContext.getEnvMap(), methodContext.getLocale());
         }
     }
 }

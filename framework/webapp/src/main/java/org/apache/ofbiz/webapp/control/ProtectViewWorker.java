@@ -30,6 +30,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -140,7 +141,7 @@ public final class ProtectViewWorker {
                 }
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-                String errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, UtilHttp.getLocale(request));
+                String errMsg = UtilPropertiesRuntime.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, MODULE);
             }
         }

@@ -40,6 +40,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.content.content.ContentWorker;
@@ -305,7 +306,8 @@ public class ContentManagementServices {
                 Debug.logInfo("In persistContentAndAssoc calling updateContent with content: " + contentContext, MODULE);
                 Map<String, Object> thisResult = dispatcher.runSync("updateContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentUpdatingError", UtilMisc.toMap("serviceName",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentContentUpdatingError",
+                            UtilMisc.toMap("serviceName",
                             "persistContentAndAssoc"), locale), null, null, thisResult);
                 }
             } else {
@@ -318,8 +320,8 @@ public class ContentManagementServices {
                 Debug.logInfo("In persistContentAndAssoc calling createContent with content: " + contentContext, MODULE);
                 Map<String, Object> thisResult = dispatcher.runSync("createContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentContentCreatingError", UtilMisc.toMap("serviceName",
-                            "persistContentAndAssoc"), locale), null, null, thisResult);
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentContentCreatingError",
+                            UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, thisResult);
                 }
                 contentId = (String) thisResult.get("contentId");
             }
@@ -938,7 +940,8 @@ public class ContentManagementServices {
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (content == null) {
                 Debug.logError("content was null", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
+                        UtilMisc.toMap("contentId", ""), locale));
             }
             String dataResourceId = content.getString("dataResourceId");
 
@@ -1029,8 +1032,8 @@ public class ContentManagementServices {
         try {
             thisContent = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (thisContent == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId),
-                        locale));
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
+                        UtilMisc.toMap("contentId", contentId), locale));
             }
             thisContent.set("contentTypeId", contentTypeId);
             thisContent.store();
@@ -1071,7 +1074,7 @@ public class ContentManagementServices {
         try {
             thisContent = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (thisContent == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
             thisContent.set("contentTypeId", "OUTLINE_NODE");
@@ -1239,7 +1242,8 @@ public class ContentManagementServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue content = (GenericValue) context.get("content");
         if (content == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
+                    UtilMisc.toMap("contentId", ""), locale));
         }
         Long leafCount = (Long) content.get("childLeafCount");
         if (leafCount == null) {
@@ -1264,8 +1268,8 @@ public class ContentManagementServices {
         try {
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             if (content == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId),
-                        locale));
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
+                        UtilMisc.toMap("contentId", contentId), locale));
             }
             Long leafCount = (Long) content.get("childLeafCount");
             if (leafCount == null) {
@@ -1293,8 +1297,8 @@ public class ContentManagementServices {
         try {
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             if (content == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId),
-                        locale));
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
+                        UtilMisc.toMap("contentId", contentId), locale));
             }
             Long leafCount = (Long) content.get("childLeafCount");
             if (leafCount == null) {
@@ -1450,7 +1454,7 @@ public class ContentManagementServices {
             return ServiceUtil.returnError(e.toString());
         }
         if (productContent == null) {
-            String msg = UtilProperties.getMessage(RESOURCE, "ContentNoProductContentFound", UtilMisc.toMap("productId", productId), locale);
+            String msg = UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoProductContentFound", UtilMisc.toMap("productId", productId), locale);
             Debug.logError(msg, MODULE);
             return ServiceUtil.returnError(msg);
         }
@@ -1498,7 +1502,7 @@ public class ContentManagementServices {
             }
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
-                String msg = UtilProperties.getMessage(RESOURCE, "ContentNoOrderHeaderFound", UtilMisc.toMap("orderId", orderId), locale);
+                String msg = UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoOrderHeaderFound", UtilMisc.toMap("orderId", orderId), locale);
                 return ServiceUtil.returnError(msg);
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
@@ -1610,7 +1614,7 @@ public class ContentManagementServices {
                         errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                     }
                 } catch (ImageReadException | IOException e) {
-                    errorMessage = UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName",
+                    errorMessage = UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting", UtilMisc.toMap("fileName",
                             objectInfo), locale);
                 }
             }

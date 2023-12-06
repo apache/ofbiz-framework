@@ -29,7 +29,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -86,7 +86,7 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortNotExist",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortNotExist",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (listRoutingTask == null) {
@@ -129,7 +129,7 @@ public class TechDataServices {
                     .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortAssocNotExist",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingTechDataWorkEffortAssocNotExist",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 

@@ -34,6 +34,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.datafile.DataFile;
@@ -93,7 +94,7 @@ public class ZipSalesServices {
         // locate the file to be imported
         URL tUrl = UtilURL.fromResource(taxFileLocation);
         if (tUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap(
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToLocateTaxFileAtLocation", UtilMisc.toMap(
                     "taxFileLocation", taxFileLocation), locale));
         }
 
@@ -164,7 +165,7 @@ public class ZipSalesServices {
         // locate the file to be imported
         URL rUrl = UtilURL.fromResource(ruleFileLocation);
         if (rUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateRuleFileFromLocation", UtilMisc.toMap(
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToLocateRuleFileFromLocation", UtilMisc.toMap(
                     "ruleFileLocation", ruleFileLocation), locale));
         }
 

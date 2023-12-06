@@ -37,6 +37,7 @@ import java.util.Set;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.apache.ofbiz.entity.Delegator;
@@ -296,11 +297,11 @@ public final class EntityUtilProperties implements Serializable {
     }
 
     public static String getMessage(String resource, String name, Map<String, ? extends Object> context, Locale locale) {
-        return UtilProperties.getMessage(resource, name, context, locale);
+        return UtilPropertiesRuntime.getMessage(resource, name, context, locale);
     }
 
     public static String getMessageMap(String resource, String name, Locale locale, Object... context) {
-        return UtilProperties.getMessageMap(resource, name, locale, context);
+        return UtilPropertiesRuntime.getMessageMap(resource, name, locale, context);
     }
 
     public static ResourceBundle getResourceBundle(String resource, Locale locale) {
@@ -308,11 +309,11 @@ public final class EntityUtilProperties implements Serializable {
     }
 
     public static ResourceBundleMapWrapper getResourceBundleMap(String resource, Locale locale) {
-        return UtilProperties.getResourceBundleMap(resource, locale);
+        return UtilPropertiesRuntime.getResourceBundleMap(resource, locale);
     }
 
     public static ResourceBundleMapWrapper getResourceBundleMap(String resource, Locale locale, Map<String, Object> context) {
-        return UtilProperties.getResourceBundleMap(resource, locale, context);
+        return UtilPropertiesRuntime.getResourceBundleMap(resource, locale, context);
     }
 
     public static Properties getProperties(String resource, Locale locale) {

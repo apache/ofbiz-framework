@@ -38,6 +38,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -85,7 +86,7 @@ public class ContentServices {
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentAssocRetrievingError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -189,7 +190,7 @@ public class ContentServices {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
                     UtilMisc.toMap("contentId", contentId), locale));
         }
 
@@ -269,7 +270,7 @@ public class ContentServices {
             contentAssoc = EntityQuery.use(delegator).from("ContentAssoc").where(pk).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocRetrievingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentAssocRetrievingError",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
@@ -342,7 +343,7 @@ public class ContentServices {
                 activeAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", activeContentId, "contentIdTo", contentIdTo,
                         "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId).queryOne();
                 if (activeAssoc == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentAssocNotFound",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentAssocNotFound",
                             UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId,
                                     "fromDate", fromDate), locale));
                 }
