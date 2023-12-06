@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.common.image.ImageTransform;
@@ -64,15 +65,16 @@ public class ScaleImage {
      * scaleImageInAllSize
      * <p>
      * Scale the original image into all different size Types (small, medium, large, detail)
-     * @param   context                     Context
-     * @param   filenameToUse               Filename of future image files
-     * @param   viewType                    "Main" view or "additional" view
-     * @param   viewNumber                  If it's the main view, viewNumber = "0"
-     * @return                              URL images for all different size types
-     * @throws  IllegalArgumentException    Any parameter is null
-     * @throws  ImagingOpException          The transform is non-invertible
-     * @throws  IOException                 Error prevents the document from being fully parsed
-     * @throws  JDOMException               Errors occur in parsing
+     *
+     * @param context       Context
+     * @param filenameToUse Filename of future image files
+     * @param viewType      "Main" view or "additional" view
+     * @param viewNumber    If it's the main view, viewNumber = "0"
+     * @return URL images for all different size types
+     * @throws IllegalArgumentException Any parameter is null
+     * @throws ImagingOpException       The transform is non-invertible
+     * @throws IOException              Error prevents the document from being fully parsed
+     * @throws JDOMException            Errors occur in parsing
      */
     public static Map<String, Object> scaleImageInAllSize(Map<String, ? extends Object> context, String filenameToUse,
             String viewType, String viewNumber) throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
@@ -142,7 +144,8 @@ public class ScaleImage {
             fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType,
                     "sizetype", "original"));
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ProductImageViewType", UtilMisc.toMap("viewType", viewType), locale));
+            return ServiceUtil.returnError(
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ProductImageViewType", UtilMisc.toMap("viewType", viewType), locale));
         }
 
         /* get original BUFFERED IMAGE */
@@ -200,8 +203,8 @@ public class ScaleImage {
                                 Debug.logFatal(errMsg, MODULE);
                                 return ServiceUtil.returnError(errMsg);
                             }
-                        // Delete existing image files
-                        // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
+                            // Delete existing image files
+                            // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
                         } else if (newFileLocation.endsWith("/" + id)) {
                             try {
                                 File[] files = targetDir.listFiles();
@@ -326,7 +329,7 @@ public class ScaleImage {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);

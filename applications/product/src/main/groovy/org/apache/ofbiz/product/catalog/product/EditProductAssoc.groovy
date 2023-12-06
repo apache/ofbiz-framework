@@ -20,9 +20,9 @@ package org.apache.ofbiz.product.catalog.product
 
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 
-uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('ProductUiLabels', locale)
 
 product = from('Product').where('productId', parameters.productId).queryOne()
 

@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
@@ -126,14 +127,14 @@ public final class ProductUtilServices {
                 }
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-                errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_discVirtualsWithDiscVariants",
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_discVirtualsWithDiscVariants",
                         messageMap, locale);
                 Debug.logError(e, errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_discVirtualsWithDiscVariants",
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_discVirtualsWithDiscVariants",
                     messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -175,7 +176,7 @@ public final class ProductUtilServices {
             Debug.logInfo("Completed - Removed category members for " + numSoFar + " sales discontinued products.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_removeCategoryMembersOfDiscProducts",
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_removeCategoryMembersOfDiscProducts",
                     messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -224,7 +225,7 @@ public final class ProductUtilServices {
             Debug.logInfo("Completed - Removed category members for " + numSoFar + " products with duplicate category members.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers",
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers",
                     messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -331,14 +332,15 @@ public final class ProductUtilServices {
                         MODULE);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-                errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals",
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR,
+                        "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals",
                         messageMap, locale);
                 Debug.logError(e, errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }
         } catch (GenericEntityException | GenericServiceException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals",
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals",
                     messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -372,7 +374,7 @@ public final class ProductUtilServices {
                     "PRODUCT_VARIANT").filterByDate().queryList();
             if (paList.size() > 1) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.found_more_than_one_valid_variant_for_virtual_ID",
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.found_more_than_one_valid_variant_for_virtual_ID",
                         messageMap, locale);
                 Debug.logInfo(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
@@ -380,7 +382,7 @@ public final class ProductUtilServices {
 
             if (paList.isEmpty()) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.did_not_find_any_valid_variants_for_virtual_ID",
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.did_not_find_any_valid_variants_for_virtual_ID",
                         messageMap, locale);
                 Debug.logInfo(errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
@@ -459,7 +461,7 @@ public final class ProductUtilServices {
             }
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals",
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals",
                     messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -514,8 +516,8 @@ public final class ProductUtilServices {
 
 
     /**
-     * reset all product image names with a certain pattern, ex: /images/products/${size}/${productId}.jpg
-     * NOTE: only works on fields of Product right now
+     * reset all product image names with a certain pattern, ex: /images/products/${size}/${productId}.jpg NOTE: only works on fields of Product right
+     * now
      */
     public static Map<String, Object> setAllProductImageNames(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -576,7 +578,8 @@ public final class ProductUtilServices {
             Debug.logInfo("Completed - Image URLs set for " + numSoFar + " products.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_setAllProductImageNames", messageMap, locale);
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_setAllProductImageNames", messageMap,
+                    locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -606,7 +609,7 @@ public final class ProductUtilServices {
             Debug.logInfo("Completed - Image URLs set for " + numSoFar + " products.", MODULE);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.entity_error_running_clearAllVirtualProductImageNames",
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.entity_error_running_clearAllVirtualProductImageNames",
                     messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -648,7 +651,7 @@ public final class ProductUtilServices {
                     delegator, doSubCategories, nowTimestamp);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(RES_ERROR, "productutilservices.error_in_attachProductFeaturesToCategory", messageMap, locale);
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "productutilservices.error_in_attachProductFeaturesToCategory", messageMap, locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -657,9 +660,9 @@ public final class ProductUtilServices {
     }
 
     /**
-     * Get all features associated with products and associate them with a feature group attached to the category for each feature type;
-     * includes products associated with this category only, but will also associate all feature groups of sub-categories with this category,
-     * optionally calls this method for all sub-categories too
+     * Get all features associated with products and associate them with a feature group attached to the category for each feature type; includes
+     * products associated with this category only, but will also associate all feature groups of sub-categories with this category, optionally calls
+     * this method for all sub-categories too
      */
     public static void attachProductFeaturesToCategory(String productCategoryId, Set<String> productFeatureTypeIdsToInclude, Set<String>
             productFeatureTypeIdsToExclude, Delegator delegator, boolean doSubCategories, Timestamp nowTimestamp) throws GenericEntityException {
@@ -696,7 +699,8 @@ public final class ProductUtilServices {
                 while ((productFeatureAndAppl = productFeatureAndApplEli.next()) != null) {
                     String productFeatureId = productFeatureAndAppl.getString("productFeatureId");
                     String productFeatureTypeId = productFeatureAndAppl.getString("productFeatureTypeId");
-                    if (UtilValidate.isNotEmpty(productFeatureTypeIdsToInclude) && !productFeatureTypeIdsToInclude.contains(productFeatureTypeId)) {
+                    if (UtilValidate.isNotEmpty(productFeatureTypeIdsToInclude) && !productFeatureTypeIdsToInclude.contains(
+                            productFeatureTypeId)) {
                         continue;
                     }
                     if (productFeatureTypeIdsToExclude != null && productFeatureTypeIdsToExclude.contains(productFeatureTypeId)) {
@@ -717,8 +721,10 @@ public final class ProductUtilServices {
                     String productFeatureGroupId = productCategoryId + "_" + productFeatureTypeId;
                     if (productFeatureGroupId.length() > 20) {
                         Debug.logWarning("Manufactured productFeatureGroupId was greater than 20 characters, means that we had some long"
-                                + "productCategoryId and/or productFeatureTypeId values, at the category part should be unique since it is first,"
-                                + "so if the feature type isn't unique it just means more than one type of feature will go into the category...",
+                                        + "productCategoryId and/or productFeatureTypeId values, at the category part should be unique "
+                                        + "since it is first,"
+                                        + "so if the feature type isn't unique it just means more than one type of feature will "
+                                        + "go into the category...",
                                 MODULE);
                         productFeatureGroupId = productFeatureGroupId.substring(0, 20);
                     }
@@ -761,10 +767,11 @@ public final class ProductUtilServices {
                 for (GenericValue productCategoryRollup : subCategoryList) {
                     String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
                     condition = EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, subProductCategoryId),
-                            EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
-                            EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR,
-                                    EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))),
+                                    EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, subProductCategoryId),
+                                    EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
+                                    EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
+                                            EntityOperator.OR,
+                                            EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))),
                             EntityOperator.AND);
                     try (EntityListIterator productFeatureCatGrpApplEli = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl")
                             .where(condition).queryIterator()) {

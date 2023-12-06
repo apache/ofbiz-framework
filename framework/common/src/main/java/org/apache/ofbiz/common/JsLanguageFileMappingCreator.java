@@ -33,7 +33,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -51,7 +52,7 @@ public class JsLanguageFileMappingCreator {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         String encoding = (String) context.get("encoding"); // default value: UTF-8
 
-        List<Locale> localeList = UtilMisc.availableLocales();
+        List<Locale> localeList = UtilMiscRuntime.availableLocales();
         Map<String, Object> jQueryLocaleFile = new LinkedHashMap<>();
         Map<String, String> dateJsLocaleFile = new LinkedHashMap<>();
         Map<String, String> validationLocaleFile = new LinkedHashMap<>();
@@ -224,7 +225,7 @@ public class JsLanguageFileMappingCreator {
             FileUtils.writeStringToFile(file, writer.toString(), encoding);
         } catch (IOException | TemplateException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage("CommonUiLabels", "CommonOutputFileCouldNotBeCreated",
                     UtilMisc.toMap("errorString", e.getMessage()), (Locale) context.get("locale")));
         }
 

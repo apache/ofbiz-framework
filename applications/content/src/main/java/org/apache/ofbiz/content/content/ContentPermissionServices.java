@@ -29,6 +29,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -274,7 +275,7 @@ public class ContentPermissionServices {
                     "ContentContentToOrFromErrorRetriving", locale));
         }
         if (contentTo == null || contentFrom == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "ContentContentToOrFromIsNull",
                     UtilMisc.toMap("contentTo", contentTo, "contentFrom", contentFrom), locale));
         }

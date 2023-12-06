@@ -18,9 +18,10 @@
 */
 package org.apache.ofbiz.product.catalog.category
 
-import org.apache.ofbiz.base.util.UtilProperties
 
-uiLabelMap = UtilProperties.getResourceBundleMap('ProductUiLabels', locale)
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
+
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('ProductUiLabels', locale)
 
 contentId = parameters.contentId ?: null
 

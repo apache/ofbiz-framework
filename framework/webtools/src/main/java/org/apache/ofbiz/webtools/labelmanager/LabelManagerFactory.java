@@ -67,7 +67,8 @@ public final class LabelManagerFactory {
         return new LabelManagerFactory();
     }
 
-    private LabelManagerFactory() { }
+    private LabelManagerFactory() {
+    }
 
     protected static void loadComponentNames() {
         componentNamesFound = new TreeSet<>();
@@ -93,7 +94,8 @@ public final class LabelManagerFactory {
 
     public void findMatchingLabels(String component, String fileName, String key, String locale, boolean onlyNotUsedLabels)
             throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GeneralException {
-        if (UtilValidate.isEmpty(component) && UtilValidate.isEmpty(fileName) && UtilValidate.isEmpty(key) && UtilValidate.isEmpty(locale)) {
+        if (UtilValidate.isEmpty(component) && UtilValidate.isEmpty(fileName) && UtilValidate.isEmpty(key)
+                && UtilValidate.isEmpty(locale)) {
             // Important! Don't allow unparameterized queries - doing so will result in loading the entire project into memory
             return;
         }
@@ -116,24 +118,24 @@ public final class LabelManagerFactory {
                     String labelKey = UtilCodec.canonicalize(propertyElem.getAttribute("key"));
                     if (onlyNotUsedLabels
                             && (labelKey.contains(".description.")
-                                    || labelKey.contains(".transitionName.")
-                                    || labelKey.contains(".partyRelationshipName.")
-                                    || labelKey.contains(".geoName.")
-                                    || labelKey.contains(".categoryName.")
-                                    || labelKey.contains("FieldDescription.")
-                                    || labelKey.contains("TemporalExpression_")
-                                    || labelKey.contains(".portalPageName.")
-                                    || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
-                                    || labelKey.contains("buildEbayConfig.")
-                                    || labelKey.contains("week.")
-                                    || labelKey.contains("second.")
-                                    || labelKey.contains("hour.")
-                                    || labelKey.contains("millisecond.")
-                                    || labelKey.contains("service.")
-                                    || labelKey.contains("check.")
-                                    || (labelKey.length() == 2) // These are languages Ids
-                                    || labelKey.contains("pt_") // These are languages Ids
-                                    || labelKey.contains("en_"))) {
+                            || labelKey.contains(".transitionName.")
+                            || labelKey.contains(".partyRelationshipName.")
+                            || labelKey.contains(".geoName.")
+                            || labelKey.contains(".categoryName.")
+                            || labelKey.contains("FieldDescription.")
+                            || labelKey.contains("TemporalExpression_")
+                            || labelKey.contains(".portalPageName.")
+                            || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
+                            || labelKey.contains("buildEbayConfig.")
+                            || labelKey.contains("week.")
+                            || labelKey.contains("second.")
+                            || labelKey.contains("hour.")
+                            || labelKey.contains("millisecond.")
+                            || labelKey.contains("service.")
+                            || labelKey.contains("check.")
+                            || (labelKey.length() == 2) // These are languages Ids
+                            || labelKey.contains("pt_") // These are languages Ids
+                            || labelKey.contains("en_"))) {
                         continue; // OFBIZ-8154 WIP
                     }
                     String labelComment = "";
@@ -206,13 +208,15 @@ public final class LabelManagerFactory {
     }
 
     public int updateLabelValue(List<String> localeNames, List<String> localeValues, List<String> localeComments, LabelInfo label, String key,
-                                String keyComment, String fileName) {
+            String keyComment, String fileName) {
         int notEmptyLabels = 0;
         for (int i = 0; i < localeNames.size(); i++) {
             String localeName = localeNames.get(i);
             String localeValue = localeValues.get(i);
             String localeComment = null;
-            if (UtilValidate.isNotEmpty(localeComments)) localeComment = localeComments.get(i);
+            if (UtilValidate.isNotEmpty(localeComments)) {
+                localeComment = localeComments.get(i);
+            }
             if (UtilValidate.isNotEmpty(localeValue) || UtilValidate.isNotEmpty(localeComment)) {
                 if (label == null) {
                     try {

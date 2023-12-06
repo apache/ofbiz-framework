@@ -44,6 +44,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.common.image.ImageTransform;
@@ -172,11 +173,11 @@ public class ImageManagementServices {
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             }
@@ -200,11 +201,11 @@ public class ImageManagementServices {
                     outFile.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", fileOriginal.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", fileOriginal.getAbsolutePath()), locale));
                 }
 
@@ -212,12 +213,12 @@ public class ImageManagementServices {
                 try {
                     resultResize.putAll(scaleImageMangementInAllSize(dctx, context, imageName, sizeType, productId));
                 } catch (IOException e) {
-                    String errMsg = UtilProperties.getMessage(RES_ERROR,
+                    String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "ProductScaleAdditionalImageInAllDifferentSizesIsImpossible", UtilMisc.toMap("errorString", e.toString()), locale);
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 } catch (JDOMException e) {
-                    String errMsg = UtilProperties.getMessage(RES_ERROR,
+                    String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "ProductErrorsOccurInParsingImageProperties.xml", UtilMisc.toMap("errorString", e .toString()), locale);
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
@@ -591,12 +592,12 @@ public class ImageManagementServices {
             outFileThumb.close();
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "ProductImageViewUnableWriteFile",
                     UtilMisc.toMap("fileName", fileOriginalThumb.getAbsolutePath()), locale));
         } catch (IOException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "ProductImageViewUnableWriteBinaryData",
                     UtilMisc.toMap("fileName", fileOriginalThumb.getAbsolutePath()), locale));
         }

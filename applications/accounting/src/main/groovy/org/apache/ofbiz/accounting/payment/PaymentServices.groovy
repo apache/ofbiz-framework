@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.accounting.payment
 
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
+
 import java.sql.Timestamp
 
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
@@ -362,7 +364,7 @@ Map getInvoicePaymentInfoListByDueDateOffset() {
 Map voidPayment() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
     if (!payment) {
-        return error(UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)?.AccountingNoPaymentsfound)
+        return error(UtilPropertiesRuntime.getResourceBundleMap('AccountingUiLabels', locale)?.AccountingNoPaymentsfound)
     }
     String paymentId = payment.paymentId
     Map paymentStatusCtx = [paymentId: paymentId,

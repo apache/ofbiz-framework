@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -96,7 +97,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             this.sectionList = Collections.emptyList();
         } else {
             List<ModelScreenWidget.Section> sectionList = new ArrayList<>(childElementList.size());
-            for (Element sectionElement: childElementList) {
+            for (Element sectionElement : childElementList) {
                 ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement, false);
                 sectionList.add(section);
             }
@@ -106,6 +107,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets section list.
+     *
      * @return the section list
      */
     public List<ModelScreenWidget.Section> getSectionList() {
@@ -198,7 +200,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 contextMs.put("iterateId", String.valueOf(entryName + iterateIndex));
                 iterateIndex++;
             }
-            for (ModelScreenWidget.Section section: this.sectionList) {
+            for (ModelScreenWidget.Section section : this.sectionList) {
                 section.renderWidgetString(writer, contextMs, screenStringRenderer);
             }
         }
@@ -229,6 +231,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets paginate target.
+     *
      * @param context the context
      * @return the paginate target
      */
@@ -238,6 +241,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets paginate.
+     *
      * @param context the context
      * @return the paginate
      */
@@ -250,6 +254,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets view size.
+     *
      * @return the view size
      */
     public int getViewSize() {
@@ -258,9 +263,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Render next prev.
-     * @param writer the writer
-     * @param context the context
-     * @param listSize the list size
+     *
+     * @param writer         the writer
+     * @param context        the context
+     * @param listSize       the list size
      * @param actualPageSize the actual page size
      * @throws IOException the io exception
      */
@@ -280,9 +286,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
         int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatorNumber);
-
-
-
 
         if (UtilValidate.isEmpty(targetService)) {
             Debug.logWarning("TargetService is empty.", MODULE);
@@ -341,7 +344,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
         if (listSize > 0) {
             Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", lowIndex + 1, "highCount", lowIndex + actualPageSize, "total", listSize);
-            String commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
+            String commonDisplaying =
+                    UtilPropertiesRuntime.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
             writer.append(" <span class=\"tabletext\">").append(commonDisplaying).append("</span> \n");
         }
         if (highIndex < listSize) {
@@ -378,6 +382,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets list name exdr.
+     *
      * @return the list name exdr
      */
     public FlexibleMapAccessor<Object> getListNameExdr() {
@@ -386,6 +391,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets entry name exdr.
+     *
      * @return the entry name exdr
      */
     public FlexibleStringExpander getEntryNameExdr() {
@@ -394,6 +400,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets key name exdr.
+     *
      * @return the key name exdr
      */
     public FlexibleStringExpander getKeyNameExdr() {
@@ -402,6 +409,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets paginate target.
+     *
      * @return the paginate target
      */
     public FlexibleStringExpander getPaginateTarget() {
@@ -410,6 +418,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     /**
      * Gets paginate.
+     *
      * @return the paginate
      */
     public FlexibleStringExpander getPaginate() {

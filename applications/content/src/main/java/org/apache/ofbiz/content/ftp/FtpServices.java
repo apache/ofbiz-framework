@@ -23,6 +23,7 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -97,7 +98,7 @@ public class FtpServices {
             //Validate content
             GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             if (null == content) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFound",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFound",
                         UtilMisc.toMap("contentId", contentId), locale));
             }
 

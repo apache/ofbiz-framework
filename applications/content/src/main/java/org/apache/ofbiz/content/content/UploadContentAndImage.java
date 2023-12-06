@@ -58,7 +58,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * UploadContentAndImage Class
- *
+ * <p>
  * Services for granting operation permissions on Content entities in a data-driven manner.
  */
 public class UploadContentAndImage {
@@ -66,7 +66,8 @@ public class UploadContentAndImage {
     private static final String MODULE = UploadContentAndImage.class.getName();
     private static final String ERR_RESOURCE = "ContentErrorUiLabels";
 
-    public UploadContentAndImage() { }
+    public UploadContentAndImage() {
+    }
 
     public static String uploadContentAndImage(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -162,7 +163,8 @@ public class UploadContentAndImage {
                 map.put("contentId", ftlContentId);
                 map.put("contentIdTo", contentIdTo);
                 map.put("userLogin", userLogin);
-                if (UtilValidate.isEmpty(contentAssocTypeId) && UtilValidate.isEmpty(passedContentId) && UtilValidate.isNotEmpty(contentIdTo)) {
+                if (UtilValidate.isEmpty(contentAssocTypeId) && UtilValidate.isEmpty(passedContentId) && UtilValidate.isNotEmpty(
+                        contentIdTo)) {
                     // switch the association order because we are really not linking to the forum
                     // but showing that this content is released to that forum.
                     map.put("contentIdTo", ftlContentId);

@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import static org.apache.ofbiz.widget.model.ModelFormField.usedFields;
 
@@ -41,10 +46,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.GenericEntity;
@@ -81,7 +82,7 @@ public class FormRenderer {
     private static final String MODULE = FormRenderer.class.getName();
 
     public static String getCurrentContainerId(ModelForm modelForm, Map<String, Object> context) {
-        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
         String retVal = FlexibleStringExpander.expandString(modelForm.getContainerId(), context, locale);
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null/* && "list".equals(modelForm.getType()) */) {

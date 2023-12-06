@@ -28,7 +28,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -307,13 +307,13 @@ public final class CallService extends MethodOperation {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 if (UtilValidate.isNotEmpty(errorMessage)) {
                     if (Debug.verboseOn()) {
-                        errorMessage += UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name",
+                        errorMessage += UtilPropertiesRuntime.getMessage(RESOURCE, "simpleMethod.error_show_service_name",
                                 UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
                 } else {
                     if (Debug.verboseOn()) {
-                        errorMessageList.add(UtilProperties.getMessage(RESOURCE, "simpleMethod.error_show_service_name",
+                        errorMessageList.add(UtilPropertiesRuntime.getMessage(RESOURCE, "simpleMethod.error_show_service_name",
                                 UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), errorMessageList);

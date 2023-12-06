@@ -50,6 +50,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.email.NotificationServices;
 import org.apache.ofbiz.content.data.DataResourceWorker;
@@ -676,7 +677,7 @@ public class CommunicationEventServices {
             GenericValue communicationEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("communicationEventId",
                     communicationEventId).cache().queryOne();
             if (communicationEvent == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage("PartyUiLabels", "PartyCommunicationEventNotFound",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage("PartyUiLabels", "PartyCommunicationEventNotFound",
                         UtilMisc.toMap("communicationEventId", communicationEventId), (Locale) context.get("locale")));
             }
             Timestamp endDate = communicationEvent.getTimestamp("datetimeEnded");

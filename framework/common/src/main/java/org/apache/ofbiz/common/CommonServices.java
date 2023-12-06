@@ -47,6 +47,7 @@ import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -187,7 +188,7 @@ public class CommonServices {
 
             delegator.create(newValue);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonNoteCannotBeUpdated",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonNoteCannotBeUpdated",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -520,7 +521,7 @@ public class CommonServices {
         Locale locale = (Locale) context.get("locale");
         String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonExceptionThrownWhileDecodingMetric",
                     UtilMisc.toMap("originalName", originalName), locale));
         }
         Metrics metric = MetricsFactory.getMetric(name);
@@ -528,6 +529,6 @@ public class CommonServices {
             metric.reset();
             return ServiceUtil.returnSuccess();
         }
-        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonMetricNotFound", UtilMisc.toMap("name", name), locale));
+        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonMetricNotFound", UtilMisc.toMap("name", name), locale));
     }
 }

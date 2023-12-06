@@ -28,6 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -69,7 +70,7 @@ public class QuoteServices {
         }
 
         if (quote == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderQuoteCannotBeFound",
                     UtilMisc.toMap("quoteId", quoteId), locale));
         }
@@ -83,14 +84,14 @@ public class QuoteServices {
                     + " and emailType=" + emailType, MODULE);
         }
         if (productStoreEmail == null) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RES_PRODUCT,
                     "ProductProductStoreEmailSettingsNotValid",
                     UtilMisc.toMap("productStoreId", quote.get("productStoreId"),
                             "emailType", emailType), locale));
         }
         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RES_PRODUCT,
                     "ProductProductStoreEmailSettingsNotValidBodyScreenLocation",
                     UtilMisc.toMap("productStoreId", quote.get("productStoreId"),
                             "emailType", emailType), locale));

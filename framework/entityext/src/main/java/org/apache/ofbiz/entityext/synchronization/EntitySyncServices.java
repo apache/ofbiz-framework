@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -140,7 +141,7 @@ public class EntitySyncServices {
         if (UtilValidate.isNotEmpty(overrideDelegatorName)) {
             delegator = DelegatorFactory.getDelegator(overrideDelegatorName);
             if (delegator == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtCannotFindDelegator",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtCannotFindDelegator",
                         UtilMisc.toMap("overrideDelegatorName", overrideDelegatorName), locale));
             }
         }
@@ -264,11 +265,11 @@ public class EntitySyncServices {
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, "Exception saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtExceptionSavingEntitySyncData",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtExceptionSavingEntitySyncData",
                     UtilMisc.toMap("entitySyncId", entitySyncId, "errorString", e.toString()), locale));
         } catch (Throwable t) {
             Debug.logError(t, "Error saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + t.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorSavingEntitySyncData",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorSavingEntitySyncData",
                     UtilMisc.toMap("entitySyncId", entitySyncId, "errorString", t.toString()), locale));
         }
     }
@@ -322,7 +323,7 @@ public class EntitySyncServices {
             try {
                 Map<String, Object> result = dispatcher.runSync(remotePullAndReportEntitySyncDataName, remoteCallContext);
                 if (ServiceUtil.isError(result)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorCallingRemotePull",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorCallingRemotePull",
                             UtilMisc.toMap("remotePullAndReportEntitySyncDataName", remotePullAndReportEntitySyncDataName), locale), null, null,
                             result);
                 }
@@ -377,12 +378,12 @@ public class EntitySyncServices {
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Exception calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName
                         + "; " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorCallingRemotePull",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorCallingRemotePull",
                         UtilMisc.toMap("remotePullAndReportEntitySyncDataName", remotePullAndReportEntitySyncDataName), locale) + e.toString());
             } catch (Throwable t) {
                 Debug.logError(t, "Error calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName
                         + "; " + t.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorCallingRemotePull",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorCallingRemotePull",
                         UtilMisc.toMap("remotePullAndReportEntitySyncDataName", remotePullAndReportEntitySyncDataName), locale) + t.toString());
             }
         }
@@ -565,7 +566,7 @@ public class EntitySyncServices {
                 Debug.logError(e, MODULE);
             }
             if (xmlSyncDoc == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtEntitySyncXMLDocumentIsNotValid",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtEntitySyncXMLDocumentIsNotValid",
                         UtilMisc.toMap("fileName", fileName), locale));
             }
 
@@ -596,13 +597,13 @@ public class EntitySyncServices {
 
                         // TODO create a response document to send back to the initial sync machine
                     } catch (GenericServiceException | IOException | ParserConfigurationException | SAXException | SerializeException gse) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLoadXMLDocument",
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtUnableToLoadXMLDocument",
                                 UtilMisc.toMap("entitySyncId", entitySyncId, "startTime", startTime, "errorString", gse.getMessage()), locale));
                     }
                 }
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtOfflineXMLFileNotFound",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtOfflineXMLFileNotFound",
                     UtilMisc.toMap("fileName", fileName), locale));
         }
 
@@ -656,7 +657,7 @@ public class EntitySyncServices {
             return ServiceUtil.returnSuccess();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error cleaning out EntitySyncRemove info: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorCleaningEntitySyncRemove",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorCleaningEntitySyncRemove",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
     }

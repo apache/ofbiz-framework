@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.product.shipment
 
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
+
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -741,7 +743,7 @@ Map checkCanChangeShipmentStatusGeneral(Map inputParameters) {
             GenericValue testShipmentStatus = testShipment.getRelatedOne('StatusItem', true)
             Map testShipmentMap = [testShipment: testShipment,
                                    testShipmentStatus: testShipmentStatus]
-            String failMessage = UtilProperties.getMessage('ProductErrorUiLabels',
+            String failMessage = UtilPropertiesRuntime.getMessage('ProductErrorUiLabels',
                     'ShipmentCanChangeStatusPermissionError', testShipmentMap, locale)
             hasPermission = false
             result.failMessage = failMessage
@@ -770,12 +772,12 @@ Map quickShipEntireOrder() {
     GenericValue productStore = from('ProductStore').where(productStoreId: orderHeader.productStoreId).queryOne()
     if ('Y' != productStore?.reserveInventory) {
         // no reservations; no shipment; cannot use quick ship
-        return error(UtilProperties.getMessage('ProductUiLabels',
+        return error(UtilPropertiesRuntime.getMessage('ProductUiLabels',
                 'FacilityShipmentNotCreatedForNotReserveInventory', [productStore: productStore], locale))
     }
     if (productStore.explodeOrderItems == 'Y') {
         // can't insert duplicate rows in shipmentPackageContent
-        return errorMessage(UtilProperties.getMessage('ProductUiLabels',
+        return errorMessage(UtilPropertiesRuntime.getMessage('ProductUiLabels',
                 'FacilityShipmentNotCreatedForExplodesOrderItems', [productStore: productStore], locale))
     }
     // locate shipping facilities associated with order item rez's

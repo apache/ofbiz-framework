@@ -27,6 +27,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -315,7 +316,7 @@ public class PackingServices {
             resp = ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
                     "ProductPackCompleteNoItems", locale));
         } else {
-            resp = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
+            resp = ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "ProductPackComplete", UtilMisc.toMap("shipmentId", shipmentId), locale));
         }
 

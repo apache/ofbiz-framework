@@ -19,13 +19,13 @@
 package org.apache.ofbiz.webtools.datafile
 
 import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.base.util.UtilURL
 import org.apache.ofbiz.datafile.DataFile
 import org.apache.ofbiz.datafile.DataFile2EntityXml
 import org.apache.ofbiz.datafile.ModelDataFileReader
 
-uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('WebtoolsUiLabels', locale)
 messages = []
 
 dataFileSave = request.getParameter('DATAFILE_SAVE')

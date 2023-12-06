@@ -19,6 +19,7 @@
 package org.apache.ofbiz.accounting.reports
 
 import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.base.util.UtilMiscRuntime
 
 openingCashBalanceMap = [:]
 openingCashBalanceList = []
@@ -37,7 +38,7 @@ openingCashBalanceList2.each { accountBalance ->
                                                                balance1: BigDecimal.ZERO])
     }
 }
-openingCashBalanceList = UtilMisc.sortMaps(openingCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
+openingCashBalanceList = UtilMiscRuntime.sortMaps(openingCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
 context.openingCashBalanceList = openingCashBalanceList
 
 periodCashBalanceMap = [:]
@@ -61,7 +62,7 @@ periodCashBalanceList2.each { accountBalance ->
                                                               D1: BigDecimal.ZERO, C1: BigDecimal.ZERO])
     }
 }
-periodCashBalanceList = UtilMisc.sortMaps(periodCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
+periodCashBalanceList = UtilMiscRuntime.sortMaps(periodCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
 
 context.periodCashBalanceList = periodCashBalanceList
 closingCashBalanceMap = [:]
@@ -81,7 +82,7 @@ closingCashBalanceList2.each { accountBalance ->
                                                                balance1: BigDecimal.ZERO])
     }
 }
-closingCashBalanceList = UtilMisc.sortMaps(closingCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
+closingCashBalanceList = UtilMiscRuntime.sortMaps(closingCashBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
 context.closingCashBalanceList = closingCashBalanceList
 
 balanceTotalMap = [:]

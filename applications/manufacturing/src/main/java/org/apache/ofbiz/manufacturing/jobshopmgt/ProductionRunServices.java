@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -75,6 +76,7 @@ public class ProductionRunServices {
 
     /**
      * Cancels a ProductionRun.
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
@@ -159,8 +161,9 @@ public class ProductionRunServices {
                 Debug.logError(e, "Problem accessing WorkEffortGoodStandard entity", MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusNotChanged", locale));
             }
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCannotBeCancelled", locale));
@@ -178,6 +181,7 @@ public class ProductionRunServices {
      * <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard</li>
      * <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard</li>
      * </ul>
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, pRQuantity, startDate, workEffortName, description
      * @return Map with the result of the service, the output parameters.
@@ -437,7 +441,7 @@ public class ProductionRunServices {
         }
         result.put("productionRunId", productionRunId);
         result.put("estimatedCompletionDate", startDate);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap(
+        result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap(
                 "productionRunId", productionRunId), locale));
         return result;
     }
@@ -446,7 +450,7 @@ public class ProductionRunServices {
      * Make a copy of the party assignments that were defined on the template routing task to the new production run task.
      */
     private static void cloneWorkEffortPartyAssignments(DispatchContext dctx, GenericValue userLogin,
-                                                        String routingTaskId, String productionRunTaskId) throws GeneralException {
+            String routingTaskId, String productionRunTaskId) throws GeneralException {
         List<GenericValue> workEffortPartyAssignments = null;
         try {
             workEffortPartyAssignments = EntityUtil.filterByDate(
@@ -530,6 +534,7 @@ public class ProductionRunServices {
      * <li> for the first routingTask, create for all the valid productIdTo with no associateRoutingTask  a WorkEffortGoodStandard</li>
      * <li> for each valid routingTask of the routing and valid productIdTo associate with this RoutingTask create a WorkEffortGoodStandard</li>
      * </ul>
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, quantity, estimatedStartDate, workEffortName, description
      * @return Map with the result of the service, the output parameters.
@@ -620,8 +625,9 @@ public class ProductionRunServices {
 
         if (currentStatusId.equals(statusId)) {
             result.put("newStatusId", currentStatusId);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", currentStatusId), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", currentStatusId), locale));
             return result;
         }
 
@@ -659,8 +665,9 @@ public class ProductionRunServices {
                 }
             }
             result.put("newStatusId", statusId);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_CLOSED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_CLOSED"), locale));
             return result;
         }
 
@@ -699,8 +706,9 @@ public class ProductionRunServices {
                 }
             }
             result.put("newStatusId", "PRUN_DOC_PRINTED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -743,8 +751,9 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusNotChanged", locale));
             }
             result.put("newStatusId", "PRUN_RUNNING");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -768,8 +777,9 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusNotChanged", locale));
             }
             result.put("newStatusId", "PRUN_COMPLETED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -807,12 +817,13 @@ public class ProductionRunServices {
                 }
             }
             result.put("newStatusId", "PRUN_CLOSED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_CLOSED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_CLOSED"), locale));
             return result;
         }
         result.put("newStatusId", currentStatusId);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+        result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
                 "newStatusId", currentStatusId), locale));
         return result;
     }
@@ -866,7 +877,7 @@ public class ProductionRunServices {
         if (statusId != null && currentStatusId.equals(statusId)) {
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", currentStatusId);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged",
+            result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged",
                     UtilMisc.toMap("newStatusId", currentStatusId), locale));
             return result;
         }
@@ -917,8 +928,9 @@ public class ProductionRunServices {
             }
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_RUNNING");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
 
@@ -1075,21 +1087,23 @@ public class ProductionRunServices {
                         }
                     }
                 } catch (GenericEntityException | GenericServiceException gse) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToFindOverheadCosts",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunUnableToFindOverheadCosts",
                             UtilMisc.toMap("errorString", gse.getMessage()), locale));
                 }
             }
 
             result.put("oldStatusId", oldStatusId);
             result.put("newStatusId", "PRUN_COMPLETED");
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
-                    "newStatusId", "PRUN_DOC_PRINTED"), locale));
+            result.put(ModelService.SUCCESS_MESSAGE,
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunStatusChanged", UtilMisc.toMap(
+                            "newStatusId", "PRUN_DOC_PRINTED"), locale));
             return result;
         }
         result.put("oldStatusId", oldStatusId);
         result.put("newStatusId", currentStatusId);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged", UtilMisc.toMap(
-                "newStatusId", currentStatusId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE,
+                UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunTaskStatusChanged", UtilMisc.toMap(
+                        "newStatusId", currentStatusId), locale));
         return result;
     }
 
@@ -1122,7 +1136,7 @@ public class ProductionRunServices {
             result.put("totalCost", totalCost);
             result.put("totalCostNoMaterials", totalCostNoMaterials);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToFindCostsForWorkEffort",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunUnableToFindCostsForWorkEffort",
                     UtilMisc.toMap("workEffortId", workEffortId, "errorString", gee.getMessage()), locale));
         }
         return result;
@@ -1176,7 +1190,7 @@ public class ProductionRunServices {
         try {
             GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunTaskId).queryOne();
             if (UtilValidate.isEmpty(workEffort)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskNotFound", UtilMisc.toMap(
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunTaskNotFound", UtilMisc.toMap(
                         "productionRunTaskId", productionRunTaskId), locale));
             }
             double actualTotalMilliSeconds = 0.0;
@@ -1287,7 +1301,7 @@ public class ProductionRunServices {
                 }
             }
         } catch (GenericEntityException | GenericServiceException ge) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToCreateRoutingCosts",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunUnableToCreateRoutingCosts",
                     UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", ge.getMessage()), locale));
         }
         // materials costs: these are the costs derived from the materials used by the production run task
@@ -1321,21 +1335,21 @@ public class ProductionRunServices {
                 }
             }
         } catch (GenericEntityException | GenericServiceException ge) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToCreateMaterialsCosts",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunUnableToCreateMaterialsCosts",
                     UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "errorString", ge.getMessage()), locale));
         }
         return ServiceUtil.returnSuccess();
     }
 
     /**
-     * Check if field for routingTask update are correct and if need recalculated data in Production Run.
-     * Check
+     * Check if field for routingTask update are correct and if need recalculated data in Production Run. Check
      * <ul>
      * <li> if estimatedStartDate is not before Production Run estimatedStartDate.</li>
      * <li> if there is not a another routingTask with the same priority</li>
      * <li>If priority or estimatedStartDate has changed recalculated data for routingTask after that one.</li>
      * </ul>
      * Update the productionRun
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters, productId, routingId, priority, estimatedStartDate, estimatedSetupMillis,
      *                estimatedMilliSeconds
@@ -1399,7 +1413,9 @@ public class ProductionRunServices {
                             productionRun.clearRoutingTasksList();
                         }
                     }
-                    if (first) first = false;
+                    if (first) {
+                        first = false;
+                    }
                 }
                 productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate(priority, estimatedStartDate));
 
@@ -1486,7 +1502,7 @@ public class ProductionRunServices {
             Debug.logError(e, "Problem calling the createWorkEffortGoodStandard service", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentNotAdded", locale));
         }
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE,
+        result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE,
                 "ManufacturingProductionRunComponentAdded", UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
@@ -1564,8 +1580,9 @@ public class ProductionRunServices {
             Debug.logError(e, "Problem calling the updateWorkEffortGoodStandard service", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentNotAdded", locale));
         }
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunComponentUpdated", UtilMisc.toMap(
-                "productionRunId", productionRunId), locale));
+        result.put(ModelService.SUCCESS_MESSAGE,
+                UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunComponentUpdated", UtilMisc.toMap(
+                        "productionRunId", productionRunId), locale));
         return result;
     }
 
@@ -1677,7 +1694,6 @@ public class ProductionRunServices {
         if (Debug.infoOn()) {
             Debug.logInfo("ProductionRunTaskId created: " + productionRunTaskId, MODULE);
         }
-
 
         productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate());
         if (!productionRun.store()) {
@@ -1899,7 +1915,7 @@ public class ProductionRunServices {
                 int numOfItems = quantity.intValue();
                 for (int i = 0; i < numOfItems; i++) {
                     Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productId", productionRun.getProductProduced().getString(
-                            "productId"),
+                                    "productId"),
                             "inventoryItemTypeId", "SERIALIZED_INV_ITEM",
                             "statusId", "INV_AVAILABLE");
                     serviceContext.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
@@ -1952,7 +1968,7 @@ public class ProductionRunServices {
         } else {
             try {
                 Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productId", productionRun.getProductProduced().getString(
-                        "productId"),
+                                "productId"),
                         "inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
                 serviceContext.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
                 serviceContext.put("datetimeReceived", UtilDateTime.nowTimestamp());
@@ -2281,7 +2297,7 @@ public class ProductionRunServices {
                 }
             }
             if (quantity.compareTo(totalIssued.subtract(totalReturned)) > 0) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunTaskCannotReturnMoreItems",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunTaskCannotReturnMoreItems",
                         UtilMisc.toMap("productionRunTaskId", productionRunTaskId, "quantity", quantity, "quantityAllocated",
                                 totalIssued.subtract(totalReturned)), locale));
             }
@@ -2563,7 +2579,7 @@ public class ProductionRunServices {
         String productionRunId = (String) serviceResult.get("productionRunId");
         result.put("productionRunId", productionRunId);
 
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap(
+        result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap(
                 "productionRunId", productionRunId), locale));
         return result;
     }
@@ -2740,7 +2756,7 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingRequirementNotDeleted", locale));
         }
 
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap(
+        result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunCreated", UtilMisc.toMap(
                 "productionRunId", productionRunId), locale));
         return result;
     }
@@ -2764,7 +2780,7 @@ public class ProductionRunServices {
             GenericValue productStore = delegator.getRelatedOne("ProductStore", order, false);
             isImmediatelyFulfilled = "Y".equals(productStore.getString("isImmediatelyFulfilled"));
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunForMarketingPackagesCreationError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunForMarketingPackagesCreationError",
                     UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "errorString", e.getMessage()), locale));
         }
 
@@ -2772,12 +2788,13 @@ public class ProductionRunServices {
         try {
             orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunForMarketingPackagesCreationError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunForMarketingPackagesCreationError",
                     UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "errorString", e.getMessage()), locale));
         }
         if (orderItem == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunForMarketingPackagesOrderItemNotFound",
-                    UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), locale));
+            return ServiceUtil.returnError(
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunForMarketingPackagesOrderItemNotFound",
+                            UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), locale));
         }
         if (orderItem.get("quantity") == null) {
             Debug.logWarning("No quantity found for orderItem [" + orderItem + "], skipping production run of this marketing package", MODULE);
@@ -2843,7 +2860,7 @@ public class ProductionRunServices {
                                 UtilMisc.toMap("workEffortId", productionRunIdForRemainingQty,
                                         "orderId", orderId, "orderItemSeqId", orderItemSeqId));
                     } catch (GenericEntityException e) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                                 "ManufacturingProductionRunForMarketingPackagesCreationError",
                                 UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,
                                         "errorString", e.getMessage()), locale));
@@ -2869,7 +2886,7 @@ public class ProductionRunServices {
                         delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId,
                                 "orderItemSeqId", orderItemSeqId));
                     } catch (GenericEntityException e) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                                 "ManufacturingProductionRunForMarketingPackagesCreationError", UtilMisc.toMap("orderId", orderId, "orderItemSeqId",
                                         orderItemSeqId, "errorString", e.getMessage()), locale));
                     }
@@ -2894,7 +2911,7 @@ public class ProductionRunServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotCreated", locale));
                     }
 
-                    result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCreated",
+                    result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunCreated",
                             UtilMisc.toMap("productionRunId", productionRunId), locale));
                     return result;
                 } else {
@@ -2951,26 +2968,28 @@ public class ProductionRunServices {
                     orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
                 }
                 if (orderItem == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
-                            orderId, "orderItemSeqId", ""), locale));
+                    return ServiceUtil.returnError(
+                            UtilPropertiesRuntime.getMessage(RES_ORDER, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
+                                    orderId, "orderItemSeqId", ""), locale));
                 }
                 if (quantity != null) {
                     orderItem.set("quantity", quantity);
                 }
                 orderItems = UtilMisc.toList(orderItem);
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER, "OrderProblemsReadingOrderItemInformation", UtilMisc.toMap(
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ORDER, "OrderProblemsReadingOrderItemInformation", UtilMisc.toMap(
                         "errorString", gee.getMessage()), locale));
             }
         } else {
             try {
                 orderItems = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId).queryList();
                 if (orderItems == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
-                            orderId, "orderItemSeqId", ""), locale));
+                    return ServiceUtil.returnError(
+                            UtilPropertiesRuntime.getMessage(RES_ORDER, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId",
+                                    orderId, "orderItemSeqId", ""), locale));
                 }
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER, "OrderProblemsReadingOrderItemInformation", UtilMisc.toMap(
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ORDER, "OrderProblemsReadingOrderItemInformation", UtilMisc.toMap(
                         "errorString", gee.getMessage()), locale));
             }
         }
@@ -3028,12 +3047,13 @@ public class ProductionRunServices {
                 }
                 if (UtilValidate.isNotEmpty(existingProductionRuns)) {
                     Debug.logWarning("Production Run for order item [" + orderItemOrShipGroupAssoc.getString("orderId") + "/"
-                            + orderItemOrShipGroupAssoc.getString("orderItemSeqId") + "] and ship group [" + shipGroupSeqId + "] already exists.",
+                                    + orderItemOrShipGroupAssoc.getString("orderItemSeqId") + "] and ship group [" + shipGroupSeqId
+                                    + "] already exists.",
                             MODULE);
                     continue;
                 }
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturinWorkOrderItemFulfillmentError", UtilMisc.toMap(
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturinWorkOrderItemFulfillmentError", UtilMisc.toMap(
                         "errorString", gee.getMessage()), locale));
             }
             try {
@@ -3045,7 +3065,7 @@ public class ProductionRunServices {
                 productionRuns.add(tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"),
                         shipGroupSeqId, shipmentId, userLogin));
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
                         UtilMisc.toMap("errorString", gee.getMessage()), locale));
             }
         }
@@ -3079,11 +3099,12 @@ public class ProductionRunServices {
             workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, null,
                     userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap(
-                    "errorString", gee.getMessage()), locale));
+            return ServiceUtil.returnError(
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap(
+                            "errorString", gee.getMessage()), locale));
         }
         if (workEffortId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunIsNotRequiredForProductId",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunIsNotRequiredForProductId",
                     UtilMisc.toMap("productId", productId, "startDate", startDate), locale));
         }
         List<String> productionRuns = new LinkedList<>();
@@ -3093,8 +3114,8 @@ public class ProductionRunServices {
     }
 
     /**
-     * Quick runs a ProductionRun task to the completed status, also issuing components
-     * if necessary.
+     * Quick runs a ProductionRun task to the completed status, also issuing components if necessary.
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
@@ -3126,7 +3147,7 @@ public class ProductionRunServices {
                 }
                 currentStatusId = (String) serviceResult.get("newStatusId");
                 if (currentStatusId.equals(prevStatusId)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunUnableToProgressTaskStatus",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunUnableToProgressTaskStatus",
                             UtilMisc.toMap("prevStatusId", prevStatusId, "taskId", taskId), locale));
                 } else {
                     prevStatusId = currentStatusId;
@@ -3144,8 +3165,8 @@ public class ProductionRunServices {
     }
 
     /**
-     * Quick runs all the tasks of a ProductionRun to the completed status,
-     * also issuing components if necessary.
+     * Quick runs all the tasks of a ProductionRun to the completed status, also issuing components if necessary.
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
@@ -3228,8 +3249,8 @@ public class ProductionRunServices {
     }
 
     /**
-     * Quick moves a ProductionRun to the passed in status, performing all
-     * the needed tasks in the way.
+     * Quick moves a ProductionRun to the passed in status, performing all the needed tasks in the way.
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
@@ -3311,8 +3332,8 @@ public class ProductionRunServices {
     }
 
     /**
-     * Given a productId and an optional date, returns the total qty
-     * of productId reserved by production runs.
+     * Given a productId and an optional date, returns the total qty of productId reserved by production runs.
+     *
      * @param ctx     The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
@@ -3372,7 +3393,7 @@ public class ProductionRunServices {
         try {
             GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
             if (inventoryItem == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_PRODUCT, "ProductInventoryItemNotFound", UtilMisc.toMap(
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_PRODUCT, "ProductInventoryItemNotFound", UtilMisc.toMap(
                         "inventoryItemId", inventoryItemId), locale));
             }
             if (inventoryItem.get("availableToPromiseTotal") != null && inventoryItem.getBigDecimal("availableToPromiseTotal").compareTo(ZERO) <= 0) {
@@ -3417,7 +3438,7 @@ public class ProductionRunServices {
             GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem")
                     .where("inventoryItemId", inventoryItemId).queryOne();
             if (inventoryItem == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunCannotDecomposingInventoryItem",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingProductionRunCannotDecomposingInventoryItem",
                         UtilMisc.toMap("inventoryItemId", inventoryItemId), locale));
             }
             // the work effort (disassemble order) is created
@@ -3448,7 +3469,7 @@ public class ProductionRunServices {
             }
             BigDecimal issuedQuantity = (BigDecimal) serviceResult.get("quantityIssued");
             if (issuedQuantity.compareTo(ZERO) == 0) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "ManufacturingProductionRunCannotDecomposingInventoryItemNoMarketingPackagesFound", UtilMisc.toMap("inventoryItemId",
                                 inventoryItem.getString("inventoryItemId")), locale));
             }
@@ -3489,7 +3510,7 @@ public class ProductionRunServices {
             }
             List<Map<String, Object>> components = UtilGenerics.cast(serviceResult.get("componentsMap"));
             if (UtilValidate.isEmpty(components)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound", UtilMisc.toMap("productId",
                                 inventoryItem.getString("productId")), locale));
             }

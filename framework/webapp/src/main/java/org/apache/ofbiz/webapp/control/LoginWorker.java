@@ -59,6 +59,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -100,17 +101,21 @@ public final class LoginWorker {
     private static final String KEY_VALUE = UtilProperties.getPropertyValue(SEC_PROPERTIES, "login.secret_key_string");
     private static final WebAppCache WEBAPPS = WebAppCache.getShared();
 
-    protected LoginWorker() { }
+    protected LoginWorker() {
+    }
 
     public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
     }
+
     public static StringWrapper makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
+
     public static StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
         return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
     }
+
     public static StringWrapper makeLoginUrl(HttpServletRequest request, String requestName) {
         Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
         String queryString = UtilHttp.urlEncodeArgs(urlParams);
@@ -188,6 +193,7 @@ public final class LoginWorker {
     }
 
     /**
+     *
      */
     public static GenericValue checkLogout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -219,9 +225,10 @@ public final class LoginWorker {
     }
 
     /**
-     * Return the active {@link GenericValue} of a current impersonation UserLoginHistory of current userLogin session,
-     * only if not the impersonator himself.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+     * Return the active {@link GenericValue} of a current impersonation UserLoginHistory of current userLogin session, only if not the impersonator
+     * himself.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return GenericValue
      */
@@ -257,26 +264,25 @@ public final class LoginWorker {
             }
             HashMap<String, Object> messageMap = new HashMap<>();
             messageMap.putAll(userLoginHistory.getAllFields());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonation_in_process", messageMap, UtilHttp.getLocale(request));
+            String errMsg =
+                    UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.impersonation_in_process", messageMap, UtilHttp.getLocale(request));
             errorMessageList.add(errMsg);
         }
         return userLoginHistory;
     }
 
-    /** This WebEvent allows for java 'services' to hook into the login path.
-     * This method loads all instances of {@link LoginCheck}, and calls the
-     * {@link LoginCheck#associate} method.  The first implementation to return
-     * a non-null value gets that value returned to the caller.  Returning
-     * "none" will abort processing, while anything else gets looked up in
-     * outer view dispatch.  This event is called when the current request
-     * needs to have a validly logged in user; it is a wrapper around {@link
-     * #checkLogin}.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * This WebEvent allows for java 'services' to hook into the login path. This method loads all instances of {@link LoginCheck}, and calls the
+     * {@link LoginCheck#associate} method.  The first implementation to return a non-null value gets that value returned to the caller.  Returning
+     * "none" will abort processing, while anything else gets looked up in outer view dispatch.  This event is called when the current request needs
+     * to have a validly logged in user; it is a wrapper around {@link #checkLogin}.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
      */
     public static String extensionCheckLogin(HttpServletRequest request, HttpServletResponse response) {
-        for (LoginCheck check: ServiceLoader.load(LoginCheck.class)) {
+        for (LoginCheck check : ServiceLoader.load(LoginCheck.class)) {
             if (!check.isEnabled()) {
                 continue;
             }
@@ -288,18 +294,17 @@ public final class LoginWorker {
         return checkLogin(request, response);
     }
 
-    /** This WebEvent allows for java 'services' to hook into the login path.
-     * This method loads all instances of {@link LoginCheck}, and calls the
-     * {@link LoginCheck#check} method.  The first implementation to return
-     * a non-null value gets that value returned to the caller.  Returning
-     * "none" will abort processing, while anything else gets looked up in
-     * outer view dispatch; for preprocessors, only "success" makes sense.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * This WebEvent allows for java 'services' to hook into the login path. This method loads all instances of {@link LoginCheck}, and calls the
+     * {@link LoginCheck#check} method.  The first implementation to return a non-null value gets that value returned to the caller.  Returning "none"
+     * will abort processing, while anything else gets looked up in outer view dispatch; for preprocessors, only "success" makes sense.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
      */
     public static String extensionConnectLogin(HttpServletRequest request, HttpServletResponse response) {
-        for (LoginCheck check: ServiceLoader.load(LoginCheck.class)) {
+        for (LoginCheck check : ServiceLoader.load(LoginCheck.class)) {
             if (!check.isEnabled()) {
                 continue;
             }
@@ -312,9 +317,9 @@ public final class LoginWorker {
     }
 
     /**
-     * An HTTP WebEvent handler that checks to see is a userLogin is logged in.
-     * If not, the user is forwarded to the login page.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+     * An HTTP WebEvent handler that checks to see is a userLogin is logged in. If not, the user is forwarded to the login page.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
      */
@@ -333,9 +338,15 @@ public final class LoginWorker {
             password = request.getParameter("PASSWORD");
             token = request.getParameter("TOKEN");
             // check session attributes
-            if (username == null) username = (String) session.getAttribute("USERNAME");
-            if (password == null) password = (String) session.getAttribute("PASSWORD");
-            if (token == null) token = (String) session.getAttribute("TOKEN");
+            if (username == null) {
+                username = (String) session.getAttribute("USERNAME");
+            }
+            if (password == null) {
+                password = (String) session.getAttribute("PASSWORD");
+            }
+            if (token == null) {
+                token = (String) session.getAttribute("TOKEN");
+            }
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if (username == null
@@ -384,10 +395,11 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler that logs in a userLogin. This should run before the security check.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return Return a boolean which specifies whether or not the calling Servlet or
-     *         JSP should generate its own content. This allows an event to override the default content.
+     * @return Return a boolean which specifies whether or not the calling Servlet or JSP should generate its own content. This allows an event to
+     * override the default content.
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -417,9 +429,15 @@ public final class LoginWorker {
             }
         }
 
-        if (username == null) username = (String) session.getAttribute("USERNAME");
-        if (password == null) password = (String) session.getAttribute("PASSWORD");
-        if (token == null) token = (String) session.getAttribute("TOKEN");
+        if (username == null) {
+            username = (String) session.getAttribute("USERNAME");
+        }
+        if (password == null) {
+            password = (String) session.getAttribute("PASSWORD");
+        }
+        if (token == null) {
+            token = (String) session.getAttribute("TOKEN");
+        }
 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute;
         // this way a preprocessor can play with these a bit...
@@ -465,7 +483,9 @@ public final class LoginWorker {
             String currentDelegatorTenantId = null;
             if (delegatorNameHashIndex > 0) {
                 currentDelegatorTenantId = oldDelegatorName.substring(delegatorNameHashIndex + 1);
-                if (currentDelegatorTenantId != null) currentDelegatorTenantId = currentDelegatorTenantId.trim();
+                if (currentDelegatorTenantId != null) {
+                    currentDelegatorTenantId = currentDelegatorTenantId.trim();
+                }
             }
 
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
@@ -479,7 +499,7 @@ public final class LoginWorker {
                 } catch (NullPointerException e) {
                     Debug.logError(e, "Error getting tenant delegator", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Tenant [" + tenantId + "]  not found...");
-                    String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                    String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                             messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
@@ -501,7 +521,7 @@ public final class LoginWorker {
             } catch (NullPointerException e) {
                 Debug.logError(e, "Error getting default delegator", MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Error getting default delegator");
-                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                         messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
@@ -523,7 +543,7 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -547,7 +567,7 @@ public final class LoginWorker {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error calling updatePassword service", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                    String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                    String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                             messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "requirePasswordChange";
@@ -556,7 +576,7 @@ public final class LoginWorker {
                     String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
                     if (UtilValidate.isNotEmpty(errorMessage)) {
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", errorMessage);
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                                 messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     }
@@ -568,7 +588,7 @@ public final class LoginWorker {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Error refreshing userLogin value", MODULE);
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                                 messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
@@ -607,7 +627,7 @@ public final class LoginWorker {
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return requirePasswordChange ? "requirePasswordChange" : "error";
@@ -616,10 +636,11 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler to impersonate a given userLogin without using password. This should run before the security check.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return Return a boolean which specifies whether or not the calling Servlet or
-     *         JSP should generate its own content. This allows an event to override the default content.
+     * @return Return a boolean which specifies whether or not the calling Servlet or JSP should generate its own content. This allows an event to
+     * override the default content.
      */
     public static String impersonateLogin(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -684,7 +705,7 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap,
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap,
                     UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -714,7 +735,7 @@ public final class LoginWorker {
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -723,10 +744,11 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler to reverse an impersonate login.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return Return a boolean which specifies whether or not the calling Servlet or
-     *         JSP should generate its own content. This allows an event to override the default content.
+     * @return Return a boolean which specifies whether or not the calling Servlet or JSP should generate its own content. This allows an event to
+     * override the default content.
      */
     public static String depersonateLogin(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -769,7 +791,7 @@ public final class LoginWorker {
     }
 
     protected static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator,
-                                               LocalDispatcher dispatcher) {
+            LocalDispatcher dispatcher) {
         HttpSession session = request.getSession();
         // NOTE: we do NOT want to set this in the servletContext, only in the request and session
         // We also need to setup the security objects since they are dependent on the delegator
@@ -796,7 +818,7 @@ public final class LoginWorker {
     }
 
     public static String doMainLogin(HttpServletRequest request, HttpServletResponse response, GenericValue userLogin,
-                                     Map<String, Object> userLoginSession) {
+            Map<String, Object> userLoginSession) {
         HttpSession session = request.getSession();
         boolean authoriseLoginDuringImpersonate = EntityUtilProperties.propertyValueEquals("security",
                 "security.login.authorised.during.impersonate", "true");
@@ -856,8 +878,12 @@ public final class LoginWorker {
             try {
                 GenericValue person = userLogin.getRelatedOne("Person", false);
                 GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup", false);
-                if (person != null) session.setAttribute("person", person);
-                if (partyGroup != null) session.setAttribute("partyGroup", partyGroup);
+                if (person != null) {
+                    session.setAttribute("person", person);
+                }
+                if (partyGroup != null) {
+                    session.setAttribute("partyGroup", partyGroup);
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting person/partyGroup info for session, ignoring...", MODULE);
             }
@@ -869,10 +895,11 @@ public final class LoginWorker {
 
     /**
      * An HTTP WebEvent handler that logs out a userLogin by clearing the session.
-     * @param request The HTTP request object for the current request.
+     *
+     * @param request  The HTTP request object for the current request.
      * @param response The HTTP response object for the current request.
-     * @return Return a boolean which specifies whether or not the calling request
-     *        should generate its own content. This allows an event to override the default content.
+     * @return Return a boolean which specifies whether or not the calling request should generate its own content. This allows an event to override
+     * the default content.
      */
     public static String logout(HttpServletRequest request, HttpServletResponse response) {
         // run the before-logout events
@@ -940,7 +967,9 @@ public final class LoginWorker {
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
 
-        if (currCatalog != null) session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
+        if (currCatalog != null) {
+            session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
+        }
         if (delegatorName != null) {
             //Commented it as multi tenancy support is now available for front-store application as well.
             // if there is a tenantId in the delegatorName remove it now so that tenant selection doesn't last beyond logout
@@ -1007,6 +1036,7 @@ public final class LoginWorker {
     protected static String getSecuredLoginIdCookieName(HttpServletRequest request) {
         return UtilHttp.getApplicationName(request) + ".securedLoginId";
     }
+
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1014,7 +1044,7 @@ public final class LoginWorker {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), MODULE);
         }
         if (cookies != null) {
-            for (Cookie cookie: cookies) {
+            for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(getAutoLoginCookieName(request))) {
                     autoUserLoginId = cookie.getValue();
                     break;
@@ -1023,6 +1053,7 @@ public final class LoginWorker {
         }
         return autoUserLoginId;
     }
+
     public static String getSecuredUserLoginId(HttpServletRequest request) {
         String securedUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1030,7 +1061,7 @@ public final class LoginWorker {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), MODULE);
         }
         if (cookies != null) {
-            for (Cookie cookie: cookies) {
+            for (Cookie cookie : cookies) {
                 String cookieName = getSecuredLoginIdCookieName(request);
                 if (cookie.getName().equals(cookieName)) {
                     securedUserLoginId = cookie.getValue();
@@ -1105,6 +1136,7 @@ public final class LoginWorker {
         }
         return "success";
     }
+
     public static boolean isUserLoggedIn(HttpServletRequest request) {
         HttpSession session = request.getSession();
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
@@ -1121,6 +1153,7 @@ public final class LoginWorker {
 
     /**
      * This method will log in a user with only their username (userLoginId).
+     *
      * @param request
      * @param response
      * @param userLoginId
@@ -1209,6 +1242,7 @@ public final class LoginWorker {
 
         return "success";
     }
+
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1343,6 +1377,7 @@ public final class LoginWorker {
 
     /**
      * Returns <code>true</code> if the specified user is authorized to access the specified web application.
+     *
      * @param info
      * @param security
      * @param userLogin
@@ -1354,7 +1389,7 @@ public final class LoginWorker {
         if (!accessPermission.isEmpty()) {
             return security.hasPermission(accessPermission, userLogin);
         }
-        for (String permission: info.getBasePermission()) {
+        for (String permission : info.getBasePermission()) {
             if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
                 return false;
             }
@@ -1389,17 +1424,16 @@ public final class LoginWorker {
     }
 
     /**
-     * Returns a <code>Collection</code> of <code>WebappInfo</code> instances that the specified
-     * user is authorized to access.
+     * Returns a <code>Collection</code> of <code>WebappInfo</code> instances that the specified user is authorized to access.
+     *
      * @param security
      * @param userLogin
      * @param serverName
      * @param menuName
-     * @return A <code>Collection</code> <code>WebappInfo</code> instances that the specified
-     * user is authorized to access
+     * @return A <code>Collection</code> <code>WebappInfo</code> instances that the specified user is authorized to access
      */
     public static Collection<ComponentConfig.WebappInfo> getAppBarWebInfos(Security security, GenericValue userLogin, String serverName,
-                                                                           String menuName) {
+            String menuName) {
         Collection<ComponentConfig.WebappInfo> allInfos = WEBAPPS.getAppBarWebInfos(serverName, menuName);
         Collection<ComponentConfig.WebappInfo> allowedInfos = new ArrayList<>(allInfos.size());
         for (ComponentConfig.WebappInfo info : allInfos) {
@@ -1455,13 +1489,13 @@ public final class LoginWorker {
                 if (now.after(startNotificationFromDate)) {
                     if (now.after(passwordExpirationDate)) {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_expired_message", messageMap,
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.password_expired_message", messageMap,
                                 UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
                     } else {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_expiration_alert", messageMap,
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.password_expiration_alert", messageMap,
                                 UtilHttp.getLocale(request));
                         request.setAttribute("_EVENT_MESSAGE_", errMsg);
                         return "success";
@@ -1474,6 +1508,7 @@ public final class LoginWorker {
 
     /**
      * Return true if userLogin has not been disabled
+     *
      * @param userLogin
      * @return boolean
      */

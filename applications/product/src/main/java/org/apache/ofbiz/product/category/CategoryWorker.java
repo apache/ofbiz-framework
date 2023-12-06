@@ -34,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -460,7 +460,8 @@ public final class CategoryWorker {
                 }
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", ". Cannot generate trail from product category. ");
-                String errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, (Locale) context.get("locale"));
+                String errMsg = UtilPropertiesRuntime.getMessage("CommonUiLabels", "CommonDatabaseProblem",
+                        messageMap, (Locale) context.get("locale"));
                 Debug.logError(e, errMsg, MODULE);
                 return ServiceUtil.returnError(errMsg);
             }

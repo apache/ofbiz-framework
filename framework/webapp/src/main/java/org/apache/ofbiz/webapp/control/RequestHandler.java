@@ -53,8 +53,10 @@ import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
@@ -105,7 +107,7 @@ public final class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        hostHeadersAllowed = UtilMisc.getHostHeadersAllowed();
+        hostHeadersAllowed = UtilMiscRuntime.getHostHeadersAllowed();
 
     }
 
@@ -119,8 +121,9 @@ public final class RequestHandler {
     }
 
     /**
-     * Finds a collection of request maps in {@code ccfg} matching {@code req}.
-     * Otherwise fall back to matching the {@code defaultReq} field in {@code ccfg}.
+     * Finds a collection of request maps in {@code ccfg} matching {@code req}. Otherwise fall back to matching the {@code defaultReq} field in
+     * {@code ccfg}.
+     *
      * @param ccfg The controller containing the current configuration
      * @param req  The HTTP request to match
      * @return a collection of request maps which might be empty
@@ -150,9 +153,9 @@ public final class RequestHandler {
     }
 
     /**
-     * Find the request map matching {@code method}.
-     * Otherwise fall back to the one matching the "all" and "" special methods
-     * in that respective order.
+     * Find the request map matching {@code method}. Otherwise fall back to the one matching the "all" and "" special methods in that respective
+     * order.
+     *
      * @param method the HTTP method to match
      * @param rmaps  the collection of request map candidates
      * @return a request map {@code Optional}
@@ -176,12 +179,13 @@ public final class RequestHandler {
      * Finds the request maps matching a segmented path.
      * <p>A segmented path can match request maps where the {@code uri} attribute
      * contains an URI template like in the {@code foo/bar/{baz}} example.
+     *
      * @param rMapMap the map associating URIs to a list of request maps corresponding to different HTTP methods
      * @param request the HTTP request to match
      * @return a collection of request maps which might be empty but not {@code null}
      */
     private static Collection<RequestMap> resolveTemplateURI(Map<String, List<RequestMap>> rMapMap,
-                                                             HttpServletRequest request) {
+            HttpServletRequest request) {
         // Retrieve the request path without the leading '/' character.
         String path = request.getPathInfo().substring(1);
         MultivaluedHashMap<String, String> vars = new MultivaluedHashMap<>();
@@ -296,7 +300,7 @@ public final class RequestHandler {
     }
 
     public static String makeUrl(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath,
-                                 boolean secure, boolean encode) {
+            boolean secure, boolean encode) {
         RequestHandler rh = from(request);
         return rh.makeLink(request, response, url, fullPath, secure, encode);
     }
@@ -312,13 +316,14 @@ public final class RequestHandler {
 
     /**
      * Checks that the request contains some valid certificates.
+     *
      * @param request   the request to verify
      * @param validator the predicate applied the certificates found
      * @return true if the request contains some valid certificates, otherwise false.
      */
     static boolean checkCertificates(HttpServletRequest request, Predicate<X509Certificate[]> validator) {
         return Stream.of("javax.servlet.request.X509Certificate", // 2.2 spec
-                "javax.net.ssl.peer_certificates")       // 2.1 spec
+                        "javax.net.ssl.peer_certificates")       // 2.1 spec
                 .map(request::getAttribute)
                 .filter(Objects::nonNull)
                 .map(X509Certificate[].class::cast)
@@ -338,6 +343,7 @@ public final class RequestHandler {
 
     /**
      * Retrieves the request handler which is stored inside an HTTP request.
+     *
      * @param request the HTTP request containing the request handler
      * @return a request handler or {@code null} when absent
      * @throws NullPointerException when {@code request} or the servlet context is {@code null}.
@@ -357,7 +363,7 @@ public final class RequestHandler {
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
-                          GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
+            GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
         if (!hostHeadersAllowed.contains(request.getServerName())) {
             Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection."
@@ -428,7 +434,6 @@ public final class RequestHandler {
         }
         ConfigXMLReader.RequestMap originalRequestMap = requestMap; // Save this so we can update the correct performance metrics.
 
-
         boolean interruptRequest = false;
 
         // Check for chained request.
@@ -488,7 +493,9 @@ public final class RequestHandler {
                     if (webSiteId != null) {
                         try {
                             GenericValue webSite = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne();
-                            if (webSite != null) enableHttps = webSite.getBoolean("enableHttps");
+                            if (webSite != null) {
+                                enableHttps = webSite.getBoolean("enableHttps");
+                            }
                         } catch (GenericEntityException e) {
                             Debug.logWarning(e, "Problems with WebSite entity; using global defaults", MODULE);
                         }
@@ -499,8 +506,9 @@ public final class RequestHandler {
 
                     if (Boolean.FALSE.equals(enableHttps)) {
                         Debug.logWarning("HTTPS is disabled for this site, so we can't tell if this was encrypted or not which means if a form was "
-                                + "POSTed "
-                                + "and it was not over HTTPS we don't know, but it would be vulnerable to an CSRF and other attacks: " + errMsg,
+                                        + "POSTed "
+                                        + "and it was not over HTTPS we don't know, but it would be vulnerable to an CSRF and other attacks: "
+                                        + errMsg,
                                 MODULE);
                     } else {
                         throw new RequestHandlerException(errMsg);
@@ -819,7 +827,9 @@ public final class RequestHandler {
         }
 
         // Make sure we have some sort of response to go to
-        if (nextRequestResponse == null) nextRequestResponse = successResponse;
+        if (nextRequestResponse == null) {
+            nextRequestResponse = successResponse;
+        }
 
         if (nextRequestResponse == null) {
             throw new RequestHandlerException("Illegal response; handler could not process request [" + requestMap.getUri() + "] and event return ["
@@ -1022,9 +1032,9 @@ public final class RequestHandler {
     }
 
     /**
-     * Before return to end user the response, analyse if in this place we need override the event message
-     * 1. Check if the request response have a dedicated response user message
-     * 2. Check if a custom message is present on the context like _CUSTOM_ERROR_MESSAGE_ and _CUSTOM_EVENT_MESSAGE_
+     * Before return to end user the response, analyse if in this place we need override the event message 1. Check if the request response have a
+     * dedicated response user message 2. Check if a custom message is present on the context like _CUSTOM_ERROR_MESSAGE_ and _CUSTOM_EVENT_MESSAGE_
+     *
      * @param request
      * @param requestResponse
      */
@@ -1043,7 +1053,7 @@ public final class RequestHandler {
             String value = responseMessage.getValue(context);
             if (UtilValidate.isNotEmpty(value)) {
                 userMessage = responseMessage.getRessource() != null
-                        ? UtilProperties.getMessage(
+                        ? UtilPropertiesRuntime.getMessage(
                         responseMessage.getRessource(), value,
                         context, UtilHttp.getLocale(request))
                         : value;
@@ -1073,7 +1083,7 @@ public final class RequestHandler {
      * Find the event handler and invoke an event.
      */
     public String runEvent(HttpServletRequest request, HttpServletResponse response,
-                           ConfigXMLReader.Event event, ConfigXMLReader.RequestMap requestMap, String trigger) throws EventHandlerException {
+            ConfigXMLReader.Event event, ConfigXMLReader.RequestMap requestMap, String trigger) throws EventHandlerException {
         EventHandler eventHandler = eventFactory.getEventHandler(event.getType());
         String eventReturn = eventHandler.invoke(event, requestMap, request, response);
         if (Debug.verboseOn() || (Debug.infoOn() && "request".equals(trigger))) {
@@ -1085,6 +1095,7 @@ public final class RequestHandler {
 
     /**
      * Returns the default error page for this request.
+     *
      * @throws MalformedURLException
      */
     public String getDefaultErrorPage(HttpServletRequest request) throws MalformedURLException {
@@ -1285,6 +1296,7 @@ public final class RequestHandler {
     /**
      * Creates a query string based on the redirect parameters for a request response, if specified, or for all request parameters if no redirect
      * parameters are specified.
+     *
      * @param request         the Http request
      * @param requestResponse the RequestResponse Object
      * @return return the query string
@@ -1325,7 +1337,7 @@ public final class RequestHandler {
     }
 
     public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url,
-                                          ConfigXMLReader.RequestResponse requestResponse) {
+            ConfigXMLReader.RequestResponse requestResponse) {
         String initialLink = this.makeLink(request, response, url);
         String queryString = this.makeQueryString(request, requestResponse);
         return initialLink + queryString;
@@ -1340,7 +1352,7 @@ public final class RequestHandler {
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode,
-                           String targetControlPath) {
+            String targetControlPath) {
         WebSiteProperties webSiteProps = null;
         try {
             webSiteProps = WebSiteProperties.from(request);
@@ -1400,7 +1412,9 @@ public final class RequestHandler {
         //If required by webSite parameter, surcharge control path
         if (webSiteProps.getWebappPath() != null) {
             String requestPath = request.getServletPath();
-            if (requestPath == null) requestPath = "";
+            if (requestPath == null) {
+                requestPath = "";
+            }
             if (requestPath.lastIndexOf("/") > 0) {
                 if (requestPath.indexOf("/") == 0) {
                     requestPath = "/" + requestPath.substring(1, requestPath.indexOf("/", 1));
@@ -1420,7 +1434,8 @@ public final class RequestHandler {
                 if (webSiteValue != null) {
                     ServletContext application = (request.getServletContext());
                     String domainName = request.getLocalName();
-                    if (application.getAttribute("MULTI_SITE_ENABLED") != null && UtilValidate.isNotEmpty(webSiteValue.getString("hostedPathAlias"))
+                    if (application.getAttribute("MULTI_SITE_ENABLED") != null && UtilValidate.isNotEmpty(
+                            webSiteValue.getString("hostedPathAlias"))
                             && !domainName.equals(webSiteValue.getString("httpHost"))) {
                         newURL.append('/');
                         newURL.append(webSiteValue.getString("hostedPathAlias"));
@@ -1455,7 +1470,7 @@ public final class RequestHandler {
     }
 
     private void runEvents(HttpServletRequest req, HttpServletResponse res,
-                           EventCollectionProducer prod, String trigger) {
+            EventCollectionProducer prod, String trigger) {
         try {
             for (ConfigXMLReader.Event event : prod.get()) {
                 String ret = runEvent(req, res, event, null, trigger);
@@ -1472,6 +1487,7 @@ public final class RequestHandler {
 
     /**
      * Run all the "after-login" Web events defined in the controller configuration.
+     *
      * @param req  the request to run the events with
      * @param resp the response to run the events with
      */
@@ -1482,6 +1498,7 @@ public final class RequestHandler {
 
     /**
      * Run all the "before-logout" Web events defined in the controller configuration.
+     *
      * @param req  the request to run the events with
      * @param resp the response to run the events with
      */
@@ -1492,6 +1509,7 @@ public final class RequestHandler {
 
     /**
      * Checks if a request must be tracked according a global toggle and a request map predicate.
+     *
      * @param request      the request that can potentially be tracked
      * @param globalToggle the global configuration toggle
      * @param pred         the predicate checking if each individual request map must be tracked or not.
@@ -1522,6 +1540,7 @@ public final class RequestHandler {
 
     /**
      * Checks if server hits must be tracked for a given request.
+     *
      * @param request the HTTP request that can potentially be tracked
      * @return {@code true} when the request must be tracked.
      */
@@ -1531,6 +1550,7 @@ public final class RequestHandler {
 
     /**
      * Checks if visits must be tracked for a given request.
+     *
      * @param request the HTTP request that can potentially be tracked
      * @return {@code true} when the request must be tracked.
      */
@@ -1540,6 +1560,7 @@ public final class RequestHandler {
 
     @FunctionalInterface
     private interface EventCollectionProducer {
+
         Collection<ConfigXMLReader.Event> get() throws WebAppConfigurationException;
     }
 }

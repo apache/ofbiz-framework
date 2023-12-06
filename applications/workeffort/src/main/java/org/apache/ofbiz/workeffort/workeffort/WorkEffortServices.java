@@ -39,7 +39,7 @@ import org.apache.ofbiz.base.util.TimeDuration;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -92,7 +92,7 @@ public class WorkEffortServices {
                         "priority").filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -126,7 +126,7 @@ public class WorkEffortServices {
                     .filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -169,7 +169,7 @@ public class WorkEffortServices {
                         .filterByDate().queryList());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -209,7 +209,7 @@ public class WorkEffortServices {
                         .filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -248,7 +248,7 @@ public class WorkEffortServices {
                         .filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -287,7 +287,7 @@ public class WorkEffortServices {
                         .filterByDate().queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "WorkEffortNotFound", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -568,7 +568,7 @@ public class WorkEffortServices {
             if (partyId.equals(userLogin.getString("partyId")) || security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", userLogin)) {
                 partyIdsToUse.add(partyId);
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "WorkEffortPartyPermissionError", UtilMisc.toMap("partyId", partyId), locale));
             }
         } else {
@@ -904,7 +904,7 @@ public class WorkEffortServices {
             }
 
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "WorkEffortManufacturingError", UtilMisc.toMap("productId", productId, "errorString", gee.getMessage()), locale));
         }
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
@@ -930,7 +930,7 @@ public class WorkEffortServices {
                             EntityOperator.EQUALS, null), EntityCondition.makeCondition("reminderDateTime",
                             EntityOperator.LESS_THAN_EQUAL_TO, now)), EntityOperator.OR)).queryList();
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "WorkEffortEventRemindersRetrivingError", UtilMisc.toMap("errorString", e), localePar));
         }
         for (GenericValue reminder : eventReminders) {

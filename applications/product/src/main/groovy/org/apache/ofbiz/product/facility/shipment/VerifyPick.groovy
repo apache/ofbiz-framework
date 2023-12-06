@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.facility.shipment
 
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.order.order.OrderReadHelper
@@ -109,7 +110,7 @@ if (orderId) {
                 shipments = from('Shipment').where('primaryOrderId', orderId, 'statusId', 'SHIPMENT_PICKED').queryList()
                 if (shipments) {
                     request.setAttribute('_ERROR_MESSAGE_',
-                            UtilProperties.getMessage('OrderErrorUiLabels',
+                            UtilPropertiesRuntime.getMessage('OrderErrorUiLabels',
                                     'OrderErrorAllItemsOfOrderAreAlreadyVerified', [orderId: orderId], locale))
                 }
             } else {
@@ -119,11 +120,11 @@ if (orderId) {
         } else {
             context.isOrderStatusApproved = false
             request.setAttribute('_ERROR_MESSAGE_',
-                    UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPicking', [orderId: orderId], locale))
+                    UtilPropertiesRuntime.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPicking', [orderId: orderId], locale))
         }
     } else {
         request.setAttribute('_ERROR_MESSAGE_',
-                UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId: orderId], locale))
+                UtilPropertiesRuntime.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId: orderId], locale))
     }
 }
 context.verifyPickSession = verifyPickSession

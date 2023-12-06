@@ -18,6 +18,7 @@
 */
 package org.apache.ofbiz.order.quote
 
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -82,7 +83,7 @@ Map getNextQuoteId() {
             GenericValue quote = from('Quote').where('quoteId', quoteId).queryOne()
             if (quote) {
                 // Return alert if ID already exists
-                return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId], locale))
+                return error(UtilPropertiesRuntime.getMessage('OrderErrorUiLabels', 'OrderQuoteIdAlreadyExists', [quoteId: quoteId], locale))
             }
             // Check the provided ID
             String errorMessage = UtilValidate.checkValidDatabaseId(quoteId)

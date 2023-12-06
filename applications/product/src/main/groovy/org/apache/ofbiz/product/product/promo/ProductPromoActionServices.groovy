@@ -20,7 +20,7 @@ package org.apache.ofbiz.product.product.promo
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.order.shoppingcart.CartItemModifyException
@@ -115,7 +115,7 @@ Map productGWP() {
                         logError('Error calling isStoreInventoryAvailable service, result is: ' + invReqResult)
                         throw new CartItemModifyException(ServiceUtil.getErrorMessage(invReqResult))
                     } else if ('Y' != invReqResult.get('available')) {
-                        logWarning(UtilProperties.getMessage(resource_error, 'OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction',
+                        logWarning(UtilPropertiesRuntime.getMessage(resource_error, 'OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction',
                                 UtilMisc.toMap('productId', productId, 'productPromoAction', productPromoAction), cart.getLocale()))
                         productId = null
                         product = null
@@ -172,7 +172,7 @@ Map productGWP() {
                 productId = alternateGwpProductId
                 product = from('Product').where('productId', productId).cache().queryOne()
             } else {
-                logWarning(UtilProperties.getMessage(resource_error,
+                logWarning(UtilPropertiesRuntime.getMessage(resource_error,
                         'OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId',
                         [alternateGwpProductId: alternateGwpProductId], cart.getLocale()))
             }

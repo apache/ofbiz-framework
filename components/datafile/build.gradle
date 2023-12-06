@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+dependencies {
+    api project(':base:util')
+    api project(':base:crypto')
+    api 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
+    api 'org.codehaus.groovy:groovy-all:3.0.19'
+    testImplementation "junit:junit:4.13"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        componentDatafile(MavenPublication) {
+            artifactId = "component-${project.name}"
+            from components.java
+        }
+    }
+}
+

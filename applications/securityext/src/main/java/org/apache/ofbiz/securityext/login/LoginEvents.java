@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
@@ -60,9 +61,11 @@ public class LoginEvents {
     private static final String MODULE = LoginEvents.class.getName();
     private static final String RESOURCE = "SecurityextUiLabels";
     public static final String USERNAME_COOKIE_NAME = "OFBiz.Username";
+
     /**
      * Save USERNAME and PASSWORD for use by auth pages even if we start in non-auth pages.
-     * @param request The HTTP request object for the current JSP or Servlet request.
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
      */
@@ -102,9 +105,10 @@ public class LoginEvents {
     }
 
     /**
-     * The user forgot his/her password.  This will call showPasswordHint, emailPassword or simply returns "success" in case
-     * no operation has been specified.
-     * @param request The HTTPRequest object for the current request
+     * The user forgot his/her password.  This will call showPasswordHint, emailPassword or simply returns "success" in case no operation has been
+     * specified.
+     *
+     * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
      */
@@ -120,10 +124,12 @@ public class LoginEvents {
         return "success";
     }
 
-    /** Show the password hint for the userLoginId specified in the request object.
-     *@param request The HTTPRequest object for the current request
-     *@param response The HTTPResponse object for the current request
-     *@return String specifying the exit status of this event
+    /**
+     * Show the password hint for the userLoginId specified in the request object.
+     *
+     * @param request  The HTTPRequest object for the current request
+     * @param response The HTTPResponse object for the current request
+     * @return String specifying the exit status of this event
      */
     public static String showPasswordHint(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -161,14 +167,15 @@ public class LoginEvents {
         }
 
         Map<String, String> messageMap = UtilMisc.toMap("passwordHint", passwordHint);
-        errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_hint_is", messageMap, UtilHttp.getLocale(request));
+        errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.password_hint_is", messageMap, UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", errMsg);
         return "auth";
     }
 
     /**
      * event to send an email with a link to change password
-     * @param request The HTTPRequest object for the current request
+     *
+     * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
      */
@@ -279,7 +286,7 @@ public class LoginEvents {
                     serviceContext.put("subject", subject);
                     serviceContext.put("sendFrom", emailTemplateSetting.get("fromAddress"));
                 } else {
-                    serviceContext.put("subject", UtilProperties.getMessage(RESOURCE, "loginservices.password_reminder_subject",
+                    serviceContext.put("subject", UtilPropertiesRuntime.getMessage(RESOURCE, "loginservices.password_reminder_subject",
                             UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
                     serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general", "defaultFromEmailAddress", delegator));
                 }
@@ -297,8 +304,9 @@ public class LoginEvents {
 
             if (ServiceUtil.isError(result)) {
                 Map<String, Object> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
-                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.error_unable_email_password_contact_customer_service_errorwas",
-                        messageMap, UtilHttp.getLocale(request));
+                String errMsg =
+                        UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.error_unable_email_password_contact_customer_service_errorwas",
+                                messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }

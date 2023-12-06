@@ -48,7 +48,7 @@ import de.odysseus.el.tree.impl.ast.AstIdentifier;
 import de.odysseus.el.tree.impl.ast.AstNode;
 
 /** A facade class used to connect the OFBiz framework to the JUEL library.
- *<p>The Unified Expression Language specification doesn't allow assignment of
+ *<p>The Unified Expression Language specificatio n doesn't allow assignment of
  * values to non-existent variables (auto-vivify) - but the OFBiz scripting
  * languages do. This class modifies the JUEL library behavior to enable
  * auto-vivify.</p>

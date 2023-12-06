@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -51,12 +52,13 @@ public class GenericWebEvent {
     private static final String MODULE = GenericWebEvent.class.getName();
     private static final String ERR_RESOURCE = "WebtoolsErrorUiLabels";
 
-    /** An HTTP WebEvent handler that updates a Generic entity
-     * @param request The HTTP request object for the current JSP or Servlet request.
+    /**
+     * An HTTP WebEvent handler that updates a Generic entity
+     *
+     * @param request  The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return Returns a String specifying the outcome state of the event. This is used to decide which event
-     * to run next or which view to display. If null no event is run nor view displayed, allowing the event to
-     * call a forward on a RequestDispatcher.
+     * @return Returns a String specifying the outcome state of the event. This is used to decide which event to run next or which view to display. If
+     * null no event is run nor view displayed, allowing the event to call a forward on a RequestDispatcher.
      */
     public static String updateGeneric(HttpServletRequest request, HttpServletResponse response) {
         String entityName = request.getParameter("entityName");
@@ -107,9 +109,15 @@ public class GenericWebEvent {
         Map<String, Object> pkFields = null;
         if (updateMode == null) {
             switch (UtilHttp.getRequestMethod(request)) {
-            case "PUT": updateMode = "UPDATE"; break;
-            case "DELETE": updateMode = "DELETE"; break;
-            default: updateMode = "CREATE"; break;
+            case "PUT":
+                updateMode = "UPDATE";
+                break;
+            case "DELETE":
+                updateMode = "DELETE";
+                break;
+            default:
+                updateMode = "CREATE";
+                break;
             }
             try {
                 pkFields = EntityUtil.getPkValuesMapFromPath(delegator.getModelEntity(entityName),
@@ -139,9 +147,9 @@ public class GenericWebEvent {
                     "updateMode", updateMode,
                     "entityName", entity.getEntityName(),
                     "entityPlainTableName", plainTableName);
-            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
+            String errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                     "genericWebEvent.not_sufficient_permissions_01", messageMap, locale);
-            errMsg += UtilProperties.getMessage(ERR_RESOURCE,
+            errMsg += UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                     "genericWebEvent.not_sufficient_permissions_02", messageMap, locale) + ".";
 
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -164,7 +172,7 @@ public class GenericWebEvent {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("fieldType", field.getType());
-                errMsg += UtilProperties.getMessage(ERR_RESOURCE,
+                errMsg += UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                         "genericWebEvent.fatal_error_param", messageMap, locale) + ".";
             }
 
@@ -174,8 +182,9 @@ public class GenericWebEvent {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
                     Map<String, String> messageMap = UtilMisc.toMap("fval", fval);
-                    errMsg = errMsg + "<li>" + field.getColName() + UtilProperties.getMessage(ERR_RESOURCE, "genericWebEvent.conversion_failed",
-                            messageMap, locale) + type.getJavaType() + ".";
+                    errMsg =
+                            errMsg + "<li>" + field.getColName() + UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "genericWebEvent.conversion_failed",
+                                    messageMap, locale) + type.getJavaType() + ".";
                     Debug.logWarning("[updateGeneric] " + field.getColName() + " conversion failed: \"" + fval + "\" is not a valid "
                             + type.getJavaType() + "; entityName: " + entityName, MODULE);
                 }
@@ -219,7 +228,7 @@ public class GenericWebEvent {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("fieldType", field.getType());
-                errMsgNonPk += UtilProperties.getMessage(ERR_RESOURCE,
+                errMsgNonPk += UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                         "genericWebEvent.fatal_error_param", messageMap, locale) + ".";
             }
 
@@ -229,7 +238,7 @@ public class GenericWebEvent {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
                     Map<String, String> messageMap = UtilMisc.toMap("fval", fval);
-                    errMsgNonPk += field.getColName() + UtilProperties.getMessage(ERR_RESOURCE,
+                    errMsgNonPk += field.getColName() + UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                             "genericWebEvent.conversion_failed", messageMap, locale) + type.getJavaType() + ".";
                     Debug.logWarning("[updateGeneric] " + field.getColName()
                             + " conversion failed: \"" + fval + "\" is not a valid "
@@ -244,7 +253,6 @@ public class GenericWebEvent {
             request.setAttribute("_ERROR_MESSAGE_", errMsgNonPk);
             return "error";
         }
-
 
         // if the updateMode is CREATE, check to see if an entity with the specified primary key already exists
         if ("CREATE".equals(updateMode)) {
@@ -265,7 +273,7 @@ public class GenericWebEvent {
             }
             if (tempEntity != null) {
                 Map<String, String> messageMap = UtilMisc.toMap("primaryKey", findByEntity.getPrimaryKey().toString());
-                String errMsg = "[updateGeneric] " + entity.getEntityName() + UtilProperties.getMessage(ERR_RESOURCE,
+                String errMsg = "[updateGeneric] " + entity.getEntityName() + UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                         "genericWebEvent.already_exists_pk", messageMap, locale) + ".";
                 Debug.logWarning(errMsg, MODULE);
             }
@@ -350,7 +358,7 @@ public class GenericWebEvent {
                 delegator.create(findByEntity.getEntityName(), findByEntity.getAllFields());
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("entityName", entity.getEntityName());
-                String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
+                String errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                         "genericWebEvent.creation_param_failed", messageMap, locale)
                         + ": " + findByEntity.toString() + ": " + e.toString();
                 Debug.logWarning(e, errMsg, MODULE);
@@ -364,7 +372,7 @@ public class GenericWebEvent {
                 value.store();
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("entityName", entity.getEntityName());
-                String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
+                String errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                         "genericWebEvent.update_of_param_failed", messageMap, locale)
                         + ": " + value.toString() + ": " + e.toString();
                 Debug.logWarning(e, errMsg, MODULE);
@@ -373,7 +381,7 @@ public class GenericWebEvent {
             }
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
-            String errMsg = UtilProperties.getMessage(ERR_RESOURCE,
+            String errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE,
                     "genericWebEvent.update_of_param_failed", messageMap, locale) + ".";
 
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

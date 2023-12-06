@@ -36,6 +36,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -119,7 +120,7 @@ public class ContactMechServices {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_create_contact_info_write",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -241,7 +242,7 @@ public class ContactMechServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "contactmechservices.could_not_change_contact_info_read",
                         UtilMisc.toMap("errMessage", e.getMessage()), locale));
             }
@@ -251,7 +252,7 @@ public class ContactMechServices {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "contactmechservices.could_not_change_contact_info_write",
                         UtilMisc.toMap("errMessage", e.getMessage()), locale));
             }
@@ -301,7 +302,7 @@ public class ContactMechServices {
                     .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_delete_contact_info_read",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -391,7 +392,7 @@ public class ContactMechServices {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_create_contact_info_write",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -499,7 +500,7 @@ public class ContactMechServices {
             }
             relatedEntityToSet.set("contactMechId", newCmId);
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_update_contact_as_POSTAL_ADDRESS_specified",
                     UtilMisc.toMap("contactMechTypeId", contactMech.getString("contactMechTypeId")), locale));
         }
@@ -542,7 +543,7 @@ public class ContactMechServices {
                     }
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                             "contactmechservices.could_not_change_contact_info_read",
                             UtilMisc.toMap("errMessage", e.getMessage()), locale));
                 }
@@ -554,7 +555,7 @@ public class ContactMechServices {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "contactmechservices.could_not_change_contact_info_write",
                         UtilMisc.toMap("errMessage", e.getMessage()), locale));
             }
@@ -621,7 +622,7 @@ public class ContactMechServices {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_create_contact_info_write",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -712,7 +713,7 @@ public class ContactMechServices {
             relatedEntityToSet.set("contactMechId", newCmId);
             newPartyContactMech.set("extension", context.get("extension"));
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_update_contact_as_TELECOM_NUMBER_specified",
                     UtilMisc.toMap("contactMechTypeId", contactMech.getString("contactMechTypeId")), locale));
         }
@@ -750,7 +751,7 @@ public class ContactMechServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "contactmechservices.could_not_change_contact_info_read",
                         UtilMisc.toMap("errMessage", e.getMessage()), locale));
             }
@@ -760,7 +761,7 @@ public class ContactMechServices {
                 delegator.storeAll(toBeStored);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "contactmechservices.could_not_change_contact_info_write",
                         UtilMisc.toMap("errMessage", e.getMessage()), locale));
             }
@@ -872,7 +873,7 @@ public class ContactMechServices {
             delegator.create(newPartyContactMechPurpose);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "contactmechservices.could_not_add_purpose_write",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -956,7 +957,7 @@ public class ContactMechServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "PartyCannotCopyPartyContactMech",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }

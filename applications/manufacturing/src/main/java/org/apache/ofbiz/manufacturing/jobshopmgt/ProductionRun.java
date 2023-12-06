@@ -40,9 +40,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
- * ProductionRun Object used by the Jobshop management OFBiz components,
- * this object is used to find or updated an existing ProductionRun.
- *
+ * ProductionRun Object used by the Jobshop management OFBiz components, this object is used to find or updated an existing ProductionRun.
  */
 public class ProductionRun {
 
@@ -64,8 +62,8 @@ public class ProductionRun {
     private LocalDispatcher dispatcher;
 
     /**
-     * indicate if quantity or estimatedStartDate has been modified and
-     *  estimatedCompletionDate not yet recalculated with recalculateEstimatedCompletionDate() method.
+     * indicate if quantity or estimatedStartDate has been modified and estimatedCompletionDate not yet recalculated with
+     * recalculateEstimatedCompletionDate() method.
      */
     private boolean updateCompletionDate = false;
     /**
@@ -100,6 +98,7 @@ public class ProductionRun {
 
     /**
      * test if the productionRun exist.
+     *
      * @return true if it exist false otherwise.
      **/
     public boolean exist() {
@@ -108,11 +107,13 @@ public class ProductionRun {
 
     /**
      * get the ProductionRun GenericValue .
+     *
      * @return the ProductionRun GenericValue
      **/
     public GenericValue getGenericValue() {
         return productionRun;
     }
+
     /**
      * Store the modified ProductionRun object in the database.
      * <ul>
@@ -121,6 +122,7 @@ public class ProductionRun {
      *     <li> the listRoutingTask related data</li>
      *     <li> the productComponent list related data</li>
      * </ul>
+     *
      * @return true if success false otherwise
      **/
     public boolean store() {
@@ -160,8 +162,8 @@ public class ProductionRun {
     }
 
     /**
-     * get the Product GenericValue corresponding to the productProduced.
-     *     In the same time this method read the quantity property from SGBD
+     * get the Product GenericValue corresponding to the productProduced. In the same time this method read the quantity property from SGBD
+     *
      * @return the productProduced related object
      **/
     public GenericValue getProductProduced() {
@@ -184,49 +186,66 @@ public class ProductionRun {
 
     /**
      * get the quantity property.
+     *
      * @return the quantity property
      **/
     public BigDecimal getQuantity() {
         if (exist()) {
-            if (quantity == null) getProductProduced();
+            if (quantity == null) {
+                getProductProduced();
+            }
             return quantity;
-        } else return null;
+        } else {
+            return null;
+        }
     }
+
     /**
      * set the quantity property and recalculated the productComponent quantity.
+     *
      * @param newQuantity the new quantity to be set
      **/
     public void setQuantity(BigDecimal newQuantity) {
-        if (quantity == null) getProductProduced();
+        if (quantity == null) {
+            getProductProduced();
+        }
         BigDecimal previousQuantity = quantity;
         BigDecimal componentQuantity;
         this.quantity = newQuantity;
         this.quantityIsUpdated = true;
         this.updateCompletionDate = true;
-        if (productionRunComponents == null) getProductionRunComponents();
+        if (productionRunComponents == null) {
+            getProductionRunComponents();
+        }
         for (GenericValue component : productionRunComponents) {
             componentQuantity = component.getBigDecimal("estimatedQuantity");
             component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, RoundingMode.HALF_UP).multiply(newQuantity)
                     .doubleValue());
         }
     }
+
     /**
      * get the estimatedStartDate property.
+     *
      * @return the estimatedStartDate property
      **/
     public Timestamp getEstimatedStartDate() {
         return (exist() ? this.estimatedStartDate : null);
     }
+
     /**
      * set the estimatedStartDate property.
+     *
      * @param estimatedStartDate set the estimatedStartDate property
      **/
     public void setEstimatedStartDate(Timestamp estimatedStartDate) {
         this.estimatedStartDate = estimatedStartDate;
         this.updateCompletionDate = true;
     }
+
     /**
      * get the estimatedCompletionDate property.
+     *
      * @return the estimatedCompletionDate property
      **/
     public Timestamp getEstimatedCompletionDate() {
@@ -235,28 +254,34 @@ public class ProductionRun {
                 this.estimatedCompletionDate = recalculateEstimatedCompletionDate();
             }
             return this.estimatedCompletionDate;
-        } else return null;
+        } else {
+            return null;
+        }
     }
+
     /**
-     * set the estimatedCompletionDate property without any control or calculation.
-     * usage productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate(priority);
+     * set the estimatedCompletionDate property without any control or calculation. usage
+     * productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate(priority);
+     *
      * @param estimatedCompletionDate set the estimatedCompletionDate property
      **/
     public void setEstimatedCompletionDate(Timestamp estimatedCompletionDate) {
         this.estimatedCompletionDate = estimatedCompletionDate;
     }
+
     /**
-     * Recalculate the estimatedCompletionDate property.
-     * Use the quantity and the estimatedStartDate properties as entries parameters.
-     * Read the listRoutingTask and for each recalculated and update the estimatedStart and endDate in the object.
-     * No store in the database is done.
+     * Recalculate the estimatedCompletionDate property. Use the quantity and the estimatedStartDate properties as entries parameters. Read the
+     * listRoutingTask and for each recalculated and update the estimatedStart and endDate in the object. No store in the database is done.
+     *
      * @param priority give the routingTask start point to recalculated
      * @return the estimatedCompletionDate calculated
      **/
     public Timestamp recalculateEstimatedCompletionDate(Long priority, Timestamp startDate) {
         if (exist()) {
             getProductionRunRoutingTasks();
-            if (quantity == null) getQuantity();
+            if (quantity == null) {
+                getQuantity();
+            }
             Timestamp endDate = null;
             for (GenericValue routingTask : productionRunRoutingTasks) {
                 if (priority.compareTo(routingTask.getLong("priority")) <= 0) {
@@ -274,6 +299,7 @@ public class ProductionRun {
             return null;
         }
     }
+
     /**
      * call recalculateEstimatedCompletionDate(0, estimatedStartDate), so recalculated for all the routing tasks.
      */
@@ -281,40 +307,54 @@ public class ProductionRun {
         this.updateCompletionDate = false;
         return recalculateEstimatedCompletionDate(0L, estimatedStartDate);
     }
+
     /**
      * get the productionRunName property.
+     *
      * @return the productionRunName property
      **/
     public String getProductionRunName() {
-        if (exist()) return this.productionRunName;
-        else return null;
+        if (exist()) {
+            return this.productionRunName;
+        } else {
+            return null;
+        }
     }
 
     /**
      * Sets production run name.
+     *
      * @param name the name
      */
     public void setProductionRunName(String name) {
         this.productionRunName = name;
     }
+
     /**
      * get the description property.
+     *
      * @return the description property
      **/
     public String getDescription() {
-        if (exist()) return productionRun.getString("description");
-        else return null;
+        if (exist()) {
+            return productionRun.getString("description");
+        } else {
+            return null;
+        }
     }
 
     /**
      * Sets description.
+     *
      * @param description the description
      */
     public void setDescription(String description) {
         this.description = description;
     }
+
     /**
      * get the GenericValue currentStatus.
+     *
      * @return the currentStatus related object
      **/
     public GenericValue getCurrentStatus() {
@@ -330,14 +370,18 @@ public class ProductionRun {
         }
         return null;
     }
+
     /**
      * get the list of all the productionRunComponents as a list of GenericValue.
+     *
      * @return the productionRunComponents related object
      **/
     public List<GenericValue> getProductionRunComponents() {
         if (exist()) {
             if (productionRunComponents == null) {
-                if (productionRunRoutingTasks == null) this.getProductionRunRoutingTasks();
+                if (productionRunRoutingTasks == null) {
+                    this.getProductionRunRoutingTasks();
+                }
                 if (productionRunRoutingTasks != null) {
                     try {
                         productionRunComponents = new LinkedList<>();
@@ -356,8 +400,10 @@ public class ProductionRun {
         }
         return null;
     }
+
     /**
      * get the list of all the productionRunRoutingTasks as a list of GenericValue.
+     *
      * @return the productionRunRoutingTasks related object
      **/
     public List<GenericValue> getProductionRunRoutingTasks() {
@@ -377,6 +423,7 @@ public class ProductionRun {
 
     /**
      * get the list of all the productionRunRoutingTasks as a list of GenericValue.
+     *
      * @return the productionRunRoutingTasks related object
      **/
     public GenericValue getLastProductionRunRoutingTask() {
@@ -389,14 +436,15 @@ public class ProductionRun {
                     Debug.logWarning(e.getMessage(), MODULE);
                 }
             }
-            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1) : null);
+            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1)
+                    : null);
         }
         return null;
     }
 
     /**
-     * clear list of all the productionRunRoutingTasks to force re-reading at the next need.
-     * This method is used when the routingTasks ordering is changed.
+     * clear list of all the productionRunRoutingTasks to force re-reading at the next need. This method is used when the routingTasks ordering is
+     * changed.
      **/
     public void clearRoutingTasksList() {
         this.productionRunRoutingTasks = null;
@@ -409,11 +457,14 @@ public class ProductionRun {
     public static long getEstimatedTaskTime(GenericValue task, BigDecimal quantity, LocalDispatcher dispatcher) {
         return getEstimatedTaskTime(task, quantity, null, null, dispatcher);
     }
+
     public static long getEstimatedTaskTime(GenericValue task, BigDecimal quantity, String productId, String routingId, LocalDispatcher dispatcher) {
         if (quantity == null) {
             quantity = BigDecimal.ONE;
         }
-        if (task == null) return 0;
+        if (task == null) {
+            return 0;
+        }
         double setupTime = 0;
         double taskTime = 1;
         double totalTaskTime = 0;
@@ -453,6 +504,7 @@ public class ProductionRun {
 
     /**
      * Is update completion date boolean.
+     *
      * @return the boolean
      */
     public boolean isUpdateCompletionDate() {

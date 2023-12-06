@@ -19,7 +19,7 @@
 package org.apache.ofbiz.common
 
 import static java.util.stream.Collectors.toList
-import static org.apache.ofbiz.base.util.UtilMisc.availableLocales
+import static org.apache.ofbiz.base.util.UtilMiscRuntime.availableLocales
 
 // Check that `a` contains `b` when ignoring case.
 boolean contains(String a, String b) {

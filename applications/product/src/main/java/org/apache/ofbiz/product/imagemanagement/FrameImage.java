@@ -392,7 +392,8 @@ public class FrameImage {
             }
         }
 
-        if (UtilValidate.isEmpty(request.getParameter("frameContentId")) || UtilValidate.isEmpty(request.getParameter("frameDataResourceId"))) {
+        if (UtilValidate.isEmpty(request.getParameter("frameContentId")) || UtilValidate.isEmpty(
+                request.getParameter("frameDataResourceId"))) {
             request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID or dataResource ID parameters. "
                     + "Please upload new frame image or choose the exist frame.");
             return "error";

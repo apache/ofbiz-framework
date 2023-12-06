@@ -34,6 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -57,6 +58,7 @@ public class ProductSearchEvents {
 
     /**
      * Removes the results of a search from the specified category
+     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -84,11 +86,11 @@ public class ProductSearchEvents {
                             "productId", productId));
                 }
                 Map<String, String> messageMap = UtilMisc.toMap("numRemoved", Integer.toString(numRemoved));
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.removed_x_items", messageMap, UtilHttp.getLocale(request));
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.removed_x_items", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
                         UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -99,7 +101,8 @@ public class ProductSearchEvents {
             }
         } catch (GenericTransactionException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                    UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -109,6 +112,7 @@ public class ProductSearchEvents {
 
     /**
      * Sets the thru date of the results of a search to the specified date for the specified catogory
+     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -124,7 +128,7 @@ public class ProductSearchEvents {
             thruDate = Timestamp.valueOf(thruDateStr);
         } catch (RuntimeException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errDateFormat", e.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.thruDate_not_formatted_properly", messageMap,
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.thruDate_not_formatted_properly", messageMap,
                     UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -159,11 +163,11 @@ public class ProductSearchEvents {
                     }
                 }
                 Map<String, String> messageMap = UtilMisc.toMap("numExpired", Integer.toString(numExpired));
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.expired_x_items", messageMap, UtilHttp.getLocale(request));
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.expired_x_items", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
                         UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -174,7 +178,8 @@ public class ProductSearchEvents {
             }
         } catch (GenericTransactionException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                    UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -184,6 +189,7 @@ public class ProductSearchEvents {
 
     /**
      * Adds the results of a search to the specified catogory
+     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -199,7 +205,7 @@ public class ProductSearchEvents {
             fromDate = Timestamp.valueOf(fromDateStr);
         } catch (RuntimeException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errDateFormat", e.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.fromDate_not_formatted_properly", messageMap,
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.fromDate_not_formatted_properly", messageMap,
                     UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -229,12 +235,12 @@ public class ProductSearchEvents {
                     numAdded++;
                 }
                 Map<String, String> messageMap = UtilMisc.toMap("numAdded", Integer.toString(numAdded));
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.added_x_product_category_members", messageMap,
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.added_x_product_category_members", messageMap,
                         UtilHttp.getLocale(request));
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
                         UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -245,7 +251,8 @@ public class ProductSearchEvents {
             }
         } catch (GenericTransactionException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                    UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -256,6 +263,7 @@ public class ProductSearchEvents {
 
     /**
      * Adds a feature to search results
+     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -322,7 +330,7 @@ public class ProductSearchEvents {
                     numAdded++;
                 }
                 Map<String, Object> messageMap = UtilMisc.toMap("numAdded", numAdded, "productFeatureId", productFeatureId);
-                String eventMsg = UtilProperties.getMessage(RESOURCE, "productSearchEvents.added_param_features", messageMap, locale) + ".";
+                String eventMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productSearchEvents.added_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
             } catch (GenericEntityException e) {
                 String errorMsg = UtilProperties.getMessage(RESOURCE, "productSearchEvents.error_getting_results", locale) + " : " + e.toString();
@@ -345,6 +353,7 @@ public class ProductSearchEvents {
 
     /**
      * Removes a feature from search results
+     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -373,7 +382,7 @@ public class ProductSearchEvents {
                             productFeatureId));
                 }
                 Map<String, Object> messageMap = UtilMisc.toMap("numRemoved", numRemoved, "productFeatureId", productFeatureId);
-                String eventMsg = UtilProperties.getMessage(RESOURCE, "productSearchEvents.removed_param_features", messageMap, locale) + ".";
+                String eventMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productSearchEvents.removed_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
             } catch (GenericEntityException e) {
                 String errorMsg = UtilProperties.getMessage(RESOURCE, "productSearchEvents.error_getting_results", locale) + " : " + e.toString();
@@ -396,6 +405,7 @@ public class ProductSearchEvents {
 
     /**
      * Formats the results of a search to the screen as a tab-delimited output
+     *
      * @param request  The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
      * @return String specifying the exit status of this event
@@ -434,7 +444,7 @@ public class ProductSearchEvents {
                 }
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-                errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
                         UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, MODULE);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -445,7 +455,8 @@ public class ProductSearchEvents {
             }
         } catch (GenericTransactionException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
-            errMsg = UtilProperties.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
+            errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "productsearchevents.error_getting_search_results", messageMap,
+                    UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, MODULE);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";

@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.minilang.method;
 
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.minilang.MiniLangElement;
@@ -78,7 +78,7 @@ public final class MessageElement extends MiniLangElement {
         if (messageFse != null) {
             return messageFse.expandString(methodContext.getEnvMap());
         } else {
-            return UtilProperties.getMessage(propertyResource, propertyFse.expandString(methodContext.getEnvMap()), methodContext.getEnvMap(),
+            return UtilPropertiesRuntime.getMessage(propertyResource, propertyFse.expandString(methodContext.getEnvMap()), methodContext.getEnvMap(),
                     methodContext.getLocale());
         }
     }

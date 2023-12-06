@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -193,7 +194,7 @@ public class FinAccountServices {
             GenericValue productStoreFinAccountSetting = EntityQuery.use(delegator).from("ProductStoreFinActSetting")
                     .where("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId).cache().queryOne();
             if (productStoreFinAccountSetting == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                         "AccountingFinAccountSetting",
                         UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId),
                         locale));
@@ -271,7 +272,7 @@ public class FinAccountServices {
             }
         }
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", finAccountId), locale));
         }
 
@@ -302,7 +303,7 @@ public class FinAccountServices {
         Locale locale = (Locale) context.get("locale");
 
         if (finAccountId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", ""), locale));
         }
 

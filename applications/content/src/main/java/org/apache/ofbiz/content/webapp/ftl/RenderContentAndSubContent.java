@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -84,7 +84,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                 if (localeObject == null) {
                     locale = UtilHttp.getLocale(request);
                 } else {
-                    locale = UtilMisc.ensureLocale(localeObject);
+                    locale = UtilMiscRuntime.ensureLocale(localeObject);
                 }
 
                 if (Debug.verboseOn()) {

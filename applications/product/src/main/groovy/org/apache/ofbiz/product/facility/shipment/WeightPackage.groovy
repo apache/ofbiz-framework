@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.facility.shipment
 
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
@@ -144,7 +145,7 @@ if (orderId) {
                     context.estimatedShippingCost = estimatedShippingCost
                 } else {
                     request.setAttribute('_ERROR_MESSAGE_',
-                            UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId': orderId], locale))
+                            UtilPropertiesRuntime.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotVerified', ['orderId': orderId], locale))
                     orderId = null
                 }
             } else {
@@ -154,12 +155,12 @@ if (orderId) {
             }
         } else {
             request.setAttribute('_ERROR_MESSAGE_',
-                    UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPacking', [orderId: orderId], locale))
+                    UtilPropertiesRuntime.getMessage('OrderErrorUiLabels', 'OrderErrorOrderNotApprovedForPacking', [orderId: orderId], locale))
             orderId = null
         }
     } else {
         request.setAttribute('_ERROR_MESSAGE_',
-                UtilProperties.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId: orderId], locale))
+                UtilPropertiesRuntime.getMessage('OrderErrorUiLabels', 'OrderErrorOrderIdNotFound', [orderId: orderId], locale))
         orderId = null
     }
     context.orderedQuantity = weightPackageSession.getOrderedQuantity(orderId)

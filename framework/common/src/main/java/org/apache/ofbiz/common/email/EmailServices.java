@@ -59,6 +59,7 @@ import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -317,7 +318,7 @@ public class EmailServices {
             Debug.logError(e, "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc ["
                     + sendBcc + "] subject [" + subject + "]", MODULE);
             Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendMessagingException", UtilMisc.toMap("sendTo",
                     sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
 
@@ -372,7 +373,7 @@ public class EmailServices {
                     Debug.logError(e1, MODULE);
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendAddressError", UtilMisc.toMap("sendTo",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendAddressError", UtilMisc.toMap("sendTo",
                         sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
             }
         } catch (MessagingException e) {
@@ -380,7 +381,7 @@ public class EmailServices {
             Debug.logError(e, "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc
                     + "] bcc [" + sendBcc + "] subject [" + subject + "]", MODULE);
             Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendConnectionError", UtilMisc.toMap("sendTo",
                     sendTo, "sendFrom", sendFrom, "sendCc", sendCc, "sendBcc", sendBcc, "subject", subject), locale));
         }
         return results;
@@ -406,7 +407,7 @@ public class EmailServices {
             url = new URL(bodyUrl);
         } catch (MalformedURLException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl",
                     bodyUrl, "errorString", e.toString()), locale));
         }
 
@@ -417,7 +418,7 @@ public class EmailServices {
             body = httpClient.post();
         } catch (HttpClientException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendGettingError", UtilMisc.toMap("errorString",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendGettingError", UtilMisc.toMap("errorString",
                     e.toString()), locale));
         }
 
@@ -514,7 +515,7 @@ public class EmailServices {
             screenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme(), "screen");
         } catch (TemplateException | IOException e) {
             Debug.logError("Error rendering screen for email: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
         ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, screenStringRenderer);
@@ -526,7 +527,7 @@ public class EmailServices {
                 screens.render(bodyScreenUri);
             } catch (GeneralException | IOException | SAXException | ParserConfigurationException e) {
                 Debug.logError(e, "Error rendering screen for email: " + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendRenderingScreenEmailError",
                         UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -586,7 +587,7 @@ public class EmailServices {
 
                 } catch (GeneralException | IOException | SAXException | ParserConfigurationException | TemplateException ge) {
                     Debug.logError("Error rendering PDF attachment for email: " + ge.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendRenderingScreenPdfError",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendRenderingScreenPdfError",
                             UtilMisc.toMap("errorString", ge.toString()), locale));
                 }
 
@@ -651,7 +652,7 @@ public class EmailServices {
             }
         } catch (Exception e) {
             Debug.logError(e, "Error send email:" + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonEmailSendError",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (ServiceUtil.isError(sendMailResult)) {

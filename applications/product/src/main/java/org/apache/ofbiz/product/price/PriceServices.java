@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -111,7 +112,7 @@ public class PriceServices {
             productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (UtilValidate.isEmpty(productStoreGroupId)) {
@@ -131,7 +132,7 @@ public class PriceServices {
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()), locale));
                 }
             }
@@ -170,7 +171,7 @@ public class PriceServices {
                 virtualProductId = ProductWorker.getVariantVirtualId(product);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting virtual product id from the database while calculating price" + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "ProductPriceCannotRetrieveVirtualProductId", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -250,7 +251,7 @@ public class PriceServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting agreement info from the database while calculating price" + e.toString(), MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "ProductPriceCannotRetrieveAgreementInfo", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
@@ -524,7 +525,7 @@ public class PriceServices {
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting rules from the database while calculating price", MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "ProductPriceCannotRetrievePriceRules", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
