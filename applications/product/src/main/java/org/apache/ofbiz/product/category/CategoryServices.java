@@ -33,7 +33,6 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -554,7 +553,7 @@ public class CategoryServices {
                         josonMap.put("title", title);
                         categoryList.add(josonMap);
                     }
-                    List<Map<Object, Object>> sortedCategoryList = UtilMiscRuntime.sortMaps(categoryList, sortList);
+                    List<Map<Object, Object>> sortedCategoryList = UtilMisc.sortMaps(categoryList, sortList);
                     request.setAttribute("treeData", sortedCategoryList);
                 }
             }

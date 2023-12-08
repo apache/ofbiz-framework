@@ -20,7 +20,6 @@ package org.apache.ofbiz.webtools.cache
 
 import org.apache.ofbiz.base.util.UtilFormatOut
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilMiscRuntime
 import org.apache.ofbiz.base.util.cache.UtilCache
 
 context.hasUtilCacheEdit = security.hasEntityPermission('UTIL_CACHE', '_EDIT', session)
@@ -48,7 +47,7 @@ if (cacheName) {
 context.totalSize = UtilFormatOut.formatQuantity(totalSize)
 sortField = parameters.sortField
 if (sortField) {
-    context.cacheElementsList = UtilMiscRuntime.sortMaps(cacheElementsList, UtilMisc.toList(sortField))
+    context.cacheElementsList = UtilMisc.sortMaps(cacheElementsList, UtilMisc.toList(sortField))
 } else {
     context.cacheElementsList = cacheElementsList
 }

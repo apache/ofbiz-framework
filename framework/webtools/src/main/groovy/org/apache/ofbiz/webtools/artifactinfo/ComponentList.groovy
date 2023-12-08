@@ -22,7 +22,6 @@ import org.apache.ofbiz.base.util.UtilMisc
 
 import org.apache.ofbiz.base.component.ComponentConfig
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo
-import org.apache.ofbiz.base.util.UtilMiscRuntime
 
 Collection <ComponentConfig> components = ComponentConfig.getAllComponents()
 List componentList = []
@@ -57,7 +56,7 @@ components.each { component ->
 }
 
 // sort the entries
-componentList = UtilMiscRuntime.sortMaps(componentList, UtilMisc.toList('+compName'))
+componentList = UtilMisc.sortMaps(componentList, UtilMisc.toList('+compName'))
 
 // make the list more readable
 lastComp = null

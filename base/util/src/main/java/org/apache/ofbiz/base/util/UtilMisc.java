@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -36,8 +37,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Supplier;
+import org.apache.ofbiz.base.util.collections.MapComparator;
 
 /**
  * UtilMisc - Misc Utility Functions
@@ -546,5 +549,76 @@ public final class UtilMisc {
         }
 
         return locale;
+    }
+
+    /**
+     * The input can be a String, Locale, or even null and a valid Locale will always be returned; if nothing else works, returns the default locale.
+     * @param localeObject An Object representing the locale
+     */
+    public static Locale ensureLocale(Object localeObject) {
+        if (localeObject instanceof String) {
+            Locale locale = parseLocale((String) localeObject);
+            if (locale != null) {
+                return locale;
+            }
+        } else if (localeObject instanceof Locale) {
+            return (Locale) localeObject;
+        }
+        return Locale.getDefault();
+    }
+
+    /**
+     * Returns a List of available locales sorted by display name
+     */
+    public static List<Locale> availableLocales() {
+        return LocaleHolder.AVAIL_LOCALE_LIST;
+    }
+
+    /**
+     * Sort a List of Maps by specified consistent keys.
+     * @param listOfMaps List of Map objects to sort.
+     * @param sortKeys List of Map keys to sort by.
+     * @return a new List of sorted Maps.
+     */
+    public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {
+        if (listOfMaps == null || sortKeys == null) {
+            return null;
+        }
+        List<Map<Object, Object>> toSort = new ArrayList<>(listOfMaps.size());
+        toSort.addAll(listOfMaps);
+        try {
+            MapComparator mc = new MapComparator(sortKeys);
+            toSort.sort(mc);
+        } catch (Exception e) {
+            Debug.logError(e, "Problems sorting list of maps; returning null.", MODULE);
+            return null;
+        }
+        return toSort;
+    }
+
+    // Private lazy-initializer class
+    static class LocaleHolder {
+        private static final List<Locale> AVAIL_LOCALE_LIST = getAvailableLocaleList();
+
+        private static List<Locale> getAvailableLocaleList() {
+            TreeMap<String, Locale> localeMap = new TreeMap<>();
+            String localesString = UtilProperties.getPropertyValue("general", "locales.available");
+            if (UtilValidate.isNotEmpty(localesString)) {
+                List<String> idList = StringUtil.split(localesString, ",");
+                for (String id : idList) {
+                    Locale curLocale = parseLocale(id);
+                    localeMap.put(curLocale.getDisplayName(), curLocale);
+                }
+            } else {
+                Locale[] locales = Locale.getAvailableLocales();
+                for (int i = 0; i < locales.length && locales[i] != null; i++) {
+                    String displayName = locales[i].getDisplayName();
+                    if (!displayName.isEmpty()) {
+                        localeMap.put(displayName, locales[i]);
+                    }
+                }
+            }
+            return Collections.unmodifiableList(new ArrayList<>(localeMap.values()));
+        }
     }
 }

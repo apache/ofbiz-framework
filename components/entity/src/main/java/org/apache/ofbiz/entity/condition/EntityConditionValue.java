@@ -32,7 +32,6 @@ import org.apache.ofbiz.entity.GenericModelException;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.minilang.operation.Convert;
 
 /**
  * Base class for condition expression values.
@@ -42,7 +41,7 @@ import org.apache.ofbiz.minilang.operation.Convert;
 public abstract class EntityConditionValue implements Serializable {
 
     private static final Map<String, String> EMPTY_ALIASES = Collections.unmodifiableMap(new HashMap<>());
-    private static final String MODULE = Convert.class.getName();
+    private static final String MODULE = EntityConditionValue.class.getName();
 
     public static EntityConditionValue constantNumber(Number value) {
         return new ConstantNumberValue(value);

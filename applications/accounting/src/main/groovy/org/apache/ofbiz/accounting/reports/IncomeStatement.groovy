@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting.reports
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilMiscRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -107,7 +106,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // revenues are accounts of class CREDIT: the balance is given by credits minus debits
     balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit)
 }
@@ -151,7 +150,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // contra revenues are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -194,7 +193,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -238,7 +237,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -281,7 +280,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -323,7 +322,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // expenses are accounts of class DEBIT: the balance is given by debits minus credits
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
@@ -365,7 +364,7 @@ if (transactionTotals) {
         accountMap.put('balance', balance)
         transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     // incomes are accounts of class CREDIT: the balance is given by credits minus debits
     balanceTotal = balanceTotalCredit.subtract(balanceTotalDebit)
 }

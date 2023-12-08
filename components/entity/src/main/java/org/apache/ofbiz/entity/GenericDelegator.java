@@ -46,7 +46,7 @@ import org.apache.ofbiz.base.concurrent.ExecutionPool;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -82,7 +82,7 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityStoreOptions;
 import org.apache.ofbiz.entity.util.SequenceUtil;
-import org.apache.ofbiz.entityext.eca.EntityEcaUtil;
+//import org.apache.ofbiz.entityext.eca.EntityEcaUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -1130,10 +1130,11 @@ public class GenericDelegator implements Delegator {
             GenericHelper helper = getEntityHelper(entityName);
 
             // We check if there are eca rules for this entity
-            String entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(this.delegatorBaseName);
-            boolean hasEntityEcaRules = UtilValidate.isNotEmpty(
-                    EntityEcaUtil.getEntityEcaCache(entityEcaReaderName).get(entityName));
-
+//            String entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(this.delegatorBaseName);
+//            boolean hasEntityEcaRules = UtilValidate.isNotEmpty(
+//                    EntityEcaUtil.getEntityEcaCache(entityEcaReaderName).get(entityName));
+            // TODO: migration fix
+            boolean hasEntityEcaRules = false;
             // When we delete in mass, if we are in test mode or the entity have an eeca linked we will remove one by one
             // for test mode to help the rollback
             // for eeca to analyse each value to check if a condition match
@@ -2460,7 +2461,7 @@ public class GenericDelegator implements Delegator {
                 }
 
                 int seqValToUse = (highestSeqVal == null ? 1 : highestSeqVal + incrementBy);
-                String newSeqId = sequencedIdPrefix + UtilFormatOut.formatPaddedNumber(seqValToUse, numericPadding);
+                String newSeqId = sequencedIdPrefix + UtilFormatOutBase.formatPaddedNumber(seqValToUse, numericPadding);
                 value.set(seqFieldName, newSeqId);
 
                 // only commit the transaction if we started one...

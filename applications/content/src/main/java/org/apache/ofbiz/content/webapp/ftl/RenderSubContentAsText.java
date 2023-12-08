@@ -32,7 +32,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -109,7 +109,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 if (localeObject == null) {
                     locale = UtilHttp.getLocale(request);
                 } else {
-                    locale = UtilMiscRuntime.ensureLocale(localeObject);
+                    locale = UtilMisc.ensureLocale(localeObject);
                 }
 
                 String editRequestName = (String) templateRoot.get("editRequestName");

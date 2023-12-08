@@ -44,6 +44,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
+import org.apache.ofbiz.base.util.string.UelFunctions;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
@@ -89,12 +90,33 @@ public class ScreenRenderer {
             this.context = MapStack.create();
         }
         this.screenStringRenderer = screenStringRenderer;
+        try {
+            // Maybe init this outside constructor ?!
+            UelFunctions.setFunction("screen:id", ScreenRenderer.class.getMethod("resolveCurrentScreenId", ScreenRenderer.ScreenStack.class));
+        } catch (NoSuchMethodException e) {
+            Debug.logError(e, "Error registering 'screen:id'");
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Returns the id of the current screen identified on the screen stack
+     *
+     * @param screenStack
+     * @return
+     */
+    public static String resolveCurrentScreenId(ScreenRenderer.ScreenStack screenStack) {
+        if (screenStack != null) {
+            return screenStack.resolveCurrentScreenId();
+        }
+        return null;
     }
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file,
-     * separated by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
+     *
+     * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file, separated
+     *                     by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
@@ -108,9 +130,10 @@ public class ScreenRenderer {
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     * @param resourceName The name/location of the resource to use, can use "component://[component-name]/" and "ofbiz://"
-     * and other special OFBiz style URLs
-     * @param screenName The name of the screen within the XML file specified by the resourceName.
+     *
+     * @param resourceName The name/location of the resource to use, can use "component://[component-name]/" and "ofbiz://" and other special OFBiz
+     *                     style URLs
+     * @param screenName   The name of the screen within the XML file specified by the resourceName.
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
@@ -152,6 +175,7 @@ public class ScreenRenderer {
 
     /**
      * Sets render form unique seq.
+     *
      * @param renderFormSeqNumber the render form seq number
      */
     public void setRenderFormUniqueSeq(int renderFormSeqNumber) {
@@ -160,6 +184,7 @@ public class ScreenRenderer {
 
     /**
      * Gets screen string renderer.
+     *
      * @return the screen string renderer
      */
     public ScreenStringRenderer getScreenStringRenderer() {
@@ -168,6 +193,7 @@ public class ScreenRenderer {
 
     /**
      * Populate basic context.
+     *
      * @param parameters the parameters
      * @param delegator  the delegator
      * @param dispatcher the dispatcher
@@ -176,12 +202,12 @@ public class ScreenRenderer {
      * @param userLogin  the user login
      */
     public void populateBasicContext(Map<String, Object> parameters, Delegator delegator, LocalDispatcher dispatcher,
-                                     Security security, Locale locale, GenericValue userLogin) {
+            Security security, Locale locale, GenericValue userLogin) {
         populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
     }
 
     public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters,
-                Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+            Delegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
@@ -213,8 +239,9 @@ public class ScreenRenderer {
     }
 
     /**
-     * This method populates the context for this ScreenRenderer based on the HTTP Request and Response objects and the ServletContext.
-     * It leverages various conventions used in other places, namely the ControlServlet and so on, of OFBiz to get the different resources needed.
+     * This method populates the context for this ScreenRenderer based on the HTTP Request and Response objects and the ServletContext. It leverages
+     * various conventions used in other places, namely the ControlServlet and so on, of OFBiz to get the different resources needed.
+     *
      * @param request
      * @param response
      * @param servletContext
@@ -224,7 +251,7 @@ public class ScreenRenderer {
     }
 
     public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request,
-                                                 HttpServletResponse response, ServletContext servletContext) {
+            HttpServletResponse response, ServletContext servletContext) {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases,
@@ -365,6 +392,7 @@ public class ScreenRenderer {
 
     /**
      * Gets context.
+     *
      * @return the context
      */
     public Map<String, Object> getContext() {
@@ -373,7 +401,8 @@ public class ScreenRenderer {
 
     /**
      * Populate context for service.
-     * @param dctx the dctx
+     *
+     * @param dctx           the dctx
      * @param serviceContext the service context
      */
     public void populateContextForService(DispatchContext dctx, Map<String, Object> serviceContext) {
@@ -382,10 +411,11 @@ public class ScreenRenderer {
     }
 
     /**
-     * Contains the stack of screen area ids that are generated during screen rendering
-     * This allow inherent refreshment of the parent screen, when using callback feature
-     * */
+     * Contains the stack of screen area ids that are generated during screen rendering This allow inherent refreshment of the parent screen, when
+     * using callback feature
+     */
     public static class ScreenStack {
+
         private LinkedList<Map<String, Object>> visitedScreens;
 
         /**
@@ -408,6 +438,7 @@ public class ScreenRenderer {
 
         /**
          * Push a screen id upon the stack
+         *
          * @param modelScreen
          */
         public void push(ModelScreen modelScreen) {
@@ -441,26 +472,33 @@ public class ScreenRenderer {
          * @return {@link ModelScreen}
          */
         public ModelScreen resolveCurrentModelScreen() {
-            if (visitedScreens.isEmpty()) return null;
+            if (visitedScreens.isEmpty()) {
+                return null;
+            }
             return (ModelScreen) resolveCurrentScreenMap().get("modelScreen");
         }
 
         /**
          * Return the area id reference of the current screen on the screen stack
+         *
          * @return
          */
         public String resolveCurrentScreenId() {
-            if (visitedScreens.isEmpty()) return null;
+            if (visitedScreens.isEmpty()) {
+                return null;
+            }
             return (String) resolveCurrentScreenMap().get("areaId");
         }
 
         /**
-         * If the given areaId have not consistency, return the current screen
-         * area id on the stack
+         * If the given areaId have not consistency, return the current screen area id on the stack
+         *
          * @return
          */
         public String resolveScreenAreaId(String areaId) {
-            if (UtilValidate.isNotEmpty(areaId)) return areaId;
+            if (UtilValidate.isNotEmpty(areaId)) {
+                return areaId;
+            }
             return resolveCurrentScreenId();
         }
     }

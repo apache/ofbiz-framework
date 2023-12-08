@@ -48,7 +48,6 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.cyberneko.html.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -200,6 +199,7 @@ public class UelFunctions {
 
     /**
      * Returns a <code>FunctionMapper</code> instance.
+     *
      * @return <code>FunctionMapper</code> instance
      */
     public static FunctionMapper getFunctionMapper() {
@@ -211,6 +211,10 @@ public class UelFunctions {
      */
     public static synchronized void setFunction(String prefix, String localName, Method method) {
         FUNCTION_MAPPER.functionMap.put(prefix + ":" + localName, method);
+    }
+
+    public static synchronized void setFunction(String functionName, Method method) {
+        FUNCTION_MAPPER.functionMap.put(functionName, method);
     }
 
     public static String dateString(Timestamp stamp, TimeZone timeZone, Locale locale) {
@@ -244,7 +248,9 @@ public class UelFunctions {
     }
 
     public static int getSize(Object obj) {
-        if (null == obj) return 0;
+        if (null == obj) {
+            return 0;
+        }
         if (obj instanceof Map) {
             return ((Map<?, ?>) obj).size();
         }
@@ -258,82 +264,114 @@ public class UelFunctions {
     }
 
     public static boolean endsWith(String str1, String str2) {
-        if (null == str1) return false;
+        if (null == str1) {
+            return false;
+        }
         return str1.endsWith(str2);
     }
 
     public static int indexOf(String str1, String str2) {
-        if (null == str1) return -1;
+        if (null == str1) {
+            return -1;
+        }
         return str1.indexOf(str2);
     }
 
     public static int lastIndexOf(String str1, String str2) {
-        if (null == str1) return -1;
+        if (null == str1) {
+            return -1;
+        }
         return str1.lastIndexOf(str2);
     }
 
     public static int length(String str1) {
-        if (null == str1) return 0;
+        if (null == str1) {
+            return 0;
+        }
         return str1.length();
     }
 
     public static String replace(String str1, String str2, String str3) {
-        if (null == str1) return null;
+        if (null == str1) {
+            return null;
+        }
         return str1.replace(str2, str3);
     }
 
     public static String replaceAll(String str1, String str2, String str3) {
-        if (null == str1) return null;
+        if (null == str1) {
+            return null;
+        }
         return str1.replaceAll(str2, str3);
     }
 
     public static String replaceFirst(String str1, String str2, String str3) {
-        if (null == str1) return null;
+        if (null == str1) {
+            return null;
+        }
         return StringUtils.replaceOnce(str1, str2, str3);
     }
 
     public static boolean startsWith(String str1, String str2) {
-        if (null == str1) return false;
+        if (null == str1) {
+            return false;
+        }
         return str1.startsWith(str2);
     }
 
     public static String endString(String str, int index) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return str.substring(index);
     }
 
     public static String subString(String str, int beginIndex, int endIndex) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return str.substring(beginIndex, endIndex);
     }
 
     public static String trim(String str) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return str.trim();
     }
 
     public static String toLowerCase(String str) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return str.toLowerCase(Locale.getDefault());
     }
 
     public static String toUpperCase(String str) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return str.toUpperCase(Locale.getDefault());
     }
 
     public static String toString(Object obj) {
-        if (null == obj) return null;
+        if (null == obj) {
+            return null;
+        }
         return obj.toString();
     }
 
     public static String sysGetEnv(String str) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return System.getenv(str);
     }
 
     public static String sysGetProp(String str) {
-        if (null == str) return null;
+        if (null == str) {
+            return null;
+        }
         return System.getProperty(str);
     }
 
@@ -346,18 +384,6 @@ public class UelFunctions {
             return resolveLabel;
         }
         return label;
-    }
-
-    /**
-     * Returns the id of the current screen identified on the screen stack
-     * @param screenStack
-     * @return
-     */
-    public static String resolveCurrentScreenId(ScreenRenderer.ScreenStack screenStack) {
-        if (screenStack != null) {
-            return screenStack.resolveCurrentScreenId();
-        }
-        return null;
     }
 
     public static Document readHtmlDocument(String str) {
@@ -457,6 +483,7 @@ public class UelFunctions {
     }
 
     protected static class Functions extends FunctionMapper {
+
         private final Map<String, Method> functionMap = new HashMap<>();
 
         public Functions() {
@@ -549,7 +576,6 @@ public class UelFunctions {
                 this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
                 this.functionMap.put("util:label", UelFunctions.class.getMethod("label", String.class, String.class, Locale.class));
-                this.functionMap.put("screen:id", UelFunctions.class.getMethod("resolveCurrentScreenId", ScreenRenderer.ScreenStack.class));
                 this.functionMap.put("dom:readHtmlDocument", UelFunctions.class.getMethod("readHtmlDocument", String.class));
                 this.functionMap.put("dom:readXmlDocument", UelFunctions.class.getMethod("readXmlDocument", String.class));
                 this.functionMap.put("dom:toHtmlString", UelFunctions.class.getMethod("toHtmlString", Node.class, String.class, boolean.class,
@@ -565,7 +591,10 @@ public class UelFunctions {
                 Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", MODULE);
             }
         }
-        /** resolve function */
+
+        /**
+         * resolve function
+         */
         @Override
         public Method resolveFunction(String prefix, String localName) {
             return functionMap.get(prefix + ":" + localName);

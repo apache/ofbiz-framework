@@ -33,7 +33,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.service.DispatchContext;
@@ -52,7 +51,7 @@ public class JsLanguageFileMappingCreator {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         String encoding = (String) context.get("encoding"); // default value: UTF-8
 
-        List<Locale> localeList = UtilMiscRuntime.availableLocales();
+        List<Locale> localeList = UtilMisc.availableLocales();
         Map<String, Object> jQueryLocaleFile = new LinkedHashMap<>();
         Map<String, String> dateJsLocaleFile = new LinkedHashMap<>();
         Map<String, String> validationLocaleFile = new LinkedHashMap<>();

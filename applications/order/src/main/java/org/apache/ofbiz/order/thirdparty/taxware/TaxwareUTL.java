@@ -44,8 +44,7 @@ import org.apache.ofbiz.entity.GenericValue;
 
 
 /**
- * TaxwareUTL - Taxware Universal Tax Link
- * Requires taxcommon.class found w/ UTL.
+ * TaxwareUTL - Taxware Universal Tax Link Requires taxcommon.class found w/ UTL.
  */
 public class TaxwareUTL {
 
@@ -74,8 +73,9 @@ public class TaxwareUTL {
         // make sure we have everything before processing
         checkFields();
 
-        if (processed)
+        if (processed) {
             throw new TaxwareException("Cannot re-process records.");
+        }
         processed = true;
 
         Iterator i = records.iterator();
@@ -247,8 +247,9 @@ public class TaxwareUTL {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Taxware Return: " + result, MODULE);
         }
-        if (result != 1)
+        if (result != 1) {
             throw new TaxwareException("Taxware processing failed (" + result + ")");
+        }
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("::Return String::", MODULE);
@@ -268,12 +269,15 @@ public class TaxwareUTL {
     }
 
     private void checkFields() throws TaxwareException {
-        if (!setShipping)
+        if (!setShipping) {
             throw new TaxwareException("Shipping amount has not been set.");
-        if (shipToAddress == null)
+        }
+        if (shipToAddress == null) {
             throw new TaxwareException("Shipping address has not been set.");
-        if (records.isEmpty())
+        }
+        if (records.isEmpty()) {
             throw new TaxwareException("No items have been defined.");
+        }
     }
 
     private int processOutFile(StringBuilder retBuffer) throws DataFileException, TaxwareException {
@@ -319,7 +323,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_COUNTRY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_STATE").compareTo(BigDecimal.ZERO) > 0) {
@@ -330,7 +334,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_STATE"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
@@ -341,7 +345,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_COUNTY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_CITY").compareTo(BigDecimal.ZERO) > 0) {
@@ -352,7 +356,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_CITY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_STATE").compareTo(BigDecimal.ZERO) > 0) {
@@ -363,7 +367,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_SEC_STATE"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
@@ -374,7 +378,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_SEC_COUNTY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_CITY").compareTo(BigDecimal.ZERO) > 0) {
@@ -385,7 +389,7 @@ public class TaxwareUTL {
 
                     currentItem.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_SEC_CITY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 // add a list of adjustments to the adjustment list
@@ -400,7 +404,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_COUNTRY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_STATE").compareTo(BigDecimal.ZERO) > 0) {
@@ -411,7 +415,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_STATE"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
@@ -422,7 +426,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_COUNTY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_CITY").compareTo(BigDecimal.ZERO) > 0) {
@@ -433,7 +437,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_CITY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_STATE").compareTo(BigDecimal.ZERO) > 0) {
@@ -444,7 +448,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_SEC_STATE"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_COUNTY").compareTo(BigDecimal.ZERO) > 0) {
@@ -455,7 +459,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_SEC_COUNTY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
                 if (rec.getBigDecimal("TAX_AMT_SEC_CITY").compareTo(BigDecimal.ZERO) > 0) {
@@ -466,7 +470,7 @@ public class TaxwareUTL {
 
                     orderAdjustments.add(delegator.makeValue("OrderAdjustment",
                             UtilMisc.toMap("amount", rec.getBigDecimal("TAX_AMT_SEC_CITY"),
-                                "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
+                                    "orderAdjustmentTypeId", "SALES_TAX", "comments", comments)));
                 }
 
             } else {

@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+dependencies {
+    api project(':base:util')
+    api project(':base:crypto')
+    api 'org.apache.commons:commons-collections4:4.4'
+    api 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    api 'org.apache.commons:commons-dbcp2:2.10.0'
+    implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5'
+    implementation 'javax.transaction:javax.transaction-api:1.3'
+    testImplementation "junit:junit:4.13"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        componentEntity(MavenPublication) {
+            artifactId = "framework-${project.name}"
+            from components.java
+        }
+    }
+}
+

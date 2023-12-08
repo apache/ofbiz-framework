@@ -43,16 +43,15 @@ public final class UtilFormatOut {
     public static final String PERCENTAGE_FORMAT = "percentage";
     public static final String SPELLED_OUT_FORMAT = "spelled-out";
 
-    private UtilFormatOut() { }
-
-    static String safeToString(Object obj) {
-        if (obj != null) {
-            return obj.toString();
-        }
-        return "";
+    private UtilFormatOut() {
     }
 
-    /** Format a number with format type define by properties
+    static String safeToString(Object obj) {
+        return UtilFormatOutBase.safeToString(obj);
+    }
+
+    /**
+     * Format a number with format type define by properties
      */
     public static String formatNumber(Double number, String formatType, Delegator delegator, Locale locale) {
         if (number == null) {
@@ -99,7 +98,9 @@ public final class UtilFormatOut {
         return formatNumber(number.doubleValue(), formatType, delegator, locale);
     }
 
-    /** Formats a Double representing a price into a string
+    /**
+     * Formats a Double representing a price into a string
+     *
      * @param price The price Double to be formatted
      * @return A String with the formatted price
      */
@@ -108,7 +109,9 @@ public final class UtilFormatOut {
         return formatNumber(price, AMOUNT_FORMAT, null, null);
     }
 
-    /** Formats a BigDecimal representing a price into a string
+    /**
+     * Formats a BigDecimal representing a price into a string
+     *
      * @param price The price BigDecimal to be formatted
      * @return A String with the formatted price
      */
@@ -123,23 +126,11 @@ public final class UtilFormatOut {
      * @param price                 The price double to be formatted
      * @param isoCode               the currency ISO code
      * @param locale                The Locale used to format the number
-     * @param maximumFractionDigits The maximum number of fraction digits used; if
-     *                              set to -1 than the default value for the locale
+     * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale
      * @return A String with the formatted price
      */
     public static String formatCurrency(double price, String isoCode, Locale locale, int maximumFractionDigits) {
-        com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getCurrencyInstance(locale);
-        if (isoCode != null && isoCode.length() > 1) {
-            nf.setCurrency(com.ibm.icu.util.Currency.getInstance(isoCode));
-        } else {
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("No isoCode specified to format currency value:" + price, MODULE);
-            }
-        }
-        if (maximumFractionDigits >= 0) {
-            nf.setMaximumFractionDigits(maximumFractionDigits);
-        }
-        return nf.format(price);
+        return UtilFormatOutBase.formatCurrency(price, isoCode, locale, maximumFractionDigits);
     }
 
     /**
@@ -148,19 +139,19 @@ public final class UtilFormatOut {
      * @param price                 The price BigDecimal to be formatted
      * @param isoCode               the currency ISO code
      * @param locale                The Locale used to format the number
-     * @param maximumFractionDigits The maximum number of fraction digits used; if
-     *                              set to -1 than the default value for the locale
-     *                              is used
+     * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
      * @return A String with the formatted price
      */
     public static String formatCurrency(BigDecimal price, String isoCode, Locale locale, int maximumFractionDigits) {
-        return formatCurrency(price.doubleValue(), isoCode, locale, maximumFractionDigits);
+        return UtilFormatOutBase.formatCurrency(price, isoCode, locale, maximumFractionDigits);
     }
 
-    /** Format a decimal number to the pattern given
-     * @param number The price double to be formatted
+    /**
+     * Format a decimal number to the pattern given
+     *
+     * @param number  The price double to be formatted
      * @param pattern pattern apply to format number
-     * @param locale The Locale used to format the number
+     * @param locale  The Locale used to format the number
      * @return A String with the formatted price
      */
     public static String formatDecimalNumber(double number, String pattern, Locale locale) {
@@ -172,17 +163,21 @@ public final class UtilFormatOut {
         return nbParsing;
     }
 
-    /** Formats a BigDecimal into a properly formatted currency string based on isoCode and Locale
-     * @param price The price BigDecimal to be formatted
+    /**
+     * Formats a BigDecimal into a properly formatted currency string based on isoCode and Locale
+     *
+     * @param price   The price BigDecimal to be formatted
      * @param isoCode the currency ISO code
-     * @param locale The Locale used to format the number
+     * @param locale  The Locale used to format the number
      * @return A String with the formatted price
      */
     public static String formatCurrency(BigDecimal price, String isoCode, Locale locale) {
-        return formatCurrency(price, isoCode, locale, -1);
+        return UtilFormatOutBase.formatCurrency(price, isoCode, locale, -1);
     }
 
-    /** Formats a Double into a properly spelled out number string based on Locale
+    /**
+     * Formats a Double into a properly spelled out number string based on Locale
+     *
      * @param amount The amount Double to be formatted
      * @param locale The Locale used to format the number
      * @return A String with the formatted number
@@ -192,7 +187,9 @@ public final class UtilFormatOut {
         return nf.format(amount);
     }
 
-    /** Formats a double into a properly formatted string, with two decimals, based on Locale
+    /**
+     * Formats a double into a properly formatted string, with two decimals, based on Locale
+     *
      * @param amount The amount double to be formatted
      * @param locale The Locale used to format the number
      * @return A String with the formatted amount
@@ -202,7 +199,9 @@ public final class UtilFormatOut {
         return formatNumber(amount, AMOUNT_FORMAT, null, locale);
     }
 
-    /** Formats a Double representing a percentage into a string
+    /**
+     * Formats a Double representing a percentage into a string
+     *
      * @param percentage The percentage Double to be formatted
      * @return A String with the formatted percentage
      */
@@ -210,7 +209,9 @@ public final class UtilFormatOut {
         return formatNumber(percentage, PERCENTAGE_FORMAT, null, null);
     }
 
-    /** Formats a BigDecimal representing a percentage into a string
+    /**
+     * Formats a BigDecimal representing a percentage into a string
+     *
      * @param percentage The percentage Decimal to be formatted
      * @return A String with the formatted percentage
      */
@@ -221,6 +222,7 @@ public final class UtilFormatOut {
 
     /**
      * Formats a BigDecimal value 1:1 into a percentage string (e.g. 10 to 10% instead of 0,1 to 10%)
+     *
      * @param percentage The percentage Decimal to be formatted
      * @return A String with the formatted percentage
      */
@@ -232,7 +234,9 @@ public final class UtilFormatOut {
         return formatNumber(percentage.divide(hundred), PERCENTAGE_FORMAT, null, null);
     }
 
-    /** Formats an Long representing a quantity into a string
+    /**
+     * Formats an Long representing a quantity into a string
+     *
      * @param quantity The quantity Long to be formatted
      * @return A String with the formatted quantity
      */
@@ -243,7 +247,9 @@ public final class UtilFormatOut {
         return formatQuantity(quantity.doubleValue());
     }
 
-    /** Formats an Integer representing a quantity into a string
+    /**
+     * Formats an Integer representing a quantity into a string
+     *
      * @param quantity The quantity Integer to be formatted
      * @return A String with the formatted quantity
      */
@@ -254,7 +260,9 @@ public final class UtilFormatOut {
         return formatQuantity(quantity.doubleValue());
     }
 
-    /** Formats a Float representing a quantity into a string
+    /**
+     * Formats a Float representing a quantity into a string
+     *
      * @param quantity The quantity Float to be formatted
      * @return A String with the formatted quantity
      */
@@ -265,7 +273,9 @@ public final class UtilFormatOut {
         return formatQuantity(quantity.doubleValue());
     }
 
-    /** Formats an Double representing a quantity into a string
+    /**
+     * Formats an Double representing a quantity into a string
+     *
      * @param quantity The quantity Double to be formatted
      * @return A String with the formatted quantity
      */
@@ -273,7 +283,9 @@ public final class UtilFormatOut {
         return formatNumber(quantity, QUANTITY_FORMAT, null, null);
     }
 
-    /** Formats an BigDecimal representing a quantity into a string
+    /**
+     * Formats an BigDecimal representing a quantity into a string
+     *
      * @param quantity The quantity BigDecimal to be formatted
      * @return A String with the formatted quantity
      */
@@ -282,11 +294,7 @@ public final class UtilFormatOut {
     }
 
     public static String formatPaddedNumber(long number, int numericPadding) {
-        StringBuilder outStrBfr = new StringBuilder(Long.toString(number));
-        while (numericPadding > outStrBfr.length()) {
-            outStrBfr.insert(0, '0');
-        }
-        return outStrBfr.toString();
+        return UtilFormatOutBase.formatPaddedNumber(number, numericPadding);
     }
 
     public static String formatPaddingRemove(String original) {
@@ -302,8 +310,10 @@ public final class UtilFormatOut {
 
     // ------------------- date handlers -------------------
 
-    /** Formats a <code>Timestamp</code> into a date-time <code>String</code> using the default locale and time zone.
-     * Returns an empty <code>String</code> if <code>timestamp</code> is <code>null</code>.
+    /**
+     * Formats a <code>Timestamp</code> into a date-time <code>String</code> using the default locale and time zone. Returns an empty
+     * <code>String</code> if <code>timestamp</code> is <code>null</code>.
+     *
      * @param timestamp The <code>Timestamp</code> to format
      * @return A <code>String</code> with the formatted date/time, or an empty <code>String</code> if <code>timestamp</code> is <code>null</code>
      */
@@ -316,12 +326,13 @@ public final class UtilFormatOut {
         return df.format(date);
     }
 
-    /** Formats a <code>Date</code> into a date-only <code>String</code> using the specified locale and time zone,
-     * or using the specified format.
-     * @param date The date to format
+    /**
+     * Formats a <code>Date</code> into a date-only <code>String</code> using the specified locale and time zone, or using the specified format.
+     *
+     * @param date           The date to format
      * @param dateTimeFormat Optional format string
-     * @param locale The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
-     * @param timeZone The format time zone
+     * @param locale         The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
+     * @param timeZone       The format time zone
      * @return <code>date</code> formatted as a date-only <code>String</code>
      * @throws NullPointerException if any required parameter is <code>null</code>
      */
@@ -329,12 +340,13 @@ public final class UtilFormatOut {
         return UtilDateTime.toDateFormat(dateTimeFormat, timeZone, locale).format(date);
     }
 
-    /** Formats a <code>Date</code> into a date-time <code>String</code> using the specified locale and time zone,
-     * or using the specified format.
-     * @param date The date to format
+    /**
+     * Formats a <code>Date</code> into a date-time <code>String</code> using the specified locale and time zone, or using the specified format.
+     *
+     * @param date           The date to format
      * @param dateTimeFormat Optional format string
-     * @param locale The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
-     * @param timeZone The format time zone
+     * @param locale         The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
+     * @param timeZone       The format time zone
      * @return <code>date</code> formatted as a date-time <code>String</code>
      * @throws NullPointerException if any required parameter is <code>null</code>
      */
@@ -343,7 +355,10 @@ public final class UtilFormatOut {
     }
 
     // ------------------- null string handlers -------------------
-    /** Checks to see if the passed Object is null, if it is returns an empty but non-null string, otherwise calls toString() on the object
+
+    /**
+     * Checks to see if the passed Object is null, if it is returns an empty but non-null string, otherwise calls toString() on the object
+     *
      * @param obj1 The passed Object
      * @return The toString() of the passed Object if not null, otherwise an empty non-null String
      */
@@ -361,7 +376,9 @@ public final class UtilFormatOut {
         return "";
     }
 
-    /** Checks to see if the passed string is null, if it is returns an empty but non-null string.
+    /**
+     * Checks to see if the passed string is null, if it is returns an empty but non-null string.
+     *
      * @param string1 The passed String
      * @return The passed String if not null, otherwise an empty non-null String
      */
@@ -372,7 +389,9 @@ public final class UtilFormatOut {
         return "";
     }
 
-    /** Returns the first passed String if not null, otherwise the second if not null, otherwise an empty but non-null String.
+    /**
+     * Returns the first passed String if not null, otherwise the second if not null, otherwise an empty but non-null String.
+     *
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @return The first passed String if not null, otherwise the second if not null, otherwise an empty but non-null String
@@ -387,13 +406,15 @@ public final class UtilFormatOut {
         }
     }
 
-    /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null,
-     * otherwise an empty but non-null String.
+    /**
+     * Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise an empty but non-null
+     * String.
+     *
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @param string3 The third passed String
-     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null,
-     * otherwise an empty but non-null String
+     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise an empty but non-null
+     * String
      */
     public static String checkNull(String string1, String string2, String string3) {
         if (string1 != null) {
@@ -407,14 +428,16 @@ public final class UtilFormatOut {
         }
     }
 
-    /** Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null,
-     * otherwise the fourth if not null, otherwise an empty but non-null String.
+    /**
+     * Returns the first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise the fourth if not
+     * null, otherwise an empty but non-null String.
+     *
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @param string3 The third passed String
      * @param string4 The fourth passed String
-     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null,
-     * otherwise the fourth if not null, otherwise an empty but non-null String
+     * @return The first passed String if not null, otherwise the second if not null, otherwise the third if not null, otherwise the fourth if not
+     * null, otherwise an empty but non-null String
      */
     public static String checkNull(String string1, String string2, String string3, String string4) {
         if (string1 != null) {
@@ -430,9 +453,11 @@ public final class UtilFormatOut {
         }
     }
 
-    /** Returns <code>pre + base + post</code> if base String is not null or empty, otherwise an empty but non-null String.
+    /**
+     * Returns <code>pre + base + post</code> if base String is not null or empty, otherwise an empty but non-null String.
+     *
      * @param base The base String
-     * @param pre The pre String
+     * @param pre  The pre String
      * @param post The post String
      * @return <code>pre + base + post</code> if base String is not null or empty, otherwise an empty but non-null String.
      */
@@ -443,28 +468,26 @@ public final class UtilFormatOut {
         return "";
     }
 
-    /** Returns the first passed String if not empty, otherwise the second if not empty, otherwise an empty but non-null String.
+    /**
+     * Returns the first passed String if not empty, otherwise the second if not empty, otherwise an empty but non-null String.
+     *
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @return The first passed String if not empty, otherwise the second if not empty, otherwise an empty but non-null String
      */
     public static String checkEmpty(String string1, String string2) {
-        if (UtilValidate.isNotEmpty(string1)) {
-            return string1;
-        } else if (UtilValidate.isNotEmpty(string2)) {
-            return string2;
-        } else {
-            return "";
-        }
+        return UtilFormatOutBase.checkEmpty(string1, string2);
     }
 
-    /** Returns the first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty,
-     * otherwise an empty but non-null String.
+    /**
+     * Returns the first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty, otherwise an empty but
+     * non-null String.
+     *
      * @param string1 The first passed String
      * @param string2 The second passed String
      * @param string3 The third passed String
-     * @return The first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty,
-     * otherwise an empty but non-null String
+     * @return The first passed String if not empty, otherwise the second if not empty, otherwise the third if not empty, otherwise an empty but
+     * non-null String
      */
     public static String checkEmpty(String string1, String string2, String string3) {
         if (UtilValidate.isNotEmpty(string1)) {
@@ -479,10 +502,11 @@ public final class UtilFormatOut {
     }
 
     // ------------------- web encode handlers -------------------
+
     /**
-     * Encodes an HTTP URL query String, replacing characters used for other
-     * things in HTTP URL query strings, but not touching the separator
+     * Encodes an HTTP URL query String, replacing characters used for other things in HTTP URL query strings, but not touching the separator
      * characters '?', '=', and '&amp;'
+     *
      * @param query The plain query String
      * @return The encoded String
      */
@@ -494,7 +518,9 @@ public final class UtilFormatOut {
         return retString;
     }
 
-    /** Encodes a single HTTP URL query value, replacing characters used for other things in HTTP URL query strings
+    /**
+     * Encodes a single HTTP URL query value, replacing characters used for other things in HTTP URL query strings
+     *
      * @param query The plain query value String
      * @return The encoded String
      */
@@ -509,17 +535,21 @@ public final class UtilFormatOut {
         return retString;
     }
 
-    /** Replaces all occurrences of oldString in mainString with newString
+    /**
+     * Replaces all occurrences of oldString in mainString with newString
+     *
      * @param mainString The original string
-     * @param oldString The string to replace
-     * @param newString The string to insert in place of the old
+     * @param oldString  The string to replace
+     * @param newString  The string to insert in place of the old
      * @return mainString with all occurrences of oldString replaced by newString
      */
     public static String replaceString(String mainString, String oldString, String newString) {
         return StringUtil.replaceString(mainString, oldString, newString);
     }
 
-    /** Decodes a single query value from an HTTP URL parameter, replacing %ASCII values with characters
+    /**
+     * Decodes a single query value from an HTTP URL parameter, replacing %ASCII values with characters
+     *
      * @param query The encoded query value String
      * @return The plain, decoded String
      */
@@ -560,6 +590,7 @@ public final class UtilFormatOut {
         }
         return newString.toString();
     }
+
     public static String makeSqlSafe(String unsafeString) {
         return unsafeString.replace("'", "''");
     }

@@ -18,7 +18,7 @@
 */
 package org.apache.ofbiz.webtools.entity
 
-import org.apache.ofbiz.base.util.UtilMiscRuntime
+
 import org.apache.ofbiz.entity.GenericPK
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
@@ -258,5 +258,5 @@ private String buildFindString(ModelEntity relatedEntity, ModelRelation relation
     return UtilFormatOut.encodeQuery(findString)
 }
 
-context.relationFieldList = UtilMiscRuntime.sortMaps(relationFieldList, ['sortName'])
+context.relationFieldList = UtilMisc.sortMaps(relationFieldList, ['sortName'])
 context.relSize = (relationFieldList.size() + 2)

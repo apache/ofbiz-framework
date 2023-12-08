@@ -19,7 +19,6 @@
 package org.apache.ofbiz.webtools.service
 
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilMiscRuntime
 import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.service.ServiceDispatcher
 import org.apache.ofbiz.service.engine.GenericEngine
@@ -41,7 +40,7 @@ log.each { rs, value ->
 }
 sortField = parameters.sortField
 if (sortField) {
-    context.services = UtilMiscRuntime.sortMaps(serviceList, UtilMisc.toList(sortField))
+    context.services = UtilMisc.sortMaps(serviceList, UtilMisc.toList(sortField))
 } else {
     context.services = serviceList
 }

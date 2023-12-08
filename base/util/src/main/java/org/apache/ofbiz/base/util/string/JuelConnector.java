@@ -47,29 +47,35 @@ import de.odysseus.el.tree.impl.ast.AstEval;
 import de.odysseus.el.tree.impl.ast.AstIdentifier;
 import de.odysseus.el.tree.impl.ast.AstNode;
 
-/** A facade class used to connect the OFBiz framework to the JUEL library.
- *<p>The Unified Expression Language specificatio n doesn't allow assignment of
- * values to non-existent variables (auto-vivify) - but the OFBiz scripting
- * languages do. This class modifies the JUEL library behavior to enable
+/**
+ * A facade class used to connect the OFBiz framework to the JUEL library.
+ * <p>The Unified Expression Language specificatio n doesn't allow assignment of
+ * values to non-existent variables (auto-vivify) - but the OFBiz scripting languages do. This class modifies the JUEL library behavior to enable
  * auto-vivify.</p>
  */
 public class JuelConnector {
+
     protected static final String MODULE = JuelConnector.class.getName();
 
-    /** Returns an <code>ExpressionFactory</code> instance.
+    /**
+     * Returns an <code>ExpressionFactory</code> instance.
+     *
      * @return A customized <code>ExpressionFactory</code> instance
      */
     public static ExpressionFactory newExpressionFactory() {
         return new ExpressionFactoryImpl(new TreeStore(new ExtendedBuilder(), new Cache(1000)));
     }
 
-    /** Custom <code>AstBracket</code> class that implements
+    /**
+     * Custom <code>AstBracket</code> class that implements
      * <code>List</code> or <code>Map</code> auto-vivify.
      */
     public static class ExtendedAstBracket extends AstBracket {
+
         public ExtendedAstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
             super(base, property, lvalue, strict);
         }
+
         @Override
         public void setValue(Bindings bindings, ELContext context, Object value) throws ELException {
             if (!lvalue) {
@@ -101,13 +107,16 @@ public class JuelConnector {
         }
     }
 
-    /** Custom <code>AstDot</code> class that implements
+    /**
+     * Custom <code>AstDot</code> class that implements
      * <code>List</code> or <code>Map</code> auto-vivify.
      */
     public static class ExtendedAstDot extends AstDot {
+
         public ExtendedAstDot(AstNode base, String property, boolean lvalue) {
             super(base, property, lvalue);
         }
+
         @Override
         public void setValue(Bindings bindings, ELContext context, Object value) throws ELException {
             if (!lvalue) {
@@ -139,27 +148,31 @@ public class JuelConnector {
         }
     }
 
-    /** Custom <code>Parser</code> class needed to implement auto-vivify. */
+    /**
+     * Custom <code>Parser</code> class needed to implement auto-vivify.
+     */
     protected static class ExtendedParser extends Parser {
+
         public ExtendedParser(Builder context, String input) {
             super(context, input);
         }
+
         @Override
         protected AstEval eval(boolean required, boolean deferred) throws ScanException, ParseException {
             AstEval v = null;
-            Symbol startEval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
+            Symbol startEval = deferred ? Symbol.START_EVAL_DEFERRED : Symbol.START_EVAL_DYNAMIC;
             if (this.getToken().getSymbol() == startEval) {
                 consumeToken();
                 AstNode node = expr(true);
                 try {
-                    consumeToken(END_EVAL);
+                    consumeToken(Symbol.END_EVAL);
                 } catch (ParseException e) {
-                    if (this.getToken().getSymbol() == FLOAT && node instanceof AstIdentifier) {
+                    if (this.getToken().getSymbol() == Symbol.FLOAT && node instanceof AstIdentifier) {
                         // Handle ${someMap.${someId}}
                         String mapKey = this.getToken().getImage().replace(".", "");
                         node = createAstDot(node, mapKey, true);
                         consumeToken();
-                        consumeToken(END_EVAL);
+                        consumeToken(Symbol.END_EVAL);
                     } else {
                         throw e;
                     }
@@ -170,19 +183,24 @@ public class JuelConnector {
             }
             return v;
         }
+
         @Override
         protected AstBracket createAstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
             return new ExtendedAstBracket(base, property, lvalue, strict);
         }
+
         @Override
         protected AstDot createAstDot(AstNode base, String property, boolean lvalue) {
             return new ExtendedAstDot(base, property, lvalue);
         }
     }
 
-    /** Custom <code>Builder</code> class needed to implement a custom parser. */
+    /**
+     * Custom <code>Builder</code> class needed to implement a custom parser.
+     */
     @SuppressWarnings("serial")
     protected static class ExtendedBuilder extends Builder {
+
         @Override
         public Tree build(String expression) throws ELException {
             try {

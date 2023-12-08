@@ -46,7 +46,7 @@ import javax.script.SimpleScriptContext;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
+//import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
 /**
@@ -192,8 +192,9 @@ public final class ScriptUtil {
         localContext.put(WIDGET_CONTEXT_KEY, context);
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
-        ScriptHelper helper = new ScriptHelperImpl(scriptContext);
-        localContext.put(SCRIPT_HELPER_KEY, helper);
+        //TODO: migration
+//        ScriptHelper helper = new ScriptHelperImpl(scriptContext);
+//        localContext.put(SCRIPT_HELPER_KEY, helper);
         Bindings bindings = new SimpleBindings(localContext);
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
@@ -216,7 +217,7 @@ public final class ScriptUtil {
         ScriptContext scriptContext = new SimpleScriptContext();
         Bindings bindings = new ProtectedBindings(localContext, Collections.unmodifiableSet(protectedKeys));
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
-        localContext.put(SCRIPT_HELPER_KEY, new ScriptHelperImpl(scriptContext));
+//        localContext.put(SCRIPT_HELPER_KEY, new ScriptHelperImpl(scriptContext));
         return scriptContext;
     }
 

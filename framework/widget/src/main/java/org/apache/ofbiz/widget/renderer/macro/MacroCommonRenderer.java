@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.webapp.control.RequestHandler;
@@ -105,7 +104,7 @@ public class MacroCommonRenderer {
                 sb.append(",");
             }
         }
-        Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         return FlexibleStringExpander.expandString(sb.toString(), context, locale);
     }
 

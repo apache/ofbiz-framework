@@ -19,7 +19,6 @@
 package org.apache.ofbiz.accounting.reports
 
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilMiscRuntime
 
 revenueAccountBalanceMap = [:]
 revenueAccountBalanceList = []
@@ -38,7 +37,7 @@ revenueAccountBalanceList2.each { accountBalance ->
                                                                   balance1: BigDecimal.ZERO])
     }
 }
-revenueAccountBalanceList = UtilMiscRuntime.sortMaps(revenueAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
+revenueAccountBalanceList = UtilMisc.sortMaps(revenueAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
 context.revenueAccountBalanceList = revenueAccountBalanceList
 
 expenseAccountBalanceMap = [:]
@@ -58,7 +57,7 @@ expenseAccountBalanceList2.each { accountBalance ->
                                                                   balance1: BigDecimal.ZERO])
     }
 }
-expenseAccountBalanceList = UtilMiscRuntime.sortMaps(expenseAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
+expenseAccountBalanceList = UtilMisc.sortMaps(expenseAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
 context.expenseAccountBalanceList = expenseAccountBalanceList
 
 incomeAccountBalanceMap = [:]
@@ -78,7 +77,7 @@ incomeAccountBalanceList2.each { accountBalance ->
                                                                  balance1: BigDecimal.ZERO])
     }
 }
-incomeAccountBalanceList = UtilMiscRuntime.sortMaps(incomeAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
+incomeAccountBalanceList = UtilMisc.sortMaps(incomeAccountBalanceMap.values().asList(), UtilMisc.toList('accountCode'))
 context.incomeAccountBalanceList = incomeAccountBalanceList
 
 balanceTotalMap = [:]

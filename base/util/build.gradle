@@ -11,15 +11,19 @@ dependencies {
     api 'com.thoughtworks.xstream:xstream:1.4.20'
     api 'commons-io:commons-io:2.15.1'
     api 'commons-codec:commons-codec:1.16.0'
-    api 'org.apache.commons:commons-lang3:3.14.0'
+    api 'de.odysseus.juel:juel-impl:2.2.7'
     api 'commons-validator:commons-validator:1.7'
+    api 'org.freemarker:freemarker:2.3.32' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
     api 'net.lingala.zip4j:zip4j:2.11.5'
     api 'org.apache.tomcat:tomcat-jasper:9.0.82'
     api 'org.apache.logging.log4j:log4j-api:2.20.0' // the API of log4j 2
     api 'org.codehaus.groovy:groovy-all:3.0.19'
     api 'org.jsoup:jsoup:1.15.3'
+    api 'oro:oro:2.0.8'
     api 'xerces:xercesImpl:2.12.2'
+    api 'org.apache.commons:commons-lang3:3.14.0'
     api 'org.apache.logging.log4j:log4j-core:2.20.0' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    api 'org.cyberneko:html:1.9.8'
     testImplementation "junit:junit:4.13"
 }
 

@@ -21,7 +21,6 @@ package org.apache.ofbiz.accounting.reports
 import org.apache.ofbiz.accounting.util.UtilAccounting
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilMiscRuntime
 import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -116,7 +115,7 @@ transactionTotals.each { transactionTotal ->
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap)
 }
 glAccountIdList = []
-accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
 accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal.add(accountBalance.balance)
 }
@@ -161,7 +160,7 @@ if (transactionTotals) {
         accountMap.balance = balance
         transactionTotalsMap.(transactionTotal.glAccountId) = accountMap
     }
-    accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+    accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
     balanceTotal = balanceTotalDebit.subtract(balanceTotalCredit)
 }
 periodCashBalanceTotal = balanceTotal
@@ -176,7 +175,7 @@ balanceTotal = BigDecimal.ZERO
 List transactionTotals = []
 transactionTotals.addAll(new LinkedList(context.openingCashBalanceList))
 transactionTotals.addAll(new LinkedList(context.periodCashBalanceList))
-transactionTotals = UtilMiscRuntime.sortMaps(transactionTotals, UtilMisc.toList('accountCode'))
+transactionTotals = UtilMisc.sortMaps(transactionTotals, UtilMisc.toList('accountCode'))
 closingTransactionKeySet = []
 if (transactionTotals) {
     Map transactionTotalsMap = [:]
@@ -198,7 +197,7 @@ if (transactionTotals) {
             } else {
                 transactionTotalsMap.(transactionTotal.glAccountId) = transactionTotal
             }
-            accountBalanceList = UtilMiscRuntime.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
+            accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList('accountCode'))
         }
     }
     closingTransactionKeySet = transactionTotalsMap.keySet()

@@ -33,7 +33,7 @@ import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -1492,7 +1492,7 @@ public class ModelViewEntity extends ModelEntity {
             String entityAlias = conditionExprElement.getAttribute("entity-alias");
             this.fieldName = conditionExprElement.getAttribute("field-name");
 
-            String operator = UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals");
+            String operator = UtilFormatOutBase.checkEmpty(conditionExprElement.getAttribute("operator"), "equals");
             try {
                 this.operator = EntityOperator.lookupComparison(operator);
             } catch (IllegalArgumentException e) {

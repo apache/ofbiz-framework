@@ -21,7 +21,6 @@ package org.apache.ofbiz.widget.renderer;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.widget.model.CommonWidgetModels;
 import static org.apache.ofbiz.widget.model.ModelFormField.usedFields;
@@ -82,7 +81,7 @@ public class FormRenderer {
     private static final String MODULE = FormRenderer.class.getName();
 
     public static String getCurrentContainerId(ModelForm modelForm, Map<String, Object> context) {
-        Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         String retVal = FlexibleStringExpander.expandString(modelForm.getContainerId(), context, locale);
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null/* && "list".equals(modelForm.getType()) */) {

@@ -67,3 +67,4 @@ activeComponents().each { File component ->
 include 'base:util'
 include 'base:crypto'
 include 'components:datafile'
+include 'components:entity'

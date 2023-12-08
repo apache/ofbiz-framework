@@ -37,7 +37,6 @@ import java.util.Set;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.apache.ofbiz.entity.Delegator;

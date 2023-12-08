@@ -45,7 +45,7 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.widget.model.ModelWidget;
+//import org.apache.ofbiz.widget.model.ModelWidget;
 
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.StringTemplateLoader;
@@ -113,8 +113,9 @@ public final class FreeMarkerWorker {
             newConfig.setAutoImports(freemarkerImports);
         }
         newConfig.setLogTemplateExceptions(false);
-        boolean verboseTemplate = ModelWidget.widgetBoundaryCommentsEnabled(null)
-                || UtilProperties.getPropertyAsBoolean("widget", "widget.freemarker.template.verbose", false);
+//        boolean verboseTemplate = ModelWidget.widgetBoundaryCommentsEnabled(null)
+//                || UtilProperties.getPropertyAsBoolean("widget", "widget.freemarker.template.verbose", false);
+        boolean verboseTemplate = UtilProperties.getPropertyAsBoolean("widget", "widget.freemarker.template.verbose", false);
         newConfig.setTemplateExceptionHandler(verboseTemplate
                 ? FreeMarkerWorker::handleTemplateExceptionVerbosily
                 : FreeMarkerWorker::handleTemplateException);

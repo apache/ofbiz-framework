@@ -35,9 +35,9 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.ScriptUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
@@ -391,7 +391,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
             locale = (Locale) context.get("locale");
             if (locale == null && context.containsKey("autoUserLogin")) {
                 Map<String, Object> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
-                locale = UtilMiscRuntime.ensureLocale(autoUserLogin.get("lastLocale"));
+                locale = UtilMisc.ensureLocale(autoUserLogin.get("lastLocale"));
             }
             if (locale == null) {
                 locale = Locale.getDefault();
@@ -627,7 +627,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 Object obj = UelUtil.evaluate(context, new String(this.valueStr));
                 if (obj != null) {
                     String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
-                    return UtilFormatOut.formatCurrency(new BigDecimal(obj.toString()), currencyCode, locale);
+                    return UtilFormatOutBase.formatCurrency(new BigDecimal(obj.toString()), currencyCode, locale);
                 }
             } catch (PropertyNotFoundException e) {
                 if (Debug.verboseOn()) {

@@ -40,7 +40,6 @@ import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -419,7 +418,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     @Override
     public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
-        Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
         String expandedDataResourceId = content.getDataResourceId(context);
@@ -552,7 +551,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     @Override
     public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
-        Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
         String expandedMapKey = content.getMapKey(context);
