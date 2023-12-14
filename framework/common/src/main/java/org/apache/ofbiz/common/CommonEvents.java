@@ -33,12 +33,8 @@ import java.io.LineNumberReader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -266,69 +262,6 @@ public class CommonEvents {
         } catch (IOException e) {
             Debug.logError(e, MODULE);
         }
-    }
-
-    public static String getJSONuiLabelArray(HttpServletRequest request, HttpServletResponse response)
-            throws UnsupportedEncodingException, IOException {
-        // Format - {resource1 : [key1, key2 ...], resource2 : [key1, key2, ...], ...}
-        String jsonString = request.getParameter("requiredLabels");
-        Map<String, List<String>> uiLabelObject = null;
-        if (UtilValidate.isNotEmpty(jsonString)) {
-            JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
-        }
-        if (UtilValidate.isEmpty(uiLabelObject)) {
-            Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
-            return "error";
-        }
-        Locale locale = UtilHttp.getLocale(request);
-        Map<String, List<String>> uiLabelMap = new HashMap<>();
-        Set<Map.Entry<String, List<String>>> entrySet = uiLabelObject.entrySet();
-        for (Map.Entry<String, List<String>> entry : entrySet) {
-            String resource = entry.getKey();
-            List<String> resourceKeys = entry.getValue();
-            if (resourceKeys != null) {
-                List<String> labels = new ArrayList<>(resourceKeys.size());
-                for (String resourceKey : resourceKeys) {
-                    String label = UtilProperties.getMessage(resource, resourceKey, locale);
-                    labels.add(label);
-                }
-                uiLabelMap.put(resource, labels);
-            }
-        }
-        writeJSONtoResponse(JSON.from(uiLabelMap), request, response);
-        return "success";
-    }
-
-    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response)
-            throws UnsupportedEncodingException, IOException {
-        // Format - {resource : key}
-        String jsonString = request.getParameter("requiredLabel");
-        Map<String, String> uiLabelObject = null;
-        if (UtilValidate.isNotEmpty(jsonString)) {
-            JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
-        }
-        if (UtilValidate.isEmpty(uiLabelObject)) {
-            Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
-            return "error";
-        } else if (uiLabelObject.size() > 1) {
-            Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", MODULE);
-            return "error";
-        }
-        Locale locale = UtilHttp.getLocale(request);
-        Map<String, String> uiLabelMap = new HashMap<>();
-        Set<Map.Entry<String, String>> entrySet = uiLabelObject.entrySet();
-        for (Map.Entry<String, String> entry : entrySet) {
-            String resource = entry.getKey();
-            String resourceKey = entry.getValue();
-            if (resourceKey != null) {
-                String label = UtilProperties.getMessage(resource, resourceKey, locale);
-                uiLabelMap.put(resource, label);
-            }
-        }
-        writeJSONtoResponse(JSON.from(uiLabelMap), request, response);
-        return "success";
     }
 
     public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {

@@ -1297,9 +1297,7 @@ function showjGrowl(showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, j
 
 function showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, collapseLabel, hideAllLabel, jGrowlPosition, jGrowlWidth, jGrowlHeight, jGrowlSpeed) {
     if (!showAllLabel || !collapseLabel || !hideAllLabel) {
-        var jGrowlLabelObject = {
-            "CommonUiLabels": ["CommonHideAllNotifications", "CommonShowAll", "CommonCollapse"],
-        };
+        var jGrowlLabelObject = ["CommonHideAllNotifications", "CommonShowAll", "CommonCollapse"];
         getJSONuiLabels(jGrowlLabelObject, function (result) {
             jGrowlLabelObject = result.responseJSON.CommonUiLabels;
         });
@@ -1437,10 +1435,10 @@ function getJSONuiLabels(requiredLabels, callback) {
 
     if (requiredLabels != null && requiredLabels != "") {
         jQuery.ajax({
-            url: "getJSONuiLabelArray",
+            url: "getUiLabels",
             type: "POST",
             async: false,
-            data: {"requiredLabels" : requiredLabelsStr},
+            data: {"requiredLabels" : requiredLabelsStr, "widgetVerbose": false},
             complete: function(data) {
                 callback(data);
             }
@@ -1475,7 +1473,7 @@ function getJSONuiLabel(uiResource, errUiLabel) {
 }
 
 /**
- * Opens an alert alert box. This function is for a direct call from the ftl files where you can direcetly resolve youre labels
+ * Opens an alert box. This function is for a direct call from the ftl files where you can directly resolve your labels
  * @param errBoxTitle String - Can be empty
  * @param errMessage String - Required - i18n Error Message
  */

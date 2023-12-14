@@ -22,11 +22,9 @@ under the License.
  */
 var uiLabelJsonObject = null;
 jQuery(document).ready(function() {
-    var labelObject = {
-            "CommonUiLabels" : ["CommonUpload", "CommonSave", "CommonCompleted"]
-          };
+    var labelObject = ["CommonUpload", "CommonSave", "CommonCompleted"];
     getJSONuiLabels(labelObject, function(result){
-    	uiLabelJsonObjects = result.responseJSON;
+        uiLabelJsonObjects = result.responseJSON;
     });
     jQuery("#progress_bar").progressbar({value: 0});
 });
@@ -56,7 +54,7 @@ function uploadCompleted(){
     // to the page partyContentList
     jQuery("#partyContentList").html(iframePartyContentList);
 
-    jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[2]);
+    jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonCompleted);
     // reset progressbar
     jQuery("#progress_bar").progressbar("option", "value", 0);
 
@@ -85,7 +83,7 @@ function checkIframeStatus() {
 
 function getUploadProgressStatus(event){
     importLibrary(["/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"], function(){
-        jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUiLabels[0] + "...</span>");
+        jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUpload + "...</span>");
         var i=0;
         jQuery.fjTimer({
             interval: 1000,
@@ -105,9 +103,9 @@ function getUploadProgressStatus(event){
                          } else {
                             var readPercent = data.readPercent;
                             jQuery("#progress_bar").progressbar("option", "value", readPercent);
-                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[0] + "... (" + readPercent + "%)");
+                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUpload + "... (" + readPercent + "%)");
                             if(readPercent > 99){
-                                jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[1] + "...");
+                                jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonSave + "...");
                                 // stop the fjTimer
                                 timerId.stop();
                                 // call the upload complete method to do final stuff

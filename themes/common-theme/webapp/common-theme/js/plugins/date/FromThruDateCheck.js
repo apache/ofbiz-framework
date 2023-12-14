@@ -26,11 +26,9 @@ jQuery(document).ready( function() {
   jQuery("input[name*='thruDate']").on('focusout', checkDate);
   if (jQuery("input[name*='fromDate']").length !== 0) {
     // retrieve label for date control
-    labelObject = {
-      "CommonUiLabels" : ["CommonFromDateThruDateCheck"],
-    };
+    labelObject = ["CommonFromDateThruDateCheck"];
     getJSONuiLabels(labelObject, function(result){
-      labelObject   = result.responseJSON;
+      labelObject = result.responseJSON;
     });
   }
 });
@@ -41,7 +39,7 @@ function checkDate() {
 
   if(a.val() !="" && b.val() !="") {
     if (a.val() >= b.val()) {
-      showjGrowlMessage(labelObject.CommonUiLabels[0], 'errorMessageJGrowl', true, null, null, null, "center");
+      showjGrowlMessage(labelObject.CommonFromDateThruDateCheck, 'errorMessageJGrowl', true, null, null, null, "center");
     }
   }
 }

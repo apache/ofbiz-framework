@@ -658,6 +658,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="GetUiLabels">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="requiredLabels" value="${groovy: new groovy.json.JsonSlurper().parseText(parameters.requiredLabels)}"/>
+            </actions>
+            <widgets>
+                <platform-specific><text><html-template location="component://common-theme/template/GetUiLabels.ftl"/></text></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="EventMessages">
         <section>
