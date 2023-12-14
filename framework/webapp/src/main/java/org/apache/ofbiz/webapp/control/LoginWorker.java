@@ -338,8 +338,8 @@ public final class LoginWorker {
             if (token == null) token = (String) session.getAttribute("TOKEN");
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
-            if (username == null
-                    || (password == null && token == null)
+            if (UtilValidate.isEmpty(username)
+                    || (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token))
                     || "error".equals(login(request, response))) {
 
                 // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria
@@ -417,9 +417,9 @@ public final class LoginWorker {
             }
         }
 
-        if (username == null) username = (String) session.getAttribute("USERNAME");
-        if (password == null) password = (String) session.getAttribute("PASSWORD");
-        if (token == null) token = (String) session.getAttribute("TOKEN");
+        if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
+        if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
+        if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute;
         // this way a preprocessor can play with these a bit...
