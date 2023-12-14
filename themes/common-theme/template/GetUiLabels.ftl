@@ -1,0 +1,1 @@
+{<#list requiredLabels as label>"${label}": "${Static["org.apache.ofbiz.base.util.StringUtil"].wrapString(uiLabelMap[label])}"<#sep>,</#list>}

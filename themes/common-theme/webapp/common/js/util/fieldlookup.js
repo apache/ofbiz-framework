@@ -36,7 +36,7 @@ function getViewNameWithSeparator(view_name) {
 }
 
 function lookup_error(str_message) {
-    var CommonErrorMessage2 = getJSONuiLabel("CommonUiLabels", "CommonErrorMessage2");
+    var CommonErrorMessage2 = getJSONuiLabel("CommonErrorMessage2");
     showErrorAlert(CommonErrorMessage2, str_message);
 }
 

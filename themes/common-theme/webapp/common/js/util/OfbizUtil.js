@@ -1208,9 +1208,9 @@ function getJSONuiLabels(requiredLabels, callback) {
 
     if (requiredLabels != null && requiredLabels != "") {
         jQuery.ajax({
-            url: "getJSONuiLabelArray",
+            url: "getUiLabels",
             type: "POST",
-            data: {"requiredLabels" : requiredLabelsStr},
+            data: {"requiredLabels" : requiredLabelsStr, "widgetVerbose": false},
             complete: function(data) {
                 callback(data);
             }
@@ -1223,7 +1223,7 @@ function getJSONuiLabels(requiredLabels, callback) {
  * @param errUiLabel String
  * @returns String with Label
  */
-function getJSONuiLabel(uiResource, errUiLabel) {
+function getJSONuiLabel(errUiLabel) {
     requiredLabel = {};
     requiredLabel[uiResource] = errUiLabel;
 
@@ -1232,7 +1232,7 @@ function getJSONuiLabel(uiResource, errUiLabel) {
 
     if (requiredLabel != null && requiredLabel != "") {
         jQuery.ajax({
-            url: "getJSONuiLabel",
+            url: "getUiLabels",
             type: "POST",
             data: {"requiredLabel" : requiredLabelStr},
             success: function(data) {
@@ -1240,40 +1240,34 @@ function getJSONuiLabel(uiResource, errUiLabel) {
             }
         });
     }
-    return returnVal[arguments[0]];
+    return returnVal[errUiLabel];
 }
 
 /**
- * Opens an alert alert box with an i18n error message
+ * Opens an alert box with an i18n error message
  * @param errBoxTitleResource String - Can be empty
  * @param errBoxTitleLabel String - Can be empty
  * @param uiResource String - Required
  * @param errUiLabel String - Required
  */
-function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiResource, errUiLabel) {
-    if (uiResource == null || uiResource == "" || uiResource == undefined || errUiLabel == null || errUiLabel == "" || errUiLabel == undefined) {
+function showErrorAlertLoadUiLabel(errBoxTitleLabel, errUiLabel) {
+    if (errUiLabel == null || errUiLabel == "" || errUiLabel == undefined) {
         // No Label Information are set, Error Msg Box can't be created
         return;
     }
 
-    var labels = {};
     var useTitle = false;
     // title can only be set when the resource and the label are set
-    if (errBoxTitleResource != null && errBoxTitleResource != "" && errBoxTitleLabel != null && errBoxTitleLabel != "") {
-        // create the JSON Object
-        if (errBoxTitleResource == uiResource) {
-            labels[errBoxTitleResource] = [errBoxTitleLabel, errUiLabel];
-        } else {
-            labels[errBoxTitleResource] = [errBoxTitleLabel];
-            labels[uiResource] = [errUiLabel];
-        }
+    var labels  = [errUiLabel]
+    var mapLabels = {}
+    if (errBoxTitleLabel != null && errBoxTitleLabel != "") {
         useTitle = true;
-    } else {
-        labels[uiResource] = [errUiLabel];
+        labels.add(errBoxTitleLabel)
     }
+
     // request the labels
     getJSONuiLabels(labels, function(result){
-        labels = result.responseJSON;
+        mapLabels = result.responseJSON;
     });
 
     var errMsgBox = jQuery("#contentarea").after(jQuery("<div id='errorAlertBox'></div>"));
@@ -1283,17 +1277,13 @@ function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiReso
             modal: true,
             title: function() {
                 if (useTitle) {
-                    return labels[errBoxTitleResource][0]
+                    return mapLabels[errBoxTitleLabel]
                 } else {
                     return ""
                 }
             },
             open : function() {
-                var positionInArray = 0;
-                if (errBoxTitleResource == uiResource) {
-                    positionInArray = 1;
-                }
-                errMsgBox.html(labels[uiResource][positionInArray]);
+                errMsgBox.html(mapLabels[errUiLabel]);
             },
             buttons: {
                 Ok: function() {
@@ -1303,12 +1293,12 @@ function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiReso
             }
         });
     } else {
-      alert(labels[uiResource][0]);
+      alert(mapLabels[errUiLabel]);
     }
 }
 
 /**
- * Opens an alert alert box. This function is for a direct call from the ftl files where you can direcetly resolve youre labels
+ * Opens an alert box. This function is for a direct call from the ftl files where you can directly resolve your labels
  * @param errBoxTitle String - Can be empty
  * @param errMessage String - Required - i18n Error Message
  */

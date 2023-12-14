@@ -31,7 +31,7 @@ function checkDate() {
 
   if(a.val() !="" && b.val() !="") {
     if (a.val() >= b.val()) {
-      showErrorAlertLoadUiLabel("", "", "CommonUiLabels", "CommonFromDateThruDateCheck")
+      showErrorAlertLoadUiLabel("", "CommonFromDateThruDateCheck")
     }
   }
 }
