@@ -146,6 +146,7 @@ under the License.
             <screen name="ajaxNotLoggedIn"/>
             <screen name="requirePasswordChange"/>
             <screen name="forgotPassword"/>
+            <screen name="GetUiLabels"/>
             <screen name="help"/>
             <screen name="viewBlocked"/>
             <screen name="TimeDuration" location="component://common-theme/widget/LookupScreens.xml"/>

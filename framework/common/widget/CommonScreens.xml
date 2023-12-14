@@ -282,6 +282,14 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="GetUiLabels">
+        <section>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="GetUiLabels" location="${groovy:commonScreenLocations.GetUiLabels?commonScreenLocations.GetUiLabels:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
 
     <screen name="EventMessages">
         <section>
