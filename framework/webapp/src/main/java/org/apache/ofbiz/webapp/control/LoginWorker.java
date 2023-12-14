@@ -335,9 +335,9 @@ public class LoginWorker {
             password = request.getParameter("PASSWORD");
             token = request.getParameter("TOKEN");
             // check session attributes
-            if (username == null) username = (String) session.getAttribute("USERNAME");
-            if (password == null) password = (String) session.getAttribute("PASSWORD");
-            if (token == null) token = (String) session.getAttribute("TOKEN");
+            if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
+            if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
+            if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if (UtilValidate.isEmpty(username)
