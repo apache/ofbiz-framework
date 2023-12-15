@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
@@ -158,6 +159,9 @@ public class ControlFilter extends HttpFilter {
                     return;
                 }
             }
+
+            // normalize to remove ".." special name usage to bypass webapp filter
+            uri = Paths.get(uri).normalize().toString();
 
             // Check if the requested URI is allowed.
             if (allowedPaths.stream().anyMatch(uri::startsWith)) {
