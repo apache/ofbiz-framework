@@ -527,7 +527,7 @@ public class LoginWorker {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return requirePasswordChange ? "requirePasswordChange" : "error";
+            return "error";
         }
     }
 
