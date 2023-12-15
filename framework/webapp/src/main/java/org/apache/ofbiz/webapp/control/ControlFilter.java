@@ -19,6 +19,7 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -130,6 +131,9 @@ public class ControlFilter implements Filter {
             // check to make sure the requested url is allowed
             // get the request URI without the webapp mount point
             String requestUri = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+
+            // normalize to remove ".." special name usage to bypass webapp filter
+            requestUri = Paths.get(requestUri).normalize().toString();
             int offset = requestUri.indexOf("/", 1);
             if (offset == -1) {
                 offset = requestUri.length();
