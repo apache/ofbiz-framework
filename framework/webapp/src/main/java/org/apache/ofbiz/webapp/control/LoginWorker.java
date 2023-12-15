@@ -610,7 +610,7 @@ public final class LoginWorker {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return requirePasswordChange ? "requirePasswordChange" : "error";
+            return "error";
         }
     }
 
