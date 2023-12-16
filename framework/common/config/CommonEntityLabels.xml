@@ -21971,24 +21971,12 @@
         <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
         <value xml:lang="zh-TW">印第安戰斧:下拉多級風格的演化版</value>
     </property>
-        <property key="VisualTheme.description.MANDARA_AMBER">
-        <value xml:lang="en">: Mandara theme in orange</value>
-        <value xml:lang="fr"> : le thème RaMandarainbowstone en orange</value>
+    <property key="VisualTheme.description.MANDARA_DARK">
+        <value xml:lang="en">: Mandara theme in dark mode</value>
+        <value xml:lang="fr"> : le thème mandara en mode dark</value>
     </property>
-        <property key="VisualTheme.description.MANDARA_RUBY">
-        <value xml:lang="en">: Mandara theme in red</value>
-        <value xml:lang="fr"> : le thème Mandara en rouge</value>
-    </property>
-        <property key="VisualTheme.description.MANDARA_EMERALD">
-        <value xml:lang="en">: Mandara theme in green</value>
-        <value xml:lang="fr"> : le thème Mandara en vert</value>
-    </property>
-        <property key="VisualTheme.description.MANDARA_SAPHIR">
-        <value xml:lang="en">: Mandara theme in blue</value>
-        <value xml:lang="fr"> : le thème Mandara en bleu</value>
-    </property>
-        <property key="VisualTheme.description.MANDARA_KAPSIKI">
-        <value xml:lang="en">: Mandara theme in kapsiki branding</value>
-        <value xml:lang="fr"> : le thème Mandara par defaut de kapsiki</value>
+    <property key="VisualTheme.description.MANDARA_LIGHT">
+        <value xml:lang="en">: Mandara theme in light mode</value>
+        <value xml:lang="fr"> : le thème mandara en mode light</value>
     </property>
 </resource>

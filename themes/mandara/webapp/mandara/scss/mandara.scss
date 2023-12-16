@@ -18,9 +18,13 @@
  *******************************************************************************/
 
 /**COMMON COLOR**/
-$grey-lighter: #f2f3f7;
-$grey-light: #dfe0e4;
+$blue: #3699ff;
+$blue-light: #e1f0ff;
+$blue-dark: #5d5f69;
+
 $grey: #b3b3b3;
+$grey-light: #dfe0e4;
+$grey-lighter: #f2f3f7;
 $grey-medium: #d7dae7;
 $grey-dark: #3f4254;
 $grey-darker: #181c32;
@@ -39,27 +43,7 @@ $shadow-color: rgba(72, 90, 117, 0.05);
 
 /************************************************/
 
-/* SAPHIR colors */
-$blue: #3699ff;
-$blue-light: #e1f0ff;
-$blue-dark: #5d5f69;
-
-/* RUBY colors */
-$red: #f65644;
-$red-light: #ffe2e5;
-$red-dark: #382a28;
-
-/* EMERALD colors */
-$green: #1bc5bd;
-$green-light: #dcfffd;
-$green-dark: #133d3b;
-
-/* AMBER colors */
-$yellow: #ffa800;
-$yellow-light: #fff4de;
-$yellow-dark: #574217;
-
-/* KAPSIKI colors */
+/* DARK colors */
 $kapsiki-color-primary: #4267b2;
 $kapsiki-color-secondary: #ff7c4c;
 $kapsiki-blue: #315a7d;
@@ -73,5 +57,6 @@ $light-color-theme: $blue-light;
 $main-color-theme: $kapsiki-color-secondary;
 $dark-color-theme: $blue-dark;
 
-/* include main less theme file */
-@import 'mandara-main-theme.scss';
+/* include main scss theme file */
+/*@import 'mandara-main-theme.scss';*/
+@import 'pages/_login.scss';

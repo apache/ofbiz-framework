@@ -17,16 +17,61 @@
  * under the License.
  *******************************************************************************/
 
-/* Mandara SAPHIR colors */
+/**COMMON COLOR**/
+$grey-lighter: #f2f3f7;
+$grey-light: #dfe0e4;
+$grey: #b3b3b3;
+$grey-medium: #d7dae7;
+$grey-dark: #3f4254;
+$grey-darker: #181c32;
+
+$danger: #f65644;
+$dangerLight: #fedfdf;
+$success: #1bc5bd;
+$successLight: #c9f7f5;
+$warning: #ff9100;
+$warningLight: #fff6ec;
+
+$font-color-for-dark: $grey;
+$font-color-for-main: $grey-darker;
+$border-color: $grey-light;
+$shadow-color: rgba(72, 90, 117, 0.05);
+
+/************************************************/
+
+/* SAPHIR colors */
 $blue: #3699ff;
 $blue-light: #e1f0ff;
 $blue-dark: #5d5f69;
 
-$header-color: $blue;
-$footer-color: $blue;
+/* RUBY colors */
+$red: #f65644;
+$red-light: #ffe2e5;
+$red-dark: #382a28;
+
+/* EMERALD colors */
+$green: #1bc5bd;
+$green-light: #dcfffd;
+$green-dark: #133d3b;
+
+/* AMBER colors */
+$yellow: #ffa800;
+$yellow-light: #fff4de;
+$yellow-dark: #574217;
+
+/* KAPSIKI colors */
+$kapsiki-color-primary: #4267b2;
+$kapsiki-color-secondary: #ff7c4c;
+$kapsiki-blue: #315a7d;
+$kapsiki-blue-light: #2998ff;
+$kapsiki-blue-dark: #1e3f66;
+
+/* mandara theme */
+$header-color: $kapsiki-color-primary;
+$footer-color: $kapsiki-color-primary;
 $light-color-theme: $blue-light;
-$main-color-theme: $blue;
+$main-color-theme: $kapsiki-color-secondary;
 $dark-color-theme: $blue-dark;
 
-/* include main less theme file */
+/* include main scss theme file */
 @import 'mandara-main-theme.scss';
