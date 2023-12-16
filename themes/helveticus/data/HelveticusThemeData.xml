@@ -19,8 +19,11 @@ under the License.
 -->
 
 <entity-engine-xml>
+    <!-- gkouete: Commenting out the theme(s), so they won't show up in the theme selection list in the UI -->
+    <!--
     <VisualTheme visualThemeId="HELVETICUS_SAPHIR" visualThemeSetId="BACKOFFICE" description="Helveticus - Sapphire"/>
     <VisualTheme visualThemeId="HELVETICUS_RUBY" visualThemeSetId="BACKOFFICE" description="Helveticus - Ruby"/>
     <VisualTheme visualThemeId="HELVETICUS_EMERALD" visualThemeSetId="BACKOFFICE" description="Helveticus - Emerald"/>
     <VisualTheme visualThemeId="HELVETICUS_AMBER" visualThemeSetId="BACKOFFICE" description="Helveticus - Amber"/>
+    -->
 </entity-engine-xml>

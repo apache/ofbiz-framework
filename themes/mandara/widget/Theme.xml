@@ -22,25 +22,13 @@ under the License.
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
     <visual-themes>
-        <visual-theme id="MANDARA_SAPHIR" display-name="Mandara - Saphir">
-            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_SAPHIR', locale)}</description>
-            <screenshot location="/mandara/images/screenshots/themeMandara_saphir.png"/>
+        <visual-theme id="MANDARA_DARK" display-name="Mandara - Dark Theme">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_DARK', locale)}</description>
+            <screenshot location="/mandara/images/screenshots/themeMandara_dark.png"/>
         </visual-theme>
-        <visual-theme id="MANDARA_AMBER" display-name="Mandara - Amber">
-            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_AMBER', locale)}</description>
-            <screenshot location="/mandara/images/screenshots/themeMandara_amber.png"/>
-        </visual-theme>
-        <visual-theme id="MANDARA_RUBY" display-name="Mandara - Ruby">
-            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_RUBY', locale)}</description>
-            <screenshot location="/mandara/images/screenshots/themeMandara_ruby.png"/>
-        </visual-theme>
-        <visual-theme id="MANDARA_EMERALD" display-name="Mandara - Emerald">
-            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_EMERALD', locale)}</description>
-            <screenshot location="/mandara/images/screenshots/themeMandara_emerald.png"/>
-        </visual-theme>
-        <visual-theme id="MANDARA_KAPSIKI" display-name="Mandara - Kapsiki">
-            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_EMERALD', locale)}</description>
-            <screenshot location="/mandara/images/screenshots/themeMandara_kapsiki.png"/>
+        <visual-theme id="MANDARA_LIGHT" display-name="Mandara - Light Theme">
+            <description>${util:label('CommonEntityLabels', 'VisualTheme.description.MANDARA_LIGHT', locale)}</description>
+            <screenshot location="/mandara/images/screenshots/themeMandara_light.png"/>
         </visual-theme>
     </visual-themes>
 
@@ -66,6 +54,9 @@ under the License.
         <property name="VT_STYLESHEET['add']" value="/mandara/css/javascript.css"/>
         <property name="VT_RTL_STYLESHEET['add']" value="/mandara/css/stylertl.css"/>
         <property name="VT_HELPSTYLESHEET['add']" value="/mandara/css/help.css"/>
+        <!-- gkouete: temporarily adding up a style as long as mandara is under dev 
+             so the original mandara style from helveticus will be kept applied -->
+        <property name="VT_STYLESHEET['add']" value="/mandara/css/helveticus_style.css"/>
         <property name="VT_STYLESHEET['add']" value="/mandara/css/style.css"/>
     </theme-properties>
 

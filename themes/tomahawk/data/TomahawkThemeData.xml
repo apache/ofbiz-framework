@@ -19,5 +19,8 @@ under the License.
 -->
 
 <entity-engine-xml>
+  <!-- gkouete: Commenting out the theme(s), so they won't show up in the theme selection list in the UI -->
+  <!--
     <VisualTheme visualThemeId="TOMAHAWK" visualThemeSetId="BACKOFFICE" description="Tomahawk: the evolution of the BlueLight theme"/>
+  -->
 </entity-engine-xml>

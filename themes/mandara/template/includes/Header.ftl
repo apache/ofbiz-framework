@@ -41,12 +41,15 @@ under the License.
     <link rel="icon" sizes="64x64" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+"-64.png"}</@ofbizContentUrl>" type="image/png">
     <link rel="icon" sizes="96x96" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+"-96.png"}</@ofbizContentUrl>" type="image/png">
 </#if>
+<#-- gkouete / Bugfix UIOPT-60: Ensuring ofbiz won't force the theme to include some inexisting less scripts by commenting out the following section -->
+<#--
 <#if layoutSettings.VT_STYLESHEET_LESS?has_content>
     <#list layoutSettings.VT_STYLESHEET_LESS as styleSheet>
         <link rel="stylesheet/less" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
     </#list>
 </#if>
 <link rel="stylesheet/less" href="<@ofbizContentUrl>/mandara/${visualTheme.visualThemeId}.less</@ofbizContentUrl>" type="text/css"/>
+-->
 <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
     <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
         <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>

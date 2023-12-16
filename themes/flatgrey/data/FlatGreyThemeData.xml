@@ -19,5 +19,8 @@ under the License.
 -->
 
 <entity-engine-xml>
+  <!-- gkouete: Commenting out the theme(s), so they won't show up in the theme selection list in the UI -->
+  <!--
     <VisualTheme visualThemeId="FLAT_GREY" visualThemeSetId="BACKOFFICE" description="Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional"/>
+  -->
 </entity-engine-xml>
