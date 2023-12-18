@@ -25,7 +25,7 @@ under the License.
     <Geo abbreviation="AS" geoCode="AS" geoId="IN-AS" geoName="Assam" geoTypeId="STATE"/>
     <Geo abbreviation="BR" geoCode="BR" geoId="IN-BR" geoName="Bihār" geoTypeId="STATE"/>
     <Geo abbreviation="CH" geoCode="CH" geoId="IN-CH" geoName="Chandigarh" geoTypeId="TERRITORY"/>
-    <Geo abbreviation="CT" geoCode="CT" geoId="IN-CT" geoName="Chhattīsgarh" geoTypeId="STATE"/>
+    <Geo abbreviation="CG" geoCode="CG" geoId="IN-CT" geoName="Chhattīsgarh" geoTypeId="STATE"/>
     <Geo abbreviation="DD" geoCode="DD" geoId="IN-DH" geoName="Dādra and Nagar Haveli and Damān and Diu" geoTypeId="TERRITORY"/>
     <Geo abbreviation="DL" geoCode="DL" geoId="IN-DL" geoName="Delhi" geoTypeId="TERRITORY"/>
     <Geo abbreviation="GA" geoCode="GA" geoId="IN-GA" geoName="Goa" geoTypeId="STATE"/>
@@ -44,16 +44,16 @@ under the License.
     <Geo abbreviation="ML" geoCode="ML" geoId="IN-ML" geoName="Meghālaya" geoTypeId="STATE"/>
     <Geo abbreviation="MZ" geoCode="MZ" geoId="IN-MZ" geoName="Mizoram" geoTypeId="STATE"/>
     <Geo abbreviation="NL" geoCode="NL" geoId="IN-NL" geoName="Nāgāland" geoTypeId="STATE"/>
-    <Geo abbreviation="OR" geoCode="OR" geoId="IN-OR" geoName="Odisha" geoTypeId="STATE"/>
+    <Geo abbreviation="OD" geoCode="OD" geoId="IN-OR" geoName="Odisha" geoTypeId="STATE"/>
     <Geo abbreviation="PY" geoCode="PY" geoId="IN-PY" geoName="Puducherry" wellKnownText="Pondicherry" geoTypeId="TERRITORY"/>
     <Geo abbreviation="PB" geoCode="PB" geoId="IN-PB" geoName="Punjab" geoTypeId="STATE"/>
     <Geo abbreviation="RJ" geoCode="RJ" geoId="IN-RJ" geoName="Rājasthān" geoTypeId="STATE"/>
     <Geo abbreviation="SK" geoCode="SK" geoId="IN-SK" geoName="Sikkim" geoTypeId="STATE"/>
     <Geo abbreviation="TN" geoCode="TN" geoId="IN-TN" geoName="Tamil Nādu" geoTypeId="STATE"/>
-    <Geo abbreviation="TG" geoCode="TG" geoId="IN-TG" geoName="Telangāna" geoTypeId="STATE"/>
+    <Geo abbreviation="TS" geoCode="TS" geoId="IN-TG" geoName="Telangāna" geoTypeId="STATE"/>
     <Geo abbreviation="TR" geoCode="TR" geoId="IN-TR" geoName="Tripura" geoTypeId="STATE"/>
     <Geo abbreviation="UP" geoCode="UP" geoId="IN-UP" geoName="Uttar Pradesh" geoTypeId="STATE"/>
-    <Geo abbreviation="UT" geoCode="UT" geoId="IN-UT" geoName="Uttarākhand" geoTypeId="STATE"/>
+    <Geo abbreviation="UK" geoCode="UK" geoId="IN-UT" geoName="Uttarākhand" geoTypeId="STATE"/>
     <Geo abbreviation="WB" geoCode="WB" geoId="IN-WB" geoName="West Bengal" geoTypeId="STATE"/>
 
     <GeoAssoc geoId="IND" geoIdTo="IN-AN" geoAssocTypeId="REGIONS"/>
