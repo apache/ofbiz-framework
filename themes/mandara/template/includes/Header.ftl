@@ -48,7 +48,7 @@ under the License.
         <link rel="stylesheet/less" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
     </#list>
 </#if>
-<link rel="stylesheet/less" href="<@ofbizContentUrl>/mandara/${visualTheme.visualThemeId}.less</@ofbizContentUrl>" type="text/css"/>
+
 -->
 <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
     <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
@@ -102,4 +102,11 @@ under the License.
     </#list>
       </script>
 </#if>
+
+<#-- 
+   DJIMDJIO: This line links to the currently selected Visual theme. 
+    The 'visualTheme.visualThemeId' value corresponds to an ID found in the 'MandaraThemeData.xml' file located in the 'mandara/data' directory. 
+    For Example <VisualTheme visualThemeId="MANDARA_LIGHT" visualThemeSetId="BACKOFFICE" description="MANDARA - Light Theme"/>
+-->
+<link rel="stylesheet" href="<@ofbizContentUrl>/mandara/css/${visualTheme.visualThemeId}.css</@ofbizContentUrl>" type="text/css"/>
 </head>

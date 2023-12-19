@@ -1,0 +1,12 @@
+
+/* 
+   The styles defined in this file are used to override the default compiled styles. 
+   The purpose of these overrides is to transform the application's theme into a dark mode. 
+*/
+#footer {
+  background: #382a28;
+}
+
+#main-navigation-bar {
+  background-color: #382a28;
+}
