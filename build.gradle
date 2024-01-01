@@ -948,7 +948,7 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
         }
     }
 }
-
+/* The pullPluginSource and pullPluginSource task are now replaced by the OS scripts pullPluginSource and pullAllPluginsSource
 task pullPluginSource(group: ofbizPlugin, description: 'Download and install a plugin from source control') {
 
     if (project.hasProperty('pluginId')) {
@@ -999,7 +999,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
     doLast {
         gradlewSubprocess(['installAllPlugins'])
     }
-}
+}*/
 
 // ========== Clean up tasks ==========
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') {
