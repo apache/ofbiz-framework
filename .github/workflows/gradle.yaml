@@ -38,10 +38,12 @@ jobs:
         java-version: 17
         distribution: temurin
         cache: 'gradle'
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - name: Grant execute permission for gradlew and pullAllPluginsSource.sh
+      run: chmod +x gradlew pullAllPluginsSource.sh
+    - name: Load all plugins
+      run: ./pullAllPluginsSource.sh
     - name: Build with Gradle
-      run: ./gradlew pullAllPluginsSource check javadoc
+      run: ./gradlew check javadoc
 # Below does not work, see see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
 # BuildBot does it anyway
 #     - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
