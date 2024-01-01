@@ -18,6 +18,7 @@ under the License.
 ////
 [[apache-ofbiz]]
 = Apache OFBiz®
+The Apache OFBiz Project
 
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
 image:https://img.shields.io/badge/Version-release18.12-green.svg[link=https://github.com/apache/ofbiz-framework/tree/release18.12]
@@ -678,23 +679,24 @@ If you need username and password to access the custom repository:
 === Pull an official plugin from source control
 
 Download an official plugin from source control and place it in the plugins directory.
-In addition, this task also executes the "install" task if it is defined for the plugin being downloaded.
+It's able to handle branches switches
 
-This task is mostly useful when working on the trunk branch as it pulls in the
-latest version of a plugin.
+MS Windows: `pullPluginSource example` +
+Unix-like OS: `./pullPluginSource.sh example`
 
-`gradlew pullPluginSource -PpluginId=ecommerce`
-
-________________________________________________________________________________________
 [[pull-all-official-plugins-from-source-control]]
 === Pull all official plugins from source control
 
 Download all officially supported plugins from source control (currently
-subversion) and place them in /plugins.
+git) and place them in /plugins.
+It's able to handle branches switches
+
 WARNING! This task deletes the /plugins directory and replaces it with the
 official plugins.
 
-`gradlew pullAllPluginsSource`
+MS Windows: `pullAllPluginsSource` +
+Unix-like OS: `./pullAllPluginsSource.sh`
+
 
 This task makes it easy to download and develop officially supported plugins. It
 is mostly used by developers or individuals working on the trunk branch. We do
@@ -794,9 +796,9 @@ as a replacement for both "special-purpose" and "hot-deploy".
 If you need to load the components in the plugins directory in a specific order
 place a component-load.xml file in the plugins directory listing the order.
 
-To check out a plugin from source control use the *pullPluginSource* Gradle
-task. To check out all plugins from source control use the
-*pullAllPluginsSource*. *Beware* this deletes a previously existing plugins
+To check out a plugin from source control use the Windows or Unix-like *pullPluginSource* script.
+To check out all plugins from source control use the
+*pullAllPluginsSource* script. *Beware* this deletes a previously existing plugins
 directory.
 
 [[running-gradle-tasks-without-an-internet-connection]]
