@@ -15,7 +15,7 @@
 
 
 # This workflow will check style in OFBiz with its plugins
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+# For more information see: https://github.com/actions/setup-java
 
 name: Java CI with Gradle
 
@@ -36,10 +36,13 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+        cache: 'gradle'
+    - name: Grant execute permission for gradlew and pullAllPluginsSource.sh
+      run: chmod +x gradlew pullAllPluginsSource.sh
+    - name: Load all plugins
+      run: ./pullAllPluginsSource.sh
     - name: Build with Gradle
-      run: ./gradlew pullAllPluginsSource check      
+      run: ./gradlew check javadoc
 # Below does not work, see https://lists.apache.org/thread/80wzf4kclfk5nh2fss56jd6otf7y4n2f
 #     - name: Builds with Gradle, checks style and run integration tests (just to know if they pass)
 #       run: ./gradlew pullAllPluginsSource check loadAll testIntegration
