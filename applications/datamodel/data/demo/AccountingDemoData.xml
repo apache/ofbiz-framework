@@ -863,6 +863,7 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6100" periodTypeId="FISCAL_YEAR" fromDate="2021-01-01 00:00:00.000" thruDate="2022-01-01 00:00:00.000" isClosed="N" periodNum="13" periodName="FY2021"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6200" periodTypeId="FISCAL_YEAR" fromDate="2022-01-01 00:00:00.000" thruDate="2023-01-01 00:00:00.000" isClosed="N" periodNum="14" periodName="FY2022"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6300" periodTypeId="FISCAL_YEAR" fromDate="2023-01-01 00:00:00.000" thruDate="2024-01-01 00:00:00.000" isClosed="N" periodNum="15" periodName="FY2023"/>
+    <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6400" periodTypeId="FISCAL_YEAR" fromDate="2024-01-01 00:00:00.000" thruDate="2025-01-01 00:00:00.000" isClosed="N" periodNum="15" periodName="FY2024"/>
 
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="4921" periodTypeId="FISCAL_QUARTER" fromDate="2009-01-01 00:00:00.000" thruDate="2009-04-01 00:00:00.000" isClosed="N" periodNum="1" periodName="2009/Q1" parentPeriodId="4900"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="4922" periodTypeId="FISCAL_QUARTER" fromDate="2009-04-01 00:00:00.000" thruDate="2009-07-01 00:00:00.000" isClosed="N" periodNum="2" periodName="2009/Q2" parentPeriodId="4900"/>
@@ -1651,7 +1652,7 @@ under the License.
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
                    inventoryItemId="9030" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="MAT_B_COST" ownerPartyId="Company" currencyUomId="USD" unitCost="7.0"/>
     <InventoryItemDetail inventoryItemId="9030" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="20" quantityOnHandDiff="20" accountingQuantityDiff="20"/>
-    
+
     <!-- defaut template screen use for Company -->
     <CustomScreen customScreenId="DEFAULT_INV_TPL" customScreenTypeId="CST_INVOICE_TPL" customScreenName="DefaultInvoicePDF" customScreenLocation="component://accounting/widget/AccountingPrintScreens.xml"/>
     <PartyPrefDocTypeTpl partyPrefDocTypeTplId="InvTplInvoice" partyId="Company" fromDate="2001-05-13 00:00:00" invoiceTypeId="INVOICE" customScreenId="DEFAULT_INV_TPL"/>
