@@ -39,13 +39,16 @@ fi
 
 # Add the plugin
 git sparse-checkout add "$1"
+
+# Get the branch used in framework
+cd ..
 git branch --show-current > temp.txt
 branch=$(cat temp.txt)
 rm temp.txt
 
 # By default the clone branch is trunk
-if [ ! trunk == "$branch" ]
+if [ ! "$branch" = trunk ]
     then
-        call git switch -c "$1" --track origin/"$1"
+        git switch "$branch"
 fi
 cd ..
