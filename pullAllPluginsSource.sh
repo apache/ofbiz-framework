@@ -22,6 +22,7 @@ if [ -d "plugins" ]
         rm -rf plugins
 fi
 
+# Get the branch used by the framework
 git branch --show-current > temp.txt
 branch=$(cat temp.txt)
 rm temp.txt
@@ -30,9 +31,9 @@ git clone https://github.com/apache/ofbiz-plugins.git plugins
 cd plugins
 
 # By default the clone branch is trunk
-if [ ! trunk == "$branch" ]
+if [ ! $branch = trunk ]
     then
-        git switch -c "$branch" --track origin/"$branch"
+        git switch "$branch"
 fi
 
 # remove .git, in this case it's big useless information
