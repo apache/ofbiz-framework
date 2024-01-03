@@ -33,7 +33,7 @@ cd plugins
 # By default the clone branch is trunk
 if [ ! $branch = trunk ]
     then
-        git switch -C "$branch"
+        git switch "$branch"
 fi
 
 # remove .git, in this case it's big useless information
