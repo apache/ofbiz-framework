@@ -681,28 +681,34 @@ If you need username and password to access the custom repository:
 Download an official plugin from source control and place it in the plugins directory.
 It's able to handle branches switches
 
+[IMPORTANT]
+====
+You need to use the last Git version, at least a 2.26 version
+====
+
+
 MS Windows: `pullPluginSource example` +
 Unix-like OS: `./pullPluginSource.sh example`
 
 [[pull-all-official-plugins-from-source-control]]
 === Pull all official plugins from source control
 
-Download all officially supported plugins from source control (currently
-git) and place them in /plugins.
+Download all officially supported plugins from source control and place them in /plugins.
 It's able to handle branches switches
 
-WARNING! This task deletes the /plugins directory and replaces it with the
-official plugins.
+[CAUTION]
+====
+ This task deletes the /plugins directory and replaces it with the official plugins.
+====
+
+[IMPORTANT]
+====
+You need to use the last Git version, at least a 2.26 version
+====
 
 MS Windows: `pullAllPluginsSource` +
 Unix-like OS: `./pullAllPluginsSource.sh`
 
-
-This task makes it easy to download and develop officially supported plugins. It
-is mostly used by developers or individuals working on the trunk branch. We do
-not recommend using this task on releases of OFBiz, instead consider using the
-"pullPlugin" task to get the correct version of a plugin compatible with your
-release.
 
 [[install-a-plugin]]
 === Install a plugin
