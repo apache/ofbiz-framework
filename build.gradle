@@ -17,7 +17,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.AsciidoctorTask
 
@@ -42,7 +41,6 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'at.bxm.svntools'
 apply plugin: 'org.asciidoctor.convert'
 apply plugin: 'checkstyle'
 
@@ -964,51 +962,6 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
         }
     }
 }
-/* The pullPluginSource and pullPluginSource task are now replaced by the OS scripts pullPluginSource and pullAllPluginsSource
-task pullPluginSource(group: ofbizPlugin, description: 'Download and install a plugin from source control') {
-
-    if (project.hasProperty('pluginId')) {
-        task pullPluginFromSvn(type: SvnCheckout) {
-            svnUrl = "https://github.com/apache/ofbiz-plugins/branches/release18.12/${pluginId}"
-            workspaceDir = "${pluginsDir}/${pluginId}"
-        }
-        dependsOn pullPluginFromSvn
-    }
-    doLast {
-        gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
-    }
-}
-
-task pullAllPluginsSource(group: ofbizPlugin,
-        description: 'Download and install all plugins from source control. Warning! deletes existing plugins') {
-
-    task deleteBeforePulling {
-        doLast { delete "${pluginsDir}" }
-    }
-    task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
-        svnUrl = "https://github.com/apache/ofbiz-plugins/branches/release18.12"
-        workspaceDir = "${pluginsDir}"
-    }
-    dependsOn pullPluginsFromSvn
-
-    task installAllPlugins {
-        file("${pluginsDir}").eachDir { plugin ->
-            iterateOverActiveComponents { component ->
-                if (component.name == plugin.name) {
-                    if (subprojectExists(":plugins:${plugin.name}")) {
-                        if (taskExistsInproject(":plugins:${plugin.name}", 'install')) {
-                            dependsOn ":plugins:${plugin.name}:install"
-                            doLast { println "installed plugin ${plugin.name}" }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    doLast {
-        gradlewSubprocess(['installAllPlugins'])
-    }
-}*/
 
 // ========== Clean up tasks ==========
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') {

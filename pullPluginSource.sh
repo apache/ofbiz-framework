@@ -17,28 +17,26 @@
 # under the License.
 
 
-# Remove plugins dir in case of all plugins present
+# Remove plugins dir in case of all plugins present (no .git)
 if [ -d "plugins" ]
     then
-        if [ ! -d "plugins\.git" ]
+        if [ ! -d "plugins/.git" ]
         then
             rm -rf plugins
         fi
 fi
 
-# Clone if new else simply init sparse-checkout
-if [ ! -d "plugins\.git" ]
+# Clone and set if new else simply add
+if [ ! -d "plugins/.git" ]
     then
-        git clone --filter=blob:none --sparse https://github.com/apache/ofbiz-plugins.git plugins
+        git clone --depth=1 --sparse https://github.com/apache/ofbiz-plugins.git plugins
         cd plugins
+        git sparse-checkout set "$1"
 else
     cd plugins
-    # the documentation says init is deprecated but set does work here: https://git-scm.com/docs/git-sparse-checkout
-    git sparse-checkout init --cone --sparse-index
+    git sparse-checkout add "$1"
 fi
 
-# Add the plugin
-git sparse-checkout add "$1"
 
 # Get the branch used in framework
 cd ..
@@ -46,9 +44,10 @@ git branch --show-current > temp.txt
 branch=$(cat temp.txt)
 rm temp.txt
 
-# By default the clone branch is trunk
+# By default the cloned branch is trunk, switch if necessary
 if [ ! "$branch" = trunk ]
     then
+        cd plugins
         git switch -C "$branch"
+        cd ..
 fi
-cd ..
