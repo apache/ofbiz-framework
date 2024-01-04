@@ -18,31 +18,31 @@ rem specific language governing permissions and limitations
 rem under the License.
 rem #####################################################################
 
-rem Remove plugins dir in case of all plugins present
+rem Remove plugins dir in case of all plugins present (no .git)
 if EXIST plugins\ (
     if NOT EXIST plugins\.git\ (
         cmd /c rd/s/q plugins
     )
 )
-rem Clone if new else simply init sparse-checkout
+rem Clone and set if new else simply add
 if NOT EXIST plugins\.git\ (
-    git clone --filter=blob:none --sparse https://github.com/apache/ofbiz-plugins.git plugins
-    cd plugins
+        git clone --depth=1 --sparse https://github.com/apache/ofbiz-plugins.git plugins
+        cd plugins
+        git sparse-checkout set %1
 ) else (
     cd plugins
-    rem the documentation says init is deprecated but set does work here: https://git-scm.com/docs/git-sparse-checkout
-    git sparse-checkout init --cone --sparse-index
+    git sparse-checkout add %1
 )
 
-rem Add the plugin
-git sparse-checkout add %1
-
-
+rem Get the branch used in framework
+cd ..
 git branch --show-current > temp.txt
 set /p branch=<temp.txt
 del temp.txt
-rem By default the clone branch is trunk
+
+rem By default the cloned branch is trunk, switch if necessary
 if NOT trunk == %branch% (
-    call git switch -c %1 --track origin/%1
+        cd plugins
+        git switch -C %branch%
+        cd ..
 )
-cd ..

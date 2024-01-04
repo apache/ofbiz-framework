@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
@@ -29,7 +28,6 @@ plugins {
     id 'eclipse'
     id 'checkstyle'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '3.1'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
     id 'org.asciidoctor.jvm.pdf' version '3.3.2'
     id 'org.owasp.dependencycheck' version '7.4.4' apply false
@@ -948,25 +946,6 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
         }
     }
 }
-/* The pullPluginSource and pullPluginSource task are now replaced by the OS scripts pullPluginSource and pullAllPluginsSource
-task pullPluginSource(group: ofbizPlugin, description: 'Download and install a plugin from source control') {
-
-    if (project.hasProperty('pluginId')) {
-        // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
-        task pullPluginFromSvn(type: SvnCheckout) {
-            def currentBranch = getCurrentGitBranch()
-            if (currentBranch == "trunk") {
-                svnUrl = "https://github.com/apache/ofbiz-plugins/trunk/${pluginId}"
-            } else {
-                svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch + "/${pluginId}"
-            }
-            workspaceDir = "${pluginsDir}/${pluginId}"
-        }
-        dependsOn pullPluginFromSvn
-    }
-    doLast {
-        gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
-    }
 }
 
 task pullAllPluginsSource(group: ofbizPlugin,
