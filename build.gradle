@@ -946,39 +946,6 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
         }
     }
 }
-}
-
-task pullAllPluginsSource(group: ofbizPlugin,
-        description: 'Download and install all plugins from source control. Warning! deletes existing plugins') {
-
-    task deleteBeforePulling {
-        doLast { delete "${pluginsDir}" }
-    }
-    task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
-        // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
-        def currentBranch = getCurrentGitBranch()
-        if (currentBranch == "trunk") {
-            svnUrl = "https://github.com/apache/ofbiz-plugins/trunk"
-        } else {
-            svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch
-        }
-        workspaceDir = "${pluginsDir}"
-    }
-    dependsOn pullPluginsFromSvn
-
-    task installAllPlugins {
-        subdirs(file("${pluginsDir}"))
-            .filter(this.isComponentEnabled)
-            .filter { taskExistsInproject(":plugins:${it.name}", 'install') }
-            .forEach({ plugin ->
-                dependsOn ":plugins:${plugin.name}:install"
-                doLast { println "installed plugin ${plugin.name}" }
-            })
-    }
-    doLast {
-        gradlewSubprocess(['installAllPlugins'])
-    }
-}*/
 
 // ========== Clean up tasks ==========
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') {
