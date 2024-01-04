@@ -23,9 +23,7 @@ if [ -d "plugins" ]
 fi
 
 # Get the branch used by the framework
-git branch --show-current > temp.txt
-branch=$(cat temp.txt)
-rm temp.txt
+branch=$(git branch --show-current)
 
 git clone https://github.com/apache/ofbiz-plugins.git plugins
 cd plugins
