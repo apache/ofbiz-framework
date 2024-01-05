@@ -20,7 +20,6 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-
     <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" paginate-target="ListGlAccountOrganization"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -40,9 +39,6 @@ under the License.
             </hyperlink>
         </field>
     </form>
-
-    <!-- Displays the form for assigning accounts to a party or company -->
-    <!-- TODO: Localize field names -->
     <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="glAccountId">
@@ -65,7 +61,6 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
     <grid name="ListGlAccount" list-name="listIt" default-entity-name="GlAccount" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -107,16 +102,13 @@ under the License.
         </actions>
         <field name="accountCode" title="${uiLabelMap.CommonCode}" widget-style="buttontext"><display/></field>
     </form>
-
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="glAccount==null" target="createGlAccount"/>
         <auto-fields-service service-name="updateGlAccount" map-name=""/>
-
         <field name="glAccountId"><display/></field>
         <field use-when="glAccount==null&amp;&amp;glAccountId!=null" name="glAccountId" tooltip="${uiLabelMap.AccountingCouldNotFindGlAccount} [${glAccountId}]"><display/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
-
         <field name="glAccountTypeId">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
                 <entity-options entity-name="GlAccountType">
@@ -152,12 +144,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" use-when="glAccount==null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-
-    <!-- this is used to list AcctgTransEntries and can be called either by using an acctgTransId or a glAccountId -->
     <grid name="ListAcctgTransEntries" list-name="entries"  default-entity-name="AcctgTransEntry"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="acctgTransId">
@@ -184,7 +173,6 @@ under the License.
         <field name="settlementTermId"><display/></field>
         <field name="isSummary"><display/></field>
     </grid>
-
     <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="backToAdmin" title=" ">
@@ -193,7 +181,6 @@ under the License.
             </hyperlink>
         </field>
     </form>
-
     <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glReconciliationId">
@@ -217,7 +204,6 @@ under the License.
         <field name="reconciledBalance"><display/></field>
         <field name="reconciledDate"><display/></field>
     </form>
-
     <form name="ListGlReconciliationEntries" type="list" list-name="glReconciliationEntries" default-entity-name="GlReconciliationEntry"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glReconciliationId"><display/></field>
@@ -254,7 +240,19 @@ under the License.
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="delete" title="${uiLabelMap.CommonDelete}"><submit/></field>
     </grid>
-
+    <grid name="RateAmounts" list-name="rateAmounts" paginate-target="viewRateAmounts"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="rateTypeId" title="${uiLabelMap.CommonRate}"><display/></field>
+        <field name="periodTypeId" title="${uiLabelMap.CommonType}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.CommonParty}" sort-field="true"><display/>
+        </field>
+        <field name="workEffortId" sort-field="true"><display/></field>
+        <field name="emplPositionTypeId" sort-field="true"><display/></field>
+        <field name="rateCurrencyUomId" title="${uiLabelMap.CommonCurrency}" widget-area-style="align-right" title-area-style="align-right"><display/></field>
+        <field name="rateAmount" title="${uiLabelMap.CommonAmount}" widget-area-style="align-right" title-area-style="align-right"><display type="accounting-number"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}" red-when="after-now" sort-field="true"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}" red-when="before-now" ><display type="date-time"/></field>
+    </grid>
     <form name="UpdateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>

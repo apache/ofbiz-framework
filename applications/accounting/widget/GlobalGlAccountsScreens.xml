@@ -20,7 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
     <screen name="GenericDecorator">
         <section>
             <actions>
@@ -34,25 +33,17 @@ under the License.
                         <section>
                             <widgets>
                                 <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-
                                     <!-- label style="h1">List Accounts</label -->
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
-
                                 <!-- Now call the SimpleScreen form -->
                                 <decorator-section-include name="body"/>
                             </widgets>
-                            <!--
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.XxxxViewPermissionError}</label>
-                            </fail-widgets>
-                            -->
                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="CommonAccountDecorator">
         <section>
             <actions>
@@ -63,10 +54,6 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
-                            <!-- condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
-                            </condition -->
                             <widgets>
                                 <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                 <label style="h1">${uiLabelMap[labelTitleProperty]} ${product.internalName} [${uiLabelMap.CommonId}:${productId}]</label>
@@ -83,7 +70,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AssignGlAccount">
         <section>
             <actions>
@@ -92,8 +78,6 @@ under the License.
                 <set field="tabButtonItem2" value="AssignGlAccount"/>
                 <set field="helpAnchor" value="_help_for_assign_gl_account"/>
                 <set field="labelTitleProperty" value="AcctgAssignGlAccount"/>
-
-                <!-- <set field="accountId" from-field="parameters.accountId"/> -->
             </actions>
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -107,7 +91,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="GlAccountNavigate">
         <section>
             <actions>
@@ -120,7 +103,6 @@ under the License.
                 <!-- requestParameters is just the parameter map -->
                 <set field="glAccountId" from-field="requestParameters.glAccountId"/>
                 <set field="trail" from-field="requestParameters.trail"/>
-
                 <entity-one entity-name="GlAccount" value-field="glAccount"/>
             </actions>
             <widgets>
@@ -138,8 +120,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- the next two screens list out the AcctgTransEntries, either from a GL Account or from an acctgTrans -->
     <screen name="ListGlAccountEntries">
         <section>
             <actions>
@@ -164,7 +144,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="ListAcctgTransEntries">
         <section>
             <actions>
@@ -190,7 +169,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="AddGlAccount">
         <section>
             <actions>
@@ -199,23 +177,19 @@ under the License.
                 <set field="labelTitleProperty" value=""/>
                 <set field="glAccount" value=""/><!-- make sure glAccountId field is shown -->
             </actions>
-
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleAddGlAccount}">
                             <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
-
                         <!-- include-screen screen-name="ListGlAccounts" name="ListGlAccounts" / -->
-
                         <!-- tree name="ListGlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/ -->
                      </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <screen name="ListGlAccounts">
         <section>
             <actions>
@@ -223,9 +197,6 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListAccounts"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
                 <set field="helpAnchor" value="_help_find_global_gl_account"/>
-                <!-- no longer works requies a fieldMap entity-and entity-name="GlAccount" list="entityList" use-cache="true" >
-                    <limit-range start="0" size="20"/>
-                </entity-and -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -275,15 +246,9 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="EditGlobalGlAccount">
         <section>
             <actions>
-                <!-- <set field="title" value="Edit GlAccount"/>
-                <set field="titleProperty" value=""/>
-                <set field="tabButtonItem" value=""/>
-                <set field="labelTitleProperty" value=""/> -->
-
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
                 <entity-one entity-name="GlAccount" value-field="glAccount"/>
             </actions>
@@ -299,24 +264,47 @@ under the License.
     <screen name="ViewRateAmounts">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingRateAmounts"/>
                 <set field="labelTitleProperty" from-field="uiLabelMap.AccountingRateAmounts"/>
                 <set field="tabButtonItem" value="ViewRateAmounts"/>
+                <set field="sortField" from-field="parameters.sortField" default-value="rateTypeId"/>
+                <entity-condition entity-name="RateAmount" list="rateAmounts">
+                    <order-by field-name="${sortField}"/>
+                    <order-by field-name="rateTypeId"/>
+                    <order-by field-name="periodTypeId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AccountingUpdateRateAmount}" navigation-form-name="ListRateAmounts">
-                            <include-form name="UpdateRateAmount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
-                        </screenlet>
-                        <include-grid name="ListRateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AccountingUpdateRateAmount}" navigation-form-name="ListRateAmounts">
+                                    <include-form name="UpdateRateAmount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                                </screenlet>
+                                <screenlet>
+                                    <include-grid name="ListRateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-grid name="RateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    <!-- Screen to view and manage foreign exchange conversions -->
     <screen name="ViewFXConversions">
         <section>
             <actions>
@@ -326,8 +314,6 @@ under the License.
                 <set field="tabButtonItem" value="ViewFXConversions"/>
                 <set field="helpAnchor" value="_help_for_view_foreign_exchange_rates"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
-                    stored in UomConversion, we need to change the logic here -->
                 <entity-condition entity-name="UomConversionDated" list="conversions">
                     <order-by field-name="uomId"/>
                     <order-by field-name="uomIdTo"/>
@@ -346,7 +332,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <screen name="CostCenters">
         <section>
             <actions>
@@ -383,5 +368,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-
 </screens>
