@@ -160,7 +160,7 @@ under the License.
     <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="MARKETING" roleTypeId="_NA_"/>
     <PartyStatus partyId="MARKETING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
@@ -168,28 +168,28 @@ under the License.
     <PartyRole partyId="ACCOUNTING" roleTypeId="_NA_"/>
     <PartyRole partyId="ACCOUNTING" roleTypeId="DEPARTMENT"/>
     <PartyStatus partyId="ACCOUNTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="SALES" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SALES" groupName="Sales department"/>
     <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="SALES" roleTypeId="_NA_"/>
     <PartyStatus partyId="SALES" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DEV" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DEV" groupName="Development department"/>
     <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="DEV" roleTypeId="_NA_"/>
     <PartyStatus partyId="DEV" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="DEV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="DEV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="TESTING" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="TESTING" groupName="Testing department"/>
     <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="TESTING" roleTypeId="_NA_"/>
     <PartyStatus partyId="TESTING" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Development Teams -->
     <Party partyId="DevTeam1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
@@ -197,28 +197,28 @@ under the License.
     <PartyRole partyId="DevTeam1" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="DevTeam1" roleTypeId="_NA_"/>
     <PartyStatus partyId="DevTeam1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DevTeam2" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam2" groupName="Development Team2"/>
     <PartyRole partyId="DevTeam2" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="DevTeam2" roleTypeId="_NA_"/>
     <PartyStatus partyId="DevTeam2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DevTeam3" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam3" groupName="Development Team3"/>
     <PartyRole partyId="DevTeam3" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="DevTeam3" roleTypeId="_NA_"/>
     <PartyStatus partyId="DevTeam3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam3" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam3" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="DevTeam4" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DevTeam4" groupName="Development Team4"/>
     <PartyRole partyId="DevTeam4" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="DevTeam4" roleTypeId="_NA_"/>
     <PartyStatus partyId="DevTeam4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam4" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="DEV" partyIdTo="DevTeam4" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <!-- Testing Teams-->
     <Party partyId="TestingTeam1" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
@@ -226,14 +226,14 @@ under the License.
     <PartyRole partyId="TestingTeam1" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="TestingTeam1" roleTypeId="_NA_"/>
     <PartyStatus partyId="TestingTeam1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam1" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <Party partyId="TestingTeam2" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED" createdDate="2009-05-06 11:16:40.989" createdByUserLogin="admin" lastModifiedDate="2009-05-06 11:16:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="TestingTeam2" groupName="Testing Team2"/>
     <PartyRole partyId="TestingTeam2" roleTypeId="INTERNAL_ORGANIZATIO"/>
     <PartyRole partyId="TestingTeam2" roleTypeId="_NA_"/>
     <PartyStatus partyId="TestingTeam2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
-    <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyRelationship partyIdFrom="TESTING" partyIdTo="TestingTeam2" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="INTERNAL_ORGANIZATIO" fromDate="2001-05-13 00:00:00.000"/>
 
     <!--Team Members -->
     <Party partyId="Developer1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
