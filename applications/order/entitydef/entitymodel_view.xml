@@ -1320,10 +1320,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="Person">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
@@ -1554,10 +1550,6 @@ under the License.
       </relation>
       <relation type="one-nofk" rel-entity-name="Person">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>

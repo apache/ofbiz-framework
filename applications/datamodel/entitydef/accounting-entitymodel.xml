@@ -230,10 +230,6 @@ under the License.
       <relation type="one" fk-name="BUDGET_ROLE_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="BUDGET_ROLE_PROLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <entity entity-name="BudgetScenario"
             package-name="org.apache.ofbiz.accounting.budget"
@@ -416,7 +412,9 @@ under the License.
             <key-map field-name="finAccountId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountRole" package-name="org.apache.ofbiz.accounting.finaccount" title="Financial Account Role">
+    <entity entity-name="FinAccountRole" 
+            package-name="org.apache.ofbiz.accounting.finaccount" 
+            title="Financial Account Role">
         <field name="finAccountId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -433,10 +431,6 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one" fk-name="FIN_ACT_RL_RTRL" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>
@@ -673,10 +667,6 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
         <relation type="one" fk-name="FIXEDAST_ROLETYP" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one" fk-name="FIXEDAST_ORDHDR" title="Acquire" rel-entity-name="OrderHeader">
@@ -1035,10 +1025,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="PTY_FASTAS_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="PTY_FASTAS_FA" rel-entity-name="FixedAsset">
         <key-map field-name="fixedAssetId"/>
       </relation>
@@ -1189,10 +1175,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="INVOICE_ROLETYP" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="INVOICE_STTSITM" rel-entity-name="StatusItem">
@@ -1515,10 +1497,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="INVCE_RLE_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <entity entity-name="InvoiceStatus"
             package-name="org.apache.ofbiz.accounting.invoice"
@@ -1824,10 +1802,6 @@ under the License.
       <relation type="one" fk-name="ACCTTX_ROLETYP" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
       <relation type="one" fk-name="ACCTTX_INVOICE" rel-entity-name="Invoice">
         <key-map field-name="invoiceId"/>
       </relation>
@@ -1915,10 +1889,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="ACCTTXENT_RLTYP" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="ACCTTXENT_GLACTT" rel-entity-name="GlAccountType">
@@ -2255,10 +2225,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <view-entity entity-name="GlAccountOrganizationAndClass"
             package-name="org.apache.ofbiz.accounting.ledger"
@@ -2297,10 +2263,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="GLACCT_RL_PTRLE" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
@@ -2688,10 +2650,6 @@ under the License.
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </view-entity>
     <entity entity-name="BillingAccountRole"
             package-name="org.apache.ofbiz.accounting.payment"
@@ -2712,10 +2670,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="BILLACCT_RL_PTRL" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
@@ -3005,10 +2959,6 @@ under the License.
         <key-map field-name="partyIdTo" rel-field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="PAYMENT_TRTP" title="To" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PAYMENT_STTSITM" rel-entity-name="StatusItem">
@@ -4129,10 +4079,6 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one" fk-name="PRTYGLACCT_PTRL" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
         <relation type="one" fk-name="PRTYGLACCT_GLAT" rel-entity-name="GlAccountType">
