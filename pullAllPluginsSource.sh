@@ -16,24 +16,20 @@
 # specific language governing permissions and limitations
 # under the License.
 
+# Syntax: ./pullAllPluginsSource.sh
+
 # Whatever, create anew
 if [ -d "plugins" ]
     then
         rm -rf plugins
 fi
 
-# Get the branch used by the framework
+# Get the branch used in framework
 branch=$(git branch --show-current)
 
-git clone https://github.com/apache/ofbiz-plugins.git plugins
+git clone --depth 1 --single-branch --branch $branch https://github.com/apache/ofbiz-plugins.git plugins
+
+# remove .git, in this case it's useless information
 cd plugins
-
-# By default the clone branch is trunk
-if [ ! $branch = trunk ]
-    then
-        git switch "$branch"
-fi
-
-# remove .git, in this case it's big useless information
 rm -rf .git
 cd ..
