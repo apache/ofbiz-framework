@@ -18,22 +18,21 @@ rem specific language governing permissions and limitations
 rem under the License.
 rem #####################################################################
 
+rem Syntax: pullAllPluginsSource
+
 rem Whatever, create anew
 if EXIST plugins\ (
     cmd /c rd  /s/q plugins
 )
+
+rem Get the branch used in framework
 git branch --show-current > temp.txt
 set /p branch=<temp.txt
 del temp.txt
 
-git clone https://github.com/apache/ofbiz-plugins.git plugins
+git clone --depth 1 --single-branch --branch %branch% https://github.com/apache/ofbiz-plugins.git plugins
+
+rem Remove .git, in this case it's useless information
 cd plugins
-
-rem By default the clone branch is trunk
-if NOT trunk == %branch% (
-    call git switch -c %branch% --track origin/%branch%
-)
-
-rem Remove .git, in this case it's big useless information
-cmd /c rd  /s/q .git
+cmd /c rd /s/q .git
 cd ..
