@@ -19,6 +19,8 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
@@ -133,7 +135,12 @@ public class ControlFilter implements Filter {
             String requestUri = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
             // normalize to remove ".." special name usage to bypass webapp filter
-            requestUri = Paths.get(requestUri).normalize().toString();
+            try {
+                requestUri = new URI(requestUri).normalize().toString();
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+
             int offset = requestUri.indexOf("/", 1);
             if (offset == -1) {
                 offset = requestUri.length();
