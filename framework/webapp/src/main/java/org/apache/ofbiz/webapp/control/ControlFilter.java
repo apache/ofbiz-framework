@@ -19,6 +19,8 @@
 package org.apache.ofbiz.webapp.control;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
@@ -156,6 +158,13 @@ public class ControlFilter extends HttpFilter {
                         && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
                     return;
                 }
+            }
+
+            // normalize to remove ".." special name usage to bypass webapp filter
+            try {
+                uri = new URI(uri).normalize().toString();
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
 
             // Check if the requested URI is allowed.
