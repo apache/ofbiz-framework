@@ -141,6 +141,28 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="Requirement" type="single" default-map-name="requirement"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="requirementId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="requirementTypeId" title="${uiLabelMap.CommonType}" position="2"><display-entity entity-name="RequirementType"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="requirementTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="RequirementType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="productId"><display-entity entity-name="Product" description="${productId} - ${internalName}"/></field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display type="accounting-number"/></field>
+        <field name="facilityId" title="${uiLabelMap.CommonFacility}"><display-entity entity-name="Facility" description="${facilityId} - ${facilityName}"/></field>
+        <field name="facilityIdTo" position="2"><display/></field>
+        <field name="fixedAssetId" title="${uiLabelMap.CommonFixedAsset}"><display-entity entity-name="FixedAsset" description="${fixedAssetId} - ${fixedAssetName}"/></field>
+        <field name="requirementStartDate"><display type="date-time"/></field>
+        <field name="requiredByDate"><display type="date-time"/></field>
+        <field name="estimatedBudget"><display type="accounting-number"></display></field>
+        <field name="useCase"><display/></field>
+        <field name="reason" title="${uiLabelMap.CommonReason}"><display/></field>
+        <field name="createdDate" title="${uiLabelMap.CommonCreated}"><display type="date-time"/></field>
+        <field name="createdByUserLogin" position="2"><display/></field>
+        <field name="lastModifiedDate"><display type="date-time"/></field>
+        <field name="lastModifiedByUserLogin" position="2"><display/></field>
+    </form>
     <form name="ListRequirementCustRequests" type="list" title="" list-name="requirementCustRequests" paginate-target="ListRequirementCustRequests"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="RequirementCustRequest" default-field-type="display"/>

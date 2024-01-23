@@ -19,7 +19,7 @@ under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonRequirementDecorator">
         <section>
             <widgets>
@@ -29,7 +29,6 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for ORDERMGR, _VIEW permission -->
                             <condition>
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
@@ -37,12 +36,10 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="requirement"/></not></condition>
                                     <widgets>
+                                        <label style="h1">${uiLabelMap.OrderRequirement}: ${requirementId}</label>
                                         <include-menu name="RequirementTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                                     </widgets>
                                 </section>
-                                <container>
-                                    <label style="h1">${uiLabelMap.OrderRequirement} [${requirementId}]</label>
-                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -63,7 +60,6 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for ORDERMGR, _VIEW permission -->
                             <condition>
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
@@ -263,17 +259,32 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRequirement"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="EditRequirement"/>
-
                 <set field="requirementId" from-field="parameters.requirementId"/>
                 <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
-
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementDecorator" location="${parameters.commonRequirementsDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditRequirement}">
-                            <include-form name="EditRequirement" location="component://order/widget/ordermgr/RequirementForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                                        <if-has-permission permission="ORDERMGR" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditRequirement}">
+                                    <include-form name="EditRequirement" location="component://order/widget/ordermgr/RequirementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet>
+                                    <include-form name="Requirement" location="component://order/widget/ordermgr/RequirementForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -304,15 +315,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- screen listing orders related to a given requirement -->
     <screen name="ListRequirementOrders">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListRequirementOrders"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ListRequirementOrdersTab"/>
-
                 <set field="requirementId" from-field="parameters.requirementId"/>
                 <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
                 <entity-and entity-name="OrderRequirementCommitment" list="orderRequirements">
@@ -330,15 +338,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!-- screen listing orders related to a given requirement -->
     <screen name="ListRequirementRoles">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListRequirementRoles"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ListRequirementRolesTab"/>
-
                 <set field="requirementId" from-field="parameters.requirementId"/>
                 <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
                 <entity-and entity-name="RequirementRole" list="requirementRoles">
