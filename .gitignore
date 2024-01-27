@@ -2,7 +2,8 @@ bin/
 build/
 applications/*/build
 framework/*/build
-/plugins/
+framework/webapp/config/url.properties
+framework/entity/config/entityengine.xml
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
 runtime/GitInfo.ftl
