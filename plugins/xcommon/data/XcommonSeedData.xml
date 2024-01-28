@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+  <RoleType description="Billing Vendor (For Gov. Invoicing)" roleTypeId="BILLING_VENDOR"/>
+
+  <!--seed data for billing vendors, these are used to invoice Gov Customers-->
+  <Party partyId="BILLING_LOC_01" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="BILLING_LOC_01" groupName="IPP"/>
+  <RoleType description="BILLING VENDOR" roleTypeId="BILLING_VENDOR"/>
+  <PartyRole partyId="BILLING_LOC_01" roleTypeId="BILLING_VENDOR"/>
+  <PartyRole partyId="BILLING_LOC_01" roleTypeId="_NA_"/>
+
+  <!--Billing URL-->
+  <ContactMech contactMechId="BILLING_LOC_01_WEB" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.ipp.gov/Home"/>
+  <PartyContactMech partyId="BILLING_LOC_01" contactMechId="BILLING_LOC_01_WEB"
+    fromDate="2014-01-01 00:00:00.000"/>
+  <PartyRole partyId="BILLING_LOC_01" roleTypeId="_NA_"/>
+
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="BILLING_LOC_01"
+    contactMechId="BILLING_LOC_01_WEB" fromDate="2014-01-01 00:00:00.000"/>
+
+  <!--Tungsten-->
+  <Party partyId="BILLING_LOC_02" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="BILLING_LOC_02" groupName="Tungsten"/>
+  <PartyRole partyId="BILLING_LOC_02" roleTypeId="BILLING_VENDOR"/>
+  <PartyRole partyId="BILLING_LOC_02" roleTypeId="_NA_"/>
+  <!--Billing URL-->
+  <ContactMech contactMechId="BILLING_LOC_02_WEB" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://portal.tungsten-network.com/Login.aspx"/>
+  <PartyContactMech partyId="BILLING_LOC_02" contactMechId="BILLING_LOC_02_WEB"
+    fromDate="2014-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="BILLING_LOC_02"
+    contactMechId="BILLING_LOC_02_WEB" fromDate="2014-01-01 00:00:00.000"/>
+
+  <!--Authorize.net-->
+  <Party partyId="BILLING_LOC_03" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="BILLING_LOC_03" groupName="Authorize.net Payment Gateway (Credit Cards)"/>
+  <PartyRole partyId="BILLING_LOC_03" roleTypeId="BILLING_VENDOR"/>
+  <PartyRole partyId="BILLING_LOC_03" roleTypeId="_NA_"/>
+
+  <!--Billing URL-->
+  <ContactMech contactMechId="BILLING_LOC_03_WEB" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://account.authorize.net/"/>
+  <PartyContactMech partyId="BILLING_LOC_03" contactMechId="BILLING_LOC_03_WEB"
+    fromDate="2014-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="BILLING_LOC_03"
+    contactMechId="BILLING_LOC_03_WEB" fromDate="2014-01-01 00:00:00.000"/>
+
+  <!--EDI File Drop-->
+  <Party partyId="BILLING_LOC_04" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="BILLING_LOC_04" groupName="EDI File Drop (VaSfc)"/>
+  <PartyRole partyId="BILLING_LOC_04" roleTypeId="BILLING_VENDOR"/>
+  <PartyRole partyId="BILLING_LOC_04" roleTypeId="_NA_"/>
+
+  <!--Billing URL-->
+  <ContactMech contactMechId="BILLING_LOC_04_WEB" contactMechTypeId="WEB_ADDRESS"
+    infoString="mailto:vafscedifinteam@va.gov"/>
+  <PartyContactMech partyId="BILLING_LOC_04" contactMechId="BILLING_LOC_04_WEB"
+    fromDate="2014-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="BILLING_LOC_04"
+    contactMechId="BILLING_LOC_04_WEB" fromDate="2014-01-01 00:00:00.000"/>
+
+  <!--MailCheck-->
+  <Party partyId="BILLING_LOC_05" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="BILLING_LOC_05" groupName="Billed Via Mail"/>
+  <PartyRole partyId="BILLING_LOC_05" roleTypeId="BILLING_VENDOR"/>
+  <PartyRole partyId="BILLING_LOC_05" roleTypeId="_NA_"/>
+  <!--Billing URL-->
+  <ContactMech contactMechId="BILLING_LOC_05_WEB" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.usps.com/"/>
+  <PartyContactMech partyId="BILLING_LOC_05" contactMechId="BILLING_LOC_05_WEB"
+    fromDate="2014-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="BILLING_LOC_05"
+    contactMechId="BILLING_LOC_05_WEB" fromDate="2014-01-01 00:00:00.000"/>
+
+  <!--seed data for lender parties-->
+  <Party partyId="LENDER_01" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="LENDER_01" groupName="Wells Fargo"/>
+  <PartyRole partyId="LENDER_01" roleTypeId="LENDER"/>
+
+  <Party partyId="LENDER_02" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="LENDER_02" groupName="Columbia Bank"/>
+  <PartyRole partyId="LENDER_02" roleTypeId="LENDER"/>
+
+  <Party partyId="LENDER_03" partyTypeId="PARTY_GROUP"/>
+  <PartyGroup partyId="LENDER_03" groupName="FSD Funding"/>
+  <PartyRole partyId="LENDER_03" roleTypeId="LENDER"/>
+
+  <!-- Lender RoleType -->
+  <RoleType roleTypeId="QUO_BILLING_POC" description="Quote Billing Point of Contact"
+    parentTypeId="CONTACT"/>
+
+  <!--Manufacturer POC RoleType -->
+  <RoleType description="Supplier Manufacturer Point of Contact" hasTable="N" parentTypeId="CONTACT"
+    roleTypeId="SHIP_MANUFCTR_POC" createdStamp="2014-01-01 00:00:00"
+    createdTxStamp="2014-01-01 00:00:00" lastUpdatedStamp="2014-01-01 00:00:00"
+    lastUpdatedTxStamp="2014-01-01 00:00:00"/>
+  <PartyRelationshipType partyRelationshipTypeId="EMPLOYMENT" parentTypeId="EMPLOYMENT"
+    partyRelationshipName="Supplier Manufacturer Point of Contact"
+    createdStamp="2014-01-01 00:00:00" createdTxStamp="2014-01-01 00:00:00"
+    lastUpdatedStamp="2014-01-01 00:00:00" lastUpdatedTxStamp="2014-01-01 00:00:00"/>
+
+  <!--Default Supplier Message Broadcast Template html-->
+  <DataResource
+    dataResourceId="CM_BRDCST_MSG"
+    dataResourceName="Default HTML email message for CM message broadcast functionality."
+    dataResourceTypeId="ELECTRONIC_TEXT"
+    isPublic="Y"
+    mimeTypeId="text/html"
+    statusId="CTNT_PUBLISHED"/>
+  <ElectronicText dataResourceId="CM_BRDCST_MSG">
+    <textData><![CDATA[
+			    <p>Hello,</p>
+			    <h2>Essential things to think about before starting a blog</h2>
+				<p>It has been exactly 3 years since I wrote my first blog series entitled “Flavorful Tuscany”, but starting it was definitely not easy. Back then, I didn’t know much about blogging, let alone think that one day it could become <strong>my full-time job</strong>. Even though I had many recipes and food-related stories to tell, it never crossed my mind that I could be sharing them with the whole world</p>
+				<p>I am now a <strong>full-time blogger</strong> and the curator of the <a href="https://ckeditor.com/ckeditor-4/#">Simply delicious newsletter</a>, sharing stories about traveling and cooking, as well as tips on how to run a successful blog.</p>
+				<p>If you are tempted by the idea of creating your own blog, please think about the following:</p>
+				<ul>
+					<li>Your story (what do you want to tell your audience)</li>
+					<li>Your audience (who do you write for)</li>
+					<li>Your blog name and design</li>
+				</ul>
+				<p>After you get your head around these 3 essentials, all you have to do is grab your keyboard and the rest will follow.</p>
+			    <p>&nbsp;</p>
+			    <p>Thank You,</p>
+				<p>Team FidelisSD</p>
+				<p><a href="http://fidelissd.com">http://fidelisSD.com</a></p>
+		]]></textData>
+  </ElectronicText>
+  <Content
+    contentId="CM_BRDCST_MSG"
+    contentName="Default HTML email message for CM message broadcast functionality."
+    contentTypeId="DOCUMENT"
+    dataResourceId="CM_BRDCST_MSG"
+    mimeTypeId="text/html"
+    statusId="CTNT_AVAILABLE"/>
+
+  <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary"
+    parentTypeId="APP_PHONE_TYPES" createdStamp="2020-11-08 18:51:15.269"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="PHONE_HOME" description="Home"
+    parentTypeId="APP_PHONE_TYPES" createdStamp="2020-11-08 18:51:15.270"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK" description="Work"
+    parentTypeId="APP_PHONE_TYPES" createdStamp="2020-11-08 18:51:15.271"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="OTHER_PHONE" description="Other"
+    parentTypeId="APP_PHONE_TYPES" createdStamp="2020-11-08 18:51:15.272"/>
+
+  <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_EMAIL" description="Primary"
+    parentTypeId="APP_EMAIL_TYPES" createdStamp="2020-11-08 18:51:15.268"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="EMAIL_HOME" description="Home"
+    parentTypeId="APP_EMAIL_TYPES" createdStamp="2020-11-08 18:51:15.269"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="EMAIL_WORK" description="Work"
+    parentTypeId="APP_EMAIL_TYPES" createdStamp="2020-11-08 18:51:15.270"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="EMAIL_WORK_SEC" description="Office"
+    parentTypeId="APP_EMAIL_TYPES" createdStamp="2020-11-08 18:51:15.280"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="OTHER_EMAIL" description="Other"
+    parentTypeId="APP_EMAIL_TYPES" createdStamp="2020-11-08 18:51:15.281"/>
+
+  <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_ADDRESS" description="Primary"
+    parentTypeId="APP_ADDRESS_TYPES" createdStamp="2020-11-08 18:51:15.268"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="HOME_ADDRESS" description="Home"
+    parentTypeId="APP_ADDRESS_TYPES" createdStamp="2020-11-08 18:51:15.269"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="WORK_ADDRESS" description="Work"
+    parentTypeId="APP_ADDRESS_TYPES" createdStamp="2020-11-08 18:51:15.270"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="OTHER_ADDRESS" description="Other"
+    parentTypeId="APP_ADDRESS_TYPES" createdStamp="2020-11-08 18:51:15.281"/>
+
+
+
+</entity-engine-xml>

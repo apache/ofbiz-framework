@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+    <!--
+        To remove the existing records need to run following SQL
+        SQL : Delete from Standard_Language
+    -->
+
+    <StandardLanguage langCode2="am" langName="Amharic" standardLanguageId="1002"/>
+    <StandardLanguage langCode2="ar" langName="Arabic" standardLanguageId="1003"/>
+    <StandardLanguage langCode2="eu" langName="Basque" standardLanguageId="1004"/>
+    <StandardLanguage langCode2="bn" langName="Bengali" standardLanguageId="1005"/>
+    <StandardLanguage langCode2="en-GB" langName="English (UK)" standardLanguageId="1006"/>
+    <StandardLanguage langCode2="pt-BR" langName="Portuguese (Brazil)" standardLanguageId="1007"/>
+    <StandardLanguage langCode2="bg" langName="Bulgarian" standardLanguageId="1008"/>
+    <StandardLanguage langCode2="ca" langName="Catalan" standardLanguageId="1009"/>
+    <StandardLanguage langCode2="chr" langName="Cherokee" standardLanguageId="1010"/>
+    <StandardLanguage langCode2="hr" langName="Croatian" standardLanguageId="1011"/>
+    <StandardLanguage langCode2="cs" langName="Czech" standardLanguageId="1012"/>
+    <StandardLanguage langCode2="da" langName="Danish" standardLanguageId="1013"/>
+    <StandardLanguage langCode2="nl" langName="Dutch" standardLanguageId="1014"/>
+    <StandardLanguage langCode2="en" langName="English (US)" standardLanguageId="1015"/>
+    <StandardLanguage langCode2="et" langName="Estonian" standardLanguageId="1016"/>
+    <StandardLanguage langCode2="fil" langName="Filipino" standardLanguageId="1017"/>
+    <StandardLanguage langCode2="fi" langName="Finnish" standardLanguageId="1018"/>
+    <StandardLanguage langCode2="fr" langName="French" standardLanguageId="1019"/>
+    <StandardLanguage langCode2="de" langName="German" standardLanguageId="1020"/>
+    <StandardLanguage langCode2="el" langName="Greek" standardLanguageId="1021"/>
+    <StandardLanguage langCode2="gu" langName="Gujarati" standardLanguageId="1022"/>
+    <StandardLanguage langCode2="iw" langName="Hebrew" standardLanguageId="1023"/>
+    <StandardLanguage langCode2="hi" langName="Hindi" standardLanguageId="1024"/>
+    <StandardLanguage langCode2="hu" langName="Hungarian" standardLanguageId="1025"/>
+    <StandardLanguage langCode2="is" langName="Icelandic" standardLanguageId="1026"/>
+    <StandardLanguage langCode2="id" langName="Indonesian" standardLanguageId="1027"/>
+    <StandardLanguage langCode2="it" langName="Italian" standardLanguageId="1028"/>
+    <StandardLanguage langCode2="ja" langName="Japanese" standardLanguageId="1029"/>
+    <StandardLanguage langCode2="kn" langName="Kannada" standardLanguageId="1030"/>
+    <StandardLanguage langCode2="ko" langName="Korean" standardLanguageId="1031"/>
+    <StandardLanguage langCode2="lv" langName="Latvian" standardLanguageId="1032"/>
+    <StandardLanguage langCode2="lt" langName="Lithuanian" standardLanguageId="1033"/>
+    <StandardLanguage langCode2="ms" langName="Malay" standardLanguageId="1034"/>
+    <StandardLanguage langCode2="ml" langName="Malayalam" standardLanguageId="1035"/>
+    <StandardLanguage langCode2="mr" langName="Marathi" standardLanguageId="1036"/>
+    <StandardLanguage langCode2="no" langName="Norwegian" standardLanguageId="1037"/>
+    <StandardLanguage langCode2="pl" langName="Polish" standardLanguageId="1038"/>
+    <StandardLanguage langCode2="pt-PT" langName="Portuguese (Portugal)" standardLanguageId="1039"/>
+    <StandardLanguage langCode2="ro" langName="Romanian" standardLanguageId="1040"/>
+    <StandardLanguage langCode2="ru" langName="Russian" standardLanguageId="1041"/>
+    <StandardLanguage langCode2="sr" langName="Serbian" standardLanguageId="1042"/>
+    <StandardLanguage langCode2="zh-CN" langName="Chinese (PRC)" standardLanguageId="1043"/>
+    <StandardLanguage langCode2="sk" langName="Slovak" standardLanguageId="1044"/>
+    <StandardLanguage langCode2="sl" langName="Slovenian" standardLanguageId="1045"/>
+    <StandardLanguage langCode2="es" langName="Spanish" standardLanguageId="1046"/>
+    <StandardLanguage langCode2="sw" langName="Swahili" standardLanguageId="1047"/>
+    <StandardLanguage langCode2="sv" langName="Swedish" standardLanguageId="1048"/>
+    <StandardLanguage langCode2="ta" langName="Tamil" standardLanguageId="1049"/>
+    <StandardLanguage langCode2="te" langName="Telugu" standardLanguageId="1050"/>
+    <StandardLanguage langCode2="th" langName="Thai" standardLanguageId="1051"/>
+    <StandardLanguage langCode2="zh-TW" langName="Chinese (Taiwan)" standardLanguageId="1052"/>
+    <StandardLanguage langCode2="tr" langName="Turkish" standardLanguageId="1053"/>
+    <StandardLanguage langCode2="ur" langName="Urdu" standardLanguageId="1054"/>
+    <StandardLanguage langCode2="uk" langName="Ukrainian" standardLanguageId="1055"/>
+    <StandardLanguage langCode2="vi" langName="Vietnamese" standardLanguageId="1056"/>
+    <StandardLanguage langCode2="cy" langName="Welsh" standardLanguageId="1057"/>
+</entity-engine-xml>

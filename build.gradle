@@ -120,6 +120,7 @@ defaultTasks 'build'
 allprojects {
     repositories{
         mavenCentral()
+        jcenter()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
@@ -235,6 +236,16 @@ dependencies {
     // ofbiz unit-test compile libs
     testCompile 'org.mockito:mockito-core:2.23.0'
 
+    // Lombok
+    implementation 'org.projectlombok:lombok:1.18.30'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
     // ofbiz runtime libs
     runtime 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtime 'de.odysseus.juel:juel-spi:2.2.7'
@@ -250,6 +261,9 @@ dependencies {
     runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2' // for external jars using slf4j: routes logging to log4j 2
     runtime 'org.apache.logging.log4j:log4j-jcl:2.17.2' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
+
+    runtime 'org.postgresql:postgresql:42.6.0'
+
 
     // plugin libs
     subprojects.each { subProject ->

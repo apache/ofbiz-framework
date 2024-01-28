@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of Xcommon Component</title>
+    <description>Common utility components</description>
+    <copyright>SimbaQuartz</copyright>
+    <version>1.0.0</version>
+    <extend-entity entity-name="Content">
+        <!-- to store the size of the file when applicable -->
+        <field name="fileSize" type="numeric"/>
+        <field name="fileExtension" type="very-short"/>
+        <field name="imageWidthInPx" type="numeric"/>
+        <field name="imageHeightInPx" type="numeric"/>
+        <!--To store any external document id e.g. file id <1gEligBQg-H-V0KFGtyW91dmdq1FuVu-m> from google drive-->
+        <field name="externalDocumentId" type="id-long"/>
+    </extend-entity>
+
+    <entity entity-name="GoogleAuthCredential"
+            package-name="com.simbaquartz.xcommon.google"
+            title="Google Auth Credential Store">
+        <field name="storeId" type="id"/>
+        <field name="partyId" type="id"/>
+        <field name="accessToken" type="description"/>
+        <field name="refreshToken" type="description"/>
+        <field name="expirationTimeMilliseconds" type="numeric"/>
+        <prim-key field="storeId"/>
+        <prim-key field="partyId"/>
+    </entity>
+
+    <entity entity-name="GoogleCalendarSync"
+            package-name="com.simbaquartz.xcommon.google"
+            title="Google Calendar Sync details">
+        <field name="partyId" type="id"/>
+        <field name="calendarId" type="id"/>
+        <field name="nextSyncToken" type="id-long"/>
+        <field name="lastSyncDate" type="date-time"/>
+        <prim-key field="partyId"/>
+        <prim-key field="calendarId"/>
+    </entity>
+
+    <entity entity-name="GoogleEmailSync"
+            package-name="com.simbaquartz.xcommon.google"
+            title="Google Email Sync details">
+        <field name="partyId" type="id"/>
+        <field name="lastHistoryId" type="numeric"/>
+        <field name="lastSyncDate" type="date-time"/>
+        <field name="nextPageToken" type="id-long"/>
+        <prim-key field="partyId"/>
+    </entity>
+
+    <extend-entity entity-name="ContactMechPurposeType">
+        <field name="parentTypeId" type="id"/>
+    </extend-entity>
+
+    <entity entity-name="SavedSearch"
+            package-name="com.simbaquartz.xcommon"
+            title="Saves the search performed by user">
+        <field name="searchId" type="id"/>
+        <field name="name" type="name"/>
+        <field name="isPublic" type="indicator"/>
+        <field name="searchQueryUrl" type="url"/>
+        <field name="searchQueryJson" type="very-long"/>
+        <field name="typeId" type="id"/>
+
+        <field name="ownerPartyId" type="id"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+        <field name="organizationId" type="id"/>
+
+        <prim-key field="searchId"/>
+
+        <relation type="one" fk-name="PARTY_CUL" title="CreatedBy" rel-entity-name="UserLogin">
+            <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="PARTY_LMCUL" title="LastModifiedBy" rel-entity-name="UserLogin">
+            <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="SAVED_SEARCH_TYPE" rel-entity-name="Enumeration">
+            <key-map field-name="typeId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="SS_PARTY" title="Account"
+                  rel-entity-name="Party">
+            <key-map field-name="organizationId" rel-field-name="partyId"/>
+        </relation>
+    </entity>
+
+
+    <entity entity-name="Color"
+            package-name="com.simbaquartz.xcommon"
+            title="Color Entity">
+        <field name="colorId" type="id"/>
+        <field name="backgroundColor" type="name"/>
+        <field name="foregroundColor" type="name"/>
+        <prim-key field="colorId"/>
+    </entity>
+
+    <entity entity-name="Palette"
+            package-name="com.simbaquartz.xcommon"
+            title="Palette for Grouping Colors Entity">
+        <field name="paletteId" type="id"/>
+        <field name="name" type="name"/>
+
+        <prim-key field="paletteId"/>
+    </entity>
+
+    <entity entity-name="ColorPalette"
+            package-name="com.simbaquartz.xcommon"
+            title="Color Palette for storing colors associated with a palette">
+        <field name="paletteId" type="id"/>
+        <field name="colorId" type="id"/>
+        <field name="sequenceId" type="numeric"/>
+
+        <prim-key field="paletteId"/>
+        <prim-key field="colorId"/>
+
+        <relation type="one" fk-name="CP_PALETTE" rel-entity-name="Palette">
+            <key-map field-name="paletteId"/>
+        </relation>
+        <relation type="one" fk-name="CP_COLOR" rel-entity-name="Color">
+            <key-map field-name="colorId"/>
+        </relation>
+    </entity>
+
+    <view-entity entity-name="ColorPaletteAndColor"
+                 package-name="com.simbaquartz.xcommon">
+        <member-entity entity-alias="CP" entity-name="ColorPalette"/>
+        <member-entity entity-alias="PL" entity-name="Palette"/>
+        <member-entity entity-alias="CL" entity-name="Color"/>
+
+        <alias-all entity-alias="CP">
+            <exclude field="paletteId"/>
+            <exclude field="colorId"/>
+        </alias-all>
+        <alias-all entity-alias="CL"/>
+        <alias-all entity-alias="PL"/>
+
+        <view-link entity-alias="CP" rel-entity-alias="PL">
+            <key-map field-name="paletteId"/>
+        </view-link>
+        <view-link entity-alias="CP" rel-entity-alias="CL">
+            <key-map field-name="colorId"/>
+        </view-link>
+    </view-entity>
+
+    <extend-entity entity-name="NoteData">
+        <field name="jsonText" type="very-long">
+            <description>For supporting rich text editors so their states are saved and retrieved for rich
+                capabilities like mentions etc.
+            </description>
+        </field>
+    </extend-entity>
+
+    <!--Used to set hours for a business (opening hours) or a person (working hours)-->
+    <entity entity-name="TimePeriod"
+            package-name="com.simbaquartz.xcommon"
+            title="To store a time period that can be used to set business hours, working hours etc.">
+        <field name="timePeriodId" type="id"/>
+        <field name="startDayOfWeek" type="short-varchar"/>
+        <field name="startTime" type="time"/>
+
+        <field name="endDayOfWeek" type="short-varchar"/>
+        <field name="endTime" type="time"/>
+        <field name="forPartyId" type="id"/>
+        <field name="forProductStoreId" type="id"/>
+
+        <prim-key field="timePeriodId"/>
+
+        <relation type="one" fk-name="TP_PARTY" rel-entity-name="Party">
+            <key-map field-name="forPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="TP_PRDSTR" rel-entity-name="ProductStore">
+            <key-map field-name="forProductStoreId" rel-field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <extend-entity entity-name="StatusItem">
+        <!-- to store the size of the file when applicable -->
+        <field name="colorId" type="id"/>
+        <relation type="one" fk-name="STATUS_COLR" rel-entity-name="Color">
+            <key-map field-name="colorId"/>
+        </relation>
+    </extend-entity>
+
+    <view-entity entity-name="StatusItemAndColor"
+                 package-name="com.simbaquartz.xcommon"
+                 never-cache="true"
+                 title="StatusItem and Color entity">
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <member-entity entity-alias="CL" entity-name="Color"/>
+
+        <alias-all entity-alias="SI"/>
+        <alias entity-alias="CL" name="backgroundColor"/>
+        <alias entity-alias="CL" name="foregroundColor"/>
+
+        <view-link entity-alias="SI" rel-entity-alias="CL">
+            <key-map field-name="colorId"/>
+        </view-link>
+    </view-entity>
+
+    <entity entity-name="SlackAuthDetails"
+            package-name="com.simbaquartz.xcommon.slack"
+            title="Slack OAuth Details">
+        <field name="accountPartyId" type="id"/>
+        <field name="accessToken" type="description"/>
+        <field name="slackTeamId" type="id"/>
+        <field name="slackTeamName" type="value"/>
+        <prim-key field="accountPartyId"/>
+    </entity>
+
+</entitymodel>

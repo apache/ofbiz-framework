@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Xcommon Services</description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+  <service name="sendDropShipmentShippedNotification" engine="groovy"
+    require-new-transaction="true" max-retry="3"
+    location="component://sellercentral/script/com/simbacart/sellercentral/services/orders/SendDropShipmentShippedNotification.groovy"
+    auth="true">
+    <description>Sends shipment shipped notification to the customer.</description>
+    <attribute name="shipmentId" type="String" mode="IN"
+      optional="false"/>
+    <attribute name="screenUri" type="String" mode="IN"
+      optional="true"/><!-- use this to override default store email screen -->
+  </service>
+
+  <service name="autoApproveDropshipOrdersFromSalesOrder" engine="groovy"
+    require-new-transaction="true" max-retry="3"
+    location="component://sellercentral/script/com/simbacart/sellercentral/services/orders/AutoApproveDropshipOrdersFromSalesOrder.groovy"
+    auth="true">
+    <description>Auto approves any linked drop ship order when sales order is approved.
+    </description>
+    <attribute name="orderId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createSalesInvoicesFromDropShipment" engine="java"
+    location="com.simbaquartz.services.SellerCentralInvoiceServices"
+    invoke="createSalesInvoicesFromDropShipment">
+    <description>
+      Create sales invoice(s) from a drop shipment by wrapping a call to
+      createInvoicesFromShipments with the createSalesInvoicesForDropShipments parameter
+    </description>
+    <attribute name="shipmentId" type="String" mode="IN"
+      optional="false"/>
+    <attribute name="createdInvoiceId" type="String" mode="OUT"
+      optional="true"/>
+  </service>
+  <service name="fsdUpdateElectronicText" default-entity-name="ElectronicText" engine="simple"
+    location="component://content/script/org/ofbiz/content/data/DataServices.xml"
+    invoke="updateElectronicText" auth="true">
+    <description>Update a ElectronicText</description>
+    <permission-service service-name="checkQuotePermission" main-action="UPDATE"/>
+    <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    <attribute name="contentId" mode="INOUT" optional="true"
+      type="String"/><!-- to optionaly know where this text is belonging to -->
+    <override name="textData" allow-html="any"/>
+  </service>
+  <service name="fsdUpdateSimpleTextContent" engine="simple"
+    location="component://xcms/minilang/content/ContentServices.xml"
+    invoke="fsdUpdateSimpleTextContent">
+    <!--<permission-service service-name="checkQuotePermission" main-action="UPDATE"/>-->
+    <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
+    <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
+  </service>
+  <service name="fsdUpdateNoteAndSendQuoteReportMail" engine="group" auth="true">
+    <description>Save the quote cover letter message, and send the Quote email.</description>
+    <group>
+      <invoke name="fsdUpdateSimpleTextContent" mode="sync"/>
+      <invoke name="mailx.sendQuoteReportMail" mode="sync"/>
+    </group>
+  </service>
+  <service name="fsdUpdateNoteAndGetQuoteReportMailSize" engine="group" auth="true">
+    <description>Save the quote cover letter message, and get the Quote email size.</description>
+    <group>
+      <invoke name="fsdUpdateSimpleTextContent" mode="sync"/>
+      <invoke name="mailx.getQuoteReportMailSize" mode="sync"/>
+    </group>
+  </service>
+  <service name="extCreateContentFromUploadedFile" engine="group" transaction-timeout="300">
+    <description>Accepts file upload, creates DataResource and Content records.</description>
+    <!-- uses createContent internally; additonal permission(s) not necessary -->
+    <group>
+      <invoke name="extCreateDataResource" parameters="preserve" result-to-context="true"/>
+      <invoke name="attachUploadToDataResource" parameters="preserve" result-to-context="true"/>
+      <invoke name="extCreateContentFromDataResource"/>
+    </group>
+  </service>
+
+  <!--service to fetch all Invoices-->
+  <service name="getAllInvoices" engine="java"
+    location="com.simbaquartz.xorder.sellercentral.services.SellerCentralInvoiceServices"
+    invoke="getAllInvoices" auth="true">
+    <description>fetch all Invoices</description>
+    <attribute name="invoiceNumber" type="String" mode="IN" optional="true"/>
+    <attribute name="cmInvoiceNumber" type="String" mode="IN" optional="true"/>
+    <attribute name="purchaseObiligationNumber" type="String" mode="IN" optional="true"/>
+    <attribute name="invoicedDate" type="Timestamp" mode="IN" optional="true"/>
+    <attribute name="statusId" type="String" mode="IN" optional="true"/>
+    <attribute name="organizationId" type="String" mode="IN" optional="true"/>
+    <attribute name="invoiceList" type="List" mode="OUT" optional="true"/>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+  </service>
+
+  <service name="generatePublicResourceUrlForPartyContent" engine="java"
+    location="com.simbaquartz.content.FsdContentServices"
+    invoke="generatePublicResourceUrlForPartyContent" transaction-timeout="72000">
+    <description>
+      Generate all the Content details related to the Party Id.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="isTriggeredFromMobileApp" type="String" mode="IN" optional="true"/>
+    <attribute name="allContentDetails" type="List" mode="OUT" optional="true"/>
+  </service>
+
+  <service auth="true" name="getServerRootUrlForZeusReactBoard" max-retry="3" engine="java"
+    location="com.simbaquartz.auth.FsdAuthHandler" invoke="getServerRootUrlForZeusReactBoard">
+    <description>Get the server url for zeus react board based on environment</description>
+    <attribute name="serverRootUrl" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service auth="true" name="getServerRootUrlForProjectBoard" max-retry="3" engine="java"
+    location="com.simbaquartz.auth.FsdAuthHandler" invoke="getServerRootUrlForProjectBoard">
+    <description>Get the server url for zeus react board based on environment</description>
+    <attribute name="serverRootUrl" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service auth="true" name="getServerRootUrlForPartner" max-retry="3" engine="java"
+    location="com.simbaquartz.auth.FsdAuthHandler" invoke="getServerRootUrlForPartner">
+    <description>Get the server url for zeus react board based on environment</description>
+    <attribute name="serverRootUrl" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="createUpdateSavedSearch" engine="java" default-entity-name="SavedSearch"
+    auth="true"
+    location="com.simbaquartz.xcommon.services.search.CommonSearchServices"
+    invoke="createUpdateSavedSearch">
+    <description>
+      Creates or updates SavedSearch entry. Also checks if an matching searchQueryJson exists, if
+      found returns the existing record details instead.
+    </description>
+    <!--<auto-attributes include="pk" mode="INOUT" optional="false"/>-->
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    <attribute name="searchId" type="String" mode="INOUT" optional="false"/>
+    <attribute name="savedSearch" type="GenericValue" mode="OUT" optional="false"/>
+    <override name="searchQueryUrl" allow-html="any"/>
+    <override name="isPublic" default-value="Y"/>
+    <override name="searchId" optional="true"/>
+  </service>
+
+  <service name="searchSavedSearches" engine="java"
+    location="com.simbaquartz.xcommon.services.search.CommonSearchServices"
+    invoke="searchSavedSearches">
+    <description>Searches paginated list of saved searches.</description>
+    <attribute name="searchId" type="String" mode="IN" optional="true"/>
+    <attribute name="typeId" type="String" mode="IN" optional="true"/>
+    <attribute name="keyword" type="String" mode="IN" optional="true"/>
+
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+
+    <attribute name="ownerPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="query" type="String" mode="IN" optional="true"/>
+    <attribute name="isPublic" type="String" mode="IN" optional="true" default-value="Y"/>
+    <attribute name="organizationId" type="String" mode="IN" optional="true"/>
+    <attribute name="sortBy" type="String" mode="IN" optional="true"
+      default-value="-lastModifiedDate"/>
+
+    <attribute name="savedSearches" type="List" mode="OUT" optional="false"/>
+    <attribute name="resultSize" type="Long" mode="OUT" optional="false"/>
+  </service>
+  <service name="deleteSavedSearch" default-entity-name="SavedSearch" engine="entity-auto" invoke="delete" auth="true">
+    <description>Delete a SavedSearch record</description>
+    <auto-attributes include="pk" mode="IN"/>
+  </service>
+
+
+  <!-- Color  -->
+  <service name="createColor" default-entity-name="Color" engine="simple"
+    location="component://xcommon/minilang/ColorServices.xml" invoke="createColor" auth="true">
+    <description>Create a Color</description>
+    <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+  <service name="updateColor" default-entity-name="Color" engine="simple"
+    location="component://xcommon/minilang/ColorServices.xml" invoke="updateColor" auth="true">
+    <description>Update a Color</description>
+    <auto-attributes include="pk" mode="IN" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+  <service name="removeColor" default-entity-name="Color" engine="simple"
+    location="component://xcommon/minilang/ColorServices.xml" invoke="removeColor" auth="true">
+    <description>Remove a Color</description>
+    <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+
+  <!-- TimePeriod  -->
+  <service name="createTimePeriod" default-entity-name="TimePeriod" engine="java"
+    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="createTimePeriod" auth="true">
+    <description>Create a TimePeriod</description>
+    <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+  <service name="updateTimePeriod" default-entity-name="TimePeriod" engine="java"
+    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="updateTimePeriod" auth="true">
+    <description>Update a TimePeriod</description>
+    <auto-attributes include="pk" mode="IN" optional="false"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+  <service name="removeTimePeriod" default-entity-name="TimePeriod" engine="java"
+    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="removeTimePeriod" auth="true">
+    <description>Remove a TimePeriod</description>
+    <auto-attributes include="pk" mode="IN" optional="false"/>
+  </service>
+  <service name="deleteAllTimePeriodsForParty" default-entity-name="TimePeriod" engine="java"
+    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="deleteAllTimePeriodsForParty" auth="true">
+    <description>Removes all TimePeriods for a party id.</description>
+    <attribute name="forPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+  <service name="deleteAllTimePeriodsForProductStore" default-entity-name="TimePeriod" engine="java"
+    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="deleteAllTimePeriodsForProductStore" auth="true">
+    <description>Removes all TimePeriods for a party id.</description>
+    <attribute name="forProductStoreId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="updateXCustRequest" engine="simple" default-entity-name="CustRequest"
+           location="component://xcommon/minilang/XCustRequestServices.xml" invoke="updateXCustRequest" auth="true">
+    <description>customized update a custRequest record</description>
+    <auto-attributes include="pk" mode="IN" optional="false"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    <attribute name="story" mode="IN" type="String" optional="true" allow-html="safe"/>
+    <override name="custRequestName" allow-html="safe"/>
+    <override name="description" allow-html="safe"/>
+  </service>
+
+  <service name="createPartyLanguage" default-entity-name="PartyLanguages" engine="entity-auto" invoke="create" auth="true">
+    <description>Create Party Language</description>
+    <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+  <service name="updatePartyLanguage" default-entity-name="PartyLanguages" engine="entity-auto" invoke="update" auth="true">
+    <description>Update Party Language</description>
+    <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+  <service name="removePartyLanguage" default-entity-name="PartyLanguages" engine="entity-auto" invoke="delete" auth="true">
+    <description>Delete PartyLanguages</description>
+    <auto-attributes include="pk" mode="IN" optional="false"/>
+  </service>
+</services>

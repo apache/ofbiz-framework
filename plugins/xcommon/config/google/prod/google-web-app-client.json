@@ -1,0 +1,24 @@
+{
+  "web": {
+    "client_id": "132875126157-ibn1b1qujifjtovb4ghe68aph620l0mu.apps.googleusercontent.com",
+    "project_id": "eng-opr-mtdapp-prod",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "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",
+    "redirect_uris": [
+      "https://app.managetheday.com",
+      "https://app-test.managetheday.com",
+      "http://localhost",
+      "http://localhost:8000",
+      "http://localhost:3000"
+    ],
+    "javascript_origins": [
+      "https://app.managetheday.com",
+      "https://app-test.managetheday.com",
+      "http://localhost",
+      "http://localhost:8000",
+      "http://localhost:3000"
+    ]
+  }
+}

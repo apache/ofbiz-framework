@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+	<ContentType
+			contentTypeId="EMAIL_SIGNATURE"
+			parentTypeId=""
+			description="Email Signature"
+			helpText=""
+			createdStamp="2014-01-01 00:00:00"
+			createdTxStamp="2014-01-01 00:00:00"
+			lastUpdatedStamp="2014-01-01 00:00:00"
+			lastUpdatedTxStamp="2014-01-01 00:00:00"/>
+
+	<PartyContentType description="Gmail Signature"  parentTypeId="" partyContentTypeId="GMAIL_SIGNATURE"/>
+	<PartyContentType description="Mailbox Email Attachment"  parentTypeId="" partyContentTypeId="MAILBOX_ATTCH"/>
+	<PartyContentType description="Public Resource Url"  parentTypeId="" partyContentTypeId="PUBLIC_RESOURCE_URL"/>
+
+
+	<StatusItem description="Archived" sequenceId="101" statusCode="ARCHIVED" statusId="COM_ARCHIVED" statusTypeId="COM_EVENT_STATUS"/>
+	<StatusValidChange statusId="COM_COMPLETE" statusIdTo="COM_ARCHIVED" transitionName="Archive an comm event, used when original email msg is deleted"/>
+
+    <TemporalExpression tempExprId="SYNCGMAILMSGS" tempExprTypeId="FREQUENCY" description="Every 15 Minutes" integer1="12" integer2="5"/>
+    <JobSandbox jobName="Auto Sync Gmail Msgs" runTime="2018-03-01 00:00:00.000" serviceName="autoSyncGmailMessagesForAllUsers" poolId="pool" runAsUser="system" tempExprId="SYNCGMAILMSGS" maxRecurrenceCount="-1"/>
+
+</entity-engine-xml>
