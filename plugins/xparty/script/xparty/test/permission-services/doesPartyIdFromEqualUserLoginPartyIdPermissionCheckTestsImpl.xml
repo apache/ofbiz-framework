@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testDoesPartyIdFromEqualUserLoginPartyIdPermissionCheck" short-description="Test case for service doesPartyIdFromEqualUserLoginPartyIdPermissionCheck." login-required="false">
+        <set field="serviceCtx.partyIdFrom" value="MP.manager1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.manager1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="doesPartyIdFromEqualUserLoginPartyIdPermissionCheck" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDoesPartyIdFromEqualUserLoginPartyIdPermissionCheckFail" short-description="Negative test case for service doesPartyIdFromEqualUserLoginPartyIdPermissionCheck." login-required="false">
+        <set field="serviceCtx.partyIdFrom" value="MP.manager1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="doesPartyIdFromEqualUserLoginPartyIdPermissionCheck" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

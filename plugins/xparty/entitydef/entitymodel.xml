@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+  <title>Entity of Xparty Component</title>
+  <description>Extension to base Party Component</description>
+  <copyright></copyright>
+  <version></version>
+
+  <extend-entity entity-name="Party">
+    <!--To store the frequently used Photo URL for a party (Person/Group/Team etc.)-->
+    <field name="photoUrl" type="url"/>
+    <field name="displayName" type="long-varchar"/>
+    <field name="email" type="long-varchar"/>
+    <field name="searchText" type="very-long"/>
+    <field name="lastLoggedInAt" type="date-time"/>
+    <field name="location" type="value">
+      <description>Location of the party (in city,State/Province format), example California, USA
+      </description>
+    </field>
+    <field name="locationContactMechId" type="id">
+      <description>Location ContactMech id of the party to fetch more details about the party.
+      </description>
+    </field>
+    <field name="rating" type="floating-point">
+      <description>Average rating of the party from all the submitted ratings
+      </description>
+    </field>
+    <relation type="one" fk-name="PRTY_LOC" rel-entity-name="PostalAddress">
+      <key-map field-name="locationContactMechId" rel-field-name="contactMechId"/>
+    </relation>
+  </extend-entity>
+
+  <extend-entity entity-name="Person">
+    <field name="displayName" type="name"/>
+  </extend-entity>
+
+  <view-entity entity-name="ExtPartyRelationshipAndDetail"
+    package-name="org.apache.ofbiz.party.party"
+    title="Extended Party Relationship And Details, adds displayName, photoUrl, email to the list of fields being returned.">
+    <member-entity entity-alias="PTY" entity-name="Party"/>
+    <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
+    <member-entity entity-alias="PER" entity-name="Person"/>
+    <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+    <member-entity entity-alias="ULN" entity-name="UserLogin"/>
+
+    <!--To weed out pending invitations-->
+    <member-entity entity-alias="PTYINV" entity-name="PartyInvitation"/>
+    <member-entity entity-alias="PTYADDR" entity-name="PostalAddress"/>
+
+    <alias-all entity-alias="PTYREL" />
+    <alias-all entity-alias="PTYADDR" prefix="location"/>
+
+    <alias entity-alias="PTY" name="partyId"/>
+    <alias entity-alias="PTY" name="lastLoggedInAt"/>
+    <alias entity-alias="PTY" name="createdDate"/>
+    <alias entity-alias="PTY" name="lastModifiedDate"/>
+    <alias entity-alias="PTY" name="externalId"/>
+    <alias entity-alias="PTY" name="partyTypeId"/>
+    <alias entity-alias="PTY" name="description"/>
+    <alias entity-alias="PTY" name="partyStatusId" field="statusId"/>
+    <alias entity-alias="PTY" name="photoUrl"/>
+    <alias entity-alias="PTY" name="displayName"/>
+    <alias entity-alias="PTY" name="email"/>
+    <alias entity-alias="PTY" name="searchText"/>
+    <alias entity-alias="PTY" name="locationContactMechId"/>
+
+    <alias entity-alias="PER" name="firstName"/>
+    <alias entity-alias="PER" name="middleName"/>
+    <alias entity-alias="PER" name="lastName"/>
+    <alias entity-alias="PER" name="firstNameLocal"/>
+    <alias entity-alias="PER" name="lastNameLocal"/>
+    <alias entity-alias="PER" name="personalTitle"/>
+    <alias entity-alias="PER" name="suffix"/>
+
+    <alias entity-alias="ULN" name="lastTimeZone"/>
+
+    <alias entity-alias="PTYGRP" name="groupName"/>
+    <alias entity-alias="PTYGRP" name="groupNameLocal"/>
+
+    <alias entity-alias="PTYINV" name="invitationStatusId" field="statusId"/>
+
+
+    <view-link entity-alias="PTY" rel-entity-alias="PTYREL" rel-optional="true">
+      <key-map field-name="partyId" rel-field-name="partyIdTo"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PTYINV" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PTYADDR" rel-optional="true">
+      <key-map field-name="locationContactMechId" rel-field-name="contactMechId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="ULN">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="UserLogin">
+      <key-map field-name="userLoginId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="PostalAddress">
+      <key-map field-name="locationContactMechId" rel-field-name="contactMechId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </view-entity>
+
+  <extend-entity entity-name="Product">
+    <field name="sku" type="description"/>
+    <field name="barcode" type="description"/>
+  </extend-entity>
+  <extend-entity entity-name="ContactMech">
+    <field name="isVerified" type="indicator"/>
+    <field name="lastVerifiedAt" type="date-time"/>
+    <field name="lastVerifiedBy" type="id-vlong"/>
+    <relation type="one" fk-name="CM_LOGIN_FK" rel-entity-name="UserLogin">
+      <key-map field-name="lastVerifiedBy" rel-field-name="userLoginId"/>
+    </relation>
+  </extend-entity>
+  <view-entity entity-name="PartyContentDetailAndDataResource"
+    package-name="org.ofbiz.content.content"
+    title="Party Content Detail View Entity">
+    <member-entity entity-alias="PCT" entity-name="PartyContent"/>
+    <member-entity entity-alias="CNT" entity-name="Content"/>
+    <member-entity entity-alias="DR" entity-name="DataResource"/>
+    <alias-all entity-alias="PCT"/>
+    <alias-all entity-alias="CNT"/>
+    <alias-all entity-alias="DR"/>
+    <view-link entity-alias="PCT" rel-entity-alias="CNT">
+      <key-map field-name="contentId"/>
+    </view-link>
+    <view-link entity-alias="CNT" rel-entity-alias="DR">
+      <key-map field-name="dataResourceId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="DataResource">
+      <key-map field-name="dataResourceId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="ContentType">
+      <key-map field-name="contentTypeId"/>
+    </relation>
+  </view-entity>
+  <extend-entity entity-name="PartyContactMech">
+    <field name="vaShipToSuffixCode" type="id"/>
+    <field name="vaStationId" type="id"/>
+  </extend-entity>
+
+  <entity entity-name="PartyNoteContent"
+    package-name="org.ofbiz.party.party"
+    title="Description for the Party Content">
+    <field name="partyId" type="id"/>
+    <field name="contentId" type="id"/>
+    <field name="description" type="description"/>
+    <prim-key field="partyId"/>
+    <prim-key field="contentId"/>
+    <relation type="one" fk-name="PARTY_CNT_NOTE" rel-entity-name="Party">
+      <key-map field-name="partyId" rel-field-name="partyId"/>
+    </relation>
+    <relation type="one" fk-name="PARTY_CNTNT_CNTNT" rel-entity-name="Content">
+      <key-map field-name="contentId" rel-field-name="contentId"/>
+    </relation>
+  </entity>
+
+  <view-entity entity-name="ExtPartyNoteView"
+    package-name="com.simbaquartz.xparty"
+    title="Extended Party Note View Entity, includes Party fields as well">
+    <member-entity entity-alias="PT" entity-name="Party"/>
+    <member-entity entity-alias="PN" entity-name="PartyNote"/>
+    <member-entity entity-alias="ND" entity-name="NoteData"/>
+    <alias entity-alias="PN" name="targetPartyId" field="partyId"/>
+    <alias entity-alias="ND" name="noteId"/>
+    <alias entity-alias="ND" name="noteName"/>
+    <alias entity-alias="ND" name="jsonText"/>
+    <alias entity-alias="ND" name="noteInfo"/>
+    <alias entity-alias="ND" name="noteDateTime"/>
+    <alias entity-alias="ND" name="noteParty"/>
+    <view-link entity-alias="PT" rel-entity-alias="PN">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PN" rel-entity-alias="ND">
+      <key-map field-name="noteId"/>
+    </view-link>
+  </view-entity>
+
+  <extend-entity entity-name="ContactMechAttribute">
+    <field name="attrValue" type="very-long"></field>
+  </extend-entity>
+
+  <!-- For Contact Label-->
+  <view-entity entity-name="ContactMechTypeAndPurpose"
+    package-name="com.simbaquartz.xparty"
+    title="Extended Contact Mech Type and Contact Mech Type Purpose">
+    <member-entity entity-alias="CMT" entity-name="ContactMechType"/>
+    <member-entity entity-alias="PMTP" entity-name="ContactMechTypePurpose"/>
+    <alias-all entity-alias="CMT"/>
+    <alias-all entity-alias="PMTP"/>
+
+    <view-link entity-alias="CMT" rel-entity-alias="PMTP" rel-optional="true">
+      <key-map field-name="contactMechTypeId" rel-field-name="contactMechTypeId"/>
+    </view-link>
+  </view-entity>
+
+  <!--Resource work schedule-->
+  <entity entity-name="RoleManager"
+    package-name="org.ofbiz.xparty"
+    title="Company Resources Roles and Profile Management Entity">
+    <field name="groupPartyId" type="id"/>
+    <field name="roleTypeId" type="id"/>
+    <field name="roleType" type="id"/>
+
+    <prim-key field="groupPartyId"/>
+    <prim-key field="roleTypeId"/>
+
+    <relation type="one" title="Parent" rel-entity-name="RoleType">
+      <key-map field-name="roleTypeId"/>
+    </relation>
+    <relation type="one" rel-entity-name="PartyGroup">
+      <key-map field-name="groupPartyId" rel-field-name="partyId"/>
+    </relation>
+  </entity>
+
+  <!--Resource work schedule-->
+  <entity entity-name="RolePermission"
+    package-name="org.ofbiz.xparty"
+    title="Company Resources Roles and Profile Management Entity">
+    <field name="permissionId" type="id-long"/>
+    <field name="roleTypeId" type="id"/>
+
+    <prim-key field="permissionId"/>
+    <prim-key field="roleTypeId"/>
+
+    <relation type="one" title="Parent" rel-entity-name="RoleType">
+      <key-map field-name="roleTypeId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="SecurityPermission">
+      <key-map field-name="permissionId"/>
+    </relation>
+  </entity>
+
+  <extend-entity entity-name="PartyInvitation">
+    <field name="groupPartyId" type="id"/>
+    <field name="teamPartyId" type="id"/>
+    <!--How many times an invitee has been reminded about invitation pending acceptance-->
+    <field name="remindedCount" type="numeric"/>
+    <field name="expirationDate" type="date-time"/>
+    <field name="acceptedDate" type="date-time"/>
+
+    <relation type="one" title="InvitedToJoinOrg" rel-entity-name="Party">
+      <key-map field-name="groupPartyId" rel-field-name="partyId"/>
+    </relation>
+    <relation type="one" title="InvitedToJoinTeam" rel-entity-name="Party">
+      <key-map field-name="teamPartyId" rel-field-name="partyId"/>
+    </relation>
+  </extend-entity>
+
+  <view-entity entity-name="PartyInvitationAndDetail" package-name="com.simbaquartz.xparty"
+    title="Extended Party Invitation And Details, adds displayName, photoUrl, email to the list of fields being returned.">
+    <member-entity entity-alias="PTYINV" entity-name="PartyInvitation"/>
+    <member-entity entity-alias="PTYFRM" entity-name="Party"/>
+    <member-entity entity-alias="PTYTO" entity-name="Party"/>
+
+    <alias-all entity-alias="PTYINV"/>
+
+    <alias entity-alias="PTYFRM" name="fromPhotoUrl" field="photoUrl"/>
+    <alias entity-alias="PTYFRM" name="fromDisplayName" field="displayName"/>
+    <alias entity-alias="PTYFRM" name="fromEmail" field="email"/>
+
+    <alias entity-alias="PTYTO" name="toPhotoUrl" field="photoUrl"/>
+    <alias entity-alias="PTYTO" name="toDisplayName" field="displayName"/>
+    <alias entity-alias="PTYTO" name="toEmail" field="email"/>
+
+    <view-link entity-alias="PTYINV" rel-entity-alias="PTYFRM" rel-optional="false">
+      <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTYINV" rel-entity-alias="PTYTO" rel-optional="false">
+      <key-map field-name="partyId" rel-field-name="partyId"/>
+    </view-link>
+  </view-entity>
+
+  <extend-entity entity-name="PartyAttribute">
+    <!--
+    Represents the data type for the attribute,
+    String (Text) for plain text,
+    Integer (Number) for numbers,
+    BigDecimal (Decimal Number) for currencies,
+    Double (Percentage) for storing percentages,
+    Boolean (True or False),
+    List (List),
+    Date (Date),
+    -->
+    <field name="attributeDataTypeId" type="id"/>
+    <!--
+    Represents the type of aggregation applied to this field, some common aggregation types include
+    Sum,
+    Average,
+    https://docs.oracle.com/cd/E12478_01/rpas/pdf/150/html/configuration_tools_user_guide/aggregation_types.htm
+    -->
+    <field name="aggregationTypeId" type="id"/>
+
+    <relation type="one" fk-name="PA_AGRTN_TYPE" title="PartyAggregation"
+      rel-entity-name="Enumeration">
+      <key-map field-name="aggregationTypeId" rel-field-name="enumId"/>
+    </relation>
+
+  </extend-entity>
+
+  <extend-entity entity-name="PartyContent">
+    <field name="sequenceNum" type="numeric"/>
+  </extend-entity>
+
+  <extend-entity entity-name="CommunicationEvent">
+    <!-- capture gmailMessageId and gmailThreadId. -->
+    <field name="mailboxMessageId" type="very-long"></field>
+    <field name="mailboxThreadId" type="very-long"></field>
+    <field name="callLogDuration" type="value"></field>
+    <field name="messageLabels" type="value">
+      <description>Comma separated labels. eg. INBOX,SENT,IMPORTANT,...</description>
+    </field>
+  </extend-entity>
+
+  <extend-entity entity-name="PartyContactMechPurpose">
+    <field name="label" type="short-varchar"></field>
+  </extend-entity>
+
+  <entity entity-name="ResourceViewHistory"
+    package-name="com.simbaquartz.xparty"
+    title="User login's resource access history, recently visited tasks/projects etc.">
+    <field name="userLoginId" type="id-vlong"/>
+    <!--Example Projects / Tasks-->
+    <field name="resourceTypeId" type="id"/>
+    <!--Example Project ID for project type resources / task id for task type resources-->
+    <field name="resourceId" type="id"/>
+    <!--Moment when the resource was last viewed-->
+    <field name="lastViewedAt" type="date-time"/>
+
+    <prim-key field="userLoginId"/>
+    <prim-key field="resourceTypeId"/>
+    <prim-key field="resourceId"/>
+
+    <relation type="one" fk-name="RSRVWHSTRY_USERL" rel-entity-name="UserLogin" title="ViewedBy">
+      <key-map field-name="userLoginId"/>
+    </relation>
+    <relation type="one" fk-name="RSRVWHSTRY_RSRTYP" rel-entity-name="Enumeration"
+      title="ResourceType">
+      <key-map field-name="resourceTypeId" rel-field-name="enumId"/>
+    </relation>
+  </entity>
+
+  <!--<view-entity entity-name="ResourceViewHistoryAndProject" package-name="com.simbaquartz.xparty"
+    title="View entity for recently viewed projects for a userLogin">
+    <member-entity entity-alias="RVH" entity-name="ResourceViewHistory"/>
+    <member-entity entity-alias="PRJ" entity-name="Project"/>
+
+    <alias-all entity-alias="RVH"/>
+    <alias-all entity-alias="PRJ"/>
+
+    <view-link entity-alias="RVH" rel-entity-alias="PRJ" rel-optional="true">
+      <key-map field-name="resourceId" rel-field-name="projectId"/>
+    </view-link>
+  </view-entity>-->
+  <!--<view-entity entity-name="ResourceViewHistoryAndTask" package-name="com.simbaquartz.xparty"
+    title="View entity for recently viewed tasks for a userLogin">
+    <member-entity entity-alias="RVH" entity-name="ResourceViewHistory"/>
+    <member-entity entity-alias="TASK" entity-name="TaskHeader"/>
+
+    <alias-all entity-alias="RVH"/>
+    <alias-all entity-alias="TASK"/>
+
+    <view-link entity-alias="RVH" rel-entity-alias="TASK" rel-optional="false">
+      <key-map field-name="resourceId" rel-field-name="taskId"/>
+    </view-link>
+  </view-entity>-->
+
+  <entity entity-name="PartyPreference"
+    package-name="com.simbaquartz.xparty"
+    title="Party Preference Entity">
+    <field name="partyId" type="id"/>
+    <field name="prefName" type="name"/>
+    <field name="prefValue" type="value"/>
+    <field name="prefTypeId" type="id"/>
+
+    <prim-key field="partyId"/>
+    <prim-key field="prefName"/>
+
+    <relation type="one" fk-name="PARTY_PREF" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one" fk-name="PP_PREF_TYPE" rel-entity-name="Enumeration">
+      <key-map field-name="prefTypeId" rel-field-name="enumId"/>
+    </relation>
+  </entity>
+
+<!--
+  <view-entity entity-name="CommEventAndParty" package-name="com.simbaquartz.xparty" title="Communication Event And Party View (Caller and Receiver) Entity">
+    <member-entity entity-alias="CEA" entity-name="CommunicationEventAssoc"/>
+    <member-entity entity-alias="CPC" entity-name="Party"/>
+    <member-entity entity-alias="CPR" entity-name="Party"/>
+    <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+    <member-entity entity-alias="EV" entity-name="Event"/>
+
+    <alias-all entity-alias="CEA" />
+    <alias-all entity-alias="CPC" prefix="caller"/>
+    <alias-all entity-alias="CPR" prefix="receiver"/>
+    <alias-all entity-alias="CE" prefix="commEvent"/>
+    <alias entity-alias="EV" name="eventName"/>
+    <alias entity-alias="EV" name="eventTypeId"/>
+    <alias entity-alias="EV" name="eventDescription" field="description"/>
+    <alias entity-alias="EV" name="eventDescriptionJson" field="descriptionJSON"/>
+    <alias entity-alias="EV" name="eventCreatedDate" field="createdDate"/>
+
+    <view-link entity-alias="CEA" rel-entity-alias="CPC">
+      <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="CEA" rel-entity-alias="CPR">
+      <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="CEA" rel-entity-alias="CE">
+      <key-map field-name="communicationEventId"/>
+    </view-link>
+    <view-link entity-alias="CEA" rel-entity-alias="EV">
+      <key-map field-name="eventId"/>
+    </view-link>
+  </view-entity>
+-->
+
+  <entity entity-name="PartyFeedback"
+    package-name="com.simbaquartz.store"
+    title="Store Party Feedback">
+    <field name="feedbackId" type="id"/>
+    <field name="partyId" type="id"/>
+    <field name="comments" type="very-long"/>
+    <field name="experienceRating" type="numeric"/>
+    <field name="submittedBy" type="id"/>
+
+    <prim-key field="feedbackId"/>
+    <relation type="one" fk-name="FK_PRTY_ID" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one" fk-name="FK_SBMTD_PRTY_ID" rel-entity-name="Party">
+      <key-map field-name="submittedBy" rel-field-name="partyId"/>
+    </relation>
+  </entity>
+  <entity entity-name="FeedbackNote"
+    package-name="org.apache.ofbiz.party.party"
+    title="Feedback Attribute Entity">
+    <field name="feedbackId" type="id"/>
+    <field name="noteId" type="id"/>
+    <field name="note" type="very-long"/>
+    <prim-key field="feedbackId"/>
+    <prim-key field="noteId"/>
+    <relation type="one" fk-name="FEEDBACK_NOTE" rel-entity-name="PartyFeedback">
+      <key-map field-name="feedbackId"/>
+    </relation>
+  </entity>
+  <entity entity-name="PartyFeedbackContent"
+    package-name="com.simbaquartz.store"
+    title="Store Party Feedback Content">
+    <field name="feedbackId" type="id"/>
+    <field name="contentId" type="id"/>/
+    <field name="fromDate" type="date-time"/>
+    <field name="thruDate" type="date-time"/>
+    <prim-key field="feedbackId"/>
+    <prim-key field="contentId"/>
+    <prim-key field="fromDate"/>
+    <relation type="one" fk-name="FEEDBACK_CNTNT" rel-entity-name="PartyFeedback">
+      <key-map field-name="feedbackId"/>
+    </relation>
+    <relation type="one" fk-name="FK_PRTY_ID" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one" fk-name="FDBCK_CNT_CNT" rel-entity-name="Content">
+      <key-map field-name="contentId"/>
+    </relation>
+  </entity>
+
+
+  <view-entity entity-name="DepartmentDetails" package-name="com.simbaquartz.xparty" title="Details of the department">
+    <member-entity entity-alias="PRTRL" entity-name="PartyRole"/>
+    <member-entity entity-alias="PR" entity-name="Party"/>
+    <member-entity entity-alias="PG" entity-name="PartyGroup"/>
+    <member-entity entity-alias="PREL" entity-name="PartyRelationship"/>
+    <member-entity entity-alias="PRELMEM" entity-name="PartyRelationship"/>
+    <member-entity entity-alias="PRTO" entity-name="Party"/>
+    <alias-all entity-alias="PRTRL" />
+    <alias-all entity-alias="PR" />
+    <alias-all entity-alias="PG" />
+    <alias-all entity-alias="PRTO" prefix="to"/>
+    <alias entity-alias="PREL" name="partyIdFrom" />
+    <alias entity-alias="PRELMEM" name="partyIdTo"/>
+    <alias entity-alias="PRELMEM" name="roleTypeIdTo"/>
+    <alias entity-alias="PRELMEM" name="partyRelationshipTypeId" />
+
+    <view-link entity-alias="PRTRL" rel-entity-alias="PR">
+      <key-map field-name="partyId" />
+      <entity-condition>
+        <condition-expr field-name="roleTypeId" entity-alias="PRTRL" value="DEPARTMENT"/>
+      </entity-condition>
+    </view-link>
+    <view-link entity-alias="PR" rel-entity-alias="PG" rel-optional="true">
+      <key-map field-name="partyId" />
+    </view-link>
+    <view-link entity-alias="PR" rel-entity-alias="PREL" rel-optional="true">
+      <key-map field-name="partyId" rel-field-name="partyIdTo"/>
+    </view-link>
+    <view-link entity-alias="PREL" rel-entity-alias="PRELMEM" rel-optional="true">
+      <key-map field-name="partyIdTo" rel-field-name="partyIdFrom"/>
+    </view-link>
+    <view-link entity-alias="PRELMEM" rel-entity-alias="PRTO" rel-optional="true">
+      <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+    </view-link>
+  </view-entity>
+
+</entitymodel>
+
+

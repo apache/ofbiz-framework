@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+
+    <!-- Run report Periodically  -->
+    <TemporalExpression tempExprId="REPORT_PERIODIC" tempExprTypeId="FREQUENCY" description="Every 5 Minutes" integer1="12" integer2="5"/>
+    <JobSandbox jobName="Run ReportPeriodically" runTime="2014-01-24 17:14:00.000" serviceName="runReportPeriodically" poolId="pool" runAsUser="system" tempExprId="REPORT_PERIODIC"  maxRecurrenceCount="-1"/>
+
+    <!--
+        Takes a snapshot of all supplier sales for a given month
+            * Service generateSupplierSnapshotsForCurrentMonth always takes the snapshot from the day 1 of the current
+              month and day 31 of the last month, irrespective of the day the service is ran.
+            * This is used in generating Supplier sales report PDF files that are sent out on a monthly basis.
+    -->
+    <TemporalExpression tempExprId="LAST_DAY_IN_MONTH" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Last Day of Month 30 or 31 at 23:30 hrs" integer1="30" integer2="31"/>
+    <TemporalExpression tempExprId="RUN_MNTH_END_2330" tempExprTypeId="INTERSECTION" description="Last day of month"/>
+    <TemporalExpressionAssoc fromTempExprId="RUN_MNTH_END_2330" toTempExprId="HOUR_23"/>
+    <TemporalExpressionAssoc fromTempExprId="RUN_MNTH_END_2330" toTempExprId="LAST_DAY_IN_MONTH"/>
+    <JobSandbox jobName="Run Supplier Sales Snapshot" runTime="2018-05-31 23:30:00.000" serviceName="generateSupplierSnapshotsForCurrentMonth" poolId="pool" runAsUser="system" tempExprId="RUN_MNTH_END_2330" maxRecurrenceCount="-1"/>
+
+    <TemporalExpression tempExprId="RUN_MID_MNTH_2330" tempExprTypeId="INTERSECTION" description="15th of every month"/>
+    <TemporalExpressionAssoc fromTempExprId="RUN_MID_MNTH_2330" toTempExprId="HOUR_23"/>
+    <TemporalExpressionAssoc fromTempExprId="RUN_MID_MNTH_2330" toTempExprId="DAYOFMONTH_15"/>
+    <JobSandbox jobName="Run BiWeekly Supplier Sales Snapshot" runTime="2018-06-06 23:30:00.000" serviceName="generateSupplierSnapshotsBiWeekly" poolId="pool" runAsUser="system" tempExprId="RUN_MID_MNTH_2330" maxRecurrenceCount="-1"/>
+
+</entity-engine-xml>

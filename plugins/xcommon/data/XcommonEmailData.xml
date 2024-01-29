@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- support request from FSD -->
+    <Enumeration  description="Send mail to FSD for a support request or an issue"
+                  enumCode="SUPRT_FSD" enumId="PRDS_SUPRT_FSD" enumTypeId="PRDS_EMAIL" />
+    <ProductStoreEmailSetting productStoreId="9000"
+                              emailType="PRDS_SUPRT_FSD" contentType="text/html"
+                              bodyScreenLocation="component://sellercentral/widget/EmailScreens.xml#FsdSupportRequestEmail"
+                              subject="Support request from Seller Central" fromAddress="sales@fidelissd.com" />
+
+
+    <!-- seller central related store email settings -->
+    <Enumeration  description="Drop shipment shipped notification email"
+                  enumCode="DSHP_SHP_NOTIFY" enumId="PRDS_DSHP_SHP_NOTIFY" enumTypeId="PRDS_EMAIL"
+                  sequenceId="01" />
+    <ProductStoreEmailSetting productStoreId="9000"
+                              emailType="PRDS_DSHP_SHP_NOTIFY"
+                              bodyScreenLocation="component://sellercentral/widget/EmailScreens.xml#DropshipmentShippedNotification"
+                              subject="Shipment Notification" fromAddress="sales@fidelissd.com" />
+
+    <!-- Customer request submitted -->
+    <Enumeration  description="Send Mail notification to FSD once customer request has been submitted."
+                  enumCode="CUST_RQ_SBMTD" enumId="PRDS_CUST_RQ_SBMTD" enumTypeId="PRDS_EMAIL" />
+    <ProductStoreEmailSetting productStoreId="9000"
+                              emailType="PRDS_CUST_RQ_SBMTD"
+                              bodyScreenLocation="component://sellercentral/widget/EmailScreens.xml#CustRequestSubmittedEmail"
+                              subject="Partner Request Submitted, Please Review" fromAddress="sales@fidelissd.com" />
+
+    <!-- Customer request rejected -->
+    <Enumeration  description="Send request rejected notification to request taker"
+                  enumCode="CUST_RQ_RJCTD" enumId="PRDS_CUST_RQ_RJCTD" enumTypeId="PRDS_EMAIL" />
+    <ProductStoreEmailSetting productStoreId="9000"
+                              emailType="PRDS_CUST_RQ_RJCTD" contentType="text/html"
+                              bodyScreenLocation="component://sellercentral/widget/EmailScreens.xml#CustRequestRejectedEmail"
+                              subject="Partner Request Rejected, Please Review" fromAddress="sales@fidelissd.com" />
+
+    <!-- Welcome email to customer -->
+    <Enumeration  description="Send Welcome Mail To Customer "
+                  enumCode="WLCM_ML_CSTMR" enumId="PRDS_WLCM_ML_CSTMR" enumTypeId="PRDS_EMAIL"
+                  sequenceId="04" />
+    <ProductStoreEmailSetting productStoreId="9000"
+                              emailType="PRDS_WLCM_ML_CSTMR" contentType="text/html"
+                              bodyScreenLocation="component://sellercentral/widget/EmailScreens.xml#WelcomeEmailToCustomer"
+                              subject="Welcome to Fidelis Sustainability Distribution" fromAddress="sales@fidelissd.com" />
+
+
+    <Enumeration  description="Send mail to request taker after request rejection"
+                  enumCode="QT_RJCTN_ML" enumId="PRDS_QT_RJCTN_ML" enumTypeId="PRDS_EMAIL"
+                  sequenceId="04" />
+    <ProductStoreEmailSetting productStoreId="9000"
+                              emailType="PRDS_QT_RJCTN_ML" contentType="text/html"
+                              bodyScreenLocation="component://sellercentral/widget/EmailScreens.xml#RequestRejectionMail"
+                              subject="Request Rejected, Please Review" fromAddress="sales@fidelissd.com" />
+
+    <!-- Supplier Reporting Mail Job weekly Every Monday -->
+    <TemporalExpression tempExprId="SEND_SP_RPRT_WK_ML" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Every Monday" integer1="2" integer2="2"/>
+    <JobSandbox jobName="Supplier Reporting Weekly Mail" runTime="2017-08-31 00:00:00.000" serviceName="sendSupplierReportingWeeklyMail" poolId="pool" runAsUser="system" tempExprId="SEND_SP_RPRT_WK_ML" maxRecurrenceCount="-1"/>
+
+    <!-- Supplier Reporting Mail Job monthly Every 1st of the month -->
+    <TemporalExpression tempExprId="SEND_SP_RPRT_MON_ML" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Every specified period" integer1="1" integer2="1"/>
+    <JobSandbox jobName="Supplier Reporting Monthly Mail" runTime="2017-08-31 00:00:00.000" serviceName="sendSupplierReportingMonthlyMail" poolId="pool" runAsUser="system" tempExprId="SEND_SP_RPRT_MON_ML" maxRecurrenceCount="-1"/>
+
+</entity-engine-xml>

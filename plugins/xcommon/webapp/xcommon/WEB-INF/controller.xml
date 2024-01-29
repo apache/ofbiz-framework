@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://ofbiz.apache.org/Site-Conf"
+  xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+  <!-- The controller elements that are common to all OFBiz components
+       can be found in the following xml file. A component can override the
+       elements found in the common-controller.xml file. -->
+  <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+
+  <description>Xcommon Component Site Configuration File</description>
+
+  <!-- Events to run on every request before security (chains exempt) -->
+  <!--
+  <preprocessor>
+  </preprocessor>
+  -->
+  <!-- Events to run on every request after all other processing (chains exempt) -->
+  <!--
+  <postprocessor>
+      <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+  </postprocessor>
+  -->
+
+  <!-- Request Mappings -->
+  <request-map uri="main">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="main"/>
+  </request-map>
+  <request-map uri="settings">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="settings"/>
+  </request-map>
+  <request-map uri="testAwsS3Connectivity">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/settings/TestAwsS3Connectivity.groovy"/>
+    <response name="success" type="none"/>
+  </request-map>
+  <request-map uri="testEmailConnectivity">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/settings/TestEmailConnectivity.groovy"/>
+    <response name="success" type="none"/>
+  </request-map>
+
+
+  <request-map uri="InitializeGoogleAuth">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/InitializeGoogleAuth.groovy"/>
+    <response name="success" type="none"/>
+  </request-map>
+
+  <request-map uri="GoogleAuthCode">
+    <security https="true" auth="false"/>
+    <event type="java" path="com.simbaquartz.xcommon.auth.thirdparty.google.GoogleAuthentication"
+      invoke="processGoogleAuthCodeEvent"/>
+    <response name="success" type="view" value="GoogleAuthCode"/>
+  </request-map>
+
+  <request-map uri="DisconnectGoogleAuth">
+    <security https="true" auth="true"/>
+    <event type="service" invoke="disconnectGoogleAuth"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="ComposeEmailWithGmail">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="ComposeEmailWithGmail"/>
+  </request-map>
+
+  <request-map uri="SendEmailWithGmail">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/SendEmailWithGoogle.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+  <request-map uri="SaveEmailDraft">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/SaveEmailDraft.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+  <request-map uri="DeleteEmailDraft">
+    <security https="true" auth="true"/>
+    <event type="service" invoke="fsdDeleteEmailDraft"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="DownloadGmailSignatures">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/DownloadGmailSignatures.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="ViewGmailSignatures">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="ViewGmailSignatures"/>
+  </request-map>
+
+  <request-map uri="SyncGmailConversationThread">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/SyncGmailConversationThread.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+  <request-map uri="ReSyncGmailMessage">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/ReSyncGmailMessage.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="SyncGoogleCalendarToFsdCalendar">
+    <security https="true" auth="true"/>
+    <event type="service" invoke="syncGoogleCalendarToFsdCalendar"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="AutoSyncGoogleCalendar">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/google/AutoSyncGoogleCalendar.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="Mailbox">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="ViewMailbox"/>
+  </request-map>
+
+  <request-map uri="PreviewTaskFromMailMessage">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="PreviewTaskFromMailMessage"/>
+  </request-map>
+
+  <request-map uri="GetCommEventContent">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/mail/GetCommEventContent.groovy"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+  <request-map uri="GetAttachmentsName">
+    <security https="true" auth="true"/>
+    <event type="groovy"
+      path="component://xcommon/webapp/xcommon/WEB-INF/actions/mail/GetAttachmentsName.groovy"/>
+    <response name="success" type="none"/>
+  </request-map>
+
+  <request-map uri="DisplayEmailTemplates">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="DisplayEmailTemplates"/>
+  </request-map>
+  <request-map uri="EmailTemplatePreviewMode">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="EmailTemplatePreviewMode"/>
+  </request-map>
+
+  <request-map uri="ViewEmailDraftModal">
+    <security https="true" auth="true"/>
+    <response name="success" type="view" value="ViewEmailDraftModal"/>
+  </request-map>
+
+  <request-map uri="DetachEmailLogFromTaskAjax">
+    <security https="true" auth="true"/>
+    <event type="service" invoke="deleteTaskCommunicationEventAssoc"/>
+    <response name="success" type="view" value="transactionresponse"/>
+    <response name="error" type="view" value="transactionresponse"/>
+  </request-map>
+
+
+  <request-map uri="SlackAuthCode">
+    <security https="true" auth="false"/>
+    <event type="java" path="com.simbaquartz.xcommon.auth.thirdparty.slack.SlackAuthentication"
+           invoke="processSlackAuthCodeEvent"/>
+    <response name="success" type="view" value="SlackAuthCodeDone"/>
+  </request-map>
+
+  <!-- View Mappings -->
+  <view-map name="GoogleAuthCode" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#GoogleAuthCode"/>
+  <view-map name="ComposeEmailWithGmail" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#ComposeEmailWithGmail"/>
+  <view-map name="ViewGmailSignatures" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#ViewGmailSignatures"/>
+  <view-map name="ViewMailbox" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#ViewMailbox"/>
+  <view-map name="PreviewTaskFromMailMessage" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#PreviewTaskFromMailMessage"/>
+
+  <view-map name="DisplayEmailTemplates" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#DisplayEmailTemplates"/>
+  <view-map name="EmailTemplatePreviewMode" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#EmailTemplatePreviewMode"/>
+
+  <view-map name="ViewEmailDraftModal" type="screen"
+    page="component://xcommon/widget/XcommonScreens.xml#ViewEmailDraftModal"/>
+
+  <view-map name="main" type="screen" page="component://xcommon/widget/XcommonScreens.xml#main"/>
+  <view-map name="settings" type="screen" page="component://xcommon/widget/XcommonScreens.xml#settings"/>
+
+  <view-map name="SlackAuthCodeDone" type="screen"
+            page="component://xcommon/widget/XcommonScreens.xml#SlackAuthCodeDone"/>
+  <!-- end of view mappings -->
+</site-conf>

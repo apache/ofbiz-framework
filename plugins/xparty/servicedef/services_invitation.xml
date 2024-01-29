@@ -1,0 +1,129 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>AxEmployee Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+
+    <service name="inviteTeamMember" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices"
+             invoke="inviteTeamMember" auth="true">
+        <description>Create new project member.</description>
+        <attribute name="projectId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="companyPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="firstName" type="String" mode="IN" optional="false"/>
+        <attribute name="lastName" type="String" mode="IN" optional="false"/>
+        <attribute name="email" type="String" mode="IN" optional="false"/>
+        <attribute name="extension" type="String" mode="IN" optional="true"/>
+        <attribute name="countryCode" type="String" mode="IN" optional="true"/>
+        <attribute name="areaCode" type="String" mode="IN" optional="true"/>
+        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="partyRegion" type="String" mode="IN" optional="true"/>
+        <attribute name="designation" type="String" mode="IN" optional="true"/>
+        <attribute name="designation" type="String" mode="IN" optional="true"/>
+        <attribute name="designation" type="String" mode="IN" optional="true"/>
+        <attribute name="companyName" type="String" mode="IN" optional="true"/>
+        <attribute name="profile" type="String" mode="IN" optional="true"/>
+        <attribute name="parentPartyEmail" type="String" mode="IN" optional="true"/>
+        <attribute name="roles" type="List" mode="IN" optional="true"/>
+
+        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+
+    <service name="searchPartyInvitations" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="searchPartyInvitations"
+             auth="true">
+        <description>Returns the list of invitations pending sent by the input partyIdFrom..</description>
+        <attribute name="keyword" type="String" mode="IN" optional="true"/>
+        <attribute name="invitedByPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="inviteeName" type="String" mode="IN" optional="true"/>
+        <attribute name="inviteeEmail" type="String" mode="IN" optional="true"/>
+        <attribute name="invitedToJoinOrgPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="invitedToJoinTeamPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+        <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true" default-value="-lastInviteDate"/>
+
+        <attribute name="searchResults" type="List" mode="OUT" optional="false"/>
+        <attribute name="resultSize" type="Long" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getPendingOrAcceptedInvitations" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="getPendingOrAcceptedInvitations"
+             auth="true">
+        <description>Get list of pending or accepted resource invitations.</description>
+        <attribute name="keyword" type="String" mode="IN" optional="false"/>
+        <attribute name="groupPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+        <attribute name="searchResults" type="List" mode="OUT" optional="false"/>
+        <attribute name="resultSize" type="Long" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="resendPartyInvitation" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="resendPartyInvitation"
+             auth="true">
+        <description>Resends resource invite mail.</description>
+        <attribute name="invitationId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="revokePartyInvitation" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="revokePartyInvitation"
+             auth="true">
+        <description>Revokes an existing invitation.</description>
+        <attribute name="invitationId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="resendPartyInvitationScheduler" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="resendPartyInvitationScheduler">
+        <description>When invitation is approaching expiration and has not been accepted yet,
+            auto renew the link and notify the invitee after 24 hours, also update the last invited date</description>
+
+    </service>
+
+    <service name="checkInvitationByEmail" engine="java" auth="true"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="checkInvitationByEmail">
+        <description>Validate if an email already has an invitation accepted or pending. </description>
+        <attribute name="email" type="String" mode="INOUT" optional="false"/>
+        <attribute name="isInvited" type="Boolean" mode="OUT" optional="false"/>
+
+        <attribute name="invitationId" type="String" mode="OUT" optional="true"/>
+        <attribute name="status" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="acceptUserInvitation" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="acceptUserInvitation">
+        <description>Service to create person account on accepting request.</description>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="password" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="designation" type="String" mode="IN" optional="true"/>
+        <attribute name="phone" type="Map" mode="IN" optional="true"/>
+    </service>
+
+    <service name="notifyInviterOnInvitationAcceptance" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="notifyInviterOnInvitationAcceptance"
+             auth="true">
+        <description>Notify inviter once the invitation has been accepted</description>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="notifyInviterOnInvitationExpiry" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="notifyInviterOnInvitationExpiry"
+             auth="true">
+        <description>Notify the inviter via email requesting a new link, add links in the email to send fresh invitation.</description>
+        <attribute name="invitationId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="notifyInviterAfterThirdInvitation" engine="java"
+             location="com.simbaquartz.xparty.services.invitation.PartyInvitationServices" invoke="notifyInviterAfterThirdInvitation"
+             auth="true">
+        <description>Notify the inviter, after the third invitation reminder.</description>
+        <attribute name="invitationId" type="String" mode="IN" optional="false"/>
+    </service>
+
+</services>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+<PartyType description="Application (MTD) Account" hasTable="N"
+    parentTypeId="LEGAL_ORGANIZATION" partyTypeId="APP_ACCOUNT"/>
+
+  <!--Business type of the application connected account-->
+  <EnumerationType description="Business Type" enumTypeId="BUSINESS_TYPE" hasTable="N"
+    parentTypeId=""/>
+  <Enumeration description="Individual, sole proprietor or single-member LLC" enumCode="INDIVIDUAL"
+    enumId="BSNTYP_INDIVIDUAL" sequenceId="01" enumTypeId="BUSINESS_TYPE"/>
+  <Enumeration description="Non-profit organization" enumCode="NON_PROFIT" enumId="BSNTYP_NONPROFIT"
+    sequenceId="02" enumTypeId="BUSINESS_TYPE"/>
+  <Enumeration description="Partnership firm" enumCode="PARTNERSHIP" enumId="BSNTYP_PARTNERSHIP"
+    sequenceId="03" enumTypeId="BUSINESS_TYPE"/>
+  <Enumeration description="Limited liability company (LLC)" enumCode="LLC" enumId="BSNTYP_LLC"
+    sequenceId="04" enumTypeId="BUSINESS_TYPE"/>
+
+
+  <!--Party lead status id, sequence id starts with 4 as previous set of sequence ids till 3-->
+  <StatusType parentTypeId="PARTY_STATUS" hasTable="" statusTypeId="LEAD_STATUS"
+    description="Lead Status"/>
+  <StatusItem description="New"
+    sequenceId="01" statusCode="NEW" statusId="LEAD_CREATED" statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Contacted"
+    sequenceId="02" statusCode="CONTACTED" statusId="LEAD_CONTACTED"
+    statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Hot"
+    sequenceId="03" statusCode="HOT" statusId="LEAD_HOT"
+    statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Cold"
+    sequenceId="04" statusCode="COLD" statusId="LEAD_COLD"
+    statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Interested"
+    sequenceId="05" statusCode="INTERESTED" statusId="LEAD_INTERESTED"
+    statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Under Review"
+    sequenceId="06" statusCode="IN_REVIEW" statusId="LEAD_IN_REVIEW"
+    statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Won"
+    sequenceId="07" statusCode="WON" statusId="LEAD_WON" statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="No Longer Interested"
+    sequenceId="08" statusCode="NOT_INTERESTED" statusId="LEAD_NOT_INTERESTED"
+    statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Lost"
+    sequenceId="09" statusCode="LOST" statusId="LEAD_LOST" statusTypeId="LEAD_STATUS"/>
+  <StatusItem description="Potential lead"
+    sequenceId="10" statusCode="POTENTIAL" statusId="LEAD_POTENTIAL" statusTypeId="LEAD_STATUS"/>
+
+  <StatusValidChange statusId="LEAD_ASSIGNED" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_CONTACTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_INTERESTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_IN_REVIEW" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_LOST" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_HOT" transitionName="Hot Lead"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_COLD" transitionName="Cold Lead"/>
+  <StatusValidChange statusId="LEAD_CREATED" statusIdTo="LEAD_POTENTIAL"
+    transitionName="Cold Lead"/>
+
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_INTERESTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_IN_REVIEW"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_LOST" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_POTENTIAL"
+    transitionName="Delete/Disable Lead"/>
+
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_INTERESTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_IN_REVIEW"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_LOST" transitionName="Became hot"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_HOT" transitionName="Became cold"/>
+  <StatusValidChange statusId="LEAD_CONTACTED" statusIdTo="LEAD_COLD" transitionName="Became cold"/>
+
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_CONTACTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_IN_REVIEW"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_LOST" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_HOT" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_COLD" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_INTERESTED" statusIdTo="LEAD_POTENTIAL"
+    transitionName="Delete/Disable Lead"/>
+
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_CONTACTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_INTERESTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_COLD" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_HOT" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_LOST" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_IN_REVIEW" statusIdTo="LEAD_POTENTIAL"
+    transitionName="Delete/Disable Lead"/>
+
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_CONTACTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_INTERESTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_IN_REVIEW" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_LOST" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_POTENTIAL"
+    transitionName="Delete/Disable Lead"/>
+
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_CONTACTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_INTERESTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_IN_REVIEW" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_HOT" transitionName="Became hot"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_COLD" transitionName="Became cold"/>
+  <StatusValidChange statusId="LEAD_LOST" statusIdTo="LEAD_POTENTIAL" transitionName="Became cold"/>
+
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_CONTACTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_INTERESTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_IN_REVIEW" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_LOST" transitionName="Became hot"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_COLD" transitionName="Became cold"/>
+  <StatusValidChange statusId="LEAD_HOT" statusIdTo="LEAD_POTENTIAL" transitionName="Became cold"/>
+
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_CONTACTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_INTERESTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_IN_REVIEW" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_WON" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_LOST" transitionName="Became hot"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_HOT" transitionName="Became cold"/>
+  <StatusValidChange statusId="LEAD_COLD" statusIdTo="LEAD_POTENTIAL" transitionName="Became cold"/>
+
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_CONTACTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_INTERESTED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_IN_REVIEW" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_LOST" transitionName="Became hot"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_HOT" transitionName="Became cold"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_COLD" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_WON" statusIdTo="LEAD_POTENTIAL" transitionName="Created"/>
+
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_CREATED" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_CONTACTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_INTERESTED"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_IN_REVIEW"
+    transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="PARTY_DISABLED"
+    transitionName="Delete/Disable Lead"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_LOST" transitionName="Became hot"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_HOT" transitionName="Became cold"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_COLD" transitionName="Created"/>
+  <StatusValidChange statusId="LEAD_POTENTIAL" statusIdTo="LEAD_WON" transitionName="Created"/>
+
+  <!--Data source for work lead is looking for -->
+  <DataSourceType dataSourceTypeId="LEAD_LOOKING_FOR"
+    description="Work to be done the lead is looking for"/>
+  <DataSource dataSourceId="WEB_DEVELOPMENT" dataSourceTypeId="LEAD_LOOKING_FOR"
+    description="Web development"/>
+  <DataSource dataSourceId="WEB_APP" dataSourceTypeId="LEAD_LOOKING_FOR"
+    description="Web application"/>
+  <DataSource dataSourceId="MOBILE_APP" dataSourceTypeId="LEAD_LOOKING_FOR"
+    description="Mobile application"/>
+  <DataSource dataSourceId="DIGITAL_MRKTG" dataSourceTypeId="LEAD_LOOKING_FOR"
+    description="Digital marketing"/>
+
+  <RoleType description="Team" hasTable="N" parentTypeId="" roleTypeId="TEAM"/>
+  <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Team"
+    partyRelationshipTypeId="TEAM" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+
+  <PartyContentType description="Lead Party Documents" parentTypeId=""
+    partyContentTypeId="LEAD_DOC"/>
+  <DocumentType description="Lead attachment docs" documentTypeId="LEAD_ATTCH_DOC" hasTable="N"
+    parentTypeId=""/>
+
+  <!--Party lead assignee role and relationship type-->
+  <RoleType description="Lead Poc" hasTable="N" parentTypeId="" roleTypeId="LEAD_POC"/>
+  <PartyRelationshipType description="" hasTable="N" parentTypeId=""
+    partyRelationshipName="Lead Poc"
+    partyRelationshipTypeId="LEAD_POC" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+
+  <PartyRelationshipType description="" hasTable="N" parentTypeId=""
+    partyRelationshipName="Organization Team"
+    partyRelationshipTypeId="ORGANIZATION_TEAM" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+
+  <!--Default administration role and profiles for all the organizations-->
+  <RoleType description="Administration" hasTable="N" parentTypeId="" roleTypeId="ADMINISTRATION"/>
+
+  <!--Role for the account to be marked as the owner of the contact-->
+  <!--
+  Every contact must have a owner account that represents the account the contact belongs to.
+  Lead
+  - - contact owner account (Account partyGroup)
+  -->
+  <PartyRelationshipType
+    description="Contact's account owner so they don't show up for other accounts." hasTable="N"
+    parentTypeId="" partyRelationshipName="Contact owner account"
+    partyRelationshipTypeId="CONTACT_OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+
+  <BaseJobRole jobRoleId="ADMIN" roleName="CEO"
+    roleResponsibilities="Admin of the org, will be responsible for all the admin management"/>
+
+  <Enumeration description="Email verification link email sent to a party." enumCode="EMAIL_VRFCTN"
+    enumId="EMAIL_VRFCTN" enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="EMAIL_VRFCTN"
+    htmlBodyScreenUri=""
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#VerifyEmailViaLinkInEmail"
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Almost there! Please verify your email address to start using Manage The Day"
+    fromAddress="devops@managetheday.com"
+    contentType="text/html"
+    createdStamp="2019-07-01 00:00:00.000"
+    createdTxStamp="2019-07-01 00:00:00.000"
+    lastUpdatedStamp="2019-07-01 00:00:00.000"
+    lastUpdatedTxStamp="2019-07-01 00:00:00.000"/>
+
+  <!-- Reset Password Link : RESET_PWD_LINK -->
+  <Enumeration description="Reset Password Link sent to the account holder."
+    enumCode="RESET_PWD_LINK"
+    enumId="RESET_PWD_LINK" enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="RESET_PWD_LINK"
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#ResetPasswordEmailBody"
+    htmlBodyScreenUri=""
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Forgot your password? We are here to help"
+    fromAddress="devops@managetheday.com"
+    bccAddress="letters@managetheday.com"
+    contentType="text/html"
+    attachOrderEntityContent="N"
+    createdStamp="2019-07-01 00:00:00.000"
+    createdTxStamp="2019-07-01 00:00:00.000"
+    lastUpdatedStamp="2019-07-01 00:00:00.000"
+    lastUpdatedTxStamp="2019-07-01 00:00:00.000"/>
+
+  <!--seed data for inviting a new team member for an organization-->
+  <Enumeration description="Send first invitation email to invited team member."
+    enumCode="EML_INVT_PRTY" enumId="EML_INVT_PRTY"
+    enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="EML_INVT_PRTY"
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#SendPartyInvitationEmail"
+    htmlBodyScreenUri=""
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Action Required: ${inviterName} invited you to join ${inviterOrgName}"
+    bccAddress="devops@managetheday.com"
+    fromAddress="no-reply@managetheday.com"
+    contentType="text/html"
+    attachOrderEntityContent="N"
+    createdStamp="2014-01-01 00:00:00.000"
+    createdTxStamp="2014-01-01 00:00:00.000"
+    lastUpdatedStamp="2014-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2014-01-01 00:00:00.000"/>
+
+  <!--Reminder email when invitation has not been accepted yet.-->
+  <Enumeration description="Send invitation reminder email to invited team member."
+    enumCode="EML_REINVT_PRTY" enumId="EML_REINVT_PRTY"
+    enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="EML_REINVT_PRTY"
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#SendPartyInvitationEmail"
+    htmlBodyScreenUri=""
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Reminder: ${inviterName} invited you to join ${inviterOrgName}"
+    bccAddress="devops@managetheday.com"
+    fromAddress="no-reply@managetheday.com"
+    contentType="text/html"
+    attachOrderEntityContent="N"
+    createdStamp="2014-01-01 00:00:00.000"
+    createdTxStamp="2014-01-01 00:00:00.000"
+    lastUpdatedStamp="2014-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2014-01-01 00:00:00.000"/>
+
+  <!--Notification email when invitation has been accepted.-->
+  <Enumeration description="Send notification to the inviter." enumCode="EML_NTF_INVTR"
+    enumId="EML_NTF_INVTR"
+    enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="EML_NTF_INVTR"
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#SendInviterNotification"
+    htmlBodyScreenUri=""
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Congratulations! ${inviteeName} has accepted your invitation"
+    bccAddress="devops@managetheday.com"
+    fromAddress="no-reply@managetheday.com"
+    contentType="text/html"
+    attachOrderEntityContent="N"
+    createdStamp="2014-01-01 00:00:00.000"
+    createdTxStamp="2014-01-01 00:00:00.000"
+    lastUpdatedStamp="2014-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2014-01-01 00:00:00.000"/>
+
+  <!--Notification email to the inviter that invitee invitation has expired.-->
+  <Enumeration
+    description="Send notification email to the inviter that invitee invitation has expired."
+    enumCode="EML_INVTR_INVEXP" enumId="EML_INVTR_INVEXP"
+    enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="EML_INVTR_INVEXP"
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#NotifyInviterOnInvitationExpiry"
+    htmlBodyScreenUri=""
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Action required: Your invitation sent to ${inviteeName} has expired. Try sending out a new invitation."
+    bccAddress="devops@managetheday.com"
+    fromAddress="no-reply@managetheday.com"
+    contentType="text/html"
+    attachOrderEntityContent="N"
+    createdStamp="2014-01-01 00:00:00.000"
+    createdTxStamp="2014-01-01 00:00:00.000"
+    lastUpdatedStamp="2014-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2014-01-01 00:00:00.000"/>
+
+  <!--Notification email to the inviter after the third invitation reminder.-->
+  <Enumeration description="Notification email to the inviter after the third invitation reminder."
+    enumCode="EML_INVTR_AFTRTRINV" enumId="EML_INVTR_AFTRTRINV"
+    enumTypeId="PRDS_EMAIL"/>
+  <ProductStoreEmailSetting
+    productStoreId="9000"
+    emailType="EML_INVTR_AFTRTRINV"
+    bodyScreenLocation="component://xparty/widget/XpartyEmailScreens.xml#NotifyInviterAfterThirdInvitation"
+    htmlBodyScreenUri=""
+    textBodyScreenUri=""
+    xslfoAttachScreenLocation=""
+    subject="Notification: ${inviteeName} hasn't accepted your invitation to join ${inviterOrgName}"
+    bccAddress="devops@managetheday.com"
+    fromAddress="no-reply@managetheday.com"
+    contentType="text/html"
+    attachOrderEntityContent="N"
+    createdStamp="2014-01-01 00:00:00.000"
+    createdTxStamp="2014-01-01 00:00:00.000"
+    lastUpdatedStamp="2014-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2014-01-01 00:00:00.000"/>
+
+
+  <JobSandbox jobId="RESND_INV" jobName="Resend Party Invitation" runTime="2000-01-01 01:00:00.000"
+    serviceName="resendPartyInvitationScheduler" poolId="pool" runAsUser="system"
+    tempExprId="MINUTE_20" maxRecurrenceCount="-1"/>
+
+  <ContentType contentTypeId="ABOUT_PARTY" description="Party about info" hasTable="N"
+    parentTypeId=""/>
+
+  <!--Resource type for the recently viewed items service, example recently viewed projects/tasks-->
+  <EnumerationType description="Recently viewed resource types (Projects/Tasks)"
+    enumTypeId="RCNT_RSRC_TYPE" hasTable="N" parentTypeId=""/>
+  <Enumeration description="Contact" enumCode="CONTACT" enumId="TYPE_CONTACT" sequenceId="01"
+    enumTypeId="RCNT_RSRC_TYPE"/>
+  <Enumeration description="Project" enumCode="PROJECT" enumId="TYPE_PROJECT" sequenceId="02"
+    enumTypeId="RCNT_RSRC_TYPE"/>
+  <Enumeration description="Task" enumCode="TASK" enumId="TYPE_TASK" sequenceId="03"
+    enumTypeId="RCNT_RSRC_TYPE"/>
+  <Enumeration description="Lead" enumCode="LEAD" enumId="TYPE_LEAD" sequenceId="04"
+    enumTypeId="RCNT_RSRC_TYPE"/>
+  <Enumeration description="Deal" enumCode="DEAL" enumId="TYPE_DEAL" sequenceId="05"
+    enumTypeId="RCNT_RSRC_TYPE"/>
+  <Enumeration description="Task template" enumCode="TEMPLATE" enumId="TYPE_TASK_TMPLT"
+    sequenceId="06" enumTypeId="RCNT_RSRC_TYPE"/>
+
+  <!--Location types (addresses)-->
+  <ContactMechPurposeType contactMechPurposeTypeId="HOME_LOCATION" description="Home Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="WORK_LOCATION" description="Work Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="SHIPPING_LOCATION"
+    description="Shipping Destination Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="SHIP_ORIG_LOCATION"
+    description="Shipping Origin Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="BILLING_LOCATION"
+    description="Billing (AP) Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_LOCATION"
+    description="Payment (AR) Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="GENERAL_LOCATION"
+    description="General Correspondence Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="PUR_RET_LOCATION"
+    description="Purchase Return Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_LOCATION"
+    description="Primary Address"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="PREVIOUS_LOCATION"
+    description="Previous Address"/>
+
+  <QuoteType description="To add quick quote" hasTable="N"
+    parentTypeId="" quoteTypeId="QUICK_QUOTE"/>
+
+  <!-- Quote statuses -->
+  <StatusType description="Quote Status" hasTable="N" parentTypeId="" statusTypeId="QUOTE_STATUS"/>
+  <StatusItem description="Drafted" sequenceId="01" statusCode="DRAFTED" statusId="QUO_DRAFT"
+    statusTypeId="QUOTE_STATUS"/>
+  <StatusItem description="Created" sequenceId="02" statusCode="CREATED" statusId="QUO_CREATED"
+    statusTypeId="QUOTE_STATUS"/>
+  <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="QUO_APPROVED"
+    statusTypeId="QUOTE_STATUS"/>
+  <StatusItem description="Ordered" sequenceId="04" statusCode="ORDERED" statusId="QUO_ORDERED"
+    statusTypeId="QUOTE_STATUS"/>
+  <StatusItem description="Rejected" sequenceId="05" statusCode="REJECTED" statusId="QUO_REJECTED"
+    statusTypeId="QUOTE_STATUS"/>
+  <StatusItem description="Reviewed" sequenceId="06" statusCode="QUO_REVIEW" statusId="QUO_REVIEW"
+    statusTypeId="QUOTE_STATUS"/>
+  <StatusValidChange statusId="QUO_DRAFT" statusIdTo="QUO_CREATED" transitionName="Create Quote"/>
+  <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_APPROVED"
+    transitionName="Accept Quote"/>
+  <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_REJECTED"
+    transitionName="Reject Quote"/>
+  <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_ORDERED" transitionName="Order Quote"/>
+  <StatusValidChange statusId="QUO_APPROVED" statusIdTo="QUO_REJECTED"
+    transitionName="Reject Quote"/>
+  <StatusValidChange statusId="QUO_CREATED" statusIdTo="QUO_REVIEW" transitionName="Review Quote"/>
+  <StatusValidChange statusId="QUO_REVIEW" statusIdTo="QUO_APPROVED"
+    transitionName="Approved Quote"/>
+
+  <PartyType partyTypeId="DEPARTMENT" description="Department" hasTable="N"
+    parentTypeId="PARTY_GROUP"/>
+  <PartyType partyTypeId="SUB_DEPARTMENT" description="Sub Department" hasTable="N"
+    parentTypeId="PARTY_GROUP"/>
+
+  <PartyClassificationType description="MTD paying accounts (Active subscription)" hasTable="N" parentTypeId=""
+    partyClassificationTypeId="MTD_CLSFCTN_PAID"/>
+
+  <PartyClassificationType description="MTD non-paying accounts (No subscription)" hasTable="N" parentTypeId=""
+    partyClassificationTypeId="MTD_CLSFCTN_UNPAID"/>
+
+    <EnumerationType description="Leave duration of party Leave" enumTypeId="LEAVE_DURATION" hasTable="N"
+                     parentTypeId=""/>
+    <Enumeration description="All Day" enumCode="ALL_DAY" enumId="ALL_DAY" sequenceId="01" enumTypeId="LEAVE_DURATION"/>
+    <Enumeration description="First Half" enumCode="FIRST_HALF" enumId="FIRST_HALF" sequenceId="02"
+                 enumTypeId="LEAVE_DURATION"/>
+    <Enumeration description="Second Half" enumCode="SECOND_HALF" enumId="SECOND_HALF" sequenceId="03"
+                 enumTypeId="LEAVE_DURATION"/>
+    <Enumeration description="Not Applicable" enumCode="N_A" enumId="N_A" sequenceId="04" enumTypeId="LEAVE_DURATION"/>
+
+
+    <StatusType description="Leave Status of Party Leave" hasTable="N" parentTypeId="" statusTypeId="LEAVE_STATUS"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="PENDING"
+                statusTypeId="LEAVE_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="APPROVED"
+                statusTypeId="LEAVE_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="REJECTED"
+                statusTypeId="LEAVE_STATUS"/>
+
+
+</entity-engine-xml>

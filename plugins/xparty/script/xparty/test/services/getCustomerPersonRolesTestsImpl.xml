@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testGetCustomerPersonRoles" short-description="Test case for service getCustomerPersonRoles" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getCustomerPersonRoles" in-map-name="serviceCtx">
+            <result-to-field result-name="roleTypeIds"/>
+            <result-to-field result-name="roles"/>
+        </call-service>
+        <check-errors/>
+        <set field="rolesSize" value="${groovy: ( roleTypeIds.size() == 5 )}" type="Boolean"/>
+        <assert>
+            <if-compare field="rolesSize" operator="equals" value="true" type="Boolean"/>
+            <if-compare field="roleTypeIds[0]" operator="equals" value="CONTRACTING_OFFICER"/>
+            <if-compare field="roleTypeIds[1]" operator="equals" value="MANAGER"/>
+            <if-compare field="roleTypeIds[2]" operator="equals" value="SHIPMENT_CLERK"/>
+            <if-compare field="roleTypeIds[3]" operator="equals" value="END_USER_CUSTOMER"/>
+            <if-compare field="roleTypeIds[4]" operator="equals" value="CONTACT"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

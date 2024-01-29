@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Xgeo Services</description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+  <service name="enrichGeoDetailsForPostalAddress" engine="java"
+    location="com.simbaquartz.xgeo.services.GeoLocationServices"
+    invoke="enrichGeoDetailsForPostalAddress">
+    <description>
+      Enriches the contact mech (postal address) details by adding latitude,
+      longitude and other geo details to the Postal Address. Returns the enriched postal
+      address with new values.
+
+      Adds lat/lang to the address, also downloads a CDN accessible static map image using
+      mapbox and saves it under PostalAddress.staticMapUrl.
+    </description>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="updatedPostalAddress" type="GenericValue" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="populateTimezoneForGeoLocation" engine="java"
+    location="com.simbaquartz.xgeo.services.GeoLocationServices"
+    invoke="populateTimezoneForGeoLocation">
+    <description>
+      Retrieves the timezone based on lat/long for a location (PostalAddress) and saves in the
+      postal address.
+      If Lat/Long is not found on the PostalAddress record calls enrichGeoDetailsForPostalAddress to
+      try and populate.
+    </description>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="updatedPostalAddress" type="GenericValue" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="calculateDistanceBetweenLocations" engine="java"
+    location="com.simbaquartz.xgeo.services.GeoLocationServices"
+    invoke="calculateDistanceBetweenLocations">
+    <description>
+      Calculates distance between two locations, works with lat/long values or origin/destination
+      postal address contact mech
+      ids.
+      Unit defaults to "imperial" unit (Miles etc.), pass "metric" to get metric values.
+      If lat and long values are provided postal address contact mech ids are ignored.
+
+      Either lat/long or contact mech id is required for the service to work, will return error
+      otherwise.
+
+      Example values for testing (Lat,Long):
+      -31.9522, 115.8589 (Origin)
+      -25.344677, 131.036692 (Destination)
+      Returns
+      distanceHumanReadable (129 km) and distanceInMeters (129324)
+      durationHumanReadable (6 hours 48 minutes) and durationInSeconds (24487)
+    </description>
+    <attribute name="originLat" type="Double" mode="IN" optional="true"/>
+    <attribute name="originLong" type="Double" mode="IN" optional="true"/>
+    <attribute name="destinationLat" type="Double" mode="IN" optional="true"/>
+    <attribute name="destinationLong" type="Double" mode="IN" optional="true"/>
+
+    <attribute name="originPostalAddressContactMechId" type="String" mode="IN" optional="true"/>
+    <attribute name="destinationPostalAddressContactMechId" type="String" mode="IN"
+      optional="true"/>
+
+    <attribute name="unitsType" type="String" mode="IN" optional="false" default-value="metric"/>
+
+    <!--OUT Params-->
+    <attribute name="distanceHumanReadable" type="String" mode="OUT" optional="false"/>
+    <attribute name="distanceInMeters" type="Long" mode="OUT" optional="false"/>
+
+    <attribute name="durationHumanReadable" type="String" mode="OUT" optional="false"/>
+    <attribute name="durationInSeconds" type="Long" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getDirectionsBetweenTwoGeoPoints" engine="java"
+    location="com.simbaquartz.xgeo.services.GeoLocationServices"
+    invoke="getDirectionsBetweenTwoGeoPoints">
+    <description>
+      Returns the directions between two locations.
+      Calls directions api to fetch the route path then prepares and downloads static map url image.
+
+      Example values for testing (Lat,Long):
+      -31.9522, 115.8589 (Origin)
+      -25.344677, 131.036692 (Destination)
+      Returns
+      staticMapCdnUrl (downloaded and CDN accesible url of the static map)
+    </description>
+    <attribute name="originLat" type="Double" mode="IN" optional="false"/>
+    <attribute name="originLong" type="Double" mode="IN" optional="false"/>
+    <attribute name="destinationLat" type="Double" mode="IN" optional="false"/>
+    <attribute name="destinationLong" type="Double" mode="IN" optional="false"/>
+
+    <attribute name="travelMode" type="String" mode="IN" optional="true" default-value="driving"/>
+
+    <!--OUT Params-->
+    <attribute name="staticMapCdnUrl" type="String" mode="OUT" optional="false"/>
+  </service>
+
+</services>

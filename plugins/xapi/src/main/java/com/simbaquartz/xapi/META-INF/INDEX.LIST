@@ -1,0 +1,16 @@
+JarIndex-Version: 1.0
+
+prettytime-2.1.0.jar
+META-INF
+META-INF/maven
+META-INF/maven/org.ocpsoft.prettytime
+META-INF/maven/org.ocpsoft.prettytime/prettytime
+META-INF/services
+org
+org/ocpsoft
+org/ocpsoft/prettytime
+org/ocpsoft/prettytime/format
+org/ocpsoft/prettytime/i18n
+org/ocpsoft/prettytime/impl
+org/ocpsoft/prettytime/units
+

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="extCreateCustomerPersonWithRole" short-description="Creates a person with the supplied role for a given Customer party group.">
+        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+
+        <!-- Create the Contracting Officer Person -->
+        <set from-field="parameters.customerPersonalTitle" field="PersonInFields.personalTitle"/>
+        <set from-field="parameters.customerFirstName" field="PersonInFields.firstName"/>
+        <set from-field="parameters.customerMiddleName" field="PersonInFields.middleName"/>
+        <set from-field="parameters.customerLastName" field="PersonInFields.lastName"/>
+        <set from-field="parameters.customerSuffix" field="PersonInFields.suffix"/>
+        <set from-field="parameters.customerPersonalTitle" field="PersonInFields.personalTitle"/>
+        <set from-field="parameters.customerSuffix" field="PersonInFields.suffix"/>
+        <set field="PersonInFields.userLogin" from-field="systemUserLogin"/>
+        <call-service service-name="createPerson" in-map-name="PersonInFields">
+            <result-to-field result-name="partyId" field="customerPartyId"/>
+            <result-to-result result-name="partyId"/>
+        </call-service>
+
+        <!-- Add the Role -->
+        <set from-field="customerPartyId" field="PartyRoleInFields.partyId"/>
+        <set field="PartyRoleInFields.roleTypeId" from-field="parameters.customerRoleTypeId"/>
+        <set field="PartyRoleInFields.userLogin" from-field="systemUserLogin"/>
+        <call-service service-name="createPartyRole" in-map-name="PartyRoleInFields"/>
+
+        <!-- Establish Role to PartyGroup Relationship -->
+        <set from-field="parameters.customerPartyGroupPartyId" field="RelationshipInFields.partyIdFrom"/>
+        <set from-field="customerPartyId" field="RelationshipInFields.partyId"/>
+        <set from-field="customerPartyId" field="RelationshipInFields.partyIdTo"/>
+        <set field="RelationshipInFields.roleTypeIdTo" from-field="parameters.customerRoleTypeId"/>
+        <set field="RelationshipInFields.partyRelationshipTypeId" from-field="parameters.partyRelationshipTypeId"/>
+        <set field="RelationshipInFields.userLogin" from-field="systemUserLogin"/>
+        <call-service service-name="createPartyRelationship" in-map-name="RelationshipInFields">
+        </call-service>
+
+        <!-- Add Email -->
+        <if-not-empty field="parameters.customerEmail">
+            <set from-field="customerPartyId" field="EmailAddressInFields.partyId"/>
+            <set field="RelationshipInFields.contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <set field="RelationshipInFields.preContactMechTypeId" value="EMAIL_ADDRESS"/>
+            <set from-field="parameters.customerEmail" field="EmailAddressInFields.emailAddress"/>
+            <set field="EmailAddressInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyEmailAddress" in-map-name="EmailAddressInFields">
+                <result-to-field result-name="contactMechId" field="emailAddressContactMechId"/>
+            </call-service>
+
+            <!-- Add Email: Create Purpose-->
+            <set from-field="customerPartyId" field="PartyContactMechPurposeInFields.partyId"/>
+            <set from-field="emailAddressContactMechId" field="PartyContactMechPurposeInFields.contactMechId"/>
+            <set field="PartyContactMechPurposeInFields.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <set field="PartyContactMechPurposeInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="PartyContactMechPurposeInFields"/>
+        </if-not-empty>
+
+        <!-- Add Phone -->
+        <if-not-empty field="parameters.customerPhoneContactNumber">
+            <set from-field="customerPartyId" field="CreatePartyTelecomNumberInFields.partyId"/>
+            <set from-field="parameters.customerPhoneCountryCode" field="CreatePartyTelecomNumberInFields.countryCode"/>
+            <set from-field="parameters.customerPhoneAreaCode" field="CreatePartyTelecomNumberInFields.areaCode"/>
+            <set from-field="parameters.customerPhoneContactNumber" field="CreatePartyTelecomNumberInFields.contactNumber"/>
+            <set from-field="parameters.customerPhoneExtension" field="CreatePartyTelecomNumberInFields.extension"/>
+            <set field="CreatePartyTelecomNumberInFields.contactMechTypeId" value="TELECOM_NUMBER"/>
+            <set field="CreatePartyTelecomNumberInFields.preContactMechTypeId" value="TELECOM_NUMBER"/>
+            <set field="CreatePartyTelecomNumberInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyTelecomNumber" in-map-name="CreatePartyTelecomNumberInFields">
+                <result-to-field result-name="contactMechId" field="TelecomNumberContactMechId"/>
+            </call-service>
+
+            <!-- Add Phone: Create Purpose -->
+            <set from-field="customerPartyId" field="PartyContactMechPurposeInFields.partyId"/>
+            <set from-field="TelecomNumberContactMechId" field="PartyContactMechPurposeInFields.contactMechId"/>
+            <set field="PartyContactMechPurposeInFields.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+            <set field="PartyContactMechPurposeInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="PartyContactMechPurposeInFields"/>
+
+            <!-- Add Phone: Create region -->
+            <if-not-empty field="parameters.customerPhoneRegion">
+                <set from-field="parameters.customerPhoneRegion" field="PartyPhoneCountryRegionInFields.partyRegion"/>
+                <set from-field="TelecomNumberContactMechId" field="PartyPhoneCountryRegionInFields.contactMechId"/>
+                <set field="PartyPhoneCountryRegionInFields.userLogin" from-field="systemUserLogin"/>
+                <call-service service-name="createTelecomNumberRegionForParty" in-map-name="PartyPhoneCountryRegionInFields"/>
+            </if-not-empty>
+        </if-not-empty>
+
+        <!-- Add LinkedIn Id -->
+        <if-not-empty field="parameters.linkedInUrl">
+            <set from-field="parameters.linkedInUrl" field="LinkedInFields.infoString"/>
+            <set field="LinkedInFields.contactMechTypeId" value="LINKED_ID"/>
+            <set field="LinkedInFields.contactMechPurposeTypeId" value="PRIMARY_LINKED_ID"/>
+            <set from-field="customerPartyId" field="LinkedInFields.partyId"/>
+            <set field="LinkedInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyContactMech" in-map-name="LinkedInFields">
+            </call-service>
+        </if-not-empty>
+
+        <!-- Add Fax -->
+        <if-not-empty field="parameters.customerFaxContactNumber">
+            <set from-field="customerPartyId" field="CreatePartyTelecomFaxNumberInFields.partyId"/>
+            <set from-field="parameters.customerFaxCountryCode" field="CreatePartyTelecomFaxNumberInFields.countryCode"/>
+            <set from-field="parameters.customerFaxAreaCode" field="CreatePartyTelecomFaxNumberInFields.areaCode"/>
+            <set from-field="parameters.customerFaxContactNumber" field="CreatePartyTelecomFaxNumberInFields.contactNumber"/>
+            <set from-field="parameters.customerFaxExtension" field="CreatePartyTelecomFaxNumberInFields.extension"/>
+            <set field="CreatePartyTelecomFaxNumberInFields.contactMechTypeId" value="TELECOM_NUMBER"/>
+            <set field="CreatePartyTelecomFaxNumberInFields.preContactMechTypeId" value="TELECOM_NUMBER"/>
+            <set field="CreatePartyTelecomFaxNumberInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyTelecomNumber" in-map-name="CreatePartyTelecomFaxNumberInFields">
+                <result-to-field result-name="contactMechId" field="TelecomFaxNumberContactMechId"/>
+            </call-service>
+
+            <!-- Add Fax: Create Purpose -->
+            <set from-field="customerPartyId" field="PartyContactMechPurposeInFields.partyId"/>
+            <set from-field="TelecomFaxNumberContactMechId" field="PartyContactMechPurposeInFields.contactMechId"/>
+            <set field="PartyContactMechPurposeInFields.contactMechPurposeTypeId" value="FAX_NUMBER"/>
+            <set field="PartyContactMechPurposeInFields.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="PartyContactMechPurposeInFields"/>
+        </if-not-empty>
+    </simple-method>
+    <!-- Services related to Party - NaicsCode Association -->
+    <simple-method method-name="extCreatePartyNaicsCodeAssoc"
+                   short-description="Creates association between Party and NaicsCode.">
+        <make-value value-field="newEntity" entity-name="PartyNaicsCode"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="extGetPartyNaicsCodeAssoc"
+                   short-description="Get Party and NaicsCode Association entries.">
+        <entity-condition entity-name="PartyNaicsCode" list="partyNaicsCodeAssocs">
+            <condition-list>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="code" from-field="parameters.code" ignore-if-empty="true"/>
+            </condition-list>
+            <order-by field-name="sequenceNum"/>
+        </entity-condition>
+        <field-to-result field="partyNaicsCodeAssocs"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="extDeletePartyNaicsCodeAssoc"
+                   short-description="Deletes association between Party and NaicsCode.">
+        <entity-condition entity-name="PartyNaicsCode" list="partyNaicsCodeAssocs">
+            <condition-list>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="code" from-field="parameters.code" ignore-if-empty="true"/>
+            </condition-list>
+        </entity-condition>
+        <if-not-empty field="partyNaicsCodeAssocs">
+            <remove-list list="partyNaicsCodeAssocs"/>
+        </if-not-empty>
+        <check-errors/>
+    </simple-method>
+
+
+    <!-- Services related to Party - Far Classification Association -->
+    <simple-method method-name="extCreatePartyFarClassificationCodeAssoc"
+                   short-description="Creates association between Party and FarClassificationCode.">
+        <make-value value-field="newEntity" entity-name="PartyFarClassificationCode"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="extGetPartyFarClassificationCodeAssoc"
+                   short-description="Get Party and FarClassificationCode Association entries.">
+        <entity-condition entity-name="PartyFarClassificationCode" list="partyFarClassificationCodeAssocs">
+            <condition-list>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="code" from-field="parameters.code" ignore-if-empty="true"/>
+            </condition-list>
+            <order-by field-name="sequenceNum"/>
+        </entity-condition>
+        <field-to-result field="partyFarClassificationCodeAssocs"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="extDeletePartyFarClassificationCodeAssoc"
+                   short-description="Deletes association between Party and FarClassificationCode.">
+        <entity-condition entity-name="PartyFarClassificationCode" list="partyFarClassificationCodeAssocs">
+            <condition-list>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="code" from-field="parameters.code" ignore-if-empty="true"/>
+            </condition-list>
+            <order-by field-name="sequenceNum"/>
+        </entity-condition>
+        <if-not-empty field="partyFarClassificationCodeAssocs">
+            <remove-list list="partyFarClassificationCodeAssocs"/>
+        </if-not-empty>
+        <check-errors/>
+    </simple-method>
+
+
+</simple-methods>

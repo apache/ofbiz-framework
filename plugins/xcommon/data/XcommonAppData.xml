@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+  <!-- Application super admin data -->
+  <Party partyId="app-super-admin" partyTypeId="PERSON" preferredCurrencyUomId="USD"
+    statusId="PARTY_ENABLED"/>
+  <Person partyId="app-super-admin" companyDesignation="App Super Admin" firstName="Super Store"
+    lastName="Admin"/>
+  <!--Password for app-super-admin is cAH38PsURvpE@!*w-->
+  <UserLogin userLoginId="app-super-admin" partyId="app-super-admin"
+    currentPassword="$SHA$lA5$79mYgCyEcO4wEXxJd9B53WWGZ64" requirePasswordChange="N"/>
+  <UserLoginSecurityGroup groupId="SUPER" userLoginId="app-super-admin"
+    fromDate="2001-01-01 12:00:00.0"/>
+
+  <!--Application settings, google, strip API keys etc.-->
+  <UserPrefGroupType userPrefGroupTypeId="APP_PREFERENCES"
+    description="SAAS Application Preferences, Example Google, Stripe API Keys"/>
+  <!--
+  Google API Key
+   Enable below APIs on google cloud console, once enabled create API credentials
+  - Directions API
+  - Distance Matrix API
+  - Geocoding API
+  - Maps Static API
+  - Timezone API
+  https://console.cloud.google.com/google/maps-apis/api-list?project=manage-my-org
+   -->
+  <UserPreference userLoginId="app-super-admin" userPrefTypeId="GOOGLE_API_KEY"
+    userPrefGroupTypeId="APP_PREFERENCES" userPrefValue="AIzaSyApP1_9tp_xicvnQSXlj3BrS5W5LokM4lU"/>
+
+  <!-- Manage your stripe keys at https://dashboard.stripe.com/test/apikeys -->
+  <!--<UserPreference userLoginId="app-super-admin" userPrefTypeId="STRIPE_PUB_KEY"
+    userPrefGroupTypeId="APP_PREFERENCES" userPrefValue="pk_test_51IrdNBK4AlhimjG5scLSCyPQlzP2QAlXEzq0ZlzOY8VmLZtq6rre9V71HnfYCfQLdFuHWxgVc0sMM2dS1Dv17ztl007UPvpsIS"/>
+
+  <UserPreference userLoginId="app-super-admin" userPrefTypeId="STRIPE_SECRET_KEY"
+    userPrefGroupTypeId="APP_PREFERENCES" userPrefValue="sk_test_51IrdNBK4AlhimjG5ZqfmsoIYAMSsTUJz6pfA54xrloIjTNAfggm8aSC6fXxD75k2R9zrOh1OKi699A9xLTEAL4bR00Csp9scmE"/>
+
+  <UserPreference userLoginId="app-super-admin" userPrefTypeId="STRIPE_BASIC_PLAN"
+    userPrefGroupTypeId="APP_PREFERENCES" userPrefValue="price_1Irdd9K4AlhimjG5PoIj8h0I"/>-->
+
+  <!--Application details-->
+  <Party partyId="SAAS_APP" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="USD"
+    statusId="PARTY_ENABLED"/>
+  <PartyGroup partyId="SAAS_APP" groupName="ZCP"/>
+
+  <PartyRole partyId="SAAS_APP" roleTypeId="APP_OWNER"/>
+
+  <!--Application logo details-->
+  <!--Application email logo-->
+  <!-- Primary application LOGO -->
+  <DataResource
+    dataResourceId="APP_LOGO"
+    dataResourceName="app-logo.svg"
+    mimeTypeId="image/png"
+    objectInfo="app-media/logo/logo.svg"
+    dataCategoryId="ROOT"
+    dataResourceTypeId="OFBIZ_FILE_BIN"
+    dataTemplateTypeId="NONE"
+    isPublic="Y"
+    statusId="CTNT_AVAILABLE"
+    createdByUserLogin="app-super-admin"
+    createdDate="2020-01-01 00:00:00.000"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    lastModifiedByUserLogin="app-super-admin"
+    lastModifiedDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+
+  <Content
+    contentId="APP_LOGO"
+    dataResourceId="APP_LOGO"
+    contentName="Application Logo"
+    contentTypeId="DOCUMENT"
+    mimeTypeId="image/png"
+    statusId="CTNT_AVAILABLE"
+    createdByUserLogin="app-super-admin"
+    createdDate="2020-01-01 00:00:00.000"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    lastModifiedByUserLogin="app-super-admin"
+    lastModifiedDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+  <PartyContent
+    partyId="SAAS_APP"
+    partyContentTypeId="APP_LOGOIMG"
+    contentId="APP_LOGO"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    fromDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+
+  <!--Application email logo, SVG is not supported in many email clients, use png and size 100x100.-->
+  <DataResource
+    dataResourceId="APP_ELOGO"
+    dataResourceName="app-email-logo-100x100.png"
+    mimeTypeId="image/png"
+    objectInfo="app-media/logo/logo-100x100.png"
+    dataCategoryId="ROOT"
+    dataResourceTypeId="OFBIZ_FILE_BIN"
+    dataTemplateTypeId="NONE"
+    isPublic="Y"
+    statusId="CTNT_AVAILABLE"
+    createdByUserLogin="app-super-admin"
+    createdDate="2020-01-01 00:00:00.000"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    lastModifiedByUserLogin="app-super-admin"
+    lastModifiedDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+  <Content
+    contentId="APP_ELOGO"
+    dataResourceId="APP_ELOGO"
+    contentName="Application Email Logo"
+    contentTypeId="DOCUMENT"
+    mimeTypeId="image/png"
+    statusId="CTNT_AVAILABLE"
+    createdByUserLogin="app-super-admin"
+    createdDate="2020-01-01 00:00:00.000"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    lastModifiedByUserLogin="app-super-admin"
+    lastModifiedDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+  <PartyContent
+    partyId="SAAS_APP"
+    partyContentTypeId="APP_LOGOIMG"
+    contentId="APP_ELOGO"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    fromDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+  <PartyContent
+    partyId="SAAS_APP"
+    partyContentTypeId="LGOIMGURL"
+    contentId="APP_ELOGO"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    fromDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+
+  <!--Application email footer logo-->
+  <DataResource
+    dataResourceId="APP_EFLOGO"
+    dataResourceName="app-email-footer-logo.png"
+    mimeTypeId="image/png"
+    objectInfo="app-media/logo/logo-50x50.png"
+    dataCategoryId="ROOT"
+    dataResourceTypeId="OFBIZ_FILE_BIN"
+    dataTemplateTypeId="NONE"
+    isPublic="Y"
+    statusId="CTNT_AVAILABLE"
+    createdByUserLogin="app-super-admin"
+    createdDate="2020-01-01 00:00:00.000"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    lastModifiedByUserLogin="app-super-admin"
+    lastModifiedDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+  <Content
+    contentId="APP_EFLOGO"
+    dataResourceId="APP_EFLOGO"
+    contentName="Application Email Footer Logo"
+    contentTypeId="DOCUMENT"
+    mimeTypeId="image/png"
+    statusId="CTNT_AVAILABLE"
+    createdByUserLogin="app-super-admin"
+    createdDate="2020-01-01 00:00:00.000"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    lastModifiedByUserLogin="app-super-admin"
+    lastModifiedDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+  <PartyContent
+    partyId="SAAS_APP"
+    partyContentTypeId="APP_LOGOIMG"
+    contentId="APP_EFLOGO"
+    createdStamp="2020-01-01 00:00:00.000"
+    createdTxStamp="2020-01-01 00:00:00.000"
+    fromDate="2020-01-01 00:00:00.000"
+    lastUpdatedStamp="2020-01-01 00:00:00.000"
+    lastUpdatedTxStamp="2020-01-01 00:00:00.000"/>
+
+  <!--
+      Application mailing address (shows at the bottom of the email)
+      example:
+          123 Main Street, New York, NY 10030
+  -->
+  <ContactMech contactMechId="APP_ADDRESS" contactMechTypeId="POSTAL_ADDRESS"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_ADDRESS"
+    fromDate="2020-01-01 00:00:00.000" allowSolicitation="Y"/>
+  <PostalAddress contactMechId="APP_ADDRESS"
+    address1="2555 Timberline Ln"
+    city="Hood River"
+    postalCode="97031" countryGeoId="USA" stateProvinceGeoId="OR"/>
+
+  <!--Application's Email address-->
+  <ContactMech contactMechId="APP_EMAIL" contactMechTypeId="EMAIL_ADDRESS" infoString="support@fidelissd.com"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_EMAIL"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="SAAS_APP"
+    contactMechId="APP_EMAIL" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Public phone (Show on email/invoices)-->
+  <ContactMech contactMechId="APP_PHONE" contactMechTypeId="TELECOM_NUMBER"/>
+  <TelecomNumber contactMechId="APP_PHONE" countryCode="1" areaCode="514" contactNumber="999-6778"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_PHONE" fromDate="2020-01-01 00:00:00.000"
+    allowSolicitation="Y"/>
+  <PartyContactMechPurpose partyId="SAAS_APP" contactMechId="APP_PHONE"
+    contactMechPurposeTypeId="PRIMARY_PHONE" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Web site address-->
+  <ContactMech contactMechId="APP_WEB_LINK" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.fidelissd.com"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_WEB_LINK"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="SAAS_APP"
+    contactMechId="APP_WEB_LINK" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Privacy link-->
+  <ContactMech contactMechId="APP_WEB_LINK_PRVCY" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.fidelissd.com/privacy"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_WEB_LINK_PRVCY"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="PRIVACY_WEB_URL" partyId="SAAS_APP"
+    contactMechId="APP_WEB_LINK_PRVCY" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Help Center link-->
+  <!--<ContactMech contactMechId="APP_WEB_LINK_HC" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://support.fidelissd.com/"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_WEB_LINK_HC"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="HELPC_WEB_URL" partyId="SAAS_APP"
+    contactMechId="APP_WEB_LINK_HC" fromDate="2020-01-01 00:00:00.000"/>-->
+
+  <!--Application Terms link-->
+  <ContactMech contactMechId="APP_WEB_LINK_TERMS" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.fidelissd.com/terms"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_WEB_LINK_TERMS"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="TERMS_WEB_URL" partyId="SAAS_APP"
+    contactMechId="APP_WEB_LINK_TERMS" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Contact Us link-->
+  <ContactMech contactMechId="APP_WEB_LINK_CNTCT" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.fidelissd.com/contact"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_WEB_LINK_CNTCT"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="CONTACT_WEB_URL" partyId="SAAS_APP"
+    contactMechId="APP_WEB_LINK_CNTCT" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application LinkedIn address-->
+  <ContactMech contactMechId="APP_LINKEDIN" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.linkedin.com/company/fidelissd"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_LINKEDIN"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="LINKEDIN_URL" partyId="SAAS_APP"
+    contactMechId="APP_LINKEDIN" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Facebook address-->
+  <ContactMech contactMechId="APP_FACEBOOK" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.facebook.com/company/fidelissd"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_FACEBOOK"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="FACEBOOK_URL" partyId="SAAS_APP"
+    contactMechId="APP_FACEBOOK" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Twitter address-->
+  <ContactMech contactMechId="APP_TWITTER" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.twitter.com/company/fidelissd"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_TWITTER"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="TWITTER_URL" partyId="SAAS_APP"
+    contactMechId="APP_TWITTER" fromDate="2020-01-01 00:00:00.000"/>
+
+  <!--Application Instagram address-->
+  <ContactMech contactMechId="APP_INSTAGRAM" contactMechTypeId="WEB_ADDRESS"
+    infoString="https://www.instagram.com/company/fidelissd"/>
+  <PartyContactMech partyId="SAAS_APP" contactMechId="APP_INSTAGRAM"
+    fromDate="2020-01-01 00:00:00.000"/>
+  <PartyContactMechPurpose contactMechPurposeTypeId="INSTAGRAM_URL" partyId="SAAS_APP"
+    contactMechId="APP_INSTAGRAM" fromDate="2020-01-01 00:00:00.000"/>
+
+</entity-engine-xml>

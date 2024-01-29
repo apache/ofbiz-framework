@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testGetAccountLeadForMagnisPartnersSalesRep1" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.sales.rep1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getAccountLeadForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="accountLead"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="accountLead.partyId" operator="equals" value="FSD.director1" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetAccountLeadForMagnisPartnersSalesAgent1" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.agent1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getAccountLeadForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="accountLead"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="accountLead.partyId" operator="equals" value="FSD.director1" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetAccountLeadForSemperLlpSalesRep1" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="SP.sales.rep1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getAccountLeadForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="accountLead"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="accountLead.partyId" operator="equals" value="FSD.director2" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

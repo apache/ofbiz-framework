@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+  <StatusItem sequenceId="01" description="Ready to be shipped" statusCode="PURCH_SHIP_READY"
+    statusId="PURCH_SHIP_READY" statusTypeId="SHIPMENT_STATUS"/>
+
+  <!-- valid status changes -->
+  <StatusValidChange statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_READY"
+    transitionName="Drop shipment packed"/>
+  <StatusValidChange condition="" statusId="PURCH_SHIP_READY" statusIdTo="PURCH_SHIP_RECEIVED"
+    transitionName="Receive"/>
+  <StatusValidChange condition="" statusId="PURCH_SHIP_READY" statusIdTo="PURCH_SHIP_SHIPPED"
+    transitionName="Ship"/>
+
+  <!-- supplier POC role names -->
+  <EnumerationType description="Supplier POC Role Name" enumTypeId="SPLR_POC_RL" hasTable="N"
+    parentTypeId=""/>
+  <Enumeration description="Supplier Point of Contact" enumCode="SPLR_POC_RL_01"
+    enumId="SPLR_POC_RL_01" sequenceId="01" enumTypeId="SPLR_POC_RL"/>
+  <Enumeration description="Area Sales Rep / Product Trainer" enumCode="SPLR_POC_RL_02"
+    enumId="SPLR_POC_RL_02" sequenceId="02" enumTypeId="SPLR_POC_RL"/>
+
+  <!-- Application related user preference -->
+  <UserPrefGroupType userPrefGroupTypeId="APPL_PREFERENCES" description="Application preferences"/>
+  <EnumerationType description="Application preferences" enumTypeId="APPL_PREFERENCES" hasTable="N"
+    parentTypeId="USER_PREF_GROUPS"/>
+  <Enumeration description="Application Sidebar State (Collapsed/Open)" enumCode=""
+    enumId="APP_SIDEBAR_STATE" sequenceId="01" enumTypeId="APPL_PREFERENCES"/>
+
+  <!--Useful for shipment tracking-->
+  <ContactMechPurposeType contactMechPurposeTypeId="SHPNGTRCKNG_URL"
+    description="Shipment Tracking URL (For Shipping Carriers)"/>
+  <ContactMechTypePurpose contactMechPurposeTypeId="SHPNGTRCKNG_URL"
+    contactMechTypeId="WEB_ADDRESS"/>
+
+  <!--Reporting related Data-->
+  <EnumerationType description="Report Preferences" enumTypeId="RPT_PREF" hasTable="N"
+    parentTypeId=""/>
+  <Enumeration description="Manager Party Id for Report" enumCode="RPT_PREF_MANAGER_ID"
+    enumId="RPT_PREF_MANAGER_ID" sequenceId="01" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Logo needed? (Y/N)" enumCode="RPT_PREF_LOGO" enumId="RPT_PREF_LOGO"
+    sequenceId="02" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Year on Year Report needed? (Y/N)" enumCode="RPT_PREF_YOY"
+    enumId="RPT_PREF_YOY" sequenceId="03" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Weekly Report needed? (Y/N)" enumCode="RPT_PREF_WEEKLY"
+    enumId="RPT_PREF_WEEKLY" sequenceId="04" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Monthly Report needed? (Y/N)" enumCode="RPT_PREF_MONTHLY"
+    enumId="RPT_PREF_MONTHLY" sequenceId="05" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Report Note needed? (Y/N)" enumCode="RPT_PREF_NOTE"
+    enumId="RPT_PREF_NOTE" sequenceId="06" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Report Appendix needed? (Y/N)" enumCode="RPT_PREF_APPENDIX"
+    enumId="RPT_PREF_APPENDIX" sequenceId="07" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Penetrated and Unpenetrated Pie Chart needed? (Y/N)"
+    enumCode="RPT_PREF_PUP" enumId="RPT_PREF_PUP" sequenceId="08" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Agency Distribution Pie Chart needed? (Y/N)"
+    enumCode="RPT_PREF_AGENCY" enumId="RPT_PREF_AGENCY" sequenceId="09" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Regional Manager Performance Pie Chart needed? (Y/N)"
+    enumCode="RPT_PREF_RMAN" enumId="RPT_PREF_RMAN" sequenceId="10" enumTypeId="RPT_PREF"/>
+  <Enumeration description="Is Quoted/Unquoted Pie Chart needed? (Y/N)" enumCode="RPT_PREF_QUQ"
+    enumId="RPT_PREF_QUQ" sequenceId="11" enumTypeId="RPT_PREF"/>
+
+  <!--report type-->
+  <EnumerationType description="Contract Manufacturer Level Report" enumTypeId="CM_LVL_RPT"
+    hasTable="N" parentTypeId=""/>
+  <Enumeration description="Contract Manufacturer Monthly Sales Report" enumCode="CM_LVL_RPT_01"
+    enumId="CM_LVL_RPT_01" sequenceId="01" enumTypeId="CM_LVL_RPT"/>
+  <Enumeration description="Contract Manufacturer Manager Monthly Sales Report"
+    enumCode="CM_LVL_RPT_02" enumId="CM_LVL_RPT_02" sequenceId="02" enumTypeId="CM_LVL_RPT"/>
+  <Enumeration description="Contract Manufacturer Monthly Sales Pipeline Report"
+    enumCode="CM_LVL_RPT_03" enumId="CM_LVL_RPT_03" sequenceId="03" enumTypeId="CM_LVL_RPT"/>
+
+  <!--recurrence type-->
+  <EnumerationType description="Report Recurrence Info" enumTypeId="RPT_REC_INFO" hasTable="N"
+    parentTypeId=""/>
+  <Enumeration description="Monthly" enumCode="REC_INFO_RPT_MTLY" enumId="REC_INFO_RPT_MTLY"
+    sequenceId="01" enumTypeId="RPT_REC_INFO"/>
+  <Enumeration description="Weekly" enumCode="REC_INFO_RPT_WKLY" enumId="REC_INFO_RPT_WKLY"
+    sequenceId="02" enumTypeId="RPT_REC_INFO"/>
+  <Enumeration description="Only Once (Manual Run Required)" enumCode="REC_INFO_RPT_ONCE"
+    enumId="REC_INFO_RPT_ONCE" sequenceId="03" enumTypeId="RPT_REC_INFO"/>
+
+  <!--enumeration for swot items-->
+  <EnumerationType description="Swot Strength" enumTypeId="STRENGTH" hasTable="N" parentTypeId=""/>
+  <Enumeration
+    description="We've been in our town forever. We have the loyalty of customers and vendors"
+    enumCode="History" enumId="HISTORY" sequenceId="01" enumTypeId="STRENGTH"/>
+  <Enumeration
+    description="Our competitors are pushing boxes.But we know systems,networks,programming and data management."
+    enumCode="Knowledge" enumId="KNOWLEDGE" sequenceId="02" enumTypeId="STRENGTH"/>
+  <Enumeration description="We get to know our customers, one by one."
+    enumCode="Relationship Selling" enumId="RELATIONSHIP" sequenceId="02" enumTypeId="STRENGTH"/>
+
+  <EnumerationType description="Swot Weakness" enumTypeId="WEAKNESS" hasTable="N" parentTypeId=""/>
+  <Enumeration
+    description="We can't match the competitor's full page advertising in the sunday paper. We don't have the national brand name."
+    enumCode="Brand Power" enumId="BRAND_POWER" sequenceId="01" enumTypeId="WEAKNESS"/>
+  <Enumeration description="The major stores pushing boxes can afford to sell for less."
+    enumCode="Price and Volume" enumId="PRICE_AND_VOLUME" sequenceId="02" enumTypeId="WEAKNESS"/>
+
+  <EnumerationType description="Swot Opportunity" enumTypeId="OPPORTUNITY" hasTable="N"
+    parentTypeId=""/>
+  <Enumeration
+    description="As a target market needs more service, our competitors are less likely than ever to provide it."
+    enumCode="Service" enumId="SERVICE" sequenceId="01" enumTypeId="OPPORTUNITY"/>
+  <Enumeration
+    description="The major stores don't provide training, but as systems become more complex, training is in greater demand."
+    enumCode="Training" enumId="TRAINING" sequenceId="02" enumTypeId="OPPORTUNITY"/>
+
+  <EnumerationType description="Swot Threat" enumTypeId="THREAT" hasTable="N" parentTypeId=""/>
+  <Enumeration
+    description="Volume buying of computer as product in boxes, People think they need our services less."
+    enumCode="The Computer as Appliance" enumId="COMPUTER_APPLIANCE" sequenceId="01"
+    enumTypeId="THREAT"/>
+  <Enumeration
+    description="when they advertise low prices in the newspaper, our customer think we are not giving them good value."
+    enumCode="The Large Price Entity Store" enumId="LARGE_PRICE_ENTITY" sequenceId="02"
+    enumTypeId="THREAT"/>
+
+  <!--For Document Preview related content associations-->
+  <ContentAssocType contentAssocTypeId="THUMBNAIL_URL" description="Thumbnail URL"/>
+
+  <PartyContentType description="Application Logo Image URL" parentTypeId=""
+    partyContentTypeId="APP_LOGOIMG"/>
+  <PartyContentType description="Application Email Logo Image URL" parentTypeId=""
+    partyContentTypeId="APP_ELOGOIMG"/>
+  <PartyContentType description="Application Email Footer Logo Image URL" parentTypeId=""
+    partyContentTypeId="APP_EFLOGOIMG"/>
+
+  <ContactMechPurposeType contactMechPurposeTypeId="TWITTER_URL" description="Twitter Handle"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="FACEBOOK_URL" description="Facebook Handle"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="LINKEDIN_URL" description="LinkedIn Handle"/>
+  <ContactMechPurposeType contactMechPurposeTypeId="INSTAGRAM_URL" description="Instagram Handle"/>
+
+  <RoleType description="SaaS Application roles" hasTable="N" parentTypeId=""
+    roleTypeId="APP_ROLE"/>
+  <RoleType description="Application Owner" hasTable="N" parentTypeId="APP_ROLE"
+    roleTypeId="APP_OWNER"/>
+
+  <!--Privacy link url-->
+  <ContactMechPurposeType contactMechPurposeTypeId="PRIVACY_WEB_URL"
+    description="Privacy website URL"/>
+  <ContactMechTypePurpose contactMechPurposeTypeId="PRIVACY_WEB_URL"
+    contactMechTypeId="WEB_ADDRESS"/>
+
+  <!--Contact Us link url-->
+  <ContactMechPurposeType contactMechPurposeTypeId="CONTACT_WEB_URL"
+    description="Contact us Website URL"/>
+  <ContactMechTypePurpose contactMechPurposeTypeId="CONTACT_WEB_URL"
+    contactMechTypeId="WEB_ADDRESS"/>
+
+  <!--Terms and conditions link url-->
+  <ContactMechPurposeType contactMechPurposeTypeId="TERMS_WEB_URL"
+    description="Terms of usage Website URL"/>
+  <ContactMechTypePurpose contactMechPurposeTypeId="TERMS_WEB_URL" contactMechTypeId="WEB_ADDRESS"/>
+
+  <EnumerationType enumTypeId="SAVED_SEARCH" description="Saved search"/>
+  <Enumeration enumId="COMMON_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="COMMON_SEARCH"
+    sequenceId="10"
+    description="Common saved search"/>
+  <Enumeration enumId="LEAD_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="LEAD_SEARCH"
+    sequenceId="11"
+    description="Lead saved search"/>
+  <Enumeration enumId="TASK_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="TASK_SEARCH"
+    sequenceId="12"
+    description="Task saved search"/>
+  <Enumeration enumId="PROJECT_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="PROJECT_SEARCH"
+    sequenceId="13"
+    description="Project saved search"/>
+  <Enumeration enumId="ORDER_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="ORDER_SEARCH"
+    sequenceId="14"
+    description="Order saved search"/>
+  <Enumeration enumId="INVOICE_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="INVOICE_SEARCH"
+    sequenceId="15"
+    description="Invoice saved search"/>
+  <Enumeration enumId="CONTACT_SEARCH" enumTypeId="SAVED_SEARCH" enumCode="CONTACT_SEARCH"
+    sequenceId="16"
+    description="Contact saved search"/>
+
+  <Color colorId="DEFAULT" backgroundColor="#007aff" foregroundColor="#ffffff"/>
+
+  <!--Master color palette exposed via /common/colors api endpoint-->
+  <!--
+ Google calendar inspired colors palette
+ https://lukeboyle.com/blog-posts/2016/04/google-calendar-api-color-id
+ -->
+  <Color colorId="blue" backgroundColor="#039be5" foregroundColor="#ffffff"/>
+  <Color colorId="lavender" backgroundColor="#7986cb" foregroundColor="#ffffff"/>
+  <Color colorId="sage" backgroundColor="#33b679" foregroundColor="#ffffff"/>
+  <Color colorId="grape" backgroundColor="#8e24aa" foregroundColor="#ffffff"/>
+  <Color colorId="flamingo" backgroundColor="#e67c73" foregroundColor="#ffffff"/>
+  <Color colorId="banana" backgroundColor="#f6c026" foregroundColor="#1d1d1d"/>
+  <Color colorId="tangerine" backgroundColor="#f5511d" foregroundColor="#ffffff"/>
+  <Color colorId="peacock" backgroundColor="#039be5" foregroundColor="#ffffff"/>
+  <Color colorId="graphite" backgroundColor="#616161" foregroundColor="#ffffff"/>
+  <Color colorId="blueberry" backgroundColor="#3f51b5" foregroundColor="#ffffff"/>
+  <Color colorId="basil" backgroundColor="#0b8043" foregroundColor="#ffffff"/>
+  <Color colorId="tomato" backgroundColor="#d60000" foregroundColor="#ffffff"/>
+
+  <Palette paletteId="MASTER_CLR_PLT" name="App Master Color Palette"/>
+
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="DEFAULT" sequenceId="01"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="blue" sequenceId="02"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="lavender" sequenceId="03"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="sage" sequenceId="04"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="grape" sequenceId="05"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="flamingo" sequenceId="06"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="banana" sequenceId="07"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="tangerine" sequenceId="08"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="peacock" sequenceId="09"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="graphite" sequenceId="10"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="blueberry" sequenceId="11"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="basil" sequenceId="12"/>
+  <ColorPalette paletteId="MASTER_CLR_PLT" colorId="tomato" sequenceId="13"/>
+
+  <!--Default leave types-->
+  <EmplLeaveType partyGroupId="SAAS_APP" lastUpdatedBy="system"
+    description="Default leave types loaded for all the accounts."
+    hasTable="N" parentTypeId="" leaveTypeId="DEFAULT_LEAVE_TYPES"/>
+  <EmplLeaveType partyGroupId="SAAS_APP" lastUpdatedBy="system" description="Inland Earned Leave"
+    hasTable="N"
+    parentTypeId="DEFAULT_LEAVE_TYPES" leaveTypeId="INLAND_EARNED"/>
+  <EmplLeaveType partyGroupId="SAAS_APP" lastUpdatedBy="system" description="Inland Loss of Pay"
+    hasTable="N"
+    parentTypeId="DEFAULT_LEAVE_TYPES" leaveTypeId="LOSS_OF_PAY"/>
+  <EmplLeaveType partyGroupId="SAAS_APP" lastUpdatedBy="system"
+    description="Inland Restricted Holiday" hasTable="N"
+    parentTypeId="DEFAULT_LEAVE_TYPES" leaveTypeId="RESTRICTED_HOLIDAY"/>
+  <EmplLeaveType partyGroupId="SAAS_APP" lastUpdatedBy="system" description="Inland Special Day Off"
+    hasTable="N"
+    parentTypeId="DEFAULT_LEAVE_TYPES" leaveTypeId="SPECIAL_DAY_OFF"/>
+</entity-engine-xml>

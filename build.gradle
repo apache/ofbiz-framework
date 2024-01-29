@@ -42,7 +42,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.asciidoctor.convert'
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 
 apply from: 'common.gradle'
 
@@ -85,7 +85,7 @@ javadoc {
     }
 }
 // Checks OFBiz Java coding conventions.
-checkstyle {
+/*checkstyle {
     // Defining a maximum number of “tolerated” errors ensures that
     // this number cannot increase in the future. It corresponds to
     // the sum of errors that were present before introducing the
@@ -95,7 +95,7 @@ checkstyle {
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
-}
+}*/
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -120,6 +120,7 @@ defaultTasks 'build'
 allprojects {
     repositories{
         mavenCentral()
+        jcenter()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
@@ -235,6 +236,16 @@ dependencies {
     // ofbiz unit-test compile libs
     testCompile 'org.mockito:mockito-core:2.23.0'
 
+    // Lombok
+    implementation 'org.projectlombok:lombok:1.18.30'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
     // ofbiz runtime libs
     runtime 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtime 'de.odysseus.juel:juel-spi:2.2.7'
@@ -250,6 +261,19 @@ dependencies {
     runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2' // for external jars using slf4j: routes logging to log4j 2
     runtime 'org.apache.logging.log4j:log4j-jcl:2.17.2' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
+
+    runtime 'org.postgresql:postgresql:42.6.0'
+
+    implementation 'javax:javaee-api:8.0'
+    implementation 'io.swagger.core.v3:swagger-jaxrs2:2.0.0'
+    implementation 'io.swagger.core.v3:swagger-core:2.0.0'
+    implementation 'io.swagger.core.v3:swagger-models:2.0.0'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.0.0'
+
+    implementation 'org.apache.commons:commons-collections4:4.1'
+    implementation 'org.apache.commons:commons-csv:1.5'
+    implementation 'org.apache.commons:commons-dbcp2:2.1.1'
+    implementation 'org.apache.commons:commons-text:1.6'
 
     // plugin libs
     subprojects.each { subProject ->

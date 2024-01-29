@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+  <!--
+  Production Environment settings for the application
+
+  Any configuration like enabling emails should go into this file. The production environment is configured with a script to load this file before it starts the application.
+
+  Reader-name:      prod
+  Reader-location:  /plugins/xapi/ofbiz-component.xml
+
+  This file contains production environment specific settings that are automatically loaded via the deploy.sh script located in the project at '/devops/deploy.sh'
+  The data is loaded via a seed reader named 'prod' the reader entry is defined in /plugins/xapi/ofbiz-component.xml.
+
+  -->
+
+  <!-- Email settings specific to dos project -->
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.notifications.enabled"
+    systemPropertyValue="Y"
+    description="mail notifications enabled (Y|N)"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.notifications.redirectTo"
+    systemPropertyValue=""
+    description="If set all email notifications are redirected to this email address, leave blank for production."/>
+  <SystemProperty systemResourceId="general" systemPropertyId="defaultFromEmailAddress"
+    systemPropertyValue="no-reply@managetheday.com" description="default from email address"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.relay.host"
+    systemPropertyValue="email-smtp.us-west-2.amazonaws.com"
+    description="the default mail server to use"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.auth.user"
+    systemPropertyValue="AKIA5Z4N7P55URYAJZPY" description="SMTP Auth username setting"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.auth.password"
+    systemPropertyValue="BPqZ1vYUOaSnSl4O/fo7JKGnS+DYQs05v1jIc21epgm+"
+    description="SMTP Auth password setting"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.port"
+    systemPropertyValue="465"
+    description="Gmail smtp port can be either 465 or 587"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.starttls.enable"
+    systemPropertyValue="true"
+    description="Gmail requires StartTLS"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.port"
+    systemPropertyValue="465"
+    description="Port needs to be the same as mail.smtp.port"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.class"
+    systemPropertyValue="javax.net.ssl.SSLSocketFactory" description="JSSE socket factory"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.fallback"
+    systemPropertyValue="false"
+    description="Fallback [true|false] determines whether you will allow a non secure connection if you are unable to get a secure one"/>
+  <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.sendpartial"
+    systemPropertyValue="true"
+    description="setting this property to false will abort sending the message"/>
+
+  <!--Application Name-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.name"
+    systemPropertyValue="Manage The Day"
+    description="Name of the application"/>
+
+  <!--Application Color palette-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.color.primary"
+    systemPropertyValue="#007aff"
+    description="Primary color of the application"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.color.secondary"
+    systemPropertyValue="#007aff"
+    description="Secondary color of the application"/>
+
+  <!--Application Name Prefix For Email-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.email.via"
+    systemPropertyValue="MTD"
+    description="Used when sending out emails, makes for the via text, example John Doe via MTD"/>
+
+  <!--Application Host URLs-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.domain.url"
+    systemPropertyValue="https://app.managetheday.com" description="Fallback environment url"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.domain.url.dev"
+    systemPropertyValue="https://app.managetheday.com" description="Development environment url"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.domain.url.test"
+    systemPropertyValue="https://app-test.managetheday.com" description="Test environment url"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.domain.url.prod"
+    systemPropertyValue="https://app.managetheday.com" description="Production url"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.api.url"
+    systemPropertyValue="https://api.managetheday.com/xapi/v1"
+    description="API end point url"/>
+
+    <SystemProperty systemResourceId="appconfig" systemPropertyId="app.subscription.enabled"
+                    systemPropertyValue="N"
+                    description="Whether subscription is enabled or not, if disabled stripe set up during account creation is skipped."/>
+  <!-- Email upload path settings override, use this if you are going to use https://localhost:8443/static as the cdn url -->
+  <!--
+      # Image upload path on the server
+      catalog.properties setting is: image.server.path=${sys:getProperty('ofbiz.home')}/themes/common/webapp/images/${tenantId}
+  -->
+  <SystemProperty systemResourceId="catalog" systemPropertyId="image.server.path"
+    systemPropertyValue="${sys:getProperty('ofbiz.home')}/plugins/xstatic/webapp/xstatic/static/images/${tenantId}"
+    description="Image upload path on the server."/>
+  <!--
+      # Image upload path on the image management
+      catalog.properties setting is: image.management.path=${sys:getProperty('ofbiz.home')}/themes/common/webapp/images/products/management
+  -->
+  <SystemProperty systemResourceId="catalog" systemPropertyId="image.management.path"
+    systemPropertyValue="${sys:getProperty('ofbiz.home')}/plugins/xstatic/webapp/xstatic/static/images/products/management"
+    description="Image upload path for image management."
+  />
+  <!--
+      # CDN URL from cdn url.properties for prod server https://d1ml3rscovlah3.cloudfront.net/
+      # Deprecated cdn.managetheday.com
+  -->
+  <SystemProperty systemResourceId="url" systemPropertyId="content.url.prefix.secure"
+    systemPropertyValue="https://cdn.managetheday.com"
+    description="CDN host url for the configured environment"
+  />
+  <SystemProperty systemResourceId="url" systemPropertyId="content.url.prefix.standard"
+    systemPropertyValue="https://cdn.managetheday.com"
+    description="CDN host url for the configured environment"
+  />
+
+  <!--Amazon S3 bucket settings-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.enabled"
+    systemPropertyValue="Y"
+    description="Whether amazon S3 storage bucket sync is enabled or not. Disabled on localhost."/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.bucketName"
+    systemPropertyValue="mtd-prod"
+    description="Name of the S3 configured bucket"/>
+  <!--mtd-s3-temp-access-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.accessKey"
+    systemPropertyValue="AKIA5Z4N7P55ULJ5TL63"
+    description="Access key for the S3 configured bucket"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.secretKey"
+    systemPropertyValue="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"
+    description="Secret key for the S3 configured bucket"/>
+
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.folder.public"
+    systemPropertyValue="public"
+    description="Public folder configured on the bucket, all content marked as public will be uploaded here."/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.folder.uploads"
+    systemPropertyValue="account-uploads"
+    description="Individual account level uploads are placed here."/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.config.region"
+    systemPropertyValue="us-west-2"
+    description="S3 bucket region id, example us-west-2"/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.storage.aws.s3.config.arn"
+    systemPropertyValue="arn:aws:s3:::mtd-prod"
+    description="S3 bucket Amazon Resource Name (ARN)"/>
+
+  <!--Google integration-->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="google.credentials.json.path"
+    systemPropertyValue="component://xcommon/config/google/prod/google-web-app-client.json"
+    description="Path to the secrets JSON file for google sign in integration."/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="google.oauth.redirect.uri"
+                  systemPropertyValue="https://backoffice.managetheday.com/xcommon/c/GoogleAuthCode"
+                  description="Google OAuth redirect URI, this will receive the post successful google sign in response"/>
+
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="google.credentials.sa.json.path"
+                  systemPropertyValue="component://xcommon/config/google/service-account-google-api.json"
+                  description="Google API Service account Credentials JSON for Google Drive Integration (To upload/download files and generate document previews)"/>
+
+
+  <!-- Slack Integration -->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.slack.oauth2.client.id"
+                  systemPropertyValue="3619229643845.3949136315153" description="Slack OAuth Client Id."/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.slack.oauth2.client.secret"
+                  systemPropertyValue="96e0a54e41413f0e787e8ce4a6ae6342" description="Slack OAuth Client Secret."/>
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.slack.oauth2.redirect_uri"
+                  systemPropertyValue="https://backoffice.managetheday.com/xcommon/c/SlackAuthCode" description="Slack OAuth Redirect URI."/>
+
+  <!-- Environment identification property -->
+  <SystemProperty systemResourceId="appconfig" systemPropertyId="app.system.env" systemPropertyValue="prod" description="Application environment - Production"/>
+
+</entity-engine-xml>

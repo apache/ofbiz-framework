@@ -1,0 +1,78 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>AxEmployee Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="axCreateEmployee" engine="java"
+             location="com.simbaquartz.xparty.services.employee.AxEmployeeServices"
+             invoke="createEmployee" auth="true">
+        <description>Create new Employee</description>
+        <attribute name="companyId" type="String" mode="IN" optional="false"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="email" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneNumber" type="String" mode="IN" optional="true"/>
+
+        <attribute name="employeeId" type="String" mode="OUT" optional="false"/>
+
+    </service>
+    <service name="axUpdateEmployee" engine="java"
+             location="com.simbaquartz.xparty.services.employee.AxEmployeeServices"
+             invoke="updateEmployee" auth="true">
+        <description>Update Employee</description>
+        <attribute name="companyId" type="String" mode="IN" optional="false"/>
+        <attribute name="employeeId" type="String" mode="IN" optional="false"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="email" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneNumber" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="axGetStoreEmployee" engine="java"
+             location="com.simbaquartz.xparty.services.employee.AxEmployeeServices"
+             invoke="getStoreEmployee" auth="true">
+        <description>Get a Store employee record</description>
+        <attribute name="employeeId" type="String" mode="IN" optional="false"/>
+        <attribute name="storeId" type="String" mode="IN" optional="true"/>
+        <attribute name="employeeDetails" type="Map" mode="OUT" optional="false"/>
+
+    </service>
+
+    <service name="getPartyPositionTitle" engine="java"
+             location="com.simbaquartz.xparty.services.employee.AxEmployeeServices"
+             invoke="getPartyPositionTitle" auth="true">
+        <description>Get party designation</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="employerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="designation" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="fsdGetPartyDepartment" engine="java"
+             location="com.simbaquartz.xorder.services.quote.role.QuoteRoleServices"
+             invoke="getPartyDepartment" auth="true">
+        <description>Get party department</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="department" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="createTeam" engine="java"
+             location="com.simbaquartz.xparty.services.employee.AxEmployeeServices"
+             invoke="createTeam" auth="true">
+        <description>Get party department</description>
+        <attribute name="teamName" type="String" mode="IN" optional="false"/>
+        <attribute name="partyGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="createdBy" type="String" mode="IN" optional="true"/>
+
+        <attribute name="teamPartyId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getTeams" engine="java"
+             location="com.simbaquartz.xparty.services.employee.AxEmployeeServices" invoke="getTeams" auth="true">
+        <description>Get party department</description>
+        <attribute name="partyGroupId" type="String" mode="IN" optional="false"/>
+
+        <attribute name="teams" type="List" mode="OUT" optional="false"/>
+    </service>
+
+
+</services>

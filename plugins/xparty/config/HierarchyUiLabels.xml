@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="HierarchyApplication">
+        <value xml:lang="en">Hierarchy Application</value>
+        <value xml:lang="zh">Hierarchy应用程序</value>
+    </property>
+    <property key="HierarchyCompanyName">
+        <value xml:lang="en">OFBiz: Hierarchy</value>
+    </property>
+    <property key="HierarchyCompanySubtitle">
+        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
+        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
+    </property>
+</resource>

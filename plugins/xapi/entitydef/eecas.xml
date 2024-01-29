@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
+
+    <eca entity="CustRequestTag" operation="create-store-remove" event="return">
+        <action service="indexCustomerRequestInSolr" mode="async"/>
+    </eca>
+
+</entity-eca>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+  <title>Entity of Xgeo Component</title>
+  <description>None</description>
+  <copyright></copyright>
+  <version></version>
+
+  <extend-entity entity-name="PostalAddress">
+    <field name="building" type="name"/>
+    <field name="room" type="name"/>
+    <field name="apartment" type="name"/>
+    <field name="entryCode" type="name"/>
+
+    <!--adrAddress is a representation of the place's address in the adr microformat. See example in description-->
+    <field name="adrAddress" type="very-long">
+      <description>
+        <![CDATA[
+"adrAddress": "<span class=\"street-address\">NH1, Grand Trunk Rd</span>, <span class=\"locality\">Tangra</span>, <span class=\"region\">Punjab</span> <span class=\"postal-code\">143149</span>, <span class=\"country-name\">India</span>",
+]]>
+      </description>
+    </field>
+    <!--For saving formatted address like "123 Little Queen St, Melbourne VIC 3004, Australia"-->
+    <field name="formattedAddress" type="description"/>
+    <!--
+    Saves the google maps url that can be used to open the address
+    Example "https://maps.google.com/?q=123+Little+Queen+St,+Melbourne+VIC+3004,+Australia&ftid=0x6ad65d4b6b9cebd1:0x8cab648937c3431f"
+    -->
+    <field name="googleUrl" type="url"/>
+    <field name="googlePlaceId" type="very-long"/>
+    <!--For saving the raw json response from google api-->
+    <field name="googleData" type="very-long"/>
+    <!--For storing static map representation of the map, helps save multiple calls to the api-->
+    <field name="staticMapUrl" type="url"/>
+    <field name="staticMapUrl2" type="url"/>
+
+    <field name="latitude" type="floating-point"/>
+    <field name="longitude" type="floating-point"/>
+    <field name="timeZoneId" type="id-vlong"/>
+  </extend-entity>
+</entitymodel>
