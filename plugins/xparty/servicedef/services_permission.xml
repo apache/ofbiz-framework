@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Hierarchy Permission Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <!-- Hierarchy Based Permission Services -->
+    <service name="specialConditionPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/specialConditionPermissionCheck.groovy"
+             invoke="specialConditionPermissionCheck">
+        <description>
+            Performs a Special Condition Permission security check for the Hierarchy:
+            - userLogin.partyId in the role of Manager has an Employment relationship to INTERNAL_ORGANIZATION in the
+            role of _NA_
+            - userLogin.partyId in the role of Owner has an Owner relationship to INTERNAL_ORGANIZATION in the role of
+            _NA_
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+
+    <service name="doesPartyIdEqualUserLoginPartyIdPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/doesPartyIdEqualUserLoginPartyIdPermissionCheck.groovy"
+             invoke="doesPartyIdEqualUserLoginPartyIdPermissionCheck">
+        <description>
+            Performs a security check to see if the partyId argument equals userLogin.partyId
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="doesPartyIdNotEqualUserLoginPartyIdPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/doesPartyIdNotEqualUserLoginPartyIdPermissionCheck.groovy"
+             invoke="doesPartyIdNotEqualUserLoginPartyIdPermissionCheck">
+        <description>
+            Performs a security check to see if the partyId argument equals userLogin.partyId
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="doesPartyGroupPartyIdEqualInternalOrgPartyIdPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/doesPartyGroupPartyIdEqualInternalOrgPartyIdPermissionCheck.groovy"
+             invoke="doesPartyGroupPartyIdEqualInternalOrgPartyIdPermissionCheck">
+        <description>
+            Performs a security check to see if the partyId argument equals userLogin.partyId
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="doesPartyGroupPartyIdNotEqualInternalOrgPartyIdPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/doesPartyGroupPartyIdNotEqualInternalOrgPartyIdPermissionCheck.groovy"
+             invoke="doesPartyGroupPartyIdNotEqualInternalOrgPartyIdPermissionCheck">
+        <description>
+            Performs a security check to see if the partyId argument equals userLogin.partyId
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck.groovy"
+             invoke="isPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyId and userLogin.partyId are in the same org.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId and userLogin.partyId are in the same
+            org.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdSupplierPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdSupplierPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdSupplierPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId has a role that denotes it's a
+            Supplier, and returns hasPermission as TRUE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdNotSupplierPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdNotSupplierPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdNotSupplierPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId has a role that denotes it's a
+            Supplier, and returns hasPermission as FALSE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdPartnerPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdPartnerPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdPartnerPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId has a role that denotes it's a
+            Partner, and returns hasPermission as TRUE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdNotPartnerPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdNotPartnerPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdNotPartnerPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId has a role that denotes it's a
+            Partner, and returns hasPermission as FALSE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdCustomerPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdCustomerPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdCustomerPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId has a role that denotes it's a
+            customer, and returns hasPermission as TRUE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPartyGroupPartyIdNotCustomerPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartyGroupPartyIdNotCustomerPermissionCheck.groovy"
+             invoke="isPartyGroupPartyIdNotCustomerPermissionCheck">
+        <description>
+            Performs a security check to determine if parameter.partyGroupPartyId has a role that denotes it's a
+            customer, and returns hasPermission as FALSE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isPersonCustomerPermissionCheck" engine="java"
+             location="com.fidelissd.hierarchy.permissionservices.isPersonCustomerPermissionCheck"
+             invoke="isPersonCustomerPermissionCheckService">
+        <description>
+            Performs a security check to determine if parameter.partyId belongs to a Customer Organization. Returns
+            hasPermission as TRUE if that's the case.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isSubordinatePartyIdInManagerOrgPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isSubordinatePartyIdInManagerOrgPermissionCheck.groovy"
+             invoke="isSubordinatePartyIdInManagerOrgPermissionCheck" auth="true">
+        <description>Performs a security check to determine if subordinatePartyId is in managerPartyId organizational
+            structure.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="subordinatePartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck.groovy"
+             invoke="isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" auth="true">
+        <description>
+            Performs a security check to determine if subordinatePartyId, managerPartyId, loginPartyId are in the same
+            org.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="subordinatePartyId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="doesPartyIdFromEqualUserLoginPartyIdPermissionCheck" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/doesPartyIdFromEqualUserLoginPartyId.groovy"
+             invoke="doesPartyIdFromEqualUserLoginPartyIdPermissionCheck">
+        <description>
+            Performs a security check to see if the partyIdFrom argument equals userLogin.partyId
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+    </service>
+    <!-- End Hierarchy Based Permission Services -->
+
+    <!-- Order Entity Permission Services -->
+    <service name="checkCustRequestPermission" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/OrderEntityPermissionServices.groovy"
+             invoke="checkCustRequestPermission" auth="true">
+        <description>Performs a security check to determine if userLogin has access.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="checkQuotePermission" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/OrderEntityPermissionServices.groovy"
+             invoke="checkQuotePermission" auth="true">
+        <description>Performs a security check to determine if userLogin has access.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="checkQuoteStatusUpdatePermission" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/OrderEntityPermissionServices.groovy"
+             invoke="checkQuoteStatusUpdatePermission" auth="true">
+        <description>Performs a security check to determine if userLogin has access.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="checkOrderPermission" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/OrderEntityPermissionServices.groovy"
+             invoke="checkOrderPermission" auth="true">
+        <description>Performs a security check to determine if userLogin has access.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="checkInvoicePermission" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/OrderEntityPermissionServices.groovy"
+             invoke="checkInvoicePermission" auth="true">
+        <description>Performs a security check to determine if userLogin has access.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="checkShipmentPermission" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/OrderEntityPermissionServices.groovy"
+             invoke="checkShipmentPermission" auth="true">
+        <description>Performs a security check to determine if userLogin has access.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
+    </service>
+    <!-- End of Order Entity Permission Services -->
+
+    <!-- UserLogin Role Check Permission Services -->
+    <service name="isManager" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isManager.groovy"
+             invoke="isManager" auth="true">
+        <description>Performs a security check to determine if userLogin.partyId has a MANAGER PartyRole.</description>
+        <implements service="permissionInterface"/>
+    </service>
+
+    <service name="isSalesRep" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isSalesRep.groovy"
+             invoke="isSalesRep" auth="true">
+        <description>Performs a security check to determine if userLogin.partyId has a SALES_REP PartyRole.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+
+    <service name="isInternalOrg" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isInternalOrg.groovy"
+             invoke="isInternalOrg" auth="true">
+        <description>Performs a security check to determine if userLogin.partyId belongs to a INTERNAL_ORGANIZATION
+            PartyGroup.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+
+    <service name="isPartnerOrg" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isPartnerOrg.groovy"
+             invoke="isPartnerOrg" auth="true">
+        <description>Performs a security check to determine if userLogin.partyId belongs to a INTERNAL_ORGANIZATION
+            PartyGroup.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+
+    <service name="isOwner" engine="groovy"
+             location="component://xparty/script/xparty/permission-services/isOwner.groovy"
+             invoke="isOwner" auth="true">
+        <description>Performs a security check to determine if userLogin.partyId has a Owner PartyRole.</description>
+        <implements service="permissionInterface"/>
+    </service>
+    <!-- End Role Check Permission Services -->
+
+</services>

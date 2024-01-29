@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Account management services, used to manage licenses for an application product
+    (SaaS)
+  </description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+
+  <service name="createApplicationAccount" engine="java" auth="false"
+    location="com.simbaquartz.xparty.services.account.AccountServices"
+    invoke="createApplicationAccount">
+    <description>
+      Creates an application user account, sets up person and organization records along with
+      setting up
+      their relationship. Also creates a product store and associates it with the account if
+      skipStoreSetUp is set to true, defaults to false.
+    </description>
+    <attribute name="fullName" type="String" mode="IN" optional="false"/>
+    <attribute name="email" type="String" mode="IN" optional="false"/>
+    <attribute name="acceptsMarketing" type="Boolean" mode="IN" optional="true"
+      default-value="false"/>
+    <attribute name="password" type="String" mode="IN" optional="false"/>
+    <attribute name="companyName" type="String" mode="IN" optional="true"/>
+    <attribute name="numberOfEmployees" type="Integer" mode="IN" optional="true"/>
+    <attribute name="skipStoreSetup" type="Boolean" mode="IN" optional="true" default-value="false"/>
+
+    <attribute name="accountId" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="isAccountAlreadySetup" engine="java" auth="false"
+    location="com.simbaquartz.xparty.services.account.AccountServices"
+    invoke="isAccountAlreadySetup">
+    <description>Checks if MMO Account is already setup.
+    </description>
+    <attribute name="isAccountSetup" type="Boolean" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="validateAccountWithEmail" engine="java" auth="false"
+    location="com.simbaquartz.xparty.services.account.AccountServices"
+    invoke="validateAccountWithEmail">
+    <description>Service to validate an application account using email address, can be used to
+      check for duplicate
+      accounts, before calling createApplicationAccount service.
+    </description>
+    <attribute name="email" type="String" mode="INOUT" optional="false"/>
+    <attribute name="alreadyExist" type="Boolean" mode="OUT" optional="false"/>
+
+    <attribute name="accountId" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="axCreateProductStoreForAccount" engine="java" auth="false"
+    location="com.simbaquartz.xparty.services.account.AccountServices"
+    invoke="axCreateProductStoreForAccount">
+    <description>Service to create product store for an application account. Uses the name of the
+      company
+      (PartyGroup.name) to create the store name, example Acme Inc will create a store with name
+      Acme
+      Inc Store.
+      Also checks for existing stores, if account already has an existing store returns the existing
+      store id.
+    </description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="storeId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+
+  <service name="searchAccountMembers" engine="java" auth="false"
+    location="com.simbaquartz.xparty.services.account.AccountServices"
+    invoke="searchAccountMembers">
+    <description>
+      Searches and returns paginated response of found account members for the input account id
+      (partyId).
+      Looks up active relationship from account party id to other party ids matching any of
+      @EmployerPersonRoles(ENUM class).
+      Allows case insensitive search by their name, email. Returns a List of Maps containing every
+      persons rich details.
+      Use keyword for generic keyword based search.
+    </description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <!--Use keyword for generic keyword based search.-->
+    <attribute name="keyword" type="String" mode="IN" optional="true"/>
+    <attribute name="email" type="String" mode="IN" optional="true"/>
+    <attribute name="name" type="String" mode="IN" optional="true"/>
+    <attribute name="memberPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="externalId" type="String" mode="IN" optional="true"/>
+
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+    <attribute name="sortBy" type="String" mode="IN" optional="true"
+      default-value="-lastModifiedDate"/>
+
+    <attribute name="accountMembers" type="List" mode="OUT" optional="false"/>
+    <attribute name="totalAccountMembers" type="Integer" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="validateEmail" engine="java" auth="false"
+    location="com.simbaquartz.xparty.services.account.AccountServices" invoke="validateEmail">
+    <description>Service to validate an application account using email address, can be used to
+      check for duplicate
+      accounts, before calling createApplicationAccount service.
+    </description>
+    <attribute name="email" type="String" mode="INOUT" optional="false"/>
+    <attribute name="alreadyExist" type="Boolean" mode="OUT" optional="false"/>
+
+    <attribute name="accountId" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="removeAccountMember" engine="java"
+    location="com.simbaquartz.xparty.services.account.AccountServices" invoke="removeAccountMember"
+    auth="true">
+    <description>
+      Removes account member from organisation, it will disable its account, does not delete party
+      record associated with it.
+      Returns the new count of account members as well.
+    </description>
+    <attribute name="memberPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="accountPartyId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="updatedNumberOfAccountMembers" type="Long" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="updateAccountMembersCountForAccount" engine="java"
+    location="com.simbaquartz.xparty.services.account.AccountServices"
+    invoke="updateAccountMembersCountForAccount" auth="true">
+    <description>
+      Updates the total number of active account members PartyGroup.numEmployees for an account
+      (PartyGroup).
+      Calls searchAccountMembers service to fetch the fresh count and updates accordingly. Returns
+      the new count.
+    </description>
+    <attribute name="accountPartyGroupId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="totalAccountMembers" type="Long" mode="OUT" optional="false"/>
+  </service>
+
+</services>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, November 2015                     ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testGetPartnerPersonRoles" short-description="Test case for service getPartnerPersonRoles" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartnerPersonRoles" in-map-name="serviceCtx">
+            <result-to-field result-name="roleTypeIds"/>
+            <result-to-field result-name="roles"/>
+        </call-service>
+        <check-errors/>
+        <set field="rolesSize" value="${groovy: ( roleTypeIds.size() == 10 )}" type="Boolean"/>
+        <assert>
+            <if-compare field="rolesSize" operator="equals" value="true" type="Boolean"/>
+            <if-compare field="roleTypeIds[0]" operator="equals" value="SALES_REP"/>
+            <if-compare field="roleTypeIds[1]" operator="equals" value="MANAGER"/>
+            <if-compare field="roleTypeIds[2]" operator="equals" value="AGENT"/>
+            <if-compare field="roleTypeIds[3]" operator="equals" value="ACCOUNTANT"/>
+            <if-compare field="roleTypeIds[4]" operator="equals" value="ORDER_CLERK"/>
+            <if-compare field="roleTypeIds[5]" operator="equals" value="SHIPMENT_CLERK"/>
+            <if-compare field="roleTypeIds[6]" operator="equals" value="CONTACT"/>
+            <if-compare field="roleTypeIds[7]" operator="equals" value="EMPLOYEE"/>
+            <if-compare field="roleTypeIds[8]" operator="equals" value="SUPPLIER_POC"/>
+            <if-compare field="roleTypeIds[9]" operator="equals" value="_NA_"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

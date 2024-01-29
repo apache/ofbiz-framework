@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, November 2015                     ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testsIsOwner1" short-description="Test case for service isOwner." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isOwner" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testsIsOwner2" short-description="Test case for service isOwner." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="dustin.lee"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isOwner" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testsIsOwner3" short-description="Test case for service isOwner." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="joel.kohn"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isOwner" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsOwnerFail1" short-description="Negative test case for service isOwner." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isOwner" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsOwnerFail2" short-description="Negative test case for service isOwner." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="FSD.director1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isOwner" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsOwnerFail3" short-description="Negative test case for service isOwner." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="FSD.sales.exec"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isOwner" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

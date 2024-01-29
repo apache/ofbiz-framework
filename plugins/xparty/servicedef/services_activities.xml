@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>For logging and tracking party activities. Calls logged, tasks completed etc.</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="registerDeletePartyEmailActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerDeletePartyEmailActivity">
+        <description>Delete party email activity.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+        <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="registerUpdatePersonActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerUpdatePersonActivity">
+        <description>Delete party email activity.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="registerAddPartyNoteActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerAddPartyNoteActivity" >
+        <description>Registers an add note to task activity performed.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false" />
+        <attribute name="noteId" type="String" mode="IN" optional="true" />
+        <attribute name="note" type="String" mode="IN" optional="true" allow-html="any" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="partyName" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerDeletePartyNoteActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerDeletePartyNoteActivity" >
+        <description>Registers a delete note to task activity performed.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false" />
+        <attribute name="noteId" type="String" mode="IN" optional="true" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="partyName" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUpdatePartyNoteActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerUpdatePartyNoteActivity" >
+        <description>Registers a update note to task activity performed.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false" />
+        <attribute name="noteId" type="String" mode="IN" optional="true" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="partyName" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerCreateCallLogActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerCreateCallLogActivity">
+        <description>Add party email activity.</description>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="callLogDuration" type="String" mode="IN" optional="true"/>
+        <attribute name="opportunityId" type="String" mode="IN" optional="true"/>
+        <attribute name="startTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="endTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+
+        <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="registerSetEmployerActivity" engine="java"
+             location="com.simbaquartz.xcrm.services.activity.ContactActivityServices" invoke="registerSetEmployerActivity">
+        <description>Set party employer activity.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="employerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="employerName" type="String" mode="IN" optional="true"/>
+        <attribute name="oldEmployerName" type="String" mode="IN" optional="true"/>
+        <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="registerPartyAboutInfoActivity" engine="java"
+      location="com.simbaquartz.xcrm.services.activity.ContactActivityServices"
+      invoke="registerPartyAboutInfoActivity">
+        <description>Logs activity for the operations related to party about info.</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="operation" type="String" mode="IN" optional="true"/>
+        <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="registerConvertLeadToDealActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerConvertLeadToDealActivity" auth="true">
+        <description>Registers convert lead to deal activity performed.</description>
+        <attribute name="leadPartyId" type="String" mode="IN" optional="false" />
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="convertedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+</services>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testIsSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" short-description="Test case for service isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck." login-required="false">
+        <set field="serviceCtx.managerPartyId" value="MP.manager1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.rep1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep2"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheckFail" short-description="Negative test case for service isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck." login-required="false">
+        <log message="Starting negative test case execution for service : isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" level="info"/>
+        <set field="serviceCtx.managerPartyId" value="MP.manager1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.rep1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission" field="isInSameOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInSameOrg" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+        <log message="Finished negative test case execution for service : isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck" level="info"/>
+    </simple-method>
+
+</simple-methods>

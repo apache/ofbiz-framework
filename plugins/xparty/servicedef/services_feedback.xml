@@ -1,0 +1,61 @@
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Party Feedback Services</description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+  <service name="submitPartyFeedback" engine="java"
+    location="com.simbaquartz.xparty.services.PartyFeedbackServices" invoke="submitPartyFeedback"
+    auth="true">
+    <description>
+      Submit party feedback
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="comments" type="String" mode="IN" optional="true"/>
+    <attribute name="experienceRating" type="Long" mode="IN" optional="true"/>
+    <attribute name="feedbackNotes" type="List" mode="IN" optional="true"/>
+    <attribute name="attachments" type="List" mode="IN" optional="true"/>
+
+    <attribute name="feedbackId" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getPartyFeedbackList" engine="java"
+    location="com.simbaquartz.xparty.services.PartyFeedbackServices" invoke="getPartyFeedbackList"
+    auth="true">
+    <description>
+      Returns the party feedback list
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="feedbackList" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="deletePartyFeedback" engine="java"
+    location="com.simbaquartz.xparty.services.PartyFeedbackServices" invoke="deletePartyFeedback"
+    auth="true">
+    <description>Remove the party salary detail</description>
+    <attribute name="feedbackId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="addPartyFeedbackAttachments" engine="java"
+    location="com.simbaquartz.xparty.services.PartyFeedbackServices"
+    invoke="addPartyFeedbackAttachments"
+    auth="true">
+    <description>
+      Service add the party feedback attachments
+    </description>
+    <attribute name="feedbackId" type="String" mode="IN" optional="false"/>
+    <attribute name="attachments" type="List" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getFeedbackAttachments" engine="java"
+    location="com.simbaquartz.xparty.services.PartyFeedbackServices" invoke="getFeedbackAttachments"
+    auth="true">
+    <description>
+      Service to get the party feedback attachments
+    </description>
+    <attribute name="feedbackId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="attachments" type="List" mode="OUT" optional="false"/>
+  </service>
+</services>

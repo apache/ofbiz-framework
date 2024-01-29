@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of Xapi Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <version></version>
+    <entity entity-name="AccessToken" package-name="org.ofbiz.xapi" title="Access Token">
+        <field name="userLoginId" type="id-vlong"></field>
+        <field name="accessToken" type="long-varchar"></field>
+        <field name="refreshToken" type="long-varchar"></field>
+        <field name="isAssumed" type="indicator"/>
+        <field name="isActive" type="indicator">
+            <description>Only one access token per userLoginId will be active at a time</description>
+        </field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time">
+            <description>
+                Updated to track user inactivity
+                Update this field with plus x minutes (eg. 30) every time user performs any action
+            </description>
+        </field>
+        <prim-key field="userLoginId"/>
+        <prim-key field="accessToken"/>
+        <relation type="one" fk-name="ACCESS_TOKEN_USER_LOGIN" rel-entity-name="UserLogin">
+            <key-map field-name="userLoginId"/>
+        </relation>
+    </entity>
+
+    <view-entity entity-name="UserAccessView" package-name="org.ofbiz.xapi" never-cache="true"
+                 title="User Access View Entity">
+        <member-entity entity-alias="UL" entity-name="UserLogin"/>
+        <member-entity entity-alias="AT" entity-name="AccessToken"/>
+        <alias entity-alias="AT" name="userLoginId"/>
+        <alias entity-alias="AT" name="accessToken"/>
+        <alias entity-alias="AT" name="refreshToken"/>
+        <alias entity-alias="AT" name="fromDate"/>
+        <alias entity-alias="AT" name="thruDate"/>
+        <alias entity-alias="UL" name="partyId"/>
+        <alias entity-alias="UL" name="currentPassword"/>
+        <view-link entity-alias="AT" rel-entity-alias="UL">
+            <key-map field-name="userLoginId"/>
+        </view-link>
+    </view-entity>
+
+    <!-- Tenant and UserLogin mapping to identify a tenant based on userloginid -->
+    <entity entity-name="TenantUserLogin" package-name="org.ofbiz.entity.tenant">
+        <field name="tenantId" type="id"/>
+        <field name="userLoginId" type="id-vlong"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <prim-key field="tenantId"/>
+        <prim-key field="userLoginId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="TNTUSRLGN_TNT" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
+        </relation>
+        <!-- NOTE: there is no FK to the UserLogin entity, which is in a higher-level component, and would normally be in a separate database -->
+    </entity>
+
+    <!-- Tenant and Org Party Id mapping -->
+    <entity entity-name="TenantOrgParty" package-name="org.ofbiz.entity.tenant">
+        <field name="tenantId" type="id"/>
+        <field name="orgPartyId" type="id-vlong"/>
+        <prim-key field="tenantId"/>
+        <prim-key field="orgPartyId"/>
+        <relation type="one" fk-name="TNTUSRLGN_TNT" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
+        </relation>
+    </entity>
+
+    <extend-entity entity-name="PartyGroup">
+        <field name="groupName" type="description"></field>
+        <!-- Dun & Bradstreet Credibility Corp: https://www.dandb.com/about-us/ -->
+        <field name="Duns" type="id-long"/>
+        <!-- Commercial and Government Entity: http://www.dlis.dla.mil/cage_welcome.asp -->
+        <field name="Cage" type="id-long"/>
+        <field name="taxId" type="id-long"/>
+        <field name="industryType" type="value"/>
+    </extend-entity>
+</entitymodel>

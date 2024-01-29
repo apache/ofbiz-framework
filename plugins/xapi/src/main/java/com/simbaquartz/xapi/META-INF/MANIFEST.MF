@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Implementation-Title: PrettyTime - Core
+Implementation-Version: 2.1.0
+Specification-Vendor: OCPsoft
+Built-By: lbaxter
+Created-By: Apache Maven 3.0.4
+Implementation-URL: http://ocpsoft.org/prettytime/prettytime/
+Implementation-Vendor: OCPsoft
+Implementation-Vendor-Id: org.ocpsoft.prettytime
+Build-Jdk: 1.6.0_37
+Specification-Title: PrettyTime - Core
+Specification-Version: 2.1.0
+Archiver-Version: Plexus Archiver
+
+Name: Build-Information
+Os-Version: 10.8.2
+Scm-Url: http://github.com/ocpsoft/prettytime/prettytime
+Java-Version: 1.6.0_37
+Os-Arch: x86_64
+Os-Name: Mac OS X
+Java-Vendor: Apple Inc.
+

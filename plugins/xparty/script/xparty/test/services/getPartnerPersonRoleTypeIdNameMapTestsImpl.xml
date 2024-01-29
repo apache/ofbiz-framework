@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, December 2015                     ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testGetPartnerPersonRoleTypeIdNameMap" short-description="Test case for service getPartnerPersonRoleTypeIdNameMap" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartnerPersonRoleTypeIdNameMap" in-map-name="serviceCtx">
+            <result-to-field result-name="roleTypeIdNameMap"/>
+        </call-service>
+        <check-errors/>
+        <set field="rolesSize" value="${groovy: ( roleTypeIdNameMap.size() == 10 )}" type="Boolean"/>
+        <assert>
+            <if-compare field="rolesSize" operator="equals" value="true" type="Boolean"/>
+            <if-compare field="roleTypeIdNameMap.SALES_REP" operator="equals" value="Sales Representative"/>
+            <if-compare field="roleTypeIdNameMap.MANAGER" operator="equals" value="Manager"/>
+            <if-compare field="roleTypeIdNameMap.AGENT" operator="equals" value="Sales Agent"/>
+            <if-compare field="roleTypeIdNameMap.ACCOUNTANT" operator="equals" value="Accountant"/>
+            <if-compare field="roleTypeIdNameMap.ORDER_CLERK" operator="equals" value="Order Clerk"/>
+            <if-compare field="roleTypeIdNameMap.SHIPMENT_CLERK" operator="equals" value="Shipment Clerk"/>
+            <if-compare field="roleTypeIdNameMap.CONTACT" operator="equals" value="Contact"/>
+            <if-compare field="roleTypeIdNameMap.EMPLOYEE" operator="equals" value="Employee (Other)"/>
+            <if-compare field="roleTypeIdNameMap._NA_" operator="equals" value="Not Applicable"/>
+            <if-compare field="roleTypeIdNameMap.SUPPLIER_POC" operator="equals" value="Supplier Point of Contact"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testCreateManagerForPartyRelationship" short-description="Test case for service createManagerForPartyRelationship, creates a manager relationship." login-required="false">
+        <log message="Starting test case execution for service : createManagerForPartyRelationship" level="info"/>
+        <set field="serviceCtx.managerPartyId" value="MP.manager1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.rep.t1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.manager1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createManagerForPartyRelationship" in-map-name="serviceCtx">
+        </call-service>
+        <check-errors/>
+        <entity-and entity-name="PartyRelationship" list="partyRelationshipList">
+            <field-map field-name="partyIdTo" value="MP.sales.rep.t1"/>
+            <field-map field-name="partyIdFrom" value="MP.manager1"/>
+            <field-map field-name="roleTypeIdTo" value="SALES_REP"/>
+            <field-map field-name="roleTypeIdFrom" value="MANAGER"/>
+            <field-map field-name="partyRelationshipTypeId" value="REPORTS_TO"/>
+        </entity-and>
+        <set field="isRelationshipCreated" value="${groovy: ( partyRelationshipList.size() > 0 )}" type="Boolean"/>
+        <assert>
+            <if-compare field="isRelationshipCreated" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

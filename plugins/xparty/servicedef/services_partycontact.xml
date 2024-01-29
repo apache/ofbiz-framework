@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Party contact (email/phone) management related Services</description>
+  <vendor>SimbaQuartz</vendor>
+  <version>1.0</version>
+  <service name="makePrimaryPhone" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.contact.PartyContactServices"
+    invoke="makePrimaryPhone" transaction-timeout="3600">
+    <description>To make party phone primary.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false" />
+    <attribute name="contactMechId" type="String" mode="IN" optional="false" />
+  </service>
+
+  <service name="makePrimaryEmail" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.contact.PartyContactServices"
+    invoke="makePrimaryEmail" transaction-timeout="3600">
+    <description>To make party email primary.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false" />
+    <attribute name="contactMechId" type="String" mode="IN" optional="false" />
+  </service>
+
+  <service name="makePrimaryAddress" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.contact.PartyContactServices"
+    invoke="makePrimaryAddress" transaction-timeout="3600">
+    <description>To make party address primary.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false" />
+    <attribute name="contactMechId" type="String" mode="IN" optional="false" />
+  </service>
+
+</services>

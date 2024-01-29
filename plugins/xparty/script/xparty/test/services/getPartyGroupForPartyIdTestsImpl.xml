@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testGetPartyGroupForMagnisPartnersSalesExec" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.sales.exec"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyGroupForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="organizationPartyGroup"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="organizationPartyGroup.groupName" operator="equals" value="Magnis Partners Corporation" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyGroupForMagnisPartnersSalesAgent" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.agent1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyGroupForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="organizationPartyGroup"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="organizationPartyGroup.groupName" operator="equals" value="Magnis Partners Corporation" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyGroupForFsdForrest" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="forrest.rae"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyGroupForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="organizationPartyGroup"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="organizationPartyGroup.groupName" operator="equals" value="Fidelis Sustainability Distribution, LLC" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetPartyGroupForContractingOfficerJamesCimini" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="james.cimini@va.gov"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getPartyGroupForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="organizationPartyGroup"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="organizationPartyGroup.groupName" operator="equals" value="VISN 1: VA New England Healthcare System" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

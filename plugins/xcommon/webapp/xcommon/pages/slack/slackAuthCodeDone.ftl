@@ -1,4 +1,4 @@
-<#assign appDomainUrl = Static["com.simbaquartz.xcommon.util.AppConfigUtil"].getInstance(delegator).getConfig().getAppDomainUrl()>
+<#assign appDomainUrl = Static["util.xcommon.com.fidelissd.zcp.AppConfigUtil"].getInstance(delegator).getConfig().getAppDomainUrl()>
 
 <!DOCTYPE html>
 <html lang="en">

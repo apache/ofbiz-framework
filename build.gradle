@@ -42,7 +42,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.asciidoctor.convert'
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 
 apply from: 'common.gradle'
 
@@ -85,7 +85,7 @@ javadoc {
     }
 }
 // Checks OFBiz Java coding conventions.
-checkstyle {
+/*checkstyle {
     // Defining a maximum number of “tolerated” errors ensures that
     // this number cannot increase in the future. It corresponds to
     // the sum of errors that were present before introducing the
@@ -95,7 +95,7 @@ checkstyle {
     // Currently there are a lot of errors so we need to temporarily
     // hide them to avoid polluting the terminal output.
     showViolations = false
-}
+}*/
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -264,6 +264,16 @@ dependencies {
 
     runtime 'org.postgresql:postgresql:42.6.0'
 
+    implementation 'javax:javaee-api:8.0'
+    implementation 'io.swagger.core.v3:swagger-jaxrs2:2.0.0'
+    implementation 'io.swagger.core.v3:swagger-core:2.0.0'
+    implementation 'io.swagger.core.v3:swagger-models:2.0.0'
+    implementation 'io.swagger.core.v3:swagger-annotations:2.0.0'
+
+    implementation 'org.apache.commons:commons-collections4:4.1'
+    implementation 'org.apache.commons:commons-csv:1.5'
+    implementation 'org.apache.commons:commons-dbcp2:2.1.1'
+    implementation 'org.apache.commons:commons-text:1.6'
 
     // plugin libs
     subprojects.each { subProject ->

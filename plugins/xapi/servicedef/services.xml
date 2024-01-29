@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Xapi Services</description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+  <service name="createAccessToken" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.AccessTokenServices" invoke="createAccessToken">
+    <description>Create access token service.</description>
+    <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+    <attribute name="isAssumed" type="Boolean" mode="IN" optional="true"/>
+    <attribute name="assumedBy" type="String" mode="IN" optional="true"/>
+    <attribute name="accessToken" type="String" mode="OUT" optional="false"/>
+    <attribute name="refreshToken" type="String" mode="OUT" optional="false"/>
+    <attribute name="expiresOn" type="Timestamp" mode="OUT" optional="false"/>
+  </service>
+  <service name="expireAllAccessTokensForUserlogin" engine="java"
+    location="com.simbaquartz.xapi.services.AccessTokenServices"
+    invoke="expireAllAccessTokensForUserlogin">
+    <description>Expires all active access tokens for a user login, used when an account is
+      removed.
+    </description>
+    <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="isEmailVerified" engine="java" auth="true"
+    location="com.simbaquartz.xapi.services.user.UserServices" invoke="isEmailVerified">
+    <description>Validates if the input email of a user has been verified or not.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="emailIdToVerify" type="String" mode="IN" optional="false"/>
+    <attribute name="isVerified" type="Boolean" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="calcTaxByAvalara" engine="groovy" auth="false"
+    location="component://xapi/script/com/simbaquartz/xapi/avalara/calcTax.groovy">
+    <description>Calculate tax using Avalara Service</description>
+    <implements service="calcTaxInterface"/>
+    <attribute name="ref1List" type="java.util.List" mode="IN" optional="true"/>
+    <attribute name="shipFromAddress" type="org.apache.ofbiz.entity.GenericValue" mode="IN"
+      optional="true"/> <!-- This will be the override for facility address -->
+  </service>
+
+  <service name="calculateAndApplyTaxOnQuote" engine="java" auth="true"
+    location="com.simbaquartz.xapi.services.quote.QuoteServices"
+    invoke="calculateAndApplyTaxOnQuote">
+    <description>Calculate and apply tax on quote</description>
+    <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="updateClientBaseConfigurations" engine="java" auth="true"
+    location="com.simbaquartz.xapi.services.org.OrgServices"
+    invoke="updateClientBaseConfigurations">
+    <description>
+      Sets up base information for the client, set's product store details and pay to party id to
+      that of client's party id.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="loadSeedDataForTenant" engine="java" auth="true"
+    require-new-transaction="true" transaction-timeout="1200"
+    location="com.simbaquartz.xapi.services.TenantMgmtServices" invoke="loadSeedDataForTenant">
+    <description>
+      Loads the seed-data for given tenant
+    </description>
+    <attribute name="tenantId" type="String" mode="IN"/>
+  </service>
+
+  <service name="loadSeedDataOnAllTenants" engine="java" auth="true"
+    require-new-transaction="true" transaction-timeout="1200"
+    location="com.simbaquartz.xapi.services.TenantMgmtServices" invoke="loadSeedDataOnAllTenants">
+    <description>
+      Loads the seed-data for all given tenants
+    </description>
+  </service>
+
+  <service name="getProductImages" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices" invoke="getProductImages"
+    auth="false">
+    <attribute mode="IN" name="productId" optional="false" type="String"/>
+    <attribute mode="IN" name="productContentTypeId" optional="false" type="String"/>
+    <attribute mode="OUT" name="imagesList" optional="false" type="List"/>
+  </service>
+
+  <service name="getProductImage" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices" invoke="getProductImage"
+    auth="true">
+    <attribute mode="IN" name="productId" optional="false" type="String"/>
+    <attribute mode="IN" name="contentId" optional="false" type="String"/>
+    <attribute mode="IN" name="productContentTypeId" optional="false" type="String"/>
+    <attribute mode="OUT" name="image" optional="false" type="Map"/>
+  </service>
+
+  <service name="getProductPrimaryImage" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices"
+    invoke="getProductPrimaryImage" auth="false">
+    <attribute mode="IN" name="productId" optional="false" type="String"/>
+    <attribute mode="OUT" name="image" optional="true" type="Map"/>
+  </service>
+
+  <service name="getProductVideos" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices" invoke="getProductVideos"
+    auth="true">
+    <attribute mode="IN" name="productId" optional="false" type="String"/>
+    <attribute mode="OUT" name="videosList" optional="false" type="List"/>
+  </service>
+
+  <service name="getProductVideoById" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices"
+    invoke="getProductVideoById" auth="true">
+    <attribute mode="IN" name="productId" optional="false" type="String"/>
+    <attribute mode="IN" name="contentId" optional="false" type="String"/>
+    <attribute mode="OUT" name="video" optional="false" type="Map"/>
+  </service>
+
+  <service name="getProductsForCategory" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductCategoryServices"
+    invoke="getProductsForCategory" auth="true">
+    <description>Service to get list of products for given categoryId</description>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+    <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+    <attribute name="totalNumberOfRecords" type="Integer" mode="OUT" optional="false"/>
+    <attribute name="products" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <!--
+      <service name="addMultipleUploadForFinalProduct" default-entity-name="KitProductContent" engine="java"
+               location="org.apache.ofbiz.product.imagemanagement.ImageManagementServices" invoke="addMultipleUploadForFinalProduct" auth="true">
+          <implements service="uploadFileInterface"/>
+          <auto-attributes include="pk" mode="IN" optional="true"/>
+          <auto-attributes include="nonpk" mode="IN" optional="true"/>
+          <attribute mode="INOUT" name="contentId" optional="true" type="String"/>
+          <attribute mode="INOUT" name="dataResourceId" optional="true" type="String"/>
+          <attribute mode="IN" name="imageResize" optional="true" type="String"/>
+          <attribute mode="IN" name="productIdFrom" optional="true" type="String"/>
+          <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
+          <attribute mode="OUT" name="contentFrameId" optional="true" type="String"/>
+          <attribute mode="OUT" name="dataResourceFrameId" optional="true" type="String"/>
+          <override name="productContentTypeId" optional="false"/>
+      </service>
+  -->
+
+  <service name="getFinalProductImages" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices"
+    invoke="getFinalProductImages" auth="true">
+    <attribute mode="IN" name="productIdFrom" optional="false" type="String"/>
+    <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
+    <attribute mode="IN" name="productContentTypeId" optional="false" type="String"/>
+    <attribute mode="OUT" name="imagesList" optional="false" type="List"/>
+  </service>
+
+  <service name="getFinalProductVideo" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices"
+    invoke="getFinalProductVideo" auth="true">
+    <attribute mode="IN" name="productIdFrom" optional="false" type="String"/>
+    <attribute mode="IN" name="productIdTo" optional="false" type="String"/>
+    <attribute mode="OUT" name="videosList" optional="false" type="List"/>
+  </service>
+
+  <!--
+      <service name="deleteFinalProductImage" default-entity-name="KitProductContent" engine="simple"
+               location="component://product/minilang/product/imagemanagement/ImageManagementServices.xml" invoke="deleteFinalProductImage" auth="true">
+          <auto-attributes include="pk" mode="IN" optional="false"/>
+          <auto-attributes include="nonpk" mode="IN" optional="true"/>
+      </service>
+  -->
+
+  <service name="activateProduct" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices" invoke="activateProduct"
+    auth="true">
+    <description>Delete Product</description>
+    <attribute name="productId" type="String" mode="IN" optional="false"/>
+  </service>
+  <service name="deactivateProduct" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices" invoke="deactivateProduct"
+    auth="true">
+    <description>Delete Product</description>
+    <attribute name="productId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="addPrimaryProductImage" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices"
+    invoke="addPrimaryProductImage" auth="true">
+    <description>Add primary Product Image</description>
+    <attribute name="contentId" type="String" mode="IN" optional="false"/>
+    <attribute name="productId" type="String" mode="IN" optional="false"/>
+    <attribute name="isPrimaryImage" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="addKitPrimaryProductImage" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices"
+    invoke="addKitPrimaryProductImage" auth="true">
+    <description>Add primary Product Image</description>
+    <attribute name="contentId" type="String" mode="IN" optional="false"/>
+    <attribute name="productIdFrom" type="String" mode="IN" optional="false"/>
+    <attribute name="productIdTo" type="String" mode="IN" optional="false"/>
+    <attribute name="isPrimaryImage" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getOrderList" engine="java"
+    location="com.simbaquartz.xapi.services.product.ProductImageServices" invoke="getOrderList"
+    auth="true">
+    <description>Service to get list of all products</description>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+    <attribute name="totalNumberOfRecords" type="Integer" mode="OUT" optional="false"/>
+    <attribute name="ordersList" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="isStorageLimitCrossed" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices"
+    invoke="isStorageLimitCrossed">
+    <description>Service to check storage limit to allow or not to attach file</description>
+    <attribute name="uploadedFileSize" type="BigDecimal" mode="IN" optional="false"/>
+    <attribute name="totalStorageUsed" type="BigDecimal" mode="OUT" optional="false"/>
+    <attribute name="isStorageLimitCrossed" type="Boolean" mode="OUT" optional="false"/>
+  </service>
+
+
+  <service name="getStorageUsed" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices" invoke="getStorageUsed">
+    <description>Service to get all storage stats</description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="totalStorageUsed" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="partyStorage" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="productStorage" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="quotesStorage" type="BigDecimal" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getFileSizeFromContent" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices"
+    invoke="getFileSizeFromContent">
+    <description>Service to get file size from file stored in file system. If the file is not found, returns the fileSize as zero and file as null.</description>
+    <attribute name="contentId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="fileSize" type="BigDecimal" mode="OUT" optional="false"/>
+    <attribute name="file" type="java.io.File" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="recordStorageUsed" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices" invoke="recordStorageUsed">
+    <description>Record storage used for specific storage stat and for total storage</description>
+    <implements service="getStorageUsed"/>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="storageType" type="String" mode="INOUT" optional="false">
+      <description>
+        Use storage type to group files together, example taskStorage, orderStorage so they can be
+        used to provide storage distribution to the customer.
+      </description>
+    </attribute>
+    <attribute name="uploadedFileSize" type="BigDecimal" mode="IN" optional="false"/>
+  </service>
+
+  <service name="moveFileToArchive" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices"
+    invoke="moveFileToArchive">
+    <description>Service to move file to archive, also deletes associated thumbnail content.</description>
+    <attribute name="file" type="java.io.File" mode="IN" optional="false"/>
+  </service>
+  <service name="isStorageLimitCrossed" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices"
+    invoke="isStorageLimitCrossed">
+    <description>Service to check storage limit to allow or not to attach file</description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="planId" type="String" mode="IN" optional="false"/>
+    <attribute name="uploadedFileSize" type="BigDecimal" mode="IN" optional="false"/>
+    <attribute name="totalStorageUsed" type="BigDecimal" mode="OUT" optional="false"/>
+    <attribute name="isStorageLimitCrossed" type="Boolean" mode="OUT" optional="false"/>
+  </service>
+  <service name="getStorageUsed" engine="java" auth="false"
+    location="com.simbaquartz.xapi.services.FileStorageTrackingServices" invoke="getStorageUsed">
+    <description>Service to get all storage stats</description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="totalStorageUsed" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="taskStorage" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="partyStorage" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="productStorage" type="BigDecimal" mode="OUT" optional="true"/>
+    <attribute name="quotesStorage" type="BigDecimal" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getAllLeaveTypes" engine="java" auth="false"
+    location="com.simbaquartz.xtalent.services.LeaveServices"
+    invoke="getAllLeaveTypes">
+    <description>Service to get all leave types</description>
+    <attribute name="leaveDetails" type="List" mode="OUT" optional="false"/>
+    <attribute name="companyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getAllTags" engine="java" auth="false"
+           location="com.simbaquartz.xapi.services.tag.TagServices"
+           invoke="getAllTags">
+    <description>Service to get all Tags</description>
+    <attribute name="tagTypeId" type="String" mode="IN" optional="true"/>
+    <attribute name="result" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="createTag" default-entity-name="Tag" engine="entity-auto" invoke="create" auth="true">
+    <description>Create Tags</description>
+    <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    <override name="tagName" optional="false"/>
+    <override name="colorId" optional="false"/>
+  </service>
+  <service name="updateTag" default-entity-name="Tag" engine="entity-auto" invoke="update" auth="true">
+    <description>Update Tags</description>
+    <auto-attributes include="pk" mode="INOUT" optional="false"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+
+  <service name="deleteTag" default-entity-name="Tag" engine="entity-auto" invoke="delete" auth="true">
+    <description>Delete Tags</description>
+    <auto-attributes include="pk" mode="IN" optional="false"/>
+  </service>
+
+  <service name="removeCustRequestTag" default-entity-name="CustRequestTag" engine="entity-auto" invoke="delete" auth="true">
+    <description>Delete CustRequestTag</description>
+    <auto-attributes include="pk" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createCustRequestTag" default-entity-name="CustRequestTag" engine="entity-auto" invoke="create" auth="true">
+    <description>Create CustRequestTag</description>
+    <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    <auto-attributes include="nonpk" mode="IN" optional="true"/>
+  </service>
+</services>

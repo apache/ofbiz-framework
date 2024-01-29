@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.enable.integration" systemPropertyValue="Y" description="Flag to turn on/off avalara integration"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.tax.transaction.url" systemPropertyValue="https://rest.avatax.com/api/v2/transactions/create" description="Url for calculating tax from avalara"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.username" systemPropertyValue="kshitish@dazzleroad.com" description="Auth username for avalara"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.password" systemPropertyValue="_cAycw_Qb@2d9BeV7uyu" description="Auth password for avalara"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.connection.timeout" systemPropertyValue="15000" description="Connection time with avalara"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.itemCode.taxCode" systemPropertyValue="PH050200" description="Default tax code to use when product is not associated with tax category"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.shipping.taxCode" systemPropertyValue="FR" description="Commonly used tax code for shipping"/>
+    <SystemProperty systemResourceId="avalara" systemPropertyId="avalara.taxAuthorityRateSeqId" systemPropertyValue="9001" description="Tax Auth Rate Id"/>
+
+</entity-engine-xml>

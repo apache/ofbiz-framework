@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Cleaning/sanitation services</description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+  <service name="syncPartyData"
+    engine="groovy"
+    location="component://xparty/groovyScripts/DataCleanUp.groovy"
+    invoke="syncPartyData" auth="true">
+    <description>
+      Adds missing display name, photo url and email in Party entity from Person/PartyGroup
+      entities.
+      If partyId is not provided, finds all parties and performs sanitation.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+  </service>
+  <service name="syncPersonData"
+    engine="groovy"
+    location="component://xparty/groovyScripts/DataCleanUp.groovy"
+    invoke="syncPersonData" auth="true">
+    <description>
+      Runs and invokes populateBasicUserInformation for all parties.
+      If partyId is not provided, finds all parties and performs sanitation.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="syncLeadAccountRelationship"
+    engine="groovy"
+    location="component://xparty/groovyScripts/DataCleanUp.groovy"
+    invoke="syncLeadAccountRelationship" auth="true">
+    <description>
+      Sets up an account owner role with all leads.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="sanitizeTaskContent"
+           engine="groovy"
+           location="component://xparty/groovyScripts/DataCleanUp.groovy"
+           invoke="sanitizeTaskContent" auth="true">
+    <description>
+        Adds attached by party id based on the attached by user login id.
+        Also populates lastModifiedByPartyId and lastModifiedByUserLogin based on attached by user login id.
+    </description>
+    <attribute name="taskId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="sanitizeTimesheet"
+           engine="groovy"
+           location="component://xparty/groovyScripts/DataCleanUp.groovy"
+           invoke="sanitizeTimesheet" auth="true">
+    <description>
+     Populates start date in the Timesheet entity.
+    </description>
+    <attribute name="timesheetId" type="String" mode="IN" optional="true"/>
+  </service>
+
+</services>

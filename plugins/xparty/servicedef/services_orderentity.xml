@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, December 2015                     ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Hierarchy Utility Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="getCustRequestParties" engine="java"
+             location="com.simbaquartz.xparty.hierarchy.orderentity.OrderEntityServices"
+             invoke="getCustRequestParties" auth="true">
+        <description>Get all the Parties who have a CustRequestParty entry.</description>
+        <permission-service service-name="checkCustRequestPermission" main-action="VIEW"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="personRoleEnum" type="java.lang.Class" mode="IN" optional="false"/>
+        <attribute name="custRequestParties" type="List" mode="OUT" optional="true"/>
+    </service>
+
+</services>

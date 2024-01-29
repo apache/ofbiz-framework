@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <!-- VIEW -->
+    <simple-method method-name="test_Success_CheckCustRequestPermission_View_crSalesRep1_1_as_Manger1" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.manager1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="VIEW"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Success_CheckCustRequestPermission_View_crSalesRep1_1_as_AccountLead" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="FSD.director1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="VIEW"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Success_CheckCustRequestPermission_View_crSalesRep1_1_as_Owner" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="dustin.lee"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="VIEW"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Success_CheckCustRequestPermission_View_crSalesRep1_1_as_SalesExec" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.exec"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="VIEW"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Failure_CheckCustRequestPermission_View_crSalesRep1_1_as_SalesRep3" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep3"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="VIEW"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Failure_CheckCustRequestPermission_View_crSalesRep1_1_as_crossOrg" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="SP.sales.exec"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="VIEW"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <!-- CREATE -->
+    <simple-method method-name="test_Success_CheckCustRequestPermission_Create_SalesRep1" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="CREATE"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Success_CheckCustRequestPermission_Create_Director3" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.director3"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="CREATE"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Failure_CheckCustRequestPermission_Create_Manager2" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.manager2"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="CREATE"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <!-- UPDATE -->
+    <simple-method method-name="test_Success_CheckCustRequestPermission_Update_crSalesRep1_1_as_Manger1" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.manager1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="UPDATE"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Failure_CheckCustRequestPermission_Update_crSalesRep1_6_NonEditableStatus" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-6"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="UPDATE"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="test_Failure_CheckCustRequestPermission_Update_crSalesRep1_1_as_crossOrg" login-required="false">
+        <set field="serviceCtx.custRequestId" value="CR-MP.sales.rep1-1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="SP.sales.exec"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mainAction" value="UPDATE"/>
+        <call-service service-name="checkCustRequestPermission" in-map-name="serviceCtx">
+            <result-to-field result-name="hasPermission"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="hasPermission" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

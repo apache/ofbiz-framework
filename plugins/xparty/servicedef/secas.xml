@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
+
+  <eca service="createPartyEmailAddress" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <action service="registerAddPartyEmailAndPhoneActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="updatePartyEmailAddress" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="contactMechId" operator="is-not-empty"/>
+    <action service="registerUpdatePartyEmailActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="createPartyTelecomNumber" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="contactMechId" operator="is-not-empty"/>
+    <action service="registerAddPartyEmailAndPhoneActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="updatePartyTelecomNumber" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="contactMechId" operator="is-not-empty"/>
+    <condition field-name="oldContactMechId" operator="is-not-empty"/>
+    <action service="registerUpdatePartyPhoneActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="createPerson" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="firstName" operator="is-not-empty"/>
+    <condition field-name="lastName" operator="is-not-empty"/>
+    <action service="populateBasicInformationForParty" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+  <eca service="updatePerson" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="firstName" operator="is-not-empty"/>
+    <condition field-name="lastName" operator="is-not-empty"/>
+    <action service="populateBasicInformationForParty" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+    <action service="registerUpdatePersonActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="updatePartyNote" event="commit">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="noteInfo" operator="is-not-empty"/>
+    <action service="registerUpdatePartyNoteActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="createPhoneCommunicationEventForCallLogEvent" event="return">
+    <condition field-name="partyIdFrom" operator="is-not-empty"/>
+    <action service="registerCreateCallLogActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="setEmployerForParty" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <action service="registerSetEmployerActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <!--<eca service="removeTeamMember" event="return">-->
+  <!--<condition field-name="partyId" operator="is-not-empty"/>-->
+  <!--<action service="sendNotificationToRemovedTeamMember" mode="sync" ignore-error="false" ignore-failure="false"/>-->
+  <!--</eca>-->
+
+  <eca service="acceptUserInvitation" event="return">
+    <condition field-name="emailAddress" operator="is-not-empty"/>
+    <action service="notifyInviterOnInvitationAcceptance" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="createAboutPartyContent" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <action service="registerPartyAboutInfoActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="updateAboutPartyContent" event="return">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <action service="registerPartyAboutInfoActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+  <eca service="removePartyNote" event="commit">
+    <condition field-name="partyId" operator="is-not-empty"/>
+    <condition field-name="noteId" operator="is-not-empty"/>
+    <action service="registerDeletePartyNoteActivity" mode="sync" ignore-error="false"
+      ignore-failure="false"/>
+  </eca>
+
+</service-eca>

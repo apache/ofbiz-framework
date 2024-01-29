@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="HierarchyInvalidArgumentError">
+        <value xml:lang="en">Invalid Argument.</value>
+    </property>
+    <property key="HierarchyLoginFailureNotPartner">
+        <value xml:lang="en">You do not have permission to login to this application, no valid partner relationship.</value>
+    </property>
+    <property key="HierarchyPartnerLoginError">
+        <value xml:lang="en">You do not have permission to login to this application, an error occurred.</value>
+    </property>
+    <property key="HierarchyPermissionError">
+        <value xml:lang="en">You do not have permission to perform this operation.</value>
+    </property>
+    <property key="HierarchyViewPermissionError">
+        <value xml:lang="en">You are not allowed to view this page.</value>
+        <value xml:lang="zh">不允许你浏览这个页面。</value>
+    </property>
+    <property key="HierarchyCreatePermissionError">
+        <value xml:lang="en">You do not have permission to perform this action.  You need both Sales Representative and Request Taker roles.</value>
+    </property>
+    <property key="HierarchyUpdateDeletePermissionError">
+        <value xml:lang="en">You do not have permission to perform this action.</value>
+    </property>
+    <property key="PartyDoesNotExist">
+        <value xml:lang="en">partyId does not exist.</value>
+    </property>
+    <property key="PartyIdNotInPartyGroup">
+        <value xml:lang="en">partyId is not part of a PartyGroup.</value>
+    </property>
+    <property key="PartyHasNoManager">
+        <value xml:lang="en">Party has no manager.</value>
+    </property>
+    <property key="WrongPartyTypePerson">
+        <value xml:lang="en">Party type is not a Person.</value>
+    </property>
+    <property key="WrongPartyTypeGroup">
+        <value xml:lang="en">Party type is not a Party Group.</value>
+    </property>
+    <property key="PartyNotManager">
+        <value xml:lang="en">Party is not a Manager.</value>
+    </property>
+    <property key="PartyNotSalesRep">
+        <value xml:lang="en">Party is not a Sales Representative.</value>
+    </property>
+    <property key="PartyNotInternalOrg">
+        <value xml:lang="en">Party is not part of the Internal Organization.</value>
+    </property>
+    <property key="PartyNotPartnerOrg">
+        <value xml:lang="en">Party is not part of a Partner Organization.</value>
+    </property>
+    <property key="PartyNotCustomer">
+        <value xml:lang="en">Party is not a Customer.</value>
+    </property>
+    <property key="PartyErrorMultiplePartyGroupMember">
+        <value xml:lang="en">Party is a member of multiple PartyGroups.</value>
+    </property>
+    <property key="OrderEntityCustRequestPartyError">
+        <value xml:lang="en">Could not find CustRequestParty for CustRequest with ID [ ${custRequestId} ]</value>
+    </property>
+    <property key="OrderEntityFindError">
+        <value xml:lang="en">Could not find ${entityName} with ID [ ${primaryKey} ]</value>
+    </property>
+    <property key="PartyHasNoParentOrg">
+        <value xml:lang="en">Party has no parent organization.</value>
+    </property>
+    <property key="CustomerPersonRoleDoesNotExist">
+        <value xml:lang="en">${roleTypeId} is not a valid customer role.</value>
+    </property>
+</resource>

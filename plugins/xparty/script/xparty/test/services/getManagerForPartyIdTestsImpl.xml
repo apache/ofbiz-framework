@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <!-- TODO: Need a test for a CONTRACTING_OFFICER's manager -->
+
+    <simple-method method-name="testGetManagerForMagnisPartnersSalesRep1" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.sales.rep1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getManagerForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="manager"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="manager.partyId" operator="equals" value="MP.manager1" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetManagerForMagnisPartnersSalesAgent1" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.agent1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getManagerForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="manager"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="manager.partyId" operator="equals" value="MP.sales.exec" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGetManagerForMagnisPartnersSalesExec" short-description="Test case for service getPartyGroupForPartyId" login-required="false">
+        <set field="serviceCtx.partyId" value="MP.sales.exec"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="getManagerForPartyId" in-map-name="serviceCtx">
+            <result-to-field result-name="manager"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="manager.partyId" operator="equals" value="FSD.director1" type="String"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

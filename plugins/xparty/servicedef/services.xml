@@ -1,0 +1,1538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+  <description>Xparty Services</description>
+  <vendor></vendor>
+  <version>1.0</version>
+
+  <service name="axUpdatePartyEmailAddress" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="axUpdatePartyEmailAddress"
+    auth="true">
+    <description>Update an Email Address</description>
+    <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
+    <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="email" type="String" mode="IN" optional="false"> </attribute>
+    <attribute name="oldContactMechId" type="String" mode="OUT" optional="true"/> <!-- this is the id of the old address -->
+  </service>
+
+  <service name="axUpdateTelecomNumber" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="updateTelecomNumber" auth="true">
+    <description>Update Telecom Number</description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="countryCode" type="String" mode="IN" optional="true"/>
+    <attribute name="areaCode" type="String" mode="IN" optional="true"/>
+    <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
+    <attribute name="phoneVerified" type="String" mode="IN" optional="true"/>
+
+  </service>
+  <service name="axUpdateEmailAddress" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="updateEmailAddress" auth="true">
+    <description>Update Email Address</description>
+    <attribute name="storeId" type="String" mode="IN" optional="true"/>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+    <attribute name="emailVerified" type="String" mode="IN" optional="true"/>
+    <attribute name="allowSolicitation" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="extGetAllPartiesHavingRole" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="extGetAllPartiesHavingRole"
+    auth="true">
+    <description>To fetch all parties, based on partyid/name/city/postal code/state.</description>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="employer" type="String" mode="IN" optional="true"/>
+    <attribute name="partyName" type="String" mode="IN" optional="true"/>
+    <attribute name="partyCity" type="String" mode="IN" optional="true"/>
+    <attribute name="partyStateProvinceGeoId" type="String" mode="IN" optional="true"/>
+    <attribute name="partyCountryGeoId" type="String" mode="IN" optional="true"/>
+    <attribute name="partyPostalCode" type="String" mode="IN" optional="true"/>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+    <attribute name="partyList" type="List" mode="OUT" optional="true"/>
+    <attribute name="count" type="Integer" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyPostalAddress" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyPostalAddress">
+    <description>Fetch party postal Address details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="addressDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyTelecomNumber" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyTelecomNumber">
+    <description>Fetch party telecom number details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="phoneDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyEmail" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyEmail">
+    <description>Fetch party telecom number details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="emailDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyLinkedInAddress" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="fetchPartyLinkedInAddress">
+    <description>Fetch party linkedIn address details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="linkedInDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyTwitterOrFacebookInfo" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="fetchPartyTwitterOrFacebookInfo">
+    <description>Fetch party twitter/facebook details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="result" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getEnvHost" engine="java" invoke="getEnvHost" auth="true"
+    location="com.simbaquartz.xparty.services.AxPartyServices">
+    <description>Service to get the current running environment host</description>
+    <attribute name="envHostVar" type="Map" mode="OUT" optional="false"></attribute>
+    <attribute name="ENV" type="String" mode="OUT" optional="true"></attribute>
+
+  </service>
+
+  <service name="getDataSource" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getDataSource" auth="true">
+    <description>Service to get all the data sources based on the dataSourceTypeId</description>
+    <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"></attribute>
+    <attribute name="dataSourceId" type="String" mode="IN" optional="true"></attribute>
+    <attribute name="dataSource" type="List" mode="OUT" optional="false"></attribute>
+  </service>
+
+  <service name="checkForPartyContentDuplication" engine="java" auth="true"
+    location="com.simbaquartz.xorder.services.quote.ContentDuplicationChecker"
+    invoke="checkForPartyContentDuplication">
+    <description>Check if new content file is a duplicate of any existing supplier documents
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contentId" type="String" mode="IN" optional="true"/>
+    <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+  </service>
+
+  <service name="fetchInternalOrganization" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="fetchInternalOrganization">
+    <description>Service to fetch the Internal Organization for respective invited by user.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+
+    <attribute name="organizationName" type="String" mode="OUT" optional="true"/>
+    <attribute name="organizationPartyId" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="sendEmailVerificationLink" engine="java" max-retry="3"
+    location="com.simbaquartz.xorder.services.email.EmailNotificationServices"
+    invoke="sendEmailVerificationLink">
+    <description>Service to send an email for verifying the Email link</description>
+    <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    <attribute name="fullName" type="String" mode="IN" optional="true"/>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="verifyEmailLink" engine="java"
+    location="com.simbaquartz.xorder.services.email.EmailNotificationServices"
+    invoke="verifyEmailLink">
+    <description>Service for verifying the Email link address</description>
+    <attribute name="linkAddress" type="String" mode="IN" optional="false"/>
+    <attribute name="isEmailVerified" type="Boolean" mode="OUT" optional="true"/>
+    <attribute name="emailAddress" type="String" mode="OUT" optional="false"/>
+    <attribute name="partyId" type="String" mode="OUT" optional="false"/>
+    <attribute name="fullName" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="sendResetPasswordLink" engine="java"
+    location="com.simbaquartz.xorder.services.email.EmailNotificationServices"
+    invoke="sendResetPasswordLink">
+    <description>Service to send a password recovery email for an account, uses input email address
+      to locate the account.
+    </description>
+    <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    <attribute name="app" type="String" mode="IN" optional="true" default-value="admin"/>
+  </service>
+
+  <service name="sendInvitationEmail" engine="java"
+    location="com.simbaquartz.xorder.services.email.EmailNotificationServices"
+    invoke="sendInvitationEmail">
+    <description>FSD Service for sending the Invitation Email to the colleagues.</description>
+    <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+    <attribute name="fullName" type="String" mode="IN" optional="true"/>
+    <attribute name="designation" type="String" mode="IN" optional="true"/>
+    <attribute name="phone" type="Map" mode="IN" optional="true"/>
+    <attribute name="roleIds" type="List" mode="IN" optional="true"/>
+    <attribute name="organizationId" type="String" mode="IN" optional="true"/>
+    <attribute name="parentInviteEmailAddress" type="String" mode="IN" optional="true"/>
+    <attribute name="parentInvitePartyName" type="String" mode="IN" optional="true"/>
+    <attribute name="organizationName" type="String" mode="IN" optional="true"/>
+    <attribute name="emailType" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="getPartyGroupForPartyId" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.PartyGroupForPartyUtils"
+    invoke="getPartyGroupForPartyIdService" auth="false">
+    <description>Returns the PartyGroup that the partyId belongs too. Uses the EMPLOYMENT or AGENT
+      relationship. If partyId is a PartyGroup, it just returns that PartyGroup.
+    </description>
+    <!-- No permission needed to run this -->
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="organizationPartyGroup" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"
+      optional="false"/>
+  </service>
+
+  <service name="getSubordinatesForPartyId" engine="groovy"
+    location="component://xparty/script/xparty/services/getSubordinatesForPartyId.groovy"
+    invoke="getSubordinatesForPartyId" auth="true">
+    <description>Retrieve a list of partyId’s immediate subordinates. Set recurse to "Y" to traverse
+      down. Will only follow REPORTS_TO and ACCOUNT_LEAD relationships.
+      - The recurse attributes should by "Y" or "N" and default to N.
+    </description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service service-name="doesPartyIdEqualUserLoginPartyIdPermissionCheck"/>
+      <permission-service service-name="isPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck"/>
+      <permission-service service-name="isPersonCustomerPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="recurse" type="String" mode="IN" optional="true" default-value="N"/>
+    <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
+    <attribute name="subordinatePartyIdList" type="List" mode="OUT"/>
+  </service>
+
+  <service name="getManagerForPartyId" engine="groovy"
+    location="component://xparty/script/xparty/services/getManagerForPartyId.groovy"
+    invoke="getManagerForPartyId" auth="true">
+    <description>Retrieve the manager Party of partyId.</description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service service-name="doesPartyIdEqualUserLoginPartyIdPermissionCheck"/>
+      <permission-service service-name="isPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="manager" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+  </service>
+
+  <service name="getAccountLeadForPartyId" engine="groovy"
+    location="component://xparty/script/xparty/services/getAccountLeadForPartyId.groovy"
+    invoke="getAccountLeadForPartyId" auth="true">
+    <description>Gets partyId’s PartyGroup's Account Lead. Works for PartyGroups as well.
+    </description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service service-name="doesPartyIdEqualUserLoginPartyIdPermissionCheck"/>
+      <permission-service service-name="isPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="accountLead" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+  </service>
+
+  <service name="isSubordinatePartyIdInManagerOrg" engine="groovy"
+    location="component://xparty/script/xparty/services/isSubordinatePartyIdInManagerOrg.groovy"
+    invoke="isSubordinatePartyIdInManagerOrg" auth="true">
+    <description>This is an example service that calls the permission-service
+      isSubordinatePartyIdInManagerOrgPermissionCheck itself.
+    </description>
+    <attribute name="subordinatePartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="isInOrg" type="Boolean" mode="OUT"/>
+  </service>
+
+  <service name="createSupplierRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createSupplierRelationship.groovy"
+    invoke="createSupplierRelationship" auth="true">
+    <description>Creates a supplier to FSD relationship.</description>
+    <permission-service service-name="specialConditionPermissionCheck"/>
+    <attribute name="supplierPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createManagerForPartyRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createManagerForPartyRelationship.groovy"
+    invoke="createManagerForPartyRelationship" auth="true">
+    <description>Service to establish a manager.</description>
+   <!-- <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service
+        service-name="isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck"/>
+    </required-permissions>-->
+    <attribute name="subordinatePartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createSubordinateForPartyRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createSubordinateForPartyRelationship.groovy"
+    invoke="createSubordinateForPartyRelationship" auth="true">
+    <description>Service to establish a subordinate.</description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service
+        service-name="isSubordinateMgrAndUserLoginPartyIdInSameOrgPermissionCheck"/>
+    </required-permissions>
+    <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="subordinatePartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="subordinateRoleTypeId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createGovCustPersonRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createGovCustPersonRelationship.groovy"
+    invoke="createGovCustPersonRelationship" auth="true">
+    <description>Service to establish a Gov Customer Employee.
+      partyId - The party ID of the Person soon to be government employee.
+      partyGroupPartyId - The Government organization to which the Person is soon to be an employee.
+      roleTypeId - The role of the Person in the relationship (roleTypeIdTo).
+    </description>
+    <required-permissions join-type="AND">
+      <permission-service service-name="doesPartyIdNotEqualUserLoginPartyIdPermissionCheck"/>
+      <permission-service
+        service-name="doesPartyGroupPartyIdNotEqualInternalOrgPartyIdPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdNotSupplierPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdNotPartnerPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdCustomerPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="deleteRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/deleteRelationship.groovy"
+    invoke="deleteRelationship" auth="true">
+    <description>Deletes a subordinate relationship.</description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service service-name="doesPartyIdFromEqualUserLoginPartyIdPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+    <attribute name="subordinatePartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="false"/>
+    <attribute name="roleTypeIdTo" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createSameOrgEmployeeRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createSameOrgEmployeeRelationship.groovy"
+    invoke="createSameOrgEmployeeRelationship" auth="true">
+    <description>Creates a same organization employee relationship</description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="specialConditionPermissionCheck"/>
+      <permission-service service-name="doesPartyIdNotEqualUserLoginPartyIdPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="upgradeSupplierToPartnerRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/upgradeSupplierToPartnerRelationship.groovy"
+    invoke="upgradeSupplierToPartnerRelationship" auth="true">
+    <description>Create the Internal Org to Supplier/Partner PartyGroup Partner relationship using
+      roleTypeIdTo: PARTNER and partyRelationshipTypeId: PARTNERSHIP
+    </description>
+    <permission-service service-name="specialConditionPermissionCheck"/>
+    <attribute name="supplierPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createPartnerSalesAgentRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createSalesAgentRelationship.groovy"
+    invoke="createSalesAgentRelationship" auth="true">
+    <description>Service to establish an non-employment agent relationship
+      partyId - The party ID of the Person soon to be the agent.
+      partyGroupPartyId - The organization to which the Person is soon to be a agent.
+    </description>
+    <required-permissions join-type="AND">
+      <permission-service service-name="isManager"/>
+      <permission-service service-name="doesPartyIdNotEqualUserLoginPartyIdPermissionCheck"/>
+      <permission-service
+        service-name="doesPartyGroupPartyIdNotEqualInternalOrgPartyIdPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdPartnerPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdNotCustomerPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createInternalSalesAgentRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createSalesAgentRelationship.groovy"
+    invoke="createSalesAgentRelationship" auth="true">
+    <description>Service to establish an non-employment agent relationship
+      partyId - The party ID of the Person soon to be the agent.
+      partyGroupPartyId - The organization to which the Person is soon to be a agent.
+    </description>
+    <required-permissions join-type="AND">
+      <permission-service service-name="isManager"/>
+      <permission-service service-name="isInternalOrg"/>
+      <permission-service
+        service-name="doesPartyGroupPartyIdEqualInternalOrgPartyIdPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdNotPartnerPermissionCheck"/>
+      <permission-service service-name="isPartyGroupPartyIdNotCustomerPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createAccountLeadForSupplierPartnerPartyGroupRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createAccountLeadForSupplierPartnerPartyGroupRelationship.groovy"
+    invoke="createAccountLeadForSupplierPartnerPartyGroupRelationship" auth="true">
+    <description>Service to establish an internal Organization account lead for the partner
+      PartyGroup
+    </description>
+    <permission-service service-name="specialConditionPermissionCheck"/>
+    <attribute name="accountLeadPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="supplierPartyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="roleTypeIdTo" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createAccountLeadForSupplierPartnerManagerRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createAccountLeadForSupplierPartnerManagerRelationship.groovy"
+    invoke="createAccountLeadForSupplierPartnerManagerRelationship" auth="true">
+    <description>Service to establish an internal organization account lead for the partner sales
+      exec
+    </description>
+    <permission-service service-name="specialConditionPermissionCheck"/>
+    <attribute name="accountLeadPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="roleTypeIdTo" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createOwnerRelationship" engine="groovy"
+    location="component://xparty/script/xparty/services/createOwnerRelationship.groovy"
+    invoke="createOwnerRelationship" auth="true">
+    <description>Creates a Owner of an Organization.</description>
+    <required-permissions join-type="AND">
+      <permission-service service-name="isOwner"/>
+      <permission-service service-name="isInternalOrg"/>
+    </required-permissions>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="userLoginPartnerRelationshipCheck" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.permissionservices.UserLoginPartnerRelationshipCheck"
+    invoke="userLoginPartnerRelationshipCheckService" auth="true">
+    <description>Used to Automatically Authenticate a username/password; create a UserLogin object
+    </description>
+    <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="INOUT"/>
+  </service>
+
+  <service name="getEmployeePersons" engine="groovy"
+    location="component://xparty/script/xparty/services/getEmployeePersons.groovy"
+    invoke="getEmployeePersons" auth="true">
+    <description>Retrieve a list of employee person details for an Organization, if no party id is
+      provided ORGANIZATION_PARTY property value from general.properties is used.
+    </description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="isInternalOrg"/>
+      <permission-service
+        service-name="isPartyGroupPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="employeePersonsList" type="List" mode="OUT"/>
+  </service>
+
+  <service name="getSubordinateOrgsForPartyGroupId" engine="groovy"
+    location="component://xparty/script/xparty/services/getSubordinateOrgsForPartyGroupId.groovy"
+    invoke="getSubordinateOrgsForPartyGroupId" auth="true">
+    <description>
+      Retrieve a list of party group Id’s subordinates party groups with org rollup relationship.
+      Set recurse to "Y" to traverse down. Will only follow ORG_ROLLUP and GOVERNMENT_ORG
+      relationships.
+      - The recurse attributes should by "Y" or "N" and default to N.
+    </description>
+    <permission-service service-name="isPartyGroupPartyIdCustomerPermissionCheck"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="recurse" type="String" mode="IN" optional="true" default-value="N"/>
+    <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
+    <attribute name="subordinatePartyIdList" type="List" mode="OUT"/>
+  </service>
+
+  <service name="getCustomerParentOrgForPartyGroupId" engine="groovy"
+    location="component://xparty/script/xparty/services/getCustomerParentOrgForPartyGroupId.groovy"
+    invoke="getCustomerParentOrgForPartyGroupId" auth="true">
+    <description>
+      Retrieve parent Org party group's party Id with Sub-Organization relationship.
+    </description>
+    <permission-service service-name="isPartyGroupPartyIdCustomerPermissionCheck"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="parentOrg" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+  </service>
+
+  <service name="getCustomerRelatedPersonsByRole" engine="groovy"
+    location="component://xparty/script/xparty/services/getCustomerRelatedPersonsByRole.groovy"
+    invoke="getCustomerRelatedPersonsByRole" auth="true">
+    <description>Retrieve a list of related persons details for party group.
+    </description>
+    <permission-service service-name="isPartyGroupPartyIdCustomerPermissionCheck"/>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
+    <attribute name="relatedPersonsList" type="List" mode="OUT"/>
+  </service>
+
+  <service name="getOrgAllPersons" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.employee.EmployeeUtils"
+    invoke="getOrgAllPersons" auth="true">
+    <description>Retrieve a list of all persons for an Organization.
+    </description>
+    <required-permissions join-type="OR">
+      <permission-service service-name="isInternalOrg"/>
+      <permission-service
+        service-name="isPartyGroupPartyIdAndUserLoginPartyIdInTheSameOrgPermissionCheck"/>
+    </required-permissions>
+    <attribute name="partyGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="orgPersonsList" type="List" mode="OUT"/>
+  </service>
+
+  <service name="createNewEmployee" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.employee.EmployeeUtils"
+    invoke="createNewStaff" auth="true">
+    <description>Used to create new employee/staff</description>
+    <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+    <attribute name="primaryEmailAddress" type="String" mode="IN" optional="true"/>
+    <attribute name="firstName" type="String" mode="IN" optional="false"/>
+    <attribute name="lastName" type="String" mode="IN" optional="true"/>
+    <attribute name="role" type="String" mode="IN" optional="true"/>
+    <attribute name="middleName" type="String" mode="IN" optional="true"/>
+    <attribute name="nickname" type="String" mode="IN" optional="true"/>
+    <attribute name="suffix" type="String" mode="IN" optional="true"/>
+    <attribute name="personalTitle" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryPartyRegion" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryPhoneCountryCode" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryPhoneAreaCode" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryPhoneContactNumber" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryPhoneExtension" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryWebAddress" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryFaxCountryCode" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryFaxAreaCode" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryFaxContactNumber" type="String" mode="IN" optional="true"/>
+    <attribute name="primaryFaxExtension" type="String" mode="IN" optional="true"/>
+    <attribute name="accountLeadPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="addToMyContactsFlag" type="String" mode="IN" optional="true"/>
+    <attribute name="addToAccountLeadsContactsFlag" type="String" mode="IN" optional="true"/>
+    <attribute name="chooseSupplierOrPartner" type="String" mode="IN" optional="true"/>
+    <attribute name="managerPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="partnerPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="designation" type="String" mode="IN" optional="true"/>
+    <attribute name="orgPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="emails" type="List" mode="IN" optional="true"/>
+    <attribute name="phones" type="List" mode="IN" optional="true"/>
+  </service>
+
+  <service name="assignEmployeeManager" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.employee.EmployeeUtils"
+    invoke="assignEmployeeManager" auth="true">
+    <description>
+      Service to add/change manager for an employee. If manager relationsihp doesn't already exists
+      it
+      creates one. Otherwise it drops the existing relationship before creating the new one.
+    </description>
+    <attribute name="employeePartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="managerPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+
+  <service name="removeEmployeeManager" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.employee.EmployeeUtils"
+    invoke="removeEmployeeManager" auth="true">
+    <description>
+      Service to remove the reporting manager of an employee, if one exists.
+    </description>
+    <attribute name="employeePartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="addManagerRoleToSuppParty" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.employee.EmployeeUtils"
+    invoke="addManagerRoleToSuppParty" auth="true">
+    <description>
+      Add manager role to supplier party.
+    </description>
+    <attribute name="employeePartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="supplierPartyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="removeManagerRoleToSuppParty" engine="java"
+    location="com.simbaquartz.xparty.hierarchy.employee.EmployeeUtils"
+    invoke="removeManagerRoleToSuppParty" auth="true">
+    <description>
+      Remove manager role to supplier party.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="supplierPartyId" type="String" mode="IN" optional="false"/>
+
+  </service>
+
+  <service name="getPartyDesignations" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="getPartyDesignations" auth="true">
+    <description>Get party designation list</description>
+    <attribute name="keyword" type="String" mode="IN" optional="true"/>
+    <attribute name="result" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="createTelecomNumberRegionForParty" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="createTelecomNumberRegionForParty">
+    <description>Sets region for party telecom number.</description>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyRegion" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="fetchPartyWebAddress" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyWebAddress">
+    <description>Fetch party web address details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="webLinkDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+  <service name="fetchPartyWebAddresses" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyWebAddresses">
+    <description>Fetch party web address details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="webLinksList" type="List" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="updatePartyWebLink" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="updatePartyWebLink">
+    <description>Update party web link.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+    <attribute name="url" type="String" mode="IN" optional="true"/>
+    <attribute name="description" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="createPartyPoc" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="createPartyPoc">
+    <description>Create party poc for lead</description>
+    <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
+    <attribute name="fullName" type="String" mode="IN" optional="false"/>
+    <attribute name="email" type="Map" mode="IN" optional="true"/>
+    <attribute name="phone" type="Map" mode="IN" optional="true"/>
+  </service>
+
+  <service name="updatePartyPoc" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="updatePartyPoc">
+    <description>Update party poc for lead</description>
+    <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
+    <attribute name="fullName" type="String" mode="IN" optional="true"/>
+    <attribute name="email" type="Map" mode="IN" optional="true"/>
+    <attribute name="phone" type="Map" mode="IN" optional="true"/>
+  </service>
+
+  <service name="deletePartyPoc" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="deletePartyPoc">
+    <description>Delete party poc for lead</description>
+    <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
+  </service>
+
+  <service name="getPartyPocs" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyPocs">
+    <description>Get party pocs for lead</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyPocList" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getPartyTasks" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyTasks">
+    <description>Fetch party tasks.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+    <attribute name="tasks" type="List" mode="OUT" optional="false"/>
+    <attribute name="totalTasks" type="Integer" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="addRoleManagerRelation" engine="java"
+    location="com.simbaquartz.xparty.services.RoleTypeHelper" invoke="addRoleManagerRelation">
+    <description>Service to add a entry of role manager entity</description>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="groupPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="roleType" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="removeRoleManagerRelation" engine="java"
+    location="com.simbaquartz.xparty.services.RoleTypeHelper" invoke="removeRoleManagerRelation">
+    <description>Service to add a entry of role manager entity</description>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="groupPartyId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="addRolePermissions" engine="java"
+    location="com.simbaquartz.xparty.services.RoleTypeHelper" invoke="addRolePermissions">
+    <description>Service to add role permissions</description>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="groupPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="permissions" type="List" mode="IN" optional="false"/>
+  </service>
+
+  <service name="cloneRolePermissions" engine="java"
+    location="com.simbaquartz.xparty.services.RoleTypeHelper" invoke="cloneRolePermissions">
+    <description>Service to clone role permissions from other party profile</description>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="groupPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="cloneFrom" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getRolePermissions" engine="java"
+    location="com.simbaquartz.xparty.services.RoleTypeHelper" invoke="getRolePermissions">
+    <description>Service to get role permissions</description>
+    <attribute name="roleTypeId" type="String" mode="INOUT" optional="false"/>
+    <attribute name="permissions" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <!--Party Notes Management-->
+  <service name="extCreatePartyNote" engine="java"
+    location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
+    <description>Create a note item and associate with a party. If a noteId is passed, creates an
+      association to that note instead.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="noteName" type="String" mode="IN" optional="true"/>
+    <attribute name="noteId" type="String" mode="INOUT" optional="true"/>
+    <attribute name="note" type="String" mode="IN" optional="true" allow-html="any"/>
+    <attribute name="jsonText" type="String" mode="IN" optional="true" allow-html="any"/>
+  </service>
+
+  <service name="updatePartyNote" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.note.PartyNotesServices"
+    invoke="updatePartyNote">
+    <description>Update party note.</description>
+    <attribute name="noteId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="noteName" type="String" mode="IN" optional="true"/>
+    <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any"/>
+    <attribute name="jsonText" type="String" mode="IN" optional="true" allow-html="any"/>
+  </service>
+
+  <service name="sendMailAfterNewPartyNoteAddition" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.note.PartyNotesServices"
+    invoke="sendMailAfterNewPartyNoteAddition">
+    <description>Notify people when adding a new note.</description>
+    <attribute name="noteId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="authorPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="notifyPartyIds" type="List" mode="IN" optional="true"/>
+  </service>
+
+  <service name="removePartyNote" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.note.PartyNotesServices"
+    invoke="removePartyNote">
+    <description>Remove party note.</description>
+    <attribute name="noteId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="extCreatePartyWorkExperience" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="createPartyWorkExperience">
+    <description>Create party work experience.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="companyName" type="String" mode="IN" optional="false"/>
+    <attribute name="jobProfile" type="String" mode="IN" optional="true"/>
+    <attribute name="startDate" type="Timestamp" mode="IN" optional="true"/>
+    <attribute name="endDate" type="Timestamp" mode="IN" optional="true"/>
+    <attribute name="workExperienceId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="extUpdatePartyWorkExperience" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="updatePartyWorkExperience">
+    <description>Update party work experience.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="workExperienceId" type="String" mode="IN" optional="false"/>
+    <attribute name="companyName" type="String" mode="IN" optional="true"/>
+    <attribute name="jobProfile" type="String" mode="IN" optional="true"/>
+    <attribute name="startDate" type="Timestamp" mode="IN" optional="true"/>
+    <attribute name="endDate" type="Timestamp" mode="IN" optional="true"/>
+  </service>
+
+
+  <service name="extDeletePartyWorkExperience" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="deletePartyWorkExperience">
+    <description>Delete party work experience.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="workExperienceId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="extCreatePartyEducationDetails" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="createPartyEducationDetails">
+    <description>Create party education details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="degree" type="String" mode="IN" optional="false" allow-html="any"/>
+    <attribute name="university" type="String" mode="IN" optional="false" allow-html="any"/>
+    <attribute name="notes" type="String" mode="IN" optional="true"/>
+    <attribute name="startYear" type="String" mode="IN" optional="true"/>
+    <attribute name="endYear" type="String" mode="IN" optional="true"/>
+    <attribute name="educationDetailId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+
+  <service name="extUpdatePartyEducationDetails" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="updatePartyEducationDetails">
+    <description>Update party education details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="educationDetailId" type="String" mode="IN" optional="false"/>
+    <attribute name="degree" type="String" mode="IN" optional="true" allow-html="any"/>
+    <attribute name="university" type="String" mode="IN" optional="true" allow-html="any"/>
+    <attribute name="notes" type="String" mode="IN" optional="true"/>
+    <attribute name="startYear" type="String" mode="IN" optional="true"/>
+    <attribute name="endYear" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="extDeleteEducationalDetails" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="deleteEducationDetails">
+    <description>Delete party education details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="educationDetailId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="extCreatePartyHobbies" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="createPartyHobbies">
+    <description>Create party hobbies.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="hobbyName" type="String" mode="IN" optional="false" allow-html="any"/>
+    <attribute name="hobbyIconName" type="String" mode="IN" optional="true"/>
+    <attribute name="hobbyId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="extUpdatePartyHobbies" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="updatePartyHobbies">
+    <description>Update party hobbies.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="hobbyName" type="String" mode="IN" optional="false" allow-html="any"/>
+    <attribute name="hobbyIconName" type="String" mode="IN" optional="true"/>
+    <attribute name="hobbyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="extDeletePartyHobbies" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="deletePartyHobbies">
+    <description>Delete party hobbies.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="hobbyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="fetchPartyLinkedInAddress" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyLinkedInAddress">
+    <description>Fetch party linkedIn address details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="linkedInDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyTwitterOrFacebookInfo" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="fetchPartyTwitterOrFacebookInfo">
+    <description>Fetch party twitter/facebook details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="result" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getPartyTimezone" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyTimezone">
+    <description>
+      Returns Timezone details for the party. If a userlogin is found uses the
+      userLogin.lastTimezone, else tries the partyAttribute named Timezone
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="timeZoneDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="setPartyTimezone" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="setPartyTimezone">
+    <description>
+      Sets the timezone for a party. Sets the userlogin.lastTimezone and adds a partyAttribute named
+      timeZone.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="timezoneId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getPartyCommEventsCount" engine="java"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="getPartyCommEventsCount">
+    <description>Fetch party communication events count.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="emails" type="Long" mode="OUT" optional="false"/>
+    <attribute name="calls" type="Long" mode="OUT" optional="false"/>
+    <attribute name="totalCount" type="Long" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getPartyActivityLogs" engine="java"
+    location="com.simbaquartz.xcrm.services.activity.ContactActivityServices"
+    invoke="getPartyActivityLogs">
+    <description>Fetch party activities.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="activityType" type="String" mode="IN" optional="true"/>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+    <attribute name="contactActivities" type="List" mode="OUT" optional="false"/>
+    <attribute name="totalActivities" type="Integer" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="registerAddPartyEmailAndPhoneActivity" engine="java"
+    location="com.simbaquartz.xcrm.services.activity.ContactActivityServices"
+    invoke="registerAddPartyEmailAndPhoneActivity">
+    <description>Add party email activity.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="registerUpdatePartyEmailActivity" engine="java"
+    location="com.simbaquartz.xcrm.services.activity.ContactActivityServices"
+    invoke="registerUpdatePartyEmailActivity">
+    <description>Update party email activity.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
+
+    <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="registerUpdatePartyPhoneActivity" engine="java"
+    location="com.simbaquartz.xcrm.services.activity.ContactActivityServices"
+    invoke="registerUpdatePartyPhoneActivity">
+    <description>Update party phone activity.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="registerDeletePartyPhoneActivity" engine="java"
+    location="com.simbaquartz.xcrm.services.activity.ContactActivityServices"
+    invoke="registerDeletePartyPhoneActivity">
+    <description>Delete party phone activity.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyPhoneNumber" type="String" mode="IN" optional="false"/>
+    <attribute name="activityId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+
+  <service name="createAboutPartyContent" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.PartyContentServices"
+    invoke="createAboutPartyContent">
+    <description>Create about party content by calling createTextContent and
+      createPartyContent services internally
+      createPartyContent internally
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="aboutText" type="String" mode="IN" optional="false" allow-html="any"/>
+    <attribute name="contentId" type="String" mode="OUT" optional="true"/>
+    <attribute name="operation" type="String" mode="OUT" optional="true"
+      default-value="create"/>
+  </service>
+
+  <service name="getAboutPartyContent" engine="java"
+    location="com.simbaquartz.xparty.services.PartyContentServices" invoke="getAboutPartyContent">
+    <description>Get about party contentfrom the DB</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contentId" type="String" mode="OUT" optional="true"/>
+    <attribute name="contentDescription" type="String" mode="OUT" optional="true"/>
+    <attribute name="aboutText" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="updateAboutPartyContent" engine="java"
+    location="com.simbaquartz.xparty.services.PartyContentServices"
+    invoke="updateAboutPartyContent">
+    <description>Update about party content. Also do delete operation if about
+      info text passed null.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="aboutText" type="String" mode="IN" optional="true" allow-html="any"/>
+    <attribute name="operation" type="String" mode="OUT" optional="true"
+      default-value="update"/>
+  </service>
+
+  <service name="getPartyNotes" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyNotes">
+    <description>Fetch party notes.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyNotes" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getPartyDefaultTask" engine="java"
+    location="com.simbaquartz.xtasks.solr.SearchTasksService" invoke="getPartyDefaultTask">
+    <description>Fetch default party task.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="taskDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getPartyDashboardDefaultTask" engine="java"
+    location="com.simbaquartz.xtasks.solr.SearchTasksService" invoke="getPartyDashboardDefaultTask">
+    <description>Fetch default party task to be shown on dashboard.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="taskDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="createPartyDashboardDefaultTask" engine="java"
+    location="com.simbaquartz.xtasks.solr.SearchTasksService"
+    invoke="createPartyDashboardDefaultTask">
+    <description>Fetch default party task to be shown on dashboard.</description>
+    <attribute name="companyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="taskId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="createDefaultTaskForAllParties" engine="java"
+    location="com.simbaquartz.xtasks.services.TaskServices" invoke="createDefaultTaskForAllParties">
+    <description>Create default task for party.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="getPartyEmailLogs" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyEmailLogs">
+    <description>Fetch party email logs.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="emailLogs" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getPartyCallLogs" engine="java"
+    location="com.simbaquartz.xparty.services.communication.PartyPhoneCallServices"
+    invoke="getPartyCallLogs">
+    <description>Fetch party call logs.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="callLogs" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="sendCallLogNotification" engine="java" auth="true"
+    location="com.simbaquartz.xorder.services.email.EmailNotificationServices"
+    invoke="sendCallLogNotification">
+    <description>Send notification for call log.</description>
+    <attribute name="senderPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="recipientPartyName" type="String" mode="IN" optional="false"/>
+    <attribute name="recipientParentPartyName" type="String" mode="IN" optional="true"/>
+    <attribute name="startTime" type="String" mode="IN" optional="true"/>
+    <attribute name="duration" type="String" mode="IN" optional="true"/>
+    <attribute name="callLogSummary" type="String" mode="IN" optional="true" allow-html="any"/>
+    <attribute name="emailRecipients" type="String" mode="IN" optional="true"/>
+    <attribute name="recipientPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="assignee" type="List" mode="IN" optional="false"/>
+    <attribute name="callLogLinkedTaskTypeId" type="String" mode="IN" optional="true"/>
+    <attribute name="callLogLinkedTaskName" type="String" mode="IN" optional="true"/>
+    <attribute name="callLogLinkedTaskId" type="String" mode="IN" optional="true"/>
+    <attribute name="callLogLinkedOpportunityId" type="String" mode="IN" optional="true"/>
+    <attribute name="callLogLinkedOpportunityName" type="String" mode="IN" optional="true"
+      allow-html="any"/>
+  </service>
+
+  <service name="getPartyEmployees" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyEmployees">
+    <description>Fetch party employees.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="searchText" type="String" mode="IN" optional="true"/>
+    <attribute name="classifiedEmployees" type="List" mode="OUT" optional="true"/>
+    <attribute name="unclassifiedEmployees" type="List" mode="OUT" optional="true"/>
+    <attribute name="searchList" type="List" mode="OUT" optional="true"/>
+    <attribute name="reportingEmployees" type="List" mode="OUT" optional="true"/>
+    <attribute name="internalEmployees" type="List" mode="OUT" optional="true"/>
+    <attribute name="totalEmployees" type="Integer" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getPartyTerms" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyTerms">
+    <description>Get far codes for party.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="terms" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getPartyMessages" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyMessages">
+    <description>Get messages for party.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="messages" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="removeEmployeeFromSelectedGroup" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="removeEmployeeFromSelectedGroup">
+    <description>Remove from selected classification group.</description>
+    <attribute name="employeeId" type="String" mode="IN" optional="false"/>
+    <attribute name="supplierPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="groupId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getRecentTerms" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getRecentTerms">
+    <description>Get recent terms.</description>
+    <attribute name="terms" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getMessageLogs" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getMessageLogs">
+    <description>Get message logs.</description>
+    <attribute name="messageId" type="String" mode="IN" optional="false"/>
+    <attribute name="messageLogs" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="getFsdEmployees" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getFsdEmployees">
+    <description>Get organization employees.</description>
+  </service>
+
+  <service name="getPartyMessageContents" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getPartyMessageContents">
+    <description>Get message contents.</description>
+    <attribute name="messageId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contents" type="List" mode="OUT" optional="false"/>
+    <attribute name="contentsCount" type="Integer" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="fsdSetPartyDesignation" engine="java"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="fsdSetPartyDesignationService" auth="true">
+    <description>Set (Create or Update) a Party Attribute called "Designation"</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="designation" type="String" mode="IN" optional="true"/>
+  </service>
+
+
+  <service name="createOrUpdateEmailAddresses" engine="java"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="createOrUpdateEmailAddresses" auth="true">
+    <description>Update Email Address if it exists otherwise create a new one.</description>
+
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="emailList" type="List" mode="IN" optional="false"/>
+  </service>
+
+  <service name="setEmployeeGroupSequence" engine="java"
+    location="com.simbaquartz.xparty.services.PartyEmployeesServices"
+    invoke="setEmployeeGroupSequence" auth="true">
+    <description>Update the sequence for employee groups</description>
+
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="contentIds" type="List" mode="IN" optional="false"/>
+  </service>
+
+  <service name="setPartyTermSequence" engine="java"
+    location="com.simbaquartz.xparty.services.term.PartyTermsService"
+    invoke="setPartyTermSequence" auth="true">
+    <description>Updates the sequence for terms, pass in the new sequence of terms (contentIds) to
+      set. Returns the updated sequence of terms List(GenericValue).
+    </description>
+
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="newSequenceOfTerms" type="List" mode="IN" optional="false"/>
+
+    <attribute name="updatedSequenceOfTerms" type="List" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createOrUpdatePhoneNumbers" engine="java"
+    location="com.simbaquartz.xparty.services.PartyPersonalDetails"
+    invoke="createOrUpdatePhoneNumbers" auth="true">
+    <description>Update Phone number if it exists otherwise create a new one.</description>
+
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="phoneList" type="List" mode="IN" optional="false"/>
+  </service>
+
+  <service name="removeStaff" engine="java"
+    location="com.simbaquartz.xparty.services.PartyEmployeesServices"
+    invoke="removeStaff" auth="true">
+    <description>Remove staff employee</description>
+
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="setEmployerForParty" engine="java"
+    location="com.simbaquartz.xparty.services.PartyEmployeesServices"
+    invoke="setEmployerForParty" auth="true">
+    <description>Set Employer for party</description>
+    <attribute name="employerPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="employerName" type="String" mode="IN" optional="true"/>
+    <attribute name="oldEmployerName" type="String" mode="IN" optional="true"/>
+    <attribute name="role" type="String" mode="IN" optional="false"/>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+  </service>
+
+
+  <service name="createPartyIdFromEmailAddress" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices"
+    invoke="createPartyIdFromEmailAddress">
+    <description>Create party Id from email address.</description>
+    <attribute name="emailAddress" type="String" mode="IN"/>
+    <attribute name="partyId" type="String" mode="OUT" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
+    <attribute name="infoString" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getAllPartyDetails" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="getAllPartyDetails">
+    <description>To fetch single party details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyDetails" type="Map" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="fsdGetPartyDetails" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="fsdGetPartyDetails" auth="false">
+    <description>To fetch single party details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="partyDetails" type="Map" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="populateBasicInformationForParty" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.AxPartySearchServices"
+    invoke="populateBasicInformationForParty">
+    <description>
+      Prepares searchable text, displayName, searchText, email, photoUrl for party, example for a
+      person
+      record makes a searchText using the format partyId / displayName / email.
+      If partyObj is supplied, partyId is ignored.
+      Use overrideExistingValues to override any existing values and make fresh updates.
+      At least one of partyId or partyObj is required.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="partyObj" type="String" mode="IN" optional="true"/>
+    <attribute name="overrideExistingValues" type="Boolean" mode="IN" optional="false"
+      default-value="false"/>
+  </service>
+
+  <service name="createOrUpdatePartyAttribute" engine="java" auth="true"
+    location="com.simbaquartz.xorder.party.CreateOrUpdatePartyAttributeServices"
+    invoke="createOrUpdatePartyAttribute">
+    <description>Create or Update Party Attributes</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="attrName" type="String" mode="IN" optional="false"/>
+    <attribute name="attrValue" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <!-- PartyContactMechPurpose services -->
+  <service name="axCreatePartyContactMechPurpose" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="axCreatePartyContactMechPurpose"
+    auth="true">
+    <description>Create a Party ContactMech Purpose</description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+    <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="label" type="String" mode="IN" optional="true"/>
+    <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+  </service>
+
+  <service name="fetchPartyLastContacted" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="fetchPartyLastContacted">
+    <description>Fetch party telecom number details.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="lastContactedDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <!-- PartyPermissions services -->
+  <service name="changeAppUserPermissions" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="changeAppUserPermissions" auth="true">
+    <description>Change the app member permission</description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="groupId" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="getAppUserPermission" engine="java"
+    location="com.simbaquartz.xorder.party.PartyServices" invoke="getAppUserPermission" auth="true">
+    <description>Get the app member permission</description>
+    <attribute name="accountId" type="String" mode="IN" optional="false"/>
+    <attribute name="permissions" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="extUpdatePartyPostalAddress" engine="simple"
+    location="component://xparty/minilang/extPartyContactMechServices.xml"
+    invoke="extUpdatePartyPostalAddress" auth="true">
+    <description>Update a Postal Address</description>
+    <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
+    <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
+    <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
+    <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
+    <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
+    <override name="countryGeoId" optional="false"/>
+  </service>
+
+
+  <service name="getPartyFollowers" engine="java"
+    location="com.simbaquartz.xparty.services.PartyFollowerServices"
+    invoke="getPartyFollowers" auth="true">
+    <description>
+      Returns the parties in a relationship of type PARTY_FOLLOWER with the input party id, weeds
+      out
+      expired relationships using fromDate and thruDate on the relationship.
+      Returns the list of map records (followers) containing follower's partyId, displayName, email,
+      photoUrl, firstName, middleName, lastName, relationshipSince
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="followers" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <!--Recently viewed items-->
+  <service name="deleteResourceViewHistory" engine="entity-auto"
+    default-entity-name="ResourceViewHistory" invoke="delete" auth="true">
+    <description>Create a ResourceViewHistory Record</description>
+    <auto-attributes mode="IN" include="pk"/>
+  </service>
+  <service name="createOrUpdateResourceViewHistory" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.recent.RecentlyViewedServices"
+    invoke="createOrUpdateResourceViewHistory">
+    <description>Create or Update ResourceViewHistory Attributes</description>
+    <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+    <attribute name="resourceTypeId" type="String" mode="IN" optional="false"/>
+    <attribute name="resourceId" type="String" mode="IN" optional="false"/>
+    <attribute name="lastViewedAt" type="Timestamp" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createOrUpdatePartyPreference" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.preference.PartyPreferenceServices"
+    invoke="createOrUpdatePartyPreference">
+    <description>Creates or Updates Party Preferences</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="prefName" type="String" mode="IN" optional="false"/>
+    <attribute name="prefValue" type="String" mode="IN" optional="true"/>
+  </service>
+
+  <service name="getPartyPreferences" engine="java" auth="true"
+    location="com.simbaquartz.xparty.services.preference.PartyPreferenceServices"
+    invoke="getPartyPreferences">
+    <description>Returns the list of Preferences set for the party</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="prefName" type="String" mode="IN" optional="true"/>
+
+    <attribute name="preferences" type="List" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="axCreateStoreCustomer" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices" invoke="createStoreCustomer"
+    auth="true">
+    <description>
+      Wrapper around creation of customers.
+    </description>
+    <attribute name="isCompany" type="String" mode="IN" optional="true" default-value="N"/>
+    <attribute name="customer" type="Map" mode="IN" optional="false"/>
+    <attribute name="createUserLogin" type="Boolean" mode="IN" optional="true"
+      default-value="false"/>
+    <attribute name="parentPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="customerId" type="String" mode="OUT" optional="false"/>
+    <attribute name="fName" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="axCreateCommercialCustomer" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices"
+    invoke="axCreateCommercialCustomer" auth="true">
+    <description>
+      Creates a Business Store customer record.
+    </description>
+
+    <attribute name="companyName" type="String" mode="IN" optional="false"/>
+    <attribute name="parentPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
+    <attribute name="companyLocations" type="String" mode="IN" optional="true"/>
+    <attribute name="contacts" type="List" mode="IN" optional="true"/>
+    <attribute name="email" type="String" mode="IN" optional="true"/>
+    <attribute name="emailVerified" type="String" mode="IN" optional="true"/>
+    <attribute name="password" type="String" mode="IN" optional="true"/>
+    <attribute name="passwordVerify" type="String" mode="IN" optional="true"/>
+    <attribute name="phone" type="Map" mode="IN" optional="true"/>
+    <attribute name="address" type="Map" mode="IN" optional="true"/>
+    <attribute name="shippingAddress" type="Map" mode="IN" optional="true"/>
+    <attribute name="billingAddress" type="Map" mode="IN" optional="true"/>
+
+
+    <attribute name="customerId" type="String" mode="OUT" optional="false"/>
+    <attribute name="fName" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="createCustomerPoc" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices" invoke="createCustomerPoc"
+    auth="true">
+    <description>Creates a customer POC.</description>
+    <attribute name="fullName" type="String" mode="IN" optional="false"/>
+    <attribute name="personalTitle" type="String" mode="IN" optional="true"/>
+    <attribute name="orgPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+    <attribute name="personId" type="String" mode="OUT" optional="false"/>
+  </service>
+
+  <service name="axSearchStoreCustomers" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices"
+    invoke="axSearchStoreCustomers" auth="true">
+    <description>Searches for store customers based on provided filter options, use sortBy to sort
+      results by a field, use - operator to fetch result in desc order. Defaults to page size 10
+      records.
+    </description>
+    <attribute name="storeId" type="String" mode="IN" optional="true"/>
+    <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+
+    <attribute name="query" type="String" mode="IN" optional="true"/>
+
+    <!--Pagination fields-->
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+    <attribute name="keyword" type="String" mode="IN" optional="true"/>
+    <attribute name="enabled" type="String" mode="IN" optional="true"/>
+    <attribute name="sortBy" type="String" mode="IN" optional="true" default-value="-createdStamp"/>
+
+    <attribute name="createdBefore" type="String" mode="IN" optional="true"/>
+    <attribute name="createdAfter" type="String" mode="IN" optional="true"/>
+
+    <attribute name="customerId" type="String" mode="IN" optional="true"/>
+    <attribute name="displayName" type="String" mode="IN" optional="true"/>
+    <attribute name="email" type="String" mode="IN" optional="true"/>
+    <attribute name="phone" type="String" mode="IN" optional="true"/>
+    <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true"/>
+    <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
+
+    <attribute name="searchResults" type="List" mode="OUT" optional="false"/>
+    <attribute name="totalResultSize" type="Integer" mode="OUT" optional="false"/>
+  </service>
+  <service name="axGetStoreCustomer" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices"
+    invoke="getStoreCustomer" auth="false">
+    <description>Get a Store customer record</description>
+    <attribute name="customerId" type="String" mode="IN" optional="false"/>
+    <attribute name="storeId" type="String" mode="IN" optional="true"/>
+    <attribute name="isCompany" type="String" mode="IN" optional="true"/>
+    <attribute name="customerDetails" type="Map" mode="OUT" optional="false"/>
+
+  </service>
+  <service name="axGetStoreCustomers" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices"
+    invoke="getStoreCustomers" auth="true">
+    <description>Get a Store customer record</description>
+    <attribute name="storeId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="listOfCustomers" type="List" mode="OUT" optional="false"/>
+
+  </service>
+  <service name="fetchCustomer" engine="java"
+    location="com.simbaquartz.xstore.services.AxCustomerServices" invoke="fetchCustomer"
+    auth="true">
+    <description>To fetch the customer data based on the partyId of the creator/directly associated
+      user.
+    </description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="customerData" type="Map" mode="OUT" optional="false"/>
+  </service>
+
+
+  <service name="deletePartyAttribute" engine="java"
+    location="com.simbaquartz.xparty.services.AxPartyServices" invoke="deletePartyAttribute"
+    auth="true">
+    <description>To delete party attribute.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="attrName" type="String" mode="IN" optional="false"/>
+  </service>
+
+  <service name="createDepartment" engine="java"
+           location="com.simbaquartz.xparty.services.company.DepartmentServices" invoke="createDepartment"
+           auth="true">
+    <description>To create deparments in an organization.</description>
+    <attribute name="orgGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="name" type="String" mode="IN" optional="false"/>
+    <attribute name="ownerPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="parentDepartmentId" type="String" mode="IN" optional="true"/>
+    <attribute name="description" type="String" mode="IN" optional="true"/>
+    <attribute name="members" type="List" mode="IN" optional="true"/>
+    <attribute name="departmentId" type="String" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="getCompanyDepartments" engine="java"
+           location="com.simbaquartz.xparty.services.company.DepartmentServices" invoke="getCompanyDepartments"
+           auth="true">
+    <description>To create deparments in an organization.</description>
+    <attribute name="orgGroupPartyId" type="String" mode="IN" optional="false"/>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+    <attribute name="keyword" type="String" mode="IN" optional="true"/>
+    <attribute name="resultSize" type="Long" mode="OUT" optional="true"/>
+    <attribute name="departments" type="List" mode="OUT" optional="true"/>
+  </service>
+  <service name="getCompanyDepartment" engine="java"
+           location="com.simbaquartz.xparty.services.company.DepartmentServices" invoke="getCompanyDepartment"
+           auth="true">
+    <description>To create deparments in an organization.</description>
+    <attribute name="departmentId" type="String" mode="IN" optional="false"/>
+
+    <attribute name="departmentDetails" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+  <service name="updateCompanyDepartment" engine="java"
+           location="com.simbaquartz.xparty.services.company.DepartmentServices" invoke="updateCompanyDepartment"
+           auth="true">
+    <description>To update department in an organization.</description>
+    <attribute name="departmentId" type="String" mode="IN" optional="false"/>
+    <attribute name="ownerPartyId" type="String" mode="IN" optional="true"/>
+    <attribute name="parentDepartmentId" type="String" mode="IN" optional="true"/>
+    <attribute name="name" type="String" mode="IN" optional="true"/>
+    <attribute name="description" type="String" mode="IN" optional="true"/>
+    <attribute name="members" type="List" mode="IN" optional="true"/>
+  </service>
+
+  <service name="updatePartyCreditScore" engine="java"
+           location="com.simbaquartz.xparty.services.CreditScoreService" invoke="updatePartyCreditScore"
+           auth="true">
+    <description>To update credit score of party.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    <attribute name="score" type="BigDecimal" mode="IN" optional="true"/>
+    <attribute name="note" type="String" mode="IN" optional="true"/>
+  </service>
+  <service name="getPartyCreditScoreHistory" engine="java"
+           location="com.simbaquartz.xparty.services.CreditScoreService" invoke="getPartyCreditScoreHistory"
+           auth="true">
+    <description>To get credit score history of party.</description>
+    <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+    <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+    <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+    <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+
+    <attribute name="recordsCount" type="Integer" mode="OUT" optional="true"/>
+    <attribute name="lowIndex" type="Integer" mode="OUT" optional="true"/>
+    <attribute name="highIndex" type="Integer" mode="OUT" optional="true"/>
+    <attribute name="startIndex" type="Integer" mode="OUT" optional="true"/>
+    <attribute name="records" type="List" mode="OUT" optional="true"/>
+  </service>
+  <service name="getPartyLatestCreditScore" engine="java"
+           location="com.simbaquartz.xparty.services.CreditScoreService" invoke="getPartyLatestCreditScore"
+           auth="true">
+    <description>To get latest credit score of party.</description>
+    <attribute name="customerId" type="String" mode="IN" optional="false"/>
+    <attribute name="result" type="Map" mode="OUT" optional="true"/>
+  </service>
+
+</services>
+
+

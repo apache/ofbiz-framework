@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved    ~
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited              ~
+  ~ Proprietary and confidential                                                          ~
+  ~ Written by Forrest Rae <forrest.rae@fidelissd.com>, October 2015                      ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersManager1SalesRep1" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="MP.manager1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.rep1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersManager1SalesRep2" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="MP.manager1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.rep2"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep2"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersSalesExecManager1" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="MP.sales.exec"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.manager1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.manager1"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersFsdDirector1Manager1" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="FSD.director1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.manager1"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersDustinForrest" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="dustin.lee"/>
+        <set field="serviceCtx.subordinatePartyId" value="forrest.rae"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="forrest.rae"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="true" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <!-- Negative -->
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersManager1SalesRep3" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="MP.manager1"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.rep3"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.sales.rep3"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testIsSubordinatePartyIdInManagerOrgMagnisPartnersDirector2SalesExec" short-description="Test case for service isSubordinatePartyIdInManagerOrg" login-required="false">
+        <set field="serviceCtx.managerPartyId" value="MP.director2"/>
+        <set field="serviceCtx.subordinatePartyId" value="MP.sales.exec"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="MP.director2"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="isSubordinatePartyIdInManagerOrg" in-map-name="serviceCtx">
+            <result-to-field result-name="isInOrg"/>
+        </call-service>
+        <check-errors/>
+        <assert>
+            <if-compare field="isInOrg" operator="equals" value="false" type="Boolean"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

@@ -145,7 +145,7 @@ under the License.
 
   <service name="createUpdateSavedSearch" engine="java" default-entity-name="SavedSearch"
     auth="true"
-    location="com.simbaquartz.xcommon.services.search.CommonSearchServices"
+    location="search.com.fidelissd.zcp.xcommon.services.CommonSearchServices"
     invoke="createUpdateSavedSearch">
     <description>
       Creates or updates SavedSearch entry. Also checks if an matching searchQueryJson exists, if
@@ -161,7 +161,7 @@ under the License.
   </service>
 
   <service name="searchSavedSearches" engine="java"
-    location="com.simbaquartz.xcommon.services.search.CommonSearchServices"
+    location="com.fidelissd.zcp.xcommon.search.services.CommonSearchServices"
     invoke="searchSavedSearches">
     <description>Searches paginated list of saved searches.</description>
     <attribute name="searchId" type="String" mode="IN" optional="true"/>
@@ -209,29 +209,29 @@ under the License.
 
   <!-- TimePeriod  -->
   <service name="createTimePeriod" default-entity-name="TimePeriod" engine="java"
-    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="createTimePeriod" auth="true">
+    location="com.fidelissd.zcp.xcommon.services.TimePeriodServices" invoke="createTimePeriod" auth="true">
     <description>Create a TimePeriod</description>
     <auto-attributes include="pk" mode="INOUT" optional="true"/>
     <auto-attributes include="nonpk" mode="IN" optional="true"/>
   </service>
   <service name="updateTimePeriod" default-entity-name="TimePeriod" engine="java"
-    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="updateTimePeriod" auth="true">
+    location="com.fidelissd.zcp.xcommon.services.TimePeriodServices" invoke="updateTimePeriod" auth="true">
     <description>Update a TimePeriod</description>
     <auto-attributes include="pk" mode="IN" optional="false"/>
     <auto-attributes include="nonpk" mode="IN" optional="true"/>
   </service>
   <service name="removeTimePeriod" default-entity-name="TimePeriod" engine="java"
-    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="removeTimePeriod" auth="true">
+    location="com.fidelissd.zcp.xcommon.services.TimePeriodServices" invoke="removeTimePeriod" auth="true">
     <description>Remove a TimePeriod</description>
     <auto-attributes include="pk" mode="IN" optional="false"/>
   </service>
   <service name="deleteAllTimePeriodsForParty" default-entity-name="TimePeriod" engine="java"
-    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="deleteAllTimePeriodsForParty" auth="true">
+    location="com.fidelissd.zcp.xcommon.services.TimePeriodServices" invoke="deleteAllTimePeriodsForParty" auth="true">
     <description>Removes all TimePeriods for a party id.</description>
     <attribute name="forPartyId" type="String" mode="IN" optional="false"/>
   </service>
   <service name="deleteAllTimePeriodsForProductStore" default-entity-name="TimePeriod" engine="java"
-    location="com.simbaquartz.xcommon.services.TimePeriodServices" invoke="deleteAllTimePeriodsForProductStore" auth="true">
+    location="com.fidelissd.zcp.xcommon.services.TimePeriodServices" invoke="deleteAllTimePeriodsForProductStore" auth="true">
     <description>Removes all TimePeriods for a party id.</description>
     <attribute name="forProductStoreId" type="String" mode="IN" optional="false"/>
   </service>
