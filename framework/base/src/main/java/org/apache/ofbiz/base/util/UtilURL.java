@@ -20,6 +20,8 @@ package org.apache.ofbiz.base.util;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -79,11 +81,13 @@ public final class UtilURL {
      */
     public static URL fromResource(String resourceName, ClassLoader loader) {
         URL url = URL_MAP.get(resourceName);
+        URI uri;
         if (url != null) {
             try {
-                return new URL(url.toString());
-            } catch (MalformedURLException e) {
-                Debug.logWarning(e, "Exception thrown while copying URL: ", MODULE);
+                uri = new URI(url.toString());
+                url = uri.toURL();
+            } catch (IllegalArgumentException | URISyntaxException | MalformedURLException e) {
+                Debug.logWarning(e, "Exception thrown while copying URL", MODULE);
             }
         }
         if (loader == null) {
@@ -132,7 +136,7 @@ public final class UtilURL {
             if (file.exists()) {
                 url = file.toURI().toURL();
             }
-        } catch (java.net.MalformedURLException e) {
+        } catch (MalformedURLException e) {
             Debug.logError(e, "unable to retrieve URL for file: " + filename, MODULE);
         }
         return url;
@@ -140,10 +144,12 @@ public final class UtilURL {
 
     public static URL fromUrlString(String urlString) {
         URL url = null;
+        URI uri;
         try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            // We purposely don't want to do anything here
+            uri = new URI(urlString);
+            url = uri.toURL();
+        } catch (IllegalArgumentException | URISyntaxException | MalformedURLException e) {
+            // We purposely don't want to do anything here.
         }
         return url;
     }

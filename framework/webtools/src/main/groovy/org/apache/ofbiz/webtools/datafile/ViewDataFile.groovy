@@ -39,14 +39,14 @@ dataFileIsUrl = null != request.getParameter('DATAFILE_IS_URL')
 definitionIsUrl = null != request.getParameter('DEFINITION_IS_URL')
 
 try {
-    dataFileUrl = dataFileIsUrl ? new URL(dataFileLoc) : UtilURL.fromFilename(dataFileLoc)
+    dataFileUrl = dataFileIsUrl ? UtilURL.fromUrlString(dataFileLoc) : UtilURL.fromFilename(dataFileLoc)
 }
 catch (java.net.MalformedURLException e) {
     messages.add(e.getMessage())
 }
 
 try {
-    definitionUrl = definitionIsUrl ? new URL(definitionLoc) : UtilURL.fromFilename(definitionLoc)
+    definitionUrl = definitionIsUrl ? UtilURL.fromUrlString(definitionLoc) : UtilURL.fromFilename(definitionLoc)
 }
 catch (java.net.MalformedURLException e) {
     messages.add(e.getMessage())

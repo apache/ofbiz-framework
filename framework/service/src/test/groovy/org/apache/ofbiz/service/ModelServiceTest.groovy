@@ -22,6 +22,7 @@ import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.eq
 
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.junit.Assert
@@ -321,7 +322,7 @@ class ModelServiceTest {
 
     @Test
     void callValidateServiceWitImplementParameter() {
-        ModelServiceReader reader = new ModelServiceReader(true, new URL('http://ofbiz.apache.org'), null, null)
+        ModelServiceReader reader = new ModelServiceReader(true, UtilURL.fromUrlString('http://ofbiz.apache.org'), null, null)
         String serviceXml1 = '''
            <service name="toImplement" engine="java"
                location="org.apache.ofbiz.common.CommonServices" invoke="ping">
@@ -402,7 +403,7 @@ class ModelServiceTest {
 
     private static ModelService createModelService(String serviceXml) {
         Element serviceElement = UtilXml.readXmlDocument(serviceXml, false).getDocumentElement()
-        return new ModelServiceReader(true, new URL('http://ofbiz.apache.org'), null, null)
+        return new ModelServiceReader(true, UtilURL.fromUrlString('http://ofbiz.apache.org'), null, null)
                 .createModelService(serviceElement, 'TEST')
     }
 

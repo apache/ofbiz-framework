@@ -43,6 +43,7 @@ import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -240,7 +241,7 @@ public class PayPalEvents {
         // send off the confirm request
         String confirmResp = null;
         String str = UtilHttp.urlEncodeArgs(parametersMap);
-        URL u = new URL(redirectUrl);
+        URL u = UtilURL.fromUrlString(redirectUrl);
         URLConnection uc = u.openConnection();
         uc.setDoOutput(true);
         uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

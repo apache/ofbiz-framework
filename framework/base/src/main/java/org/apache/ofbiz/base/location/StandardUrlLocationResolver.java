@@ -21,6 +21,8 @@ package org.apache.ofbiz.base.location;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.ofbiz.base.util.UtilURL;
+
 /**
  * A special location resolver that uses Strings like URLs, but with more options
  *
@@ -29,6 +31,6 @@ import java.net.URL;
 public class StandardUrlLocationResolver implements LocationResolver {
     @Override
     public URL resolveLocation(String location) throws MalformedURLException {
-        return new URL(location);
+        return UtilURL.fromUrlString(location);
     }
 }

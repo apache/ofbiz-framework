@@ -466,7 +466,7 @@ public class HttpClient {
 
         // Create the URL and open the connection.
         try {
-            requestUrl = new URL(url);
+            requestUrl = UtilURL.fromUrlString(url);
             if (overrideTrust) {
                 con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             } else {

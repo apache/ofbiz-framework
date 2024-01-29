@@ -66,6 +66,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MapStack;
@@ -945,7 +946,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     sep = "/";
                 }
                 String fixedUrlStr = prefix + sep + url.toString();
-                URL fixedUrl = new URL(fixedUrlStr);
+                URL fixedUrl = UtilURL.fromUrlString(fixedUrlStr);
                 text = (String) fixedUrl.getContent();
             }
             out.append(text);
@@ -1169,14 +1170,14 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         } else if ("URL_RESOURCE".equals(dataResourceTypeId)) {
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
-                URL url = new URL(objectInfo);
+                URL url = UtilURL.fromUrlString(objectInfo);
                 if (url.getHost() == null) { // is relative
                     String newUrl = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
                     if (!newUrl.endsWith("/")) {
                         newUrl = newUrl + "/";
                     }
                     newUrl = newUrl + url.toString();
-                    url = new URL(newUrl);
+                    url = UtilURL.fromUrlString(newUrl);
                 }
 
                 URLConnection con = url.openConnection();

@@ -31,6 +31,7 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.junit.Test;
 
 public class MiscTests {
@@ -67,7 +68,7 @@ public class MiscTests {
     public void testPassthru() throws Exception {
         String string = "ofbiz";
         BigDecimal bigDecimal = new BigDecimal("1.234");
-        URL url = new URL("http://ofbiz.apache.org");
+        URL url = UtilURL.fromUrlString("http://ofbiz.apache.org");
         List<String> baseList = UtilMisc.toList("a", "1", "b", "2", "c", "3");
         List<String> arrayList = new ArrayList<>();
         arrayList.addAll(baseList);
