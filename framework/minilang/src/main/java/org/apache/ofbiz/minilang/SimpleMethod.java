@@ -75,7 +75,7 @@ import org.w3c.dom.Element;
  * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
  * </li>
  * </ul>
- * 
+ *
  * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
@@ -584,8 +584,7 @@ public final class SimpleMethod extends MiniLangElement {
             }
             // rollback here passing beganTransaction to either rollback, or set rollback only
             try {
-                TransactionUtil.rollback(beganTransaction, "Error in simple-method [" + getShortDescription() + "]: "
-                        + summaryErrorStringBuffer, null);
+                TransactionUtil.rollback(beganTransaction, summaryErrorStringBuffer.toString(), null);
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to rollback transaction, could not process method: " + e.getMessage();
                 if (methodContext.isTraceOn()) {
@@ -723,13 +722,8 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     public String getShortDescription() {
-        if (fromLocation.contains("file:") && fromLocation.contains("Events.xml")) {
-            return  getFileName() + "#" + getMethodName();
-        } else {
-            return shortDescription + " [" + fromLocation + "#" + methodName + "]";
-        }
+        return shortDescription + " [" + getFileName() + "#" + methodName + "]";
     }
-
 
     @Override
     public SimpleMethod getSimpleMethod() {
