@@ -497,7 +497,13 @@ public final class SimpleMethod extends MiniLangElement {
             finished = runSubOps(methodOperations, methodContext);
         } catch (Throwable t) {
             // make SURE nothing gets thrown through
-            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleMethod.error_running", locale) + ": " + t.getMessage();
+            String errorMessage = t.getMessage();
+            if (errorMessage.contains("File = file") && errorMessage.contains("Events.xml")) {
+                String noFile = errorMessage.substring(errorMessage.indexOf("File = file"),
+                        errorMessage.indexOf("Events.xml") + "Events.xml".length());
+                errorMessage = errorMessage.replace(noFile, "");
+            }
+            String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleMethod.error_running", locale) + ": " + errorMessage;
             if (methodContext.isTraceOn()) {
                 outputTraceMessage(methodContext, "An exception was thrown while running sub-elements, error message was:", errMsg);
             }
