@@ -631,8 +631,7 @@ public final class SimpleMethod extends MiniLangElement {
             }
             // rollback here passing beganTransaction to either rollback, or set rollback only
             try {
-                TransactionUtil.rollback(beganTransaction, "Error in simple-method [" + getShortDescription() + "]: "
-                        + summaryErrorStringBuffer, null);
+                TransactionUtil.rollback(beganTransaction, summaryErrorStringBuffer.toString(), null);
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to rollback transaction, could not process method: " + e.getMessage();
                 if (methodContext.isTraceOn()) {
@@ -754,13 +753,8 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     public String getShortDescription() {
-        if (fromLocation.contains("file:") && fromLocation.contains("Events.xml")) {
-            return  getFileName() + "#" + getMethodName();
-        } else {
-            return shortDescription + " [" + fromLocation + "#" + methodName + "]";
-        }
+        return shortDescription + " [" + getFileName() + "#" + methodName + "]";
     }
-
 
     @Override
     public SimpleMethod getSimpleMethod() {
