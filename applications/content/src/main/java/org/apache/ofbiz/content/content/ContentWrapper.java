@@ -37,7 +37,8 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 public interface ContentWrapper {
 
-    String MDOULE = ContentWrapper.class.getName();
+    String MODULE = ContentWrapper.class.getName();
+    static final String CACHE_KEY_SEPARATOR = "::";
 
     StringUtil.StringWrapper get(String contentTypeId, String encoderType);
 
@@ -108,7 +109,7 @@ public interface ContentWrapper {
             if (encoder != null) {
                 value = encoder.sanitize(value, null);
             } else {
-                Debug.logWarning("Unknown encoderType %s for encoding content value!", MDOULE, encoderType);
+                Debug.logWarning("Unknown encoderType %s for encoding content value!", MODULE, encoderType);
             }
         }
         return value;

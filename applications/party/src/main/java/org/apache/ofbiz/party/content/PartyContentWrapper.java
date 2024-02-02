@@ -52,7 +52,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class PartyContentWrapper implements ContentWrapper {
 
     private static final String MODULE = PartyContentWrapper.class.getName();
-    public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> PARTY_CONTENT_CACHE = UtilCache.createUtilCache("party.content.rendered", true);
 

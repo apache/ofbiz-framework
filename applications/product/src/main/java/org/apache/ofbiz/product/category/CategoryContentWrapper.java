@@ -48,7 +48,7 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class CategoryContentWrapper implements ContentWrapper {
 
     private static final String MODULE = CategoryContentWrapper.class.getName();
-    public static final String SEPARATOR = "::";    // cache key separator
+
     private static final UtilCache<String, String> CATEGORY_CONTENT_CACHE = UtilCache.createUtilCache(
             "category.content.rendered", true); // use soft reference to free up memory if needed
 
@@ -105,9 +105,9 @@ public class CategoryContentWrapper implements ContentWrapper {
          * Look for a previously cached entry (may also be an entry with null value if
          * there was no content to retrieve)
          */
-        String cacheKey = prodCatContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR
+        String cacheKey = prodCatContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId + CACHE_KEY_SEPARATOR
                 + productCategory.get("productCategoryId")
-                + SEPARATOR + encoderType + SEPARATOR + delegator;
+                + CACHE_KEY_SEPARATOR + encoderType + CACHE_KEY_SEPARATOR + delegator;
         String cachedValue = CATEGORY_CONTENT_CACHE.get(cacheKey);
         if (cachedValue != null || CATEGORY_CONTENT_CACHE.containsKey(cacheKey)) {
             return cachedValue;

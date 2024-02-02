@@ -53,7 +53,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class ProductPromoContentWrapper implements ContentWrapper {
 
     private static final String MODULE = ProductPromoContentWrapper.class.getName();
-    public static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> PRODUCT_PROMO_CONTENT_CACHE =
             UtilCache.createUtilCache("product.promo.content.rendered", true);
@@ -116,10 +115,10 @@ public class ProductPromoContentWrapper implements ContentWrapper {
          * there was no content to retrieve)
          */
         /* caching: there is one cache created, "product.promo.content"  Each productPromo's content is cached with a key of
-         * contentTypeId::locale::mimeType::productPromoId, or whatever the SEPARATOR is defined above to be.
+         * contentTypeId::locale::mimeType::productPromoId, or whatever the CACHE_KEY_SEPARATOR is defined above to be.
          */
-        String cacheKey = productPromoContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productPromo.get("productPromoId")
-                + SEPARATOR + encoderType + SEPARATOR + delegator;
+        String cacheKey = productPromoContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId + CACHE_KEY_SEPARATOR + productPromo.get("productPromoId")
+                + CACHE_KEY_SEPARATOR + encoderType + CACHE_KEY_SEPARATOR + delegator;
         String cachedValue = PRODUCT_PROMO_CONTENT_CACHE.get(cacheKey);
         if (cachedValue != null || PRODUCT_PROMO_CONTENT_CACHE.containsKey(cacheKey)) {
             return cachedValue;

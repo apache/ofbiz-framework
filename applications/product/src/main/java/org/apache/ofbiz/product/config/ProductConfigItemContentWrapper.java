@@ -50,7 +50,7 @@ import org.apache.ofbiz.service.ServiceContainer;
 public class ProductConfigItemContentWrapper implements ContentWrapper {
 
     private static final String MODULE = ProductConfigItemContentWrapper.class.getName();
-    public static final String SEPARATOR = "::";    // cache key separator
+
     private static final UtilCache<String, String> CONFIG_ITEM_CONTENT_CACHE = UtilCache.createUtilCache(
             "configItem.content.rendered", true); // use soft reference to free up memory if needed
 
@@ -136,8 +136,8 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
         /* Look for a previously cached entry (may also be an entry with null value if
          * there was no content to retrieve)
          */
-        String cacheKey = confItemContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR
-                + productConfigItem.get("configItemId") + SEPARATOR + encoderType + SEPARATOR + delegator;
+        String cacheKey = confItemContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId + CACHE_KEY_SEPARATOR
+                + productConfigItem.get("configItemId") + CACHE_KEY_SEPARATOR + encoderType + CACHE_KEY_SEPARATOR + delegator;
         String cachedValue = CONFIG_ITEM_CONTENT_CACHE.get(cacheKey);
         if (cachedValue != null || CONFIG_ITEM_CONTENT_CACHE.containsKey(cacheKey)) {
             return cachedValue;
