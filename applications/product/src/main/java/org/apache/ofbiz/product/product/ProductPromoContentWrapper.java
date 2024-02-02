@@ -114,7 +114,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         /* Look for a previously cached entry (may also be an entry with null value if
          * there was no content to retrieve)
          */
-        /* caching: there is one cache created, "product.promo.content"  Each productPromo's content is cached with a key of
+        /* caching: there is one cache created, "product.promo.content.rendered"  Each productPromo's content is cached with a key of
          * contentTypeId::locale::mimeType::productPromoId, or whatever the CACHE_KEY_SEPARATOR is defined above to be.
          */
         String cacheKey = productPromoContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId

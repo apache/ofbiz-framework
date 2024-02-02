@@ -107,13 +107,12 @@ public class ProductContentWrapper implements ContentWrapper {
         /*
          * Look for a previously cached entry (may also be an entry with null value if
          * there was no content to retrieve) caching: there is one cache created,
-         * "product.content" Each product's content is cached with a key of
+         * "product.content.rendered" Each product's content is cached with a key of
          * contentTypeId::locale::mimeType::productId, or whatever the CACHE_KEY_SEPARATOR is
          * defined above to be.
          */
-        String cacheKey = productContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId + CACHE_KEY_SEPARATOR + product.get(
-                "productId") + CACHE_KEY_SEPARATOR
-                + encoderType + CACHE_KEY_SEPARATOR + delegator;
+        String cacheKey = productContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId + CACHE_KEY_SEPARATOR
+                + product.get("productId") + CACHE_KEY_SEPARATOR + encoderType + CACHE_KEY_SEPARATOR + delegator;
         String cachedValue = PRODUCT_CONTENT_CACHE.get(cacheKey);
         if (cachedValue != null || PRODUCT_CONTENT_CACHE.containsKey(cacheKey)) {
             return cachedValue;
