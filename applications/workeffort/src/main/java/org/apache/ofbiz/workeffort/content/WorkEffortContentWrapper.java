@@ -287,8 +287,10 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
 
             Writer outWriter = new StringWriter();
-            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher,
-                    outWriter, false);
+            // Use cache == true to have entity-cache managed content from cache while (not managed) rendered cache above
+            // may be configured with short expire time
+            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId,
+                    delegator, dispatcher, outWriter, true);
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
                 outString = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName) : "";

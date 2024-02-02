@@ -130,8 +130,10 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         String outString = null;
         try {
             Writer outWriter = new StringWriter();
+            // Use cache == true to have entity-cache managed content from cache while (not managed) rendered cache above
+            // may be configured with short expire time
             getProductPromoContentAsText(null, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId,
-                    delegator, dispatcher, outWriter, false);
+                    delegator, dispatcher, outWriter, true);
             outString = outWriter.toString();
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering ProductPromoContent", MODULE);

@@ -149,8 +149,10 @@ public class ProductConfigItemContentWrapper implements ContentWrapper {
 
         try {
             Writer outWriter = new StringWriter();
+            // Use cache == true to have entity-cache managed content from cache while (not managed) rendered cache above
+            // may be configured with short expire time
             getProductConfigItemContentAsText(null, productConfigItem, confItemContentTypeId, locale, mimeTypeId, delegator, dispatcher,
-                    outWriter, false);
+                    outWriter, true);
             outString = outWriter.toString();
         } catch (GeneralException | IOException e) {
             Debug.logError(e, "Error rendering ProdConfItemContent", MODULE);
