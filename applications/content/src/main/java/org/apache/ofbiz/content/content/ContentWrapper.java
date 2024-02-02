@@ -38,7 +38,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 public interface ContentWrapper {
 
     String MODULE = ContentWrapper.class.getName();
-    static final String CACHE_KEY_SEPARATOR = "::";
+    String CACHE_KEY_SEPARATOR = "::";
 
     StringUtil.StringWrapper get(String contentTypeId, String encoderType);
 
