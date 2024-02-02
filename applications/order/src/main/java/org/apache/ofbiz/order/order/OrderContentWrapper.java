@@ -48,7 +48,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class OrderContentWrapper implements ContentWrapper {
 
     private static final String MODULE = OrderContentWrapper.class.getName();
-    private static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> ORDER_CONTENT_CACHE = UtilCache.createUtilCache(
             "order.content.rendered", true); // use soft reference to free up memory if needed
@@ -106,11 +105,11 @@ public class OrderContentWrapper implements ContentWrapper {
          * there was no content to retrieve)
          */
         /* caching: there is one cache created, "order.content"  Each order's content is cached with a key of
-         * contentTypeId::locale::mimeType::orderId::orderItemSeqId, or whatever the SEPARATOR is defined above to be.
+         * contentTypeId::locale::mimeType::orderId::orderItemSeqId, or whatever the CACHE_KEY_SEPARATOR is defined above to be.
          */
 
-        String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get(
-                "orderId") + SEPARATOR + orderItemSeqId + SEPARATOR + encoderType + SEPARATOR + delegator;
+        String cacheKey = orderContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId + CACHE_KEY_SEPARATOR + order.get(
+                "orderId") + CACHE_KEY_SEPARATOR + orderItemSeqId + CACHE_KEY_SEPARATOR + encoderType + CACHE_KEY_SEPARATOR + delegator;
         String cachedValue = ORDER_CONTENT_CACHE.get(cacheKey);
         if (cachedValue != null || ORDER_CONTENT_CACHE.containsKey(cacheKey)) {
             return cachedValue;
