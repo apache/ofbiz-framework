@@ -469,8 +469,8 @@ public final class SimpleMethod extends MiniLangElement {
             methodContext.putEnv(eventResponseName, methodContext.getResponse());
         }
         methodContext.putEnv("simpleMethod", this);
-        methodContext.putEnv("methodName", this.getMethodName());
-        methodContext.putEnv("methodShortDescription", this.getShortDescription());
+        methodContext.putEnv("methodName", getMethodName());
+        methodContext.putEnv("methodShortDescription", getShortDescription());
         // if using transaction, try to start here
         boolean beganTransaction = false;
         if (useTransaction) {
