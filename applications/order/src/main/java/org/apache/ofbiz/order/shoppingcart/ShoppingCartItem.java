@@ -215,6 +215,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.reserv2ndPPPerc = item.getReserv2ndPPPerc();
         this.reservNthPPPerc = item.getReservNthPPPerc();
         this.listPrice = item.getListPrice();
+        this.discountRate = item.getDiscountRate();
         this.setIsModifiedPrice(item.getIsModifiedPrice());
         this.selectedAmount = item.getSelectedAmount();
         this.requirementId = item.getRequirementId();
