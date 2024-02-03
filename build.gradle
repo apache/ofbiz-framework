@@ -355,6 +355,7 @@ sourceSets {
 
     groovyScripts {
         groovy {
+            srcDirs += getDirectoryInActiveComponentsIfExists('src/main/groovy')
             compileClasspath += sourceSets.main.compileClasspath
             compileClasspath += sourceSets.main.output
         }
