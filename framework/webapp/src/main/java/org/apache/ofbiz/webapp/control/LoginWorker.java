@@ -21,6 +21,8 @@ package org.apache.ofbiz.webapp.control;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -1372,6 +1374,13 @@ public final class LoginWorker {
             if (UtilValidate.isEmpty(contextPath)) {
                 contextPath = "/";
             }
+
+            try {
+                contextPath = new URI(contextPath).normalize().toString();
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+
             ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
                 return hasApplicationPermission(info, security, userLogin);
