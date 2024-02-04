@@ -352,20 +352,6 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
         }
     }
-
-    groovyScripts {
-        groovy {
-            srcDirs += getDirectoryInActiveComponentsIfExists('src/main/groovy')
-            compileClasspath += sourceSets.main.compileClasspath
-            compileClasspath += sourceSets.main.output
-        }
-    }
-}
-
-tasks.named('compileGroovyScriptsGroovy') {
-    // We don't want to build groovyScripts as they should be considered as standalone elements executed in
-    // isolation by ofbiz. Building them will result in numerous error due to duplicated classes.
-    enabled = false
 }
 
 jar.manifest.attributes(
@@ -386,7 +372,7 @@ checkstyle {
     showViolations = true
 }
 gitHooks {
-    hooks = ['pre-push': 'checkstyleMain codenarcGroovyScripts']
+    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
 }
 
 // Checks OFBiz Groovy coding conventions.
