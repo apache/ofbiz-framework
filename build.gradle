@@ -361,12 +361,6 @@ sourceSets {
     }
 }
 
-tasks.named('compileGroovyScriptsGroovy') {
-    // We don't want to build groovyScripts as they should be considered as standalone elements executed in
-    // isolation by ofbiz. Building them will result in numerous error due to duplicated classes.
-    enabled = false
-}
-
 jar.manifest.attributes(
     'Implementation-Title': project.name,
     'Main-Class': application.mainClass,
