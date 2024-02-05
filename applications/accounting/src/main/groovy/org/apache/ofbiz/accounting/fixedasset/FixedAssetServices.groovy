@@ -1,12 +1,12 @@
 package org.apache.ofbiz.accounting.fixedasset
 
+import java.math.RoundingMode
+import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
-
-import java.math.RoundingMode
-import java.sql.Timestamp
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -141,7 +141,7 @@ Map createMaintsFromMeterReading() {
                 long listSize = maintList ? maintList.size() : 0L
 
                 BigDecimal maxIntervalQty = maintList ? maintList
-                        .findAll{maint -> maint.intervalQuantity}
+                        .findAll { maint -> maint.intervalQuantity }
                         .max() : 0
 
                 BigDecimal nextIntervalQty = maxIntervalQty + p.intervalQuantity
