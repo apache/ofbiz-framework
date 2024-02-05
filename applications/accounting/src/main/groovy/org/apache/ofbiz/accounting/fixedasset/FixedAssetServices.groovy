@@ -1,3 +1,5 @@
+package org.apache.ofbiz.accounting.fixedasset
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -139,7 +141,7 @@ Map createMaintsFromMeterReading() {
                 long listSize = maintList ? maintList.size() : 0L
 
                 BigDecimal maxIntervalQty = maintList ? maintList
-                        .findAll(maint -> maint.intervalQuantity)
+                        .findAll{maint -> maint.intervalQuantity}
                         .max() : 0
 
                 BigDecimal nextIntervalQty = maxIntervalQty + p.intervalQuantity
