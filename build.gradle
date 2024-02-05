@@ -352,13 +352,6 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
         }
     }
-
-    groovyScripts {
-        groovy {
-            compileClasspath += sourceSets.main.compileClasspath
-            compileClasspath += sourceSets.main.output
-        }
-    }
 }
 
 jar.manifest.attributes(
@@ -379,7 +372,7 @@ checkstyle {
     showViolations = true
 }
 gitHooks {
-    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTes']
+    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
 }
 
 // Checks OFBiz Groovy coding conventions.
