@@ -255,7 +255,7 @@ under the License.
 
     <!-- Common JavaScript loadJWT Request, to receive JwtToken within regular JS Code -->
     <request-map uri="loadJWT">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="loadJWT"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
@@ -338,7 +338,7 @@ under the License.
     <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument"/>
 
     <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
-    
+
     <view-map name="LookupGeo" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeo"/>
     <view-map name="LookupGeoName" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeoName"/>
     <view-map name="LookupLocale" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocale"/>
