@@ -662,6 +662,11 @@
 
     <menu name="CommSubTabBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}" widget-style="buttontext create">
+            <condition>
+                <or>
+                    <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                </or>
+            </condition>
             <link target="EditCommunicationEvent"/>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
