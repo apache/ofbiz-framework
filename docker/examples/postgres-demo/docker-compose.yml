@@ -41,6 +41,10 @@ services:
       - 8443:8443
     volumes:
       - ./after-config-applied.d:/docker-entrypoint-hooks/after-config-applied.d
+      # Note, on Unix systems, ensure the ofbiz user (uid 1000) or group (gid 1000) running inside the container has
+      # write access to this directory on the host. If user namespace remapping is in use, the ofbiz user/group may
+      # be mapped to host uid 165536 or gid 166536 depending on the configuration in /etc/subuid and /etc/subgid.
+      - ./logs:/ofbiz/runtime/logs
     env_file:
       - ofbiz-postgres.env
     environment:
