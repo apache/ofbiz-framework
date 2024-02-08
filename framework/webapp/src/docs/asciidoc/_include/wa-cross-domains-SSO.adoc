@@ -23,8 +23,8 @@ under the License.
 As more explained at bottom of https://issues.apache.org/jira/browse/OFBIZ-11594, the introduction of "the SameSite attribute set to 'strict' for all cookies"
 with https://issues.apache.org/jira/browse/OFBIZ-11470 prevents the internal Single Sign On feature.
 
-There are ways to make it available as explained at bottom of https://issues.apache.org/jira/browse/OFBIZ-11594. It's not implemented OOTB
-
+There are ways to make it available as explained at bottom of https://issues.apache.org/jira/browse/OFBIZ-11594.
+It's not implemented OOTB
 ====
 
 
@@ -67,6 +67,8 @@ webappName.securedLoginId cookie, creates a JWT containing the userLoginId, and 
 
 . Then the sendJWT() Ajax function sends an Authorization header containing the JWT to the URL to reach.
 At this stage, if all things are correct, the flow leaves the source side.
+
+. *Last but not least*. To make this work you have to set the security.internal.sso.enabled and security.token.key SystemProperty entities locally and on trunk demo server
 
 .On the server side:
 . A CORS policy is needed. _Without it, the Authorization token containing the JWT will be rejected.
