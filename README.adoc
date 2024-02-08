@@ -24,7 +24,6 @@ image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www
 image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.com/apache/ofbiz-framework]
 image:https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg[link=https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
-image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
 image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
 //image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 
@@ -104,7 +103,7 @@ ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
 ____
 
-follow the advice there: https://s.apache.org/vdcv8. If you want more details see: https://s.apache.org/ac7no
+follow the advice there: https://s.apache.org/vdcv8. If you want more details see: https://s.apache.org/urnju
 
 * If you run into problems check the the execution policy of PowerShell. See https://s.apache.org/urnju for details.
 By setting the execution policy to "unrestricted", you'll be prompted to run the script once you run the init-gradle-wrapper command.
