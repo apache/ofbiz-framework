@@ -79,6 +79,14 @@ under the License.
             </condition>
             <link target="newPayment"/>
         </menu-item>
+        <menu-item name="NewPaymentGroup" title="${uiLabelMap.CommonCreate} ${uiLabelMap.AccountingNewPaymentGroup}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditPaymentGroup"/>
+        </menu-item>
     </menu>
 
     <menu name="AccountingShortcutAppBar" title="${uiLabelMap.AccountingManager}">
