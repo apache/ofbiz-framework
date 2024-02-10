@@ -24,7 +24,7 @@ As more explained at bottom of https://issues.apache.org/jira/browse/OFBIZ-11594
 with https://issues.apache.org/jira/browse/OFBIZ-11470 prevents the internal Single Sign On feature.
 
 There are ways to make it available as explained at bottom of https://issues.apache.org/jira/browse/OFBIZ-11594.
-It's not implemented OOTB
+It's not implemented OOTB, but it's not hard work.
 ====
 
 
