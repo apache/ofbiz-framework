@@ -178,7 +178,7 @@ https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping O
 ====
 In production never use the credentials contained in demo data. Not only the admin credentials, but all of them.
 
-Also we recommend to no use Windows Server in production because we are not supporting specific Windows related security issues.
+Also we recommend to not use Windows Server in production because we are not supporting specific Windows related security issues.
 ====
 
 [[build-system-syntax]]
