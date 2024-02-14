@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entities for Activities</title>
+    <description>Entities for Activities</description>
+    <copyright/>
+    <version/>
+
+    <!-- entities for activities -->
+    <entity entity-name="ActivityType"
+            package-name="org.ofbiz.sellercentral.activity"
+            title="ActivityType">
+        <field name="activityTypeId" type="id"/>
+        <field name="description" type="description"/>
+        <prim-key field="activityTypeId"/>
+    </entity>
+
+    <entity entity-name="Activity"
+            package-name="org.ofbiz.sellercentral.activity"
+            title="Activity">
+        <field name="activityId" type="id"/>
+        <field name="activityTypeId" type="id"/>
+        <field name="activity" type="byte-array"/>
+        <field name="activityType" type="description"/>
+        <field name="activityFor" type="description"/>
+        <prim-key field="activityId"/>
+        <relation type="one" fk-name="FK_ACT_TYP" rel-entity-name="ActivityType">
+            <key-map field-name="activityTypeId" rel-field-name="activityTypeId"/>
+        </relation>
+    </entity>
+
+</entitymodel>

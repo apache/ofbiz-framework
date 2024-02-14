@@ -21,4 +21,5 @@ under the License.
 <entity-engine-xml>
     <!--Used to identify the application user-->
     <RoleType roleTypeId="APP_CLIENT" description="Application Client"/>
+
 </entity-engine-xml>

@@ -582,8 +582,7 @@ public class MeApiServiceImpl extends MeApiService {
         loggedInUserDetails.setId(partyId);
 
         // prepare person information
-        Person person =
-                PersonServices.getPersonDetails(delegator, dispatcher, partyId, userLogin, true, false);
+        Person person = PersonServices.getPersonDetails(delegator, dispatcher, partyId, userLogin, true, false);
         loggedInUserDetails.setPersonalDetails(person);
 
         boolean isUserEmailVerified =

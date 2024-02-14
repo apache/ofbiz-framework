@@ -1,0 +1,457 @@
+{
+	"info": {
+		"_postman_id": "766b08b4-144d-499e-befa-859ab41d3f47",
+		"name": "ZCP2.0 Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "225306",
+		"_collection_link": "https://solar-crater-456757.postman.co/workspace/Fidelis-Workspace~d4773812-64c6-4409-8b2c-4cd1ba249bbc/collection/225306-766b08b4-144d-499e-befa-859ab41d3f47?action=share&source=collection_link&creator=225306"
+	},
+	"item": [
+		{
+			"name": "SCENARIOS",
+			"item": [
+				{
+					"name": "Onboarding Org",
+					"item": [
+						{
+							"name": "1. FSD Admin Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody)",
+											"postman.setEnvironmentVariable(\"access_token\",jsonData.accessToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "apiKey",
+										"value": "bWFuZGVlcC5zaWRodUBmaWRlbGlzc2QuY29tOjEyMzQ1Njc4",
+										"description": "mandeep.sidhu@fidelissd.com",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host_url}}/xapi/v1/admin/authenticate",
+									"host": [
+										"{{host_url}}"
+									],
+									"path": [
+										"xapi",
+										"v1",
+										"admin",
+										"authenticate"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "apiKey",
+												"value": "bWFuZGVlcC5zaWRodUBmaWRlbGlzc2QuY29tOjEyMzQ1Njc4",
+												"description": "zcp-test",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host_url}}/xapi/v1/admin/authenticate",
+											"host": [
+												"{{host_url}}"
+											],
+											"path": [
+												"xapi",
+												"v1",
+												"admin",
+												"authenticate"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET,POST,PUT,DELETE,OPTIONS"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1295"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 08 Feb 2024 06:13:58 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"webAddress\": [],\n    \"partyInitials\": \"mandeep.sidhu@fidelissd.com\",\n    \"accessToken\": \"ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKMWMyVnlURzluYVc1SlpDSTZJbTFoYm1SbFpYQXVjMmxrYUhWQVptbGtaV3hwYzNOa0xtTnZiU0lzSW1selFYTnpkVzFsWkNJNmJuVnNiQ3dpZEc5clpXNVZkV2xrSWpvaVlqYzNaRFUzWlRrdE9UZGhOeTAwTURnMUxXSTVPV0l0WVRVd01HWXdaVFZqT1dRMUlpd2lkRzlyWlc1VWVYQmxJam9pUVVORFJWTlRJaXdpWlhod0lqb3hOekE1T1RZME9ETTRMQ0owYUhKMVJHRjBaU0k2TVRjeE1qVTFOamd6T0RJd05uMC52ei1kcEdaRGZSOHFERlZUcndhQklqeUdEanBrdjBQbWJkZXYzcTVhcmVVZVYwNVByWlliZjdrQm96dG92SmRrM283cEtLNGFjWXJXRmtMWXg4TE8xdw==\",\n    \"postalAddresses\": [],\n    \"phoneNumbers\": [],\n    \"emailAddress\": [\n        {\n            \"contactMechId\": \"mandeep.sidhu\",\n            \"email\": \"mandeep.sidhu@fidelissd.com\"\n        }\n    ],\n    \"partyName\": \"Mandeep Sidhu\",\n    \"organizationPartyId\": \"FSD\",\n    \"expiresOn\": \"2024-04-08T06:13:58.206Z\",\n    \"responseMessage\": \"success\",\n    \"partyId\": \"mandeep.sidhu\",\n    \"refreshToken\": \"ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKMWMyVnlURzluYVc1SlpDSTZJbTFoYm1SbFpYQXVjMmxrYUhWQVptbGtaV3hwYzNOa0xtTnZiU0lzSW1selFYTnpkVzFsWkNJNmJuVnNiQ3dpZEc5clpXNVZkV2xrSWpvaU9HUTBZVFU1T1RRdFpqVXdOeTAwTjJZNExUbGlNakl0TkRZNFlUQXhOakF4TWpGaUlpd2lkRzlyWlc1VWVYQmxJam9pVWtWR1VrVlRTQ0lzSW1WNGNDSTZNVGN3T1RrMk5EZ3pPQ3dpZEdoeWRVUmhkR1VpT2pFM05EUXdPVEk0TXpneU1EWjkuaFBwUzhhd0swelEwNHVYTmVjX2E0MENuSnMtT1BvYWk5VjMzVkJpODNwaHhUT3RtT0JjV2lZLXpIV0p0Szk2Y2IyeEtxU3FyLUdxVUpPOVZXdkxoa3c=\"\n}"
+								}
+							]
+						},
+						{
+							"name": "2. Onboard New Org",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"admin\": {\r\n        \"firstName\": \"Bruce\",\r\n        \"lastName\": \"Wayne\",\r\n        \"email\": \"bruce.wayne13@dccomics.com\",\r\n        \"password\":\"12345678\"\r\n    },\r\n    \"organizationName\": \"DC Comics 13\",\r\n    \"organizationAddress\": {\r\n        \"addressLine1\": \"Street no 10\",\r\n        \"addressLine2\": \"Lane 20\",\r\n        \"city\": \"PHOENIX\",\r\n        \"stateCode\": \"AZ\",\r\n        \"countryCode\": \"USA\",\r\n        \"postalCode\": \"85030\"\r\n    },\r\n    \"orgPhone\": {\r\n        \"phone\": \"555-555-5555\"\r\n    },\r\n    \"orgEmail\": \"dc.comics@gmail.com\",\r\n    \"cage\": \"6UI175\",\r\n    \"duns\": \"323435435\",\r\n    \"tax_id\": \"TAX_98765\",\r\n    \"industry_type\": \"Software\",\r\n    \"organizationCustomer\": \"Government Customer\",\r\n    \"businessLocation\": \"USA\",\r\n    \"accountNumber\": \"0000061234343\",\r\n    \"bankName\": \"Wells Fargo\",\r\n    \"routingNumber\": \"123006800\",\r\n    \"shouldLoadGovtData\": true\r\n}"
+								},
+								"url": {
+									"raw": "{{host_url}}/xapi/v1/admin/organizations",
+									"host": [
+										"{{host_url}}"
+									],
+									"path": [
+										"xapi",
+										"v1",
+										"admin",
+										"organizations"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Org 1 - Marvel",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"admin\": {\r\n        \"firstName\": \"Steve\",\r\n        \"lastName\": \"Rogers\",\r\n        \"email\": \"steve.rogers@marvel.com\",\r\n        \"password\":\"12345678\"\r\n    },\r\n    \"organizationName\": \"Marvel Studios\",\r\n    \"organizationAddress\": {\r\n        \"addressLine1\": \"Street no 10\",\r\n        \"addressLine2\": \"Lane 20\",\r\n        \"city\": \"PHOENIX\",\r\n        \"stateCode\": \"AZ\",\r\n        \"countryCode\": \"USA\",\r\n        \"postalCode\": \"85030\"\r\n    },\r\n    \"orgPhone\": {\r\n        \"phone\": \"555-555-5555\"\r\n    },\r\n    \"orgEmail\": \"marvel.studios@gmail.com\",\r\n    \"cage\": \"6UI175\",\r\n    \"duns\": \"323435435\",\r\n    \"tax_id\": \"TAX_98765\",\r\n    \"industry_type\": \"Software\",\r\n    \"organizationCustomer\": \"Government Customer\",\r\n    \"businessLocation\": \"USA\",\r\n    \"accountNumber\": \"0000061234343\",\r\n    \"bankName\": \"Wells Fargo\",\r\n    \"routingNumber\": \"123006800\",\r\n    \"shouldLoadGovtData\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host_url}}/xapi/v1/admin/organizations",
+											"host": [
+												"{{host_url}}"
+											],
+											"path": [
+												"xapi",
+												"v1",
+												"admin",
+												"organizations"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET,POST,PUT,DELETE,OPTIONS"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "96"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 06 Feb 2024 13:29:16 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"category\": \"INVALID_REQUEST_ERROR\",\n    \"code\": \"FORBIDDEN\",\n    \"message\": \" UserLoginId Already Exists.\"\n}"
+								},
+								{
+									"name": "Org 2 - DC Comics",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"admin\": {\r\n        \"firstName\": \"Bruce\",\r\n        \"lastName\": \"Wayne\",\r\n        \"email\": \"bruce.wayne@dccomics.com\",\r\n        \"password\":\"12345678\"\r\n    },\r\n    \"organizationName\": \"DC Comics\",\r\n    \"organizationAddress\": {\r\n        \"addressLine1\": \"Street no 10\",\r\n        \"addressLine2\": \"Lane 20\",\r\n        \"city\": \"PHOENIX\",\r\n        \"stateCode\": \"AZ\",\r\n        \"countryCode\": \"USA\",\r\n        \"postalCode\": \"85030\"\r\n    },\r\n    \"orgPhone\": {\r\n        \"phone\": \"555-555-5555\"\r\n    },\r\n    \"orgEmail\": \"dc.comics@gmail.com\",\r\n    \"cage\": \"6UI175\",\r\n    \"duns\": \"323435435\",\r\n    \"tax_id\": \"TAX_98765\",\r\n    \"industry_type\": \"Software\",\r\n    \"organizationCustomer\": \"Government Customer\",\r\n    \"businessLocation\": \"USA\",\r\n    \"accountNumber\": \"0000061234343\",\r\n    \"bankName\": \"Wells Fargo\",\r\n    \"routingNumber\": \"123006800\",\r\n    \"shouldLoadGovtData\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host_url}}/xapi/v1/admin/organizations",
+											"host": [
+												"{{host_url}}"
+											],
+											"path": [
+												"xapi",
+												"v1",
+												"admin",
+												"organizations"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Access-Control-Allow-Methods",
+											"value": "GET,POST,PUT,DELETE,OPTIONS"
+										},
+										{
+											"key": "Access-Control-Allow-Headers",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "96"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 06 Feb 2024 13:38:53 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"category\": \"INVALID_REQUEST_ERROR\",\n    \"code\": \"FORBIDDEN\",\n    \"message\": \" UserLoginId Already Exists.\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Access Token",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)\r",
+									"postman.setEnvironmentVariable(\"access_token\",jsonData.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "apiKey",
+								"value": "dGVzdC5hY2NvdW50LmFkbWluMUBnbWFpbC5jb206MTIzNDU2Nzg=",
+								"disabled": true
+							},
+							{
+								"key": "apiKey",
+								"value": "YnJ1Y2Uud2F5bmUxM0BkY2NvbWljcy5jb206MTIzNDU2Nzg=",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host_url}}/xapi/v1/access/token",
+							"host": [
+								"{{host_url}}"
+							],
+							"path": [
+								"xapi",
+								"v1",
+								"access",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "apiKey",
+										"value": "dGVzdC5hY2NvdW50LmFkbWluMUBnbWFpbC5jb206MTIzNDU2Nzg=",
+										"disabled": true
+									},
+									{
+										"key": "apiKey",
+										"value": "YnJ1Y2Uud2F5bmUxM0BkY2NvbWljcy5jb206MTIzNDU2Nzg=",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host_url}}/xapi/v1/access/token",
+									"host": [
+										"{{host_url}}"
+									],
+									"path": [
+										"xapi",
+										"v1",
+										"access",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET,POST,PUT,DELETE,OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1936"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Feb 2024 05:50:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKMWMyVnlURzluYVc1SlpDSTZJbUp5ZFdObExuZGhlVzVsTVROQVpHTmpiMjFwWTNNdVkyOXRJaXdpYVhOQmMzTjFiV1ZrSWpwdWRXeHNMQ0owYjJ0bGJsVjFhV1FpT2lJek1HSmhPV014WWkweU1tRXdMVFE0Tm1ZdFlUQXlOaTFqTnpSak5XUTJObU0zTXpBaUxDSjBiMnRsYmxSNWNHVWlPaUpCUTBORlUxTWlMQ0psZUhBaU9qRTNNVEF6T1RVME1UQXNJblJvY25WRVlYUmxJam94TnpFeU9UZzNOREV3TlRRemZRLjBDNGotUW1wMVJvRzFwNlBxaGpTSnJBeXk4UWNEajRQaldVc1M0U1FUVXdmVkhEcjRuYWY5WUF6SDhmQ25zTjBvVmROdXFyUDdXUUg0MWt0cUY2Nm9R\",\n    \"user\": {\n        \"id\": \"10102\",\n        \"personalDetails\": {\n            \"createdAt\": \"2024-02-13T05:49:26.075Z\",\n            \"lastModifiedDate\": \"2024-02-13T05:49:26.092Z\",\n            \"id\": \"10102\",\n            \"fullName\": \"Bruce Wayne\",\n            \"displayName\": \"Bruce Wayne\",\n            \"firstName\": \"Bruce\",\n            \"lastName\": \"Wayne\",\n            \"initials\": \"BW\",\n            \"organization\": {\n                \"id\": \"ACCT_10103\",\n                \"name\": \"DC Comics 13\",\n                \"bank\": \"Wells Fargo\",\n                \"routing\": \"123006800\",\n                \"account_number\": \"0000061234343\",\n                \"primaryAddress\": {\n                    \"formattedAddressString\": \"Street no 10, Lane 20, PHOENIX, AZ 85030, USA\",\n                    \"id\": \"10105\",\n                    \"addressLine1\": \"Street no 10\",\n                    \"addressLine2\": \"Lane 20\",\n                    \"city\": \"PHOENIX\",\n                    \"stateCode\": \"AZ\",\n                    \"countryName\": \"United States\",\n                    \"countryAbbr\": \"USA\",\n                    \"countryCode\": \"USA\",\n                    \"countryIsoCode\": \"US\",\n                    \"postalCode\": \"85030\",\n                    \"contactMechPurposeTypeId\": \"PRIMARY_LOCATION\",\n                    \"label\": \"primary\"\n                },\n                \"primaryPhone\": {\n                    \"id\": \"10106\",\n                    \"regionCode\": \"US\",\n                    \"phone\": \"555-555-5555\"\n                }\n            },\n            \"jobTitle\": \"\",\n            \"timezone\": {\n                \"dstOffset\": 0,\n                \"rawOffset\": 0,\n                \"gmtOffsetInHours\": 0\n            },\n            \"attributes\": []\n        },\n        \"emailVerified\": false,\n        \"self\": true,\n        \"isAssumed\": false,\n        \"disabled\": false\n    },\n    \"refreshToken\": \"ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKMWMyVnlURzluYVc1SlpDSTZJbUp5ZFdObExuZGhlVzVsTVROQVpHTmpiMjFwWTNNdVkyOXRJaXdpYVhOQmMzTjFiV1ZrSWpwdWRXeHNMQ0owYjJ0bGJsVjFhV1FpT2lKa1pXRTROek5qWmkwNVpXUTBMVFF4WWprdFlXUmlNaTAxTjJFeE4yTTJNakEwT0RnaUxDSjBiMnRsYmxSNWNHVWlPaUpTUlVaU1JWTklJaXdpWlhod0lqb3hOekV3TXprMU5ERXdMQ0owYUhKMVJHRjBaU0k2TVRjME5EVXlNelF4TURVME0zMC5ucFJfUXRmeDZaS1o4cEd2U0JoQ09MRDVUQXRhX19hTVNHcjJGYUFBUm5kd1dVNWJPeXdGM3NLU2R2WkR0U3ZxTmI4Q0R6ajZtTGZ0b0M0Z193NXpQZw==\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{host_url}}xapi/v1/ping",
+					"host": [
+						"{{host_url}}xapi"
+					],
+					"path": [
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

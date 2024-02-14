@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Xsolr Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="searchProductsInSolr" engine="java"
+             location="com.simbaquartz.xsolr.solr.product.SolrProductServices" invoke="searchProductsInSolr">
+        <description>
+            Sample spring solr data search service
+        </description>
+    </service>
+
+    <!-- core solr services -->
+    <service name="publishDocsToSolr" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrHelperServices" invoke="publishDocsToSolr" auth="false"
+             use-transaction="false">
+        <description>
+            Publishes (Creates/Updates) list of documents to SOLR server. Commit and Optimize flags are
+            true by default.
+        </description>
+        <attribute name="docsToPublish" mode="IN" type="List" optional="false"/>
+        <attribute name="solrCoreName" mode="IN" type="String" optional="false"/>
+        <attribute name="isCommitRequired" mode="IN" type="Boolean" optional="true"
+                   default-value="true"/>
+        <attribute name="isOptimizeRequired" mode="IN" type="Boolean" optional="true"
+                   default-value="true"/>
+        <attribute name="solrResponse" mode="OUT" type="String" optional="true"/>
+    </service>
+
+    <!-- core solr services -->
+    <service name="deleteDocsFromSolr" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrHelperServices" invoke="deleteDocsFromSolr"
+             auth="true"
+             use-transaction="false">
+        <description>
+            Removes documents from SOLR using comma separated document ids. E.g.
+            p-FTWRSPX00001,p-FTWRSPX00002
+        </description>
+        <attribute name="toBeDeletedIds" mode="IN" type="String" optional="false"/>
+    </service>
+
+
+    <service name="deleteAllDocsFromSolr" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrHelperServices" invoke="deleteAllDocsInSolr" auth="true"
+             use-transaction="false">
+        <description>
+            Removes all documents from SOLR.
+        </description>
+        <attribute name="deleteQuery" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="indexProductInSolr" engine="java"
+             location="com.simbaquartz.xstore.solrservices.SolrProductServices"
+             invoke="indexProductInSolr"
+             auth="true">
+        <description>
+            Indexes single product to SOLR.
+        </description>
+        <attribute name="productId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="productStoreId" mode="IN" type="String" optional="true"></attribute>
+    </service>
+
+    <service name="indexAllProductsInSolr" engine="java"
+             location="com.simbaquartz.xstore.solrservices.SolrProductServices"
+             invoke="indexAllProductsInSolr"
+             auth="true">
+        <description>
+            Indexes all products to SOLR.
+        </description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="true"></attribute>
+        <!--<attribute name="indexAllRecords" mode="IN" type="Boolean" optional="false"></attribute>-->
+        <!--<attribute name="startIndex" mode="IN" type="int" optional="true"></attribute>-->
+        <!--<attribute name="fetchSize" mode="IN" type="int" optional="true"></attribute>-->
+    </service>
+
+    <service name="searchProductsFromSolr" engine="java"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrProductServices"
+             invoke="searchProductsFromSolr"
+             auth="false">
+        <description>
+            Searchs for the products in SOLR.
+        </description>
+        <attribute name="startIndex" mode="IN" type="Integer" optional="true"></attribute>
+
+        <attribute name="productPrimaryCategoryId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="productCategoryIds" mode="IN" type="List" optional="true"></attribute>
+
+        <attribute name="shape" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="clarity" mode="IN" type="List" optional="true"></attribute>
+        <attribute name="colors" mode="IN" type="List" optional="true"></attribute>
+        <attribute name="carat" mode="IN" type="List" optional="true"></attribute>
+        <attribute name="cuts" mode="IN" type="List" optional="true"></attribute>
+        <attribute name="ringColor" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="priceFrom" mode="IN" type="BigDecimal" optional="true"></attribute>
+        <attribute name="priceTo" mode="IN" type="BigDecimal" optional="true"></attribute>
+
+        <attribute name="searchResults" mode="OUT" type="List" optional="false"></attribute>
+        <attribute name="totalResultSize" mode="OUT" type="Integer" optional="false"></attribute>
+    </service>
+
+
+    <service name="indexOrderInSolr" engine="java"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="indexOrderInSolr"
+             auth="false">
+        <description>Index Specified Order in solr.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="indexQuoteInSolr" engine="java"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="indexQuoteInSolr"
+             auth="true" use-transaction="false">
+        <description>
+            Indexes single quote to SOLR.
+        </description>
+        <attribute name="quoteId" mode="IN" type="String" optional="false"></attribute>
+    </service>
+
+    <service name="indexQuoteDocumentInSolr" engine="java"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="indexQuoteInSolr"
+             auth="true" use-transaction="false">
+        <description>
+            Publishes quote document changes from quoteDocumentMap input variable to SOLR for indexing.
+            Any changes that needs to be published should be prepared and included in the map, solr
+            document field name
+            must match.
+            For e.g. quoteDocumentMap.quoteStatusId="QUO_EXPIRED"
+        </description>
+        <attribute name="quoteId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="quoteDocumentMap" mode="IN" type="Map" optional="false"></attribute>
+    </service>
+
+    <service name="deleteQuoteInSolr" engine="java"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="deleteQuoteInSolr"
+             auth="true" use-transaction="false">
+        <description>
+            Delete a single quote from SOLR.
+        </description>
+        <attribute name="quoteId" mode="IN" type="String" optional="false"></attribute>
+    </service>
+
+    <service name="indexPartyInSolr" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices" invoke="indexPartyInSolr"
+             auth="true"
+             use-transaction="false">
+        <description>
+            Indexes single party info to SOLR.
+        </description>
+        <attribute name="partyId" mode="IN" type="String" optional="false"></attribute>
+    </service>
+
+    <service name="indexPartyAccountInSolr" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrPartyAccountServices"
+             invoke="indexPartyAccountInSolr"
+             auth="true"
+             use-transaction="false">
+        <description>
+            Indexes single party info to SOLR.
+        </description>
+        <attribute name="partyId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="isDataPassed" mode="IN" type="Boolean" optional="true"
+                   default-value="false"></attribute>
+        <attribute name="partyAccountData" mode="IN" type="Map" optional="true"></attribute>
+    </service>
+
+    <service name="deletePartyInSolr" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices" invoke="deletePartyInSolr"
+             auth="true" use-transaction="false">
+        <description>
+            Delete single party info to SOLR.
+        </description>
+        <attribute name="partyId" mode="IN" type="String" optional="false"></attribute>
+    </service>
+
+
+    <!-- ECA services -->
+    <service name="onProductCategoryUpdate" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrEcaServices"
+             invoke="onProductCategoryUpdate"
+             use-transaction="false">
+        <description>Service to be invoked when product category is added/udpated. Called from ECA
+        </description>
+        <attribute name="productCategoryInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+    </service>
+    <service name="onProductUpdate" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrEcaServices"
+             invoke="onProductUpdate"
+             use-transaction="false">
+        <description>Service to be invoked when product is added/udpated. Called from ECA</description>
+        <attribute name="productInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+    </service>
+    <service name="onProductPriceUpdate" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrEcaServices"
+             invoke="onProductPriceUpdate"
+             use-transaction="false">
+        <description>Service to be invoked when product is added/udpated. Called from ECA</description>
+        <attribute name="productPriceInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+    </service>
+    <service name="onSupplierProductUpdate" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrEcaServices"
+             invoke="onSupplierProductUpdate"
+             use-transaction="false">
+        <description>Service to be invoked when product-supplier info is added/udpated. Called from
+            ECA
+        </description>
+        <attribute name="supplierProductInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+    </service>
+    <service name="onProductAssocUpdate" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrEcaServices"
+             invoke="onProductAssocUpdate"
+             use-transaction="false">
+        <description>Service to be invoked when product-assoc info is added/udpated. Called from ECA
+        </description>
+        <attribute name="productAssocInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+    </service>
+
+    <service name="onAgreementProductApplUpdate" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.fsdSolrConnector.services.SolrEcaServices"
+             invoke="onAgreementProductApplUpdate"
+             use-transaction="false">
+        <description>Service to be invoked when sales contract for product is added/udpated. Called from
+            ECA
+        </description>
+        <attribute name="agreementProductApplInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+    </service>
+
+    <!-- Quote -->
+    <service name="indexQuoteBasicInformation" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="indexQuoteBasicInformation">
+        <description>Service to be invoked when Quote is added. Called from ECA</description>
+        <attribute name="quoteInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+    </service>
+
+    <service name="onQuoteCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteCreateUpdate">
+        <description>Service to be invoked when Quote is added. Called from ECA</description>
+        <attribute name="quoteInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+    </service>
+    <service name="onQuoteUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteCreateUpdate">
+        <description>Service to be invoked when Quote is udpated. Called from ECA</description>
+        <attribute name="quoteInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+    </service>
+
+    <!-- QuoteItem -->
+    <service name="onQuoteItemCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteItemCreateUpdateRemove">
+        <description>Service to be invoked when QuoteItem is added. Called from ECA</description>
+        <attribute name="quoteItemInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteItemUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteItemCreateUpdateRemove">
+        <description>Service to be invoked when QuoteItem is added. Called from ECA</description>
+        <attribute name="quoteItemInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteItemRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteItemCreateUpdateRemove">
+        <description>Service to be invoked when QuoteItem is removed. Called from ECA</description>
+        <attribute name="quoteItemInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- QuoteRole -->
+    <service name="onQuoteRoleCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteRoleCreateUpdateRemove">
+        <description>Service to be invoked when QuoteRole is added. Called from ECA</description>
+        <attribute name="quoteRoleInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteRoleUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteRoleCreateUpdateRemove">
+        <description>Service to be invoked when QuoteRole is added. Called from ECA</description>
+        <attribute name="quoteRoleInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteRoleRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteRoleCreateUpdateRemove">
+        <description>Service to be invoked when QuoteRole is removed. Called from ECA</description>
+        <attribute name="quoteRoleInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- QuoteAdjustment -->
+    <service name="onQuoteAdjustmentCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteAdjustmentCreateUpdateRemove">
+        <description>Service to be invoked when QuoteAdjustment is added. Called from ECA</description>
+        <attribute name="quoteAdjustmentInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteAdjustmentUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteAdjustmentCreateUpdateRemove">
+        <description>Service to be invoked when QuoteAdjustment is added. Called from ECA</description>
+        <attribute name="quoteAdjustmentInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteAdjustmentRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteAdjustmentCreateUpdateRemove">
+        <description>Service to be invoked when QuoteAdjustment is removed. Called from ECA
+        </description>
+        <attribute name="quoteAdjustmentInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- QuoteFarClassificationCode -->
+    <service name="onQuoteFarClassificationCodeCreate" engine="java" auth="true"
+             use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteFarClassificationCodeCreate">
+        <description>Service to be invoked when QuoteFarClassificationCode is added. Called from ECA
+        </description>
+        <attribute name="quoteFarClassificationCodeInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteFarClassificationCodeRemove" engine="java" auth="true"
+             use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteFarClassificationCodeRemove">
+        <description>Service to be invoked when QuoteFarClassificationCode is removed. Called from ECA
+        </description>
+        <attribute name="quoteFarClassificationCodeInstance" mode="IN" type="GenericPK"
+                   optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- QuoteNaicsCode -->
+    <service name="onQuoteNaicsCodeCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteNaicsCodeCreate">
+        <description>Service to be invoked when QuoteNaicsCode is added. Called from ECA</description>
+        <attribute name="quoteNaicsCodeInstance" mode="IN" type="GenericValue"
+                   optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onQuoteNaicsCodeRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="onQuoteNaicsCodeRemove">
+        <description>Service to be invoked when QuoteNaicsCode is removed. Called from ECA</description>
+        <attribute name="quoteNaicsCodeInstance" mode="IN" type="GenericPK" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!--<service name="onPartyCreateUpdate" engine="java" auth="true" use-transaction="false"
+             location="SolrEcaServices" invoke="onPartyCreateUpdate">
+        <description>Service to be invoked when Party is added/udpated. Called from ECA</description>
+        <attribute name="partyInstance" mode="IN" type="GenericValue" optional="false" ></attribute>
+    </service>-->
+
+    <service name="onPersonCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPersonCreateUpdateRemove">
+        <description>Service to be invoked when Person is added. Called from ECA</description>
+        <attribute name="personInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onPersonUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPersonCreateUpdateRemove">
+        <description>Service to be invoked when Person is updated. Called from ECA</description>
+        <attribute name="personInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onPersonRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPersonCreateUpdateRemove">
+        <description>Service to be invoked when Person is removed. Called from ECA</description>
+        <attribute name="personInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="onPartyGroupCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyGroupCreateUpdateRemove">
+        <description>Service to be invoked when PartyGroup is added. Called from ECA</description>
+        <attribute name="partyGroupInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onPartyGroupUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyGroupCreateUpdateRemove">
+        <description>Service to be invoked when PartyGroup is updated. Called from ECA</description>
+        <attribute name="partyGroupInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onPartyGroupRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyGroupCreateUpdateRemove">
+        <description>Service to be invoked when PartyGroup is removed. Called from ECA</description>
+        <attribute name="partyGroupInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="onPartyRoleCreate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyRoleCreateUpdateRemove">
+        <description>Service to be invoked when PartyRole is added. Called from ECA</description>
+        <attribute name="partyRoleInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onPartyRoleUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyRoleCreateUpdateRemove">
+        <description>Service to be invoked when PartyRole is updated. Called from ECA</description>
+        <attribute name="partyRoleInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="onPartyRoleRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyRoleCreateUpdateRemove">
+        <description>Service to be invoked when PartyRole is removed. Called from ECA</description>
+        <attribute name="partyRoleInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="onPartyRelationshipCreateUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyRelationshipCreateUpdate">
+        <description>Service to be invoked when PartyRelationship is created/updated/removed. Called
+            from ECA
+        </description>
+        <attribute name="partyRelationshipInstance" mode="IN" type="GenericValue" optional="false"/>
+    </service>
+
+    <!--<service name="onPersonCreateUpdateRemove" engine="java" auth="true"
+             location="SolrPartyServices" invoke="onPersonCreateUpdateRemove">
+        <description>Service to be invoked when Party is added/udpated. Called from ECA</description>
+        <attribute name="personInstance" mode="IN" type="GenericValue" optional="false" ></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>-->
+
+    <service name="onPartyGroupCreateUpdateRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyGroupCreateUpdateRemove">
+        <description>Service to be invoked when Party is added/udpated. Called from ECA</description>
+        <attribute name="partyGroupInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="onPartyRoleCreateUpdateRemove" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyRoleCreateUpdateRemove">
+        <description>Service to be invoked when Party is added/udpated. Called from ECA</description>
+        <attribute name="partyRoleInstance" mode="IN" type="GenericValue" optional="false"></attribute>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="onPartyAttributeCreateUpdate" engine="java" auth="true" use-transaction="false"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="onPartyAttributeCreateUpdate">
+        <description>Service to be invoked when PartyAttribute is added or updated. Called from ECA
+        </description>
+        <attribute name="partyAttributeInstance" mode="IN" type="GenericValue" optional="false"/>
+        <attribute name="operation" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- Utility Services -->
+    <service name="indexAllQuotesInSolr" engine="java"
+             location="com.simbaquartz.xorder.services.order.SolrOrderServices"
+             invoke="indexAllQuotesInSolr"
+             auth="true" use-transaction="false">
+        <description>
+            Indexes all quotes to SOLR. Use isQuoteScoreIndexingRequired = true to index quote scores as
+            well, defaults
+            to true.
+        </description>
+        <attribute name="isQuoteScoreIndexingRequired" mode="IN" type="String" optional="true"
+                   default-value="N"/>
+        <attribute name="isDeleteAllExistingQuotesRequired" mode="IN" type="String" optional="true"
+                   default-value="N"/>
+    </service>
+
+    <!-- Order -->
+
+    <service name="solrGlobalSearch" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrServices"
+             invoke="solrGlobalSearch" auth="true" transaction-timeout="7200"
+             require-new-transaction="false" use-transaction="false">
+        <description>
+            Perform Global Search
+        </description>
+        <attribute name="keyword" mode="IN" type="String" optional="true"/>
+        <attribute name="docType" mode="IN" type="String" optional="true"/>
+        <attribute name="searchResult" mode="OUT" type="List" optional="false"/>
+        <attribute name="startIndex" type="Integer" mode="IN" optional="true" default-value="0"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true" default-value="10"/>
+        <attribute name="totalDocumentsFound" mode="OUT" type="Long" optional="true"/>
+        <attribute name="filteredLeadCount" mode="OUT" type="Long" optional="true"/>
+        <attribute name="filteredCustomersCount" mode="OUT" type="Long" optional="true"/>
+        <attribute name="filteredDealCount" mode="OUT" type="Long" optional="true"/>
+        <attribute name="filteredProjectsCount" mode="OUT" type="Long" optional="true"/>
+        <attribute name="filteredTasksCount" mode="OUT" type="Long" optional="true"/>
+        <attribute name="filteredContactsCount" mode="OUT" type="Long" optional="true"/>
+    </service>
+
+    <service name="performSolrSearch" engine="java"
+             location="com.simbaquartz.xsolr.services.SolrSearchService"
+             invoke="performSolrSearch" auth="false" transaction-timeout="7200"
+             require-new-transaction="false" use-transaction="false">
+        <description>
+            A very generic solr search that should be used when possible to avoid making database calls.
+            Supports faceted search as well. Example Usage
+            &lt;code&gt;
+            List&lt;String&gt; searchFields = FastList.newInstance();
+            searchFields.add("quoteId");
+            searchFields.add("quoteShippingDestinations");
+            searchFields.add("quoteCustomerPartyId");
+
+            String awardedQuoteConstraint = "quoteStatusId:QUO_ORDERED";
+            List&lt;String&gt; filterQueryFields = UtilMisc.toList("docType:quote",
+            awardedQuoteConstraint);
+            List&lt;String&gt; facetFields = UtilMisc.toList("quoteCustomerPartyId");
+
+            Map performSolrSearchContext = UtilMisc.toMap("searchFields", searchFields,
+            "filterQueryFields",
+            filterQueryFields, "facetFields", facetFields);
+            Map performSolrSearchResponse = dispatcher.runSync("performSolrSearch",
+            performSolrSearchContext);
+            &lt;/code&gt;
+
+        </description>
+        <attribute name="searchFields" mode="IN" type="List" optional="false"/>
+        <attribute name="filterQueryFields" mode="IN" type="List" optional="false"/>
+        <attribute name="searchText" mode="IN" type="String" optional="true"/>
+        <attribute name="sortBy" mode="IN" type="String" optional="true"/>
+        <attribute name="facetFields" mode="IN" type="List" optional="true">
+            <description>If supplied search will be made with faceting turned on, and results returned in
+                the map
+                containing the key value pairs as the field name and corresponding records.
+            </description>
+        </attribute>
+
+        <attribute name="totalNumberOfRecords" mode="OUT" type="Integer" optional="false"/>
+        <attribute name="records" mode="OUT" type="List" optional="false"/>
+        <attribute name="facetResults" mode="OUT" type="List" optional="true">
+            <description>Returns list of Map in the format [{ facetedFieldName: {value:'Facet Value',
+                count: 'Facet
+                Count'} } ], works only when facetFields are provided.
+            </description>
+        </attribute>
+    </service>
+
+    <service name="searchParties" engine="java" auth="true"
+             location="com.simbaquartz.xsolr.services.SolrPartyServices"
+             invoke="searchParties">
+        <description>Searches parties indexed in SOLR store via indexAllPartiesInSolr service
+        </description>
+        <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true" default-value="partyName"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyType" type="String" mode="IN" optional="true"/>
+        <attribute name="partyName" type="String" mode="IN" optional="true"/>
+        <attribute name="fullPartyName" type="String" mode="IN" optional="true"/>
+        <attribute name="partyCity" type="String" mode="IN" optional="true"/>
+        <attribute name="partyStateProvinceGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyCountryGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyPostalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="selectedRoleType" type="String" mode="IN" optional="true"/>
+        <attribute name="selectedRoleTypes" type="List" mode="IN" optional="true"/>
+        <attribute name="phoneNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="nameAndEmailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="employer" type="String" mode="IN" optional="true"/>
+
+        <attribute name="searchResults" type="List" mode="OUT" optional="false"/>
+        <attribute name="totalResultSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="allCount" type="Integer" mode="OUT" optional="false"/>
+    </service>
+
+</services>

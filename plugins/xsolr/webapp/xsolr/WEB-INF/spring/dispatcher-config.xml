@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:solr="http://www.springframework.org/schema/data/solr"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    https://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/solr
+    https://www.springframework.org/schema/data/solr/spring-solr.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+     #####################################
+     CONTEXT SETTINGS
+     #####################################
+      -->
+    <context:property-placeholder location="classpath:com/simbaquartz/solr/config/solr-spring-configuration.properties" ignore-resource-not-found="true" />
+    <context:component-scan base-package="com.simbaquartz.solr" />
+
+    <!--
+     #####################################
+     SOLR
+     #####################################
+    -->
+    <!--<solr:solr-server id="solrServer" url="${solr.host}" />-->
+    <solr:solr-client id="solrClient" url="https://locahost:8983/solr" />
+
+    <solr:repositories base-package="com.simbaquartz.solr.repositories" />
+<!--
+    <bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate" scope="singleton">
+        <constructor-arg ref="solrServer" />
+    </bean>
+
+    <bean id="searchRepository" class="com.simbaquartz.solr.repositories.ProductRepository">
+        <property name="solrOperations" ref="solrTemplate" />
+    </bean>
+-->
+
+
+</beans>

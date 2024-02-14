@@ -316,12 +316,12 @@ public class PartyInvitationServices {
         }
 
         boolean isAppMember =
-            HierarchyUtils.checkPartyRole(delegator, inviteePartyId, "APP_MEMBER");
+            HierarchyUtils.checkPartyRole(delegator, inviteePartyId, "ORG_MEMBER");
         if (!isAppMember) {
           Map<String, Object> createPartyRoleCtx = new HashMap<>();
           createPartyRoleCtx.put("userLogin", userLogin);
           createPartyRoleCtx.put("partyId", inviteePartyId);
-          createPartyRoleCtx.put("roleTypeId", "APP_MEMBER");
+          createPartyRoleCtx.put("roleTypeId", "ORG_MEMBER");
 
           Map<String, Object> createPartyRoleResponse =
               dispatcher.runSync("createPartyRole", createPartyRoleCtx);
@@ -487,7 +487,7 @@ public class PartyInvitationServices {
                     "roleTypeIdFrom",
                     "_NA_",
                     "roleTypeIdTo",
-                    "APP_MEMBER",
+                    "ORG_MEMBER",
                     "partyRelationshipTypeId",
                     "MEMBERSHIP")
                 .queryOne();
@@ -497,7 +497,7 @@ public class PartyInvitationServices {
           createPartyRelationshipCtx.put("partyIdFrom", companyPartyId);
           createPartyRelationshipCtx.put("partyIdTo", inviteePartyId);
           createPartyRelationshipCtx.put("roleTypeIdFrom", "_NA_");
-          createPartyRelationshipCtx.put("roleTypeIdTo", "APP_MEMBER");
+          createPartyRelationshipCtx.put("roleTypeIdTo", "ORG_MEMBER");
           createPartyRelationshipCtx.put("partyRelationshipTypeId", "MEMBERSHIP");
 
           Map<String, Object> createPartyRelationshipResponse =

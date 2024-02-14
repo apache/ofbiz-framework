@@ -19,103 +19,94 @@ under the License.
 -->
 
 <entity-engine-xml>
-  <SecurityPermission description="View operations in the Xparty Component."
-    permissionId="XPARTY_VIEW"/>
-  <SecurityPermission description="Create operations in the Xparty Component."
-    permissionId="XPARTY_CREATE"/>
-  <SecurityPermission description="Update operations in the Xparty Component."
-    permissionId="XPARTY_UPDATE"/>
-  <SecurityPermission description="Delete operations in the Xparty Component."
-    permissionId="XPARTY_DELETE"/>
-  <SecurityPermission description="ALL operations in the Xparty Component."
-    permissionId="XPARTY_ADMIN"/>
+    <SecurityPermission description="View operations in the Xparty Component." permissionId="XPARTY_VIEW"/>
+    <SecurityPermission description="Create operations in the Xparty Component." permissionId="XPARTY_CREATE"/>
+    <SecurityPermission description="Update operations in the Xparty Component." permissionId="XPARTY_UPDATE"/>
+    <SecurityPermission description="Delete operations in the Xparty Component." permissionId="XPARTY_DELETE"/>
+    <SecurityPermission description="ALL operations in the Xparty Component." permissionId="XPARTY_ADMIN"/>
 
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER"
-    permissionId="XPARTY_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER"
-    permissionId="XPARTY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="XPARTY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="XPARTY_ADMIN"/>
 
-  <SecurityGroup description="Admin group for restricted order processing." groupId="APP_ADMIN"
-    groupName="Administrator of the App"/>
-  <SecurityGroup description="Admin group for restricted order processing." groupId="APP_MANAGER"
-    groupName="Manager of the App"/>
-  <SecurityGroup description="Admin group for restricted order processing." groupId="APP_MEMBER"
-    groupName="Member of the App"/>
+    <!-- Overall App/SaaS level security groups -->
+    <SecurityPermission description="All operations at the App level." permissionId="APP_FULL_ADMIN"/>
+    <SecurityPermission description="Client onboarding permissions." permissionId="ONBOARD_ADMIN"/>
 
-  <!--    Admin Level Permissions-->
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="PARTYMGR_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="PARTYMGR_REL_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="SECURITY_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="CONTENTMGR_ROLE_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="COMMON_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="COMMON_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="PARTYMGR_UPDATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN"
-    permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroup description="Super Admin of the application" groupId="APP_ADMIN"
+                   groupName="Administrator of the Whole Application"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN" permissionId="APP_FULL_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_ADMIN" permissionId="ONBOARD_ADMIN"/>
 
-  <!--    Manager Level Permissions-->
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="PARTYMGR_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="PARTYMGR_REL_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="CONTENTMGR_ROLE_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="COMMON_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="COMMON_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="PARTYMGR_UPDATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MANAGER"
-    permissionId="PARTYMGR_ADMIN"/>
+    <!-- Org/Tenant level security groups -->
+    <SecurityGroup description="Admin group to manage the Org" groupId="ORG_ADMIN" groupName="Administrator of the Org"/>
+    <SecurityGroup description="Manager group to manage the org" groupId="ORG_MANAGER" groupName="Manager of the Org"/>
+    <SecurityGroup description="Member group of the org" groupId="ORG_MEMBER" groupName="Member of the Org"/>
 
-  <!--    Member Level Permissions-->
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MEMBER"
-    permissionId="PARTYMGR_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MEMBER"
-    permissionId="PARTYMGR_REL_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MEMBER"
-    permissionId="CONTENTMGR_ROLE_ADMIN"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MEMBER"
-    permissionId="COMMON_CREATE"/>
-  <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="APP_MEMBER"
-    permissionId="PARTYMGR_UPDATE"/>
+    <!-- Org-Admin Level Permissions-->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="PARTYMGR_REL_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="SECURITY_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="CONTENTMGR_ROLE_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="COMMON_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="COMMON_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_ADMIN" permissionId="PARTYMGR_ADMIN"/>
 
-  <!-- App roles for permissions-->
-  <RoleType description="App Roles" hasTable="N" parentTypeId="" roleTypeId="APP_ROLES"/>
-  <RoleType description="App Admin" hasTable="N" parentTypeId="APP_ROLES" roleTypeId="APP_ADMIN"/>
-  <RoleType description="App Member" hasTable="N" parentTypeId="APP_ROLES" roleTypeId="APP_MEMBER"/>
-  <RoleType description="App Manager" hasTable="N" parentTypeId="APP_ROLES"
-    roleTypeId="APP_MANAGER"/>
+    <!-- Org-Manager Level Permissions-->
+    <!--<SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="PARTYMGR_REL_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="CONTENTMGR_ROLE_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="COMMON_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="COMMON_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MANAGER"
+      permissionId="PARTYMGR_ADMIN"/>
 
-  <!--App Admin has all the permissions for Lead-->
-  <RolePermission roleTypeId="APP_ADMIN" permissionId="LEAD_CREATE"/>
-  <RolePermission roleTypeId="APP_ADMIN" permissionId="LEAD_VIEW"/>
-  <RolePermission roleTypeId="APP_ADMIN" permissionId="LEAD_UPDATE"/>
-  <RolePermission roleTypeId="APP_ADMIN" permissionId="LEAD_DELETE"/>
-  <RolePermission roleTypeId="APP_ADMIN" permissionId="COMMON_ADMIN"/>
-  <RolePermission roleTypeId="APP_ADMIN" permissionId="PARTYMGR_ADMIN"/>
+    &lt;!&ndash;    Org-Member Level Permissions&ndash;&gt;
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MEMBER"
+      permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MEMBER"
+      permissionId="PARTYMGR_REL_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MEMBER"
+      permissionId="CONTENTMGR_ROLE_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MEMBER"
+      permissionId="COMMON_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORG_MEMBER"
+      permissionId="PARTYMGR_UPDATE"/>-->
 
-  <!--App Manager has limited permissions for Lead-->
-  <RolePermission roleTypeId="APP_MANAGER" permissionId="LEAD_CREATE"/>
-  <RolePermission roleTypeId="APP_MANAGER" permissionId="LEAD_VIEW"/>
-  <RolePermission roleTypeId="APP_MANAGER" permissionId="LEAD_UPDATE"/>
-  <RolePermission roleTypeId="APP_MANAGER" permissionId="COMMON_CREATE"/>
-  <RolePermission roleTypeId="APP_MANAGER" permissionId="PARTYMGR_UPDATE"/>
+    <!-- Organization level roles for permissions-->
+    <!--<RoleType description="App Roles" hasTable="N" parentTypeId="" roleTypeId="APP_ROLES"/>
+    <RoleType description="App Admin" hasTable="N" parentTypeId="APP_ROLES" roleTypeId="ORG_ADMIN"/>
+    <RoleType description="App Member" hasTable="N" parentTypeId="APP_ROLES" roleTypeId="ORG_MEMBER"/>
+    <RoleType description="App Manager" hasTable="N" parentTypeId="APP_ROLES" roleTypeId="ORG_MANAGER"/>
 
-  <!--App Manager has limited permissions for Lead-->
-  <RolePermission roleTypeId="APP_MEMBER" permissionId="LEAD_UPDATE"/>
-  <RolePermission roleTypeId="APP_MEMBER" permissionId="LEAD_CREATE"/>
-  <RolePermission roleTypeId="APP_MEMBER" permissionId="LEAD_VIEW"/>
-  <RolePermission roleTypeId="APP_MEMBER" permissionId="PARTYMGR_UPDATE"/>
-  <RolePermission roleTypeId="APP_MEMBER" permissionId="COMMON_CREATE"/>
-  <RolePermission roleTypeId="APP_MEMBER" permissionId="PARTYMGR_UPDATE"/>
+    &lt;!&ndash;App Admin has all the permissions for Lead&ndash;&gt;
+    <RolePermission roleTypeId="ORG_ADMIN" permissionId="LEAD_CREATE"/>
+    <RolePermission roleTypeId="ORG_ADMIN" permissionId="LEAD_VIEW"/>
+    <RolePermission roleTypeId="ORG_ADMIN" permissionId="LEAD_UPDATE"/>
+    <RolePermission roleTypeId="ORG_ADMIN" permissionId="LEAD_DELETE"/>
+    <RolePermission roleTypeId="ORG_ADMIN" permissionId="COMMON_ADMIN"/>
+    <RolePermission roleTypeId="ORG_ADMIN" permissionId="PARTYMGR_ADMIN"/>
+
+    &lt;!&ndash;App Manager has limited permissions for Lead&ndash;&gt;
+    <RolePermission roleTypeId="ORG_MANAGER" permissionId="LEAD_CREATE"/>
+    <RolePermission roleTypeId="ORG_MANAGER" permissionId="LEAD_VIEW"/>
+    <RolePermission roleTypeId="ORG_MANAGER" permissionId="LEAD_UPDATE"/>
+    <RolePermission roleTypeId="ORG_MANAGER" permissionId="COMMON_CREATE"/>
+    <RolePermission roleTypeId="ORG_MANAGER" permissionId="PARTYMGR_UPDATE"/>
+
+    &lt;!&ndash;App Manager has limited permissions for Lead&ndash;&gt;
+    <RolePermission roleTypeId="ORG_MEMBER" permissionId="LEAD_UPDATE"/>
+    <RolePermission roleTypeId="ORG_MEMBER" permissionId="LEAD_CREATE"/>
+    <RolePermission roleTypeId="ORG_MEMBER" permissionId="LEAD_VIEW"/>
+    <RolePermission roleTypeId="ORG_MEMBER" permissionId="PARTYMGR_UPDATE"/>
+    <RolePermission roleTypeId="ORG_MEMBER" permissionId="COMMON_CREATE"/>
+    <RolePermission roleTypeId="ORG_MEMBER" permissionId="PARTYMGR_UPDATE"/>-->
 
 </entity-engine-xml>

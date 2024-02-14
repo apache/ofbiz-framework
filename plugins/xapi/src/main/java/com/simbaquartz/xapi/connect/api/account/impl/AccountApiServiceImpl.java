@@ -442,7 +442,7 @@ public class AccountApiServiceImpl extends AccountApiService {
             List<GenericValue> appMembers =
                     EntityQuery.use(tenantDelegator)
                             .from("PartyRole")
-                            .where("roleTypeId", "APP_MEMBER")
+                            .where("roleTypeId", "ORG_MEMBER")
                             .queryList();
             if (UtilValidate.isNotEmpty(appMembers)) {
                 for (GenericValue appMember : appMembers) {

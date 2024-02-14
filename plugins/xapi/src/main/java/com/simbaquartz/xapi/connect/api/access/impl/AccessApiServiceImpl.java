@@ -215,9 +215,7 @@ public class AccessApiServiceImpl extends AccessApiService {
           Response.Status.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
-    ApplicationUser loggedInUserDetails =
-        MeApiServiceImpl.getUserDetails(
-            loggedInUser.getPartyId(), loggedInUser.getUserLogin(), delegator, dispatcher);
+    ApplicationUser loggedInUserDetails = MeApiServiceImpl.getUserDetails(loggedInUser.getPartyId(), loggedInUser.getUserLogin(), delegator, dispatcher);
     loggedInUserDetails.setSelf(true);
     loggedInUser.setAccountPartyId(loggedInUserDetails.getPersonalDetails().getOrganization().getId());
     if(UtilValidate.isNotEmpty(loggedInUserDetails.getStore())) {

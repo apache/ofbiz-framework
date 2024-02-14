@@ -51,7 +51,7 @@ under the License.
   <service name="isAccountAlreadySetup" engine="java" auth="false"
     location="com.simbaquartz.xparty.services.account.AccountServices"
     invoke="isAccountAlreadySetup">
-    <description>Checks if MMO Account is already setup.
+    <description>Checks if App Account is already setup.
     </description>
     <attribute name="isAccountSetup" type="Boolean" mode="OUT" optional="false"/>
   </service>

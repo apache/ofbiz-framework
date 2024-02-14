@@ -27,12 +27,12 @@ under the License.
   <context-param>
     <param-name>resteasy.resources</param-name>
     <param-value>
-      com.simbaquartz.xapi.connect.api.common.CommonLookupApi,
+      <!--com.simbaquartz.xapi.connect.api.common.CommonLookupApi,
       com.simbaquartz.xapi.connect.api.customer.CustomersApi,
       com.simbaquartz.xapi.connect.api.product.ProductsApi,
-      com.simbaquartz.xapi.connect.api.store.StoresApi,
+      com.simbaquartz.xapi.connect.api.store.StoresApi,-->
       com.simbaquartz.xapi.connect.api.me.MeApi,
-      com.simbaquartz.xapi.connect.api.checkout.CheckoutApi,
+      <!--com.simbaquartz.xapi.connect.api.checkout.CheckoutApi,
       com.simbaquartz.xapi.connect.api.category.CategoryApi,
       com.simbaquartz.xapi.connect.api.quote.QuotesApi,
       com.simbaquartz.xapi.connect.api.content.ContentApi,
@@ -44,10 +44,12 @@ under the License.
       com.simbaquartz.xapi.connect.api.order.OrderApi,
       com.simbaquartz.xapi.connect.api.order.SalesOrdersApi,
       com.simbaquartz.xapi.connect.api.order.PurchaseOrdersApi,
-      com.simbaquartz.xapi.connect.api.supplier.SupplierApi,
+      com.simbaquartz.xapi.connect.api.supplier.SupplierApi,-->
       com.simbaquartz.xapi.connect.api.access.AccessApi,
       com.simbaquartz.xapi.connect.api.ping.PingApi,
-      com.simbaquartz.xapi.connect.api.party.PartyApi,
+      com.simbaquartz.xapi.connect.api.account.AccountApi,
+      com.simbaquartz.xapi.connect.api.admin.auth.AdminAuthApi,
+      <!--com.simbaquartz.xapi.connect.api.party.PartyApi,
       com.simbaquartz.xapi.connect.api.collection.CollectionApi,
       com.simbaquartz.xapi.connect.api.salesQuota.SalesQuotaApi,
       com.simbaquartz.xapi.connect.api.opportunity.OpportunityApi,
@@ -56,9 +58,7 @@ under the License.
       com.simbaquartz.xapi.connect.api.client.ClientOnboardingApi,
       com.simbaquartz.xapi.connect.api.user.UserApi,
       com.simbaquartz.xapi.connect.api.admin.client.ClientManagementApi,
-      com.simbaquartz.xapi.connect.api.admin.auth.AdminAuthApi,
       com.simbaquartz.xapi.connect.api.admin.user.AdminUserApi,
-      com.simbaquartz.xapi.connect.api.account.AccountApi,
       com.simbaquartz.xapi.connect.api.lead.LeadApi,
       com.simbaquartz.xapi.connect.api.workspace.WorkspaceApi,
       com.simbaquartz.xapi.connect.api.jobRole.JobRoleApi,
@@ -80,7 +80,7 @@ under the License.
       com.simbaquartz.xapi.connect.api.savedSearch.SavedSearchApi,
       com.simbaquartz.xapi.connect.api.storage.StorageApi,
       com.simbaquartz.xapi.connect.api.people.PeopleApi,
-      com.simbaquartz.xapi.connect.api.application.ApplicationApi,
+      com.simbaquartz.xapi.connect.api.application.ApplicationApi,-->
       com.simbaquartz.xapi.connect.api.adhoc.AdhocApi
     </param-value>
   </context-param>

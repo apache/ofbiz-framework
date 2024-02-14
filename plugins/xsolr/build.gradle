@@ -1,0 +1,85 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import groovy.json.JsonSlurper
+
+dependencies {
+    //Examples of compile-time and runtime dependencies
+    pluginLibsCompile 'org.apache.solr:solr-solrj:8.6.0'
+}
+
+task install {
+    doLast {
+        // Install logic for this plugin
+    }
+}
+
+task uninstall {
+    doLast {
+        // uninstall logic for this plugin
+    }
+}
+
+
+def solrCoreName = "MTDCORE"
+def solrConfigurationFile = "${pluginsDir}/xsolr/config/solr/${solrCoreName}/conf/managed-schema"
+def solrServerCoreConfigFile = "C:/servers/solr/solr-8.6.2/server/solr/${solrCoreName}/conf"
+def solrServerCoreConfigFile_PROD = "/var/solr/data/${solrCoreName}/conf"
+def solrServerHostUrl = "http://localhost:8983"
+def solrServerReloadCoreUrl = "${solrServerHostUrl}/solr/admin/cores?action=RELOAD&core=${solrCoreName}"
+
+task updateSolrSchema(
+        description: 'Copies the managed-schema file and updates the repository conf on solr server directory.' +
+                'Also reloads the core via core update url.') {
+    doLast {
+
+        println "Copying managed-schema from ${solrConfigurationFile} to ${solrServerCoreConfigFile}"
+
+        copy {
+            from solrConfigurationFile
+            into solrServerCoreConfigFile
+        }
+
+        println "Reloading core via core admin url ${solrServerReloadCoreUrl}"
+        def req = new URL(solrServerReloadCoreUrl).openConnection()
+        logger.quiet "Status code: ${req.getResponseCode()}"
+        def resp = new JsonSlurper().parseText(req.getInputStream().getText())
+        logger.quiet "Response: ${resp}"
+    }
+}
+
+task updateSolrSchemaProd(
+        description: 'Copies the managed-schema file and updates the repository conf on solr server directory in PRODUCTION.' +
+                'Also reloads the core via core update url.') {
+    doLast {
+
+        println "Copying managed-schema from ${solrConfigurationFile} to ${solrServerCoreConfigFile_PROD}"
+
+        copy {
+            from solrConfigurationFile
+            into solrServerCoreConfigFile_PROD
+        }
+
+        println "Reloading core via core admin url ${solrServerReloadCoreUrl}"
+        def req = new URL(solrServerReloadCoreUrl).openConnection()
+        logger.quiet "Status code: ${req.getResponseCode()}"
+        def resp = new JsonSlurper().parseText(req.getInputStream().getText())
+        logger.quiet "Response: ${resp}"
+    }
+}

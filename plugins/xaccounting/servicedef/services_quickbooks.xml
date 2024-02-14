@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /******************************************************************************************
+  ~  * Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved     *
+  ~  * Unauthorized copying of this file, via any medium is strictly prohibited               *
+  ~  * Proprietary and confidential                                                           *
+  ~  * Written by Mandeep Sidhu, October, 2019                                                *
+  ~  ******************************************************************************************/
+  -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>QuickBooks Integration related services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="getQuickBooksCustomers" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCustomerServices" invoke="getQuickBooksCustomers"
+             auth="true">
+        <description>Get Customers from QuickBooks. </description>
+        <attribute name="quickBooksCustomers" type="List" mode="OUT"/>
+    </service>
+    <service name="getQuickBooksCustomerById" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCustomerServices" invoke="getQuickBooksCustomerById"
+             auth="true">
+        <description>Get Customer from QuickBooks by Id. </description>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="quickBooksCustomer" type="com.fidelissd.fsdaccounting.services.quickbooks.model.QuickBooksCustomer" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getQuickBooksVendors" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksVendorServices" invoke="getQuickBooksVendors"
+             auth="true">
+        <description>Get Vendors from QuickBooks. </description>
+        <attribute name="quickBooksVendors" type="List" mode="OUT"/>
+    </service>
+    <service name="getQuickBooksVendorById" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksVendorServices" invoke="getQuickBooksVendorById"
+             auth="true">
+        <description>Get Vendor from QuickBooks by Id. </description>
+        <attribute name="supplierId" type="String" mode="IN"/>
+        <attribute name="quickBooksVendor" type="com.fidelissd.fsdaccounting.services.quickbooks.model.QuickBooksVendor" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getQuickBooksAccessDetails" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCommonServices" invoke="getQuickBooksAccessDetails"
+             auth="true">
+        <description>Generic Service to get quickbooks auth settings, to be used be all services that invoke Quickbooks APIs</description>
+        <attribute name="quickBooksAccessToken" type="String" mode="OUT"/>
+        <attribute name="quickBooksBearerAuthHeader" type="String" mode="OUT"/>
+        <attribute name="quickBooksRealmId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="revokeQuickBooksAccessToken" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCommonServices" invoke="revokeQuickBooksAccessToken"
+             auth="true">
+        <description>Revoke access token to disconnect from quickbooks</description>
+    </service>
+
+    <service name="processAuthCodeAndGetAccessToken" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCommonServices" invoke="processAuthCodeAndGetAccessToken"
+             auth="true">
+        <description>Get Access Token using Authorization Code from QuickBooks. </description>
+        <attribute name="authorizationCode" type="String" mode="IN"/>
+        <attribute name="realmId" type="String" mode="IN"/>
+    </service>
+
+    <service name="refreshQuickBooksAccessToken" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCommonServices" invoke="refreshQuickBooksAccessToken"
+             auth="true">
+        <description>Refresh Access Token using Refresh Token from QuickBooks. </description>
+        <attribute name="failSilently" type="String" mode="IN" optional="true" default-value="Y"/>
+        <attribute name="quickBooksBearerAuthHeader" type="String" mode="OUT" optional="true"/>
+        <attribute name="quickBooksRealmId" type="String" mode="OUT" optional="true"/>
+        <attribute name="quickBooksAccessToken" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="pushInvoiceToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksInvoiceServices" invoke="pushInvoiceToQuickBooks"
+             auth="true">
+        <description>Push the ZCP invoice to QuickBooks.</description>
+        <attribute name="invoiceId" type="String" mode="IN"/>
+        <attribute name="qboInvoiceId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="pushCustomerToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksCustomerServices" invoke="pushCustomerToQuickBooks"
+             auth="true">
+        <description>Push the ZCP customer to QuickBooks.</description>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="qboPartyId" type="String" mode="OUT"/>
+    </service>
+    
+    <service name="pushVendorToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksVendorServices" invoke="pushVendorToQuickBooks"
+             auth="true">
+        <description>Push the ZCP vendor to QuickBooks.</description>
+        <attribute name="supplierId" type="String" mode="IN"/>
+        <attribute name="qboPartyId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="uploadInvoiceAttachmentsFromZcpToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksInvoiceServices" invoke="uploadInvoiceAttachmentsFromZcpToQuickBooks"
+             auth="true" transaction-timeout="7200">
+        <description>Push the ZCP invoice attachments to QuickBooks.</description>
+        <attribute name="invoiceId" type="String" mode="IN"/>
+        <attribute name="quoteContentTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="successfulUploadedFiles" type="List" mode="OUT" optional="true"/>
+        <attribute name="largeErrorFiles" type="List" mode="OUT" optional="true"/>
+        <attribute name="errorFiles" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="uploadAttachmentsFromZcpToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksAttachmentServices" invoke="uploadAttachmentsFromZcpToQuickBooks"
+             auth="true" transaction-timeout="7200">
+        <description>Push the ZCP attachments to QuickBooks.</description>
+        <attribute name="attachmentDetail" type="Map" mode="IN"/>
+        <attribute name="successfulUploadedFiles" type="List" mode="OUT" optional="true"/>
+        <attribute name="largeErrorFiles" type="List" mode="OUT" optional="true"/>
+        <attribute name="errorFiles" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="pushInvoicePaymentFromZcpToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksInvoiceServices" invoke="pushInvoicePaymentFromZcpToQuickBooks"
+             auth="true">
+        <attribute name="invoiceId" type="String" mode="IN"/>
+        <attribute name="qboPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="qboInvoiceId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="pushPaymentFromZcpToQuickBooks" engine="java"
+             location="com.fidelissd.fsdaccounting.services.quickbooks.QuickBooksInvoiceServices" invoke="pushPaymentFromZcpToQuickBooks"
+             auth="true">
+        <attribute name="paymentId" type="String" mode="IN"/>
+        <attribute name="qboPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quickBooksLinkedTxn" type="com.fidelissd.fsdaccounting.services.quickbooks.model.QuickBooksLinkedTxn" mode="IN" optional="true"/>
+        <attribute name="qboPaymentId" type="String" mode="OUT"/>
+    </service>
+</services>

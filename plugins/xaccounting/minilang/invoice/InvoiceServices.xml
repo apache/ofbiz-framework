@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
+
+    <simple-method method-name="fsdCreateInvoiceNote" short-description="Create a new Note associated with a Invoice">
+        <set-service-fields service-name="createNote" map="parameters" to-map="createNoteMap"/>
+        <!-- passed in field will be noteInfo, which matches entity, but service expects field called note -->
+        <set field="createNoteMap.note" from-field="parameters.noteInfo"/>
+        <call-service service-name="createNote" in-map-name="createNoteMap">
+            <result-to-field result-name="noteId"/>
+        </call-service>
+        <if-empty field="noteId">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderProblemCreatingTheNoteNoNoteIdReturned"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <make-value value-field="newInvoiceNote" entity-name="InvoiceNote"/>
+        <set field="newInvoiceNote.invoiceId" from-field="parameters.invoiceId"/>
+        <set field="newInvoiceNote.noteId" from-field="noteId"/>
+        <set field="newInvoiceNote.isInternal" from-field="parameters.isInternal"/>
+        <set field="newInvoiceNote.noteTypeId" from-field="parameters.noteTypeId"/>
+        <create-value value-field="newInvoiceNote"/>
+    </simple-method>
+    <simple-method method-name="fsdCreateInvoiceRole" short-description="Create a Invoice Role">
+        <make-value value-field="newEntity" entity-name="InvoiceRole"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.datetimePerformed"><now-timestamp field="newEntity.datetimePerformed"/></if-empty>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="fsdRemoveInvoiceRole" short-description="Remove existing Invoice Role">
+        <entity-one entity-name="InvoiceRole" value-field="lookedUpValue"/>
+        <if-not-empty field="lookedUpValue">
+            <remove-value value-field="lookedUpValue"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="fsdCreatePaymentNote" short-description="Create a new Note associated with a Payment">
+        <set-service-fields service-name="createNote" map="parameters" to-map="createNoteMap"/>
+        <!-- passed in field will be noteInfo, which matches entity, but service expects field called note -->
+        <set field="createNoteMap.note" from-field="parameters.noteInfo"/>
+        <call-service service-name="createNote" in-map-name="createNoteMap">
+            <result-to-field result-name="noteId"/>
+        </call-service>
+        <if-empty field="noteId">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderProblemCreatingTheNoteNoNoteIdReturned"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <make-value value-field="newPaymentNote" entity-name="PaymentNote"/>
+        <set field="newPaymentNote.paymentId" from-field="parameters.paymentId"/>
+        <set field="newPaymentNote.noteId" from-field="noteId"/>
+        <set field="newPaymentNote.isInternal" from-field="parameters.isInternal"/>
+        <set field="newPaymentNote.noteTypeId" from-field="parameters.noteTypeId"/>
+        <create-value value-field="newPaymentNote"/>
+    </simple-method>
+
+    <simple-method method-name="fsdRemovePaymentNote" short-description="Remove an existing Payment Note">
+        <entity-one entity-name="PaymentNote" value-field="paymentNote" auto-field-map="true"/>
+        <entity-one entity-name="NoteData" value-field="paymentNoteData" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-field="paymentNote"/>
+        <remove-value value-field="paymentNoteData"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="fsdRemoveInvoiceNote" short-description="Remove an existing Invoice Note">
+        <entity-one entity-name="InvoiceNote" value-field="invoiceNote" auto-field-map="true"/>
+        <entity-one entity-name="NoteData" value-field="invoiceNoteData" auto-field-map="true"/>
+        <check-errors/>
+        <remove-value value-field="invoiceNote"/>
+        <remove-value value-field="invoiceNoteData"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- create a new InvoiceAttribute -->
+    <simple-method method-name="createInvoiceAttribute" short-description="Create a Invoice Attribute">
+        <!-- create new entity and create all the fields -->
+        <make-value value-field="newEntity" entity-name="InvoiceAttribute"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- update an existing Invoice Attribute -->
+    <simple-method method-name="updateInvoiceAttribute" short-description="Update an existing Invoice Attribute">
+        <entity-one entity-name="InvoiceAttribute" value-field="invoiceAttribute" auto-field-map="true"/>
+        <check-errors/>
+        <set-nonpk-fields map="parameters" value-field="invoiceAttribute"/>
+        <store-value value-field="invoiceAttribute"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="fsdUpdatePaymentNote" short-description="Update an existing PaymentNote">
+        <entity-one entity-name="PaymentNote" value-field="paymentNote" auto-field-map="true"/>
+        <entity-one entity-name="NoteData" value-field="paymentNoteData" auto-field-map="true"/>
+        <check-errors/>
+        <set field="paymentNoteData.noteInfo" from-field="parameters.noteInfo"/>
+        <set field="paymentNote.noteTypeId" from-field="parameters.noteTypeId"/>
+        <store-value value-field="paymentNote"/>
+        <store-value value-field="paymentNoteData"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="fsdCreateInvoiceItem" short-description="Create a new Invoice Item">
+        <set field="invoiceId" from-field="parameters.invoiceId"/>
+        <!--<call-simple-method method-name="InvoiceStatusInProgress"/>-->
+        <make-value value-field="newEntity" entity-name="InvoiceItem"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.invoiceItemSeqId">
+            <make-next-seq-id value-field="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
+            <field-to-result field="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
+        </if-empty>
+        <!-- if there is no amount and a productItem is supplied fill the amount(price) and description from the product record
+             TODO: there are return adjustments now that make this code very broken. The check for price was added as a quick fix. -->
+        <if-empty field="parameters.amount">
+            <if-not-empty field="parameters.productId">
+                <entity-one entity-name="Product" value-field="product"/>
+                <set from-field="product.description" field="newEntity.description"/>
+                <set from-field="product" field="calculateProductPriceMap.product"/>
+                <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
+                    <result-to-field result-name="price" field="newEntity.amount"/>
+                </call-service>
+            </if-not-empty>
+        </if-empty>
+        <if-not-empty field="parameters.productId">
+            <if-empty field="parameters.quantity">
+                <set field="newEntity.quantity" value="1.0" type="BigDecimal"/>
+            </if-empty>
+        </if-not-empty>
+        <if-empty field="newEntity.amount">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceAmountIsMandatory"/>
+            </add-error>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="fsdUpdateInvoiceItem"
+                   short-description="Update an existing Invoice Item">
+        <!--<call-simple-method method-name="InvoiceStatusInProgress"/>-->
+        <make-value value-field="lookupPKMap" entity-name="InvoiceItem"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+
+        <find-by-primary-key entity-name="InvoiceItem" map="lookupPKMap" value-field="lookedUpValue"/>
+        <clone-value value-field="lookedUpValue" new-value-field="savedValue"/>
+
+        <!-- set all parameters -->
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+
+        <!-- check if the productNumber is updated, when yes retrieve product description and price -->
+        <if-not-empty field="productId">
+            <if-compare-field to-field="lookedUpValue.productId" field="savedValue.productId" operator="not-equals">
+                <entity-one entity-name="Product" value-field="product"/>
+                <set from-field="product.description" field="lookedUpValue.description"/>
+
+                <set from-field="product" field="calculateProductPriceMap.product"/>
+                <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
+                    <result-to-field result-name="price" field="lookedUpValue.amount"/>
+                </call-service>
+            </if-compare-field>
+        </if-not-empty>
+        <if-empty field="newEntity.amount">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceAmountIsMandatory"/>
+            </add-error>
+        </if-empty>
+        <if-compare-field field="lookedUpValue" to-field="savedValue" operator="not-equals" type="Object">
+            <store-value value-field="lookedUpValue"/>
+        </if-compare-field>
+        <field-to-result field="lookedUpValue.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
+        <field-to-result field="lookedUpValue.invoiceId" result-name="invoiceId"/>
+    </simple-method>
+
+
+</simple-methods>

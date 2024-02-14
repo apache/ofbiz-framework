@@ -246,7 +246,7 @@ under the License.
     <override name="description" allow-html="safe"/>
   </service>
 
-  <service name="createPartyLanguage" default-entity-name="PartyLanguages" engine="entity-auto" invoke="create" auth="true">
+<!--  <service name="createPartyLanguage" default-entity-name="PartyLanguages" engine="entity-auto" invoke="create" auth="true">
     <description>Create Party Language</description>
     <auto-attributes include="pk" mode="INOUT" optional="true"/>
     <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -259,5 +259,5 @@ under the License.
   <service name="removePartyLanguage" default-entity-name="PartyLanguages" engine="entity-auto" invoke="delete" auth="true">
     <description>Delete PartyLanguages</description>
     <auto-attributes include="pk" mode="IN" optional="false"/>
-  </service>
+  </service>-->
 </services>

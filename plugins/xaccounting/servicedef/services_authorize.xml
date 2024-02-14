@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /******************************************************************************************
+  ~  * Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved     *
+  ~  * Unauthorized copying of this file, via any medium is strictly prohibited               *
+  ~  * Proprietary and confidential                                                           *
+  ~  * Written by Forrest Rae <forrest.rae@fidelissd.com>, October, 2017                       *
+  ~  ******************************************************************************************/
+  -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Authorize.net Payment related services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="chargeCreditCardViaAuthorize" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.AuthorizePaymentServices" invoke="chargeCreditCardViaAuthorize"
+             auth="true">
+        <description>Charges a credit card using Authorize.net payments SDK, uses invoice outstanding to calculate the amount that needs to be charged.</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+        <!--Credit card details-->
+        <attribute name="billToFirstName" type="String" mode="IN" optional="true" />
+        <attribute name="billToLastName" type="String" mode="IN" optional="true" />
+        <attribute name="billToCompany" type="String" mode="IN" optional="true" />
+        <attribute name="address1" type="String" mode="IN" optional="true" />
+        <attribute name="address2" type="String" mode="IN" optional="true" />
+        <attribute name="city" type="String" mode="IN" optional="true" />
+        <attribute name="postalCode" type="String" mode="IN" optional="true" />
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true" />
+        <attribute name="countryGeoId" type="String" mode="IN" optional="true" />
+
+        <attribute name="cardNumber" type="String" mode="IN" optional="false" />
+        <attribute name="securityCode" type="String" mode="IN" optional="false" />
+        <attribute name="expiration" type="String" mode="IN" optional="false" /><!--In MMYY format-->
+
+        <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
+        <attribute name="transactionId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="chargeCreditCardViaAuthorizeForQuote" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.AuthorizePaymentServices" invoke="chargeCreditCardViaAuthorizeForQuote"
+             auth="true">
+        <description>Charges a credit card using Authorize.net payments SDK, uses quote amount to be charged.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <!--Credit card details-->
+        <attribute name="billToFirstName" type="String" mode="IN" optional="true" />
+        <attribute name="billToLastName" type="String" mode="IN" optional="true" />
+        <attribute name="billToCompany" type="String" mode="IN" optional="true" />
+
+        <attribute name="address1" type="String" mode="IN" optional="true" />
+        <attribute name="address2" type="String" mode="IN" optional="true" />
+        <attribute name="city" type="String" mode="IN" optional="true" />
+        <attribute name="postalCode" type="String" mode="IN" optional="true" />
+        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="true" />
+        <attribute name="countryGeoId" type="String" mode="IN" optional="true" />
+
+        <attribute name="cardNumber" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="securityCode" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="expiration" type="String" mode="IN" optional="false" allow-html="any" /><!--In MMYY format-->
+
+        <attribute name="responseCode" type="String" mode="OUT" optional="false"/>
+        <attribute name="transactionId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="checkAuthorizeMode" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.AuthorizePaymentServices" invoke="checkAuthorizeMode"
+             auth="true">
+        <description>Check the mode that Authorize will be using.</description>
+        <attribute name="mode" type="String" mode="OUT" optional="false"/>
+    </service>
+
+</services>

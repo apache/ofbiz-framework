@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /******************************************************************************************
+  ~  * Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved     *
+  ~  * Unauthorized copying of this file, via any medium is strictly prohibited               *
+  ~  * Proprietary and confidential                                                           *
+  ~  * Written by Mandeep Sidhu, October, 2019                                                *
+  ~  ******************************************************************************************/
+  -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Stripe Subscription related services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="createCustomerInStripe" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeCustomerServices" invoke="createCustomerInStripe"
+             auth="true">
+        <description>Creates an customer in Stripe</description>
+        <attribute name="customerPartyId" type="String" mode="IN">
+            <description>Customer Party Id will be used as Reference field in stripe.</description>
+        </attribute>
+        <attribute name="organizationName" type="String" mode="IN"/>
+        <attribute name="email" type="String" mode="IN" optional="true"/>
+        <attribute name="address" type="String" mode="IN" optional="true"/>
+        <attribute name="address2" type="String" mode="IN" optional="true"/>
+        <attribute name="city" type="String" mode="IN" optional="true"/>
+        <attribute name="state" type="String" mode="IN" optional="true"/>
+        <attribute name="zip" type="String" mode="IN" optional="true"/>
+        <attribute name="country" type="String" mode="IN" optional="true"/>
+        <attribute name="phone" type="String" mode="IN" optional="true"/>
+        <attribute name="stripeCustomerId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="retrieveCustomerFromStripe" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeCustomerServices" invoke="retrieveCustomerFromStripe"
+             auth="true">
+        <description>Retrieve Customer details including customer subscriptions from Stripe for given customer id</description>
+        <attribute name="stripeCustomerId" type="String" mode="IN"/>
+        <attribute name="stripeCustomer" type="Object" mode="OUT" optional="true"/>
+        <attribute name="paymentMethods" type="Object" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="updateCustomerPaymentMethod" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeCustomerServices" invoke="updateCustomerPaymentMethod"
+             auth="true">
+        <description>Update Customer with payment method </description>
+        <attribute name="stripeCustomerId" type="String" mode="IN"/>
+        <attribute name="paymentMethodId" type="String" mode="IN"/>
+    </service>
+
+    <service name="createSubscriptionInStripe" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeSubscriptionServices" invoke="createSubscriptionInStripe"
+             auth="true">
+        <description>Creates an subscription in Stripe for given customer </description>
+        <attribute name="stripeCustomerId" type="String" mode="IN"/>
+        <attribute name="stripePlanId" type="String" mode="IN"/>
+        <attribute name="stripeSubscriptionId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="retrieveSubscriptionsFromStripe" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeSubscriptionServices"
+      invoke="retrieveSubscriptionsFromStripe"
+             auth="true">
+        <description>Retrieve Subscriptions for given customer and optionally filter by given status</description>
+        <attribute name="stripeCustomerId" type="String" mode="IN"/>
+        <attribute name="subscriptionStatus" type="String" mode="IN" optional="true" default-value="active"/>
+        <attribute name="stripeSubscriptions" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="updateStripeSubscription" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeSubscriptionServices" invoke="updateStripeSubscription"
+             auth="true">
+        <description>Update the given subscription, change quantity or plan</description>
+        <attribute name="stripeSubscriptionId" type="String" mode="IN"/>
+        <attribute name="stripePlanId" type="String" mode="IN" optional="true"/>
+        <attribute name="userLicenseCount" type="Long" mode="IN"/>
+    </service>
+
+    <service name="cancelStripeSubscription" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeSubscriptionServices" invoke="cancelStripeSubscription"
+             auth="true">
+        <description>Cancel the given subscription</description>
+        <attribute name="stripeSubscriptionId" type="String" mode="IN"/>
+    </service>
+    <service name="resumeStripeSubscription" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeSubscriptionServices" invoke="resumeStripeSubscription"
+             auth="true">
+        <description>Resumes an cancelled subscription - before end of period is reached</description>
+        <attribute name="stripeSubscriptionId" type="String" mode="IN"/>
+    </service>
+
+    <service name="retrieveAvailableProductsFromStripe" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeProductServices" invoke="retrieveAvailableProducts"
+             auth="true">
+        <description>Retrieve Available products from Stripe</description>
+        <attribute name="stripeProducts" type="List" mode="OUT"/>
+    </service>
+
+    <service name="retrieveAvailablePlansFromStripe" engine="java"
+             location="com.simbaquartz.xaccounting.services.stripe.subscription.StripeProductServices" invoke="retrieveAvailablePlans"
+             auth="true">
+        <description>Retrieve Available Plans from Stripe</description>
+        <attribute name="stripePlans" type="List" mode="OUT"/>
+    </service>
+
+</services>

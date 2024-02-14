@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of Xaccounting Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <version></version>
+
+    <extend-entity entity-name="InvoiceItem">
+        <!-- Change comments field to very-long to support longer text. -->
+        <field name="comments" type="very-long"></field>
+        <field name="description" type="very-long"></field>
+    </extend-entity>
+
+    <extend-entity entity-name="InvoiceNote">
+        <field name="isInternal" type="indicator" />
+        <field name="noteTypeId" type="id" />
+    </extend-entity>
+
+    <entity entity-name="GeneralFinanceFee"
+            package-name="org.ofbiz.fsdAccounting"
+            title="General Finance Fee">
+        <field name="quoteId" type="id"/>
+        <field name="financeCharge" type="currency-amount"/>
+        <field name="createdBy" type="id-vlong"/>
+        <field name="lastUpdatedBy" type="id-vlong"/>
+        <prim-key field="quoteId"/>
+    </entity>
+
+    <entity entity-name="GeneralCostOfBusiness"
+            package-name="org.ofbiz.fsdAccounting"
+            title="General Cost of Business">
+        <field name="quoteId" type="id"/>
+        <field name="financeCharge" type="currency-amount"/>
+        <field name="createdBy" type="id-vlong"/>
+        <field name="lastUpdatedBy" type="id-vlong"/>
+        <prim-key field="quoteId"/>
+    </entity>
+
+    <extend-entity entity-name="PaymentApplication">
+        <field name="quoteId" type="id"/>
+        <relation type="one" fk-name="QUOTE_PA_QUOTE_ID" rel-entity-name="Quote">
+            <key-map field-name="quoteId"/>
+        </relation>
+    </extend-entity>
+
+    <extend-entity entity-name="FinAccount">
+        <field name="finBankName" type="long-varchar"/>
+        <field name="finBankAddress" type="long-varchar"/>
+        <field name="finSortCode" type="long-varchar"/>
+    </extend-entity>
+
+    <!--entity for payment note-->
+    <entity entity-name="PaymentNote"
+            package-name="com.simbaquartz.xaccounting"
+            title="Payment Note Entity">
+        <field name="paymentId" type="id"/>
+        <field name="noteId" type="id"/>
+        <field name="isInternal" type="indicator"/>
+        <field name="noteTypeId" type="id"/>
+        
+        <prim-key field="paymentId"/>
+        <prim-key field="noteId"/>
+
+        <relation type="one" fk-name="PAYMENT_NOTE_PMT" rel-entity-name="Payment">
+            <key-map field-name="paymentId"/>
+        </relation>
+        <relation type="one" fk-name="PAYMENT_NOTE_NOTE" rel-entity-name="NoteData">
+            <key-map field-name="noteId"/>
+        </relation>
+    </entity>
+
+    <view-entity entity-name="PaymentNoteView"
+                 package-name="com.simbaquartz.xaccounting"
+                 never-cache="true"
+                 title="Payment Note View Entity">
+        <member-entity entity-alias="PN" entity-name="PaymentNote"/>
+        <member-entity entity-alias="ND" entity-name="NoteData"/>
+        <alias entity-alias="PN" name="paymentId"/>
+        <alias entity-alias="PN" name="isInternal"/>
+        <alias entity-alias="ND" name="noteId"/>
+        <alias entity-alias="PN" name="noteTypeId"/>
+        <alias entity-alias="ND" name="noteName"/>
+        <alias entity-alias="ND" name="noteInfo"/>
+        <alias entity-alias="ND" name="noteDateTime"/>
+        <alias entity-alias="ND" name="noteParty"/>
+        <view-link entity-alias="PN" rel-entity-alias="ND">
+            <key-map field-name="noteId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="InvoiceNoteView"
+                 package-name="com.simbaquartz.xaccounting"
+                 never-cache="true"
+                 title="Invoice Note View Entity">
+        <member-entity entity-alias="INV" entity-name="InvoiceNote"/>
+        <member-entity entity-alias="ND" entity-name="NoteData"/>
+        <alias entity-alias="INV" name="invoiceId"/>
+        <alias entity-alias="INV" name="isInternal"/>
+        <alias entity-alias="ND" name="noteId"/>
+        <alias entity-alias="INV" name="noteTypeId"/>
+        <alias entity-alias="ND" name="noteName"/>
+        <alias entity-alias="ND" name="noteInfo"/>
+        <alias entity-alias="ND" name="noteDateTime"/>
+        <alias entity-alias="ND" name="noteParty"/>
+        <view-link entity-alias="INV" rel-entity-alias="ND">
+            <key-map field-name="noteId"/>
+        </view-link>
+    </view-entity>
+
+</entitymodel>

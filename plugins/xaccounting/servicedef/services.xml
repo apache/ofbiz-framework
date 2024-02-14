@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Xaccounting Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="fetchInvoiceAttributes" engine="groovy"
+             require-new-transaction="true"
+             location="component://xaccounting/minilang/invoice/FetchInvoiceAttributes.groovy"
+             auth="true">
+        <description>Fetch appropriate invoice attributes based related order</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+        <attribute name="invoiceAttributes" type="List" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="fsdCreateInvoiceNote" engine="simple"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml"
+             invoke="fsdCreateInvoiceNote" auth="true">
+        <description>Create a note item and associate with a Invoice</description>
+        <!--<permission-service service-name="checkQuotePermission" main-action="UPDATE"/>-->
+        <attribute name="invoiceId" type="String" mode="IN"/>
+        <attribute name="noteInfo" type="String" mode="IN" allow-html="any"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="isInternal" type="String" mode="IN" optional="true"/>
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="copyOrderNotesToInvoice" engine="groovy"
+             require-new-transaction="true"
+             location="component://xaccounting/minilang/invoice/CopyOrderNotesToInvoice.groovy"
+             auth="true">
+        <description>Copy Order Notes to Invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+    </service>
+
+    <service name="setInvoiceDueDate" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="setInvoiceDueDate" auth="true">
+        <description>Sets the invoice due date using terms if not set.</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+    </service>
+
+    <service name="fetchQuoteAttributes" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="fetchQuoteAttributes" auth="true">
+        <description>Retrieves the records from QuoteAttribute entity based on quoteId.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteAttributeList" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getFinanceReport" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="getFinanceReport" auth="true">
+        <description>
+            // Added on 05 APRIL 2017
+            Inputs:
+            Gets finance report for the given 14 search parameters (IN attributes).
+
+            Output:
+            It returns a list of reports. Each report is a map.
+            For each quote, the following information is provided as a map:
+            1. quoteId
+            2. partyId
+            3. quoteCurrencyUomId
+            4. partyDetails:
+            a. partyId
+            b. name
+            c. email
+            d. addressMap
+            addressMap contains:
+            i. toName
+            ii. ttnName
+            iii.address1
+            iv. address2
+            v. directions
+            vi. city
+            vii. postalCode
+            viii. countryGeoId
+            ix. stateProvinceGeoId
+            e. telecomMap
+            telecomMap contains:
+            i. countryCode
+            ii. areaCode
+            iii. contactNumber
+            iv. askForName
+            5. reqTakerDetails
+            6. supplierDetails
+            7. supplierPOCDetails
+            8. contractingOfficerDetails
+            9. orderClerkDetails
+            10. shipmentClerkDetails
+            11. mainSalesRepDetails
+            12. salesRepDetails
+            The above items 5 to 12 are each list of details of all contacts
+            (similar to 4. partyDetails, but lists allowing multiple values)
+            13. salesOrders
+            This is a list of maps, each containing:
+            a. salesOrderId
+            b. invoicePerShipment
+            c. obligationNumber
+            d. purchaseOrderNumber
+            e. requisitionPurchaseRequestNumber
+            f. salesInvoices
+            This is a list of salesInvoices, each is a map containing:
+            i. salesInvoiceId
+            ii. salesInvoiceAmount (BigDecimal)
+            iii. paymentDate (Timestamp0
+            iv. purchasingEntityId
+            v. receivedDate (Timestamp)
+            vi. salesInvoiceStatusId
+            vii. salesInvoiceDate (Timestamp)
+            d. purchaseOrders
+            This is a list of maps, each containing:
+            i. purchaseOrderId
+            ii. awardDate
+            iii. purchaseInvoices
+            This is a list of maps, each with:
+            A. purchaseInvoiceId
+            B. purchaseInvoiceAmount (BigDecimal)
+            C. shipOrInstallDate (Timestamp)
+            D. purchaseInvoiceDate (Timestamp)
+            E. purchaseInvoiceStatusId
+            e. loans
+            This is a list of maps, each with:
+            i. lenderPartyId
+            ii. loanAmount (BigDecimal)
+            iii. loanDueDate (Timestamp)
+            iv. loanNotes
+            14. billToDetails
+            15. shipToDetails
+            The above two are similar to 4 to 11 giving bill to and
+            ship to customer(s)
+            16. notes
+            17. quoteContents
+            18. signed1449 (map containing repPartyId, senrDate (Timestamp), checkSigned)
+        </description>
+        <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+        <attribute name="dateRangeFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="String" mode="IN" optional="true"/>
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteTypeIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierContactPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true" default-value="-quoteId"/>
+        <attribute name="awardStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteOrderedDateRangeFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderedDateRangeTo" type="String" mode="IN" optional="true"/>
+        <attribute name="endOfWarrantyServiceFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="endOfWarrantyServiceTo" type="String" mode="IN" optional="true"/>
+        <attribute name="onlyWarrantyService" type="String" mode="IN" optional="true"/>
+        <attribute name="thankYouCardSent" type="String" mode="IN" optional="true"/>
+        <attribute name="awardServiceTracked" type="String" mode="IN" optional="true"/>
+        <attribute name="fsdToCMInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePaymentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+
+        <attribute name="reports" type="List" mode="OUT" optional="false"/>
+        <attribute name="totalResultSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="quotePriceTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quoteFsdCostTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quoteProfitTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quoteAverageProfitMarginPercentage" type="String" mode="OUT" optional="true"/>
+
+    </service>
+    <service name="fsdCreateInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml" invoke="fsdCreateInvoiceRole">
+        <description>Create a new Invoice Role Record</description>
+        <!--<permission-service service-name="checkInvoicePermission" main-action="UPDATE"/>-->
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="fsdRemoveInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml" invoke="fsdRemoveInvoiceRole">
+        <description>Remove an existing Invoice Role Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+
+    <service name="fsdCreatePaymentNote" engine="simple"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml"
+             invoke="fsdCreatePaymentNote" auth="true">
+        <description>Create a note item and associate with a Payment</description>
+        <attribute name="paymentId" type="String" mode="IN"/>
+        <attribute name="noteInfo" type="String" mode="IN" allow-html="any"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="isInternal" type="String" mode="IN" optional="true"/>
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdUpdatePaymentNote" engine="simple"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml"
+             invoke="fsdUpdatePaymentNote" auth="true">
+        <description>Update Payment Note</description>
+        <attribute name="paymentId" type="String" mode="IN"/>
+        <attribute name="noteId" type="String" mode="IN"/>
+        <attribute name="noteInfo" type="String" mode="IN" allow-html="any"/>
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdRemovePaymentNote" default-entity-name="PaymentNote" engine="simple"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml"
+             invoke="fsdRemovePaymentNote" auth="true">
+        <description>Remove a Payment Note</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdRemoveInvoiceNote" engine="simple" default-entity-name="InvoiceNote"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml"
+             invoke="fsdRemoveInvoiceNote" auth="true">
+        <description>Remove a Invoice Note</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdDeletePayment" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="fsdDeletePayment" auth="true">
+        <description>delete the payment</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="simple"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml" invoke="createInvoiceAttribute" auth="true">
+        <description>Create a Invoice Attribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateInvoiceAttribute" default-entity-name="InvoiceAttribute" engine="simple"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml" invoke="updateInvoiceAttribute" auth="true">
+        <description>Update a Invoice Attribute</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdUpdatePayment" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="fsdUpdatePayment" auth="true">
+        <description>delete the payment</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="effectiveDate" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdMakePayment" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="fsdMakePayment" auth="true">
+        <description>Capture the payment</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="amount" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="effectiveDate" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="fsdMakePaymentForQuote" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="fsdMakePaymentForQuote" auth="true">
+        <description>Capture the payment and applying for quote</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="amount" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="effectiveDate" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- service for registering activities -->
+    <service name="fsdRegisterCapturePaymentActivity" engine="java"
+             location="com.fidelissd.fsdaccounting.services.AccountingActivityServices"
+             invoke="fsdRegisterCapturePaymentActivity" auth="true">
+        <description>Register a capture payment activity.</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+        <attribute name="amount" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+
+
+    <service name="getInvoicesAmountSummary" engine="java"
+             location="com.fidelissd.fsdaccounting.services.InvoiceReportingServices"
+             invoke="getInvoicesAmountSummary" auth="true">
+        <description>Fetch Invoice Amount Payable or Receivable Summary.
+            Payables when InvoiceType is PURCHASE_INVOICE, and Receivables when InvoiceType passed is SALES_INVOICE</description>
+        <attribute name="invoiceType" type="String" mode="IN" optional="false" />
+        <attribute name="invoicesAmountSummary" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+
+    <!--service to get shipping destinations for quote-->
+    <service name="getAwardedQuoteShippingDestinationsForQuote" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getAwardedQuoteShippingDestinationsForQuote" auth="true">
+        <description>Returns shipping destinations for quote</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="shippingDestinations" type="List" mode="OUT" optional="false" />
+    </service>
+
+    <!--service to get orders for quote-->
+    <service name="getAwardedQuoteOrders" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getAwardedQuoteOrders" auth="true">
+        <description>Returns orders for quote</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="awardOrders" type="Map" mode="OUT" optional="false" />
+    </service>
+
+    <!--service to get invoices for quote-->
+    <service name="getAwardedQuoteInvoices" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getAwardedQuoteInvoices" auth="true">
+        <description>Returns invoices for quote</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="awardInvoices" type="Map" mode="OUT" optional="false" />
+    </service>
+
+    <!--service to get invoices for quote-->
+    <service name="getAwardedQuoteOrdersAndInvoices" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getAwardedQuoteOrdersAndInvoices" auth="true">
+        <description>Returns orders and invoices for quote</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="awardOrdersAndInvoices" type="Map" mode="OUT" optional="false" />
+    </service>
+
+    <!--service to get quote details for Invoice-->
+    <service name="getAwardedQuoteDetailsForInvoice" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getAwardedQuoteDetailsForInvoice" auth="true">
+        <description>Returns quote details for Invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+        <attribute name="isPurchaseInvoice" type="Boolean" mode="IN" default-value="false" optional="true" />
+        <attribute name="awardedQuoteDetails" type="Map" mode="OUT" optional="false" />
+    </service>
+
+    <!--service to get shipment details for purchase invoice-->
+    <service name="getShipmentDetailsForPurchaseInvoice" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getShipmentDetailsForPurchaseInvoice" auth="true">
+        <description>Returns quote details for Invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+        <attribute name="shipmentDetails" type="Map" mode="OUT" optional="false" />
+    </service>
+
+    <!--service to get sum of fees between two dates-->
+    <service name="getSumOfFees" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="getSumOfFees" auth="true">
+        <description>Gets 3 sums (finance, SLA, third party) of fees between two dates</description>
+        <attribute name="startDate" type="Timestamp" mode="IN" optional="false" />
+        <attribute name="endDate" type="Timestamp" mode="IN" optional="false" />
+        <attribute name="sumOfLoanFinanceCharges" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="sumOfGeneralFinanceCharges" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="sumOfGeneralCostOfBusiness" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="sumOfThirdPartyBillingCharges" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+
+
+    <service name="fsdCreatePaymentApplication" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.PaymentServices" invoke="fsdCreatePaymentApplication" auth="true">
+        <description>Create a payment application</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="toPaymentId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="amountApplied" type="BigDecimal" mode="INOUT" optional="true"/>
+        <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
+        <attribute name="paymentTypeId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="fsdCreatePaymentAndApplication" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.PaymentServices" invoke="fsdCreatePaymentAndApplication" auth="true">
+        <description>Create a payment and a payment application for the full amount</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="actualCurrencyAmount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="actualCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="effectiveDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayResponseId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentPreferenceId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fsdCreatePayment" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.PaymentServices" invoke="fsdCreatePayment" auth="true">
+        <description>Create a payment</description>
+        <attribute name="paymentId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="paymentTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="actualCurrencyAmount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="actualCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="effectiveDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
+        <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayResponseId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentMethodTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentPreferenceId" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="setFsdPaymentStatus" engine="java"
+             location="com.fidelissd.fsdaccounting.services.payments.PaymentServices" invoke="setFsdPaymentStatus" auth="true">
+        <description>set a payment status</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="checkPaymentPendingStatus" engine="java" max-retry="3"
+             location="com.fidelissd.fsdaccounting.services.payments.PaymentServices" invoke="checkPaymentPendingStatus" auth="true" transaction-timeout="10000000">
+        <description>Change the status of pending payments if their effective date is today.</description>
+    </service>
+
+    <service name="applyQuotePaymentToInvoice" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices" invoke="applyQuotePaymentToInvoice" auth="true">
+        <description>Apply payment from given quote to its invoices</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+    </service>
+
+    <service name="getAccountsReceivableSummary" engine="java"
+             location="com.fidelissd.fsdaccounting.services.InvoiceReportingServices"
+             invoke="getAccountsReceivableSummary" auth="true">
+        <description>Get Billing pending and payment pending</description>
+        <attribute name="keyword" type="String" mode="IN" optional="true" />
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+        <attribute name="showPaidPurchaseInvoice" type="Boolean" mode="IN" optional="true" default-value="false"/>
+        <attribute name="accountReceivableSummaryMap" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getAccountsReceivableSummaryStats" engine="java"
+             location="com.fidelissd.fsdaccounting.services.InvoiceReportingServices"
+             invoke="getAccountsReceivableSummaryStats" auth="true">
+        <description>Get Billing pending and payment pending</description>
+        <attribute name="keyword" type="String" mode="IN" optional="true" />
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="showPaidPurchaseInvoice" type="Boolean" mode="IN" optional="true" default-value="false"/>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="onHold" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+        <attribute name="accountReceivableSummaryMap" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getAccountsPayableSummaryForFinanceReportPdf" engine="java"
+             location="com.fidelissd.fsdaccounting.services.InvoiceReportingServices"
+             invoke="getAccountsPayableSummaryForFinanceReportPdf" auth="true">
+        <description>Get payment pending for purchase invoices</description>
+        <attribute name="keyword" type="String" mode="IN" optional="true" />
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+        <attribute name="accountPayableSummaryMap" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getTotalDollarAmountForSupplierAccounts" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getTotalDollarAmountForSupplierAccounts" auth="true">
+        <description>Get total dollar amount for all the suppliers.</description>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="keyword" type="String" mode="IN" optional="true"/>
+        <attribute name="showPaidPurchaseInvoice" type="Boolean" mode="IN" optional="true" default-value="false"/>
+
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="onHold" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+
+        <attribute name="amountPayable" type="List" mode="OUT" optional="true"/>
+        <attribute name="amountReceivable" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getAgeingReport" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getAgeingReport" auth="true">
+        <description>Get Ageing Report: A list of maps containing total purchase
+            amount due between start and end purchase invoice due date due within
+            7 days, 15 days, 30 days, 60 days, 90 days, and beyond 90 days
+            classified by supplier id.</description>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="keyword" type="String" mode="IN" optional="true"/>
+        <attribute name="showPaidPurchaseInvoice" type="Boolean" mode="IN" optional="true" default-value="false"/>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="onHold" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+
+        <attribute name="totalSupplierDue" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalPastDue" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalSevenDays" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalFifteenDays" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalThirtyDays" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalSixtyDays" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalNinetyDays" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="totalBeyondNinetyDays" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="report" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getAccountsPayableSummary" engine="java"
+             location="com.fidelissd.fsdaccounting.services.InvoiceReportingServices"
+             invoke="getAccountsPayableSummary" auth="true">
+        <description>Get payment details for purchase invoices</description>
+        <attribute name="keyword" type="String" mode="IN" optional="true" />
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="showPaidPurchaseInvoice" type="Boolean" mode="IN" optional="true" default-value="false"/>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="onHold" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+        <attribute name="accountPayableSummaryMap" type="Map" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getSupplierInvoiceAmountForFinanceReport" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingHelper"
+             invoke="getSupplierInvoiceAmountForFinanceReport" auth="true">
+        <description>Get invoice amount for suppliers</description>
+        <attribute name="dateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeFrom" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="purchaseInvoiceDueDateRangeTo" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyIds" type="List" mode="IN" optional="true"/>
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillToCustomerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteSalesInvoicePaymentModeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteBillingLocPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="customerInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="govtInvoiceBillingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierInvoiceStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="purchaseCMInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="keyword" type="String" mode="IN" optional="true"/>
+        <attribute name="showPaidPurchaseInvoice" type="Boolean" mode="IN" optional="true" default-value="false"/>
+
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+        <attribute name="onHold" type="String" mode="IN" optional="true"/>
+
+        <attribute name="invoiceAmount" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="fsdCreateInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml" invoke="fsdCreateInvoiceItem">
+        <description>FSD version of Create a new Invoice Item Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="invoiceItemSeqId" mode="INOUT" optional="true"/><!-- will optionally be assigned by the system -->
+        <override name="description" allow-html="any"/>
+    </service>
+
+    <service name="fsdUpdateInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
+             location="component://xaccounting/minilang/invoice/InvoiceServices.xml" invoke="fsdUpdateInvoiceItem">
+        <description>FSD version Update existing Invoice Item Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" allow-html="any"/>
+    </service>
+
+    <service name="fsdCreateFinanceAccount" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices" invoke="fsdCreateFinanceAccount" auth="true">
+        <description>Create financial account for party.</description>
+        <attribute name="finAccountTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="finSortCode" type="String" mode="IN" optional="true" />
+        <attribute name="statusId" type="String" mode="IN" optional="true" />
+        <attribute name="finBankName" type="String" mode="IN" optional="true" />
+        <attribute name="finBankAddress" type="String" mode="IN" optional="true" />
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true" />
+        <attribute name="finAccountName" type="String" mode="IN" optional="true" />
+        <attribute name="finAccountCode" type="String" mode="IN" optional="true" />
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true" />
+        <attribute name="ownerPartyId" type="String" mode="IN" optional="true" />
+
+        <attribute name="finAccountId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="fsdUpdateFinanceAccount" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices" invoke="fsdUpdateFinanceAccount" auth="true">
+        <description>Update financial account for party.</description>
+        <attribute name="finAccountId" type="String" mode="IN" optional="false" />
+        <attribute name="finAccountTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="finSortCode" type="String" mode="IN" optional="true" />
+        <attribute name="statusId" type="String" mode="IN" optional="true" />
+        <attribute name="finBankName" type="String" mode="IN" optional="true" />
+        <attribute name="finBankAddress" type="String" mode="IN" optional="true" />
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true" />
+        <attribute name="finAccountName" type="String" mode="IN" optional="true" />
+        <attribute name="finAccountCode" type="String" mode="IN" optional="true" />
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true" />
+        <attribute name="ownerPartyId" type="String" mode="IN" optional="true" />
+    </service>
+
+    <service name="fsdRemoveFinanceAccount" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices" invoke="fsdRemoveFinanceAccount" auth="true">
+        <description>Remove financial account for party.</description>
+        <attribute name="finAccountId" type="String" mode="IN" optional="false" />
+    </service>
+
+    <service name="getFsdInvoiceTotal" engine="java"
+             location="com.simbaquartz.xaccounting.services.AxInvoiceWorker" invoke="getFsdInvoiceTotal" auth="true">
+        <description>Service to get fsd invoice total.</description>
+        <attribute name="invoice" type="GenericValue" mode="IN" optional="false" />
+        <attribute name="invoiceTotal" type="BigDecimal" mode="OUT" optional="false" />
+    </service>
+
+    <service name="getFinanceStats" engine="java" transaction-timeout="7200"
+             location="com.simbaquartz.xaccounting.services.AxAccountingServices"
+             invoke="getFinanceStats" auth="true">
+        <description>
+            Get quote total, profit, count etc.
+        </description>
+        <attribute name="startIndex" type="Integer" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+        <attribute name="dateRangeFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="dateRangeTo" type="String" mode="IN" optional="true"/>
+        <attribute name="customerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePurchaseOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteRequisitionPurchaseRequestNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteContractReferenceNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteTypeIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="supplierContactPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="sortBy" type="String" mode="IN" optional="true" default-value="-quoteId"/>
+        <attribute name="awardStatusIds" type="List" mode="IN" optional="true"/>
+        <attribute name="tagIds" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteOrderedDateRangeFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteOrderedDateRangeTo" type="String" mode="IN" optional="true"/>
+        <attribute name="endOfWarrantyServiceFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="endOfWarrantyServiceTo" type="String" mode="IN" optional="true"/>
+        <attribute name="onlyWarrantyService" type="String" mode="IN" optional="true"/>
+        <attribute name="thankYouCardSent" type="String" mode="IN" optional="true"/>
+        <attribute name="awardServiceTracked" type="String" mode="IN" optional="true"/>
+        <attribute name="fsdToCMInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="billingStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingState" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteInvoiceStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quotePaymentStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteFlagStatus" type="String" mode="IN" optional="true"/>
+
+        <attribute name="totalResultSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="quotePriceTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quoteFsdCostTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quoteProfitTotal" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="quoteAverageProfitMarginPercentage" type="String" mode="OUT" optional="true"/>
+
+    </service>
+    
+</services>

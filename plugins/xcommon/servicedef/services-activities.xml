@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Activity Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <!-- The below 2 are main activity services which directly make use of Activity Streams 2.0. -->
+    <service name="registerActivity" engine="java"
+             location="com.fidelissd.zcp.xcommon.services.activity.ActivityServices"
+             invoke="registerActivity" auth="true">
+        <description>Registers an activity performed.</description>
+        <attribute name="verb" type="String" mode="IN" optional="false" />
+        <attribute name="projectItemId" type="String" mode="IN" optional="true" />
+        <attribute name="projectId" type="String" mode="IN" optional="true" />
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="true" />
+        <attribute name="tagId" type="String" mode="IN" optional="true" />
+        <attribute name="tagName" type="String" mode="IN" optional="true" />
+        <attribute name="oldOpportunityStageId" type="String" mode="IN" optional="true" />
+        <attribute name="newOpportunityStageId" type="String" mode="IN" optional="true" />
+        <attribute name="oldProjectItemStatusId" type="String" mode="IN" optional="true" />
+        <attribute name="newProjectItemStatusId" type="String" mode="IN" optional="true" />
+        <attribute name="projectItemAssigneeId" type="String" mode="IN" optional="true" />
+        <attribute name="oldProjectItemAssigneeId" type="String" mode="IN" optional="true" />
+        <attribute name="newProjectItemAssigneeId" type="String" mode="IN" optional="true" />
+        <attribute name="oldProjectItemPriorityId" type="String" mode="IN" optional="true" />
+        <attribute name="newProjectItemPriorityId" type="String" mode="IN" optional="true" />
+        <attribute name="oldProjectItemTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="newProjectItemTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="issueIdTo" type="String" mode="IN" optional="true" />
+        <attribute name="quoteId" type="String" mode="IN" optional="true" />
+        <attribute name="taskId" type="String" mode="IN" optional="true" />
+        <attribute name="custRequestId" type="String" mode="IN" optional="true" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any" />
+        <attribute name="description" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="requirementStatus" type="String" mode="IN" optional="true" />
+        <attribute name="noteName" type="String" mode="IN" optional="true" />
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="isNoteInternal" type="String" mode="IN" optional="true" />
+        <attribute name="actorType" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="actorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="actorName" type="String" mode="IN" optional="true" />
+        <attribute name="objectType" type="String" mode="IN" optional="true" />
+        <attribute name="objectId" type="String" mode="IN" optional="true" />
+        <attribute name="objectUrl" type="String" mode="IN" optional="true" />
+        <attribute name="objectName" type="String" mode="IN" optional="true" allow-html="any" />
+        <attribute name="startTime" type="String" mode="IN" optional="true" />
+        <attribute name="endTime" type="String" mode="IN" optional="true" />
+        <attribute name="to" type="String" mode="IN" optional="true" />
+        <attribute name="cc" type="String" mode="IN" optional="true" />
+        <attribute name="bcc" type="String" mode="IN" optional="true" />
+        <attribute name="venue" type="String" mode="IN" optional="true" />
+        <attribute name="phoneNumber" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="content" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="oldStatus" type="String" mode="IN" optional="true" />
+        <attribute name="newStatus" type="String" mode="IN" optional="true" />
+        <attribute name="oldQuoteType" type="String" mode="IN" optional="true" />
+        <attribute name="newQuoteType" type="String" mode="IN" optional="true" />
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true" />
+        <attribute name="referenceNumber" type="String" mode="IN" optional="true" />
+        <attribute name="contentName" type="String" mode="IN" optional="true" />
+        <attribute name="productId" type="String" mode="IN" optional="true" />
+        <attribute name="quoteUnitPrice" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityUnitPrice" type="String" mode="IN" optional="true" />
+        <attribute name="quantity" type="String" mode="IN" optional="true" />
+        <attribute name="discountAmount" type="String" mode="IN" optional="true" />
+        <attribute name="discountPercentage" type="String" mode="IN" optional="true" />
+        <attribute name="invoiceId" type="String" mode="IN" optional="true" />
+        <attribute name="amount" type="String" mode="IN" optional="true" />
+        <attribute name="contactPartyName" type="String" mode="IN" optional="true" />
+        <attribute name="oldContactPartyName" type="String" mode="IN" optional="true" />
+        <attribute name="emailRecipients" type="String" mode="IN" optional="true" />
+        <attribute name="callLogSummary" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="roleTypeDescription" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityLinkedTaskId" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityEventId" type="String" mode="IN" optional="true" />
+        <attribute name="partyId" type="String" mode="IN" optional="true" />
+        <attribute name="emailAddress" type="String" mode="IN" optional="true" />
+        <attribute name="oldPriority" type="String" mode="IN" optional="true" />
+        <attribute name="newPriority" type="String" mode="IN" optional="true" />
+        <attribute name="oldCurrency" type="String" mode="IN" optional="true" />
+        <attribute name="newCurrency" type="String" mode="IN" optional="true" />
+        <attribute name="oldAmount" type="String" mode="IN" optional="true" />
+        <attribute name="newAmount" type="String" mode="IN" optional="true" />
+
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="readActivity" engine="java"
+             location="com.fidelissd.zcp.xcommon.services.activity.ActivityServices"
+             invoke="readActivity" auth="true">
+        <description>Reads an existing activity.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteId" type="String" mode="OUT" optional="true" />
+        <attribute name="partyId" type="String" mode="OUT" optional="true" />
+        <attribute name="noteInfo" type="String" mode="OUT" optional="true" />
+        <attribute name="description" type="String" mode="OUT" optional="true" allow-html="any" />
+        <attribute name="requirementStatus" type="String" mode="OUT" optional="true" />
+        <attribute name="noteName" type="String" mode="OUT" optional="true" />
+        <attribute name="noteTypeId" type="String" mode="OUT" optional="true" />
+        <attribute name="isNoteInternal" type="String" mode="OUT" optional="true" />
+        <attribute name="verb" type="String" mode="OUT" optional="true" />
+        <attribute name="actorType" type="String" mode="OUT" optional="true" />
+        <attribute name="actorId" type="String" mode="OUT" optional="true" />
+        <attribute name="actorUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="actorName" type="String" mode="OUT" optional="true" />
+        <attribute name="objectType" type="String" mode="OUT" optional="true" />
+        <attribute name="objectId" type="String" mode="OUT" optional="true" />
+        <attribute name="objectUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="objectName" type="String" mode="OUT" optional="true" />
+        <attribute name="startTime" type="String" mode="OUT" optional="true" />
+        <attribute name="endTime" type="String" mode="OUT" optional="true" />
+        <attribute name="to" type="String" mode="OUT" optional="true" />
+        <attribute name="cc" type="String" mode="OUT" optional="true" />
+        <attribute name="bcc" type="String" mode="OUT" optional="true" />
+        <attribute name="venue" type="String" mode="OUT" optional="true" />
+        <attribute name="phoneNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="content" type="String" mode="OUT" optional="true" />
+        <attribute name="oldStatus" type="String" mode="OUT" optional="true" />
+        <attribute name="newStatus" type="String" mode="OUT" optional="true" />
+        <attribute name="oldQuoteType" type="String" mode="OUT" optional="true" />
+        <attribute name="newQuoteType" type="String" mode="OUT" optional="true" />
+        <attribute name="solicitationNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="referenceNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="contentName" type="String" mode="OUT" optional="true" />
+        <attribute name="productId" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteUnitPrice" type="String" mode="OUT" optional="true" />
+        <attribute name="opportunityUnitPrice" type="String" mode="OUT" optional="true" />
+        <attribute name="tagId" type="String" mode="OUT" optional="true" />
+        <attribute name="tagName" type="String" mode="OUT" optional="true" />
+        <attribute name="oldOpportunityStageId" type="String" mode="OUT" optional="true" />
+        <attribute name="newOpportunityStageId" type="String" mode="OUT" optional="true" />
+        <attribute name="oldProjectItemStatusId" type="String" mode="OUT" optional="true" />
+        <attribute name="newProjectItemStatusId" type="String" mode="OUT" optional="true" />
+        <attribute name="projectItemAssigneeId" type="String" mode="OUT" optional="true" />
+        <attribute name="oldProjectItemAssigneeId" type="String" mode="OUT" optional="true" />
+        <attribute name="newProjectItemAssigneeId" type="String" mode="OUT" optional="true" />
+        <attribute name="oldProjectItemPriorityId" type="String" mode="OUT" optional="true" />
+        <attribute name="newProjectItemPriorityId" type="String" mode="OUT" optional="true" />
+        <attribute name="oldProjectItemTypeId" type="String" mode="OUT" optional="true" />
+        <attribute name="newProjectItemTypeId" type="String" mode="OUT" optional="true" />
+        <attribute name="issueIdTo" type="String" mode="OUT" optional="true" />
+        <attribute name="quantity" type="String" mode="OUT" optional="true" />
+        <attribute name="discountAmount" type="String" mode="OUT" optional="true" />
+        <attribute name="discountPercentage" type="String" mode="OUT" optional="true" />
+        <attribute name="invoiceId" type="String" mode="OUT" optional="true" />
+        <attribute name="amount" type="String" mode="OUT" optional="true" />
+        <attribute name="contactPartyName" type="String" mode="OUT" optional="true" />
+        <attribute name="oldContactPartyName" type="String" mode="OUT" optional="true" />
+        <attribute name="emailRecipients" type="String" mode="OUT" optional="true" />
+        <attribute name="callLogSummary" type="String" mode="OUT" optional="true" allow-html="any"/>
+        <attribute name="roleTypeDescription" type="String" mode="OUT" optional="true" />
+        <attribute name="opportunityLinkedTaskId" type="String" mode="OUT" optional="true" />
+        <attribute name="opportunityEventId" type="String" mode="OUT" optional="true" />
+        <attribute name="emailAddress" type="String" mode="OUT" optional="true" />
+        <attribute name="projectId" type="String" mode="OUT" optional="true" />
+        <attribute name="oldPriority" type="String" mode="OUT" optional="true" />
+        <attribute name="newPriority" type="String" mode="OUT" optional="true" />
+        <attribute name="oldCurrency" type="String" mode="OUT" optional="true" />
+        <attribute name="newCurrency" type="String" mode="OUT" optional="true" />
+        <attribute name="oldAmount" type="String" mode="OUT" optional="true" />
+        <attribute name="newAmount" type="String" mode="OUT" optional="true" />
+        <attribute name="projectItemId" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!--
+    All other services are not aware of Activity Streams 2.0.
+    They only use the above 2 services.
+    -->
+
+
+    <!-- Someone created a quote. -->
+    <service name="registerCreateQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerCreateQuoteActivity" auth="true">
+        <description>Registers a create quote activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="creatorType" type="String" mode="IN" optional="true" />
+        <attribute name="creatorId" type="String" mode="IN" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="creatorName" type="String" mode="IN" optional="true" />
+        <attribute name="quoteType" type="String" mode="IN" optional="true" />
+        <attribute name="quoteUrl" type="String" mode="IN" optional="true" />
+        <attribute name="quoteName" type="String" mode="IN" optional="true" />
+        <attribute name="createdTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readCreateQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readCreateQuoteActivity" auth="true">
+        <description>Read a create quote activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteId" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorType" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorId" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorName" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteType" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteName" type="String" mode="OUT" optional="true" />
+        <attribute name="createdTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+    <!-- Someone updated a quote. -->
+    <service name="registerUpdateQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateQuoteActivity" auth="true">
+        <description>Registers an update quote activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="oldQuoteType" type="String" mode="IN" optional="true" />
+        <attribute name="newQuoteType" type="String" mode="IN" optional="true" />
+        <attribute name="solicitationNumber" type="String" mode="IN" optional="true" />
+        <attribute name="referenceNumber" type="String" mode="IN" optional="true" />
+        <attribute name="updaterType" type="String" mode="IN" optional="true" />
+        <attribute name="updaterId" type="String" mode="IN" optional="true" />
+        <attribute name="updaterUrl" type="String" mode="IN" optional="true" />
+        <attribute name="updaterName" type="String" mode="IN" optional="true" />
+        <attribute name="quoteType" type="String" mode="IN" optional="true" />
+        <attribute name="quoteUrl" type="String" mode="IN" optional="true" />
+        <attribute name="quoteName" type="String" mode="IN" optional="true" />
+        <attribute name="updatedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readUpdateQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readUpdateQuoteActivity" auth="true">
+        <description>Read an update quote activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterType" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterName" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteType" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteName" type="String" mode="OUT" optional="true" />
+        <attribute name="updatedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Someone added a note to a quote. -->
+    <service name="registerAddNoteToQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddNoteToQuoteActivity" auth="true">
+        <description>Registers an add note to quote activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true" />
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="isNoteInternal" type="String" mode="IN" optional="true" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="quoteUrl" type="String" mode="IN" optional="true" />
+        <attribute name="quoteName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readAddNoteToQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readAddNoteToQuoteActivity" auth="true">
+        <description>Read an add note to quote activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteId" type="String" mode="OUT" optional="true" />
+        <attribute name="noteInfo" type="String" mode="OUT" optional="true" />
+        <attribute name="noteName" type="String" mode="OUT" optional="true" />
+        <attribute name="noteTypeId" type="String" mode="OUT" optional="true" />
+        <attribute name="isNoteInternal" type="String" mode="OUT" optional="true" />
+        <attribute name="adderType" type="String" mode="OUT" optional="true" />
+        <attribute name="adderId" type="String" mode="OUT" optional="true" />
+        <attribute name="adderUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="adderName" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="quoteName" type="String" mode="OUT" optional="true" />
+        <attribute name="addedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Someone sent quote email. -->
+    <service name="registerSendQuoteEmailActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerSendQuoteEmailActivity" auth="true">
+        <description>Registers a send quote mail activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="senderType" type="String" mode="IN" optional="true" />
+        <attribute name="senderId" type="String" mode="IN" optional="true" />
+        <attribute name="senderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="senderName" type="String" mode="IN" optional="true" />
+        <attribute name="sendTo" type="String" mode="IN" optional="true" />
+        <attribute name="sendCC" type="String" mode="IN" optional="true" />
+        <attribute name="sendBCC" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="content" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="sentTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readSendQuoteEmailActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readSendQuoteEmailActivity" auth="true">
+        <description>Read a send quote mail activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteId" type="String" mode="OUT" optional="true" />
+        <attribute name="senderType" type="String" mode="OUT" optional="true" />
+        <attribute name="senderId" type="String" mode="OUT" optional="true" />
+        <attribute name="senderUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="senderName" type="String" mode="OUT" optional="true" />
+        <attribute name="sendTo" type="String" mode="OUT" optional="true" />
+        <attribute name="sendCC" type="String" mode="OUT" optional="true" />
+        <attribute name="sendBCC" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="content" type="String" mode="OUT" optional="true" />
+        <attribute name="sentTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Someone changed the status of a quote. -->
+    <service name="registerQuoteStatusChangeActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerQuoteStatusChangeActivity" auth="true">
+        <description>Registers a quote status change activity.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="actorType" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="actorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="actorName" type="String" mode="IN" optional="true" />
+        <attribute name="oldStatus" type="String" mode="IN" optional="false" />
+        <attribute name="newStatus" type="String" mode="IN" optional="false" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readQuoteStatusChangeActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readQuoteStatusChangeActivity" auth="true">
+        <description>Read a quote status change activity.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteId" type="String" mode="OUT" optional="false" />
+        <attribute name="actorType" type="String" mode="OUT" optional="true" />
+        <attribute name="actorId" type="String" mode="OUT" optional="true" />
+        <attribute name="actorUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="actorName" type="String" mode="OUT" optional="true" />
+        <attribute name="oldStatus" type="String" mode="OUT" optional="true" />
+        <attribute name="newStatus" type="String" mode="OUT" optional="true" />
+        <attribute name="changedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Someone created a task. -->
+    <service name="registerCreateTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerCreateTaskActivity" auth="true">
+        <description>Registers a create task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="creatorType" type="String" mode="IN" optional="true" />
+        <attribute name="creatorId" type="String" mode="IN" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="creatorName" type="String" mode="IN" optional="true" />
+        <attribute name="taskType" type="String" mode="IN" optional="true" />
+        <attribute name="taskUrl" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="createdTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readCreateTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readCreateTaskActivity" auth="true">
+        <description>Read a create task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorType" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorId" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="creatorName" type="String" mode="OUT" optional="true" />
+        <attribute name="taskType" type="String" mode="OUT" optional="true" />
+        <attribute name="taskUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="taskName" type="String" mode="OUT" optional="true" />
+        <attribute name="createdTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+    <!-- Someone updated a task. -->
+    <service name="registerUpdateTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateTaskActivity" auth="true">
+        <description>Registers an update task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="updaterType" type="String" mode="IN" optional="true" />
+        <attribute name="updaterId" type="String" mode="IN" optional="true" />
+        <attribute name="updaterUrl" type="String" mode="IN" optional="true" />
+        <attribute name="updaterName" type="String" mode="IN" optional="true" />
+        <attribute name="taskType" type="String" mode="IN" optional="true" />
+        <attribute name="taskUrl" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true"  allow-html="any"/>
+        <attribute name="updatedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readUpdateTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readUpdateTaskActivity" auth="true">
+        <description>Read an update task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterType" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterName" type="String" mode="OUT" optional="true" />
+        <attribute name="taskType" type="String" mode="OUT" optional="true" />
+        <attribute name="taskUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="taskName" type="String" mode="OUT" optional="true" />
+        <attribute name="updatedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+    <!-- Someone modified a task. -->
+    <service name="registerModifyTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerModifyTaskActivity" auth="true">
+        <description>Registers a modify task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="modifierType" type="String" mode="IN" optional="true" />
+        <attribute name="modifierId" type="String" mode="IN" optional="true" />
+        <attribute name="modifierUrl" type="String" mode="IN" optional="true" />
+        <attribute name="modifierName" type="String" mode="IN" optional="true" />
+        <attribute name="taskType" type="String" mode="IN" optional="true" />
+        <attribute name="taskUrl" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true"  allow-html="any" />
+        <attribute name="modifiedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readModifyTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readModifyTaskActivity" auth="true">
+        <description>Read a modify task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterType" type="String" mode="OUT" optional="true" />
+        <attribute name="modifierId" type="String" mode="OUT" optional="true" />
+        <attribute name="modifierUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="modifierName" type="String" mode="OUT" optional="true" />
+        <attribute name="taskType" type="String" mode="OUT" optional="true" />
+        <attribute name="taskUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="taskName" type="String" mode="OUT" optional="true" />
+        <attribute name="modifiedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+    <!-- Someone updated the status of a task. -->
+    <service name="registerUpdateTaskStatusActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateTaskStatusActivity" auth="true">
+        <description>Registers an update task status activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="updaterType" type="String" mode="IN" optional="true" />
+        <attribute name="updaterId" type="String" mode="IN" optional="true" />
+        <attribute name="updaterUrl" type="String" mode="IN" optional="true" />
+        <attribute name="updaterName" type="String" mode="IN" optional="true" />
+        <attribute name="taskType" type="String" mode="IN" optional="true" />
+        <attribute name="taskUrl" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true" />
+        <attribute name="updatedTime" type="String" mode="IN" optional="true" />
+        <attribute name="newStatus" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readUpdateTaskStatusActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readUpdateTaskActivity" auth="true">
+        <description>Read an update task status activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterType" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterId" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="updaterName" type="String" mode="OUT" optional="true" />
+        <attribute name="taskType" type="String" mode="OUT" optional="true" />
+        <attribute name="taskUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="taskName" type="String" mode="OUT" optional="true" />
+        <attribute name="updatedTime" type="String" mode="OUT" optional="true" />
+        <attribute name="newStatus" type="String" mode="OUT" optional="true" />
+    </service>
+
+    <!-- Someone added a task note. -->
+    <service name="registerAddNoteToTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddNoteToTaskActivity" auth="true">
+        <description>Registers an add note to task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="false" allow-html="any" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readAddNoteToTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readAddNoteToTaskActivity" auth="true">
+        <description>Read an add note to task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="noteId" type="String" mode="OUT" optional="true" />
+        <attribute name="adderType" type="String" mode="OUT" optional="true" />
+        <attribute name="adderId" type="String" mode="OUT" optional="true" />
+        <attribute name="adderUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="adderName" type="String" mode="OUT" optional="true" />
+        <attribute name="taskUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="taskName" type="String" mode="OUT" optional="true" />
+        <attribute name="addedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Email Activity for a Task -->
+    <service name="registerTaskEmailActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskEmailActivity" auth="true">
+        <description>Registers a task email activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="senderType" type="String" mode="IN" optional="true" />
+        <attribute name="senderId" type="String" mode="IN" optional="true" />
+        <attribute name="senderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="senderName" type="String" mode="IN" optional="true" />
+        <attribute name="sendTo" type="String" mode="IN" optional="true" />
+        <attribute name="sendCC" type="String" mode="IN" optional="true" />
+        <attribute name="sendBCC" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="content" type="String" mode="IN" optional="true" />
+        <attribute name="sentTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskEmailActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskEmailActivity" auth="true">
+        <description>Read a task email activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="senderType" type="String" mode="OUT" optional="true" />
+        <attribute name="senderId" type="String" mode="OUT" optional="true" />
+        <attribute name="senderUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="senderName" type="String" mode="OUT" optional="true" />
+        <attribute name="sendTo" type="String" mode="OUT" optional="true" />
+        <attribute name="sendCC" type="String" mode="OUT" optional="true" />
+        <attribute name="sendBCC" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="content" type="String" mode="OUT" optional="true" />
+        <attribute name="sentTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Phone Activity for a Task -->
+    <service name="registerTaskPhoneActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskPhoneActivity" auth="true">
+        <description>Registers a phone task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="phoneNumber" type="String" mode="IN" optional="false" />
+        <attribute name="callerType" type="String" mode="IN" optional="true" />
+        <attribute name="callerId" type="String" mode="IN" optional="true" />
+        <attribute name="callerUrl" type="String" mode="IN" optional="true" />
+        <attribute name="callerName" type="String" mode="IN" optional="true" />
+        <attribute name="calleeType" type="String" mode="IN" optional="true" />
+        <attribute name="calleeId" type="String" mode="IN" optional="true" />
+        <attribute name="calleeUrl" type="String" mode="IN" optional="true" />
+        <attribute name="calleeName" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="startTime" type="String" mode="IN" optional="true" />
+        <attribute name="endTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskPhoneActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskPhoneActivity" auth="true">
+        <description>Read a phone task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="phoneNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="callerType" type="String" mode="OUT" optional="true" />
+        <attribute name="callerId" type="String" mode="OUT" optional="true" />
+        <attribute name="callerUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="callerName" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeType" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeId" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeName" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="startTime" type="String" mode="OUT" optional="true" />
+        <attribute name="endTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Fax Activity for a Task -->
+    <service name="registerTaskFaxActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskFaxActivity" auth="true">
+        <description>Registers a fax activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="faxNumber" type="String" mode="IN" optional="false" />
+        <attribute name="callerType" type="String" mode="IN" optional="true" />
+        <attribute name="callerId" type="String" mode="IN" optional="true" />
+        <attribute name="callerUrl" type="String" mode="IN" optional="true" />
+        <attribute name="callerName" type="String" mode="IN" optional="true" />
+        <attribute name="calleeType" type="String" mode="IN" optional="true" />
+        <attribute name="calleeId" type="String" mode="IN" optional="true" />
+        <attribute name="calleeUrl" type="String" mode="IN" optional="true" />
+        <attribute name="calleeName" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="startTime" type="String" mode="IN" optional="true" />
+        <attribute name="endTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskFaxActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskFaxActivity" auth="true">
+        <description>Read a fax activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="faxNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="callerType" type="String" mode="OUT" optional="true" />
+        <attribute name="callerId" type="String" mode="OUT" optional="true" />
+        <attribute name="callerUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="callerName" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeType" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeId" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="calleeName" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="startTime" type="String" mode="OUT" optional="true" />
+        <attribute name="endTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Gift Activity for a Task -->
+    <service name="registerTaskGiftActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskGiftActivity" auth="true">
+        <description>Registers a task gift activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="giverType" type="String" mode="IN" optional="true" />
+        <attribute name="giverId" type="String" mode="IN" optional="true" />
+        <attribute name="giverUrl" type="String" mode="IN" optional="true" />
+        <attribute name="giverName" type="String" mode="IN" optional="true" />
+        <attribute name="receiverType" type="String" mode="IN" optional="true" />
+        <attribute name="receiverId" type="String" mode="IN" optional="true" />
+        <attribute name="receiverUrl" type="String" mode="IN" optional="true" />
+        <attribute name="receiverName" type="String" mode="IN" optional="true" />
+        <attribute name="giftDescription" type="String" mode="IN" optional="true" />
+        <attribute name="giftTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskGiftActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskGiftActivity" auth="true">
+        <description>Read a task gift activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="giverType" type="String" mode="OUT" optional="true" />
+        <attribute name="giverId" type="String" mode="OUT" optional="true" />
+        <attribute name="giverUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="giverName" type="String" mode="OUT" optional="true" />
+        <attribute name="receiverType" type="String" mode="OUT" optional="true" />
+        <attribute name="receiverId" type="String" mode="OUT" optional="true" />
+        <attribute name="receiverUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="receiverName" type="String" mode="OUT" optional="true" />
+        <attribute name="giftDescription" type="String" mode="OUT" optional="true" />
+        <attribute name="giftTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Meeting Activity for a Task -->
+    <service name="registerTaskMeetingActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskMeetingActivity" auth="true">
+        <description>Registers a meeting task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="venue" type="String" mode="IN" optional="false" />
+        <attribute name="phoneNumber" type="String" mode="IN" optional="true" />
+        <attribute name="organizerType" type="String" mode="IN" optional="true" />
+        <attribute name="organizerId" type="String" mode="IN" optional="true" />
+        <attribute name="organizerUrl" type="String" mode="IN" optional="true" />
+        <attribute name="organizerName" type="String" mode="IN" optional="true" />
+        <attribute name="participants" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="startTime" type="String" mode="IN" optional="true" />
+        <attribute name="endTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskMeetingActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskMeetingActivity" auth="true">
+        <description>Read a meeting task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="venue" type="String" mode="OUT" optional="true" />
+        <attribute name="phoneNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerType" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerId" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerName" type="String" mode="OUT" optional="true" />
+        <attribute name="participants" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="startTime" type="String" mode="OUT" optional="true" />
+        <attribute name="endTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Appointment Activity for a Task -->
+    <service name="registerTaskAppointmentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskAppointmentActivity" auth="true">
+        <description>Registers an appointment task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="venue" type="String" mode="IN" optional="false" />
+        <attribute name="phoneNumber" type="String" mode="IN" optional="true" />
+        <attribute name="organizerType" type="String" mode="IN" optional="true" />
+        <attribute name="organizerId" type="String" mode="IN" optional="true" />
+        <attribute name="organizerUrl" type="String" mode="IN" optional="true" />
+        <attribute name="organizerName" type="String" mode="IN" optional="true" />
+        <attribute name="consultantType" type="String" mode="IN" optional="true" />
+        <attribute name="consultantId" type="String" mode="IN" optional="true" />
+        <attribute name="consultantUrl" type="String" mode="IN" optional="true" />
+        <attribute name="consultantName" type="String" mode="IN" optional="true" />
+        <attribute name="participants" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="startTime" type="String" mode="IN" optional="true" />
+        <attribute name="endTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskAppointmentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskAppointmentActivity" auth="true">
+        <description>Read an appointment task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="venue" type="String" mode="OUT" optional="true" />
+        <attribute name="phoneNumber" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerType" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerId" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="organizerName" type="String" mode="OUT" optional="true" />
+        <attribute name="consultantType" type="String" mode="OUT" optional="true" />
+        <attribute name="consultantId" type="String" mode="OUT" optional="true" />
+        <attribute name="consultantUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="consultantName" type="String" mode="OUT" optional="true" />
+        <attribute name="participants" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="startTime" type="String" mode="OUT" optional="true" />
+        <attribute name="endTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+
+    <!-- Letter Activity for a Task -->
+    <service name="registerTaskLetterActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerTaskLetterActivity" auth="true">
+        <description>Registers a letter task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="writerType" type="String" mode="IN" optional="true" />
+        <attribute name="writerId" type="String" mode="IN" optional="true" />
+        <attribute name="writerUrl" type="String" mode="IN" optional="true" />
+        <attribute name="writerName" type="String" mode="IN" optional="true" />
+        <attribute name="addresseeType" type="String" mode="IN" optional="true" />
+        <attribute name="addresseeId" type="String" mode="IN" optional="true" />
+        <attribute name="addresseeUrl" type="String" mode="IN" optional="true" />
+        <attribute name="addresseeName" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="content" type="String" mode="IN" optional="true" />
+        <attribute name="postedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="readTaskLetterActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="readTaskLetterActivity" auth="true">
+        <description>Read a letter task activity performed.</description>
+        <attribute name="activityId" type="String" mode="IN" optional="false" />
+        <attribute name="taskId" type="String" mode="OUT" optional="true" />
+        <attribute name="writerType" type="String" mode="OUT" optional="true" />
+        <attribute name="writerId" type="String" mode="OUT" optional="true" />
+        <attribute name="writerUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="writerName" type="String" mode="OUT" optional="true" />
+        <attribute name="addresseeType" type="String" mode="OUT" optional="true" />
+        <attribute name="addresseeId" type="String" mode="OUT" optional="true" />
+        <attribute name="addresseeUrl" type="String" mode="OUT" optional="true" />
+        <attribute name="addresseeName" type="String" mode="OUT" optional="true" />
+        <attribute name="subject" type="String" mode="OUT" optional="true" />
+        <attribute name="content" type="String" mode="OUT" optional="true" />
+        <attribute name="postedTime" type="String" mode="OUT" optional="true" />
+    </service>
+
+    <!-- Someone added a task requirement. -->
+    <service name="registerAddRequirementToTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddRequirementToTaskActivity" auth="true">
+        <description>Registers an add requirement to task activity performed.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="description" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <!-- Someone mark the task requirement. -->
+    <service name="registerMarkTaskRequirementActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerMarkTaskRequirementActivity" auth="true">
+        <description>Registers a quote status change activity.</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false" />
+        <attribute name="actorType" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="actorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="taskName" type="String" mode="IN" optional="true" />
+        <attribute name="actorName" type="String" mode="IN" optional="true" />
+        <attribute name="requirementInfo" type="String" mode="IN" optional="false" />
+        <attribute name="requirementStatus" type="String" mode="IN" optional="false" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUploadQuoteDocumentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUploadQuoteDocumentActivity" auth="true">
+        <description>Registers upload quote document activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="contentName" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddQuoteItemActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddQuoteItemActivity" auth="true">
+        <description>Registers add quote item activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="productId" type="String" mode="IN" optional="true" />
+        <attribute name="quoteUnitPrice" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUpdateQuoteItemActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateQuoteItemActivity" auth="true">
+        <description>Registers update quote item activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="productId" type="String" mode="IN" optional="true" />
+        <attribute name="quoteUnitPrice" type="String" mode="IN" optional="true" />
+        <attribute name="quantity" type="String" mode="IN" optional="true" />
+        <attribute name="discountAmount" type="String" mode="IN" optional="true" />
+        <attribute name="discountPercentage" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerConvertQuoteToOrderActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerConvertQuoteToOrderActivity" auth="true">
+        <description>Registers convert quote to order activity performed.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="convertedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerCapturePaymentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerCapturePaymentActivity" auth="true">
+        <description>Registers a capture payment activity performed.</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false" />
+        <attribute name="amount" type="String" mode="IN" optional="true" />
+        <attribute name="creatorId" type="String" mode="IN" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="creatorName" type="String" mode="IN" optional="true" />
+        <attribute name="createdTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerCreateOpportunityActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerCreateOpportunityActivity" auth="true">
+        <description>Registers a create opportunity activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="creatorType" type="String" mode="IN" optional="true" />
+        <attribute name="creatorId" type="String" mode="IN" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="creatorName" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityType" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityUrl" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityName" type="String" mode="IN" optional="true" />
+        <attribute name="createdTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddOpportunityItemActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddOpportunityItemActivity" auth="true">
+        <description>Registers add opportunity item activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="productId" type="String" mode="IN" optional="true" />
+        <attribute name="unitPrice" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerRemoveOpportunityItemActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerRemoveOpportunityItemActivity" auth="true">
+        <description>Registers remove opportunity item activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="productId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddOpportunityRoleActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddOpportunityRoleActivity" auth="true">
+        <description>Registers add opportunity role activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="contactPartyId" type="String" mode="IN" optional="true" />
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerRemoveOpportunityRoleActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerRemoveOpportunityRoleActivity" auth="true">
+        <description>Registers remove opportunity role activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="contactPartyId" type="String" mode="IN" optional="true" />
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddOpportunityLinkTaskActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddOpportunityLinkTaskActivity" auth="true">
+        <description>Registers add opportunity and task association activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="opportunityLinkedTaskId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUpdateOpportunityDetailsActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateOpportunityDetailsActivity" auth="true">
+        <description>Registers update opportunity details activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddOpportunityCreateEventActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddOpportunityCreateEventActivity" auth="true">
+        <description>Registers add opportunity and task association activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="opportunityEventId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddNoteToOpportunityActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddNoteToOpportunityActivity" auth="true">
+        <description>Registers an add note to opportunity activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true" />
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="isNoteInternal" type="String" mode="IN" optional="true" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityUrl" type="String" mode="IN" optional="true" />
+        <attribute name="opportunityName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerSendOpportunityEmailActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerSendOpportunityEmailActivity" auth="true">
+        <description>Registers a send opportunity mail activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="senderType" type="String" mode="IN" optional="true" />
+        <attribute name="senderId" type="String" mode="IN" optional="true" />
+        <attribute name="senderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="senderName" type="String" mode="IN" optional="true" />
+        <attribute name="sendTo" type="String" mode="IN" optional="true" />
+        <attribute name="sendCC" type="String" mode="IN" optional="true" />
+        <attribute name="sendBCC" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="content" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="sentTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUploadOpportunityDocumentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUploadOpportunityDocumentActivity" auth="true">
+        <description>Registers upload Opportunity document activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="contentName" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerStageToOpportunityActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerStageToOpportunityActivity" auth="true">
+        <description>Registers stage to opportunity activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="oldOpportunityStageId" type="String" mode="IN" optional="true"/>
+        <attribute name="newOpportunityStageId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerOpportunityToQuoteActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerOpportunityToQuoteActivity" auth="true">
+        <description>Register Opportunity to Quote activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="quoteId" type="String" mode="IN" optional="true"/>
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemActivity" auth="true">
+        <description>Registers a create project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="creatorType" type="String" mode="IN" optional="true" />
+        <attribute name="creatorId" type="String" mode="IN" optional="true" />
+        <attribute name="creatorUrl" type="String" mode="IN" optional="true" />
+        <attribute name="creatorName" type="String" mode="IN" optional="true" />
+        <attribute name="projectItemUrl" type="String" mode="IN" optional="true" />
+        <attribute name="projectItemName" type="String" mode="IN" optional="true" />
+        <attribute name="createdTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemStatusActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemStatusActivity" auth="true">
+        <description>Registers status to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="oldProjectItemStatusId" type="String" mode="IN" optional="true"/>
+        <attribute name="newProjectItemStatusId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemTagActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemTagActivity" auth="true">
+        <description>Registers tag to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="tagName" type="String" mode="IN" optional="true"/>
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemAssigneeActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemAssigneeActivity" auth="true">
+        <description>Registers Assignee to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="projectItemAssigneeId" type="String" mode="IN" optional="false"/>
+        <attribute name="isAddAssignee" type="String" mode="IN" optional="false"/>
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddNoteToProjectItemActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddNoteToProjectItemActivity" auth="true">
+        <description>Registers an add note to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="noteInfo" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="noteTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="adderType" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="adderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="adderName" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUploadProjectItemDocumentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUploadProjectItemDocumentActivity" auth="true">
+        <description>Registers upload Project Item document activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="contentName" type="String" mode="IN" optional="true" />
+        <attribute name="isRemoveContent" type="String" mode="IN" optional="true" default-value="N"/>
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemPriorityActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemPriorityActivity" auth="true">
+        <description>Registers Priority to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="oldProjectItemPriorityId" type="String" mode="IN" optional="true"/>
+        <attribute name="newProjectItemPriorityId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemTypeActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemTypeActivity" auth="true">
+        <description>Registers Type to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="oldProjectItemTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="newProjectItemTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemAssociationActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemAssociationActivity" auth="true">
+        <description>Registers Associated issue to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="issueIdTo" type="String" mode="IN" optional="true" />
+        <attribute name="isIssueLink" type="String" mode="IN" optional="true" />
+        <attribute name="issueAssocTypeId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerProjectItemDescriptionActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerProjectItemDescriptionActivity" auth="true">
+        <description>Registers Description to project item activity performed.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="description" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="adderId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerAddProjectItemEpicActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerAddProjectItemEpicActivity" auth="true">
+        <description>Register activity on adding EPIC to project item.</description>
+        <attribute name="projectItemId" type="String" mode="IN" optional="false" />
+        <attribute name="epicId" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUpdateCurrencyForDeal" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateCurrencyForDeal" auth="true">
+        <description>Registers update opportunity currency activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="oldCurrency" type="String" mode="IN" optional="true" />
+        <attribute name="newCurrency" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+    <service name="registerUpdateEstimatedAmountForDeal" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdateEstimatedAmountForDeal" auth="true">
+        <description>Registers update opportunity estimated amount.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+        <attribute name="oldAmount" type="String" mode="IN" optional="true" />
+        <attribute name="newAmount" type="String" mode="IN" optional="true" />
+    </service>
+    <service name="registerUpdatePriorityForDeal" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUpdatePriorityForDeal" auth="true">
+        <description>Registers update opportunity priority activity performed.</description>
+        <attribute name="salesOpportunityId" type="String" mode="IN" optional="false" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="oldPriority" type="String" mode="IN" optional="true" />
+        <attribute name="newPriority" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerUploadCustRequestDocumentActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerUploadCustRequestDocumentActivity" auth="true">
+        <description>Registers upload customer request document activity performed.</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false" />
+        <attribute name="contentName" type="String" mode="IN" optional="true" />
+        <attribute name="actorId" type="String" mode="IN" optional="true" />
+        <attribute name="changedTime" type="String" mode="IN" optional="true" />
+        <attribute name="addedTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+
+    <service name="registerSendCustomerEmailActivity" engine="java"
+             location="com.simbaquartz.xtasks.services.ActivityServices"
+             invoke="registerSendCustomerEmailActivity" auth="true">
+        <description>Registers a send invite mail to customer activity performed.</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true" />
+        <attribute name="customerId" type="String" mode="IN" optional="false" />
+        <attribute name="senderType" type="String" mode="IN" optional="true" />
+        <attribute name="senderId" type="String" mode="IN" optional="true" />
+        <attribute name="senderUrl" type="String" mode="IN" optional="true" />
+        <attribute name="senderName" type="String" mode="IN" optional="true" />
+        <attribute name="sendTo" type="String" mode="IN" optional="true" />
+        <attribute name="sendCC" type="String" mode="IN" optional="true" />
+        <attribute name="sendBCC" type="String" mode="IN" optional="true" />
+        <attribute name="subject" type="String" mode="IN" optional="true" />
+        <attribute name="content" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="sentTime" type="String" mode="IN" optional="true" />
+        <attribute name="activityId" type="String" mode="OUT" optional="false" />
+    </service>
+</services>

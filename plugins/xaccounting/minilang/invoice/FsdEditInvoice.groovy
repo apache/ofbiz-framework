@@ -1,0 +1,195 @@
+import com.fidelissd.fsdaccounting.services.FsdInvoiceWorker
+import com.simbaquartz.xcommon.collections.FastMap
+import org.ofbiz.entity.util.EntityQuery
+
+import com.simbaquartz.xcommon.collections.FastList
+import java.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.accounting.invoice.*;
+import java.text.DateFormat;
+import org.ofbiz.base.util.UtilNumber;
+
+
+invoiceId = parameters.get("invoiceId");
+
+invoice = from('Invoice').where('invoiceId', invoiceId).queryOne();
+context.invoice = invoice;
+
+currency = parameters.currency;        // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
+BigDecimal conversionRate = new BigDecimal("1");
+ZERO = BigDecimal.ZERO;
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+
+if (invoice) {
+    // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
+    // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
+    // home of the customer.)
+    if ("PURCHASE_INVOICE".equals(invoice.invoiceTypeId)) {
+        billingAddress = InvoiceWorker.getSendFromAddress(invoice);
+    } else {
+        billingAddress = InvoiceWorker.getBillToAddress(invoice);
+    }
+    if (billingAddress) {
+        context.billingAddress = billingAddress;
+    }
+    billToParty = InvoiceWorker.getBillToParty(invoice);
+    context.billToParty = billToParty;
+    sendingParty = InvoiceWorker.getSendFromParty(invoice);
+    context.sendingParty = sendingParty;
+
+    if (currency && !invoice.getString("currencyUomId").equals(currency)) {
+        conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice);
+        invoice.currencyUomId = currency;
+        invoice.invoiceMessage = " converted from original with a rate of: " + conversionRate.setScale(8, rounding);
+    }
+
+    invoiceItems = invoice.getRelated("InvoiceItem", null, ["invoiceItemSeqId"], false);
+    invoiceItemsConv = [];
+    vatTaxesByType = [:];
+    invoiceItems.each { invoiceItem ->
+        invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding);
+        invoiceItemsConv.add(invoiceItem);
+        // get party tax id for VAT taxes: they are required in invoices by EU
+        // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
+        taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false);
+        if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
+            taxInfo = from("PartyTaxAuthInfo")
+                    .where('partyId', billToParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
+                    .filterByDate(invoice.invoiceDate)
+                    .queryFirst();
+            if (taxInfo) {
+                context.billToPartyTaxId = taxInfo.partyTaxId;
+            }
+            taxInfo = from("PartyTaxAuthInfo")
+                    .where('partyId', sendingParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
+                    .filterByDate(invoice.invoiceDate)
+                    .queryFirst();
+            if (taxInfo) {
+                context.sendingPartyTaxId = taxInfo.partyTaxId;
+            }
+            vatTaxesByTypeAmount = vatTaxesByType[taxRate.taxAuthorityRateSeqId];
+            if (!vatTaxesByTypeAmount) {
+                vatTaxesByTypeAmount = 0.0;
+            }
+            vatTaxesByType.put(taxRate.taxAuthorityRateSeqId, vatTaxesByTypeAmount + invoiceItem.amount);
+        }
+
+    }
+    context.vatTaxesByType = vatTaxesByType;
+    context.vatTaxIds = vatTaxesByType.keySet().asList();
+
+    context.invoiceItems = invoiceItemsConv;
+    boolean taxAdjustmentExists = false
+    List<GenericValue> invoiceTaxItemsCheck = EntityQuery.use(delegator).from("InvoiceItem").where("invoiceId", invoiceId,"invoiceItemTypeId", "ITM_SALES_TAX").queryList()
+    if(UtilValidate.isNotEmpty(invoiceTaxItemsCheck)) {
+        taxAdjustmentExists = true
+        List<GenericValue> invoiceItems = EntityQuery.use(delegator).from("InvoiceItem").where("invoiceId", invoiceId, "invoiceItemTypeId", "INV_FPROD_ITEM").queryList()
+        List invoiceItemList = FastList.newInstance()
+        if (UtilValidate.isNotEmpty(invoiceItems)) {
+            for (GenericValue invoiceItem : invoiceItems) {
+                Map invoiceItemMap = FastMap.newInstance();
+                List<GenericValue> invoiceTaxItems = EntityQuery.use(delegator).from("InvoiceItem").where("invoiceId", invoiceId, "invoiceItemTypeId", "ITM_SALES_TAX").queryList()
+                if (UtilValidate.isNotEmpty(invoiceTaxItems)) {
+                    for (GenericValue invoiceTaxItem : invoiceTaxItems) {
+                        if (invoiceItem.getString("invoiceItemSeqId").equals(invoiceTaxItem.getString("parentInvoiceItemSeqId"))) {
+                            invoiceItemMap.put("taxAmount", invoiceTaxItem.getBigDecimal("amount"))
+                            invoiceItemMap.put("taxAdjustmentExists", "Y")
+                            invoiceItemMap.put("taxDescription", invoiceTaxItem.getString("description"))
+                        }
+                    }
+                }
+                BigDecimal amount = invoiceItem.getBigDecimal("amount")
+                BigDecimal quantity = invoiceItem.getBigDecimal("quantity")
+                invoiceItemMap.put("amount", amount)
+                invoiceItemMap.put("quantity", quantity)
+                String productId = invoiceItem.getString("productId")
+                if(UtilValidate.isNotEmpty(productId)) {
+                    invoiceItemMap.put("productId", productId)
+                    GenericValue productDetails = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne()
+                    if(UtilValidate.isNotEmpty(productDetails)) {
+                        invoiceItemMap.put("productName", productDetails.getString("internalName"))
+                    }
+                }
+                invoiceItemMap.put("invoiceItemSeqId", invoiceItem.getString("invoiceItemSeqId"))
+                invoiceItemMap.put("description", invoiceItem.getString("description"))
+                invoiceItemMap.put("comments", invoiceItem.getString("comments"))
+                invoiceItemMap.put("currencyUomId", "USD")
+                BigDecimal subTotal = amount.multiply(quantity)
+                invoiceItemMap.put("subTotal", subTotal)
+                invoiceItemList.add(invoiceItemMap)
+            }
+            invoiceItemList = UtilMisc.sortMaps(invoiceItemList, ["invoiceItemSeqId"])
+            context.invoiceItemList = invoiceItemList
+        }
+    }
+    context.taxAdjustmentExists = taxAdjustmentExists
+
+    invoiceTotal = FsdInvoiceWorker.getInvoiceTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
+    invoiceNoTaxTotal = FsdInvoiceWorker.getInvoiceNoTaxTotal(invoice).multiply(conversionRate).setScale(decimals, rounding);
+    BigDecimal taxTotal = InvoiceWorker.getInvoiceTaxTotal(invoice)
+    context.taxTotal = taxTotal;
+    context.invoiceTotal = invoiceTotal;
+    context.invoiceNoTaxTotal = invoiceNoTaxTotal;
+
+    //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
+
+    sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false);
+    billingTaxInfos = billToParty.getRelated("PartyTaxAuthInfo", null, null, false);
+    sendingPartyTaxId = null;
+    billToPartyTaxId = null;
+
+    if (billingAddress) {
+        sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
+            if (sendingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+                sendingPartyTaxId = sendingTaxInfos[i-1].partyTaxId;
+            }
+        }
+        billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
+            if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
+                billToPartyTaxId = billingTaxInfos[i-1].partyTaxId;
+            }
+        }
+    }
+    if (sendingPartyTaxId) {
+        context.sendingPartyTaxId = sendingPartyTaxId;
+    }
+    if (billToPartyTaxId && !context.billToPartyTaxId) {
+        context.billToPartyTaxId = billToPartyTaxId;
+    }
+    //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
+
+
+    terms = invoice.getRelated("InvoiceTerm", null, null, false);
+    context.terms = terms;
+
+    paymentAppls = from("PaymentApplication").where('invoiceId', invoiceId).queryList();
+    context.payments = paymentAppls;
+
+    orderItemBillings = from("OrderItemBilling").where('invoiceId', invoiceId).orderBy('orderId').queryList();
+    orders = new LinkedHashSet();
+    orderItemBillings.each { orderIb ->
+        orders.add(orderIb.orderId);
+    }
+    context.orders = orders;
+
+    invoiceStatus = invoice.getRelatedOne("StatusItem", false);
+    context.invoiceStatus = invoiceStatus;
+
+    edit = parameters.editInvoice;
+    if ("true".equalsIgnoreCase(edit)) {
+        invoiceItemTypes = from("InvoiceItemType").queryList();
+        context.invoiceItemTypes = invoiceItemTypes;
+        context.editInvoice = true;
+    }
+
+    // format the date
+    if (invoice.invoiceDate) {
+        invoiceDate = DateFormat.getDateInstance(DateFormat.LONG).format(invoice.invoiceDate);
+        context.invoiceDate = invoiceDate;
+    } else {
+        context.invoiceDate = "N/A";
+    }
+}
+

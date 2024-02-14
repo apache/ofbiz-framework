@@ -48,7 +48,7 @@
     </service>
 
     <service name="fsdGetPartyDepartment" engine="java"
-             location="com.simbaquartz.xorder.services.quote.role.QuoteRoleServices"
+             location="com.simbaquartz.xparty.services.party.PartyServices"
              invoke="getPartyDepartment" auth="true">
         <description>Get party department</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>

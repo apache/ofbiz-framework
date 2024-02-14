@@ -747,7 +747,7 @@ public class EmployeeUtils {
     List exprListManager =
         UtilMisc.toList(
             condnPartyIdTo,
-            EntityCondition.makeCondition("roleTypeIdFrom", EntityOperator.EQUALS, "APP_MEMBER"),
+            EntityCondition.makeCondition("roleTypeIdFrom", EntityOperator.EQUALS, "ORG_MEMBER"),
             EntityCondition.makeCondition(
                 "partyRelationshipTypeId", EntityOperator.EQUALS, "REPORTS_TO"));
 

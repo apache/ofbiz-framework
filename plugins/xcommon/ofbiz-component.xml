@@ -30,6 +30,8 @@ under the License.
 
     <!-- entity resources: model(s), eca(s), group, and data definitions -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/activity_entitymodel.xml"/>
+
     <!-- <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/> -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/XcommonTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/XcommonSecurityPermissionSeedData.xml"/>
@@ -40,6 +42,7 @@ under the License.
 
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services-activities.xml"/>
     <!--<service-resource type="model" loader="main" location="servicedef/services_google.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_slack.xml"/>-->
     <!--

@@ -22,7 +22,7 @@ public class AccountApi {
     private final AccountApiService delegate = AccountApiServiceFactory.getAccountApi();
 
     /**
-     * Creates and application account for mmo application.
+     * Creates and application account
      *
      * @param applicationAccount
      * @return

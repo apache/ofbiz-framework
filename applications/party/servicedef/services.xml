@@ -378,6 +378,9 @@ under the License.
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="false"/>
         <auto-attributes entity-name="ContactMech" include="pk" mode="INOUT" optional="true"/>
         <override name="infoString" optional="true"/>
+        <override name="lastVerifiedAt" optional="true"/>
+        <override name="lastVerifiedBy" optional="true"/>
+        <override name="isVerified" optional="true"/>
     </service>
     <service name="createPartyContactMech" engine="simple"
             location="component://party/minilang/contact/PartyContactMechServices.xml" invoke="createPartyContactMech" auth="true">

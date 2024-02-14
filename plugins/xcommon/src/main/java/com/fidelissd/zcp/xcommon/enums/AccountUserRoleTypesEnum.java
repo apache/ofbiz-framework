@@ -2,9 +2,9 @@ package com.fidelissd.zcp.xcommon.enums;
 
 /** Represents the role types available in the application. */
 public enum AccountUserRoleTypesEnum {
-  ADMIN("APP_ADMIN", "admin"),
-  MANAGER("APP_MANAGER", "manager"),
-  MEMBER("APP_MEMBER", "member");
+  ADMIN("ORG_ADMIN", "admin"),
+  MANAGER("ORG_MANAGER", "manager"),
+  MEMBER("ORG_MEMBER", "member");
 
   private String role;
   private String roleName;

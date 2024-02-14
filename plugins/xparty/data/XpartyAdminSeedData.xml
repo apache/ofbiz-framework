@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+    <SecurityGroup description="FSD Owner Security Group." groupId="FSDOWNER" />
+    <!--<SecurityGroupPermission groupId="FSDOWNER" permissionId="ACCOUNTING_ADMIN"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="PARTYMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="ORDERMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="PAY_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="PAY_INFO_UPDATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="PAY_INFO_CREATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="CATALOG_UPDATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="CATALOG_CREATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="ORDERMGR_CRQ_CREATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="ACCTG_ATX_CREATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="CONTENTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="FSDOWNER" permissionId="CONTENTMGR_UPDATE"/>-->
+
+    <!-- The main Company Internal Organization -->
+    <Party partyId="FSD" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="FSD" groupName="Fidelis Sustainability Distribution, LLC" Cage="6XNU4" Duns="078849033"/>
+    <PartyRole partyId="FSD" roleTypeId="BILL_FROM_VENDOR"/>
+    <PartyRole partyId="FSD" roleTypeId="BILL_TO_CUSTOMER"/>
+    <PartyRole partyId="FSD" roleTypeId="_NA_"/>
+    <PartyRole partyId="FSD" roleTypeId="DISTRIBUTOR"/>
+    <PartyRole partyId="FSD" roleTypeId="INTERNAL_ORGANIZATIO"/>
+
+    <ContactMech contactMechId="FSD_address" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PartyContactMech partyId="FSD" contactMechId="FSD_address" fromDate="2014-01-01 00:00:00.000"
+                      allowSolicitation="Y"/>
+    <PostalAddress contactMechId="FSD_address" address1="204 West Spear Street Suite 3319" city="Carson City"
+                   postalCode="89703" countryGeoId="USA" stateProvinceGeoId="NV"/>
+    <ContactMech contactMechId="FSD_phone" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="FSD_phone" countryCode="1" areaCode="877" contactNumber="929-0123"/>
+    <PartyContactMech partyId="FSD" contactMechId="FSD_phone" fromDate="2014-01-01 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="FSD" contactMechId="FSD_phone" contactMechPurposeTypeId="PRIMARY_PHONE"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <ContactMech contactMechId="FSD_fax" contactMechTypeId="TELECOM_NUMBER"/>
+    <TelecomNumber contactMechId="FSD_fax" countryCode="1" areaCode="844" contactNumber="803-5566"/>
+    <PartyContactMech partyId="FSD" contactMechId="FSD_fax" fromDate="2014-01-01 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="FSD" contactMechId="FSD_fax" contactMechPurposeTypeId="FAX_NUMBER"
+                             fromDate="2014-01-01 00:00:00.000"/>
+
+    <ContactMech contactMechId="FSD_email" contactMechTypeId="EMAIL_ADDRESS" infoString="sales@fidelissd.com"/>
+    <PartyContactMech partyId="FSD" contactMechId="FSD_email" fromDate="2014-01-01 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="FSD" contactMechId="FSD_email"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="SUPPORT_EMAIL" partyId="FSD" contactMechId="FSD_email"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FSD" contactMechId="FSD_address" contactMechPurposeTypeId="BILLING_LOCATION"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FSD" contactMechId="FSD_address" contactMechPurposeTypeId="GENERAL_LOCATION"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="FSD" contactMechId="FSD_address" contactMechPurposeTypeId="PAYMENT_LOCATION"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <ContactMech contactMechId="FSD_website" contactMechTypeId="WEB_ADDRESS" infoString="http://fidelissd.com/"/>
+    <PartyContactMech partyId="FSD" contactMechId="FSD_website" fromDate="2014-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" partyId="FSD" contactMechId="FSD_website"
+                             fromDate="2014-01-01 00:00:00.000"/>
+    <ContactMech contactMechId="FSD_linkedin" contactMechTypeId="WEB_ADDRESS"
+                 infoString="https://www.linkedin.com/company/fidelis-sustainability-distribution-llc"/>
+    <PartyContactMech partyId="FSD" contactMechId="FSD_linkedin" fromDate="2014-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="LINKEDIN_URL" partyId="FSD" contactMechId="FSD_linkedin"
+                             fromDate="2014-01-01 00:00:00.000"/>
+
+    <!-- Dustin Lee -->
+    <Party partyId="dustin.lee" partyTypeId="PERSON"/>
+    <Person firstName="Dustin" lastName="Lee" partyId="dustin.lee" personalTitle=""/>
+    <PartyRole partyId="dustin.lee" roleTypeId="MANAGER"/>
+    <PartyRole partyId="dustin.lee" roleTypeId="OWNER"/>
+    <PartyRole partyId="dustin.lee" roleTypeId="ACCOUNT_LEAD"/>
+    <UserLogin userLoginId="dustin.lee@fidelissd.com" partyId="dustin.lee"
+               currentPassword="$SHA$5e1CsPN8t$tZP6PrPo_X8dlCD7xZiK4eaqdDU" passwordHint="12345678"/>
+    <UserLoginSecurityGroup groupId="FSDOWNER" userLoginId="dustin.lee@fidelissd.com" fromDate="2001-01-01 12:00:00.0"/>
+    <ContactMech contactMechId="dustin.lee" contactMechTypeId="EMAIL_ADDRESS" infoString="dustin.lee@fidelissd.com"/>
+    <PartyContactMech partyId="dustin.lee" contactMechId="dustin.lee" fromDate="2014-01-01 00:00:00.0"
+                      allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="dustin.lee" contactMechId="dustin.lee"
+                             fromDate="2014-01-01 00:00:00.0"/>
+    <ContactMech contactMechId="dustin.leep" contactMechTypeId="TELECOM_NUMBER" createdStamp="2014-01-01 00:00:00"
+                 createdTxStamp="2014-01-01 00:00:00" lastUpdatedStamp="2014-01-01 00:00:00"
+                 lastUpdatedTxStamp="2014-01-01 00:00:00"/>
+    <TelecomNumber areaCode="775" contactMechId="dustin.leep" contactNumber="301-5390" countryCode="1"
+                   createdStamp="2014-01-01 00:00:00" createdTxStamp="2014-01-01 00:00:00"
+                   lastUpdatedStamp="2014-01-01 00:00:00" lastUpdatedTxStamp="2014-01-01 00:00:00"/>
+    <PartyContactMech allowSolicitation="Y" contactMechId="dustin.leep" createdStamp="2014-01-01 00:00:00"
+                      createdTxStamp="2014-01-01 00:00:00" fromDate="2014-01-01 00:00:00"
+                      lastUpdatedStamp="2014-01-01 00:00:00" lastUpdatedTxStamp="2014-01-01 00:00:00"
+                      partyId="dustin.lee"/>
+    <PartyContactMechPurpose contactMechId="dustin.leep" contactMechPurposeTypeId="PRIMARY_PHONE"
+                             createdStamp="2014-01-01 00:00:00" createdTxStamp="2014-01-01 00:00:00"
+                             fromDate="2014-01-01 00:00:00" lastUpdatedStamp="2014-01-01 00:00:00"
+                             lastUpdatedTxStamp="2014-01-01 00:00:00" partyId="dustin.lee"/>
+    <!-- make dustin.lee an employee of Company -->
+    <PartyRelationship partyIdFrom="FSD" roleTypeIdFrom="_NA_" partyIdTo="dustin.lee" roleTypeIdTo="MANAGER"
+                       fromDate="2014-01-01 00:00:00.0" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="FSD" roleTypeIdFrom="_NA_" partyIdTo="dustin.lee" roleTypeIdTo="OWNER"
+                       fromDate="2014-01-01 00:00:00.0" partyRelationshipTypeId="OWNER"/>
+
+
+    <!-- App (SaaS) level Admin Users -->
+    <!--mandeep.sidhu@fidelissd.com-->
+    <Party partyId="mandeep.sidhu" partyTypeId="PERSON"/>
+    <Person firstName="Mandeep" lastName="Sidhu" partyId="mandeep.sidhu" personalTitle=""/>
+    <PartyRole partyId="mandeep.sidhu" roleTypeId="MANAGER"/>
+    <PartyRole partyId="mandeep.sidhu" roleTypeId="OWNER"/>
+    <UserLogin partyId="mandeep.sidhu" userLoginId="mandeep.sidhu@fidelissd.com"
+               currentPassword="$SHA$5e1CsPN8t$tZP6PrPo_X8dlCD7xZiK4eaqdDU" passwordHint="12345678"/>
+    <UserLoginSecurityGroup groupId="SUPER" userLoginId="mandeep.sidhu@fidelissd.com" fromDate="2001-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="FSDOWNER" userLoginId="mandeep.sidhu@fidelissd.com" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="APP_ADMIN" userLoginId="mandeep.sidhu@fidelissd.com" fromDate="2001-01-01 12:00:00.0"/>
+    <ContactMech contactMechId="mandeep.sidhu" contactMechTypeId="EMAIL_ADDRESS" infoString="mandeep.sidhu@fidelissd.com"/>
+    <PartyContactMech partyId="mandeep.sidhu" contactMechId="mandeep.sidhu" fromDate="2014-01-01 00:00:00.0"
+                      allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="mandeep.sidhu"
+                             contactMechId="mandeep.sidhu" fromDate="2014-01-01 00:00:00.0"/>
+    <!-- make mandeep.sidhu an employee of Company -->
+    <PartyRelationship partyIdFrom="FSD" roleTypeIdFrom="_NA_" partyIdTo="mandeep.sidhu" roleTypeIdTo="MANAGER"
+                       fromDate="2014-01-01 00:00:00.0" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="FSD" roleTypeIdFrom="_NA_" partyIdTo="mandeep.sidhu" roleTypeIdTo="OWNER"
+                       fromDate="2014-01-01 00:00:00.0" partyRelationshipTypeId="OWNER"/>
+    <!-- make mandeep.sidhu a report of dustin.lee -->
+    <PartyRelationship partyIdFrom="dustin.lee" roleTypeIdFrom="MANAGER" partyIdTo="mandeep.sidhu"
+                       roleTypeIdTo="MANAGER" fromDate="2015-09-01 00:00:00.0" partyRelationshipTypeId="REPORTS_TO"/>
+
+</entity-engine-xml>

@@ -19,7 +19,7 @@
     </extend-entity>
 
     <entity entity-name="GoogleAuthCredential"
-            package-name="com.simbaquartz.xcommon.google"
+            package-name="com.fidelissd.zcp.xcommon.google"
             title="Google Auth Credential Store">
         <field name="storeId" type="id"/>
         <field name="partyId" type="id"/>
@@ -31,7 +31,7 @@
     </entity>
 
     <entity entity-name="GoogleCalendarSync"
-            package-name="com.simbaquartz.xcommon.google"
+            package-name="com.fidelissd.zcp.xcommon.google"
             title="Google Calendar Sync details">
         <field name="partyId" type="id"/>
         <field name="calendarId" type="id"/>
@@ -42,7 +42,7 @@
     </entity>
 
     <entity entity-name="GoogleEmailSync"
-            package-name="com.simbaquartz.xcommon.google"
+            package-name="com.fidelissd.zcp.xcommon.google"
             title="Google Email Sync details">
         <field name="partyId" type="id"/>
         <field name="lastHistoryId" type="numeric"/>
@@ -203,7 +203,7 @@
     </view-entity>
 
     <entity entity-name="SlackAuthDetails"
-            package-name="com.simbaquartz.xcommon.slack"
+            package-name="com.fidelissd.zcp.xcommon.slack"
             title="Slack OAuth Details">
         <field name="accountPartyId" type="id"/>
         <field name="accessToken" type="description"/>

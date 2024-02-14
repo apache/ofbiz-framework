@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /******************************************************************************************
+  ~  * Copyright (c) Fidelis Sustainability Distribution, LLC 2015. - All Rights Reserved     *
+  ~  * Unauthorized copying of this file, via any medium is strictly prohibited               *
+  ~  * Proprietary and confidential                                                           *
+  ~  * Written by Mandeep Sidhu, October, 2019                                                *
+  ~  ******************************************************************************************/
+  -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Chargify Gateway related services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+
+    <service name="createCustomerInChargify" engine="java"
+             location="com.fidelissd.fsdaccounting.services.chargify.ChargifyCustomerServices" invoke="createCustomerInChargify"
+             auth="true">
+        <description>Creates an customer in Chargify</description>
+        <attribute name="customerPartyId" type="String" mode="IN">
+            <description>Customer Party Id will be used as Reference field in chargify.</description>
+        </attribute>
+        <attribute name="firstName" type="String" mode="IN"/>
+        <attribute name="lastName" type="String" mode="IN"/>
+        <attribute name="organizationName" type="String" mode="IN" />
+        <attribute name="email" type="String" mode="IN" optional="true"/>
+        <attribute name="address" type="String" mode="IN" optional="true"/>
+        <attribute name="address2" type="String" mode="IN" optional="true"/>
+        <attribute name="city" type="String" mode="IN" optional="true"/>
+        <attribute name="state" type="String" mode="IN" optional="true"/>
+        <attribute name="zip" type="String" mode="IN" optional="true"/>
+        <attribute name="country" type="String" mode="IN" optional="true"/>
+        <attribute name="phone" type="String" mode="IN" optional="true"/>
+
+        <attribute name="chargifyCustomerId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="createSubscriptionInChargify" engine="java"
+             location="com.fidelissd.fsdaccounting.services.chargify.ChargifySubscriptionServices" invoke="createSubscriptionInChargify"
+             auth="true">
+        <description>Creates an subscription in Chargify. </description>
+        <attribute name="customerPartyId" type="String" mode="IN">
+            <description>This is the internal partyId of the customer user for whom a subscription set up is required.</description>
+        </attribute>
+        <attribute name="productHandle" type="String" mode="IN">
+            <description>
+                product_handle from the product in chargify.
+                Example: zeus-p-starter-plan
+            </description>
+        </attribute>
+        <attribute name="chargifyPaymentTokenId" type="String" mode="IN"  optional="true">
+            <description>
+                If this is passed, you don't need to pass the credit card details, this will automatically take care of the payments.
+            </description>
+        </attribute>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN"  optional="true"/>
+        <attribute name="cardNumber" type="String" mode="IN"  optional="true"/>
+        <attribute name="cardType" type="String" mode="IN"  optional="true"/>
+        <attribute name="expirationMonth" type="String" mode="IN"  optional="true"/>
+        <attribute name="expirationYear" type="String" mode="IN"  optional="true"/>
+        <attribute name="billingAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="billingAddress2" type="String" mode="IN" optional="true"/>
+        <attribute name="billingCity" type="String" mode="IN" optional="true"/>
+        <attribute name="billingState" type="String" mode="IN" optional="true"/>
+        <attribute name="billingZip" type="String" mode="IN" optional="true"/>
+        <attribute name="billingCountry" type="String" mode="IN" optional="true"/>
+
+        <attribute name="chargifySubscriptionId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="createChargifyCustomerAndSubscription" engine="group" auth="true">
+        <description>Creates customer in chargify followed by creating the subscription</description>
+        <group>
+            <invoke name="createCustomerInChargify" mode="sync" result-to-context="true"/>
+            <invoke name="createSubscriptionInChargify" mode="sync" result-to-context="true"/>
+        </group>
+    </service>
+
+    <service name="generateChargifyPaymentLink" engine="java"
+             location="com.fidelissd.fsdaccounting.services.chargify.ChargifySubscriptionServices" invoke="generateChargifyPaymentLink"
+             auth="true">
+        <description>Generate an Chargify Payment Link for customer to subscribe. </description>
+        <attribute name="customerPartyId" type="String" mode="IN">
+            <description>Customer Party Id will be used as Reference field in chargify</description>
+        </attribute>
+        <attribute name="chargifyPaymentLink" type="String" mode="OUT"/>
+    </service>
+
+    <service name="getChargifyProducts" engine="java"
+             location="com.fidelissd.fsdaccounting.services.chargify.ChargifyProductServices" invoke="getChargifyProducts"
+             auth="true">
+        <description>Get list of Products and Components from Chargify. </description>
+        <attribute name="products" type="List" mode="OUT"/>
+        <attribute name="components" type="List" mode="OUT"/>
+    </service>
+
+
+</services>

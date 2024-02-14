@@ -307,7 +307,7 @@ under the License.
     <attribute name="companyId" type="String" mode="IN" optional="false"/>
   </service>
 
-  <service name="getAllTags" engine="java" auth="false"
+<!--  <service name="getAllTags" engine="java" auth="false"
            location="com.simbaquartz.xapi.services.tag.TagServices"
            invoke="getAllTags">
     <description>Service to get all Tags</description>
@@ -331,9 +331,9 @@ under the License.
   <service name="deleteTag" default-entity-name="Tag" engine="entity-auto" invoke="delete" auth="true">
     <description>Delete Tags</description>
     <auto-attributes include="pk" mode="IN" optional="false"/>
-  </service>
+  </service>-->
 
-  <service name="removeCustRequestTag" default-entity-name="CustRequestTag" engine="entity-auto" invoke="delete" auth="true">
+<!--  <service name="removeCustRequestTag" default-entity-name="CustRequestTag" engine="entity-auto" invoke="delete" auth="true">
     <description>Delete CustRequestTag</description>
     <auto-attributes include="pk" mode="IN" optional="false"/>
   </service>
@@ -342,5 +342,5 @@ under the License.
     <description>Create CustRequestTag</description>
     <auto-attributes include="pk" mode="INOUT" optional="true"/>
     <auto-attributes include="nonpk" mode="IN" optional="true"/>
-  </service>
+  </service>-->
 </services>

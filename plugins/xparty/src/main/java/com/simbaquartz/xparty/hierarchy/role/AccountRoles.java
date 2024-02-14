@@ -7,7 +7,7 @@ import com.simbaquartz.xparty.hierarchy.interfaces.HierarchyRolesEnum;
 public enum AccountRoles implements HierarchyRolesEnum {
     //CONST("Description", "partyRelationshipTypeId", Boolean employmentRole, helpText)
     OWNER ("Owner","OWNER", true, "Owner of the account."),
-    MEMBER("Account Member", "APP_MEMBER", true, "A member of the account, can represent employees and any other point of contacts."),
+    MEMBER("Account Member", "MEMBER", true, "A member of the account, can represent employees and any other point of contacts."),
     REPORTS_TO("Reports To", "REPORTS_TO", true, "Reporting manager for the org member."),
     EMPLOYMENT("Employment (Other)", "EMPLOYMENT", true, "A person in employement role."),
     EMPLOYEE("Employee (Other)", "EMPLOYEE", true, "Any other person who is an employee, that doesn't fit into the other roles."),
@@ -18,7 +18,9 @@ public enum AccountRoles implements HierarchyRolesEnum {
     DEPARTMENT ("DEPARTMENT","DEPARTMENT", true, "Department of the organization."),
     SUB_DEPARTMENT ("SUB_DEPARTMENT","SUB_DEPARTMENT", true, "Sub Department of the Department."),
     HOD ("HOD","HOD", true, "Head of the Department."),
-    DEPARTMENT_MEMBER ("DEPT_MEMBER","DEPT_MEMBER", true, "Member of the Department.");
+    DEPARTMENT_MEMBER ("DEPT_MEMBER","DEPT_MEMBER", true, "Member of the Department."),
+    ORGANIZATION_ROLE ("ORGANIZATION_ROLE","ORGANIZATION_ROLE", true, "Organization Role."),
+    APP_CLIENT ("Application Client (Organization)","SUBSCRIBER", true, "Organization is the client for the app.");
 
     private final String description;
     private final String partyRelationshipTypeId;
