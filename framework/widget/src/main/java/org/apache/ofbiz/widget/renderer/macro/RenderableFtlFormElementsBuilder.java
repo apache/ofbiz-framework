@@ -586,7 +586,8 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("tabindex", modelFormField.getTabindex())
                 .stringParameter("conditionGroup", modelFormField.getConditionGroup())
                 .stringParameter("defaultOptionFrom", dateFindField.getDefaultOptionFrom(context))
-                .stringParameter("defaultOptionThru", dateFindField.getDefaultOptionThru(context));
+                .stringParameter("defaultOptionThru", dateFindField.getDefaultOptionThru(context))
+                .stringParameter("language", locale.getLanguage());
 
         macroCallBuilder.booleanParameter("alert", false);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
