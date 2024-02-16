@@ -2452,7 +2452,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
             if (ajaxEnabled) {
-                ajaxSelectUrl = createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value + '", context);
+                ajaxSelectUrl = MacroCommonRenderer.createAjaxParamsFromUpdateAreas(updateAreas, null, modelForm,
+                        prepLinkText + "' + (this.value - 1) + '", context);
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
