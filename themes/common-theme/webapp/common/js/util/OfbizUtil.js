@@ -1283,7 +1283,7 @@ function showjGrowlMessage(errMessage, classEvent, stickyValue, showAllLabel, co
     if (!showAllLabel || !collapseLabel || !hideAllLabel) {
         var jGrowlLabelObject = ["CommonHideAllNotifications", "CommonShowAll", "CommonCollapse"];
         getJSONuiLabels(jGrowlLabelObject, function (result) {
-            jGrowlLabelObject = result.responseJSON.CommonUiLabels;
+            jGrowlLabelObject = result.responseJSON;
         });
 
         if (!showAllLabel) showAllLabel = jGrowlLabelObject[2];
