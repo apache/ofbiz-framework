@@ -42,7 +42,7 @@ plugins {
 
 node {
     download = true
-    version = "16.13.1"
+    version = "20.11.1"
 
     // If environment variable CI is set, use 'npm ci' instead of 'npm install' to populate node_modules.
     npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
