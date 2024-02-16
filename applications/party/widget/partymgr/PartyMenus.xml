@@ -58,6 +58,16 @@
                 <parameter param-name="create_new" value="Y"/>
              </link>
          </menu-item>
+        <menu-item name="newPartyClassificationGroup" title="${uiLabelMap.PartyCreateNewPartyClassificationGroup}">
+            <condition>
+                <or>
+                    <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditPartyClassificationGroup">
+                <parameter param-name="create_new" value="Y"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="PartyShortcutAppBar" title="${uiLabelMap.PartyManager}">
         <menu-item name="find" title="${uiLabelMap.PartyParties}"><link target="/partymgr/control/findparty" url-mode="inter-app"/></menu-item>
