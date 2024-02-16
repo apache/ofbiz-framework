@@ -26,7 +26,12 @@ import static org.hamcrest.Matchers.startsWith;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,7 +131,6 @@ public class MacroFormRendererTest {
         new UtilPropertiesMockUp();
     }
 
-    @SuppressWarnings("checkstyle:InnerAssignment")
     @Test
     public void labelRenderedAsSingleMacro(@Mocked ModelScreenWidget.Label label) {
         new Expectations() {
@@ -325,7 +329,6 @@ public class MacroFormRendererTest {
             e.printStackTrace();
         }
 
-        String renderedString = writer.toString();
         assertAndGetMacroString("renderCheckField", ImmutableMap.of(
                 "items", ImmutableList.of(
                         "{'value':'KEY1', 'description':'DESC1', 'checked':'true'}",
@@ -334,7 +337,7 @@ public class MacroFormRendererTest {
                         "{'value':'KEY4', 'description':'DESC4', 'checked':'false'}")));
 
     }
-        @Test
+    @Test
     public void radioFieldMacroRendered(@Mocked ModelFormField.RadioField radioField) throws IOException {
         final List<ModelFormField.OptionValue> optionValues = ImmutableList.of(
                 new ModelFormField.OptionValue("KEY1", "DESC1"),
@@ -1015,27 +1018,6 @@ public class MacroFormRendererTest {
         new Verifications() {
             {
                 ftlWriter.processFtl(appendable, genericTooltipMacroCall);
-            }
-        };
-    }
-
-    private void genericSubHyperlinkRenderedExpectation(final ModelFormField.SubHyperlink subHyperlink) {
-        new Expectations() {
-            {
-                subHyperlink.shouldUse(withNotNull());
-                result = true;
-
-                subHyperlink.getStyle(withNotNull());
-                result = "buttontext";
-
-                subHyperlink.getUrlMode();
-                result = "inter-app";
-
-                subHyperlink.getTarget(withNotNull());
-                result = "/path/to/target";
-
-                subHyperlink.getDescription(withNotNull());
-                result = "LinkDescription";
             }
         };
     }
