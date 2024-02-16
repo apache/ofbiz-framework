@@ -687,8 +687,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     data-lookup-ajax-url="${ajaxUrl}" <#rt>
     /><#rt/>
     <#if readonly?has_content && readonly>
-      <a id="${id}_clear" 
-        style="background:none;margin-left:5px;margin-right:15px;" 
+      <a id="${id}_clear"
+        style="background:none;margin-left:5px;margin-right:15px;"
         class="clearField">
           <#if clearText?has_content>${clearText}<#else>${uiLabelMap.CommonClear}</#if>
       </a>
@@ -698,7 +698,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl ajaxSelectSizeUrl selectSizeUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel paginateViewSizeLabel>
   <#if listSize gt viewSize>
-    <div class="${paginateStyle}">&nbsp; 
+    <div class="${paginateStyle}">&nbsp;
       <ul>
         <li class="${paginateFirstStyle}<#if viewIndex gt 0>"><a href="javascript:void(0)" onclick="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxFirstUrl}')<#else>submitPagination(this, '${firstUrl}')</#if>">${paginateFirstLabel}</a><#else>-disabled"><span>${paginateFirstLabel}</span></#if></li>
         <li class="${paginatePreviousStyle}<#if viewIndex gt 0>"><a href="javascript:void(0)" onclick="<#if ajaxEnabled>ajaxUpdateAreas('${ajaxPreviousUrl}')<#else>submitPagination(this, '${previousUrl}')</#if>">${paginatePreviousLabel}</a><#else>-disabled"><span>${paginatePreviousLabel}</span></#if></li>
