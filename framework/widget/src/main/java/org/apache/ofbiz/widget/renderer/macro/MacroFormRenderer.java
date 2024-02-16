@@ -551,7 +551,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
 
         List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
-        //String stringCheckedByDefault = String.join(",", checkedByDefault);
         items.append("[");
         for (ModelFormField.OptionValue optionValue : allOptionValues) {
             boolean checked;
