@@ -877,7 +877,14 @@ under the License.
                 <xs:element ref="list-options" />
                 <xs:element ref="option" />
             </xs:choice>
-            <xs:attribute name="all-checked" type="xs:boolean"/>
+            <xs:attribute name="all-checked" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>
+                        None option is checked by default.
+                        You may check options by setting field names as in QuoteForms.xml#FindQuotes
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="container" substitutionGroup="AllFields">

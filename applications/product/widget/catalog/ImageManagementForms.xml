@@ -62,13 +62,13 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </grid>
-    
-    <form name="ImageGallery" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageGallery"> 
+
+    <form name="ImageGallery" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageGallery">
         <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ImageApprove" type="multi" title="" list-name="contentApprovalProductContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+
+    <form name="ImageApprove" type="multi" title="" list-name="contentApprovalProductContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table"
         use-row-submit="true" separate-columns="true" target="updateStatusImageManagement">
         <row-actions>
             <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
@@ -123,8 +123,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <grid name="ListPeopleApproved" title="" list-name="contentApprovalProductContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+
+    <grid name="ListPeopleApproved" title="" list-name="contentApprovalProductContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table"
         use-row-submit="true" separate-columns="true" target="">
         <row-actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
@@ -162,8 +162,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </grid>
-    
-    <form name="ListPeopleRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+
+    <form name="ListPeopleRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table"
         use-row-submit="true" separate-columns="true" target="addRejectedReasonImageManagement">
         <row-actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
@@ -192,7 +192,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="trueThumb"/></field>
+        <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
         <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" position="2"><display/></field>
@@ -212,8 +212,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ImageRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+
+    <form name="ImageRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table"
         use-row-submit="true" separate-columns="true" target="">
         <row-actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
@@ -261,12 +261,12 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </form>
-    
-    <form name="ImageManage" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageManage"> 
+
+    <form name="ImageManage" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageManage">
         <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListImageManage" type="multi" title="" odd-row-style="alternate-row" default-table-style="basic-table" list-name="productContentAndInfoList"
         use-row-submit="true" separate-columns="true" target="setImageDetail?productId=${parameters.productId}">
         <actions>
@@ -306,7 +306,7 @@ under the License.
         <field name="_rowSubmit" title=" " widget-style="hidden"><check all-checked="true"/></field>
         <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgThumb"/></field>
         <field name="action" use-when="${groovy: return context.drMimeTypeId == 'image/jpeg';}" title="${uiLabelMap.ImageManagementAction}" event="onChange" action="javascript:
-            document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}'; 
+            document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}';
             document.ListImageManage.submit();">
             <drop-down allow-empty="true">
                   <option key="frame" description="${uiLabelMap.ImageManagementFrame}"/>
@@ -359,8 +359,8 @@ under the License.
             <sort-field name="statusId"/>
         </sort-order>
     </form>
-    
-    <form name="ShowDefaultImage" type="single" title="" header-row-style="header-row" default-table-style="basic-table"> 
+
+    <form name="ShowDefaultImage" type="single" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
                 <field-map field-name="productId" from-field="parameters.productId"/>
@@ -381,7 +381,7 @@ under the License.
         </actions>
         <field name="drObjectInfo" title=" "><image style="cssImgThumb"/></field>
     </form>
-    
+
     <form name="ImageFrames" type="single" title="" target="uploadFrame" header-row-style="header-row" default-table-style="basic-table" target-window="_self">
         <actions>
             <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/ImageFrame.groovy"/>
@@ -394,7 +394,7 @@ under the License.
                 <field-map field-name="contentId" from-field="frameContentId"/>
                 <field-map field-name="drDataResourceId" from-field="frameDataResourceId"/>
             </entity-one>
-            
+
             <set field="frameURL" from-field="contentDataResource2.drObjectInfo"/>
             <set field="previewURL" from-field="contentFrameDataResource.drDataResourceName"/>
         </actions>
@@ -427,7 +427,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ImageCropping" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="CropImage"> 
+    <form name="ImageCropping" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="CropImage">
         <actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
                 <field-map field-name="contentId" from-field="parameters.contentId"/>
@@ -445,7 +445,7 @@ under the License.
         <field name="imageCropp" widget-area-style="cropbox" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" ><image value="${imageURL}"/></field>
         <field name="imageCropp" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" ><image value="/images/defaultImage.jpg" style="cssImgXLarge"/></field>
     </form>
-    
+
     <form name="ImageRotating" type="single" target="RotateImage" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
@@ -475,7 +475,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="ImageShare" type="single" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
@@ -508,7 +508,7 @@ under the License.
         <field name="html" title="${uiLabelMap.ImageManagementHTMLCode}" event="onClick" action="javascript:select();"><text/></field>
         <field name="htmlThumbnail" title="${uiLabelMap.ImageManagementHTMLThumbnail}" event="onClick" action="javascript:select();"><text/></field>
     </form>
-    
+
     <form name="ImageReplace" type="single" target="replaceImageToExistImage" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceExist">
@@ -531,7 +531,7 @@ under the License.
         <field name="imageReplace" position="2" use-when="imageURLReplace != null&amp;&amp;imageURLExist != null" title="${uiLabelMap.ImageManagementImageToReplace}"><image value="${imageURLReplace}" style="cssImgXLarge"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <grid name="ListImageUpload" title="" list-name="productContent" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
         <actions>
             <set field="dateNow" type="Timestamp" value="${groovy:import org.apache.ofbiz.base.util.UtilDateTime;UtilDateTime.nowTimestamp().getTime() - 18000;}"/>
@@ -568,7 +568,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-      
+
     <grid name="ListLookupImage" list-name="listIt" paginate-target="ListLookupImage" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ProductContentAndInfo">
@@ -607,12 +607,12 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </grid>
-    
-    <form name="ProductImageReplace" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageReplace"> 
+
+    <form name="ProductImageReplace" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageReplace">
         <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <grid name="ListImageRecentlyApproved" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true" target="">
         <actions>
             <entity-condition entity-name="ProductContentAndInfo">
@@ -656,7 +656,7 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </grid>
-    
+
     <grid name="ListImageExist" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
         <actions>
             <entity-condition entity-name="ProductContentAndInfo">
@@ -697,7 +697,7 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </grid>
-    
+
     <grid name="ListImageReplace" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
         <actions>
             <entity-condition entity-name="ProductContentAndInfo">
@@ -740,7 +740,7 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonView}" target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" also-hidden="false" target-type="content"/>
         </field>
     </grid>
-    
+
     <grid name="ListLookupImageFrame" list-name="listIt" paginate-target="ListLookupImageFrame" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentDataResourceView">
@@ -760,7 +760,7 @@ under the License.
             </hyperlink>
         </field>-->
     </grid>
-    
+
     <form name="ImageResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="resizeImages">
         <field name="resizeOption">
             <drop-down >
@@ -772,7 +772,7 @@ under the License.
         <field name="size" title="${uiLabelMap.ImageManagementImageWidth}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <grid name="SizeListOfProduct" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
         <actions>
             <entity-condition entity-name="ContentAssoc">

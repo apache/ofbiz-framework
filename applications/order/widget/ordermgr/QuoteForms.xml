@@ -17,17 +17,21 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindQuotes" target="FindQuote" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="quoteTypeId[]" value="OTHER_QUOTE"/>
+            <set field="quoteTypeId[]" value="PROPOSAL"/>
+        </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="find"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
-            <drop-down allow-empty="true">
+            <check>
                 <entity-options entity-name="QuoteType" key-field-name="quoteTypeId"/>
-            </drop-down>
+            </check>
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
@@ -134,7 +138,7 @@ under the License.
                     <entity-constraint name="statusTypeId" value="QUOTE_STATUS"/>
                 </entity-options>
             </drop-down>
-        </field>        
+        </field>
         <field name="statusId" use-when="quote!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
@@ -545,7 +549,7 @@ under the License.
             <display-entity entity-name="TermType" description="${description} [${termTypeId}]" key-field-name="termTypeId"/>
         </field>
         <field name="quoteId"><hidden/></field>
-        
+
         <field name="uomId">
             <drop-down current-description="">
                 <entity-options entity-name="Uom" key-field-name="uomId"/>
