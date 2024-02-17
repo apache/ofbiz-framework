@@ -19,7 +19,7 @@
 #
 # Act will set an environment variable, ACT, to indicate that it is running the workflow.
 # This environment variable is used to skip some build steps, such as logging in to
-# a container registry or pushing container images.
+# a container registry and pushing container images.
 #
 # On first run, act will prompt you to select a micro, medium or large runner image. This
 # workflow can be run using the medium image.
@@ -50,11 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out OFBiz sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       - name: Log in to the Container registry
         if: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -64,7 +64,7 @@ jobs:
       # Build and push a container image of the OFBiz Framework without any data loaded.
       - name: Determine metadata (tags, labels) for Docker runtime build
         id: runtimemeta
-        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -92,7 +92,7 @@ jobs:
 
 
       - name: Build and push runtime docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
         with:
           context: .
           target: runtime
@@ -104,7 +104,7 @@ jobs:
       # Build and push a container image of the OFBiz Framework preloaded with demo data
       - name: Determine metadata (tags, labels) for Docker demo-preload build
         id: demometa
-        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -112,7 +112,7 @@ jobs:
             type=ref,event=branch,suffix=-preloaddemo-snapshot,priority=650
 
       - name: Build and push demo docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
         with:
           context: .
           target: demo
@@ -129,7 +129,7 @@ jobs:
         run: ./pullAllPluginsSource.sh
       - name: Determine metadata (tags, labels) for Docker framework with plugins build
         id: pluginsmeta
-        uses: docker/metadata-action@507c2f2dc502c992ad446e3d7a5dfbe311567a96
+        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -137,7 +137,7 @@ jobs:
             type=ref,event=branch,suffix=-plugins-snapshot,priority=650
 
       - name: Build and push framework with plugins docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
         with:
           context: .
           target: runtime
