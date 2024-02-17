@@ -711,17 +711,6 @@ under the License.
     </menu>
     <menu name="PaymentGroupSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
             menu-container-style="button-bar button-style-2">
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
-            <condition>
-                <and>
-                    <or>
-                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
-                    </or>
-                    <not><if-empty field="paymentGroup"/></not>
-                </and>
-            </condition>
-            <link target="EditPaymentGroup"/>
-        </menu-item>
         <menu-item name="EditPaymentGroup" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <and>
