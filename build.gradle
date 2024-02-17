@@ -36,7 +36,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.47.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version '3.5.1' apply false
+    id "com.github.node-gradle.node" version '7.0.2' apply false
 }
 
 /* OWASP plugin
