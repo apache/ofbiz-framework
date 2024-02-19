@@ -175,7 +175,7 @@ under the License.
         <field name="quantity" widget-area-style="align-text"><display/></field>
         <field name="amount" title="${uiLabelMap.AccountingUnitPrice}" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
-        <field name="productId" widget-style="linktext">
+        <field name="productId" title="${uiLabelMap.CommonProduct}" widget-style="linktext">
             <hyperlink description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
                 <parameter param-name="productId"/>
             </hyperlink>
@@ -208,7 +208,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         target="updatePaymentApplication" title="Apply payments to invoices" separate-columns="false">
         <field name="invoiceItemSeqId"><display/></field>
-        <field name="productId"><display/></field>
+        <field name="productId" title="${uiLabelMap.CommonProduct}"><display/></field>
         <field name="description" encode-output="false"><display/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
@@ -393,7 +393,7 @@ under the License.
                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${groovy:uiLabelMap.get('InvoiceItemType.description.'+invoiceItemTypeId)}"/>
            </drop-down>
        </field>
-       <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
+       <field name="productId" title="${uiLabelMap.CommonProduct}"><lookup target-form-name="LookupProduct" size="20"/></field>
        <field name="description"><text size="50"/></field>
        <field name="overrideGlAccountId">
            <drop-down allow-empty="true">
@@ -428,14 +428,10 @@ under the License.
             </drop-down>
         </field>
         <field position="2" name="inventoryItemId"><text/></field>
-        <field position="1" name="productId">
-            <lookup target-form-name="LookupProduct"/>
-        </field>
-        <field position="2" name="productFeatureId">
-            <lookup target-form-name="LookupProductFeature"/>
-        </field>
-        <field position="1" name="quantity"><text size="10"/></field>
-        <field position="2" name="uomId">
+        <field name="productId" title="${uiLabelMap.CommonProduct}" position="1" ><lookup target-form-name="LookupProduct"/></field>
+        <field position="2" name="productFeatureId"><lookup target-form-name="LookupProductFeature"/></field>
+        <field name="quantity" position="1" ><text size="10"/></field>
+        <field name="uomId" position="2" >
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="not-equals" value="CURRENCY_MEASURE"/>
