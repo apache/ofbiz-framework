@@ -262,8 +262,8 @@ public class FlexibleStringExpanderTests {
         everythingTest();
     }
 
-    /**
     @Test
+    /**
      * Test quietly.
      */
     public void testQuietly() {
