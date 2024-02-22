@@ -16,7 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.base.util.string.test;
+package org.apache.ofbiz.base.util.string;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,25 +31,13 @@ import java.util.TimeZone;
 
 import org.apache.ofbiz.base.conversion.AbstractConverter;
 import org.apache.ofbiz.base.conversion.ConversionException;
-import org.apache.ofbiz.base.conversion.Converters;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-@SourceMonitored
-public class FlexibleStringExpanderTests extends TestCase {
+public class FlexibleStringExpanderTests {
     private static final Locale LOCALE_TO_TEST = new Locale("en", "US");
     private static final Locale BAD_LOCALE = new Locale("fr");
     private static final TimeZone TIME_ZONE_TO_TEST = TimeZone.getTimeZone("PST");
     private static final TimeZone BAD_TIME_ZONE = TimeZone.getTimeZone("GMT");
-
-    private boolean wasVerbose;
-
-    public FlexibleStringExpanderTests(String name) {
-        super(name);
-    }
 
     private static void parserTest(String label, String input, boolean checkCache, String toString) {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(input, false);
@@ -58,6 +49,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
+    @Test
     /**
      * Test parsing.
      */
@@ -217,20 +209,6 @@ public class FlexibleStringExpanderTests extends TestCase {
         return null;
     }
 
-    @Override
-    public void setUp() {
-        wasVerbose = Debug.isOn(Debug.VERBOSE);
-        if ("testWithVerbosity".equals(getName())) {
-            Debug.set(Debug.VERBOSE, true);
-        }
-        Converters.registerConverter(new SpecialNumberToString());
-    }
-
-    @Override
-    public void tearDown() {
-        Debug.set(Debug.VERBOSE, wasVerbose);
-    }
-
     @SuppressWarnings("serial")
     public static class ThrowException extends Exception {
         /**
@@ -276,6 +254,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
+    @Test
     /**
      * Test with verbosity.
      */
@@ -284,6 +263,7 @@ public class FlexibleStringExpanderTests extends TestCase {
     }
 
     /**
+    @Test
      * Test quietly.
      */
     public void testQuietly() {

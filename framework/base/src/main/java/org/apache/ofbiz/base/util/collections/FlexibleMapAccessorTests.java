@@ -16,7 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.base.util.collections.test;
+package org.apache.ofbiz.base.util.collections;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -25,21 +33,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.junit.Test;
 
-@SourceMonitored
-public class FlexibleMapAccessorTests extends GenericTestCaseBase {
+public class FlexibleMapAccessorTests {
     private static final Locale LOCALE_TO_TEST = new Locale("en", "US");
     private static FlexibleMapAccessor<?> fmaEmpty = FlexibleMapAccessor.getInstance("");
     private static FlexibleMapAccessor<?> fmaNull = FlexibleMapAccessor.getInstance(null);
-
-    public FlexibleMapAccessorTests(String name) {
-        super(name);
-    }
 
     private static <T> void fmaTest(String label, String getText, String fseText, T var, String value) {
         fmaTest(label, getText, getText, fseText, null, var, value);
@@ -129,6 +130,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         assertNotNull(label + ":toString", fma.toString());
     }
 
+    @Test
     /** These tests rely upon FlexibleStringExpander, so they should follow the FlexibleStringExpander tests. */
     public void testFlexibleMapAccessor() {
         fmaEmptyTest("fmaEmpty", "");
@@ -181,6 +183,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     /**
      * Test verbosity and errors.
      */

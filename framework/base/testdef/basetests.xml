@@ -23,8 +23,6 @@
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
         <junit-test-suite class-name="org.apache.ofbiz.base.util.UtilObjectTests"/>
-        <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
-        <junit-test-suite class-name="org.apache.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
         <groovy-test-suite name="simple" location="component://base/src/test/groovy/org/apache/ofbizbase/test/SimpleTests.groovy"/>
     </test-group>
 </test-suite>
