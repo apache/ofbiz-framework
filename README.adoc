@@ -144,6 +144,12 @@ _Note_: Ignore the % progress indicator because this task does not end as long
 as OFBiz is running.
 ___________________________________________________________________________________________________
 
+
+[[Docker]]
+== Docker
+If you want to set and use Docker, link:Docker.html[here is the documentation]
+
+
 [[visit-ofbiz-through-your-browser]]
 === Visit OFBiz through your browser:
 
