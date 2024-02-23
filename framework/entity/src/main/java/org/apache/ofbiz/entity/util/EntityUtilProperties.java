@@ -123,6 +123,117 @@ public final class EntityUtilProperties implements Serializable {
         }
     }
 
+    public static <T> Object getPropertyValue(String resource, String name, Object defaultValue, Delegator delegator, Class<T> clazz) {
+        Map<String, String> propMap = getSystemPropertyValue(resource, name, delegator);
+        if ("Y".equals(propMap.get("isExistInDb"))) {
+            String s = propMap.get("value");
+            if (UtilValidate.isEmpty(s)) {
+                return defaultValue;
+            }
+            try {
+                if (clazz.componentType() == Integer.class) {
+                    return Integer.valueOf(s);
+                }
+                if (clazz.componentType() == Double.class) {
+                    return Double.valueOf(s);
+                }
+                if (clazz.componentType() == Long.class) {
+                    return Long.valueOf(s);
+                }
+                if (clazz.componentType() == Float.class) {
+                    return Float.valueOf(s);
+                }
+                if (clazz.componentType() == BigInteger.class) {
+                    return Float.valueOf(s);
+                }
+                if (clazz.componentType() == BigDecimal.class) {
+                    return Float.valueOf(s);
+                }
+                if (clazz.componentType() == Number.class) {
+                    return Double.valueOf(s);
+                }
+                if (clazz.componentType() == Boolean.class) {
+                    if ("Y".equals(s) || "true".equalsIgnoreCase(s)) {
+                        return Boolean.TRUE;
+                    } else {
+                        return Boolean.FALSE;
+                    }
+                }
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public static Integer getPropertyAsInteger(String resource, String name, int defaultNumber, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultNumber), delegator, Integer.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsInteger(resource, name, defaultNumber);
+        }
+        return (Integer) myObject;
+    }
+
+    public static Double getPropertyAsDouble(String resource, String name, double defaultNumber, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultNumber), delegator, Double.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsDouble(resource, name, defaultNumber);
+        }
+        return (Double) myObject;
+    }
+
+    public static Long getPropertyAsLong(String resource, String name, long defaultNumber, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultNumber), delegator, Long.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsLong(resource, name, defaultNumber);
+        }
+        return (Long) myObject;
+    }
+
+    public static Float getPropertyAsFloat(String resource, String name, float defaultNumber, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultNumber), delegator, Float.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsFloat(resource, name, defaultNumber);
+        }
+        return (Float) myObject;
+    }
+
+    public static BigInteger getPropertyAsBigInteger(String resource, String name, BigInteger defaultNumber, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultNumber), delegator, BigInteger.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsBigInteger(resource, name, defaultNumber);
+        }
+        return (BigInteger) myObject;
+    }
+
+    public static BigDecimal getPropertyAsBigDecimal(String resource, String name, BigDecimal defaultNumber, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultNumber), delegator, BigDecimal.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsBigDecimal(resource, name, defaultNumber);
+        }
+        return (BigDecimal) myObject;
+    }
+
+    public static Double getPropertyNumber(String resource, String name, double defaultValue, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultValue), delegator, Number.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyNumber(resource, name, defaultValue);
+        }
+        return (Double) myObject;
+    }
+
+    public static double getPropertyNumber(String resource, String name, Delegator delegator) {
+        return getPropertyNumber(resource, name, 0.00000, delegator);
+    }
+
+    public static Boolean getPropertyAsBoolean(String resource, String name, boolean defaultValue, Delegator delegator) {
+        Object myObject = getPropertyValue(resource, name, String.valueOf(defaultValue), delegator, Boolean.class);
+        if (myObject == null) {
+            return UtilProperties.getPropertyAsBoolean(resource, name, defaultValue);
+        }
+        return (Boolean) myObject;
+    }
+
     public static double getPropertyNumber(String resource, String name, double defaultValue) {
         return UtilProperties.getPropertyNumber(resource, name, defaultValue);
     }
