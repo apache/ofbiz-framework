@@ -147,7 +147,7 @@ ________________________________________________________________________________
 
 [[Docker]]
 == Docker
-If you want to set and use Docker, link:Docker.html[here is the documentation]
+If you want to set and use Docker, link:DOCKER.html[here is the documentation]
 
 
 [[visit-ofbiz-through-your-browser]]
