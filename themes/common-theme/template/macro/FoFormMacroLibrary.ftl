@@ -20,7 +20,7 @@ under the License.
     <#local foStyles = {
         "listtitlestyle":"font-weight=\"bold\" text-align=\"center\" border=\"solid black\" padding=\"2pt\"",
         "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
-        "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
+        "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" padding-right=\"2pt\" text-align=\"right\"",
         "tableheadverysmall":"column-width=\"0.3in\"",
         "tableheadsmall":"column-width=\"0.5in\"",
         "tableheadmedium":"column-width=\"1.5in\"",

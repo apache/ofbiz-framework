@@ -242,8 +242,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="BalanceSheetLiabilities" list-name="liabilityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -253,8 +253,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="BalanceSheetEquities" list-name="equityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -264,16 +264,16 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="BalanceTotals" list-name="balanceTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="totalName" value="${groovy: uiLabelMap.get(totalName)}"/>
         </row-actions>
-        <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge"><display description="${totalName}"/></field>
-        <field name="balance" title="_" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge listtitlestyle"><display description="${totalName}"/></field>
+        <field name="balance" title="_" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <form name="ComparativeBalanceSheetParameters" type="single" target="ComparativeBalanceSheet"
         header-row-style="header-row" default-table-style="basic-table">
