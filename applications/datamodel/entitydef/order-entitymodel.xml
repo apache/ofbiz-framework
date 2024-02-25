@@ -2953,7 +2953,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ShoppingListItemAttribute"
-            package-name="org.ofbiz.order.shoppinglist"
+            package-name="org.apache.ofbiz.order.shoppinglist"
             title="Shopping List Item Attribute Entity">
       <field name="shoppingListId" type="id"></field>
       <field name="shoppingListItemSeqId" type="id"></field>
