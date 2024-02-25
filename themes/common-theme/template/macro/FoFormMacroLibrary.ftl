@@ -58,13 +58,7 @@ under the License.
 <#macro renderDateTimeField name className timeDropdownParamName defaultDateTimeString localizedIconTitle timeHourName timeMinutesName ampmName compositeType alert=false isTimeType=false isDateType=false amSelected=false pmSelected=false timeDropdown="" classString="" isTwelveHour=false hour1="" hour2="" minutes=0 shortDateInput="" title="" value="" size="" maxlength="" id="" formName="" mask="" event="" action="" step="" timeValues="" tabindex="" disabled=false isXMLHttpRequest=false><@makeBlock className value /></#macro>
 
 <#macro renderDropDownField name className alert id formName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup="" tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="" disabled=false>
-<#if currentValue?has_content && firstInList?has_content>
 <@makeBlock "" explicitDescription />
-<#else>
-<#list options as item>
-<@makeBlock "" item.description />
-</#list>
-</#if>
 </#macro>
 
 <#macro renderCheckField items className alert id currentValue name event action conditionGroup tabindex disabled allChecked=""><@makeBlock "" "" /></#macro>
