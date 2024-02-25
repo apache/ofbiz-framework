@@ -174,5 +174,22 @@ under the License.
     <Field name="baseUrl" />
     <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
   </Match>
-<!-- ^ ^ not a problem, false positives -->
+  <Match>
+    <!-- not a problem, as specified in org.jsoup.nodes.Element : @param attributes initial attributes (optional, may be null) -->
+    <Class name="org.apache.ofbiz.widget.WidgetWorker" />
+    <Method name="makeHiddenFormLinkFormElement" />
+    <Bug pattern="NP_NONNULL_PARAM_VIOLATION" />
+  </Match>
+  <Match>
+    <!-- not a problem, the alert is right in SecuredUpload. But isValidText is also called in other situations where no dereferencing is done) -->
+    <Class name="org.apache.ofbiz.security.SecuredUpload" />
+    <Method name="isValidText" />
+    <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" />
+  </Match>
+  <Match>
+    <!-- not a problem, we check before for a Collection. Could be also a List or a Set, we cant to be sure it's a Map-->
+    <Class name="org.apache.ofbiz.base.util.collections.GenericMapValues" />
+    <Method name="equals" />
+    <Bug pattern="EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS" />
+  </Match><!-- ^ ^ not a problem, false positives -->
 </FindBugsFilter>

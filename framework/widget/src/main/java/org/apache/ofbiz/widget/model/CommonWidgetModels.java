@@ -399,7 +399,7 @@ public final class CommonWidgetModels {
                         && formElement.getLocalName() != "form") {
                     formElement = formElement.getParentNode();
                 }
-                if (formElement.getLocalName() != null) {
+                if (formElement != null && formElement.getLocalName() != null) {
                     parameterList.add(new Parameter("_FORM_NAME_", ((Element) formElement).getAttribute("name") + "_AS_PARAM_", false));
                 }
             }

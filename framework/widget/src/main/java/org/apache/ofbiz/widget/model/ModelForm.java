@@ -2322,7 +2322,7 @@ public abstract class ModelForm extends ModelWidget {
                         && formElement.getLocalName() != "form") {
                     formElement = formElement.getParentNode();
                 }
-                if (formElement.getLocalName() != null) {
+                if (formElement != null && formElement.getLocalName() != null) {
                     parameterList.add(new CommonWidgetModels.Parameter("_FORM_NAME_", ((Element) formElement).getAttribute("name") + "_AS_PARAM_",
                             false));
                 }

@@ -183,20 +183,16 @@ public class FlexibleServletAccessor<T> implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof FlexibleServletAccessor<?>) {
-            FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
-            if (this.name == null) {
-                return flexibleServletAccessor.name == null;
-            }
-            return this.name.equals(flexibleServletAccessor.name);
-        }
-        if (this.name == null) {
-            return obj == null;
-        }
-        if (!(obj instanceof String)) {
+        if (!(obj instanceof FlexibleServletAccessor<?>)) {
             return false;
         }
-        return this.name.equals(obj);
+        else {
+            FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
+            if (name == null) {
+                return flexibleServletAccessor.name == null;
+            }
+            return name.equals(flexibleServletAccessor.name);
+        }
     }
 
     /** To be used for a string representation of the accessor, returns the original name.

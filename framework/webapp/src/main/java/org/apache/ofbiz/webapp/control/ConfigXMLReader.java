@@ -1034,7 +1034,6 @@ public final class ConfigXMLReader {
     }
 
     public static class ViewMap {
-        private String viewMap;
         private String name;
         private String page;
         private String type;
@@ -1127,14 +1126,6 @@ public final class ConfigXMLReader {
          */
         public String getEncoding() {
             return encoding;
-        }
-
-        /**
-         * Gets viewMap.
-         * @return the viewMap
-         */
-        public String getViewMap() {
-            return viewMap;
         }
 
         public ViewMap(Element viewMapElement) {
