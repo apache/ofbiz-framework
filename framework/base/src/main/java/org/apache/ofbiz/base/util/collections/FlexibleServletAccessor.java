@@ -185,8 +185,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         }
         if (!(obj instanceof FlexibleServletAccessor<?>)) {
             return false;
-        }
-        else {
+        } else {
             FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
             if (name == null) {
                 return flexibleServletAccessor.name == null;
