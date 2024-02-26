@@ -95,6 +95,14 @@ under the License.
             </condition>
             <link target="EditBillingAccount"/>
         </menu-item>
+        <menu-item name="NewAgreement" title="${uiLabelMap.CommonNew} ${uiLabelMap.AccountingAgreement}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditBillingAccount"/>
+        </menu-item>
     </menu>
 
     <menu name="AccountingShortcutAppBar" title="${uiLabelMap.AccountingManager}">
