@@ -1038,6 +1038,11 @@ under the License.
     </menu>
     <menu name="EditGlAcctgTransSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="DuplicateAccountingTransaction">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
             <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
                 <parameter param-name="revert" value="N"/>
                 <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
@@ -1045,6 +1050,11 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="RevertAccountingTransaction">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
             <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
                 <parameter param-name="revert" value="Y"/>
                 <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
