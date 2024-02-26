@@ -974,7 +974,7 @@ under the License.
                             <label style="h3" text="${uiLabelMap.AccountingIncome}"/>
                             <include-grid name="ComparativeIncomeStatementIncomePdf" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             <label style="h3" text="${uiLabelMap.CommonTotal}"/>
-                            <include-form name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            <include-grid name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -1050,7 +1050,7 @@ under the License.
                 <label style="h3" text="${uiLabelMap.AccountingIncome}"/>
                 <include-grid name="ComparativeIncomeStatementIncome" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                 <label style="h3" text="${uiLabelMap.CommonTotal}"/>
-                <include-form name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                <include-grid name="ComparativeBalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
             </widgets>
         </section>
     </screen>
