@@ -20,7 +20,7 @@ under the License.
     <#local foStyles = {
         "listtitlestyle":"font-weight=\"bold\" text-align=\"center\" border=\"solid black\" padding=\"2pt\"",
         "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
-        "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
+        "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" padding-right=\"2pt\" text-align=\"right\"",
         "tableheadverysmall":"column-width=\"0.3in\"",
         "tableheadsmall":"column-width=\"0.5in\"",
         "tableheadmedium":"column-width=\"1.5in\"",
@@ -64,7 +64,7 @@ under the License.
 <#macro renderCheckField items className alert id currentValue name event action conditionGroup tabindex disabled allChecked=""><@makeBlock "" "" /></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled><@makeBlock "" "" /></#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false><@makeBlock "" "" /></#macro>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false closeOnSubmit="true"><@makeBlock "" "" /></#macro>
 <#macro renderResetField className alert name title><@makeBlock "" "" /></#macro>
 
 <#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="" disabled=false><!--hidden--></#macro>

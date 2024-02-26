@@ -286,13 +286,13 @@ under the License.
                         <container>
                             <label style="h1" text="${uiLabelMap.AccountingBalanceSheet}"/>
                             <include-form name="BalanceSheetParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                            <label style="h3" text="${uiLabelMap.AccountingAssets}"/>
+                            <label style="h2" text="${uiLabelMap.AccountingAssets}"/>
                             <include-grid name="BalanceSheetAssets" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                            <label style="h3" text="${uiLabelMap.AccountingLiabilities}"/>
+                            <label style="h2" text="${uiLabelMap.AccountingLiabilities}"/>
                             <include-grid name="BalanceSheetLiabilities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                            <label style="h3" text="${uiLabelMap.AccountingEquities}"/>
+                            <label style="h2" text="${uiLabelMap.AccountingEquities}"/>
                             <include-grid name="BalanceSheetEquities" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                            <label style="h3" text="${uiLabelMap.CommonTotal}"/>
+                            <label style="h2" text="${uiLabelMap.CommonTotal}"/>
                             <include-grid name="BalanceTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                         </container>
                     </decorator-section>
