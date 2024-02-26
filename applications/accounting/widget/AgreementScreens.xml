@@ -96,7 +96,7 @@ under the License.
                                 <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml"
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
                                         <include-form name="FindAgreements" location="component://accounting/widget/AgreementForms.xml"/>
                                     </decorator-section>
