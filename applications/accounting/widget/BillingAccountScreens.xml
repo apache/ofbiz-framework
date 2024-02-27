@@ -26,7 +26,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <!-- do check for ACCOUNTING, _VIEW permission -->
                             <condition>
@@ -39,7 +39,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <label style="h1">${uiLabelMap.AccountingBillingAccount}: ${billingAccount.billingAccountId}</label>
-                                        <include-menu name="BillingAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="BillingAccountTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                             </widgets>

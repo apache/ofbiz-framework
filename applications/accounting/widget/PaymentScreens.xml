@@ -29,14 +29,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <widgets>
                                 <container style="leftclear">
                                     <label style="h1" text="${uiLabelMap.CommonPayment}: ${paymentId}"/>
                                 </container>
-                                <include-menu name="PaymentTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentTabBar" location="${parameters.mainMenuLocation}"/>
+                                <include-menu name="PaymentSubTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
