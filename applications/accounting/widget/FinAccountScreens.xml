@@ -59,9 +59,6 @@ under the License.
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </widgets>
                         </section>
-                        <container style="button-bar">
-                            <link target="EditFinAccount" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
-                        </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
