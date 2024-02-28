@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
     implementation 'com.google.zxing:core:3.5.3'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
     implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.31'
     implementation 'com.ibm.icu:icu4j:74.2'
