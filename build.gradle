@@ -33,7 +33,7 @@ plugins {
     id 'org.asciidoctor.jvm.pdf' version '3.3.2'
     id 'org.owasp.dependencycheck' version '7.4.4' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
-    id 'com.github.ben-manes.versions' version '0.47.0' apply false
+    id 'com.github.ben-manes.versions' version '0.51.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
     id "com.github.node-gradle.node" version '7.0.2' apply false
