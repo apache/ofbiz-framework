@@ -42,6 +42,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -87,6 +88,7 @@ import org.apache.tika.parser.RecursiveParserWrapper;
 import org.apache.tika.sax.BasicContentHandlerFactory;
 import org.apache.tika.sax.ContentHandlerFactory;
 import org.apache.tika.sax.RecursiveParserWrapperHandler;
+import org.mustangproject.ZUGFeRD.ZUGFeRDImporter;
 import org.xml.sax.SAXException;
 
 import com.lowagie.text.pdf.PdfReader;
@@ -470,6 +472,7 @@ public class SecuredUpload {
     private static boolean isValidPdfFile(String fileName) throws IOException {
         File file = new File(fileName);
         boolean safeState = false;
+        boolean canParse = false;
         try {
             if ((file != null) && file.exists()) {
                 // Load stream in PDF parser
@@ -484,7 +487,11 @@ public class SecuredUpload {
                         PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                         efTree = names.getEmbeddedFiles();
                     }
-                    safeState = efTree == null;
+                    if (UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false)) {
+                        ZUGFeRDImporter importer = new ZUGFeRDImporter(file.getAbsolutePath());
+                        canParse = importer.canParse();
+                    }
+                    safeState = Objects.isNull(efTree) || canParse;
                 }
             }
         } catch (Exception e) {
