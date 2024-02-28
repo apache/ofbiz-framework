@@ -37,7 +37,7 @@ under the License.
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
                 <set field="activeApp" value="accounting" global="true"/>
                 <set field="applicationMenuName" value="AccountingAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://accounting/widget/AccountingMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.AccountingManagerApplication" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_accounting"/>
             </actions>
@@ -55,7 +55,7 @@ under the License.
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="AccountingShortcutAppBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="AccountingShortcutAppBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -70,7 +70,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainDecoratorLocation}"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/>
@@ -79,10 +79,10 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="finAccountId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="FinAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="FinAccountTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <include-menu name="FinAccountMainTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="FinAccountMainTabBar" location="${parameters.mainMenuLocation}"/>
                                     </fail-widgets>
                                 </section>
                             </widgets>
@@ -111,14 +111,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="PaymentTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentTabBar" location="${parameters.mainMenuLocation}"/>
+                                <include-menu name="PaymentSubTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -134,7 +134,7 @@ under the License.
                                             <not><if-empty field="paymentId"/></not>
                                         </condition>
                                         <widgets>
-                                            <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                            <include-menu name="PaymentSubTabBar" location="${parameters.mainMenuLocation}"/>
                                             <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
                                         </widgets>
                                     </section>
@@ -163,7 +163,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -173,8 +173,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <label style="h1">${uiLabelMap.AccountingPaymentGroup}: ${paymentGroupId}</label>
-                                <include-menu name="PaymentGroupTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                <include-menu name="PaymentGroupSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentGroupTabBar" location="${parameters.mainMenuLocation}"/>
+                                <include-menu name="PaymentGroupSubTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h1">${uiLabelMap.AccountingNewPaymentGroup}</label>
@@ -206,14 +206,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <not><if-empty field="organizationPartyId"/></not>
                             </condition>
                             <widgets>
                                 <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
-                                <include-menu name="PartyTopTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PartyTopTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -242,8 +242,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.partyDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                        <include-menu name="OrganizationAccountingReportsTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="OrganizationAccountingTabBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="OrganizationAccountingReportsTabBar" location="${parameters.mainMenuLocation}"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -261,8 +261,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.partyDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                        <include-menu name="PartyAccountingChecksTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="OrganizationAccountingTabBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="PartyAccountingChecksTabBar" location="${parameters.mainMenuLocation}"/>
                         <label style="h1">${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                         <decorator-section-include name="checks-body"/>
                     </decorator-section>
@@ -299,7 +299,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingMainPage}">
@@ -325,8 +325,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
-                        <include-menu name="GlobalGLSettingMenus" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="GlobalGLSettingMenus" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>

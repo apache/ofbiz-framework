@@ -31,7 +31,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -90,13 +90,13 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <not><if-empty field="budgetId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="BudgetTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="BudgetTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                         <decorator-section-include name="pre-body"/>
@@ -109,7 +109,7 @@ under the License.
                                         <not><if-empty field="budgetId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="BudgetSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="BudgetSubTabBar" location="${parameters.mainMenuLocation}"/>
                                         <label style="h1" text="Budget : [${budgetId}]"/>
                                     </widgets>
                                 </section>

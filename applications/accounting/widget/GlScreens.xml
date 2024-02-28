@@ -32,10 +32,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.partyDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
-                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="OrganizationAccountingTabBar" location="${parameters.mainMenuLocation}"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -59,7 +59,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingPartyAccountsSummary}">
-                                <include-menu name="PartyGlShortCuts" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PartyGlShortCuts" location="${parameters.mainMenuLocation}"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -310,7 +310,7 @@ under the License.
                                 <not><if-empty field="acctgTransId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="EditGlAcctgTransSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="EditGlAcctgTransSubTabBar" location="${parameters.mainMenuLocation}"/>
                                 <section>
                                     <condition>
                                         <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>

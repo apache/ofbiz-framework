@@ -33,13 +33,13 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.partyDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="PartyAdminTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="PartyAdminTabBar" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-compare field="tabButtonItem" operator="equals" value="GlAccountAssignment"/>
                             </condition>
                             <widgets>
-                                <include-menu name="PartyAdminAssignTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PartyAdminAssignTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                         <decorator-section-include name="body"/>
@@ -68,11 +68,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}" navigation-menu-name="NewAccountOrganization">
-                            <include-menu name="NewAccountOrganization" location="component://accounting/widget/AccountingMenus.xml"/>
+                            <include-menu name="NewAccountOrganization" location="${parameters.mainMenuLocation}"/>
                             <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -88,7 +88,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingNewCompany}">
@@ -110,7 +110,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonImportExport} ${uiLabelMap.CommonFor}: ${partyGroup.groupName} [${organizationPartyId}]">
@@ -687,7 +687,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="h1"><label>${uiLabelMap.FormFieldTitle_editGlAccountCategory}</label></container>
-                                <include-menu name="GlAccountCategoryTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="GlAccountCategoryTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                             <fail-widgets>
                                 <container style="h1"><label>${uiLabelMap.FormFieldTitle_newGlAccountCategory}</label></container>
@@ -712,7 +712,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <container style="h1"><label>${uiLabelMap.FormFieldTitle_editGlAccountCategoryMember}</label></container>
-                            <include-menu name="GlAccountCategoryTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                            <include-menu name="GlAccountCategoryTabBar" location="${parameters.mainMenuLocation}"/>
                             <include-form  name="ListGlAccountCategoryMember" location="component://accounting/widget/GlSetupForms.xml"/>
                             <include-form name="AddGlAccountCategoryMember" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>

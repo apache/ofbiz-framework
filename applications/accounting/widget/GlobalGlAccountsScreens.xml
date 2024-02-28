@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="GlAccountTabBar" location="${parameters.mainMenuLocation}"/>
 
                                     <!-- label style="h1">List Accounts</label -->
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
@@ -68,7 +68,7 @@ under the License.
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition -->
                             <widgets>
-                                <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="GlAccountTabBar" location="${parameters.mainMenuLocation}"/>
                                 <label style="h1">${uiLabelMap[labelTitleProperty]} ${product.internalName} [${uiLabelMap.CommonId}:${productId}]</label>
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -98,7 +98,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="GlSettingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="GlSettingTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.AcctgAssignGlAccount}">
                             <include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         </screenlet>
@@ -126,7 +126,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="GlSettingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="GlSettingTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.AcctgNavigateAccts}">
                             <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
                         </screenlet>
@@ -178,7 +178,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="GlAccountTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.PageTitleViewAccountingTransaction}">
                             <include-tree name="ListGlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
                         </screenlet>
@@ -233,7 +233,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="GlSettingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="GlSettingTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap[labelTitleProperty]}">
                             <container style="button-bar">
                                 <link target="ListGlAccountsReport" target-window="_blank" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
