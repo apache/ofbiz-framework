@@ -344,10 +344,10 @@ sourceSets {
         // Groovy tests often fail, because JUNIT does not have access to the ofbiz enviroment.
         // If a groovy test is supposed to be tested this way, it can be added here.
         groovy {
-            srcDirs = getDirectoryInActiveComponentsIfExists('')
-            include 'src/test/groovy/org/apache/ofbiz/service/ModelServiceTest.groovy'
-            include 'src/test/groovy/org/apache/ofbiz/test/TestServices.groovy'
-            include 'src/test/groovy/org/apache/ofbiz/base/util/FileUtilTests.groovy'
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
+            include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
+            include 'org/apache/ofbiz/test/TestServices.groovy'
+            include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
         }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
