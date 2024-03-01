@@ -40,7 +40,7 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/images/humanres/humanres.css" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
                 <set field="applicationMenuName" value="HumanResAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://humanres/widget/HumanresMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.HumanResManagerApplication" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_human_resources"/>
             </actions>
@@ -55,7 +55,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -82,7 +82,7 @@ under the License.
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="HumanResShortcutAppBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="HumanResShortcutAppBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -131,7 +131,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -140,7 +140,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="EmplPostionBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                <include-menu name="EmplPostionBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -175,7 +175,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -202,7 +202,7 @@ under the License.
                                                 <not><if-empty field="parameters.fromDate"/></not>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="EmploymentBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                                <include-menu name="EmploymentBar" location="${parameters.mainMenuLocation}"/>
                                                 <label style="h1" text="${emplName.lastName},${emplName.firstName} ${emplName.middleName} [${emplName.partyId}] ${uiLabelMap.CommonFor}"></label>
                                                 <label style="h1" text="${orgName.groupName} [${orgName.partyId}]"></label>
                                             </widgets>
@@ -229,7 +229,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -247,7 +247,7 @@ under the License.
                                         </entity-one>
                                     </actions>
                                     <widgets>
-                                        <include-menu name="PerfReviewBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                        <include-menu name="PerfReviewBar" location="${parameters.mainMenuLocation}"/>
                                         <label style="h1" text="${uiLabelMap.HumanResPerfReview} [${perfReview.perfReviewId}] ${partyNameView.lastName} ${partyNameView.firstName} ${partyNameView.middleName}"></label>
                                     </widgets>
                                 </section>
@@ -274,7 +274,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -283,7 +283,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                <include-menu name="EmployeeProfileTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -339,7 +339,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                <include-menu name="EmployeeProfileTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -390,8 +390,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
-                        <include-menu name="GlobalHRSettingMenus" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="GlobalHRSettingMenus" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
@@ -409,8 +409,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
-                        <include-menu name="RecruitmentTypeMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="RecruitmentTypeMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
@@ -428,8 +428,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
-                        <include-menu name="TrainingTypeMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="TrainingTypeMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
@@ -446,8 +446,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
-                        <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="EmployeeProfileTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>

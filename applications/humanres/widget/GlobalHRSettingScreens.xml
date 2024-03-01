@@ -130,7 +130,7 @@
                                 </not>
                             </condition>
                             <widgets>
-                                <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                <include-menu name="EmplPositionTypeTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.HumanResEditEmplPositionType}">
@@ -158,7 +158,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplPositionTypeTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="AddEmplPositionTypeRatePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmplPositionType} ${uiLabelMap.CommonRate}" collapsible="true">
                             <include-form name="AddEmplPositionTypeRate" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
@@ -238,7 +238,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="EmplLeaveReasonTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplLeaveReasonTypeTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="AddEmplLeaveTypePanel" title="${uiLabelMap.HumanResAddEmplLeaveType}" collapsible="true">
                             <include-form name="AddEmplLeaveType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
@@ -260,7 +260,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="EmplLeaveReasonTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplLeaveReasonTypeTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="AddEmplReasonTypePanel" title="${uiLabelMap.HumanResAddEmplLeaveReasonType}" collapsible="true">
                             <include-form name="AddEmplLeaveReasonType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
