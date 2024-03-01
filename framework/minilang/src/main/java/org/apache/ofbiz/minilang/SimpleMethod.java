@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -446,7 +447,7 @@ public final class SimpleMethod extends MiniLangElement {
         if (loginRequired) {
             if (userLogin == null) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("shortDescription", shortDescription);
-                String errMsg = UtilProperties.getMessage(ERR_RESOURCE, "simpleMethod.must_logged_process", messageMap, locale) + ".";
+                String errMsg = UtilPropertiesRuntime.getMessage(ERR_RESOURCE, "simpleMethod.must_logged_process", messageMap, locale) + ".";
                 if (methodContext.isTraceOn()) {
                     outputTraceMessage(methodContext,
                             "login-required attribute set to \"true\" but UserLogin GenericValue was not found, returning error message:", errMsg);

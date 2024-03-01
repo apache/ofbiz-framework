@@ -61,6 +61,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -259,7 +260,8 @@ public final class LoginWorker {
             }
             HashMap<String, Object> messageMap = new HashMap<>();
             messageMap.putAll(userLoginHistory.getAllFields());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.impersonation_in_process", messageMap, UtilHttp.getLocale(request));
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.impersonation_in_process", messageMap,
+                    UtilHttp.getLocale(request));
             errorMessageList.add(errMsg);
         }
         return userLoginHistory;
@@ -335,9 +337,15 @@ public final class LoginWorker {
             password = request.getParameter("PASSWORD");
             token = request.getParameter("TOKEN");
             // check session attributes
-            if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
-            if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
-            if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
+            if (UtilValidate.isEmpty(username)) {
+                username = (String) session.getAttribute("USERNAME");
+            }
+            if (UtilValidate.isEmpty(password)) {
+                password = (String) session.getAttribute("PASSWORD");
+            }
+            if (UtilValidate.isEmpty(token)) {
+                token = (String) session.getAttribute("TOKEN");
+            }
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if (UtilValidate.isEmpty(username)
@@ -419,9 +427,15 @@ public final class LoginWorker {
             }
         }
 
-        if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
-        if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
-        if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
+        if (UtilValidate.isEmpty(username)) {
+            username = (String) session.getAttribute("USERNAME");
+        }
+        if (UtilValidate.isEmpty(password)) {
+            password = (String) session.getAttribute("PASSWORD");
+        }
+        if (UtilValidate.isEmpty(token)) {
+            token = (String) session.getAttribute("TOKEN");
+        }
 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute;
         // this way a preprocessor can play with these a bit...
@@ -467,7 +481,9 @@ public final class LoginWorker {
             String currentDelegatorTenantId = null;
             if (delegatorNameHashIndex > 0) {
                 currentDelegatorTenantId = oldDelegatorName.substring(delegatorNameHashIndex + 1);
-                if (currentDelegatorTenantId != null) currentDelegatorTenantId = currentDelegatorTenantId.trim();
+                if (currentDelegatorTenantId != null) {
+                    currentDelegatorTenantId = currentDelegatorTenantId.trim();
+                }
             }
 
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
@@ -481,7 +497,7 @@ public final class LoginWorker {
                 } catch (NullPointerException e) {
                     Debug.logError(e, "Error getting tenant delegator", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Tenant [" + tenantId + "]  not found...");
-                    String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                    String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                             messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
@@ -503,7 +519,7 @@ public final class LoginWorker {
             } catch (NullPointerException e) {
                 Debug.logError(e, "Error getting default delegator", MODULE);
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Error getting default delegator");
-                String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                         messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
@@ -525,7 +541,7 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -549,7 +565,7 @@ public final class LoginWorker {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error calling updatePassword service", MODULE);
                     Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                    String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                    String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                             messageMap, UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "requirePasswordChange";
@@ -558,7 +574,7 @@ public final class LoginWorker {
                     String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
                     if (UtilValidate.isNotEmpty(errorMessage)) {
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", errorMessage);
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                                 messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     }
@@ -570,7 +586,7 @@ public final class LoginWorker {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Error refreshing userLogin value", MODULE);
                         Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                                 messageMap, UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
@@ -609,7 +625,7 @@ public final class LoginWorker {
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -686,7 +702,7 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userImpersonate service", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap,
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login", messageMap,
                     UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -716,7 +732,7 @@ public final class LoginWorker {
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
-            String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
+            String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -858,8 +874,12 @@ public final class LoginWorker {
             try {
                 GenericValue person = userLogin.getRelatedOne("Person", false);
                 GenericValue partyGroup = userLogin.getRelatedOne("PartyGroup", false);
-                if (person != null) session.setAttribute("person", person);
-                if (partyGroup != null) session.setAttribute("partyGroup", partyGroup);
+                if (person != null) {
+                    session.setAttribute("person", person);
+                }
+                if (partyGroup != null) {
+                    session.setAttribute("partyGroup", partyGroup);
+                }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting person/partyGroup info for session, ignoring...", MODULE);
             }
@@ -942,7 +962,9 @@ public final class LoginWorker {
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
 
-        if (currCatalog != null) session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
+        if (currCatalog != null) {
+            session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
+        }
         if (delegatorName != null) {
             //Commented it as multi tenancy support is now available for front-store application as well.
             // if there is a tenantId in the delegatorName remove it now so that tenant selection doesn't last beyond logout
@@ -1016,7 +1038,7 @@ public final class LoginWorker {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), MODULE);
         }
         if (cookies != null) {
-            for (Cookie cookie: cookies) {
+            for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(getAutoLoginCookieName(request))) {
                     autoUserLoginId = cookie.getValue();
                     break;
@@ -1032,7 +1054,7 @@ public final class LoginWorker {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), MODULE);
         }
         if (cookies != null) {
-            for (Cookie cookie: cookies) {
+            for (Cookie cookie : cookies) {
                 String cookieName = getSecuredLoginIdCookieName(request);
                 if (cookie.getName().equals(cookieName)) {
                     securedUserLoginId = cookie.getValue();
@@ -1464,13 +1486,13 @@ public final class LoginWorker {
                 if (now.after(startNotificationFromDate)) {
                     if (now.after(passwordExpirationDate)) {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_expired_message", messageMap,
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.password_expired_message", messageMap,
                                 UtilHttp.getLocale(request));
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "requirePasswordChange";
                     } else {
                         Map<String, String> messageMap = UtilMisc.toMap("passwordExpirationDate", passwordExpirationDate.toString());
-                        String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.password_expiration_alert", messageMap,
+                        String errMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "loginevents.password_expiration_alert", messageMap,
                                 UtilHttp.getLocale(request));
                         request.setAttribute("_EVENT_MESSAGE_", errMsg);
                         return "success";

@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -262,21 +263,23 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Creates new ShoppingCartItem object.
+     *
      * @deprecated Use {@link #ShoppingCartItem(GenericValue, Map, Map, String, Locale, String, ShoppingCartItemGroup, LocalDispatcher)} instead
      */
     @Deprecated
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                               String prodCatalogId, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+            String prodCatalogId, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
         this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, locale, itemType, itemGroup, null);
     }
 
     /**
      * Creates new ShoppingCartItem object.
+     *
      * @param dispatcher TODO
      */
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                               String prodCatalogId, Locale locale,
-                               String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
+            String prodCatalogId, Locale locale,
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
         this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null);
         String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
         // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
@@ -298,8 +301,8 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Creates new ShoppingCartItem object.
      */
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                               String prodCatalogId, ProductConfigWrapper configWrapper, Locale locale, String itemType,
-                               ShoppingCart.ShoppingCartItemGroup itemGroup, GenericValue parentProduct) {
+            String prodCatalogId, ProductConfigWrapper configWrapper, Locale locale, String itemType,
+            ShoppingCart.ShoppingCartItemGroup itemGroup, GenericValue parentProduct) {
         this.product = product;
         this.productId = product.getString("productId");
         this.parentProduct = parentProduct;
@@ -343,7 +346,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Creates new ShopingCartItem object.
      */
     protected ShoppingCartItem(Delegator delegator, String itemTypeId, String description, String categoryId, BigDecimal basePrice,
-                               Map<String, Object> attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+            Map<String, Object> attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
         this.delegator = delegator;
         this.itemType = itemTypeId;
         this.itemGroup = itemGroup;
@@ -360,8 +363,9 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /**
-     * Makes a ShoppingCartItem for a purchase order item and adds it to the cart.
-     * NOTE: This method will get the product entity and check to make sure it can be purchased.
+     * Makes a ShoppingCartItem for a purchase order item and adds it to the cart. NOTE: This method will get the product entity and check to make
+     * sure it can be purchased.
+     *
      * @param cartLocation                     The location to place this item; null will place at the end
      * @param productId                        The primary key of the product being added
      * @param quantity                         The quantity to add
@@ -379,11 +383,11 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makePurchaseOrderItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity,
-                                                         Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                                                         String prodCatalogId, ProductConfigWrapper configWrapper, String itemType,
-                                                         ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart,
-                                                         GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate,
-                                                         Timestamp cancelBackOrderDate)
+            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
+            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType,
+            ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart,
+            GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            Timestamp cancelBackOrderDate)
             throws CartItemModifyException, ItemNotFoundException {
         Delegator delegator = cart.getDelegator();
         GenericValue product = null;
@@ -397,7 +401,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (product == null) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
 
-            String excMsg = UtilProperties.getMessage(RES_ERROR, "item.product_not_found", messageMap, cart.getLocale());
+            String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.product_not_found", messageMap, cart.getLocale());
 
             Debug.logWarning(excMsg, MODULE);
             throw new ItemNotFoundException(excMsg);
@@ -410,7 +414,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"), "productId",
                     product.getString("productId"));
 
-            String excMsg = UtilProperties.getMessage(RES_ERROR, "item.cannot_add_product_virtual", messageMap, cart.getLocale());
+            String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_add_product_virtual", messageMap, cart.getLocale());
 
             Debug.logWarning(excMsg, MODULE);
             throw new CartItemModifyException(excMsg);
@@ -422,7 +426,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"), "productId",
                         product.getString("productId"));
 
-                String excMsg = UtilProperties.getMessage(RES_ERROR, "item.cannot_add_product_not_configured_correctly", messageMap,
+                String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_add_product_not_configured_correctly", messageMap,
                         cart.getLocale());
 
                 Debug.logWarning(excMsg, MODULE);
@@ -473,40 +477,43 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /**
-     * Makes a ShoppingCartItem and adds it to the cart.
-     * NOTE: This method will get the product entity and check to make sure it can be purchased.
-     * @param cartLocation The location to place this item; null will place at the end
-     * @param productId The primary key of the product being added
-     * @param selectedAmount Optional. Defaults to 0.0. If a selectedAmount is needed (complements the quantity value), pass it in here.
-     * @param quantity Required. The quantity to add.
-     * @param unitPrice Optional. Defaults to 0.0, which causes calculation of price.
-     * @param reservStart Optional. The start of the reservation.
-     * @param reservLength Optional. The length of the reservation.
-     * @param reservPersons Optional. The number of persons taking advantage of the reservation.
-     * @param shipBeforeDate Optional. The date to ship the order by.
-     * @param shipAfterDate Optional. Wait until this date to ship.
+     * Makes a ShoppingCartItem and adds it to the cart. NOTE: This method will get the product entity and check to make sure it can be purchased.
+     *
+     * @param cartLocation                     The location to place this item; null will place at the end
+     * @param productId                        The primary key of the product being added
+     * @param selectedAmount                   Optional. Defaults to 0.0. If a selectedAmount is needed (complements the quantity value), pass it in
+     *                                         here.
+     * @param quantity                         Required. The quantity to add.
+     * @param unitPrice                        Optional. Defaults to 0.0, which causes calculation of price.
+     * @param reservStart                      Optional. The start of the reservation.
+     * @param reservLength                     Optional. The length of the reservation.
+     * @param reservPersons                    Optional. The number of persons taking advantage of the reservation.
+     * @param shipBeforeDate                   Optional. The date to ship the order by.
+     * @param shipAfterDate                    Optional. Wait until this date to ship.
      * @param additionalProductFeatureAndAppls Optional. Product feature/appls map.
-     * @param attributes Optional. All unique attributes for this item (NOT features).
-     * @param prodCatalogId Optional, but strongly recommended. The catalog this item was added from.
-     * @param configWrapper Optional. The product configuration wrapper (null if the product is not configurable).
-     * @param itemType Optional. Specifies the type of cart item, corresponds to an OrderItemType and should be a valid orderItemTypeId.
-     * @param itemGroup Optional. Specifies which item group in the cart this should belong to, if item groups are needed/desired.
-     * @param dispatcher Required (for price calculation, promos, etc). LocalDispatcher object for doing promotions, etc.
-     * @param cart Required. The parent shopping cart object this item will belong to.
-     * @param triggerExternalOpsBool Optional. Defaults to true. Trigger external operations (like promotions and such)?
-     * @param triggerPriceRulesBool Optional. Defaults to true. Trigger the price rules to calculate the price for this item?
+     * @param attributes                       Optional. All unique attributes for this item (NOT features).
+     * @param prodCatalogId                    Optional, but strongly recommended. The catalog this item was added from.
+     * @param configWrapper                    Optional. The product configuration wrapper (null if the product is not configurable).
+     * @param itemType                         Optional. Specifies the type of cart item, corresponds to an OrderItemType and should be a valid
+     *                                         orderItemTypeId.
+     * @param itemGroup                        Optional. Specifies which item group in the cart this should belong to, if item groups are
+     *                                         needed/desired.
+     * @param dispatcher                       Required (for price calculation, promos, etc). LocalDispatcher object for doing promotions, etc.
+     * @param cart                             Required. The parent shopping cart object this item will belong to.
+     * @param triggerExternalOpsBool           Optional. Defaults to true. Trigger external operations (like promotions and such)?
+     * @param triggerPriceRulesBool            Optional. Defaults to true. Trigger the price rules to calculate the price for this item?
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity,
-                                            BigDecimal unitPrice,
-                                            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Timestamp shipBeforeDate,
-                                            Timestamp shipAfterDate,
-                                            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                                            String prodCatalogId, ProductConfigWrapper configWrapper,
-                                            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
-                                            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId,
-                                            Boolean skipInventoryChecks, Boolean skipProductChecks)
+            BigDecimal unitPrice,
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Timestamp shipBeforeDate,
+            Timestamp shipAfterDate,
+            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
+            String prodCatalogId, ProductConfigWrapper configWrapper,
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
+            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId,
+            Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
 
         return makeItem(cartLocation, productId, selectedAmount, quantity, unitPrice,
@@ -536,8 +543,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /**
-     * Method for backwards compatibility after extending makeItem method below with
-     * additional orderItemAttributes parameter.
+     * Method for backwards compatibility after extending makeItem method below with additional orderItemAttributes parameter.
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount,
             BigDecimal quantity, BigDecimal unitPrice,
@@ -560,7 +566,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Makes a ShoppingCartItem and adds it to the cart.
-     * @param accommodationMapId Optional. reservations add into workeffort
+     *
+     * @param accommodationMapId  Optional. reservations add into workeffort
      * @param accommodationSpotId Optional. reservations add into workeffort
      * @param orderItemAttributes Optional.
      */
@@ -594,41 +601,44 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /**
-     * Makes a ShoppingCartItem and adds it to the cart.
-     * WARNING: This method does not check if the product is in a purchase category.
-     * rental fields were added.
-     * @param cartLocation The location to place this item; null will place at the end
-     * @param product The product entity relating to the product being added
-     * @param selectedAmount Optional. Defaults to 0.0. If a selectedAmount is needed (complements the quantity value), pass it in here.
-     * @param quantity Required. The quantity to add.
-     * @param unitPrice Optional. Defaults to 0.0, which causes calculation of price.
-     * @param reservStart Optional. The start of the reservation.
-     * @param reservLength Optional. The length of the reservation.
-     * @param reservPersons Optional. The number of persons taking advantage of the reservation.
-     * @param shipBeforeDate Optional. The date to ship the order by.
-     * @param shipAfterDate Optional. Wait until this date to ship.
+     * Makes a ShoppingCartItem and adds it to the cart. WARNING: This method does not check if the product is in a purchase category. rental fields
+     * were added.
+     *
+     * @param cartLocation                     The location to place this item; null will place at the end
+     * @param product                          The product entity relating to the product being added
+     * @param selectedAmount                   Optional. Defaults to 0.0. If a selectedAmount is needed (complements the quantity value), pass it in
+     *                                         here.
+     * @param quantity                         Required. The quantity to add.
+     * @param unitPrice                        Optional. Defaults to 0.0, which causes calculation of price.
+     * @param reservStart                      Optional. The start of the reservation.
+     * @param reservLength                     Optional. The length of the reservation.
+     * @param reservPersons                    Optional. The number of persons taking advantage of the reservation.
+     * @param shipBeforeDate                   Optional. The date to ship the order by.
+     * @param shipAfterDate                    Optional. Wait until this date to ship.
      * @param additionalProductFeatureAndAppls Optional. Product feature/appls map.
-     * @param attributes Optional. All unique attributes for this item (NOT features).
-     * @param prodCatalogId Optional, but strongly recommended. The catalog this item was added from.
-     * @param configWrapper Optional. The product configuration wrapper (null if the product is not configurable).
-     * @param itemType Optional. Specifies the type of cart item, corresponds to an OrderItemType and should be a valid orderItemTypeId.
-     * @param itemGroup Optional. Specifies which item group in the cart this should belong to, if item groups are needed/desired.
-     * @param dispatcher Required (for price calculation, promos, etc). LocalDispatcher object for doing promotions, etc.
-     * @param cart Required. The parent shopping cart object this item will belong to.
-     * @param triggerExternalOpsBool Optional. Defaults to true. Trigger external operations (like promotions and such)?
-     * @param triggerPriceRulesBool Optional. Defaults to true. Trigger the price rules to calculate the price for this item?
+     * @param attributes                       Optional. All unique attributes for this item (NOT features).
+     * @param prodCatalogId                    Optional, but strongly recommended. The catalog this item was added from.
+     * @param configWrapper                    Optional. The product configuration wrapper (null if the product is not configurable).
+     * @param itemType                         Optional. Specifies the type of cart item, corresponds to an OrderItemType and should be a valid
+     *                                         orderItemTypeId.
+     * @param itemGroup                        Optional. Specifies which item group in the cart this should belong to, if item groups are
+     *                                         needed/desired.
+     * @param dispatcher                       Required (for price calculation, promos, etc). LocalDispatcher object for doing promotions, etc.
+     * @param cart                             Required. The parent shopping cart object this item will belong to.
+     * @param triggerExternalOpsBool           Optional. Defaults to true. Trigger external operations (like promotions and such)?
+     * @param triggerPriceRulesBool            Optional. Defaults to true. Trigger the price rules to calculate the price for this item?
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount,
-                                            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength,
-                                            BigDecimal reservPersons,
-                                            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String,
-                                            GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                                            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType,
-                                            ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
-                                            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool,
-                                            GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks)
+            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength,
+            BigDecimal reservPersons,
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String,
+            GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
+            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType,
+            ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
+            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool,
+            GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException {
 
         return makeItem(cartLocation, product, selectedAmount,
@@ -639,8 +649,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /**
-     * Method for backwards compatibility after extending makeItem method below with
-     * additional orderItemAttributes parameter.
+     * Method for backwards compatibility after extending makeItem method below with additional orderItemAttributes parameter.
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount,
             BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength,
@@ -663,7 +672,8 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Makes a ShoppingCartItem and adds it to the cart.
-     * @param accommodationMapId Optional. reservations add into workeffort
+     *
+     * @param accommodationMapId  Optional. reservations add into workeffort
      * @param accommodationSpotId Optional. reservations add into workeffort
      * @param orderItemAttributes Optional.
      */
@@ -694,7 +704,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"), "productId",
                     product.getString("productId"));
 
-            String excMsg = UtilProperties.getMessage(RES_ERROR, "item.cannot_add_product_virtual", messageMap, cart.getLocale());
+            String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_add_product_virtual", messageMap, cart.getLocale());
 
             Debug.logWarning(excMsg, MODULE);
             throw new CartItemModifyException(excMsg);
@@ -730,7 +740,8 @@ public class ShoppingCartItem implements java.io.Serializable {
                 if (reservMaxPersons.compareTo(reservPersons) < 0) {
                     Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("reservMaxPersons", product.getString("reservMaxPersons"),
                             "reservPersons", reservPersons);
-                    String excMsg = UtilProperties.getMessage(RES_ERROR, "item.maximum_number_of_person_renting", messageMap, cart.getLocale());
+                    String excMsg =
+                            UtilPropertiesRuntime.getMessage(RES_ERROR, "item.maximum_number_of_person_renting", messageMap, cart.getLocale());
 
                     Debug.logInfo(excMsg, MODULE);
                     throw new CartItemModifyException(excMsg);
@@ -755,7 +766,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (isAvailable.compareTo("OK") != 0) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "availableMessage",
                         isAvailable);
-                String excMsg = UtilProperties.getMessage(RES_ERROR, "item.product_not_available", messageMap, cart.getLocale());
+                String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.product_not_available", messageMap, cart.getLocale());
                 Debug.logInfo(excMsg, MODULE);
                 throw new CartItemModifyException(isAvailable);
             }
@@ -804,7 +815,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public static GenericValue findProduct(Delegator delegator, boolean skipProductChecks, String prodCatalogId,
-                                           String productId, Locale locale) throws ItemNotFoundException {
+            String productId, Locale locale) throws ItemNotFoundException {
         GenericValue product;
 
         try {
@@ -827,7 +838,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         if (product == null) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-            String excMsg = UtilProperties.getMessage(RES_ERROR, "item.product_not_found", messageMap, locale);
+            String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.product_not_found", messageMap, locale);
 
             Debug.logWarning(excMsg, MODULE);
             throw new ItemNotFoundException(excMsg);
@@ -842,7 +853,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
                     "productId", product.getString("productId"));
 
-            String excMsg = UtilProperties.getMessage(RES_ERROR, "item.cannot_add_product_not_yet_available",
+            String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_add_product_not_yet_available",
                     messageMap, locale);
 
             Debug.logWarning(excMsg, MODULE);
@@ -854,7 +865,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
                     "productId", product.getString("productId"));
 
-            String excMsg = UtilProperties.getMessage(RES_ERROR, "item.cannot_add_product_no_longer_available",
+            String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_add_product_no_longer_available",
                     messageMap, locale);
 
             Debug.logWarning(excMsg, MODULE);
@@ -866,7 +877,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (configWrapper == null || !configWrapper.isCompleted()) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
                         "productId", product.getString("productId"));
-                String excMsg = UtilProperties.getMessage(RES_ERROR, "item.cannot_add_product_not_configured_correctly",
+                String excMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_add_product_not_configured_correctly",
                         messageMap, locale);
                 Debug.logWarning(excMsg, MODULE);
                 throw new CartItemModifyException(excMsg);
@@ -875,8 +886,9 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /**
-     * Makes a non-product ShoppingCartItem and adds it to the cart.
-     * NOTE: This is only for non-product items; items without a product entity (work items, bulk items, etc)
+     * Makes a non-product ShoppingCartItem and adds it to the cart. NOTE: This is only for non-product items; items without a product entity (work
+     * items, bulk items, etc)
+     *
      * @param cartLocation           The location to place this item; null will place at the end
      * @param itemType               The OrderItemTypeId for the item being added
      * @param itemDescription        The optional description of the item
@@ -893,9 +905,9 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @throws CartItemModifyException
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, String itemType, String itemDescription, String productCategoryId,
-                                            BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map<String, Object> attributes,
-                                            String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup,
-                                            LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool)
+            BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map<String, Object> attributes,
+            String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup,
+            LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool)
             throws CartItemModifyException {
 
         Delegator delegator = cart.getDelegator();
@@ -928,7 +940,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * returns "OK" when the product can be booked or returns a string with the dates the related fixed Asset is not available
      */
     public static String checkAvailability(String productId, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength,
-                                           ShoppingCart cart) {
+            ShoppingCart cart) {
         Delegator delegator = cart.getDelegator();
         // find related fixedAsset
         List<GenericValue> selFixedAssetProduct = null;
@@ -938,7 +950,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     "fixedAssetProductTypeId", "FAPT_USE").filterByDate(UtilDateTime.nowTimestamp(), "fromDate", "thruDate").queryList();
         } catch (GenericEntityException e) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-            String msg = UtilProperties.getMessage(RES_ERROR, "item.cannot_find_Fixed_Asset", messageMap, cart.getLocale());
+            String msg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_find_Fixed_Asset", messageMap, cart.getLocale());
             return msg;
         }
         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
@@ -946,7 +958,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             fixedAssetProduct = firstOne.next();
         } else {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-            String msg = UtilProperties.getMessage(RES_ERROR, "item.cannot_find_Fixed_Asset", messageMap, cart.getLocale());
+            String msg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.cannot_find_Fixed_Asset", messageMap, cart.getLocale());
             return msg;
         }
 
@@ -956,12 +968,12 @@ public class ShoppingCartItem implements java.io.Serializable {
             fixedAsset = fixedAssetProduct.getRelatedOne("FixedAsset", false);
         } catch (GenericEntityException e) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("fixedAssetId", fixedAssetProduct.getString("fixedAssetId"));
-            String msg = UtilProperties.getMessage(RES_ERROR, "item.fixed_Asset_not_found", messageMap, cart.getLocale());
+            String msg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.fixed_Asset_not_found", messageMap, cart.getLocale());
             return msg;
         }
         if (fixedAsset == null) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("fixedAssetId", fixedAssetProduct.getString("fixedAssetId"));
-            String msg = UtilProperties.getMessage(RES_ERROR, "item.fixed_Asset_not_found", messageMap, cart.getLocale());
+            String msg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.fixed_Asset_not_found", messageMap, cart.getLocale());
             return msg;
         }
 
@@ -982,7 +994,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("quantityReq", quantity,
                     "quantityAvail", fixedAsset.getString("productionCapacity"));
-            String msg = UtilProperties.getMessage(RES_ERROR, "item.availableQnt", messageMap, cart.getLocale());
+            String msg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.availableQnt", messageMap, cart.getLocale());
             return msg;
         }
         // now find all the dates and check the availabilty for each date
@@ -1032,12 +1044,12 @@ public class ShoppingCartItem implements java.io.Serializable {
             return msg;
         }
         Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("resultMessage", resultMessage);
-        String msg = UtilProperties.getMessage(RES_ERROR, "item.notAvailable", messageMap, cart.getLocale());
+        String msg = UtilPropertiesRuntime.getMessage(RES_ERROR, "item.notAvailable", messageMap, cart.getLocale());
         return msg;
     }
 
     public static String getPurchaseOrderItemDescription(GenericValue product, GenericValue supplierProduct, Locale locale,
-                                                         LocalDispatcher dispatcher) {
+            LocalDispatcher dispatcher) {
 
         String itemDescription = null;
 
@@ -1054,6 +1066,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets prod catalog id.
+     *
      * @return the prod catalog id
      */
     public String getProdCatalogId() {
@@ -1062,6 +1075,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets external id.
+     *
      * @return the external id
      */
     public String getExternalId() {
@@ -1070,6 +1084,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets external id.
+     *
      * @param externalId the external id
      */
     public void setExternalId(String externalId) {
@@ -1125,15 +1140,16 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Sets the quantity for the item and validates the change in quantity, etc
      */
     public void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup,
-                            boolean updateProductPrice) throws CartItemModifyException {
+            boolean updateProductPrice) throws CartItemModifyException {
         this.setQuantity(quantity, dispatcher, cart, triggerExternalOps, resetShipGroup, updateProductPrice, false);
     }
 
     /**
      * Is inventory available or not required boolean.
-     * @param quantity the quantity
+     *
+     * @param quantity       the quantity
      * @param productStoreId the product store id
-     * @param dispatcher the dispatcher
+     * @param dispatcher     the dispatcher
      * @return the boolean
      * @throws CartItemModifyException the cart item modify exception
      */
@@ -1160,24 +1176,25 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets quantity.
-     * @param quantity the quantity
-     * @param dispatcher the dispatcher
-     * @param cart the cart
-     * @param triggerExternalOps the trigger external ops
-     * @param resetShipGroup the reset ship group
-     * @param updateProductPrice the update product price
+     *
+     * @param quantity            the quantity
+     * @param dispatcher          the dispatcher
+     * @param cart                the cart
+     * @param triggerExternalOps  the trigger external ops
+     * @param resetShipGroup      the reset ship group
+     * @param updateProductPrice  the update product price
      * @param skipInventoryChecks the skip inventory checks
      * @throws CartItemModifyException the cart item modify exception
      */
     protected void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup,
-                               boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
+            boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
         if (this.quantity.compareTo(quantity) == 0) {
             return;
         }
 
         if (this.isPromo) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", this.getName(dispatcher), "productId", productId);
-            String excMsg = UtilProperties.getMessage(RESOURCE, "OrderCannotChangeQuantityInPromotion", messageMap, cart.getLocale());
+            String excMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "OrderCannotChangeQuantityInPromotion", messageMap, cart.getLocale());
             throw new CartItemModifyException(excMsg);
         }
 
@@ -1191,7 +1208,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 if (!isInventoryAvailableOrNotRequired(quantity, productStoreId, dispatcher)) {
                     Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("requestedQuantity",
                             UtilFormatOut.formatQuantity(quantity.doubleValue()), "productName", this.getName(dispatcher), "productId", productId);
-                    String excMsg = UtilProperties.getMessage(RESOURCE, "OrderDoNotHaveEnoughProducts", messageMap, cart.getLocale());
+                    String excMsg = UtilPropertiesRuntime.getMessage(RESOURCE, "OrderDoNotHaveEnoughProducts", messageMap, cart.getLocale());
                     Debug.logWarning(excMsg, MODULE);
                     throw new CartItemModifyException(excMsg);
                 }
@@ -1268,8 +1285,9 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Update price.
+     *
      * @param dispatcher the dispatcher
-     * @param cart the cart
+     * @param cart       the cart
      * @throws CartItemModifyException the cart item modify exception
      */
     public void updatePrice(LocalDispatcher dispatcher, ShoppingCart cart) throws CartItemModifyException {
@@ -1548,6 +1566,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets promo quantity used.
+     *
      * @return the promo quantity used
      */
     public synchronized BigDecimal getPromoQuantityUsed() {
@@ -1559,6 +1578,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets promo quantity available.
+     *
      * @return the promo quantity available
      */
     public synchronized BigDecimal getPromoQuantityAvailable() {
@@ -1570,6 +1590,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets quantity used per promo actual iter.
+     *
      * @return the quantity used per promo actual iter
      */
     public Iterator<Map.Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoActualIter() {
@@ -1578,6 +1599,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets quantity used per promo candidate iter.
+     *
      * @return the quantity used per promo candidate iter
      */
     public Iterator<Map.Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoCandidateIter() {
@@ -1586,6 +1608,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets quantity used per promo failed iter.
+     *
      * @return the quantity used per promo failed iter
      */
     public Iterator<Map.Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoFailedIter() {
@@ -1594,13 +1617,14 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Add promo quantity candidate use big decimal.
-     * @param quantityDesired the quantity desired
+     *
+     * @param quantityDesired        the quantity desired
      * @param productPromoCondAction the product promo cond action
-     * @param checkAvailableOnly the check available only
+     * @param checkAvailableOnly     the check available only
      * @return the big decimal
      */
     public synchronized BigDecimal addPromoQuantityCandidateUse(BigDecimal quantityDesired, GenericValue productPromoCondAction,
-                                                                boolean checkAvailableOnly) {
+            boolean checkAvailableOnly) {
         if (quantityDesired.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         }
@@ -1631,6 +1655,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets promo quantity candidate use.
+     *
      * @param productPromoCondAction the product promo cond action
      * @return the promo quantity candidate use
      */
@@ -1645,6 +1670,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets promo quantity candidate use action and all conds.
+     *
      * @param productPromoAction the product promo action
      * @return the promo quantity candidate use action and all conds
      */
@@ -1677,6 +1703,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Reset promo rule use.
+     *
      * @param productPromoId     the product promo id
      * @param productPromoRuleId the product promo rule id
      */
@@ -1702,6 +1729,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Confirm promo rule use.
+     *
      * @param productPromoId     the product promo id
      * @param productPromoRuleId the product promo rule id
      */
@@ -1758,7 +1786,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             try {
                 return Timestamp.valueOf(ddDate);
             } catch (IllegalArgumentException e) {
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemGettingItemDesiredDeliveryDateFor",
+                Debug.logWarning(e, UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderProblemGettingItemDesiredDeliveryDateFor",
                         UtilMisc.toMap("productId", this.getProductId()), locale));
                 return null;
             }
@@ -1895,6 +1923,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Is in item group boolean.
+     *
      * @param groupNumber the group number
      * @return the boolean
      */
@@ -1911,7 +1940,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             try {
                 orderItemType = this.getDelegator().findOne("OrderItemType", UtilMisc.toMap("orderItemTypeId", this.getItemType()), true);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsGettingOrderItemTypeFor",
+                Debug.logWarning(e, UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderProblemsGettingOrderItemTypeFor",
                         UtilMisc.toMap("orderItemTypeId", this.getItemType()), locale));
             }
         }
@@ -1930,6 +1959,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets product category id.
+     *
      * @param productCategoryId the product category id
      */
     public void setProductCategoryId(String productCategoryId) {
@@ -1938,6 +1968,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets order item seq id.
+     *
      * @return the order item seq id
      */
     public String getOrderItemSeqId() {
@@ -1946,6 +1977,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets order item seq id.
+     *
      * @param orderItemSeqId the order item seq id
      */
     public void setOrderItemSeqId(String orderItemSeqId) {
@@ -1955,8 +1987,9 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets shopping list.
+     *
      * @param shoppingListId the shopping list id
-     * @param itemSeqId the item seq id
+     * @param itemSeqId      the item seq id
      */
     public void setShoppingList(String shoppingListId, String itemSeqId) {
         attributes.put("shoppingListId", shoppingListId);
@@ -1965,6 +1998,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets shopping list id.
+     *
      * @return the shopping list id
      */
     public String getShoppingListId() {
@@ -1973,6 +2007,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets shopping list item seq id.
+     *
      * @return the shopping list item seq id
      */
     public String getShoppingListItemSeqId() {
@@ -2067,6 +2102,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets status id.
+     *
      * @return the status id
      */
     public String getStatusId() {
@@ -2075,6 +2111,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets status id.
+     *
      * @param statusId the status id
      */
     public void setStatusId(String statusId) {
@@ -2105,28 +2142,37 @@ public class ShoppingCartItem implements java.io.Serializable {
         return true;
     }
 
-    /** Returns the item's productId. */
+    /**
+     * Returns the item's productId.
+     */
     public String getProductId() {
         return productId;
     }
 
-    /** Returns the item's supplierProductId. */
+    /**
+     * Returns the item's supplierProductId.
+     */
     public String getSupplierProductId() {
         return supplierProductId;
     }
 
-    /** Set the item's supplierProductId. */
+    /**
+     * Set the item's supplierProductId.
+     */
     public void setSupplierProductId(String supplierProductId) {
         this.supplierProductId = supplierProductId;
     }
 
-    /** Set the item's locale (from ShoppingCart.setLocale) */
+    /**
+     * Set the item's locale (from ShoppingCart.setLocale)
+     */
     protected void setLocale(Locale locale) {
         this.locale = locale;
     }
 
     /**
      * Returns the item's description.
+     *
      * @deprecated use getName(LocalDispatcher dispatcher)
      **/
     @Deprecated
@@ -2193,6 +2239,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets config wrapper.
+     *
      * @return the config wrapper
      */
     public ProductConfigWrapper getConfigWrapper() {
@@ -2360,6 +2407,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets item product info.
+     *
      * @return the item product info
      */
     public Map<String, Object> getItemProductInfo() {
@@ -2384,6 +2432,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Returns the base price.
+     *
      * @return the base price
      */
     public BigDecimal getBasePrice() {
@@ -2398,6 +2447,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets the base price for the item; use with caution
+     *
      * @param basePrice the base price
      */
     public void setBasePrice(BigDecimal basePrice) {
@@ -2406,6 +2456,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets display price.
+     *
      * @return the display price
      */
     public BigDecimal getDisplayPrice() {
@@ -2424,6 +2475,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets the display price for the item; use with caution
+     *
      * @param displayPrice the display price
      */
     public void setDisplayPrice(BigDecimal displayPrice) {
@@ -2432,6 +2484,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets special promo price.
+     *
      * @return the special promo price
      */
     public BigDecimal getSpecialPromoPrice() {
@@ -2440,6 +2493,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets special promo price.
+     *
      * @param specialPromoPrice the special promo price
      */
     public void setSpecialPromoPrice(BigDecimal specialPromoPrice) {
@@ -2448,6 +2502,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets recurring base price.
+     *
      * @return the recurring base price
      */
     public BigDecimal getRecurringBasePrice() {
@@ -2470,6 +2525,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets recurring display price.
+     *
      * @return the recurring display price
      */
     public BigDecimal getRecurringDisplayPrice() {
@@ -2499,6 +2555,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets list price.
+     *
      * @param listPrice the list price
      */
     public void setListPrice(BigDecimal listPrice) {
@@ -2611,6 +2668,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets item sub total.
+     *
      * @return the item sub total
      */
     public BigDecimal getItemSubTotal() {
@@ -2619,6 +2677,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets display item sub total.
+     *
      * @return the display item sub total
      */
     public BigDecimal getDisplayItemSubTotal() {
@@ -2627,6 +2686,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets display item sub total no adj.
+     *
      * @return the display item sub total no adj
      */
     public BigDecimal getDisplayItemSubTotalNoAdj() {
@@ -2635,6 +2695,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets display item recurring sub total.
+     *
      * @return the display item recurring sub total
      */
     public BigDecimal getDisplayItemRecurringSubTotal() {
@@ -2649,6 +2710,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets display item recurring sub total no adj.
+     *
      * @return the display item recurring sub total no adj
      */
     public BigDecimal getDisplayItemRecurringSubTotalNoAdj() {
@@ -2662,6 +2724,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Add all product feature and appls.
+     *
      * @param productFeatureAndApplsToAdd the product feature and appls to add
      */
     public void addAllProductFeatureAndAppls(Map<String, GenericValue> productFeatureAndApplsToAdd) {
@@ -2675,6 +2738,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Put additional product feature and appl.
+     *
      * @param additionalProductFeatureAndAppl the additional product feature and appl
      */
     public void putAdditionalProductFeatureAndAppl(GenericValue additionalProductFeatureAndAppl) {
@@ -2717,6 +2781,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets additional product feature and appl.
+     *
      * @param productFeatureTypeId the product feature type id
      * @return the additional product feature and appl
      */
@@ -2729,6 +2794,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Remove additional product feature and appl generic value.
+     *
      * @param productFeatureTypeId the product feature type id
      * @return the generic value
      */
@@ -2748,6 +2814,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets additional product feature and appls.
+     *
      * @return the additional product feature and appls
      */
     public Map<String, GenericValue> getAdditionalProductFeatureAndAppls() {
@@ -2756,6 +2823,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets feature id qty map.
+     *
      * @param quantity the quantity
      * @return the feature id qty map
      */
@@ -2788,34 +2856,46 @@ public class ShoppingCartItem implements java.io.Serializable {
         return featureMap;
     }
 
-    /** Removes an item attribute. */
+    /**
+     * Removes an item attribute.
+     */
     public void removeAttribute(String name) {
         attributes.remove(name);
     }
 
-    /** Sets an item attribute. */
+    /**
+     * Sets an item attribute.
+     */
     public void setAttribute(String name, Object value) {
         attributes.put(name, value);
     }
 
-    /** Return a specific attribute. */
+    /**
+     * Return a specific attribute.
+     */
     public Object getAttribute(String name) {
         return attributes.get(name);
     }
 
-    /** Returns the attributes for the item. */
+    /**
+     * Returns the attributes for the item.
+     */
     public Map<String, Object> getAttributes() {
         return attributes;
     }
 
-    /** Remove an OrderItemAttribute. */
+    /**
+     * Remove an OrderItemAttribute.
+     */
     public void removeOrderItemAttribute(String name) {
         if (orderItemAttributes != null) {
             orderItemAttributes.remove(name);
         }
     }
 
-    /** Creates an OrderItemAttribute entry. */
+    /**
+     * Creates an OrderItemAttribute entry.
+     */
     public void setOrderItemAttribute(String name, String value) {
         if (orderItemAttributes == null) {
             orderItemAttributes = new HashMap<>();
@@ -2835,6 +2915,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets order item attributes.
+     *
      * @return the order item attributes
      */
     public Map<String, String> getOrderItemAttributes() {
@@ -2845,8 +2926,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         return attrs;
     }
 
-    /** Add an adjustment to the order item; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId;
-     * they will be set when the order is created */
+    /**
+     * Add an adjustment to the order item; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId; they will be set when the
+     * order is created
+     */
     public int addAdjustment(GenericValue adjustment) {
         itemAdjustments.add(adjustment);
         return itemAdjustments.indexOf(adjustment);
@@ -2854,6 +2937,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Remove adjustment.
+     *
      * @param adjustment the adjustment
      */
     public void removeAdjustment(GenericValue adjustment) {
@@ -2862,6 +2946,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Remove adjustment.
+     *
      * @param index the index
      */
     public void removeAdjustment(int index) {
@@ -2870,6 +2955,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets adjustments.
+     *
      * @return the adjustments
      */
     public List<GenericValue> getAdjustments() {
@@ -2878,6 +2964,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Remove feature adjustment.
+     *
      * @param productFeatureId the product feature id
      */
     public void removeFeatureAdjustment(String productFeatureId) {
@@ -2890,13 +2977,16 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets order item price infos.
+     *
      * @return the order item price infos
      */
     public List<GenericValue> getOrderItemPriceInfos() {
         return orderItemPriceInfos;
     }
 
-    /** Add a contact mech to this purpose; the contactMechPurposeTypeId is required */
+    /**
+     * Add a contact mech to this purpose; the contactMechPurposeTypeId is required
+     */
     public void addContactMech(String contactMechPurposeTypeId, String contactMechId) {
         if (contactMechPurposeTypeId == null) {
             throw new IllegalArgumentException("You must specify a contactMechPurposeTypeId to add a ContactMech");
@@ -2904,18 +2994,23 @@ public class ShoppingCartItem implements java.io.Serializable {
         contactMechIdsMap.put(contactMechPurposeTypeId, contactMechId);
     }
 
-    /** Get the contactMechId for this item given the contactMechPurposeTypeId */
+    /**
+     * Get the contactMechId for this item given the contactMechPurposeTypeId
+     */
     public String getContactMech(String contactMechPurposeTypeId) {
         return contactMechIdsMap.get(contactMechPurposeTypeId);
     }
 
-    /** Remove the contactMechId from this item given the contactMechPurposeTypeId */
+    /**
+     * Remove the contactMechId from this item given the contactMechPurposeTypeId
+     */
     public String removeContactMech(String contactMechPurposeTypeId) {
         return contactMechIdsMap.remove(contactMechPurposeTypeId);
     }
 
     /**
      * Gets order item contact mech ids.
+     *
      * @return the order item contact mech ids
      */
     public Map<String, String> getOrderItemContactMechIds() {
@@ -2924,6 +3019,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets is promo.
+     *
      * @return the is promo
      */
     public boolean getIsPromo() {
@@ -2932,6 +3028,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets is promo.
+     *
      * @param isPromo the is promo
      */
     public void setIsPromo(boolean isPromo) {
@@ -2940,6 +3037,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets alternative option product ids.
+     *
      * @return the alternative option product ids
      */
     public List<String> getAlternativeOptionProductIds() {
@@ -2948,6 +3046,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Sets alternative option product ids.
+     *
      * @param alternativeOptionProductIds the alternative option product ids
      */
     public void setAlternativeOptionProductIds(List<String> alternativeOptionProductIds) {
@@ -2956,6 +3055,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Equals boolean.
+     *
      * @param item the item
      * @return the boolean
      */
@@ -2977,16 +3077,20 @@ public class ShoppingCartItem implements java.io.Serializable {
         return super.hashCode();
     }
 
-    /** Compares the specified object with this cart item. Defaults isPromo to false. Default to no itemGroup. */
+    /**
+     * Compares the specified object with this cart item. Defaults isPromo to false. Default to no itemGroup.
+     */
     public boolean equals(String productId, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                          String prodCatalogId, BigDecimal selectedAmount) {
+            String prodCatalogId, BigDecimal selectedAmount) {
         return equals(productId, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, null, false);
     }
 
-    /** Compares the specified object with this cart item. Defaults isPromo to false. */
+    /**
+     * Compares the specified object with this cart item. Defaults isPromo to false.
+     */
     public boolean equals(String productId, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                          String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup,
-                          BigDecimal selectedAmount) {
+            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup,
+            BigDecimal selectedAmount) {
         return equals(productId, null, BigDecimal.ZERO, BigDecimal.ZERO, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId,
                 selectedAmount, configWrapper, itemType, itemGroup, false);
     }
@@ -3001,30 +3105,36 @@ public class ShoppingCartItem implements java.io.Serializable {
                 selectedAmount, configWrapper, itemType, itemGroup, false);
     }
 
-    /** Compares the specified object with this cart item. Defaults isPromo to false. */
+    /**
+     * Compares the specified object with this cart item. Defaults isPromo to false.
+     */
     public boolean equals(String productId, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
-                          String prodCatalogId, BigDecimal selectedAmount, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup,
-                          boolean isPromo) {
+            String prodCatalogId, BigDecimal selectedAmount, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup,
+            boolean isPromo) {
         return equals(productId, null, BigDecimal.ZERO, BigDecimal.ZERO, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId,
                 selectedAmount, null, itemType, itemGroup, isPromo);
     }
 
-    /** Compares the specified object with this cart item. */
+    /**
+     * Compares the specified object with this cart item.
+     */
     public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,
-                          String accommodationSpotId,
-                          Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId,
-                          BigDecimal selectedAmount,
-                          ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
+            String accommodationSpotId,
+            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId,
+            BigDecimal selectedAmount,
+            ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         return equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, additionalProductFeatureAndAppls,
                 attributes, null, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, isPromo);
     }
 
-    /** Compares the specified object order item attributes. */
+    /**
+     * Compares the specified object order item attributes.
+     */
     public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,
-                          String accommodationSpotId,
-                          Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, Map<String,
+            String accommodationSpotId,
+            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, Map<String,
             String> orderItemAttributes, String prodCatalogId, BigDecimal selectedAmount,
-                          ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
+            ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         if (this.productId == null || productId == null) {
             // all non-product items are unique
             return false;
@@ -3078,7 +3188,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             return false;
         }
 
-        if ((this.attributes == null && UtilValidate.isNotEmpty(attributes)) || (UtilValidate.isNotEmpty(this.attributes) && attributes == null)
+        if ((this.attributes == null && UtilValidate.isNotEmpty(attributes)) || (UtilValidate.isNotEmpty(this.attributes)
+                && attributes == null)
                 || (this.attributes != null && attributes != null && (this.attributes.size() != attributes.size()
                 || !(this.attributes.equals(attributes))))) {
             return false;
@@ -3113,7 +3224,9 @@ public class ShoppingCartItem implements java.io.Serializable {
                 || !(this.orderItemAttributes.equals(orderItemAttributes)))));
     }
 
-    /** Gets the Product entity. If it is not already retreived gets it from the delegator */
+    /**
+     * Gets the Product entity. If it is not already retreived gets it from the delegator
+     */
     public GenericValue getProduct() {
         if (this.product != null) {
             return this.product;
@@ -3130,6 +3243,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets parent product.
+     *
      * @return the parent product
      */
     public GenericValue getParentProduct() {
@@ -3147,6 +3261,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets parent product id.
+     *
      * @return the parent product id
      */
     public String getParentProductId() {
@@ -3159,6 +3274,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets optional product features.
+     *
      * @return the optional product features
      */
     public Map<String, List<GenericValue>> getOptionalProductFeatures() {
@@ -3171,6 +3287,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Gets delegator.
+     *
      * @return the delegator
      */
     public Delegator getDelegator() {
@@ -3185,6 +3302,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /**
      * Explode item list.
+     *
      * @param cart       the cart
      * @param dispatcher the dispatcher
      * @return the list

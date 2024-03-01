@@ -19,7 +19,7 @@
 package org.apache.ofbiz.product.facility.shipment
 
 import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.order.order.OrderReadHelper
@@ -135,7 +135,7 @@ if (orderId) {
         if (orderHeader.statusId == 'ORDER_APPROVED') {
             if (shipGroupSeqId) {
                 if (shipment) {
-                    request.setAttribute('_ERROR_MESSAGE_', UtilProperties.getMessage('OrderErrorUiLabels',
+                    request.setAttribute('_ERROR_MESSAGE_', UtilPropertiesRuntime.getMessage('OrderErrorUiLabels',
                             'OrderErrorOrderHasBeenAlreadyVerified', [orderId: orderId], locale))
                 } else {
                     // Generate the shipment cost estimate for the ship group

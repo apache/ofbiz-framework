@@ -30,6 +30,6 @@ public class HashedCredentialHandler implements CredentialHandler {
 
     @Override
     public String mutate(String inputCredentials) {
-        return HashCrypt.cryptUTF8(LoginServices.getHashType(), null, inputCredentials);
+        return HashCrypt.cryptUTF8(HashCrypt.getHashType(), null, inputCredentials);
     }
 }

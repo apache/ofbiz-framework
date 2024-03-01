@@ -21,7 +21,7 @@ package org.apache.ofbiz.minilang.method.envops;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -101,7 +101,8 @@ public final class CheckId extends MethodOperation {
             if (!this.messageFse.isEmpty()) {
                 message = this.messageFse.expandString(methodContext.getEnvMap());
             } else if (this.propertyResource != null) {
-                message = UtilProperties.getMessage(this.propertyResource, this.propertykey, methodContext.getEnvMap(), methodContext.getLocale());
+                message = UtilPropertiesRuntime.getMessage(this.propertyResource, this.propertykey,
+                        methodContext.getEnvMap(), methodContext.getLocale());
             }
             if (message != null) {
                 List<String> messages = errorListFma.get(methodContext.getEnvMap());

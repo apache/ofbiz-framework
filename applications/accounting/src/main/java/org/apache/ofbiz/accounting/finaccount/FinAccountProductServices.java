@@ -28,7 +28,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.Delegator;
@@ -72,7 +72,7 @@ public class FinAccountProductServices {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ORDER_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ORDER_ERROR,
                     "OrderCannotGetOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -129,7 +129,7 @@ public class FinAccountProductServices {
         }
         if (productStoreId == null) {
             Debug.logFatal("Unable to create financial accout; no productStoreId on OrderHeader : " + orderId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "AccountingFinAccountCannotCreate",
                     UtilMisc.toMap("orderId", orderId), locale));
         }

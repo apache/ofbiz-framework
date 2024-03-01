@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -65,11 +66,13 @@ import ezvcard.property.StructuredName;
 import ezvcard.property.Telephone;
 
 public class VCard {
+
     private static final String MODULE = VCard.class.getName();
     private static final String RES_ERROR = "MarketingUiLabels";
 
     /**
      * import a vcard from byteBuffer. the reader use is ez-vcard, see official site https://github.com/mangstadt/ez-vcard/
+     *
      * @param dctx
      * @param context
      * @return
@@ -106,10 +109,14 @@ public class VCard {
                 }
                 //check if it's already load
                 isGroup = false;
-                if (vcard.getKind() != null) isGroup = vcard.getKind().isGroup();
+                if (vcard.getKind() != null) {
+                    isGroup = vcard.getKind().isGroup();
+                }
 
                 StructuredName structuredName = vcard.getStructuredName();
-                if (UtilValidate.isEmpty(structuredName)) continue;
+                if (UtilValidate.isEmpty(structuredName)) {
+                    continue;
+                }
                 if (!isGroup) {
                     serviceCtx.put("firstName", structuredName.getGiven());
                     serviceCtx.put("lastName", structuredName.getFamily());
@@ -124,7 +131,9 @@ public class VCard {
                             break;
                         }
                     }
-                    if (!workAddress) continue;
+                    if (!workAddress) {
+                        continue;
+                    }
 
                     serviceCtx.put("address1", address.getStreetAddressFull());
                     serviceCtx.put("city", address.getLocality());
@@ -155,7 +164,9 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (!workEmail) continue;
+                        if (!workEmail) {
+                            continue;
+                        }
                     }
                     String emailAddr = email.getValue();
                     if (UtilValidate.isEmail(emailAddr)) {
@@ -163,8 +174,11 @@ public class VCard {
                     } else {
                         //TODO change uncorrect labellisation
                         String emailFormatErrMsg = UtilProperties.getMessage(RES_ERROR, "SfaImportVCardEmailFormatError", locale);
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "MarketingEmailFormatError", UtilMisc.toMap("firstName",
-                                structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
+                        return ServiceUtil.returnError(
+                                UtilPropertiesRuntime.getMessage(RES_ERROR, "MarketingEmailFormatError", UtilMisc.toMap("firstName",
+                                                structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg",
+                                                emailFormatErrMsg),
+                                        locale));
                     }
                 }
 
@@ -178,7 +192,9 @@ public class VCard {
                                 break;
                             }
                         }
-                        if (!workPhone) continue;
+                        if (!workPhone) {
+                            continue;
+                        }
                     }
                     String phoneAddr = phone.getText();
                     boolean internationalPhone = phoneAddr.startsWith("+") || phoneAddr.startsWith("00");
@@ -226,7 +242,7 @@ public class VCard {
             }
         } catch (IOException | GenericEntityException | GenericServiceException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "SfaImportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         result.put("partiesCreated", partiesCreated);
@@ -298,14 +314,14 @@ public class VCard {
             Ezvcard.write(vcard).go(file);
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "SfaExportVCardErrorOpeningFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (IOException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "SfaExportVCardErrorWritingFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "SfaExportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return ServiceUtil.returnSuccess();

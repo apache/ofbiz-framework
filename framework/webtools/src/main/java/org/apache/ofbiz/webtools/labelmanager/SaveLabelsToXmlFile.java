@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -98,7 +99,7 @@ public class SaveLabelsToXmlFile {
                         // Insert a new Label
                     } else {
                         if (UtilValidate.isNotEmpty(label)) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelExisting",
+                            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "WebtoolsLabelManagerNewLabelExisting",
                                     UtilMisc.toMap("key", key, "fileName", fileName), locale));
                         } else {
                             if (UtilValidate.isEmpty(key)) {

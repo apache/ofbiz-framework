@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -88,7 +89,7 @@ public class BOMServices {
                     bomTypes.add(bomTypesValue.getString("productAssocTypeId"));
                 }
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningMaxDethAlgorithm",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorRunningMaxDethAlgorithm",
                         UtilMisc.toMap("errorString", gee.getMessage()), locale));
             }
         } else {
@@ -105,7 +106,7 @@ public class BOMServices {
                 }
             }
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningMaxDethAlgorithm",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorRunningMaxDethAlgorithm",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         result.put("depth", (long) maxDepth);
@@ -204,7 +205,7 @@ public class BOMServices {
                 }
             }
         } catch (GenericEntityException | GenericServiceException ge) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorRunningUpdateLowLevelCode",
                     UtilMisc.toMap("errorString", ge.getMessage()), locale));
         }
         result.put("lowLevelCode", llc);
@@ -249,7 +250,7 @@ public class BOMServices {
             }
             // FIXME: also all the variants llc should be updated?
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
@@ -280,7 +281,7 @@ public class BOMServices {
         try {
             duplicatedProductAssoc = BOMHelper.searchDuplicatedAncestor(productId, productIdKey, bomType, fromDate, delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorRunningDuplicatedAncestorSearch",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorRunningDuplicatedAncestorSearch",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         result.put("duplicatedProductAssoc", duplicatedProductAssoc);
@@ -328,7 +329,7 @@ public class BOMServices {
         try {
             tree = new BOMTree(productId, bomType, fromDate, type, delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         if (quantity != null) {
@@ -394,7 +395,7 @@ public class BOMServices {
             tree.print(components, excludeWIPs);
             if (!components.isEmpty()) components.remove(0);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         //
@@ -478,7 +479,7 @@ public class BOMServices {
             tree.setRootAmount(amount);
             tree.print(components);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         for (BOMNode oneComponent : components) {
@@ -810,7 +811,7 @@ public class BOMServices {
             tree.setRootQuantity(quantity);
             tree.getProductsInPackages(components);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingBomErrorCreatingBillOfMaterialsTree",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
 

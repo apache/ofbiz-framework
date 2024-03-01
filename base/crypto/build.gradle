@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+dependencies {
+    api project(':base:util')
+    api 'commons-codec:commons-codec:1.16.0'
+    //TODO: drop commons-lang 2.6
+    api 'commons-lang:commons-lang:2.6'
+    api 'org.apache.commons:commons-lang3:3.14.0'
+    api 'org.apache.shiro:shiro-core:1.13.0'
+    testImplementation "junit:junit:4.13"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        baseCrypto(MavenPublication) {
+            artifactId = "base-${project.name}"
+            from components.java
+        }
+    }
+}

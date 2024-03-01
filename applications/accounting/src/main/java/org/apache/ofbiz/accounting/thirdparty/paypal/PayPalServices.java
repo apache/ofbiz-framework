@@ -106,7 +106,6 @@ public class PayPalServices {
                     "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
 
-
         NVPEncoder encoder = new NVPEncoder();
 
         // Set Express Checkout Request Parameters
@@ -132,7 +131,8 @@ public class PayPalServices {
         }
         encoder.add("ALLOWNOTE", "1");
         encoder.add("INSURANCEOPTIONOFFERED", "false");
-        if (UtilValidate.isNotEmpty(payPalConfig.getString("imageUrl")));
+        if (UtilValidate.isNotEmpty(payPalConfig.getString("imageUrl")))
+            ;
         encoder.add("PAYMENTACTION", "Order");
 
         // Cart information
@@ -227,7 +227,9 @@ public class PayPalServices {
         }
         try {
             TransactionUtil.commit(beganTransaction);
-            if (parentTransaction != null) TransactionUtil.resume(parentTransaction);
+            if (parentTransaction != null) {
+                TransactionUtil.resume(parentTransaction);
+            }
         } catch (GenericTransactionException e) {
             Debug.logError(e, MODULE);
         }
@@ -447,9 +449,11 @@ public class PayPalServices {
         if (!newParty) {
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(UtilMisc.toMap("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS")),
-                    EntityCondition.makeCondition(EntityFunction.upperField("infoString"), EntityComparisonOperator.EQUALS, EntityFunction.upper(emailAddress))));
+                    EntityCondition.makeCondition(EntityFunction.upperField("infoString"), EntityComparisonOperator.EQUALS,
+                            EntityFunction.upper(emailAddress))));
             try {
-                GenericValue matchingEmail = EntityQuery.use(delegator).from("PartyAndContactMech").where(cond).orderBy("fromDate").filterByDate().queryFirst();
+                GenericValue matchingEmail =
+                        EntityQuery.use(delegator).from("PartyAndContactMech").where(cond).orderBy("fromDate").filterByDate().queryFirst();
                 if (matchingEmail != null) {
                     emailContactMechId = matchingEmail.getString("contactMechId");
                 } else {
@@ -461,7 +465,9 @@ public class PayPalServices {
                                     "contactMechPurposeTypeId", "PRIMARY_EMAIL")
                             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                             .queryCount();
-                    if (primaryEmails > 0) emailContactPurposeTypeId = "BILLING_EMAIL";
+                    if (primaryEmails > 0) {
+                        emailContactPurposeTypeId = "BILLING_EMAIL";
+                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
@@ -531,7 +537,8 @@ public class PayPalServices {
             // We want an exact match only
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(postalMap),
-                    EntityCondition.makeCondition(UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null, "postalCodeGeoId", null)),
+                    EntityCondition.makeCondition(
+                            UtilMisc.toMap("attnName", null, "directions", null, "postalCodeExt", null, "postalCodeGeoId", null)),
                     EntityCondition.makeCondition("partyId", partyId)));
             try {
                 GenericValue postalMatch = EntityQuery.use(delegator).from("PartyAndPostalAddress")
@@ -902,7 +909,7 @@ public class PayPalServices {
         return result;
     }
 
-    public static Map<String, Object> doRefund (DispatchContext dctx, Map<String, Object> context) {
+    public static Map<String, Object> doRefund(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
@@ -954,7 +961,8 @@ public class PayPalServices {
         return result;
     }
 
-    private static GenericValue getPaymentMethodGatewayPayPal(DispatchContext dctx, Map<String, ? extends Object> context, String paymentServiceTypeEnumId) {
+    private static GenericValue getPaymentMethodGatewayPayPal(DispatchContext dctx, Map<String, ? extends Object> context,
+            String paymentServiceTypeEnumId) {
         Delegator delegator = dctx.getDelegator();
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
         GenericValue payPalGatewayConfig = null;
@@ -972,7 +980,8 @@ public class PayPalServices {
                 }
             }
             if (productStoreId != null) {
-                GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", paymentServiceTypeEnumId, true);
+                GenericValue payPalPaymentSetting =
+                        ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", paymentServiceTypeEnumId, true);
                 if (payPalPaymentSetting != null) {
                     paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
                 }
@@ -980,7 +989,9 @@ public class PayPalServices {
         }
         if (paymentGatewayConfigId != null) {
             try {
-                payPalGatewayConfig = EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId", paymentGatewayConfigId).cache().queryOne();
+                payPalGatewayConfig =
+                        EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId", paymentGatewayConfigId).cache()
+                                .queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, MODULE);
             }
@@ -1054,18 +1065,25 @@ public class PayPalServices {
 
     @SuppressWarnings("serial")
     public static class TokenWrapper implements Serializable {
+
         String theString;
+
         public TokenWrapper(String theString) {
             this.theString = theString;
         }
 
         @Override
         public boolean equals(Object o) {
-            if (o == null) return false;
-            if (!(o instanceof TokenWrapper)) return false;
+            if (o == null) {
+                return false;
+            }
+            if (!(o instanceof TokenWrapper)) {
+                return false;
+            }
             TokenWrapper other = (TokenWrapper) o;
             return theString.equals(other.theString);
         }
+
         @Override
         public int hashCode() {
             return theString.hashCode();

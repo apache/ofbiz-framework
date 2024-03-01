@@ -54,7 +54,7 @@ import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -1515,7 +1515,7 @@ public final class ModelFormField {
 
         @Override
         public String getDescription(Map<String, Object> context) {
-            Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+            Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
 
             // rather than using the context to expand the string, lookup the given entity and use it to expand the string
             GenericValue value = null;
@@ -2273,7 +2273,7 @@ public final class ModelFormField {
             }
 
             try {
-                Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+                Locale locale = UtilMiscRuntime.ensureLocale(context.get("locale"));
                 ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
                 Boolean localizedOrderBy = UtilValidate.isNotEmpty(this.orderByList)
                         && ModelUtil.isPotentialLocalizedFields(modelEntity, this.orderByList);

@@ -30,6 +30,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -154,7 +155,6 @@ public class ShoppingListServices {
                         Debug.logError(e, MODULE);
                     }
 
-
                     // check the next recurrence
                     if (recurrence != null) {
                         long next = lastOrder == null ? recurrence.next(startDateTime.getTime()) : recurrence.next(lastOrder.getTime());
@@ -216,7 +216,7 @@ public class ShoppingListServices {
                 Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
-            String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderErrorWhileCreatingNewShoppingListBasedAutomaticReorder", UtilMisc.toMap(
+            String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderErrorWhileCreatingNewShoppingListBasedAutomaticReorder", UtilMisc.toMap(
                     "errorString", e.toString()), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
@@ -274,8 +274,9 @@ public class ShoppingListServices {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             if (orderHeader == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLocateOrder", UtilMisc.toMap("orderId", orderId),
-                        locale));
+                return ServiceUtil.returnError(
+                        UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToLocateOrder", UtilMisc.toMap("orderId", orderId),
+                                locale));
             }
             String productStoreId = orderHeader.getString("productStoreId");
 
@@ -325,8 +326,9 @@ public class ShoppingListServices {
                 orh = new OrderReadHelper(orderHeader);
             } catch (IllegalArgumentException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToLoadOrderReadHelper", UtilMisc.toMap("orderId",
-                        orderId), locale));
+                return ServiceUtil.returnError(
+                        UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToLoadOrderReadHelper", UtilMisc.toMap("orderId",
+                                orderId), locale));
             }
 
             List<GenericValue> orderItems = orh.getOrderItems();
@@ -355,8 +357,9 @@ public class ShoppingListServices {
                         Debug.logError(e, MODULE);
                     }
                     if (serviceResult == null || ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToAddItemToShoppingList", UtilMisc.toMap(
-                                "shoppingListId", shoppingListId), locale));
+                        return ServiceUtil.returnError(
+                                UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToAddItemToShoppingList", UtilMisc.toMap(
+                                        "shoppingListId", shoppingListId), locale));
                     }
                 }
             }
@@ -388,7 +391,7 @@ public class ShoppingListServices {
                 }
 
                 if (slUpResp == null || ServiceUtil.isError(slUpResp)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderUnableToUpdateShoppingListInformation",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderUnableToUpdateShoppingListInformation",
                             UtilMisc.toMap("shoppingListId", shoppingListId), locale));
                 }
             }
@@ -405,8 +408,9 @@ public class ShoppingListServices {
                 Debug.logError(e2, "[Delegator] Could not rollback transaction: " + e2.toString(), MODULE);
             }
 
-            String errMsg = UtilProperties.getMessage(RES_ERROR, "OrderErrorWhileCreatingNewShoppingListBasedOnOrder", UtilMisc.toMap("errorString",
-                    e.toString()), locale);
+            String errMsg =
+                    UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderErrorWhileCreatingNewShoppingListBasedOnOrder", UtilMisc.toMap("errorString",
+                            e.toString()), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         } finally {
@@ -421,6 +425,7 @@ public class ShoppingListServices {
 
     /**
      * Create a new shoppingCart form a shoppingList
+     *
      * @param dispatcher   the local dispatcher
      * @param shoppingList a GenericValue object of the shopping list
      * @param locale       the locale in use
@@ -432,6 +437,7 @@ public class ShoppingListServices {
 
     /**
      * Add a shoppinglist to an existing shoppingcart
+     *
      * @param listCart     the shopping cart list
      * @param dispatcher   the local dispatcher
      * @param shoppingList a GenericValue object of the shopping list
@@ -475,7 +481,6 @@ public class ShoppingListServices {
                         return listCart;
                     }
                 }
-
 
                 ProductConfigWrapper configWrapper = null;
                 for (GenericValue shoppingListItem : items) {
@@ -548,9 +553,10 @@ public class ShoppingListServices {
     }
 
     /**
-     * Given an orderId, this service will look through all its OrderItems and for each shoppingListItemId
-     * and shoppingListItemSeqId, update the quantity purchased in the ShoppingListItem entity.  Used for
-     * tracking how many of shopping list items are purchased.  This service is mounted as a seca on storeOrder.
+     * Given an orderId, this service will look through all its OrderItems and for each shoppingListItemId and shoppingListItemSeqId, update the
+     * quantity purchased in the ShoppingListItem entity.  Used for tracking how many of shopping list items are purchased.  This service is mounted
+     * as a seca on storeOrder.
+     *
      * @param ctx     - The DispatchContext that this service is operating in
      * @param context - Map containing the input parameters
      * @return Map with the result of the service, the output parameters
@@ -625,15 +631,15 @@ public class ShoppingListServices {
         Transaction parent = null;
         Timestamp deleteAllBefore = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -maxDays);
         EntityCondition condDate = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition(
                         EntityCondition.makeCondition(
-                                EntityCondition.makeCondition("lastAdminModified", null),
-                                EntityOperator.AND,
-                                EntityCondition.makeCondition("lastUpdatedStamp", EntityOperator.LESS_THAN_EQUAL_TO, deleteAllBefore)),
-                        EntityCondition.makeCondition("lastAdminModified", EntityOperator.LESS_THAN_EQUAL_TO, deleteAllBefore))),
+                                EntityCondition.makeCondition(
+                                        EntityCondition.makeCondition("lastAdminModified", null),
+                                        EntityOperator.AND,
+                                        EntityCondition.makeCondition("lastUpdatedStamp", EntityOperator.LESS_THAN_EQUAL_TO, deleteAllBefore)),
+                                EntityCondition.makeCondition("lastAdminModified", EntityOperator.LESS_THAN_EQUAL_TO, deleteAllBefore))),
                 EntityOperator.OR);
         EntityCondition condParty = EntityCondition.makeConditionMap("partyId", null,
-                        "shoppingListTypeId", "SLT_SPEC_PURP");
+                "shoppingListTypeId", "SLT_SPEC_PURP");
         EntityCondition cond = EntityCondition.makeCondition(condParty, condDate);
 
         try {

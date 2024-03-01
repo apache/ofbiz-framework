@@ -28,6 +28,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -118,7 +119,7 @@ public class JobServices {
             if (limit == null) limit = ServiceConfigUtil.getServiceEngine().getThreadPool().getMaxThreads();
         } catch (GenericConfigException e) {
             Debug.logWarning(e, "Exception thrown while getting service configuration: ", MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceExceptionThrownWhileGettingServiceConfiguration",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ServiceExceptionThrownWhileGettingServiceConfiguration",
                     UtilMisc.toMap("errorString", e), locale));
         }
         Delegator delegator = dctx.getDelegator();

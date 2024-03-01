@@ -40,6 +40,7 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -87,7 +88,7 @@ public class EntityDataServices {
         String rootDirectory = (String) context.get("rootDirectory");
         URL rootDirectoryUrl = UtilURL.fromResource(rootDirectory);
         if (rootDirectoryUrl == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLocateRootDirectory",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtUnableToLocateRootDirectory",
                     UtilMisc.toMap("rootDirectory", rootDirectory), locale));
         }
 
@@ -120,7 +121,7 @@ public class EntityDataServices {
                 }
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtNoFileAvailableInTheRootDirectory",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtNoFileAvailableInTheRootDirectory",
                     UtilMisc.toMap("rootDirectory", rootDirectory), locale));
         }
 
@@ -153,11 +154,11 @@ public class EntityDataServices {
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtFileNotFound", UtilMisc.toMap("fileName",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtFileNotFound", UtilMisc.toMap("fileName",
                     file.getName()), locale));
         } catch (IOException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtProblemReadingFile",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtProblemReadingFile",
                     UtilMisc.toMap("fileName", file.getName()), locale));
         }
 
@@ -350,7 +351,7 @@ public class EntityDataServices {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -445,7 +446,7 @@ public class EntityDataServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error unwrapping ByteWrapper records: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorUnwrappingRecords",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorUnwrappingRecords",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
@@ -521,7 +522,7 @@ public class EntityDataServices {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         }
 

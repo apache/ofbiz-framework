@@ -18,12 +18,13 @@
 */
 package org.apache.ofbiz.webtools.service
 
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
+
 import javax.wsdl.WSDLException
 
 import org.apache.commons.lang3.StringUtils
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.service.ServiceContainer
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 List getEcaListForService(String selectedService) {
@@ -331,7 +332,7 @@ dispArrList = [] as SortedSet
 dispArrList.addAll(ServiceContainer.getAllDispatcherNames())
 context.dispArrList = dispArrList
 
-uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('WebtoolsUiLabels', locale)
 uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 curDispatchContext = dispatcher.getDispatchContext()

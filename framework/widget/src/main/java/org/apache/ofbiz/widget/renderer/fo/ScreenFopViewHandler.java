@@ -56,10 +56,10 @@ import org.xml.sax.SAXException;
 import freemarker.template.TemplateException;
 
 /**
- * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
- * This handler will use JPublish to generate the XSL-FO
+ * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views This handler will use JPublish to generate the XSL-FO
  */
 public class ScreenFopViewHandler extends AbstractViewHandler {
+
     protected static final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
     private static final String MODULE = ScreenFopViewHandler.class.getName();
     private ServletContext servletContext = null;
@@ -79,15 +79,15 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     @SuppressWarnings("unchecked")
     @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
-                       HttpServletResponse response) throws ViewHandlerException {
+            HttpServletResponse response) throws ViewHandlerException {
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         ModelTheme modelTheme = visualTheme.getModelTheme();
 
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType(getName()),
-                    modelTheme.getScreenRendererLocation(getName()));
+            ScreenStringRenderer screenStringRenderer =
+                    new MacroScreenRenderer(modelTheme.getType(getName()), modelTheme.getScreenRendererLocation(getName()));
             FormStringRenderer formStringRenderer = new MacroFormRenderer(modelTheme.getFormRendererLocation(getName()), request, response);
             // TODO: uncomment these lines when the renderers are implemented
             //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(modelTheme.getTreeRendererLocation(getName()), writer);
@@ -120,16 +120,20 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         FOUserAgent foUserAgent = null;
         String userPassword = request.getParameter("userPassword");
         String ownerPassword = request.getParameter("ownerPassword");
-        boolean allowPrint = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowPrint"))
-                ? ApacheFopWorker.getAllowPrintDefault() : request.getParameter("allowPrint"));
-        boolean allowCopyContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowCopyContent"))
-                ? ApacheFopWorker.getAllowCopyContentDefault() : request.getParameter("allowCopyContent"));
-        boolean allowEditContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowEditContent"))
-                ? ApacheFopWorker.getAllowEditContentDefault() : request.getParameter("allowEditContent"));
-        boolean allowEditAnnotations = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowEditAnnotations"))
-                ? ApacheFopWorker.getAllowEditAnnotationsDefault() : request.getParameter("allowEditAnnotations"));
-        if (UtilValidate.isNotEmpty(userPassword) || UtilValidate.isNotEmpty(ownerPassword) || !allowPrint || !allowCopyContent || allowEditContent
-                || !allowEditAnnotations) {
+        boolean allowPrint = Boolean.parseBoolean(
+                UtilValidate.isEmpty(request.getParameter("allowPrint")) ? ApacheFopWorker.getAllowPrintDefault()
+                        : request.getParameter("allowPrint"));
+        boolean allowCopyContent = Boolean.parseBoolean(
+                UtilValidate.isEmpty(request.getParameter("allowCopyContent")) ? ApacheFopWorker.getAllowCopyContentDefault()
+                        : request.getParameter("allowCopyContent"));
+        boolean allowEditContent = Boolean.parseBoolean(
+                UtilValidate.isEmpty(request.getParameter("allowEditContent")) ? ApacheFopWorker.getAllowEditContentDefault()
+                        : request.getParameter("allowEditContent"));
+        boolean allowEditAnnotations = Boolean.parseBoolean(
+                UtilValidate.isEmpty(request.getParameter("allowEditAnnotations")) ? ApacheFopWorker.getAllowEditAnnotationsDefault()
+                        : request.getParameter("allowEditAnnotations"));
+        if (UtilValidate.isNotEmpty(userPassword) || UtilValidate.isNotEmpty(ownerPassword) || !allowPrint || !allowCopyContent
+                || allowEditContent || !allowEditAnnotations) {
             int encryptionLength = 128;
             try {
                 encryptionLength = Integer.parseInt(request.getParameter("encryption-length"));
@@ -141,20 +145,26 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
                 }
             }
 
-            boolean encryptMetadata = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("encrypt-metadata"))
-                    ? ApacheFopWorker.getEncryptMetadataDefault() : request.getParameter("encrypt-metadata"));
-            boolean allowFillInForms = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowFillInForms"))
-                    ? ApacheFopWorker.getAllowFillInFormsDefault() : request.getParameter("allowFillInForms"));
-            boolean allowAccessContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowAccessContent"))
-                    ? ApacheFopWorker.getAllowAccessContentDefault() : request.getParameter("allowAccessContent"));
-            boolean allowAssembleDocument = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowAssembleDocument"))
-                    ? ApacheFopWorker.getAllowAssembleDocumentDefault() : request.getParameter("allowAssembleDocument"));
-            boolean allowPrintHq = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowPrintHq"))
-                    ? ApacheFopWorker.getAllowPrintHqDefault() : request.getParameter("allowPrintHq"));
+            boolean encryptMetadata = Boolean.parseBoolean(
+                    UtilValidate.isEmpty(request.getParameter("encrypt-metadata")) ? ApacheFopWorker.getEncryptMetadataDefault()
+                            : request.getParameter("encrypt-metadata"));
+            boolean allowFillInForms = Boolean.parseBoolean(
+                    UtilValidate.isEmpty(request.getParameter("allowFillInForms")) ? ApacheFopWorker.getAllowFillInFormsDefault()
+                            : request.getParameter("allowFillInForms"));
+            boolean allowAccessContent = Boolean.parseBoolean(
+                    UtilValidate.isEmpty(request.getParameter("allowAccessContent")) ? ApacheFopWorker.getAllowAccessContentDefault()
+                            : request.getParameter("allowAccessContent"));
+            boolean allowAssembleDocument = Boolean.parseBoolean(
+                    UtilValidate.isEmpty(request.getParameter("allowAssembleDocument")) ? ApacheFopWorker.getAllowAssembleDocumentDefault()
+                            : request.getParameter("allowAssembleDocument"));
+            boolean allowPrintHq = Boolean.parseBoolean(
+                    UtilValidate.isEmpty(request.getParameter("allowPrintHq")) ? ApacheFopWorker.getAllowPrintHqDefault()
+                            : request.getParameter("allowPrintHq"));
             FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
             foUserAgent = fopFactory.newFOUserAgent();
-            PDFEncryptionParams pdfEncryptionParams = new PDFEncryptionParams(userPassword, ownerPassword, allowPrint, allowCopyContent,
-                    allowEditContent, allowEditAnnotations, encryptMetadata);
+            PDFEncryptionParams pdfEncryptionParams =
+                    new PDFEncryptionParams(userPassword, ownerPassword, allowPrint, allowCopyContent, allowEditContent, allowEditAnnotations,
+                            encryptMetadata);
             pdfEncryptionParams.setAllowFillInForms(allowFillInForms);
             pdfEncryptionParams.setAllowAccessContent(allowAccessContent);
             pdfEncryptionParams.setAllowAssembleDocument(allowAssembleDocument);
@@ -197,6 +207,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
 
     /**
      * Render error.
+     *
      * @param msg             the msg
      * @param e               the e
      * @param screenOutString the screen out string
@@ -211,8 +222,8 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             Writer writer = new StringWriter();
             VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
             ModelTheme modelTheme = visualTheme.getModelTheme();
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"),
-                    modelTheme.getScreenRendererLocation("screen"));
+            ScreenStringRenderer screenStringRenderer =
+                    new MacroScreenRenderer(modelTheme.getType("screen"), modelTheme.getScreenRendererLocation("screen"));
 
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);

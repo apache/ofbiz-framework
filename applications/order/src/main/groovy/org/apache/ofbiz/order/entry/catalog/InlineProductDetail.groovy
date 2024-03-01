@@ -18,8 +18,10 @@
 */
 package org.apache.ofbiz.order.entry.catalog
 
-import java.text.NumberFormat
 import org.apache.ofbiz.base.util.UtilMisc
+
+import java.text.NumberFormat
+
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag
 import org.apache.ofbiz.webapp.website.WebSiteWorker
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents

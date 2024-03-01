@@ -38,7 +38,7 @@ import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.ScriptUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -509,7 +509,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             String resource = this.resourceExdr.expandString(context, locale);
             ResourceBundleMapWrapper existingPropMap = this.mapNameAcsr.get(context);
             if (existingPropMap == null) {
-                this.mapNameAcsr.put(context, UtilProperties.getResourceBundleMap(resource, locale, context));
+                this.mapNameAcsr.put(context, UtilPropertiesRuntime.getResourceBundleMap(resource, locale, context));
             } else {
                 try {
                     existingPropMap.addBottomResourceBundle(resource);
@@ -523,7 +523,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if (globalCtx != null) {
                     ResourceBundleMapWrapper globalExistingPropMap = this.mapNameAcsr.get(globalCtx);
                     if (globalExistingPropMap == null) {
-                        this.mapNameAcsr.put(globalCtx, UtilProperties.getResourceBundleMap(resource, locale, context));
+                        this.mapNameAcsr.put(globalCtx, UtilPropertiesRuntime.getResourceBundleMap(resource, locale, context));
                     } else {
                         // is it the same object? if not add it in here too...
                         if (existingPropMap != globalExistingPropMap) {

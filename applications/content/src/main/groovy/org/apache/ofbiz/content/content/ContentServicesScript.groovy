@@ -18,9 +18,8 @@
 */
 package org.apache.ofbiz.content.content
 
-import org.apache.ofbiz.base.util.UtilProperties
 
-import org.apache.ofbiz.content.content.ContentKeywordIndex
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.common.UrlServletHelper
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
@@ -449,7 +448,7 @@ Map getContentAndDataResource () {
 Map createContentFromDataResource() {
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
     if (! dataResource) {
-        return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound',
+        return error(UtilPropertiesRuntime.getMessage('ContentUiLabels', 'ContentDataResourceNotFound',
                 [dataResourceId: parameters.dataResourceId], parameters.locale))
     }
     parameters.contentName = parameters.contentName ?: dataResource.dataResourceName

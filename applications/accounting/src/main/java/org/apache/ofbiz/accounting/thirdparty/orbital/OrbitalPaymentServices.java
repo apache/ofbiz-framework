@@ -255,18 +255,24 @@ public class OrbitalPaymentServices {
         Map<String, Object> buildConfiguratorContext = new HashMap<>();
         try {
             buildConfiguratorContext.put("OrbitalConnectionUsername", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "username"));
-            buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
+            buildConfiguratorContext.put("OrbitalConnectionPassword",
+                    getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
             buildConfiguratorContext.put("merchantId", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantId"));
             buildConfiguratorContext.put("engine.class", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "engineClass"));
             buildConfiguratorContext.put("engine.hostname", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostName"));
             buildConfiguratorContext.put("engine.port", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "port"));
-            buildConfiguratorContext.put("engine.hostname.failover", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostNameFailover"));
+            buildConfiguratorContext.put("engine.hostname.failover",
+                    getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "hostNameFailover"));
             buildConfiguratorContext.put("engine.port.failover", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "portFailover"));
-            buildConfiguratorContext.put("engine.connection_timeout_seconds", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionTimeoutSeconds"));
-            buildConfiguratorContext.put("engine.read_timeout_seconds", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "readTimeoutSeconds"));
-            buildConfiguratorContext.put("engine.authorizationURI", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "authorizationURI"));
+            buildConfiguratorContext.put("engine.connection_timeout_seconds",
+                    getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionTimeoutSeconds"));
+            buildConfiguratorContext.put("engine.read_timeout_seconds",
+                    getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "readTimeoutSeconds"));
+            buildConfiguratorContext.put("engine.authorizationURI",
+                    getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "authorizationURI"));
             buildConfiguratorContext.put("engine.sdk_version", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "sdkVersion"));
-            buildConfiguratorContext.put("engine.ssl.socketfactory", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "sslSocketFactory"));
+            buildConfiguratorContext.put("engine.ssl.socketfactory",
+                    getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "sslSocketFactory"));
             buildConfiguratorContext.put("Response.response_type", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "responseType"));
             String configFileLocation = System.getProperty("ofbiz.home") + configFile;
             Configurator config = Configurator.getInstance(configFileLocation);
@@ -283,7 +289,8 @@ public class OrbitalPaymentServices {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue paymentGatewayOrbital = EntityQuery.use(delegator).from("PaymentGatewayOrbital").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
+                GenericValue paymentGatewayOrbital =
+                        EntityQuery.use(delegator).from("PaymentGatewayOrbital").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (paymentGatewayOrbital != null) {
                     Object paymentGatewayOrbitalField = paymentGatewayOrbital.get(paymentGatewayConfigParameterName);
                     if (paymentGatewayOrbitalField != null) {
@@ -297,7 +304,8 @@ public class OrbitalPaymentServices {
         return returnValue;
     }
 
-    private static void buildAuthOrAuthCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildAuthOrAuthCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props,
+            RequestIF request, Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("processAmount");
         String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
@@ -329,7 +337,7 @@ public class OrbitalPaymentServices {
                 GenericValue opp = (GenericValue) params.get("orderPaymentPreference");
                 if ("CREDIT_CARD".equals(opp.getString("paymentMethodTypeId"))) {
                     // sometimes the ccAuthCapture interface is used, in which case the creditCard is passed directly
-                     creditCard = (GenericValue) params.get("creditCard");
+                    creditCard = (GenericValue) params.get("creditCard");
                     if (creditCard == null || !(opp.get("paymentMethodId").equals(creditCard.get("paymentMethodId")))) {
                         creditCard = opp.getRelatedOne("CreditCard", false);
                     }
@@ -349,7 +357,8 @@ public class OrbitalPaymentServices {
                 // this would be the case for an authorization
                 GenericValue cp = (GenericValue) params.get("billToParty");
                 GenericValue ba = (GenericValue) params.get("billingAddress");
-                request.setFieldValue("AVSname", UtilFormatOut.checkNull(cp.getString("firstName")) + UtilFormatOut.checkNull(cp.getString("lastName")));
+                request.setFieldValue("AVSname",
+                        UtilFormatOut.checkNull(cp.getString("firstName")) + UtilFormatOut.checkNull(cp.getString("lastName")));
                 request.setFieldValue("AVSaddress1", UtilFormatOut.checkNull(ba.getString("address1")));
                 request.setFieldValue("AVScity", UtilFormatOut.checkNull(ba.getString("city")));
                 request.setFieldValue("AVSstate", UtilFormatOut.checkNull(ba.getString("stateProvinceGeoId")));
@@ -378,7 +387,8 @@ public class OrbitalPaymentServices {
         }
     }
 
-    private static void buildCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildCaptureTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request,
+            Map<String, Object> results) {
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
         GenericValue creditCard = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("captureAmount");
@@ -393,7 +403,8 @@ public class OrbitalPaymentServices {
             request.setFieldValue("OrderID", UtilFormatOut.checkNull(orderId));
             request.setFieldValue("Amount", UtilFormatOut.checkNull(amountValue));
 
-            request.setFieldValue("PCDestName", UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard") + creditCard.getString("lastNameOnCard")));
+            request.setFieldValue("PCDestName",
+                    UtilFormatOut.checkNull(creditCard.getString("firstNameOnCard") + creditCard.getString("lastNameOnCard")));
             if (UtilValidate.isNotEmpty(creditCard.getString("contactMechId"))) {
                 GenericValue address = creditCard.getRelatedOne("PostalAddress", false);
                 if (address != null) {
@@ -417,7 +428,8 @@ public class OrbitalPaymentServices {
         }
     }
 
-    private static void buildRefundTransaction(Map<String, Object> params, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildRefundTransaction(Map<String, Object> params, Map<String, Object> props, RequestIF request,
+            Map<String, Object> results) {
         GenericValue cc = (GenericValue) params.get("creditCard");
         BigDecimal amount = (BigDecimal) params.get("refundAmount");
         String amountValue = amount.setScale(DECIMALS, ROUNDING).movePointRight(2).toPlainString();
@@ -449,7 +461,8 @@ public class OrbitalPaymentServices {
         }
     }
 
-    private static void buildReleaseTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request, Map<String, Object> results) {
+    private static void buildReleaseTransaction(Map<String, Object> params, Delegator delegator, Map<String, Object> props, RequestIF request,
+            Map<String, Object> results) {
         BigDecimal amount = (BigDecimal) params.get("releaseAmount");
         GenericValue authTransaction = (GenericValue) params.get("authTransaction");
         String orderId = UtilFormatOut.checkNull((String) params.get("orderId"));

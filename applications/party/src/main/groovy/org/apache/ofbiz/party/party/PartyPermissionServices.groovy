@@ -19,6 +19,7 @@
 package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 
 // ============== Basic Permission Checking =============
@@ -47,7 +48,7 @@ Map partyIdPermissionCheck(Map parameters) {
     } else {
         String resourceDescription = parameters.resourceDescription ?: UtilProperties.getPropertyValue('CommonUiLabels',
                 'CommonPermissionThisOperation')
-        String failMessage = UtilProperties.getMessage('PartyUiLabels',
+        String failMessage = UtilPropertiesRuntime.getMessage('PartyUiLabels',
                 'PartyPermissionErrorPartyId', [resourceDescription: resourceDescription], parameters.locale)
         hasPermission = false
         result.failMessage = failMessage

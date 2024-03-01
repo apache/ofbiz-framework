@@ -59,6 +59,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.entity.Delegator;
@@ -166,12 +167,12 @@ public class OutputServices {
                     printer = printServices[0];
                     Debug.logInfo("Using printer: " + printer.getName(), MODULE);
                     if (!printer.isDocFlavorSupported(psInFormat)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotSupportDocFlavorFormat",
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentPrinterNotSupportDocFlavorFormat",
                                 UtilMisc.toMap("psInFormat", psInFormat, "printerName", printer.getName()), locale));
                     }
                 }
                 if (printer == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentPrinterNotFound",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentPrinterNotFound",
                             UtilMisc.toMap("printerName", printerName), locale));
                 }
 
@@ -200,7 +201,7 @@ public class OutputServices {
             job.print(myDoc, praset);
         } catch (PrintException | IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentRenderingError",
                     UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
         }
 
@@ -273,7 +274,7 @@ public class OutputServices {
 
         } catch (IOException | TemplateException | GeneralException | SAXException | ParserConfigurationException e) {
             Debug.logError(e, "Error rendering [" + contentType + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentRenderingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentRenderingError",
                     UtilMisc.toMap("contentType", contentType, "errorString", e.toString()), locale));
         }
 

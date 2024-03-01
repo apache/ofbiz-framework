@@ -18,10 +18,11 @@
 */
 package org.apache.ofbiz.accounting.fixedasset
 
-import org.apache.ofbiz.base.util.UtilProperties
+
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.common.geo.GeoWorker
 
-uiLabelMap = UtilProperties.getResourceBundleMap('AccountingUiLabels', locale)
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('AccountingUiLabels', locale)
 
 if (fixedAsset) {
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, 'FixedAssetAndGeoPoint', 'fixedAssetId', fixedAssetId, null, null)

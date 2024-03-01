@@ -19,6 +19,7 @@
 package org.apache.ofbiz.product.product.inventory
 
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 
@@ -63,7 +64,7 @@ Map facilityGenericPermission() {
     }
     Map result = failure()
     result.hasPermission = false
-    result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
+    result.failMessage = UtilPropertiesRuntime.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
     return result
 }
 
@@ -81,7 +82,7 @@ Map checkProductFacilityRelatedPermission() {
     if (!ServiceUtil.isSuccess(serviceResult)) {
         Map result = failure()
         result.hasPermission = false
-        result.failMessage = UtilProperties.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
+        result.failMessage = UtilPropertiesRuntime.getMessage('ProductUiLabels', 'ProductFacilityPermissionError', binding.variables, parameters.locale)
         return result
     }
     Map result = success()

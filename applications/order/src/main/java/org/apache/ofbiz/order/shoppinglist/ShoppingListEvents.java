@@ -38,6 +38,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -93,7 +94,7 @@ public class ShoppingListEvents {
     }
 
     public static String addBulkFromCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, GenericValue userLogin,
-                                         String shoppingListId, String shoppingListTypeId, String[] items, boolean allowPromo, boolean append)
+            String shoppingListId, String shoppingListTypeId, String[] items, boolean allowPromo, boolean append)
             throws IllegalArgumentException {
         String errMsg = null;
 
@@ -107,8 +108,8 @@ public class ShoppingListEvents {
             Map<String, Object> newListResult = null;
             try {
                 newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin,
-                        "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(),
-                        "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()),
+                                "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(),
+                                "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()),
                         90, true);
                 if (ServiceUtil.isError(newListResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(newListResult);
@@ -150,7 +151,8 @@ public class ShoppingListEvents {
                 ShoppingCartItem item = cart.findCartItem(cartIdInt);
                 if (allowPromo || !item.getIsPromo()) {
                     Debug.logInfo("Adding cart item to shopping list [" + shoppingListId + "], allowPromo=" + allowPromo + ", item.getIsPromo()="
-                            + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()=" + item.getQuantity(),
+                                    + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()="
+                                    + item.getQuantity(),
                             MODULE);
                     Map<String, String> itemAttributes = item.getOrderItemAttributes();
                     Map<String, Object> serviceResult = null;
@@ -218,12 +220,11 @@ public class ShoppingListEvents {
             return "error";
         }
 
-
         return "success";
     }
 
     public static String addListToCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, String prodCatalogId,
-                                       String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append)
+            String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append)
             throws java.lang.IllegalArgumentException {
         String errMsg = null;
 
@@ -324,17 +325,19 @@ public class ShoppingListEvents {
                         null, dispatcher);
 
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
             } catch (CartItemModifyException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProblemsAddingItemFromListToCart", cart.getLocale()));
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "shoppinglistevents.problem_adding_product_to_cart", messageMap,
+                        cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
             } catch (ItemNotFoundException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(RES_ERROR, "OrderProductNotFound", cart.getLocale()));
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(RES_ERROR, "shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
+                errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "shoppinglistevents.problem_adding_product_to_cart", messageMap,
+                        cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
             }
         }
@@ -367,7 +370,9 @@ public class ShoppingListEvents {
         serviceInMap.put("shoppingListItemSeqId", request.getParameter("shoppingListItemSeqId"));
         serviceInMap.put("productId", request.getParameter("add_product_id"));
         serviceInMap.put("userLogin", userLogin);
-        if (quantity != null) serviceInMap.put("quantity", quantity);
+        if (quantity != null) {
+            serviceInMap.put("quantity", quantity);
+        }
         Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("updateShoppingListItem", serviceInMap);
@@ -391,7 +396,7 @@ public class ShoppingListEvents {
      * Finds or creates a specialized (auto-save) shopping list used to record shopping bag contents between user visits.
      */
     public static String getAutoSaveListId(Delegator delegator, LocalDispatcher dispatcher, String partyId, GenericValue userLogin,
-                                           String productStoreId) throws GenericEntityException, GenericServiceException {
+            String productStoreId) throws GenericEntityException, GenericServiceException {
         if (partyId == null && userLogin != null) {
             partyId = userLogin.getString("partyId");
         }

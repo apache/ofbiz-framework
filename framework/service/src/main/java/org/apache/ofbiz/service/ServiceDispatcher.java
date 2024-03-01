@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilTimer;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -990,7 +991,7 @@ public final class ServiceDispatcher {
             permResp = origService.evalPermissions(dctx, context);
         }
         if (ServiceUtil.isFailure(permResp) || ServiceUtil.isError(permResp)) {
-            throw new ServiceAuthException(UtilProperties.getMessage("ServiceErrorUiLabels", "ServicePermissionError",
+            throw new ServiceAuthException(UtilPropertiesRuntime.getMessage("ServiceErrorUiLabels", "ServicePermissionError",
                     UtilMisc.toMap("serviceName", origService.getName(), "failMessage", ServiceUtil.getErrorMessage(permResp)), locale));
         }
         return origService.makeValid(context, ModelService.IN_PARAM);

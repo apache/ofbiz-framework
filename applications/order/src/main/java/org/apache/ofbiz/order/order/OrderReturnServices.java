@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -197,7 +198,7 @@ public class OrderReturnServices {
             returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "OrderErrorUnableToGetReturnHeaderForID", UtilMisc.toMap("returnId", returnId), locale));
         }
 
@@ -287,7 +288,7 @@ public class OrderReturnServices {
             }
         }
 
-        return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_PRODUCT,
+        return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RES_PRODUCT,
                 "ProductProductStoreEmailSettingsNotValid",
                 UtilMisc.toMap("productStoreId", productStoreId,
                         "emailType", emailType), locale));
@@ -1363,7 +1364,7 @@ public class OrderReturnServices {
                             .cache(true).queryList();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get PaymentMethodTypes", MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "OrderOrderPaymentPreferencesCannotGetPaymentMethodTypes",
                             UtilMisc.toMap("errorString", e.toString()), locale));
                 }
@@ -1602,13 +1603,13 @@ public class OrderReturnServices {
             }
             paymentId = (String) paymentCreationResult.get("paymentId");
         } catch (GenericServiceException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderPaymentFailed",
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (paymentId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderOrderPaymentFailed", UtilMisc.toMap("errorString", ""), locale));
         }
 
@@ -1626,7 +1627,7 @@ public class OrderReturnServices {
                         return ServiceUtil.returnError(ServiceUtil.getErrorMessage(paymentApplResult));
                     }
                 } catch (GenericServiceException e) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "OrderOrderPaymentApplicationFailed",
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
@@ -1651,7 +1652,7 @@ public class OrderReturnServices {
         try {
             GenericValue response = EntityQuery.use(delegator).from("ReturnItemResponse").where("returnItemResponseId", responseId).queryOne();
             if (response == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderReturnItemResponseNotFound",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderReturnItemResponseNotFound",
                         UtilMisc.toMap("errorMsg", errorMsg, "responseId", responseId), locale));
             }
             BigDecimal responseAmount = response.getBigDecimal("responseAmount").setScale(DECIMALS, ROUNDING);
@@ -2399,7 +2400,7 @@ public class OrderReturnServices {
             for (Entry<String, BigDecimal> orderId : returnAmountByOrder.entrySet()) {
                 BigDecimal returnAmount = returnAmountByOrder.get(orderId.getKey());
                 if (returnAmount == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderNoReturnAmountFound",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR, "OrderNoReturnAmountFound",
                             UtilMisc.toMap("orderId", orderId), locale));
                 }
                 if (returnAmount.abs().compareTo(new BigDecimal("0.000001")) < 0) {
@@ -2441,7 +2442,7 @@ public class OrderReturnServices {
             try {
                 orderAdjustment = EntityQuery.use(delegator).from("OrderAdjustment").where("orderAdjustmentId", orderAdjustmentId).queryOne();
                 if (orderAdjustment == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE,
                             "OrderCreateReturnAdjustmentNotFoundOrderAdjustment",
                             UtilMisc.toMap("orderAdjustmentId", orderAdjustmentId), locale));
                 }
@@ -2524,7 +2525,7 @@ public class OrderReturnServices {
             newReturnAdjustment.set("returnItemSeqId", UtilValidate.isEmpty(returnItemSeqId) ? "_NA_" : returnItemSeqId);
 
             delegator.create(newReturnAdjustment);
-            Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
+            Map<String, Object> result = ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage(RESOURCE,
                     "OrderCreateReturnAdjustment", UtilMisc.toMap("seqId", seqId), locale));
             result.put("returnAdjustmentId", seqId);
             return result;
@@ -2579,7 +2580,7 @@ public class OrderReturnServices {
                 delegator.store(returnAdjustment);
                 Debug.logInfo("Update ReturnAdjustment with Id:" + context.get("returnAdjustmentId") + " to amount " + amount + " successfully.",
                         MODULE);
-                result = ServiceUtil.returnSuccess(UtilProperties.getMessage(RESOURCE,
+                result = ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage(RESOURCE,
                         "OrderUpdateReturnAdjustment",
                         UtilMisc.toMap("returnAdjustmentId", context.get("returnAdjustmentId"), "amount", amount), locale));
             } else {

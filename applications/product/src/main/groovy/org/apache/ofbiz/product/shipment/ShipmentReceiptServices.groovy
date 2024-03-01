@@ -18,11 +18,12 @@
 */
 package org.apache.ofbiz.product.shipment
 
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
+
 import java.math.RoundingMode
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 
@@ -82,7 +83,7 @@ Map receiveInventoryProduct () {
         // if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain
         if ((parameters.serialNumber || parameters.currentInventoryItemId) && (parameters.quantityAccepted > (BigDecimal.ONE))) {
             Map errorLog = [parameters: parameters]
-            return error(UtilProperties.getMessage('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog,  parameters.locale))
+            return error(UtilPropertiesRuntime.getMessage('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog,  parameters.locale))
             // before getting going, see if there are any validation issues so far
         }
         loops = parameters.quantityAccepted

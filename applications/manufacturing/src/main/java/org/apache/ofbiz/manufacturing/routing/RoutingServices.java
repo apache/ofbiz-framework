@@ -24,7 +24,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -70,7 +70,7 @@ public class RoutingServices {
         try {
             task = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", taskId).queryOne();
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingRoutingErrorFindingTask",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ManufacturingRoutingErrorFindingTask",
                     UtilMisc.toMap("taskId", taskId), locale));
         }
         // FIXME: the ProductionRun.getEstimatedTaskTime(...) method will be removed and

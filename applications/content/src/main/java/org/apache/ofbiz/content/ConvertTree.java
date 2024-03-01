@@ -30,7 +30,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -228,7 +228,7 @@ In order to make this service active add the following to the service definition
                         } //end character in line
                     }
                 } //end line
-                sucMsg = UtilProperties.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful",
+                sucMsg = UtilPropertiesRuntime.getMessage("ContentUiLabels", "ContentConvertDocumentsTreeSuccessful",
                         UtilMisc.toMap("counterLine", counterLine), locale);
             } catch (IOException | GenericServiceException | GenericEntityException e) {
                 errMsg = "Exception " + UtilMisc.toMap("errMessage", e.toString());

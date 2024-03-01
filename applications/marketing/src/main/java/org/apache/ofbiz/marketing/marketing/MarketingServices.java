@@ -27,6 +27,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -39,9 +40,8 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
- * MarketingServices contains static service methods for Marketing Campaigns and Contact Lists.
- * See the documentation in marketing/servicedef/services.xml and use the service reference in
- * webtools.  Comments in this file are implemntation notes and technical details.
+ * MarketingServices contains static service methods for Marketing Campaigns and Contact Lists. See the documentation in
+ * marketing/servicedef/services.xml and use the service reference in webtools.  Comments in this file are implemntation notes and technical details.
  */
 public class MarketingServices {
 
@@ -69,8 +69,9 @@ public class MarketingServices {
             // locate the contact list
             GenericValue contactList = EntityQuery.use(delegator).from("ContactList").where("contactListId", contactListId).queryOne();
             if (contactList == null) {
-                String error = UtilProperties.getMessage(RESOURCE, "MarketingContactListNotFound", UtilMisc.<String, Object>toMap("contactListId",
-                        contactListId), locale);
+                String error =
+                        UtilPropertiesRuntime.getMessage(RESOURCE, "MarketingContactListNotFound", UtilMisc.<String, Object>toMap("contactListId",
+                                contactListId), locale);
                 return ServiceUtil.returnError(error);
             }
 
@@ -137,8 +138,8 @@ public class MarketingServices {
 
             // create a new association at this fromDate to the anonymous party with status pending
             input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"),
-                "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baseLocation",
-                context.get("baseLocation"));
+                    "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baseLocation",
+                    context.get("baseLocation"));
             serviceResults = dispatcher.runSync("createContactListParty", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));

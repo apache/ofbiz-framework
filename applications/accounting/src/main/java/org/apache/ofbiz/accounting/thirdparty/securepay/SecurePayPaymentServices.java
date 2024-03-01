@@ -66,7 +66,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(processAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+            newAmount = new BigDecimal(processAmount.setScale(0, RoundingMode.HALF_UP) + ".00");
         } else {
             newAmount = processAmount;
         }
@@ -161,7 +161,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(captureAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+            newAmount = new BigDecimal(captureAmount.setScale(0, RoundingMode.HALF_UP) + ".00");
         } else {
             newAmount = captureAmount;
         }
@@ -240,7 +240,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(releaseAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+            newAmount = new BigDecimal(releaseAmount.setScale(0, RoundingMode.HALF_UP) + ".00");
         } else {
             newAmount = releaseAmount;
         }
@@ -326,7 +326,7 @@ public class SecurePayPaymentServices {
         BigDecimal newAmount = null;
 
         if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(refundAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+            newAmount = new BigDecimal(refundAmount.setScale(0, RoundingMode.HALF_UP) + ".00");
         } else {
             newAmount = refundAmount;
         }
@@ -399,7 +399,7 @@ public class SecurePayPaymentServices {
         int amont;
 
         if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(creditAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+            newAmount = new BigDecimal(creditAmount.setScale(0, RoundingMode.HALF_UP) + ".00");
         } else {
             newAmount = creditAmount;
         }
@@ -460,11 +460,16 @@ public class SecurePayPaymentServices {
             configString = "payment.properties";
         }
 
-        String merchantId = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantId", configString, "payment.securepay.merchantID", null);
+        String merchantId =
+                getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "merchantId", configString, "payment.securepay.merchantID", null);
         String pwd = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "pwd", configString, "payment.securepay.pwd", null);
-        String serverURL = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "serverURL", configString, "payment.securepay.serverurl", null);
-        String processTimeout = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "processTimeout", configString, "payment.securepay.processtimeout", null);
-        String enableAmountRound = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableAmountRound", configString, "payment.securepay.enableamountround", null);
+        String serverURL =
+                getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "serverURL", configString, "payment.securepay.serverurl", null);
+        String processTimeout =
+                getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "processTimeout", configString, "payment.securepay.processtimeout",
+                        null);
+        String enableAmountRound = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableAmountRound", configString,
+                "payment.securepay.enableamountround", null);
 
         Properties props = new Properties();
         props.put("merchantID", merchantId);
@@ -475,11 +480,13 @@ public class SecurePayPaymentServices {
         return props;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String resource, String parameterName) {
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+            String resource, String parameterName) {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue securePay = EntityQuery.use(delegator).from("PaymentGatewaySecurePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
+                GenericValue securePay =
+                        EntityQuery.use(delegator).from("PaymentGatewaySecurePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(securePay)) {
                     Object securePayField = securePay.get(paymentGatewayConfigParameterName);
                     if (securePayField != null) {
@@ -498,8 +505,10 @@ public class SecurePayPaymentServices {
         return returnValue;
     }
 
-    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName, String resource, String parameterName, String defaultValue) {
-        String returnValue = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
+    private static String getPaymentGatewayConfigValue(Delegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+            String resource, String parameterName, String defaultValue) {
+        String returnValue =
+                getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, paymentGatewayConfigParameterName, resource, parameterName);
         if (UtilValidate.isEmpty(returnValue)) {
             returnValue = defaultValue;
         }

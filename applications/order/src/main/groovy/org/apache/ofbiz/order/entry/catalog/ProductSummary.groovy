@@ -18,13 +18,14 @@
 */
 package org.apache.ofbiz.order.entry.catalog
 
+import org.apache.ofbiz.base.util.UtilMisc
+
 /*
  * This script is also referenced by the ecommerce's screens and
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.product.config.ProductConfigWorker
 import org.apache.ofbiz.product.catalog.CatalogWorker
@@ -197,7 +198,7 @@ if (product) {
                 if (virtualPriceMap.price) {
                     price = numberFormat.format(virtualPriceMap.price)
                 } else {
-                    price = UtilProperties.getResourceBundleMap('CommonUiLabels', locale).get('CommonNA')
+                    price = UtilPropertiesRuntime.getResourceBundleMap('CommonUiLabels', locale).get('CommonNA')
                 }
                 variantPriceJS.append('  if (sku == "' + virtual.productId + '") return "' + price + '"; ')
                 variantInfoJS.append("        variantPrices['" + virtual.productId + "'] = '" + price + "';\n")

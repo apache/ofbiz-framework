@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -84,7 +84,7 @@ public class ProductStoreEvents {
 
                         productStoreGroupList.add(josonMap);
                     }
-                    List<Map<Object, Object>> sortedProductStoreGroupList = UtilMisc.sortMaps(productStoreGroupList, sortList);
+                    List<Map<Object, Object>> sortedProductStoreGroupList = UtilMiscRuntime.sortMaps(productStoreGroupList, sortList);
                     request.setAttribute("storeGroupTree", sortedProductStoreGroupList);
                 }
             }

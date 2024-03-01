@@ -44,6 +44,7 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -71,7 +72,7 @@ public class DataServices {
             DataResourceWorker.clearAssociatedRenderCache(delegator, dataResourceId);
         } catch (GeneralException e) {
             Debug.logError(e, "Unable to clear associated render cache with dataResourceId=" + dataResourceId, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentClearAssociatedRenderCacheError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentClearAssociatedRenderCacheError",
                     UtilMisc.toMap("dataResourceId", dataResourceId), locale));
         }
         return ServiceUtil.returnSuccess();
@@ -245,7 +246,7 @@ public class DataServices {
         // obtain a reference to the file
         File file = null;
         if (UtilValidate.isEmpty(objectInfo)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
                     UtilMisc.toMap("objectInfo", ""), locale));
         }
         if (UtilValidate.isEmpty(dataResourceTypeId) || "LOCAL_FILE".equals(dataResourceTypeId) || "LOCAL_FILE_BIN".equals(dataResourceTypeId)) {
@@ -270,7 +271,7 @@ public class DataServices {
             file = new File(prefix + sep + objectInfo);
         }
         if (file == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableObtainReferenceToFile",
                     UtilMisc.toMap("objectInfo", objectInfo), locale));
         }
 
@@ -286,7 +287,7 @@ public class DataServices {
                 }
             } catch (IOException | ImageReadException e) {
                 Debug.logWarning(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
         } else if (binData != null) {
@@ -306,15 +307,15 @@ public class DataServices {
 
             } catch (FileNotFoundException | ImageReadException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
         } else {
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFilePassed",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFilePassed",
                     UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
         }
 
@@ -364,7 +365,7 @@ public class DataServices {
             dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentDataResourceNotFound",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentDataResourceNotFound",
                     UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
         }
 
@@ -495,7 +496,7 @@ public class DataServices {
                     }
                 } catch (IOException | ImageReadException e) {
                     Debug.logWarning(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableWriteCharacterDataToFile",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else if (binData != null) {
@@ -515,15 +516,15 @@ public class DataServices {
                     out.close();
                 } catch (FileNotFoundException | ImageReadException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, MODULE);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
+                    return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentUnableWriteBinaryDataToFile",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentNoContentFilePassed",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ContentNoContentFilePassed",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
 

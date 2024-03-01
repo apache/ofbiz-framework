@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.widget.WidgetWorker;
 import org.apache.ofbiz.widget.model.FieldInfo;
@@ -84,7 +84,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             writer.append(MacroScreenRenderer.getFoStyle(widgetStyle));
         }
         writer.append(">");
-        writer.append(UtilFormatOut.encodeXmlValue(text));
+        writer.append(UtilFormatOutBase.encodeXmlValue(text));
         writer.append("</fo:block>");
     }
 

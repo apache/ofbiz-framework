@@ -29,9 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilFormatOutBase;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
@@ -87,7 +87,7 @@ public class RenderContentTransform implements TemplateTransformModel {
                 if (localeObject == null) {
                     locale = UtilHttp.getLocale(request);
                 } else {
-                    locale = UtilMisc.ensureLocale(localeObject);
+                    locale = UtilMiscRuntime.ensureLocale(localeObject);
                 }
 
                 String editRequestName = (String) templateRoot.get("editRequestName");
@@ -107,7 +107,7 @@ public class RenderContentTransform implements TemplateTransformModel {
                         txt = ContentWorker.renderSubContentAsText(dispatcher, thisContentId, mapKey, templateRoot, locale, mimeTypeId, true);
                     }
                     if ("true".equals(xmlEscape)) {
-                        txt = UtilFormatOut.encodeXmlValue(txt);
+                        txt = UtilFormatOutBase.encodeXmlValue(txt);
                     }
 
                     out.write(txt);

@@ -417,7 +417,7 @@ public class UtilCodec {
                 issueMsg = "In field [" + valueName + "] found character escaping (mixed or double) "
                         + "that is not allowed or other format consistency error: ";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneMixedOrDouble",
+                issueMsg = UtilPropertiesRuntime.getMessage("SecurityUiLabels", "PolicyNoneMixedOrDouble",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg + e.toString());
@@ -429,7 +429,7 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
+                issueMsg = UtilPropertiesRuntime.getMessage("SecurityUiLabels", "PolicyNoneLess-thanGreater-than",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg);
@@ -443,7 +443,7 @@ public class UtilCodec {
             if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                 issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
             } else {
-                issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
+                issueMsg = UtilPropertiesRuntime.getMessage("SecurityUiLabels", "PolicyNoneJsEvents",
                         UtilMisc.toMap("valueName", valueName), locale);
             }
             errorMessageList.add(issueMsg);
@@ -546,7 +546,7 @@ public class UtilCodec {
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
                             + "for security reason. Please check and modify accordingly, thanks.";
                 } else {
-                    issueMsg = UtilProperties.getMessage("SecurityUiLabels", "PolicySafe",
+                    issueMsg = UtilPropertiesRuntime.getMessage("SecurityUiLabels", "PolicySafe",
                             UtilMisc.toMap("valueName", valueName), locale);
                 }
                 errorMessageList.add(issueMsg);

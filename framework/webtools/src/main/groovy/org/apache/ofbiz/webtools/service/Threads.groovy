@@ -18,9 +18,10 @@
 */
 package org.apache.ofbiz.webtools.service
 
-import org.apache.ofbiz.base.util.UtilProperties
 
-uiLabelMap = UtilProperties.getResourceBundleMap('WebtoolsUiLabels', locale)
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
+
+uiLabelMap = UtilPropertiesRuntime.getResourceBundleMap('WebtoolsUiLabels', locale)
 uiLabelMap.addBottomResourceBundle('CommonUiLabels')
 
 threads = []

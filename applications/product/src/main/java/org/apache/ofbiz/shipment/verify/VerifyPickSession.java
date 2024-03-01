@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
@@ -222,7 +223,7 @@ public class VerifyPickSession implements Serializable {
         if (orderItemSeqId != null) {
             return orderItemSeqId;
         } else {
-            throw new GeneralException(UtilProperties.getMessage("ProductErrorUiLabels",
+            throw new GeneralException(UtilPropertiesRuntime.getMessage("ProductErrorUiLabels",
                     "ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity",
                     UtilMisc.toMap("productId", productId, "quantity", quantity), locale));
         }
@@ -466,14 +467,14 @@ public class VerifyPickSession implements Serializable {
             BigDecimal reservedQty = this.getReservedQty(pickRow.getOrderId(), pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId());
             BigDecimal verifiedQty = this.getReadyToVerifyQuantity(pickRow.getOrderId(), pickRow.getOrderItemSeqId());
             if (verifiedQty.compareTo(reservedQty) != 0) {
-                errorList.add(UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem",
+                errorList.add(UtilPropertiesRuntime.getMessage("ProductErrorUiLabels", "ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem",
                         UtilMisc.toMap("productId", pickRow.getProductId(), "verifiedQty", pickRow.getReadyToVerifyQty(), "reservedQty",
                                 reservedQty), locale));
             }
         }
 
         if (!errorList.isEmpty()) {
-            throw new GeneralException(UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorAttemptToVerifyOrderFailed",
+            throw new GeneralException(UtilPropertiesRuntime.getMessage("OrderErrorUiLabels", "OrderErrorAttemptToVerifyOrderFailed",
                     UtilMisc.toMap("orderId", orderId), locale), errorList);
         }
     }

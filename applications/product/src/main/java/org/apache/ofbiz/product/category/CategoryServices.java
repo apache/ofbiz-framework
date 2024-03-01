@@ -33,7 +33,9 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilMiscRuntime;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -74,7 +76,7 @@ public class CategoryServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem reading product categories: " + e.getMessage(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RES_ERROR,
                     "categoryservices.problems_reading_category_entity",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
@@ -110,7 +112,7 @@ public class CategoryServices {
                     .orderBy(orderByFields).cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), MODULE);
-            return ServiceUtil.returnFailure(UtilProperties.getMessage(RES_ERROR, "categoryservices.error_find_next_products",
+            return ServiceUtil.returnFailure(UtilPropertiesRuntime.getMessage(RES_ERROR, "categoryservices.error_find_next_products",
                     UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (activeOnly) {
@@ -552,7 +554,7 @@ public class CategoryServices {
                         josonMap.put("title", title);
                         categoryList.add(josonMap);
                     }
-                    List<Map<Object, Object>> sortedCategoryList = UtilMisc.sortMaps(categoryList, sortList);
+                    List<Map<Object, Object>> sortedCategoryList = UtilMiscRuntime.sortMaps(categoryList, sortList);
                     request.setAttribute("treeData", sortedCategoryList);
                 }
             }

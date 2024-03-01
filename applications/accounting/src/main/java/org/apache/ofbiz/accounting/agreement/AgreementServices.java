@@ -29,7 +29,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -174,7 +174,7 @@ public class AgreementServices {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, locale);
+            errMsg = UtilPropertiesRuntime.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
         return UtilMisc.toMap(

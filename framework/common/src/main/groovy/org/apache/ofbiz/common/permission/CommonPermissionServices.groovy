@@ -19,6 +19,7 @@
 package org.apache.ofbiz.common.permission
 
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 
 Map genericBasePermissionCheck() {
     Map result = success()
@@ -58,7 +59,7 @@ Map genericBasePermissionCheck() {
                           primaryPermission: primaryPermission,
                           mainAction: mainAction,
                           altPermissionList: altPermissionList]
-        result.failMessage = UtilProperties.getMessage('CommonUiLabels', 'CommonGenericPermissionError', messageContext, parameters.locale)
+        result.failMessage = UtilPropertiesRuntime.getMessage('CommonUiLabels', 'CommonGenericPermissionError', messageContext, parameters.locale)
     }
     return result
 }

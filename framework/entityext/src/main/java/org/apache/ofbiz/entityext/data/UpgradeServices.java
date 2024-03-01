@@ -32,6 +32,7 @@ import java.util.Map;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -109,7 +110,7 @@ public class UpgradeServices {
             dataWriter.println("SET FOREIGN_KEY_CHECKS=1;");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "EntityExtErrorGettingListOfEntityInGroup",
                     UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             Debug.logError(e, e.getMessage(), MODULE);

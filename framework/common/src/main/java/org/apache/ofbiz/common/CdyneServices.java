@@ -29,6 +29,7 @@ import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -65,22 +66,22 @@ public class CdyneServices {
             populateCdyneAddress(addressRootElement, response);
 
             if ("true".equals(response.get("ServiceError"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneServiceError",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonCDyneServiceError",
                         UtilMisc.toMap("zipcode", zipcode), locale));
             }
             if ("true".equals(response.get("AddressError"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneAddressError",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonCDyneAddressError",
                         UtilMisc.toMap("zipcode", zipcode), locale));
             }
 
             return response;
         } catch (HttpClientException e) {
             Debug.logError(e, "Error calling CDyne service at URL [" + serviceUrl + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneCallingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonCDyneCallingError",
                     UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         } catch (SAXException | ParserConfigurationException | IOException e) {
             Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonCDyneParsingError",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "CommonCDyneParsingError",
                     UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         }
     }

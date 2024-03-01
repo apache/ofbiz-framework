@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.finder.PrimaryKeyFinder;
@@ -146,7 +147,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         } catch (GeneralException e) {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service ["
                     + modelService.getName() + "]: " + e.toString(), MODULE);
-            return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceEntityAutoOperation",
+            return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ServiceEntityAutoOperation",
                     UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.getName(), "errorString",
                             e.toString()), locale));
         }
@@ -237,7 +238,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (pkValue instanceof String) {
                     StringBuffer errorDetails = new StringBuffer();
                     if (!UtilValidate.isValidDatabaseId((String) pkValue, errorDetails)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceParameterValueNotValid",
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ServiceParameterValueNotValid",
                                 UtilMisc.toMap("parameterName", singlePkModelParam.getName(), "errorDetails", errorDetails), locale));
                     }
                 }
@@ -245,7 +246,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             newEntity.set(singlePkModeField.getName(), pkValue);
             GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
             if (lookedUpValue != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueFound",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ServiceValueFound",
                         UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
             }
         } else if (isDoublePk && doublePkPrimaryInParam != null && doublePkSecondaryOutParam != null) {
@@ -282,7 +283,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             //with all pks present on parameters, check if the entity is not already exists.
             GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
             if (lookedUpValue != null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueFound",
+                return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage(RESOURCE, "ServiceValueFound",
                         UtilMisc.toMap("pkFields", newEntity.getPkShortValueString()), locale));
             }
         } else {
@@ -376,7 +377,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
         newEntity.create();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully",
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully",
                 UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         result.put("crudValue", newEntity);
         return result;
@@ -458,7 +459,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                             lookedUpStatusId, "statusIdTo", statusIdParamValue);
                     if (statusValidChange == null) {
                         // uh-oh, no valid change...
-                        return ServiceUtil.returnError(UtilProperties.getMessage("CommonUiLabels", "CommonErrorNoStatusValidChange",
+                        return ServiceUtil.returnError(UtilPropertiesRuntime.getMessage("CommonUiLabels", "CommonErrorNoStatusValidChange",
                                 localContext, locale));
                     }
                 }
@@ -504,7 +505,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         lookedUpValue.store();
         result.put("crudValue", lookedUpValue);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully",
+        result.put(ModelService.SUCCESS_MESSAGE, UtilPropertiesRuntime.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully",
                 UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
@@ -538,7 +539,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ServiceValueNotFoundForRemove", locale));
         }
         lookedUpValue.remove();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully",
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully",
                 UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }
@@ -616,7 +617,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (Debug.infoOn()) {
             Debug.logInfo(" parameters OUT  : " + parameters, MODULE);
         }
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully",
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilPropertiesRuntime.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully",
                 UtilMisc.toMap("label", modelEntity.getTitle()), locale));
         return result;
     }

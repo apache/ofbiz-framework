@@ -39,6 +39,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -711,7 +712,8 @@ public class CheckOutHelper {
         } catch (GenericServiceException e) {
             String service = e.getMessage();
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("service", service);
-            String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
+            String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR,
+                    "checkhelper.could_not_create_order_invoking_service", messageMap, cart.getLocale());
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg);
         }
@@ -759,14 +761,14 @@ public class CheckOutHelper {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
                     String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.problems_reading_database", cart.getLocale());
-                    errMsg += UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
+                    errMsg += UtilPropertiesRuntime.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
                             cart.getLocale());
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
                 } catch (GenericServiceException e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
-                    String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
+                    String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
                             cart.getLocale());
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
@@ -790,7 +792,7 @@ public class CheckOutHelper {
                 } catch (GenericServiceException e) {
                     String service = e.getMessage();
                     Map<String, String> messageMap = UtilMisc.toMap("service", service);
-                    String errMsg = UtilProperties.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
+                    String errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "checkhelper.could_not_create_order_invoking_service", messageMap,
                             cart.getLocale());
                     Debug.logError(e, errMsg, MODULE);
                     return ServiceUtil.returnError(errMsg);
@@ -1797,7 +1799,7 @@ public class CheckOutHelper {
             Debug.logError("Billing account " + billingAccountId + " has [" + availableAmount + "] available but needs [" + billingAccountAmt
                     + "] for this order", MODULE);
             Map<String, String> messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
-            errMsg = UtilProperties.getMessage(RES_ERROR, "checkevents.not_enough_available_on_account", messageMap, cart.getLocale());
+            errMsg = UtilPropertiesRuntime.getMessage(RES_ERROR, "checkevents.not_enough_available_on_account", messageMap, cart.getLocale());
             return ServiceUtil.returnError(errMsg);
         }
 

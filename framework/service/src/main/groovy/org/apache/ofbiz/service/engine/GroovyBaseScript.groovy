@@ -20,6 +20,7 @@ package org.apache.ofbiz.service.engine
 
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
@@ -188,7 +189,7 @@ abstract class GroovyBaseScript extends Script {
     String label(String ressource, String message, Map context) {
         Locale locale = this.binding.getVariable('locale') ?: Locale.getDefault()
         if (context) {
-            return UtilProperties.getMessage(ressource, message, context, locale)
+            return UtilPropertiesRuntime.getMessage(ressource, message, context, locale)
         }
         return UtilProperties.getMessage(ressource, message, locale)
     }

@@ -42,6 +42,7 @@ import org.apache.ofbiz.base.util.TimeDuration;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -482,7 +483,7 @@ public class ICalConverter {
                 }
             }
         } catch (GeneralException e) {
-            String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileCreatingServiceMapForService",
+            String errMsg = UtilPropertiesRuntime.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileCreatingServiceMapForService",
                     UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg + e);
@@ -498,7 +499,7 @@ public class ICalConverter {
             }
             return result;
         } catch (GenericServiceException e) {
-            String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService",
+            String errMsg = UtilPropertiesRuntime.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService",
                     UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, MODULE);
             return ServiceUtil.returnError(errMsg + e);

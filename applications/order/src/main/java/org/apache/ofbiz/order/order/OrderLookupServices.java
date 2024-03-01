@@ -33,7 +33,7 @@ import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilPropertiesRuntime;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.PagedList;
 import org.apache.ofbiz.entity.Delegator;
@@ -351,7 +351,8 @@ public class OrderLookupServices {
 
         String goodIdentificationTypeId = (String) context.get("goodIdentificationTypeId");
         String goodIdentificationIdValue = (String) context.get("goodIdentificationIdValue");
-        boolean hasGoodIdentification = UtilValidate.isNotEmpty(goodIdentificationTypeId) && UtilValidate.isNotEmpty(goodIdentificationIdValue);
+        boolean hasGoodIdentification =
+                UtilValidate.isNotEmpty(goodIdentificationTypeId) && UtilValidate.isNotEmpty(goodIdentificationIdValue);
 
         if (correspondingPoId != null || subscriptionId != null || productId != null || budgetId != null || quoteId != null
                 || hasGoodIdentification) {
@@ -424,7 +425,7 @@ public class OrderLookupServices {
                         conditions.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
                     }
                 } else {
-                    String failMsg = UtilProperties.getMessage("OrderErrorUiLabels", "OrderFindOrderProductInvalid",
+                    String failMsg = UtilPropertiesRuntime.getMessage("OrderErrorUiLabels", "OrderFindOrderProductInvalid",
                             UtilMisc.toMap("productId", productId), locale);
                     return ServiceUtil.returnFailure(failMsg);
                 }
@@ -569,12 +570,12 @@ public class OrderLookupServices {
             EntityConditionList<EntityExpr> exprs = null;
             if ("Y".equals(includeCountry)) {
                 exprs = EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
-                            EntityCondition.makeCondition("countryGeoId", countryGeoId)), EntityOperator.AND);
+                        EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
+                        EntityCondition.makeCondition("countryGeoId", countryGeoId)), EntityOperator.AND);
             } else {
                 exprs = EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
-                            EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)), EntityOperator.AND);
+                        EntityCondition.makeCondition("contactMechPurposeTypeId", "SHIPPING_LOCATION"),
+                        EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, countryGeoId)), EntityOperator.AND);
             }
             conditions.add(exprs);
         }
