@@ -72,6 +72,7 @@ if (project.hasProperty('enableDependencyUpdates')) {
 }
 
 apply from: 'common.gradle'
+apply from: 'dependencies.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
