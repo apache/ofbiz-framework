@@ -44,9 +44,6 @@ on:
     tags:
       - '**'
 
-permissions:
-  contents: read
-
 jobs:
   docker_build:
     name: Build and push OFBiz docker container images
