@@ -1953,7 +1953,7 @@ public final class ModelFormField {
         private final int otherFieldSize;
         private final String size;
         private final SubHyperlink subHyperlink;
-        private final String textSize;
+        private final Optional<Integer> textSize;
 
         private DropDownField(DropDownField original, ModelFormField modelFormField) {
             super(original, modelFormField);
@@ -2006,11 +2006,8 @@ public final class ModelFormField {
             } else {
                 this.subHyperlink = null;
             }
-            String textSize = element.getAttribute("text-size");
-            if (textSize.isEmpty()) {
-                textSize = "0";
-            }
-            this.textSize = textSize;
+
+            this.textSize = parseElementAttributeAsOptionalInteger(element, "text-size");
         }
 
         public DropDownField(int fieldSource, List<OptionSource> optionSources) {
@@ -2023,7 +2020,7 @@ public final class ModelFormField {
             this.otherFieldSize = 0;
             this.size = "1";
             this.subHyperlink = null;
-            this.textSize = "0";
+            this.textSize = Optional.empty();
         }
 
         public DropDownField(int fieldSource, ModelFormField modelFormField) {
@@ -2036,7 +2033,7 @@ public final class ModelFormField {
             this.otherFieldSize = 0;
             this.size = "1";
             this.subHyperlink = null;
-            this.textSize = "0";
+            this.textSize = Optional.empty();
         }
 
         public DropDownField(ModelFormField modelFormField) {
@@ -2049,7 +2046,7 @@ public final class ModelFormField {
             this.otherFieldSize = 0;
             this.size = "1";
             this.subHyperlink = null;
-            this.textSize = "0";
+            this.textSize = Optional.empty();
         }
 
         @Override
@@ -2159,7 +2156,7 @@ public final class ModelFormField {
          * Gets text size.
          * @return the text size
          */
-        public String getTextSize() {
+        public Optional<Integer> getTextSize() {
             return this.textSize;
         }
 
@@ -5599,5 +5596,18 @@ public final class ModelFormField {
                 throws IOException {
             formStringRenderer.renderTextFindField(writer, context, this);
         }
+    }
+
+    private static Optional<Integer> parseElementAttributeAsOptionalInteger(Element element, String attributeName) {
+        String attributeValue = element.getAttribute(attributeName);
+        if (UtilValidate.isNotEmpty(attributeValue)) {
+            try {
+                return Optional.of(Integer.parseInt(attributeValue));
+            } catch (NumberFormatException e) {
+                Debug.logError("Could not parse the " + attributeName + " value of the text element: ["
+                        + attributeValue + "],", MODULE);
+            }
+        }
+        return Optional.empty();
     }
 }
