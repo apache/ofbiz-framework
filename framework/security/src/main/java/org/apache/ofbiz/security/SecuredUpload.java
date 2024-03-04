@@ -467,33 +467,39 @@ public class SecuredUpload {
     /**
      * @param fileName
      * @return true if it's a safe PDF file: is PDF and does not contains embedded files
-     * @throws IOException If there is an error parsing the document
      */
-    private static boolean isValidPdfFile(String fileName) throws IOException {
+    private static boolean isValidPdfFile(String fileName) {
         File file = new File(fileName);
         boolean safeState = false;
         boolean canParse = false;
         try {
-            if ((file != null) && file.exists()) {
-                // Load stream in PDF parser
-                // If the stream is not a PDF then exception will be thrown and safe state will be set to FALSE
-                PdfReader reader = new PdfReader(file.getAbsolutePath());
-                // Check 1: detect if the document contains any JavaScript code
-                String jsCode = reader.getJavaScript();
-                if (jsCode == null) {
-                    // OK no JS code, pass to check 2: detect if the document has any embedded files
-                    PDEmbeddedFilesNameTreeNode efTree = null;
-                    try (PDDocument pdDocument = PDDocument.load(file)) {
-                        PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
-                        efTree = names.getEmbeddedFiles();
-                    }
-                    if (UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false)) {
-                        ZUGFeRDImporter importer = new ZUGFeRDImporter(file.getAbsolutePath());
-                        canParse = importer.canParse();
-                    }
-                    safeState = Objects.isNull(efTree) || canParse;
+            if (Objects.isNull(file) || !file.exists()) {
+                return safeState;
+            }
+            // Load stream in PDF parser
+            // If the stream is not a PDF then exception will be thrown and safe state will be set to FALSE
+            PdfReader reader = new PdfReader(file.getAbsolutePath());
+            // Check 1: detect if the document contains any JavaScript code
+            String jsCode = reader.getJavaScript();
+            if (!Objects.isNull(jsCode)) {
+                return safeState;
+            }
+            // OK no JS code, pass to check 2: detect if the document has any embedded files
+            PDEmbeddedFilesNameTreeNode efTree = null;
+            try (PDDocument pdDocument = PDDocument.load(file)) {
+                PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
+                efTree = names.getEmbeddedFiles();
+            }
+            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean(
+                    "security", "allowZUGFeRDCompliantUpload", false);
+            if (zUGFeRDCompliantUploadAllowed && !Objects.isNull(efTree)) {
+                Integer numberOfEmbeddedFiles = efTree.getNames().size();
+                if (numberOfEmbeddedFiles.equals(1)) {
+                    ZUGFeRDImporter importer = new ZUGFeRDImporter(file.getAbsolutePath());
+                    canParse = importer.canParse();
                 }
             }
+            safeState = Objects.isNull(efTree) || canParse;
         } catch (Exception e) {
             safeState = false;
             Debug.logInfo(e, "The file " + file.getAbsolutePath() + " is not a valid PDF file. For security reason it's not accepted as a such file",
