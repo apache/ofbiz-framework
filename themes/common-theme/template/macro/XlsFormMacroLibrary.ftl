@@ -40,7 +40,12 @@ under the License.
 <#else><@renderItemField value "dtf" className/></#if>
 </#macro>
 
-<#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup tabindex disabled><@renderItemField explicitDescription "txf" className/></#macro>
+<#macro renderDropDownField name className id formName explicitDescription options ajaxEnabled
+        otherFieldName="" otherValue="" otherFieldSize=""
+        alert="" conditionGroup="" tabindex="" multiple=false event="" size="" placeCurrentValueAsFirstOption=false
+        currentValue="" allowEmpty=false dDFCurrent="" noCurrentSelectedKey="" disabled=false action="">
+<@renderItemField explicitDescription "txf" className/>
+</#macro>
 
 <#macro renderCheckField items className alert id currentValue name event action conditionGroup tabindex disabled allChecked=""><@renderItemField currentValue "txf" className/></#macro>
 

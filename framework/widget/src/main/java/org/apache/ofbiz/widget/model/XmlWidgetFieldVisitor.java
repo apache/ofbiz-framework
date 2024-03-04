@@ -131,7 +131,12 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("current-description", dropDownField.getCurrentDescription());
         visitAttribute("other-field-size", dropDownField.getOtherFieldSize());
         visitAttribute("size", dropDownField.getSize());
-        visitAttribute("text-size", dropDownField.getTextSize());
+
+        var textSizeOptional = dropDownField.getTextSize();
+        if (textSizeOptional.isPresent()) {
+            visitAttribute("text-size", textSizeOptional.get());
+        }
+
         visitFieldInfoWithOptions(dropDownField);
         visitAutoComplete(dropDownField.getAutoComplete());
         visitSubHyperlink(dropDownField.getSubHyperlink());

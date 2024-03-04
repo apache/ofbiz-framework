@@ -156,15 +156,17 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderDropDownField name className alert id formName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup="" tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="" disabled=false>
+<#macro renderDropDownField name className id formName explicitDescription options ajaxEnabled
+        otherFieldName="" otherValue="" otherFieldSize=""
+        alert="" conditionGroup="" tabindex="" multiple=false event="" size="" placeCurrentValueAsFirstOption=false
+        currentValue="" allowEmpty=false dDFCurrent="" noCurrentSelectedKey="" disabled=false action="">
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <span class="ui-widget">
-    <select name="${name?default("")}<#rt/>"
+    <select name="${name?default("")}"
       <@renderClass className alert /> <@renderDisabled disabled />
       <#if id?has_content> id="${id}"</#if>
-      <#if multiple?has_content> multiple="multiple"</#if>
       <#if ajaxEnabled> class="autoCompleteDropDown"</#if>
       <#if event?has_content> ${event}="${action}"</#if>
       <#if size?has_content> size="${size}"</#if>
@@ -174,19 +176,31 @@ under the License.
         data-other-field-value='${otherValue?js_string}'
         data-other-field-size='${otherFieldSize}'
       </#if>>
-      <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
-        <option selected="selected" value="${currentValue}">${explicitDescription?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/><#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
+      <#if placeCurrentValueAsFirstOption && currentValue?has_content && !multiple>
+        <option selected="selected" value="${currentValue}">${explicitDescription}</option><#rt/>
       </#if>
-      <#if allowEmpty?has_content && allowEmpty=="Y">
+      <#if allowEmpty>
         <option value="">&nbsp;</option>
-      <#elseif allowEmpty=="N" && !options?has_content>
+      <#elseif !options?has_content>
           <option value="">&nbsp;</option>
       </#if>
       <#list options as item>
-        <#if multiple?has_content>
-          <option<#if currentValue?has_content && item.selected?has_content> selected="${item.selected}" <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected" </#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/> <#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
+        <#if multiple>
+          <option
+            <#if currentValue?has_content && item.selected()>
+              selected
+            <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key()>
+              selected
+            </#if>
+            value="${item.key()}">${item.description()}</option><#rt/>
         <#else>
-          <option<#if currentValue?has_content && currentValue == item.key && dDFCurrent?has_content && "selected" == dDFCurrent> selected="selected"<#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected"</#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/> <#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
+          <option
+            <#if currentValue?has_content && currentValue == item.key() && dDFCurrent?has_content && "selected" == dDFCurrent>
+              selected
+            <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key()>
+              selected
+            </#if>
+            value="${item.key()}">${item.description()}</option><#rt/>
         </#if>
       </#list>
     </select>

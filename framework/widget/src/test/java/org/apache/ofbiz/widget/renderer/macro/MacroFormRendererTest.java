@@ -256,29 +256,6 @@ public class MacroFormRendererTest {
     }
 
     @Test
-    public void dropDownMacroRendered(@Mocked ModelFormField.DropDownField dropDownField) throws IOException {
-        final List<ModelFormField.OptionValue> optionValues = ImmutableList.of(
-                new ModelFormField.OptionValue("KEY1", "DESC1"),
-                new ModelFormField.OptionValue("KEY2", "DESC2"));
-
-        new Expectations() {
-            {
-                modelFormField.getEntry(withNotNull());
-                result = "KEY2";
-
-                dropDownField.getAllOptionValues(withNotNull(), (Delegator) any);
-                result = optionValues;
-            }
-        };
-
-        macroFormRenderer.renderDropDownField(appendable, ImmutableMap.of(), dropDownField);
-        assertAndGetMacroString("renderDropDownField", ImmutableMap.of(
-                "currentValue", "KEY2",
-                "options", ImmutableList.of("{'key':'KEY1','description':'DESC1'}",
-                        "{'key':'KEY2','description':'DESC2'}")));
-    }
-
-    @Test
     public void checkFieldMacroRendered(@Mocked ModelFormField.CheckField checkField) throws IOException {
         final List<ModelFormField.OptionValue> optionValues = ImmutableList.of(
                 new ModelFormField.OptionValue("KEY1", "DESC1"),
@@ -311,8 +288,6 @@ public class MacroFormRendererTest {
 
                 checkField.getModelFormField().getAttributeName();
                 result = "FieldName";
-
-
             }
         };
 

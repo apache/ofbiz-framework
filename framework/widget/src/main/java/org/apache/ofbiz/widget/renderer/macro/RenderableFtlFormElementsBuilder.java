@@ -22,10 +22,12 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
@@ -38,6 +40,8 @@ import javax.servlet.http.HttpSession;
 
 import com.ibm.icu.util.Calendar;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -57,6 +61,7 @@ import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.macro.model.Option;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall.RenderableFtlMacroCallBuilder;
@@ -78,6 +83,8 @@ public final class RenderableFtlFormElementsBuilder {
 
     private final StaticContentUrlProvider staticContentUrlProvider;
 
+    private final UtilCodec.SimpleEncoder internalEncoder;
+
     public RenderableFtlFormElementsBuilder(final VisualTheme visualTheme, final RequestHandler requestHandler,
                                             final HttpServletRequest request, final HttpServletResponse response,
                                             final StaticContentUrlProvider staticContentUrlProvider) {
@@ -86,6 +93,7 @@ public final class RenderableFtlFormElementsBuilder {
         this.request = request;
         this.response = response;
         this.staticContentUrlProvider = staticContentUrlProvider;
+        this.internalEncoder = UtilCodec.getEncoder("string");
     }
 
     public RenderableFtl tooltip(final Map<String, Object> context, final ModelFormField modelFormField) {
@@ -627,7 +635,7 @@ public final class RenderableFtlFormElementsBuilder {
         }
 
         macroCallBuilder.stringParameter("value",
-                modelFormField.getEntry(context, dateFindField.getDefaultValue(context)))
+                        modelFormField.getEntry(context, dateFindField.getDefaultValue(context)))
                 .stringParameter("value2", modelFormField.getEntry(context));
 
         if (context.containsKey("parameters")) {
@@ -882,6 +890,105 @@ public final class RenderableFtlFormElementsBuilder {
         return macroCallBuilder.build();
     }
 
+    public RenderableFtl dropDownField(final Map<String, Object> context,
+                                       final ModelFormField.DropDownField dropDownField,
+                                       final boolean javaScriptEnabled) {
+
+        final var builder = RenderableFtlMacroCall.builder().name("renderDropDownField");
+
+        final ModelFormField modelFormField = dropDownField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
+        final var currentValue = modelFormField.getEntry(context);
+        final var autoComplete = dropDownField.getAutoComplete();
+        final var textSizeOptional = dropDownField.getTextSize();
+
+        applyCommonStyling(modelFormField, context, builder);
+
+        builder
+                .stringParameter("name", modelFormField.getParameterName(context))
+                .stringParameter("id", modelFormField.getCurrentContainerId(context))
+                .stringParameter("formName", modelForm.getName())
+                .stringParameter("size", dropDownField.getSize())
+                .booleanParameter("multiple", dropDownField.getAllowMultiple())
+                .stringParameter("currentValue", currentValue)
+                .stringParameter("conditionGroup", modelFormField.getConditionGroup())
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .booleanParameter("ajaxEnabled", autoComplete != null && javaScriptEnabled)
+                .stringParameter("noCurrentSelectedKey", dropDownField.getNoCurrentSelectedKey(context))
+                .stringParameter("tabindex", modelFormField.getTabindex())
+                .booleanParameter("allowEmpty", dropDownField.getAllowEmpty())
+                .stringParameter("dDFCurrent", dropDownField.getCurrent())
+                .booleanParameter("placeCurrentValueAsFirstOption",
+                        "first-in-list".equals(dropDownField.getCurrent()));
+
+        final var event = modelFormField.getEvent();
+        final var action = modelFormField.getAction(context);
+        if (event != null && action != null) {
+            builder.stringParameter("event", event).stringParameter("action", action);
+        }
+
+        final var allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
+        final var explicitDescription =
+                // Populate explicitDescription with the description from the option associated with the current value.
+                allOptionValues.stream()
+                .filter(optionValue -> optionValue.getKey().equals(currentValue))
+                .map(ModelFormField.OptionValue::getDescription)
+                .findFirst()
+
+                // If no matching option is found, use the current description from the field.
+                .or(() -> Optional.ofNullable(dropDownField.getCurrentDescription(context)))
+                .filter(UtilValidate::isNotEmpty)
+
+                // If no description has been found, fall back to the description determined by the ModelFormField.
+                .or(() -> Optional.of(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue,
+                        allOptionValues)))
+
+                // Truncate and encode the description as needed.
+                .map(description -> encode(truncate(description, textSizeOptional), modelFormField, context));
+
+        builder.stringParameter("explicitDescription", explicitDescription.orElse(""));
+
+        // Take the field's current value and convert it to a list containing a single item.
+        // If the field allows multiple values, the current value is expected to be a string encoded list of values
+        // which it will be converted to a list of strings.
+        final List<String> currentValuesList = (UtilValidate.isNotEmpty(currentValue) && dropDownField.getAllowMultiple())
+                        ? (currentValue.startsWith("[")
+                            ? StringUtil.toList(currentValue)
+                            : UtilMisc.toList(currentValue))
+                        : Collections.emptyList();
+
+        var optionsList = allOptionValues.stream()
+                .map(optionValue -> {
+                    var encodedKey = encode(optionValue.getKey(), modelFormField, context);
+                    var truncatedDescription = truncate(optionValue.getDescription(), textSizeOptional);
+                    var selected = currentValuesList.contains(optionValue.getKey());
+
+                    return new Option(encodedKey, truncatedDescription, selected);
+                })
+                .collect(Collectors.toList());
+
+        builder.objectParameter("options", optionsList);
+
+        int otherFieldSize = dropDownField.getOtherFieldSize();
+        if (otherFieldSize > 0) {
+            var otherFieldName = dropDownField.getParameterNameOther(context);
+
+            var dataMap = modelFormField.getMap(context);
+            if (dataMap == null) {
+                dataMap = context;
+            }
+            var otherValueObj = dataMap.get(otherFieldName);
+            var otherValue = (otherValueObj == null) ? "" : otherValueObj.toString();
+
+            builder
+                    .stringParameter("otherFieldName", otherFieldName)
+                    .stringParameter("otherValue", otherValue)
+                    .intParameter("otherFieldSize", otherFieldSize);
+        }
+
+        return builder.build();
+    }
+
     /**
      * Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
      * <code>OfbizUtil.js</code>.
@@ -980,7 +1087,7 @@ public final class RenderableFtlFormElementsBuilder {
         return wholeFormContext;
     }
 
-    private boolean shouldApplyRequiredField(ModelFormField modelFormField) {
+    private static boolean shouldApplyRequiredField(ModelFormField modelFormField) {
         return ("single".equals(modelFormField.getModelForm().getType())
                 || "upload".equals(modelFormField.getModelForm().getType()))
                 && modelFormField.getRequiredField();
@@ -1003,5 +1110,52 @@ public final class RenderableFtlFormElementsBuilder {
 
     private String pathAsContentUrl(final String path) {
         return staticContentUrlProvider.pathAsContentUrlString(path);
+    }
+
+    private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
+        if (UtilValidate.isEmpty(value)) {
+            return value;
+        }
+        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (modelFormField.getEncodeOutput() && encoder != null) {
+            value = encoder.encode(value);
+        } else {
+            value = internalEncoder.encode(value);
+        }
+        return value;
+    }
+
+    private String truncate(String value, int maxCharacterLength) {
+        if (maxCharacterLength > 8 && value.length() > maxCharacterLength) {
+            return value.substring(0, maxCharacterLength - 8) + "..." + value.substring(value.length() - 5);
+        }
+        return value;
+    }
+
+    private String truncate(String value, Optional<Integer> maxCharacterLengthOptional) {
+        return maxCharacterLengthOptional
+                .map(maxCharacterLength -> truncate(value, maxCharacterLength))
+                .orElse(value);
+    }
+
+    private static void applyCommonStyling(final ModelFormField modelFormField, final Map<String, Object> context,
+                                           final RenderableFtlMacroCallBuilder builder) {
+        final var classNames = new ArrayList<String>();
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            classNames.add(modelFormField.getWidgetStyle());
+            if (modelFormField.shouldBeRed(context)) {
+                builder.stringParameter("alert", "true");
+            }
+        }
+
+        if (shouldApplyRequiredField(modelFormField)) {
+            var requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle)) {
+                requiredStyle = "required";
+            }
+            classNames.add(requiredStyle);
+        }
+
+        builder.stringParameter("className", String.join(" ", classNames));
     }
 }
