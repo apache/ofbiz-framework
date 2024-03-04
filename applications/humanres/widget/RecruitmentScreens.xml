@@ -104,7 +104,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
@@ -149,7 +149,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="EditInternalJobPosting" title="${uiLabelMap.HumanResNewInternalJobPosting}" collapsible="true">
                             <include-form name="EditInternalJobPosting" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                         </screenlet>
@@ -167,7 +167,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
@@ -211,7 +211,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.HumanResEditJobInterview}">
@@ -238,7 +238,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location=" ${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
@@ -273,7 +273,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="EditApprovalStatus" title="${uiLabelMap.HumanResEditApprovalStatus}" collapsible="true">
                             <include-form name="EditApprovalStatus" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
                         </screenlet>
@@ -291,7 +291,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRecruitmentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="InternalJobPostingTabBar" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>

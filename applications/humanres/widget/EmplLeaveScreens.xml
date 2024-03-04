@@ -43,8 +43,8 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
-                        <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="EmplLeaveTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -96,7 +96,7 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplLeaveTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -149,7 +149,7 @@
             <widgets>
                  <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplLeaveTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="AddEmplLeavePanel" title="${uiLabelMap.HumanResAddEmplLeave}" collapsible="true">
                             <include-form name="EditEmplLeave" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                         </screenlet>
@@ -175,7 +175,7 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="EmplLeaveTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplLeaveTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="EditEmplLeaveStatus" title="${uiLabelMap.HumanResEditLeaveApprovalStatus}" collapsible="true">
                             <include-form name="EditEmplLeaveStatus" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                         </screenlet>
