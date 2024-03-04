@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util.template;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -48,6 +49,9 @@ public final class XslTransform {
     public static String renderTemplate(String template, String data) throws TransformerException {
         String result = null;
         TransformerFactory tfactory = TransformerFactory.newInstance();
+        tfactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        tfactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        tfactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
         if (tfactory.getFeature(SAXSource.FEATURE)) {
             // setup for xml data file preprocessing to be able to xinclude
             SAXParserFactory pfactory = SAXParserFactory.newInstance();
