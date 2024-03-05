@@ -29,14 +29,15 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'maven-publish'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
-    id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
-    id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
-    id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
-    id 'com.github.ben-manes.versions' version '0.51.0' apply false
-    id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
-    id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version '7.0.2' apply false
+
+    alias(libs.plugins.asciidoctorJvmConvert)
+    alias(libs.plugins.asciidoctorJvmPdf)
+    alias(libs.plugins.dependencycheck) apply false
+    alias(libs.plugins.gitHooks)
+    alias(libs.plugins.manifestClasspath)
+    alias(libs.plugins.node) apply false
+    alias(libs.plugins.useLatestVersions) apply false
+    alias(libs.plugins.versions) apply false
 }
 
 /* OWASP plugin
@@ -48,7 +49,7 @@ plugins {
  * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
  */
 if (project.hasProperty('enableOwasp')) {
-    apply plugin: 'org.owasp.dependencycheck'
+    apply plugin: libs.plugins.dependencycheck.get().pluginId
 }
 
 /* DependencyUpdates plugin
@@ -67,8 +68,8 @@ if (project.hasProperty('enableOwasp')) {
  *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
  */
 if (project.hasProperty('enableDependencyUpdates')) {
-    apply plugin: 'com.github.ben-manes.versions'
-    apply plugin: 'se.patrikerdes.use-latest-versions'
+    apply plugin: libs.plugins.useLatestVersions.get().pluginId
+    apply plugin: libs.plugins.versions.get().pluginId
 }
 
 apply from: 'common.gradle'
@@ -213,8 +214,8 @@ dependencies {
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
-    junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.14'
+    junitReport libs.antJunit
+    junitReport libs.junit
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')

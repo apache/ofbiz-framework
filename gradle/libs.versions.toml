@@ -1,0 +1,176 @@
+[bundles]
+axis2Runtime = ['axis2TransportHttp', 'axis2TransportLocal']
+barcode4jRuntime = ['barcode4jFopExt', 'barcode4j']
+batik = ['batikAnim', 'batikBridge', 'batikUtil']
+commons = ['commonsCli', 'commonsCollections4', 'commonsCsv', 'commonsDbcp2', 'commonsFileupload', 'commonsImaging', 'commonsNet', 'commonsText', 'commonsValidator']
+geronimo = ['geronimoJms11Spec', 'geronimoTransaction']
+log4j = ['log4jApi', 'log4jCore']
+log4jRuntime = ['log4j12Api', 'log4jJcl', 'log4jJul', 'log4jSlf4jImpl', 'log4jWeb']
+sshd = ['sshdCore', 'sshdSftp']
+tika = ['tikaCore', 'tikaParsers', 'tikaParsersPdfModule']
+tomcat = ['tomcatCatalinaHa', 'tomcatJasper']
+
+[libraries]
+antJunit = { module = 'org.apache.ant:ant-junit', version.ref = 'antJunit' }
+axis2Kernel = { module = 'org.apache.axis2:axis2-kernel', version.ref = 'axis2' }
+axis2TransportHttp = { module = 'org.apache.axis2:axis2-transport-http', version.ref = 'axis2' }
+axis2TransportLocal = { module = 'org.apache.axis2:axis2-transport-local', version.ref = 'axis2' }
+barcode4jFopExt = { module = 'net.sf.barcode4j:barcode4j-fop-ext', version.ref = 'barcode4j' }
+barcode4j = { module = 'net.sf.barcode4j:barcode4j', version.ref = 'barcode4j' }
+batikAnim = { module = 'org.apache.xmlgraphics:batik-anim', version.ref = 'batik' }
+batikBridge = { module = 'org.apache.xmlgraphics:batik-bridge', version.ref = 'batik' }
+batikUtil = { module = 'org.apache.xmlgraphics:batik-util', version.ref = 'batik' }
+caffeine = { module = 'com.github.ben-manes.caffeine:caffeine', version.ref = 'caffeine' }
+clojure = { module = 'org.clojure:clojure', version.ref = 'clojure' }
+codeNarc = { module = 'org.codenarc:CodeNarc', version.ref = 'codeNarc' }
+commonsCli = { module = 'commons-cli:commons-cli', version.ref = 'commonsCli' }
+commonsCollections4 = { module = 'org.apache.commons:commons-collections4', version.ref = 'commonsCollections4' }
+commonsCsv = { module = 'org.apache.commons:commons-csv', version.ref = 'commonsCsv' }
+commonsDbcp2 = { module = 'org.apache.commons:commons-dbcp2', version.ref = 'commonsDbcp2' }
+commonsFileupload = { module = 'commons-fileupload:commons-fileupload', version.ref = 'commonsFileupload' }
+commonsImaging = { module = 'org.apache.commons:commons-imaging', version.ref = 'commonsImaging' }
+commonsNet = { module = 'commons-net:commons-net', version.ref = 'commonsNet' }
+commonsText = { module = 'org.apache.commons:commons-text', version.ref = 'commonsText' }
+commonsValidator = { module = 'commons-validator:commons-validator', version.ref = 'commonsValidator' }
+concurrentlinkedhashmapLru = { module = 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru', version.ref = 'concurrentlinkedhashmapLru' }
+cxfRtFrontendJaxrs = { module = 'org.apache.cxf:cxf-rt-frontend-jaxrs', version.ref = 'cxf' }
+derby = { module = 'org.apache.derby:derby', version.ref = 'derby' }
+esapi = { module = 'org.owasp.esapi:esapi', version.ref = 'esapi' }
+ezVcard = { module = 'com.googlecode.ez-vcard:ez-vcard', version.ref = 'ezVcard' }
+fop = { module = 'org.apache.xmlgraphics:fop', version.ref = 'fop' }
+freemarker = { module = 'org.freemarker:freemarker', version.ref = 'freemarker' }
+geronimoJaxrpc11Spec = { module = 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec', version.ref = 'geronimoJaxrpc11Spec' }
+geronimoJms11Spec = { module = 'org.apache.geronimo.specs:geronimo-jms_1.1_spec', version.ref = 'geronimoJms11Spec' }
+geronimoTransaction = { module = 'org.apache.geronimo.components:geronimo-transaction', version.ref = 'geronimoTransaction' }
+groovyAll = { module = 'org.codehaus.groovy:groovy-all', version.ref = 'groovy' }
+hamcrestLibrary = { module = 'org.hamcrest:hamcrest-library', version.ref = 'hamcrest' } # Enable junit4 to not depend on hamcrest-1.3
+httpclientCache = { module = 'org.apache.httpcomponents:httpclient-cache', version.ref = 'httpclient' }
+ical4j = { module = 'net.fortuna.ical4j:ical4j', version.ref = 'ical4j' }
+icu4j = { module = 'com.ibm.icu:icu4j', version.ref = 'icu4j' }
+itext = { module = 'com.lowagie:itext', version.ref = 'itext' }
+jacksonDatabind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }
+javaJwt = { module = 'com.auth0:java-jwt', version.ref = 'javaJwt' }
+jdom = { module = 'org.jdom:jdom', version.ref = 'jdom' }
+jmockit = { module = 'org.jmockit:jmockit', version.ref = 'jmockit' }
+juelImpl = { module = 'de.odysseus.juel:juel-impl', version.ref = 'juel' }
+juelSpi = { module = 'de.odysseus.juel:juel-spi', version.ref = 'juel' }
+junit = { module = 'junit:junit', version.ref = 'junit' }
+junitQuickcheckGenerators = { module = 'com.pholser:junit-quickcheck-generators', version.ref = 'junitQuickcheckGenerators' }
+libphonenumber = { module = 'com.googlecode.libphonenumber:libphonenumber', version.ref = 'libphonenumber' }
+log4j12Api = { module = 'org.apache.logging.log4j:log4j-1.2-api', version.ref = 'log4j' } # for external jars using the old log4j1.2: routes logging to log4j 2
+log4jApi = { module = 'org.apache.logging.log4j:log4j-api', version.ref = 'log4j' } # the API of log4j 2
+log4jCore = { module = 'org.apache.logging.log4j:log4j-core', version.ref = 'log4j' } # Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+log4jJcl = { module = 'org.apache.logging.log4j:log4j-jcl', version.ref = 'log4j' } # need to constrain to version to avoid classpath conflict (ReflectionUtil)
+log4jJul = { module = 'org.apache.logging.log4j:log4j-jul', version.ref = 'log4j' } # for external jars using the java.util.logging: routes logging to log4j 2
+log4jSlf4jImpl = { module = 'org.apache.logging.log4j:log4j-slf4j-impl', version.ref = 'log4j' } # for external jars using slf4j: routes logging to log4j 2
+log4jWeb = { module = 'org.apache.logging.log4j:log4j-web', version.ref = 'log4j' } # ???
+mail = { module = 'com.sun.mail:javax.mail', version.ref = 'mail' }
+mockitoCore = { module = 'org.mockito:mockito-core', version.ref = 'mockito' }
+mustangLibrary = { module = 'org.mustangproject:library', version.ref = 'mustangLibrary' }
+nekoHtml = { module = 'org.cyberneko:html', version.ref = 'nekoHtml' }
+oro = { module = 'oro:oro', version.ref = 'oro' }
+owaspJavaHtmlSanitizer = { module = 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer', version.ref = 'owaspJavaHtmlSanitizer' }
+pdfbox = { module = 'org.apache.pdfbox:pdfbox', version.ref = 'pdfbox' }
+poi = { module = 'org.apache.poi:poi', version.ref = 'poi' }
+re2j = { module = 'com.google.re2j:re2j', version.ref = 're2j' }
+rome = { module = 'com.rometools:rome', version.ref = 'rome' }
+shiroCore = { module = 'org.apache.shiro:shiro-core', version.ref = 'shiro' }
+soapApi = { module = 'javax.xml.soap:javax.xml.soap-api', version.ref = 'soapApi' }
+springTest = { module = 'org.springframework:spring-test', version.ref = 'spring' }
+sshdCore = { module = 'org.apache.sshd:sshd-core', version.ref = 'sshd' }
+sshdSftp = { module = 'org.apache.sshd:sshd-sftp', version.ref = 'sshd' }
+tikaCore = { module = 'org.apache.tika:tika-core', version.ref = 'tika' }
+tikaParsers = { module = 'org.apache.tika:tika-parsers', version.ref = 'tika' }
+tikaParsersPdfModule = { module = 'org.apache.tika:tika-parser-pdf-module', version.ref = 'tika' }
+tomcatCatalinaHa = { module = 'org.apache.tomcat:tomcat-catalina-ha', version.ref = 'tomcat' }
+tomcatJasper = { module = 'org.apache.tomcat:tomcat-jasper', version.ref = 'tomcat' }
+transactionApi = { module = 'javax.transaction:javax.transaction-api', version.ref = 'transactionApi' }
+wsdl4j = { module = 'wsdl4j:wsdl4j', version.ref = 'wsdl4j' }
+xercesImpl = { module = 'xerces:xercesImpl', version.ref = 'xercesImpl' }
+xstream = { module = 'com.thoughtworks.xstream:xstream', version.ref = 'xstream' }
+zip4j = { module = 'net.lingala.zip4j:zip4j', version.ref = 'zip4j' }
+zxing = { module = 'com.google.zxing:core', version.ref = 'zxing' }
+
+[plugins]
+asciidoctorJvmConvert = { id = 'org.asciidoctor.jvm.convert', version.ref = 'asciidoctorPlugin' }
+asciidoctorJvmPdf = { id = 'org.asciidoctor.jvm.pdf', version.ref = 'asciidoctorPlugin' }
+dependencycheck = { id = 'org.owasp.dependencycheck', version.ref = 'dependencycheckPlugin' }
+gitHooks = { id = 'com.github.jakemarsden.git-hooks', version.ref = 'gitHooksPlugin' }
+manifestClasspath = { id = 'com.github.ManifestClasspath', version.ref = 'manifestClasspathPlugin' }
+node = { id = 'com.github.node-gradle.node', version.ref = 'nodePlugin' }
+useLatestVersions = { id = 'se.patrikerdes.use-latest-versions', version.ref = 'useLatestVersionsPlugin' }
+versions = { id = 'com.github.ben-manes.versions', version.ref = 'versionsPlugin' }
+
+[versions]
+# plugins
+asciidoctorPlugin = '3.3.2' # 4.0.2 does not compile
+dependencycheckPlugin = '9.0.9' # Not tested after 7.4.4
+gitHooksPlugin = '0.0.2'
+manifestClasspathPlugin = '0.1.0-RELEASE'
+nodePlugin = '7.0.2'
+useLatestVersionsPlugin = '0.2.18'
+versionsPlugin = '0.51.0'
+# libraries
+antJunit = '1.10.14'
+axis2 = '1.8.2'
+barcode4j = '2.1'
+batik = '1.17'
+caffeine = '3.1.8'
+clojure = '1.11.1'
+codeNarc = '3.4.0' # specify last codenarc version for java 17 compliance
+commonsCli = '1.5.0' # with 1.6.0, 2 tests of OfbizStartupUnitTests don't pass
+commonsCollections4 = '4.4'
+commonsCsv = '1.10.0'
+commonsDbcp2 = '2.10.0' # 2.11.0 does not compile.
+commonsFileupload = '1.5'
+commonsImaging = '1.0-alpha3' # Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
+commonsNet = '3.10.0'
+commonsText = '1.11.0'
+commonsValidator = '1.8.0'
+concurrentlinkedhashmapLru = '1.4.2'
+cxf = '3.5.6' # 4.0.3 does not compile
+derby = '10.14.2.0' # 10.17.1.0 does not compile
+esapi = '2.5.3.1'
+ezVcard = '0.11.3' # 0.12.1 does not compile
+fop = '2.3' # NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
+freemarker = '2.3.32' # Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+geronimoJaxrpc11Spec = '2.1'
+geronimoJms11Spec = '1.1.1'
+geronimoTransaction = '3.1.5' # 4.0.0 does not compile
+groovy = '3.0.21'
+hamcrest = '2.2'
+httpclient = '4.5.14'
+ical4j = '1.0-rc4-atlassian-12'
+icu4j = '74.2'
+itext = '2.1.7' # Don't update due to license change in newer versions, see OFBIZ-10455
+jackson = '2.15.2'
+javaJwt = '4.4.0'
+jdom = '1.1.3' # don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
+jmockit = '1.49'
+juel = '2.2.7'
+junit = '4.13.2'
+junitQuickcheckGenerators = '1.0'
+libphonenumber = '8.13.31'
+log4j = '2.20.0'
+mail = '1.6.2'
+mockito = '5.10.0'
+mustangLibrary = '2.8.0' # 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
+nekoHtml = '1.9.8'
+oro = '2.0.8'
+owaspJavaHtmlSanitizer = '20220608.1'
+pdfbox = '2.0.29' # 3.0.1 does not compile
+poi = '4.1.2' # poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
+re2j = '1.7'
+rome = '2.1.0'
+shiro = '1.13.0'
+soapApi = '1.4.0'
+spring = '5.3.29' # 6.1.4 does not compile
+sshd = '2.10.0'
+tika = '2.5.0'
+tomcat = '9.0.82' # Remember to change the version number (9 now) in javadoc block if needed.
+transactionApi = '1.3'
+wsdl4j = '1.6.3'
+xercesImpl = '2.12.2'
+xstream = '1.4.20'
+zip4j = '2.11.5'
+zxing = '3.5.3'
