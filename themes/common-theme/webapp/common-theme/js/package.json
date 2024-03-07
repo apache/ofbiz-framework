@@ -14,7 +14,7 @@
         "jquery-ui-dist": "^1.13.2",
         "jquery-validation": "^1.20.0",
         "jquery.browser": "^0.1.0",
-        "trumbowyg": "^2.27.3",
+        "trumbowyg": "^2.28.0",
         "uglify-js": "3.17.4"
     },
     "scripts": {
