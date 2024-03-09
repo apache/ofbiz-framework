@@ -54,7 +54,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ServiceLog">
         <section>
             <actions>
@@ -72,7 +72,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>  
+    </screen>
 
     <screen name="LogConfiguration">
          <section>
@@ -110,7 +110,7 @@ under the License.
                              </container>
                              <container style="button-bar">
                                  <label style="label">${uiLabelMap.WebtoolsLogFileName}:</label>
-                                 <label>${logFileName}</label>
+                                 <label>${parameters.logFileName}</label>
                              </container>
                              <platform-specific>
                                  <html><html-template location="component://webtools/template/log/LogContent.ftl"/></html>
