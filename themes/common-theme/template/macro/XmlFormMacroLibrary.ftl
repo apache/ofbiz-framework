@@ -52,7 +52,7 @@ under the License.
 <#macro renderCheckField items className alert id currentValue name event action conditionGroup tabindex disabled allChecked=""></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action conditionGroup tabindex disabled></#macro>
 
-<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false></#macro>
+<#macro renderSubmitField buttonType className alert formName action imgSrc ajaxUrl id title="" name="" event="" confirmation="" containerId="" tabindex="" disabled=false closeOnSubmit="true"></#macro>
 <#macro renderResetField className alert name title></#macro>
 
 <#macro renderHiddenField name conditionGroup="" value="" id="" event="" action="" disabled=false></#macro>
