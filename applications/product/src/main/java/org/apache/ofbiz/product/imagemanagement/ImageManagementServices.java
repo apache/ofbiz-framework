@@ -165,7 +165,8 @@ public class ImageManagementServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    Files.delete(tempFile);
+                    File tempFileToDelete = new File(tempFile.toString());
+                    tempFileToDelete.deleteOnExit();
                     // Create image file original to folder product id.
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
                     out.write(imageData.array());
@@ -194,7 +195,8 @@ public class ImageManagementServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    Files.delete(tempFile);
+                    File tempFileToDelete = new File(tempFile.toString());
+                    tempFileToDelete.deleteOnExit();
                     RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
                     outFile.write(imageData.array());
                     outFile.close();
@@ -585,7 +587,8 @@ public class ImageManagementServices {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                 return ServiceUtil.returnError(errorMessage);
             }
-            Files.delete(tempFile);
+            File tempFileToDelete = new File(tempFile.toString());
+            tempFileToDelete.deleteOnExit();
             RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
             outFileThumb.write(imageData.array());
             outFileThumb.close();
