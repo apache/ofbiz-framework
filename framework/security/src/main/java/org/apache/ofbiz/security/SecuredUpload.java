@@ -49,6 +49,7 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
@@ -72,6 +73,7 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -89,6 +91,7 @@ import org.apache.tika.sax.BasicContentHandlerFactory;
 import org.apache.tika.sax.ContentHandlerFactory;
 import org.apache.tika.sax.RecursiveParserWrapperHandler;
 import org.mustangproject.ZUGFeRD.ZUGFeRDImporter;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.lowagie.text.pdf.PdfReader;
@@ -488,12 +491,12 @@ public class SecuredUpload {
 
     /**
      * @param fileName
-     * @return true if it's a safe PDF file: is PDF and does not contains embedded files
+     * @return true if it's a safe PDF file: is a PDF, and contains only 1 embedded readable (valid and secure) XML file (zUGFeRD)
      */
     private static boolean isValidPdfFile(String fileName) {
         File file = new File(fileName);
         boolean safeState = false;
-        boolean canParse = false;
+        boolean canParseZUGFeRD = true;
         try {
             if (Objects.isNull(file) || !file.exists()) {
                 return safeState;
@@ -512,21 +515,42 @@ public class SecuredUpload {
                 PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                 efTree = names.getEmbeddedFiles();
             }
-            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean(
-                    "security", "allowZUGFeRDCompliantUpload", false);
+            boolean zUGFeRDCompliantUploadAllowed = UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDCompliantUpload", false);
             if (zUGFeRDCompliantUploadAllowed && !Objects.isNull(efTree)) {
+                canParseZUGFeRD = false;
                 Integer numberOfEmbeddedFiles = efTree.getNames().size();
                 if (numberOfEmbeddedFiles.equals(1)) {
                     ZUGFeRDImporter importer = new ZUGFeRDImporter(file.getAbsolutePath());
-                    canParse = importer.canParse();
+                    boolean allowZUGFeRDnotSecure = UtilProperties.getPropertyAsBoolean("security", "allowZUGFeRDnotSecure", false);
+                    if (allowZUGFeRDnotSecure) {
+                        canParseZUGFeRD = importer.canParse();
+                    } else {
+                        try {
+                            Document document = UtilXml.readXmlDocument(importer.getUTF8());
+                            if (document.toString().equals("[#document: null]"))  {
+                                safeState = false;
+                                Debug.logInfo("The file " + file.getAbsolutePath()
+                                        + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
+                                        MODULE);
+
+                            }
+                        } catch (SAXException | ParserConfigurationException | IOException e) {
+                            safeState = false;
+                            Debug.logInfo(e, "The file " + file.getAbsolutePath()
+                                    + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
+                                    MODULE);
+                        }
+                    }
                 }
             }
-            safeState = Objects.isNull(efTree) || canParse;
+            safeState = Objects.isNull(efTree) || canParseZUGFeRD;
         } catch (Exception e) {
             safeState = false;
-            Debug.logInfo(e, "The file " + file.getAbsolutePath() + " is not a valid PDF file. For security reason it's not accepted as a such file",
+            Debug.logInfo(e, "The file " + file.getAbsolutePath() + " is not a readable (valid and secure) PDF file. For security reason it's not accepted as a such file",
                     MODULE);
         }
+        file = new File(fileName);
+        file.delete();
         return safeState;
     }
 
