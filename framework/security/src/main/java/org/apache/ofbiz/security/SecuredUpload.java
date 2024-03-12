@@ -202,10 +202,14 @@ public class SecuredUpload {
 
         // Check the file content
 
-        // Check max line length, default 10000
-        if (!checkMaxLinesLength(fileToCheck)) {
-            Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
-            return false;
+        // Check max line length, default 10000.
+        // PDF files are not concerned because they may contain several CharSet encodings
+        // hence no possibility to use Files::readAllLines that needs a sole CharSet
+        if (!isPdfFile(fileToCheck)) {
+            if (!checkMaxLinesLength(fileToCheck)) {
+                Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
+                return false;
+            }
         }
 
         if (isExecutable(fileToCheck)) {
@@ -431,6 +435,24 @@ public class SecuredUpload {
             return isValidTextFile(fileName, true); // Validate content to prevent webshell
         }
         return false;
+    }
+
+    /**
+     * @param fileName
+     * @return true if it's a PDF file
+     */
+    private static boolean isPdfFile(String fileName) {
+        File file = new File(fileName);
+        try {
+            if (Objects.isNull(file) || !file.exists()) {
+                return false;
+            }
+            // Load stream in PDF parser
+            PdfReader reader = new PdfReader(file.getAbsolutePath());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
