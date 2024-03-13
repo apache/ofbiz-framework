@@ -216,6 +216,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("title", hyperlinkField.getTitle());
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());
+        this.request.setAttribute("text", hyperlinkField.getText(context));
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(),
                 hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context, modelFormField.getEntityName(),
                 modelFormField.getServiceName()), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
@@ -2296,6 +2297,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String width = "";
             String height = "";
             String title = "";
+            String text = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
                 event = modelFormField.getEvent();
@@ -2323,6 +2325,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
                 id = request.getAttribute("id").toString();
+            }
+            if (UtilValidate.isNotEmpty(request.getAttribute("text"))) {
+                text = request.getAttribute("text").toString();
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("uniqueItemName"))) {
                 uniqueItemName = request.getAttribute("uniqueItemName").toString();
@@ -2370,7 +2375,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(targetWindow);
             sr.append("\" description=\"");
             sr.append(description);
-            sr.append("\" confirmation =\"");
+            sr.append("\" confirmation=\"");
             sr.append(confirmation);
             sr.append("\" uniqueItemName=\"");
             sr.append(uniqueItemName);
@@ -2380,6 +2385,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(width);
             sr.append("\" id=\"");
             sr.append(id);
+            sr.append("\" text=\"");
+            sr.append(text);
             sr.append("\" />");
             executeMacro(writer, sr.toString());
         }

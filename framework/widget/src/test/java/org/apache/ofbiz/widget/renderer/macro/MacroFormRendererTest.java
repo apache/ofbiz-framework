@@ -43,6 +43,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
@@ -919,6 +920,54 @@ public class MacroFormRendererTest {
 
         macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
         assertAndGetMacroString("makeHyperlinkString", ImmutableMap.of("description", "DESCR…", "title", description));
+    }
+
+    @Test
+    public void hyperlinkFieldMacroRenderedModalParameters(@Mocked ModelFormField.HyperlinkField hyperlinkField) throws IOException {
+        final String title = "TitleValue";
+        final String text = "TextValue";
+        final String description = "DescriptionValue";
+        final String target = "Encoded Target";
+        final String id = "IdValue";
+        final String uniqueItemName = "UniqueItemName";
+        final String width = "650";
+        final String height = "150";
+        final String confirmation = "Are you sure ?";
+        final String targetWindow = "_blank";
+        final Map<String, ConfigXMLReader.RequestMap> requestMapMap = new HashMap<>();
+        final Map<String, String> parameterMap = new HashMap<>();
+        parameterMap.put("k1", "v1");
+        parameterMap.put("k2", "v2");
+
+        new Expectations() {
+            {
+                hyperlinkField.getDescription(withNotNull()); result = description;
+                hyperlinkField.getTarget(withNotNull()); result = target;
+                hyperlinkField.getParameterMap(withNotNull(), withNull(), withNull()); result = parameterMap;
+                hyperlinkField.getConfirmation(withNotNull()); result = confirmation;
+                hyperlinkField.getTargetWindow(withNotNull()); result = targetWindow;
+                request.getAttribute("title"); result = title;
+                request.getAttribute("text"); result = text;
+                request.getAttribute("requestMapMap"); result = requestMapMap;
+                request.getAttribute("id"); result = id;
+                request.getAttribute("uniqueItemName"); result = uniqueItemName;
+                request.getAttribute("width"); result = width;
+                request.getAttribute("height"); result = height;
+            }
+        };
+
+        macroFormRenderer.renderHyperlinkField(appendable, new HashMap<>(), hyperlinkField);
+        ImmutableMap<String, Object> result = ImmutableMap.<String, Object>builder()
+                .put("title", title)
+                .put("description", description)
+                .put("linkUrl", "Encoded%20Target")
+                .put("id", id)
+                .put("targetParameters", "{'k1':'v1','k2':'v2'}")
+                .put("width", width)
+                .put("confirmation", confirmation)
+                .put("targetWindow", targetWindow)
+                .build();
+        assertAndGetMacroString("makeHyperlinkString", result);
     }
 
     private String assertAndGetMacroString(final String expectedName) {
