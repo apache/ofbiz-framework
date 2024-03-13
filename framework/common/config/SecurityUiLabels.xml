@@ -768,8 +768,8 @@
         <value xml:lang="zh-TW">SecurityViewPermissionError 你沒有權限檢視本頁面. (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
     </property>
     <property key="SupportedFileFormatsIncludingSvg">
-        <value xml:lang="en">For security reason only valid files of supported image formats (GIF, JPEG, PNG, TIFF), SVG, PDF, and ZIP or text files with safe names (only Alpha-Numeric characters, hyphen, underscore and spaces, only 1 dot, name and extension not empty) and contents are accepted.</value>
-        <value xml:lang="fr">Pour des raisons de sécurité, seuls les fichiers valides de formats d'image pris en charge (GIF, JPEG, PNG, TIFF), les fichiers SVG, PDF, et les fichiers ZIP ou texte avec des noms sûrs (uniquement des caractères alphanumériques, 1 seul point, nom et extension non vides) et aux contenus sûrs sont acceptés.</value>
+        <value xml:lang="en">For security reason only valid files of supported image formats (GIF, JPEG, PNG, TIFF), SVG, PDF, and ZIP or text files with safe names (only Alpha-Numeric characters, hyphen, underscore and spaces, only 1 dot, name and extension not empty) and safe contents are accepted. For Ms Office files try to transform a Word file to PDF and an Excel file to CSV. For other file types try PDF.</value>
+        <value xml:lang="fr">Pour des raisons de sécurité, seuls les fichiers valides de formats d'image pris en charge (GIF, JPEG, PNG, TIFF), les fichiers SVG, PDF, et les fichiers ZIP ou texte avec des noms sûrs (uniquement des caractères alphanumériques, 1 seul point, nom et extension non vides) et aux contenus sûrs sont acceptés. Pour les fichiers Ms Office, essayez de transformer un fichier Word en PDF et un fichier Excel en CSV. Pour d'autres types de fichiers, essayez le PDF.</value>
     </property>
      <property key="SupportedFileFormats">
         <value xml:lang="en">For security reason only valid files of supported image formats (GIF, JPEG, PNG, TIFF), PDF or text files with safe names (only Alpha-Numeric characters, hyphen, underscore and spaces, only 1 dot, name and extension not empty) and contents are accepted.</value>

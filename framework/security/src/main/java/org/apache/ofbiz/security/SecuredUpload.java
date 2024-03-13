@@ -236,10 +236,21 @@ public class SecuredUpload {
 
         // Check the file content
 
-        // Check max line length, default 10000.
-        // PDF files are not concerned because they may contain several CharSet encodings
-        // hence no possibility to use Files::readAllLines that needs a sole CharSet
+        /* Check max line length, default 10000.
+         PDF files are not concerned because they may contain several CharSet encodings
+         hence no possibility to use Files::readAllLines that needs a sole CharSet
+         MsOffice files are not accepted. This is why:
+         https://www.cvedetails.com/vulnerability-list/vendor_id-26/product_id-529/Microsoft-Word.html
+         https://www.cvedetails.com/version-list/26/410/1/Microsoft-Excel.html
+         You name it...
+        */
         if (!isPdfFile(fileToCheck)) {
+            if (getMimeTypeFromFileName(fileToCheck).equals("application/x-tika-msoffice")) {
+                Debug.logError("File : " + fileToCheck + ", is a MS Office file."
+                        + " It can't be uploaded for security reason. Try to transform a Word file to PDF, "
+                        + "and an Excel file to CSV. For other file types try PDF.", MODULE);
+                return false;
+            }
             if (!checkMaxLinesLength(fileToCheck)) {
                 Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
                 return false;
@@ -848,6 +859,7 @@ public class SecuredUpload {
                 }
             }
         } catch (IOException e) {
+            Debug.logError(e, "File : " + fileToCheck + ", can't be uploaded for security reason", MODULE);
             return false;
         }
         return true;
