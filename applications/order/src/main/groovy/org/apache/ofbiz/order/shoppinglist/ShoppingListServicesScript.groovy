@@ -71,7 +71,6 @@ Map updateShoppingList() {
 
 /**
  * Create a ShoppingList Item
- * @return
  */
 Map createShoppingListItem() {
     Map result = success()
@@ -87,16 +86,15 @@ Map createShoppingListItem() {
                     .where('shoppingListId', parameters.shoppingListId, 'shoppingListItemSeqId', shoppingListItem.shoppingListItemSeqId)
                     .queryList()
             if ((!slItemAttributes && !parameters.shoppingListItemAttributes) ||
-                UtilValidate.areEqual(slItemAttributes, parameters.shoppingListItemAttributes)) {
-                    BigDecimal totalquantity = shoppingListItem.quantity + parameters.quantity
-                    result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
-                    Map serviceResult = run service: 'updateShoppingListItem', with: [*       : shoppingListItem,
-                        quantity: totalquantity]
-                    if (!ServiceUtil.isSuccess(serviceResult)) {
-                        return error(serviceResult.errorMessage)
-                    }
-                    // Exit here, because we found an existing item update, otherwise we have to create a new one below
-                    return result
+                    Objects.equals(slItemAttributes, parameters.shoppingListItemAttributes)) {
+                BigDecimal totalquantity = shoppingListItem.quantity + parameters.quantity
+                result.shoppingListItemSeqId = shoppingListItem.shoppingListItemSeqId
+                Map serviceResult = run service: 'updateShoppingListItem', with: [*: shoppingListItem, quantity: totalquantity]
+                if (!ServiceUtil.isSuccess(serviceResult)) {
+                    return error(serviceResult.errorMessage)
+                }
+                // Exit here, because we found an existing item update, otherwise we have to create a new one below
+                return result
             }
         }
     }
