@@ -166,7 +166,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="tabButtonItem" value="scheduleJob"/>
-                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/ScheduleJob.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/SetServiceParameters.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -188,7 +188,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="runService"/>
-                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/ScheduleJob.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/SetServiceParameters.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
