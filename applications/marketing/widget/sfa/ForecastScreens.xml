@@ -37,7 +37,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="salesForecastId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="SalesForecastTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                        <include-menu name="SalesForecastTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                             </widgets>

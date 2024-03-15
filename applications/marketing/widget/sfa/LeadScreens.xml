@@ -39,11 +39,11 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                <include-menu name="LeadSubTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="no-clear">
                                     <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                         <decorator-section name="search-options">
-                                            <include-menu name="LeadFindTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                            <include-menu name="LeadFindTabBar" location="${parameters.mainMenuLocation}"/>
                                             <include-form name="FindLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                                         </decorator-section>
                                         <decorator-section name="search-results">
