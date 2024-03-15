@@ -27,7 +27,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
