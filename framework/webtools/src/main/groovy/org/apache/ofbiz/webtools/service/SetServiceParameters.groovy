@@ -34,7 +34,6 @@ import org.apache.ofbiz.widget.model.ModelFormFieldBuilder
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer
 import org.w3c.dom.Document
 
-
 savedSyncResult = null
 if (session.getAttribute('_SAVED_SYNC_RESULT_') != null) {
     savedSyncResult = session.getAttribute('_SAVED_SYNC_RESULT_')
@@ -66,9 +65,10 @@ if (serviceName) {
     context.uiLabelMap = UtilProperties.getResourceBundleMap('CommonUiLabels', locale)
     String formRendererLocationTheme = context.visualTheme.getModelTheme().getFormRendererLocation('screen')
     MacroFormRenderer renderer = new MacroFormRenderer(formRendererLocationTheme, request, response)
-    String dynamicServiceForm = """<?xml version="1.0" encoding="UTF-8"?><forms><form name="scheduleForm" type="single"/></forms>"""
+    String dynamicServiceForm = '<?xml version="1.0" encoding="UTF-8"?><forms><form name="scheduleForm" type="single"/></forms>'
     Document dynamicServiceFormXml = UtilXml.readXmlDocument(dynamicServiceForm, true, true)
-    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicServiceFormXml, null, context.visualTheme, dispatcher.getDispatchContext(), null)
+    Map<String, ModelForm> modelFormMap = FormFactory.readFormDocument(dynamicServiceFormXml, null, context.visualTheme,
+        dispatcher.getDispatchContext(), null)
     ModelForm form
     if (modelFormMap) {
         Map.Entry<String, ModelForm> entry = modelFormMap.entrySet().iterator().next()
@@ -86,7 +86,8 @@ if (serviceName) {
                 serviceParam = [name: modelParam.name, type: modelParam.type, optional: modelParam.optional ? 'Y' : 'N',
                                 defaultValue: modelParam.defaultValue, value: savedSyncResult.get(modelParam.name)]
             } else {
-                serviceParam = [name: modelParam.name, type: modelParam.type, optional: modelParam.optional ? 'Y' : 'N', defaultValue: modelParam.defaultValue]
+                serviceParam = [name: modelParam.name, type: modelParam.type, optional: modelParam.optional ? 'Y' : 'N',
+                                defaultValue: modelParam.defaultValue]
             }
             serviceParam.field = prepareServiceParamFieldHtml(delegator, modelParam, form, context, renderer, modelService)
 
@@ -97,7 +98,8 @@ if (serviceName) {
 context.serviceParameters = serviceParameters
 
 
-private String prepareServiceParamFieldHtml(Delegator delegator, ModelParam modelParam, ModelForm form, Map context, MacroFormRenderer renderer, ModelService modelService) {
+private String prepareServiceParamFieldHtml(Delegator delegator, ModelParam modelParam, ModelForm form,
+        Map context, MacroFormRenderer renderer, ModelService modelService) {
     Writer writer = new StringWriter()
     ModelFormFieldBuilder builder = new ModelFormFieldBuilder()
     boolean isEntityField = false
@@ -110,10 +112,12 @@ private String prepareServiceParamFieldHtml(Delegator delegator, ModelParam mode
                 prepareEntityFieldBuilder(builder, modelField, modelEntity)
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "SetServiceParameters.groovy")
+            Debug.logError(e, 'SetServiceParameters.groovy')
         }
     }
-    if (!isEntityField) prepareServiceFieldBuilder(builder, modelParam, modelService)
+    if (!isEntityField) {
+        prepareServiceFieldBuilder(builder, modelParam, modelService)
+    }
     builder.setModelForm(form)
     builder.setAttributeName(modelParam.getName())
     builder.setTitle(modelParam.getFormLabel())
@@ -122,14 +126,14 @@ private String prepareServiceParamFieldHtml(Delegator delegator, ModelParam mode
     return writer.toString()
 }
 
-private prepareEntityFieldBuilder(ModelFormFieldBuilder builder, ModelField modelField, ModelEntity modelEntity) {
+private void prepareEntityFieldBuilder(ModelFormFieldBuilder builder, ModelField modelField, ModelEntity modelEntity) {
     builder.setName(modelField.getName())
     builder.setFieldName(modelField.getName())
     builder.setEntityName(modelEntity.getEntityName())
     builder.induceFieldInfoFromEntityField(modelEntity, modelField, 'edit')
 }
 
-private prepareServiceFieldBuilder(ModelFormFieldBuilder builder, ModelParam modelParam, ModelService modelService) {
+private void prepareServiceFieldBuilder(ModelFormFieldBuilder builder, ModelParam modelParam, ModelService modelService) {
     builder.setName(modelParam.getName())
     builder.setFieldName(modelParam.getName())
     builder.setServiceName(modelService.getName())
