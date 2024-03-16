@@ -48,7 +48,7 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="activeApp" value="partymgr" global="true"/>
                 <set field="applicationMenuName" value="PartyAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://party/widget/partymgr/PartyMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_party"/>
                 <set field="applicationTitle" from-field="uiLabelMap.PartyManagerApplication" global="true"/>
             </actions>
@@ -68,7 +68,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -77,7 +77,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu name="ProfileTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -91,7 +91,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="ProfileSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                        <include-menu name="ProfileSubTabBar" location="${parameters.mainMenuLocation}"/>
                                         <container style="clear"/>
                                         <container style="page-title">
                                             <section>
@@ -156,7 +156,7 @@ under the License.
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="PartyShortcutAppBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <include-menu name="PartyShortcutAppBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
