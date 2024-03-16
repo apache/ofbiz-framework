@@ -18,8 +18,6 @@
 
 # Syntax: ./pullAllPluginsSource.sh
 
-set -e
-
 # Whatever, create anew
 if [ -d "plugins" ]
     then
