@@ -1267,7 +1267,14 @@ public final class UtilHttp {
          **/
         resp.addHeader("X-XSS-Protection", "1; mode=block");
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
-        resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
+
+        if (EntityUtilProperties.getPropertyAsBoolean("security", "useContent-Security-Policy", true)) {
+            String contentSecurityPolicy = EntityUtilProperties.getPropertyValueFromDelegatorName(
+                    "security", "Content-Security-Policy", "Content-Security-Policy-Report-Only", "default");
+            String policyDirectives = EntityUtilProperties.getPropertyValueFromDelegatorName(
+                    "security", "PolicyDirectives", "default-src 'self'", "default");
+            resp.setHeader(contentSecurityPolicy, policyDirectives);
+        }
         SameSiteFilter.addSameSiteCookieAttribute(resp);
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate
         // is renewed every 3 months)
