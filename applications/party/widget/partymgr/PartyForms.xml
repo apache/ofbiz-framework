@@ -163,7 +163,7 @@ under the License.
         <field name="mainRole" title="${uiLabelMap.PartyMainRole}"><display description="${mainRole.description}"/></field>
         <field name="createdDate" sort-field="true"><display type="date"/></field>
         <field name="lastModifiedDate" sort-field="true"><display type="date"/></field>
-        <field name="partyAction" title=" "><include-menu name="ListPartyAction" location="component://party/widget/partymgr/PartyMenus.xml"/></field>
+        <field name="partyAction" title=" "><include-menu name="ListPartyAction" location="${parameters.mainMenuLocation}"/></field>
         <sort-order>
              <last-field name="createdDate"/>
              <last-field name="lastModifiedDate"/>
