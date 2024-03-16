@@ -22,17 +22,15 @@ rem Syntax: pullAllPluginsSource
 
 rem Whatever, create anew
 if EXIST plugins\ (
-    cmd /c rd  /s/q plugins
+    cmd /c rd /s/q plugins || exit /b
 )
 
 rem Get the branch used in framework
-git branch --show-current > temp.txt
-set /p branch=<temp.txt
-del temp.txt
+git branch --show-current > temp.txt || exit /b
+set /p branch=<temp.txt || exit /b
+del temp.txt || exit /b
 
-git clone --depth 1 --single-branch --branch %branch% https://github.com/apache/ofbiz-plugins.git plugins
+git clone --depth 1 --single-branch --branch %branch% https://github.com/apache/ofbiz-plugins.git plugins || exit /b
 
 rem Remove .git, in this case it's useless information
-cd plugins
-cmd /c rd /s/q .git
-cd ..
+rd /s/q plugins\.git

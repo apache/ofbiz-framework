@@ -18,6 +18,8 @@
 
 # Syntax: ./pullAllPluginsSource.sh
 
+set -e
+
 # Whatever, create anew
 if [ -d "plugins" ]
     then
@@ -30,6 +32,4 @@ branch=$(git branch --show-current)
 git clone --depth 1 --single-branch --branch $branch https://github.com/apache/ofbiz-plugins.git plugins
 
 # remove .git, in this case it's useless information
-cd plugins
-rm -rf .git
-cd ..
+rm -r plugins/.git
