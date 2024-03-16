@@ -31,5 +31,6 @@ git clone --depth 1 --single-branch --branch $branch https://github.com/apache/o
 
 # remove .git, in this case it's useless information
  if [ -d "plugins" ]
-     rm -rf plugins/.git
+     then
+        rm -rf plugins/.git
 fi
