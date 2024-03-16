@@ -30,4 +30,6 @@ branch=$(git branch --show-current)
 git clone --depth 1 --single-branch --branch $branch https://github.com/apache/ofbiz-plugins.git plugins
 
 # remove .git, in this case it's useless information
-rm -r plugins/.git
+ if [ -d "plugins" ]
+     rm -rf plugins/.git
+fi
