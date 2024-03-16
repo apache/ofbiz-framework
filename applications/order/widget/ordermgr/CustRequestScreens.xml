@@ -48,7 +48,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator"
@@ -570,7 +570,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.OrderIncomingCustRequests}" navigation-menu-name="RequestScreenletMenu">
-                            <include-menu name="RequestScreenletMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                            <include-menu name="RequestScreenletMenu" location="${parameters.mainMenuLocation}"/>
                             <include-form name="ListRequestList" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </widgets>
