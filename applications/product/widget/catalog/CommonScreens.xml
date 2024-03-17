@@ -39,7 +39,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="catalogmgr" global="true"/>
                 <set field="applicationMenuName" value="CatalogAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://product/widget/catalog/CatalogMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_catalog"/>
                 <set field="applicationTitle" from-field="uiLabelMap.ProductCatalogManagerApplication" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
@@ -58,7 +58,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <section>
@@ -90,8 +90,8 @@ under the License.
                                         <not><if-empty field="prodCatalog"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                        <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <include-menu name="CatalogTabBar" location="${parameters.mainMenuLocation}"/>
+                                        <include-menu name="CatalogSubTabBar" location="${parameters.mainMenuLocation}"/>
                                         <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                                     </widgets>
                                     <fail-widgets>
@@ -100,7 +100,7 @@ under the License.
                                                 <if-compare operator="not-equals" value="ProductCatalog" field="tabButtonItem"/>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                                <include-menu name="CatalogSubTabBar" location="${parameters.mainMenuLocation}"/>
                                             </widgets>
                                         </section>
                                     </fail-widgets>
@@ -122,7 +122,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <section>
@@ -153,12 +153,12 @@ under the License.
                                     <condition><not><if-empty field="productStore"/></not></condition>
                                     <widgets>
                                         <container>
-                                            <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            <include-menu name="ProductStoreTabBar" location="${parameters.mainMenuLocation}"/>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <section>
                                             <widgets>
-                                                <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                                <include-menu name="ProductStoreSubTabBar" location="${parameters.mainMenuLocation}"/>
                                             </widgets>
                                         </section>
                                     </widgets>
@@ -183,7 +183,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="ProductStoreGroupTree"/>
@@ -199,7 +199,7 @@ under the License.
                                 </or>
                             </condition>
                             <widgets>
-                                <include-menu name="ProductStoreGroupButtonBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                <include-menu name="ProductStoreGroupButtonBar" location="${parameters.mainMenuLocation}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -217,7 +217,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
@@ -229,7 +229,7 @@ under the License.
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="ShippingTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                <include-menu name="ShippingTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
@@ -364,7 +364,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <section>
@@ -397,7 +397,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
@@ -408,7 +408,7 @@ under the License.
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="ImageManagementTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                <include-menu name="ImageManagementTabBar" location="${parameters.mainMenuLocation}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -456,8 +456,8 @@ under the License.
                             <condition><not><if-empty field="productStore"/></not></condition>
                             <widgets>
                                 <container>
-                                    <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                    <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                    <include-menu name="ProductStoreTabBar" location="${parameters.mainMenuLocation}"/>
+                                    <include-menu name="ProductStoreSubTabBar" location="${parameters.mainMenuLocation}"/>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
                                 </container>
                                 <include-portal-page id="ProductStoreFacility"/>

@@ -25,7 +25,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
@@ -39,7 +39,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="productPromoId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="PromoTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <include-menu name="PromoTabBar" location="${parameters.mainMenuLocation}"/>
                                         <container style="button-bar">
                                             <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
                                         </container>

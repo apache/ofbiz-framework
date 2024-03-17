@@ -96,8 +96,8 @@ under the License.
             <widgets>
             <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                 <decorator-section name="body">
-                    <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                    <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    <include-menu name="CatalogTabBar" location="${parameters.mainMenuLocation}"/>
+                    <include-menu name="CatalogSubTabBar" location="${parameters.mainMenuLocation}"/>
                     <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                     <screenlet title="${uiLabelMap.PageTitleEditProductCatalog}">
                         <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
@@ -195,7 +195,7 @@ under the License.
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="CatalogShortcutAppBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="CatalogShortcutAppBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
