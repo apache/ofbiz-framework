@@ -451,13 +451,13 @@ under the License.
         </field>
         -->
         <field name="deleteLink" title=" ">
-            <include-menu name="ListWorkEffortMenuBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+            <include-menu name="ListWorkEffortMenuBar" location="${parameters.mainMenuLocation}"/>
         </field>
     </grid>
 
     <grid name="FoundWorkEfforts" extends="ListWorkEfforts" paginate-target="FoundWorkEfforts">
         <field name="deleteLink" title=" ">
-            <include-menu name="FoundWorkEffortInLineBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+            <include-menu name="FoundWorkEffortInLineBar" location="${parameters.mainMenuLocation}"/>
         </field>
     </grid>
 
