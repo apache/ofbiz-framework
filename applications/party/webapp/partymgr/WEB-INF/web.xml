@@ -41,7 +41,7 @@ under the License.
     <context-param>
         <description>The location of the menus file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
         <param-name>mainMenuLocation</param-name>
-        <param-value>component://party/widget/PartyMenus.xml</param-value>
+        <param-value>component://party/widget/partymgr/PartyMenus.xml</param-value>
     </context-param>
 
   <filter>
