@@ -18,7 +18,8 @@
 
 # Syntax: ./pullAllPluginsSource.sh
 
-set -e
+# Not needed, see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference
+# set -e
 
 # Whatever, create anew
 if [ -d "plugins" ]
