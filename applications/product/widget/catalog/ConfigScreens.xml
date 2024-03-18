@@ -25,7 +25,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
@@ -41,7 +41,7 @@ under the License.
                                     <condition><not><if-empty field="configItemId"/></not></condition>
                                     <widgets>
                                         <container>
-                                            <include-menu name="ConfigItemTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            <include-menu name="ConfigItemTabBar" location="${parameters.mainMenuLocation}"/>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${configItem.configItemName} [${uiLabelMap.CommonId}:${configItemId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <container style="button-bar">

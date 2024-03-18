@@ -560,7 +560,7 @@ under the License.
             <widgets>
                 <container id="ProductStoreFacilityEditArea"/>
                 <screenlet title="${uiLabelMap.ProductStoreFacilityAssocList}" navigation-menu-name="ProductStoreFacility">
-                    <include-menu name="ProductStoreFacility" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    <include-menu name="ProductStoreFacility" location="${parameters.mainMenuLocation}"/>
                     <include-grid name="ListProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
                 </screenlet>
             </widgets>
