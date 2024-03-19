@@ -345,7 +345,7 @@
                                 </or>      
                             </condition>
                             <widgets>
-                                <include-menu name="FirstProductTabBar" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
+                                <include-menu name="FirstProductTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                         <decorator-section-include name="body"/>
