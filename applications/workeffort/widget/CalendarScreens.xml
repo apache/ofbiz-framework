@@ -51,7 +51,7 @@ under the License.
                       <include-screen name="eventDetail"/>
                       <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortDayView}: ${groovy:org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day" padded="false">
-                            <include-menu name="Day" location="${parameters.mainMenuLocation}"/>
+                            <include-menu name="Day" location="${parameters.calendarMenuLocation}"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/template/calendar/Day.ftl"/></html>
                             </platform-specific>
@@ -73,7 +73,7 @@ under the License.
                       <include-screen name="eventDetail"/>
                       <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${groovy:org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week" padded="false">
-                            <include-menu name="Week" location="${parameters.mainMenuLocation}"/>
+                            <include-menu name="Week" location="${parameters.calendarMenuLocation}"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/template/calendar/Week.ftl"/></html>
                             </platform-specific>
@@ -92,7 +92,7 @@ under the License.
                       <include-screen name="eventDetail"/>
                       <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${groovy:org.apache.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month" padded="false">
-                            <include-menu name="Month" location="${parameters.mainMenuLocation}"/>
+                            <include-menu name="Month" location="${parameters.calendarMenuLocation}"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/template/calendar/Month.ftl"/></html>
                             </platform-specific>
@@ -111,7 +111,7 @@ under the License.
                       <include-screen name="eventDetail"/>
                       <container style="bothclear">
                         <screenlet title="${uiLabelMap.WorkEffortCalendarUpComingEventsView}" navigation-menu-name="Upcoming">
-                            <include-menu name="Upcoming" location="${parameters.mainMenuLocation}"/>
+                            <include-menu name="Upcoming" location="${parameters.calendarMenuLocation}"/>
                             <platform-specific>
                                 <html><html-template location="component://workeffort/template/calendar/Upcoming.ftl"/></html>
                             </platform-specific>
