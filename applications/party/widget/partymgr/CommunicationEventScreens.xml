@@ -877,7 +877,7 @@ under the License.
             <widgets>
                 <screenlet title="${uiLabelMap.PartyCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                     navigation-menu-name="CommunicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
-                    <include-menu name="CommunicationsMenu" location="${parameters.mainMenuLocation}"/>
+                    <include-menu name="CommunicationsMenu" location="${parameters.communicationMenuLocation}"/>
                     <section><!-- List my communication events -->
                         <condition>
                             <or>
