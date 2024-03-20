@@ -24,3 +24,18 @@ updates:
     directory: "themes/common-theme/webapp/common-theme/js" # Location of package manifests
     schedule:
       interval: "daily"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /themes/common-theme/webapp/common-theme/js
+    schedule:
+      interval: daily
