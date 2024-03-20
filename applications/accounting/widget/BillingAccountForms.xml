@@ -246,13 +246,9 @@ under the License.
         <field name="partyId" title="${uiLabelMap.CommonParty}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <grid name="ListBillingAccountTerms" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
+    <grid name="BillingAccountTerms" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="BillingAccountTerm" list="billingAccountTermsList">
-                <condition-expr field-name="billingAccountId" from-field="billingAccountId"/>
-            </entity-condition>
-        </actions>
+        <auto-fields-entity entity-name="BillingAccountTerm" default-field-type="display"/>
         <field name="billingAccountId"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.PartyTermType}">
             <display-entity entity-name="TermType"/>
@@ -261,11 +257,23 @@ under the License.
         <field name="uomId" title="${uiLabelMap.CommonUom}">
             <display-entity entity-name="Uom"/>
         </field>
-        <field name="billingAccountTermId" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditBillingAccountTerms">
+    </grid>
+    <grid name="ListBillingAccountTerms" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="BillingAccountTerm" default-field-type="edit"/>
+        <field name="billingAccountId"><hidden/></field>
+        <field name="billingAccountTermId">
+            <hyperlink description="${billingAccountTermId}" target="EditBillingAccountTerms">
                 <parameter param-name="billingAccountId"/>
                 <parameter param-name="billingAccountTermId"/>
             </hyperlink>
+        </field>
+        <field name="termTypeId" title="${uiLabelMap.PartyTermType}">
+            <display-entity entity-name="TermType"/>
+        </field>
+        <field name="termValue" title="${uiLabelMap.CommonValue}"><display/></field>
+        <field name="uomId" title="${uiLabelMap.CommonUom}">
+            <display-entity entity-name="Uom"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeBillingAccountTerm">
