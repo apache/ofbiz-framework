@@ -46,6 +46,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   docker_build:
