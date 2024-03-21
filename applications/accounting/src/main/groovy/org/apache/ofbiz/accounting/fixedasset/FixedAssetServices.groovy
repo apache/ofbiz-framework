@@ -256,15 +256,18 @@ Map autoAssignFixedAssetPartiesToMaintenance() {
  */
 Map straightLineDepreciation() {
     BigDecimal depreciationTotal = 0
-    BigDecimal depreciation = 0
     List assetDepreciationInfoList = []
     List assetDepreciationTillDate = []
     List assetNBVAfterDepreciation = []
     BigDecimal purchaseCost = parameters.purchaseCost
+    BigDecimal expEndOfLifeYear = parameters.expEndOfLifeYear ?: 0
+    BigDecimal assetAcquiredYear = parameters.assetAcquiredYear ?: 0
+
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
-    if (! fixedAsset) {
+    if (!fixedAsset) {
         return error(label('AccountingErrorUiLabels', 'AccountingFixedAssetNotFound'))
     }
+    BigDecimal depreciation = fixedAsset.depreciation ?: 0
     if (parameters.usageYears > 0) {
         //FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired)
         int numberOfYears = parameters.expEndOfLifeYear - parameters.assetAcquiredYear
@@ -272,26 +275,26 @@ Map straightLineDepreciation() {
             depreciation = (purchaseCost - parameters.salvageValue) / numberOfYears
             depreciation.setScale(2, RoundingMode.HALF_EVEN)
             int intUsageYears =  (numberOfYears < parameters.intUsageYears) ? parameters.intUsageYears : numberOfYears
-            for (int i = 1; i++; i < intUsageYears) {
+            for (int i = 0; i < intUsageYears; i++) {
                 purchaseCost -= depreciation
                 depreciationTotal += depreciation
                 assetDepreciationTillDate << depreciation
                 assetNBVAfterDepreciation << purchaseCost
                 assetDepreciationInfoList << [year: i,
-                                              depreciation: depreciation,
-                                              depreciationTotal: depreciationTotal,
-                                              nbv: purchaseCost]
+                    depreciation: depreciation,
+                    depreciationTotal: depreciationTotal,
+                    nbv: purchaseCost]
             }
         }
     }
 
-    if (! assetDepreciationTillDate) {
+    if (!assetDepreciationTillDate) {
         assetDepreciationTillDate << depreciation
         assetNBVAfterDepreciation << purchaseCost
         assetDepreciationInfoList << [year: parameters.assetAcquiredYear,
-                                      depreciation: depreciation,
-                                      depreciationTotal: depreciationTotal,
-                                      nbv: purchaseCost]
+            depreciation: depreciation,
+            depreciationTotal: depreciationTotal,
+            nbv: purchaseCost]
     }
     logInfo "Using straight line formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${depreciation}"
 
@@ -299,34 +302,38 @@ Map straightLineDepreciation() {
     BigDecimal nextDepreciationAmount = 0
 
     // FORMULA : depreciation = (purchaseCost - salvageValue - pastDepreciations) / remainingYears
-    int remainingYears  = parameters.expEndOfLifeYear - parameters.assetAcquiredYear - parameters.intUsageYears
+    int usageYears = parameters.intUsageYears ?: 0
+    BigDecimal remainingYears  = expEndOfLifeYear - assetAcquiredYear - usageYears
     if (remainingYears > 0) {
-        nextDepreciationAmount = (fixedAsset.purchaseCost - parameters.salvageValue - fixedAsset.depreciation) / remainingYears
+        nextDepreciationAmount = ((fixedAsset.purchaseCost ?: 0) - usageYears - (fixedAsset.depreciation ?: 0)) / remainingYears
         nextDepreciationAmount.setScale(2, RoundingMode.HALF_EVEN)
     }
     return success([assetDepreciationTillDate: assetDepreciationTillDate,
-                    assetNBVAfterDepreciation: assetNBVAfterDepreciation,
-                    assetDepreciationInfoList: assetDepreciationInfoList,
-                    nextDepreciationAmount: nextDepreciationAmount,
-                    plannedPastDepreciationTotal: depreciationTotal - fixedAsset.depreciation])
+        assetNBVAfterDepreciation: assetNBVAfterDepreciation,
+        assetDepreciationInfoList: assetDepreciationInfoList,
+        nextDepreciationAmount: nextDepreciationAmount,
+        plannedPastDepreciationTotal: depreciationTotal - (fixedAsset.depreciation ?: 0)])
 }
 
 /**
  * Calculate double declining balance depreciation to Fixed Asset
  */
 Map doubleDecliningBalanceDepreciation() {
-    String expEndOfLifeYear = parameters.expEndOfLifeYear
-    String assetAcquiredYear = parameters.assetAcquiredYear
-    String purchaseCost = parameters.purchaseCost
-    String salvageValue = parameters.salvageValue
+    BigDecimal expEndOfLifeYear = parameters.expEndOfLifeYear ?: 0
+    BigDecimal assetAcquiredYear = parameters.assetAcquiredYear ?: 0
+    int usageYears = parameters.usageYears ?: 0
+    BigDecimal purchaseCost = parameters.purchaseCost ?: 0
+    BigDecimal salvageValue = parameters.salvageValue ?: 0
+    BigDecimal depreciation = 0
 
     // Next depreciation based on actual depreciation history
     BigDecimal nextDepreciationAmount = 0
     GenericValue fixedAsset = from('FixedAsset').where(parameters).queryOne()
     if (fixedAsset) {
-        int remainingYears = expEndOfLifeYear - assetAcquiredYear - parameters.usageYears
+        depreciation = fixedAsset.depreciation ?: 0
+        BigDecimal remainingYears  = expEndOfLifeYear - assetAcquiredYear - usageYears
         if (remainingYears > 0) {
-            nextDepreciationAmount = 2 * (purchaseCost - salvageValue - fixedAsset.depreciation) / remainingYears
+            nextDepreciationAmount = 2 * (purchaseCost - salvageValue - depreciation) / remainingYears
         }
     }
 
@@ -334,10 +341,9 @@ Map doubleDecliningBalanceDepreciation() {
     List assetNBVAfterDepreciation = []
     List assetDepreciationInfoList = []
     BigDecimal depreciationTotal = 0
-    if (parameters.usageYears > 0 && fixedAsset) {
+    if (usageYears > 0 && fixedAsset) {
         BigDecimal depreciationYear = assetAcquiredYear
-        for (int i = 0; i < parameters.usageYears; i++) {
-            BigDecimal depreciation = 0
+        for (int i = 0; i < usageYears; i++) {
             int numberOfYears = expEndOfLifeYear - assetAcquiredYear
             if (numberOfYears > 0) {
                 depreciation = (purchaseCost - salvageValue) * 2 / numberOfYears
@@ -367,7 +373,7 @@ Map doubleDecliningBalanceDepreciation() {
                     assetNBVAfterDepreciation: assetNBVAfterDepreciation,
                     assetDepreciationInfoList: assetDepreciationInfoList,
                     nextDepreciationAmount: nextDepreciationAmount,
-                    plannedPastDepreciationTotal: depreciationTotal - fixedAsset.depreciation])
+                    plannedPastDepreciationTotal: depreciationTotal - depreciation])
 }
 
 /**
@@ -398,10 +404,10 @@ Map calculateFixedAssetDepreciation() {
     BigDecimal salvageValue = fixedAsset.salvageValue ?: 0.0
 
     // Get running year
-    String currentYear = UtilDateTime.nowAsString().substring(0, 4)
+    String currentYear = UtilDateTime.nowDateString().substring(0, 4)
 
     // Calculate asset's total run in years
-    int usageYears = currentYear - assetAcquiredYear
+    int usageYears = currentYear.toInteger() - assetAcquiredYear.toInteger()
 
     GenericValue fixedAssetDepMethod = from('FixedAssetDepMethod')
             .where(fixedAssetId: parameters.fixedAssetId)
