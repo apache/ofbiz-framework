@@ -176,12 +176,29 @@ under the License.
             <widgets>
                  <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductCatalogStores}">
-                            <include-grid name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleAddProductCatalogStores}">
-                            <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleAddProductCatalogStores}">
+                                    <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ProductStores}">
+                                    <include-grid name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ProductStores}">
+                                    <include-grid name="Stores" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
