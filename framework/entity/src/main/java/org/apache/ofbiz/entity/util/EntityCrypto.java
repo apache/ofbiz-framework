@@ -40,9 +40,9 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField.EncryptMethod;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.shiro.crypto.AesCipherService;
-import org.apache.shiro.crypto.OperationMode;
-import org.apache.shiro.crypto.PaddingScheme;
+import org.apache.shiro.crypto.cipher.AesCipherService;
+import org.apache.shiro.crypto.cipher.OperationMode;
+import org.apache.shiro.crypto.cipher.PaddingScheme;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.HashService;
@@ -129,7 +129,7 @@ public final class EntityCrypto {
         } catch (Exception e) {
             /*
             When the field is encrypted with the old algorithm (3-DES), the new Shiro code will fail to decrypt it (using AES) and then it will
-            throw an org.apache.shiro.crypto.CryptoException that is a RuntimeException.
+            throw an org.apache.shiro.crypto.cipher.CryptoException that is a RuntimeException.
             For backward compatibility we want instead to catch the exception and decrypt the code using the old algorithm.
              */
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", MODULE);
@@ -263,7 +263,7 @@ public final class EntityCrypto {
         protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
             byte[] keyBytes = Base64.decodeBase64(keyText);
             if (kek != null) {
-                keyBytes = saltedCipherService.decrypt(keyBytes, kek).getBytes();
+                keyBytes = saltedCipherService.decrypt(keyBytes, kek).getClonedBytes();
             }
             return keyBytes;
         }
@@ -281,9 +281,9 @@ public final class EntityCrypto {
         protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
             switch (encryptMethod) {
             case SALT:
-                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getClonedBytes();
             default:
-                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getClonedBytes();
             }
         }
 
