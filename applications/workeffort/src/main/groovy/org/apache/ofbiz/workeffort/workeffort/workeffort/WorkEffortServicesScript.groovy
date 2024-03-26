@@ -18,8 +18,14 @@
 */
 package org.apache.ofbiz.workeffort.workeffort.workeffort
 
+import org.apache.ofbiz.base.util.UtilDateTime
+import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.model.ModelKeyMap
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
+
+import java.sql.Timestamp
 
 Map checkAndCreateWorkEffort() {
     Map result = success()
@@ -84,6 +90,7 @@ Map checkAndCreateWorkEffort() {
     lookedUpValue.store()
     return result
 }
+
 Map checkAndUpdateWorkEffort() {
     Map result = success()
     GenericValue lookedUpValue = from('Shipment').where(parameters).queryOne()
@@ -174,4 +181,192 @@ Map checkAndUpdateWorkEffort() {
         }
     }
     return result
+}
+
+/**
+ * Create Work Effort and assign to a party with a role
+ */
+Map createWorkEffortAndPartyAssign() {
+    GenericValue partyRole = from('PartyRole').where(parameters).cache().queryOne()
+    if (!partyRole) {
+        GenericValue roleType = from('RoleType').where(parameters).cache().queryOne()
+        return error(label('PartyErrorUiLabels', 'PartyRoleAssociationRequired', [partyId: parameters.partyId,
+                                                                                  roleDescription: roleType.get('description', locale)]))
+    }
+    Map serviceResult = run service: 'createWorkEffort', with: parameters
+    String workEffortId  = serviceResult.workEffortId
+
+    run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
+                                                           workEffortId: workEffortId,
+                                                           assignedByUserLoginId: userLogin.userLoginId]
+    return success([workEffortId: workEffortId])
+}
+
+/**
+ * Create Work Effort
+ * @return
+ */
+Map createWorkEffort() {
+    GenericValue workEffort = makeValue('WorkEffort', parameters)
+    if (!workEffort.workEffortId) {
+        workEffort.workEffortId = delegator.getNextSeqId('WorkEffort')
+    } else {
+        String errMsg = UtilValidate.checkValidDatabaseId(workEffort.workEffortId)
+        if (errMsg) {
+            return error(errMsg)
+        }
+    }
+    Timestamp now = UtilDateTime.nowTimestamp()
+    workEffort.setFields([lastStatusUpdate: now,
+                          lastModifiedDate: now,
+                          createdDate: now,
+                          revisionNumber: 1,
+                          lastModifiedByUserLogin: userLogin.userLoginId,
+                          createdByUserLogin: userLogin.userLoginId])
+    workEffort.create()
+
+    // create new status entry, and set lastStatusUpdate date
+    run service: 'createWorkEffortStatus', with: [workEffortId: workEffort.workEffortId,
+                                                  statusId: workEffort.currentStatusId,
+                                                  statusDatetime: now,
+                                                  setByUserLogin: userLogin.userLoginId]
+
+    return success([workEffortId: workEffort.workEffortId])
+}
+
+/**
+ * Update Work Effort
+ * @return
+ */
+Map updateWorkEffort() {
+    GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
+    Timestamp now = UtilDateTime.nowTimestamp()
+
+    // check if the status change is a valid change
+    if (parameters.currentStatusId && workEffort.currentStatusId &&
+            parameters.currentStatusId != workEffort.currentStatusId) {
+        Map statusValidChange = [statusId  : workEffort.currentStatusId,
+                                 statusIdTo: parameters.currentStatusId]
+        if (from('StatusValidChange').where(statusValidChange).queryCount() == 0) {
+            return error(label('WorkEffortUiLabels', 'WorkEffortStatusChangeNotValid', statusValidChange))
+        }
+        run service: 'createWorkEffortStatus', with: [*: parameters,
+                                                      statusId: parameters.currentStatusId,
+                                                      statusDatetime: now,
+                                                      setByUserLogin: userLogin.userLoginId]
+    }
+
+    // only save if something has changed
+    GenericValue workEffortOrigin = workEffort.clone()
+    workEffort.setNonPKFields(parameters)
+    if (workEffortOrigin != workEffort) {
+        workEffort.lastModifiedDate = now
+        workEffort.lastModifiedByUserLogin = userLogin.userLoginId
+        workEffort.revisionNumber = (workEffort.revisionNumber ?: 0) + 1
+        workEffort.store()
+    }
+    return success()
+}
+
+/**
+ * Delete Work Effort
+ * @return
+ */
+Map deleteWorkEffort() {
+
+    // check permissions before moving on: if update or delete logged in user must be associated OR have the corresponding UPDATE or DELETE permissions -->
+    if (from('WorkEffortPartyAssignment')
+            .where(workEffortId: parameters.workEffortId,
+                    partyId: userLogin.partyId)
+            .queryCount() == 0 &&
+            security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
+                return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
+            }
+
+    GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
+
+    // Remove associated/dependent entries from other entities here
+    ['WorkEffortKeyword', 'WorkEffortAttribute',
+     'WorkOrderItemFulfillment', 'FromWorkEffortAssoc',
+     'ToWorkEffortAssoc', 'NoteData', 'RecurrenceInfo',
+     'RuntimeData', 'WorkEffortPartyAssignment',
+     'WorkEffortFixedAssetAssign', 'WorkEffortSkillStandard',
+     'WorkEffortStatus', 'WorkEffortContent'].each {
+        workEffort.removeRelated(it)
+    }
+    workEffort.remove()
+    return success()
+}
+
+/**
+ * Copy Work Effort
+ * @return
+ */
+Map copyWorkEffort() {
+    GenericValue sourceWorkEffort = from('WorkEffort').where(workEffortId: parameters.sourceWorkEffortId).queryOne()
+    if (!sourceWorkEffort) {
+        return error(label('WorkEffortUiLabels', 'WorkEffortNotFound', [errorString: parameters.sourceWorkEffortId]))
+    }
+    Map serviceResult = run service: 'createWorkEffort', with: [*           : sourceWorkEffort.getAllFields(),
+                                                                workEffortId: parameters.targetWorkEffortId]
+    GenericValue targetWorkEffort = from('WorkEffort').where(workEffortId: serviceResult.workEffortId).queryOne()
+    if (parameters.copyWorkEffortAssocs == 'Y') {
+        run service: 'copyWorkEffortAssocs', with: [*                 : parameters,
+                                                    targetWorkEffortId: targetWorkEffort.workEffortId]
+    }
+
+    if (parameters.copyRelatedValues == 'Y') {
+        excludeExpiredRelations = parameters.excludeExpiredRelations
+        delegator.getModelEntity('WorkEffort').getRelationsManyList().each {
+            if (it.getRelEntityName() != 'WorkEffortAssoc') {
+                String relationName = it.getCombinedName()
+                ModelKeyMap keyMap = it.findKeyMap('workEffortId')
+                if (keyMap) {
+                    String relationWorkEffortId = keyMap.getRelFieldName()
+                    List<GenericValue> relationValues = sourceWorkEffort.getRelated(relationName, null, null, false)
+                    if (parameters.excludeExpiredRelations == 'Y') {
+                        relationValues = EntityUtil.filterByDate(relationValues)
+                    }
+                    relationValues.each { relationValue ->
+                        GenericValue targetRelationValue = relationValue.clone()
+                        targetRelationValue[relationWorkEffortId] = targetWorkEffort.workEffortId
+                        if (!from(targetRelationValue.getEntityName()).where(targetRelationValue.getAllFields()).queryOne()) {
+                            targetRelationValue.create()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return success(workEffortId: targetWorkEffort.workEffortId)
+}
+
+/**
+ * For a custRequest accepted link it to a workEffort and duplicate content
+ * @return
+ */
+Map assocAcceptedCustRequestToWorkEffort() {
+    // check status of customer request if valid
+    GenericValue custRequet = from("CustRequest").where(parameters).cache().queryOne()
+    if (custRequet.statusId != 'CRQ_ACCEPTED') {
+        return error(label('CommonUiLabels', 'CommonErrorStatusNotValid'))
+    }
+
+    // create customer request / work effort relation
+    run service: 'createWorkEffortRequest', with: parameters
+
+    // update status of customer request
+    run service: 'setCustRequestStatus', with: [*: parameters,
+                                                statusId: 'CRQ_REVIEWED']
+
+    // duplicate content on the workEffort
+    from('CustRequestContent')
+            .where(custRequestId: parameters.custRequestId)
+            .getFieldList('contentId')
+            .each {
+                run service: 'createWorkEffortContent', with: [*: parameters,
+                                                               contentId: it,
+                                                               workEffortContentTypeId: 'SUPPORTING_MEDIA']
+            }
+    return success()
 }
