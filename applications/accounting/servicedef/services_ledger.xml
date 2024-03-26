@@ -536,7 +536,7 @@ under the License.
 
     <!-- CustomTimePeriod Services -->
     <service name="findCustomTimePeriods" engine="groovy" invoke="findCustomTimePeriods" auth="true"
-        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/period/PeriodServices.groovy">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/period/GPeriodServices.groovy">
         <description>Find CustomTimePeriod records, returns both general ones and those for the organizationPartyId passed</description>
         <attribute name="findDate" type="Timestamp" mode="IN"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
@@ -558,7 +558,7 @@ under the License.
         <attribute name="lastClosedTimePeriod" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
     <service name="getPreviousTimePeriod" engine="groovy" invoke="getPreviousTimePeriod" auth="true"
-        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/period/PeriodServices.groovy">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/period/GPeriodServices.groovy">
         <description>Return previous year with respect to the given year and if none found then return null.</description>
         <attribute name="customTimePeriodId" mode="IN" type="String"/>
         <attribute name="previousTimePeriod" mode="OUT" type="Map" optional="true"/>
