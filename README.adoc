@@ -25,6 +25,7 @@ image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.co
 image:https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg[link=https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins]
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
 image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
+image:https://api.securityscorecards.dev/projects/github.com/apache/ofbiz-framework/badge[link=https://securityscorecards.dev/viewer/?uri=github.com/apache/ofbiz-framework]
 //image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
 
 
