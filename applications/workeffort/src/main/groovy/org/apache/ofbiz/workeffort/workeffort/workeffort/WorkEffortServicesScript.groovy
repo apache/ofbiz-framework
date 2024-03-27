@@ -208,7 +208,7 @@ Map createWorkEffortAndPartyAssign() {
  */
 Map createWorkEffort() {
     GenericValue workEffort = makeValue('WorkEffort', parameters)
-    workEffort.workEffortId = workEffort.workEffortId ?: delegator.getNextSeqId(WorkEffort)
+    workEffort.workEffortId = workEffort.workEffortId ?: delegator.getNextSeqId('WorkEffort')
     String errMsg = UtilValidate.checkValidDatabaseId(workEffort.workEffortId)
     if (errMsg) {
         return error(errMsg)
