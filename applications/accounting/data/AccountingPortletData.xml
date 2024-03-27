@@ -81,4 +81,9 @@
         description="List of Payments"
         editFormName="EditPaymentAttributes" editFormLocation="component://accounting/widget/PaymentForms.xml"/>
     <PortletPortletCategory portalPortletId="ListPayments" portletCategoryId="ACCOUNTING"/>
+    <PortalPortlet portalPortletId="InvoiceArPastDue" portletName="AR Invoices Past Due" screenName="InvoicesArPastDue"
+            screenLocation="component://accounting/widget/InvoiceScreens.xml" description="Invoices Past Due in Accounts Receivable"/>
+    <PortalPage portalPageId="ACC_MAIN" portalPageName="Accounting Main Page" description="The main portal page of the Accounting application" ownerUserLoginId="_NA_" sequenceNum="1"/>
+    <PortalPageColumn columnSeqId="00001" portalPageId="ACC_MAIN"/>
+    <PortalPagePortlet columnSeqId="00001" portalPageId="ACC_MAIN" portalPortletId="InvoiceArPastDue" portletSeqId="00001" sequenceNum="1"/>
 </entity-engine-xml>
