@@ -130,6 +130,10 @@
         <value xml:lang="zh">缺少账户编号</value>
         <value xml:lang="zh-TW">沒有科目號碼</value>
     </property>
+    <property key="AccountingAccountsReceivable">
+        <value xml:lang="en">Accounts Receivable</value>
+        <value xml:lang="nl">Debiteuren</value>
+    </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="ar">دليل العملية الحسابية</value>
         <value xml:lang="cs">ID transakčního účtu</value>
