@@ -18,14 +18,14 @@
 */
 package org.apache.ofbiz.workeffort.workeffort.workeffort
 
+import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.model.ModelKeyMap
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
-
-import java.sql.Timestamp
 
 Map checkAndCreateWorkEffort() {
     Map result = success()
@@ -204,18 +204,16 @@ Map createWorkEffortAndPartyAssign() {
 
 /**
  * Create Work Effort
- * @return
+ * @return Success response containing the workEffortId, error response otherwise.
  */
 Map createWorkEffort() {
     GenericValue workEffort = makeValue('WorkEffort', parameters)
-    if (!workEffort.workEffortId) {
-        workEffort.workEffortId = delegator.getNextSeqId('WorkEffort')
-    } else {
-        String errMsg = UtilValidate.checkValidDatabaseId(workEffort.workEffortId)
-        if (errMsg) {
-            return error(errMsg)
-        }
+    workEffort.workEffortId = workEffort.workEffortId ?: delegator.getNextSeqId(WorkEffort)
+    String errMsg = UtilValidate.checkValidDatabaseId(workEffort.workEffortId)
+    if (errMsg) {
+        return error(errMsg)
     }
+
     Timestamp now = UtilDateTime.nowTimestamp()
     workEffort.setFields([lastStatusUpdate: now,
                           lastModifiedDate: now,
@@ -236,7 +234,7 @@ Map createWorkEffort() {
 
 /**
  * Update Work Effort
- * @return
+ * @return Success, error response otherwise.
  */
 Map updateWorkEffort() {
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
@@ -245,8 +243,7 @@ Map updateWorkEffort() {
     // check if the status change is a valid change
     if (parameters.currentStatusId && workEffort.currentStatusId &&
             parameters.currentStatusId != workEffort.currentStatusId) {
-        Map statusValidChange = [statusId  : workEffort.currentStatusId,
-                                 statusIdTo: parameters.currentStatusId]
+        Map statusValidChange = [statusId: workEffort.currentStatusId, statusIdTo: parameters.currentStatusId]
         if (from('StatusValidChange').where(statusValidChange).queryCount() == 0) {
             return error(label('WorkEffortUiLabels', 'WorkEffortStatusChangeNotValid', statusValidChange))
         }
@@ -270,18 +267,17 @@ Map updateWorkEffort() {
 
 /**
  * Delete Work Effort
- * @return
+ * @return Success, error response otherwise.
  */
 Map deleteWorkEffort() {
-
-    // check permissions before moving on: if update or delete logged in user must be associated OR have the corresponding UPDATE or DELETE permissions -->
+    // check permissions before moving on: if update or delete logged in user must be associated OR have corresponding UPDATE or DELETE permissions
     if (from('WorkEffortPartyAssignment')
-            .where(workEffortId: parameters.workEffortId,
+                    .where(workEffortId: parameters.workEffortId,
                     partyId: userLogin.partyId)
-            .queryCount() == 0 &&
-            security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
-                return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
-            }
+                    .queryCount() == 0 &&
+                    security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
+        return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
+    }
 
     GenericValue workEffort = from('WorkEffort').where(parameters).queryOne()
 
@@ -300,7 +296,7 @@ Map deleteWorkEffort() {
 
 /**
  * Copy Work Effort
- * @return
+ * @return Success response containing the workEffortId, error response otherwise.
  */
 Map copyWorkEffort() {
     GenericValue sourceWorkEffort = from('WorkEffort').where(workEffortId: parameters.sourceWorkEffortId).queryOne()
@@ -343,11 +339,11 @@ Map copyWorkEffort() {
 
 /**
  * For a custRequest accepted link it to a workEffort and duplicate content
- * @return
+ * @return Success, error response otherwise.
  */
 Map assocAcceptedCustRequestToWorkEffort() {
     // check status of customer request if valid
-    GenericValue custRequet = from("CustRequest").where(parameters).cache().queryOne()
+    GenericValue custRequet = from('CustRequest').where(parameters).cache().queryOne()
     if (custRequet.statusId != 'CRQ_ACCEPTED') {
         return error(label('CommonUiLabels', 'CommonErrorStatusNotValid'))
     }
