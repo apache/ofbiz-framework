@@ -18,6 +18,10 @@
 */
 package org.apache.ofbiz.workeffort.workeffort.workeffort
 
+import org.apache.ofbiz.entity.model.ModelEntity
+import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.workeffort.workeffort.WorkEffortPartyAssignmentServices
+
 import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
@@ -338,6 +342,92 @@ Map copyWorkEffort() {
 }
 
 /**
+ * Duplicate a WorkEffort
+ * @return Success response containing the workEffortId, error response otherwise.
+ */
+Map duplicateWorkEffort() {
+    if ((parameters.removeWorkEffortAssocs == 'Y' ||
+            parameters.removeWorkEffortContents == 'Y' ||
+            parameters.removeWorkEffortNotes == 'Y' ||
+            parameters.removeWorkEffortAssignmentRates == 'Y') &&
+            security.hasPermission('WORKEFFORTMGR_DELETE', userLogin)) {
+        return error(label('WorkEffortUiLabels', 'WorkEffortDeletePermissionError'))
+    }
+    String workEffortId = parameters.workEffortId ?: delegator.getNextSeqId('WorkEffort')
+    GenericValue oldWorkEffort = from('WorkEffort').where(workEffortId: parameters.oldWorkEffortId).queryOne()
+    GenericValue duplicateWorkEffort = oldWorkEffort.clone()
+    duplicateWorkEffort.workEffortId = workEffortId
+
+    // Check the status to give to the new WorkEffort
+    if (!parameters.statusId) {
+        GenericValue oldStatus = from('StatusItem').where(statusId: oldWorkEffort.currentStatusId).cache().queryOne()
+        GenericValue firstStatus = from('StatusItem')
+                .where(statusTypeId: oldStatus.statusTypeId)
+                .orderBy('sequenceId')
+                .queryFirst()
+        duplicateWorkEffort.currentStatusId = firstStatus.statusId
+    } else {
+        duplicateWorkEffort.currentStatusId = parameters.statusId
+    }
+
+    // Create the new WorkEffort from the old one and the status
+    run service: 'createWorkEffort', with: duplicateWorkEffort.getAllFields()
+
+    if (parameters.duplicateWorkEffortAssocs == 'Y') {
+        ['From', 'To'].each {
+            duplicateWorkEffortAssoc('WorkEffortAssoc', oldWorkEffort.workEffortId, workEffortId, "workEffortId$it")
+        }
+    }
+
+    if (parameters.duplicateWorkEffortNotes == 'Y') {
+        duplicateWorkEffortAssoc('WorkEffortNote', oldWorkEffort.workEffortId, workEffortId)
+    }
+    if (parameters.duplicateWorkEffortContents == 'Y') {
+        duplicateWorkEffortAssoc('WorkEffortContent', oldWorkEffort.workEffortId, workEffortId)
+    }
+    if (parameters.duplicateWorkEffortAssignmentRates == 'Y') {
+        duplicateWorkEffortAssoc('RateAmount', oldWorkEffort.workEffortId, workEffortId)
+    }
+    Map removeWorkEffortMap = [workEffortId: oldWorkEffort.workEffortId]
+    if (parameters.removeWorkEffortAssocs == 'Y') {
+        delegator.removeByAnd('WorkEffortAssoc', removeWorkEffortMap)
+    }
+    if (parameters.removeWorkEffortNotes == 'Y') {
+        delegator.removeByAnd('WorkEffortNote', removeWorkEffortMap)
+    }
+    if (parameters.removeWorkEffortContents == 'Y') {
+        delegator.removeByAnd('WorkEffortContent', removeWorkEffortMap)
+    }
+    if (parameters.removeWorkEffortAssignmentRates == 'Y') {
+        delegator.removeByAnd('RateAmount', removeWorkEffortMap)
+    }
+    return success([workEffortId: workEffortId])
+}
+
+/**
+ * duplicate entity relation during a workEffort duplication process
+ * @param relationEntityName
+ * @param oldWorkEffortId
+ * @param workEffortId
+ * @param relationFieldName
+ */
+void duplicateWorkEffortAssoc(String relationEntityName, String oldWorkEffortId,
+                              String workEffortId, String relationFieldName = 'workEffortId') {
+    ModelEntity modelEntity = delegator.getModelEntity(relationFieldName)
+    EntityQuery entities = from(relationEntityName)
+            .where((relationFieldName): oldWorkEffortId)
+    if (modelEntity.getField('fromDate')) {
+        entities.filterByDate()
+    }
+    entities.queryList()
+            .each { oldAssoc ->
+                GenericValue duplicateAssoc = oldAssoc.clone()
+                duplicateAssoc.(relationFieldName) = workEffortId
+                duplicateAssoc.create()
+            }
+}
+
+/**
  * For a custRequest accepted link it to a workEffort and duplicate content
  * @return Success, error response otherwise.
  */
@@ -365,4 +455,130 @@ Map assocAcceptedCustRequestToWorkEffort() {
                                                                workEffortContentTypeId: 'SUPPORTING_MEDIA']
             }
     return success()
+}
+
+/**
+ * Assign Party to Work Effort
+ * @return Success, error response otherwise.
+ */
+Map assignPartyToWorkEffort() {
+    // check if the requested party Assignment already exist
+    GenericValue assignment = from('WorkEffortPartyAssignment')
+            .where(workEffortId: parameters.workEffortId,
+                    partyId: parameters.partyId,
+                    roleTypeId: parameters.roleTypeId)
+            .filterByDate()
+            .queryFirst()
+    if (assignment) {
+        return error(label('WorkEffortUiLabels', 'WorkEffortPartyAssignmentError', parameters))
+    }
+
+    run service: 'ensurePartyRole', with: parameters
+    Timestamp now = UtilDateTime.nowTimestamp()
+    parameters.fromDate = parameters.fromDate ?: now
+    Map result = run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
+                                                                        statusDatetime: parameters.statusId? now: null,
+                                                                        assignedByUserLoginId: userLogin.userLoginId]
+    assignment = from('WorkEffortPartyAssignment').where(parameters).queryOne()
+    if (parameters.statusId) {
+        WorkEffortPartyAssignmentServices.updateWorkflowEngine(assignment, userLogin, dispatcher)
+    }
+    return success([fromDate: result.fromDate])
+}
+
+/**
+ * Update WorkEffortPartyAssignment entity
+ * @return Success, error response otherwise.
+ */
+Map updatePartyToWorkEffortAssignment() {
+    Map assignment = from('WorkEffortPartyAssignment').where(parameters).queryOne()
+    if (assignment && parameters.statusId
+            && parameters.statusId != assignment.statusId) {
+        WorkEffortPartyAssignmentServices.updateWorkflowEngine(assignment, userLogin, dispatcher)
+        parameters.statusDatetime = UtilDateTime.nowTimestamp()
+    }
+    Map result = run service: 'updateWorkEffortPartyAssignment', with: parameters
+    return result
+}
+
+/**
+ * Quick Assign Party To WorkEffort
+ * @return Success, error response otherwise.
+ */
+Map quickAssignPartyToWorkEffort() {
+
+    // add a party assignment for the creator of the event, use the list method and let the EE do the update or create...
+    run service: 'ensurePartyRole', with: [partyId: parameters.quickAssignPartyId,
+                                           roleTypeId: parameters.roleTypeId]
+    run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
+                                                           partyId: parameters.quickAssignPartyId,
+                                                           statusId: 'PRTYASGN_ASSIGNED']
+    return success()
+}
+
+/**
+ * Quick Assign Party To WorkEffort
+ * if relationEntityName is present create the contactMech type related
+ * and if partyId is also present, link it
+ * @return Success response containing the contactMechId, error response otherwise.
+ */
+Map createWorkEffortContactMech() {
+    String contactMechId = parameters.contactMechId
+    if (!contactMechId && parameters.relationEntityName) {
+        String serviceName = 'create' + (parameters.partyId ? 'Party' : '') + parameters.relationEntityName
+        Map serviceResult = run service: serviceName, with: parameters
+        contactMechId = serviceResult.contactMechId
+    }
+
+    if (!contactMechId) {
+        if (!parameters.contactMechTypeId) {
+            return error(label('WorkEffortUiLabels', 'WorkEffortRequiredFieldMissingContactMechIdOrContactMechTypeId'))
+        }
+        String serviceName = 'create' + (parameters.relationEntityName ?: 'ContactMech')
+        Map serviceResult = run service: serviceName, with: parameters
+        contactMechId = serviceResult.contactMechId
+    }
+
+    GenericValue workEffortContactMech = makeValue('WorkEffortContactMech', [*: parameters,
+                                                                             fromDate: UtilDateTime.nowTimestamp(),
+                                                                             contactMechId: contactMechId])
+    workEffortContactMech.create()
+    return success([contactMechId: contactMechId])
+}
+
+/**
+ * Update a WorkEffortContactMech and ContactMech related
+ * @return Successs response containing the contactMechId and oldContactMechId,, error response otherwise.
+ */
+Map updateWorkEffortContactMech() {
+    GenericValue workEffortContactMech = from('WorkEffortContactMech')
+            .where(workEffortId: parameters.workEffortId,
+                    contactMechId: parameters.contactMechId)
+            .filterByDate()
+            .queryFirst()
+    if (!workEffortContactMech) {
+        return error(label('WorkEffortUiLabels', 'WorkEffortCannotUpdateContactInfo'))
+    }
+    GenericValue newWorkEffortContactMech = workEffortContactMech.clone()
+    // If we already have a new contactMechId don't update ContactMech
+    String newContactMechId = parameters.newContactMechId
+    if (!newContactMechId && parameters.relationEntityName) {
+        String serviceName = 'update' + parameters.relationEntityName
+        Map serviceResult = run service: serviceName, with: parameters
+        newContactMechId = serviceResult.contactMechId
+    }
+    if (!newContactMechId) {
+        Map serviceResult = run service: 'updateContactMech', with: parameters
+        newContactMechId = serviceResult.contactMechId
+    }
+
+    if (newContactMechId != parameters.contactMechId) {
+        Timestamp now = UtilDateTime.nowTimestamp()
+        newWorkEffortContactMech.fromDate = now
+        workEffortContactMech.thruDate = now
+        newWorkEffortContactMech.contactMechId = newContactMechId
+        newWorkEffortContactMech.create()
+        workEffortContactMech.store()
+    }
+    return success([contactMechId: newContactMechId, oldContactMechId: workEffortContactMech.contactMechId])
 }
