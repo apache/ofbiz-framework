@@ -69,12 +69,12 @@ under the License.
                                 <not><if-empty field="custRequest"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="RequestTabBar" location="${parameters.mainMenuLocation}"/>
+                                <include-menu name="RequestTabBar" location="${parameters.requestMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
-                        <include-menu name="RequestSubTabBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="RequestSubTabBar" location="${parameters.requestMenuLocation}"/>
                         <container>
                             <section>
                                 <condition>
