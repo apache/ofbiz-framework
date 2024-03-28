@@ -359,15 +359,15 @@ Map duplicateWorkEffort() {
     duplicateWorkEffort.workEffortId = workEffortId
 
     // Check the status to give to the new WorkEffort
-    if (!parameters.statusId) {
+    if (parameters.statusId) {
+        duplicateWorkEffort.currentStatusId = parameters.statusId
+    } else {
         GenericValue oldStatus = from('StatusItem').where(statusId: oldWorkEffort.currentStatusId).cache().queryOne()
         GenericValue firstStatus = from('StatusItem')
                 .where(statusTypeId: oldStatus.statusTypeId)
                 .orderBy('sequenceId')
                 .queryFirst()
         duplicateWorkEffort.currentStatusId = firstStatus.statusId
-    } else {
-        duplicateWorkEffort.currentStatusId = parameters.statusId
     }
 
     // Create the new WorkEffort from the old one and the status
@@ -406,10 +406,6 @@ Map duplicateWorkEffort() {
 
 /**
  * duplicate entity relation during a workEffort duplication process
- * @param relationEntityName
- * @param oldWorkEffortId
- * @param workEffortId
- * @param relationFieldName
  */
 void duplicateWorkEffortAssoc(String relationEntityName, String oldWorkEffortId,
                               String workEffortId, String relationFieldName = 'workEffortId') {
@@ -477,7 +473,7 @@ Map assignPartyToWorkEffort() {
     Timestamp now = UtilDateTime.nowTimestamp()
     parameters.fromDate = parameters.fromDate ?: now
     Map result = run service: 'createWorkEffortPartyAssignment', with: [*: parameters,
-                                                                        statusDatetime: parameters.statusId? now: null,
+                                                                        statusDatetime: parameters.statusId ? now : null,
                                                                         assignedByUserLoginId: userLogin.userLoginId]
     assignment = from('WorkEffortPartyAssignment').where(parameters).queryOne()
     if (parameters.statusId) {
@@ -506,7 +502,6 @@ Map updatePartyToWorkEffortAssignment() {
  * @return Success, error response otherwise.
  */
 Map quickAssignPartyToWorkEffort() {
-
     // add a party assignment for the creator of the event, use the list method and let the EE do the update or create...
     run service: 'ensurePartyRole', with: [partyId: parameters.quickAssignPartyId,
                                            roleTypeId: parameters.roleTypeId]
