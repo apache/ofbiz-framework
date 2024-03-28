@@ -50,6 +50,11 @@ under the License.
         <param-name>calendarMenuLocation</param-name>
         <param-value>component://workeffort/widget/WorkEffortMenus.xml</param-value>
     </context-param>
+    <context-param>
+        <description>The location of the timesheet menus file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>timesheetMenuLocation</param-name>
+        <param-value>component://workeffort/widget/TimesheetMenus.xml</param-value>
+    </context-param>
 
     <filter>
         <display-name>ControlFilter</display-name>
