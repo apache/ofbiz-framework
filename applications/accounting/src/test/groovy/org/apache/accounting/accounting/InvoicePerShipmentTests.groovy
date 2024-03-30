@@ -18,7 +18,6 @@
  */
 package org.apache.accounting.accounting
 
-import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.CheckOutEvents
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
@@ -47,7 +46,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 4) Check invoice should not created.
          */
         List invoices = testInvoicePerShipment('GZ-1000', 'N')
-        assert UtilValidate.isEmpty(invoices)
+        assert invoices
     }
 
     void testInvoicePerShipmentSetTrue() {
@@ -58,7 +57,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 4) Check invoice should be created.
          */
         List invoices = testInvoicePerShipment('GZ-1000', 'Y')
-        assert UtilValidate.isNotEmpty(invoices)
+        assert !invoices
     }
 
     void testInvoicePerShipmentSetOrderFalse() {
@@ -68,7 +67,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 3) Check invoice should not be created.
          */
         List invoices = testInvoicePerShipment('GZ-2644', 'N')
-        assert UtilValidate.isEmpty(invoices)
+        assert invoices
     }
 
     void testInvoicePerShipmentSetOrderTrue() {
@@ -78,7 +77,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 3) Check invoice should be created.
          */
         List invoices = testInvoicePerShipment('GZ-2644', 'Y')
-        assert UtilValidate.isNotEmpty(invoices)
+        assert !invoices
     }
 
     private List testInvoicePerShipment(String productId, String invoicePerShipment) {
