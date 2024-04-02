@@ -41,8 +41,8 @@ import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
+import freemarker.ext.beans.GenericObjectModel;
 import freemarker.ext.beans.NumberModel;
-import freemarker.ext.beans.StringModel;
 import freemarker.template.SimpleNumber;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
@@ -61,8 +61,8 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
-        } else if (o instanceof StringModel) {
-            return ((StringModel) o).getAsString();
+        } else if (o instanceof GenericObjectModel) {
+            return ((GenericObjectModel) o).getAsString();
         } else if (o instanceof SimpleNumber) {
             return ((SimpleNumber) o).getAsNumber().toString();
         } else if (o instanceof NumberModel) {
@@ -148,15 +148,15 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale,
                                     EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
-                            url = CatalogUrlFilter.makeProductUrl(wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId,
+                            url = CatalogUrlFilter.makeProductUrl(wrapper, null, ((GenericObjectModel) prefix).getAsString(), previousCategoryId,
                                     productCategoryId, productId);
                         } else {
                             GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId",
                                     productCategoryId).queryOne();
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties
                                     .getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
-                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId,
-                                    productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((GenericObjectModel) prefix)
+                                    .getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
                         out.write(url);
                     } else {

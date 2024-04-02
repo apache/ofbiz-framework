@@ -70,7 +70,9 @@ dependencies {
     implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
     implementation 'org.clojure:clojure:1.11.1'
     implementation 'org.codehaus.groovy:groovy-all:3.0.21'
-    implementation 'org.freemarker:freemarker:2.3.32' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    //implementation 'org.freemarker:freemarker:2.3.32' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    implementation 'org.freemarker:freemarker:2.3.33-SNAPSHOT' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+
     implementation 'org.owasp.esapi:esapi:2.5.3.1'
     implementation 'org.cyberneko:html:1.9.8'
     implementation 'org.springframework:spring-test:5.3.29' //  6.1.4 does not compile
