@@ -53,7 +53,7 @@ import org.w3c.dom.Element;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
+import freemarker.ext.beans.GenericObjectModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -96,7 +96,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public static class StringHtmlWrapperForFtl extends StringModel {
+    public static class StringHtmlWrapperForFtl extends GenericObjectModel {
         public StringHtmlWrapperForFtl(String str, BeansWrapper wrapper) {
             super(str, wrapper);
         }

@@ -45,7 +45,7 @@ import org.apache.ofbiz.webapp.SeoConfigUtil;
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.NumberModel;
-import freemarker.ext.beans.StringModel;
+import freemarker.ext.beans.GenericObjectModel;
 import freemarker.template.SimpleNumber;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
@@ -64,8 +64,8 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
-        } else if (o instanceof StringModel) {
-            return ((StringModel) o).getAsString();
+        } else if (o instanceof GenericObjectModel) {
+            return ((GenericObjectModel) o).getAsString();
         } else if (o instanceof SimpleNumber) {
             return ((SimpleNumber) o).getAsNumber().toString();
         } else if (o instanceof NumberModel) {
@@ -167,7 +167,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                         Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
                         LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
                         Locale locale = (Locale) args.get("locale");
-                        String prefixString = ((StringModel) prefix).getAsString();
+                        String prefixString = ((GenericObjectModel) prefix).getAsString();
                         prefixString = prefixString.replace("&#47;", "/");
                         String contextPath = prefixString;
                         int lastSlashIndex = prefixString.lastIndexOf('/');

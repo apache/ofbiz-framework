@@ -28,7 +28,7 @@ import org.apache.ofbiz.product.category.CatalogUrlServlet;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
-import freemarker.ext.beans.StringModel;
+import freemarker.ext.beans.GenericObjectModel;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
@@ -46,8 +46,8 @@ public class OfbizCatalogUrlTransform implements TemplateTransformModel {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
-        } else if (o instanceof StringModel) {
-            return ((StringModel) o).getAsString();
+        } else if (o instanceof GenericObjectModel) {
+            return ((GenericObjectModel) o).getAsString();
         }
         return null;
     }
