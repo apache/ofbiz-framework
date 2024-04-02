@@ -26,7 +26,7 @@ import org.apache.ofbiz.testtools.GroovyScriptTestCase
 
 class ServicePurgeTest extends GroovyScriptTestCase {
 
-// ./gradlew 'ofbiz -t component=service -t suitename=servicetests -t case=service-purge-test' --debug-jvm
+// ./gradlew "ofbiz --test component=service --test suitename=servicetests --test case=service-purge-test"
 
     void testRuntimeDataIsCleanedAfterServicePurge() {
         GenericValue sysUserLogin = delegator.findOne('UserLogin', true, 'userLoginId', 'system')
