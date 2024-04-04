@@ -531,12 +531,12 @@ parameters are passed:
 
 // tag::testingtasks[]
 [[execute-all-unit-tests]]
-==== Execute all unit tests
+==== Execute all unit tests (no need access to the DB)
 
 `gradlew test`
 
 [[execute-all-integration-tests]]
-==== Execute all integration tests
+==== Execute all integration tests (need access to the DB)
 
 `gradlew testIntegration`
 
@@ -565,7 +565,7 @@ verbose:
 [[execute-an-integration-test-case]]
 ==== Execute an integration test case
 
-run a test case, in this example the component is "entity" and the case name is
+Run a test case, in this example the component is "entity" and the case name is
 "entity-tests"
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests --test case=entity-query-tests"`
@@ -573,7 +573,7 @@ run a test case, in this example the component is "entity" and the case name is
 [[execute-an-integration-test-case-in-debug-mode-with-verbose-log]]
 ==== Execute an integration test case in debug mode with verbose log
 
-listens on port *5005*
+Listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test loglevel=verbose" --debug-jvm`
 
@@ -585,9 +585,23 @@ listens on port *5005*
 [[execute-an-integration-test-suite-in-debug-mode]]
 ==== Execute an integration test suite in debug mode
 
-listens on port *5005*
+Listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests" --debug-jvm`
+
+[[execute-all-component-tests]]
+==== Execute all component tests
+
+`gradlew "ofbiz --test component=entity`
+
+[[execute-all-component-tests-in-debug-mode]]
+==== Execute all component tests in debug mode
+
+Listens on port *5005*
+
+`gradlew "ofbiz --test component=entity" --debug-jvm`
+
+
 
 // end::testingtasks[]
 
