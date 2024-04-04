@@ -26,7 +26,7 @@ under the License.
         <!-- Call layout to get field -->
         <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker"
             method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <string value="uploadedFile"/>
         </call-class-method>
 

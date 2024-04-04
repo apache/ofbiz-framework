@@ -36,13 +36,13 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
 
 import org.apache.http.HttpStatus;
@@ -1228,7 +1228,7 @@ public final class LoginWorker {
             //Debug.logInfo("CN Pattern: " + cnPattern, MODULE);
 
             if (currentUserLogin == null) {
-                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("jakarta.servlet.request.X509Certificate"); // 2.2 spec
                 if (clientCerts == null) {
                     clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
                 }

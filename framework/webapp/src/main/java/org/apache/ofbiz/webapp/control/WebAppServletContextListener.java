@@ -20,12 +20,12 @@ package org.apache.ofbiz.webapp.control;
 
 import java.util.EnumSet;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.SessionCookieConfig;
-import javax.servlet.SessionTrackingMode;
-import javax.servlet.annotation.WebListener;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.SessionCookieConfig;
+import jakarta.servlet.SessionTrackingMode;
+import jakarta.servlet.annotation.WebListener;
 
 import org.apache.ofbiz.base.util.UtilProperties;
 
@@ -33,7 +33,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 public class WebAppServletContextListener implements ServletContextListener {
 
     /* (non-Javadoc)
-     * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+     * @see jakarta.servlet.ServletContextListener#contextInitialized(jakarta.servlet.ServletContextEvent)
      */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -50,7 +50,7 @@ public class WebAppServletContextListener implements ServletContextListener {
     }
 
     /* (non-Javadoc)
-     * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+     * @see jakarta.servlet.ServletContextListener#contextDestroyed(jakarta.servlet.ServletContextEvent)
      */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {

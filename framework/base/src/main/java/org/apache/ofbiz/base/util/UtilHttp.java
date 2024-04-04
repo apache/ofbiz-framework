@@ -40,6 +40,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,14 +66,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.net.ssl.SSLContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -204,7 +206,7 @@ public final class UtilHttp {
         Map<String, Object> multiPartMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
+        boolean isMultiPart = JakartaServletFileUpload.isMultipartContent(request);
         if (isMultiPart) {
             long maxUploadSize = getMaxUploadSize(delegator);
             int sizeThreshold = getSizeThreshold(delegator);
@@ -212,16 +214,16 @@ public final class UtilHttp {
             String encoding = request.getCharacterEncoding();
             // check for multipart content types which may have uploaded items
 
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+            JakartaServletFileUpload upload = UtilHttp.getDefaultServlerFileUpload(delegator);
             upload.setSizeMax(maxUploadSize);
             // create the progress listener and add it to the session
             FileUploadProgressListener listener = new FileUploadProgressListener();
             upload.setProgressListener(listener);
             session.setAttribute("uploadProgressListener", listener);
 
-            if (encoding != null) {
-                upload.setHeaderEncoding(encoding);
-            }
+//            if (encoding != null) {
+//                upload.setHeaderEncoding(encoding);
+//            }
 
             List<FileItem> uploadedItems = null;
             try {
@@ -1796,6 +1798,20 @@ public final class UtilHttp {
             }
         }
         return allowedProtocolList;
+    }
+
+    public static JakartaServletFileUpload getDefaultServlerFileUpload (Delegator delegator) {
+        long maxUploadSize = getMaxUploadSize(delegator);
+        int sizeThreshold = getSizeThreshold(delegator);
+        Path tmpUploadRepository = getTmpUploadRepository(delegator).toPath();
+
+        DiskFileItemFactory factory = DiskFileItemFactory.builder()
+                .setBufferSizeMax(sizeThreshold)
+                .setPath(tmpUploadRepository)
+                .get();
+        JakartaServletFileUpload temp = new JakartaServletFileUpload(factory);
+        temp.setFileSizeMax(maxUploadSize);
+        return temp;
     }
 
 }

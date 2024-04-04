@@ -25,20 +25,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.el.ArrayELResolver;
-import javax.el.BeanELResolver;
-import javax.el.CompositeELResolver;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.ExpressionFactory;
-import javax.el.FunctionMapper;
-import javax.el.ListELResolver;
-import javax.el.MapELResolver;
-import javax.el.PropertyNotFoundException;
-import javax.el.PropertyNotWritableException;
-import javax.el.ResourceBundleELResolver;
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
+import jakarta.el.ArrayELResolver;
+import jakarta.el.BeanELResolver;
+import jakarta.el.CompositeELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.FunctionMapper;
+import jakarta.el.ListELResolver;
+import jakarta.el.MapELResolver;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.PropertyNotWritableException;
+import jakarta.el.ResourceBundleELResolver;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -50,7 +50,8 @@ import org.apache.ofbiz.base.util.collections.LocalizedMap;
 public final class UelUtil {
     private static final String MODULE = UelUtil.class.getName();
     private static final String LOCALIZED_MAP_LOCALE_KEY = LocalizedMap.class.getName() + "_locale".replace(".", "_");
-    private static final ExpressionFactory EXPR_FACTORY = JuelConnector.newExpressionFactory();
+//    private static final ExpressionFactory EXPR_FACTORY = JuelConnector.newExpressionFactory();
+    private static final ExpressionFactory EXPR_FACTORY = ExpressionFactory.newInstance();
     private static final ELResolver DEFAULT_RESOLVER = new ExtendedCompositeResolver() {
         {
             add(new ExtendedMapResolver(false));

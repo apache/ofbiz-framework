@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.security;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.webapp.control.RequestHandlerExceptionAllowExternalRequests;
 

@@ -20,7 +20,7 @@ package org.apache.ofbiz.webapp.event;
 
 import java.io.Serializable;
 
-import org.apache.commons.fileupload.ProgressListener;
+import org.apache.commons.fileupload2.core.ProgressListener;
 
 /**
  * FileUploadProgressListener - Commons FileUpload progress listener

@@ -20,7 +20,7 @@ package org.apache.ofbiz.widget.content;
 
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Generates URL strings for addressing static content based properties configured on an HttpRequest's website or

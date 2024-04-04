@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.location.FlexibleLocation;

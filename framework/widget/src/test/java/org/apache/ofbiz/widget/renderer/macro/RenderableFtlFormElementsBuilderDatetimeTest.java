@@ -22,9 +22,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.widget.content.StaticContentUrlProvider;

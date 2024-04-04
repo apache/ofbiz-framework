@@ -28,8 +28,8 @@ import java.util.TimeZone;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.ScriptUtil;

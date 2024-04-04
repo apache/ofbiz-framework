@@ -21,7 +21,7 @@ package org.apache.ofbiz.webapp.event;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.UtilGenerics;

@@ -42,16 +42,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
@@ -209,12 +210,13 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
      * "idField" value and the binary data to be in a field id's by uploadField.
      */
     public static String uploadAndStoreImage(HttpServletRequest request, String idField, String uploadField) {
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        JakartaServletFileUpload upload = UtilHttp.getDefaultServlerFileUpload(delegator);
         List<FileItem> lst = null;
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            lst = UtilGenerics.cast(fu.parseRequest(request));
+            lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";

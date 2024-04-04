@@ -38,10 +38,10 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.cxf.jaxrs.model.URITemplate;
@@ -321,7 +321,7 @@ public final class RequestHandler {
      * @return true if the request contains some valid certificates, otherwise false.
      */
     static boolean checkCertificates(HttpServletRequest request, Predicate<X509Certificate[]> validator) {
-        return Stream.of("javax.servlet.request.X509Certificate", // 2.2 spec
+        return Stream.of("jakarta.servlet.request.X509Certificate", // 2.2 spec
                 "javax.net.ssl.peer_certificates")       // 2.1 spec
                 .map(request::getAttribute)
                 .filter(Objects::nonNull)

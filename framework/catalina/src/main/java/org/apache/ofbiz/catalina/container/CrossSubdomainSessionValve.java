@@ -20,8 +20,8 @@ package org.apache.ofbiz.catalina.container;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;

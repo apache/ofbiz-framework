@@ -37,7 +37,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
@@ -283,7 +283,7 @@ public class RequestHandlerTests {
         @Test
         // Check that certificates with 2.2 spec are handled correctly.
         public void checkCertificates22() {
-            when(req.getAttribute("javax.servlet.request.X509Certificate")).thenReturn(new X509Certificate[] {});
+            when(req.getAttribute("jakarta.servlet.request.X509Certificate")).thenReturn(new X509Certificate[] {});
             assertTrue(RequestHandler.checkCertificates(req, x -> true));
             assertFalse(RequestHandler.checkCertificates(req, x -> false));
         }

@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.website;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;

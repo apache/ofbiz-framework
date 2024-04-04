@@ -25,12 +25,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -62,14 +63,7 @@ public final class LayoutWorker {
         results.put("formInput", formInput);
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-
-        long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
-        int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
-        File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-
-        ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
-        upload.setSizeMax(maxUploadSize);
-
+        JakartaServletFileUpload upload = UtilHttp.getDefaultServlerFileUpload(delegator);
         List<FileItem> lst = null;
         try {
             lst = UtilGenerics.cast(upload.parseRequest(request));

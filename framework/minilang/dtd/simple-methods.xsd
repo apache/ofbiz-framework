@@ -301,7 +301,7 @@ under the License.
             <xs:attribute name="event-request-object-name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field containing the javax.servlet.ServletRequest object. Defaults to "request".
+                        The name of the field containing the jakarta.servlet.ServletRequest object. Defaults to "request".
                         
                         Used when the simple method is invoked as an event, it is ignored otherwise.
                         
@@ -312,7 +312,7 @@ under the License.
             <xs:attribute name="event-response-object-name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field containing the javax.servlet.ServletResponse object. Defaults to "response".
+                        The name of the field containing the jakarta.servlet.ServletResponse object. Defaults to "response".
                         
                         Used when the simple method is invoked as an event, it is ignored otherwise.
                         
@@ -323,7 +323,7 @@ under the License.
             <xs:attribute name="event-session-object-name" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the field containing the javax.servlet.http.HttpSession object. Defaults to "session".
+                        The name of the field containing the jakarta.servlet.http.HttpSession object. Defaults to "session".
                         
                         Used when the simple method is invoked as an event, it is ignored otherwise.
                         

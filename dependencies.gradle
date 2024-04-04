@@ -33,7 +33,8 @@ dependencies {
     implementation 'com.rometools:rome:2.1.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.20'
     implementation 'commons-cli:commons-cli:1.5.0' // with 1.6.0, 2 tests of OfbizStartupUnitTests don't pass
-    implementation 'commons-fileupload:commons-fileupload:1.5'
+    implementation 'org.apache.commons:commons-fileupload2-jakarta:2.0.0-M1'
+//    implementation 'commons-fileupload:commons-fileupload:1.5'
     implementation 'commons-net:commons-net:3.10.0'
     implementation 'commons-validator:commons-validator:1.8.0'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
@@ -61,8 +62,10 @@ dependencies {
     implementation 'org.apache.tika:tika-parsers:2.5.0'
     implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.6' // 4.0.3 does not compile
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.86' // Remember to change the version number (9 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.86'
+//    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.86' // Remember to change the version number (9 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:10.1.19'
+//    implementation 'org.apache.tomcat:tomcat-jasper:9.0.86'
+    implementation 'org.apache.tomcat:tomcat-jasper:10.1.19'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
     implementation 'org.apache.xmlgraphics:batik-anim:1.17'
     implementation 'org.apache.xmlgraphics:batik-util:1.17'

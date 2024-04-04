@@ -29,10 +29,10 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -65,10 +65,10 @@ import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
-import freemarker.ext.jsp.TaglibFactory;
-import freemarker.ext.servlet.HttpRequestHashModel;
-import freemarker.ext.servlet.HttpSessionHashModel;
-import freemarker.ext.servlet.ServletContextHashModel;
+import freemarker.ext.jakarta.jsp.TaglibFactory;
+import freemarker.ext.jakarta.servlet.HttpRequestHashModel;
+import freemarker.ext.jakarta.servlet.HttpSessionHashModel;
+import freemarker.ext.jakarta.servlet.ServletContextHashModel;
 
 /**
  * Widget Library - Screen model class

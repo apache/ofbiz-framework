@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -136,8 +138,8 @@ public final class BOMHelper {
         return duplicatedNode;
     }
 
-    public static String createProductionRunsForShipment(javax.servlet.http.HttpServletRequest request,
-                                                         javax.servlet.http.HttpServletResponse response) {
+    public static String createProductionRunsForShipment(HttpServletRequest request,
+                                                         HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");

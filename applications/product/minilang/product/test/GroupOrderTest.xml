@@ -54,8 +54,8 @@ under the License.
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
         <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
@@ -70,21 +70,21 @@ under the License.
             session.setAttribute("userLogin", userLogin);
         </script>
         <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
         <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
         <script>groovy:
             request.setParameter("add_product_id", "GZ-1000");
         </script>
         <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
         <script>groovy:
@@ -97,24 +97,24 @@ under the License.
         </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
         <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
         <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
         <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
         <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
         <!-- Step 3 -->
@@ -176,8 +176,8 @@ under the License.
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
         <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
@@ -192,21 +192,21 @@ under the License.
             session.setAttribute("userLogin", userLogin);
         </script>
         <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
         <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
         <script>groovy:
             request.setParameter("add_product_id", "GZ-1001");
         </script>
         <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
         <script>groovy:
@@ -219,24 +219,24 @@ under the License.
         </script>
         <field-to-request field="nullField" request-name="shoppingCart"/>
         <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
         <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
         <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
         <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="response" type="jakarta.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
         <!-- Step 3 -->

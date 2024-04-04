@@ -18,8 +18,6 @@
  */
 package org.apache.ofbiz.accounting.accounting
 
-import javax.servlet.http.HttpSession
-
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.CheckOutEvents
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
@@ -31,6 +29,8 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.shipment.packing.PackingSession
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
+
+import jakarta.servlet.http.HttpSession
 
 class InvoicePerShipmentTests extends OFBizTestCase {
 

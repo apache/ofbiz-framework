@@ -37,9 +37,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -71,13 +71,13 @@ public class CommonEvents {
 
     // Attributes removed for security reason; _ERROR_MESSAGE_ and _ERROR_MESSAGE_LIST are kept
     private static final String[] IGNOREATTRS = new String[] {
-        "javax.servlet.request.key_size",
+        "jakarta.servlet.request.key_size",
         "_CONTEXT_ROOT_",
         "_FORWARDED_FROM_SERVLET_",
-        "javax.servlet.request.ssl_session",
-        "javax.servlet.request.ssl_session_id",
+        "jakarta.servlet.request.ssl_session",
+        "jakarta.servlet.request.ssl_session_id",
         "multiPartMap",
-        "javax.servlet.request.cipher_suite",
+        "jakarta.servlet.request.cipher_suite",
         "targetRequestUri",
         "_SERVER_ROOT_URL_",
         "_CONTROL_PATH_",
