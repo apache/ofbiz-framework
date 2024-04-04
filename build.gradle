@@ -254,7 +254,7 @@ sourceSets {
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
         }
     }
-
+    // This is unit tests. Integration tests must be above because of compilation issues.
     test {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')

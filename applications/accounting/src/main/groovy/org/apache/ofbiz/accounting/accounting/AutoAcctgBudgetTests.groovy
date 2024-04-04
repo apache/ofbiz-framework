@@ -16,29 +16,42 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.accounting.accounting
+package org.apache.ofbiz.accounting.accounting
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class AutoAcctgPaymentGatewayTests extends OFBizTestCase {
+class AutoAcctgBudgetTests extends OFBizTestCase {
 
-    AutoAcctgPaymentGatewayTests(String name) {
+    AutoAcctgBudgetTests(String name) {
         super(name)
     }
 
-    void testUpdatePaymentGatewayConfig() {
+    void testCreateBudget() {
         Map serviceCtx = [:]
-        serviceCtx.paymentGatewayConfigId = 'SAGEPAY_CONFIG'
-        serviceCtx.description = 'Test Payment Gateway Config Id'
+        serviceCtx.budgetTypeId = 'CAPITAL_BUDGET'
+        serviceCtx.comments = 'Capital Budget'
         serviceCtx.userLogin = userLogin
-        Map serviceResult = dispatcher.runSync('updatePaymentGatewayConfig', serviceCtx)
-        assert ServiceUtil.isSuccess(serviceResult)
+        Map result = dispatcher.runSync('createBudget', serviceCtx)
+        assert ServiceUtil.isSuccess(result)
 
-        GenericValue paymentGatewayConfig = from('PaymentGatewayConfig').where('paymentGatewayConfigId', 'SAGEPAY_CONFIG').queryOne()
-        assert paymentGatewayConfig
-        assert paymentGatewayConfig.description  == 'Test Payment Gateway Config Id'
+        GenericValue budget = from('Budget').where(result).queryOne()
+        assert budget
+        assert budget.budgetTypeId == 'CAPITAL_BUDGET'
+        assert budget.comments == 'Capital Budget'
+    }
+
+    void testUpdateBudgetStatus() {
+        Map serviceCtx = [:]
+        serviceCtx.budgetId = '9999'
+        serviceCtx.statusId = 'BG_APPROVED'
+        serviceCtx.userLogin = userLogin
+        dispatcher.runSync('updateBudgetStatus', serviceCtx)
+
+        List<GenericValue> budgetStatuses = from('BudgetStatus').where('budgetId', '9999').orderBy('-statusDate').queryList()
+        assert ! budgetStatuses?.isEmpty()
+        assert budgetStatuses[0].statusId == 'BG_APPROVED'
     }
 
 }
