@@ -22,6 +22,8 @@ under the License.
         xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+    <include location="component://accounting/webapp/accounting/WEB-INF/accounting-controller.xml"/>
+
     <description>Accounting Manager Module Site Configuration File</description>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -145,13 +147,13 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="findInvoices"/>
     </request-map>
-    <request-map uri="invoiceOverview">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="invoiceOverview"/>
-    </request-map>
     <request-map uri="newInvoice">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="newInvoice"/>
+    </request-map>
+    <request-map uri="invoiceOverview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceOverview"/>
     </request-map>
     <request-map uri="editInvoice">
         <security https="true" auth="true"/>
@@ -2640,7 +2642,7 @@ under the License.
     <view-map name="BillingAccountOrders" type="screen" page="component://accounting/widget/BillingAccountScreens.xml#BillingAccountOrders"/>
 
     <!-- Invoice -->
-    <view-map name="invoiceOverview" type="screen" page="component://accounting/widget/InvoiceScreens.xml#invoiceOverview"/>
+    <view-map name="invoiceOverview" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceOverview"/>
     <view-map name="findInvoices" type="screen" page="component://accounting/widget/InvoiceScreens.xml#FindInvoices"/>
     <view-map name="newInvoice" type="screen" page="component://accounting/widget/InvoiceScreens.xml#NewInvoice"/>
     <view-map name="editInvoice" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoice"/>

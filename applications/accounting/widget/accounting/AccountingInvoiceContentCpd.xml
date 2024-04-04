@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+
+        <sc:request-map uri="Accounting/Invoice/Contents"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Contents"/></sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/Contents" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceContentCpd.xml#InvoiceContents"/>
+
+    </sc:site-conf>
+
+    <ws:screens>
+
+        <ws:screen name="InvoiceContents">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleInvoiceContent"/>
+                    <ws:set field="tabButtonItem" value="invoiceContent"/>
+                    <ws:set field="sortField" from-field="parameters.sortField" default-value="contentId"/>
+                    <ws:entity-and entity-name="InvoiceContent" list="invoiceContentList">
+                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                        <ws:order-by field-name="${sortField}" />
+                    </ws:entity-and>
+                </ws:actions>
+                <ws:widgets>
+                     <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                         <ws:decorator-section name="single">
+                             <ws:screenlet title="${uiLabelMap.CommonContent}">
+                                 <ws:include-grid name="InvoiceContents" location="component://accounting/widget/accounting/AccountingInvoiceContentCpd.xml"/>
+                             </ws:screenlet>
+                         </ws:decorator-section>
+                     </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+
+    <wf:forms>
+
+        <wf:grid name="InvoiceContents" list-name="invoiceContentList" paginate-target="Accounting/Invoice/Contents"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:auto-fields-entity entity-name="InvoiceContent" default-field-type="display"/>
+        </wf:grid>
+
+    </wf:forms>
+
+</compound-widgets>
