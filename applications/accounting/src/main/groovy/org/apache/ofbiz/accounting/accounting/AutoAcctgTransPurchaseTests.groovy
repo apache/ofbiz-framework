@@ -22,9 +22,9 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class AutoAcctgTransTestsPurchase extends OFBizTestCase {
+class AutoAcctgTransPurchaseTests extends OFBizTestCase {
 
-    AutoAcctgTransTestsPurchase(String name) {
+    AutoAcctgTransPurchaseTests(String name) {
         super(name)
     }
 

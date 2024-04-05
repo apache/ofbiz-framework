@@ -23,9 +23,9 @@ import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class AutoAcctgTransTestsSales extends OFBizTestCase {
+class AutoAcctgTransSalesTests extends OFBizTestCase {
 
-    AutoAcctgTransTestsSales(String name) {
+    AutoAcctgTransSalesTests(String name) {
         super(name)
     }
 

@@ -31,10 +31,10 @@
     </test-case>
 
     <test-case case-name="auto-accounting-transaction-tests-sales">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgTransTestsSales"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgTransSalesTests"/>
     </test-case>
     <test-case case-name="auto-accounting-transaction-tests-purchase">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgTransTestsPurchase"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgTransPurchaseTests"/>
     </test-case>
     <test-case case-name="auto-accounting-admin-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoAcctgAdminTests"/>
