@@ -23,9 +23,9 @@
             xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-group case-name="product-Conditions-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductPromoCondTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductPromoCondTests"/>
     </test-group>
     <test-group case-name="product-Action-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductPromoActionTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductPromoActionTests"/>
     </test-group>
 </test-suite>

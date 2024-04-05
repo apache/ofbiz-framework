@@ -1,10 +1,10 @@
-/*
+/*******************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License") you may not use this file except in compliance
+ * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
@@ -15,34 +15,30 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
-package org.apache.product.product
+ *******************************************************************************/
+package org.apache.ofbiz.product.product.test
 
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.service.testtools.OFBizTestCase
 import org.apache.ofbiz.service.ServiceUtil
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class ProductConfigTests extends OFBizTestCase {
+class ProductFeatureTypeTests extends OFBizTestCase {
 
-    ProductConfigTests(String name) {
+    ProductFeatureTypeTests(String name) {
         super(name)
     }
 
-    void testCreateProductConfigOption() {
+    void testCreateProductFeatureType() {
         Map serviceCtx = [:]
-        serviceCtx.configItemId = 'testConfigItemId'
-        serviceCtx.configOptionName = 'Test Config Option'
-        serviceCtx.description = 'Test product config option'
+        serviceCtx.productFeatureTypeId = 'testProdFeat'
+        serviceCtx.description = 'Test Description'
+        serviceCtx.hasTable = 'N'
         serviceCtx.userLogin = userLogin
-        Map serviceResult = dispatcher.runSync('createProductConfigOption', serviceCtx)
-        assert ServiceUtil.isSuccess(serviceResult)
-        assert serviceResult.configOptionId
+        Map result = dispatcher.runSync('createProductFeatureType', serviceCtx)
+        assert ServiceUtil.isSuccess(result)
 
-        GenericValue productConfigOption = from('ProductConfigOption')
-                .where('configItemId', 'testConfigItemId')
-                .queryFirst()
-        assert productConfigOption
-        assert productConfigOption.configOptionName == 'Test Config Option'
+        GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
+        assert productFeatureType.productFeatureTypeId == 'testProdFeat'
     }
 
 }

@@ -16,29 +16,39 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.product.product
+package org.apache.ofbiz.product.product.test
 
-import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
 
-class ProductFeatureTypeTests extends OFBizTestCase {
+class InventoryTests extends OFBizTestCase {
 
-    ProductFeatureTypeTests(String name) {
+    InventoryTests(String name) {
         super(name)
     }
 
-    void testCreateProductFeatureType() {
-        Map serviceCtx = [:]
-        serviceCtx.productFeatureTypeId = 'testProdFeat'
-        serviceCtx.description = 'Test Description'
-        serviceCtx.hasTable = 'N'
-        serviceCtx.userLogin = userLogin
-        Map result = dispatcher.runSync('createProductFeatureType', serviceCtx)
-        assert ServiceUtil.isSuccess(result)
+    void testGetInventoryAvailableByFacility() {
+        Map serviceCtx = [
+                productId: 'GZ-2644',
+                facilityId: 'WebStoreWarehouse',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('getInventoryAvailableByFacility', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.quantityOnHandTotal == 509
+        assert serviceResult.availableToPromiseTotal == 509
+    }
 
-        GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
-        assert productFeatureType.productFeatureTypeId == 'testProdFeat'
+    // Test Physical Inventory Adjustment
+    void testCreatePhysicalInventoryAndVariance() {
+        Map serviceCtx = [
+                inventoryItemId: '9024',
+                varianceReasonId: 'VAR_LOST',
+                userLogin: userLogin
+        ]
+        Map serviceResult = dispatcher.runSync('createPhysicalInventoryAndVariance', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.physicalInventoryId
     }
 
 }
