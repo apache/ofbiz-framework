@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.order.order
+package org.apache.ofbiz.order.order.test
 
 import static org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp
 import static org.apache.ofbiz.entity.condition.EntityComparisonOperator.GREATER_THAN_EQUAL_TO
