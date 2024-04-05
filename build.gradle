@@ -299,7 +299,7 @@ codenarc {
     setConfigFile(new File('config/codenarc/codenarc.groovy'))
     setMaxPriority1Violations(0)
     setMaxPriority2Violations(410)
-    setMaxPriority3Violations(3975)
+    setMaxPriority3Violations(3974)
 }
 
 // Eclipse plugin settings
