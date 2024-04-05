@@ -178,7 +178,7 @@ class AutoAcctgTransPurchaseTests extends OFBizTestCase {
         }
     }
 
-    void checkEntriesBalance(List<GenericValue> acctgTransEntryList) {
+    private void checkEntriesBalance(List<GenericValue> acctgTransEntryList) {
         BigDecimal debitTotal = new BigDecimal('0')
         BigDecimal creditTotal = new BigDecimal('0')
 
