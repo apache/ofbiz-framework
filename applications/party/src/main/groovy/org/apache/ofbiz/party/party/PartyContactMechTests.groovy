@@ -36,11 +36,11 @@ class PartyContactMechTests extends OFBizTestCase {
 
         // first try with just updating without changing the email address
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechTypeId: contactMechTypeId,
-            emailAddress: emailAddress,
-            contactMechId: '9026',
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechTypeId: contactMechTypeId,
+                emailAddress: emailAddress,
+                contactMechId: '9026',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyEmailAddress', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -76,12 +76,12 @@ class PartyContactMechTests extends OFBizTestCase {
 
         // first try with just updating without changing the email address
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechId: '9025',
-            countryCode: '1',
-            areaCode: '801',
-            contactNumber: '555-5555',
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechId: '9025',
+                countryCode: '1',
+                areaCode: '801',
+                contactNumber: '555-5555',
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('updatePartyTelecomNumber', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -184,10 +184,10 @@ class PartyContactMechTests extends OFBizTestCase {
         String contactMechPurposeTypeId = 'PRIMARY_EMAIL'
 
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechPurposeTypeId: contactMechPurposeTypeId,
-            emailAddress: emailAddress,
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                emailAddress: emailAddress,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyEmailAddress', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -223,11 +223,11 @@ class PartyContactMechTests extends OFBizTestCase {
         String contactMechPurposeTypeId = 'PRIMARY_PHONE'
 
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechPurposeTypeId: contactMechPurposeTypeId,
-            areaCode: areaCode,
-            contactNumber: contactNumber,
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyTelecomNumber', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -267,12 +267,12 @@ class PartyContactMechTests extends OFBizTestCase {
         String extension = '444'
 
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechPurposeTypeId: contactMechPurposeTypeId,
-            areaCode: areaCode,
-            contactNumber: contactNumber,
-            extension: extension,
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
+                extension: extension,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePartyTelecomNumber', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -312,12 +312,12 @@ class PartyContactMechTests extends OFBizTestCase {
         String contactNumber = '555-5555'
 
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechId: '9125',
-            contactMechPurposeTypeId: contactMechPurposeTypeId,
-            areaCode: areaCode,
-            contactNumber: contactNumber,
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechId: '9125',
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                areaCode: areaCode,
+                contactNumber: contactNumber,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePartyTelecomNumber', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -360,10 +360,10 @@ class PartyContactMechTests extends OFBizTestCase {
         String emailAddress = 'demo.customer@foo.com'
 
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechPurposeTypeId: contactMechPurposeTypeId,
-            emailAddress: emailAddress,
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                emailAddress: emailAddress,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePartyEmailAddress', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -394,11 +394,11 @@ class PartyContactMechTests extends OFBizTestCase {
         String emailAddress = 'demo.customer@foo.com'
 
         Map serviceCtx = [
-            partyId: partyId,
-            contactMechId: '9126',
-            contactMechPurposeTypeId: contactMechPurposeTypeId,
-            emailAddress: emailAddress,
-            userLogin: userLogin
+                partyId: partyId,
+                contactMechId: '9126',
+                contactMechPurposeTypeId: contactMechPurposeTypeId,
+                emailAddress: emailAddress,
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createUpdatePartyEmailAddress', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -430,4 +430,5 @@ class PartyContactMechTests extends OFBizTestCase {
                 .filterByDate().queryFirst()
         assert partyContactMechPurpose
     }
+
 }

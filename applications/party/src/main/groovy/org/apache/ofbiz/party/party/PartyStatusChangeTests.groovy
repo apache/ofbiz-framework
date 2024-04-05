@@ -35,10 +35,10 @@ class PartyStatusChangeTests extends OFBizTestCase {
         String statusId = 'PARTY_DISABLED'
 
         Map serviceCtx = [
-            partyId: partyId,
-            statusId: statusId,
-            statusDate: UtilDateTime.nowTimestamp(),
-            userLogin: userLogin
+                partyId: partyId,
+                statusId: statusId,
+                statusDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setPartyStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -57,10 +57,10 @@ class PartyStatusChangeTests extends OFBizTestCase {
         String statusId = 'PARTY_ENABLED'
 
         Map serviceCtx = [
-            partyId: partyId,
-            statusId: statusId,
-            statusDate: UtilDateTime.nowTimestamp(),
-            userLogin: userLogin
+                partyId: partyId,
+                statusId: statusId,
+                statusDate: UtilDateTime.nowTimestamp(),
+                userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('setPartyStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -72,4 +72,5 @@ class PartyStatusChangeTests extends OFBizTestCase {
         assert statusId == party.statusId
         assert serviceResult.oldStatusId == 'PARTY_DISABLED'
     }
+
 }
