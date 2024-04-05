@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.party.party
+package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.party.contact.ContactMechWorker
@@ -34,10 +34,9 @@ class ContactMechWorkerTests extends OFBizTestCase {
         assert partyContactMechValueMaps
         assert partyContactMechValueMaps.size() == 7
         boolean foundPostalAddress = false, foundTelecom = false, foundEmailAddress = false, foundFtpAddress = false
-        partyContactMechValueMaps.forEach {
-            Map partyContactMechValueMap ->
-                switch (partyContactMechValueMap?.contactMech?.contactMechId) {
-                    case '9015':
+        partyContactMechValueMaps.forEach { Map partyContactMechValueMap ->
+            switch (partyContactMechValueMap?.contactMech?.contactMechId) {
+                case '9015':
                     foundPostalAddress = true
                     assert partyContactMechValueMap.contactMech.contactMechTypeId == 'POSTAL_ADDRESS'
                     assert partyContactMechValueMap.partyContactMech
@@ -48,7 +47,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
                     assert partyContactMechValueMap.postalAddress.contactMechId == '9015'
                     assert partyContactMechValueMap.postalAddress.address1 == '2004 Factory Blvd'
                     break
-                    case '9027':
+                case '9027':
                     foundTelecom = true
                     assert partyContactMechValueMap.contactMech.contactMechTypeId == 'TELECOM_NUMBER'
                     assert partyContactMechValueMap.partyContactMech
@@ -59,7 +58,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
                     assert partyContactMechValueMap.telecomNumber.contactMechId == '9027'
                     assert partyContactMechValueMap.telecomNumber.contactNumber == '444-4444'
                     break
-                    case '9126':
+                case '9126':
                     foundEmailAddress = true
                     assert partyContactMechValueMap.contactMech.contactMechTypeId == 'EMAIL_ADDRESS'
                     assert partyContactMechValueMap.contactMech.infoString == 'ofbiztest@foo.com'
@@ -68,7 +67,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
                     assert partyContactMechValueMap.partyContactMechPurposes
                     assert partyContactMechValueMap.partyContactMechPurposes.size() == 2
                     break
-                    case '9127':
+                case '9127':
                     foundFtpAddress = true
                     assert partyContactMechValueMap.contactMech.contactMechTypeId == 'FTP_ADDRESS'
                     assert partyContactMechValueMap.partyContactMech
@@ -77,7 +76,7 @@ class ContactMechWorkerTests extends OFBizTestCase {
                     assert partyContactMechValueMap.ftpAddress
                     assert partyContactMechValueMap.ftpAddress.hostname == 'ftp://apacheofbiz.foo.com'
                     break
-                }
+            }
         }
         assert foundPostalAddress && foundTelecom && foundEmailAddress && foundFtpAddress
 
@@ -177,5 +176,4 @@ class ContactMechWorkerTests extends OFBizTestCase {
         }
         assert foundPostalAddress && foundEmail && foundPhone
     }
-
 }

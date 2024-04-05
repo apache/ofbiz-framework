@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.party.party
+package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
@@ -30,15 +30,15 @@ class PartyTests extends OFBizTestCase {
 
     void testCreatePartyPostalAddress() {
         Map serviceCtx = [
-                contactMechId: 'TestPostalAddress',
-                partyId: 'TestCustomer',
-                toName: 'Test Address',
-                address1: '2004 Factory Blvd',
-                city: 'City of Industry',
-                countryGeoId: 'USA',
-                stateProvinceGeoId: 'CA',
-                postalCode: '90000',
-                userLogin: userLogin
+            contactMechId: 'TestPostalAddress',
+            partyId: 'TestCustomer',
+            toName: 'Test Address',
+            address1: '2004 Factory Blvd',
+            city: 'City of Industry',
+            countryGeoId: 'USA',
+            stateProvinceGeoId: 'CA',
+            postalCode: '90000',
+            userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createPartyPostalAddress', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
@@ -47,5 +47,4 @@ class PartyTests extends OFBizTestCase {
         assert postalAddress != null
         postalAddress.city = 'City of Industry'
     }
-
 }
