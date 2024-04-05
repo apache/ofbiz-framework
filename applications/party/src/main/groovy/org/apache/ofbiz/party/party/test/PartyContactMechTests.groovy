@@ -16,9 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.ofbiz.party.party
+package org.apache.ofbiz.party.party.test
 
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.party.party.PartyWorker
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
 import org.apache.ofbiz.service.testtools.OFBizTestCase
