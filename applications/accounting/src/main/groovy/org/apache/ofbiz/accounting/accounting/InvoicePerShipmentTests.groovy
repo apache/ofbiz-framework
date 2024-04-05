@@ -46,7 +46,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 4) Check invoice should not created.
          */
         List invoices = testInvoicePerShipment('GZ-1000', 'N')
-        assert invoices
+        assert !invoices
     }
 
     void testInvoicePerShipmentSetTrue() {
@@ -57,7 +57,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 4) Check invoice should be created.
          */
         List invoices = testInvoicePerShipment('GZ-1000', 'Y')
-        assert !invoices
+        assert invoices
     }
 
     void testInvoicePerShipmentSetOrderFalse() {
@@ -67,7 +67,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 3) Check invoice should not be created.
          */
         List invoices = testInvoicePerShipment('GZ-2644', 'N')
-        assert invoices
+        assert !invoices
     }
 
     void testInvoicePerShipmentSetOrderTrue() {
@@ -77,7 +77,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
          Step 3) Check invoice should be created.
          */
         List invoices = testInvoicePerShipment('GZ-2644', 'Y')
-        assert !invoices
+        assert invoices
     }
 
     private List testInvoicePerShipment(String productId, String invoicePerShipment) {
