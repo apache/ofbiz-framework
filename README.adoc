@@ -592,7 +592,7 @@ Listens on port *5005*
 [[execute-all-component-tests]]
 ==== Execute all component tests
 
-`gradlew "ofbiz --test component=entity`
+`gradlew "ofbiz --test component=entity"`
 
 [[execute-all-component-tests-in-debug-mode]]
 ==== Execute all component tests in debug mode
