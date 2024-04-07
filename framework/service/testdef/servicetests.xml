@@ -77,7 +77,7 @@ under the License.
     </test-case>
 
     <test-case case-name="service-purge-test">
-        <groovy-test-suite name="ServicePurgeTest" location="component://service/src/test/groovy/org/apache/service/service/test/ServicePurgeTest.groovy"/>
+        <junit-test-suite class-name="org.apache.ofbiz.service.test.ServicePurgeTest"/>
     </test-case>
 
 </test-suite>
