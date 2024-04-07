@@ -70,8 +70,7 @@ under the License.
     <xs:element name="junit-test-suite" substitutionGroup="TestCaseTypes">
         <xs:annotation>
             <xs:documentation>
-                Used for JUnit test suites written as a Java class.
-                This is rather to be used in production
+                Used for JUnit test suites written as a Java class. This is rather to be used in production/
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -93,8 +92,7 @@ under the License.
     <xs:element name="groovy-test-suite" substitutionGroup="TestCaseTypes">
         <xs:annotation>
             <xs:documentation>
-                Used for JUnit test suites written as a Groovy class. See http://groovy-lang.org/testing.html
-                This is rather to be used during development and testing
+                Used for JUnit test suites written as a Groovy class. See http://groovy-lang.org/testing.html. This is rather to be used during development and testing.
                 When going to production; for performance reason (compilation), you should use rather use junit-test-suite and move the test file under main and use.
                 See existing examples.
             </xs:documentation>
