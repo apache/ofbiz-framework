@@ -70,7 +70,7 @@ under the License.
     <xs:element name="junit-test-suite" substitutionGroup="TestCaseTypes">
         <xs:annotation>
             <xs:documentation>
-                Used for JUnit test suites written as a Java class. This is rather to be used in production/
+                Used for JUnit test suites written as a Java class. This is rather to be used in production.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
