@@ -240,6 +240,7 @@ def excludedJavaSources = [
 ]
 
 sourceSets {
+    // This is for integration tests (DB access)
     main {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
@@ -254,7 +255,7 @@ sourceSets {
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
         }
     }
-    // This is unit tests. Integration tests must be above because of compilation issues.
+    // This is for unit tests  (no DB access)
     test {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
