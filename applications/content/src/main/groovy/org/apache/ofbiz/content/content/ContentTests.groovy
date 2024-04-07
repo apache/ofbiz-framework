@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.content.content
+package org.apache.ofbiz.content.content
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
