@@ -203,7 +203,6 @@ under the License.
                         <screenlet>
                             <include-grid name="ListEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                         </screenlet>
-                        <include-form name="ListEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                         <screenlet id="AddPartyQualPanel" title="${uiLabelMap.HumanResAddPartyQual}" collapsible="true">
                             <include-form name="AddEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                         </screenlet>
