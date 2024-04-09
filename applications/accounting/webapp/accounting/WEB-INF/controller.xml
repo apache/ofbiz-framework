@@ -147,13 +147,13 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="findInvoices"/>
     </request-map>
-    <request-map uri="newInvoice">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="newInvoice"/>
-    </request-map>
     <request-map uri="invoiceOverview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceOverview"/>
+    </request-map>
+    <request-map uri="newInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newInvoice"/>
     </request-map>
     <request-map uri="editInvoice">
         <security https="true" auth="true"/>
