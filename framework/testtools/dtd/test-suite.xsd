@@ -68,7 +68,11 @@ under the License.
     </xs:attributeGroup>
 
     <xs:element name="junit-test-suite" substitutionGroup="TestCaseTypes">
-        <xs:annotation><xs:documentation>Used for JUnit test suites written as a Java class.</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                Used for JUnit test suites written as a Java class. This is rather to be used in production.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.junit-test-suite"/>
         </xs:complexType>
@@ -79,6 +83,7 @@ under the License.
                 <xs:documentation>
                     At minimum should extend the junit.framework.TestCase class. If you want to use a GenericDelegator or
                     LocalDispatcher you should extend the OFBizTestCase class and use the ones provided by it.
+                    This is rather to be used in production
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -87,7 +92,9 @@ under the License.
     <xs:element name="groovy-test-suite" substitutionGroup="TestCaseTypes">
         <xs:annotation>
             <xs:documentation>
-                Used for JUnit test suites written as a Groovy class. See http://groovy-lang.org/testing.html
+                Used for JUnit test suites written as a Groovy class. See http://groovy-lang.org/testing.html. This is rather to be used during development and testing.
+                When going to production; for performance reason (compilation), you should use rather use junit-test-suite and move the test file under main and use.
+                See existing examples.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -100,8 +107,12 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Give the location where is groovy file that contains the test suite.
-                    You can use a flexible url location like
+                    You can use a flexible URL location like
                     component://service/src/test/groovy/org/apache/ofbizservice/test/TestServices.groovy
+                    This is rather to be used during development and testing
+                    When going to production you need to move the test file under main. See existing examples.
+                    When going to production; for performance reason (compilation), you should use rather use junit-test-suite and move the test file under main and use.
+                    See existing examples.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

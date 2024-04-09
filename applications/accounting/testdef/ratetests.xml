@@ -26,6 +26,6 @@
     </test-case>
     
     <test-case case-name="rate-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.RateTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.RateTests"/>
     </test-case>
 </test-suite>

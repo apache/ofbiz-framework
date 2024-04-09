@@ -26,7 +26,7 @@
     </test-case>
 
     <test-case case-name="partystatuschangetest">
-        <junit-test-suite class-name="org.apache.ofbiz.party.PartyStatusChangeTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyStatusChangeTests"/>
     </test-case>
 
 </test-suite>

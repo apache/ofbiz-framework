@@ -23,6 +23,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="cost-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.CostTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.CostTests"/>
     </test-case>
 </test-suite>

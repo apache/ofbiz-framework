@@ -27,7 +27,7 @@
     </test-case>
 
     <test-case case-name="fixedasset-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.FixedAssetTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.FixedAssetTests"/>
     </test-case>
 
 </test-suite>
