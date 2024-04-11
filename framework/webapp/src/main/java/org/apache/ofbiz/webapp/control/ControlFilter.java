@@ -21,7 +21,6 @@ package org.apache.ofbiz.webapp.control;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -136,8 +135,8 @@ public class ControlFilter implements Filter {
 
             // Reject wrong URLs
             try {
-                String url = new URI(req.getRequestURL().toString()).normalize().toString();
-                if (!req.getRequestURL().toString().equals(url)) {
+                String url = new URI(((HttpServletRequest) request).getRequestURL().toString()).normalize().toString();
+                if (!((HttpServletRequest) request).getRequestURL().toString().equals(url)) {
                     throw new RuntimeException();
                 }
             } catch (URISyntaxException e) {
