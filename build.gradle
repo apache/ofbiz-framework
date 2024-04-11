@@ -169,6 +169,10 @@ allprojects {
             // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
             url "https://repository.ow2.org/nexus/content/repositories/public/"
         }
+        maven {
+            // To test not released FreeMarker versions
+            url "https://repository.apache.org/content/repositories/snapshots/"
+            }
 
     }
 }
@@ -236,6 +240,7 @@ def excludedJavaSources = [
 ]
 
 sourceSets {
+    // This is for integration tests (DB access)
     main {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
@@ -250,7 +255,7 @@ sourceSets {
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
         }
     }
-
+    // This is for unit tests  (no DB access)
     test {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
@@ -295,7 +300,7 @@ codenarc {
     setConfigFile(new File('config/codenarc/codenarc.groovy'))
     setMaxPriority1Violations(0)
     setMaxPriority2Violations(410)
-    setMaxPriority3Violations(3975)
+    setMaxPriority3Violations(3974)
 }
 
 // Eclipse plugin settings

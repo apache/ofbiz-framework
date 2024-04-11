@@ -20,13 +20,13 @@
 <test-suite suite-name="contenttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-    
+
     <test-case case-name="content-tests-data-load">
         <entity-xml action="load" entity-xml-url="component://content/testdef/data/ContentTestsData.xml"/>
     </test-case>
-    
+
     <test-case case-name="content-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.content.ContentTests"/>
-    </test-case> 
+        <junit-test-suite class-name="org.apache.ofbiz.content.content.ContentTests"/>
+    </test-case>
 </test-suite>
 

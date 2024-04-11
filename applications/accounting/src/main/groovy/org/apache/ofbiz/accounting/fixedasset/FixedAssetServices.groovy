@@ -109,7 +109,7 @@ Map updateFixedAssetMaint() {
                             EntityCondition.makeConditionDate('fromDate', 'thruDate')]))
         }
     }
-    return success()
+    return success(oldStatusId: oldStatusId)
 }
 
 /**
@@ -140,9 +140,7 @@ Map createMaintsFromMeterReading() {
                         .queryList()
                 long listSize = maintList ? maintList.size() : 0L
 
-                BigDecimal maxIntervalQty = maintList ? maintList
-                        .findAll { maint -> maint.intervalQuantity }
-                        .max() : 0
+                BigDecimal maxIntervalQty = maintList ? maintList*.intervalQuantity.max() : 0
 
                 BigDecimal nextIntervalQty = maxIntervalQty + p.intervalQuantity
                 if (parameters.meterValue &&

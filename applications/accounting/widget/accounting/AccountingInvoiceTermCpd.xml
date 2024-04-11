@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+
+        <sc:request-map uri="Accounting/Invoice/Terms"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Terms"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Term/Add"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Term/Add"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Term/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Term/Edit"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Terms/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Terms/Edit"/></sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Term/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createInvoiceTerm"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Term/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateInvoiceTerm"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Term/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteInvoiceTerm"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Terms/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service-multi" invoke="updateInvoiceTerm"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/Terms" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml#InvoiceTerms"/>
+        <sc:view-map name="Accounting/Invoice/Term/Add" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml#EditInvoiceTerm"/>
+        <sc:view-map name="Accounting/Invoice/Term/Edit" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml#EditInvoiceTerm"/>
+        <sc:view-map name="Accounting/Invoice/Terms/Edit" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml#EditInvoiceTerms"/>
+
+    </sc:site-conf>
+
+    <ws:screens>
+
+         <ws:screen name="InvoiceTerms">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="viewIndex" from-field="parameters.viewIndex"/>
+                    <ws:set field="viewSize" from-field="parameters.viewSize"/>
+                    <ws:set field="titleProperty" value="PageTitleListInvoiceTerms"/>
+                    <ws:set field="tabButtonTerm" value="invoiceTerms"/>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:set field="sortField" from-field="parameters.sortField" default-value="termTypeId"/>
+                    <ws:entity-and entity-name="InvoiceTerm" list="invoiceTerms">
+                        <ws:field-map field-name="invoiceId" from-field="invoiceId"/>
+                        <ws:order-by field-name="${sortField}"/>
+                    </ws:entity-and>
+                    <ws:entity-one entity-name="InvoiceTerm" value-field="invoiceTerm">
+                        <ws:field-map field-name="invoiceTermId" from-field="parameters.invoiceTermId"/>
+                    </ws:entity-one>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:section>
+                        <ws:condition>
+                            <ws:and>
+                                <ws:or>
+                                    <ws:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                    <ws:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                </ws:or>
+                            </ws:and>
+                        </ws:condition>
+                        <ws:widgets>
+                            <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                                <ws:decorator-section name="actions">
+                                    <ws:include-menu name="InvoiceTermsTabBar" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="single">
+                                    <ws:screenlet title="${uiLabelMap.PartyTerms}">
+                                        <ws:include-grid name="InvoiceTerms" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                                    </ws:screenlet>
+                                </ws:decorator-section>
+                            </ws:decorator-screen>
+                        </ws:widgets>
+                        <ws:fail-widgets>
+                            <ws:screenlet title="${uiLabelMap.PartyTerms}">
+                                <ws:include-grid name="InvoiceTerms" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                            </ws:screenlet>
+                        </ws:fail-widgets>
+                    </ws:section>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="EditInvoiceTerm">
+            <ws:section>
+                 <ws:actions>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:set field="invoiceTermId" from-field="parameters.invoiceTermId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                    <ws:entity-one entity-name="InvoiceTerm" value-field="invoiceTerm"/>
+                 </ws:actions>
+                  <ws:widgets>
+                      <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                          <ws:decorator-section name="single">
+                              <ws:section>
+                                  <ws:condition>
+                                      <ws:not>
+                                          <ws:and>
+                                              <ws:or>
+                                                  <ws:if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
+                                              </ws:or>
+                                          </ws:and>
+                                      </ws:not>
+                                  </ws:condition>
+                                  <ws:widgets>
+                                      <ws:include-form name="EditInvoiceTerm" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                                  </ws:widgets>
+                              </ws:section>
+                          </ws:decorator-section>
+                      </ws:decorator-screen>
+                  </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="EditInvoiceTerms">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="sortField" from-field="parameters.sortField" default-value="invoiceTermId"/>
+                    <ws:entity-and entity-name="InvoiceTerm" list="invoiceTerms">
+                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                        <ws:order-by field-name="${sortField}"/>
+                    </ws:entity-and>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="list">
+                             <ws:include-form name="EditInvoiceTerms" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+    <wm:menus>
+
+        <wm:menu name="InvoiceTermsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddInvoiceTerm" title="${uiLabelMap.AccountingInvoiceTermsAdd}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Term/Add" link-type="layered-modal">
+                    <wm:parameter param-name="invoiceId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Terms">
+                        <wm:parameter param-name="invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="EditInvoiceTerm" title="${uiLabelMap.AccountingInvoiceTermsEdit}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Terms/Edit" link-type="layered-modal" width="1600">
+                    <wm:parameter param-name="invoiceId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Terms">
+                        <wm:parameter param-name="invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+       <wm:menu name="ListInvoiceTermsInLineBar"
+            extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="UpdateInvoiceTerm" title="${uiLabelMap.CommonEdit}">
+                <wm:condition>
+                    <wm:and>
+                        <wm:or>
+                            <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                            <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                        </wm:or>
+                    </wm:and>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Term/Edit" link-type="layered-modal" style="buttontext">
+                    <wm:parameter param-name="invoiceId"/>
+                    <wm:parameter param-name="invoiceTermId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Terms">
+                        <wm:parameter param-name="invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="DeleteInvoiceTerm" title="${uiLabelMap.CommonRemove}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Term/delete" request-confirmation="true" style="buttontext">
+                    <wm:parameter param-name="invoiceTermId"/>
+                    <wm:parameter param-name="invoiceId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Terms">
+                        <wm:parameter param-name="invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+    </wm:menus>
+
+    <wf:forms>
+
+        <wf:grid name="ListInvoiceTerms" list-name="invoiceTerms" 
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            <wf:auto-fields-entity entity-name="InvoiceTerm" default-field-type="display"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceTermId"><wf:display/></wf:field>
+            <wf:field name="termTypeId">
+                <wf:display-entity entity-name="TermType"/>
+            </wf:field>
+            <wf:field name="termDays" widget-area-style="align-right" title-area-style="align-right">
+                <wf:display/>
+            </wf:field>
+            <wf:field name="uomId" title="${uiLabelMap.Uom}">
+                <wf:display-entity entity-name="Uom"/>
+            </wf:field>
+        </wf:grid>
+
+        <wf:grid name="InvoiceTerms" list-name="invoiceTerms" paginate-target="Accounting/Invoice/Terms"
+              odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+              extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceTermId"><wf:display/></wf:field>
+            <wf:field name="termTypeId" title="${uiLabelMap.CommonType}">
+                <wf:display-entity entity-name="TermType"/>
+            </wf:field>
+            <wf:field name="invoiceItemSeqId" title="${uiLabelMap.CommonItem}"><wf:display/></wf:field>
+            <wf:field name="termValue" title="${uiLabelMap.CommonValue}" widget-area-style="align-right" title-area-style="align-right">
+                <wf:display type="currency" currency="${uomId}"/>
+            </wf:field>
+            <wf:field name="termDays" title="${uiLabelMap.CommonDays}" widget-area-style="align-right" title-area-style="align-right">
+                <wf:display/>
+            </wf:field>
+            <wf:field name="textValue" title="${uiLabelMap.CommonText}"><wf:display/></wf:field>
+            <wf:field name="description" title="${uiLabelMap.CommonDescription}"><wf:display/></wf:field>
+            <wf:field name="uomId" title="${uiLabelMap.CommonCurrency}">
+                <wf:display-entity entity-name="Uom"/>
+            </wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListInvoiceTermsInLineBar" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+
+        <wf:form name="EditInvoiceTerm" type="single" target="Accounting/Invoice/Term/create" title=""
+              header-row-style="header-row" default-table-style="basic-table" default-map-name="invoiceTerm" default-entity-name="InvoiceTerm"
+              extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:alt-target use-when="invoiceTerm!=null" target="Accounting/Invoice/Term/update"/>
+            <wf:auto-fields-entity entity-name="InvoiceTerm"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceTermId" use-when="invoiceTerm!=null"><wf:display/></wf:field>
+            <wf:field name="invoiceTermId" use-when="invoiceTerm==null"><wf:text/></wf:field>
+            <wf:field name="termTypeId">
+               <wf:drop-down>
+                   <wf:entity-options entity-name="TermType">
+                       <wf:entity-constraint name="parentTypeId" operator="in" value="FINANCIAL_TERM,FIN_PAYMENT_TERM"/>
+                       <wf:entity-order-by field-name="description"/>
+                   </wf:entity-options>
+               </wf:drop-down>
+           </wf:field>
+            <wf:field name="description"><wf:textarea/></wf:field>
+            <wf:field name="uomId" title="${uiLabelMap.CommonUom}">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="submitButton" widget-style="smallSubmit"><wf:submit button-type="button"/></wf:field>
+        </wf:form>
+
+        <wf:form name="EditInvoiceTerms" type="multi" paginate-target="Accounting/Invoice/Terms/Edit" separate-columns="true" list-name="invoiceTerms"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            target="Accounting/Invoice/Terms/update?invoiceId=${invoiceId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}">
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceTermId"><wf:display/></wf:field>
+            <wf:field name="termTypeId">
+                <wf:drop-down>
+                    <wf:entity-options entity-name="TermType">
+                        <wf:entity-constraint name="parentTypeId" operator="in" value="FINANCIAL_TERM,FIN_PAYMENT_TERM"/>
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="invoiceItemSeqId" title="${uiLabelMap.CommonItem}"><wf:text size="5"/></wf:field>
+            <wf:field name="termDays"><wf:text size="5"/></wf:field>
+            <wf:field name="termValue"><wf:text size="5"/></wf:field>
+            <wf:field name="textValue"><wf:text/></wf:field>
+            <wf:field name="description"><wf:textarea rows="2" cols="40"/></wf:field>
+            <wf:field name="uomId" title="${uiLabelMap.CommonUom}">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit" ><wf:submit/></wf:field>
+        </wf:form>
+
+    </wf:forms>
+
+</compound-widgets>

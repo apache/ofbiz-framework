@@ -570,7 +570,7 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.OrderIncomingCustRequests}" navigation-menu-name="RequestScreenletMenu">
-                            <include-menu name="RequestScreenletMenu" location="${parameters.mainMenuLocation}"/>
+                            <include-menu name="RequestScreenletMenu" location="${parameters.requestMenuLocation}"/>
                             <include-form name="ListRequestList" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                         </screenlet>
                     </widgets>

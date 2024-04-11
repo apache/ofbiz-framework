@@ -7915,6 +7915,10 @@
         <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票明细的币种[${itemCurrency}]不同</value>
         <value xml:lang="zh-TW">支付的幣種[${paymentCurrencyId}]與發票細項的幣種[${itemCurrency}]不同</value>
     </property>
+    <property key="AccountingInvoiceItemsEdit">
+        <value xml:lang="en">Edit invoice Items</value>
+        <value xml:lang="fr">Modifier les lignes de facturation</value>
+    </property>
     <property key="AccountingInvoiceItemSeqId">
         <value xml:lang="ar">رقم البند</value>
         <value xml:lang="de">Pos.Nr.</value>
@@ -8423,6 +8427,14 @@
         <value xml:lang="vi">Chuyển trạng thái thành 'Đã khóa'</value>
         <value xml:lang="zh">状态变为'注消'</value>
         <value xml:lang="zh-TW">狀態變為'註銷'</value>
+    </property>
+    <property key="AccountingInvoiceTermsAdd">
+        <value xml:lang="en">Add due date rule</value>
+        <value xml:lang="fr">Ajouter une échéance</value>
+    </property>
+    <property key="AccountingInvoiceTermsEdit">
+        <value xml:lang="en">Edit due date rules</value>
+        <value xml:lang="fr">Modifier les échéances</value>
     </property>
     <property key="AccountingInvoiceTimeEntries">
         <value xml:lang="ar">قيود وقتية</value>

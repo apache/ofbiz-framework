@@ -410,8 +410,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="delete">
+    <service name="removeContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true" invoke="delete">
         <description>Remove ContentPurpose</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -475,8 +474,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword"
-            location="component://content/minilang/content/ContentServices.xml" invoke="delete" auth="true">
+    <service name="deleteContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword" invoke="delete" auth="true">
         <description>Delete a ContentKeyword</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

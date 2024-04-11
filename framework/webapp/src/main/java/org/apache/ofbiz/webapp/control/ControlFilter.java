@@ -160,6 +160,19 @@ public class ControlFilter extends HttpFilter {
                 }
             }
 
+            // Reject wrong URLs
+            if (req.getRequestURL() != null) { // Allow tests with Mockito. ControlFilterTests send null
+                try {
+                    String url = new URI(req.getRequestURL().toString()).normalize().toString();
+                    if (!req.getRequestURL().toString().equals(url)) {
+                        throw new RuntimeException();
+                    }
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+
             // normalize to remove ".." special name usage to bypass webapp filter
             try {
                 uri = new URI(uri).normalize().toString();
