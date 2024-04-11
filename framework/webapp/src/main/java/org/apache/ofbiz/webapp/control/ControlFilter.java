@@ -134,6 +134,16 @@ public class ControlFilter implements Filter {
             // get the request URI without the webapp mount point
             String requestUri = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
+            // Reject wrong URLs
+            try {
+                String url = new URI(req.getRequestURL().toString()).normalize().toString();
+                if (!req.getRequestURL().toString().equals(url)) {
+                    throw new RuntimeException();
+                }
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+
             // normalize to remove ".." special name usage to bypass webapp filter
             try {
                 requestUri = new URI(requestUri).normalize().toString();
