@@ -109,7 +109,7 @@ Map updateFixedAssetMaint() {
                             EntityCondition.makeConditionDate('fromDate', 'thruDate')]))
         }
     }
-    return success()
+    return success(oldStatusId: oldStatusId)
 }
 
 /**
