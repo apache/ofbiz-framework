@@ -57,7 +57,7 @@ dependencies {
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.0'
     implementation 'org.apache.sshd:sshd-core:2.10.0'
     implementation 'org.apache.sshd:sshd-sftp:2.10.0'
-    implementation 'org.apache.tika:tika-core:2.5.0'
+    implementation 'org.apache.tika:tika-core:2.9.2'
     implementation 'org.apache.tika:tika-parsers:2.5.0'
     implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.6' // 4.0.3 does not compile

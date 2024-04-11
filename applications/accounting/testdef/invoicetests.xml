@@ -23,9 +23,9 @@
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-group case-name="auto-invoice-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.AutoInvoiceTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.AutoInvoiceTests"/>
     </test-group>
     <test-case case-name="invoice-per-shipment-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.InvoicePerShipmentTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.accounting.accounting.InvoicePerShipmentTests"/>
     </test-case>
 </test-suite>
