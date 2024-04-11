@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+
+        <sc:request-map uri="Accounting/Invoice/TimeEntries"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/TimeEntries"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/TimeEntries/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/TimeEntries/List"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/TimeEntries/View"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/TimeEntries/View"/></sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/TimeEntry/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="deleteTimeEntry"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/TimeEntries" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml#InvoiceTimeEntries"/>
+        <sc:view-map name="Accounting/Invoice/TimeEntries/List" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml#ListInvoiceTimeEntries"/>
+        <sc:view-map name="Accounting/Invoice/TimeEntries/View" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml#ViewInvoiceTimeEntries"/>
+
+    </sc:site-conf>
+
+    <ws:screens>
+
+        <ws:screen name="InvoiceTimeEntries">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListInvoiceTimeEntries"/>
+                    <ws:set field="tabButtonItem" value="EditInvoiceTimeEntries"/>
+                    <ws:set field="helpAnchor" value="_help_for_edit_invoice_time_entries"/>
+                </ws:actions>
+                <ws:widgets>
+                     <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                         <ws:decorator-section name="single">
+                             <ws:screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}">
+                                 <ws:section>
+                                     <ws:condition>
+                                          <ws:or>
+                                            <ws:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                            <ws:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                          </ws:or>
+                                     </ws:condition>
+                                     <ws:widgets>
+                                         <ws:include-screen name="ListInvoiceTimeEntries"/>
+                                     </ws:widgets>
+                                     <ws:fail-widgets>
+                                         <ws:include-screen name="ViewInvoiceTimeEntries"/>
+                                     </ws:fail-widgets>
+                                 </ws:section>
+                             </ws:screenlet>
+                         </ws:decorator-section>
+                     </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="ListInvoiceTimeEntries">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="sortField" from-field="parameters.sortField" default-value="timeEntryId"/>
+                    <ws:entity-and entity-name="TimeEntry" list="timeEntries">
+                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                        <ws:order-by field-name="${sortField}" />
+                    </ws:entity-and>
+                </ws:actions>
+                <ws:widgets>
+                     <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                         <ws:decorator-section name="list">
+                             <ws:include-grid name="ListInvoiceTimeEntries" location="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml"/>
+                         </ws:decorator-section>
+                     </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="ViewInvoiceTimeEntries">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="sortField" from-field="parameters.sortField" default-value="timeEntryId"/>
+                    <ws:entity-and entity-name="TimeEntry" list="timeEntries">
+                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                        <ws:order-by field-name="${sortField}" />
+                    </ws:entity-and>
+                </ws:actions>
+                <ws:widgets>
+                     <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                         <ws:decorator-section name="list">
+                             <ws:include-grid name="ViewInvoiceTimeEntries" location="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml"/>
+                         </ws:decorator-section>
+                     </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+   <wm:menus>
+
+       <wm:menu name="ListInvoiceTimeEntriesInLineBar"
+            extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:actions>
+                <wm:set field="viewIndex" from-field="parameters.viewIndex"/>
+                <wm:set field="viewSize" from-field="parameters.viewSize"/>
+            </wm:actions>
+            <wm:menu-item name="DeleteInvoiceTimeEntry" title="${uiLabelMap.CommonDelete}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/TimeEntry/delete" request-confirmation="true" style="buttontext">
+                    <wm:parameter param-name="timeEntryId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/TimeEntries/List">
+                        <wm:parameter param-name="invoiceId"/>
+                        <wm:parameter param-name="viewIndex"/>
+                        <wm:parameter param-name="viewSize"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+    </wm:menus>
+
+    <wf:forms>
+
+        <wf:grid name="ListInvoiceTimeEntries" list-name="timeEntries" paginate-target="Accounting/Invoice/TimeEntries/List"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:auto-fields-service service-name="updateTimeEntry" default-field-type="display"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="menuAction" title=" ">
+                <wf:include-menu name="ListInvoiceTimeEntriesInLineBar" location="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml"/>
+            </wf:field>
+        </wf:grid>
+
+        <wf:grid name="ViewInvoiceTimeEntries" list-name="timeEntries" paginate-target="Accounting/Invoice/TimeEntries/View"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:row-actions>
+                <wf:entity-one entity-name="Timesheet" value-field="timesheet">
+                    <wf:field-map field-name="timesheetId" from-field="timesheetId"/>
+                </wf:entity-one>
+            </wf:row-actions>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceItemSeqId"><wf:display/></wf:field>
+            <wf:field name="timeEntryId"><wf:display/></wf:field>
+            <wf:field name="timesheetId" entry-name="timesheet.timesheetId">
+                <wf:hyperlink description="${timesheetId}" target="/workeffort/control/EditTimesheet" target-type="inter-app">
+                    <wf:parameter param-name="timesheetId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="partyId" entry-name="partyId">
+                <wf:display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
+                    <wf:sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app"  description=" [${partyId}]">
+                        <wf:parameter param-name="partyId"/>
+                    </wf:sub-hyperlink>
+                </wf:display-entity>
+            </wf:field>
+            <wf:field name="timesheetPartyId" entry-name="timesheet.partyId">
+                <wf:display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
+                    <wf:sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description=" [${timesheet.partyId}]">
+                        <wf:parameter param-name="partyId" from-field="timesheet.partyId"/>
+                    </wf:sub-hyperlink>
+                </wf:display-entity>
+            </wf:field>
+            <wf:field name="hours"><wf:display/></wf:field>
+            <wf:field name="rateTypeId"><wf:display-entity entity-name="RateType"/></wf:field>
+            <wf:field name="workEffortId">
+                <wf:display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
+                    <wf:sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
+                        <wf:parameter param-name="workEffortId"/>
+                    </wf:sub-hyperlink>
+                </wf:display-entity>
+            </wf:field>
+            <wf:field name="fromDate"><wf:display type="date"/></wf:field>
+            <wf:field name="thruDate"><wf:display type="date"/></wf:field>
+            <wf:field name="comments"><wf:display/></wf:field>
+        </wf:grid>
+
+    </wf:forms>
+
+</compound-widgets>

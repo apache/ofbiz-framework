@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <sc:request-map uri="Accounting/Invoice/Status/History"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Status/History"/></sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/Status/History" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceStatus.xml#InvoiceStatus"/>
+    </sc:site-conf>
+
+    <ws:screens>
+
+        <ws:screen name="InvoiceStatus">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListInvoices"/>
+                    <ws:set field="tabButtonItem" value="invoiceStatus"/>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice" auto-field-map="true"/>
+                    <ws:entity-and entity-name="InvoiceStatus" list="invoiceStatus">
+                        <ws:field-map field-name="invoiceId" from-field="invoice.invoiceId"/>
+                        <ws:order-by field-name="statusDate"/>
+                    </ws:entity-and>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
+                        <ws:decorator-section name="body">
+                            <ws:screenlet title="${uiLabelMap.AccountingInvoiceStatusHistory}">
+                                <ws:include-grid name="ListInvoiceStatus" location="component://accounting/widget/InvoiceForms.xml"/>
+                            </ws:screenlet>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+    <wf:forms>
+
+        <wf:grid name="ListInvoiceStatus" list-name="invoiceStatus" paginate-target="ListInvoiceStatus"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="statusDate"><wf:display description="${groovy:statusDate.toString().substring(0,10)}"/></wf:field>
+            <wf:field name="statusId" title="${uiLabelMap.CommonStatus}"><wf:display-entity entity-name="StatusItem"/></wf:field>
+            <wf:field name="changeByUserLoginId"><wf:display /></wf:field>
+        </wf:grid>
+
+    </wf:forms>
+
+</compound-widgets>
