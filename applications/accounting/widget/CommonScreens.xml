@@ -280,23 +280,6 @@ under the License.
                 <set field="helpAnchor" value="_help_for_accounting_main_screen"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="ACC_MAIN" global="true"/>
                 <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetParentPortalPageId.groovy"/>
-                <entity-condition entity-name="PaymentType" list="paymentTypes">
-                    <order-by field-name="paymentTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="InvoiceType" list="invoiceTypes">
-                    <order-by field-name="invoiceTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
-                    <order-by field-name="paymentMethodTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="StatusItem" list="invoiceStatus">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
-                    <order-by field-name="statusId"/>
-                </entity-condition>
-                <entity-condition entity-name="StatusItem" list="paymentStatus">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
-                    <order-by field-name="statusId"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -305,9 +288,6 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <include-portal-page id="${parameters.portalPageId}"/>
-                        <screenlet title="${uiLabelMap.AccountingMainPage}">
-                            <platform-specific><html><html-template location="component://accounting/template/Main.ftl"/></html></platform-specific>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
