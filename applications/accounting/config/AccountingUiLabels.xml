@@ -132,6 +132,7 @@
     </property>
     <property key="AccountingAccountsReceivable">
         <value xml:lang="en">Accounts Receivable</value>
+        <value xml:lang="fr">Comptes débiteurs</value>
         <value xml:lang="nl">Debiteuren</value>
     </property>
     <property key="AccountingAccountTransactionId">
