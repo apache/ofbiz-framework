@@ -745,11 +745,6 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" paginate-target="main">
         <row-actions>
             <set field="invoiceTypeId" from-field="invoiceTypeId"/>
-            <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
-                <field-map field-name="partyId" from-field="partyIdFrom"/>
-                <field-map field-name="compareDate" from-field="invoiceDate"/>
-                <field-map field-name="lastNameFirst" value="Y"/>
-            </service>
             <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
@@ -785,11 +780,6 @@ under the License.
             <set field="invoiceTypeId" from-field="invoiceTypeId"/>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
                 <field-map field-name="partyId" from-field="partyIdFrom"/>
-                <field-map field-name="compareDate" from-field="invoiceDate"/>
-                <field-map field-name="lastNameFirst" value="Y"/>
-            </service>
-            <service service-name="getPartyNameForDate" result-map="partyNameResultTo">
-                <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
