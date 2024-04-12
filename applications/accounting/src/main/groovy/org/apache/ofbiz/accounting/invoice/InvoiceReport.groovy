@@ -34,7 +34,7 @@ if (invoiceTypeId) {
     }
     expr = exprBldr.AND([expr, invoiceStatusesCondition])
 
-    PastDueInvoices = from('Invoice').where(expr).orderBy('dueDate DESC').queryList()
+    PastDueInvoices = from('Invoice').where(expr).orderBy('dueDate ASC').queryList()
     if (PastDueInvoices) {
         invoiceIds = PastDueInvoices.invoiceId
         totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId])
