@@ -873,4 +873,52 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="InvoicesArDueSoon">
+        <section>
+           <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="invoiceTypeId" value="SALES_INVOICE"/>
+                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceReport.groovy"/>
+                <set field="invoices" from-field="InvoicesDueSoon"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingAccountsReceivable} ${uiLabelMap.AccountingInvoicesDueSoon}: ${InvoicesDueSoonTotalAmount}">
+                    <include-grid name="ListArReport" location="component://accounting/widget/InvoiceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="InvoicesApPastDue">
+        <section>
+           <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceReport.groovy"/>
+                <set field="invoices" from-field="PastDueInvoices"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingAccountsPayable} ${uiLabelMap.AccountingPastDueInvoices}: ${PastDueInvoicestotalAmount}">
+                    <include-grid name="ListApReport" location="component://accounting/widget/InvoiceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="InvoicesApDueSoon">
+        <section>
+           <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
+                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceReport.groovy"/>
+                <set field="invoices" from-field="InvoicesDueSoon"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingAccountsPayable} ${uiLabelMap.AccountingInvoicesDueSoon}: ${InvoicesDueSoonTotalAmount}">
+                    <include-grid name="ListApReport" location="component://accounting/widget/InvoiceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>
