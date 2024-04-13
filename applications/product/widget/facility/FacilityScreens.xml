@@ -50,8 +50,8 @@ under the License.
                                                 <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="FacilityTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
-                                                <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                                <include-menu name="FacilityTabBar" location="${parameters.mainMenuLocation}"/>
+                                                <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                                 <section>
                                                     <condition>
                                                         <not><if-empty field="facilityId"/></not>
@@ -77,7 +77,7 @@ under the License.
                                         <if-compare field="showScreen" value="ten" operator="equals"/>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                         <label text="${uiLabelMap.FacilitySelection}" style="h1"/>
                                         <screenlet>
                                             <include-form name="FindFacility10" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -89,7 +89,7 @@ under the License.
                                         <if-compare field="showScreen" value="more" operator="equals"/>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                             <decorator-section name="search-options">
                                                 <include-form name="FindFacilityOptions" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -432,7 +432,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
                                 <include-form name="FindFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -607,7 +607,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}">
                             <include-grid name="ListInventoryItemTotals" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -631,7 +631,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${title}">
                             <include-grid name="ListInventoryItemGrandTotals" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -683,7 +683,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.ProductInventoryAverageCosts} ${uiLabelMap.CommonFor} ${facility.facilityName}">
                             <include-grid name="ListInventoryAverageCosts" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -892,7 +892,7 @@ under the License.
                                 <not><if-empty field="inventoryItem"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                <include-menu name="InventoryItemTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="h1">
                                     <label text="${uiLabelMap.PageTitleEditInventoryItem}"/>
                                 </container>
@@ -966,7 +966,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="InventoryItemTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]">
                             <include-grid name="ListInventoryItemDetail" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
@@ -999,7 +999,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="InventoryItemTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="AddInventoryItemLabelPanel" title="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]" collapsible="true">
                             <include-form name="AddInventoryItemLabelAppl" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
@@ -1582,7 +1582,7 @@ under the License.
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="FacilityShortcutAppBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="FacilityShortcutAppBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

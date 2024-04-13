@@ -41,7 +41,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="facilitymgr" global="true"/>
                 <set field="applicationMenuName" value="FacilityAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://product/widget/facility/FacilityMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_facility"/>
                 <set field="applicationTitle" from-field="uiLabelMap.ProductFacilityManagerApplication" global="true"/>
             </actions>
@@ -74,7 +74,7 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="FacilityTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                     <fail-widgets>
                                         <label style="h3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
@@ -92,7 +92,7 @@ under the License.
                                 <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                 <section>
                                     <condition>
                                         <or>
@@ -127,7 +127,7 @@ under the License.
                                 <if-has-permission permission="FACILITY" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                <include-menu name="InventoryItemLabelsTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -167,8 +167,8 @@ under the License.
                                         <not><if-empty field="inventoryItemLabel"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
-                                        <include-menu name="InventoryItemLabelTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="InventoryItemLabelsTabBar" location="${parameters.mainMenuLocation}"/>
+                                        <include-menu name="InventoryItemLabelTabBar" location="${parameters.mainMenuLocation}"/>
                                         <label style="h1">${uiLabelMap.ProductInventoryItemLabel} [${inventoryItemLabelId}]</label>
                                         <decorator-section-include name="body"/>
                                     </widgets>
