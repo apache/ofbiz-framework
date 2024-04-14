@@ -873,21 +873,39 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindAgreementRoles"/>
                 <set field="tabButtonItem" value="AgreementRoles"/>
                 <set field="helpAnchor" value="_help_for_edit_agreements_roles"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-condition entity-name="AgreementRole" list="agreementRoles">
+                    <order-by field-name="partyId"/>
+                    <order-by field-name="roleTypeId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="add-agreement-roles"  title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
-                            <section>
-                                <widgets>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet id="add-agreement-roles" title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
                                     <include-form name="AddAgreementRole" location="component://accounting/widget/AgreementForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                                <screenlet id="AgreementRoles" title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="AgreementRoles" title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="AgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -729,18 +729,25 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    
-    <grid name="ListAgreementRoles" list-name="agreementRoles" paginate-target="EditAgreementRoles"
+    <grid name="AgreementRoles" list-name="agreementRoles" paginate-target="EditAgreementRoles"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-and entity-name="AgreementRole" use-cache="true" list="agreementRoles">
-                <field-map field-name="agreementId" from-field="agreementId"/>
-            </entity-and>
-        </actions>
         <auto-fields-entity entity-name="AgreementRole" default-field-type="display"/>
         <field name="agreementId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity also-hidden="false" entity-name="PartyNameView" 
+                key-field-name="partyId" description="[${partyId}] ${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
+    </grid>
+    <grid name="ListAgreementRoles" list-name="agreementRoles" paginate-target="EditAgreementRoles"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="AgreementRole" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity also-hidden="false" entity-name="PartyNameView" 
+                key-field-name="partyId" description="[${partyId}] ${groupName}${firstName} ${lastName}"/>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAgreementRole" also-hidden="false">
                 <parameter param-name="agreementId"/>
