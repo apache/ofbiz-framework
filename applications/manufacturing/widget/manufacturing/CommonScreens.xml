@@ -41,7 +41,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="manufacturing" global="true"/>
                 <set field="applicationMenuName" value="ManufacturingAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.ManufacturingManagerApplication" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_manufacturing"/>
             </actions>
@@ -56,7 +56,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
-                         <include-menu location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml" name="MainActionMenu"/>
+                         <include-menu location="${parameters.mainMenuLocation}" name="MainActionMenu"/>
                      </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -85,7 +85,7 @@ under the License.
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="ManufacturingShortcutAppBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                        <include-menu name="ManufacturingShortcutAppBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

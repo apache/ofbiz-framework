@@ -27,7 +27,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="CalendarTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                <include-menu name="CalendarTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="button-bar">
                                     <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
                                     <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>

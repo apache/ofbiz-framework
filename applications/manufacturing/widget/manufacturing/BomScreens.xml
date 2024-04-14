@@ -31,7 +31,7 @@ under the License.
                                 <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="BomTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                <include-menu name="BomTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="button-bar"><link target="EditProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/></container>
                                 <decorator-section-include name="body"/>
                             </widgets>
