@@ -42,7 +42,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="MarketingCampaignTabBar" location="component://marketing/widget/MarketingCampaignMenus.xml"/>
+                                <include-menu name="MarketingCampaignTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>

@@ -40,7 +40,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <widgets>
-                                        <include-menu name="TrackingCodeTabBar" location="component://marketing/widget/TrackingCodeMenus.xml"/>
+                                        <include-menu name="TrackingCodeTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                             </widgets>
