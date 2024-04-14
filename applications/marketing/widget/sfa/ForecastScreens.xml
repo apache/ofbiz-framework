@@ -28,6 +28,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
                     </decorator-section>                    
@@ -59,6 +62,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
                     </decorator-section>                    
