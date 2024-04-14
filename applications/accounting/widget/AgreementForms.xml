@@ -733,21 +733,21 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="AgreementRole" default-field-type="display"/>
         <field name="agreementId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.CommonParty}">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity also-hidden="false" entity-name="PartyNameView" 
                 key-field-name="partyId" description="[${partyId}] ${groupName}${firstName} ${lastName}"/>
         </field>
-        <field name="roleTypeId" title="${uiLabelMap.CommonRole}"><display-entity entity-name="RoleType"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
     </grid>
     <grid name="ListAgreementRoles" list-name="agreementRoles" paginate-target="EditAgreementRoles"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="AgreementRole" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.CommonParty}">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity also-hidden="false" entity-name="PartyNameView" 
                 key-field-name="partyId" description="[${partyId}] ${groupName}${firstName} ${lastName}"/>
         </field>
-        <field name="roleTypeId" title="${uiLabelMap.CommonRole}"><display-entity entity-name="RoleType"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAgreementRole" also-hidden="false">
                 <parameter param-name="agreementId"/>
@@ -760,8 +760,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="AgreementRole" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.CommonParty}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.CommonRole}" required-field="true">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" required-field="true">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
