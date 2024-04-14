@@ -37,7 +37,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <label style="h1">${uiLabelMap.CommonRouting}: ${routing.workEffortId}</label>
-                                        <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                        <include-menu name="RoutingTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -65,7 +65,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <label style="h1">${uiLabelMap.WorkEffortTask}: ${routingTask.workEffortId}</label>
-                                        <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                        <include-menu name="RoutingTaskTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

@@ -27,7 +27,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="MrpTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                <include-menu name="MrpTabBar" location="${parameters.mainMenuLocation}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
