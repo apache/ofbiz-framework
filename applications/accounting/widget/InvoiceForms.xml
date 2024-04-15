@@ -750,7 +750,7 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="amountToApply" value="${groovy:
+            <set field="outstanding" value="${groovy:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
             <set field="total" value="${groovy:
@@ -772,7 +772,7 @@ under the License.
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="outstanding" title="${uiLabelMap.AccountingOutstanding}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ListApReport" separate-columns="true" title="Invoice List" list-name="invoices" target=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" paginate-target="main">
@@ -783,7 +783,7 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="amountToApply" value="${groovy:
+            <set field="outstanding" value="${groovy:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
             <set field="total" value="${groovy:
@@ -805,6 +805,6 @@ under the License.
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="outstanding" title="${uiLabelMap.AccountingOutstanding}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
 </forms>
