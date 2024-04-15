@@ -8553,6 +8553,7 @@
         <value xml:lang="es">Facturas prontas de pago</value>
         <value xml:lang="fr">Factures à régler prochainement</value>
         <value xml:lang="ja">支払期日が近づいている請求</value>
+        <value xml:lang="nl">Binnenkort vervallen</value>
         <value xml:lang="pt">Faturas devidas em breve</value>
         <value xml:lang="vi">Xử lý hóa đơn sớm</value>
         <value xml:lang="zh">即将到期的发票</value>
