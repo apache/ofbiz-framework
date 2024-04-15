@@ -39,7 +39,7 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="DataSourceTabBar" location="component://marketing/widget/DataSourceMenus.xml"/>
+                                <include-menu name="DataSourceTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>

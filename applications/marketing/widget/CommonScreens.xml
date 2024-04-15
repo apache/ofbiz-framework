@@ -68,7 +68,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="ContactListTabBar" location="component://marketing/widget/ContactListMenus.xml"/>
+                                <include-menu name="ContactListTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>

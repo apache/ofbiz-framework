@@ -43,7 +43,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location=" ${parameters.mainMenuLocation}"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -91,7 +91,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="SegmentGroupTabBar" location="component://marketing/widget/SegmentMenus.xml"/>
+                                <include-menu name="SegmentGroupTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
