@@ -393,6 +393,9 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 Map<String, Object> autoUserLogin = UtilGenerics.cast(context.get("autoUserLogin"));
                 locale = UtilMisc.ensureLocale(autoUserLogin.get("lastLocale"));
             }
+            if (locale == null && context.containsKey(UelUtil.getLocalizedMapLocaleKey())) {
+                locale = UtilMisc.ensureLocale(context.get(UelUtil.getLocalizedMapLocaleKey()));
+            }
             if (locale == null) {
                 locale = Locale.getDefault();
             }

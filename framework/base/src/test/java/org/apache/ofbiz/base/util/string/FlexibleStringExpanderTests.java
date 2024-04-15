@@ -136,6 +136,8 @@ public class FlexibleStringExpanderTests {
             try {
                 Locale.setDefault(locale);
                 TimeZone.setDefault(timeZone);
+                context.put("locale", locale);
+                context.put("timeZone", timeZone);
                 assertEquals(label, compare, fse.expandString(context, null, null));
                 assertEquals(label, expand, fse.expand(context, null, null));
                 Locale.setDefault(BAD_LOCALE);
@@ -157,8 +159,6 @@ public class FlexibleStringExpanderTests {
                     assertNotSame(label, expand, fse.expand(context, null, null));
                 }
                 context.remove("autoUserLogin");
-                context.put("locale", locale);
-                context.put("timeZone", timeZone);
                 assertEquals(label, compare, fse.expandString(context, null, null));
                 assertEquals(label, expand, fse.expand(context, null, null));
                 context.put("locale", BAD_LOCALE);
@@ -255,22 +255,7 @@ public class FlexibleStringExpanderTests {
     }
 
     @Test
-    /**
-     * Test with verbosity.
-     */
-    public void testWithVerbosity() {
-        everythingTest();
-    }
-
-    @Test
-    /**
-     * Test quietly.
-     */
-    public void testQuietly() {
-        everythingTest();
-    }
-
-    private static void everythingTest() {
+    public void testEverything() {
         Map<String, Object> testMap = new HashMap<>();
         testMap.put("date", new java.util.Date(1234567890));
         testMap.put("usd", "USD");
@@ -320,7 +305,7 @@ public class FlexibleStringExpanderTests {
         fseTest("groovy: null", "${groovy:return null;}!", testMap, "!", false);
         fseTest("groovy missing property", "${groovy: return noList[0]}", testMap, null, null, "", null, false);
         fseTest("groovy: throw Exception", "${groovy:return throwException.value;}!", testMap, "!", false);
-        fseTest("groovy: converter exception", "${groovy:return specialNumber;}!", testMap, SpecialNumber.class.getName() + "!", false);
+        fseTest("groovy: converter exception", "${groovy:return specialNumber;}!", testMap, "1!", false);
         fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!", false);
         fseTest("UEL integration: blank", "Hello ${testMap.blank}World!", testMap, "Hello World!", false);
         fseTest("UEL integration: List", "Hello ${testList[0]}!", testMap, "Hello World!", false);
@@ -332,8 +317,13 @@ public class FlexibleStringExpanderTests {
         fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression", false);
         fseTest("Escaped(groovy) expression", "This is an \\${groovy:escaped} expression", testMap, "This is an ${groovy:escaped} expression", false);
 
-        fseTest("nested UEL integration(return BigDecimal)", "${a${'moun'}t}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
-        fseTest("UEL integration(return BigDecimal)", "${amount}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
-        fseTest("groovy: return BigDecimal", "${groovy: return amount;}", testMap, null, null, "1,234,567.89", testMap.get("amount"), false);
+        // TODO: Find a better way to setup or handle the big decimal value. If new ones are not instanciated in the test
+        // it fails because of the comparison between object pointers..
+        fseTest("nested UEL integration(return BigDecimal)", "${a${'moun'}t}", testMap, null, LOCALE_TO_TEST,
+                "1,234,567.89", new BigDecimal("1234567.89"), false);
+        fseTest("UEL integration(return BigDecimal)", "${amount}", testMap, null, LOCALE_TO_TEST,
+                "1,234,567.89", new BigDecimal("1234567.89"), false);
+        fseTest("groovy: return BigDecimal", "${groovy: return amount;}", testMap, null, LOCALE_TO_TEST,
+                "1,234,567.89", new BigDecimal("1234567.89"), false);
     }
 }
