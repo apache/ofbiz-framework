@@ -66,8 +66,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                                <include-menu name="CommEventTabBar" location="${parameters.mainMenuLocation}"/>
-                                <include-menu name="CommSubTabBar" location="${parameters.mainMenuLocation}"/>
+                                <include-menu name="CommEventTabBar" location="${parameters.communicationMenuLocation}"/>
+                                <include-menu name="CommSubTabBar" location="${parameters.communicationMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
