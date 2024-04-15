@@ -45,7 +45,6 @@ under the License.
         </menu-item>
         <menu-item name="billingaccount" title="${uiLabelMap.AccountingBillingMenu}"><link target="FindBillingAccount"/></menu-item>
         <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="FinAccountMain"/></menu-item>
-        <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
         <menu-item name="ListBudgets" title="${uiLabelMap.AccountingBudgets}"><link target="ListBudgets"/></menu-item>
@@ -1383,6 +1382,7 @@ under the License.
         <menu-item name="CostCenters" title="${uiLabelMap.FormFieldTitle_costCenters}">
             <link target="CostCenters"/>
         </menu-item>
+        <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
     </menu>
 
     <menu name="AgreementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
