@@ -99,8 +99,8 @@ under the License.
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
-                                            <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentTabBar"/>
-                                            <include-menu location="component://product/widget/facility/ShipmentMenus.xml" name="ShipmentActionBar"/>
+                                            <include-menu location="${parameters.mainMenuLocation}" name="ShipmentTabBar"/>
+                                            <include-menu location="${parameters.mainMenuLocation}" name="ShipmentActionBar"/>
                                         </container>
                                     </widgets>
                                 </section>

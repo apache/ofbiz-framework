@@ -318,5 +318,133 @@ under the License.
                 <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
             </link>
         </menu-item>
+    </menu>    
+    <menu name="ShipmentTabBar" title=" " extends="CommonTabBarMenu" 
+        extends-resource="component://common/widget/CommonMenus.xml" default-menu-item-name="ViewShipment">
+        
+        <menu-item name="ViewShipment" title="${uiLabelMap.CommonView}">
+            <link target="ViewShipment">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditShipment" title="${uiLabelMap.CommonEdit}">
+            <link target="EditShipment">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="AddItemsFromInventory" title="${uiLabelMap.ProductOrderItems}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_RETURN"/>
+            </condition>
+            <link target="AddItemsFromInventory">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditShipmentPlan" title="${uiLabelMap.ProductShipmentPlan}">
+            <condition>
+                <or>
+                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
+                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+                </or>
+            </condition>
+            <link target="EditShipmentPlan">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ViewShipmentReceipts" title="${uiLabelMap.ProductShipmentReceipts}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
+            </condition>
+            <link target="ViewShipmentReceipts">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="AddItemsFromOrder" title="${uiLabelMap.ProductOrderItems}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+            </condition>
+            <link target="AddItemsFromOrder">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditShipmentItems" title="${uiLabelMap.ProductItems}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+            </condition>
+            <link target="EditShipmentItems">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditShipmentPackages" title="${uiLabelMap.ProductPackages}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+            </condition>
+            <link target="EditShipmentPackages">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditShipmentPackages" title="${uiLabelMap.ProductPackages}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+            </condition>
+            <link target="EditShipmentPackages">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditShipmentRouteSegments" title="${uiLabelMap.ProductRouteSegments}">
+            <condition>
+                <if-compare field="shipment.shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+            </condition>
+            <link target="EditShipmentRouteSegments">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ShipmentActionBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductReceiveInventory}">
+            <condition>
+                <and>
+                    <not><if-empty field="facility"/></not>
+                    <not><if-empty field="shipment"/></not>
+                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT" />
+                </and>
+            </condition>
+            <link target="ReceiveInventory">
+                <parameter param-name="shipmentId"/>
+                <parameter param-name="facilityId" from-field="facility.facilityId"/>
+                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+                <parameter param-name="initialSelected" value="Y"/>
+            </link>
+        </menu-item>
+        <menu-item name="ReceiveInventoryAgainstPurchaseOrder" title="${uiLabelMap.ProductReceiveInventoryAgainstPO}">
+            <condition>
+                <and>
+                    <not><if-empty field="facility"/></not>
+                    <not><if-empty field="shipment"/></not>
+                    <not><if-empty field="shipment.primaryOrderId"/></not>
+                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT" />
+                </and>
+            </condition>
+            <link target="ReceiveInventoryAgainstPurchaseOrder">
+                <parameter param-name="shipmentId"/>
+                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ReceiveInventoryAgainstPurchaseOrder" title="${uiLabelMap.ProductReceiveInventoryAgainstPO}">
+            <link target="ReceiveInventoryAgainstPurchaseOrder">
+                <parameter param-name="shipmentId"/>
+                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CreateShipmentNote" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNote}">
+            <link target="CreateShipmentNote">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CreateManifest" title="${uiLabelMap.ProductGenerateShipmentManifestReport}">
+            <link target="ShipmentManifest.pdf" target-window="_BLANK">
+                <parameter param-name="shipmentId"/>
+            </link>
+        </menu-item>
     </menu>
 </menus>
