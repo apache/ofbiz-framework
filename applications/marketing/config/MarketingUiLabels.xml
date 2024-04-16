@@ -3399,7 +3399,7 @@
         <value xml:lang="de">Prognose</value>
         <value xml:lang="en">Forecast</value>
         <value xml:lang="es">Previsión</value>
-        <value xml:lang="fr">Prévision</value>
+        <value xml:lang="fr">Prévisions</value>
         <value xml:lang="it">Previsioni</value>
         <value xml:lang="ja">予測</value>
         <value xml:lang="pt-BR">Previsão</value>
@@ -3692,6 +3692,7 @@
     <property key="SfaOpportunityCommunications">
         <value xml:lang="de">Kommunikation zu Opportunity</value>
         <value xml:lang="en">Opportunity Communications</value>
+        <value xml:lang="fr">Opportunité de communications</value>
         <value xml:lang="es">Comunicación de Oportunidades</value>
         <value xml:lang="ja">機会通信</value>
         <value xml:lang="pt-BR">Comunicação de oportunidades</value>
