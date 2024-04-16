@@ -61,6 +61,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
                     </decorator-section>
@@ -110,6 +114,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <include-menu name="OpportunityTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
@@ -750,6 +755,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <include-menu name="AccountTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
@@ -768,6 +774,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <include-menu name="ContactTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
@@ -794,6 +801,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <include-menu name="LeadTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
@@ -812,6 +820,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                         <include-menu name="EventTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
