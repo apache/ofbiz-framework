@@ -51,7 +51,7 @@ under the License.
                                         </and>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="TaxAuthorityTabBar" location="component://accounting/widget/TaxAuthorityMenus.xml"/>
+                                        <include-menu name="TaxAuthorityTabBar" location="${parameters.mainMenuLocation}"/>
                                         <container><link target="EditTaxAuthority" text="${uiLabelMap.CommonCreate}" style="buttontext"/></container>
                                         <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${uiLabelMap.AccountingTaxAuthorityParty} &quot;${taxAuthPartyName.firstName} ${taxAuthPartyName.lastName} ${taxAuthPartyName.groupName}&quot; [${uiLabelMap.CommonId}:${taxAuthPartyId}], ${uiLabelMap.CommonGeo} &quot;${taxAuthGeo.geoName}&quot; [${uiLabelMap.CommonId}:${taxAuthGeoId}] ${${extraFunctionName}}"/>
                                     </widgets>
