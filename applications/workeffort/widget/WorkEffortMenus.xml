@@ -407,4 +407,15 @@ under the License.
             </link>
         </menu-item>
     </menu>
+    <menu name="TimesheetActionMenu">
+        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+            </condition>
+            <link target="${my}StatusToComplete">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>
