@@ -367,7 +367,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.HumanResMyLeaves}" navigation-form-name="ListEmplLeaves">
-                    <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                    <include-grid name="ListEmplLeaves" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
