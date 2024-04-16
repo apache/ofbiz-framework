@@ -389,5 +389,21 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
+    <menu name="TimesheetTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="Timesheet">
+        <menu-item name="Timesheet" title="${uiLabelMap.WorkEffortTimesheet}">
+            <link target="EditTimesheet">
+                <parameter param-name="timesheetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="TimesheetRoles" title="${uiLabelMap.PartyParties}">
+            <link target="EditTimesheetRoles">
+                <parameter param-name="timesheetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="TimesheetEntries" title="${uiLabelMap.CommonEntries}">
+            <link target="EditTimesheetEntries">
+                <parameter param-name="timesheetId"/>
+            </link>
+        </menu-item>
 </menus>

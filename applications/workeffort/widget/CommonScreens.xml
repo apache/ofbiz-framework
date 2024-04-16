@@ -142,7 +142,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="timesheetId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="TimesheetTabBar" location="component://workeffort/widget/TimesheetMenus.xml"/>
+                                        <include-menu name="TimesheetTabBar" location="${parameters.timesheetMenuLocation}"/>
                                         <container style="button-bar">
                                             <link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext create"/>
                                         </container>
