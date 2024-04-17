@@ -45,7 +45,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.SfaTaskAssignedToMe}" navigation-form-name="MyTasks">
-                                    <include-form name="MyTasks" location="component://marketing/widget/sfa/forms/EventForms.xml"/>
+                                    <include-grid name="MyTasks" location="component://marketing/widget/sfa/forms/EventForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.SfaTaskAssignedByMe}" navigation-form-name="MyTasks">
                                     <include-form name="TasksAssignedByMe" location="component://marketing/widget/sfa/forms/EventForms.xml"/>
