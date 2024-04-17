@@ -44,13 +44,19 @@ under the License.
             </condition>
             <link target="NewContact"/>
         </menu-item>
-        <menu-item name="NewOpportunity" title="${uiLabelMap.CommonNew} ${uiLabelMap.SfaOpportunity}">
+        <menu-item name="NewLead" title="${uiLabelMap.SfaNewLead}">
+            <condition>
+                <if-has-permission permission="SFA" action="CREATE"/>
+            </condition>
+            <link target="NewLead"/>
+        </menu-item>
+        <menu-item name="NewOpportunity" title="${uiLabelMap.PartyCommEventCreateOpportunity}">
             <condition>
                 <if-has-permission permission="SFA" action="CREATE"/>
             </condition>
             <link target="EditSalesOpportunity"/>
         </menu-item>
-        <menu-item name="NewForeCast" title="${uiLabelMap.CommonNew} ${uiLabelMap.SfaForecast}">
+        <menu-item name="NewForeCast" title="${uiLabelMap.SfaNewSalesForecast}">
             <condition>
                 <if-has-permission permission="SFA" action="CREATE"/>
             </condition>
