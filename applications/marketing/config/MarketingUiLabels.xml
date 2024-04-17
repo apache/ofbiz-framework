@@ -3487,6 +3487,7 @@
     </property>
     <property key="SfaNewLead">
         <value xml:lang="en">New Lead</value>
+        <value xml:lang="fr">Nouveau prospect</value>
         <value xml:lang="nl">Nieuwe lead</value>
     </property>
     <property key="SfaLeadCreatedSuccessfully">
@@ -3698,8 +3699,8 @@
     <property key="SfaOpportunityCommunications">
         <value xml:lang="de">Kommunikation zu Opportunity</value>
         <value xml:lang="en">Opportunity Communications</value>
-        <value xml:lang="fr">Opportunité de communications</value>
         <value xml:lang="es">Comunicación de Oportunidades</value>
+        <value xml:lang="fr">Opportunités de communication</value>
         <value xml:lang="ja">機会通信</value>
         <value xml:lang="pt-BR">Comunicação de oportunidades</value>
         <value xml:lang="vi">Truyền thông</value>
