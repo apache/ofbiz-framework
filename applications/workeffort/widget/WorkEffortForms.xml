@@ -312,11 +312,13 @@ under the License.
             <sort-field name="sequenceNum"/>
             <sort-field name="fromDate"/>
             <sort-field name="thruDate"/>
-            <banner left-text="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc1}"/>
-            <sort-field name="workEffortIdTo"/>
-            <banner left-text="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc2}"/>
-            <sort-field name="workEffortName"/>
-            <sort-field name="description"/>
+            <field-group title="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc1}">
+                <sort-field name="workEffortIdTo"/>
+            </field-group>
+            <field-group title="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc2}">
+                <sort-field name="workEffortName"/>
+                <sort-field name="description"/>
+            </field-group>
         </sort-order>
     </form>
 
