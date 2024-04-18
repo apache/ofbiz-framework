@@ -76,7 +76,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
+    
     <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewSalesOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="ViewSalesOpportunity">
@@ -295,7 +295,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
+    
     <menu name="LeadFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="all" title="${uiLabelMap.SfaAllLeads}">
             <condition>
@@ -394,13 +394,5 @@ under the License.
     <menu name="EventSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="NewEvent" title="${uiLabelMap.CommonCreate}"><link target="EditEvent"/></menu-item>
-    </menu>
-
-    <menu name="GroupUpdate">
-        <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
-            <link target="editpartygroup">
-                <parameter param-name="partyId" from-field="organizationPartyId"/>
-            </link>
-        </menu-item>
     </menu>
 </menus>
