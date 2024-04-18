@@ -7850,7 +7850,7 @@
         <value xml:lang="en">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero   ${amountApplied?currency(${isoCode})} es requerio</value>
         <value xml:lang="es-CL">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">La facture [${invoiceId} Item [${invoiceItemSeqId} est payable en ${invoiceItemApplyAvailable?currency(${isoCode})} mais  ${amountApplied?currency(${isoCode})} est requis</value>
+        <value xml:lang="fr">La facture [${invoiceId} Item [${invoiceItemSeqId}] est payable avec ${invoiceItemApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est soumis</value>
         <value xml:lang="hi-IN">चालान [${invoiceId}] मद [${invoiceItemSeqId}] पर लागू करने के लिए ${invoiceItemApplyAvailable?currency(${isoCode})} उपलब्ध है, पर ${amountApplied?currency(${isoCode})} अनिवार्य है</value>
         <value xml:lang="it">Fattura [${invoiceId} Riga [${invoiceItemSeqId} ha ${invoiceItemApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesta</value>
         <value xml:lang="ja">請求書 [${invoiceId} アイテム [${invoiceItemSeqId} は通貨 ${invoiceItemApplyAvailable?currency(${isoCode})} を消込していますが、${amountApplied?currency(${isoCode})} がリクエストされています</value>
@@ -7985,7 +7985,7 @@
         <value xml:lang="de">Rechnung [${invoiceId} hat ${invoiceApplyAvailable?currency(${isoCode})} zugewiesen aber  ${amountApplied?currency(${isoCode})} wird erwartet</value>
         <value xml:lang="en">Invoice [${invoiceId} has ${invoiceApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Factura[${invoiceId} tiene ${invoiceApplyAvailable?currency(${isoCode})} para aplicar pero  ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">La facture [${invoiceId} est payable en ${invoiceApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est requis</value>
+        <value xml:lang="fr">La facture [${invoiceId}] est payable avec ${invoiceApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est soumis</value>
         <value xml:lang="hi-IN">चालान [${invoiceId}] पर लागू करने के लिए ${invoiceApplyAvailable?currency(${isoCode})} उपलब्ध है, पर ${amountApplied?currency(${isoCode})} अनिवार्य है</value>
         <value xml:lang="it">Fattura [${invoiceId} ha ${invoiceApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesto</value>
         <value xml:lang="ja">請求書 [${invoiceId} は ${invoiceApplyAvailable?currency(${isoCode})} を消込していますが ${amountApplied?currency(${isoCode})} がリクエストされています</value>
@@ -11878,7 +11878,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] hat  ${paymentApplyAvailable?currency(${isoCode})} zuzuweisen, aber ${amountApplied?currency(${isoCode})} wird gefordert</value>
         <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Pago [${paymentId}] tiene ${paymentApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est en ${paymentApplyAvailable?currency(${isoCode})}mais la monnaie requise est ${amountApplied?currency(${isoCode})}</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est de ${paymentApplyAvailable?currency(${isoCode})} mais le paiment soumis est ${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="hi-IN">भुगतान [${paymentId}] पर लागू करने के लिए ${paymentApplyAvailable?currency(${isoCode})} उपलब्ध है, पर ${amountApplied?currency(${isoCode})} अनिवार्य है</value>
         <value xml:lang="it">Pagamento [${paymentId}] ha  ${paymentApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
         <value xml:lang="ja">支払 [${paymentId}] は ${paymentApplyAvailable?currency(${isoCode})} の消込をしていますが ${amountApplied?currency(${isoCode})} がリクエストされました</value>
