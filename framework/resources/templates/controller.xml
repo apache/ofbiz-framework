@@ -41,7 +41,9 @@ under the License.
 
     <!-- Request Mappings -->
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
+    <request-map uri="New"><security https="true" auth="true"/><response name="success" type="view" value="New"/></request-map>
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://@component-name@/widget/@component-resource-name@Screens.xml#main"/>
+    <view-map name="New" type="screen" page="component://@component-name@/widget/@component-resource-name@Screens.xml#New"/>
 </site-conf>

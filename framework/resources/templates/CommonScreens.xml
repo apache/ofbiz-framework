@@ -39,7 +39,7 @@ under the License.
 
                 <set field="activeApp" value="@webapp-name@" global="true"/>
                 <set field="applicationMenuName" value="MainAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://@component-name@/widget/@component-resource-name@Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.@component-resource-name@Application" global="true"/>
             </actions>
             <widgets>
@@ -54,6 +54,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>

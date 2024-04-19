@@ -28,7 +28,27 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="@component-resource-name@CommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                    </decorator-section>
                     <decorator-section name="body">
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="New">
+        <section>
+            <actions>
+                <!-- Put your screen specific actions here -->
+            </actions>
+            <widgets>
+                <decorator-screen name="@component-resource-name@CommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonNew}">
+                            <include-form name="New" location="component://@component-name@/widget/@component-resource-name@Forms.xml"
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

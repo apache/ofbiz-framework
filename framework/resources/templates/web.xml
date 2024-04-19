@@ -29,16 +29,27 @@ under the License.
     </context-param-->
     <context-param>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-        <param-name>localDispatcherName</param-name><param-value>@component-name@</param-value>
+        <param-name>localDispatcherName</param-name>
+        <param-value>@component-name@</param-value>
     </context-param>
     <context-param>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
-        <param-name>entityDelegatorName</param-name><param-value>default</param-value>
+        <param-name>entityDelegatorName</param-name>
+        <param-value>default</param-value>
     </context-param>
     <context-param>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://@component-name@/widget/CommonScreens.xml</param-value>
+    </context-param>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://@component-name@/widget/CommonScreens.xml</param-value>
+    </context-param>
+    <context-param>
+        <description>The location of the main *Menus XML file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>mainMenuLocation</param-name>
+        <param-value>component://@component-name@/widget/@component-resource-name@Menus.xml</param-value>
     </context-param>
     <context-param>
         <description>Remove unnecessary whitespace from HTML output.</description>

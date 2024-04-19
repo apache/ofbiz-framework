@@ -712,7 +712,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def pluginDir = "${pluginsDir}/${pluginId}"
 
         ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
-                'patches/production', 'src/main/groovy', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+                'patches/production', 'src/main/groovy', 'scripts', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
             mkdir pluginDir + '/' + it
         }
@@ -720,6 +720,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         [   [tempName:'ofbiz-component.xml', newName:'ofbiz-component.xml', location:''],
             [tempName:'build.gradle', newName:'build.gradle', location:''],
             [tempName:'TypeData.xml', newName:"${pluginResourceName}TypeData.xml", location:'data'],
+            [tempName:'SystemPropertyData.xml', newName:"${pluginResourceName}SystemPropertyData.xml", location:'data'],
             [tempName:'SecurityPermissionSeedData.xml', newName:"${pluginResourceName}SecurityPermissionSeedData.xml", location:'data'],
             [tempName:'SecurityGroupDemoData.xml', newName:"${pluginResourceName}SecurityGroupDemoData.xml", location:'data'],
             [tempName:'DemoData.xml', newName:"${pluginResourceName}DemoData.xml", location:'data'],
@@ -729,6 +730,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
             [tempName:'services.xml', newName:'services.xml', location:'servicedef'],
             [tempName:'Tests.xml', newName:"${pluginResourceName}Tests.xml", location:'testdef'],
             [tempName:'UiLabels.xml', newName:"${pluginResourceName}UiLabels.xml", location:'config'],
+            [tempName:'StaticProperties.properties', newName:"${webappName}.properties", location:'config'],
             [tempName:'index.jsp', newName:'index.jsp', location:"webapp/${webappName}"],
             [tempName:'controller.xml', newName:'controller.xml', location:"webapp/${webappName}/WEB-INF"],
             [tempName:'web.xml', newName:'web.xml', location:"webapp/${webappName}/WEB-INF"],

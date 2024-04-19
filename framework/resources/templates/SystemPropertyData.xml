@@ -18,17 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="@component-resource-name@Application">
-        <value xml:lang="en">@component-resource-name@ Application</value>
-    </property>
-    <property key="@component-resource-name@CompanyName">
-        <value xml:lang="en">OFBiz Plugin: @component-resource-name@</value>
-    </property>
-    <property key="@component-resource-name@CompanySubtitle">
-        <value xml:lang="en">A custom OFBiz plugin</value>
-    </property>
-    <property key="@component-resource-name@ViewPermissionError">
-        <value xml:lang="en">You are not allowed to view this page.</value>
-    </property>
-</resource>
+<entity-engine-xml>
+    <SystemProperty resourceId="@webapp-name@"  systemPropertyId="@webapp-name@.demo"  systemPropertyValue="true"  description="Demo SystemProperty record. Boolean. Allowed values are 'true' or false'"/>
+</entity-engine-xml>

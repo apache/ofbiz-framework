@@ -19,11 +19,11 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <SecurityPermission description="View operations in the @component-resource-name@ Component." permissionId="@base-permission@_VIEW"/>
+    <SecurityPermission description="ALL operations in the @component-resource-name@ Component." permissionId="@base-permission@_ADMIN"/>
     <SecurityPermission description="Create operations in the @component-resource-name@ Component." permissionId="@base-permission@_CREATE"/>
     <SecurityPermission description="Update operations in the @component-resource-name@ Component." permissionId="@base-permission@_UPDATE"/>
     <SecurityPermission description="Delete operations in the @component-resource-name@ Component." permissionId="@base-permission@_DELETE"/>
-    <SecurityPermission description="ALL operations in the @component-resource-name@ Component." permissionId="@base-permission@_ADMIN"/>
+    <SecurityPermission description="View operations in the @component-resource-name@ Component." permissionId="@base-permission@_VIEW"/>
 
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="@base-permission@_ADMIN"/>
 

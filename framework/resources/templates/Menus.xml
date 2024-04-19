@@ -22,4 +22,14 @@ under the License.
     <menu name="MainAppBar" title="${uiLabelMap.@component-resource-name@Application}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
     </menu>
+    <menu name="MainActionMenu"menu-container-style="button-bar button-style-2">
+        <menu-item name="New" title="${uiLabelMap.CommonNew}">
+            <condition>
+                <or>
+                    <if-has-permission permission="@base-permission@" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="New"/>
+        </menu-item>
+    </menu>
 </menus>

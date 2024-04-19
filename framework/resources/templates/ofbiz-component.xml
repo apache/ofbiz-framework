@@ -29,6 +29,7 @@ under the License.
     <!-- entity resources: model(s), eca(s), group, and data definitions -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <!-- <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/> -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/@component-resource-name@SystemPropertyData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/@component-resource-name@TypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/@component-resource-name@SecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/@component-resource-name@SecurityGroupDemoData.xml"/>
@@ -49,5 +50,8 @@ under the License.
         server="default-server"
         location="webapp/@webapp-name@"
         base-permission="OFBTOOLS,@base-permission@"
-        mount-point="/@webapp-name@"/>
+        mount-point="/@webapp-name@"
+        app-bar-display="true"
+        position="99"
+        />
 </ofbiz-component>
