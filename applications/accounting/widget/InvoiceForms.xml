@@ -74,7 +74,7 @@ under the License.
             <set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)}"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -155,7 +155,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceNote" default-field-type="display"/>
     </grid>
-    <grid name="InvoiceItems" list-name="invItemAndOrdItems" separate-columns="true" paginate-target="invoiceOverview"
+    <grid name="InvoiceItems" list-name="invItemAndOrdItems" separate-columns="true" paginate-target="viewInvoice"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="quantity" value="${groovy: quantity ?: 1}" type="BigDecimal"/>
@@ -758,7 +758,7 @@ under the License.
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="invoiceId"  title="${uiLabelMap.CommonInvoice}" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -791,7 +791,7 @@ under the License.
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="invoiceId"  title="${uiLabelMap.CommonInvoice}" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

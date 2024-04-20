@@ -78,7 +78,7 @@ under the License.
            <td class="label"><label>${uiLabelMap.OrderInvoices}</label></td>
            <td>
              <#list invoices as invoice>
-               <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${invoice}</a>
+               <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">viewInvoice?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${invoice}</a>
                (<a target="_BLANK" href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
              </#list>
            </td>
@@ -546,7 +546,7 @@ under the License.
             <td>&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
             <td>
               <#list invoices as invoice>
-                <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${invoice}</a>
+                <div>${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">viewInvoice?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${invoice}</a>
                 (<a target="_BLANK" href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoice}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPdf}</a>)</div>
               </#list>
             </td>

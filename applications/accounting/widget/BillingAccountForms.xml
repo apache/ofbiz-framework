@@ -90,7 +90,7 @@ under the License.
         </row-actions>
         <field name="billingAccountId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

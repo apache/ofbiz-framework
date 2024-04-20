@@ -173,11 +173,11 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="invoiceOverview">
+    <screen name="ViewInvoice">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleInvoiceOverview"/>
-                <set field="tabButtonItem" value="invoiceOverview"/>
+                <set field="tabButtonItem" value="viewInvoice"/>
                 <set field="helpAnchor" value="_help_for_invoice_overview"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>

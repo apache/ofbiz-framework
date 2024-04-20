@@ -116,7 +116,7 @@ under the License.
             <ws:section>
                 <ws:actions>
                     <ws:set field="titleProperty" value="PageTitleInvoiceOverview"/>
-                    <ws:set field="tabButtonItem" value="invoiceOverview"/>
+                    <ws:set field="tabButtonItem" value="viewInvoice"/>
                     <ws:set field="helpAnchor" value="_help_for_invoice_overview"/>
                     <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
                     <ws:entity-one entity-name="Invoice" value-field="invoice"/>
@@ -315,7 +315,7 @@ under the License.
                 <wf:set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)}"/>
             </wf:row-actions>
             <wf:field name="invoiceId" widget-style="buttontext" sort-field="true">
-                <wf:hyperlink description="${invoiceId}" target="invoiceOverview">
+                <wf:hyperlink description="${invoiceId}" target="viewInvoice">
                     <wf:parameter param-name="invoiceId"/>
                 </wf:hyperlink>
             </wf:field>
