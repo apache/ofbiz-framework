@@ -20,15 +20,27 @@
 <entity-engine-xml>
 
     <PortletCategory portletCategoryId="HUMANRES" description="Human Resource Portlets"/>
-    <PortalPortlet portalPortletId="myLeave"
-        portletName="My Leave"
-        screenName="MyLeaveList"
-        screenLocation="component://humanres/widget/EmployeeScreens.xml"
-        description="My Leaves form Human Resource" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
+    <PortalPortlet portalPortletId="myLeave" portletName="My Leave"
+        description="My Leaves form Human Resource" 
+        screenName="MyLeaveList" screenLocation="component://humanres/widget/EmployeeScreens.xml"
+        securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="myLeave" portletCategoryId="HUMANRES"/>
-    <PortalPortlet portalPortletId="MyTrainings" portletName="My Trainings"  description="Trainings of a party"
-        screenName="MyTrainings" screenLocation="component://humanres/widget/EmployeeScreens.xml" securityServiceName="portalPermissionIsEmployee"
-        securityMainAction="VIEW"/>
+    <PortalPortlet portalPortletId="MyTrainings" portletName="My Trainings"  
+        description="Trainings of a party"
+        screenName="MyTrainings" screenLocation="component://humanres/widget/EmployeeScreens.xml" 
+        securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="MyTrainings" portletCategoryId="HUMANRES"/>
+
+    <PortalPage portalPageId="Humanres_MAIN" portalPageName="HumanRes Main Page" 
+        description="The main portal page of the Humanres application" 
+        ownerUserLoginId="_NA_" sequenceNum="1"/>
+    <PortalPageColumn columnSeqId="00001" portalPageId="Humanres_MAIN"/>
+    <PortalPageColumn columnSeqId="00002" portalPageId="Humanres_MAIN"/>
+    <PortalPortlet portalPortletId="ORG_TREE" portletName="Organisation Tree"
+        description="The Organisation Tree Structure"
+        screenName="OrgTree" screenLocation="component://humanres/widget/CommonScreens.xml"/>
+    <PortletPortletCategory portalPortletId="ORG_TREE" portletCategoryId="HUMANRES"/>
+    <PortalPagePortlet portalPageId="Humanres_MAIN" portalPortletId="ORG_TREE" columnSeqId="00001" portletSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="Humanres_MAIN" portalPortletId="Calendar" columnSeqId="00002" portletSeqId="00001" sequenceNum="2"/>
 
 </entity-engine-xml>

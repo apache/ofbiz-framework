@@ -52,22 +52,17 @@ under the License.
 
     <screen name="Main">
         <section>
+            <actions>
+                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="${parameters.localDispatcherName}_MAIN" global="true"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetParentPortalPageId.groovy"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
                     <decorator-section name="pre-body">
                         <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="HUMANRES" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <container style="lefthalf">
-                                    <include-screen name="OrgTree"/>
-                                </container>
-                            </widgets>
-                        </section>
+                        <include-portal-page id="${parameters.portalPageId}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
