@@ -27,7 +27,6 @@ public Map SetTimeZoneFromBrowser() {
             userLogin.store()
             return ServiceUtil.returnSuccess()
         }
-    } else {
-        return ServiceUtil.returnError()
     }
+    // Do nothing if no userLogin to prevents to uselessly clutter the logs up with very common SetTimeZoneFromBrowser errors
 }
