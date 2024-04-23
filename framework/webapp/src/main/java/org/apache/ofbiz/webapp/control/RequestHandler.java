@@ -726,7 +726,9 @@ public final class RequestHandler {
 
             // If error, then display more error messages:
             if ("error".equals(eventReturnBasedRequestResponse.getName())) {
-                if (Debug.errorOn()) {
+                String uri = requestMap.getUri();
+                if (Debug.errorOn()
+                        && !uri.equals("SetTimeZoneFromBrowser")) { // Prevents to uselessly clutter the logs up with SetTimeZoneFromBrowser errors
                     String errorMessageHeader = "Request " + requestMap.getUri() + " caused an error with the following message: ";
                     if (request.getAttribute("_ERROR_MESSAGE_") != null) {
                         Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_"), MODULE);
