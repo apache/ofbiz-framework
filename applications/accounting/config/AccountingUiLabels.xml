@@ -10436,10 +10436,6 @@
         <value xml:lang="zh">经营性现金</value>
         <value xml:lang="zh-TW">經營性現金</value>
     </property>
-    <property key="AccountingOutstanding">
-        <value xml:lang="en">Outstanding</value>
-        <value xml:lang="nl">Openstaand</value>
-    </property>
     <property key="AccountingOrderItemWithIdNotFound">
         <value xml:lang="ar">لم يتم العثور على بند أمر البيع/الشراء ذو الدليل ${orderItemSeqId}</value>
         <value xml:lang="de">Auftragsposition mit Nummer ${orderItemSeqId} nicht gefunden.</value>

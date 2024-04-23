@@ -772,7 +772,7 @@ under the License.
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="outstanding" title="${uiLabelMap.AccountingOutstanding}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="outstanding" title="${uiLabelMap.FormFieldTitle_amountToApply}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ListApReport" separate-columns="true" title="Invoice List" list-name="invoices" target=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" paginate-target="main">
@@ -797,7 +797,7 @@ under the License.
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartySupplier}">
             <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" target-window="_BLANK">
-                <parameter param-name="partyId"/>
+                <parameter param-name="partyIdFrom"/>
             </hyperlink>
         </field>
         <field name="invoiceTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="InvoiceType"/></field>
@@ -805,6 +805,6 @@ under the License.
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="outstanding" title="${uiLabelMap.AccountingOutstanding}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="outstanding" title="${uiLabelMap.FormFieldTitle_amountToApply}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
 </forms>
