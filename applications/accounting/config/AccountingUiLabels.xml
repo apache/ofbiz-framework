@@ -20389,25 +20389,6 @@
         <value xml:lang="zh">已应用</value>
         <value xml:lang="zh-TW">已應用</value>
     </property>
-    <property key="FormFieldTitle_paymentApplyNow">
-        <value xml:lang="ar">مبلغ التطبيق</value>
-        <value xml:lang="de">zuzuweisender Betrag</value>
-        <value xml:lang="en">Amount to Apply</value>
-        <value xml:lang="es">Cantidad por aplicar</value>
-        <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à enregistrer</value>
-        <value xml:lang="hi-IN">लागू करने के लिए राशि</value>
-        <value xml:lang="it">Importo da Applicare</value>
-        <value xml:lang="ja">消込金額</value>
-        <value xml:lang="nl">Bedrag toe te wijzen</value>
-        <value xml:lang="pt">Quantia a aplicar</value>
-        <value xml:lang="ro">Valoare de Applicare</value>
-        <value xml:lang="ru">Сумма для применения</value>
-        <value xml:lang="th">จำนวนที่ประยุกต์ใช้</value>
-        <value xml:lang="vi">Giá trị để Khớp lệnh</value>
-        <value xml:lang="zh">应用的金额</value>
-        <value xml:lang="zh-TW">應用的金額</value>
-    </property>
     <property key="FormFieldTitle_paymentGatewayResponseId">
         <value xml:lang="ar">دليل استجابة بوابة الدفعة</value>
         <value xml:lang="de">Zahlungsgateway Antwort ID</value>
