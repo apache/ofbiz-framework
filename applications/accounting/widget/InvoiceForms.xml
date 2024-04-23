@@ -796,7 +796,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartySupplier}">
-            <hyperlink description="${partyNameResultFrom.fullName} [${partyId}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" target-window="_BLANK">
+            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" target-window="_BLANK">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
