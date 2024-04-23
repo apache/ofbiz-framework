@@ -24,14 +24,13 @@ under the License.
     <screen name="GenericPaymentGatewayConfigDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="PaymentGatewayConfig"/> 
+                <set field="tabButtonItem" value="PaymentGatewayConfig"/>
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
-                        <include-menu name="PaymentGatewayConfigTabBar" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -39,8 +38,7 @@ under the License.
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
-                                
-                                <!-- Now call the SimpleScreen form -->
+                                <include-menu name="PaymentGatewayConfigTabBar" location="${parameters.mainMenuLocation}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -54,7 +52,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindPaymentGatewayConfig"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigTab"/>
+                <set field="tabButtonItem2" value="paymentGatewayConfigTab"/>
                 <set field="helpAnchor" value="_payment_gateway_config_management_in_user_interface"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -85,7 +83,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUpdatePaymentGatewayConfig"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigTab"/>
+                <set field="tabButtonItem2" value="paymentGatewayConfigTab"/>
                 <set field="helpAnchor" value="_help_for_edit_payment_gateway_config"/>
 
                 <set field="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
@@ -235,7 +233,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindPaymentGatewayConfigTypes"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigTypesTab"/>
+                <set field="tabButtonItem2" value="paymentGatewayConfigTypesTab"/>
                 <set field="helpAnchor" value="_help_for_find_payment_gateway_config_types"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
@@ -266,7 +264,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUpdatePaymentGatewayConfigType"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigTypesTab"/>
+                <set field="tabButtonItem2" value="paymentGatewayConfigTypesTab"/>
                 <set field="helpAnchor" value="_help_for_edit_payment_gateway_config_type"/>
 
                 <set field="paymentGatewayConfigTypeId" from-field="parameters.paymentGatewayConfigTypeId"/>

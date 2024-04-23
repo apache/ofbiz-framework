@@ -34,15 +34,6 @@ under the License.
             </condition>
             <link target="FindGatewayResponses"/>
         </menu-item>
-        <menu-item name="PaymentGatewayConfig" title="${uiLabelMap.AccountingPaymentGatewayConfig}">
-            <condition>
-                <or>
-                    <if-has-permission permission="PAYPROC" action="_ADMIN"/>
-                    <if-has-permission permission="ACCOUNTING" action="_ADMIN"/>
-                </or>
-            </condition>
-            <link target="FindPaymentGatewayConfig"/>
-        </menu-item>
         <menu-item name="billingaccount" title="${uiLabelMap.AccountingBillingMenu}"><link target="FindBillingAccount"/></menu-item>
         <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="FinAccountMain"/></menu-item>
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
@@ -1358,6 +1349,15 @@ under the License.
         </menu-item>
         <menu-item name="Costs" title="${uiLabelMap.ManufacturingCostCalcs}">
             <link target="EditCostCalcs"/>
+        </menu-item>
+        <menu-item name="PaymentGatewayConfig" title="${uiLabelMap.AccountingPaymentGatewayConfig}">
+            <condition>
+                <or>
+                    <if-has-permission permission="PAYPROC" action="_ADMIN"/>
+                    <if-has-permission permission="ACCOUNTING" action="_ADMIN"/>
+                </or>
+            </condition>
+            <link target="FindPaymentGatewayConfig"/>
         </menu-item>
         <menu-item name="PaymentMethodTypes" title="${uiLabelMap.CommonPaymentMethodType}">
             <link target="editPaymentMethodType"/>
