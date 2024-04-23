@@ -17595,7 +17595,7 @@
     <property key="FormFieldTitle_amountToApply">
         <value xml:lang="ar">المبلغ المعلق</value>
         <value xml:lang="de">zuzuweisender Betrag</value>
-        <value xml:lang="en">Outstanding amount</value>
+        <value xml:lang="en">Amount to apply</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="es-CL">Cantidad a Aplicar</value>
         <value xml:lang="fr">Montant à enregistrer</value>
@@ -20177,6 +20177,11 @@
         <value xml:lang="vi">Giá trị đang xử lý</value>
         <value xml:lang="zh">待结金额</value>
         <value xml:lang="zh-TW">待結金額</value>
+    </property>
+    <property key="FormFieldTitle_outstanding">
+        <value xml:lang="en">Outstanding amount</value>
+        <value xml:lang="fr">Encours</value>
+        <value xml:lang="nl">Openstaand</value>
     </property>
     <property key="FormFieldTitle_overrideGlAccountId">
         <value xml:lang="ar">دليل حساب GL التجاوز</value>
