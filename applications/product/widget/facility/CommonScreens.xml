@@ -189,11 +189,10 @@ under the License.
     <screen name="Main">
         <section>
             <condition>
-                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="helpAnchor" value="_help_for_accounting_main_screen"/>
+                <set field="helpAnchor" value="_help_for_facility_main_screen"/>
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="${parameters.localDispatcherName}_MAIN" global="true"/>
                 <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetParentPortalPageId.groovy"/>
             </actions>
