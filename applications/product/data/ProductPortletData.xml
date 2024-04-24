@@ -39,4 +39,23 @@
       <PortalPageColumn portalPageId="ProductStoreFacility" columnSeqId="00001"/>
         <PortalPagePortlet portalPageId="ProductStoreFacility" portalPortletId="PrdStoreFacilityMgmt" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
 
+
+<!-- facility main -->
+    <PortletCategory portletCategoryId="FACILITY" description="Facility Portlet"/>
+    <PortalPortlet portalPortletId="ShipmentIn" portletName="Shipment Incoming"
+        screenName="ShipmentIn" screenLocation="component://facility/widget/ShipmentScreens.xml"
+        description="Portlet to display incoming shipments"/>
+    <PortletPortletCategory portalPortletId="ShipmentIn" portletCategoryId="FACILITY"/>
+    <PortalPortlet portalPortletId="ShipmentOut" portletName="Shipment Outgoing"
+        screenName="ShipmentOut" screenLocation="component://facility/widget/ShipmentScreens.xml"
+        description="Portlet to display outgoinng shipments"/>
+    <PortletPortletCategory portalPortletId="ShipmentOut" portletCategoryId="FACILITY"/>
+
+    <PortalPage portalPageId="facility_MAIN" portalPageName="facility Main Page" 
+        description="The main portal page of the facility application" 
+        ownerUserLoginId="_NA_" sequenceNum="1"/>
+    <PortalPageColumn portalPageId="facility_MAIN" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="facility_MAIN" columnSeqId="00002"/>
+    <PortalPagePortlet portalPageId="facility_MAIN" portalPortletId="ShipmentIn" columnSeqId="00001" portletSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="facility_MAIN" portalPortletId="ShipmentOut" columnSeqId="00002" portletSeqId="00001" sequenceNum="1"/>
 </entity-engine-xml>

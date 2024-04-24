@@ -293,4 +293,32 @@ under the License.
             </hyperlink>
         </field>
     </grid>
+    <grid name="ShipmentIn" list-name="shipments"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+        </row-actions>
+        <field name="shipmentId" title="${uiLabelMap.CommonShipment}">
+            <hyperlink description="${shipmentId}" target="ViewShipment" also-hidden="false">
+                <parameter param-name="shipmentId"/>
+            </hyperlink>
+        </field>
+        <field name="shipmentTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ShipmentType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="createdDate" title="${uiLabelMap.CommonDate}"><display/></field>
+        <field name="destinationFacilityId" title="${uiLabelMap.CommonFacility}"><display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName}"/></field>
+    </grid>
+    <grid name="ShipmentOut" list-name="shipments"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+        </row-actions>
+        <field name="shipmentId" title="${uiLabelMap.CommonShipment}">
+            <hyperlink description="${shipmentId}" target="ViewShipment" also-hidden="false">
+                <parameter param-name="shipmentId"/>
+            </hyperlink>
+        </field>
+        <field name="shipmentTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ShipmentType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="createdDate" title="${uiLabelMap.CommonDate}"><display/></field>
+        <field name="originFacilityId" title="${uiLabelMap.CommonFacility}"><display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName}"/></field>
+    </grid>
 </forms>

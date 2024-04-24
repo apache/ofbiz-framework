@@ -601,4 +601,55 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ShipmentIn">
+        <section>
+            <actions>
+                <set field="shipmentTypeId" value="INCOMING_SHIPMENT"/>
+                <entity-condition entity-name="ShipmentType" list="shipmentTypes">
+                    <condition-expr field-name="parentTypeId" from-field="shipmentTypeId"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-condition entity-name="Shipment" list="shipments">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT" ignore-if-empty="true"/>
+                            <condition-expr field-name="shipmentTypeId" operator="equals" value="SALES_RETURN" ignore-if-empty="true"/>
+                        </condition-list>
+                        <condition-expr field-name="statusId" operator="not-equals" value="SHIPMENT_CANCELLED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PURCH_SHIP_RECEIVED"/>
+                    </condition-list>
+                    <order-by field-name="createdDate"/>
+                    <order-by field-name="statusId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ProductIncomingShipments}">
+                    <include-grid name="ShipmentIn" location="component://product/widget/facility/ShipmentForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ShipmentOut">
+        <section>
+            <actions>
+                <entity-condition entity-name="Shipment" list="shipments">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+                            <condition-expr field-name="shipmentTypeId" operator="equals" value="PURCHASE_RETURN"/>
+                        </condition-list>
+                        <condition-expr field-name="statusId" operator="not-equals" value="SHIPMENT_CANCELLED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="SHIPMENT_DELIVERED"/>
+                    </condition-list>
+                    <order-by field-name="statusId"/>
+                    <order-by field-name="createdDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ProductOutgoingShipments}">
+                    <include-grid name="ShipmentOut" location="component://product/widget/facility/ShipmentForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>
