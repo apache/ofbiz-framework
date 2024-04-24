@@ -787,4 +787,27 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ProdRun">
+        <section>
+            <actions>
+                <entity-condition entity-name="WorkEffortAndProduct" list="productionRuns">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="workEffortTypeId" operator="equals" value="PROD_ORDER_HEADER"/>
+                        </condition-list>
+                        <condition-expr field-name="currentStatusId" operator="not-equals" value="PRUN_CANCELED"/>
+                        <condition-expr field-name="currentStatusId" operator="not-equals" value="PRUN_CLOSED"/>
+                    </condition-list>
+                    <order-by field-name="currentStatusId"/>
+                    <order-by field-name="actualStartDate"/>
+                    <order-by field-name="estimatedStartDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.FormFieldTitle_productionRuns}">
+                    <include-grid name="ProdRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

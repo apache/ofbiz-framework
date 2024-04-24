@@ -1008,5 +1008,27 @@ under the License.
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit/></field>
     </form>
+    <grid name="ProdRun" list-name="productionRuns"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="Product" value-field="product"/>
+            <entity-one entity-name="Uom" value-field="uom">
+                <field-map field-name="uomId" from-field="product.quantityUomId"/>
+            </entity-one>
+        </row-actions>
+        <field name="workEffortId" title="${uiLabelMap.CommonId}">
+            <hyperlink description="${workEffortId}" target="ShowProductionRun" also-hidden="false">
+                <parameter param-name="productionRunId" from-field="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
+        <field name="productId" title="${uiLabelMap.CommonProduct}"><display description="${product.productId} - ${product.internalName}"/></field>
+        <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantity}" widget-area-style="align-right" title-area-style="align-right"><display description="${quantityToProduce} ${uom.abbreviation}"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+    </grid>
 </forms>
 

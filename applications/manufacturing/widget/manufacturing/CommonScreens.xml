@@ -91,5 +91,25 @@ under the License.
             </widgets>
         </section>
     </screen>
-</screens>
-
+    <screen name="Main">
+        <section>
+            <condition>
+            </condition>
+            <actions>
+                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="${parameters.localDispatcherName}_MAIN" global="true"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetParentPortalPageId.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                         <include-menu location="${parameters.mainMenuLocation}" name="MainActionMenu"/>
+                     </decorator-section>
+                    <decorator-section name="body">
+                        <include-portal-page id="${parameters.portalPageId}"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens
+>
