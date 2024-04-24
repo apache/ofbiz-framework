@@ -147,6 +147,8 @@ under the License.
     <grid name="Campaigns" list-name="campaigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
+            <set field="uomId" from-field="currencyUomId"/>
+            <entity-one entity-name="Uom" value-field="currency"/>
         </row-actions>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaign}">
             <hyperlink description="${marketingCampaignId} - ${campaignName}" target="EditMarketingCampaign" also-hidden="false">
@@ -154,11 +156,11 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
-        <field name="budgetedCost" widget-area-style="align-right" title-area-style="align-right">><display/></field>
+        <field name="budgetedCost" widget-area-style="align-right" title-area-style="align-right">><display description="${budgetedCost} ${currency.abbreviation}"/></field>
         <field name="fromDate" title-="${uiLabelMap.CommonFrom}"><display type="date"/></field>
         <field name="thruDate" title-="${uiLabelMap.CommonThru}"><display type="date"/></field>
         <field name="parentCampaignId" title="${uiLabelMap.CommonParent}">
-            <display-entity entity-name="MarketingCampaign" key-field-name="marketingCampaignId" description="${parentGlAccountId}"/>
+            <display-entity entity-name="MarketingCampaign" key-field-name="marketingCampaignId" description="${marketingCampaignId} - ${campaignName}"/>
         </field>
     </grid>
 </forms>

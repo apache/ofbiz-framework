@@ -111,7 +111,6 @@ under the License.
                         <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
-                    <label>${parameters.parentPortalPageId}</label>
                         <include-portal-page id="${parameters.portalPageId}"/>
                     </decorator-section>
                 </decorator-screen>
