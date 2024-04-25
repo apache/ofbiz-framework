@@ -503,9 +503,6 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="contactListId" operator="not-equals" from-field="null"/>
                     </condition-list>
-                <!--
-                    <order-by field-name="statusId"/>
-                -->
                 </entity-condition>
             </actions>
             <widgets>
