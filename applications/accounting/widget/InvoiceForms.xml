@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Invoice forms -->
     <form name="FindInvoices" type="single" target="findInvoices" title="Find and list invoices" default-map-name="parameters"
@@ -186,7 +186,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    <grid name="InvoiceRoles" list-name="invoiceRoles" paginate-target="invoiceRoles" use-row-submit="true" 
+    <grid name="InvoiceRoles" list-name="invoiceRoles" paginate-target="invoiceRoles" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
@@ -464,7 +464,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="changeByUserLoginId"><display /></field>
     </grid>
-    <grid name="ListInvoiceTerms" list-name="invoiceTerms" 
+    <grid name="ListInvoiceTerms" list-name="invoiceTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceTerm" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
@@ -491,7 +491,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    <grid name="InvoiceTerms" list-name="invoiceTerms" 
+    <grid name="InvoiceTerms" list-name="invoiceTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
         <field name="invoiceItemSeqId" title="${uiLabelMap.CommonItem}"><display/></field>
@@ -511,8 +511,8 @@ under the License.
         </field>
         <field name="textValue" title="${uiLabelMap.CommonText}"><display/></field>
     </grid>
-    
-    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title="" 
+
+    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title=""
         header-row-style="header-row" default-table-style="basic-table" default-map-name="invoiceTerm" default-entity-name="InvoiceTerm" >
         <alt-target use-when="invoiceTerm!=null" target="updateInvoiceTerm"/>
         <auto-fields-entity entity-name="InvoiceTerm"/>
@@ -624,7 +624,7 @@ under the License.
         </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="SendPerEmail" type="single" target="executeSendPerEmail" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -805,6 +805,6 @@ under the License.
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
         <field name="total" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="outstanding" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amountToApply" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
 </forms>
