@@ -114,7 +114,7 @@ under the License.
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
-    <request-map uri="ListTimezones"><security https="true" auth="false"/><response name="success" type="view" value="ListTimezones" save-last-view="true"/></request-map>
+    <request-map uri="ListTimezones"><security https="true" auth="true"/><response name="success" type="view" value="ListTimezones" save-last-view="true"/></request-map>
     <request-map uri="setSessionTimeZone">
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
@@ -233,7 +233,7 @@ under the License.
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
     <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
     <request-map uri="LookupLocale"><security https="true" auth="true"/><response name="success" type="view" value="LookupLocale"/></request-map>
-    
+
     <!--========================== AJAX events =====================-->
     <!-- Get states related to a country -->
     <request-map uri="getAssociatedStateList">
