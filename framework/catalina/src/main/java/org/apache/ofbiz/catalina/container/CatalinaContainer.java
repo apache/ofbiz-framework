@@ -84,7 +84,7 @@ import org.xml.sax.SAXException;
  * CatalinaContainer -  Tomcat
  *
  * For more information about the AccessLogValve pattern visit the
- * <a href="https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
+ * <a href="https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
  */
 public class CatalinaContainer implements Container {
 
