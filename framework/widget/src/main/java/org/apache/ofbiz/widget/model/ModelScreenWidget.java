@@ -1947,7 +1947,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             if (portalPage == null) {
                 String errMsg = "Could not find PortalPage with portalPageId [" + expandedPortalPageId + "] ";
                 Debug.logError(errMsg, MODULE);
-                throw new RuntimeException(errMsg);
             }
             return portalPage;
         }
