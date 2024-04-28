@@ -79,8 +79,6 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container id="portalContainerId">
-                               <!-- TODO check and if possible fix that
-                             include-portal-page id="${parameters.portalPageId}" conf-mode="${parameters.confMode}" use-private="${parameters.usePrivate}"/> -->
                             <include-portal-page id="${parameters.portalPageId}"/>
                         </container>
                     </decorator-section>
