@@ -405,6 +405,7 @@ public class CatalinaContainer implements Container {
                 accessLogValve.setPrefix(accessLogPrefix);
             }
             accessLogValve.setRotatable(ContainerConfig.getPropertyValue(engineConfig, "access-log-rotate", false));
+            accessLogValve.setMaxDays(Integer.valueOf(ContainerConfig.getPropertyValue(engineConfig, "access-log-maxDays", null)));
 
             engineValves.add(accessLogValve);
         }
