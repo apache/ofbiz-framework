@@ -20,15 +20,10 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
-
-    <simple-method method-name="getArithmeticSettingsInline" short-description="getArithmeticSettingsInline">
-        <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
-        <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
-        <log level="verbose" message="Got settings from arithmetic.properties: roundingDecimals=${roundingDecimals}, roundingMode=${roundingMode}"/>
-    </simple-method>
-
     <simple-method method-name="createFinAccount" short-description="Create a Financial Account">
-        <call-simple-method method-name="getArithmeticSettingsInline"/>
+        <call-service service-name="getArithmeticSettingsFinAccount"><result-to-field result-name="arithmeticSettings"/></call-service>
+        <set field="roundingDecimals" from-field="arithmeticSettings.roundingDecimals"/>
+        <set field="roundingMode" from-field="arithmeticSettings.roundingMode"/>
 
         <!-- if no statusId set to default to FNACT_ACTIVE -->
         <if-empty field="parameters.statusId">
@@ -84,7 +79,9 @@ under the License.
         <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
     </simple-method>
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
-        <call-simple-method method-name="getArithmeticSettingsInline"/>
+        <call-service service-name="getArithmeticSettingsFinAccount"><result-to-field result-name="arithmeticSettings"/></call-service>
+        <set field="roundingDecimals" from-field="arithmeticSettings.roundingDecimals"/>
+        <set field="roundingMode" from-field="arithmeticSettings.roundingMode"/>
 
         <entity-one entity-name="FinAccount" value-field="lookedUpValue"/>
         <field-to-result field="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
@@ -161,7 +158,9 @@ under the License.
             </add-error>
         </if-compare>
         <check-errors/>
-        <call-simple-method method-name="getArithmeticSettingsInline"/>
+        <call-service service-name="getArithmeticSettingsFinAccount"><result-to-field result-name="arithmeticSettings"/></call-service>
+        <set field="roundingDecimals" from-field="arithmeticSettings.roundingDecimals"/>
+        <set field="roundingMode" from-field="arithmeticSettings.roundingMode"/>
 
         <make-value entity-name="FinAccountTrans" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -219,7 +218,9 @@ under the License.
 
     <!-- FinAccountAuth Services -->
     <simple-method method-name="createFinAccountAuth" short-description="Create a Financial Account Authorization">
-        <call-simple-method method-name="getArithmeticSettingsInline"/>
+        <call-service service-name="getArithmeticSettingsFinAccount"><result-to-field result-name="arithmeticSettings"/></call-service>
+        <set field="roundingDecimals" from-field="arithmeticSettings.roundingDecimals"/>
+        <set field="roundingMode" from-field="arithmeticSettings.roundingMode"/>
 
         <make-value entity-name="FinAccountAuth" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -281,7 +282,9 @@ under the License.
         <call-simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance"/>
     </simple-method>
     <simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance" short-description="">
-        <call-simple-method method-name="getArithmeticSettingsInline"/>
+        <call-service service-name="getArithmeticSettingsFinAccount"><result-to-field result-name="arithmeticSettings"/></call-service>
+        <set field="roundingDecimals" from-field="arithmeticSettings.roundingDecimals"/>
+        <set field="roundingMode" from-field="arithmeticSettings.roundingMode"/>
 
         <!-- NOTE: finAccountId should always be in place -->
         <!-- Get all of the records for the account from the database and sum everything up again, make sure we don't have any errors propagated over time -->
