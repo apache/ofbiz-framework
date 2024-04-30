@@ -26578,6 +26578,10 @@
         <value xml:lang="zh">产品店铺网站</value>
         <value xml:lang="zh-TW">產品商店網站</value>
     </property>
+    <property key="NoProductProductTagged">
+        <value xml:lang="en">No products tagged</value>
+        <value xml:lang="fr">Aucun produit étiqueté</value>
+    </property>
     <property key="ProductProductTaggedWith">
         <value xml:lang="de">Produkt gekennzeichnet mit</value>
         <value xml:lang="en">Product tagged with</value>
