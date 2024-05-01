@@ -370,7 +370,7 @@ public class ServiceDispatcher {
                     context = checkAuth(localName, context, modelService);
                     GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-                    if (modelService.auth && userLogin == null && !modelService.name.equals("SetTimeZoneFromBrowser")) {
+                    if (modelService.auth && userLogin == null) {
                         rs.setEndStamp();
                         throw new ServiceAuthException("User authorization is required for this service: " + modelService.name + modelService.debugInfo());
                     }
@@ -717,7 +717,7 @@ public class ServiceDispatcher {
                 context = checkAuth(localName, context, service);
                 Object userLogin = context.get("userLogin");
 
-                if (service.auth && userLogin == null && !service.name.equals("SetTimeZoneFromBrowser")) {
+                if (service.auth && userLogin == null) {
                     throw new ServiceAuthException("User authorization is required for this service: " + service.name + service.debugInfo());
                 }
 
