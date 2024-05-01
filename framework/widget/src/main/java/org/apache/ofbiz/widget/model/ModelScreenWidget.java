@@ -2014,7 +2014,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
             } else {
                 String errMsg = "Error rendering PortalPage, it's null";
-                Debug.logError(errMsg, MODULE);
+                Debug.logError(errMsg, module);
             }
         }
 
