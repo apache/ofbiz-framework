@@ -1905,12 +1905,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+            GenericValue portalPage = getPortalPageValue(context);
+            if (portalPage != null) {
             try {
                 Delegator delegator = (Delegator) context.get("delegator");
                 List<GenericValue> portalPageColumns = null;
                 List<GenericValue> portalPagePortlets = null;
                 List<GenericValue> portletAttributes = null;
-                GenericValue portalPage = getPortalPageValue(context);
                 String actualPortalPageId = portalPage.getString("portalPageId");
                 portalPageColumns = EntityQuery.use(delegator)
                                                .from("PortalPageColumn")
@@ -2010,6 +2011,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 String errMsg = "Error rendering PortalPage with portalPageId [" + getId(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
+                }
+            } else {
+                String errMsg = "Error rendering PortalPage, it's null";
+                Debug.logError(errMsg, MODULE);
             }
         }
 
