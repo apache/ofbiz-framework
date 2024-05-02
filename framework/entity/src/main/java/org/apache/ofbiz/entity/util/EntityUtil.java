@@ -513,6 +513,21 @@ public final class EntityUtil {
     }
 
     /**
+     * returns the values with the matching selected fields
+     * @param delegator
+     * @param values List of GenericValues
+     * @param selected  the lit of selected fields
+     * @return List of GenericValue's with only selected fields
+     */
+    public static List<GenericValue> getSelectedFieldValueListFromEntityList(Delegator delegator, List<GenericValue> values, Set<String> selected) {
+        if (values == null || UtilValidate.isEmpty(selected)) {
+            return values;
+        }
+        return values.stream()
+                .map(value -> delegator.makeValidValue(value.getEntityName(), value.getFields(selected))).collect(toList());
+    }
+
+    /**
      * Returns <code>true</code> if multi-tenant has been enabled.
      * <p>Multi-tenant features are enabled by setting the <code>multitenant</code>
      * property in <code>general.properties</code> to "Y".</p>
