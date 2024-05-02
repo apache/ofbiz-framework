@@ -19,13 +19,15 @@
 
 import org.apache.ofbiz.service.ServiceUtil
 
-public Map SetTimeZoneFromBrowser() {
-    userLogin = from("UserLogin").where("userLoginId", parameters.userLogin.userLoginId).queryFirst();
+Map setTimeZoneFromBrowser() {
+    if (parameters?.userLogin?.userLoginId) {
+        userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
     if (userLogin) {
         if (!userLogin.lastTimeZone || "null".equals(userLogin.lastTimeZone)) {
             userLogin.lastTimeZone = parameters.localeName
             userLogin.store()
             return ServiceUtil.returnSuccess()
+            }
         }
     }
     // Do nothing if no userLogin to prevents to uselessly clutter the logs up with very common SetTimeZoneFromBrowser errors
