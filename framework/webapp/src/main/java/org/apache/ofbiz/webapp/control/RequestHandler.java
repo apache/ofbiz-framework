@@ -169,7 +169,7 @@ public class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        
+
         hostHeadersAllowed = UtilMisc.getHostHeadersAllowed();
 
     }
@@ -202,7 +202,7 @@ public class RequestHandler {
         Collection<RequestMap> rmaps;
         if (requestMapMap.containsKey(requestUri)
                 // Ensure that overridden view exists.
-                && (viewUri == null || viewMapMap.containsKey(viewUri) 
+                && (viewUri == null || viewMapMap.containsKey(viewUri)
                 || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))){
             rmaps = requestMapMap.get(requestUri);
         } else if (defaultRequest != null) {
@@ -246,7 +246,7 @@ public class RequestHandler {
             throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection."
                     + " You need to set host-headers-allowed property in security.properties file.");
         }
-                
+
         final boolean throwRequestHandlerExceptionOnMissingLocalRequest = EntityUtilProperties.propertyValueEqualsIgnoreCase(
                 "requestHandler", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y", delegator);
         long startTime = System.currentTimeMillis();
@@ -546,10 +546,10 @@ public class RequestHandler {
 
                     // run the request event
                     eventReturn = this.runEvent(request, response, requestMap.event, requestMap, "request");
-                                        
+
                     if (requestMap.event.metrics != null) {
                         requestMap.event.metrics.recordServiceRate(1, System.currentTimeMillis() - startTime);
-                    }                    
+                    }
 
                     // save the server hit for the request event
                     if (this.trackStats(request)) {
@@ -592,7 +592,7 @@ public class RequestHandler {
 
             // If error, then display more error messages:
             if ("error".equals(eventReturnBasedRequestResponse.name)) {
-                String uri = requestMap.getUri();
+                String uri = requestMap.uri;
                 if (Debug.errorOn()
                         && !uri.equals("SetTimeZoneFromBrowser")) { // Prevents to uselessly clutter the logs up with SetTimeZoneFromBrowser errors
                     String errorMessageHeader = "Request " + uri + " caused an error with the following message: ";
@@ -651,7 +651,7 @@ public class RequestHandler {
                 if (UtilValidate.isNotEmpty(queryString)) {
                     redirectTarget += "?" + queryString;
                 }
-                
+
                 callRedirect(makeLink(request, response, redirectTarget), response, request, ccfg.getStatusCodeString());
                 return;
             }
@@ -713,7 +713,7 @@ public class RequestHandler {
             String responseStatusCode  = nextRequestResponse.statusCode;
             if(UtilValidate.isNotEmpty(responseStatusCode))
                 ccfg.setStatusCodeString(responseStatusCode);
-            
+
             if ("url".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect." + showSessionId(request), module);
                 callRedirect(nextRequestResponse.value, response, request, ccfg.getStatusCodeString());
@@ -908,7 +908,7 @@ public class RequestHandler {
             statusCode = Integer.valueOf(statusCodeString);
         } catch (NumberFormatException e) {
             statusCode = 303;
-        } 
+        }
         while (attributeNameEnum.hasMoreElements()) {
             String name = attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
@@ -934,7 +934,7 @@ public class RequestHandler {
         }
 
         // send the redirect
-        try {            
+        try {
             resp.setStatus(statusCode);
             resp.setHeader("Location", url);
             resp.setHeader("Connection", "close");
@@ -1058,10 +1058,10 @@ public class RequestHandler {
         } else {
             resp.setHeader("Cache-Control", "Set-Cookie");
         }
-        
+
         //Security Headers
         UtilHttp.setResponseBrowserDefaultSecurityHeaders(resp, viewMap);
-        
+
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
@@ -1272,7 +1272,7 @@ public class RequestHandler {
         Collection<ConfigXMLReader.Event> get() throws WebAppConfigurationException;
     }
 
-    private void runEvents(HttpServletRequest req, HttpServletResponse res, 
+    private void runEvents(HttpServletRequest req, HttpServletResponse res,
             EventCollectionProducer prod, String trigger) {
         try {
             for (ConfigXMLReader.Event event: prod.get()) {
@@ -1357,12 +1357,12 @@ public class RequestHandler {
             return false;
         }
     }
-    
+
     private String showSessionId(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean showSessionIdInLog = EntityUtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y", delegator);
         if (showSessionIdInLog) {
-            return " sessionId=" + UtilHttp.getSessionId(request); 
+            return " sessionId=" + UtilHttp.getSessionId(request);
         }
         return " Hidden sessionId by default.";
     }
