@@ -21,7 +21,6 @@ package org.apache.ofbiz.accounting.accounting
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 Map getArithmeticSettingsFinAccount() {
-    Map result = success()
     arithmeticSettings = [
         roundingDecimals: EntityUtilProperties.getPropertyValue('arithmetic', 'finaccount.decimals', '2', delegator),
         roundingMode: EntityUtilProperties.getPropertyValue('arithmetic', 'finaccount.roundingSimpleMethod', 'roundingMode', 'HalfUp', delegator)
