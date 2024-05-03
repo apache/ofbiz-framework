@@ -2783,7 +2783,8 @@ under the License.
             title="Party Type Attribute">
       <field name="partyTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
-      <field name="description" type="description"></field>
+      <field name="attrValue" type="value"></field>
+      <field name="attrDescription" type="description"></field>
       <prim-key field="partyTypeId"/>
       <prim-key field="attrName"/>
       <relation type="one" fk-name="PARTY_TYP_ATTR" rel-entity-name="PartyType">
@@ -2791,9 +2792,6 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="PartyAttribute">
         <key-map field-name="attrName"/>
-      </relation>
-      <relation type="many" rel-entity-name="Party">
-        <key-map field-name="partyTypeId"/>
       </relation>
     </entity>
     <entity entity-name="Person"
