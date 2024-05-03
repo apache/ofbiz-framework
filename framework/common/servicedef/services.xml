@@ -248,9 +248,9 @@ under the License.
 
     <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.
-            set noConditionFind to Y to find without conditions. 
-            If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that 
-            FormRenderer.renderItemRows sets the lowIndex correctly, because once the results of performFindList are displayed, 
+            set noConditionFind to Y to find without conditions.
+            If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that
+            FormRenderer.renderItemRows sets the lowIndex correctly, because once the results of performFindList are displayed,
             otherwise pages > 0 are rendered as empty. see OFBIZ-6422 + 6423 for details</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
@@ -327,7 +327,7 @@ under the License.
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
-    
+
     <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
         location="component://common/minilang/CommonServices.xml" invoke="checkUomConversion">
         <description>Returns true if an UomConversion record exists</description>
@@ -335,7 +335,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
         <attribute name="exist" mode="OUT" type="Boolean"/>
     </service>
-    
+
     <service name="checkUomConversionDated" engine="simple" default-entity-name="UomConversionDated"
         location="component://common/minilang/CommonServices.xml" invoke="checkUomConversionDated">
         <description>Returns true if an UomConversionDated record exists</description>
@@ -343,8 +343,8 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
         <attribute name="exist" mode="OUT" type="Boolean"/>
     </service>
-    
-    
+
+
     <service name="getFileUploadProgressStatus" engine="simple" location="component://common/minilang/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.apache.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
@@ -502,7 +502,7 @@ under the License.
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="setUserPreferenceGroup" engine="java"
             location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreferenceGroup" auth="true">
         <description>Sets a group of user preferences.</description>
@@ -774,7 +774,7 @@ under the License.
         <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
     </service>
-    
+
     <!-- GeoPoint services -->
     <service name="createGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="create" auth="true">
         <description>Create a GeoPoint</description>
@@ -799,22 +799,22 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="getServerTimestamp" engine="simple" auth="false"
         location="component://common/minilang/CommonServices.xml" invoke="getServerTimestamp">
         <attribute name="serverTimestamp" mode="OUT" type="Timestamp"/>
     </service>
-    
+
     <service name="getServerTimeZone" engine="simple" auth="false"
         location="component://common/minilang/CommonServices.xml" invoke="getServerTimeZone">
         <attribute name="serverTimeZone" mode="OUT" type="String"/>
     </service>
-    
+
     <service name="getServerTimestampAsLong" engine="simple" auth="false"
         location="component://common/minilang/CommonServices.xml" invoke="getServerTimestampAsLong">
         <attribute name="serverTimestamp" mode="OUT" type="Long"/>
     </service>
-    
+
     <service name="createJsLanguageFileMapping" engine="java" auth="false" use-transaction="false"
         location="org.apache.ofbiz.common.JsLanguageFileMappingCreator" invoke="createJsLanguageFileMapping">
         <description>Create or update the JsLanguageFilesMapping.java. You still need to compile thereafter</description>
@@ -955,7 +955,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/groovyScripts/SetTimeZoneFromBrowser.groovy" invoke="SetTimeZoneFromBrowser" auth="true">
+    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/groovyScripts/SetTimeZoneFromBrowser.groovy" invoke="setTimeZoneFromBrowser" auth="true">
         <description>Set locale from browser.</description>
         <attribute name="localeName" type="String" mode="IN" optional="true"/>
     </service>
