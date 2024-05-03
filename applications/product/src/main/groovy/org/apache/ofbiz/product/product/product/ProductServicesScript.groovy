@@ -18,17 +18,17 @@
 */
 package org.apache.ofbiz.product.product.product
 
+import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.serialize.XmlSerializer
 import org.apache.ofbiz.product.product.KeywordIndex
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.service.ServiceUtil
-
-import java.sql.Timestamp
 
 /**
  * Create a Product
@@ -369,7 +369,7 @@ Map countProductView() {
     long weight = parameters.weight ?: 1L
 
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
-    if (productCalculatedInfo) {
+    if (productCalculatedInfo?.totalTimesViewed) {
         productCalculatedInfo.totalTimesViewed += weight
         productCalculatedInfo.store()
     } else {
