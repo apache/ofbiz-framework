@@ -8500,17 +8500,17 @@
         <value xml:lang="zh-TW">發票[${invoiceId}]金額合計為0....無法應用...</value>
     </property>
     <property key="AccountingInvoiceUpdateOnlyWithInProcessStatus">
-        <value xml:lang="ar">يمكن تحديث الفاتورة فقط عندما تكون الحالة قيد الإنجاز... الحالة الحالية: ${lookedUpValue.statusId}</value>
-        <value xml:lang="de">Kann nur Rechnungen im Status "in Bearbeitung" aktualisieren... aktueller Status: ${lookedUpValue.statusId}</value>
-        <value xml:lang="en">Can only update Invoice, when status is in-process...current status: ${lookedUpValue.statusId}</value>
-        <value xml:lang="es">Sólo puede actualizar la factura, cuando el estado está 'En Proceso'. Estado actual: ${lookedUpValue.statusId}</value>
-        <value xml:lang="fr">Il n'est possible de mettre à jour une facture que si son statut est "en cours", actuellement il est ${lookedUpValue.statusId}</value>
-        <value xml:lang="it">La fattura può essere aggiornata solo quando lo stato è in-corso...stato attuale: ${lookedUpValue.statusId}</value>
-        <value xml:lang="ja">処理中の請求書のみ更新可能です...現在のステータス: ${lookedUpValue.statusId}</value>
-        <value xml:lang="pt">Só é possível atualizar fatura quando o estado é "em processo"... estado atual: ${lookedUpValue.statusId}</value>
-        <value xml:lang="vi">Chỉ có thể cập nhật Hóa đơn khi trạng thái là 'Đang xử lý'... trạng thái hiện tại là: ${lookedUpValue.statusId}</value>
-        <value xml:lang="zh">只有在状态为处理中（in-process）时才能更新发票（Invoice），当前状态：${lookedUpValue.statusId}</value>
-        <value xml:lang="zh-TW">只有在狀態為處理中(in-process)時才能更新發票(Invoice),目前狀態:${lookedUpValue.statusId}</value>
+        <value xml:lang="ar">يمكن تحديث الفاتورة فقط عندما تكون الحالة قيد الإنجاز... الحالة الحالية: ${statusId}</value>
+        <value xml:lang="de">Kann nur Rechnungen im Status "in Bearbeitung" aktualisieren... aktueller Status: ${statusId}</value>
+        <value xml:lang="en">Can only update Invoice, when status is in-process...current status: ${statusId}</value>
+        <value xml:lang="es">Sólo puede actualizar la factura, cuando el estado está 'En Proceso'. Estado actual: ${statusId}</value>
+        <value xml:lang="fr">Il n'est possible de mettre à jour une facture que si son statut est "en cours", actuellement il est ${statusId}</value>
+        <value xml:lang="it">La fattura può essere aggiornata solo quando lo stato è in-corso...stato attuale: ${statusId}</value>
+        <value xml:lang="ja">処理中の請求書のみ更新可能です...現在のステータス: ${statusId}</value>
+        <value xml:lang="pt">Só é possível atualizar fatura quando o estado é "em processo"... estado atual: ${statusId}</value>
+        <value xml:lang="vi">Chỉ có thể cập nhật Hóa đơn khi trạng thái là 'Đang xử lý'... trạng thái hiện tại là: ${statusId}</value>
+        <value xml:lang="zh">只有在状态为处理中（in-process）时才能更新发票（Invoice），当前状态：${statusId}</value>
+        <value xml:lang="zh-TW">只有在狀態為處理中(in-process)時才能更新發票(Invoice),目前狀態:${statusId}</value>
     </property>
     <property key="AccountingInvoices">
         <value xml:lang="ar">الفواتير</value>

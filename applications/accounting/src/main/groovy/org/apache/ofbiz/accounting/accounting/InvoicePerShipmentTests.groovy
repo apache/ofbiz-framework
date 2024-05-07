@@ -135,7 +135,7 @@ class InvoicePerShipmentTests extends OFBizTestCase {
 
         // Step 3
         GenericValue orderHeader = from('OrderHeader').where('orderTypeId', 'SALES_ORDER').orderBy('-entryDate').queryFirst()
-        logInfo('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx : ' + orderHeader)
+        logInfo('===== >>> orderHeader : ' + orderHeader)
 
         if (invoicePerShipment) {
             // if this value is available that means we need to set this on the order

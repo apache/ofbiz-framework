@@ -39,7 +39,7 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
             fromDate: UtilDateTime.nowTimestamp(),
             userLogin: userLogin
         ]
-        Map serviceResult = dispatcher.runSync('createInvoiceContent', serviceCtx)
+        Map serviceResult = dispatcher.runSync('createInvoiceContentAndUpdateContent', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
 
         GenericValue invoiceContent = from('InvoiceContent')
@@ -53,7 +53,6 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
     void testCreateSimpleTextContentForInvoice() {
         Map serviceCtx = [
                 invoiceId: '1009',
-                contentId: '1001',
                 contentTypeId: 'DOCUMENT',
                 invoiceContentTypeId: 'COMMENTS',
                 text: 'Content for invoice # 1009',
@@ -65,7 +64,6 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
 
         GenericValue invoiceContent = from('InvoiceContent')
                 .where('invoiceId', '1009',
-                'contentId', '1001',
                 'invoiceContentTypeId', 'COMMENTS')
                 .queryFirst()
 
@@ -141,7 +139,8 @@ class AutoAcctgInvoiceTests extends OFBizTestCase {
     void testCreateInvoiceItem() {
         Map serviceCtx = [
                 invoiceId: '1003',
-                invoiceTypeId: 'PINV_FXASTPRD_ITEM',
+                invoiceItemTypeId: 'PINV_FXASTPRD_ITEM',
+                amount: 1,
                 userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('createInvoiceItem', serviceCtx)

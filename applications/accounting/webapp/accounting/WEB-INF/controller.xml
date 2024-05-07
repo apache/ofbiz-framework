@@ -2546,7 +2546,7 @@ under the License.
     <!--Add Tax Settings -->
     <request-map uri="addtax">
         <security auth="true" https="true"/>
-        <event type="service" invoke="addtax"/>
+        <event type="service" invoke="addTaxOnInvoice"/>
         <response name="success" type="view" value="ViewInvoice"/>
         <response name="error" type="view" value="ViewInvoice"/>
     </request-map>
