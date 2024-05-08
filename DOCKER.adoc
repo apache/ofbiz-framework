@@ -2,7 +2,7 @@
 
 OFBiz includes a Dockerfile which can be used to build a container image
 for running OFBiz. The container image is built based on the sources
-already available in the build content, i.e. it only uses sources that
+already available in the build content, i.e. it only uses sources that
 you have already downloaded.
 
 If you want to include any plugins in your container image, you must
@@ -16,10 +16,10 @@ using Docker.
 
 ==== Build the OFBiz container image
 
-From the sources directory (i.e. the directory containing Docker.md),
+From the sources directory (i.e. the directory containing DOCKER.md),
 run 
 [source,shell script]
-DOCKER_BUILDKIT=1 docker build --tag ofbiz-docker
+docker build --tag ofbiz-docker .
 
 ==== Run the OFBiz container
 
@@ -32,34 +32,34 @@ This will start an instance of the ofbiz-docker container, publish port
 server.
 
 Once start up completes, you can access OFBIZ at
-http://localhost:8443/partymgr
+https://localhost:8443/partymgr
 
 === Other container building options
 
-The OFBiz `+Dockerfile+` defines a mult-stage build. The default
+The OFBiz `+Dockerfile+` defines a multi-stage build. The default
 container image produced by the build is named `+runtime+` and consists
-of an unintialized OFBiz installation.
+of an uninitialized OFBiz installation.
 
-During the first run of a container based on this image, seed or demo
-data can be loaded, and an admin user created.
+During the first run of a container based on the runtime image, seed or demo
+data can be loaded and an admin user created.
 
 The runtime container is the default target of a docker build and can be
 created with commands similar to:
 [source,shell script]
-DOCKER_BUILDKIT=1 docker build --tag ofbiz-docker
+docker build --tag ofbiz-docker .
 
 or
 [source,shell script]
-DOCKER_BUILDKIT=1 docker build --target runtime --tag ofbiz-docker
+docker build --target runtime --tag ofbiz-docker .
 
 The Dockerfile also defines another stage, `+demo+`, which produces a
 container image with demonstration data already loaded. This container
-image may be useful in cases where containers are frequency run and
+image may be useful in cases where containers are frequently run and
 destroyed and the time taken to load demo data is becoming noticeable.
 
 To build a container image pre-loaded with demo data, run:
 [source,shell script]
-DOCKER_BUILDKIT=1 docker build --target demo --tag ofbiz-docker
+docker build --target demo --tag ofbiz-docker .
 
 === Container runtime options
 
@@ -70,7 +70,7 @@ in `+/ofbiz/runtime/container_state+` will prevent the repeated
 application of these items during subsequent starts of the container.
 
 Use of environment variables, hook scripts and XML entity import files
-are manged by the docker-entrypoint.sh script.
+are manged by the `+docker-entrypoint.sh+` script.
 
 ==== Environment variables
 
@@ -88,7 +88,7 @@ docker-entrypoint.sh script to skip any initialisation steps.
 |OFBIZ_ADMIN_PASSWORD |ofbiz |Sets the password of the OFBIZ admin user.
 
 |OFBIZ_DATA_LOAD |seed |Determine what type of data loading is required.
-_none_: No data loading is perfomed. _seed_: Seed data is loaded.
+_none_: No data loading is performed. _seed_: Seed data is loaded.
 _demo_: Demo data is loaded.
 
 |OFBIZ_HOST | |Specify the hostname used to access OFBiz. If empty then
@@ -225,7 +225,7 @@ connections to `+localhost+`.
 Users can access OFBiz at https://localhost:8443/partymgr
 
 The docker container will remain attached the terminal. Interrupting the
-container, i.e. pressing Ctrl-C, will trigger a graceful shutdown of the
+container, i.e. pressing Ctrl-C, will trigger a graceful shutdown of the
 container.
 
 ....
@@ -268,7 +268,7 @@ connections to `+localhost+`.
 Users can access OFBiz at https://localhost:8443/partymgr
 
 The docker container will remain attached the terminal. Interrupting the
-container, i.e. pressing Ctrl-C, will trigger a graceful shutdown of the
+container, i.e. pressing Ctrl-C, will trigger a graceful shutdown of the
 container.
 
 [source,shell script]
