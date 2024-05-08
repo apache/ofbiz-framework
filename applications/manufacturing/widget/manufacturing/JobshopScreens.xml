@@ -804,7 +804,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.FormFieldTitle_productionRuns}">
+                <screenlet title="${uiLabelMap.ManufacturingProductionRuns}">
                     <include-grid name="ProdRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                 </screenlet>
             </widgets>
