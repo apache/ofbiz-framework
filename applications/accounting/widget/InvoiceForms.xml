@@ -767,7 +767,7 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="InvoiceType"/></field>
+        <field name="description" sort-field="true"><display size="100"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
@@ -800,7 +800,7 @@ under the License.
                 <parameter param-name="partyIdFrom"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="InvoiceType"/></field>
+        <field name="description" sort-field="true"><display size="100"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
