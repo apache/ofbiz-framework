@@ -22,7 +22,7 @@
     <!-- marketing_MAIN -->
     <PortletCategory portletCategoryId="MARKETING" description="Marketing Portlet"/>
     <PortalPortlet portalPortletId="Campaigns" portletName="Active Campaigns"
-        description="Portlet to display active campaigns "
+        description="Portlet to display active campaigns"
         screenName="Campaigns" screenLocation="component://marketing/widget/MarketingCampaignScreens.xml"/>
     <PortletPortletCategory portalPortletId="Campaigns" portletCategoryId="MARKETING"/>
     <PortalPortlet portalPortletId="CommEvents" portletName="Communication Event"
@@ -30,8 +30,8 @@
         screenName="CommEvents" screenLocation="component://marketing/widget/ContactListScreens.xml"/>
     <PortletPortletCategory portalPortletId="CommEvents" portletCategoryId="MARKETING"/>
 
-    <PortalPage portalPageId="marketing_MAIN" portalPageName="Marketing Main Page" 
-        description="The main portal page of the marketing application" 
+    <PortalPage portalPageId="marketing_MAIN" portalPageName="Marketing Main Page"
+        description="The main portal page of the marketing application"
         ownerUserLoginId="_NA_" sequenceNum="1"/>
     <PortalPageColumn portalPageId="marketing_MAIN" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="marketing_MAIN" columnSeqId="00002"/>
