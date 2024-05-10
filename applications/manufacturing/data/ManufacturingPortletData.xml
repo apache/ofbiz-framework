@@ -20,7 +20,7 @@
 <entity-engine-xml>
     <PortletCategory portletCategoryId="MFG" description="Manufacturing Management Portlets"/>
     <PortalPage portalPageId="manufacturing_MAIN" portalPageName="Manufacturing Main page"
-                description="The page to manage productStoreFacility data" 
+                description="The page to manage productStoreFacility data"
                 ownerUserLoginId="_NA_" sequenceNum="1"/>
     <PortalPortlet portalPortletId="ProdRun" portletName="List of Production Runs"
         description="List of best selling products of the day"
