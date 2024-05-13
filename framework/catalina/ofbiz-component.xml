@@ -41,7 +41,7 @@ under the License.
                 <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
             </property>
             <property name="access-log-rotate" value="true"/>
-            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-prefix" value="access_log"/>
             <property name="access-log-dir" value="runtime/logs"/>
             <property name="access-log-maxDays" value="30"/>
             <!-- uncomment for cluster support
@@ -192,7 +192,7 @@ under the License.
                 <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
             </property>
             <property name="access-log-rotate" value="true"/>
-            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-prefix" value="access_log"/>
             <property name="access-log-dir" value="runtime/logs"/>
             <property name="access-log-maxDays" value="30"/>
             <property name="enable-request-dump" value="false"/>
