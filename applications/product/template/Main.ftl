@@ -24,6 +24,7 @@ under the License.
 <br />
 <#if security.hasEntityPermission( "CATALOG", "_VIEW", session)>
   <div class="form-container">
+  <#if security.hasPermission( "CATALOG", "_UPDATE", session)>
     <form class="basic-form" method="post" action="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" style="margin: 0;" name="EditProdCatalogForm">
       <table class="basic-table form-table">
         <tr>
@@ -36,8 +37,10 @@ under the License.
       </table>
     </form>
     <hr>
+    </#if>
   </div>
   <div class="form-container">
+  <#if security.hasPermission( "CATALOG", "_UPDATE", session)>
   <form class="basic-form" method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
     <table class="basic-table">
       <tr>
@@ -50,8 +53,10 @@ under the License.
     </table>
   </form>
   <hr>
+  </#if>
   </div>
   <div class="form-container">
+  <#if security.hasPermission( "CATALOG", "_UPDATE", session)>
   <form class="basic-form" method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
     <table class="basic-table form-table">
       <tr>
@@ -64,6 +69,7 @@ under the License.
     </table>
   </form>
   <hr>
+  </#if>
   </div>
   <div class="form-container">
     <form class="basic-form" method="post" action="<@ofbizUrl>FindProductById</@ofbizUrl>" style="margin: 0;">
@@ -76,6 +82,7 @@ under the License.
             <input type="submit" value="${uiLabelMap.ProductFindProduct}" class="smallSubmit" />
           </td>
         </tr>
+        <#if security.hasPermission("CATALOG_CREATE", session)>
         <tr>
           <td class="label"><label>${uiLabelMap.CommonOr}:</label>
           </td>
@@ -92,6 +99,7 @@ under the License.
             <td>
           <a href="<@ofbizUrl>FastLoadCache</@ofbizUrl>" class="buttontext"> ${uiLabelMap.ProductFastLoadCatalogIntoCache}</a></td>
         </tr>
+        </#if>
       </table>
     </form>
   </div>
