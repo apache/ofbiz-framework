@@ -21,6 +21,7 @@ package org.apache.ofbiz.service.engine
 import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.model.DynamicViewEntity
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.DispatchContext
 import org.apache.ofbiz.service.ExecutionServiceException
@@ -90,8 +91,12 @@ abstract class GroovyBaseScript extends Script {
         return binding.getVariable('delegator').makeValidValue(entityName, inputMap)
     }
 
-    EntityQuery from(String entity) {
-        return EntityQuery.use(binding.getVariable('delegator')).from(entity)
+    EntityQuery from(String entityName) {
+        return EntityQuery.use(binding.getVariable('delegator')).from(entityName)
+    }
+
+    EntityQuery from(DynamicViewEntity dynamicViewEntity) {
+        return EntityQuery.use(binding.getVariable('delegator')).from(dynamicViewEntity)
     }
 
     EntityQuery select(String... fields) {
