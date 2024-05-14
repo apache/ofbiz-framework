@@ -259,9 +259,9 @@ under the License.
 
     <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.apache.ofbiz.common.FindServices">
         <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.
-            set noConditionFind to Y to find without conditions. 
-            If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that 
-            FormRenderer.renderItemRows sets the lowIndex correctly, because once the results of performFindList are displayed, 
+            set noConditionFind to Y to find without conditions.
+            If used in a form, it is necessary to assign a value (true makes sense) to override-list-size attribute so that
+            FormRenderer.renderItemRows sets the lowIndex correctly, because once the results of performFindList are displayed,
             otherwise pages > 0 are rendered as empty. see OFBIZ-6422 + 6423 for details</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
@@ -340,7 +340,7 @@ under the License.
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
-    
+
     <service name="checkUomConversion" engine="groovy" default-entity-name="UomConversion"
         location="component://common/src/main/groovy/org/apache/ofbiz/common/CommonServicesScript.groovy" invoke="checkUomConversion">
         <description>Returns true if an UomConversion record exists</description>
@@ -348,7 +348,7 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
         <attribute name="exist" mode="OUT" type="Boolean"/>
     </service>
-    
+
     <service name="checkUomConversionDated" engine="groovy" default-entity-name="UomConversionDated"
         location="component://common/src/main/groovy/org/apache/ofbiz/common/CommonServicesScript.groovy" invoke="checkUomConversionDated">
         <description>Returns true if an UomConversionDated record exists</description>
@@ -356,8 +356,8 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
         <attribute name="exist" mode="OUT" type="Boolean"/>
     </service>
-    
-    
+
+
     <service name="getFileUploadProgressStatus" engine="groovy" location="component://common/src/main/groovy/org/apache/ofbiz/common/CommonServicesScript.groovy" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.apache.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
@@ -513,7 +513,7 @@ under the License.
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="setUserPreferenceGroup" engine="java"
             location="org.apache.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreferenceGroup" auth="true">
         <description>Sets a group of user preferences.</description>
@@ -633,87 +633,94 @@ under the License.
     </service>
 
     <!-- Portal Page Portlet services -->
-    <service name="createPortalPagePortlet" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="createPortalPagePortlet">
+    <service name="createPortalPagePortlet" default-entity-name="PortalPagePortlet" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="createPortalPagePortlet">
         <description>Add a registered PortalPortlet to a PortalPage</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="portletSeqId" mode="OUT" optional="true"/>
     </service>
     <service name="updatePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="entity-auto" invoke="update" auth="true">
         <description>Update a PortalPortlet</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="deletePortalPagePortlet">
+    <service name="deletePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="deletePortalPagePortlet">
         <description>Delete a PortalPortlet from a PortalPage</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
-    <service name="movePortletToPortalPage" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="movePortletToPortalPage">
+    <service name="movePortletToPortalPage" default-entity-name="PortalPagePortlet" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="movePortletToPortalPage">
         <description>Move a PortalPortlet from the actual portalPage to a different one</description>
-        <attribute name="portalPageId" type="String" mode="IN" optional="false"/>
-        <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
-        <attribute name="portletSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="newPortalPageId" type="String" mode="IN" optional="false"/>
+        <attribute name="portalPageId" type="String" mode="IN"/>
+        <attribute name="portalPortletId" type="String" mode="IN"/>
+        <attribute name="portletSeqId" type="String" mode="IN"/>
+        <attribute name="newPortalPageId" type="String" mode="IN"/>
+    </service>
+    <service name="duplicatePortalPageDetails" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="duplicatePortalPageDetails">
+        <description>Move a PortalPortlet from the actual portalPage to a different one</description>
+        <attribute name="fromPortalPageId" type="String" mode="IN"/>
+        <attribute name="toPortalPageId" type="String" mode="IN"/>
     </service>
 
     <!-- Portal Page services -->
-    <service name="createPortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="createPortalPage">
+    <service name="createPortalPage" default-entity-name="PortalPage" engine="entity-auto" auth="true" invoke="create">
         <description>Create a new Portal Page</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="portalPageName" mode="IN"/>
+        <override name="portalPageId" mode="OUT"/>
     </service>
     <service name="updatePortalPage" default-entity-name="PortalPage" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Portal Page</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="deletePortalPage">
+    <service name="deletePortalPage" default-entity-name="PortalPage" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="deletePortalPage">
         <description>Delete a Portal Page, related colums and used portlets</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updatePortalPageSeq" engine="simple" default-entity-name="PortalPage" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="updatePortalPageSeq">
+    <service name="updatePortalPageSeq" engine="groovy" default-entity-name="PortalPage" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="updatePortalPageSeq">
         <auto-attributes mode="IN" include="pk"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
     </service>
 
     <!-- PortalPageColumn services -->
-    <service name="addPortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="addPortalPageColumn">
+    <service name="addPortalPageColumn" default-entity-name="PortalPageColumn" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="addPortalPageColumn">
         <description>Add a new Column to a PortalPage</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="columnSeqId" mode="INOUT" optional="true"/>
     </service>
     <service name="updatePortalPageColumn" default-entity-name="PortalPageColumn" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Portal Page Column</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="deletePortalPageColumn">
+    <service name="deletePortalPageColumn" default-entity-name="PortalPageColumn" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="deletePortalPageColumn">
         <description>Delete a Column from a PortalPage</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
     <!-- update Sequence No for Drag and Drop -->
-    <service name="updatePortletSeqDragDrop" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="updatePortletSeqDragDrop">
-        <attribute name="o_portalPageId" mode="IN" type="String" ></attribute>
-        <attribute name="o_portalPortletId" mode="IN" type="String"></attribute>
-        <attribute name="o_portletSeqId" mode="IN" type="String"></attribute>
+    <service name="updatePortletSeqDragDrop" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="updatePortletSeqDragDrop">
+        <attribute name="o_portalPageId" mode="IN" type="String"/>
+        <attribute name="o_portalPortletId" mode="IN" type="String"/>
+        <attribute name="o_portletSeqId" mode="IN" type="String"/>
 
-        <attribute name="d_portalPageId" mode="IN" type="String" optional="true"></attribute>
-        <attribute name="d_portalPortletId" mode="IN" type="String" optional="true"></attribute>
-        <attribute name="d_portletSeqId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="d_portalPageId" mode="IN" type="String" optional="true"/>
+        <attribute name="d_portalPortletId" mode="IN" type="String" optional="true"/>
+        <attribute name="d_portletSeqId" mode="IN" type="String" optional="true"/>
 
         <attribute name="destinationColumn" mode="IN" optional="true" type="String"/>
         <attribute name="mode" type="String" mode="IN"/>
@@ -722,15 +729,15 @@ under the License.
     <!-- PortletAttribute services -->
     <service name="createPortletAttribute" default-entity-name="PortletAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new Portlet Attribute</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="getPortletAttributes" engine="simple" auth="true"
-        location="component://common/minilang/PortalPageServices.xml" invoke="getPortletAttributes">
+    <service name="getPortletAttributes" engine="groovy" auth="true"
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageServices.groovy" invoke="getPortletAttributes">
         <description>Get all attributes of a Portlet</description>
         <attribute name="portalPageId" type="String" mode="IN" optional="true"/>
         <attribute name="ownerUserLoginId" type="String" mode="IN" optional="true"/>
-        <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
+        <attribute name="portalPortletId" type="String" mode="IN"/>
         <attribute name="portletSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
     </service>
@@ -785,7 +792,7 @@ under the License.
         <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
     </service>
-    
+
     <!-- GeoPoint services -->
     <service name="createGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="create" auth="true">
         <description>Create a GeoPoint</description>
@@ -810,22 +817,22 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="getServerTimestamp" engine="groovy" auth="false"
         location="component://common/src/main/groovy/org/apache/ofbiz/common/CommonServicesScript.groovy" invoke="getServerTimestamp">
         <attribute name="serverTimestamp" mode="OUT" type="Timestamp"/>
     </service>
-    
+
     <service name="getServerTimeZone" engine="groovy" auth="false"
         location="component://common/src/main/groovy/org/apache/ofbiz/common/CommonServicesScript.groovy" invoke="getServerTimeZone">
         <attribute name="serverTimeZone" mode="OUT" type="String"/>
     </service>
-    
+
     <service name="getServerTimestampAsLong" engine="groovy" auth="false"
         location="component://common/src/main/groovy/org/apache/ofbiz/common/CommonServicesScript.groovy" invoke="getServerTimestampAsLong">
         <attribute name="serverTimestamp" mode="OUT" type="Long"/>
     </service>
-    
+
     <service name="createJsLanguageFileMapping" engine="java" auth="false" use-transaction="false"
         location="org.apache.ofbiz.common.JsLanguageFileMappingCreator" invoke="createJsLanguageFileMapping">
         <description>Create or update the JsLanguageFilesMapping.java. You still need to compile thereafter</description>
