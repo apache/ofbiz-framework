@@ -135,9 +135,13 @@ public class ControlFilter implements Filter {
 
             // Reject wrong URLs
             try {
-                String url = new URI(((HttpServletRequest) request).getRequestURL().toString()).normalize().toString();
+                String url = new URI(((HttpServletRequest) request).getRequestURL().toString())
+                        .normalize().toString()
+                        .replaceAll(";", "")
+                        .replaceAll("(?i)%2e", "");
                 if (!((HttpServletRequest) request).getRequestURL().toString().equals(url)) {
-                    throw new RuntimeException();
+                    Debug.logError("For security reason this URL is not accepted", module);
+                    throw new RuntimeException("For security reason this URL is not accepted");
                 }
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
