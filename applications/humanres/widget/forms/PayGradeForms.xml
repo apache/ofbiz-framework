@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindPayGrades" type="single" target="FindPayGrades" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -62,7 +62,6 @@
     <form name="ListSalarySteps" type="multi" target="updateSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" paginate-target="findSalarySteps"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
-            <entity-one entity-name="SalaryStep" auto-field-map="true"/>
             <entity-condition entity-name="SalaryStep"> <condition-expr field-name="payGradeId" operator="equals" from-field="payGradeId"/><order-by field-name="salaryStepSeqId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateSalaryStep"/>
