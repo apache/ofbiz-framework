@@ -538,7 +538,7 @@ public class FedexServices {
             String currencyCode = null;
             if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
                 currencyCode = shipmentRouteSegment.getString("currencyUomId");
-            } else if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
+            } else if (UtilValidate.isNotEmpty(shipment.getString("currencyUomId"))) {
                 currencyCode = shipment.getString("currencyUomId");
             } else {
                 currencyCode = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
