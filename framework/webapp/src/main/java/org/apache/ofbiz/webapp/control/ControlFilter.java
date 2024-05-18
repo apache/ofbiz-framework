@@ -166,8 +166,7 @@ public class ControlFilter extends HttpFilter {
                 String uRIFiltered = new URI(initialURI)
                         .normalize().toString()
                         .replaceAll(";", "")
-                        .replaceAll("(?i)%2e", "")   //    . encoded
-                        ;
+                        .replaceAll("(?i)%2e", "");
                 if (!initialURI.equals(uRIFiltered)) {
                     Debug.logError("For security reason this URL is not accepted", MODULE);
                     throw new RuntimeException("For security reason this URL is not accepted");
