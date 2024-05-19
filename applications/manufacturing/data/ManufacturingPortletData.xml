@@ -20,10 +20,10 @@
 <entity-engine-xml>
     <PortletCategory portletCategoryId="MFG" description="Manufacturing Management Portlets"/>
     <PortalPage portalPageId="manufacturing_MAIN" portalPageName="Manufacturing Main page"
-                description="The page to manage productStoreFacility data"
+                description="The Manufacturing Main Portal Page"
                 ownerUserLoginId="_NA_" sequenceNum="1"/>
-    <PortalPortlet portalPortletId="ProdRun" portletName="List of Production Runs"
-        description="List of best selling products of the day"
+    <PortalPortlet portalPortletId="ProdRun" portletName="Active Production Runs"
+        description="Portlet to present active production runs"
         screenName="ProdRun" screenLocation="component://manufacturing/widget/manufacturing/JobshopScreens.xml"/>
     <PortletPortletCategory portletCategoryId="MFG" portalPortletId="ProdRun"/>
     <PortalPageColumn portalPageId="manufacturing_MAIN" columnSeqId="00001"/>
