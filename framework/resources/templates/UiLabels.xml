@@ -18,25 +18,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<!-- Keep only English language here because of OFBIZ-13095 -->
+
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="@component-resource-name@Application">
         <value xml:lang="en">@component-resource-name@ Application</value>
-        <value xml:lang="zh">@component-resource-name@应用程序</value>
-        <value xml:lang="zh-TW">@component-resource-name@應用程式</value>
     </property>
     <property key="@component-resource-name@CompanyName">
         <value xml:lang="en">OFBiz: @component-resource-name@</value>
-        <value xml:lang="zh-TW">OFBiz: @component-resource-name@</value>
     </property>
     <property key="@component-resource-name@CompanySubtitle">
         <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
-        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
-        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
-        <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
     </property>
     <property key="@component-resource-name@ViewPermissionError">
         <value xml:lang="en">You are not allowed to view this page.</value>
-        <value xml:lang="zh">不允许你浏览这个页面。</value>
-        <value xml:lang="zh-TW">不允許您檢視這個頁面.</value>
     </property>
 </resource>
