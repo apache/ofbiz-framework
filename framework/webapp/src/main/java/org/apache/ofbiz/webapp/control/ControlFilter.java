@@ -163,13 +163,13 @@ public class ControlFilter extends HttpFilter {
             String initialURI = req.getRequestURI();
             if (initialURI != null) { // Allow tests with Mockito. ControlFilterTests send null
                 try {
-                String uRIFiltered = new URI(initialURI)
-                        .normalize().toString()
-                        .replaceAll(";", "")
-                        .replaceAll("(?i)%2e", "");
-                if (!initialURI.equals(uRIFiltered)) {
-                    Debug.logError("For security reason this URL is not accepted", MODULE);
-                    throw new RuntimeException("For security reason this URL is not accepted");
+                    String uRIFiltered = new URI(initialURI)
+                            .normalize().toString()
+                            .replaceAll(";", "")
+                            .replaceAll("(?i)%2e", "");
+                    if (!initialURI.equals(uRIFiltered)) {
+                        Debug.logError("For security reason this URL is not accepted", MODULE);
+                        throw new RuntimeException("For security reason this URL is not accepted");
                     }
                 } catch (URISyntaxException e) {
                     throw new RuntimeException(e);
