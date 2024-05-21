@@ -21,8 +21,6 @@ package org.apache.ofbiz.webapp.control;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.math.BigInteger;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -392,12 +390,12 @@ public class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        
-        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie). 
-        if (!session.isNew()) {  // Only do when really signing in. 
+
+        // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie).
+        if (!session.isNew()) {  // Only do when really signing in.
             request.changeSessionId();
         }
-        
+
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
@@ -411,7 +409,7 @@ public class LoginWorker {
         } catch (EntityCryptoException e1) {
             Debug.logError(e1.getMessage(), module);
         }
-        
+
         if(entityDeCrypto != null && "true".equals(forgotPwdFlag)) {
             try {
                 Object decryptedPwd = entityDeCrypto.decrypt(keyValue, ModelField.EncryptMethod.TRUE, password);
@@ -819,7 +817,7 @@ public class LoginWorker {
         autoLoginSet(request, response);
 
         return autoLoginCheck(request, response);
-        
+
     }
 
     public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
@@ -874,7 +872,7 @@ public class LoginWorker {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         doBasicLogout(userLogin, request, response);
-        
+
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -950,8 +948,8 @@ public class LoginWorker {
         ServletContext context = request.getServletContext();
         String applicationName = UtilHttp.getApplicationName(request);
         WebappInfo webappInfo = ComponentConfig.getWebappInfo((String) context.getAttribute("_serverId"), applicationName);
-                
-        if (userLogin != null && 
+
+        if (userLogin != null &&
                 ((webappInfo != null && webappInfo.isAutologinCookieUsed())
                 || webappInfo == null)) { // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
@@ -974,7 +972,7 @@ public class LoginWorker {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String applicationName = UtilHttp.getApplicationName(request);
-        
+
         if (userLogin != null) {
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(request), userLogin.getString("userLoginId"));
             securedLoginIdCookie.setMaxAge(-1);
@@ -993,7 +991,7 @@ public class LoginWorker {
     protected static String getSecuredLoginIdCookieName(HttpServletRequest request) {
         return UtilHttp.getApplicationName(request) + ".securedLoginId";
     }
-    
+
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1010,7 +1008,7 @@ public class LoginWorker {
         }
         return autoUserLoginId;
     }
-    
+
     public static String getSecuredUserLoginId(HttpServletRequest request) {
         String securedUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -1033,7 +1031,7 @@ public class LoginWorker {
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        
+
         GenericValue autoUserLogin = (GenericValue) session.getAttribute("autoUserLogin");
         if (autoUserLogin != null){
             return "success";
@@ -1096,7 +1094,7 @@ public class LoginWorker {
         }
         return "success";
     }
-    
+
     public static boolean isUserLoggedIn(HttpServletRequest request) {
         HttpSession session = request.getSession();
         GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
@@ -1202,7 +1200,7 @@ public class LoginWorker {
 
         return "success";
     }
-    
+
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1366,13 +1364,6 @@ public class LoginWorker {
             if (UtilValidate.isEmpty(contextPath)) {
                 contextPath = "/";
             }
-
-            try {
-                contextPath = new URI(contextPath).normalize().toString();
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-
             ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
             if (info != null) {
                 return hasApplicationPermission(info, security, userLogin);

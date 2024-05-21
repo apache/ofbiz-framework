@@ -147,13 +147,6 @@ public class ControlFilter implements Filter {
                 throw new RuntimeException(e);
             }
 
-            // normalize to remove ".." special name usage to bypass webapp filter
-            try {
-                requestUri = new URI(requestUri).normalize().toString();
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-
             int offset = requestUri.indexOf("/", 1);
             if (offset == -1) {
                 offset = requestUri.length();
