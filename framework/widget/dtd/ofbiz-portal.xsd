@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!-- PortalPortlet -->
+    <xs:element name="PortalPortlet">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="PortalPortletId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the portal portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="PortletName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Name of the portal portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Description" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Description of the portal portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ScreenName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Screen name associated with the portal portlet. This is
+                            the screen that will be shown to the user. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ScreenLocation" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Screen location of the portal portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="editFormName" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> Name of the 'edit' form associated with the portal
+                            portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="editFormLocation" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> Location of the 'edit' form associated with the portal
+                            portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SecurityServiceName" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> The service named here is used to see if the user can see
+                            the portlet on the list of available portlets. The screen that the
+                            portlet calls should also call this service to check permission and not
+                            render. The service named here must implement the "permissionInterface"
+                            service just like services used for service permissions. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SecurityMainAction" type="xs:string" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation> The main action which can be done with this portlet,
+                            possible values: CREATE UPDATE VIEW DELETE. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- PortletCategory -->
+    <xs:element name="PortletCategory">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="portletCategoryId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the portlet category. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="description" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Description of the portlet category. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- PortletCategory -->
+    <xs:element name="PortletPortletCategory">
+        <xs:annotation>
+            <xs:documentation> Entity definition to assocociate a Portlet record with a
+                PortletCategory record. </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="portletCategoryId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the portlet category. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="portalPortletId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the portal portlet. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- PortalPage -->
+    <xs:element name="PortalPage">
+        <xs:annotation>
+            <xs:documentation> Entity definition for PortalPage records </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="portalPageId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the portal page. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="portalPageName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Name of the portal page. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="description" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> Description of the portal page. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ownerUserLoginId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation> LoginId of the party 'owning' of the portal page. Default
+                            is'_NA_', meaning available to all (as a system page) </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="originalPortalPageId" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the 'original' portal page. Set when a
+                            user modfies a portal page for his/her own purposes. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="parentPortalPageId" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the parent portal page. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="sequenceNum" type="xs:integer">
+                    <xs:annotation>
+                        <xs:documentation> Sequence number of the portal page. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="securityGroupId" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the SecurityGroup record. If a user does
+                            not belong to the security group, the page won't be shown. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="helpContentId" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation> Identifier for the content record defining 'help' for the
+                            portal page. Used to give contentId which will be shown when help on
+                            this page will be called. </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- PortalPageColumn -->
+    <xs:element name="PortalPageColumn">
+        <xs:annotation>
+            <xs:documentation>Entity definition to assocociate a PortalPage with one or more
+                columns.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="portalPageId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Identifier for the portal page.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="columnSeqId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Sequence ID of the portal page column.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="columnWidthPercentage" type="xs:integer" minOccurs="0"
+                    maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Width of the column in the portal page.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- PortalPagePortlet -->
+    <xs:element name="PortalPagePortlet">
+        <xs:annotation>
+            <xs:documentation>Entity definition to assocociate a PortalPage with one or more Portlet
+                records.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="portalPageId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Identifier for the portal page.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="columnSeqId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Sequence ID of the portal page column.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="portalPortletId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Identifier for the portlet.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="portletSeqId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Identifier for the portlet.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="sequenceNum" type="xs:integer">
+                    <xs:annotation>
+                        <xs:documentation>Sequence number of the portal page.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- PortletAttribute -->
+    <xs:element name="PortletAttribute">
+        <xs:annotation>
+            <xs:documentation>Entity definition to set aattributes to a Portlet.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="portalPageId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Identifier for the portal page.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="portalPortletId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Identifier for the portal portlet.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="portletSeqId" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Sequence ID for the portlet.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="attrName" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Name of the attribute.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="attrValue" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Value of the attribute.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="attrDescription" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Description of the attribute, and/or its value.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="attrType" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>Type of the attribute.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
