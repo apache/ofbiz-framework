@@ -18,8 +18,8 @@
 */
 package org.apache.ofbiz.accounting.admin
 
-import java.sql.Timestamp
 import java.math.RoundingMode
+import java.sql.Timestamp
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
@@ -158,11 +158,10 @@ Map getFXConversion() {
 
     BigDecimal conversionRate
     int decimalScale = 2
-    int roundingMode = RoundingMode.HALF_UP
     if (rates) {
         conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE
-        conversionRate = originalValue.divide(conversionFactor, decimalScale, roundingMode)
+        conversionRate = originalValue.divide(conversionFactor, decimalScale, RoundingMode.HALF_UP)
     } else {
         String errorMessage = 'Could not find conversion rate'
         logError(errorMessage)
