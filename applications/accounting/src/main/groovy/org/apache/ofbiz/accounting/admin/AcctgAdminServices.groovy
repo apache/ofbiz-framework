@@ -19,10 +19,12 @@
 package org.apache.ofbiz.accounting.admin
 
 import java.sql.Timestamp
+import java.math.RoundingMode
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.GenericValue
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 
@@ -156,7 +158,7 @@ Map getFXConversion() {
 
     BigDecimal conversionRate
     int decimalScale = 2
-    int roundingMode = BigDecimal.ROUND_HALF_UP
+    int roundingMode = RoundingMode.ROUND_HALF_UP
     if (rates) {
         conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE
