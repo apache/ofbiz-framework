@@ -54,7 +54,8 @@ invExprs =
 
 invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (invoice = invIterator.next()) {
+while (invIterator.next()) {
+    invoice = nvIterator.next()
     Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId',
             invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')
     Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', (String) invoice.getString('invoiceTypeId'),
@@ -97,7 +98,8 @@ payExprs =
 
 payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payment = payIterator.next()) {
+while (payIterator.next()) {
+    payment = payIterator.next()
     if (payment.parentTypeId == 'DISBURSEMENT' || payment.parentTypeId == 'TAX_PAYMENT') {
         totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
         totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
@@ -111,6 +113,7 @@ while (payment = payIterator.next()) {
                 + ' !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT')
     }
 }
+payIterator.close()
 
 context.finanSummary = [:]
 context.finanSummary.totalSalesInvoice = totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied)
