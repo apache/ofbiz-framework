@@ -48,8 +48,10 @@ invExprs =
 
 invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 invoiceList = []
-while (invIterator.next()) {
-    invoice = invIterator.next()
+
+/* codenarc-disable */
+while (invoice = invIterator.next()) {
+/* codenarc-enable */
     unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true) {
@@ -66,5 +68,6 @@ while (invIterator.next()) {
                          invoiceParentTypeId: invoice.parentTypeId])
     }
 }
+invIterator.close()
 
 context.ListUnAppliedInvoices = invoiceList

@@ -50,8 +50,9 @@ payExprs =
 paymentList = []
 payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payIterator.next()) {
-    payment = payIterator.next()
+/* codenarc-disable */
+while (payment = payIterator.next()) {
+/* codenarc-enable */
     unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
@@ -70,5 +71,6 @@ while (payIterator.next()) {
                          paymentParentTypeId: payment.parentTypeId])
     }
 }
+payIterator.close()
 
 context.paymentList = paymentList

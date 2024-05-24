@@ -273,8 +273,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * It is much better to just use next() until it returns null
      * For example, you could use the following to iterate through the results in an EntityListIterator:
      * GenericValue nextValue = null;
-     * while ((nextValue = (GenericValue)
-     * this.next()) != null) { ... }
+     * while ((nextValue = (GenericValue) this.next()) != null) { ... }
+     * Remember to not use next 2 times, in a while loop for instance...
+     * For Groovy you can use something like while (instance = Iterator.next())
+     * but you need to surround it with codenarc disable/enable comments because of the AssignmentInConditional rule
      */
     @Override
     public boolean hasNext() {
