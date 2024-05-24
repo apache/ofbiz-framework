@@ -158,7 +158,7 @@ Map getFXConversion() {
 
     BigDecimal conversionRate
     int decimalScale = 2
-    int roundingMode = RoundingMode.ROUND_HALF_UP
+    int roundingMode = RoundingMode.HALF_UP
     if (rates) {
         conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE

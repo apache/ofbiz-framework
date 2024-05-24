@@ -50,7 +50,7 @@ invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().d
 invoiceList = []
 while (invIterator.next()) {
     invoice = invIterator.next()
-    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.ROUND_HALF_UP)
+    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true) {
             invoiceCurrencyUomId = invoice.currencyUomId
@@ -61,7 +61,7 @@ while (invIterator.next()) {
                          invoiceDate: invoice.invoiceDate,
                          unAppliedAmount: unAppliedAmount,
                          invoiceCurrencyUomId: invoiceCurrencyUomId,
-                         amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, RoundingMode.ROUND_HALF_UP),
+                         amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP),
                          invoiceTypeId: invoice.invoiceTypeId,
                          invoiceParentTypeId: invoice.parentTypeId])
     }

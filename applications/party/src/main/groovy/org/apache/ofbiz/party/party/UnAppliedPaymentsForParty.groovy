@@ -52,7 +52,7 @@ payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().d
 
 while (payIterator.next()) {
     payment = payIterator.next()
-    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.ROUND_HALF_UP)
+    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
             amount = payment.actualCurrencyAmount
