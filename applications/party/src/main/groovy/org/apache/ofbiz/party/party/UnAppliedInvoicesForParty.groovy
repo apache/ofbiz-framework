@@ -46,7 +46,7 @@ invExprs =
 
 invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 invoiceList = []
-while (invIterator.hasNext()) {
+while (invIterator.next()) {
     invoice = invIterator.next()
     unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
     if (unAppliedAmount.signum() == 1) {
@@ -64,6 +64,5 @@ while (invIterator.hasNext()) {
                          invoiceParentTypeId: invoice.parentTypeId])
     }
 }
-invIterator.close()
 
 context.ListUnAppliedInvoices = invoiceList
