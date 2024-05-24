@@ -68,6 +68,5 @@ while (payIterator.next()) {
                          paymentParentTypeId: payment.parentTypeId])
     }
 }
-payIterator.close()
 
 context.paymentList = paymentList

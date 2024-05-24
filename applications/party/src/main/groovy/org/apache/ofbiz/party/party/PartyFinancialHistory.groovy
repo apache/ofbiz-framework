@@ -113,7 +113,6 @@ while (payIterator.next()) {
                 + ' !!!! Should be either DISBURSEMENT, TAX_PAYMENT or RECEIPT')
     }
 }
-payIterator.close()
 
 context.finanSummary = [:]
 context.finanSummary.totalSalesInvoice = totalSalesInvoice = totalInvSaApplied.add(totalInvSaNotApplied)

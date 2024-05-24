@@ -64,6 +64,5 @@ while (invIterator.next()) {
                          invoiceParentTypeId: invoice.parentTypeId])
     }
 }
-invIterator.close()
 
 context.ListUnAppliedInvoices = invoiceList
