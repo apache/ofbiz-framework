@@ -79,7 +79,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container id="portalContainerId">
-                            <include-portal-page id="${parameters.portalPageId}" conf-mode="${parameters.confMode}" use-private="${parameters.usePrivate}"/>
+                            <include-portal-page id="${parameters.portalPageId}"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -113,7 +113,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
-                                    <include-portal-page id="${portalPage.portalPageId}" conf-mode="true"/>                                            
+                                    <include-portal-page id="${portalPage.portalPageId}" conf-mode="true"/>
                                 </screenlet>
                             </widgets>
                         </section>

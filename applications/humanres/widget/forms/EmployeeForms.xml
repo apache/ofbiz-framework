@@ -239,7 +239,7 @@
     </form>
     <grid name="PayrollHistoryList" list-name="payroll" extends="ListInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml" paginate-target="PayrollHistory">
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" target-type="inter-app">
+            <hyperlink description="${invoiceId}" target="/accounting/control/viewInvoice" target-type="inter-app">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

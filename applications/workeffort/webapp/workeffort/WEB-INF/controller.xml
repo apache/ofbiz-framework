@@ -25,7 +25,7 @@ under the License.
     <include location="component://workeffort/webapp/workeffort/WEB-INF/workeffort-controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/icalendar-controller.xml"/>
     <description>Work Manager Module Site Configuration File</description>
-    
+
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -153,6 +153,18 @@ under the License.
 
     <!-- Timesheet Requests -->
     <request-map uri="MyTimesheets"><security https="true" auth="true"/><response name="success" type="view" value="MyTimesheets"/></request-map>
+    <request-map uri="createTimesheetForThisWeek">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimesheetForThisWeek"/>
+        <response name="success" type="view" value="MyTimesheets"/>
+        <response name="error" type="view" value="MyTimesheets"/>
+    </request-map>
+    <request-map uri="createQuickTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimeEntry"/>
+        <response name="success" type="view" value="MyTimesheets"/>
+        <response name="error" type="view" value="MyTimesheets"/>
+    </request-map>
 
     <request-map uri="FindTimesheet"><security https="true" auth="true"/><response name="success" type="view" value="FindTimesheet"/></request-map>
     <request-map uri="EditTimesheet"><security https="true" auth="true"/><response name="success" type="view" value="EditTimesheet"/></request-map>
@@ -371,6 +383,7 @@ under the License.
     <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortTimeEntries"/>
 
     <view-map name="MyTimesheets" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#MyTimesheets"/>
+
     <view-map name="FindTimesheet" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#FindTimesheet"/>
     <view-map name="EditTimesheet" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#EditTimesheet"/>
     <view-map name="EditTimesheetRoles" type="screen" page="component://workeffort/widget/TimesheetScreens.xml#EditTimesheetRoles"/>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Invoice forms -->
     <form name="FindInvoices" type="single" target="findInvoices" title="Find and list invoices" default-map-name="parameters"
@@ -74,7 +74,7 @@ under the License.
             <set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)}"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -155,7 +155,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceNote" default-field-type="display"/>
     </grid>
-    <grid name="InvoiceItems" list-name="invItemAndOrdItems" separate-columns="true" paginate-target="invoiceOverview"
+    <grid name="InvoiceItems" list-name="invItemAndOrdItems" separate-columns="true" paginate-target="viewInvoice"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="quantity" value="${groovy: quantity ?: 1}" type="BigDecimal"/>
@@ -186,7 +186,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    <grid name="InvoiceRoles" list-name="invoiceRoles" paginate-target="invoiceRoles" use-row-submit="true" 
+    <grid name="InvoiceRoles" list-name="invoiceRoles" paginate-target="invoiceRoles" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
@@ -464,7 +464,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="changeByUserLoginId"><display /></field>
     </grid>
-    <grid name="ListInvoiceTerms" list-name="invoiceTerms" 
+    <grid name="ListInvoiceTerms" list-name="invoiceTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InvoiceTerm" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
@@ -491,7 +491,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    <grid name="InvoiceTerms" list-name="invoiceTerms" 
+    <grid name="InvoiceTerms" list-name="invoiceTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
         <field name="invoiceItemSeqId" title="${uiLabelMap.CommonItem}"><display/></field>
@@ -511,8 +511,8 @@ under the License.
         </field>
         <field name="textValue" title="${uiLabelMap.CommonText}"><display/></field>
     </grid>
-    
-    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title="" 
+
+    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title=""
         header-row-style="header-row" default-table-style="basic-table" default-map-name="invoiceTerm" default-entity-name="InvoiceTerm" >
         <alt-target use-when="invoiceTerm!=null" target="updateInvoiceTerm"/>
         <auto-fields-entity entity-name="InvoiceTerm"/>
@@ -624,7 +624,7 @@ under the License.
         </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="SendPerEmail" type="single" target="executeSendPerEmail" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -758,7 +758,7 @@ under the License.
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="invoiceId"  title="${uiLabelMap.CommonInvoice}" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -767,12 +767,12 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="InvoiceType"/></field>
+        <field name="description" sort-field="true"><display size="100"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
-        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="outstanding" title="${uiLabelMap.AccountingOutstanding}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="total" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="outstanding" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ListApReport" separate-columns="true" title="Invoice List" list-name="invoices" target=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" paginate-target="main">
@@ -791,20 +791,20 @@ under the License.
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="invoiceId"  title="${uiLabelMap.CommonInvoice}" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartySupplier}">
-            <hyperlink description="${partyNameResultFrom.fullName} [${partyId}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" target-window="_BLANK">
-                <parameter param-name="partyId"/>
+            <hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app" target-window="_BLANK">
+                <parameter param-name="partyIdFrom"/>
             </hyperlink>
         </field>
-        <field name="invoiceTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="InvoiceType"/></field>
+        <field name="description" sort-field="true"><display size="100"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="dueDate"><display type="date"/></field>
-        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="outstanding" title="${uiLabelMap.AccountingOutstanding}" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="total" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amountToApply" widget-area-style="align-right" title-area-style="align-right"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
 </forms>

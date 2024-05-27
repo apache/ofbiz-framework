@@ -1649,7 +1649,7 @@ public class GenericDelegator implements Delegator {
                 list = eli.getCompleteList();
             }
 
-            if (useCache) {
+            if (useCache && UtilValidate.isEmpty(fieldsToSelect)) {
                 ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, false);
                 this.cache.put(entityName, entityCondition, orderBy, list);
             }

@@ -39,6 +39,11 @@ under the License.
         <param-name>partyDecoratorLocation</param-name>
         <param-value>component://accounting/widget/CommonScreens.xml</param-value>
     </context-param>
+    <context-param>
+        <description>The location of the main *Menus XML file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>mainMenuLocation</param-name>
+        <param-value>component://accounting/widget/AccountingMenus.xml</param-value>
+    </context-param>
 
     <filter>
         <display-name>ControlFilter</display-name>

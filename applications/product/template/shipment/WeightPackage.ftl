@@ -38,7 +38,7 @@ under the License.
               <ul>
                 <#list invoiceIds as invoiceId>
                   <li>
-                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">invoiceOverview?invoiceId=${invoiceId}</@ofbizUrl>" target="_blank" class="buttontext">${invoiceId}</a>
+                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl controlPath="/accounting/control">viewInvoice?invoiceId=${invoiceId}</@ofbizUrl>" target="_blank" class="buttontext">${invoiceId}</a>
                     (<a href="<@ofbizUrl controlPath="/accounting/control">invoice.pdf?invoiceId=${invoiceId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.CommonPdf}</a>)
                   </li>
                 </#list>

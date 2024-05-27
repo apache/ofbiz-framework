@@ -47,7 +47,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonNew}">
-                            <include-form name="New" location="component://@component-name@/widget/@component-resource-name@Forms.xml"
+                            <include-form name="New" location="component://@component-name@/widget/@component-resource-name@Forms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

@@ -496,4 +496,20 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommEvents">
+        <section>
+            <actions>
+                <entity-condition entity-name="CommunicationEvent" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contactListId" operator="not-equals" from-field="null"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyListCommunicationEvents}">
+                    <include-grid name="CommEvents" location="component://marketing/widget/ContactListForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

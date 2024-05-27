@@ -100,8 +100,8 @@ under the License.
         <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
         <override name="paymentId" optional="false"/>
     </service>
-    <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="simple"
-        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="removePaymentApplication">
+    <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="groovy"
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="removePaymentApplication">
         <description>Delete a paymentApplication record.</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>

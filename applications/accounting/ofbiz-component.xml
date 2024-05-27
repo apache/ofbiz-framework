@@ -46,6 +46,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_tax.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_rate.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cost.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_sample.xml"/>
 
     <!-- Payment Processor/Gateway Service Definitions -->
     <service-resource type="model" loader="main" location="servicedef/services_sagepay.xml"/>

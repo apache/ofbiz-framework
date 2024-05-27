@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.party.party
 
+import java.math.RoundingMode
+
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -54,19 +56,20 @@ invExprs =
 
 invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (invIterator.hasNext()) {
-    invoice = invIterator.next()
+/* codenarc-disable */
+while (invoice = invIterator.next()) {
+/* codenarc-enable */
     Boolean isPurchaseInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId',
             invoice.getString('invoiceTypeId'), 'parentTypeId', 'PURCHASE_INVOICE')
     Boolean isSalesInvoice = EntityTypeUtil.hasParentType(delegator, 'InvoiceType', 'invoiceTypeId', (String) invoice.getString('invoiceTypeId'),
             'parentTypeId', 'SALES_INVOICE')
     if (isPurchaseInvoice) {
-        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
-        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalInvPuApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
+        totalInvPuNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     }
     else if (isSalesInvoice) {
-        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
-        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalInvSaApplied += InvoiceWorker.getInvoiceApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
+        totalInvSaNotApplied += InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     }
     else {
         logError('InvoiceType: ' + invoice.invoiceTypeId + ' without a valid parentTypeId: ' + invoice.parentTypeId
@@ -100,15 +103,16 @@ payExprs =
 
 payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payIterator.hasNext()) {
-    payment = payIterator.next()
+/* codenarc-disable */
+while (payment = payIterator.next()) {
+/* codenarc-enable */
     if (payment.parentTypeId == 'DISBURSEMENT' || payment.parentTypeId == 'TAX_PAYMENT') {
-        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
-        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalPayOutApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
+        totalPayOutNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     }
     else if (payment.parentTypeId == 'RECEIPT') {
-        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
-        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+        totalPayInApplied += PaymentWorker.getPaymentApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
+        totalPayInNotApplied += PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     }
     else {
         logError('PaymentTypeId: ' + payment.paymentTypeId + ' without a valid parentTypeId: ' + payment.parentTypeId

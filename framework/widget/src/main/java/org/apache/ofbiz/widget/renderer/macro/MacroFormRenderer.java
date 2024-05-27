@@ -212,7 +212,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("alternate", encodedAlternate);
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
-        this.request.setAttribute("id", modelFormField.getCurrentContainerId(context));
+        this.request.setAttribute("id", UtilValidate.isNotEmpty(hyperlinkField.getId(context)) ? hyperlinkField.getId(context)
+                : modelFormField.getCurrentContainerId(context));
         this.request.setAttribute("title", hyperlinkField.getTitle());
         this.request.setAttribute("width", hyperlinkField.getWidth());
         this.request.setAttribute("height", hyperlinkField.getHeight());

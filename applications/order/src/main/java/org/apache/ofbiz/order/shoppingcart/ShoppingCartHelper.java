@@ -364,10 +364,27 @@ public class ShoppingCartHelper {
                         }
 
                     }
+                    // get order item attributes to transfer it to the new cart item
+                    Map<String, String> orderItemAttributes = null;
                     try {
-                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId : productId, amount,
-                                orderItem.getBigDecimal("quantity"), null, null, null, null, null, null, null, catalogId, configWrapper,
-                                orderItemTypeId, itemGroupNumber, null, dispatcher);
+                        List<GenericValue> oiAttributes = orderItem.getRelated("OrderItemAttribute", null, null, false);
+                        if (UtilValidate.isNotEmpty(oiAttributes)) {
+                            orderItemAttributes = new HashMap<String, String>();
+                            for (GenericValue attrib : oiAttributes) {
+                                if (UtilValidate.isNotEmpty(attrib.getString("attrValue"))) {
+                                    orderItemAttributes.put(attrib.getString("attrName"), attrib.getString(
+                                            "attrValue"));
+                                }
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        errorMsgs.add(e.getMessage());
+                    }
+                    try {
+                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId
+                                : productId, amount, orderItem.getBigDecimal("quantity"),
+                                null, null, null, null, null, null, null, null, null, orderItemAttributes, catalogId,
+                                configWrapper, orderItemTypeId, itemGroupNumber, null, dispatcher);
                         noItems = false;
                     } catch (CartItemModifyException | ItemNotFoundException e) {
                         errorMsgs.add(e.getMessage());

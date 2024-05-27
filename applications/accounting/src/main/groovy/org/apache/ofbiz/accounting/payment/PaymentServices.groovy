@@ -960,3 +960,63 @@ Map createMatchingPaymentApplication() {
     }
     return success()
 }
+
+/**
+ * Remove an existing payment application
+ * @return Success response after remove, error response otherwise.
+ */
+Map removePaymentApplication() {
+    GenericValue paymentApplication = from('PaymentApplication').where(parameters).queryOne()
+    if (!paymentApplication) {
+        return error(label('AccountingUiLabels', 'AccountingPaymentApplicationNotFound', parameters))
+    }
+    Map paymentApplicationFields = paymentApplication.getAllFields()
+
+    String toMessage = ''
+    // check payment
+    if (paymentApplication.paymentId) {
+        GenericValue payment = from('Payment').where(paymentId: paymentApplication.paymentId).queryOne()
+        if (payment.statusId == 'PMNT_CONFIRMED') {
+            return error(label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
+        }
+    }
+
+    // check invoice
+    if (paymentApplication.invoiceId) {
+        // if the invoice is already PAID, then set it back to READY and clear out the paidDate
+        GenericValue invoice = from('Invoice').where(invoiceId: paymentApplication.invoiceId).queryOne()
+        if (invoice.statusId == 'INVOICE_PAID') {
+            run service: 'setInvoiceStatus', with: [invoiceId: paymentApplication.invoiceId,
+                                                    statustId: 'INVOICE_READY']
+        }
+        toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToInvoice', paymentApplicationFields)
+    }
+
+    // check invoice item
+    if (paymentApplication.invoiceItemSeqId) {
+        toMessage = label('AccountingUiLabels', 'AccountingApplicationToInvoiceItem', paymentApplicationFields)
+    }
+
+    // check toPayment
+    if (paymentApplication.toPaymentId) {
+        GenericValue toPayment = from('Payment').where(paymentId: paymentApplication.toPaymentId).queryOne()
+        if (toPayment.statusId == 'PMNT_CONFIRMED') {
+            return error(label('AccountingUiLabels', 'AccountingPaymentApplicationCannotRemovedWithConfirmedStatus'))
+        }
+        toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToPayment', paymentApplicationFields)
+    }
+
+    // check billing account
+    if (paymentApplication.billingAccountId) {
+        toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToBillingAccount', paymentApplicationFields)
+    }
+
+    // check tax authority
+    if (paymentApplication.taxAuthGeoId) {
+        toMessage = label('AccountingUiLabels', 'AccountingPaymentApplToTaxAuth', paymentApplicationFields)
+    }
+
+    // finally delete application
+    paymentApplication.remove()
+    return success(label('AccountingUiLabels', 'AccountingPaymentApplRemoved') + ' ' + toMessage, paymentApplicationFields)
+}

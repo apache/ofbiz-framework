@@ -493,7 +493,7 @@ public class SecuredUpload {
                 return false;
             }
             // Load stream in PDF parser
-            PdfReader reader = new PdfReader(file.getAbsolutePath());
+            new PdfReader(file.getAbsolutePath()); // Just a check
             return true;
         } catch (Exception e) {
             return false;

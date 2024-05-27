@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.product.catalog.product
 
+import java.math.RoundingMode
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -92,7 +94,7 @@ while (itr <= 5) {
     }
     if (!orderItemDetail.isEmpty()) {
         if (orderItemDetail.amount) {
-            orderItemDetail.amount = orderItemDetail.amount.setScale(2, BigDecimal.ROUND_HALF_UP)
+            orderItemDetail.amount = orderItemDetail.amount.setScale(2, RoundingMode.HALF_UP)
         }
         topSellingProducts.add(orderItemDetail)
         bestSellingProducts.remove(orderItemDetail)

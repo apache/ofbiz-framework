@@ -144,7 +144,7 @@ under the License.
             </display-entity>
         </field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" target-type="inter-app">
+            <hyperlink description="${invoiceId}" target="/accounting/control/viewInvoice" target-type="inter-app">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

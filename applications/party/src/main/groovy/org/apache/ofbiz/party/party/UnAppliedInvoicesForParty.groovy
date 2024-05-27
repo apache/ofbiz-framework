@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.party.party
 
+import java.math.RoundingMode
+
 import org.apache.ofbiz.accounting.invoice.InvoiceWorker
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
@@ -46,9 +48,11 @@ invExprs =
 
 invIterator = from('InvoiceAndType').where(invExprs).cursorScrollInsensitive().distinct().queryIterator()
 invoiceList = []
-while (invIterator.hasNext()) {
-    invoice = invIterator.next()
-    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+
+/* codenarc-disable */
+while (invoice = invIterator.next()) {
+/* codenarc-enable */
+    unAppliedAmount = InvoiceWorker.getInvoiceNotApplied(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true) {
             invoiceCurrencyUomId = invoice.currencyUomId
@@ -59,7 +63,7 @@ while (invIterator.hasNext()) {
                          invoiceDate: invoice.invoiceDate,
                          unAppliedAmount: unAppliedAmount,
                          invoiceCurrencyUomId: invoiceCurrencyUomId,
-                         amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP),
+                         amount: InvoiceWorker.getInvoiceTotal(invoice, actualCurrency).setScale(2, RoundingMode.HALF_UP),
                          invoiceTypeId: invoice.invoiceTypeId,
                          invoiceParentTypeId: invoice.parentTypeId])
     }

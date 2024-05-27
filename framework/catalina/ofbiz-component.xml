@@ -41,8 +41,9 @@ under the License.
                 <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
             </property>
             <property name="access-log-rotate" value="true"/>
-            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-prefix" value="access_log"/>
             <property name="access-log-dir" value="runtime/logs"/>
+            <property name="access-log-maxDays" value="30"/>
             <!-- uncomment for cluster support
             <property name="default-server-cluster" value="cluster">
                 <property name="rep-valve-filter">
@@ -76,16 +77,16 @@ under the License.
             <property name="xpoweredBy" value="false"/>
             <!-- AJP/13 connector attributes -->
             <!-- Despite OFBIZ-11407, allowedRequestAttributesPattern is commented out because of OFBIZ-12558
-                 OOTB the Tomcat default values are used as recommended by 
+                 OOTB the Tomcat default values are used as recommended by
                  https://tomcat.apache.org/tomcat-9.0-doc/config/ajp.html#Introduction
-                 This is in relation with 
+                 This is in relation with
                  https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.31
                  and
                  https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html#Connectors
-                 
+
                  But OOTB secretRequired value must be false because secret value is empty
                  Else a notifying message appears in log saying that AJP is not available.
-                 
+
                  Long story short, with OOTB configuration only localhost works.
                  So if you want to use AJP you need to set the values depending on your configuration.
                  Using ".*" to allowedRequestAttributesPattern put you at risk.
@@ -191,8 +192,9 @@ under the License.
                 <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
             </property>
             <property name="access-log-rotate" value="true"/>
-            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-prefix" value="access_log"/>
             <property name="access-log-dir" value="runtime/logs"/>
+            <property name="access-log-maxDays" value="30"/>
             <property name="enable-request-dump" value="false"/>
         </property>
         <property name="ajp-connector" value="connector">

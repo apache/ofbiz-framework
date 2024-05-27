@@ -159,25 +159,21 @@ public class ControlFilter extends HttpFilter {
                     return;
                 }
             }
-
             // Reject wrong URLs
-            if (req.getRequestURL() != null) { // Allow tests with Mockito. ControlFilterTests send null
+            String initialURI = req.getRequestURI();
+            if (initialURI != null) { // Allow tests with Mockito. ControlFilterTests send null
                 try {
-                    String url = new URI(req.getRequestURL().toString()).normalize().toString();
-                    if (!req.getRequestURL().toString().equals(url)) {
-                        throw new RuntimeException();
+                    String uRIFiltered = new URI(initialURI)
+                            .normalize().toString()
+                            .replaceAll(";", "")
+                            .replaceAll("(?i)%2e", "");
+                    if (!initialURI.equals(uRIFiltered)) {
+                        Debug.logError("For security reason this URL is not accepted", MODULE);
+                        throw new RuntimeException("For security reason this URL is not accepted");
                     }
                 } catch (URISyntaxException e) {
                     throw new RuntimeException(e);
                 }
-            }
-
-
-            // normalize to remove ".." special name usage to bypass webapp filter
-            try {
-                uri = new URI(uri).normalize().toString();
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
             }
 
             // Check if the requested URI is allowed.

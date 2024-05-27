@@ -269,7 +269,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId">
             <display-entity entity-name="Invoice">
-                <sub-hyperlink target="invoiceOverview" description="[${invoiceId}]">
+                <sub-hyperlink target="viewInvoice" description="[${invoiceId}]">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -308,7 +308,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -420,7 +420,7 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -449,7 +449,7 @@ under the License.
     </grid>
     <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries" extends="AcctgTransAndEntries" extends-resource="component://accounting/widget/InvoiceForms.xml">
         <field name="paymentId"><hidden/></field>
-        <field name="invoiceId"><hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/></field>
+        <field name="invoiceId"><hyperlink description="${invoiceId}" target="viewInvoice?invoiceId=${invoiceId}"/></field>
     </form>
 
     <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true"
@@ -524,7 +524,7 @@ under the License.
     <grid name="ListInvoicesByDueDate" list-name="invoicePaymentInfoList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

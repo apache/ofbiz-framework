@@ -182,5 +182,22 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="Campaigns">
+        <section>
+            <actions>
+                <entity-condition entity-name="MarketingCampaign" list="campaigns">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="not-equals" value="MKTG_CAMP_COMPLETED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="MKTG_CAMP_CANCELLED"/>
+                    </condition-list>
+                    <order-by field-name="statusId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.MarketingCampaign}">
+                    <include-grid name="Campaigns" location="component://marketing/widget/MarketingCampaignForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

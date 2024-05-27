@@ -531,7 +531,7 @@ under the License.
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="invoiceId">
             <lookup target-form-name="LookupInvoice" size="20" maxlength="20">
-                <sub-hyperlink target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/>
+                <sub-hyperlink target="viewInvoice?invoiceId=${acctgTrans.invoiceId}" description="${acctgTrans.invoiceId}"/>
             </lookup>
         </field>
         <field name="paymentId">
@@ -948,7 +948,7 @@ under the License.
         <field name="postedDate" position="2"/>
         <field name="inventoryItemId" position="1"/>
         <field name="physicalInventoryId" position="2"/>
-        <field name="invoiceId" position="1"><hyperlink description="${acctgTrans.invoiceId}" target="invoiceOverview?invoiceId=${acctgTrans.invoiceId}"/></field>
+        <field name="invoiceId" position="1"><hyperlink description="${acctgTrans.invoiceId}" target="viewInvoice?invoiceId=${acctgTrans.invoiceId}"/></field>
         <field name="paymentId" position="2"><hyperlink description="${acctgTrans.paymentId}" target="paymentOverview?paymentId=${acctgTrans.paymentId}"/></field>
         <field name="receiptId" position="1"/>
         <field name="workEffortId" position="2"/>

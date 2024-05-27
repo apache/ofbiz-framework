@@ -21,14 +21,15 @@ package org.apache.ofbiz.common
 import org.apache.ofbiz.service.ServiceUtil
 
 Map setTimeZoneFromBrowser() {
-    userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
-    if (userLogin) {
-        if (!userLogin.lastTimeZone || userLogin.lastTimeZone == 'null') {
-            userLogin.lastTimeZone = parameters.localeName
-            userLogin.store()
-            return ServiceUtil.returnSuccess()
+    if (parameters?.userLogin?.userLoginId) {
+        userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
+        if (userLogin) {
+            if (!userLogin.lastTimeZone || userLogin.lastTimeZone == 'null') {
+                userLogin.lastTimeZone = parameters.localeName
+                userLogin.store()
+                return ServiceUtil.returnSuccess()
+            }
         }
-    } else {
-        return ServiceUtil.returnError()
     }
+    // Do nothing if no userLogin to prevents to uselessly clutter the logs up with very common SetTimeZoneFromBrowser errors
 }

@@ -69,7 +69,7 @@ under the License.
                 </or>
             </condition>
             <link target="Accounting/Invoice/New" link-type="layered-modal">
-                <set-callback area-target="invoiceOverview" area-id="window">
+                <set-callback area-target="viewInvoice" area-id="window">
                     <parameter param-name="invoiceId" from-event-result="invoiceId"/>
                 </set-callback>
             </link>
@@ -152,11 +152,11 @@ under the License.
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findInvoices"/>
         </menu-item>
-        <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
+        <menu-item name="viewInvoice" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
                 <not><if-empty field="invoice.invoiceId"/></not>
             </condition>
-            <link target="invoiceOverview">
+            <link target="viewInvoice">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
@@ -294,7 +294,7 @@ under the License.
             </condition>
             <link target="Accounting/Invoice/Edit" link-type="layered-modal">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
-                <set-callback area-target="invoiceOverview" area-id="window">
+                <set-callback area-target="viewInvoice" area-id="window">
                     <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
                 </set-callback>
             </link>

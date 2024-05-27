@@ -41,7 +41,7 @@ under the License.
           ${commissionReport.numberOfOrders!} /
           <#if commissionReport.salesInvoiceIds?has_content>
             <#list commissionReport.salesInvoiceIds as salesInvoiceId>
-              [<a href="<@ofbizUrl controlPath="/ap/control">invoiceOverview?invoiceId=${salesInvoiceId!}</@ofbizUrl>">${salesInvoiceId!}</a>]
+              [<a href="<@ofbizUrl controlPath="/ap/control">viewInvoice?invoiceId=${salesInvoiceId!}</@ofbizUrl>">${salesInvoiceId!}</a>]
             </#list>
           </#if>
         </td>

@@ -18,6 +18,8 @@
 */
 package org.apache.ofbiz.party.party
 
+import java.math.RoundingMode
+
 import org.apache.ofbiz.accounting.payment.PaymentWorker
 import org.apache.ofbiz.entity.util.EntityFindOptions
 import org.apache.ofbiz.entity.condition.EntityCondition
@@ -48,9 +50,10 @@ payExprs =
 paymentList = []
 payIterator = from('PaymentAndType').where(payExprs).cursorScrollInsensitive().distinct().queryIterator()
 
-while (payIterator.hasNext()) {
-    payment = payIterator.next()
-    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, BigDecimal.ROUND_HALF_UP)
+/* codenarc-disable */
+while (payment = payIterator.next()) {
+/* codenarc-enable */
+    unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2, RoundingMode.HALF_UP)
     if (unAppliedAmount.signum() == 1) {
         if (actualCurrency == true && payment.actualCurrencyAmount && payment.actualCurrencyUomId) {
             amount = payment.actualCurrencyAmount
