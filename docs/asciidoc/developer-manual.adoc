@@ -250,6 +250,7 @@ https://cwiki.apache.org/confluence/display/OFBIZ/Service+Engine+Guide[OFBiz wik
 === Tree Widget
 
 === Portal Widget
+See https://cwiki.apache.org/confluence/display/OFBIZ/Developing+Portlets
 
 === Platform Specific Code
 
