@@ -1099,6 +1099,9 @@ under the License.
             <set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator, invoiceId, actualCurrency)}"/>
             <set field="amountToApply" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId, actualCurrency)}"/>
             <set field="amountApplied" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(delegator,invoiceId, org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp(), actualCurrency)}"/>
+            <entity-one entity-name="InvoiceType" value-field="invoiceType"/>
+            <set field="invoiceTypeId" from-field="invoiceType.parentTypeId"/>
+            <entity-one entity-name="InvoiceType" value-field="parentInvoiceType"/>
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" " also-hidden="true">
@@ -1107,7 +1110,9 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
+        <field name="typeDescription" title="${uiLabelMap.CommonType}">
+            <display description="${invoiceType.description}"/> 
+        </field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="total"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="amountToApply"><display type="currency" currency="${actualCurrencyUomId}"/></field>
@@ -1131,15 +1136,18 @@ under the License.
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
             <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/UnAppliedInvoicesForParty.groovy"/>
         </actions>
+        <row-actions>
+            <entity-one entity-name="InvoiceType" value-field="invoiceType"/>
+            <set field="invoiceTypeId" from-field="invoiceType.parentTypeId"/>
+            <entity-one entity-name="InvoiceType" value-field="parentInvoiceType"/>
+        </row-actions>
         <field name="invoiceId">
-            <display-entity entity-name="Invoice">
-                <sub-hyperlink target="/accounting/control/viewInvoice" description="[${invoiceId}]" target-type="inter-app">
-                    <parameter param-name="invoiceId"/>
-                </sub-hyperlink>
-            </display-entity>
+            <hyperlink target="/accounting/control/viewInvoice" description="[${invoiceId}]" target-type="inter-app">
+                <parameter param-name="invoiceId"/>
+            </hyperlink>
         </field>
-        <field name="invoiceParentTypeId">
-            <display-entity entity-name="InvoiceType" key-field-name="invoiceTypeId"/>
+        <field name="typeDescription" title="${uiLabelMap.CommonType}">
+            <display description="${invoiceType.description}"/>
         </field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
@@ -1153,6 +1161,11 @@ under the License.
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
             <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/UnAppliedPaymentsForParty.groovy"/>
         </actions>
+        <row-actions>
+            <entity-one entity-name="PaymentType" value-field="paymentType"/>
+            <set field="paymentTypeId" from-field="paymentType.parentTypeId"/>
+            <entity-one entity-name="PaymentType" value-field="parentPaymentType"/>
+        </row-actions>
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
@@ -1162,11 +1175,8 @@ under the License.
             </display-entity>
         </field>
         <field name="effectiveDate"><display type="date"/></field>
-        <field name="paymentTypeId">
-            <display-entity entity-name="PaymentType"/>
-        </field>
-        <field name="paymentParentTypeId">
-            <display-entity entity-name="PaymentType" key-field-name="paymentTypeId"/>
+        <field name="typeDescription" title="${uiLabelMap.CommonType}">
+            <display description="${paymentType.description}"/>
         </field>
         <field name="amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
