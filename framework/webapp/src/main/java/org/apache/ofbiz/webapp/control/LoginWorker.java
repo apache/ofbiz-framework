@@ -931,11 +931,6 @@ public final class LoginWorker {
                 Debug.logError(e, MODULE);
             }
         }
-        if ("Y".equals(UtilProperties.getPropertyValue(SEC_PROPERTIES, "security.login.loginEventsAfterBasicLogin", "N"))) {
-            // run the after-login events
-            RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
-            rh.runAfterLoginEvents(request, response);
-        }
 
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
