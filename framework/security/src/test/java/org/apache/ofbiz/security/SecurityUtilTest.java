@@ -58,13 +58,14 @@ public class SecurityUtilTest {
 
     @Test
     public void webShellTokensTesting() {
-        // Currently used
-        // java.,beans,freemarker,<script,javascript,<body,body <form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,alert(,\
-        // %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
-        // chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,onload,build\
-        // python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,assign,webappPath,\
-        // ifconfig,route,crontab,netstat,uname ,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost,thread,require,gzdeflate
-
+        /* Currently used
+                java.,beans,freemarker,<script,javascript,<body,body ,<form,<jsp:,<c:out,taglib,<prefix,<%@ page,<?php,exec(,alert(,\
+                %eval,@eval,eval(,runtime,import,passthru,shell_exec,assert,str_rot13,system,decode,include,page ,\
+                chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,onload,build,\
+                python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,assign,webappPath,\
+                ifconfig,route,crontab,netstat,uname ,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost,thread,require,gzdeflate,\
+                execute,println,calc,calculate,touch,curl
+         */
         try {
             List<String> allowed = new ArrayList<>();
             allowed.add("getfilename");
@@ -146,7 +147,12 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("thread", allowed));
             assertFalse(SecuredUpload.isValidText("require", allowed));
             assertFalse(SecuredUpload.isValidText("gzdeflate", allowed));
-
+            assertFalse(SecuredUpload.isValidText("execute", allowed));
+            assertFalse(SecuredUpload.isValidText("println", allowed));
+            assertFalse(SecuredUpload.isValidText("calc", allowed));
+            assertFalse(SecuredUpload.isValidText("calculate", allowed));
+            assertFalse(SecuredUpload.isValidText("curl", allowed));
+            assertFalse(SecuredUpload.isValidText("touch", allowed));
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
         }
