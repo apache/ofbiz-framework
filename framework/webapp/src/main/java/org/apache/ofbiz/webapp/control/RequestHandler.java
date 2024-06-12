@@ -129,14 +129,18 @@ public final class RequestHandler {
         Map<String, List<RequestMap>> requestMapMap = ccfg.getRequestMapMultiMap();
         Collection<RequestMap> rmaps = resolveTemplateURI(requestMapMap, req);
         if (rmaps.isEmpty()) {
-            Map<String, ConfigXMLReader.ViewMap> viewMapMap = ccfg.getViewMapMap();
             String defaultRequest = ccfg.getDefaultRequest();
             String path = req.getPathInfo();
             String requestUri = getRequestUri(path);
             String overrideViewUri = getOverrideViewUri(path);
+            boolean allowDirectViewRendering = false;
+            // Ensure that overridden view exists and direct view rendering is allowed.
+            if (UtilValidate.isNotEmpty(overrideViewUri)) {
+                ConfigXMLReader.ViewMap overrideViewMap = ccfg.getViewMapMap().get(overrideViewUri);
+                allowDirectViewRendering = (overrideViewMap != null && overrideViewMap.isAllowDirectViewRendering());
+            }
             if (requestMapMap.containsKey(requestUri)
-                    // Ensure that overridden view exists.
-                    && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri)
+                    && (allowDirectViewRendering
                     || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))) {
                 rmaps = requestMapMap.get(requestUri);
                 req.setAttribute("overriddenView", overrideViewUri);

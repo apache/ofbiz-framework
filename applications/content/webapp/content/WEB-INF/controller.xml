@@ -1851,7 +1851,7 @@ under the License.
     <view-map name="EditWebSitePathAlias" type="screen" page="component://content/widget/WebSiteScreens.xml#EditWebSitePathAlias"/>
     <view-map name="WebSiteContent" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteContent"/>
     <view-map name="WebSiteCMS" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMS"/>
-    <view-map name="WebSiteCMSContent" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSContent"/>
+    <view-map name="WebSiteCMSContent" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSContent" allow-direct-view-rendering="true"/>
     <view-map name="WebSiteCMSEditor" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSEditor"/>
     <view-map name="WebSiteCMSMetaInfo" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSMetaInfo"/>
     <view-map name="WebSiteCMSPathAlias" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSPathAlias"/>
