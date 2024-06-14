@@ -776,6 +776,25 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:boolean" name="allow-direct-view-rendering" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    This attribute determines whether direct rendering of the view is allowed when using the override view functionality.
+                    If set to true,
+                    the system permits the view to be rendered directly using the override view functionality.
+                    If false or not specified,
+                    direct rendering is not allowed, and system throws Unknown request exception.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="direct-view-rendering-with-auth" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If direct-view-rendering-with-auth=true, direct rendering of the view is only allowed with an active login when using the override view functionality.
+                    If direct-view-rendering-with-auth=false, no active login is required.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="x-frame-options" default="sameorigin">
             <xs:annotation>
                 <xs:documentation>

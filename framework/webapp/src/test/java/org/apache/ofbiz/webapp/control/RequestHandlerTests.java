@@ -46,6 +46,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.ViewMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
+import org.mockito.Mockito;
 
 public class RequestHandlerTests {
     public static class ResolveURITests {
@@ -190,10 +191,12 @@ public class RequestHandlerTests {
             reqMaps.putSingle("foo", foo);
             reqMaps.putSingle("bar", bar);
 
-            viewMaps.put("baz", new ViewMap(dummyElement));
+            //viewMaps.put("baz", new ViewMap(dummyElement));
+            viewMaps.put("baz", Mockito.mock(ViewMap.class)); // Mock the ViewMap
 
             when(req.getPathInfo()).thenReturn("/foo/baz");
             when(ccfg.getDefaultRequest()).thenReturn("bar");
+            when(viewMaps.get("baz").isAllowDirectViewRendering()).thenReturn(true);
             assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
         }
 
