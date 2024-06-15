@@ -140,7 +140,7 @@ public final class RequestHandler {
                 allowDirectViewRendering = (overrideViewMap != null && overrideViewMap.isAllowDirectViewRendering());
             }
             if (requestMapMap.containsKey(requestUri)
-                    && (allowDirectViewRendering
+                    && (overrideViewUri == null || allowDirectViewRendering
                     || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))) {
                 rmaps = requestMapMap.get(requestUri);
                 req.setAttribute("overriddenView", overrideViewUri);
