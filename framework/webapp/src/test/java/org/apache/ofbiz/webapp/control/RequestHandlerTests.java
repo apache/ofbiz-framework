@@ -132,7 +132,7 @@ public class RequestHandlerTests {
 
             when(req.getPathInfo()).thenReturn("/foo/baz");
             when(ccfg.getDefaultRequest()).thenReturn("bar");
-            when(viewMaps.get("baz").allowDirectViewRendering).thenReturn(true);
+            when(viewMaps.get("baz").isAllowDirectViewRendering()).thenReturn(true);
             assertThat(RequestHandler.resolveURI(ccfg, req), hasItem(foo));
         }
 

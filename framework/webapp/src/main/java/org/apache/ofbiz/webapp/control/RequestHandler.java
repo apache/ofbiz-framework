@@ -203,11 +203,11 @@ public class RequestHandler {
         // Ensure that overridden view exists and direct view rendering is allowed.
         if (UtilValidate.isNotEmpty(overrideViewUri)) {
             ConfigXMLReader.ViewMap overrideViewMap = ccfg.getViewMapMap().get(overrideViewUri);
-            allowDirectViewRendering = (overrideViewMap != null && overrideViewMap.allowDirectViewRendering);
+            allowDirectViewRendering = (overrideViewMap != null && overrideViewMap.isAllowDirectViewRendering());
         }
         if (requestMapMap.containsKey(requestUri)
                 // Ensure that overridden view exists.
-                && (allowDirectViewRendering
+                && (overrideViewUri == null || allowDirectViewRendering
                 || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))){
             rmaps = requestMapMap.get(requestUri);
         } else if (defaultRequest != null) {
@@ -486,7 +486,7 @@ public class RequestHandler {
         // Check if direct view rendering requires authentication.
         if (UtilValidate.isNotEmpty(overrideViewUri)) {
             ConfigXMLReader.ViewMap overrideViewMap = ccfg.getViewMapMap().get(overrideViewUri);
-            directViewRenderingWithAuth = (overrideViewMap != null && overrideViewMap.directViewRenderingWithAuth);
+            directViewRenderingWithAuth = (overrideViewMap != null && overrideViewMap.isDirectViewRenderingWithAuth());
         }
         // Perform security check.
         if (requestMap.securityAuth || directViewRenderingWithAuth) {
