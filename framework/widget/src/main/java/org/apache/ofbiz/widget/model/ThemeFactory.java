@@ -96,6 +96,32 @@ public final class ThemeFactory {
     }
 
     /**
+     * Helper method for getThemeXmlFiles
+     * @return
+     * @throws IOException
+     */
+    private static List<File> checkForWidgetFolder(String folderPath) throws IOException {
+        File folder = new File(folderPath);
+        List<File> xmlThemes = new ArrayList<File>();
+        if (folder.exists() && folder.isDirectory()) {
+            File[] subFolders = folder.listFiles(File::isDirectory);
+
+            if (subFolders != null) {
+                for (File subFolder : subFolders) {
+                    File widgetFolder = new File(subFolder, "widget");
+                    if (widgetFolder.exists() && widgetFolder.isDirectory()) {
+                        List<File> xmlPluginThemes = FileUtil.findXmlFiles(widgetFolder.getPath(), null, "theme", "widget-theme.xsd");
+                        if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
+                            xmlThemes.addAll(xmlPluginThemes);
+                        }
+                    }
+                }
+            }
+        }
+        return xmlThemes;
+    }
+
+    /**
      * Scan all Theme.xml definition
      * @return
      * @throws IOException
@@ -104,11 +130,10 @@ public final class ThemeFactory {
         String ofbizHome = System.getProperty("ofbiz.home");
         String themeFolderPath = ofbizHome + "/themes";
         String pluginsFolderPath = ofbizHome + "/plugins";
-        List<File> xmlThemes = FileUtil.findXmlFiles(themeFolderPath, null, "theme", "widget-theme.xsd");
-        List<File> xmlPluginThemes = FileUtil.findXmlFiles(pluginsFolderPath, null, "theme", "widget-theme.xsd");
-        if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
-            xmlThemes.addAll(xmlPluginThemes);
-        }
+
+        List<File> xmlThemes = checkForWidgetFolder(themeFolderPath);
+        xmlThemes.addAll(checkForWidgetFolder(pluginsFolderPath));
+
         return xmlThemes;
     }
 
