@@ -619,16 +619,6 @@ want to silence them
 
 `gradlew -PXlint:none build`
 
-[[run-owasp-tool-to-identify-dependency-vulnerabilities-cves]]
-==== Run OWASP tool to identify dependency vulnerabilities (CVEs)
-
-The below command activates a gradle plugin (OWASP) and Identifies and reports
-known vulnerabilities (CVEs) in OFBiz library dependencies. The task takes time
-to complete, and once done, a report will be generated in
-$OFBIZ_HOME/build/reports/dependency-check-report.html
-
-`gradlew -PenableOwasp dependencyCheckAnalyze`
-
 [[setup-eclipse-project-for-ofbiz]]
 ==== Setup eclipse project for OFBiz
 
