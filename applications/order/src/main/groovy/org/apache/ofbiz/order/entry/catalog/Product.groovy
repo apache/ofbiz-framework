@@ -20,12 +20,12 @@ package org.apache.ofbiz.order.entry.catalog
 
 import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilHttp
-import org.apache.ofbiz.product.catalog.CatalogWorker
-import org.apache.ofbiz.product.category.CategoryWorker
-import org.apache.ofbiz.product.category.CategoryContentWrapper
-import org.apache.ofbiz.product.product.ProductWorker
-import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.product.category.CategoryContentWrapper
+import org.apache.ofbiz.product.category.CategoryWorker
+import org.apache.ofbiz.product.product.ProductContentWrapper
+import org.apache.ofbiz.product.product.ProductWorker
 
 contentPathPrefix = CatalogWorker.getContentPathPrefix(request)
 catalogName = CatalogWorker.getCatalogName(request)
@@ -122,7 +122,9 @@ if (productId) {
                     }
                 }
             }
-            context.metaKeywords = StringUtil.join(keywords, ', ')
+            if (keywords) {
+                context.metaKeywords = StringUtil.join(keywords, ', ')
+            }
         }
 
         // Set the default template for aggregated product (product component configurator ui)
