@@ -1136,7 +1136,7 @@ under the License.
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice">
-                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
+                <sub-hyperlink target="/accounting/control/viewInvoice" description="[${invoiceId}]" target-type="inter-app">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
