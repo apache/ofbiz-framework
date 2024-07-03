@@ -110,4 +110,11 @@ dependencies {
 
     // specify last codenarc version for java 17 compliance
     codenarc('org.codenarc:CodeNarc:3.4.0')
+
+    // use constraints to update transitive dependencies
+    constraints {
+        implementation('org.apache.james:apache-mime4j-core:0.8.10') {
+            because 'CVE-2024-21742'
+        }
+    }
 }
