@@ -22,9 +22,9 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.config.ServiceConfigUtil
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.testtools.GroovyScriptAssert
 
-class ServicePurgeTest extends GroovyScriptTestCase {
+class ServicePurgeTest extends GroovyScriptAssert {
 
 // ./gradlew "ofbiz --test component=service --test suitename=servicetests --test case=service-purge-test"
 

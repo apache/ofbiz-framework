@@ -205,12 +205,12 @@ public class ModelTestSuite {
                 ((OFBizTestCase) test).setDispatcher(dispatcher);
             }
             // CHECKSTYLE_ON: ALMOST_ALL
-        } else if (test instanceof GroovyScriptTestCase) {
-            prepareGroovyScriptTestCase((GroovyScriptTestCase) test);
+        } else if (test instanceof GroovyScriptAssert) {
+            prepareGroovyScriptAssert((GroovyScriptAssert) test);
         }
     }
 
-    private void prepareGroovyScriptTestCase(GroovyScriptTestCase test) {
+    private void prepareGroovyScriptAssert(GroovyScriptAssert test) {
         test.setDelegator(delegator);
         test.setDispatcher(dispatcher);
         test.setSecurity(dispatcher.getSecurity());

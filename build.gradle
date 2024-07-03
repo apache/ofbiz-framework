@@ -106,7 +106,7 @@ javadoc {
         links(
             'https://docs.oracle.com/javase/17/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
+            'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
