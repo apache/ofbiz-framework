@@ -56,8 +56,8 @@ dependencies {
     implementation 'org.apache.pdfbox:pdfbox:2.0.31' // 3.0.1 does not compile
     implementation 'org.apache.shiro:shiro-core:1.13.0'
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.0'
-    implementation 'org.apache.sshd:sshd-core:2.10.0'
-    implementation 'org.apache.sshd:sshd-sftp:2.10.0'
+    implementation 'org.apache.sshd:sshd-core:2.13.1'
+    implementation 'org.apache.sshd:sshd-sftp:2.13.1'
     implementation 'org.apache.tika:tika-core:2.9.2'
     implementation 'org.apache.tika:tika-parsers:2.9.2'
     implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2'
