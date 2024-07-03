@@ -276,6 +276,8 @@ checkstyle {
     // 'checkstyle' tool present in the framework and in the official
     // plugins.
     tasks.checkstyleMain.maxErrors = 0
+    // Increase memory for checkstyleMain required for Gradle 8+.
+    tasks.checkstyleMain.maxHeapSize = '1g'
     // Currently there are no errors so we can show new one when they appear
     showViolations = true
 }
