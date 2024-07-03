@@ -29,8 +29,8 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'maven-publish'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
-    id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
+    id 'org.asciidoctor.jvm.convert' version '4.0.2'
+    id 'org.asciidoctor.jvm.pdf' version '4.0.2'
     id 'org.owasp.dependencycheck' version '10.0.2' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
     id 'com.github.ben-manes.versions' version '0.51.0' apply false
@@ -508,8 +508,8 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    inProcess = JAVA_EXEC
-        forkOptions {
+    executionMode = JAVA_EXEC
+        jvm {
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
     outputOptions {
