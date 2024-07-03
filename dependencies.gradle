@@ -119,5 +119,8 @@ dependencies {
         implementation('org.bouncycastle:bcprov-jdk18on:1.78') {
             because 'CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447'
         }
+        implementation('org.testng:testng:7.7.0') {
+            because 'CVE-2022-4065'
+        }
     }
 }
