@@ -292,6 +292,8 @@ checkstyle {
     tasks.checkstyleMain.maxHeapSize = '1g'
     // Currently there are no errors so we can show new one when they appear
     showViolations = true
+    // Specify tool version so we can keep it up-to-date
+    toolVersion = '10.17.0'
 }
 gitHooks {
     hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
