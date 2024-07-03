@@ -68,7 +68,7 @@ dependencies {
     implementation 'org.apache.xmlgraphics:batik-anim:1.17'
     implementation 'org.apache.xmlgraphics:batik-util:1.17'
     implementation 'org.apache.xmlgraphics:batik-bridge:1.17'
-    implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
+    implementation 'org.apache.xmlgraphics:fop:2.9'
     implementation 'org.clojure:clojure:1.11.3'
     implementation 'org.codehaus.groovy:groovy-all:3.0.21'
     implementation 'org.freemarker:freemarker:2.3.33' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
