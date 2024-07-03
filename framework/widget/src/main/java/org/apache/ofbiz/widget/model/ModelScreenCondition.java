@@ -75,7 +75,7 @@ public final class ModelScreenCondition {
         }
     }
 
-    private static class ScreenConditionFactory extends DefaultConditionFactory {
+    private static final class ScreenConditionFactory extends DefaultConditionFactory {
 
         @Override
         public ModelCondition newInstance(ModelWidget modelWidget, Element conditionElement) {

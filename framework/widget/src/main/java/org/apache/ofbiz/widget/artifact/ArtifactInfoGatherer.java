@@ -382,7 +382,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     public void visit(Tree tree) throws Exception {
     }
 
-    private class FieldInfoGatherer implements ModelFieldVisitor {
+    private final class FieldInfoGatherer implements ModelFieldVisitor {
 
         private void addRequestLocations(String target, String urlMode) {
             try {
