@@ -59,8 +59,8 @@ dependencies {
     implementation 'org.apache.sshd:sshd-core:2.10.0'
     implementation 'org.apache.sshd:sshd-sftp:2.10.0'
     implementation 'org.apache.tika:tika-core:2.9.2'
-    implementation 'org.apache.tika:tika-parsers:2.5.0'
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
+    implementation 'org.apache.tika:tika-parsers:2.9.2'
+    implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.6' // 4.0.3 does not compile
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.91' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.91'
