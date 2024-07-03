@@ -80,7 +80,7 @@ dependencies {
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'com.auth0:java-jwt:4.4.0'
-    implementation 'org.jdom:jdom:1.1.3' // don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
+    implementation 'org.jdom:jdom2:2.0.6.1'
     implementation 'com.google.re2j:re2j:1.7'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation('org.mustangproject:library:2.8.0') { // 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)

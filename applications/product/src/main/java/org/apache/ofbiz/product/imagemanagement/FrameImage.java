@@ -62,7 +62,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.jdom.JDOMException;
+import org.jdom2.JDOMException;
 
 public class FrameImage {
 
