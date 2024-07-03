@@ -73,7 +73,7 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.21'
     implementation 'org.freemarker:freemarker:2.3.33' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 
-    implementation 'org.owasp.esapi:esapi:2.5.3.1'
+    implementation 'org.owasp.esapi:esapi:2.5.4.0'
     implementation 'org.cyberneko:html:1.9.8'
     implementation 'org.springframework:spring-test:5.3.29' //  6.1.4 does not compile
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
