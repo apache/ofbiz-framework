@@ -1300,8 +1300,8 @@ public class ProductServices {
         String searchProductFirstContext = (String) context.get("searchProductFirst");
         String searchAllIdContext = (String) context.get("searchAllId");
 
-        boolean searchProductFirst = UtilValidate.isNotEmpty(searchProductFirstContext) && "N".equals(searchProductFirstContext) ? false : true;
-        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext) ? true : false;
+        boolean searchProductFirst = !UtilValidate.isNotEmpty(searchProductFirstContext) || !"N".equals(searchProductFirstContext);
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext);
 
         GenericValue product = null;
         List<GenericValue> productsFound = null;

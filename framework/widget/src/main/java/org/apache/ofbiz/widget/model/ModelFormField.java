@@ -5485,9 +5485,9 @@ public final class ModelFormField {
                 this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
             }
             this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options"))
-                    || "ignore-case".equals(element.getAttribute("hide-options")) ? true : false;
+                || "ignore-case".equals(element.getAttribute("hide-options"));
             this.hideOptions = "true".equals(element.getAttribute("hide-options"))
-                    || "options".equals(element.getAttribute("hide-options")) ? true : false;
+                || "options".equals(element.getAttribute("hide-options"));
             this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
         }
 

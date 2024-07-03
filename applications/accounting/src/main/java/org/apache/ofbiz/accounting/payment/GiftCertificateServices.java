@@ -827,8 +827,8 @@ public class GiftCertificateServices {
         String orderEmails = orh.getOrderEmailString();
         String copyMeField = giftCertSettings.getString("purchSurveyCopyMe");
         String copyMeResp = copyMeField != null ? (String) answerMap.get(copyMeField) : null;
-        boolean copyMe = (UtilValidate.isNotEmpty(copyMeField)
-                && UtilValidate.isNotEmpty(copyMeResp) && "true".equalsIgnoreCase(copyMeResp)) ? true : false;
+        boolean copyMe = UtilValidate.isNotEmpty(copyMeField)
+                && UtilValidate.isNotEmpty(copyMeResp) && "true".equalsIgnoreCase(copyMeResp);
 
         int qtyLoop = quantity.intValue();
         for (int i = 0; i < qtyLoop; i++) {

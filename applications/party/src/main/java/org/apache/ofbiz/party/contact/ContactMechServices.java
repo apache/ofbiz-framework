@@ -903,7 +903,7 @@ public class ContactMechServices {
             }
         }
         Boolean bShowOld = (Boolean) context.get("showOld");
-        boolean showOld = (bShowOld != null && bShowOld) ? true : false;
+        boolean showOld = Boolean.TRUE.equals(bShowOld);
         String contactMechTypeId = (String) context.get("contactMechTypeId");
         List<Map<String, Object>> valueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld, contactMechTypeId);
         result.put("valueMaps", valueMaps);
