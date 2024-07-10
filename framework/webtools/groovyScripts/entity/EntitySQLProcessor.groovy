@@ -26,6 +26,9 @@ import java.util.Iterator
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.model.ModelGroupReader
 
+if (!security.hasPermission('ENTITY_MAINT', userLogin)) {
+    return
+}
 sqlCommand = context.request.getParameter("sqlCommand")
 
 resultMessage = ""

@@ -29,6 +29,9 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.MultipleCompilationErrorsException
 import org.codehaus.groovy.control.ErrorCollector
 
+if (!security.hasPermission('ENTITY_MAINT', userLogin)) {
+    return
+}
 String groovyProgram = null
 recordValues = []
 errMsgList = []
