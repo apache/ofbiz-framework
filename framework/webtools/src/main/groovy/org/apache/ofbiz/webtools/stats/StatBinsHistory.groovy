@@ -34,13 +34,13 @@ try {
 binList = null
 switch (type) {
     case ServerHitBin.REQUEST:
-        binList = ServerHitBin.requestHistory.get(id)
+        binList = ServerHitBin.REQ_HISTORY.get(id)
         break
     case ServerHitBin.EVENT:
-        binList = ServerHitBin.eventHistory.get(id)
+        binList = ServerHitBin.EVENT_HISTORY.get(id)
         break
     case ServerHitBin.VIEW:
-        binList = ServerHitBin.viewHistory.get(id)
+        binList = ServerHitBin.VIEW_HISTORY.get(id)
         break
 }
 

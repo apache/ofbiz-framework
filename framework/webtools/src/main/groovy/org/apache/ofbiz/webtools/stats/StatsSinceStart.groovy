@@ -24,17 +24,17 @@ import org.apache.ofbiz.webapp.stats.ServerHitBin
 
 clearBins = parameters.clear
 if (clearBins == 'true') {
-    ServerHitBin.requestSinceStarted.clear()
-    ServerHitBin.eventSinceStarted.clear()
-    ServerHitBin.viewSinceStarted.clear()
+    ServerHitBin.REQ_SINCE_STARTED.clear()
+    ServerHitBin.EVENT_SINCE_STARTED.clear()
+    ServerHitBin.VIEW_SINCE_STARTED.clear()
 }
 
 // Requests
-iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.requestSinceStarted.keySet()))
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.REQ_SINCE_STARTED.keySet()))
 requestList = []
 while (iterator.hasNext()) {
     statsId = iterator.next()
-    bin = ServerHitBin.requestSinceStarted.get(statsId)
+    bin = ServerHitBin.REQ_SINCE_STARTED.get(statsId)
     if (bin) {
         requestList.add(prepareRequestIdMap(bin))
     }
@@ -42,11 +42,11 @@ while (iterator.hasNext()) {
 context.requestList = requestList
 
 // Events
-iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.eventSinceStarted.keySet()))
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.EVENT_SINCE_STARTED.keySet()))
 eventList = []
 while (iterator.hasNext()) {
     statsId = iterator.next()
-    bin = ServerHitBin.eventSinceStarted.get(statsId)
+    bin = ServerHitBin.EVENT_SINCE_STARTED.get(statsId)
     if (bin) {
         eventList.add(prepareRequestIdMap(bin))
     }
@@ -54,11 +54,11 @@ while (iterator.hasNext()) {
 context.eventList = eventList
 
 // Views
-iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()))
+iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.VIEW_SINCE_STARTED.keySet()))
 viewList = []
 while (iterator.hasNext()) {
     statsId = iterator.next()
-    bin = ServerHitBin.viewSinceStarted.get(statsId)
+    bin = ServerHitBin.VIEW_SINCE_STARTED.get(statsId)
     if (bin) {
         viewList.add(prepareRequestIdMap(bin))
     }
