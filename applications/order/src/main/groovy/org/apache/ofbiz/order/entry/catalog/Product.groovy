@@ -122,9 +122,9 @@ if (productId) {
                     }
                 }
             }
-            if (!context.metaKeywords) {
+            if (!context.metaKeywords && keywords) {
                 context.put('metaKeywords', StringUtil.join(keywords, ', '))
-            } else {
+            } else if (keywords) {
                 context.metaKeywords = StringUtil.join(keywords, ', ')
             }
         }
