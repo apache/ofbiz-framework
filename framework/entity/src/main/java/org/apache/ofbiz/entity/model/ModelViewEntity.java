@@ -46,6 +46,7 @@ import org.apache.ofbiz.entity.condition.EntityJoinOperator;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.apache.ofbiz.entity.util.EntityUtil;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -1469,6 +1470,71 @@ public class ModelViewEntity extends ModelEntity {
             } else {
                 return null;
             }
+        }
+
+        public static Element makeViewEntityCondition(Element child) {
+            return makeViewEntityCondition(List.of(child));
+        }
+
+        public static Element makeViewEntityCondition(List<Element> children) {
+            Document doc = children.get(0).getOwnerDocument();
+            Element entityConditionElement = doc.createElement("entity-condition");
+            for (Element child : children) {
+                if (child.getOwnerDocument() != doc) {
+                    child = (Element) doc.importNode(child, true);
+                }
+                entityConditionElement.appendChild(child);
+            }
+            return entityConditionElement;
+        }
+
+        public static Element makeViewEntityConditionList(String combine, List<Element> children) {
+            Document doc = children.get(0).getOwnerDocument();
+            Element conditionListElement = doc.createElement("condition-list");
+            if (UtilValidate.isNotEmpty(combine)) {
+                conditionListElement.setAttribute("combine", combine);
+            }
+            for (Element child : children) {
+                if (child.getOwnerDocument() != doc) {
+                    child = (Element) doc.importNode(child, true);
+                }
+                conditionListElement.appendChild(child);
+            }
+            return conditionListElement;
+        }
+
+        public static Element makeViewEntityConditionExpr(String entityAlias, String fieldName, String operator, String value) {
+            return makeViewEntityConditionExpr(entityAlias, fieldName, operator, value, null, null);
+        }
+
+        public static Element makeViewEntityConditionExpr(String entityAlias, String fieldName, String operator,
+                String relEntityAlias, String relFieldName) {
+            return makeViewEntityConditionExpr(entityAlias, fieldName, operator, null, relEntityAlias, relFieldName);
+        }
+
+        public static Element makeViewEntityConditionExpr(String entityAlias, String fieldName, String operator,
+                String value, String relEntityAlias, String relFieldName) {
+            Document doc = UtilXml.makeEmptyXmlDocument();
+            Element conditionExprElement = doc.createElement("condition-expr");
+            if (UtilValidate.isNotEmpty(entityAlias)) {
+                conditionExprElement.setAttribute("entity-alias", entityAlias);
+            }
+            if (UtilValidate.isNotEmpty(fieldName)) {
+                conditionExprElement.setAttribute("field-name", fieldName);
+            }
+            if (UtilValidate.isNotEmpty(operator)) {
+                conditionExprElement.setAttribute("operator", operator);
+            }
+            if (UtilValidate.isNotEmpty(value)) {
+                conditionExprElement.setAttribute("value", value);
+            }
+            if (UtilValidate.isNotEmpty(relEntityAlias)) {
+                conditionExprElement.setAttribute("rel-entity-alias", relEntityAlias);
+            }
+            if (UtilValidate.isNotEmpty(relFieldName)) {
+                conditionExprElement.setAttribute("rel-field-name", relFieldName);
+            }
+            return conditionExprElement;
         }
     }
 
