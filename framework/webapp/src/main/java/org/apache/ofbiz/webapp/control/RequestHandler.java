@@ -193,7 +193,7 @@ public class RequestHandler {
             ConfigXMLReader.ViewMap viewMap;
             try {
                 viewMap = getControllerConfig().getViewMapMap().get(overrideViewUri);
-                if (viewMap == null || !viewMap.allowDirectViewRendering) {
+                if (viewMap == null) {
                     String defaultRequest = controllerConfig.getDefaultRequest();
                     if (defaultRequest != null) { // required! to avoid a null pointer exception and generate a requesthandler exception if default request not found.
                         requestMap = requestMapMap.get(defaultRequest);

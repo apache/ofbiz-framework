@@ -648,7 +648,6 @@ public class ConfigXMLReader {
         public String strictTransportSecurity;
         public String description;
         public boolean noCache = false;
-        public boolean allowDirectViewRendering = false;
 
         public ViewMap(Element viewMapElement) {
             this.name = viewMapElement.getAttribute("name");
@@ -657,7 +656,6 @@ public class ConfigXMLReader {
             this.info = viewMapElement.getAttribute("info");
             this.contentType = viewMapElement.getAttribute("content-type");
             this.noCache = "true".equals(viewMapElement.getAttribute("no-cache"));
-            this.allowDirectViewRendering = "true".equals(viewMapElement.getAttribute("allow-direct-view-rendering"));
             this.encoding = viewMapElement.getAttribute("encoding");
             this.xFrameOption = viewMapElement.getAttribute("x-frame-options");
             this.strictTransportSecurity = viewMapElement.getAttribute("strict-transport-security");
