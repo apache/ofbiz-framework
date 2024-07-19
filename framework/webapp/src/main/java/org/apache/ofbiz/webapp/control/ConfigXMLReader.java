@@ -573,26 +573,9 @@ public class ConfigXMLReader {
         public String strictTransportSecurity;
         public String description;
         public boolean noCache = false;
-        private boolean allowDirectViewRendering = false;
-        private boolean directViewRenderingWithAuth = false;
+        public boolean allowDirectViewRendering = false;
+        public boolean directViewRenderingWithAuth = false;
 
-        /**
-         * allow direct view rendering boolean
-         *
-         * @return the boolean
-         */
-        public boolean isAllowDirectViewRendering() {
-            return this.allowDirectViewRendering;
-        }
-
-        /**
-         * direct view rendering with authentication boolean
-         *
-         * @return the boolean
-         */
-        public boolean isDirectViewRenderingWithAuth() {
-            return this.directViewRenderingWithAuth;
-        }
         public ViewMap(Element viewMapElement) {
             this.name = viewMapElement.getAttribute("name");
             this.page = viewMapElement.getAttribute("page");
