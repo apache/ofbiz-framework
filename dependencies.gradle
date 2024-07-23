@@ -61,7 +61,7 @@ dependencies {
     implementation 'org.apache.tika:tika-core:2.9.2'
     implementation 'org.apache.tika:tika-parsers:2.9.2'
     implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2'
-    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.3' // 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
+    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.4' // 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.91' // Remember to change the version number (9 now) in javadoc block if needed.
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.91'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
