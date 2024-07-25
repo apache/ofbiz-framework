@@ -50,14 +50,6 @@ Map getNextInvoiceId() {
         GenericValue customMethod = partyAcctgPreference.getRelatedOne('InvoiceCustomMethod', true)
         if (customMethod) {
             customMethodName = customMethod.customMethodName
-        } else {
-            //retrieve service from deprecated enumeration see OFBIZ-3765 beware of OFBIZ-3557
-            if (partyAcctgPreference.oldInvoiceSequenceEnumId == 'INVSQ_ENF_SEQ') {
-                customMethodName = 'invoiceSequenceEnforced'
-            }
-            if (partyAcctgPreference.oldInvoiceSequenceEnumId == 'INVSQ_RESTARTYR') {
-                customMethodName = 'invoiceSequenceRestart'
-            }
         }
     } else {
         logWarning("Acctg preference not defined for partyId [${parameters.partyId}]")
