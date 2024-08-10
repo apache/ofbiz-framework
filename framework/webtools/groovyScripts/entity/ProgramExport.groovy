@@ -77,12 +77,6 @@ def shell = new GroovyShell(loader, binding, configuration)
 
 if (UtilValidate.isNotEmpty(groovyProgram)) {
     try {
-        // Check if a webshell is not uploaded but allow "import"
-        if (!SecuredUpload.isValidText(groovyProgram, ["import"])) {
-            logError("================== Not executed for security reason ==================")
-            request.setAttribute("_ERROR_MESSAGE_", "Not executed for security reason")
-            return
-        }
         shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)
         recordValues = shell.getVariable("recordValues")
