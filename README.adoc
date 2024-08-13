@@ -46,25 +46,34 @@ http://ofbiz.apache.org/documentation.html[OFBiz documentation]
 
 http://www.apache.org/licenses/LICENSE-2.0[OFBiz License]
 
-____________________________________________________________________________________________________
-_Note_: If you want to use Eclipse, read the "Setup eclipse project for OFBiz"
+== Notes
+[NOTE]
+====
+If you want to use Eclipse, read the "Setup eclipse project for OFBiz"
 section to set it up.
-____________________________________________________________________________________________________
+====
 
-_____________________________________________________________________________________________________________________________________
-_Note_: If you want to use an external database like MySQL or PostgreSQL, read
+[NOTE]
+====
+If you want to use an external database like MySQL or PostgreSQL, read
 the "Setup an external database" section to set it up.
-_____________________________________________________________________________________________________________________________________
+====
 
-________________________________________________________________________________________________________________________________________
-_Note_: If you want to run OFBiz without an internet connection, read the
+[NOTE]
+====
+If you want to run OFBiz without an internet connection, read the
 "Running gradle tasks without an internet connection" section.
-________________________________________________________________________________________________________________________________________
+====
 
-__________________________________________________________________________________________________________________________________________
-_Note_: The directory structure and repositories have changed. For more
+[NOTE]
+====
+The directory structure and repositories have changed. For more
 information read the "Repository and directory structure" section.
-__________________________________________________________________________________________________________________________________________
+====
+[NOTE]
+====
+If you are in China you may encounter network issues or proxy settings. That's of course unrelated to OFBiz.
+====
 
 [[system-requirements]]
 == System requirements
