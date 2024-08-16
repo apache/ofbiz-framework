@@ -653,6 +653,7 @@ under the License.
     </request-map>
 
     <request-map uri="setDesiredAlternateGwpProductId">
+        <security https="false" auth="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setDesiredAlternateGwpProductId"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
@@ -673,6 +674,7 @@ under the License.
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="quickadd">
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="quickadd"/>
     </request-map>
 
@@ -770,19 +772,19 @@ under the License.
     <!-- For checkout steps that use finalizeOrder: This request chain is for calculating shipping & tax before getting to the payments page, so that the visitor
         will know the full shipping & tax charges when trying to split payments between various payment methods -->
     <request-map uri="calcShippingBeforePayment">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
         <response name="success" type="request" value="calcTaxBeforePayment"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="calcTaxBeforePayment">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
         <response name="success" type="request" value="validatePaymentMethodsBeforePayment"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="validatePaymentMethodsBeforePayment">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkPaymentMethods"/>
         <response name="success" type="view" value="billsetting"/>
         <response name="error" type="request" value="orderentry"/>
@@ -885,13 +887,13 @@ under the License.
     </request-map>
 
     <request-map uri="calcShipping">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
         <response name="success" type="request" value="calcTax"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="calcTax">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="calcTax"/>
         <response name="success" type="view" value="confirm"/>
         <response name="error" type="request" value="orderentry"/>
@@ -1003,20 +1005,20 @@ under the License.
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="checkDenyList">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkOrderDenylist"/>
         <response name="success" type="request" value="processpayment"/>
         <response name="failed" type="request" value="failedDenylist"/>
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="failedDenylist">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="failedDenylistCheck"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="processpayment">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" invoke="processPayment"/>
         <response name="success" type="request" value="clearcart"/>
         <response name="fail" type="view" value="confirm"/>
@@ -1029,7 +1031,7 @@ under the License.
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="clearpocart">
-        <security https="true" direct-request="false"/>
+        <security https="true" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="destroyCart"/>
         <response name="success" type="request-redirect" value="orderview">
             <redirect-parameter name="orderId"/>
@@ -1037,7 +1039,7 @@ under the License.
         <response name="error" type="view" value="confirm"/>
     </request-map>
     <request-map uri="emailorder">
-        <security https="true" direct-request="false"/>
+        <security https="true" auth="false" direct-request="false"/>
         <event type="service" path="async" invoke="sendOrderConfirmation"/>
         <response name="success" type="request-redirect" value="orderview">
             <redirect-parameter name="orderId"/>
@@ -2020,7 +2022,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
 
-    <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#Main"/>
+    <view-map name="main" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#Main" auth="false"/>
 
     <view-map name="orderstats" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderStats"/>
     <view-map name="findorders" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderFindOrder"/>
@@ -2037,7 +2039,7 @@ under the License.
 
 
     <view-map name="survey" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#survey"/>
-    <view-map name="showcart" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#ShowCart"/>
+    <view-map name="showcart" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#ShowCart" auth="false"/>
     <view-map name="checkinits" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#CheckInits"/>
     <view-map name="orderagreements" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#OrderAgreements"/>
     <view-map name="viewshoppinglists" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#ViewShoppingLists"/>
@@ -2055,7 +2057,7 @@ under the License.
     <view-map name="category" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#category"/>
     <view-map name="product" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#product"/>
     <view-map name="compareProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#compareProducts"/>
-    <view-map name="quickadd" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickadd"/>
+    <view-map name="quickadd" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickadd" auth="false"/>
     <view-map name="AddGiftCertificate" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#AddGiftCertificate"/>
 
     <view-map name="custsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#CustSettings"/>
@@ -2063,9 +2065,9 @@ under the License.
     <view-map name="EditShipAddress" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#EditShipAddress"/>
     <view-map name="SetItemShipGroups" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#SetItemShipGroups"/>
     <view-map name="optionsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#OptionSettings"/>
-    <view-map name="billsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#BillSettings"/>
-    <view-map name="confirm" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ConfirmOrder"/>
-    <view-map name="ordercomplete" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderView"/>
+    <view-map name="billsetting" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#BillSettings" auth="false"/>
+    <view-map name="confirm" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#ConfirmOrder" auth="false"/>
+    <view-map name="ordercomplete" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderView" auth="false"/>
     <view-map name="orderTerm" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#OrderTerms"/>
     <view-map name="setAdditionalParty" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#SetAdditionalParty"/>
 
