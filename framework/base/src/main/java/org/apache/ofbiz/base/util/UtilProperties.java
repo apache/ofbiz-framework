@@ -287,7 +287,7 @@ public final class UtilProperties implements Serializable {
         } catch (Exception e) {
             Debug.logInfo(e, MODULE);
         }
-        return value == null ? "" : value.trim();
+        return value == null ? "" : getEnvironmentProperty(value.trim());
     }
 
     /**
@@ -1010,6 +1010,46 @@ public final class UtilProperties implements Serializable {
             }
         }
         return properties;
+    }
+
+    /**
+     * Resolve a property to check if it contains an environment variable
+     * represented by ${env:ENV_VARIABLE:DEFAULT_VALUE}
+     * @param env : map that contains available env variables
+     * @param value : the property to resolve
+     * @return resolved value
+     */
+    public static String getEnvironmentProperty(Map<String, String> env, String value) {
+        if (value != null) {
+            if (value.startsWith("${env:") && value.endsWith("}")) {
+                String envNameWithDefault = value.substring(6, value.length() - 1);
+                String environmentName = envNameWithDefault;
+                String defaultValue = null;
+                if (envNameWithDefault.contains(":")) {
+                    environmentName = envNameWithDefault.substring(0, envNameWithDefault.indexOf(":"));
+                    defaultValue = envNameWithDefault.substring(envNameWithDefault.indexOf(":") + 1);
+                }
+                String environmentValue = env.get(environmentName);
+                if (environmentValue != null) {
+                    return environmentValue;
+                }
+                if (defaultValue != null) {
+                    return defaultValue;
+                }
+                return "";
+            }
+        }
+        return value;
+    }
+
+    /**
+     * Resolve a property to check if it contains an environment variable
+     * represented by ${env:ENV_VARIABLE:DEFAULT_VALUE}
+     * @param value : the property to resolve
+     * @return resolved value
+     */
+    public static String getEnvironmentProperty(String value) {
+        return getEnvironmentProperty(System.getenv(), value);
     }
 
     /** Custom ResourceBundle class. This class extends ResourceBundle

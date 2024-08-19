@@ -19,6 +19,7 @@
 package org.apache.ofbiz.service.config.model;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.service.config.ServiceConfigException;
 import org.w3c.dom.Element;
 
@@ -37,7 +38,7 @@ public final class Parameter {
             throw new ServiceConfigException("<parameter> element name attribute is empty");
         }
         this.name = name;
-        String value = parameterElement.getAttribute("value").intern();
+        String value = UtilProperties.getEnvironmentProperty(parameterElement.getAttribute("value").intern());
         if (value.isEmpty()) {
             throw new ServiceConfigException("<parameter> element value attribute is empty");
         }
