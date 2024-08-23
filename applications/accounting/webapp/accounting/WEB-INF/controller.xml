@@ -2630,7 +2630,7 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://accounting/widget/CommonScreens.xml#main"/>
+    <view-map name="main" type="screen" page="component://accounting/widget/CommonScreens.xml#main" auth="false"/>
 
     <!-- BillingAccount -->
     <view-map name="FindBillingAccount" type="screen" page="component://accounting/widget/BillingAccountScreens.xml#FindBillingAccount"/>
