@@ -159,7 +159,7 @@ public class ConfigXMLReader {
         }
     }
 
-    /** Loads the XML file and returns the root element 
+    /** Loads the XML file and returns the root element
      * @throws WebAppConfigurationException */
     private static Element loadDocument(URL location) throws WebAppConfigurationException {
         try {
@@ -420,7 +420,6 @@ public class ConfigXMLReader {
                 this.viewMapMap.put(viewMap.name, viewMap);
             }
         }
-
     }
 
     public static class Event {
@@ -470,6 +469,15 @@ public class ConfigXMLReader {
         public boolean securityDirectRequest = true;
         public Map<String, RequestResponse> requestResponseMap = new HashMap<String, RequestResponse>();
         public Metrics metrics = null;
+
+        /**
+         * Gets event.
+         * @return the event
+         */
+        public Event getEvent() {
+            return event;
+        }
+
 
         public RequestMap(Element requestMapElement) {
             // Get the URI info
@@ -562,7 +570,6 @@ public class ConfigXMLReader {
     }
 
     public static class ViewMap {
-        public String viewMap;
         public String name;
         public String page;
         public String type;
@@ -573,6 +580,11 @@ public class ConfigXMLReader {
         public String strictTransportSecurity;
         public String description;
         public boolean noCache = false;
+        private boolean securityAuth = false;
+
+        public boolean isSecurityAuth() {
+            return securityAuth;
+        }
 
         public ViewMap(Element viewMapElement) {
             this.name = viewMapElement.getAttribute("name");
@@ -581,6 +593,7 @@ public class ConfigXMLReader {
             this.info = viewMapElement.getAttribute("info");
             this.contentType = viewMapElement.getAttribute("content-type");
             this.noCache = "true".equals(viewMapElement.getAttribute("no-cache"));
+            this.securityAuth = "true".equals(viewMapElement.getAttribute("auth"));
             this.encoding = viewMapElement.getAttribute("encoding");
             this.xFrameOption = viewMapElement.getAttribute("x-frame-options");
             this.strictTransportSecurity = viewMapElement.getAttribute("strict-transport-security");
