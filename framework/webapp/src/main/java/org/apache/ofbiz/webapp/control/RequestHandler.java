@@ -1013,8 +1013,8 @@ public class RequestHandler {
         }
 
         // Perform security check.
-        if (viewMap.isSecurityAuth() && UtilValidate.isEmpty(userLogin)) {
-            ConfigXMLReader.Event checkLoginEvent = ccfg.getRequestMapMap().get("checkLogin").get(0).getEvent();
+        if (viewMap.securityAuth && UtilValidate.isEmpty(userLogin)) {
+            ConfigXMLReader.Event checkLoginEvent = ccfg.getRequestMapMap().getFirst("checkLogin").event;
             String checkLoginReturnString = null;
 
             try {

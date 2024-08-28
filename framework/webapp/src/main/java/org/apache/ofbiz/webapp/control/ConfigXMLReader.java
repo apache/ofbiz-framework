@@ -470,15 +470,6 @@ public class ConfigXMLReader {
         public Map<String, RequestResponse> requestResponseMap = new HashMap<String, RequestResponse>();
         public Metrics metrics = null;
 
-        /**
-         * Gets event.
-         * @return the event
-         */
-        public Event getEvent() {
-            return event;
-        }
-
-
         public RequestMap(Element requestMapElement) {
             // Get the URI info
             this.uri = requestMapElement.getAttribute("uri");
@@ -580,11 +571,7 @@ public class ConfigXMLReader {
         public String strictTransportSecurity;
         public String description;
         public boolean noCache = false;
-        private boolean securityAuth = false;
-
-        public boolean isSecurityAuth() {
-            return securityAuth;
-        }
+        public boolean securityAuth = false;
 
         public ViewMap(Element viewMapElement) {
             this.name = viewMapElement.getAttribute("name");
