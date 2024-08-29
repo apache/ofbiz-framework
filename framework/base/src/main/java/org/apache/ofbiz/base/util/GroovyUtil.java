@@ -152,7 +152,7 @@ public class GroovyUtil {
             Class<?> scriptClass = parsedScripts.get(location);
             if (scriptClass == null) {
                 URL scriptUrl = FlexibleLocation.resolveLocation(location);
-                if (scriptUrl == null) {
+                if (scriptUrl == null || UtilValidate.urlInString(scriptUrl.toString())) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
                 if (groovyScriptClassLoader != null) {
