@@ -129,18 +129,14 @@ public final class RequestHandler {
         Map<String, List<RequestMap>> requestMapMap = ccfg.getRequestMapMultiMap();
         Collection<RequestMap> rmaps = resolveTemplateURI(requestMapMap, req);
         if (rmaps.isEmpty()) {
+            Map<String, ConfigXMLReader.ViewMap> viewMapMap = ccfg.getViewMapMap();
             String defaultRequest = ccfg.getDefaultRequest();
             String path = req.getPathInfo();
             String requestUri = getRequestUri(path);
             String overrideViewUri = getOverrideViewUri(path);
-            boolean allowDirectViewRendering = false;
-            // Ensure that overridden view exists and direct view rendering is allowed.
-            if (UtilValidate.isNotEmpty(overrideViewUri)) {
-                ConfigXMLReader.ViewMap overrideViewMap = ccfg.getViewMapMap().get(overrideViewUri);
-                allowDirectViewRendering = (overrideViewMap != null && overrideViewMap.isAllowDirectViewRendering());
-            }
             if (requestMapMap.containsKey(requestUri)
-                    && (overrideViewUri == null || allowDirectViewRendering
+                    // Ensure that overridden view exists.
+                    && (overrideViewUri == null || viewMapMap.containsKey(overrideViewUri)
                     || ("SOAPService".equals(requestUri) && "wsdl".equalsIgnoreCase(req.getQueryString())))) {
                 rmaps = requestMapMap.get(requestUri);
                 req.setAttribute("overriddenView", overrideViewUri);
@@ -610,13 +606,7 @@ public final class RequestHandler {
         }
 
         // Perform security check.
-        boolean directViewRenderingWithAuth = false;
-        // Check if direct view rendering requires authentication.
-        if (UtilValidate.isNotEmpty(overrideViewUri)) {
-            ConfigXMLReader.ViewMap overrideViewMap = ccfg.getViewMapMap().get(overrideViewUri);
-            directViewRenderingWithAuth = (overrideViewMap != null && overrideViewMap.isDirectViewRenderingWithAuth());
-        }
-        if (requestMap.isSecurityAuth() || directViewRenderingWithAuth) {
+        if (requestMap.isSecurityAuth()) {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
             if (Debug.verboseOn()) {
@@ -639,8 +629,6 @@ public final class RequestHandler {
                 } else {
                     requestMap = ccfg.getRequestMapMap().get("ajaxCheckLogin");
                 }
-                // overrideViewUri needs to be deleted, as there is no authentication
-                overrideViewUri = null;
             }
         } else if (requestUri != null) {
             String[] loginUris = EntityUtilProperties.getPropertyValue("security", "login.uris", delegator).split(",");
@@ -1205,6 +1193,22 @@ public final class RequestHandler {
         ConfigXMLReader.ViewMap viewMap = (view == null) ? null : getControllerConfig().getViewMapMap().get(view);
         if (viewMap == null) {
             throw new RequestHandlerException("No definition found for view with name [" + view + "]");
+        }
+
+        // Perform security check.
+        if (viewMap.isSecurityAuth() && UtilValidate.isEmpty(userLogin)) {
+            ConfigXMLReader.Event checkLoginEvent = ccfg.getRequestMapMap().get("checkLogin").getEvent();
+            String checkLoginReturnString = null;
+
+            try {
+                checkLoginReturnString = this.runEvent(req, resp, checkLoginEvent, null, "security-auth");
+            } catch (EventHandlerException e) {
+                throw new RequestHandlerException(e.getMessage(), e);
+            }
+
+            if (!"success".equalsIgnoreCase(checkLoginReturnString)) {
+                throw new RequestHandlerException("An active login is required for view with name [" + view + "]");
+            }
         }
 
         String nextPage;

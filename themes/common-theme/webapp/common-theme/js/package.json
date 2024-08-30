@@ -10,12 +10,12 @@
         "flot": "^4.2.6",
         "inputmask": "^5.0.9",
         "jquery": "^3.7.1",
-        "jquery-migrate": "^3.4.1",
+        "jquery-migrate": "^3.5.2",
         "jquery-ui-dist": "^1.13.3",
-        "jquery-validation": "^1.20.0",
+        "jquery-validation": "^1.21.0",
         "jquery.browser": "^0.1.0",
         "trumbowyg": "^2.28.0",
-        "uglify-js": "3.18.0"
+        "uglify-js": "3.19.2"
     },
     "scripts": {
         "uglify": "uglifyjs node_modules/flot/dist/es5/jquery.flot.js -c -m -o node_modules/flot/dist/es5/jquery.flot.min.js"

@@ -63,9 +63,6 @@ Map getNextQuoteId() {
     String customMethodName
     if (customMethod?.customMethodName) {
         customMethodName = customMethod.customMethodName
-    } else if (partyAcctgPreference?.oldQuoteSequenceEnumId == 'QTESQ_ENF_SEQ') {
-        // Retrieve service from deprecated enumeration
-        customMethodName = 'quoteSequenceEnforced'
     }
 
     String quoteId

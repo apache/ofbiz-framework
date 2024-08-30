@@ -284,7 +284,7 @@ No changes
 |OrderItemShipGroup |estimatedShipDate |Added |No |NA
 |OrderItemShipGroup |estimatedDeliveryDate |Added |No |NA
 |OrderItemShipGrpInvRes |priority |Added |No |NA
-|OrderItemShipGrpInvRes |oldPickStartDate |Added |No |NA
+|OrderItemShipGrpInvRes |oldPickStartDate |Removed |No |NA
 |OrderItemTypeAttr |description |Added |No |NA
 |OrderTermAttribute |attrDescription |Added |No |NA
 |OrderPaymentPreference |track2 |Added |No |NA
@@ -296,9 +296,9 @@ No changes
 |PartyAcctgPreference |orderSequenceEnumId |Removed |No |NA
 |PartyAcctgPreference |quoteSequenceEnumId |Removed |No |NA
 |PartyAcctgPreference |invoiceSequenceEnumId |Removed |No |NA
-|PartyAcctgPreference |oldOrderSequenceEnumId |Added |No |NA
-|PartyAcctgPreference |oldQuoteSequenceEnumId |Added |No |NA
-|PartyAcctgPreference |oldInvoiceSequenceEnumId |Added |No |NA
+|PartyAcctgPreference |oldOrderSequenceEnumId |Removed |No |NA
+|PartyAcctgPreference |oldQuoteSequenceEnumId |Removed |No |NA
+|PartyAcctgPreference |oldInvoiceSequenceEnumId |Removed |No |NA
 |PartyAcctgPreference |orderSeqCustMethId |Added |No |NA
 |PartyQual |infoString |Removed |No |NA
 |PartyQual |institutionInternalId |Removed |No |NA

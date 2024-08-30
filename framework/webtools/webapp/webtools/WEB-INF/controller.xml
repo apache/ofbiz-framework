@@ -99,13 +99,16 @@ under the License.
         <response name="success" type="none"/>
     </request-map> -->
     <request-map uri="ping">
-        <security auth="true"/>
+        <security https="false" auth="true"/>
         <event type="service" invoke="ping"/>
         <response name="error" type="view" value="ping"/>
         <response name="success" type="view" value="ping"/>
     </request-map>
 
-    <request-map uri="showDateTime"><response name="success" type="view" value="showDateTime"/></request-map>
+    <request-map uri="showDateTime">
+        <security auth="false" https="false"/>
+        <response name="success" type="view" value="showDateTime"/>
+    </request-map>
     <request-map uri="secureCertDateTime">
         <security auth="false" https="true" cert="true"/>
         <response name="success" type="view" value="showDateTime"/>
@@ -116,17 +119,20 @@ under the License.
     </request-map>
 
     <request-map uri="TestService">
+        <security https="false" auth="false"/>
         <event type="service" invoke="testScv"/>
         <response name="error" type="view" value="error"/>
         <response name="success" type="view" value="error"/>
     </request-map>
     <request-map uri="streamTest">
+        <security https="false" auth="false"/>
         <event type="service-stream" invoke="serviceStreamTest"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
 
     <request-map uri="yahoo">
+        <security https="false" auth="false"/>
         <response name="success" type="url" value="http://www.yahoo.com"/>
     </request-map>
 
@@ -135,6 +141,7 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
     <request-map uri="chain">
+        <security https="false" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
         <response name="error" type="view" value="error"/>
@@ -563,7 +570,7 @@ under the License.
 
     <!-- cert requests -->
     <request-map uri="myCertificates">
-        <security https="true"/>
+        <security https="true" auth="false"/>
         <response name="success" type="view" value="viewbrowsercerts"/>
     </request-map>
 
@@ -631,9 +638,9 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://webtools/widget/CommonScreens.xml#main"/>
+    <view-map name="main" type="screen" page="component://webtools/widget/CommonScreens.xml#main" auth="false"/>
     <view-map name="ping" type="ftl" page="component://webtools/template/Ping.ftl"/>
-    <view-map name="showDateTime" type="ftl" page="component://webtools/template/ShowDateTime.ftl"/>
+    <view-map name="showDateTime" type="ftl" page="component://webtools/template/ShowDateTime.ftl" auth="false"/>
 
     <view-map name="entityref" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRef"/>
     <view-map name="entityref_list" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefList"/>
@@ -704,7 +711,7 @@ under the License.
     <view-map name="EntityImportReaders" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders"/>
 
     <!-- cert views -->
-    <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/>
+    <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts" auth="false"/>
 
     <!-- Artifact Info Views -->
     <view-map name="ViewComponents" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ViewComponents"/>

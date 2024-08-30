@@ -1044,8 +1044,7 @@ public final class ConfigXMLReader {
         private String strictTransportSecurity;
         private String description;
         private boolean noCache = false;
-        private boolean allowDirectViewRendering = false;
-        private boolean directViewRenderingWithAuth = false;
+        private boolean securityAuth = false;
 
         /**
          * Gets name.
@@ -1123,21 +1122,11 @@ public final class ConfigXMLReader {
         }
 
         /**
-         * allow direct view rendering boolean
-         *
+         * Is securityAuth boolean.
          * @return the boolean
          */
-        public boolean isAllowDirectViewRendering() {
-            return this.allowDirectViewRendering;
-        }
-
-        /**
-         * direct view rendering with authentication boolean
-         *
-         * @return the boolean
-         */
-        public boolean isDirectViewRenderingWithAuth() {
-            return this.directViewRenderingWithAuth;
+        public boolean isSecurityAuth() {
+            return securityAuth;
         }
 
         /**
@@ -1155,8 +1144,7 @@ public final class ConfigXMLReader {
             this.info = viewMapElement.getAttribute("info");
             this.contentType = viewMapElement.getAttribute("content-type");
             this.noCache = "true".equals(viewMapElement.getAttribute("no-cache"));
-            this.allowDirectViewRendering = "true".equals(viewMapElement.getAttribute("allow-direct-view-rendering"));
-            this.directViewRenderingWithAuth = "true".equals(viewMapElement.getAttribute("direct-view-rendering-with-auth"));
+            this.securityAuth = "true".equals(viewMapElement.getAttribute("auth"));
             this.encoding = viewMapElement.getAttribute("encoding");
             this.xFrameOption = viewMapElement.getAttribute("x-frame-options");
             this.strictTransportSecurity = viewMapElement.getAttribute("strict-transport-security");
