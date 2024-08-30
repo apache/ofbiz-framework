@@ -15,7 +15,7 @@
         "jquery-validation": "^1.21.0",
         "jquery.browser": "^0.1.0",
         "trumbowyg": "^2.28.0",
-        "uglify-js": "3.19.2"
+        "uglify-js": "3.19.3"
     },
     "scripts": {
         "uglify": "uglifyjs node_modules/flot/dist/es5/jquery.flot.js -c -m -o node_modules/flot/dist/es5/jquery.flot.min.js"
