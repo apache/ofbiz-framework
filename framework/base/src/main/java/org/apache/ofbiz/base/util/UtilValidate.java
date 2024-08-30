@@ -757,18 +757,6 @@ public final class UtilValidate {
     }
 
     /**
-     * URLInString returns true if the string contains :// and not "component://"
-     * @param s String to validate
-     * @return true if s contains :// and not "component://"
-     */
-    public static boolean URLInString(String s) {
-        if (isEmpty(s) || s.contains("component://")) {
-            return false;
-        }
-        return s.indexOf("://") != -1;
-    }
-
-    /**
      * urlInString returns true if the string contains :// and not "component://"
      * @param s String to validate
      * @return true if s contains :// and not "component://"
