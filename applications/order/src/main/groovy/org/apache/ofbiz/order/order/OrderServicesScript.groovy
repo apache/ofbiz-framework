@@ -44,8 +44,6 @@ Map getNextOrderId() {
 
     if (customMethod) {
         customMethodName = customMethod.customMethodName
-    } else if (partyAcctgPreference && partyAcctgPreference.oldOrderSequenceEnumId == 'ODRSQ_ENF_SEQ') {
-        customMethodName = 'orderSequence_enforced'
     }
 
     String orderIdTemp

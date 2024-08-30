@@ -1010,7 +1010,6 @@ under the License.
       <field name="currentPromisedDate" type="date-time"></field>
       <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
       <field name="sequenceId" type="numeric"></field>
-      <field name="oldPickStartDate" col-name="PICK_START_DATE" type="date-time"></field> <!-- this is no longer used and is here for migration or whatever if needed -->
       <prim-key field="orderId"/>
       <prim-key field="shipGroupSeqId"/>
       <prim-key field="orderItemSeqId"/>

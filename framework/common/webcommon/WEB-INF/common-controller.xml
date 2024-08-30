@@ -182,14 +182,17 @@ under the License.
     </request-map>
 
     <request-map uri="main">
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="main"/>
     </request-map>
 
     <request-map uri="viewBlocked">
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="viewBlocked"/>
     </request-map>
 
     <request-map uri="LookupTimeDuration">
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="LookupTimeDuration"/>
     </request-map>
 
@@ -206,7 +209,7 @@ under the License.
     <!-- Common json response events, chain these after events to send json responses -->
     <!-- Standard json response, For security reason (OFBIZ-5409) tries to keep only the initially called service attributes -->
     <request-map uri="json">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
         <response name="success" type="none"/>
     </request-map>
@@ -245,7 +248,7 @@ under the License.
         <response name="error" type="request" value="js"/>
     </request-map>
     <request-map uri="js">
-        <security direct-request="false"/>
+        <security https="false" auth="false" direct-request="false"/>
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsResponseFromRequest"/>
         <response name="success" type="none"/>
     </request-map>
@@ -339,33 +342,32 @@ under the License.
     <!--========================== AJAX events =====================-->
 
     <!-- View Mappings -->
-    <view-map name="error" type="ftl" page="component://common/webcommon/error/Error.ftl"/>
-    <view-map name="main" type="none"/>
-    <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
+    <view-map name="error" type="ftl" page="component://common/webcommon/error/Error.ftl" auth="false"/>
+    <view-map name="main" type="none" auth="false"/>
+    <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login" auth="false"/>
     <view-map name="impersonated" type="screen" page="component://common/widget/CommonScreens.xml#impersonated"/>
-    <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn"/>
+    <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn" auth="false"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
-    <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>
-    <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>
+    <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword" auth="false"/>
+    <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages" auth="false"/>
 
-    <view-map name="ListLocales" type="screen" page="component://common/widget/LookupScreens.xml#ListLocales"/>
-    <view-map name="ListSetCompanies" type="screen" page="component://common/widget/LookupScreens.xml#ListSetCompanies"/>
-    <view-map name="LookupTimeDuration" type="screen" page="component://common/widget/LookupScreens.xml#TimeDuration"/>
+    <view-map name="ListLocales" type="screen" page="component://common/widget/LookupScreens.xml#ListLocales" auth="false"/>
+    <view-map name="ListSetCompanies" type="screen" page="component://common/widget/LookupScreens.xml#ListSetCompanies" auth="false"/>
+    <view-map name="LookupTimeDuration" type="screen" page="component://common/widget/LookupScreens.xml#TimeDuration" auth="false"/>
     <view-map name="ListTimezones" type="screen" page="component://common/widget/LookupScreens.xml#ListTimezones"/>
     <view-map name="ListVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#ListVisualThemes"/>
 
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
 
     <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
-    <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp"/>
-    <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument"/>
+    <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp" auth="false"/>
+    <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument" auth="false"/>
 
-    <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
+    <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked" auth="false"/>
 
     <view-map name="LookupGeo" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeo"/>
     <view-map name="LookupGeoName" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeoName"/>
     <view-map name="LookupLocale" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocale"/>
-    <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>
-    <view-map name="GetUiLabels" type="screentext" page="component://common/widget/CommonScreens.xml#GetUiLabels" content-type="application/json"/>
+    <view-map name="GetUiLabels" type="screentext" page="component://common/widget/CommonScreens.xml#GetUiLabels" auth="false" content-type="application/json"/>
 
 </site-conf>

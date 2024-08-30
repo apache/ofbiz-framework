@@ -267,14 +267,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.security">
-        <xs:attribute type="xs:boolean" name="https" default="false">
+        <xs:attribute type="xs:boolean" name="https" default="true">
             <xs:annotation>
                 <xs:documentation>
                     If https=true, redirect to/use/generate the secured HTTPS protocol if necessary and possible.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="auth" default="false">
+        <xs:attribute type="xs:boolean" name="auth" default="true">
             <xs:annotation>
                 <xs:documentation>
                     If auth=true, when you hit the request if you are not logged in you will be forwarded to the login page.
@@ -773,6 +773,14 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Send no-cache headers if set to true.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="auth" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If auth=true, RequestHandler.renderView requires an active login to access the view-map.
+                    If direct-view-rendering-with-auth=false, no active login is required.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
