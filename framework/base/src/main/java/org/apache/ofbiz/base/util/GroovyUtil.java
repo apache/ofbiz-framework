@@ -189,7 +189,7 @@ public final class GroovyUtil {
 
     /**
      * Parses a Groovy class from a text.
-     * @param flexible string to parse
+     * @param text as flexible string to parse
      * @return the corresponding class object
      * @throws IOException when parsing fails
      */
