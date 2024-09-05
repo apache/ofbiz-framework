@@ -187,11 +187,21 @@ public final class GroovyUtil {
         }
     }
 
+    /**
+     * Parses a Groovy class from a text.
+     * @param flexible string to parse
+     * @return the corresponding class object
+     * @throws IOException when parsing fails
+     */
     public static Class<?> parseClass(String text) throws IOException {
-        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
-        Class<?> classLoader = groovyClassLoader.parseClass(text);
-        groovyClassLoader.close();
-        return classLoader;
+        if (GROOVY_CLASS_LOADER != null) {
+            return GROOVY_CLASS_LOADER.parseClass(text);
+        } else {
+            GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+            Class<?> classLoader = GROOVY_CLASS_LOADER.parseClass(text);
+            groovyClassLoader.close();
+            return classLoader;
+        }
     }
 
     /**
