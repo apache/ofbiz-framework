@@ -638,7 +638,7 @@ public final class UtilValidate {
      * @return true if s contains :// and not "component://"
      */
     public static boolean urlInString(String s) {
-        if (isEmpty(s) || s.contains("component://")) {
+        if (isEmpty(s) || s.startsWith("component://")) {
             return false;
         }
         return s.indexOf("://") != -1;
