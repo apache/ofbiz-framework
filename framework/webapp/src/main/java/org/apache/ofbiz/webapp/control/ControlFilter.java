@@ -134,17 +134,19 @@ public class ControlFilter implements Filter {
             String requestUri = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
             // Reject wrong URLs
-            try {
-                String url = new URI(((HttpServletRequest) request).getRequestURL().toString())
-                        .normalize().toString()
-                        .replaceAll(";", "")
-                        .replaceAll("(?i)%2e", "");
-                if (!((HttpServletRequest) request).getRequestURL().toString().equals(url)) {
-                    Debug.logError("For security reason this URL is not accepted", module);
-                    throw new RuntimeException("For security reason this URL is not accepted");
+            if (!requestUri.matches("/control/logout;jsessionid=[A-Z0-9]{32}\\.jvm1")) {
+                try {
+                    String url = new URI(((HttpServletRequest) request).getRequestURL().toString())
+                            .normalize().toString()
+                            .replaceAll(";", "")
+                            .replaceAll("(?i)%2e", "");
+                    if (!((HttpServletRequest) request).getRequestURL().toString().equals(url)) {
+                        Debug.logError("For security reason this URL is not accepted", module);
+                        throw new RuntimeException("For security reason this URL is not accepted");
+                    }
+                } catch (URISyntaxException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
             }
 
             int offset = requestUri.indexOf("/", 1);
