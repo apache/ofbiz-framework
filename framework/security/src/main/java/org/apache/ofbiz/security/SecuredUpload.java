@@ -251,7 +251,7 @@ public class SecuredUpload {
                         + "and an Excel file to CSV. For other file types try PDF.", MODULE);
                 return false;
             }
-            if (!checkMaxLinesLength(fileToCheck)) {
+            if (!fileType.equalsIgnoreCase("Image") && !checkMaxLinesLength(fileToCheck)) {
                 Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
                 return false;
             }
