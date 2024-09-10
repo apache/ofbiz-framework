@@ -25,7 +25,7 @@ under the License.
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
     <description>Party Manager Module Site Configuration File</description>
-    
+
     <handler name="simplecontent" type="view" class="org.apache.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -42,7 +42,7 @@ under the License.
 
     <!-- Request Mappings -->
     <request-map uri="view"><security https="true" auth="true"/><response name="success" type="request" value="main"/></request-map>
-    
+
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
 
     <request-map uri="viewprofile">
@@ -674,7 +674,7 @@ under the License.
     <request-map uri="findVisits"><security https="true" auth="true"/><response name="success" type="view" value="findVisits"/></request-map>
     <request-map uri="visitdetail"><security https="true" auth="true"/><response name="success" type="view" value="visitdetail"/></request-map>
     <request-map uri="listLoggedInUsers"><security https="true" auth="true"/><response name="success" type="view" value="listLoggedInUsers"/></request-map>
-    
+
     <!-- communication event requests -->
     <request-map uri="setCommunicationEventRoleStatus">
         <security https="true" auth="true"/>
@@ -1157,7 +1157,7 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-    
+
     <!-- Billing Account requests -->
     <request-map uri="EditBillingAccount">
         <security https="true" auth="true"/>
@@ -1321,7 +1321,7 @@ under the License.
         <response name="success" type="view" value="PartyGeoLocation"/>
         <response name="error" type="view" value="PartyGeoLocation"/>
     </request-map>
-    
+
     <!-- ProductStoreRole -->
     <request-map uri="ViewProductStoreRoles">
         <security https="true" auth="true"/>
@@ -1405,6 +1405,13 @@ under the License.
     <request-map uri="ProfileEditUserLoginSecurityGroups">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProfileEditUserLoginSecurityGroups"/>
+    </request-map>
+
+    <request-map uri="setCustRequestStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setCustRequestStatus"/>
+        <response name="success" type="view-home" value="FindRequest"/>
+        <response name="error" type="view" value="EditRequest"/>
     </request-map>
 
     <!-- end of request mappings -->
@@ -1539,7 +1546,7 @@ under the License.
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
     <view-map name="UpdateCommReturns" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommReturns"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
- 
+
     <view-map name="ViewProductStoreRoles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ViewProductStoreRoles"/>
 
     <!-- Billing Account-->
