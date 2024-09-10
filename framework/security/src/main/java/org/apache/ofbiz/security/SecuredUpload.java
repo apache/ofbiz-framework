@@ -243,6 +243,11 @@ public class SecuredUpload {
          https://www.cvedetails.com/vulnerability-list/vendor_id-26/product_id-529/Microsoft-Word.html
          https://www.cvedetails.com/version-list/26/410/1/Microsoft-Excel.html
          You name it...
+         Also, the file may have been created using another charset than the one used to read it (default to OS' one).
+         I remember having searched bout that. But even
+         http://illegalargumentexception.blogspot.com/2009/05/java-rough-guide-to-character-encoding.html#javaencoding_autodetect
+         is not a 100% solution.
+         So even for text files it can be a problem and according to above there is no complete solution.
         */
         if (!isPdfFile(fileToCheck)) {
             if (getMimeTypeFromFileName(fileToCheck).equals("application/x-tika-msoffice")) {
@@ -251,7 +256,7 @@ public class SecuredUpload {
                         + "and an Excel file to CSV. For other file types try PDF.", MODULE);
                 return false;
             }
-            if (!checkMaxLinesLength(fileToCheck)) {
+            if (!isValidImageIncludingSvgFile(fileToCheck) && !checkMaxLinesLength(fileToCheck)) {
                 Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
                 return false;
             }
