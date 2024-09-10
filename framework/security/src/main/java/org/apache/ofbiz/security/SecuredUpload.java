@@ -207,7 +207,13 @@ public class SecuredUpload {
         // PDF files are not concerned because they may contain several CharSet encodings
         // hence no possibility to use Files::readAllLines that needs a sole CharSet
         if (!isPdfFile(fileToCheck)) {
-            if (!checkMaxLinesLength(fileToCheck)) {
+            if (getMimeTypeFromFileName(fileToCheck).equals("application/x-tika-msoffice")) {
+                Debug.logError("File : " + fileToCheck + ", is a MS Office file."
+                        + " It can't be uploaded for security reason. Try to transform a Word file to PDF, "
+                        + "and an Excel file to CSV. For other file types try PDF.", MODULE);
+                return false;
+            }
+            if (!isValidImageIncludingSvgFile(fileToCheck) && !checkMaxLinesLength(fileToCheck)) {
                 Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
                 return false;
             }
