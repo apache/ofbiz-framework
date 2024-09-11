@@ -54,7 +54,12 @@ function uploadCompleted(){
     // to the page partyContentList
     jQuery("#partyContentList").html(iframePartyContentList);
 
-    jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonCompleted);
+    // Explanation in case of rejected file
+    jQuery('#progressBarSavingMsg').html("If you don't see your file in Party Content list above, it has been rejected for security reason. Check the log.");
+
+    // Remove explanation in case of rejected file
+    setTimeout(() => { jQuery('#progressBarSavingMsg').hide(); }, 7000);
+
     // reset progressbar
     jQuery("#progress_bar").progressbar("option", "value", 0);
 
