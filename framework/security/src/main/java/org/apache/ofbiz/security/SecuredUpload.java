@@ -288,7 +288,7 @@ public class SecuredUpload {
                     || isValidCompressedFile(fileToCheck, delegator)
                     || isValidAudioFile(fileToCheck)
                     || isValidVideoFile(fileToCheck)
-                    || isValidPdfFile(fileToCheck)
+                    || isPdfFile(fileToCheck) && isValidPdfFile(fileToCheck)
                     || isValidCsvFile(fileToCheck)) {
                 return true;
             }
