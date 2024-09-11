@@ -40,7 +40,7 @@ name: Build and push docker images
 
 on:
   push:
-    branches: [ trunk ]
+    branches: [ release24.09 ]
     tags:
       - '**'
 
