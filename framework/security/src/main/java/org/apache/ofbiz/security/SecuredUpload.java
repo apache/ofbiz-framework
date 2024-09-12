@@ -331,7 +331,7 @@ public class SecuredUpload {
                     || isValidCompressedFile(fileToCheck, delegator)
                     || isValidAudioFile(fileToCheck)
                     || isValidVideoFile(fileToCheck)
-                    || isPdfFile(fileToCheck) && isValidPdfFile(fileToCheck)
+                    || isValidPdfFile(fileToCheck)
                     || isValidCsvFile(fileToCheck)) {
                 return true;
             }
@@ -501,6 +501,7 @@ public class SecuredUpload {
             new PdfReader(file.getAbsolutePath()); // Just a check
             return true;
         } catch (Exception e) {
+            // If it's not a PDF then exception will be thrown and return will be false
             return false;
         }
     }
@@ -510,6 +511,9 @@ public class SecuredUpload {
      * @return true if it's a safe PDF file: is a PDF, and contains only 1 embedded readable (valid and secure) XML file (zUGFeRD)
      */
     private static boolean isValidPdfFile(String fileName) {
+        if (!isPdfFile(fileName)) {
+            return false;
+        }
         File file = new File(fileName);
         boolean safeState = false;
         boolean canParseZUGFeRD = true;
@@ -518,7 +522,6 @@ public class SecuredUpload {
                 return safeState;
             }
             // Load stream in PDF parser
-            // If the stream is not a PDF then exception will be thrown and safe state will be set to FALSE
             PdfReader reader = new PdfReader(file.getAbsolutePath());
             // Check 1: detect if the document contains any JavaScript code
             String jsCode = reader.getJavaScript();
