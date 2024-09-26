@@ -19,7 +19,6 @@ package org.apache.ofbiz.base.util;
 
 import java.util.Collection;
 import java.util.Map;
-
 import org.apache.ofbiz.base.lang.ThreadSafe;
 
 /** Basic assertions. The static methods in this class provide a convenient way

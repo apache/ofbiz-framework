@@ -23,9 +23,9 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.ofbiz.base.util.Assert;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ofbiz.base.util.Assert;
 
 /** A JSON object. */
 @ThreadSafe
