@@ -61,7 +61,7 @@ under the License.
                 <set field="tabButtonItem" value="RunMrp"/>
                 <set field="helpAnchor" value="_run_mrp"/>
                 <set field="headerItem" value="mrp"/>
-                <set field="eventMessage" value="${groovy: org.apache.ofbiz.base.util.UtilProperties.getMessage('ManufacturingUiLabels', 'ManufacturingMrpRunScheduledSuccessfully', locale)}"/>
+                <set field="eventMessage" value="${groovy: label('ManufacturingUiLabels','ManufacturingMrpRunScheduledSuccessfully')}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
