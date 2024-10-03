@@ -1,3 +1,4 @@
+<#ftl output_format="plainText">
 <#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -17,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
     <#if entityName?has_content>
-        ${dynamicAutoEntityListForm?string}
+        ${StringUtil.wrapString(dynamicAutoEntityListForm)}
     <#else>
         ${uiLabelMap['genericWebEvent.entity_name_not_specified']}
     </#if>
