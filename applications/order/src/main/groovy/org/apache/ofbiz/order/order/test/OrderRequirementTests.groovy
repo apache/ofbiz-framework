@@ -30,7 +30,7 @@ class OrderRequirementTests extends OFBizTestCase {
     void testCheckCreateProductRequirementForFacility() {
         Map serviceCtx = [
             facilityId: 'WebStoreWarehouse',
-            orderItemSeqId: '00001',
+            defaultRequirementMethodId: 'PRODRQM_STOCK',
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateProductRequirementForFacility', serviceCtx)
@@ -40,6 +40,9 @@ class OrderRequirementTests extends OFBizTestCase {
         Map serviceCtx = [
             orderId: 'TEST_DEMO10090',
             orderItemSeqId: '00001',
+            shipGroupSeqId: '00001',
+            itemIssuanceId: '9006',
+            quantity: '300',
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementQoh', serviceCtx)
@@ -47,9 +50,11 @@ class OrderRequirementTests extends OFBizTestCase {
     }
     void testCheckCreateStockRequirementAtp() {
         Map serviceCtx = [
-            orderId: 'TEST_DEMO10090',
+            orderId: 'TEST_DEMO10091',
             orderItemSeqId: '00001',
             shipGroupSeqId: '00001',
+            inventoryItemId: '9028',
+            quantity: '20',
             userLogin: userLogin
         ]
         Map serviceResult = dispatcher.runSync('checkCreateStockRequirementAtp', serviceCtx)
