@@ -86,8 +86,8 @@ Map checkCreateStockRequirementAtp() {
 }
 
 Map checkCreateStockRequirement(String methodId) {
-    if (!(security.hasEntityPermission("ORDERMGR", "_CREATE", parameters.userLogin))) {
-        return error(UtilProperties.getMessage("OrderErrorUiLabels", "OrderSecurityErrorToRunCheckCreateStockRequirement", parameters.locale))
+    if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement', parameters.locale))
     }
     Map resultMap = success()
 
@@ -95,7 +95,7 @@ Map checkCreateStockRequirement(String methodId) {
     String productId
     String facilityId
     GenericValue inventoryItem
-    BigDecimal quantity = parameters.quantity?:0
+    BigDecimal quantity = parameters.quantity ?: 0
 
     // If the service is triggered by the updateItemIssuance service, get the ItemIssuance by the passed itemIssuanceId
     Map inventoryItemAndRequirementMethodId = getStockRequirementMethod()
@@ -111,7 +111,6 @@ Map checkCreateStockRequirement(String methodId) {
         boolean createRequirement = false
         if (result.productFacility) {
             GenericValue productFacility = result.productFacility
-            BigDecimal currentQuantity = 0
             BigDecimal minimumStock = productFacility.getBigDecimal('minimumStock')
             switch (methodId) {
                 case 'PRODRQM_STOCK': //qoh
@@ -122,7 +121,6 @@ Map checkCreateStockRequirement(String methodId) {
                         /*If this new issuance will cause the quantityOnHandTotal to go below the minimumStock,
                         create a new requirement */
                         if (newQuantityOnHand < productFacility.minimumStock) {
-                            currentQuantity = quantityOnHandTotal
                             createRequirement = true
                         }
                     }
@@ -137,18 +135,17 @@ Map checkCreateStockRequirement(String methodId) {
                         /* If before this reservation the availableToPromiseTotal was over minimumStock,
                         create a new requirement*/
                         if (oldAvailableToPromiseTotal >= minimumStock) {
-                            currentQuantity = availableToPromiseTotal
                             createRequirement = true
                         }
                     }
                     break
             }
             if (createRequirement) {
-                BigDecimal reqQuantity = productFacility.reorderQuantity ?:(quantity?:0)
+                BigDecimal reqQuantity = productFacility.reorderQuantity ?: (quantity ?: 0)
                 Map inputMap = [
-                        productId        : productId,
-                        facilityId       : facilityId,
-                        quantity         : reqQuantity,
+                        productId: productId,
+                        facilityId: facilityId,
+                        quantity: reqQuantity,
                         requirementTypeId: 'PRODUCT_REQUIREMENT'
                 ]
                 result = run service: 'createRequirement', with: inputMap
@@ -162,21 +159,19 @@ Map checkCreateStockRequirement(String methodId) {
     return resultMap
 }
 
-
 Map checkCreateProductRequirementForFacility() {
-    if (!(security.hasEntityPermission("ORDERMGR", "_CREATE", parameters.userLogin))) {
-        return error(UtilProperties.getMessage("OrderErrorUiLabels", "OrderSecurityErrorToRunCheckCreateStockRequirement", parameters.locale))
+    if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
+        return error(UtilProperties.getMessage('OrderErrorUiLabels', 'OrderSecurityErrorToRunCheckCreateStockRequirement', parameters.locale))
     }
     Map resultMap = success()
 
     List<GenericValue> products = from('ProductFacility').where([facilityId: parameters.facilityId]).queryList()
     for (GenericValue productFacility : products) {
         String requirementMethodId = getProductRequirementMethod(productFacility.productId).requirementMethodId
-        if (!requirementMethodId) requirementMethodId = parameters.defaultRequirementMethodId
+        requirementMethodId = requirementMethodId ?: parameters.defaultRequirementMethodId
         if (requirementMethodId) {
             Map result = getProductFacilityAndQuantities(productFacility.productId, productFacility.facilityId)
-            boolean createRequirement = false
-            BigDecimal currentQuantity = 'PRODRQM_STOCK' == requirementMethodId?result.quantityOnHandTotal: result.availableToPromiseTotal
+            BigDecimal currentQuantity = requirementMethodId == 'PRODRQM_STOCK' ? result.quantityOnHandTotal : result.availableToPromiseTotal
             BigDecimal minimumStock = productFacility.getBigDecimal('minimumStock')
             if (minimumStock && currentQuantity < minimumStock) {
                 BigDecimal reqQuantity = productFacility.reorderQuantity ?:0
@@ -184,16 +179,17 @@ Map checkCreateProductRequirementForFacility() {
                 if (reqQuantity < quantityShortfall) {
                     reqQuantity = quantityShortfall
                 }
-                Map inputMap = [productId        : productFacility.productId,
-                                facilityId       : productFacility.facilityId,
-                                quantity         : reqQuantity,
+                Map inputMap = [productId: productFacility.productId,
+                                facilityId: productFacility.facilityId,
+                                quantity: reqQuantity,
                                 requirementTypeId: 'PRODUCT_REQUIREMENT'
                     ]
                 result = run service: 'createRequirement', with: inputMap
                 if (ServiceUtil.isError(result)) {
                     return result
                 }
-                Debug.logInfo("Requirement creted with id [${result.requirementId}] for product with id [${productFacility.productId}]", 'OrderRequirementServiceScript')
+                Debug.logInfo("Requirement creted with id [${result.requirementId}] for product with id [${productFacility.productId}]",
+                     'OrderRequirementServiceScript')
             }
         }
     }
@@ -203,14 +199,16 @@ Map checkCreateProductRequirementForFacility() {
 private Map getStockRequirementMethod() {
     GenericValue inventoryItem = null
     if (parameters.itemIssuanceId) {
-         GenericValue itemIssuance = from('ItemIssuance')
+        GenericValue itemIssuance = from('ItemIssuance')
             .where([itemIssuanceId: parameters.itemIssuanceId])
             .queryOne()
-        inventoryItem = itemIssuance? itemIssuance.getRelatedOne('InventoryItem', true): null
+        inventoryItem = itemIssuance ? itemIssuance.getRelatedOne('InventoryItem', true) : null
     } else {
         inventoryItem = from('InventoryItem').where(parameters).queryOne()
     }
-    if (!inventoryItem) return [requirementMethodId: null, inventoryItem: null]
+    if (!inventoryItem) {
+        return [requirementMethodId: null, inventoryItem: null]
+    }
     String requirementMethodId = getProductRequirementMethod(inventoryItem.productId).requirementMethodId
     return [requirementMethodId: requirementMethodId, inventoryItem: inventoryItem]
 }
@@ -218,13 +216,13 @@ private Map getStockRequirementMethod() {
 private Map getProductFacilityAndQuantities(String productId, String facilityId) {
     // Get the ProductFacility for the minimum stock level
     GenericValue productFacility = from('ProductFacility')
-            .where([productId : productId,
+            .where([productId: productId,
                     facilityId: facilityId])
             .queryOne()
     // Get the product's total quantityOnHand in the facility
     Map resultMap = run service: 'getInventoryAvailableByFacility', with: [
-            *         : parameters,
-            productId : productId,
+            *: parameters,
+            productId: productId,
             facilityId: facilityId
     ]
     if (ServiceUtil.isError(resultMap)) {
