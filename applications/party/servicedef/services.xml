@@ -1114,6 +1114,7 @@ under the License.
     <service name="getPartyPostalAddress" engine="groovy"
         location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="getPartyPostalAddress" auth="false">
         <description>Get the party postal address</description>
+        <auto-attributes entity-name="PostalAddress" mode="OUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="PartyErrorUiLabels" property="PartyRequiredFieldMissingPartyId"/>
@@ -1121,14 +1122,6 @@ under the License.
         </attribute>
         <attribute name="contactMechPurposeTypeId" type="String" mode="INOUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
-        <attribute name="address1" type="String" mode="OUT" optional="true"/>
-        <attribute name="address2" type="String" mode="OUT" optional="true"/>
-        <attribute name="directions" type="String" mode="OUT" optional="true"/>
-        <attribute name="city" type="String" mode="OUT" optional="true"/>
-        <attribute name="postalCode" type="String" mode="OUT" optional="true"/>
-        <attribute name="stateProvinceGeoId" type="String" mode="OUT" optional="true"/>
-        <attribute name="countyGeoId" type="String" mode="OUT" optional="true"/>
-        <attribute name="countryGeoId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="createPartyCarrierAccount" default-entity-name="PartyCarrierAccount" engine="entity-auto" invoke="create" auth="true">
