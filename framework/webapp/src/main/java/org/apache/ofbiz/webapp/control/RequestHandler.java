@@ -395,7 +395,7 @@ public final class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/")) {
+                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/") || path.contains("/getUiLabels")) {
                     // Nested requests related with checkLogin and sendconfirmationmail are OK.
                     // There is nothing to worry about, better remove these wrong errors messages.
                     return;
