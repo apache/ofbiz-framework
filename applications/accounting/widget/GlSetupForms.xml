@@ -159,6 +159,7 @@ under the License.
                 <field-map field-name="organizationPartyId"/>
             </service>
             <set field="aggregatedPartyAcctgPreference" from-field="result.partyAccountingPreference" type="Object"/>
+            <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/PartyPreferenceTooltipLabels.groovy"/>
         </actions>
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
@@ -167,7 +168,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.AccountingOrganizationPartyId}"><display/></field>
         <!-- if there is no partyAcctgPreference yet, then we show drop-downs for the fields and a submit button -->
         <field name="fiscalYearStartMonth" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('fiscalYearStartMonth')!=null)return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${fiscalYearStartMonthTooltip}">
             <drop-down>
                 <option key="1" description="${uiLabelMap.AccountingFiscalMonth01}"/>
                 <option key="2" description="${uiLabelMap.AccountingFiscalMonth02}"/>
@@ -184,7 +185,7 @@ under the License.
             </drop-down>
         </field>
         <field name="fiscalYearStartDay" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('fiscalYearStartDay')!=null)return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${fiscalYearStartDayTooltip}">
             <drop-down>
                 <option key="1"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
                 <option key="6"/><option key="7"/><option key="8"/><option key="9"/><option key="10"/>
@@ -196,8 +197,7 @@ under the License.
             </drop-down>
         </field>
         <field name="taxFormId" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('taxFormId')!=null)return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${taxFormIdTooltip}">
             <drop-down>
                 <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="TAX_FORMS"/>
@@ -206,7 +206,7 @@ under the License.
             </drop-down>
         </field>
         <field name="cogsMethodId" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('cogsMethodId')!=null)return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${cogsMethodIdTooltip}">
             <drop-down>
                 <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="COGS_METHODS"/>
@@ -215,8 +215,7 @@ under the License.
             </drop-down>
         </field>
         <field name="baseCurrencyUomId" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('baseCurrencyUomId')!=null)return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${baseCurrencyUomIdTooltip}">
             <drop-down no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -225,113 +224,77 @@ under the License.
             </drop-down>
         </field>
         <field name="invoiceIdPrefix" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('invoiceIdPrefix')!=null)return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${invoiceIdPrefixTooltip}">
             <text maxlength="10" size="5"/>
         </field>
         <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('useInvoiceIdForReturns')!=null)return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${useInvoiceIdForReturnsTooltip}">
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="quoteIdPrefix" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('quoteIdPrefix')!=null)return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${quoteIdPrefixTootlip}">
             <text maxlength="10" size="5"/>
         </field>
         <field name="orderIdPrefix" use-when="partyAcctgPreference==null"
-            tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('orderIdPrefix')!=null)return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+            tooltip="${orderIdPrefixTooltip}">
             <text maxlength="10" size="5"/>
         </field>
         <field name="createButton" use-when="partyAcctgPreference==null" title="${uiLabelMap.CommonAdd}"><submit/></field>
         <field name="updateButton" use-when="partyAcctgPreference!=null" title="${uiLabelMap.CommonUpdate}"><submit/></field>
 
         <!-- otherwise, we just display the fields.  there is no submit button because we shouldn't try to create it again and don't support an update option right now-->
-        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('fiscalYearStartMonth')==null&amp;&amp;aggregatedPartyAcctgPreference.get('fiscalYearStartMonth')!=null)return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null" tooltip="${fiscalYearStartMonthTooltip}">
             <display/>
         </field>
-        <field name="fiscalYearStartDay" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-            if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('fiscalYearStartDay')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('fiscalYearStartDay')!=null)return
-                    (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="fiscalYearStartDay" use-when="partyAcctgPreference!=null" tooltip="${fiscalYearStartDayTooltip}">
             <display/>
         </field>
-        <field name="taxFormId" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('taxFormId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('taxFormId')!=null)return
-                    (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="taxFormId" use-when="partyAcctgPreference!=null" tooltip="${taxFormIdTooltip}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <field name="cogsMethodId" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-            if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('cogsMethodId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('cogsMethodId')!=null)return
-                    (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="cogsMethodId" use-when="partyAcctgPreference!=null" tooltip="${cogsMethodIdTooltip}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <field name="baseCurrencyUomId" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('baseCurrencyUomId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('baseCurrencyUomId')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="baseCurrencyUomId" use-when="partyAcctgPreference!=null" tooltip="${baseCurrencyUomIdTooltip}">
             <display/>
         </field>
-        <field name="invoiceIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('invoiceIdPrefix')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('invoiceIdPrefix')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="invoiceIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${invoiceIdPrefixTooltip}">
             <display/>
         </field>
-        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('useInvoiceIdForReturns')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('useInvoiceIdForReturns')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference!=null" tooltip="${useInvoiceIdForReturnsTooltip}">
             <display/>
         </field>
-        <field name="quoteIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('quoteIdPrefix')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('quoteIdPrefix')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="quoteIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${quoteIdPrefixTooltip}">
             <display/>
         </field>
-        <field name="lastQuoteNumber" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('lastQuoteNumber')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('lastQuoteNumber')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="lastQuoteNumber" use-when="partyAcctgPreference!=null" tooltip="${lastQuoteNumberTooltip}">
             <display/>
         </field>
-        <field name="orderIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('orderIdPrefix')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('orderIdPrefix')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="orderIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${orderIdPrefixTooltip}">
             <display/>
         </field>
-        <field name="lastOrderNumber" use-when="partyAcctgPreference!=null" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if(partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get('lastOrderNumber')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('lastOrderNumber')!=null)return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="lastOrderNumber" use-when="partyAcctgPreference!=null" tooltip="${lastOrderNumberTooltip}">
             <display/>
         </field>
 
         <!-- these 2 are ONLY displayed, never allow manual editing -->
-        <field name="lastInvoiceNumber" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if((partyAcctgPreference==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('lastInvoiceNumber')!=null) ||
-                (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('lastInvoiceNumber')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('lastInvoiceNumber')!=null))return
-                    (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="lastInvoiceNumber" tooltip="${lastInvoiceNumberTooltip}">
             <display/>
         </field>
-        <field name="lastInvoiceRestartDate" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if((partyAcctgPreference==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('lastInvoiceRestartDate')!=null) ||
-                (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('lastInvoiceRestartDate')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('lastInvoiceRestartDate')!=null))return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="lastInvoiceRestartDate" tooltip="${lastInvoiceRestartDateTooltip}">
             <display/>
         </field>
         <!-- these 2 are always can be updated -->
-        <field name="refundPaymentMethodId" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-                if((partyAcctgPreference==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('refundPaymentMethodId')!=null) ||
-                (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('refundPaymentMethodId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('refundPaymentMethodId')!=null))return
-                (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="refundPaymentMethodId" tooltip="${refundPaymentMethodIdTooltip}">
             <drop-down>
                 <entity-options entity-name="PaymentMethod" key-field-name="paymentMethodId">
                     <entity-constraint name="partyId" operator="equals" env-name="organizationPartyId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="errorGlJournalId" tooltip="${groovy: import org.apache.ofbiz.base.util.UtilProperties;
-            if((partyAcctgPreference==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('errorGlJournalId')!=null) ||
-            (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('errorGlJournalId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('errorGlJournalId')!=null))return
-            (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
+        <field name="errorGlJournalId" tooltip="${errorGlJournalIdTooltip}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlJournal" key-field-name="glJournalId" description="${glJournalName} [${glJournalId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
