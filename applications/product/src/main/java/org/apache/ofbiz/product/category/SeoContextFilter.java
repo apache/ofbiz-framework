@@ -48,7 +48,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.security.SecurityUtil;
+import org.apache.ofbiz.security.SecuredFreemarker;
 import org.apache.ofbiz.webapp.SeoConfigUtil;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
@@ -116,7 +116,7 @@ public final class SeoContextFilter implements Filter {
             uri = uri + "?" + queryString;
         }
 
-        if (SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, uri)) {
+        if (SecuredFreemarker.containsFreemarkerInterpolation(httpRequest, httpResponse, uri)) {
             return;
         }
 

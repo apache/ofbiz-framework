@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.view;
 
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 
 /**
  * ViewHandler - View Handler Interface
@@ -55,8 +57,18 @@ public interface ViewHandler {
      * @param info An info string attached to this view
      * @param request The HttpServletRequest object used when requesting this page.
      * @param response The HttpServletResponse object to be used to present the page.
+     * @param context  The context prepare by the handler to run
      * @throws ViewHandlerException
      */
     void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
-                HttpServletResponse response) throws ViewHandlerException;
+                HttpServletResponse response, Map<String, Object> context) throws ViewHandlerException;
+
+    /**
+     * Before call the render, this function have to purpose to analyse, secure and prepare the context
+     * @param request
+     * @param response
+     * @param viewMap
+     * @return
+     */
+    Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap);
 }

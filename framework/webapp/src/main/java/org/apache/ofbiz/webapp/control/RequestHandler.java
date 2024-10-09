@@ -1285,7 +1285,8 @@ public final class RequestHandler {
                 Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.getType() + "]", MODULE);
             }
             ViewHandler vh = viewFactory.getViewHandler(viewMap.getType());
-            vh.render(view, nextPage, viewMap.getInfo(), contentType, charset, req, resp);
+            Map<String, Object> context = vh.prepareViewContext(req, resp, viewMap);
+            vh.render(view, nextPage, viewMap.getInfo(), contentType, charset, req, resp, context);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             throw new RequestHandlerException(e.getNonNestedMessage(), throwable);

@@ -792,6 +792,16 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:boolean" name="secure-context" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If secure-context=false, we authorize to forward to the renderer some parameters with interpretable code.
+                    This raise a potential risk of code injection. This can be usefully for some administration page to
+                    configure templating (like ftl for email or dynamic screen template).
+                    For this reason if secure-context=false, auth is set as true.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="x-frame-options" default="sameorigin">
             <xs:annotation>
                 <xs:documentation>

@@ -41,11 +41,8 @@ import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.security.SecuredFreemarker;
 import org.apache.ofbiz.security.SecuredUpload;
-import org.apache.ofbiz.security.SecurityUtil;
-
-
-
 
 /**
  * A Filter used to specify an allowlist of allowed paths to the OFBiz application.
@@ -166,7 +163,7 @@ public class ControlFilter extends HttpFilter {
 
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
             if (!LoginWorker.hasBasePermission(userLogin, req)) { // Allows UEL and FlexibleString (OFBIZ-12602)
-                if (isSolrTest() && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
+                if (isSolrTest() && SecuredFreemarker.containsFreemarkerInterpolation(req, resp, uri)) {
                     return;
                 }
             }

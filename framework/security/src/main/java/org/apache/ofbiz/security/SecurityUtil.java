@@ -19,23 +19,14 @@
 package org.apache.ofbiz.security;
 
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -172,67 +163,4 @@ public final class SecurityUtil {
         return false;
     }
 
-    /*
-     * Prevents Freemarker exploits
-     * @param req
-     * @param resp
-     * @param uri
-     * @throws IOException
-     */
-    public static boolean containsFreemarkerInterpolation(HttpServletRequest req, HttpServletResponse resp, String uri)
-            throws IOException {
-        String urisOkForFreemarker = UtilProperties.getPropertyValue("security", "allowedURIsForFreemarkerInterpolation");
-        List<String> urisOK = UtilValidate.isNotEmpty(urisOkForFreemarker) ? StringUtil.split(urisOkForFreemarker, ",")
-                                                                           : new ArrayList<>();
-        String uriEnd = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
-
-        if (!urisOK.contains(uriEnd)) {
-            Map<String, String[]> parameterMap = req.getParameterMap();
-            if (uri.contains("ecomseo")) { // SeoContextFilter call
-                if (containsFreemarkerInterpolation(resp, uri)) {
-                    return true;
-                }
-            } else if (!parameterMap.isEmpty()) { // ControlFilter call
-                List<BasicNameValuePair> params = new ArrayList<>();
-                parameterMap.forEach((name, values) -> {
-                    for (String value : values) {
-                        params.add(new BasicNameValuePair(name, value));
-                    }
-                });
-                String queryString = URLEncodedUtils.format(params, Charset.forName("UTF-8"));
-                uri = uri + "?" + queryString;
-                if (SecurityUtil.containsFreemarkerInterpolation(resp, uri)) {
-                    return true;
-                }
-            } else if (!UtilHttp.getAttributeMap(req).isEmpty()) { // Call with Content-Type modified by a MITM attack (rare case)
-                String attributeMap = UtilHttp.getAttributeMap(req).toString();
-                if (containsFreemarkerInterpolation(resp, attributeMap)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param resp
-     * @param stringToCheck
-     * @throws IOException
-     */
-    public static boolean containsFreemarkerInterpolation(HttpServletResponse resp, String stringToCheck) throws IOException {
-        if (stringToCheck.contains("%24%7B") || stringToCheck.contains("${")
-                || stringToCheck.contains("%3C%23") || stringToCheck.contains("<#")
-                || stringToCheck.contains("%23%7B") || stringToCheck.contains("#{")
-                || stringToCheck.contains("%5B%3D") || stringToCheck.contains("[=")
-                || stringToCheck.contains("%5B%23") || stringToCheck.contains("[#")) { // not used OOTB in OFBiz, but possible
-
-            Debug.logError("===== Not saved for security reason, strings '${', '<#', '#{', '[=' or '[#' not accepted in fields! =====",
-                    MODULE);
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN,
-                    "Not saved for security reason, strings '${', '<#', '#{', '[=' or '[#' not accepted in fields!");
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
