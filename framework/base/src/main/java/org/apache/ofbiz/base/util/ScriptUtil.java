@@ -417,7 +417,7 @@ public final class ScriptUtil {
     private static boolean isSafeScript(String language, String script) throws IOException {
         HashSet<String> allowedScript = ALLOWED_SCRIPTS.putIfAbsentAndGet(language, initAllowedScriptHashes());
         String scriptHash = HashCrypt.digestHash("SHA", script.getBytes());
-        boolean canExecuteScript = allowedScript.contains(scriptHash);
+        boolean currentScriptAlreadyAllowed = allowedScript.contains(scriptHash);
         if (!canExecuteScript) {
             if (!checkIfScriptIsSafe(script)) {
                 Debug.logWarning(String.format("Tried to execute unauthorized script \n **** \n%s\n **** "
