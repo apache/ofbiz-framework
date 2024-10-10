@@ -453,7 +453,7 @@ public final class ScriptUtil {
     }
 
     /**
-     * Load the list of script exception that we autorise to run despite the security risk
+     * Load the list of script exceptions that are authorized to run despite the security risk
      * @return Pattern init by the regExp security.deniedScriptletsTokens
      */
     private static HashSet<String> initAllowedScriptHashes() {
