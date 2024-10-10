@@ -444,7 +444,7 @@ public final class ScriptUtil {
     }
 
     /**
-     * Load the regExp for analyse script security
+     * Load the regExp for security script analysis
      * @return Pattern init by the regExp security.deniedScriptletsTokens
      */
     private static Pattern initScriptletsTokensPattern() {
