@@ -21,6 +21,7 @@ package org.apache.ofbiz.webapp.control;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
@@ -38,8 +39,12 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.security.SecurityUtil;
+
+
+
 
 /**
  * A Filter used to specify an allowlist of allowed paths to the OFBiz application.
@@ -159,7 +164,17 @@ public class ControlFilter extends HttpFilter {
                     return;
                 }
             }
+
             // Reject wrong URLs
+            String queryString = req.getQueryString();
+            if (queryString != null) {
+                queryString = URLDecoder.decode(queryString, "UTF-8");
+                if (UtilValidate.isUrl(queryString)) {
+                    Debug.logError("For security reason this URL is not accepted", MODULE);
+                    throw new RuntimeException("For security reason this URL is not accepted");
+                }
+            }
+
             String initialURI = req.getRequestURI();
             if (initialURI != null) { // Allow tests with Mockito. ControlFilterTests send null
                 try {
