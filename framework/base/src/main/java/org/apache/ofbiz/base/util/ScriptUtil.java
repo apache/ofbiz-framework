@@ -411,7 +411,7 @@ public final class ScriptUtil {
      * Analyse if we can run the script or need to block it due to potential security issue
      * @param language
      * @param script
-     * @return true is we can run the script
+     * @return true if we can run the script
      * @throws IOException
      */
     private static boolean isSafeScript(String language, String script) throws IOException {
