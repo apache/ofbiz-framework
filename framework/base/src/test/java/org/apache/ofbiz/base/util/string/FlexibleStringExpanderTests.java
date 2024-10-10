@@ -305,6 +305,8 @@ public class FlexibleStringExpanderTests {
         fseTest("groovy: null", "${groovy:return null;}!", testMap, "!", false);
         fseTest("groovy missing property", "${groovy: return noList[0]}", testMap, null, null, "", null, false);
         fseTest("groovy: throw Exception", "${groovy:return throwException.value;}!", testMap, "!", false);
+        fseTest("groovy: generate security issue", "${groovy: java.util.Map.of('key', 'value')}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue", "${groovy: 'ls /'.execute()}!", testMap, "!", false);
         fseTest("groovy: converter exception", "${groovy:return specialNumber;}!", testMap, "1!", false);
         fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!", false);
         fseTest("UEL integration: blank", "Hello ${testMap.blank}World!", testMap, "Hello World!", false);
