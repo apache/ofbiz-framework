@@ -208,11 +208,12 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://product/widget/catalog/CatalogMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="CatalogShortcutAppBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="CatalogShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
