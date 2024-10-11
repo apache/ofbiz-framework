@@ -312,7 +312,8 @@ public class FlexibleStringExpanderTests {
         fseTest("groovy: another generate security issue 4", "${groovy: Eval.me('1')}!", testMap, "!", false);
         fseTest("groovy: another generate security issue 5", "${groovy: Eval . me('1')}!", testMap, "!", false);
         fseTest("groovy: another generate security issue 6", "${groovy: System.properties['ofbiz.home']}!", testMap, "!", false);
-        fseTest("groovy: another generate security issue 7", "${groovy: new groovyx.net.http.HTTPBuilder('https://XXXX.XXXX.com:443')}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 7", "${groovy: new groovyx.net.http.HTTPBuilder('https://XXXX.XXXX.com:443')}!",
+                testMap, "!", false);
         fseTest("groovy: converter exception", "${groovy:return specialNumber;}!", testMap, "1!", false);
         fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!", false);
         fseTest("UEL integration: blank", "Hello ${testMap.blank}World!", testMap, "Hello World!", false);
