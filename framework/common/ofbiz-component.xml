@@ -56,6 +56,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_NL.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_NZ.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_PL.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_RO.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_SV.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_TH.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_UK.xml"/>

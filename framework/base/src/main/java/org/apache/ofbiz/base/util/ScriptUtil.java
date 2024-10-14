@@ -125,6 +125,9 @@ public final class ScriptUtil {
             try {
                 Compilable compilableEngine = (Compilable) engine;
                 URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+                if (scriptUrl == null || UtilValidate.urlInString(scriptUrl.toString())) {
+                    throw new ScriptException("Script not found at location [" + filePath + "]");
+                }
                 BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), StandardCharsets.UTF_8));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
@@ -354,6 +357,9 @@ public final class ScriptUtil {
         }
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+        if (scriptUrl == null || UtilValidate.urlInString(scriptUrl.toString())) {
+            throw new ScriptException("Script not found at location [" + filePath + "]");
+        }
         try (
                 InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), StandardCharsets.UTF_8);) {
             Object result = engine.eval(reader);

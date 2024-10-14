@@ -54,13 +54,15 @@ function uploadCompleted() {
     // to the page partyContentList
     jQuery("#partyContentList").html(iframePartyContentList);
 
-    if (iframePartyContentList.includes(uiLabelJsonObjects.PartyNoContent)) {
-        jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonCompleted);
-    } else {
-        jQuery('#progressBarSavingMsg').html("Maybe for security reason your file has not been accepted, check the log.");
-    }
+    // Explanation in case of rejected file
+    jQuery('#progressBarSavingMsg').html("If you don't see your file in Party Content list above, it has been rejected for security reason. Check the log.");
+
+    // Remove explanation in case of rejected file
+    setTimeout(() => { jQuery('#progressBarSavingMsg').hide(); }, 7000);
+
     // reset progressbar
     jQuery("#progress_bar").progressbar("option", "value", 0);
+
 
     // remove iFrame
     jQuery("#target_upload").remove();

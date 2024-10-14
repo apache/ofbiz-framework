@@ -142,7 +142,7 @@ public final class GroovyUtil {
             Class<?> scriptClass = PARSED_SCRIPTS.get(location);
             if (scriptClass == null) {
                 URL scriptUrl = FlexibleLocation.resolveLocation(location);
-                if (scriptUrl == null) {
+                if (scriptUrl == null || UtilValidate.urlInString(scriptUrl.toString())) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
                 scriptClass = parseClass(scriptUrl.openStream(), location);
@@ -187,11 +187,21 @@ public final class GroovyUtil {
         }
     }
 
+    /**
+     * Parses a Groovy class from a text.
+     * @param text as flexible string to parse
+     * @return the corresponding class object
+     * @throws IOException when parsing fails
+     */
     public static Class<?> parseClass(String text) throws IOException {
-        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
-        Class<?> classLoader = groovyClassLoader.parseClass(text);
-        groovyClassLoader.close();
-        return classLoader;
+        if (GROOVY_CLASS_LOADER != null) {
+            return GROOVY_CLASS_LOADER.parseClass(text);
+        } else {
+            GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+            Class<?> classLoader = GROOVY_CLASS_LOADER.parseClass(text);
+            groovyClassLoader.close();
+            return classLoader;
+        }
     }
 
     /**

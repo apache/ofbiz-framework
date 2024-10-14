@@ -22,6 +22,7 @@
 
     <session-config>
         <session-timeout>60</session-timeout><!-- in minutes -->
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
 </web-app>

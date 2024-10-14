@@ -24,10 +24,6 @@ import java.sql.ResultSetMetaData
 import org.apache.ofbiz.entity.jdbc.SQLProcessor
 import org.apache.ofbiz.entity.model.ModelGroupReader
 
-if (!security.hasPermission('ENTITY_MAINT', userLogin)) {
-    return
-}
-
 String sqlCommand = context.request.getParameter('sqlCommand') // (see OFBIZ-6567)
 
 String resultMessage = ''

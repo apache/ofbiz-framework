@@ -61,10 +61,11 @@ Map autoAssignRequirementToSupplier() {
             }
             GenericValue supplierProduct = supplierProductsQuery.queryFirst()
             if (supplierProduct?.partyId) {
-                delegator.createOrStore('RequirementRole', [requirementId: requirement.requirementId,
+                GenericValue requirementRole = delegator.makeValue('RequirementRole', [requirementId: requirement.requirementId,
                                                             partyId: supplierProduct.partyId,
                                                             roleTypeId: 'SUPPLIER',
                                                             fromDate: UtilDateTime.nowTimestamp()])
+                delegator.createOrStore(requirementRole)
             }
         }
         return success()

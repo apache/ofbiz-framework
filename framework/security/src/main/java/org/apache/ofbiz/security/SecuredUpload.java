@@ -243,6 +243,11 @@ public class SecuredUpload {
          https://www.cvedetails.com/vulnerability-list/vendor_id-26/product_id-529/Microsoft-Word.html
          https://www.cvedetails.com/version-list/26/410/1/Microsoft-Excel.html
          You name it...
+         Also, the file may have been created using another charset than the one used to read it (default to OS' one).
+         I remember having searched bout that. But even
+         http://illegalargumentexception.blogspot.com/2009/05/java-rough-guide-to-character-encoding.html#javaencoding_autodetect
+         is not a 100% solution.
+         So even for text files it can be a problem and according to above there is no complete solution.
         */
         if (!isPdfFile(fileToCheck)) {
             if (getMimeTypeFromFileName(fileToCheck).equals("application/x-tika-msoffice")) {
@@ -251,7 +256,7 @@ public class SecuredUpload {
                         + "and an Excel file to CSV. For other file types try PDF.", MODULE);
                 return false;
             }
-            if (!checkMaxLinesLength(fileToCheck)) {
+            if (!isValidImageIncludingSvgFile(fileToCheck) && !checkMaxLinesLength(fileToCheck)) {
                 Debug.logError("For security reason lines over " + MAXLINELENGTH.toString() + " are not allowed", MODULE);
                 return false;
             }
@@ -496,6 +501,7 @@ public class SecuredUpload {
             new PdfReader(file.getAbsolutePath()); // Just a check
             return true;
         } catch (Exception e) {
+            // If it's not a PDF then exception will be thrown and return will be false
             return false;
         }
     }
@@ -505,6 +511,9 @@ public class SecuredUpload {
      * @return true if it's a safe PDF file: is a PDF, and contains only 1 embedded readable (valid and secure) XML file (zUGFeRD)
      */
     private static boolean isValidPdfFile(String fileName) {
+        if (!isPdfFile(fileName)) {
+            return false;
+        }
         File file = new File(fileName);
         boolean safeState = false;
         boolean canParseZUGFeRD = true;
@@ -513,7 +522,6 @@ public class SecuredUpload {
                 return safeState;
             }
             // Load stream in PDF parser
-            // If the stream is not a PDF then exception will be thrown and safe state will be set to FALSE
             PdfReader reader = new PdfReader(file.getAbsolutePath());
             // Check 1: detect if the document contains any JavaScript code
             String jsCode = reader.getJavaScript();

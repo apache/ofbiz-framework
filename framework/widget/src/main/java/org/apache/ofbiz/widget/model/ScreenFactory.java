@@ -121,7 +121,7 @@ public class ScreenFactory {
                     long startTime = System.currentTimeMillis();
                     URL screenFileUrl = null;
                     screenFileUrl = FlexibleLocation.resolveLocation(resourceName);
-                    if (screenFileUrl == null) {
+                    if (screenFileUrl == null || UtilValidate.urlInString(screenFileUrl.toString())) {
                         throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                     }
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);
