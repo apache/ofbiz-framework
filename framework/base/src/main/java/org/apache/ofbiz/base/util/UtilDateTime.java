@@ -1019,7 +1019,7 @@ public final class UtilDateTime {
     }
 
     // Private lazy-initializer class
-    private static class TimeZoneHolder {
+    private static final class TimeZoneHolder {
         private static final List<TimeZone> AVAIL_TIME_ZONE_LIST = getTimeZones();
 
         private static List<TimeZone> getTimeZones() {

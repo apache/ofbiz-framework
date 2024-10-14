@@ -29,14 +29,26 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'maven-publish'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
-    id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
-    id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
+    id 'org.asciidoctor.jvm.convert' version '4.0.2'
+    id 'org.asciidoctor.jvm.pdf' version '4.0.2'
+    id 'org.owasp.dependencycheck' version '10.0.2' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
     id 'com.github.ben-manes.versions' version '0.51.0' apply false
     id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
     id "com.github.jakemarsden.git-hooks" version "0.0.2"
     id "com.github.node-gradle.node" version '7.0.2' apply false
+}
+
+/* OWASP plugin
+ *
+ * If project property "enableOwasp" is flagged then
+ * gradle will download required dependencies and
+ * activate Gradle's OWASP plugin and its related tasks.
+ *
+ * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
+ */
+if (project.hasProperty('enableOwasp')) {
+    apply plugin: 'org.owasp.dependencycheck'
 }
 
 /* DependencyUpdates plugin
@@ -94,7 +106,7 @@ javadoc {
         links(
             'https://docs.oracle.com/javase/17/docs/api',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
+            'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
@@ -276,8 +288,12 @@ checkstyle {
     // 'checkstyle' tool present in the framework and in the official
     // plugins.
     tasks.checkstyleMain.maxErrors = 0
+    // Increase memory for checkstyleMain required for Gradle 8+.
+    tasks.checkstyleMain.maxHeapSize = '1g'
     // Currently there are no errors so we can show new one when they appear
     showViolations = true
+    // Specify tool version so we can keep it up-to-date
+    toolVersion = '10.17.0'
 }
 gitHooks {
     hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
@@ -492,8 +508,8 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    inProcess = JAVA_EXEC
-        forkOptions {
+    executionMode = JAVA_EXEC
+        jvm {
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
     outputOptions {

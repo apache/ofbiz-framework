@@ -1050,7 +1050,7 @@ public class CheckOutEvents {
                 requireTerm = requireTermStr == null || "true".equalsIgnoreCase(requireTermStr);
             }
             requireAdditionalParty = requireAdditionalPartyStr == null || "true".equalsIgnoreCase(requireAdditionalPartyStr);
-            isSingleUsePayment = singleUsePaymentStr != null && "Y".equalsIgnoreCase(singleUsePaymentStr) ? true : false;
+            isSingleUsePayment = "Y".equalsIgnoreCase(singleUsePaymentStr);
         }
 
         boolean shippingAddressSet = true;

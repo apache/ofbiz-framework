@@ -295,7 +295,7 @@ public class VCard {
             }
             String saveToFilename = fullName + ".vcf";
             file = FileUtil.getFile(saveToDirectory + "/" + saveToFilename);
-            Ezvcard.write(vcard).go(file);
+            Ezvcard.write(vcard).go(file.toPath());
         } catch (FileNotFoundException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,

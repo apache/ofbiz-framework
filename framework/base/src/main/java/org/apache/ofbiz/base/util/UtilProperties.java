@@ -725,7 +725,7 @@ public final class UtilProperties implements Serializable {
     // ========= Classes and Methods for expanded Properties file support ========== //
 
     // Private lazy-initializer class
-    private static class FallbackLocaleHolder {
+    private static final class FallbackLocaleHolder {
         private static final Locale FALLBACK_LOCALE = getFallbackLocale();
 
         private static Locale getFallbackLocale() {
@@ -771,7 +771,7 @@ public final class UtilProperties implements Serializable {
     }
 
     // Private lazy-initializer class
-    private static class CandidateLocalesHolder {
+    private static final class CandidateLocalesHolder {
         private static Set<Locale> defaultCandidateLocales = getDefaultCandidateLocales();
 
         private static Set<Locale> getDefaultCandidateLocales() {

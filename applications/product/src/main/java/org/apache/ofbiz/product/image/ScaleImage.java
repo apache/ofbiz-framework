@@ -42,7 +42,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.jdom.JDOMException;
+import org.jdom2.JDOMException;
 
 /**
  * ScaleImage Class
