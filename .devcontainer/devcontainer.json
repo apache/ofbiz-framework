@@ -21,6 +21,8 @@
   "name": "OFBiz Trunk Dev Container",
   "image": "mcr.microsoft.com/devcontainers/java:17",
 
+  "forwardPorts": [8080, 8443],
+  
   "features": {
     // Tool to test GitHub Action Workflows locally.
    "ghcr.io/dhoeric/features/act:1": {},
