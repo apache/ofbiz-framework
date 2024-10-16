@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+dependencies {
+    api 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    api 'commons-io:commons-io:2.15.1'
+
+    testImplementation 'junit:junit:4.13.1'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        baseUtil(MavenPublication) {
+            artifactId = "base-${project.name}"
+            from components.java
+        }
+    }
+}

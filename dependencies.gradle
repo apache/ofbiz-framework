@@ -17,6 +17,7 @@
  * under the License.
  */
 dependencies {
+    implementation project (':base:util')
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
     implementation 'com.google.guava:guava:33.2.1-jre'
     implementation 'com.google.zxing:core:3.5.3'
