@@ -33,17 +33,7 @@ under the License.
                 <set field="layoutSettings.topLines[]" from-field="line" global="true"/>
                 <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/ChangeOrgPartyId.groovy"/><!-- to see ofbizsetup needs to be displayed -->
                 <!-- system info notes -->
-                <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
-                <set field="lastSystemInfoNote1" from-field="resultNote.lastSystemInfoNote1"/>
-                <set field="lastSystemInfoNote2" from-field="resultNote.lastSystemInfoNote2"/>
-                <set field="lastSystemInfoNote3" from-field="resultNote.lastSystemInfoNote3"/>
-                <set field="layoutSettings.middleTopHeader" value="---------- ${uiLabelMap.CommonLastSytemNotes} ----------"/>
-                <set field="layoutSettings.middleTopMessage1" value="${groovy:lastSystemInfoNote1!=null?lastSystemInfoNote1.noteDateTime.toString().substring(0,16) + &quot; &quot; + lastSystemInfoNote1.noteInfo:&quot;&quot;}"/>
-                <set field="layoutSettings.middleTopMessage2" value="${groovy:lastSystemInfoNote2!=null?lastSystemInfoNote2.noteDateTime.toString().substring(0,16) + &quot; &quot; + lastSystemInfoNote2.noteInfo:&quot;&quot;}"/>
-                <set field="layoutSettings.middleTopMessage3" value="${groovy:lastSystemInfoNote3!=null?lastSystemInfoNote3.noteDateTime.toString().substring(0,16) + &quot; &quot; + lastSystemInfoNote3.noteInfo:&quot;&quot;}"/>
-                <set field="layoutSettings.middleTopLink1" value="${lastSystemInfoNote1.moreInfoUrl}${groovy: if (lastSystemInfoNote1&amp;&amp;lastSystemInfoNote1.moreInfoItemName&amp;&amp;lastSystemInfoNote1.moreInfoItemId)&quot;?&quot; + lastSystemInfoNote1.moreInfoItemName + &quot;=&quot; + lastSystemInfoNote1.moreInfoItemId + &quot;&amp;id=&quot; + lastSystemInfoNote1.moreInfoItemId;}"/>
-                <set field="layoutSettings.middleTopLink2" value="${lastSystemInfoNote2.moreInfoUrl}${groovy: if (lastSystemInfoNote2&amp;&amp;lastSystemInfoNote2.moreInfoItemName&amp;&amp;lastSystemInfoNote2.moreInfoItemId)&quot;?&quot; + lastSystemInfoNote2.moreInfoItemName + &quot;=&quot; + lastSystemInfoNote2.moreInfoItemId + &quot;&amp;id=&quot; + lastSystemInfoNote2.moreInfoItemId;}"/>
-                <set field="layoutSettings.middleTopLink3" value="${lastSystemInfoNote3.moreInfoUrl}${groovy: if (lastSystemInfoNote3&amp;&amp;lastSystemInfoNote3.moreInfoItemName&amp;&amp;lastSystemInfoNote3.moreInfoItemId)&quot;?&quot; + lastSystemInfoNote3.moreInfoItemName + &quot;=&quot; + lastSystemInfoNote3.moreInfoItemId + &quot;&amp;id=&quot; + lastSystemInfoNote3.moreInfoItemId;}"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/SystemInfoNote.groovy"/>
                 <!-- Help link actions -->
                 <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
                 <entity-and entity-name="ContentAssoc" list="pageAvail">
