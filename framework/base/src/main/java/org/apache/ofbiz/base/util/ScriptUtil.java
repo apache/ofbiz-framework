@@ -454,7 +454,7 @@ public final class ScriptUtil {
 
     /**
      * Load the list of script exceptions that are authorized to run despite the security risk
-     * @return Pattern init by the regExp security.deniedScriptletsTokens
+     * @return Allowed hashes List  init by  property security.allowedScriptletHashes
      */
     private static HashSet<String> initAllowedScriptHashes() {
         List<String> allowedScripts = StringUtil.split(UtilProperties.getPropertyValue("security",
