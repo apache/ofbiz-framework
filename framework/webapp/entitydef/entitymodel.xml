@@ -30,10 +30,24 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
+  <!--  - org.apache.ofbiz.webapp.path -->
   <!--  - org.apache.ofbiz.webapp.visit -->
   <!--  - org.apache.ofbiz.webapp.website -->
   <!-- ========================================================= -->
 
+    <entity entity-name="ShortenedPath"
+            package-name="org.apache.ofbiz.webapp.path"
+            title="Shortened Path">
+      <field name="shortenedPath" type="id"/>
+      <field name="originalPathHash" type="id-vlong"/>
+      <field name="originalPath" type="very-long"/>
+      <field name="createdDate" type="date-time"/>
+      <field name="createdByUserLogin" type="id-vlong"/>
+      <prim-key field="shortenedPath"/>
+      <index name="PATH_SHOR_HASH">
+          <index-field name="originalPathHash"/>
+      </index>
+    </entity>
 
   <!-- ========================================================= -->
   <!-- org.apache.ofbiz.webapp.visit -->

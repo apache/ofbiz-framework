@@ -20,5 +20,5 @@
 <test-suite suite-name="webapptests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-
+    <test-case case-name="PathShortener-tests"><junit-test-suite class-name="org.apache.ofbiz.webapp.test.OfbizPathShortenerTests"/></test-case>
 </test-suite>
