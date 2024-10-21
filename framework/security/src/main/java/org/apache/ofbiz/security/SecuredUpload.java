@@ -76,6 +76,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
@@ -530,7 +531,7 @@ public class SecuredUpload {
             }
             // OK no JS code, pass to check 2: detect if the document has any embedded files
             PDEmbeddedFilesNameTreeNode efTree = null;
-            try (PDDocument pdDocument = PDDocument.load(file)) {
+            try (PDDocument pdDocument = Loader.loadPDF(file)) {
                 PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                 efTree = names.getEmbeddedFiles();
             }
