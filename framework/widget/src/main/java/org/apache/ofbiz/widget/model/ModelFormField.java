@@ -2184,6 +2184,10 @@ public final class ModelFormField {
         }
     }
 
+    /**
+     * Models the &lt;group-options&gt; element.
+     * @see <code>widget-form.xsd</code>
+     */
     public static class GroupOptions {
         private final FlexibleStringExpander description;
         private final FlexibleStringExpander id;
@@ -2192,6 +2196,11 @@ public final class ModelFormField {
         private final List<OptionSource> optionSources;
         private final List<GroupOptions> groupOptions;
 
+        /**
+         * Create a new groupOptions instance from xml element
+         * @param groupOptionsElement
+         * @param modelFormField
+         */
         public GroupOptions(Element groupOptionsElement, ModelFormField modelFormField) {
             super();
             this.description = FlexibleStringExpander.getInstance(groupOptionsElement.getAttribute("description"));
@@ -2223,6 +2232,11 @@ public final class ModelFormField {
             this.groupOptions = Collections.unmodifiableList(groupOptions);
         }
 
+        /**
+         * Copy an existing groupOptions to a new one
+         * @param original
+         * @param modelFormField
+         */
         private GroupOptions(GroupOptions original, ModelFormField modelFormField) {
             super();
             this.description = original.description;
@@ -2241,8 +2255,8 @@ public final class ModelFormField {
         }
 
         /**
-         * TODO
-         * @return
+         * create a groupOptions from a modelFormField
+         * @return GroupOptions instance
          */
         public GroupOptions(ModelFormField modelFormField) {
             super();
@@ -2254,32 +2268,28 @@ public final class ModelFormField {
         }
 
         /**
-         * TODO
-         * @return
+         * @return description present for a groupOptions instance
          */
         public FlexibleStringExpander getDescription() {
             return description;
         }
 
         /**
-         * TODO
-         * @return
+         * @return parsed description with context for a groupOptions instance
          */
         public String getDescription(Map<String, Object> context) {
             return this.description.expandString(context);
         }
 
         /**
-         * TODO
-         * @return
+         * @return unique reference for a groupOptions instance
          */
         public FlexibleStringExpander getId() {
             return id;
         }
 
         /**
-         * TODO
-         * @return
+         * @return parsed unique reference with context for a groupOptions instance
          */
         public String getId(Map<String, Object> context) {
             String id = this.id.expandString(context);
@@ -2288,24 +2298,22 @@ public final class ModelFormField {
         }
 
         /**
-         * TODO
-         * @return
+         * @return widgetStyle present for a groupOptions instance
          */
         public FlexibleStringExpander getWidgetStyle() {
             return widgetStyle;
         }
 
         /**
-         * TODO
-         * @return
+         * @return parsed widgetStyle with context for a groupOptions instance
          */
         public String getWidgetStyle(Map<String, Object> context) {
             return this.widgetStyle.expandString(context);
         }
 
         /**
-         * TODO
-         * @return
+         * Compute all options define for groupOptions instance
+         * @return options list present on this groupOptions
          */
         public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
             List<OptionValue> optionValues = new LinkedList<>();
@@ -2315,21 +2323,21 @@ public final class ModelFormField {
             return optionValues;
         }
         /**
-         * TODO
-         * @return
+         * @return groupOptions sub list
          */
         public List<GroupOptions> getGroupOptions() {
             return groupOptions;
         }
 
         /**
-         * TODO
-         * @return
+         * Duplicate the groupOptions
+         * @return new groupOptions instance
          */
         public GroupOptions copy(ModelFormField modelFormField) {
             return new GroupOptions(this, modelFormField);
         }
     }
+
     /**
      * Models the &lt;entity-options&gt; element.
      * @see <code>widget-form.xsd</code>
