@@ -55,7 +55,7 @@ public class ScriptTagsFooterTransform implements TemplateTransformModel {
                         if (scriptSrcSet != null) {
                             String srcList = "";
                             for (String scriptSrc : scriptSrcSet) {
-                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"application/javascript\"></script>\n");
+                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"text/javascript\"></script>\n");
                             }
                             out.write(srcList);
                         }

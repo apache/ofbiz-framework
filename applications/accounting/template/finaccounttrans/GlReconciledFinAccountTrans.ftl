@@ -196,7 +196,7 @@ under the License.
                 <td align="center">
                   <a id="toggleGlTransactions_${finAccountTrans.finAccountTransId}" href="javascript:void(0)" class="buttontext">${uiLabelMap.FormFieldTitle_glTransactions}</a>
                   <#include "ShowGlTransactions.ftl"/>
-                  <script type="application/javascript">
+                  <script type="text/javascript">
                        jQuery(document).ready( function() {
                             jQuery("#displayGlTransactions_${finAccountTrans.finAccountTransId}").dialog({autoOpen: false, modal: true,
                                     buttons: {

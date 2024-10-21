@@ -161,7 +161,7 @@ if (product) {
 
         // get alternative product price when product doesn't have any feature
         jsBuf = new StringBuffer()
-        jsBuf.append('<script type="application/javascript">')
+        jsBuf.append('<script type="text/javascript">')
 
         // make a list of variant sku with requireAmount
         virtualVariantsRes = runService('getAssociatedProducts',

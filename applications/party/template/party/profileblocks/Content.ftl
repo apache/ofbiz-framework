@@ -57,7 +57,7 @@ under the License.
       <div id='progress_bar'><div></div></div>
     </div>
   </div>
-  <script type="application/javascript">
+  <script type="text/javascript">
     jQuery("#uploadPartyContent").validate({
         submitHandler: function(form) {
             <#-- call upload scripts - functions defined in PartyProfileContent.js -->

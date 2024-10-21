@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign requestName><@ofbizUrl>${requestName}</@ofbizUrl></#assign>
-<script type="application/javascript">
+<script type="text/javascript">
     jQuery(document).ready(function () {
         if (jQuery('#${dependentForm}_${mainId}').length) {
             jQuery('#${dependentForm}_${mainId}').change(function (e, data) {

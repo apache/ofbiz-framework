@@ -37,7 +37,7 @@ under the License.
 </div>
 <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
   <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>
-    <script type="application/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+    <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
   </#list>
 </#if>
 <@scriptTagsFooter/>

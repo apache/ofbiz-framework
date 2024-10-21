@@ -67,7 +67,7 @@ under the License.
   </div>
 </center>
 
-<script type="application/javascript">
+<script type="text/javascript">
   document.loginform.JavaScriptEnabled.value = "Y";
   <#if focusName>
     document.loginform.USERNAME.focus();

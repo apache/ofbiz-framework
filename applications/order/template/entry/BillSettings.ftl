@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script type="text/javascript">
 function shipBillAddr() {
     if (document.checkoutsetupform.useShipAddr.checked) {
         window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType!}&useShipAddr=Y</@ofbizUrl>";
@@ -450,7 +450,7 @@ function makeExpDate() {
         <#else>
           <#-- initial screen show a list of options -->
 
-          <script type="application/javascript">
+          <script type="text/javascript">
 
               function setCheckoutPaymentId( selectedValue ) {
                   checkoutForm = document.getElementById('checkoutsetupform');

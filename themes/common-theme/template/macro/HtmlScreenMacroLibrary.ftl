@@ -43,7 +43,7 @@ under the License.
 
 <#macro renderContainerBegin id autoUpdateInterval type="" style="" autoUpdateLink="">
 <#if autoUpdateLink?has_content>
-<script type="application/javascript">ajaxUpdateAreaPeriodic('${id}', '${autoUpdateLink}', '', '${autoUpdateInterval}');</script>
+<script type="text/javascript">ajaxUpdateAreaPeriodic('${id}', '${autoUpdateLink}', '', '${autoUpdateInterval}');</script>
 </#if>
 <#if !type?has_content><#local type="div"/> </#if>
 <${type}<#if id?has_content> id="${id}"</#if><#if style?has_content> class="${style}"</#if>>
@@ -191,7 +191,7 @@ ${menuString}
 <#macro renderPortalPageColumnBegin originalPortalPageId portalPageId columnSeqId confMode="false" width="auto" delColumnLabel="Delete column" delColumnHint="Delete this column" addPortletLabel="Add portlet" addPortletHint="Add a new portlet to this column" colWidthLabel="Col. width:" setColumnSizeHint="Set column size">
   <#local columnKey = portalPageId+columnSeqId>
   <#local columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
-  <script type="application/javascript">
+  <script type="text/javascript">
     if (typeof SORTABLE_COLUMN_LIST != "undefined") {
       if (SORTABLE_COLUMN_LIST == null) {
         SORTABLE_COLUMN_LIST = "#portalColumn_${columnSeqId}";

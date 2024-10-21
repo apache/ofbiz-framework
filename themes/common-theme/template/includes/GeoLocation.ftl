@@ -44,14 +44,14 @@ under the License.
           </div>
         <#if !googleApiKey?has_content>
           <h2>${uiLabelMap.CommonNoGoogleAPIkeyAvailable}</h2>
-          <script src="https://maps.googleapis.com/maps/api/js" type="application/javascript"></script>
+          <script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>
         <#else>
-          <script src="https://maps.googleapis.com/maps/api/js?key=${googleApiKey}" type="application/javascript"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=${googleApiKey}" type="text/javascript"></script>
         </#if>
     </#if>
   <#-- ========================== Here we go with different types of maps renderer ===========================-->
     <#if "GEOPT_GOOGLE" == geoChart.dataSourceId>
-    <script type="application/javascript">
+    <script type="text/javascript">
         function showAllMarkers(map, points) {
             if (points.length > 1) {
                 var latlngbounds = new google.maps.LatLngBounds();
@@ -95,7 +95,7 @@ under the License.
     <#elseif  "GEOPT_MICROSOFT" == geoChart.dataSourceId>
     <#elseif  "GEOPT_MAPTP" == geoChart.dataSourceId>
     <#elseif  "GEOPT_ADDRESS_GOOGLE" == geoChart.dataSourceId>
-    <script type="application/javascript">
+    <script type="text/javascript">
         var geocoder = new google.maps.Geocoder();
         var map = new google.maps.Map(document.getElementById("${id}"),
                 {
@@ -119,7 +119,7 @@ under the License.
     </script>
     <#elseif "GEOPT_OSM" == geoChart.dataSourceId>
     <div id="${id}" class="map" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;"></div>
-    <script type="application/javascript">
+    <script type="text/javascript">
         var libraryFiles = ["/common/js/plugins/OpenLayers-5.3.0.js", "/common/js/plugins/OpenLayers-5.3.0.css"];
         importLibrary(libraryFiles, function() {
             var iconFeatures=[];

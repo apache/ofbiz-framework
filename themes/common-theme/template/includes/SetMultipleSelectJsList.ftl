@@ -20,7 +20,7 @@ under the License.
   <#assign ranOnce=false>
   <#list asm_listField as row>
     <#if row.asm_multipleSelect??>
-      <script type="application/javascript">
+      <script type="text/javascript">
           jQuery(document).ready(function () {
               var libraryFiles = ["/common/js/jquery/plugins/select2/js/select2-4.0.6.js",
                   "/common/js/jquery/plugins/select2/css/select2-4.0.6.css"];

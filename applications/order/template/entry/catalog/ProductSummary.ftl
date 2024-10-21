@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 ${virtualJavaScript!}
-<script type="application/javascript">
+<script type="text/javascript">
     function displayProductVirtualId(variantId, virtualProductId, pForm) {
         if(variantId){
             pForm.product_id.value = variantId;
@@ -93,7 +93,7 @@ ${variantInfoJavaScript!}
             </tr>
           </table>
         </div>
-        <script type="application/javascript">
+        <script type="text/javascript">
           /*
           jQuery(document).ready(function(jQuery) {
           jQuery("#${productInfoLinkId}").attr('title', jQuery("#${productDetailId}").remove().html());

@@ -43,7 +43,7 @@ under the License.
     </#if>
     <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
         <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
     </#if>
     <#if layoutSettings.javaScripts?has_content>
@@ -53,7 +53,7 @@ under the License.
       <#list layoutSettings.javaScripts as javaScript>
         <#if javaScriptsSet.contains(javaScript)>
           <#assign nothing = javaScriptsSet.remove(javaScript)/>
-          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#if>
       </#list>
     </#if>
@@ -87,7 +87,7 @@ under the License.
     </#if>
     <#if lastParameters??><#assign parametersURL = "&amp;" + lastParameters></#if>
     <#if layoutSettings.WEB_ANALYTICS?has_content>
-      <script type="application/javascript">
+      <script type="text/javascript">
         <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
           ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode!)}
         </#list>
