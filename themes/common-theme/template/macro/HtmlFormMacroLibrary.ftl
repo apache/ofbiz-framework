@@ -156,6 +156,35 @@ under the License.
   </span>
 </#macro>
 
+<#macro renderDropDownOptionList items currentValue multiple dDFCurrent noCurrentSelectedKey>
+  <#list items as item>
+    <#if item.options?has_content>
+      <#if groupOpen??></optgroup></#if>
+      <optgroup label="${item.description}"<#if item.id??> id="${item.id}"</#if><#if item.widgetStyle??> class="${item.widgetStyle}"</#if>/>
+      <@renderDropDownOptionList item.options currentValue multiple dDFCurrent noCurrentSelectedKey/>
+      <#assign groupOpen = true/>
+    <#else>
+      <#if multiple>
+        <option
+        <#if currentValue?has_content && item.selected()>
+          selected
+        <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key()>
+          selected
+        </#if>
+        value="${item.key()}">${item.description()}</option><#rt/>
+      <#else>
+        <option
+        <#if currentValue?has_content && currentValue == item.key() && dDFCurrent?has_content && "selected" == dDFCurrent>
+          selected
+        <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key()>
+          selected
+        </#if>
+        value="${item.key()}">${item.description()}</option><#rt/>
+      </#if>
+    </#if>
+  </#list>
+  <#if groupOpen??></optgroup></#if>
+</#macro>
 <#macro renderDropDownField name className id formName explicitDescription options ajaxEnabled
         otherFieldName="" otherValue="" otherFieldSize=""
         alert="" conditionGroup="" tabindex="" multiple=false event="" size="" placeCurrentValueAsFirstOption=false
@@ -184,25 +213,7 @@ under the License.
       <#elseif !options?has_content>
           <option value="">&nbsp;</option>
       </#if>
-      <#list options as item>
-        <#if multiple>
-          <option
-            <#if currentValue?has_content && item.selected()>
-              selected
-            <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key()>
-              selected
-            </#if>
-            value="${item.key()}">${item.description()}</option><#rt/>
-        <#else>
-          <option
-            <#if currentValue?has_content && currentValue == item.key() && dDFCurrent?has_content && "selected" == dDFCurrent>
-              selected
-            <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key()>
-              selected
-            </#if>
-            value="${item.key()}">${item.description()}</option><#rt/>
-        </#if>
-      </#list>
+      <@renderDropDownOptionList options currentValue multiple dDFCurrent noCurrentSelectedKey/>
     </select>
   </span>
   <#if otherFieldName?has_content>

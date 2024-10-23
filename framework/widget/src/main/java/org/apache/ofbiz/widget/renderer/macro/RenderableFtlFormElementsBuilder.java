@@ -61,6 +61,7 @@ import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.Paginator;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.apache.ofbiz.widget.renderer.macro.model.GroupOption;
 import org.apache.ofbiz.widget.renderer.macro.model.Option;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtl;
 import org.apache.ofbiz.widget.renderer.macro.renderable.RenderableFtlMacroCall;
@@ -928,6 +929,7 @@ public final class RenderableFtlFormElementsBuilder {
         }
 
         final var allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
+        final var allGroupValues = dropDownField.getGroupOptions();
         final var explicitDescription =
                 // Populate explicitDescription with the description from the option associated with the current value.
                 allOptionValues.stream()
@@ -957,15 +959,11 @@ public final class RenderableFtlFormElementsBuilder {
                             : UtilMisc.toList(currentValue))
                         : Collections.emptyList();
 
-        var optionsList = allOptionValues.stream()
-                .map(optionValue -> {
-                    var encodedKey = encode(optionValue.getKey(), modelFormField, context);
-                    var truncatedDescription = truncate(optionValue.getDescription(), textSizeOptional);
-                    var selected = currentValuesList.contains(optionValue.getKey());
-
-                    return new Option(encodedKey, truncatedDescription, selected);
-                })
-                .collect(Collectors.toList());
+        var optionsList = new ArrayList<>();
+        if (UtilValidate.isNotEmpty(allGroupValues)) {
+            optionsList.addAll(populateGroupAndOptions(context, allGroupValues, modelFormField, textSizeOptional, currentValuesList));
+        }
+        optionsList.addAll(populateOptions(context, allOptionValues, modelFormField, textSizeOptional, currentValuesList));
 
         builder.objectParameter("options", optionsList);
 
@@ -987,6 +985,43 @@ public final class RenderableFtlFormElementsBuilder {
         }
 
         return builder.build();
+    }
+
+    private List<Object> populateGroupAndOptions(Map<String, Object> context, List<ModelFormField.GroupOptions> allGroupOptions,
+                                         ModelFormField modelFormField, Optional<Integer> textSizeOptional, List<String> currentValuesList) {
+        if (UtilValidate.isEmpty(allGroupOptions)) {
+            return new ArrayList<>();
+        }
+        return UtilGenerics.cast(allGroupOptions.stream()
+                .map(groupOptions -> {
+                    var groupOptionId = groupOptions.getId(context);
+                    var truncatedDescription = truncate(groupOptions.getDescription(context), textSizeOptional);
+                    var widgetStyle = groupOptions.getWidgetStyle(context);
+                    List<Object> optionsInGroupList = new ArrayList<>();
+                    optionsInGroupList.addAll(populateGroupAndOptions(context,
+                            groupOptions.getGroupOptions(),
+                            modelFormField, textSizeOptional, currentValuesList));
+                    optionsInGroupList.addAll(populateOptions(context,
+                            groupOptions.getAllOptionValues(context, WidgetWorker.getDelegator(context)),
+                            modelFormField, textSizeOptional, currentValuesList));
+                    return new GroupOption(groupOptionId, truncatedDescription, widgetStyle, optionsInGroupList);
+                })
+        .toList());
+    }
+    private List<Object> populateOptions(Map<String, Object> context, List<ModelFormField.OptionValue> allOptionValues,
+                                         ModelFormField modelFormField, Optional<Integer> textSizeOptional, List<String> currentValuesList) {
+        if (UtilValidate.isEmpty(allOptionValues)) {
+            return new ArrayList<>();
+        }
+        return UtilGenerics.cast(allOptionValues.stream()
+                .map(optionValue -> {
+                    var encodedKey = encode(optionValue.getKey(), modelFormField, context);
+                    var truncatedDescription = truncate(optionValue.getDescription(), textSizeOptional);
+                    var selected = currentValuesList.contains(optionValue.getKey());
+
+                    return new Option(encodedKey, truncatedDescription, selected);
+                })
+        .toList());
     }
 
     /**
