@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.Base64;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.security.SecurityUtil;
 
 /*
@@ -137,14 +140,18 @@ public class ControlFilter implements Filter {
 
             // Reject wrong URLs
             if (!requestUri.matches("/control/logout;jsessionid=[A-Z0-9]{32}\\.jvm1")) {
-                String queryString = httpRequest.getQueryString();
-                if (queryString != null) {
-                    queryString = URLDecoder.decode(queryString, "UTF-8");
-                    if (UtilValidate.isUrl(queryString)) {
-                        Debug.logError("For security reason this URL is not accepted", module);
-                        throw new RuntimeException("For security reason this URL is not accepted");
-                    }
+            String queryString = httpRequest.getQueryString();
+            if (queryString != null) {
+                queryString = URLDecoder.decode(queryString, "UTF-8");
+                if (UtilValidate.isUrl(queryString)
+                        || !SecuredUpload.isValidText(queryString, Collections.emptyList())
+                        || !SecuredUpload.isValidText(Base64.getDecoder().decode(queryString).toString(), Collections.emptyList())
+                        || !SecuredUpload.isValidText(Base64.getMimeDecoder().decode(queryString).toString(), Collections.emptyList())
+                        || !SecuredUpload.isValidText(Base64.getUrlDecoder().decode(queryString).toString(), Collections.emptyList())) { // ...
+                    Debug.logError("For security reason this URL is not accepted", module);
+                    throw new RuntimeException("For security reason this URL is not accepted");
                 }
+            }
 
                 try {
                     String url = new URI(((HttpServletRequest) request).getRequestURL().toString())
