@@ -2256,7 +2256,7 @@ public final class ModelFormField {
 
         /**
          * create a groupOptions from a modelFormField
-         * @return GroupOptions instance
+         * @param modelFormField
          */
         public GroupOptions(ModelFormField modelFormField) {
             super();
