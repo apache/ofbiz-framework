@@ -142,7 +142,9 @@ public class ControlFilter implements Filter {
             String queryString = httpRequest.getQueryString();
             if (queryString != null) {
                 queryString = URLDecoder.decode(queryString, "UTF-8");
-                if (UtilValidate.isUrl(queryString) || !SecuredUpload.isValidText(queryString, Collections.emptyList())) {
+                if (UtilValidate.isUrl(queryString)
+                        || (!SecuredUpload.isValidText(queryString, Collections.emptyList())
+                                && !queryString.contains("JavaScriptEnabled=Y"))) {
                     Debug.logError("For security reason this URL is not accepted", module);
                     throw new RuntimeException("For security reason this URL is not accepted");
                 }
