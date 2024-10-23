@@ -80,13 +80,7 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="paidInvoice" value="${groovy: org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
-            <set field="amountToApply" value="${groovy:
-                import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(locale).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
-            <set field="total" value="${groovy:
-                import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(locale).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
+            <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/DisplayInvoiceAmounts.groovy"/>
         </row-actions>
         <field name="billingAccountId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">

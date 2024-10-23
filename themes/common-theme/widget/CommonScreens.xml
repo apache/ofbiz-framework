@@ -662,7 +662,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="requiredLabels" value="${groovy: new groovy.json.JsonSlurper().parseText(parameters.requiredLabels)}"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetUiLabels.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><text><html-template location="component://common-theme/template/GetUiLabels.ftl"/></text></platform-specific>
