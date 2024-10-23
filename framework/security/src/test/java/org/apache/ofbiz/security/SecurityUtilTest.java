@@ -64,7 +64,7 @@ public class SecurityUtilTest {
                 chmod,mkdir,fopen,fclose,new file,upload,getfilename,download,getoutputstring,readfile,iframe,object,embed,onload,build,\
                 python,perl ,/perl,ruby ,/ruby,process,function,class,InputStream,to_server,wget ,static,assign,webappPath,\
                 ifconfig,route,crontab,netstat,uname ,hostname,iptables,whoami,"cmd",*cmd|,+cmd|,=cmd|,localhost,thread,require,gzdeflate,\
-                execute,println,calc,calculate,touch,curl
+                execute,println,calc,touch,curl,base64
          */
         try {
             List<String> allowed = new ArrayList<>();
@@ -150,9 +150,9 @@ public class SecurityUtilTest {
             assertFalse(SecuredUpload.isValidText("execute", allowed));
             assertFalse(SecuredUpload.isValidText("println", allowed));
             assertFalse(SecuredUpload.isValidText("calc", allowed));
-            assertFalse(SecuredUpload.isValidText("calculate", allowed));
-            assertFalse(SecuredUpload.isValidText("curl", allowed));
             assertFalse(SecuredUpload.isValidText("touch", allowed));
+            assertFalse(SecuredUpload.isValidText("curl", allowed));
+            assertFalse(SecuredUpload.isValidText("base64", allowed));
         } catch (IOException e) {
             fail(String.format("IOException occured : %s", e.getMessage()));
         }

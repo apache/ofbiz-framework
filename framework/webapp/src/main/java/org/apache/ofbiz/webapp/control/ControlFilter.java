@@ -23,6 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,6 +42,7 @@ import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.security.SecuredUpload;
 import org.apache.ofbiz.security.SecurityUtil;
 
 
@@ -169,7 +171,11 @@ public class ControlFilter extends HttpFilter {
             String queryString = req.getQueryString();
             if (queryString != null) {
                 queryString = URLDecoder.decode(queryString, "UTF-8");
-                if (UtilValidate.isUrl(queryString)) {
+                if (UtilValidate.isUrl(queryString)
+                        || !SecuredUpload.isValidText(queryString, Collections.emptyList())
+                        || !SecuredUpload.isValidText(Base64.getDecoder().decode(queryString).toString(), Collections.emptyList())
+                        || !SecuredUpload.isValidText(Base64.getMimeDecoder().decode(queryString).toString(), Collections.emptyList())
+                        || !SecuredUpload.isValidText(Base64.getUrlDecoder().decode(queryString).toString(), Collections.emptyList())) { // ...
                     Debug.logError("For security reason this URL is not accepted", MODULE);
                     throw new RuntimeException("For security reason this URL is not accepted");
                 }
