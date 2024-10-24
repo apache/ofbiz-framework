@@ -171,7 +171,7 @@ public class ControlFilter extends HttpFilter {
             if (queryString != null) {
                 queryString = URLDecoder.decode(queryString, "UTF-8");
                 // wt=javabin allows Solr tests, see https://cwiki.apache.org/confluence/display/solr/javabin
-                if (UtilValidate.isUrl(queryString)
+                if (UtilValidate.isUrlInString(queryString)
                         || !SecuredUpload.isValidText(queryString, Collections.emptyList())
                         && !(queryString.contains("JavaScriptEnabled=Y")
                                 || queryString.contains("wt=javabin"))) {
