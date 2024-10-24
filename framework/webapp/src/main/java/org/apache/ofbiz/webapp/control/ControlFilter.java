@@ -108,6 +108,10 @@ public class ControlFilter implements Filter {
         }
     }
 
+    private static boolean isSolrTest() {
+        return !GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                && null == System.getProperty("SolrDispatchFilter");
+    }
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -142,11 +146,9 @@ public class ControlFilter implements Filter {
             String queryString = httpRequest.getQueryString();
             if (queryString != null) {
                 queryString = URLDecoder.decode(queryString, "UTF-8");
-                // wt=javabin allows Solr tests, see https://cwiki.apache.org/confluence/display/solr/javabin
                 if (UtilValidate.isUrl(queryString)
                         || !SecuredUpload.isValidText(queryString, Collections.emptyList())
-                        && !(queryString.contains("JavaScriptEnabled=Y")
-                                || queryString.contains("wt=javabin"))) {
+                        && isSolrTest()) {
                     Debug.logError("For security reason this URL is not accepted", module);
                     throw new RuntimeException("For security reason this URL is not accepted");
                 }
@@ -173,9 +175,8 @@ public class ControlFilter implements Filter {
 
             GenericValue userLogin = (GenericValue) httpRequest.getSession().getAttribute("userLogin");
             if (!LoginWorker.hasBasePermission(userLogin, httpRequest)) { // Allows UEL and FlexibleString (OFBIZ-12602)
-                if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                        && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
-                        && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
+                if (isSolrTest() // Allows Solr tests
+                    && SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, requestUri)) {
                     return;
                 }
             }
