@@ -173,8 +173,8 @@ public class ControlFilter extends HttpFilter {
                 // wt=javabin allows Solr tests, see https://cwiki.apache.org/confluence/display/solr/javabin
                 if (UtilValidate.isUrl(queryString)
                         || !SecuredUpload.isValidText(queryString, Collections.emptyList())
-                                && !(queryString.contains("JavaScriptEnabled=Y")
-                                        || queryString.contains("wt=javabin"))) {
+                        && !(queryString.contains("JavaScriptEnabled=Y")
+                                || queryString.contains("wt=javabin"))) {
                     Debug.logError("For security reason this URL is not accepted", MODULE);
                     throw new RuntimeException("For security reason this URL is not accepted");
                 }
