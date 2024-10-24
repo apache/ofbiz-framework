@@ -37,6 +37,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -107,9 +108,45 @@ public class SecuredUpload {
     private static final List<String> DENIEDFILEEXTENSIONS = getDeniedFileExtensions();
     private static final List<String> DENIEDWEBSHELLTOKENS = getDeniedWebShellTokens();
     private static final Integer MAXLINELENGTH = UtilProperties.getPropertyAsInteger("security", "maxLineLength", 10000);
+    private static final Boolean ALLOWSTRINGCONCATENATIONINUPLOADEDFILES =
+            UtilProperties.getPropertyAsBoolean("security", "allowStringConcatenationInUploadedFiles", false);
+
+    /**
+     * For the content analyze if it's a base64 string with potential code injection
+     * @param content
+     * @param allowed
+     * @return
+     * @throws IOException
+     */
+    public static boolean isValidEncodedText(String content, List<String> allowed) throws IOException {
+        try {
+            return !isValidText(Base64.getDecoder().decode(content).toString(), allowed, false)
+                    || !isValidText(Base64.getMimeDecoder().decode(content).toString(), allowed, false)
+                    || !isValidText(Base64.getUrlDecoder().decode(content).toString(), allowed, false);
+        } catch (IllegalArgumentException e) {
+            // the encoded text isn't a Base64, allow it because there is no security risk
+            return true;
+        }
+    }
 
     public static boolean isValidText(String content, List<String> allowed) throws IOException {
-        return content != null ? DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token.toLowerCase(), allowed)) : false;
+        return isValidText(content, allowed, true);
+    }
+
+    public static boolean isValidText(String content, List<String> allowed, boolean testEncodeContent) throws IOException {
+        if (content == null) {
+            return false;
+        }
+        String contentWithoutSpaces = content.replaceAll("\\s", "");
+        if ((contentWithoutSpaces.contains("\"+\"") || contentWithoutSpaces.contains("'+'"))
+                && !ALLOWSTRINGCONCATENATIONINUPLOADEDFILES) {
+            Debug.logInfo("The uploaded file contains a string concatenation. It can't be uploaded for security reason", MODULE);
+            return false;
+        }
+        if (testEncodeContent && !isValidEncodedText(content, allowed)) {
+            return false;
+        }
+        return DENIEDWEBSHELLTOKENS.stream().allMatch(token -> isValid(content, token.toLowerCase(), allowed));
     }
 
     public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
