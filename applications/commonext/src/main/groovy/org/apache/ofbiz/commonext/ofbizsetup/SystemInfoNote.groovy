@@ -20,7 +20,7 @@ package org.apache.ofbiz.commonext.ofbizsetup
 
 Map serviceResult = run service: 'getLastSystemInfoNote', with: parameters
     context.layoutSettings.middleTopHeader = "---------- ${uiLabelMap.CommonLastSytemNotes} ----------"
-["1", "2", "3"].each {
+['1', '2', '3'].each {
     Map infoNote = serviceResult."lastSystemInfoNote$it"
     context.layoutSettings."middleTopMessage$it" = infoNote ? "${infoNote.noteDateTime.toString().substring(0, 16)} ${infoNote.noteInfo}" : ''
     context.layoutSettings."middleTopLink$it" = infoNote && infoNote.moreInfoUrl && infoNote.moreInfoItemName && infoNote.moreInfoItemId
