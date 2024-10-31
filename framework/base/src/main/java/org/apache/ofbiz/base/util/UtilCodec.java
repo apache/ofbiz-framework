@@ -557,13 +557,16 @@ public class UtilCodec {
             }
             m.appendTail(out);
             value = out.toString();
+            String valueUnescapeHtml4 = StringEscapeUtils.unescapeHtml4(value);
+            String valueUnescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(valueUnescapeHtml4);
+
             String filtered = policy.sanitize(value);
-            String unescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
-            String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
+            String filteredUnescapeHtml4 = StringEscapeUtils.unescapeHtml4(filtered);
+            String filteredUnescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(filteredUnescapeHtml4);
             // Replaces possible quotes entities in value (due to HtmlSanitizer above) to avoid issue with
             // testCreateCustRequestItemNote and allow saving when using quotes in fields
-            // Maybe later we will figure out that some more HTML entities will need to be added to here, see OFBIZ-12691
-            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").replace("&#64;", "@").equals(unescapeEcmaScriptAndHtml4)) {
+
+            if (filtered != null && !valueUnescapeEcmaScriptAndHtml4.equals(filteredUnescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
