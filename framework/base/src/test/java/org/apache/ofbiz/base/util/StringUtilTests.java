@@ -223,10 +223,10 @@ public class StringUtilTests {
     @Test
     public void testTruncateString() {
         assertEquals("no truncate", "this is a truncated long string",
-                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 30));
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 40));
         assertEquals("no truncate to short", "this",
                 StringUtil.truncateEncodedStringToLength("this", 5));
-        assertEquals("normal", "this is a s…ing",
+        assertEquals("normal", "this is a t…ing",
                 StringUtil.truncateEncodedStringToLength("this is a truncated long string", 15));
         assertEquals("normal short", "this …",
                 StringUtil.truncateEncodedStringToLength("this is a truncated long string", 5));

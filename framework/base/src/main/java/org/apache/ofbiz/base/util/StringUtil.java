@@ -412,13 +412,13 @@ public final class StringUtil {
     }
 
     /**
-     * For a content if the size large thant the textSize given, scrap it with to textSize and replace
+     * For a content if the size large thant the textLength given, truncate it with to textSize and replace
      * removed characters by '…'
-     * minimum size for scraping is 5
-     * each 5 step size for textSize the scrap add a character at the end
+     * minimum size for truncate is 5
+     * each 5 steps length the truncate add a character at the end
      * @param content
      * @param textLength
-     * @return
+     * @return truncate string prepare for correct displaying.
      */
     public static String truncateEncodedStringToLength(String content, Integer textLength) {
         if (UtilValidate.isEmpty(content)
@@ -442,17 +442,17 @@ public final class StringUtil {
 
     /**
      * Find the end of potential special char to scrap correctly with a special char present on the start scrap limit
-     * @param theString
+     * @param content
      * @param startTruncateIndex
-     * @return
+     * @return index on content to start the truncate
      */
-    private static int getTruncateStartLimit(String theString, int startTruncateIndex) {
+    private static int getTruncateStartLimit(String content, int startTruncateIndex) {
         if (startTruncateIndex < 0) {
             return 0;
         }
         // convert any special char as one char
         // we need to count each special char and the encoded char corresponding to
-        Matcher matcher = SPECIAL_CHAR.matcher(theString);
+        Matcher matcher = SPECIAL_CHAR.matcher(content);
         int nbSpeCharFound = 0;
         int nbCharToEscape = 0;
         for (MatchResult matchResult : matcher.results()
@@ -464,7 +464,7 @@ public final class StringUtil {
                 if (matchResult.end() >= startTruncateIndex + nbCharToEscape - nbSpeCharFound) {
                     return matchResult.end();
                 }
-                nbSpeCharFound ++;
+                nbSpeCharFound++;
             }
         }
         return startTruncateIndex + nbCharToEscape - nbSpeCharFound;
@@ -472,8 +472,9 @@ public final class StringUtil {
 
     /**
      * Find the start of potential special char to truncate correctly with a special char present on the limit
+     * @param content
      * @param keepEndingChar
-     * @return
+     * @return index on content to stop the truncate
      */
     private static int getTruncateEndLimit(String content, int keepEndingChar) {
         if (content.length() <= 5) {
@@ -488,8 +489,8 @@ public final class StringUtil {
         for (MatchResult matchResult : matcher.results()
                 .sorted(Comparator.comparingInt(MatchResult::end))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
-                            Collections.reverse(list);
-                            return list;
+                    Collections.reverse(list);
+                    return list;
                 }))) {
             if (matchResult.end() > endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar) {
                 nbCharToEscape += matchResult.end() - matchResult.start();
