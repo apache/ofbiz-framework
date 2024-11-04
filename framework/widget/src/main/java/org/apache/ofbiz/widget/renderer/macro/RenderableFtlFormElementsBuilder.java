@@ -156,7 +156,7 @@ public final class RenderableFtlFormElementsBuilder {
         boolean ajaxEnabled = inPlaceEditor != null && javaScriptEnabled;
         if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
             title = description;
-            description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
+            description = StringUtil.truncateEncodedStringToLength(description, size);
         }
 
         final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
@@ -798,7 +798,7 @@ public final class RenderableFtlFormElementsBuilder {
             }
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
                 title = description;
-                description = description.substring(0, size) + "…";
+                description = StringUtil.truncateEncodedStringToLength(description, size);
             } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
                 title = request.getAttribute("title").toString();
             }
@@ -1162,7 +1162,7 @@ public final class RenderableFtlFormElementsBuilder {
 
     private String truncate(String value, int maxCharacterLength) {
         if (maxCharacterLength > 8 && value.length() > maxCharacterLength) {
-            return value.substring(0, maxCharacterLength - 8) + "..." + value.substring(value.length() - 5);
+            return StringUtil.truncateEncodedStringToLength(value, maxCharacterLength);
         }
         return value;
     }

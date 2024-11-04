@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -46,6 +49,7 @@ public final class StringUtil {
     public static final StringUtil INSTANCE = new StringUtil();
     private static final String MODULE = StringUtil.class.getName();
     private static final Map<String, Pattern> SUBSTITUTION_PATTERN_MAP = createSubstitutionPatternMap();
+    private static final Pattern SPECIAL_CHAR = Pattern.compile("\\&[\\#\\S&&[^\\&]]+\\;");
 
     private static Map<String, Pattern> createSubstitutionPatternMap() {
         Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<>();  // Preserve insertion order
@@ -405,6 +409,98 @@ public final class StringUtil {
             return StringWrapper.EMPTY_STRING_WRAPPER;
         }
         return new StringWrapper(theString);
+    }
+
+    /**
+     * For a content if the size large thant the textSize given, scrap it with to textSize and replace
+     * removed characters by '…'
+     * minimum size for scraping is 5
+     * each 5 step size for textSize the scrap add a character at the end
+     * @param content
+     * @param textLength
+     * @return
+     */
+    public static String truncateEncodedStringToLength(String content, Integer textLength) {
+        if (UtilValidate.isEmpty(content)
+                || content.length() < textLength) {
+            return content;
+        }
+        int keepEndingChar = Double.valueOf(textLength / 5).intValue();
+        int start = textLength <= 5 ? textLength : textLength - 1 - keepEndingChar;
+        int end = content.length() - keepEndingChar;
+        if (SPECIAL_CHAR.matcher(content).find()) {
+            start = getTruncateStartLimit(content, start);
+            end = getTruncateEndLimit(content, keepEndingChar);
+            if (end <= start) {
+                return content;
+            }
+        }
+        return String.format("%s…%s",
+                content.substring(0, start),
+                textLength <= 5 ? "" : content.substring(end));
+    }
+
+    /**
+     * Find the end of potential special char to scrap correctly with a special char present on the start scrap limit
+     * @param theString
+     * @param startTruncateIndex
+     * @return
+     */
+    private static int getTruncateStartLimit(String theString, int startTruncateIndex) {
+        if (startTruncateIndex < 0) {
+            return 0;
+        }
+        // convert any special char as one char
+        // we need to count each special char and the encoded char corresponding to
+        Matcher matcher = SPECIAL_CHAR.matcher(theString);
+        int nbSpeCharFound = 0;
+        int nbCharToEscape = 0;
+        for (MatchResult matchResult : matcher.results()
+                .sorted(Comparator.comparingInt(MatchResult::end))
+                .toList()) {
+            if (matchResult.start() < startTruncateIndex + nbCharToEscape - nbSpeCharFound) {
+                nbCharToEscape += matchResult.end() - matchResult.start();
+                // we control that the special char isn't cut, if it's the case, return the end
+                if (matchResult.end() >= startTruncateIndex + nbCharToEscape - nbSpeCharFound) {
+                    return matchResult.end();
+                }
+                nbSpeCharFound ++;
+            }
+        }
+        return startTruncateIndex + nbCharToEscape - nbSpeCharFound;
+    }
+
+    /**
+     * Find the start of potential special char to truncate correctly with a special char present on the limit
+     * @param keepEndingChar
+     * @return
+     */
+    private static int getTruncateEndLimit(String content, int keepEndingChar) {
+        if (content.length() <= 5) {
+            return content.length();
+        }
+        // convert any special char as one char
+        // we need to count each special char and the encoded char corresponding to
+        Matcher matcher = SPECIAL_CHAR.matcher(content);
+        int endCursor = content.length();
+        int nbSpeCharFound = 0;
+        int nbCharToEscape = 0;
+        for (MatchResult matchResult : matcher.results()
+                .sorted(Comparator.comparingInt(MatchResult::end))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+                            Collections.reverse(list);
+                            return list;
+                }))) {
+            if (matchResult.end() > endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar) {
+                nbCharToEscape += matchResult.end() - matchResult.start();
+                // we control that the special char isn't cut, if it's the case, return the start
+                if (matchResult.start() <= endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar) {
+                    return matchResult.start();
+                }
+                nbSpeCharFound++;
+            }
+        }
+        return endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar;
     }
 
     /**

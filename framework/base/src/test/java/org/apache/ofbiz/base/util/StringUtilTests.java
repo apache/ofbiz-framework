@@ -219,4 +219,34 @@ public class StringUtilTests {
                 StringUtil.convertOperatorSubstitutions(
                         "one @and two @or three @gt four @gteq five @lt six @lteq seven"));
     }
+
+    @Test
+    public void testTruncateString() {
+        assertEquals("no truncate", "this is a truncated long string",
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 30));
+        assertEquals("no truncate to short", "this",
+                StringUtil.truncateEncodedStringToLength("this", 5));
+        assertEquals("normal", "this is a s…ing",
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 15));
+        assertEquals("normal short", "this …",
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 5));
+        assertEquals("with parenthesis", "this ( are … ok",
+                StringUtil.truncateEncodedStringToLength("this ( are managed correctly ) ok", 15));
+        assertEquals("with parenthesis at end", "this ( are …d )",
+                StringUtil.truncateEncodedStringToLength("this ( are managed correctly, with the end )", 15));
+        assertEquals("with parenthesis and semicolon ignored", "this ( are …d )",
+                StringUtil.truncateEncodedStringToLength("this ( are a semicolon far ; managed correctly, with the end )", 15));
+        assertEquals("with parenthesis and semicolon closer", "this ( are;…d )",
+                StringUtil.truncateEncodedStringToLength("this ( are; a semicolon closer managed correctly, with the end )", 15));
+        assertEquals("with parenthesis and é managed", "this ( are&eacut;…end",
+                StringUtil.truncateEncodedStringToLength("this ( are&eacut; managed correctly, with the ) end", 15));
+        assertEquals("with parenthesis and é é managed", "this ( a&eacut;e&eacut;…end",
+                StringUtil.truncateEncodedStringToLength("this ( a&eacut;e&eacut; managed correctly, with the ) end", 15));
+        assertEquals("with parenthesis and é closer", "this ( are …n&eacut;d",
+                StringUtil.truncateEncodedStringToLength("this ( are & closer managed correctly, with th&e ) en&eacut;d", 15));
+        assertEquals("with parenthesis and é é closer", "this ( are …&eacut;&eacut;d",
+                StringUtil.truncateEncodedStringToLength("this ( are & closer managed correctly, with th&e )en&eacut;&eacut;d", 15));
+        assertEquals("with parenthesis and # # closer", "this ( are …&#235;&#235;d",
+                StringUtil.truncateEncodedStringToLength("this ( are & closer managed correctly, with th&e )en&#235;&#235;d", 15));
+    }
 }
