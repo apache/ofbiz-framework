@@ -18,9 +18,8 @@
 */
 package org.apache.ofbiz.accounting.invoice
 
-import java.text.NumberFormat
-
 String invoiceId = context.invoiceId
-context.paidInvoice = InvoiceWorker.getInvoiceNotApplied(delegator, invoiceId) == 0
-context.amountToApply == NumberFormat.getNumberInstance(locale).format(InvoiceWorker.getInvoiceNotApplied(delegator, invoiceId))
-context.total = NumberFormat.getNumberInstance(locale).format(InvoiceWorker.getInvoiceTotal(delegator, invoiceId))
+BigDecimal amountToApply = InvoiceWorker.getInvoiceNotApplied(delegator, invoiceId)
+context.paidInvoice = amountToApply == 0
+context.amountToApply = amountToApply
+context.total = InvoiceWorker.getInvoiceTotal(delegator, invoiceId)
