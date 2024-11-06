@@ -999,8 +999,8 @@ body .ui-tooltip {
 .ui-widget-content {
     border: none !important;
     background: white;
-	font-family: 'Quicksand', sans-serif;
-    font-weight:400;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
     font-size: 1.2rem;
 }
 
@@ -1010,7 +1010,7 @@ body .ui-tooltip {
 
 .ui-widget-header {
     background-color: transparent;
-    border:none
+    border: none
 }
 
 .ui-widget-header a {
@@ -1888,7 +1888,7 @@ body .ui-tooltip {
     background-size: 16px 16px;
     background-position: left center;
     background-color: transparent;
-    cursor:pointer;
+    cursor: pointer;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%233699ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
     display: inline-block;
     border: none;
@@ -1929,18 +1929,18 @@ body .ui-tooltip {
 }
 
 /*set Jgrowl css here to avoid side effect with other class*/
-.jGrowl-notification .jGrowl-close{
+.jGrowl-notification .jGrowl-close {
     position: absolute;
-    right:2.5rem;
-    top:1rem;
-    font-size:4rem;
+    right: 2.5rem;
+    top: 1rem;
+    font-size: 4rem;
     font-weight: 300;
 }
 
 .errorMessageJGrowl {
     background: #FEDFDF;
     opacity: 0.9;
-    border:none;
+    border: none;
     color: #f65644;
     font-size: 1.3em;
     font-weight: 500;
@@ -1948,7 +1948,7 @@ body .ui-tooltip {
     line-height: 1.5em;
     min-width: 500px;
     word-wrap: break-word;
-    box-shadow: 0 0 50px 0 rgba(82,63,105,.15);
+    box-shadow: 0 0 50px 0 rgba(82, 63, 105, .15);
     text-overflow: ellipsis;
     font-family: 'Quicksand', sans-serif !important;
 
@@ -1964,7 +1964,7 @@ body .ui-tooltip {
     line-height: 1.5em;
     min-width: 500px;
     word-wrap: break-word;
-    box-shadow: 0 0 50px 0 rgba(82,63,105,.15);
+    box-shadow: 0 0 50px 0 rgba(82, 63, 105, .15);
     text-overflow: ellipsis;
     font-family: 'Quicksand', sans-serif !important;
 }
