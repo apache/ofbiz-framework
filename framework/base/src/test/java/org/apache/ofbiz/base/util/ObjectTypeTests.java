@@ -301,7 +301,7 @@ public class ObjectTypeTests {
     }
 
     @Test
-    public void testString() throws GeneralException, Exception {
+    public void testString() throws GeneralException {
         simpleTypeOrObjectConvertTest("String->String", "one", "String", "one");
         simpleTypeOrObjectConvertTest("String->String", "one", "java.lang.String", "one");
         simpleTypeOrObjectConvertTestSingleMulti("empty-String->anything", "", new String[] {"List", "Map"}, null);
