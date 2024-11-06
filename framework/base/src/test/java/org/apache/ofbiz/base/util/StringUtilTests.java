@@ -18,6 +18,9 @@
  */
 package org.apache.ofbiz.base.util;
 
+import com.ibm.icu.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -81,6 +84,33 @@ public class StringUtilTests {
                 StringUtil.strToMap(" 1 = one | 2 = two "));
         assertEquals("double-trim", UtilMisc.toMap("2", "two", "1", "one"),
                 StringUtil.strToMap(" 1 = one | 2 = two ", true));
+    }
+
+    @Test
+    public void testMapToStr() {
+        // Test Null
+        assertNull("null-string", StringUtil.mapToStr(null));
+        assertNull("empty", StringUtil.mapToStr(Map.of()));
+
+        // Test simple case
+        assertEquals("single", "1=one", StringUtil.mapToStr(Map.of("1", "one")));
+        LinkedHashMap<String, String> doubleMap = new LinkedHashMap<>();
+        doubleMap.put("1", "one");
+        doubleMap.put("2", "two");
+        assertEquals("double", "1=one|2=two", StringUtil.mapToStr(doubleMap));
+
+        // Test with object case
+        LinkedHashMap<Object, Object> doubleObjectMap = new LinkedHashMap<>();
+        doubleObjectMap.put(Integer.valueOf(1), Long.valueOf(1));
+        doubleObjectMap.put(Integer.valueOf(2), BigDecimal.ONE);
+        assertEquals("double with number classe", "1=1|2=1", StringUtil.mapToStr(doubleObjectMap));
+
+        // Test with special char
+        assertEquals("single with =", "1=%3Done", StringUtil.mapToStr(Map.of("1", "=one")));
+        LinkedHashMap<String, String> doublePipeMap = new LinkedHashMap<>();
+        doublePipeMap.put("1", "|one");
+        doublePipeMap.put("2|", "two");
+        assertEquals("double with pipe", "1=%7Cone|2%7C=two", StringUtil.mapToStr(doublePipeMap));
     }
 
     @Test

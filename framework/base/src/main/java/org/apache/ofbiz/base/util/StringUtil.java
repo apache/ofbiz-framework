@@ -20,6 +20,7 @@ package org.apache.ofbiz.base.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -210,6 +211,30 @@ public final class StringUtil {
      */
     public static Map<String, String> strToMap(String str) {
         return strToMap(str, "|", false);
+    }
+
+    /**
+     * Creates an encoded String from a Map of name/value pairs
+     * @param mapToConvert The Map of name/value pairs
+     * @return String The encoded String like key1=value1|key2=value2, null if map is empty
+     */
+    public static String mapToStr(Map<? extends Object, ? extends Object> mapToConvert) {
+        if (UtilValidate.isEmpty(mapToConvert)) {
+            return null;
+        }
+        return mapToConvert.entrySet().stream().map(entry -> {
+            String key = String.valueOf(entry.getKey());
+            String value = String.valueOf(entry.getValue());
+
+            try {
+                return new StringBuilder(URLEncoder.encode(key, "UTF-8"))
+                        .append("=")
+                        .append(URLEncoder.encode(value, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                Debug.logError(e, MODULE);
+            }
+            return "";
+        }).collect(Collectors.joining("|"));
     }
 
     /**
