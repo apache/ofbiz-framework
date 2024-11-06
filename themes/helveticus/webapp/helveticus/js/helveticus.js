@@ -18,54 +18,33 @@
  */
 
 function showHideUserPref() {
-    var userPref = document.getElementById("user-details");
+    const userPref = document.getElementById("user-details");
 
-    if(userPref.style.display == "none") {
+    if (userPref.style.display == "none") {
         userPref.style.display = "flex";
-    }
-    else {
+    } else {
         userPref.style.display = "none";
     }
 }
 
-function selectOrgaOK(orgaName){
-    var selectOrga = document.getElementById("orga"+orgaName);
-    var currentModal = document.getElementById("selectOrga");
+function selectOrgaOK(orgaName) {
+    const selectOrga = document.getElementById("orga" + orgaName);
+    const currentModal = document.getElementById("selectOrga");
     selectOrga.click();
     currentModal.style.visibility = "hidden";
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    let tooltips = document.querySelectorAll('.tooltip'),
-        checkboxs = document.querySelectorAll('input[type=checkbox]'),
-        radios = document.querySelectorAll('input[type=radio]'),
-        lefts = document.querySelectorAll('.lefthalf');
-
-    tooltips.forEach(tooltip => {
-        tooltip.classList.add('hidden');
-
-        let ParentTooltip = tooltip.parentNode;
-        ParentTooltip.classList.add('has-tooltip');
-
-        let infoTooltips = ParentTooltip.querySelectorAll('i');
-
-        infoTooltips.forEach(infoTooltip => {
-            infoTooltip.classList.remove("hidden");
-            infoTooltip.addEventListener("mouseenter", function( event ) {
-                tooltip.classList.remove('hidden');
-            });
-            infoTooltip.addEventListener("mouseout", function( event ) {
-                tooltip.classList.add('hidden');
-            })
-        })
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    const checkboxs = document.querySelectorAll('input[type=checkbox]');
+    const radios = document.querySelectorAll('input[type=radio]');
+    const lefts = document.querySelectorAll('.lefthalf');
 
     checkboxs.forEach(checkbox => {
         checkbox.parentNode.classList.add('has-checkbox');
     });
     radios.forEach(radio => {
         radio.parentNode.classList.add('has-radio');
-    }); 
+    });
     lefts.forEach(left => {
         left.parentNode.classList.add('screenlet-flex');
     });
