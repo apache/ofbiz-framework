@@ -5,7 +5,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
-        "dompurify": "^3.1.7",
+        "dompurify": "^3.2.0",
         "featherlight": "^1.7.14",
         "flot": "^4.2.6",
         "inputmask": "^5.0.9",
