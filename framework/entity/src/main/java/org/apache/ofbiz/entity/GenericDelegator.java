@@ -2685,7 +2685,9 @@ public class GenericDelegator implements Delegator {
         if (!this.testMode || this.testRollbackInProgress) {
             throw new IllegalStateException("An attempt was made to store a TestOperation during rollback or outside of test mode");
         }
-        this.testOperations.add(testOperation);
+        if (testOperation.getValue().isMutable()) {
+            this.testOperations.add(testOperation);
+        }
     }
 
     /* (non-Javadoc)
@@ -2707,12 +2709,18 @@ public class GenericDelegator implements Delegator {
                 break;
             }
             try {
-                if (testOperation.getOperation().equals(OperationType.INSERT)) {
-                    this.removeValue(testOperation.getValue());
-                } else if (testOperation.getOperation().equals(OperationType.UPDATE)) {
-                    this.store(testOperation.getValue());
-                } else if (testOperation.getOperation().equals(OperationType.DELETE)) {
-                    this.create(testOperation.getValue());
+                GenericValue gv = testOperation.getValue();
+                gv = gv.isMutable()
+                        ? gv
+                        : GenericValue.create(gv);
+                switch (testOperation.getOperation()) {
+                case INSERT -> this.removeValue(gv);
+                case UPDATE -> this.store(gv);
+                case DELETE -> {
+                    if (this.findOne(gv.getEntityName(), gv.getPrimaryKey().getAllFields(), false) == null) {
+                        this.create(gv);
+                    }
+                }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);
