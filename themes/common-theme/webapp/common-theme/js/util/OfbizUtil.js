@@ -352,12 +352,11 @@ function bindObservers(bind_element) {
     jQuery(bind_element).find(".date-time-picker").each(function () {
         initDateTimePicker(this);
     });
-    jQuery(bind_element).on("click", ".fieldgroup  li.collapsed, .fieldgroup  li.expanded", function (e) {
-        var element = jQuery(this);
-        var collapsibleAreaId = element.data("collapsible-area-id");
-        var expandToolTip = element.data("expand-tooltip");
-        var collapseToolTip = element.data("collapse-tooltip");
-        toggleCollapsiblePanel(element, collapsibleAreaId, expandToolTip, collapseToolTip);
+    jQuery(bind_element).find('.fieldgroup  li.collapsed, .fieldgroup  li.expanded').each(function (_) {
+        const el = jQuery(this);
+        el.on('click', function (_) {
+            toggleCollapsiblePanel(el, el.data('collapsible-area-id'), el.data('expand-tooltip'), el.data('collapse-tooltip'));
+        });
     });
 }
 
