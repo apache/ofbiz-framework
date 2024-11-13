@@ -43,6 +43,8 @@
 @home-menu-tile-min-width: 100px;
 @home-menu-tile-max-width: 100px;
 
+@transition: all .2s;
+
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 * {
     margin: 0;
@@ -110,7 +112,6 @@ span.label {
 /*** BUTTON /LINK / NAV STYLES ***/
 a, a:hover, input.buttontext, input[type="submit"] {
     text-decoration: none;
-    transition: .2s;
 }
 
 a {
@@ -131,6 +132,7 @@ input[type="submit"], .smallSubmit, button {
     padding: 0.5rem 0.8rem;
     font-size: 1.2rem;
     cursor: pointer;
+    transition: @transition;
 
     &:hover {
         color: @main-color-theme;
@@ -246,6 +248,7 @@ input[type="submit"], .smallSubmit, button {
                 color: @dark-color-theme;
                 font-weight: 600;
                 font-size: 1.2rem;
+                transition: @transition;
             }
 
             &.selected a, &:hover a {
@@ -308,8 +311,8 @@ a.buttontext {
     border-radius: 0.5rem;
     display: inline-block;
     font-weight: 600;
-    margin: 0.3rem;
-    margin-right: 0.5rem;
+    margin: 0.3rem 0.5rem 0.3rem 0.3rem;
+    transition: @transition;
 
     &:hover {
         color: @light-color-theme;
@@ -563,6 +566,7 @@ a.buttontext {
                     font-weight: 600;
                     font-size: 1.2rem;
                     display: block;
+                    transition: @transition;
                 }
             }
         }
@@ -1083,13 +1087,13 @@ label.has-checkbox, .has-radio {
     padding-left: 4px;
     padding-right: 5px;
     border-radius: 8px 8px 8px 8px;
-    transition: all .2s;
+    transition: @transition;
 }
 
 [type="checkbox"]:checked.nrd-chkbox + label:after {
     position: relative;
     left: -15px;
-    transition: all .2s;
+    transition: @transition;
 }
 
 /*** TABLE STYLE ***/
