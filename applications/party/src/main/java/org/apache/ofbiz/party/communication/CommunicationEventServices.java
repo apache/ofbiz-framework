@@ -166,7 +166,7 @@ public class CommunicationEventServices {
                 }
 
                 // add other parties from roles, collect all email on map to parse it after
-                List<String> emailAlreadyLoad = UtilMisc.toList(sendTo);
+                List<String> alreadyLoaded = UtilMisc.toList(sendTo);
                 List<String> availableRoleTypeIds = UtilMisc.toList("ADDRESSEE", "CC", "BCC");
                 Map<String, Object> emailsCollector = UtilMisc.toMap("ADDRESSEE", UtilMisc.toList(sendTo));
                 List<GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole", null, null, false);
@@ -176,11 +176,11 @@ public class CommunicationEventServices {
                         if (contactMech != null && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
                             String infoString = contactMech.getString("infoString");
                             String roleTypeId = commRole.getString("roleTypeId");
-                            if (emailAlreadyLoad.contains(infoString)
+                            if (alreadyLoaded.contains(infoString)
                                     && !availableRoleTypeIds.contains(roleTypeId)) {
                                 continue;
                             }
-                            emailAlreadyLoad.add(infoString);
+                            alreadyLoaded.add(infoString);
                             UtilMisc.addToListInMap(infoString, emailsCollector, roleTypeId);
                         }
                     }
