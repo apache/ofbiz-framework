@@ -185,6 +185,22 @@ public class EntityTestSuite extends EntityTestCase {
     }
 
     /**
+     * Test to load huge entity
+     * @throws Exception the exception
+     */
+    public void testCreateAllValues() throws Exception {
+        List<GenericValue> testValues = new ArrayList<>(100);
+        for (int i = 0; i < 100; i++) {
+            testValues.add(getDelegator().makeValue("TestingType",
+                    "testingTypeId", "TEST_CREATE_ALL" + i,
+                    "description", "Testing Type #CreateAll" + i));
+        }
+        getDelegator().createAllByBatchProcess(testValues);
+        assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("TestingType",
+                EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST_CREATE_ALL%"), null, null));
+    }
+
+    /**
      * Tests the entity cache
      * @throws Exception the exception
      */

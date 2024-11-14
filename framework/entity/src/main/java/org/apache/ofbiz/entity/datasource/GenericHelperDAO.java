@@ -72,6 +72,20 @@ public class GenericHelperDAO implements GenericHelper {
         return value;
     }
 
+    /** Insert a given list of GenericValue to the database
+     *@return List of GenericValue instance created
+     */
+    public List<GenericValue> createAll(List<GenericValue> values) throws GenericEntityException {
+        if (values.isEmpty()) {
+            return null;
+        }
+        int retVal = genericDAO.insertAll(values);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Insert Return Value : " + retVal, MODULE);
+        }
+        return values;
+    }
+
     /** Find a Generic Entity by its Primary Key
      *@param primaryKey The primary key to find by.
      *@return The GenericValue corresponding to the primaryKey

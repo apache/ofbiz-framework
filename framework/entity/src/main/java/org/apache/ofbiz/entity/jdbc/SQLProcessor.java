@@ -33,6 +33,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -857,5 +858,28 @@ public class SQLProcessor implements AutoCloseable {
                     + ") when executing the SQL [" + sql + "]", MODULE);
             TransactionUtil.printAllThreadsTransactionBeginStacks();
         }
+    }
+
+    /**
+     * Ask the processor to execute the batch and return the number of rows updated
+     * @return The number of rows updated
+     * @throws GenericDataSourceException
+     */
+    public int executeBatch() throws GenericDataSourceException {
+        try {
+            return Arrays.stream(ps.executeBatch()).sum();
+        } catch (SQLException sqle) {
+            this.checkLockWaitInfo(sqle);
+            throw new GenericDataSourceException("SQL Exception while executing the following:" + sql, sqle);
+        }
+    }
+
+    /**
+     * Add to the processor a batch treatment
+     * @throws SQLException
+     */
+    public void addBatch() throws SQLException {
+        this.ind = 1;
+        this.getPreparedStatement().addBatch();
     }
 }

@@ -39,6 +39,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
+import java.util.stream.Collectors;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.concurrent.ConstantFuture;
@@ -920,6 +921,57 @@ public class GenericDelegator implements Delegator {
             TransactionUtil.rollback(beganTransaction, errMsg, e);
             throw new GenericEntityException(e);
         }
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#createAllByBatchProcess(org.apache.ofbiz.entity.Delegator)
+     */
+    @Override
+    public void createAllByBatchProcess(List<GenericValue> values, boolean distribute) throws GenericEntityException {
+        boolean beganTransaction = ALWAYS_USE_TRANS
+                ? TransactionUtil.begin()
+                : false;
+
+        if (UtilValidate.isEmpty(values)) {
+            throw new GenericEntityException("No value to store");
+        }
+        Map<String, List<GenericValue>> sortedValuesByEntityName = values.stream()
+                .collect(Collectors.groupingBy(GenericValue::getEntityName));
+        for (Map.Entry<String, List<GenericValue>> entry : sortedValuesByEntityName.entrySet()) {
+            List<GenericValue> entityValues = entry.getValue();
+            String entityName = entry.getKey();
+            try {
+                GenericHelper helper = getEntityHelper(entityName);
+
+                helper.createAll(entityValues);
+
+                if (testMode) {
+                    entityValues.forEach(v ->
+                            storeForTestRollback(new TestOperation(OperationType.INSERT, v)));
+                }
+                if (distribute) {
+                    this.clearCacheLine(entityName);
+                }
+
+                TransactionUtil.commit(beganTransaction);
+            } catch (IllegalStateException | GenericEntityException e) {
+                String errMsg = String.format(
+                        "Failure in create operation for list of entity on %s"
+                                + " for %s elements with error : %s. Rolling back transaction.",
+                        entityName, entityValues.size(), e);
+                Debug.logError(errMsg, MODULE);
+                TransactionUtil.rollback(beganTransaction, errMsg, e);
+                throw new GenericEntityException(e);
+            }
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#createAllByBatchProcess(org.apache.ofbiz.entity.Delegator)
+     */
+    @Override
+    public void createAllByBatchProcess(List<GenericValue> values) throws GenericEntityException {
+        createAllByBatchProcess(values, true);
     }
 
     /* (non-Javadoc)
