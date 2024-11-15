@@ -194,10 +194,13 @@ public class EntityTestSuite extends EntityTestCase {
             testValues.add(getDelegator().makeValue("TestingType",
                     "testingTypeId", "TEST_CREATE_ALL" + i,
                     "description", "Testing Type #CreateAll" + i));
+            testValues.add(getDelegator().makeValue("Testing", "testingId", "TEST_CREATE_DIST" + i));
         }
         getDelegator().createAllByBatchProcess(testValues);
         assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("TestingType",
                 EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST_CREATE_ALL%"), null, null));
+        assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("Testing",
+                EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "TEST_CREATE_DIST%"), null, null));
     }
 
     /**
