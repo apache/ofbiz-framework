@@ -304,6 +304,7 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
             include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
             include 'org/apache/ofbiz/test/TestServices.groovy'
+            include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.groovy'
             include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
             include 'org/apache/ofbiz/service/test/ServicePurgeTest.groovy'
             include 'org.apache.ofbiz.base.test.SimpleTests.groovy'
