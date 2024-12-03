@@ -345,10 +345,6 @@ function bindObservers(bind_element) {
         var focusField = element.data("focus-field");
         element.find("[name=" + focusField + "]").focus();
     });
-    jQuery(bind_element).find(".requireValidation").each(function () {
-        var element = jQuery(this);
-        element.validate();
-    });
     jQuery(bind_element).find(".date-time-picker").each(function () {
         initDateTimePicker(this);
     });

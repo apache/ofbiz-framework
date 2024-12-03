@@ -36,14 +36,14 @@ under the License.
       <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
         <label>
           ${uiLabelMap.CommonUsername}
-          <input type="text" name="USERNAME" value="${username}" tabindex="0"/>
+          <input type="text" name="USERNAME" value="${username}" tabindex="0" required/>
         </label>
         
         <label>
           <span>
             ${uiLabelMap.CommonPassword}
           </span>
-          <input type="password" name="PASSWORD" autocomplete="off" value="" tabindex="0"/>
+          <input type="password" name="PASSWORD" autocomplete="off" value="" tabindex="0" required/>
             <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}</a>
         </label>
 

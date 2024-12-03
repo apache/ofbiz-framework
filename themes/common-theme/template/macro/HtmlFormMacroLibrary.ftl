@@ -43,8 +43,10 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
-  <input type="text" name="${name?default("")?html}"<#t/>
+<#macro renderTextField type pattern name className alert value="" textSize="" maxlength="" id="" event="" action=""
+        disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" required=false
+        placeholder="" delegatorName="default">
+  <input type="${type}" name="${name?default("")?html}"<#t/>
   <#if ajaxEnabled?has_content && ajaxEnabled && ajaxUrl?has_content>
     <#local defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
     <#local defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
@@ -58,14 +60,15 @@ under the License.
     <#if value?has_content> value="${value}"</#if><#rt/>
     <#if textSize?has_content> size="${textSize}"</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
-    <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/>
+    <#if readonly?has_content && readonly> readonly</#if><#rt/>
     <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
     <#if placeholder?has_content> placeholder="${placeholder}"</#if><#rt/>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-    require
+    <#if required?has_content && required> required</#if>
+    <#if pattern?has_content> pattern="${pattern}"</#if>
   /><#t/>
 </#macro>
 
@@ -78,7 +81,7 @@ under the License.
     <#if cols?has_content> cols="${cols}"</#if><#rt/>
     <#if rows?has_content> rows="${rows}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
-    <#if readonly?has_content && readonly=='readonly'> readonly="readonly"</#if><#rt/>
+    <#if readonly?has_content && readonly=='readonly'> readonly</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if visualEditorEnable?has_content> data-toolbar="${buttons?default("maxi")}"</#if><#rt/>
@@ -321,7 +324,15 @@ under the License.
 <#macro renderSingleFormFieldTitle></#macro>
 
 <#macro renderFormOpen linkUrl formType name viewIndexField viewSizeField viewIndex viewSize targetWindow="" containerId="" containerStyle="" autocomplete="" useRowSubmit="" focusFieldName="" hasRequiredField="" csrfNameValue="">
-  <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> <#if focusFieldName?has_content> data-focus-field="${focusFieldName}"</#if> class="<#if containerStyle?has_content>${containerStyle}<#else>basic-form</#if><#if hasRequiredField?has_content> requireValidation</#if>" onsubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"><#lt/>
+  <form method="post" action="${linkUrl}"
+        <#if formType=="upload"> enctype="multipart/form-data"</#if>
+        <#if targetWindow?has_content> target="${targetWindow}"</#if>
+        <#if containerId?has_content> id="${containerId}"</#if>
+        <#if focusFieldName?has_content> data-focus-field="${focusFieldName}"</#if>
+        class="<#if containerStyle?has_content>${containerStyle}<#else>basic-form</#if>"
+        onsubmit="javascript:submitFormDisableSubmits(this)"
+        <#if autocomplete?has_content> autocomplete="${autocomplete}"</#if>
+        name="${name}"><#lt/>
     <#if csrfNameValue?has_content>
       <#assign result = csrfNameValue?matches(r"(\w+) (\w+)")>
       <#if result>
@@ -640,7 +651,11 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 Parameter: tabindex, String, optional - HTML tabindex number.
 Parameter: delegatorName, String, optional - name of the delegator in context.
 -->
-<#macro renderLookupField name formName fieldFormName conditionGroup="" className="" alert="false" value="" size="" maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth() height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText="" showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default" disabled=false>
+<#macro renderLookupField name formName fieldFormName conditionGroup="" className="" alert="false" value="" size=""
+        maxlength="" id="" event="" action="" readonly=false autocomplete="" descriptionFieldName="" targetParameterIter=""
+        imgSrc="" ajaxUrl="" ajaxEnabled=javaScriptEnabled presentation="layer" width=modelTheme.getLookupWidth()
+        height=modelTheme.getLookupHeight() position=modelTheme.getLookupPosition() fadeBackground="true" clearText=""
+        showDescription="" initiallyCollapsed="" lastViewName="main" tabindex="" delegatorName="default" disabled=false>
   <#if Static["org.apache.ofbiz.widget.model.ModelWidget"].widgetBoundaryCommentsEnabled(context)><#-- context is always null here, but this is handled in widgetBoundaryCommentsEnabled -->
   <!-- @renderLookupField -->
   </#if>
@@ -669,7 +684,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
       <input type="text" <@renderClass className alert /> <@renderDisabled disabled />
         <#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
         <#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/>
-        <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
+        <#if readonly?has_content && readonly> readonly</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
         <#if autocomplete?has_content> autocomplete="off"</#if><#rt/>
     </#if>
       data-lookup-ajax-enabled="<#if ajaxEnabled?has_content>${ajaxEnabled?string}<#else>false</#if>" <#rt/>
@@ -771,7 +786,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <#if maxlength?has_content> maxlength="${maxlength}"</#if>
     <#if id?has_content> id="${id}"</#if>
     <#if autocomplete?has_content> autocomplete="off"</#if>
-    <#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
+    <#if tabindex?has_content> tabindex="${tabindex}"</#if>
+    required/><#rt/>
 </#macro>
 
 <#macro renderImageField action value="" description="" alternate="" style="" event=""><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if><#if style?has_content> class="${style}"</#if><#if event?has_content> ${event?html}="${action}" </#if>/></#macro>
