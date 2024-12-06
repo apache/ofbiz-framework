@@ -140,7 +140,7 @@ Map getElectronicText() {
  */
 Map attachUploadToDataResource() {
     boolean isUpdate = false
-    boolean forceLocal = UtilProperties.getPropertyValue('content.properties', 'content.upload.always.local.file')
+    boolean forceLocal = UtilProperties.getPropertyAsBoolean('content.properties', 'content.upload.always.local.file', false)
     List validLocalFileTypes = [
         'LOCAL_FILE',
         'OFBIZ_FILE',
