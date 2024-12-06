@@ -213,15 +213,15 @@ function insertImageName(type,nameValue) {
             <h3>${uiLabelMap.ProductCategoryUploadImage}</h3>
         </div>
         <div class="screenlet-body">
-            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId!}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
+            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId!}&amp;up_load_file_type=category</@ofbizUrl>" name="imageUploadForm">
                 <table cellspacing="0" class="basic-table">
                     <tr><td>
                         <input type="file" size="50" name="fname" accept=".png,.gif,.jpg,.jpeg,.tiff,.tif"/>
                         <br />
                         <span>
-                            <label><input type="radio" name="up_load_file_type_bogus" value="category" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=category</@ofbizUrl>");'/>${uiLabelMap.ProductCategoryImageUrl}</label>
-                            <label><input type="radio" name="up_load_file_type_bogus" value="linkOne" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=linkOne</@ofbizUrl>");'/>${uiLabelMap.ProductLinkOneImageUrl}</label>
-                            <label><input type="radio" name="up_load_file_type_bogus" value="linkTwo"onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=linkTwo</@ofbizUrl>");'/>${uiLabelMap.ProductLinkTwoImageUrl}</label>
+                            <label><input type="radio" name="up_load_file_type_bogus" value="category" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;up_load_file_type=category</@ofbizUrl>");'/>${uiLabelMap.ProductCategoryImageUrl}</label>
+                            <label><input type="radio" name="up_load_file_type_bogus" value="linkOne" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;up_load_file_type=linkOne</@ofbizUrl>");'/>${uiLabelMap.ProductLinkOneImageUrl}</label>
+                            <label><input type="radio" name="up_load_file_type_bogus" value="linkTwo"onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;up_load_file_type=linkTwo</@ofbizUrl>");'/>${uiLabelMap.ProductLinkTwoImageUrl}</label>
                         </span>
                         <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}"/>
                     </td></tr>

@@ -69,7 +69,7 @@ context.tryEntity = tryEntity
 // UPLOADING STUFF
 forLock = new Object()
 contentType = null
-String fileType = request.getParameter('upload_file_type')
+String fileType = request.getParameter('up_load_file_type')
 if (fileType) {
     context.fileType = fileType
 

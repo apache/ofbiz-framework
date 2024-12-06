@@ -589,8 +589,6 @@ public class SecuredUpload {
                     + "For security reason it's not accepted as a such file",
                     MODULE);
         }
-        file = new File(fileName);
-        file.delete();
         return safeState;
     }
 
