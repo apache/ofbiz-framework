@@ -5497,12 +5497,12 @@ public final class ModelFormField {
             this.subHyperlink = null;
         }
 
-        protected TextField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
+        protected TextField(int fieldSource, int size, Integer maxlength, String type, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.TEXT, modelFormField);
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
-            this.type = "";
+            this.type = type;
             this.pattern = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -5686,7 +5686,7 @@ public final class ModelFormField {
         }
 
         public TextFindField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
-            super(fieldSource, size, maxlength, modelFormField);
+            super(fieldSource, size, maxlength, "", modelFormField);
             this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
             this.hideIgnoreCase = false;
             this.hideOptions = false;
