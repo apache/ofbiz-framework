@@ -113,16 +113,10 @@ abstract class GroovyBaseScript extends Script {
     }
 
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
-    def success() {
-        return success(null, null)
-    }
-    def success(String message) {
-        return success(message, null)
-    }
     def success(Map returnValues) {
         return success(null, returnValues)
     }
-    def success(String message, Map returnValues) {
+    def success(String message = '', Map returnValues = [:]) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
@@ -144,12 +138,15 @@ abstract class GroovyBaseScript extends Script {
         return result
     }
     /* codenarc-enable */
-    Map failure(String message) {
+    Map failure(String message, Map returnValues = [:]) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
-        if (message) {
-            return ServiceUtil.returnFailure(message)
+        Map result = message
+                ? ServiceUtil.returnFailure(message)
+                : ServiceUtil.returnFailure()
+        if (returnValues) {
+            result.putAll(returnValues)
         }
-        return ServiceUtil.returnFailure()
+        return result
     }
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
     def error(String message) {
