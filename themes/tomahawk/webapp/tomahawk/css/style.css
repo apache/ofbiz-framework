@@ -102,7 +102,8 @@ input[type="radio"], input[type="checkbox"] {
     vertical-align: middle;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="number"],
+input[type="email"], input[type="url"], input[type="tel"] {
     background-color: #fffcea;
     border: 0.1em solid #999999;
     font-size: 1.1em;
