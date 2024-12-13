@@ -203,7 +203,7 @@ under the License.
       <tr>
           <td class="label">${mechMap.contactMechType.get("description",locale)}</td>
           <td>
-              <input type="text" size="60" maxlength="255" name="emailAddress" value="${(mechMap.contactMech.infoString)?default(request.getParameter('emailAddress')!)}" />
+              <input type="email" size="60" maxlength="255" name="emailAddress" value="${(mechMap.contactMech.infoString)?default(request.getParameter('emailAddress')!)}" />
           </td>
       </tr>
   <#elseif "FTP_ADDRESS" = mechMap.contactMechTypeId!>

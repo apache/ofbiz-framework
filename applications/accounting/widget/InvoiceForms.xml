@@ -636,11 +636,11 @@ under the License.
             </service>
         </actions>
         <field name="invoiceId"><hidden/></field>
-        <field name="emailAddressFrom" entry-name="mapFrom.emailAddress" parameter-name="sendFrom" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)"><text/></field>
-        <field name="emailAddressFrom" entry-name="mapTo.emailAddress" parameter-name="sendFrom" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text/></field>
-        <field name="emailAddressTo" entry-name="mapTo.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)"><text/></field>
-        <field name="emailAddressTo" entry-name="mapFrom.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text/></field>
-        <field name="emailAddressCc" entry-name="ccEmailAddress" parameter-name="sendCc"><text/></field>
+        <field name="emailAddressFrom" entry-name="mapFrom.emailAddress" parameter-name="sendFrom" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)"><text type="email"/></field>
+        <field name="emailAddressFrom" entry-name="mapTo.emailAddress" parameter-name="sendFrom" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text type="email"/></field>
+        <field name="emailAddressTo" entry-name="mapTo.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;SALES_INVOICE&quot;)"><text type="email"/></field>
+        <field name="emailAddressTo" entry-name="mapFrom.emailAddress" parameter-name="sendTo" use-when="&quot;${invoice.invoiceTypeId}&quot;.equals(&quot;PURCHASE_INVOICE&quot;)"><text type="email"/></field>
+        <field name="emailAddressCc" entry-name="ccEmailAddress" parameter-name="sendCc"><text type="email"/></field>
         <field name="subject"><text default-value="Please find attached invoice."/></field>
         <field name="otherCurrency" entry-name="parameters.other" parameter-name="other"><check/></field>
         <field name="bodyText"><textarea/></field>

@@ -141,7 +141,7 @@ under the License.
         <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
         <field name="extension" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
         <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
-        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
+        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60" type="email"/></field>
         <field name="contactListTitle" title="${uiLabelMap.MarketingContactList}" title-area-style="group-label"><display/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
             <drop-down allow-empty="true">
