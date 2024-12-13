@@ -1497,12 +1497,13 @@ under the License.
                     <xs:documentation>Specifies a short hint that describes the expected value of an input field.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="type" type="xs:string">
+            <xs:attribute name="type" default="text">
                 <xs:annotation>
                     <xs:documentation>Controls the type attribute on the input element. Limited to a few types. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types</xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
+                        <xs:enumeration value="text" />
                         <xs:enumeration value="number" />
                         <xs:enumeration value="email" />
                         <xs:enumeration value="url" />
