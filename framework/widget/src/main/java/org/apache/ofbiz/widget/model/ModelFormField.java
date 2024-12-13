@@ -5652,10 +5652,18 @@ public final class ModelFormField {
             formStringRenderer.renderTextField(writer, context, this);
         }
 
+        /**
+         * Gets type.
+         * @return the type
+         */
         public String getType() {
             return this.type;
         }
 
+        /**
+         * Gets pattern.
+         * @return the pattern
+         */
         public String getPattern() {
             return this.pattern;
         }

@@ -353,7 +353,8 @@ public class RenderableFtlFormElementsBuilderTest {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
         assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("required", true)));
-        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("className", "someCssClass required")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(
+                MacroCallParameterMatcher.hasNameAndStringValue("className", "someCssClass required")));
     }
 
     @Test
