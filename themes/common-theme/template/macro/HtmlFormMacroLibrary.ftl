@@ -844,7 +844,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 </#macro>
 
 <#macro renderAsterisks requiredField requiredStyle>
-  <#if requiredField=="true"><#if !requiredStyle?has_content>*</#if></#if>
+  <#if requiredField=="true">*</#if>
 </#macro>
 
 <#macro renderDisabled disabled>
