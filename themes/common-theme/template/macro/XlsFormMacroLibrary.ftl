@@ -150,7 +150,7 @@ under the License.
 
 <#macro renderClass className="" alert=""></#macro>
 
-<#macro renderAsterisks requiredField requiredStyle></#macro>
+<#macro renderAsterisks requiredField></#macro>
 
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><td>${description!}</td></#macro>

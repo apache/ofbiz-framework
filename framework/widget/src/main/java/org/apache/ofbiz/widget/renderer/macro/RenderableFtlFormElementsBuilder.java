@@ -108,16 +108,13 @@ public final class RenderableFtlFormElementsBuilder {
 
     public RenderableFtl asterisks(final Map<String, Object> context, final ModelFormField modelFormField) {
         String requiredField = "false";
-        String requiredStyle = "";
         if (modelFormField.getRequiredField()) {
             requiredField = "true";
-            requiredStyle = modelFormField.getRequiredFieldStyle();
         }
 
         return RenderableFtlMacroCall.builder()
                 .name("renderAsterisks")
                 .stringParameter("requiredField", requiredField)
-                .stringParameter("requiredStyle", requiredStyle)
                 .build();
     }
 

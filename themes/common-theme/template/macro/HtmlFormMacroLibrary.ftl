@@ -843,7 +843,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
   <#if className?has_content || (alert?has_content && alert=="true")> class="${className}<#if alert?has_content && alert=="true"> alert</#if>" </#if>
 </#macro>
 
-<#macro renderAsterisks requiredField requiredStyle>
+<#macro renderAsterisks requiredField>
   <#if requiredField=="true">*</#if>
 </#macro>
 

@@ -118,4 +118,4 @@ under the License.
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><@renderField description /></#macro>
 <#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title targetParameters alternate linkUrl targetWindow description confirmation uniqueItemName="" height="" width="" id=""><@renderField description /></#macro>
 <#macro renderTooltip tooltip tooltipStyle></#macro>
-<#macro renderAsterisks requiredField requiredStyle></#macro>
+<#macro renderAsterisks requiredField></#macro>
