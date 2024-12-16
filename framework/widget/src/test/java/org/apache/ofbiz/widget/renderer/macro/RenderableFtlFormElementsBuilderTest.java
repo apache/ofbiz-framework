@@ -354,7 +354,7 @@ public class RenderableFtlFormElementsBuilderTest {
         assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("required", true)));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(
-                MacroCallParameterMatcher.hasNameAndStringValue("className", "someCssClass required")));
+                MacroCallParameterMatcher.hasNameAndStringValue("className", "required someCssClass")));
     }
 
     @Test

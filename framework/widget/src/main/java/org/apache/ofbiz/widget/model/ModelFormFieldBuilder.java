@@ -1047,6 +1047,7 @@ public class ModelFormFieldBuilder {
         this.encodeOutput = builder.getEncodeOutput();
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
+        this.requiredFieldStyle = builder.getRequiredFieldStyle();
         this.separateColumn = builder.getSeparateColumn();
         this.disabled = builder.getDisabledSpec();
     }
