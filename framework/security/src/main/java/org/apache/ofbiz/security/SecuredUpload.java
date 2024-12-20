@@ -238,6 +238,17 @@ public class SecuredUpload {
 
     /**
      * @param fileToCheck
+     * @param delegator
+     * @return true if the file is valid
+     * @throws IOException
+     * @throws ImageReadException
+     */
+    public static boolean isValidAllFile(String fileToCheck, Delegator delegator) throws IOException, ImageReadException {
+        return isValidFile(fileToCheck, "All", delegator);
+    }
+
+    /**
+     * @param fileToCheck
      * @param fileType
      * @return true if the file is valid
      * @throws IOException
