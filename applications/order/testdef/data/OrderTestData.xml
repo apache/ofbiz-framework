@@ -70,4 +70,10 @@ under the License.
     <Shipment shipmentId="1014" shipmentTypeId="SALES_SHIPMENT" primaryOrderId="DEMO10090" primaryShipGroupSeqId="00001" statusId="SHIPMENT_SHIPPED"/>
     <ShipmentItem shipmentId="1014" shipmentItemSeqId="00001"/>
 
+    <Invoice invoiceId="TEST_DEMO10090" partyId="TestDemoCustomer" partyIdFrom="Company" invoiceDate="2009-08-17 14:56:44.573" statusId="INVOICE_PAID" currencyUom="USD"/>
+    <InvoiceItem invoiceId="TEST_DEMO10090" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FPROD_ITEM" productId="GZ-2644" quantity="2.000000" amount="38.40" description="GZ-2644-0 Round Gizmo"/>
+    <OrderItemBilling orderId="TEST_DEMO10090" orderItemSeqId="00001" invoiceId="TEST_DEMO10090" invoiceItemSeqId="00001" quantity="2.000000" amount="38.40"/>
+    <OrderPaymentPreference orderPaymentPreferenceId="TEST_DEMO10090" orderId="TEST_DEMO10090" maxAmount="76.80" statusId="PAYMENT_SETTLED" createdDate="2009-08-17 14:56:44.573"/>
+    <Payment paymentId="1014" paymentTypeId="CUSTOMER_PAYMENT" paymentPreferenceId="TEST_DEMO10090" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="TestDemoCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2006-04-25 12:56:54.292" amount="76.80" currencyUomId="USD"/>
+
 </entity-engine-xml>

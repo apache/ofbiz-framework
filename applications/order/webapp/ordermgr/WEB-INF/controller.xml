@@ -1895,9 +1895,9 @@ under the License.
     </request-map>
 
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
-    <request-map uri="productAvailabalityByFacility">
+    <request-map uri="productAvailabilityByFacility">
         <security https="true" auth="true"/>
-        <event type="service" invoke="productAvailabalityByFacility"/>
+        <event type="service" invoke="productAvailabilityByFacility"/>
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>

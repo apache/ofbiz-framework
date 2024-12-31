@@ -1452,8 +1452,8 @@ under the License.
             </type-validate>
         </attribute>
     </service>
-    <service name="productAvailabalityByFacility" engine="groovy"
-            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServicesScript.groovy" invoke="productAvailabalityByFacility" auth="true">
+    <service name="productAvailabilityByFacility" engine="groovy"
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderServicesScript.groovy" invoke="productAvailabilityByFacility" auth="true">
         <description>
             Calculate ATP and QOH According For each facility
         </description>

@@ -29,8 +29,6 @@ import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.order.customer.CheckoutMapProcs
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
-import org.apache.ofbiz.service.ModelService
-import org.apache.ofbiz.service.ServiceUtil
 
 import java.sql.Timestamp
 
@@ -38,26 +36,21 @@ import java.sql.Timestamp
  * Service to create OrderHeader
  */
 Map createOrderHeader() {
-    String orderId
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
     if (!(security.hasEntityPermission('ORDERMGR', '_CREATE', parameters.userLogin))) {
         return error(label('OrderErrorUiLabels', 'OrderSecurityErrorToRunCreateOrderShipment'))
     }
 
-    GenericValue orderHeader = makeValue('OrderHeader')
-    if (parameters.orderId) {
-        orderId = parameters.orderId
-    } else {
-        orderId = delegator.getNextSeqId('OrderHeader')
+    GenericValue orderHeader = makeValue('OrderHeader',
+            [orderId: parameters.orderId ?: delegator.getNextSeqId('OrderHeader')])
+    orderHeader.with {
+        setNonPKFields(parameters)
+        statusId = orderHeader.statusId ?: 'ORDER_CREATED'
+        orderDate = orderHeader.orderDate ?: nowTimestamp
+        entryDate = orderHeader.entryDate ?: nowTimestamp
+        create()
     }
-    orderHeader.orderId = orderId
-    orderHeader.setNonPKFields(parameters)
-
-    orderHeader.statusId = orderHeader.statusId ?: 'ORDER_CREATED'
-    orderHeader.orderDate = orderHeader.orderDate ?: nowTimestamp
-    orderHeader.entryDate = orderHeader.entryDate ?: nowTimestamp
-    orderHeader.create()
-    return success([orderId: orderId])
+    return success([orderId: orderHeader.orderId])
 }
 
 /**
@@ -84,8 +77,8 @@ Map getNextOrderId() {
     String orderIdTemp
     if (customMethodName) {
         parameters.partyAcctgPreference = partyAcctgPreference
-        Map result = run service: customMethodName, with: parameters
-        orderIdTemp = result.orderId
+        Map serviceResult = run service: customMethodName, with: parameters
+        orderIdTemp = serviceResult.orderId
     } else {
         logInfo 'In getNextOrderId sequence by Standard'
         // default to the default sequencing: ODRSQ_STANDARD
@@ -123,9 +116,9 @@ Map getOrderedSummaryInformation() {
         fromDate = UtilDateTime.adjustTimestamp(now, Calendar.MONTH, -monthsToInclude)
     }
 
-    String roleTypeId = roleTypeId ?: 'PLACING_CUSTOMER'
-    String orderTypeId = orderTypeId ?: 'SALES_ORDER'
-    String statusId = statusId ?: 'ORDER_COMPLETED'
+    String roleTypeId = parameters.roleTypeId ?: 'PLACING_CUSTOMER'
+    String orderTypeId = parameters.orderTypeId ?: 'SALES_ORDER'
+    String statusId = parameters.statusId ?: 'ORDER_COMPLETED'
 
     //find the existing exchange rates
     EntityConditionBuilder exprBldr = new EntityConditionBuilder()
@@ -161,12 +154,10 @@ Map getOrderedSummaryInformation() {
             .from('OrderHeaderAndRoleSummary').where(condition).queryFirst()
 
     // first set the required OUT fields to zero
-    Map result = success()
-    result.totalGrandAmount = orderInfo ? orderInfo.totalGrandAmount : BigDecimal.ZERO
-    result.totalSubRemainingAmount = orderInfo ? orderInfo.totalSubRemainingAmount : BigDecimal.ZERO
-    result.totalOrders = orderInfo ? orderInfo.totalOrders : 0L
-
-    return result
+    return success([
+            totalGrandAmount: orderInfo ? orderInfo.totalGrandAmount : BigDecimal.ZERO,
+            totalSubRemainingAmount: orderInfo ? orderInfo.totalSubRemainingAmount : BigDecimal.ZERO,
+            totalOrders: orderInfo ? orderInfo.totalOrders : 0L])
 }
 
 /**
@@ -177,11 +168,9 @@ Map orderSequence_enforced() {
     GenericValue partyAcctgPreference = parameters.partyAcctgPreference
     // this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom
 
-    if (partyAcctgPreference.lastOrderNumber) {
-        partyAcctgPreference.lastOrderNumber ++
-    } else {
-        partyAcctgPreference.lastOrderNumber = 1
-    }
+    partyAcctgPreference.lastOrderNumber = partyAcctgPreference.lastOrderNumber
+            ? partyAcctgPreference.lastOrderNumber + 1
+            : 1
 
     partyAcctgPreference.store()
     return success([orderId: partyAcctgPreference.lastOrderNumber])
@@ -198,13 +187,13 @@ Map recreateOrderAdjustments() {
     for (GenericValue orderItem : orderItems) {
         if (orderItem.isPromo == 'Y' && orderItem.statusId != 'ITEM_CANCELLED') {
             run service: 'cancelOrderItemNoActions', with: [*: parameters,
-                                        orderItemSeqId: orderItem.orderItemSeqId]
+                                                            orderItemSeqId: orderItem.orderItemSeqId]
         }
     }
 
     List<GenericValue> orderAdjustments = order.getRelated('OrderAdjustment', null, null, false)
     // Accumulate the total existing promotional adjustment
-    BigDecimal existingOrderAdjustmentTotal = BigDecimal.valueOf(0).setScale(3)
+    BigDecimal existingOrderAdjustmentTotal = BigDecimal.ZERO
     for (GenericValue orderAdjustment : orderAdjustments) {
         if (orderAdjustment.orderAdjustmentTypeId == 'PROMOTION_ADJUSTMENT' ) {
             existingOrderAdjustmentTotal = existingOrderAdjustmentTotal.add(orderAdjustment.getBigDecimal('amount').setScale(3))
@@ -247,7 +236,7 @@ Map recreateOrderAdjustments() {
     List<GenericValue> adjustments = cart.makeAllAdjustments()
 
     // Accumulate the new promotion total from the recalculated promotion adjustments
-    BigDecimal newOrderAdjustmentTotal = BigDecimal.valueOf(0).setScale(3)
+    BigDecimal newOrderAdjustmentTotal = BigDecimal.ZERO
     for (GenericValue adjustment : adjustments) {
         if (adjustment.productPromoId && !adjustment.orderAdjustmentId) {
             newOrderAdjustmentTotal = newOrderAdjustmentTotal.add(adjustment.getBigDecimal('amount').setScale(3))
@@ -260,8 +249,7 @@ Map recreateOrderAdjustments() {
     // If the total has changed, create an OrderAdjustment to reflect the fact
     if (orderAdjustmentTotalDifference != 0) {
         run service: 'createOrderAdjustment',
-            with: [userLogin: context.userLogin,
-                   orderAdjustmentTypeId: 'PROMOTION_ADJUSTMENT',
+            with: [orderAdjustmentTypeId: 'PROMOTION_ADJUSTMENT',
                    orderId: parameters.orderId,
                    orderItemSeqId: '_NA_',
                    shipGroupSeqId: '_NA_',
@@ -292,7 +280,6 @@ Map updateOrderContactMech() {
         if (shipGroupList) {
             for (GenericValue shipGroup: shipGroupList) {
                 run service: 'updateOrderItemShipGroup', with: [
-                    userLogin: context.userLogin,
                     orderId: parameters.orderId,
                     contactMechId: parameters.contactMechId,
                     contactMechPurposeTypeId: parameters.contactMechPurposeTypeId,
@@ -309,9 +296,9 @@ Map updateOrderContactMech() {
             .queryList()
         // If orderContactMechList value is null then create new entry in OrderContactMech entity
         if (!orderContactMechList) {
-            run service: 'createOrderContactMech', with: [userLogin: context.userLogin, *: parameters]
+            run service: 'createOrderContactMech', with: parameters
             if (parameters.oldContactMechId) {
-                run service: 'removeOrderContactMech', with: [userLogin: context.userLogin,
+                run service: 'removeOrderContactMech', with: [
                     orderId: parameters.orderId,
                     contactMechId: parameters.oldContactMechId,
                     contactMechPurposeTypeId: parameters.contactMechPurposeTypeId]
@@ -358,7 +345,7 @@ Map updateOrderItemShipGroup() {
     lookedUpValue.store()
 
     // Remove the old values from OrderContactMech entity with the help of oldContactMechId
-    Map shipGroupLookupMap = ['orderId': parameters.orderId]
+    Map shipGroupLookupMap = [orderId: parameters.orderId]
     if (parameters.oldContactMechId) {
         shipGroupLookupMap.contactMechId =  parameters.oldContactMechId
     }
@@ -389,19 +376,16 @@ Map updateOrderItemShipGroup() {
  * Compute and return the OrderItemShipGroup estimated ship date based on the associated items.
  */
 Map getOrderItemShipGroupEstimatedShipDate() {
-    Map result = success()
     GenericValue orderItemShipGroup = from('OrderItemShipGroup')
         .where('orderId', parameters.orderId,
                'contactMechId', parameters.oldContactMechId)
         .queryFirst()
-    List<String> orderByList = [ (orderItemShipGroup.maySplit == 'Y' ? '+' : '-') + 'promisedDatetime']
     GenericValue orderItemShipGroupInvRes =  from('OrderItemShipGrpInvRes')
         .where('orderId', parameters.orderId,
                'shipGroupSeqId', parameters.shipGroupSeqId)
-        .orderBy(orderByList)
+        .orderBy((orderItemShipGroup.maySplit == 'Y' ? '+' : '-') + 'promisedDatetime')
         .queryFirst()
-    result.estimatedShipDate = orderItemShipGroupInvRes.promisedDatetime
-    return result
+    return success(estimatedShipDate: orderItemShipGroupInvRes.promisedDatetime)
 }
 
 /*
@@ -416,72 +400,54 @@ Map addPaymentMethodToOrder() {
         .queryOne()
 
     // In this method we calls createOrderPaymentPreference and returns orderPaymentPreferenceId field to authOrderPaymentPreference
-    Map result = run service: 'createOrderPaymentPreference', with: [
-        userLogin: context.userLogin,
-        orderId: parameters.orderId,
-        maxAmount: parameters.maxAmount,
-        paymentMethodId: parameters.paymentMethodId,
-        paymentMethodTypeId: paymentMethod.paymentMethodTypeId]
-    return result
+    return (run service: 'createOrderPaymentPreference', with: [
+            orderId: parameters.orderId,
+            maxAmount: parameters.maxAmount,
+            paymentMethodId: parameters.paymentMethodId,
+            paymentMethodTypeId: paymentMethod.paymentMethodTypeId])
 }
 
 /*
  * Gets an order status
  */
 Map getOrderStatus() {
-    Map result = success()
     GenericValue order = from('OrderHeader').where(parameters).queryOne()
-    if (!order) {
-        return error(label('OrderErrorUiLabels', 'OrderOrderIdDoesNotExists'))
-    }
-    result.statusId = order.statusId
-    return result
+    return order
+            ? success(statusId: order.statusId)
+            : error(label('OrderErrorUiLabels', 'OrderOrderIdDoesNotExists'))
 }
 
 /*
  * Check if an Order is on Back Order
  */
 Map checkOrderIsOnBackOrder() {
-    Map result = success()
-    boolean isBackOrder = false
-    EntityCondition condition = EntityCondition.makeCondition([
-        EntityCondition.makeCondition('orderId', parameters.orderId),
-        EntityCondition.makeCondition('quantityNotAvailable', EntityOperator.NOT_EQUAL, null),
-        EntityCondition.makeCondition('quantityNotAvailable', EntityOperator.GREATER_THAN_EQUAL_TO, BigDecimal.ZERO)],
-    EntityOperator.AND)
-    List<GenericValue> orderItemShipGrpInvResList = from('OrderItemShipGrpInvRes')
-        .where(condition)
-        .queryList()
-    if (orderItemShipGrpInvResList) {
-        isBackOrder = true
-    }
-    result.isBackOrder = isBackOrder
-    return result
+    EntityCondition condition = new EntityConditionBuilder().AND {
+            EQUALS(orderId: parameters.orderId)
+            NOT_EQUAL(quantityNotAvailable: null)
+            GREATER_THAN_EQUAL_TO(quantityNotAvailable: BigDecimal.ZERO)
+        }
+    return success([isBackOrder: from('OrderItemShipGrpInvRes')
+            .where(condition)
+            .queryCount() > 0])
 }
 
 /*
  * Creates a new Order Item Change record
  */
 Map createOrderItemChange() {
-    Map result = success()
-    GenericValue newEntity = makeValue('OrderItemChange', parameters)
-    newEntity.orderItemChangeId = delegator.getNextSeqId('OrderItemChange')
-    if (!parameters.changeDatetime) {
-        newEntity.changeDatetime = UtilDateTime.nowTimestamp()
-    }
-    if (!parameters.changeUserLogin) {
-        newEntity.changeUserLogin = userLogin.userLoginId
-    }
+    GenericValue newEntity = makeValue('OrderItemChange',
+            [*: parameters,
+             orderItemChangeId: delegator.getNextSeqId('OrderItemChange'),
+             changeDatetime: parameters.changeDatetime ?: UtilDateTime.nowTimestamp(),
+             changeUserLogin: parameters.changeUserLogin ?: userLogin.userLoginId])
     newEntity.create()
-    result.orderItemChangeId = newEntity.orderItemChangeId
-    return result
+    return success([orderItemChangeId: newEntity.orderItemChangeId])
 }
 
 /*
  * Create and update a Shipping Address
  */
 Map createUpdateShippingAddress() {
-    Map result = success()
     String contactMechId = parameters.shipToContactMechId
     String keepAddressBook = parameters.keepAddressBook ?: 'Y'
     // Call map Processor
@@ -491,16 +457,16 @@ Map createUpdateShippingAddress() {
 
     if (!contactMechId) {
         shipToAddressCtx.contactMechPurposeTypeId = 'SHIPPING_LOCATION'
-        result = run service: 'createPartyPostalAddress', with: shipToAddressCtx
-        parameters.shipToContactMechId = result.contactMechId
+        Map serviceResult = run service: 'createPartyPostalAddress', with: shipToAddressCtx
+        parameters.shipToContactMechId = serviceResult.contactMechId
         logInfo("Shipping address created with contactMechId ${parameters.shipToContactMechId}")
     } else if (keepAddressBook == 'Y') {
         GenericValue newValue = makeValue('PostalAddress', shipToAddressCtx)
         GenericValue oldValue = from('PostalAddress').where(parameters).queryOne()
         if (newValue != oldValue) {
             shipToAddressCtx.contactMechId = null
-            result = run service: 'createPartyPostalAddress', with: shipToAddressCtx
-            parameters.shipToContactMechId = result.contactMechId
+            Map serviceResult = run service: 'createPartyPostalAddress', with: shipToAddressCtx
+            parameters.shipToContactMechId = serviceResult.contactMechId
         }
 
         List<GenericValue> pcmpShipList = from('PartyContactMechPurpose')
@@ -517,19 +483,17 @@ Map createUpdateShippingAddress() {
                 .filterByDate()
                 .queryList()
             for (GenericValue pcmp: pcmpList) {
-                Map serviceInMap = dispatcher.getDispatchContext().makeValidContext('expirePartyContactMechPurpose', ModelService.IN_PARAM, pcmp)
-                result = run service: 'expirePartyContactMechPurpose', with: serviceInMap
+                run service: 'expirePartyContactMechPurpose', with: pcmp.getAllFields()
             }
-            Map serviceContext = [*: parameters,
-                                  partyId: partyId,
-                                  contactMechId: parameters.shipToContactMechId,
-                                  contactMechPurposeTypeId: 'SHIPPING_LOCATION']
-            result = run service: 'createPartyContactMechPurpose', with: serviceContext
+            run service: 'createPartyContactMechPurpose', with: [*: parameters,
+                                                                 partyId: partyId,
+                                                                 contactMechId: parameters.shipToContactMechId,
+                                                                 contactMechPurposeTypeId: 'SHIPPING_LOCATION']
         }
         if (parameters.setDefaultShipping == 'Y') {
-            result = run service: 'setPartyProfileDefaults', with: [ partyId: partyId,
-                                                                     productStoreId: parameters.productStoreId,
-                                                                     defaultShipAddr: parameters.shipToContactMechId]
+            run service: 'setPartyProfileDefaults', with: [partyId: partyId,
+                                                           productStoreId: parameters.productStoreId,
+                                                           defaultShipAddr: parameters.shipToContactMechId]
         }
     } else {
         shipToAddressCtx.shipToContactMechId = shipToAddressCtx.contactMechId
@@ -544,33 +508,29 @@ Map createUpdateShippingAddress() {
                     .filterByDate()
                     .queryList()
                 for (GenericValue pcmp: pcmpShipList) {
-                    Map serviceInMap = dispatcher.getDispatchContext().makeValidContext('expirePartyContactMechPurpose', ModelService.IN_PARAM, pcmp)
-                    result = run service: 'expirePartyContactMechPurpose', with: serviceInMap
+                    run service: 'expirePartyContactMechPurpose', with: pcmp.getAllFields()
                 }
-                Map serviceContext = [*: shipToAddressCtx,
-                                      partyId: partyId,
-                                      contactMechId: null,
-                                      contactMechPurposeTypeId: 'SHIPPING_LOCATION']
-                result = run service: 'createPartyPostalAddress', with: serviceContext
-                parameters.shipToContactMechId = result.contactMechId
+                Map serviceResult = run service: 'createPartyPostalAddress', with: [*: shipToAddressCtx,
+                                                                                    partyId: partyId,
+                                                                                    contactMechId: null,
+                                                                                    contactMechPurposeTypeId: 'SHIPPING_LOCATION']
+                parameters.shipToContactMechId = serviceResult.contactMechId
                 logInfo("Shipping address updated with contactMechId ${shipToAddressCtx.shipToContactMechId}")
             }
         } else {
             shipToAddressCtx.userLogin = parameters.userLogin
-            result = run service: 'updatePartyPostalAddress', with: shipToAddressCtx
-            parameters.shipToContactMechId = result.contactMechId
+            Map serviceResult = run service: 'updatePartyPostalAddress', with: shipToAddressCtx
+            parameters.shipToContactMechId = serviceResult.contactMechId
             logInfo("Shipping address updated with contactMechId ${shipToAddressCtx.shipToContactMechId}")
         }
     }
-    result.contactMechId = parameters.shipToContactMechId
-    return result
+    return success([contactMechId: parameters.shipToContactMechId])
 }
 
 /*
  * Create and update Billing Address
  */
 Map createUpdateBillingAddress() {
-    Map result = success()
     String keepAddressBook = parameters.keepAddressBook ?: 'Y'
     Map billToAddressCtx = [:]
     if (parameters.useShippingAddressForBilling != 'Y') {
@@ -590,11 +550,10 @@ Map createUpdateBillingAddress() {
                     .filterByDate()
                     .queryList()
                 for (GenericValue pcmp: pcmpList) {
-                    Map serviceInMap = dispatcher.getDispatchContext().makeValidContext('deletePartyContactMech', ModelService.IN_PARAM, pcmp)
-                    result = run service: 'deletePartyContactMech', with: serviceInMap
+                    run service: 'deletePartyContactMech', with: pcmp.getAllFields()
                 }
                 if (keepAddressBook == 'N') {
-                    result = run service: 'createPartyContactMechPurpose', with: [contactMechId: parameters.billToContactMechId]
+                    run service: 'createPartyContactMechPurpose', with: [contactMechId: parameters.billToContactMechId]
                 }
                 // Check that the ship-to address doesn't already have a bill-to purpose
                 pcmpList = from('PartyContactMechPurpose')
@@ -608,7 +567,7 @@ Map createUpdateBillingAddress() {
                                           partyId: partyId,
                                           contactMechId: parameters.shipToContactMechId,
                                           contactMechPurposeTypeId: 'BILLING_LOCATION']
-                    result = run service: 'createPartyContactMechPurpose', with: serviceContext
+                    run service: 'createPartyContactMechPurpose', with: serviceContext
                 }
                 logInfo("Billing address updated with contactMechId ${parameters.billToContactMechId}")
             }
@@ -617,17 +576,16 @@ Map createUpdateBillingAddress() {
                                   partyId: partyId,
                                   contactMechId: parameters.shipToContactMechId,
                                   contactMechPurposeTypeId: 'BILLING_LOCATION']
-            result = run service: 'createPartyContactMechPurpose', with: serviceContext
+            run service: 'createPartyContactMechPurpose', with: serviceContext
         }
         parameters.billToContactMechId = parameters.shipToContactMechId
     } else {
         if (parameters.billToContactMechId) {
             if (parameters.shipToContactMechId == parameters.billToContactMechId) {
-                Map serviceContext = [*: billToAddressCtx,
-                                      contactMechId: null,
-                                      contactMechPurposeTypeId: 'BILLING_LOCATION']
-                result = run service: 'createPartyPostalAddress', with: serviceContext
-                parameters.billToContactMechId = result.contactMechId
+                Map serviceResult = run service: 'createPartyPostalAddress', with: [*: billToAddressCtx,
+                                                                                    contactMechId: null,
+                                                                                    contactMechPurposeTypeId: 'BILLING_LOCATION']
+                parameters.billToContactMechId = serviceResult.contactMechId
 
                 List<GenericValue> pcmpList = from('PartyContactMechPurpose')
                     .where(partyId: partyId,
@@ -635,27 +593,26 @@ Map createUpdateBillingAddress() {
                     .filterByDate()
                     .queryList()
                 for (GenericValue pcmp: pcmpList) {
-                    Map serviceInMap = dispatcher.getDispatchContext().makeValidContext('deletePartyContactMech', ModelService.IN_PARAM, pcmp)
-                    result = run service: 'expirePartyContactMechPurpose', with: serviceInMap
+                    run service: 'expirePartyContactMechPurpose', with: pcmp.getAllFields()
                 }
                 serviceContext = [*: parameters,
                                   partyId: partyId,
                                   contactMechId: parameters.billToContactMechId,
                                   contactMechPurposeTypeId: 'BILLING_LOCATION']
-                result = run service: 'createPartyContactMechPurpose', with: serviceContext
+                run service: 'createPartyContactMechPurpose', with: serviceContext
                 logInfo("Billing address updated with contactMechId ${parameters.billToContactMechId}")
             } else {
                 if (keepAddressBook == 'N') {
                     billToAddressCtx.userLogin = parameters.userLogin
-                    result = run service: 'updatePartyPostalAddress', with: billToAddressCtx
-                    parameters.billToContactMechId = result.contactMechId
+                    Map serviceResult = run service: 'updatePartyPostalAddress', with: billToAddressCtx
+                    parameters.billToContactMechId = serviceResult.contactMechId
                 } else if (keepAddressBook == 'Y') {
                     GenericValue newValue = makeValue('PostalAddress', billToAddressCtx)
                     GenericValue oldValue = from('PostalAddress').where(parameters).queryOne()
                     if (newValue != oldValue) {
                         billToAddressCtx.contactMechId = null
-                        result = run service: 'createPartyPostalAddress', with: billToAddressCtx
-                        parameters.billToContactMechId = result.contactMechId
+                        Map serviceResult = run service: 'createPartyPostalAddress', with: billToAddressCtx
+                        parameters.billToContactMechId = serviceResult.contactMechId
                     }
                 }
                 logInfo("Billing Postal Address created billToContactMechId is ${parameters.billToContactMechId}")
@@ -674,57 +631,49 @@ Map createUpdateBillingAddress() {
                     .filterByDate()
                     .queryList()
                 for (GenericValue pcmp: pcmpList) {
-                    Map serviceInMap = dispatcher.getDispatchContext().makeValidContext('expirePartyContactMechPurpose', ModelService.IN_PARAM, pcmp)
-                    result = run service: 'expirePartyContactMechPurpose', with: serviceInMap
+                    run service: 'expirePartyContactMechPurpose', with: pcmp.getAllFields()
                 }
-                Map serviceContext = [*: parameters,
-                                      partyId: partyId,
-                                      contactMechId: parameters.billToContactMechId,
-                                      contactMechPurposeTypeId: 'BILLING_LOCATION']
-                result = run service: 'createPartyContactMechPurpose', with: serviceContext
+                run service: 'createPartyContactMechPurpose', with: [*: parameters,
+                                                                     partyId: partyId,
+                                                                     contactMechId: parameters.billToContactMechId,
+                                                                     contactMechPurposeTypeId: 'BILLING_LOCATION']
             }
             if (parameters.setDefaultBilling == 'Y') {
-                result = run service: 'setPartyProfileDefaults', with: [ partyId: partyId,
-                    productStoreId: parameters.productStoreId,
-                    defaultBillAddr: parameters.billToContactMechId]
+                run service: 'setPartyProfileDefaults', with: [partyId: partyId,
+                                                               productStoreId: parameters.productStoreId,
+                                                               defaultBillAddr: parameters.billToContactMechId]
             }
         } else {
-            Map serviceContext = [*: billToAddressCtx,
-                                  contactMechPurposeTypeId: 'BILLING_LOCATION']
-            result = run service: 'createPartyPostalAddress', with: serviceContext
-            parameters.billToContactMechId = result.contactMechId
+            Map serviceResult = run service: 'createPartyPostalAddress', with: [*: billToAddressCtx,
+                                                                                contactMechPurposeTypeId: 'BILLING_LOCATION']
+            parameters.billToContactMechId = serviceResult.contactMechId
             logInfo("Billing address created with contactmechId ${parameters.billToContactMechId}")
         }
     }
-    result.contactMechId = parameters.billToContactMechId
-    return result
+    return success([contactMechId: parameters.billToContactMechId])
 }
 
 /*
  * Create and update credit card
  */
 Map createUpdateCreditCard() {
-    Map result = success()
+    Map serviceResult
     String paymentMethodId = parameters.paymentMethodId
     if (paymentMethodId) {
         // call update Credit Card
         GenericValue paymentMethod = from('PaymentMethod')
             .where(partyId: parameters.partyId,
-                   paymentMethodTypeId: 'CREDIT_CARD'
-            )
+                   paymentMethodTypeId: 'CREDIT_CARD')
             .orderBy('-fromDate')
             .queryFirst()
         paymentMethodId = paymentMethod ? paymentMethod.paymentMethodId : ''
-        result = run service: 'updateCreditCard', with: [ *: parameters,
+        serviceResult = run service: 'updateCreditCard', with: [*: parameters,
                                                               paymentMethodId: paymentMethodId]
-        paymentMethodId = result.paymentMethodId
     } else {
         // call create Credit Card
-        result = run service: 'createCreditCard', with: [ *: parameters]
-        paymentMethodId = result.paymentMethodId
+        serviceResult = run service: 'createCreditCard', with: parameters
     }
-    result.paymentMethodId = paymentMethodId
-    return result
+    return success(paymentMethodId: serviceResult.paymentMethodId)
 }
 
 /*
@@ -732,11 +681,16 @@ Map createUpdateCreditCard() {
  * but only if the order price didn't come from an agreement
  */
 Map setUnitPriceAsLastPrice() {
-    Map result = success()
+    GenericValue order = from('OrderHeader').where(parameters).queryOne()
+    if (!order || order.agreementId) {
+        return success()
+        // Do not update lastPrice if an agreement has been used on the order
+        // TODO replace by orderPItemPriceInfo analyse when it will support agreement
+    }
     Timestamp nowTimestamp = UtilDateTime.nowTimestamp()
-    if (parameters.facilityId && parameters.orderId) {
+    if (parameters.facilityId) {
         GenericValue orderSupplier = from('OrderHeaderItemAndRoles')
-            .where(orderId: parameters.orderId,
+            .where(orderId: order.orderId,
                    roleTypeId: 'BILL_FROM_VENDOR',
                    orderTypeId: 'PURCHASE_ORDER')
             .queryFirst()
@@ -762,18 +716,12 @@ Map setUnitPriceAsLastPrice() {
                 supplierProduct.store()
             }
         }
-    } else if (!parameters.orderItems && parameters.orderId) {
-        GenericValue order = from('OrderHeader').where(parameters).queryOne()
-        // Do not update lastPrice if an agreement has been used on the order
-        if (order.agreementId) {
-            // TODO replace by orderPItemPriceInfo analyse when it will support agreement
-            return result
-        }
+    } else if (!parameters.orderItems) {
         List<GenericValue> orderItems = from('OrderItem')
-            .where(orderId: parameters.orderId)
+            .where(orderId: order.orderId)
             .queryList()
-        Map<String, Object> itemPriceMap = parameters.itemPriceMap
-        Map<String, Object> overridePriceMap = parameters.overridePriceMap
+        Map<String, Object> itemPriceMap = parameters.itemPriceMap as Map
+        Map<String, Object> overridePriceMap = parameters.overridePriceMap as Map
         List<Map<String, BigDecimal>> productIdPrices = []
         Set<String> productIds = []
         for (Map.Entry<String, String> itemPrice : itemPriceMap.entrySet()) {
@@ -786,10 +734,11 @@ Map setUnitPriceAsLastPrice() {
                 productIds << orderItem.productId
             }
         }
-        EntityCondition condition = EntityCondition.makeCondition([
-            EntityCondition.makeCondition('partyId', parameters.supplierPartyId),
-            EntityCondition.makeCondition('productId', EntityOperator.IN, productIds),
-            EntityCondition.makeCondition('availableThruDate', null)])
+        EntityCondition condition = new EntityConditionBuilder().AND {
+            EQUALS(partyId: parameters.supplierPartyId)
+            EQUALS(availableThruDate: null)
+            IN(productId: productIds)
+        }
         List<GenericValue> supplierProducts = from('SupplierProduct')
             .where(condition)
             .queryList()
@@ -807,10 +756,11 @@ Map setUnitPriceAsLastPrice() {
     } else {
         List<GenericValue> orderItems = parameters.orderItems
         Set<String> productIds = orderItems*.productId
-        EntityCondition condition = EntityCondition.makeCondition([
-            EntityCondition.makeCondition('partyId', parameters.supplierPartyId),
-            EntityCondition.makeCondition('productId', EntityOperator.IN, productIds),
-            EntityCondition.makeCondition('availableThruDate', null)])
+        EntityCondition condition = new EntityConditionBuilder().AND {
+            EQUALS(partyId: parameters.supplierPartyId)
+            EQUALS(availableThruDate: null)
+            IN(productId: productIds)
+        }
         List<GenericValue> supplierProducts = from('SupplierProduct')
             .where(condition)
             .queryList()
@@ -868,42 +818,38 @@ Map updateShippingMethodAndCharges() {
         parameters.amount = shipmentMethodAndAmount.substring(shipmentMethodAndAmount.indexOf('*') + 1)
         parameters.shipmentMethodTypeId = shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf('@'))
     }
-    BigDecimal newAmount = BigDecimal.ZERO
-    BigDecimal shippingAmount = BigDecimal.ZERO
-    BigDecimal percentAllowedBd = BigDecimal.ZERO
+    BigDecimal newAmount
+    BigDecimal shippingAmount
+    BigDecimal percentAllowedBd
     String percentAllowed = UtilProperties.getPropertyValue('shipment.properties', 'shipment.default.cost_actual_over_estimated_percent_allowed')
     try {
         newAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(parameters.amount, 'BigDecimal', null, locale)
         shippingAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(parameters.shippingAmount, 'BigDecimal', null, locale)
         percentAllowedBd = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(percentAllowed, 'BigDecimal', null, locale)
     } catch (GeneralException e) {
-        return ServiceUtil.returnError(e.getMessage())
+        return error(e.getMessage())
     }
-    BigDecimal diffPercentage = null
-    if (newAmount > shippingAmount) {
-        diffPercentage = (newAmount - shippingAmount / shippingAmount) * 100
-    } else {
-        diffPercentage = (shippingAmount - newAmount / newAmount) * 100
-    }
+    BigDecimal diffPercentage = (newAmount > shippingAmount
+            ? (newAmount - shippingAmount / shippingAmount)
+            : (shippingAmount - newAmount / newAmount)) * 100
 
     if (diffPercentage > percentAllowedBd) {
-        run service: 'updateOrderAdjustment', with: [ *: parameters]
+        run service: 'updateOrderAdjustment', with: parameters
     }
-    run service: 'updateOrderItemShipGroup', with: [ *: parameters]
-    run service: 'updateShipmentRouteSegment', with: [ *: parameters,
+    run service: 'updateOrderItemShipGroup', with: parameters
+    run service: 'updateShipmentRouteSegment', with: [*: parameters,
                                                        trackingIdNumber: null,
                                                        trackingDigest: null,
                                                        carrierServiceStatusId: null]
-    run service: 'upsShipmentConfirm', with: [ *: parameters]
+    run service: 'upsShipmentConfirm', with: parameters
     return success()
 }
 
 /*
  * Calculate ATP and Qoh According For each facility
  */
-Map productAvailabalityByFacility() {
-    Map result = success()
-    List availabalityList = []
+Map productAvailabilityByFacility() {
+    List availabilityList = []
     List<GenericValue> facilityList = from('Facility')
         .where(ownerPartyId: parameters.ownerPartyId)
         .queryList()
@@ -911,12 +857,11 @@ Map productAvailabalityByFacility() {
         Map serviceResult = run service: 'getInventoryAvailableByFacility', with: [
             facilityId: facility.facilityId,
             productId: parameters.productId]
-        availabalityList << [facilityId: facility.facilityId,
+        availabilityList << [facilityId: facility.facilityId,
                              quantityOnHandTotal: serviceResult.quantityOnHandTotal,
                              availableToPromiseTotal: serviceResult.availableToPromiseTotal]
     }
-    result.availabalityList = availabalityList
-    return result
+    return success([availabalityList: availabilityList])
 }
 
 /*
@@ -924,17 +869,19 @@ Map productAvailabalityByFacility() {
  */
 Map createOrderPaymentApplication() {
     GenericValue payment = from('Payment').where(parameters).queryOne()
+    if (!payment) {
+        return error(label('AccountingUiLabels', 'AccountingNoPaymentsfound'))
+    }
     GenericValue orderPaymentPref = from('OrderPaymentPreference')
         .where(orderPaymentPreferenceId: payment.paymentPreferenceId)
         .queryOne()
-    List<GenericValue> orderItemBilList = from('OrderItemBilling')
+    GenericValue orderItemBilling = from('OrderItemBilling')
         .where(orderId: orderPaymentPref.orderId)
-        .queryList()
-    if (orderItemBilList) {
-        Map createCtx = [amountApplied: payment.amount,
-                         paymentId: payment.paymentId,
-                         invoiceId: orderItemBilList[0].invoiceId]
-        run service: 'createPaymentApplication', with: createCtx
+        .queryFirst()
+    if (orderItemBilling) {
+        run service: 'createPaymentApplication', with: [amountApplied: payment.amount,
+                                                        paymentId: payment.paymentId,
+                                                        invoiceId: orderItemBilling.invoiceId]
     }
     return success()
 }
@@ -949,10 +896,9 @@ Map moveItemBetweenShipGroups() {
                shipGroupSeqId: parameters.toGroupIndex)
         .queryOne()
     if (!toOisga) {
-        Map serviceCtx = [*: parameters,
-            quantity: BigDecimal.ZERO,
-            shipGroupSeqId: parameters.toGroupIndex]
-        run service: 'addOrderItemShipGroupAssoc', with: serviceCtx
+        run service: 'addOrderItemShipGroupAssoc', with: [*: parameters,
+                                                          quantity: BigDecimal.ZERO,
+                                                          shipGroupSeqId: parameters.toGroupIndex]
         toOisga = from('OrderItemShipGroupAssoc')
             .where(orderId: parameters.orderId,
                    orderItemSeqId: parameters.orderItemSeqId,
@@ -960,11 +906,10 @@ Map moveItemBetweenShipGroups() {
             .queryOne()
     }
 
-    Map serviceCtx = [orderId: parameters.orderId,
-                      orderItemSeqId: parameters.orderItemSeqId,
-                      shipGroupSeqId: parameters.toGroupIndex,
-                      quantity: toOisga.quantity + parameters.quantity]
-    run service: 'updateOrderItemShipGroupAssoc', with: serviceCtx
+    run service: 'updateOrderItemShipGroupAssoc', with: [orderId: parameters.orderId,
+                                                         orderItemSeqId: parameters.orderItemSeqId,
+                                                         shipGroupSeqId: parameters.toGroupIndex,
+                                                         quantity: toOisga.quantity + parameters.quantity]
 
     GenericValue fromOisga = from('OrderItemShipGroupAssoc')
         .where(orderId: parameters.orderId,
@@ -974,10 +919,9 @@ Map moveItemBetweenShipGroups() {
     if (!fromOisga) {
         return error(label('OrderErrorUiLabels', 'OrderServiceOrderItemShipGroupAssocNotExist'))
     }
-    serviceCtx = [orderId: parameters.orderId,
-        orderItemSeqId: parameters.orderItemSeqId,
-        shipGroupSeqId: parameters.fromGroupIndex,
-        quantity: fromOisga.quantity - parameters.quantity]
-    run service: 'updateOrderItemShipGroupAssoc', with: serviceCtx
+    run service: 'updateOrderItemShipGroupAssoc', with: [orderId: parameters.orderId,
+                                                         orderItemSeqId: parameters.orderItemSeqId,
+                                                         shipGroupSeqId: parameters.fromGroupIndex,
+                                                         quantity: fromOisga.quantity - parameters.quantity]
     return success()
 }

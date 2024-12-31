@@ -27,7 +27,7 @@ under the License.
     }
 </script>
 <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
-  <#assign target="productAvailabalityByFacility">
+  <#assign target="productAvailabilityByFacility">
 <#else>
   <#assign target="getProductInventoryAvailable">
 </#if>
