@@ -19,29 +19,45 @@
 package org.apache.ofbiz.base.util.string
 
 import groovy.io.FileType
-import groovy.xml.XmlSlurper
+import org.apache.ofbiz.base.util.ScriptUtil
 import org.junit.Test
+
+import java.util.regex.MatchResult
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class FlexibleStringExpanderBaseCodeTests {
 
+    Pattern pattern = Pattern.compile('\\$\\{groovy:.*}')
     @Test
     void testEveryGroovyScriptletFromXmlFiles() {
         def filterWidgetXmlFiles = ~/\.\/(framework|application|plugins).*\/widget\/.*(Screens|Menus|Forms)\.xml$/
         new File(".").traverse(type: FileType.FILES, filter: filterWidgetXmlFiles) {it ->
-            parseXmlFile(it)
+            assert parseXmlFile(it).isEmpty()
         }
-        assert false
     }
 
-    String parseXmlFile(File file) {
-        List setWithGroovy = new XmlSlurper().parse(file).findAll { node ->
-            node.name() == 'set' && node.text().contains('groovy:')
-        }.collect()
-
-        if (setWithGroovy){
-            println setWithGroovy.first()
+    /** Resolve all scriptlet on file on retrieve all identity as unsafe
+     *
+     * @param file
+     * @return List unsafe scriptlet
+     */
+    List parseXmlFile(File file) {
+        String text = file.getText()
+        Matcher matcher = pattern.matcher(text)
+        List matchedScriptlet = []
+        for (MatchResult matchResult : matcher.results().toList()) {
+            String scriptlet = text.substring(matchResult.start() + 9, matchResult.end() - 1)
+            if (!ScriptUtil.checkIfScriptIsSafe(scriptlet)) {
+                matchedScriptlet << scriptlet
+            }
         }
-        return ''
+        if (matchedScriptlet) {
+            println "Unsafe scriptlet found on file ${file.getName()} : "
+            println '*************************************'
+            println '* ' + matchedScriptlet.join('\n* ')
+            println '*************************************'
+        }
+        return matchedScriptlet
     }
-
 }
