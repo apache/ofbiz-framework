@@ -18,14 +18,13 @@
 */
 package org.apache.ofbiz.content.data
 
+import java.sql.Timestamp
+
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-
-import java.sql.Timestamp
 
 //Methods for DataResource
 /**
@@ -140,7 +139,7 @@ Map getElectronicText() {
  */
 Map attachUploadToDataResource() {
     boolean isUpdate = false
-    boolean forceLocal = UtilProperties.getPropertyValue('content.properties', 'content.upload.always.local.file')
+    boolean forceLocal = UtilProperties.getPropertyAsBoolean('content.properties', 'content.upload.always.local.file', true)
     List validLocalFileTypes = [
         'LOCAL_FILE',
         'OFBIZ_FILE',

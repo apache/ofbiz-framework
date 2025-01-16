@@ -67,7 +67,7 @@ under the License.
                         </#if>
                         <#assign thisApp = StringUtil.wrapString(thisApp)>
                         <#assign thisURL = thisApp>
-                        <#if thisApp != "/">
+                        <#if thisApp != "/" && thisApp != "/rest">
                             <#assign thisURL = thisURL + "/control/main">
                         </#if>
                         <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
@@ -111,7 +111,7 @@ under the License.
                         </#if>
                         <#assign thisApp = StringUtil.wrapString(thisApp)>
                         <#assign thisURL = thisApp>
-                        <#if thisApp != "/">
+                        <#if thisApp != "/" && thisApp != "/rest">
                             <#assign thisURL = thisURL + "/control/main">
                         </#if>
                         <#if appCount<=appMax>
@@ -157,7 +157,7 @@ under the License.
                     </#if>
                     <#assign thisApp = StringUtil.wrapString(thisApp)>
                     <#assign thisURL = thisApp>
-                    <#if thisApp != "/">
+                    <#if thisApp != "/" && thisApp != "/rest">
                         <#assign thisURL = thisURL + "/control/main">
                     </#if>
                     <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
@@ -200,7 +200,7 @@ under the License.
                     </#if>
                     <#assign thisApp = StringUtil.wrapString(thisApp)>
                     <#assign thisURL = thisApp>
-                    <#if thisApp != "/">
+                    <#if thisApp != "/" && thisApp != "/rest">
                         <#assign thisURL = thisURL + "/control/main">
                     </#if>
                     <#if appMax < appCount>
@@ -231,7 +231,7 @@ under the License.
             <#assign thisApp = currentMoreApp.getContextRoot()>
             <#assign thisApp = StringUtil.wrapString(thisApp)>
             <#assign thisURL = thisApp>
-            <#if thisApp != "/">
+            <#if thisApp != "/" && thisApp != "/rest">
                 <#assign thisURL = thisURL + "/control/main">
             </#if>
             <li class="app-btn selected">

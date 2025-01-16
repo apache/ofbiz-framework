@@ -41,8 +41,9 @@ on:
   # https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection
   branch_protection_rule:
   # To guarantee Maintained check is occasionally updated. See
-  # https://github.com/ossf/scorecard/blob/main/docs/checks.md#maintained
+  # https://github.com/ossf/scorecard/blob/main/docs/checks.md#maintained  
   schedule:
+    # At 00:37 on Saturday
     - cron: '37 0 * * 6'
   push:
     branches: [ "trunk" ]

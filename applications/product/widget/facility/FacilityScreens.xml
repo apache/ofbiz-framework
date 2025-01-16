@@ -1579,10 +1579,13 @@ under the License.
     </screen>
     <screen name="ShortcutApp">
         <section>
+            <actions>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://product/widget/facility/FacilityMenus.xml"/>
+            </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="FacilityShortcutAppBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="FacilityShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

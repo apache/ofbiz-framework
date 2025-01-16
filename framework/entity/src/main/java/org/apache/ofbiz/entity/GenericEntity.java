@@ -1772,7 +1772,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @return the boolean
      */
     public boolean originalDbValuesAvailable() {
-        return this.originalDbValues != null ? true : false;
+        return this.originalDbValues != null;
     }
 
     /**

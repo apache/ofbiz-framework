@@ -109,6 +109,10 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="request" value="main"/>
     </request-map>
+    <request-map uri="s/{shortener}">
+        <security https="true" auth="false"/>
+        <response name="success" type="shortener" value="main"/>
+    </request-map>
 
     <!-- Common Mappings used for locales and timezones -->
     <request-map uri="ListLocales"><security https="true" auth="false"/><response name="success" type="view" value="ListLocales" save-last-view="true"/></request-map>

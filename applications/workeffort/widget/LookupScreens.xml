@@ -34,6 +34,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="searchFields" value="[workEffortId, workEffortName, description]"/>
+                <set field="displayFieldFormat" value="\${workEffortName} - \${groovy: description?.length() &gt; 20 ? description.substring(0, 20) + '…': description}"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

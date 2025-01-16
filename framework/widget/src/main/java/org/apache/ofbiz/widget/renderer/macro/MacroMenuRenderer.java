@@ -268,7 +268,12 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 targetParameters.append(parameter.getKey());
                 targetParameters.append("'");
                 targetParameters.append(",'value':'");
-                targetParameters.append(parameter.getValue());
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    targetParameters.append(simpleEncoder.encode(parameter.getValue()));
+                } else {
+                    targetParameters.append(parameter.getValue());
+                }
                 targetParameters.append("'}");
             }
             targetParameters.append("]");

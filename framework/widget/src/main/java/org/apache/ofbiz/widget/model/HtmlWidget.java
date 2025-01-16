@@ -316,7 +316,7 @@ public class HtmlWidget extends ModelScreenWidget {
                         String type = script.attr("type");
                         String src = script.attr("src");
                         if (UtilValidate.isEmpty(src)) {
-                            if (UtilValidate.isEmpty(type) || "application/javascript".equals(type)) {
+                            if (UtilValidate.isEmpty(type) || "text/javascript".equals(type)) {
                                 scripts.append(script.data());
                                 script.remove();
                             }

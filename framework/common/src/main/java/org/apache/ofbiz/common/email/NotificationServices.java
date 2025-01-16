@@ -118,7 +118,7 @@ public class NotificationServices {
      * the sevice
      * @return A Map with the service response messages in it
      */
-    private static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
@@ -193,6 +193,8 @@ public class NotificationServices {
         if (templateData == null) {
             templateData = new LinkedHashMap<>();
         }
+        templateData.put("delegator", delegator);
+        templateData.put("dispatcher", ctx.getDispatcher());
 
         try {
             // ensure the baseURl is defined

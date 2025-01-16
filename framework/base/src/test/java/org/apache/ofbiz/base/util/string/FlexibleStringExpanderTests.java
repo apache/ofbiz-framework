@@ -305,6 +305,15 @@ public class FlexibleStringExpanderTests {
         fseTest("groovy: null", "${groovy:return null;}!", testMap, "!", false);
         fseTest("groovy missing property", "${groovy: return noList[0]}", testMap, null, null, "", null, false);
         fseTest("groovy: throw Exception", "${groovy:return throwException.value;}!", testMap, "!", false);
+        fseTest("groovy: generate security issue", "${groovy: java.util.Map.of('key', 'value')}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 1", "${groovy: 'ls /'.execute()}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 2", "${groovy: new File('/etc/passwd').getText()}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 3", "${groovy: (new File '/etc/passwd') .getText()}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 4", "${groovy: Eval.me('1')}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 5", "${groovy: Eval . me('1')}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 6", "${groovy: System.properties['ofbiz.home']}!", testMap, "!", false);
+        fseTest("groovy: another generate security issue 7", "${groovy: new groovyx.net.http.HTTPBuilder('https://XXXX.XXXX.com:443')}!",
+                testMap, "!", false);
         fseTest("groovy: converter exception", "${groovy:return specialNumber;}!", testMap, "1!", false);
         fseTest("UEL integration: Map", "Hello ${testMap.var}!", testMap, "Hello World!", false);
         fseTest("UEL integration: blank", "Hello ${testMap.blank}World!", testMap, "Hello World!", false);
@@ -316,8 +325,12 @@ public class FlexibleStringExpanderTests {
         fseTest("UEL integration: missing", "${noList[0]}", testMap, null, null, "", null, false);
         fseTest("Escaped expression", "This is an \\${escaped} expression", testMap, "This is an ${escaped} expression", false);
         fseTest("Escaped(groovy) expression", "This is an \\${groovy:escaped} expression", testMap, "This is an ${groovy:escaped} expression", false);
+        fseTest("Bracket en groovy", "This is a groovy ${groovy: if (true) {return 'bracket'}} expression", testMap,
+                "This is a groovy bracket expression", false);
+        fseTest("Bracket en groovy again", "This is a groovy ${groovy: if (true) {if (true) {return 'with 2 brackets'}}} expression", testMap,
+                "This is a groovy with 2 brackets expression", false);
 
-        // TODO: Find a better way to setup or handle the big decimal value. If new ones are not instanciated in the test
+        // TODO: Find a better way to setup or handle the big decimal value. If new ones are not instantiated in the test
         // it fails because of the comparison between object pointers..
         fseTest("nested UEL integration(return BigDecimal)", "${a${'moun'}t}", testMap, null, LOCALE_TO_TEST,
                 "1,234,567.89", new BigDecimal("1234567.89"), false);

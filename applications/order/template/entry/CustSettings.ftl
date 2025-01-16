@@ -107,7 +107,7 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.PartyEmailAddress}<br/>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="emailAddress" value="" size="60" maxlength="255" />
+                  <input type="text" name="emailAddress" value="" size="60" maxlength="255" type="email"/>
                   <br/>
                   <select name="emailSol">
                     <#if ("Y" == ((requestParameters.emailSol)!""))><option value="Y">${uiLabelMap.CommonY}</option></#if>

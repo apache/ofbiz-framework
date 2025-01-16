@@ -20,6 +20,7 @@ package org.apache.ofbiz.webapp.view;
 
 import java.io.IOException;
 
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,6 +30,7 @@ import javax.servlet.jsp.JspException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ControlFilter;
 
 /**
@@ -37,16 +39,21 @@ import org.apache.ofbiz.webapp.control.ControlFilter;
 public class JspViewHandler extends AbstractViewHandler {
 
     private static final String MODULE = JspViewHandler.class.getName();
-    private ServletContext context;
+    private ServletContext servletContext;
 
     @Override
-    public void init(ServletContext context) throws ViewHandlerException {
-        this.context = context;
+    public void init(ServletContext servletContext) throws ViewHandlerException {
+        this.servletContext = servletContext;
+    }
+
+    @Override
+    public Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap) {
+        return Map.of();
     }
 
     @Override
     public void render(String name, String page, String contentType, String encoding, String info, HttpServletRequest request, HttpServletResponse
-            response) throws ViewHandlerException {
+            response, Map<String, Object> context) throws ViewHandlerException {
         // some containers call filters on EVERY request, even forwarded ones,
         // so let it know that it came from the control servlet
 
@@ -66,10 +73,10 @@ public class JspViewHandler extends AbstractViewHandler {
 
         if (rd == null) {
             Debug.logInfo("HttpServletRequest.getRequestDispatcher() failed; trying ServletContext", MODULE);
-            rd = context.getRequestDispatcher(page);
+            rd = this.servletContext.getRequestDispatcher(page);
             if (rd == null) {
                 Debug.logInfo("ServletContext.getRequestDispatcher() failed; trying ServletContext.getNamedDispatcher(\"jsp\")", MODULE);
-                rd = context.getNamedDispatcher("jsp");
+                rd = this.servletContext.getNamedDispatcher("jsp");
                 if (rd == null) {
                     throw new ViewHandlerException("Source returned a null dispatcher (" + page + ")");
                 }

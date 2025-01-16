@@ -103,6 +103,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         final StringBuffer buf = new StringBuffer();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
+        final boolean shortener = checkArg(args, "pathShortener", false);
         final boolean encode = checkArg(args, "encode", true);
         final String controlPath = convertToString(args.get("controlPath"));
         final String webSiteId = convertToString(args.get("webSiteId"));
@@ -142,7 +143,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
                         RequestHandler rh = RequestHandler.from(request);
                         String seoUrl = seoUrl(rh.makeLink(request, response, buf.toString(), fullPath,
-                                secure || request.isSecure(), encode, controlPath), userLogin == null);
+                                secure || request.isSecure(), encode, controlPath, shortener), userLogin == null);
                         String requestURI = buf.toString();
 
                         // add / update csrf token to link when required
@@ -159,7 +160,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                         ComponentConfig.WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
                         StringBuilder newUrlBuff = new StringBuilder(250);
                         OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
-                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure);
+                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure, shortener);
                         String newUrl = newUrlBuff.toString();
                         if (encode) {
                             newUrl = URLEncoder.encode(newUrl, "UTF-8");

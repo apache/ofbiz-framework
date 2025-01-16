@@ -309,17 +309,11 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
             }
             if (expression.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "groovy:", if so treat the rest of the expression as a groovy scriptlet
+                end = getMatchingClosingBracket(expression, start, origLen, end);
                 strElems.add(new ScriptElem(chars, start, Math.min(end + 1, start + length) - start, start + 9, end - start - 9));
             } else {
                 // Scan for matching closing bracket
-                int ptr = expression.indexOf("{", start + 2);
-                while (ptr != -1 && end != -1 && ptr < end) {
-                    end = expression.indexOf(CLOSE_BRACKET, end + 1);
-                    ptr = expression.indexOf("{", ptr + 1);
-                }
-                if (end == -1) {
-                    end = origLen;
-                }
+                end = getMatchingClosingBracket(expression, start, origLen, end);
                 // Evaluation sequence is important - do not change it
                 if (escapedExpression) {
                     strElems.add(new ConstOffsetElem(chars, start, end + 1 - start));
@@ -350,6 +344,18 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
             strElems.add(new ConstOffsetElem(chars, currentInd, offset + length - currentInd));
         }
         return strElems.toArray(new FlexibleStringExpander[strElems.size()]);
+    }
+
+    private static int getMatchingClosingBracket(String expression, int start, int origLen, int end) {
+        int ptr = expression.indexOf("{", start + 2);
+        while (ptr != -1 && end != -1 && ptr < end) {
+            end = expression.indexOf(CLOSE_BRACKET, end + 1);
+            ptr = expression.indexOf("{", ptr + 1);
+        }
+        if (end == -1) {
+            end = origLen;
+        }
+        return end;
     }
 
     // Note: a character array is used instead of a String to keep the memory footprint small.
@@ -662,7 +668,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         }
     }
 
-    /** An object that represents a <code>${[groovy|bsh]:}</code> expression. */
+    /** An object that represents a <code>${groovy}</code> expression. */
     protected static class ScriptElem extends ArrayOffsetString {
         private final String language;
         private final int parseStart;

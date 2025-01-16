@@ -33,6 +33,7 @@ import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 import org.apache.ofbiz.widget.model.ModelTheme;
@@ -83,9 +84,17 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
         return screenStringRenderer;
     }
 
+
+    @Override
+    public Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap) {
+        MapStack<String> context = MapStack.create();
+        ScreenRenderer.populateContextForRequest(context, null, request, response, servletContext, viewMap.isSecureContext());
+        return context;
+    }
+
     @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
-                       HttpServletResponse response) throws ViewHandlerException {
+                       HttpServletResponse response, Map<String, Object> context) throws ViewHandlerException {
         try {
             Writer writer = response.getWriter();
             VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
@@ -106,10 +115,8 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
                 // to speed up output.
                 writer = new StandardCompress().getWriter(writer, null);
             }
-            MapStack<String> context = MapStack.create();
-            ScreenRenderer.populateContextForRequest(context, null, request, response, servletContext);
             ScreenStringRenderer screenStringRenderer = loadRenderers(request, response, context, writer);
-            ScreenRenderer screens = new ScreenRenderer(writer, context, screenStringRenderer);
+            ScreenRenderer screens = new ScreenRenderer(writer, MapStack.create(context), screenStringRenderer);
             context.put("screens", screens);
             context.put("simpleEncoder", UtilCodec.getEncoder(visualTheme.getModelTheme().getEncoder(getName())));
             screenStringRenderer.renderBegin(writer, context);

@@ -22,6 +22,7 @@ package org.apache.ofbiz.party.content;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
@@ -43,7 +45,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.service.LocalDispatcher;
 
 /**
@@ -287,6 +288,11 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId, Delegator delegator) {
+        return getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator, UtilDateTime.nowTimestamp());
+    }
+
+    public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId,
+                                                          Delegator delegator, Timestamp date) {
         if (partyId == null && party != null) {
             partyId = party.getString("partyId");
         }
@@ -298,24 +304,19 @@ public class PartyContentWrapper implements ContentWrapper {
         if (delegator == null) {
             throw new IllegalArgumentException("Delegator missing");
         }
-
-        List<GenericValue> partyContentList = null;
         try {
-            partyContentList = EntityQuery.use(delegator).from("PartyContent")
+            return EntityQuery.use(delegator).from("PartyContent")
                     .where("partyId", partyId, "partyContentTypeId", partyContentTypeId)
                     .orderBy("-fromDate")
-                    .cache(true)
-                    .queryList();
+                    .filterByDate(date == null
+                            ? UtilDateTime.nowTimestamp()
+                            : date)
+                    .cache()
+                    .queryFirst();
         } catch (GeneralException e) {
             Debug.logError(e, MODULE);
         }
-
-        if (partyContentList != null) {
-            partyContentList = EntityUtil.filterByDate(partyContentList);
-            return EntityUtil.getFirst(partyContentList);
-        } else {
-            return null;
-        }
+        return null;
     }
 
     public static PartyContentWrapper makePartyContentWrapper(GenericValue party, HttpServletRequest request) {

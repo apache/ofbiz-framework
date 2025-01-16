@@ -237,7 +237,7 @@ public final class JobPoller implements ServiceConfigListener {
         Debug.logInfo("JobPoller shutdown completed.", MODULE);
     }
 
-    private static class JobInvokerThreadFactory implements ThreadFactory {
+    private static final class JobInvokerThreadFactory implements ThreadFactory {
 
         @Override
         public Thread newThread(Runnable runnable) {
@@ -246,7 +246,7 @@ public final class JobPoller implements ServiceConfigListener {
     }
 
     // Polls all registered JobManagers for jobs to queue.
-    private class JobManagerPoller implements Runnable {
+    private final class JobManagerPoller implements Runnable {
 
         // Do not check for interrupts in this method. The design requires the
         // thread to complete the job manager poll uninterrupted.

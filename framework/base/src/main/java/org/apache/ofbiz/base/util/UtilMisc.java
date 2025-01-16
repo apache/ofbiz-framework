@@ -674,7 +674,7 @@ public final class UtilMisc {
     }
 
     // Private lazy-initializer class
-    private static class LocaleHolder {
+    private static final class LocaleHolder {
         private static final List<Locale> AVAIL_LOCALE_LIST = getAvailableLocaleList();
 
         private static List<Locale> getAvailableLocaleList() {

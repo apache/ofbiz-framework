@@ -405,7 +405,7 @@ public final class ServiceDispatcher {
                         try {
                             // FIXME without this line all simple test failed
                             context = ctx.makeValidContext(modelService.getName(), ModelService.IN_PARAM, context);
-                            modelService.validate(context, ModelService.IN_PARAM, locale);
+                            modelService.validate(getLocalDispatcher(localName), context, ModelService.IN_PARAM, locale);
                         } catch (ServiceValidationException e) {
                             Debug.logError(e, "Incoming context (in runSync : " + modelService.getName()
                                     + ") does not match expected requirements", MODULE);
@@ -520,7 +520,7 @@ public final class ServiceDispatcher {
                     }
                     try {
                         result = ctx.makeValidContext(modelService.getName(), ModelService.OUT_PARAM, result);
-                        modelService.validate(result, ModelService.OUT_PARAM, locale);
+                        modelService.validate(getLocalDispatcher(localName), result, ModelService.OUT_PARAM, locale);
                     } catch (ServiceValidationException e) {
                         rs.setEndStamp();
                         throw new GenericServiceException("Outgoing result (in runSync : " + modelService.getName()
@@ -755,7 +755,7 @@ public final class ServiceDispatcher {
                 // validate the context
                 if (service.isValidate() && !isError && !isFailure) {
                     try {
-                        service.validate(context, ModelService.IN_PARAM, locale);
+                        service.validate(getLocalDispatcher(localName), context, ModelService.IN_PARAM, locale);
                     } catch (ServiceValidationException e) {
                         Debug.logError(e, "Incoming service context (in runAsync: " + service.getName()
                                 + ") does not match expected requirements", MODULE);

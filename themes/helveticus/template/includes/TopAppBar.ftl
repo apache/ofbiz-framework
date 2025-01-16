@@ -68,7 +68,7 @@ under the License.
                     </#if>
                     <#assign thisApp = StringUtil.wrapString(thisApp)>
                     <#assign thisURL = thisApp>
-                    <#if thisApp != "/">
+                    <#if thisApp != "/" && thisApp != "/rest">
                         <#assign thisURL = thisURL + "/control/main">
                     </#if>
                     <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
@@ -111,7 +111,7 @@ under the License.
                     </#if>
                     <#assign thisApp = StringUtil.wrapString(thisApp)>
                     <#assign thisURL = thisApp>
-                    <#if thisApp != "/">
+                    <#if thisApp != "/" && thisApp != "/rest">
                         <#assign thisURL = thisURL + "/control/main">
                     </#if>
                     <#if appCount<=appMax>
@@ -157,7 +157,7 @@ under the License.
                 </#if>
                 <#assign thisApp = StringUtil.wrapString(thisApp)>
                 <#assign thisURL = thisApp>
-                <#if thisApp != "/">
+                <#if thisApp != "/" && thisApp != "/rest">
                     <#assign thisURL = thisURL + "/control/main">
                 </#if>
                 <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
@@ -169,8 +169,8 @@ under the License.
                         <span>
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                            </svg>                        
-                        </span>                        
+                            </svg>
+                        </span>
                         <ul id="more-app-list">
                             <#assign moreApp = true>
                         </#if>
@@ -187,47 +187,50 @@ under the License.
         </#list>
         </#if>
         <#if displaySecondaryApps??>
-        <#list displaySecondaryApps as display>
-            <#assign thisApp = display.getContextRoot()>
-            <#assign permission = true>
-            <#assign selected = false>
-            <#assign permissions = display.getBasePermission()>
-            <#list permissions as perm>
-                <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session))>
-                <#-- User must have ALL permissions in the base-permission list -->
-                    <#assign permission = false>
+            <#list displaySecondaryApps as display>
+                <#assign thisApp = display.getContextRoot()>
+                <#assign permission = true>
+                <#assign selected = false>
+                <#assign permissions = display.getBasePermission()>
+                <#list permissions as perm>
+                    <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session))>
+                    <#-- User must have ALL permissions in the base-permission list -->
+                        <#assign permission = false>
+                    </#if>
+                </#list>
+                <#if permission == true>
+                    <#if thisApp == contextPath || contextPath + "/" == thisApp>
+                        <#assign selected = true>
+                    </#if>
+                    <#assign thisApp = StringUtil.wrapString(thisApp)>
+                    <#assign thisURL = thisApp>
+                    <#if thisApp != "/" && thisApp != "/rest">
+                        <#assign thisURL = thisURL + "/control/main">
+                    </#if>
+                    <#if thisApp == "/rest">
+                    </#if>
+
+                    <#if appMax < appCount>
+                        <#if !moreApp>
+                        <div id="more-app">
+                            <span>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                </svg>
+                            </span>
+                            <ul id="more-app-list">
+                            <#assign moreApp = true>
+                        </#if>
+                        <li class="app-btn-sup<#if selected> selected</#if>">
+                            <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
+                            <#if selected>
+                                <#assign currentMoreApp = display>
+                            </#if>
+                        </li>
+                    </#if>
+                    <#assign appCount = appCount + 1>
                 </#if>
             </#list>
-            <#if permission == true>
-                <#if thisApp == contextPath || contextPath + "/" == thisApp>
-                    <#assign selected = true>
-                </#if>
-                <#assign thisApp = StringUtil.wrapString(thisApp)>
-                <#assign thisURL = thisApp>
-                <#if thisApp != "/">
-                    <#assign thisURL = thisURL + "/control/main">
-                </#if>
-                <#if appMax < appCount>
-                    <#if !moreApp>
-                    <div id="more-app">
-                        <span>
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                            </svg>                        
-                        </span>                    
-                        <ul id="more-app-list">
-                        <#assign moreApp = true>
-                    </#if>
-                    <li class="app-btn-sup<#if selected> selected</#if>">
-                        <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
-                        <#if selected>
-                            <#assign currentMoreApp = display>
-                        </#if>
-                    </li>
-                </#if>
-                <#assign appCount = appCount + 1>
-            </#if>
-        </#list>
         </#if>
         <#if moreApp>
         </ul> <!-- more-app-list -->
@@ -239,7 +242,7 @@ under the License.
             <#assign thisApp = currentMoreApp.getContextRoot()>
             <#assign thisApp = StringUtil.wrapString(thisApp)>
             <#assign thisURL = thisApp>
-            <#if thisApp != "/">
+            <#if thisApp != "/" && thisApp != "/rest">
                 <#assign thisURL = thisURL + "/control/main">
             </#if>
             <li class="app-btn selected">

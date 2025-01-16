@@ -17,5 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-
-{<#if requiredLabels?has_content && requiredLabels?is_sequence><#list requiredLabels as label>"${label}": "${Static["org.apache.ofbiz.base.util.StringUtil"].wrapString(uiLabelMap[label])}"<#sep>,</#list></#if>}
+<#if parameters.requiredLabels??>
+  {<#if requiredLabels?? && requiredLabels?is_sequence><#list requiredLabels as label>"${label}": "${Static["org.apache.ofbiz.base.util.StringUtil"].wrapString(uiLabelMap[label])}"<#sep>,</#list></#if>}
+</#if>

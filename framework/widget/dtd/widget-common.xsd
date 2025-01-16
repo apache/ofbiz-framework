@@ -543,6 +543,7 @@ under the License.
         <xs:sequence>
             <xs:element minOccurs="0" ref="auto-parameters-service"/>
             <xs:element minOccurs="0" ref="auto-parameters-entity"/>
+            <xs:element minOccurs="0" ref="auto-parameters-form"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
             <xs:element minOccurs="0" name="image" type="image" />
             <xs:element minOccurs="0" ref="set-callback"/>
@@ -642,6 +643,7 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" ref="auto-parameters-service"/>
                 <xs:element minOccurs="0" ref="auto-parameters-entity"/>
+                <xs:element minOccurs="0" ref="auto-parameters-form"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
             </xs:sequence>
             <xs:attribute name="area-id" type="xs:string">

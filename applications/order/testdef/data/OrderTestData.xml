@@ -26,12 +26,19 @@ under the License.
     <ProductCategory productCategoryId="CATALOG1_BEST_SELL" productCategoryTypeId="BEST_SELL_CATEGORY" categoryName="Demo Best Selling"/>
     <ProdCatalogCategory prodCatalogId="DemoCatalog" productCategoryId="CATALOG1_BEST_SELL" fromDate="2010-01-01 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BEST_SELL"/>
 
-    <ProductStore productStoreId="9000" storeName="OFBiz Ebay Store1-AU" companyName="Apache Ofbiz" title="Test OFBiz store1"/>
+    <ProductStore productStoreId="9000" storeName="OFBiz Ebay Store1-AU" companyName="Apache Ofbiz" title="Test OFBiz store1" requirementMethodEnumId="PRODRQM_STOCK"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
+
+    <ProductStore productStoreId="9000ATP" storeName="OFBiz Ebay Store2-AU" companyName="Apache Ofbiz" title="Test OFBiz store2 atp" requirementMethodEnumId="PRODRQM_STOCK_ATP"/>
+    <Facility facilityId="WebStoreWarehouseAtp" facilityTypeId="WAREHOUSE" facilityName="Web Store Warehouse ATP" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM"/>
+    <ProductFacility productId="GZ-2644" facilityId="WebStoreWarehouseAtp" minimumStock="10" reorderQuantity="20" daysToShip="15"/>
 
     <!--Demo data for a sales order -->
     <OrderHeader orderId="TEST_DEMO10090" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" currencyUom="USD" productStoreId="9000" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y" webSiteId="WebStore"/>
     <OrderItem orderId="TEST_DEMO10090" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
+
+    <OrderHeader orderId="TEST_DEMO10091" orderTypeId="SALES_ORDER" salesChannelEnumId="WEB_SALES_CHANNEL" orderDate="2008-04-23 16:49:27.392" entryDate="2008-04-23 16:49:27.392" priority="2" visitId="10002" statusId="ORDER_APPROVED" currencyUom="USD" productStoreId="9000ATP" remainingSubTotal="38.40" grandTotal="50.85"  invoicePerShipment="Y" webSiteId="WebStore"/>
+    <OrderItem orderId="TEST_DEMO10091" orderItemSeqId="00001" orderItemTypeId="PRODUCT_ORDER_ITEM" productId="GZ-2644" prodCatalogId="DemoCatalog" isPromo="N" quantity="2.0" selectedAmount="0.0" unitPrice="38.4" unitListPrice="48.0" isModifiedPrice="N" itemDescription="Round Gizmo" statusId="ITEM_APPROVED"/>
 
     <Party partyId="TestDemoCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="TestDemoCustomer" firstName="Test" lastName="Customer"/>
@@ -54,10 +61,19 @@ under the License.
     <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
     <OrderContactMech orderId="TEST_DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="TestContactMech"/>
     <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project1 Cust1" revisionNumber="1"/>
+    <ItemIssuance itemIssuanceId="9006" orderId="TEST_DEMO10090" orderItemSeqId="00001" shipGroupSeqId="00001" inventoryItemId="9001" quantity="2.000000"/>
+    <InventoryItem facilityId="WebStoreWarehouseAtp" inventoryItemId="9028" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" currencyUomId="USD" unitCost="2.5"/>
+    <InventoryItemDetail inventoryItemId="9028" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="5" quantityOnHandDiff="5" accountingQuantityDiff="5"/>
     <Requirement requirementId="1000" requirementTypeId="CUSTOMER_REQUIREMENT"/>
     <ReturnHeader returnId="1009" statusId="RETURN_RECEIVED" returnHeaderTypeId="CUSTOMER_RETURN"/>
     <ReturnItem returnId="1009" returnItemSeqId="00001" returnReasonId="RTN_NOT_WANT" returnTypeId="RTN_REFUND" returnItemTypeId="RET_FPROD_ITEM" returnQuantity="1.000000"/>
     <Shipment shipmentId="1014" shipmentTypeId="SALES_SHIPMENT" primaryOrderId="DEMO10090" primaryShipGroupSeqId="00001" statusId="SHIPMENT_SHIPPED"/>
     <ShipmentItem shipmentId="1014" shipmentItemSeqId="00001"/>
+
+    <Invoice invoiceId="TEST_DEMO10090" partyId="TestDemoCustomer" partyIdFrom="Company" invoiceDate="2009-08-17 14:56:44.573" statusId="INVOICE_PAID" currencyUom="USD"/>
+    <InvoiceItem invoiceId="TEST_DEMO10090" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FPROD_ITEM" productId="GZ-2644" quantity="2.000000" amount="38.40" description="GZ-2644-0 Round Gizmo"/>
+    <OrderItemBilling orderId="TEST_DEMO10090" orderItemSeqId="00001" invoiceId="TEST_DEMO10090" invoiceItemSeqId="00001" quantity="2.000000" amount="38.40"/>
+    <OrderPaymentPreference orderPaymentPreferenceId="TEST_DEMO10090" orderId="TEST_DEMO10090" maxAmount="76.80" statusId="PAYMENT_SETTLED" createdDate="2009-08-17 14:56:44.573"/>
+    <Payment paymentId="1014" paymentTypeId="CUSTOMER_PAYMENT" paymentPreferenceId="TEST_DEMO10090" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="TestDemoCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2006-04-25 12:56:54.292" amount="76.80" currencyUomId="USD"/>
 
 </entity-engine-xml>

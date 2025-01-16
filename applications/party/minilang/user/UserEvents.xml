@@ -112,10 +112,11 @@ under the License.
 
             <!-- Check the password, etc for validity -->
             <script>groovy:
-                String password = (String) userLoginContext.get("currentPassword")
-                String confirmPassword = (String) userLoginContext.get("currentPasswordVerify")
-                String passwordHint = (String) userLoginContext.get("passwordHint")
-                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale)
+                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null,
+                userLoginContext.currentPassword,
+                userLoginContext.currentPasswordVerify,
+                userLoginContext.passwordHint,
+                error_list, true, locale)
             </script>
         <else>
             <if-compare field="require_login" operator="equals" value="true">
@@ -318,10 +319,10 @@ under the License.
             <!-- If password encryption is enabled, encrpyt it now -->
             <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <script>groovy:
-                boolean useEncryption = "true".equals(org.apache.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator))
+                boolean useEncryption = "true" == org.apache.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator)
                 if (useEncryption) {
                     String hashType = org.apache.ofbiz.common.login.LoginServices.getHashType()
-                    newUserLogin.set("currentPassword", org.apache.ofbiz.base.crypto.HashCrypt.digestHash(hashType, null, newUserLogin.get("currentPassword"))) 
+                    newUserLogin.currentPassword = org.apache.ofbiz.base.crypto.HashCrypt.digestHash(hashType, null, newUserLogin.currentPassword)
                 }
             </script>
 

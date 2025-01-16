@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.service
 
+
+import org.apache.ofbiz.entity.DelegatorFactory
+import org.junit.Before
+
 import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.eq
 
@@ -39,6 +43,15 @@ class ModelServiceTest {
     private static final UtilCache<String, Map<String, ModelService>> MODEL_SERVICE_MAP_BY_MODEL =
             UtilCache.createUtilCache(SERVICE_CACHE_NAME, 0, 0, false)
     private MockedStatic<UtilProperties> utilities
+    private LocalDispatcher dispatcher
+
+    @Before
+    void initialize() {
+        System.setProperty("ofbiz.home", System.getProperty("user.dir"))
+        System.setProperty("derby.system.home", "./runtime/data/derby")
+        dispatcher = Mockito.mock(LocalDispatcher.class)
+        Mockito.when(dispatcher.getDelegator()).thenReturn(DelegatorFactory.getDelegator("default"))
+    }
 
     @BeforeEach
     void initMock() {
@@ -61,7 +74,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([message: 'ok'],
+                    .validate(dispatcher, [message: 'ok'],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Required parameters not validated')
@@ -76,7 +89,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([message: 'ok'],
+                    .validate(dispatcher, [message: 'ok'],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Optional parameter not validated')
@@ -92,7 +105,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([message: 'ok'],
+                    .validate(dispatcher, [message: 'ok'],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Optional parameter not validated')
@@ -106,7 +119,7 @@ class ModelServiceTest {
                <attribute name="message" type="String" mode="IN"/>
            </service>'''
         createModelService(serviceXml)
-                .validate([message: null],
+                .validate(dispatcher, [message: null],
                         'IN', Locale.default)
     }
 
@@ -118,7 +131,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([message: null],
+                    .validate(dispatcher, [message: null],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Optional parameter not validated')
@@ -132,7 +145,7 @@ class ModelServiceTest {
                <attribute name="message" type="String" mode="IN"/>
            </service>'''
         createModelService(serviceXml)
-                .validate([missing: 'ok'],
+                .validate(dispatcher, [missing: 'ok'],
                         'IN', Locale.default)
     }
 
@@ -146,7 +159,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([header: [headerParam: 'foo']],
+                    .validate(dispatcher, [header: [headerParam: 'foo']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Paramètre complexe non identifié')
@@ -163,7 +176,7 @@ class ModelServiceTest {
                </attribute>
            </service>'''
         createModelService(serviceXml)
-                .validate([header: [headerParam: 'foo']],
+                .validate(dispatcher, [header: [headerParam: 'foo']],
                         'IN', Locale.default)
     }
 
@@ -178,7 +191,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([header: [headerParam: 'foo']],
+                    .validate(dispatcher, [header: [headerParam: 'foo']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Missing optional should not throw exception')
@@ -196,7 +209,7 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([header: [headerParam: 'foo', otherParam: 'Good']],
+                    .validate(dispatcher, [header: [headerParam: 'foo', otherParam: 'Good']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Complex parameter control error')
@@ -213,7 +226,7 @@ class ModelServiceTest {
                </attribute>
            </service>'''
         createModelService(serviceXml)
-                .validate([header: [headerParam: 'foo', otherParam: 'Good', unexpectedParam: 'Bad']],
+                .validate(dispatcher, [header: [headerParam: 'foo', otherParam: 'Good', unexpectedParam: 'Bad']],
                         'IN', Locale.default)
     }
 
@@ -227,7 +240,7 @@ class ModelServiceTest {
                </attribute>
            </service>'''
         createModelService(serviceXml)
-                .validate([header: ['headerParam', 'otherParam']],
+                .validate(dispatcher, [header: ['headerParam', 'otherParam']],
                         'IN', Locale.default)
     }
 
@@ -244,8 +257,8 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([header: [headerParam: [subHeaderParam: 'true'],
-                                        otherParam: 'true']],
+                    .validate(dispatcher, [header: [headerParam: [subHeaderParam: 'true'],
+                                                    otherParam: 'true']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Paramètre complexe non identifié')
@@ -264,8 +277,8 @@ class ModelServiceTest {
                </attribute>
            </service>'''
         createModelService(serviceXml)
-                .validate([header: [headerParam: [subHeaderParam: 'true', otherParam: 'false'],
-                                    otherParam: 'true']],
+                .validate(dispatcher, [header: [headerParam: [subHeaderParam: 'true', otherParam: 'false'],
+                                                otherParam: 'true']],
                         'IN', Locale.default)
     }
 
@@ -277,8 +290,8 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([header: [headerParam: [subHeaderParam: 'true', otherParam: 'false'],
-                                        otherParam: 'true']],
+                    .validate(dispatcher, [header: [headerParam: [subHeaderParam: 'true', otherParam: 'false'],
+                                                    otherParam: 'true']],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Map should not have been analyzed')
@@ -296,8 +309,8 @@ class ModelServiceTest {
            </service>'''
         try {
             createModelService(serviceXml)
-                    .validate([header: [[headerParam: 'line1', otherParam: 'Good'],
-                                        [headerParam: 'line2', otherParam: 'Good']]],
+                    .validate(dispatcher, [header: [[headerParam: 'line1', otherParam: 'Good'],
+                                                    [headerParam: 'line2', otherParam: 'Good']]],
                             'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Complex List Parameter Error')
@@ -314,7 +327,7 @@ class ModelServiceTest {
                </attribute>
            </service>'''
         createModelService(serviceXml)
-                .validate([header: [[headerParam: 'line1', otherParam: 'Good'],
+                .validate(dispatcher, [header: [[headerParam: 'line1', otherParam: 'Good'],
                                     [headerParam: 'line2', otherParam: 'Good',
                                      unwanted: 'Bad']]],
                         'IN', Locale.default)
@@ -343,7 +356,7 @@ class ModelServiceTest {
                                             'testParam': modelService])
 
         try {
-            modelService.validate([header: [headerParam: 'line1', otherParam: 'Good']], 'IN', Locale.default)
+            modelService.validate(dispatcher, [header: [headerParam: 'line1', otherParam: 'Good']], 'IN', Locale.default)
         } catch (ServiceValidationException ignored) {
             Assert.fail('Complex implement not valid')
         }
@@ -407,4 +420,19 @@ class ModelServiceTest {
                 .createModelService(serviceElement, 'TEST')
     }
 
+    @Test
+    void callValidatorCreationWithDelegator() {
+        String serviceXml = '''<service name="testParam" engine="java"
+               location="org.apache.ofbiz.common.CommonServices" invoke="ping">
+               <attribute name="fileNameToTest" type="String" mode="IN">
+                   <type-validate class="org.apache.ofbiz.security.SecuredUpload" method="isValidFileName">
+                       <fail-property resource="SecurityUiLabels" property="SupportedFileFormatsIncludingSvg"/>
+                   </type-validate>
+               </attribute>
+           </service>'''
+        ModelService fo = createModelService(serviceXml)
+        ModelParam.ModelParamValidator validator = fo.getParam('fileNameToTest').getValidators().first()
+        assert validator
+        assert ModelService.typeValidate(dispatcher, validator, "myFileName")
+    }
 }

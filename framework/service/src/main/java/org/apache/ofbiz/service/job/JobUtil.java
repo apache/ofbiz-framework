@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.job;
 
-import java.util.List;
 import javax.transaction.Transaction;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.apache.ofbiz.entity.util.EntityQuery;
 
 public final class JobUtil {
 
@@ -43,16 +43,18 @@ public final class JobUtil {
             jobValue.remove();
             GenericValue relatedValue = jobValue.getRelatedOne("RecurrenceInfo", false);
             if (relatedValue != null) {
-                List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
-                if (valueList.isEmpty()) {
+                if (EntityQuery.use(jobValue.getDelegator()).from("JobSandbox")
+                        .where("recurrenceInfoId", relatedValue.get("recurrenceInfoId"))
+                        .queryCount() == 0) {
                     relatedValue.remove();
                     relatedValue.removeRelated("RecurrenceRule");
                 }
             }
             relatedValue = jobValue.getRelatedOne("RuntimeData", false);
             if (relatedValue != null) {
-                List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
-                if (valueList.isEmpty()) {
+                if (EntityQuery.use(jobValue.getDelegator()).from("JobSandbox")
+                        .where("runtimeDataId", relatedValue.get("runtimeDataId"))
+                        .queryCount() == 0) {
                     relatedValue.remove();
                 }
             }

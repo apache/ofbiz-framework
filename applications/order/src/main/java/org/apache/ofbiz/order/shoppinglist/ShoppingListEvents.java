@@ -535,7 +535,7 @@ public class ShoppingListEvents {
 
         // check to see if we are okay to load this list
         java.sql.Timestamp lastLoad = cart.getLastListRestore();
-        boolean okayToLoad = autoSaveListId == null ? false : (lastLoad == null ? true : false);
+        boolean okayToLoad = autoSaveListId != null && lastLoad == null;
         if (!okayToLoad && lastLoad != null) {
             GenericValue shoppingList = null;
             try {

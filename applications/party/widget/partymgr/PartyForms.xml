@@ -137,16 +137,16 @@ under the License.
             <entity-and entity-name="UserLogin" list="logins" use-cache="true">
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-and>
-            <set field="userLoginSize" value="${groovy:logins.size()}" type="Integer"/>
+            <set field="userLoginSize" value="${util:size(logins)}" type="Integer"/>
             <service service-name="getPartyMainRole" result-map="mainRole">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="userLogin" from-field="userLogin"/>
             </service>
-            <entity-and entity-name="PartyClassification" list="partyClassifications" use-cache="true">
-                <field-map field-name="partyId" from-field="partyId"/>
-            </entity-and>
-            <set field="fieldId" value="partyClassificationGroupId"/>
-            <set field="partyClassificationGroupIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(partyClassifications, fieldId, true);}"/>
+            <entity-condition entity-name="PartyClassification" list="partyClassifications" use-cache="true">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+            </entity-condition>
+            <set field="partyClassificationGroupIds" value="${groovy: partyClassifications*.partyClassificationGroupId}"/>
+            <service service-name="getPartyNameForDate" result-map="partyName"/>
         </row-actions>
         <field name="partyId" sort-field="true" widget-style="buttontext">
             <hyperlink description="${partyId}" target="viewprofile">

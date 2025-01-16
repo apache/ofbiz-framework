@@ -21,12 +21,18 @@ under the License.
 The Apache OFBiz Project
 
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
-image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.com/apache/ofbiz-framework]
-image:https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg[link=https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins]
+image:https://img.shields.io/badge/Version-trunk-red.svg[link=https://github.com/apache/ofbiz-framework]
+
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
+// For the CodeQL badge to not get stuck on failing, you need to delete the last failing CodeQL workflow (AKA action)
+image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+// For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://svn.apache.org/repos/infra/infrastructure/buildbot2/projects/ofbiz.py need to pass
+image:https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg[link=https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins]
 image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
+
+image:https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml/badge.svg[https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml]
 image:https://api.securityscorecards.dev/projects/github.com/apache/ofbiz-framework/badge[link=https://securityscorecards.dev/viewer/?uri=github.com/apache/ofbiz-framework]
-//image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+image:https://www.bestpractices.dev/projects/8708/badge[link=https://www.bestpractices.dev/projects/8708]
 
 
 If you are reading this file in AsciiDoc format you may want to see it at
@@ -157,7 +163,7 @@ ________________________________________________________________________________
 
 [[Docker]]
 == Docker
-If you want to set and use Docker, link:DOCKER.html[here is the documentation]
+If you want to set and use Docker, link:https://nightlies.apache.org/ofbiz/trunk/readme/html5/DOCKER.html[here is the documentation]
 
 
 [[visit-ofbiz-through-your-browser]]
@@ -648,6 +654,16 @@ By default Xlint prints output of all warnings detected by the compiler, if you
 want to silence them
 
 `gradlew -PXlint:none build`
+
+[[run-owasp-tool-to-identify-dependency-vulnerabilities-cves]]
+==== Run OWASP tool to identify dependency vulnerabilities (CVEs)
+
+The below command activates a gradle plugin (OWASP) and Identifies and reports
+known vulnerabilities (CVEs) in OFBiz library dependencies. The task takes time
+to complete, and once done, a report will be generated in
+$OFBIZ_HOME/build/reports/dependency-check-report.html
+
+`gradlew -PenableOwasp dependencyCheckAnalyze`
 
 [[setup-eclipse-project-for-ofbiz]]
 ==== Setup eclipse project for OFBiz

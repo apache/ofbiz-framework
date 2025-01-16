@@ -812,7 +812,7 @@ under the License.
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
                 <set field="locationTypeMap.enumTypeId" value="FACLOC_TYPE"/>
                 <find-by-and entity-name="Enumeration" list="locationTypeEnums" map="locationTypeMap"/>
-                <set field="locationTypeEnumIds" value="${groovy: return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(locationTypeEnums, 'enumId', true);}" type="List"/>
+                <set field="locationTypeEnumIds" value="${groovy: locationTypeEnums*.enumId}" type="List"/>
                 <set field="nothing" value="${groovy: locationTypeEnumIds.add(null)}" type="List"/>
                 <iterate list="locationTypeEnumIds" entry="locationTypeEnumId">
                     <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/> 
@@ -870,7 +870,7 @@ under the License.
         <field-to-result field="quantityNotTransferred"/>
         <if-compare operator="greater" value="0" field="quantityNotTransferred">
             <add-error>
-                <fail-message message="${groovy: import org.apache.ofbiz.base.util.UtilProperties; return (UtilProperties.getMessage('ProductUiLabels', 'ProductInventoryATPNotAvailable', ['unavailableQuantity' : quantityNotTransferred, 'xferQty': parameters.quantity], locale))}"/>
+                <fail-message message="${groovy: label('ProductUiLabels', 'ProductInventoryATPNotAvailable', ['unavailableQuantity' : quantityNotTransferred, 'xferQty': parameters.quantity], locale)}"/>
             </add-error>
             <check-errors/>
         </if-compare>

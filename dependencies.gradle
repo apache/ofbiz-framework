@@ -18,12 +18,13 @@
  */
 dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+    implementation 'com.google.guava:guava:33.3.1-jre'
     implementation 'com.google.zxing:core:3.5.3'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3' // 0.12.1 does not compile
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.31'
-    implementation 'com.ibm.icu:icu4j:74.2'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.52'
+    implementation 'com.ibm.icu:icu4j:76.1'
     implementation ('com.lowagie:itext:2.1.7') { // Don't update due to license change in newer versions, see OFBIZ-10455
         exclude  group: 'bouncycastle', module: 'bcmail-jdk14'
         exclude  group: 'bouncycastle', module: 'bcprov-jdk14'
@@ -31,55 +32,54 @@ dependencies {
     }
     implementation 'com.sun.mail:javax.mail:1.6.2'
     implementation 'com.rometools:rome:2.1.0'
-    implementation 'com.thoughtworks.xstream:xstream:1.4.20'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.21'
     implementation 'commons-cli:commons-cli:1.5.0' // with 1.6.0, 2 tests of OfbizStartupUnitTests don't pass
     implementation 'commons-fileupload:commons-fileupload:1.5'
-    implementation 'commons-net:commons-net:3.10.0'
-    implementation 'commons-validator:commons-validator:1.8.0'
+    implementation 'commons-net:commons-net:3.11.1'
+    implementation 'commons-validator:commons-validator:1.9.0'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'javax.transaction:javax.transaction-api:1.3'
     implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
     implementation 'net.lingala.zip4j:zip4j:2.11.5'
-    implementation 'org.apache.ant:ant-junit:1.10.14'
+    implementation 'org.apache.ant:ant-junit:1.10.15'
     implementation 'org.apache.commons:commons-collections4:4.4'
-    implementation 'org.apache.commons:commons-csv:1.10.0'
-    implementation 'org.apache.commons:commons-dbcp2:2.10.0'// 2.11.0 does not compile.
+    implementation 'org.apache.commons:commons-csv:1.12.0'
+    implementation 'org.apache.commons:commons-dbcp2:2.13.0'
     implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
-    implementation 'org.apache.commons:commons-text:1.11.0'
+    implementation 'org.apache.commons:commons-text:1.12.0'
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5' // 4.0.0 does not compile
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.14'
-    implementation 'org.apache.logging.log4j:log4j-api:2.20.0' // the API of log4j 2
-    implementation 'org.apache.logging.log4j:log4j-core:2.20.0' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
-    implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
-    implementation 'org.apache.pdfbox:pdfbox:2.0.31' // 3.0.1 does not compile
-    implementation 'org.apache.shiro:shiro-core:1.13.0'
-    implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.0'
-    implementation 'org.apache.sshd:sshd-core:2.10.0'
-    implementation 'org.apache.sshd:sshd-sftp:2.10.0'
-    implementation 'org.apache.tika:tika-core:2.9.2'
-    implementation 'org.apache.tika:tika-parsers:2.5.0'
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
-    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.6' // 4.0.3 does not compile
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.91' // Remember to change the version number (9 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.91'
+    implementation 'org.apache.logging.log4j:log4j-api:2.24.2' // the API of log4j 2
+    implementation 'org.apache.logging.log4j:log4j-core:2.24.2' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    implementation 'org.apache.poi:poi:5.3.0'
+    implementation 'org.apache.pdfbox:pdfbox:2.0.32' // 3.0.1 does not compile
+    implementation 'org.apache.shiro:shiro-core:1.13.0' // Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with the given algorithm: argon2" with 2.0.2 in integration tests
+    implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.2'
+    implementation 'org.apache.sshd:sshd-core:2.14.0'
+    implementation 'org.apache.sshd:sshd-sftp:2.14.0'
+    implementation 'org.apache.tika:tika-core:2.9.2'     // To be compatible with tika-parser-pdf-module below
+    implementation 'org.apache.tika:tika-parsers:2.9.2' // To be compatible with tika-parser-pdf-module below
+    implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2' // > 2.9.2 does not compile, see OFBIZ-13155
+    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.4' // 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97' // Remember to change the version number (9 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.97'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
-    implementation 'org.apache.xmlgraphics:batik-anim:1.17'
-    implementation 'org.apache.xmlgraphics:batik-util:1.17'
-    implementation 'org.apache.xmlgraphics:batik-bridge:1.17'
+    implementation 'org.apache.xmlgraphics:batik-anim:1.18'
+    implementation 'org.apache.xmlgraphics:batik-util:1.18'
+    implementation 'org.apache.xmlgraphics:batik-bridge:1.18'
     implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
-    implementation 'org.clojure:clojure:1.11.1'
-    implementation 'org.codehaus.groovy:groovy-all:3.0.21'
-    implementation 'org.freemarker:freemarker:2.3.34-SNAPSHOT' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
-
-    implementation 'org.owasp.esapi:esapi:2.5.3.1'
+    implementation 'org.clojure:clojure:1.12.0'
+    implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
+    implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    implementation 'org.owasp.esapi:esapi:2.6.0.0'
     implementation 'org.cyberneko:html:1.9.8'
     implementation 'org.springframework:spring-test:5.3.29' //  6.1.4 does not compile
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'com.auth0:java-jwt:4.4.0'
-    implementation 'org.jdom:jdom:1.1.3' // don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
+    implementation 'org.jdom:jdom2:2.0.6.1'
     implementation 'com.google.re2j:re2j:1.7'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation('org.mustangproject:library:2.8.0') { // 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
@@ -88,7 +88,7 @@ dependencies {
     }
 
     testImplementation 'org.hamcrest:hamcrest-library:2.2' // Enable junit4 to not depend on hamcrest-1.3
-    testImplementation 'org.mockito:mockito-core:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'com.pholser:junit-quickcheck-generators:1.0'
 
@@ -98,14 +98,28 @@ dependencies {
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
     runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
     runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
-    runtimeOnly 'org.apache.derby:derby:10.14.2.0' // 10.17.1.0 does not compile
+    runtimeOnly 'org.apache.derby:derby:10.16.1.1' // 10.17.x.x requires Java 21
+    runtimeOnly 'org.apache.derby:derbytools:10.16.1.1' // 10.17.x.x requires Java 21
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.20.0' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.20.0' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0' // for external jars using slf4j: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.20.0' //???
-    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.20.0' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.24.2' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.24.2' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.24.2' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.24.2' //???
+    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.24.2' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
 
     // specify last codenarc version for java 17 compliance
-    codenarc('org.codenarc:CodeNarc:3.4.0')
+    codenarc('org.codenarc:CodeNarc:3.5.0')
+
+    // use constraints to update transitive dependencies
+    constraints {
+        implementation('org.apache.james:apache-mime4j-core:0.8.10') {
+            because 'CVE-2024-21742'
+        }
+        implementation('org.bouncycastle:bcprov-jdk18on:1.78') {
+            because 'CVE-2024-29857, CVE-2024-30171, CVE-2024-30172, CVE-2024-34447'
+        }
+        implementation('org.testng:testng:7.7.0') {
+            because 'CVE-2022-4065'
+        }
+    }
 }

@@ -530,7 +530,8 @@ under the License.
                     request-redirect-noparam,
                     url,
                     url-redirect,
-                    cross-redirect
+                    cross-redirect,
+                    shortener
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -622,6 +623,13 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Works like request-redirect for cross applications calls.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="shortener">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Call ofbiz shortener to resolve the next uri to call
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
@@ -781,6 +789,16 @@ under the License.
                 <xs:documentation>
                     If auth=true, RequestHandler.renderView requires an active login to access the view-map.
                     If direct-view-rendering-with-auth=false, no active login is required.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="secure-context" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If secure-context=false, we authorize to forward to the renderer some parameters with interpretable code.
+                    This raise a potential risk of code injection. This can be usefully for some administration page to
+                    configure templating (like ftl for email or dynamic screen template).
+                    For this reason if secure-context=false, auth is set as true.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

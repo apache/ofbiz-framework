@@ -47,7 +47,7 @@ under the License.
       <#if javaScriptsSet.contains(javaScript)>
         <#assign nothing = javaScriptsSet.remove(javaScript)/>
           <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"
-                  type="application/javascript"></script>
+                  type="text/javascript"></script>
       </#if>
     </#list>
   </#if>
@@ -77,7 +77,7 @@ under the License.
     </#list>
   </#if>
 
-  <script type="application/javascript">
+  <script type="text/javascript">
       // This code inserts the value lookedup by a popup window back into the associated form element
       var re_id = new RegExp('id=(\\d+)');
       var num_id = (re_id.exec(String(window.location))

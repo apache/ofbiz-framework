@@ -152,11 +152,12 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://party/widget/partymgr/PartyMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="PartyShortcutAppBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="PartyShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -124,7 +124,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <!-- commented out because the values match the Tomcat defaults:
             <property name="allowTrace" value="false"/>
             <property name="enableLookups" value="false"/>
@@ -155,7 +155,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <!-- SSL connector attributes -->
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
             <property name="default" value="sslHostConfig">
@@ -217,7 +217,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
         </property>
         <property name="https-connector" value="connector">
             <!--<property name="address" value=""/>-->
@@ -230,7 +230,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
             <property name="default" value="sslHostConfig">
                 <property name="keyManagerAlgorithm" value="SunX509"/>

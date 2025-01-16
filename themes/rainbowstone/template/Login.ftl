@@ -37,11 +37,11 @@ under the License.
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.CommonUsername}</td>
-            <td><input type="text" name="USERNAME" value="${username}" size="20"/></td>
+            <td><input type="text" name="USERNAME" value="${username}" size="20" required/></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.CommonPassword}</td>
-            <td><input type="password" name="PASSWORD" autocomplete="off" value="" size="20"/></td>
+            <td><input type="password" name="PASSWORD" autocomplete="off" value="" size="20" required/></td>
           </tr>
           <#if ("Y" == useMultitenant) >
               <#if !requestAttributes.userTenantId??>
@@ -67,7 +67,7 @@ under the License.
   </div>
 </center>
 
-<script type="application/javascript">
+<script type="text/javascript">
   document.loginform.JavaScriptEnabled.value = "Y";
   <#if focusName>
     document.loginform.USERNAME.focus();

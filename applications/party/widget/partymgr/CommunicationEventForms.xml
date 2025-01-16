@@ -928,7 +928,7 @@ under the License.
         <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="partyId" entry-name="dummy" tooltip="${uiLabelMap.PartyLeaveEmpty}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="emailAddress"><text/></field>
+        <field name="emailAddress"><text type="email"/></field>
         <field name="firstName" position="1"><text/></field>
         <field name="middleName" position="2"><text/></field>
         <field name="lastName"><text/></field>

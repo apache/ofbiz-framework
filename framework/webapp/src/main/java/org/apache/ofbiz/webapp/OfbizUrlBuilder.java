@@ -57,7 +57,8 @@ public final class OfbizUrlBuilder {
             URL url = ConfigXMLReader.getControllerConfigURL(request.getServletContext());
             ControllerConfig config = ConfigXMLReader.getControllerConfig(url);
             String servletPath = (String) request.getAttribute("_CONTROL_PATH_");
-            builder = new OfbizUrlBuilder(config, webSiteProps, servletPath);
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            builder = new OfbizUrlBuilder(delegator, config, webSiteProps, servletPath);
             request.setAttribute("_OFBIZ_URL_BUILDER_", builder);
         }
         return builder;
@@ -95,14 +96,16 @@ public final class OfbizUrlBuilder {
         if (webSiteProps == null) {
             webSiteProps = WebSiteProperties.defaults(delegator);
         }
-        return new OfbizUrlBuilder(config, webSiteProps, servletPath);
+        return new OfbizUrlBuilder(delegator, config, webSiteProps, servletPath);
     }
 
+    private final Delegator delegator;
     private final ControllerConfig config;
     private final WebSiteProperties webSiteProps;
     private final String servletPath;
 
-    private OfbizUrlBuilder(ControllerConfig config, WebSiteProperties webSiteProps, String servletPath) {
+    private OfbizUrlBuilder(Delegator delegator, ControllerConfig config, WebSiteProperties webSiteProps, String servletPath) {
+        this.delegator = delegator;
         this.config = config;
         this.webSiteProps = webSiteProps;
         this.servletPath = servletPath;
@@ -118,9 +121,26 @@ public final class OfbizUrlBuilder {
      * @throws WebAppConfigurationException
      * @throws IOException
      */
-    public boolean buildFullUrl(Appendable buffer, String url, boolean useSSL) throws WebAppConfigurationException, IOException {
+    public boolean buildFullUrl(Appendable buffer, String url, boolean useSSL)
+            throws WebAppConfigurationException, IOException, GenericEntityException {
+        return buildFullUrl(buffer, url, useSSL, false);
+    }
+
+    /**
+     * Builds a full URL - including scheme, host, servlet path and resource.
+     * @param buffer
+     * @param url
+     * @param useSSL Default value to use - will be replaced by request-map setting
+     * if one is found.
+     * @param pathShortener
+     * @return <code>true</code> if the URL uses https
+     * @throws WebAppConfigurationException
+     * @throws IOException
+     */
+    public boolean buildFullUrl(Appendable buffer, String url, boolean useSSL, boolean pathShortener)
+            throws WebAppConfigurationException, IOException, GenericEntityException {
         boolean makeSecure = buildHostPart(buffer, url, useSSL);
-        buildPathPart(buffer, url);
+        buildPathPart(buffer, url, pathShortener);
         return makeSecure;
     }
 
@@ -183,7 +203,20 @@ public final class OfbizUrlBuilder {
      * @throws WebAppConfigurationException
      * @throws IOException
      */
-    public void buildPathPart(Appendable buffer, String url) throws WebAppConfigurationException, IOException {
+    public void buildPathPart(Appendable buffer, String url)
+            throws WebAppConfigurationException, IOException, GenericEntityException {
+        buildPathPart(buffer, url, false);
+    }
+    /**
+     * Builds a partial URL - including the servlet path and resource, but not the scheme or host.
+     * @param buffer
+     * @param url
+     * @param pathShortener
+     * @throws WebAppConfigurationException
+     * @throws IOException
+     */
+    public void buildPathPart(Appendable buffer, String url, boolean pathShortener)
+            throws WebAppConfigurationException, IOException, GenericEntityException {
         if (servletPath == null) {
             throw new IllegalStateException("Servlet path is unknown");
         }
@@ -191,6 +224,8 @@ public final class OfbizUrlBuilder {
         if (!url.startsWith("/")) {
             buffer.append("/");
         }
-        buffer.append(url);
+        buffer.append(pathShortener
+                ? OfbizPathShortener.shortenPath(delegator, url)
+                : url);
     }
 }

@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -159,7 +160,7 @@ public final class WidgetWorker {
             // if description is truncated, always use description as title
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
                 title = description;
-                description = description.substring(0, size) + "…";
+                description = StringUtil.truncateEncodedStringToLength(description, size);
             }
 
             if (isNotEmpty(title)) {

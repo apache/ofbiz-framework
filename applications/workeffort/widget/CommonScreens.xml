@@ -238,11 +238,12 @@ under the License.
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://workeffort/widget/WorkEffortMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="WorkEffortShortcutAppBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="WorkEffortShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

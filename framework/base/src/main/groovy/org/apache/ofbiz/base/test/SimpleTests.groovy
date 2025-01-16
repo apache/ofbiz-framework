@@ -18,12 +18,12 @@
 */
 package org.apache.ofbiz.base.test
 
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.apache.ofbiz.testtools.GroovyScriptAssert
 
 /**
  * Class validating groovy scripts test engine.
  */
-class SimpleTests extends GroovyScriptTestCase {
+class SimpleTests extends GroovyScriptAssert {
 
     void testTrue() {
         assert 1 + 1 == 2

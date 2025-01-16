@@ -64,6 +64,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
+import org.apache.ofbiz.webapp.OfbizPathShortener;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.event.EventFactory;
@@ -395,7 +396,7 @@ public final class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/")) {
+                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/") || path.contains("/getUiLabels")) {
                     // Nested requests related with checkLogin and sendconfirmationmail are OK.
                     // There is nothing to worry about, better remove these wrong errors messages.
                     return;
@@ -901,6 +902,18 @@ public final class RequestHandler {
                 }
                 String url = nextRequestResponse.getValue().startsWith("/") ? nextRequestResponse.getValue() : "/" + nextRequestResponse.getValue();
                 callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request, redirectSC);
+            } else if ("shortener".equals(nextRequestResponse.getType())) {
+                // check for a shortener
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[RequestHandler.doRequest]: Response is a shortener redirect." + showSessionId(request), MODULE);
+                }
+                String url = null;
+                try {
+                    url = OfbizPathShortener.restoreOriginalPath(delegator, (String) request.getAttribute("shortener"));
+                } catch (GenericEntityException e) {
+                    throw new RuntimeException(e);
+                }
+                callRedirect(url, response, request, redirectSC);
             } else if ("request-redirect".equals(nextRequestResponse.getType())) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect." + showSessionId(request), MODULE);
@@ -1272,7 +1285,8 @@ public final class RequestHandler {
                 Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.getType() + "]", MODULE);
             }
             ViewHandler vh = viewFactory.getViewHandler(viewMap.getType());
-            vh.render(view, nextPage, viewMap.getInfo(), contentType, charset, req, resp);
+            Map<String, Object> context = vh.prepareViewContext(req, resp, viewMap);
+            vh.render(view, nextPage, viewMap.getInfo(), contentType, charset, req, resp, context);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             throw new RequestHandlerException(e.getNonNestedMessage(), throwable);
@@ -1359,6 +1373,10 @@ public final class RequestHandler {
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode,
                            String targetControlPath) {
+        return makeLink(request, response, url, fullPath, secure, encode, "", false);
+    }
+    public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode,
+                           String targetControlPath, boolean pathShortener) {
         WebSiteProperties webSiteProps = null;
         try {
             webSiteProps = WebSiteProperties.from(request);
@@ -1458,8 +1476,19 @@ public final class RequestHandler {
         }
 
         // now add the actual passed url, but if it doesn't start with a / add one first
-        if (url != null && !url.startsWith("/")) {
-            newURL.append("/");
+        if (url != null) {
+            if (!url.startsWith("/")) {
+                newURL.append("/");
+            }
+            if (pathShortener) {
+                try {
+                    url = OfbizPathShortener.shortenPath(delegator, url);
+                } catch (GenericEntityException e) {
+                    // If the entity engine is throwing exceptions, then there is no point in continuing.
+                    Debug.logError(e, "Exception thrown while getting the path shortener: ", MODULE);
+                    return null;
+                }
+            }
         }
         newURL.append(url == null ? "" : url);
 

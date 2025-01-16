@@ -241,6 +241,154 @@ public class RenderableFtlFormElementsBuilderTest {
     }
 
     @Test
+    public void textFieldDefaultTypeIsText(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "text")));
+    }
+
+    @Test
+    public void textFieldTypeNumber(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getType(); result = "number";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "number")));
+    }
+
+    @Test
+    public void textFieldTypeEmail(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getType(); result = "email";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "email")));
+    }
+
+    @Test
+    public void textFieldTypeUrl(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getType(); result = "url";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "url")));
+    }
+
+    @Test
+    public void textFieldTypeTel(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getType(); result = "tel";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("type", "tel")));
+    }
+
+    @Test
+    public void textFieldNotRequired(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                modelFormField.getRequiredField(); result = false;
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("required", false)));
+    }
+
+    @Test
+    public void textFieldRequiredWithoutRequiredStyle(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                modelFormField.getModelForm().getType(); result = "single";
+                modelFormField.getRequiredField(); result = true;
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("required", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("className", "required")));
+    }
+
+    @Test
+    public void textFieldRequiredWithRequiredStyle(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                modelFormField.getModelForm().getType(); result = "single";
+                modelFormField.getRequiredField(); result = true;
+                modelFormField.getRequiredFieldStyle(); result = "someCssClass";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("required", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(
+                MacroCallParameterMatcher.hasNameAndStringValue("className", "required someCssClass")));
+    }
+
+    @Test
+    public void textFieldPattern(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getPattern(); result = "\\d{4,4}";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("pattern", "\\d{4,4}")));
+    }
+
+    @Test
+    public void textFieldPatternOnInvalidType(@Mocked final ModelFormField.TextField textField) {
+        new Expectations() {
+            {
+                textField.getPattern(); result = "\\d{4,4}";
+                textField.getType(); result = "number";
+                httpSession.getAttribute("delegatorName"); result = "DelegatorName";
+            }
+        };
+
+        textField.getPattern();
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textField(Map.of("session", httpSession), textField, true);
+
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderTextField"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("pattern", "")));
+    }
+
+    @Test
     public void textareaFieldSetsIdValueLengthAndSize(@Mocked final ModelFormField.TextareaField textareaField) {
         final int maxLength = 142;
         final int cols = 80;

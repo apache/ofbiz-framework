@@ -22,6 +22,7 @@ import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -32,6 +33,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -50,6 +52,7 @@ import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityFunction;
+import org.apache.ofbiz.entity.condition.EntityJoinOperator;
 import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
 import org.apache.ofbiz.entity.model.ModelEntity;
@@ -73,6 +76,7 @@ public class FindServices {
     private static final String MODULE = FindServices.class.getName();
     private static final String RESOURCE = "CommonUiLabels";
     public static final Map<String, EntityComparisonOperator<?, ?>> ENTITY_OPERATORS;
+    public static final List<String> PERFORMFIND_SEARCH_SUFFIXES = List.of("_ic", "_op", "_grp", "_value");
 
     static {
         ENTITY_OPERATORS = new LinkedHashMap<>();
@@ -166,7 +170,8 @@ public class FindServices {
                         fieldPair = suffix;
                         fieldMode = "value";
                     } else {
-                        // if it does not start with fld, assume it is an op or the 'ignore case' (ic) field
+                        // if it does not start with fld,
+                        // assume it is an op or the 'ignore case' (ic) field
                         fieldPair = "fld0";
                         fieldMode = suffix;
                     }
@@ -216,61 +221,38 @@ public class FindServices {
      * @param context
      * @return returns an EntityCondition list
      */
-    public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList,
-                                                            Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
+    public static List<EntityCondition> createConditionList(Map<String, ?> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap,
+                                                            Delegator delegator, Map<String, ?> context, String groupConditionOperator) {
         Set<String> processed = new LinkedHashSet<>();
         Set<String> keys = new LinkedHashSet<>();
         Map<String, ModelField> fieldMap = new LinkedHashMap<>();
-        /**
+        /*
          * When inputFields contains several xxxx_grp, yyyy_grp ... values,
-         * Corresponding conditions will grouped by an {@link EntityOperator.AND} then all added to final
+         * Corresponding conditions will group depending on {@param groupConditionOperator}
+         * Default behaviour is grouping by an {@link EntityOperator.AND} then all added to final
          * condition grouped by an {@link EntityOperator.OR}
-         * That will allow union of search criteria, instead of default intersection.
+         * "OR_AND" behaviour is grouping by an {@link EntityOperator.OR} then all added to final
+         * condition grouped by an {@link EntityOperator.AND}
          */
+        EntityJoinOperator operatorInsideGroup = "OR_AND".equals(groupConditionOperator) ? EntityOperator.OR : EntityOperator.AND;
+        EntityJoinOperator operatorBetweenGroups = "OR_AND".equals(groupConditionOperator) ? EntityOperator.AND : EntityOperator.OR;
         Map<String, List<EntityCondition>> savedGroups = new LinkedHashMap<>();
         for (ModelField modelField : fieldList) {
             fieldMap.put(modelField.getName(), modelField);
         }
         List<EntityCondition> result = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
-            String currentGroup = null;
             String parameterName = entry.getKey();
             if (processed.contains(parameterName)) {
                 continue;
             }
             keys.clear();
-            String fieldName = parameterName;
-            Object fieldValue = null;
-            String operation = null;
-            boolean ignoreCase = false;
-            if (parameterName.endsWith("_ic") || parameterName.endsWith("_op")) {
-                fieldName = parameterName.substring(0, parameterName.length() - 3);
-            } else if (parameterName.endsWith("_value")) {
-                fieldName = parameterName.substring(0, parameterName.length() - 6);
-            }
+            String fieldName = extractFieldNameIfSuffix(parameterName, PERFORMFIND_SEARCH_SUFFIXES);
+            String currentGroup = (String) getValueFromParametersWithSuffix(fieldName, parameters, "_grp", keys);
+            boolean ignoreCase = "Y".equals(getValueFromParametersWithSuffix(fieldName, parameters, "_ic", keys));
+            String operation = (String) getValueFromParametersWithSuffix(fieldName, parameters, "_op", keys);
+            Object fieldValue = getValueFromParametersWithSuffix(fieldName, parameters, "_value", keys);
 
-            String key = fieldName.concat("_grp");
-            if (parameters.containsKey(key)) {
-                if (parameters.containsKey(key)) {
-                    keys.add(key);
-                }
-                currentGroup = (String) parameters.get(key);
-            }
-            key = fieldName.concat("_ic");
-            if (parameters.containsKey(key)) {
-                keys.add(key);
-                ignoreCase = "Y".equals(parameters.get(key));
-            }
-            key = fieldName.concat("_op");
-            if (parameters.containsKey(key)) {
-                keys.add(key);
-                operation = (String) parameters.get(key);
-            }
-            key = fieldName.concat("_value");
-            if (parameters.containsKey(key)) {
-                keys.add(key);
-                fieldValue = parameters.get(key);
-            }
             if (fieldName.endsWith("_fld0") || fieldName.endsWith("_fld1")) {
                 if (parameters.containsKey(fieldName)) {
                     keys.add(fieldName);
@@ -291,29 +273,41 @@ public class FindServices {
             if (ObjectType.isEmpty(fieldValue) && !"empty".equals(operation)) {
                 continue;
             }
-            if (UtilValidate.isNotEmpty(currentGroup)) {
-                List<EntityCondition> groupedConditions = new LinkedList<>();
-                if (savedGroups.get(currentGroup) != null) {
-                    groupedConditions.addAll(savedGroups.get(currentGroup));
-                }
-                groupedConditions.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
-                savedGroups.put(currentGroup, groupedConditions);
-            } else {
-                result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
-            }
 
-            for (String mapKey : keys) {
-                queryStringMap.put(mapKey, parameters.get(mapKey));
+            EntityCondition cond = createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context);
+            if (UtilValidate.isEmpty(currentGroup)) {
+                result.add(cond);
+            } else {
+                savedGroups.computeIfAbsent(currentGroup, k -> new ArrayList<>())
+                        .add(cond);
             }
+            keys.forEach(mapKey -> queryStringMap.put(mapKey, parameters.get(mapKey)));
         }
-        //Add OR-grouped conditions
-        List<EntityCondition> orConditions = new LinkedList<>();
-        for (String groupedConditions : savedGroups.keySet()) {
-            orConditions.add(EntityCondition.makeCondition(savedGroups.get(groupedConditions)));
+        List<EntityCondition> orConditions = savedGroups.keySet().stream()
+                .map(groupName -> EntityCondition.makeCondition(savedGroups.get(groupName), operatorInsideGroup))
+                .collect(Collectors.toList());
+
+        if (UtilValidate.isNotEmpty(orConditions)) {
+            result.add(EntityCondition.makeCondition(orConditions, operatorBetweenGroups));
         }
-        if (!orConditions.isEmpty()) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
 
         return result;
+    }
+
+    private static Object getValueFromParametersWithSuffix(String fieldName, Map<String, ?> parameters, String suffix, Set<String> keys) {
+        String key = fieldName.concat(suffix);
+        if (parameters.containsKey(key)) {
+            keys.add(key);
+            return parameters.get(key);
+        }
+        return null;
+    }
+
+    private static String extractFieldNameIfSuffix(String parameterName, List<String> suffixes) {
+        return suffixes.stream()
+                .filter(parameterName::endsWith)
+                .map(suffix -> parameterName.substring(0, parameterName.length() - suffix.length()))
+                .findFirst().orElse(parameterName);
     }
 
     /**
@@ -505,6 +499,7 @@ public class FindServices {
         String entityName = (String) context.get("entityName");
         DynamicViewEntity dynamicViewEntity = (DynamicViewEntity) context.get("dynamicViewEntity");
         String orderBy = (String) context.get("orderBy");
+        String groupConditionOperator = (String) context.get("groupConditionOperator");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
         String distinct = (String) context.get("distinct");
@@ -549,7 +544,7 @@ public class FindServices {
         Map<String, Object> prepareResult = null;
         try {
             prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy,
-                                               "dynamicViewEntity", dynamicViewEntity,
+                                               "dynamicViewEntity", dynamicViewEntity, "groupConditionOperator", groupConditionOperator,
                                                "inputFields", inputFields, "filterByDate", filterByDate, "noConditionFind", noConditionFind,
                                                "filterByDateValue", filterByDateValue, "userLogin", userLogin, "fromDateName", fromDateName,
                     "thruDateName", thruDateName,
@@ -598,6 +593,7 @@ public class FindServices {
         DynamicViewEntity dynamicViewEntity = (DynamicViewEntity) context.get("dynamicViewEntity");
         Delegator delegator = dctx.getDelegator();
         String orderBy = (String) context.get("orderBy");
+        String groupConditionOperator = (String) context.get("groupConditionOperator");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
         if (UtilValidate.isEmpty(noConditionFind)) {
@@ -628,7 +624,8 @@ public class FindServices {
         } else {
             modelEntity = delegator.getModelEntity(entityName);
         }
-        List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
+        List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(),
+                queryStringMap, delegator, context, groupConditionOperator);
 
         /* the filter by date condition should only be added when there are other conditions or when
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become

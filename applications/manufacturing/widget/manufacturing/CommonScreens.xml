@@ -81,11 +81,12 @@ under the License.
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="ManufacturingShortcutAppBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="ManufacturingShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

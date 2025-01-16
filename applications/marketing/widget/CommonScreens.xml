@@ -122,11 +122,12 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://marketing/widget/MarketingMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="MarketingShortcutAppBar" location="${parameters.mainMenuLocation}"/>
+                        <include-menu name="MarketingShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -116,7 +116,7 @@ under the License.
 <#macro renderHyperlinkTitle name title showSelectAll="N"></#macro>
 <#macro renderSortField style title linkUrl ajaxEnabled tooltip=""><@renderFieldTitle style title /></#macro>
 <#macro formatBoundaryComment boundaryType widgetType widgetName></#macro>
-<#macro renderAsterisks requiredField requiredStyle>*</#macro>
+<#macro renderAsterisks requiredField>*</#macro>
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><@renderField description /></#macro>
 <#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title targetParameters alternate linkUrl targetWindow description confirmation uniqueItemName="" height="" width="" id=""><@renderField description /></#macro>

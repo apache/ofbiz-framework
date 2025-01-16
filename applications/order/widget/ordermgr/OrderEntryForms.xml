@@ -154,7 +154,7 @@ under the License.
         <row-actions>
             <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
             <set field=""/>
-            <set field="hasAmount" value="${groovy:product.getString('requireAmount')?:'N'}"/>
+            <set field="hasAmount" from-field="product.requireAmount" default-value="N"/>
         </row-actions>
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">

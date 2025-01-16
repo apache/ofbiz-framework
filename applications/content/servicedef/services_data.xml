@@ -286,6 +286,16 @@
             location="org.apache.ofbiz.content.data.DataServices" invoke="createFileNoPerm" auth="false">
         <description>Create a File No Permission Required</description>
         <implements service="createFile"/>
+        <override name="dataResourceName">
+            <type-validate class="org.apache.ofbiz.security.SecuredUpload" method="isValidFileName">
+                <fail-property resource="SecurityUiLabels" property="SupportedFileFormatsIncludingSvg"/>
+            </type-validate>
+        </override>
+        <override name="objectInfo">
+            <type-validate class="org.apache.ofbiz.security.SecuredUpload" method="isValidAllFile">
+                <fail-property resource="SecurityUiLabels" property="SupportedFileFormatsIncludingSvg"/>
+            </type-validate>
+        </override>
     </service>
     <service name="updateFile" engine="java"
             location="org.apache.ofbiz.content.data.DataServices" invoke="updateFile" auth="true">

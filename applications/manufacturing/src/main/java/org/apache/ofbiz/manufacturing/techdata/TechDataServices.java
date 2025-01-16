@@ -119,7 +119,7 @@ public class TechDataServices {
         Timestamp thruDate = (Timestamp) context.get("thruDate");
         String create = (String) context.get("create");
 
-        boolean createProcess = (create != null && "Y".equals(create)) ? true : false;
+        boolean createProcess = "Y".equals(create);
         List<GenericValue> listRoutingTaskAssoc = null;
 
         try {

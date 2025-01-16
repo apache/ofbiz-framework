@@ -60,15 +60,17 @@ public class PerformFindTests extends OFBizTestCase {
         Delegator delegator = getDelegator();
         if (EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "PERFOMFINDTEST").cache().queryOne() == null) {
             delegator.create("TestingType", "testingTypeId", "PERFOMFINDTEST");
-            delegator.create("Testing", "testingId", "PERF_TEST_1", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice name one");
-            delegator.create("Testing", "testingId", "PERF_TEST_2", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice other name two");
-            delegator.create("Testing", "testingId", "PERF_TEST_3", "testingTypeId", "PERFOMFINDTEST", "testingName", "medium name three");
-            delegator.create("Testing", "testingId", "PERF_TEST_4", "testingTypeId", "PERFOMFINDTEST", "testingName", "bad nme four");
-            delegator.create("Testing", "testingId", "PERF_TEST_5", "testingTypeId", "PERFOMFINDTEST", "testingName", "nice name one");
-            delegator.create("Testing", "testingId", "PERF_TEST_6", "testingTypeId", "PERFOMFINDTEST");
-            delegator.create("Testing", "testingId", "PERF_TEST_7", "testingTypeId", "PERFOMFINDTEST");
-            delegator.create("Testing", "testingId", "PERF_TEST_8", "testingTypeId", "PERFOMFINDTEST");
-            delegator.create("Testing", "testingId", "PERF_TEST_9", "testingTypeId", "PERFOMFINDTEST");
+            delegator.create("TestingType", "testingTypeId", "PERFOMFINDGROUPTEST");
+            createTestingValue(delegator, "PERF_TEST_1", 1, "PERFOMFINDTEST", "nice name one", "nice description");
+            createTestingValue(delegator, "PERF_TEST_2", 1, "PERFOMFINDTEST", "nice other name two", "bad description");
+            createTestingValue(delegator, "PERF_TEST_3", 1, "PERFOMFINDTEST", "medium name three", "medium description");
+            createTestingValue(delegator, "PERF_TEST_4", 1, "PERFOMFINDTEST", "bad nme four", null);
+            createTestingValue(delegator, "PERF_TEST_5", 1, "PERFOMFINDTEST", "nice name one", null);
+            createTestingValue(delegator, "PERF_TEST_6", 1, "PERFOMFINDTEST", null, null);
+            createTestingValue(delegator, "PERF_TEST_7", 1, "PERFOMFINDTEST", null, null);
+            createTestingValue(delegator, "PERF_TEST_8", 1, "PERFOMFINDTEST", null, null);
+            createTestingValue(delegator, "PERF_TEST_9", 2, "PERFOMFINDTEST", "nice name bad nine", "nice description");
+            createTestingValue(delegator, "PERF_TEST_10", 1, "PERFOMFINDGROUPTEST", null, null);
 
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
             delegator.create("TestingNode", "testingNodeId", "NODE_1", "description", "Date Node");
@@ -100,9 +102,19 @@ public class PerformFindTests extends OFBizTestCase {
         }
     }
 
+    private static void createTestingValue(Delegator delegator, String testingId, int testingSize,
+                                           String testingTypeId, String testingName, String description) throws GenericEntityException {
+        delegator.create("Testing",
+                "testingId", testingId,
+                "testingSize", testingSize,
+                "testingTypeId", testingTypeId,
+                "testingName", testingName,
+                "description", description);
+    }
+
     /**
      * Main test function to call other test.
-     * If each function call by junit, it generate an random error with DBCP
+     * If each function call by junit, it generates a random error with DBCP
      * See the issue OFBIZ-6218 Unit tests throw exception in DBCP for more details
      * @throws Exception
      */
@@ -111,6 +123,9 @@ public class PerformFindTests extends OFBizTestCase {
         performFindConditionFieldLike();
         performFindConditionDistinct();
         performFindFilterByDate();
+        performFindGroup();
+        performFindGroupOrAnd();
+        performFindDateFindAndIgnoreCase();
         performFindFilterByDateWithDedicateDateField();
     }
 
@@ -132,7 +147,7 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        assertEquals("performFind search without condition with noConditionFind Y", 9, foundElements.size());
+        assertEquals("performFind search without condition with noConditionFind Y", 10, foundElements.size());
 
         //third test with equals condition on testingTypeId
         inputFields = UtilMisc.toMap("testingTypeId", "PERFOMFINDTEST");
@@ -140,7 +155,10 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        List<GenericValue> testingElements = getDelegator().findAll("Testing", false);
+        List<GenericValue> testingElements = EntityQuery.use(getDelegator())
+                .from("Testing")
+                .where("testingTypeId", "PERFOMFINDTEST")
+                .queryList();
         assertEquals("performFind search without condition with equals on testingTypeId", testingElements.size(), foundElements.size());
 
         //fourth test with equals condition on testingId
@@ -163,7 +181,7 @@ public class PerformFindTests extends OFBizTestCase {
         Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         List<GenericValue> foundElements = getCompleteList(result);
-        assertEquals("performFind search with like nice% condition", 3, foundElements.size());
+        assertEquals("performFind search with like nice% condition", 4, foundElements.size());
 
         //second test contains condition
         inputFields = UtilMisc.toMap("testingName", "name", "testingName_op", "contains");
@@ -171,7 +189,7 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        assertEquals("performFind search with like %name% condition", 4, foundElements.size());
+        assertEquals("performFind search with like %name% condition", 5, foundElements.size());
 
         //third test not-like condition
         inputFields = UtilMisc.toMap("testingName", "bad", "testingName_op", "not-like");
@@ -179,7 +197,7 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        assertEquals("performFind search with not like bad% condition", 4, foundElements.size());
+        assertEquals("performFind search with not like bad% condition", 5, foundElements.size());
 
         //fourth test not-contains condition
         inputFields = UtilMisc.toMap("testingName", "name", "testingName_op", "not-contains");
@@ -211,7 +229,7 @@ public class PerformFindTests extends OFBizTestCase {
         result = dispatcher.runSync("performFind", performFindMap);
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
-        assertEquals("performFind search with distinct Y", 5, foundElements.size());
+        assertEquals("performFind search with distinct Y", 6, foundElements.size());
     }
 
     private void performFindFilterByDate() throws Exception {
@@ -235,6 +253,75 @@ public class PerformFindTests extends OFBizTestCase {
         assertTrue(ServiceUtil.isSuccess(result));
         foundElements = getCompleteList(result);
         assertEquals("performFind search with filterDate Y", 3, foundElements.size());
+    }
+
+    /*
+     * Find all Testing value with
+     * both `nice` in name and description,
+     * or with type `PERFOMFINDGROUPTEST`,
+     * and that size is `1`.
+     */
+    private void performFindGroup() throws Exception {
+        prepareData();
+        LocalDispatcher dispatcher = getDispatcher();
+        GenericValue userLogin = getUserLogin("system");
+
+        Map<String, Object> inputFields = UtilMisc.toMap(
+                "testingName", "nice", "testingName_grp", "1", "testingName_op", "contains",
+                "description", "nice", "description_grp", "1", "description_op", "contains",
+                "testingTypeId", "PERFOMFINDGROUPTEST", "testingTypeId_grp", "2",
+                "testingSize", 1);
+
+        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields);
+        Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+        List<GenericValue> foundElements = getCompleteList(result);
+        assertEquals("performFind search with group condition", 2, foundElements.size());
+        assertTrue(foundElements.stream().allMatch(genericValue ->
+                List.of("PERF_TEST_1", "PERF_TEST_10").contains(genericValue.getString("testingId"))));
+    }
+
+    /*
+     * Find all Testing value with `nice` in name or description
+     * and that are type `PERFOMFINDTEST`
+     * and that size is `1`.
+     */
+    private void performFindGroupOrAnd() throws Exception {
+        prepareData();
+        LocalDispatcher dispatcher = getDispatcher();
+        GenericValue userLogin = getUserLogin("system");
+        Map<String, Object> inputFields = UtilMisc.toMap(
+                "testingName", "nice", "testingName_grp", "1", "testingName_op", "contains",
+                "description", "nice", "description_grp", "1", "description_op", "contains",
+                "testingTypeId", "PERFOMFINDTEST", "testingTypeId_grp", "2",
+                "testingSize", 1);
+
+        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing",
+                "inputFields", inputFields, "groupConditionOperator", "OR_AND");
+        Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+        List<GenericValue> foundElements = getCompleteList(result);
+        assertEquals("performFind search with group condition", 3, foundElements.size());
+    }
+
+    private void performFindDateFindAndIgnoreCase() throws Exception {
+        LocalDispatcher dispatcher = getDispatcher();
+        GenericValue userLogin = getUserLogin("system");
+        Timestamp now = UtilDateTime.nowTimestamp();
+
+        Map<String, Object> inputFields = UtilMisc.toMap(
+                "testingNodeId", "node_1",
+                "testingNodeId_ic", "Y",
+                "fromDate_fld0_value", UtilDateTime.addDaysToTimestamp(now, -2d),
+                "fromDate_fld0_op", "greaterThanEqualTo",
+                "fromDate_fld1_value", now,
+                "fromDate_fld1_op", "upToDay");
+
+        Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "TestingNodeMember", "inputFields", inputFields);
+        Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);
+        assertTrue(ServiceUtil.isSuccess(result));
+        List<GenericValue> foundElements = getCompleteList(result);
+        assertEquals("performFind search with date-find widget condition", 2, foundElements.size());
     }
 
     private void performFindFilterByDateWithDedicateDateField() throws Exception {

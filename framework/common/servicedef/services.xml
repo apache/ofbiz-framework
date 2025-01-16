@@ -216,6 +216,14 @@ under the License.
         <attribute name="filterByDateValue" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="fromDateName" type="String" mode="IN" optional="true"/>
         <attribute name="thruDateName" type="String" mode="IN" optional="true"/>
+        <attribute name="groupConditionOperator" type="String" mode="IN" optional="true">
+            <description>
+                Defines how the group condition will be applied, default is AND_OR:
+                    (group1_v1 AND group1_v2) OR (group2_v1 AND group2_v2) AND no_group
+                Alternative is OR_AND:
+                    (group1_v1 OR group1_v2) AND (group2_v1 OR group2_v2) AND no_group
+            </description>
+        </attribute>
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
         <attribute name="orderByList" type="java.util.List" mode="OUT" optional="true"/>
@@ -251,6 +259,14 @@ under the License.
         <attribute name="thruDateName" type="String" mode="IN" optional="true"/>
         <attribute name="viewIndex" type="Integer" mode="IN" optional="true"/>
         <attribute name="viewSize" type="Integer" mode="IN" optional="true"/>
+        <attribute name="groupConditionOperator" type="String" mode="IN" optional="true">
+            <description>
+                Defines how the group condition will be applied, default is AND_OR:
+                (group1_v1 AND group1_v2) OR (group2_v1 AND group2_v2) AND no_group
+                Alternative is OR_AND:
+                (group1_v1 OR group1_v2) AND (group2_v1 OR group2_v2) AND no_group
+            </description>
+        </attribute>
         <attribute name="listIt" type="org.apache.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
         <attribute name="listSize" type="Integer" mode="OUT" optional="true"/>
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>

@@ -58,7 +58,7 @@ under the License.
     <!-- Portal page update requests -->
     <request-map uri="ManagePortalPages">
         <security https="true" auth="true"/>
-        <event  type="groovy" invoke="copyIfRequiredSystemPage" path="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy"/>
+        <event type="groovy" invoke="copyIfRequiredSystemPage" path="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy"/>
         <response name="success" type="view" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="NewPortalPage">

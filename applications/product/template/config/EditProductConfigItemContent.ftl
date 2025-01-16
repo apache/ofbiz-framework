@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script type="text/javascript">
 function insertNowTimestamp(field) {
   eval('document.productForm.' + field + '.value="${nowTimestamp?string}";');
 }
@@ -152,7 +152,7 @@ function insertImageName(size,nameValue) {
             <h3>${uiLabelMap.ProductUploadImage}</h3>
         </div>
         <div class="screenlet-body">
-            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductConfigItemImage?configItemId=${configItemId}&amp;upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
+            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductConfigItemImage?configItemId=${configItemId}&amp;up_load_file_type=small</@ofbizUrl>" name="imageUploadForm">
                 <input type="file" size="50" name="fname" accept=".png,.gif,.jpg,.jpeg,.tiff,.tif"/>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}" />
             </form>

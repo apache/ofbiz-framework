@@ -51,8 +51,7 @@ under the License.
         <set field="currencyUom" value="USD" type="String"/>
 
         <script>groovy:
-            shoppingCart = new org.apache.ofbiz.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom);
-            parameters.put("shoppingCart", shoppingCart);
+            parameters.shoppingCart = new org.apache.ofbiz.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom)
         </script>
 
         <set field="orderTypeId" value="SALES_ORDER" type="String"/>
@@ -263,9 +262,8 @@ under the License.
 
         <!-- Shopping Cart checkout and create order -->
         <script>groovy:
-            checkOutHelper = new org.apache.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
-            java.util.Map orderMap = checkOutHelper.createOrder(userLogin);
-            parameters.put("orderMap", orderMap);
+            checkOutHelper = new org.apache.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart)
+            parameters.orderMap = checkOutHelper.createOrder(userLogin)
         </script>
         
         <!-- Clear Shopping Cart -->
@@ -629,8 +627,8 @@ under the License.
             <field-map field-name="userLoginId" value="DemoCustomer"/>
         </entity-one>
         <script>groovy:
-            session = request.getSession();
-            session.setAttribute("userLogin", userLogin);
+            session = request.getSession()
+            session.setAttribute("userLogin", userLogin)
         </script>
         <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>

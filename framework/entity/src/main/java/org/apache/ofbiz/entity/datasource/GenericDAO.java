@@ -122,6 +122,58 @@ public class GenericDAO {
         }
     }
 
+    /**
+     * Insert in database all GenericValue of the same entity
+     * @param entities
+     * @return number of entity inserted in database
+     * @throws GenericEntityException
+     */
+    public int insertAll(List<GenericValue> entities) throws GenericEntityException {
+        GenericEntity entity = entities.get(0);
+        ModelEntity modelEntity = entity.getModelEntity();
+
+        try (SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo)) {
+            try {
+                return multiInsert(entities, modelEntity, modelEntity.getFieldsUnmodifiable(), sqlP);
+            } catch (GenericEntityException e) {
+                sqlP.rollback();
+                throw e;
+            }
+        }
+    }
+
+    private int multiInsert(List<GenericValue> entities, ModelEntity modelEntity, List<ModelField> fieldsToSave,
+                            SQLProcessor sqlP) throws GenericEntityException {
+        if (modelEntity instanceof ModelViewEntity) {
+            throw new GenericEntityException("Not Implemented");
+        }
+
+        StringBuilder sqlB = new StringBuilder("INSERT INTO ")
+                .append(modelEntity.getTableName(datasource))
+                .append(" (");
+
+        modelEntity.colNameString(fieldsToSave, sqlB, "");
+        sqlB.append(") VALUES (");
+        modelEntity.fieldsStringList(fieldsToSave, sqlB, "?", ", ");
+        sqlB.append(")");
+
+        try {
+            sqlP.prepareStatement(sqlB.toString());
+            for (GenericEntity ent : entities) {
+                SqlJdbcUtil.setValues(sqlP, fieldsToSave, ent, modelFieldTypeReader);
+                sqlP.addBatch();
+            }
+            int retVal = sqlP.executeBatch();
+
+            for (GenericEntity ent : entities) {
+                ent.synchronizedWithDatasource();
+            }
+            return retVal;
+        } catch (GenericEntityException | SQLException e) {
+            throw new GenericEntityException("Error while inserting: " + sqlB, e);
+        }
+    }
+
     private int singleInsert(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave, SQLProcessor sqlP)
             throws GenericEntityException {
         if (modelEntity instanceof ModelViewEntity) {

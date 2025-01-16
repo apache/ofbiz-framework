@@ -129,8 +129,8 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="checkCreateStockRequirementQoh" engine="simple" auth="true" default-entity-name="ItemIssuance"
-            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateStockRequirementQoh">
+    <service name="checkCreateStockRequirementQoh" engine="groovy" auth="true" default-entity-name="ItemIssuance"
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderRequirementServicesScript.groovy" invoke="checkCreateStockRequirementQoh">
         <description>Create a Product Requirement based on QOH inventory</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -138,8 +138,8 @@ under the License.
         </auto-attributes>
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="checkCreateStockRequirementAtp" engine="simple" auth="true"
-            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateStockRequirementAtp">
+    <service name="checkCreateStockRequirementAtp" engine="groovy" auth="true"
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderRequirementServicesScript.groovy" invoke="checkCreateStockRequirementAtp">
         <description>Create a Product Requirement based on ATP inventory</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -150,8 +150,8 @@ under the License.
         <attribute name="requirementId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="checkCreateProductRequirementForFacility" engine="simple" auth="true"
-            location="component://order/minilang/order/OrderServices.xml" invoke="checkCreateProductRequirementForFacility">
+    <service name="checkCreateProductRequirementForFacility" engine="groovy" auth="true"
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderRequirementServicesScript.groovy" invoke="checkCreateProductRequirementForFacility">
         <description>Create Requirements for all the products in a facility with QOH under the minimum stock level</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="defaultRequirementMethodId" type="String" mode="IN" optional="true"/>

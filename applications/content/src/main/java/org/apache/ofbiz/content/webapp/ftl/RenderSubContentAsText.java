@@ -75,7 +75,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         if (Debug.infoOn()) {
             Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId, MODULE);
         }
-        final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
+        final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId);
         if (Debug.infoOn()) {
             Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode, MODULE);
         }

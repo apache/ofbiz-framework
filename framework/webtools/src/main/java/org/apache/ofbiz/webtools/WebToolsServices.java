@@ -147,7 +147,7 @@ public class WebToolsServices {
         // #############################
         // FM Template
         // #############################
-        if (UtilValidate.urlInString(fulltext)
+        if (UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(fulltext)
                 && !"true".equals(EntityUtilProperties.getPropertyValue("security", "security.datafile.loadurls.enable", "false", delegator))) {
             Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12304", MODULE);
             Debug.logInfo("Rather load your data from a file or set SystemProperty security.datafile.loadurls.enable = true", MODULE);

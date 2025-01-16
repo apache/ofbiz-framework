@@ -534,7 +534,8 @@ under the License.
 
     <grid name="ListImageUpload" title="" list-name="productContent" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
         <actions>
-            <set field="dateNow" type="Timestamp" value="${groovy:import org.apache.ofbiz.base.util.UtilDateTime;UtilDateTime.nowTimestamp().getTime() - 18000;}"/>
+            <set field="dateNow" type="Timestamp" value="${date:nowTimestamp()}"/>
+            <set field="dateNow" type="Timestamp" value="${groovy: dateNow.getTime() - 18000}"/>
             <entity-condition entity-name="ProductContentAndInfo">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" from-field="parameters.productId"/>

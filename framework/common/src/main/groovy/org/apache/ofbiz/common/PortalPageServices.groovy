@@ -18,10 +18,12 @@
 */
 package org.apache.ofbiz.common
 
+import org.apache.ofbiz.base.util.GroovyUtil
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.service.ServiceUtil
+import org.codehaus.groovy.runtime.InvokerHelper
 
 /**
  * Moves a PortalPortlet from the actual portalPage to a different one
@@ -33,12 +35,16 @@ Map movePortletToPortalPage() {
         return checkIsOwner
     }
     GenericValue sourcePortalPagePortlet = from('PortalPagePortlet').where(parameters).cache().queryOne()
-    GenericValue targetPortalPortlet = makeValue('PortalPagePortlet', [*: parameters,
-                                                                       portalPageId: copyIfRequiredSystemPage(),
-                                                                       columnNum: 1])
-    delegator.setNextSubSeqId(targetPortalPortlet, 'portletSeqId', 5, 1)
-    targetPortalPortlet.create()
-    sourcePortalPagePortlet.remove()
+    String idOfcopyIfRequiredSystemPage = copyIfRequiredSystemPage()
+    if (idOfcopyIfRequiredSystemPage) {
+        GenericValue targetPortalPortlet = makeValue('PortalPagePortlet', [*: parameters,
+                                                                           portalPageId: idOfcopyIfRequiredSystemPage,
+                                                                           columnNum: 1])
+        delegator.setNextSubSeqId(targetPortalPortlet, 'portletSeqId', 5, 1)
+        targetPortalPortlet.create()
+        sourcePortalPagePortlet.remove()
+    }
+    return success(sourcePortalPagePortlet)
 }
 
 /**
@@ -348,23 +354,8 @@ private Map checkOwnerShip() {
     return success()
 }
 
-/**
- * Check if the page is a system page, then copy before allowing
- */
 private String copyIfRequiredSystemPage() {
-    GenericValue portalPage = from('PortalPage').where(parameters).cache().queryOne()
-    Map serviceResult = [:]
-    if (portalPage && portalPage.ownerUserLoginId == '_NA_' && from('PortalPage')
-            .where(originalPortalPageId: parameters.portalPageId,
-                    ownerUserLoginId: userLogin.userLoginId)
-            .queryCount() == 0 ) {
-        // copy the portal page
-        serviceResult = run service: 'createPortalPage', with: [*: portalPage.getAllFields(),
-                                                                portalPageId: null,
-                                                                originalPortalPageId: portalPage.portalPageId,
-                                                                ownerUserLoginId: userLogin.userLoginId]
-        run service: 'duplicatePortalPageDetails', with: [fromPortalPageId: parameters.portalPageId,
-                                                          toPortalPageId: serviceResult.portalPageId]
-    }
-    return serviceResult ? serviceResult.portalPageId : portalPage?.portalPageId
+    Script script = InvokerHelper.createScript(
+            GroovyUtil.getScriptClassFromLocation('component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy'), binding)
+    return script.invokeMethod('copyIfRequiredSystemPage', null) as String
 }

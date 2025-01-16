@@ -1044,6 +1044,7 @@ public final class ConfigXMLReader {
         private String strictTransportSecurity;
         private String description;
         private boolean noCache = false;
+        private boolean secureContext = true;
         private boolean securityAuth = false;
 
         /**
@@ -1106,6 +1107,15 @@ public final class ConfigXMLReader {
         }
 
         /**
+         * Is secureContext boolean.
+         *
+         * @return the boolean
+         */
+        public boolean isSecureContext() {
+            return secureContext;
+        }
+
+        /**
          * Gets type.
          * @return the type
          */
@@ -1144,7 +1154,8 @@ public final class ConfigXMLReader {
             this.info = viewMapElement.getAttribute("info");
             this.contentType = viewMapElement.getAttribute("content-type");
             this.noCache = "true".equals(viewMapElement.getAttribute("no-cache"));
-            this.securityAuth = "true".equals(viewMapElement.getAttribute("auth"));
+            this.secureContext = "true".equals(viewMapElement.getAttribute("secure-context"));
+            this.securityAuth = "true".equals(viewMapElement.getAttribute("auth")) || !this.secureContext;
             this.encoding = viewMapElement.getAttribute("encoding");
             this.xFrameOption = viewMapElement.getAttribute("x-frame-options");
             this.strictTransportSecurity = viewMapElement.getAttribute("strict-transport-security");

@@ -63,3 +63,25 @@ String setPortalPortletAttributes() {
     }
     return success()
 }
+
+/**
+ * Check if the page is a system page, then copy before allowing
+ */
+String copyIfRequiredSystemPage() {
+    GenericValue portalPage = from('PortalPage').where(parameters).cache().queryOne()
+            ?: from('PortalPage').where(portalPageId: parameters.parentPortalPageId).cache().queryOne()
+    Map serviceResult = [:]
+    if (portalPage && portalPage.ownerUserLoginId == '_NA_' && from('PortalPage')
+            .where(originalPortalPageId: portalPage.portalPageId,
+                    ownerUserLoginId: userLogin.userLoginId)
+            .queryCount() == 0 ) {
+        // copy the portal page
+        serviceResult = run service: 'createPortalPage', with: [*: portalPage.getAllFields(),
+                                                                portalPageId: null,
+                                                                originalPortalPageId: portalPage.portalPageId,
+                                                                ownerUserLoginId: userLogin.userLoginId]
+        run service: 'duplicatePortalPageDetails', with: [fromPortalPageId: portalPage.portalPageId,
+                                                          toPortalPageId: serviceResult.portalPageId]
+    }
+    return serviceResult ? serviceResult.portalPageId : portalPage?.portalPageId
+}

@@ -36,6 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -2184,6 +2185,160 @@ public final class ModelFormField {
     }
 
     /**
+     * Models the &lt;group-options&gt; element.
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class GroupOptions {
+        private final FlexibleStringExpander description;
+        private final FlexibleStringExpander id;
+        private final FlexibleStringExpander widgetStyle;
+
+        private final List<OptionSource> optionSources;
+        private final List<GroupOptions> groupOptions;
+
+        /**
+         * Create a new groupOptions instance from xml element
+         * @param groupOptionsElement
+         * @param modelFormField
+         */
+        public GroupOptions(Element groupOptionsElement, ModelFormField modelFormField) {
+            super();
+            this.description = FlexibleStringExpander.getInstance(groupOptionsElement.getAttribute("description"));
+            this.id = FlexibleStringExpander.getInstance(groupOptionsElement.getAttribute("id"));
+            this.widgetStyle = FlexibleStringExpander.getInstance(groupOptionsElement.getAttribute("widgetStyle"));
+
+            List<? extends Element> childElements = UtilXml.childElementList(groupOptionsElement);
+            List<OptionSource> optionSources = new ArrayList<>();
+            List<GroupOptions> groupOptions = new ArrayList<>();
+            if (!childElements.isEmpty()) {
+                for (Element childElement : childElements) {
+                    switch (childElement.getLocalName()) {
+                    case "option":
+                        optionSources.add(new SingleOption(childElement, modelFormField));
+                        break;
+                    case "list-options":
+                        optionSources.add(new ListOptions(childElement, modelFormField));
+                        break;
+                    case "entity-options":
+                        optionSources.add(new EntityOptions(childElement, modelFormField));
+                        break;
+                    case "group-options":
+                        groupOptions.add(new GroupOptions(childElement, modelFormField));
+                        break;
+                    }
+                }
+            }
+            this.optionSources = Collections.unmodifiableList(optionSources);
+            this.groupOptions = Collections.unmodifiableList(groupOptions);
+        }
+
+        /**
+         * Copy an existing groupOptions to a new one
+         * @param original
+         * @param modelFormField
+         */
+        private GroupOptions(GroupOptions original, ModelFormField modelFormField) {
+            super();
+            this.description = original.description;
+            this.id = original.id;
+            this.widgetStyle = original.widgetStyle;
+            List<OptionSource> optionSources = new ArrayList<>(original.optionSources.size());
+            for (OptionSource source : original.optionSources) {
+                optionSources.add(source.copy(modelFormField));
+            }
+            this.optionSources = Collections.unmodifiableList(optionSources);
+            List<GroupOptions> groupOptions = new ArrayList<>(original.groupOptions.size());
+            for (GroupOptions group : original.groupOptions) {
+                groupOptions.add(group.copy(modelFormField));
+            }
+            this.groupOptions = Collections.unmodifiableList(groupOptions);
+        }
+
+        /**
+         * create a groupOptions from a modelFormField
+         * @param modelFormField
+         */
+        public GroupOptions(ModelFormField modelFormField) {
+            super();
+            this.description = FlexibleStringExpander.getInstance("");
+            this.id = FlexibleStringExpander.getInstance("");
+            this.widgetStyle = FlexibleStringExpander.getInstance("");
+            this.optionSources = Collections.emptyList();
+            this.groupOptions = Collections.emptyList();
+        }
+
+        /**
+         * @return description present for a groupOptions instance
+         */
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        /**
+         * @return parsed description with context for a groupOptions instance
+         */
+        public String getDescription(Map<String, Object> context) {
+            return this.description.expandString(context);
+        }
+
+        /**
+         * @return unique reference for a groupOptions instance
+         */
+        public FlexibleStringExpander getId() {
+            return id;
+        }
+
+        /**
+         * @return parsed unique reference with context for a groupOptions instance
+         */
+        public String getId(Map<String, Object> context) {
+            String id = this.id.expandString(context);
+            return UtilValidate.isNotEmpty(id) ? id
+                    : UUID.randomUUID().toString().replace("-", "");
+        }
+
+        /**
+         * @return widgetStyle present for a groupOptions instance
+         */
+        public FlexibleStringExpander getWidgetStyle() {
+            return widgetStyle;
+        }
+
+        /**
+         * @return parsed widgetStyle with context for a groupOptions instance
+         */
+        public String getWidgetStyle(Map<String, Object> context) {
+            return this.widgetStyle.expandString(context);
+        }
+
+        /**
+         * Compute all options define for groupOptions instance
+         * @return options list present on this groupOptions
+         */
+        public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
+            List<OptionValue> optionValues = new LinkedList<>();
+            for (OptionSource optionSource : this.optionSources) {
+                optionSource.addOptionValues(optionValues, context, delegator);
+            }
+            return optionValues;
+        }
+        /**
+         * @return groupOptions sub list
+         */
+        public List<GroupOptions> getGroupOptions() {
+            return groupOptions;
+        }
+
+        /**
+         * Duplicate the groupOptions
+         * @return new groupOptions instance
+         */
+        public GroupOptions copy(ModelFormField modelFormField) {
+            return new GroupOptions(this, modelFormField);
+        }
+    }
+
+    /**
      * Models the &lt;entity-options&gt; element.
      * @see <code>widget-form.xsd</code>
      */
@@ -2409,12 +2564,14 @@ public final class ModelFormField {
 
         private final FlexibleStringExpander noCurrentSelectedKey;
         private final List<OptionSource> optionSources;
+        private final List<GroupOptions> groupOptions;
 
         public FieldInfoWithOptions(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
             // read all option and entity-options sub-elements, maintaining order
             ArrayList<OptionSource> optionSources = new ArrayList<>();
+            ArrayList<GroupOptions> groupSources = new ArrayList<>();
             List<? extends Element> childElements = UtilXml.childElementList(element);
             if (!childElements.isEmpty()) {
                 for (Element childElement : childElements) {
@@ -2425,6 +2582,8 @@ public final class ModelFormField {
                         optionSources.add(new ListOptions(childElement, modelFormField));
                     } else if ("entity-options".equals(childName)) {
                         optionSources.add(new EntityOptions(childElement, modelFormField));
+                    } else if ("group-options".equals(childName)) {
+                        groupSources.add(new GroupOptions(childElement, modelFormField));
                     }
                 }
             } else {
@@ -2433,6 +2592,7 @@ public final class ModelFormField {
             }
             optionSources.trimToSize();
             this.optionSources = Collections.unmodifiableList(optionSources);
+            this.groupOptions = Collections.unmodifiableList(groupSources);
         }
 
         // Copy constructor.
@@ -2448,18 +2608,25 @@ public final class ModelFormField {
                 }
                 this.optionSources = Collections.unmodifiableList(optionSources);
             }
+            List<GroupOptions> groupOptions = new ArrayList<>(original.groupOptions.size());
+            for (GroupOptions group: original.groupOptions) {
+                groupOptions.add(group.copy(modelFormField));
+            }
+            this.groupOptions = groupOptions;
         }
 
         protected FieldInfoWithOptions(int fieldSource, int fieldType, List<OptionSource> optionSources) {
             super(fieldSource, fieldType, null);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
             this.optionSources = Collections.unmodifiableList(new ArrayList<>(optionSources));
+            this.groupOptions = Collections.emptyList();
         }
 
         public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
             this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
             this.optionSources = Collections.emptyList();
+            this.groupOptions = Collections.emptyList();
         }
 
         /**
@@ -2499,6 +2666,13 @@ public final class ModelFormField {
          */
         public List<OptionSource> getOptionSources() {
             return optionSources;
+        }
+        /**
+         * Gets group options.
+         * @return the group options
+         */
+        public List<GroupOptions> getGroupOptions() {
+            return groupOptions;
         }
     }
 
@@ -4894,7 +5068,7 @@ public final class ModelFormField {
 
         } catch (CompilationFailedException e) {
             String errMsg =
-                    "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form "
+                    "Error evaluating ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form "
                             + this.modelForm.getName() + ": " + e.toString();
             Debug.logError(e, errMsg, MODULE);
             throw new IllegalArgumentException(errMsg);
@@ -5267,12 +5441,16 @@ public final class ModelFormField {
         private final boolean readonly;
         private final int size;
         private final SubHyperlink subHyperlink;
+        private final String type;
+        private final String pattern;
 
         public TextField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.clientAutocompleteField = !"false".equals(element.getAttribute("client-autocomplete-field"));
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
             this.mask = element.getAttribute("mask");
+            this.type = element.getAttribute("type");
+            this.pattern = element.getAttribute("pattern");
             Integer maxlength = null;
             String maxlengthStr = element.getAttribute("maxlength");
             if (!maxlengthStr.isEmpty()) {
@@ -5310,6 +5488,8 @@ public final class ModelFormField {
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
+            this.type = "";
+            this.pattern = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
@@ -5317,11 +5497,13 @@ public final class ModelFormField {
             this.subHyperlink = null;
         }
 
-        protected TextField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
+        protected TextField(int fieldSource, int size, Integer maxlength, String type, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.TEXT, modelFormField);
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
+            this.type = type;
+            this.pattern = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
@@ -5334,6 +5516,8 @@ public final class ModelFormField {
             this.clientAutocompleteField = true;
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
+            this.type = "";
+            this.pattern = "";
             this.maxlength = null;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
@@ -5354,6 +5538,8 @@ public final class ModelFormField {
             this.clientAutocompleteField = original.clientAutocompleteField;
             this.defaultValue = original.defaultValue;
             this.mask = original.mask;
+            this.type = original.type;
+            this.pattern = original.pattern;
             this.placeholder = original.placeholder;
             this.size = original.size;
             this.maxlength = original.maxlength;
@@ -5465,6 +5651,22 @@ public final class ModelFormField {
                 throws IOException {
             formStringRenderer.renderTextField(writer, context, this);
         }
+
+        /**
+         * Gets type.
+         * @return the type
+         */
+        public String getType() {
+            return this.type;
+        }
+
+        /**
+         * Gets pattern.
+         * @return the pattern
+         */
+        public String getPattern() {
+            return this.pattern;
+        }
     }
 
     /**
@@ -5485,14 +5687,14 @@ public final class ModelFormField {
                 this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
             }
             this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options"))
-                    || "ignore-case".equals(element.getAttribute("hide-options")) ? true : false;
+                || "ignore-case".equals(element.getAttribute("hide-options"));
             this.hideOptions = "true".equals(element.getAttribute("hide-options"))
-                    || "options".equals(element.getAttribute("hide-options")) ? true : false;
+                || "options".equals(element.getAttribute("hide-options"));
             this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
         }
 
         public TextFindField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
-            super(fieldSource, size, maxlength, modelFormField);
+            super(fieldSource, size, maxlength, "", modelFormField);
             this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
             this.hideIgnoreCase = false;
             this.hideOptions = false;

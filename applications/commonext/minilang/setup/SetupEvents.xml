@@ -286,12 +286,9 @@
 
         <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         <script>groovy:
-           groupName = partyGroup.get("groupName")
-           if (groupName != null) {
-              parameters.put("invoiceIdPrefix", groupName.toUpperCase().substring(0, 2)+"CI")
-           } else {
-              parameters.put("invoiceIdPrefix", "CI")
-           }
+            parameters.invoiceIdPrefix = (partyGroup.groupName
+            ? partyGroup.groupName.toUpperCase().substring(0, 2)
+            : "") + "CI"
         </script>
 
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>

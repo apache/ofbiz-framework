@@ -21,6 +21,7 @@ package org.apache.ofbiz.webapp.control;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
@@ -38,8 +39,10 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.security.SecurityUtil;
+import org.apache.ofbiz.security.SecuredFreemarker;
+import org.apache.ofbiz.security.SecuredUpload;
 
 /**
  * A Filter used to specify an allowlist of allowed paths to the OFBiz application.
@@ -126,6 +129,13 @@ public class ControlFilter extends HttpFilter {
     }
 
     /**
+     * Allows Solr tests
+     */
+    private static boolean isSolrTest() {
+        return !GenericValue.getStackTraceAsString().contains("ControlFilterTests")
+                && null == System.getProperty("SolrDispatchFilter");
+    }
+    /**
      * Makes allowed paths pass through while redirecting the others to a fix location.
      */
     @Override
@@ -153,21 +163,30 @@ public class ControlFilter extends HttpFilter {
 
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
             if (!LoginWorker.hasBasePermission(userLogin, req)) { // Allows UEL and FlexibleString (OFBIZ-12602)
-                if (!GenericValue.getStackTraceAsString().contains("ControlFilterTests")
-                        && null == System.getProperty("SolrDispatchFilter") // Allows Solr tests
-                        && SecurityUtil.containsFreemarkerInterpolation(req, resp, uri)) {
+                if (isSolrTest() && SecuredFreemarker.containsFreemarkerInterpolation(req, resp, uri)) {
                     return;
                 }
             }
+
             // Reject wrong URLs
-            String initialURI = req.getRequestURI();
-            if (initialURI != null) { // Allow tests with Mockito. ControlFilterTests send null
+            String queryString = req.getQueryString();
+            if (queryString != null) {
+                queryString = URLDecoder.decode(queryString, "UTF-8");
+                if (UtilValidate.isUrlInString(queryString)
+                        || !SecuredUpload.isValidText(queryString.toLowerCase(), SecuredUpload.getallowedTokens(), true)
+                                && isSolrTest()) {
+                    Debug.logError("For security reason this URL is not accepted", MODULE);
+                    throw new RuntimeException("For security reason this URL is not accepted");
+                }
+            }
+
+            if (uriWithContext != null) { // Allow tests with Mockito. ControlFilterTests send null
                 try {
-                    String uRIFiltered = new URI(initialURI)
+                    String uRIFiltered = new URI(uriWithContext)
                             .normalize().toString()
                             .replaceAll(";", "")
                             .replaceAll("(?i)%2e", "");
-                    if (!initialURI.equals(uRIFiltered)) {
+                    if (!uriWithContext.equals(uRIFiltered)) {
                         Debug.logError("For security reason this URL is not accepted", MODULE);
                         throw new RuntimeException("For security reason this URL is not accepted");
                     }

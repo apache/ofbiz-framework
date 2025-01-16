@@ -192,7 +192,7 @@ public class CommonEvents {
         try {
 
             // set the JS content type
-            response.setContentType("application/javascript");
+            response.setContentType("text/javascript");
             // script.length is not reliable for unicode characters
             response.setContentLength(script.getBytes("UTF8").length);
             // return 404 if script is empty

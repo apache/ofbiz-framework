@@ -678,13 +678,14 @@ Map ensureRouteSegPackage() {
     GenericValue shipmentRouteSegment = from('ShipmentRouteSegment').where(parameters).cache().queryOne()
     List shipmentPackages = from('ShipmentPackage').where(shipmentId: shipmentRouteSegment.shipmentId).queryList()
     for (GenericValue shipmentPackage : shipmentPackages) {
+        Map sprsMap = [shipmentId: parameters.shipmentId,
+            shipmentRouteSegmentId: parameters.shipmentRouteSegmentId,
+            shipmentPackageSeqId: shipmentPackage.shipmentPackageSeqId]
         GenericValue checkShipmentPackageRouteSeg = from('ShipmentPackageRouteSeg')
-                .where(shipmentRouteSegment as Map)
+                .where(sprsMap)
                 .queryOne()
         if (!checkShipmentPackageRouteSeg) {
-            run service: 'createShipmentPackageRouteSeg', with: [shipmentId: parameters.shipmentId,
-                                                                 shipmentRouteSegmentId: parameters.shipmentRouteSegmentId,
-                                                                 shipmentPackageSeqId: shipmentPackage.shipmentPackageSeqId]
+            run service: 'createShipmentPackageRouteSeg', with: sprsMap
         }
     }
     return success()

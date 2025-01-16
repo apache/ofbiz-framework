@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -158,6 +157,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
      * @param locale
      * @param macro
      */
+    @SuppressWarnings("unused")
     private void executeMacro(Appendable writer, Locale locale, String macro) {
         ftlWriter.processFtlString(writer, locale, macro);
     }
@@ -2138,7 +2138,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 newQueryString = newQueryString.replace("?null=LinkFromQBEString", "?sortField=LinkFromQBEString");
                 linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(newQueryString));
             } else {
-                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(URLEncoder.encode(newQueryString, "UTF-8")));
+                linkUrl = rh.makeLink(this.request, this.response, urlPath.concat(UtilCodec.encodeUrl(newQueryString, context)));
             }
         }
         StringWriter sr = new StringWriter();
@@ -2320,7 +2320,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             // if description is truncated, always use description as title
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
                 title = description;
-                description = description.substring(0, size) + "…";
+                description = StringUtil.truncateEncodedStringToLength(description, size);
             } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
                 title = request.getAttribute("title").toString();
             }

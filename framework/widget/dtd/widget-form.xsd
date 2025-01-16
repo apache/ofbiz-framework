@@ -873,6 +873,7 @@ under the License.
     <xs:element name="check" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="group-options" />
                 <xs:element ref="entity-options" />
                 <xs:element ref="list-options" />
                 <xs:element ref="option" />
@@ -1100,6 +1101,7 @@ under the License.
             <xs:sequence>
                 <xs:element ref="auto-complete" minOccurs="0" maxOccurs="1" />
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="group-options" />
                     <xs:element ref="entity-options" />
                     <xs:element ref="list-options" />
                     <xs:element ref="option" />
@@ -1383,6 +1385,7 @@ under the License.
     <xs:element name="radio" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="group-options" />
                 <xs:element ref="entity-options" />
                 <xs:element ref="list-options" />
                 <xs:element ref="option" />
@@ -1492,6 +1495,25 @@ under the License.
             <xs:attribute name="placeholder" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Specifies a short hint that describes the expected value of an input field.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="type" default="text">
+                <xs:annotation>
+                    <xs:documentation>Controls the type attribute on the input element. Limited to a few types. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="text" />
+                        <xs:enumeration value="number" />
+                        <xs:enumeration value="email" />
+                        <xs:enumeration value="url" />
+                        <xs:enumeration value="tel" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="pattern" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Controls the pattern attribute of the input element. See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>
@@ -1669,6 +1691,26 @@ under the License.
     <xs:element name="entity-order-by">
         <xs:complexType>
             <xs:attribute type="xs:string" name="field-name" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="group-options">
+        <xs:annotation>
+            <xs:documentation>group the options </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="group-options" />
+                <xs:element ref="entity-options" />
+                <xs:element ref="list-options" />
+                <xs:element ref="option" />
+            </xs:choice>
+            <xs:attribute type="xs:string" name="id" />
+            <xs:attribute type="xs:string" name="widget-style" />
+            <xs:attribute type="xs:string" name="description" default="${description}">
+                <xs:annotation>
+                    <xs:documentation>Will be presented to the user with field values substituted using the ${} syntax.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="in-place-editor">
