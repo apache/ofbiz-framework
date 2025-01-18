@@ -53,7 +53,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.24.2' // the API of log4j 2
     implementation 'org.apache.logging.log4j:log4j-core:2.24.2' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation 'org.apache.poi:poi:5.3.0'
-    implementation 'org.apache.pdfbox:pdfbox:2.0.32' // 3.0.1 does not compile
+    implementation 'org.apache.pdfbox:pdfbox:2.0.33' // 3.0.1 does not compile
     implementation 'org.apache.shiro:shiro-core:1.13.0' // Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with the given algorithm: argon2" with 2.0.2 in integration tests
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.2'
     implementation 'org.apache.sshd:sshd-core:2.14.0'

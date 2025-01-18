@@ -910,12 +910,6 @@ public class SecuredUpload {
         return UtilValidate.isNotEmpty(deniedTokens) ? StringUtil.split(deniedTokens, ",") : new ArrayList<>();
     }
 
-    public static List<String> getallowedTokens() {
-        String allowedTokens = UtilProperties.getPropertyValue("security", "allowedTokens");
-        return UtilValidate.isNotEmpty(allowedTokens) ? StringUtil.split(allowedTokens, ",") : new ArrayList<>();
-    }
-
-
     private static boolean checkMaxLinesLength(String fileToCheck) {
         if (MAXLINELENGTH == 0) {
             return true;
