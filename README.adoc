@@ -55,26 +55,26 @@ http://www.apache.org/licenses/LICENSE-2.0[OFBiz License]
 == Notes
 [NOTE]
 ====
-If you want to use Eclipse, read the "Setup eclipse project for OFBiz"
+If you want to use Eclipse, read the link:#setup-eclipse-project-for-ofbiz[Setup eclipse project for OFBiz]
 section to set it up.
 ====
 
 [NOTE]
 ====
 If you want to use an external database like MySQL or PostgreSQL, read
-the "Setup an external database" section to set it up.
+the link:#setup-an-external-database-like-mysql-postgresql-etc[Setup an external database] section to set it up.
 ====
 
 [NOTE]
 ====
 If you want to run OFBiz without an internet connection, read the
-"Running gradle tasks without an internet connection" section.
+link:#running-gradle-tasks-without-an-internet-connection[Running gradle tasks without an internet connection] section.
 ====
 
 [NOTE]
 ====
 The directory structure and repositories have changed. For more
-information read the "Repository and directory structure" section.
+information read the link:#repository-and-directory-structure[Repository and directory structure] section.
 ====
 [NOTE]
 ====
@@ -148,6 +148,12 @@ MS Windows: `gradlew cleanAll loadAll`
 
 Unix-like OS: `./gradlew cleanAll loadAll`
 
+====
+[WARNING]
+====
+This command deletes all previous data and resets it to the initial demo data.
+====
+
 [[start-ofbiz]]
 === Start OFBiz:
 
@@ -159,11 +165,6 @@ ________________________________________________________________________________
 _Note_: Ignore the % progress indicator because this task does not end as long
 as OFBiz is running.
 ___________________________________________________________________________________________________
-
-
-[[Docker]]
-== Docker
-If you want to set and use Docker, link:https://nightlies.apache.org/ofbiz/trunk/readme/html5/DOCKER.html[here is the documentation]
 
 
 [[visit-ofbiz-through-your-browser]]
@@ -181,6 +182,47 @@ You can log in with the user *admin* and password *ofbiz*.
 
 [NOTE]
 In case of problems visit our link:#further-reading[Further reading section].
+
+[[Docker]]
+== Docker
+If you want to set and use Docker, link:https://nightlies.apache.org/ofbiz/trunk/readme/html5/DOCKER.html[here is the documentation]
+
+[[production-setup]]
+== Production setup
+
+[NOTE]
+====
+Currently deployment configuration is tied to the source code. If you want to separate deployment configuration from production code we recommend using Docker, see link:#Docker[Docker] section above.
+====
+
+Following is a simple production setup. For more detailed information visit link:https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+Technical+Production+Setup+Guide[Apache OFBiz Technical Production Setup Guide].
+
+=== Package OFBiz
+
+MS Windows: `gradlew distZip`
+
+Unix-like OS: `./gradlew distTar`
+
+=== Copy to server
+
+Copy the archive from `build/distributions` directory to the server and unarchive them with `tar xf` or `unzip`.
+
+=== Run OFBiz
+
+From the unarchived directory you can run either `bin/ofbiz` shell script or `bin/ofbiz.bat` batch script.
+
+=== Install as a service
+
+MS Windows: you can use link:https://nssm.cc/usage[nssm]
+
+Unix-like OS: link:https://cwiki.apache.org/confluence/display/OFBIZ/How+to+run+OFBiz+as+a+Service[This article] might give you an idea, although it seems to be outdated. Either way, you can use the standard mechanism of your distribution, like for example creating an `/etc/systemd/system/ofbiz.service` file.
+
+=== Troubleshooting
+
+On Windows you might get the following error when trying to run the `ofbiz.bat` script:
+`The input line is too long. The syntax of the command is incorrect.`
+
+The current workaround is to clone the repository and run gradlew commands from the root folder instead.
 
 [[security]]
 == Security
@@ -838,6 +880,7 @@ $\{pluginId}"
 
 * https://cwiki.apache.org/confluence/display/OFBIZ/FAQ%2B-%2BTips%2B-%2BTricks%2B-%2BCookbook%2B-%2BHowTo#FAQ-Tips-Tricks-Cookbook-HowTo-Knownissues[Known
 issues]
+* https://cwiki.apache.org/confluence/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo[Tips and Tricks]
 
 [[repository-and-directory-structure]]
 === Repository and directory structure
