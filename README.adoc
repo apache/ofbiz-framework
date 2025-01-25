@@ -876,7 +876,7 @@ $\{pluginId}"
 
 * https://cwiki.apache.org/confluence/display/OFBIZ/FAQ%2B-%2BTips%2B-%2BTricks%2B-%2BCookbook%2B-%2BHowTo#FAQ-Tips-Tricks-Cookbook-HowTo-Knownissues[Known
 issues]
-* https://cwiki.apache.org/confluence/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo[Tips and Tricks]
+* https://cwiki.apache.org/confluence/display/OFBIZ/FAQ%2B-%2BTips%2B-%2BTricks%2B-%2BCookbook%2B-%2BHowTo[Tips and Tricks]
 
 [[repository-and-directory-structure]]
 === Repository and directory structure
