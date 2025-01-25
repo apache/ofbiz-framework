@@ -139,7 +139,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private long nextGroupNumber = 1;
     private List<CartPaymentInfo> paymentInfo = new LinkedList<>();
     private List<CartShipInfo> shipInfo = new LinkedList<>();
-    private Map<String, String> contactMechIdsMap = new HashMap<>();
+    private Map<String, Set<String>> contactMechIdsMap = new HashMap<>();
     private Map<String, String> orderAttributes = new HashMap<>();
     private Map<String, Object> attributes = new HashMap<>(); // user defined attributes
     // Lists of internal/public notes: when the order is stored they are transformed into OrderHeaderNotes
@@ -3465,28 +3465,41 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Add a contact mech to this purpose; the contactMechPurposeTypeId is required */
-    public void addContactMech(String contactMechPurposeTypeId, String contactMechId) {
+    public void addContactMechId(String contactMechPurposeTypeId, String contactMechId) {
         if (contactMechPurposeTypeId == null) {
             throw new IllegalArgumentException("You must specify a contactMechPurposeTypeId to add a ContactMech");
         }
-        contactMechIdsMap.put(contactMechPurposeTypeId, contactMechId);
+        UtilMisc.addToSetInMap(contactMechId, contactMechIdsMap, contactMechPurposeTypeId);
     }
 
     /** Get the contactMechId for this cart given the contactMechPurposeTypeId */
-    public String getContactMech(String contactMechPurposeTypeId) {
-        return contactMechIdsMap.get(contactMechPurposeTypeId);
+    public String getContactMechId(String contactMechPurposeTypeId) {
+        return UtilValidate.isNotEmpty(getContactMechIds(contactMechPurposeTypeId))
+                ? getContactMechIds(contactMechPurposeTypeId).get(0)
+                : null;
     }
 
-    /** Remove the contactMechId from this cart given the contactMechPurposeTypeId */
-    public String removeContactMech(String contactMechPurposeTypeId) {
-        return contactMechIdsMap.remove(contactMechPurposeTypeId);
+    /** Get the contactMechIds list for this cart given the contactMechPurposeTypeId */
+    public List<String> getContactMechIds(String contactMechPurposeTypeId) {
+        Set<String> contactMechIds = contactMechIdsMap.get(contactMechPurposeTypeId);
+        return contactMechIds != null
+                ? new ArrayList<>(contactMechIds)
+                : List.of();
+    }
+
+    /** Remove the contactMechIds list from this cart given the contactMechPurposeTypeId */
+    public List<String> removeContactMechId(String contactMechPurposeTypeId) {
+        Set<String> contactMechIds = contactMechIdsMap.remove(contactMechPurposeTypeId);
+        return contactMechIds != null
+                ? new ArrayList<>(contactMechIds)
+                : List.of();
     }
 
     /**
      * Gets order contact mech ids.
      * @return the order contact mech ids
      */
-    public Map<String, String> getOrderContactMechIds() {
+    public Map<String, Set<String>> getOrderContactMechIds() {
         return this.contactMechIdsMap;
     }
 
@@ -4616,17 +4629,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> makeAllOrderContactMechs() {
         List<GenericValue> allOrderContactMechs = new LinkedList<>();
 
-        Map<String, String> contactMechIds = this.getOrderContactMechIds();
-
+        Map<String, Set<String>> contactMechIds = this.getOrderContactMechIds();
         if (contactMechIds != null) {
-            for (Map.Entry<String, String> entry : contactMechIds.entrySet()) {
-                GenericValue orderContactMech = getDelegator().makeValue("OrderContactMech");
-                orderContactMech.set("contactMechPurposeTypeId", entry.getKey());
-                orderContactMech.set("contactMechId", entry.getValue());
-                allOrderContactMechs.add(orderContactMech);
+            for (Map.Entry<String, Set<String>> entry : contactMechIds.entrySet()) {
+                entry.getValue().forEach(contactMechId ->
+                        allOrderContactMechs.add(getDelegator().makeValue("OrderContactMech",
+                                Map.of("contactMechPurposeTypeId", entry.getKey(),
+                                        "contactMechId", contactMechId))));
             }
         }
-
         return allOrderContactMechs;
     }
 

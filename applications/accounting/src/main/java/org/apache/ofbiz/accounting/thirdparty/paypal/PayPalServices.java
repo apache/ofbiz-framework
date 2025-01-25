@@ -484,7 +484,7 @@ public class PayPalServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-        cart.addContactMech("ORDER_EMAIL", emailContactMechId);
+        cart.addContactMechId("ORDER_EMAIL", emailContactMechId);
 
         // Phone number
         String phoneNumber = decoder.get("PHONENUM");
@@ -508,7 +508,7 @@ public class PayPalServices {
             try {
                 outMap = dispatcher.runSync("createUpdatePartyTelecomNumber", inMap);
                 phoneContactId = (String) outMap.get("contactMechId");
-                cart.addContactMech("PHONE_BILLING", phoneContactId);
+                cart.addContactMechId("PHONE_BILLING", phoneContactId);
             } catch (GenericServiceException e) {
                 Debug.logError(e, MODULE);
             }
@@ -517,7 +517,7 @@ public class PayPalServices {
         String postalContactId = null;
         boolean needsShippingPurpose = true;
         // if the cart for some reason already has a billing address, we'll leave it be
-        boolean needsBillingPurpose = (cart.getContactMech("BILLING_LOCATION") == null);
+        boolean needsBillingPurpose = (cart.getContactMechId("BILLING_LOCATION") == null);
         Map<String, Object> postalMap = new HashMap<>();
         postalMap.put("toName", decoder.get("SHIPTONAME"));
         postalMap.put("address1", decoder.get("SHIPTOSTREET"));
