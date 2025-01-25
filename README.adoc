@@ -148,11 +148,7 @@ MS Windows: `gradlew cleanAll loadAll`
 
 Unix-like OS: `./gradlew cleanAll loadAll`
 
-====
-[WARNING]
-====
-This command deletes all previous data and resets it to the initial demo data.
-====
+WARNING: This command deletes all previous data and resets it to the initial demo data.
 
 [[start-ofbiz]]
 === Start OFBiz:
