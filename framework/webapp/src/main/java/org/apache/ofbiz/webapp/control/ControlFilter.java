@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,9 +38,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.ThreadContext;
-import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -160,21 +159,6 @@ public class ControlFilter extends HttpFilter {
         return UtilValidate.isNotEmpty(allowedTokens) ? StringUtil.split(allowedTokens, ",") : new ArrayList<>();
     }
 
-    // Check there is any allowedToken in URL
-    private static boolean isAnyAllowedToken(List<String> queryParameters, List<String> allowed) {
-        boolean isOK = false;
-        for (String parameter : queryParameters) {
-            parameter = parameter.substring(0, parameter.indexOf("=") + 1);
-            if (allowed.contains(HashCrypt.cryptBytes("SHA", "OFBiz", parameter.getBytes(StandardCharsets.UTF_8)))) {
-                isOK = true;
-                break;
-            } else {
-                continue;
-            }
-        }
-        return isOK;
-    }
-
     /**
      * Makes allowed paths pass through while redirecting the others to a fix location.
      * Reject wrong URLs
@@ -198,7 +182,7 @@ public class ControlFilter extends HttpFilter {
         } else if (req.getAttribute(FORWARDED_FROM_SERVLET) == null
                 && !allowedPaths.isEmpty()) {
             // Get the request URI without the webapp mount point.
-            String uriWithContext = URLDecoder.decode(req.getRequestURI(), "UTF-8");
+            String uriWithContext = StringEscapeUtils.unescapeHtml4(URLDecoder.decode(req.getRequestURI(), "UTF-8"));
             String uri = uriWithContext.substring(context.length());
 
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
@@ -227,12 +211,7 @@ public class ControlFilter extends HttpFilter {
                     throw new RuntimeException("For security reason this URL is not accepted");
                 }
             }
-            boolean bypass = true;
-            if (queryString != null) {
-                List<String> queryStringList = StringUtil.splitWithStringSeparator(queryString.toLowerCase(), "&amp;");
-                bypass = isAnyAllowedToken(queryStringList, ALLOWEDTOKENS);
-            }
-            if (uriWithContext != null && !bypass) { // "null" allows tests with Mockito. ControlFilterTests sends null.
+            if (uriWithContext != null) { // "null" allows tests with Mockito because ControlFilterTests sends null.
                 try {
                     String uRIFiltered = new URI(uriWithContext)
                             .normalize().toString()

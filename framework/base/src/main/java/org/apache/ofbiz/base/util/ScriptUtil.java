@@ -421,7 +421,7 @@ public final class ScriptUtil {
         if (!currentScriptAlreadyAllowed) {
             if (!checkIfScriptIsSafe(script)) {
                 Debug.logWarning(String.format("Tried to execute unauthorized script \n **** \n%s\n **** "
-                                + "\nif it's safe script you can add the following hash to security.allowedScriptlets: %s",
+                                + "\nif it's safe script you can add the following hash to security.allowedScriptletHashes: %s",
                         script, scriptHash), MODULE);
                 return false;
             }

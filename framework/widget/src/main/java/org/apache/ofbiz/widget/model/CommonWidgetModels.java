@@ -394,14 +394,20 @@ public final class CommonWidgetModels {
             }
             Element autoFormParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-form");
             if (autoFormParamsElement != null) {
-                Node formElement = autoFormParamsElement;
-                while (formElement != null
-                        && formElement.getLocalName() != "form") {
-                    formElement = formElement.getParentNode();
+                String formName = null;
+                if (autoFormParamsElement.hasAttribute("form-name") && autoFormParamsElement.getAttribute("form-name") != null) {
+                    formName = autoFormParamsElement.getAttribute("form-name");
+                } else {
+                    Node formElement = autoFormParamsElement;
+                    while (formElement != null
+                            && formElement.getLocalName() != "form") {
+                        formElement = formElement.getParentNode();
+                    }
+                    if (formElement != null && formElement.getLocalName() != null) {
+                        formName = ((Element) formElement).getAttribute("name");
+                    }
                 }
-                if (formElement != null && formElement.getLocalName() != null) {
-                    parameterList.add(new Parameter("_FORM_NAME_", ((Element) formElement).getAttribute("name") + "_AS_PARAM_", false));
-                }
+                parameterList.add(new Parameter("_FORM_NAME_", formName + "_AS_PARAM_", false));
             }
             this.parameterList = Collections.unmodifiableList(parameterList);
             Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");

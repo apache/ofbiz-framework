@@ -86,7 +86,7 @@ Map createUpdateCustomerAndShippingAddress() {
     result.shipToPhoneContactMechId = serviceResultCUPTN.contactMechId
 
     if (shipToPhoneContactMechId) {
-        shoppingCart.addContactMech('PHONE_SHIPPING', shipToPhoneContactMechId)
+        shoppingCart.addContactMechId('PHONE_SHIPPING', shipToPhoneContactMechId)
     }
     // Create Update email address
     Map createUpdatePartyEmailCtx = emailAddressCtx
@@ -98,10 +98,10 @@ Map createUpdateCustomerAndShippingAddress() {
     result.emailContactMechId = serviceResultCUPEM.contactMechId
     result.partyId = partyId
     if (parameters.emailContactMechId) {
-        shoppingCart.addContactMech('ORDER_EMAIL', parameters.emailContactMechId)
+        shoppingCart.addContactMechId('ORDER_EMAIL', parameters.emailContactMechId)
     }
     shoppingCart.setUserLogin(userLogin, dispatcher)
-    shoppingCart.addContactMech('SHIPPING_LOCATION', parameters.shipToContactMechId)
+    shoppingCart.addContactMechId('SHIPPING_LOCATION', parameters.shipToContactMechId)
     shoppingCart.setAllShippingContactMechId(parameters.shipToContactMechId)
     shoppingCart.setOrderPartyId(partyId)
     return result
@@ -149,7 +149,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     parameters.billToContactMechId = serviceResultCUBA.contactMechId
     result.contactMechId = serviceResultCUBA.contactMechId
     if (parameters.billToContactMechId) {
-        shoppingCart.addContactMech('BILLING_LOCATION', parameters.billToContactMechId)
+        shoppingCart.addContactMechId('BILLING_LOCATION', parameters.billToContactMechId)
     }
     // Create Update Billing Telecom Number
     Map createUpdatePartyTelecomNumberCtx = billToPhoneContext
@@ -165,7 +165,7 @@ Map createUpdateBillingAddressAndPaymentMethod() {
     String billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     result.billToPhoneContactMechId = serviceResultCUPTN.contactMechId
     if (billToPhoneContactMechId) {
-        shoppingCart.addContactMech('PHONE_BILLING', billToPhoneContactMechId)
+        shoppingCart.addContactMechId('PHONE_BILLING', billToPhoneContactMechId)
     }
     // Create Update credit card
     Map creditCartCtx = parameters

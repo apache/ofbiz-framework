@@ -329,7 +329,7 @@ public class ShoppingCartServices {
         }
         if (UtilValidate.isNotEmpty(orderContactMechs)) {
             for (GenericValue orderContactMech : orderContactMechs) {
-                cart.addContactMech(orderContactMech.getString("contactMechPurposeTypeId"), orderContactMech.getString("contactMechId"));
+                cart.addContactMechId(orderContactMech.getString("contactMechPurposeTypeId"), orderContactMech.getString("contactMechId"));
             }
         }
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
