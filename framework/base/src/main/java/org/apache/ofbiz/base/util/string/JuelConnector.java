@@ -18,34 +18,32 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string;
 
-import static de.odysseus.el.tree.impl.Scanner.Symbol.END_EVAL;
-import static de.odysseus.el.tree.impl.Scanner.Symbol.FLOAT;
-import static de.odysseus.el.tree.impl.Scanner.Symbol.START_EVAL_DEFERRED;
-import static de.odysseus.el.tree.impl.Scanner.Symbol.START_EVAL_DYNAMIC;
+import jakarta.el.ELContext;
+import jakarta.el.ELException;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.PropertyNotFoundException;
 
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
-import javax.el.PropertyNotFoundException;
-
+import org.activiti.core.el.juel.ExpressionFactoryImpl;
+import org.activiti.core.el.juel.misc.LocalMessages;
+import org.activiti.core.el.juel.tree.Bindings;
+import org.activiti.core.el.juel.tree.Tree;
+import org.activiti.core.el.juel.tree.TreeStore;
+import org.activiti.core.el.juel.tree.impl.Builder;
+import org.activiti.core.el.juel.tree.impl.Cache;
+import org.activiti.core.el.juel.tree.impl.Parser;
+import org.activiti.core.el.juel.tree.impl.Scanner;
+import org.activiti.core.el.juel.tree.impl.ast.AstBracket;
+import org.activiti.core.el.juel.tree.impl.ast.AstDot;
+import org.activiti.core.el.juel.tree.impl.ast.AstEval;
+import org.activiti.core.el.juel.tree.impl.ast.AstIdentifier;
+import org.activiti.core.el.juel.tree.impl.ast.AstNode;
 import org.apache.ofbiz.base.util.Debug;
 
-import de.odysseus.el.ExpressionFactoryImpl;
-import de.odysseus.el.misc.LocalMessages;
-import de.odysseus.el.tree.Bindings;
-import de.odysseus.el.tree.Tree;
-import de.odysseus.el.tree.TreeStore;
-import de.odysseus.el.tree.impl.Builder;
-import de.odysseus.el.tree.impl.Cache;
-import de.odysseus.el.tree.impl.Parser;
-import de.odysseus.el.tree.impl.Parser.ParseException;
-import de.odysseus.el.tree.impl.Scanner.ScanException;
-import de.odysseus.el.tree.impl.Scanner.Symbol;
-import de.odysseus.el.tree.impl.ast.AstBracket;
-import de.odysseus.el.tree.impl.ast.AstDot;
-import de.odysseus.el.tree.impl.ast.AstEval;
-import de.odysseus.el.tree.impl.ast.AstIdentifier;
-import de.odysseus.el.tree.impl.ast.AstNode;
+import static org.activiti.core.el.juel.tree.impl.Scanner.Symbol.END_EVAL;
+import static org.activiti.core.el.juel.tree.impl.Scanner.Symbol.FLOAT;
+import static org.activiti.core.el.juel.tree.impl.Scanner.Symbol.START_EVAL_DEFERRED;
+import static org.activiti.core.el.juel.tree.impl.Scanner.Symbol.START_EVAL_DYNAMIC;
+
 
 /** A facade class used to connect the OFBiz framework to the JUEL library.
  *<p>The Unified Expression Language specification doesn't allow assignment of
@@ -145,9 +143,9 @@ public class JuelConnector {
             super(context, input);
         }
         @Override
-        protected AstEval eval(boolean required, boolean deferred) throws ScanException, ParseException {
+        protected AstEval eval(boolean required, boolean deferred) throws Scanner.ScanException, ParseException {
             AstEval v = null;
-            Symbol startEval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
+            Scanner.Symbol startEval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
             if (this.getToken().getSymbol() == startEval) {
                 consumeToken();
                 AstNode node = expr(true);
@@ -187,7 +185,7 @@ public class JuelConnector {
         public Tree build(String expression) throws ELException {
             try {
                 return new ExtendedParser(this, expression).tree();
-            } catch (ScanException | ParseException e) {
+            } catch (Scanner.ScanException | Parser.ParseException e) {
                 throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
             }
         }

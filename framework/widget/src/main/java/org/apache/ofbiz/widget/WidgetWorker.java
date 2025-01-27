@@ -20,9 +20,9 @@ package org.apache.ofbiz.widget;
 
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.ofbiz.base.util.Debug;

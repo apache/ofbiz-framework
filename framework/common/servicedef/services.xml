@@ -392,7 +392,7 @@ under the License.
     <service name="userLogin" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userLogin">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <implements service="authenticationInterface"/>
-        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest" optional="true"/>
+        <attribute name="request" mode="IN" type="jakarta.servlet.http.HttpServletRequest" optional="true"/>
     </service>
     <service name="userImpersonate" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userImpersonate" auth="true">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;

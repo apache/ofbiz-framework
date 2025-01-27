@@ -149,7 +149,7 @@ public final class WidgetContextCacheKey {
         Map<String, Object> printableMap = new HashMap<>();
         for (Map.Entry<String, ? extends Object> entry : map.entrySet()) {
             String fieldName = entry.getKey();
-            if (!fieldNamesToSkip.contains(fieldName) && !fieldName.startsWith("javax.servlet")
+            if (!fieldNamesToSkip.contains(fieldName) && !fieldName.startsWith("jakarta.servlet")
                     && !fieldName.startsWith("org.apache") && !fieldName.startsWith("_CLIENT_")) {
                 printableMap.put(fieldName, entry.getValue());
             }
@@ -165,7 +165,7 @@ public final class WidgetContextCacheKey {
             if (fieldNamesToSkip.contains(fieldName)) {
                 continue;
             }
-            if (fieldName.startsWith("javax.servlet") || fieldName.startsWith("org.apache") || fieldName.startsWith("_CLIENT_")) {
+            if (fieldName.startsWith("jakarta.servlet") || fieldName.startsWith("org.apache") || fieldName.startsWith("_CLIENT_")) {
                 continue;
             }
             Object field1 = map1.get(fieldName);

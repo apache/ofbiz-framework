@@ -18,21 +18,22 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.content;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -76,13 +77,8 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-            long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
-            int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
-            File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
-            upload.setSizeMax(maxUploadSize);
-            List<FileItem> lst = null;
+            JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+            List<FileItem<DiskFileItem>> lst = null;
             try {
                 lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
@@ -99,10 +95,10 @@ public class UploadContentAndImage {
             }
 
             Map<String, Object> passedParams = new HashMap<>();
-            FileItem fi = null;
-            FileItem imageFi = null;
+            FileItem<DiskFileItem> fi = null;
+            FileItem<DiskFileItem> imageFi = null;
             byte[] imageBytes = {};
-            for (FileItem fileItem : lst) {
+            for (FileItem<DiskFileItem> fileItem : lst) {
                 fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
@@ -344,15 +340,8 @@ public class UploadContentAndImage {
         try {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-            Delegator delegator = (Delegator) request.getAttribute("delegator");
-
-            long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
-            int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
-            File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
-            upload.setSizeMax(maxUploadSize);
-
-            List<FileItem> lst = null;
+            JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+            List<FileItem<DiskFileItem>> lst = null;
             try {
                 lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
@@ -368,11 +357,11 @@ public class UploadContentAndImage {
             }
 
             Map<String, Object> passedParams = new HashMap<>();
-            FileItem fi = null;
-            FileItem imageFi = null;
+            FileItem<DiskFileItem> fi = null;
+            FileItem<DiskFileItem> imageFi = null;
             byte[] imageBytes;
             passedParams.put("userLogin", userLogin);
-            for (FileItem fileItem : lst) {
+            for (FileItem<DiskFileItem> fileItem : lst) {
                 fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {

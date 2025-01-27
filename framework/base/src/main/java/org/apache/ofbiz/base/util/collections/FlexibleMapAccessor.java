@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.el.PropertyNotFoundException;
+import jakarta.el.PropertyNotFoundException;
 
 import org.apache.ofbiz.base.lang.IsEmpty;
 import org.apache.ofbiz.base.lang.SourceMonitored;

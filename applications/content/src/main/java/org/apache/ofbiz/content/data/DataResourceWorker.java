@@ -47,16 +47,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.BoundedInputStream;
 import org.apache.ofbiz.base.location.FlexibleLocation;
@@ -215,12 +217,13 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
      * "idField" value and the binary data to be in a field id's by uploadField.
      */
     public static String uploadAndStoreImage(HttpServletRequest request, String idField, String uploadField) {
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
-        List<FileItem> lst = null;
+
+        JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+        List<FileItem<DiskFileItem>> lst = null;
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            lst = UtilGenerics.cast(fu.parseRequest(request));
+            lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
@@ -234,15 +237,15 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         }
 
         // This code finds the idField and the upload FileItems
-        FileItem fi = null;
-        FileItem imageFi = null;
+        FileItem<DiskFileItem> fi = null;
+        FileItem<DiskFileItem> imageFi = null;
         String imageFileName = null;
         Map<String, Object> passedParams = new HashMap<>();
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
-        for (FileItem fileItem : lst) {
+        for (FileItem<DiskFileItem> fileItem : lst) {
             fi = fileItem;
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {

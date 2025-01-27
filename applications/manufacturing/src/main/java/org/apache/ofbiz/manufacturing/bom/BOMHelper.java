@@ -136,8 +136,8 @@ public final class BOMHelper {
         return duplicatedNode;
     }
 
-    public static String createProductionRunsForShipment(javax.servlet.http.HttpServletRequest request,
-                                                         javax.servlet.http.HttpServletResponse response) {
+    public static String createProductionRunsForShipment(jakarta.servlet.http.HttpServletRequest request,
+                                                         jakarta.servlet.http.HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");

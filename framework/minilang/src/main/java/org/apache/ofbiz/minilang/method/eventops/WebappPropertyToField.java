@@ -20,7 +20,7 @@ package org.apache.ofbiz.minilang.method.eventops;
 
 import java.net.URL;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;

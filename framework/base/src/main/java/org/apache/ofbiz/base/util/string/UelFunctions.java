@@ -35,7 +35,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.el.FunctionMapper;
+
+import jakarta.el.FunctionMapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;

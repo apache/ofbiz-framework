@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.accounting.accounting
 
-import javax.servlet.http.HttpSession
+import jakarta.servlet.http.HttpSession
 
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.order.shoppingcart.CheckOutEvents
