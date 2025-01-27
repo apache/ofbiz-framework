@@ -65,14 +65,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.net.ssl.SSLContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -163,7 +165,12 @@ public final class UtilHttp {
         params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(), pred));
 
         // If nothing is found in the parameters, try to find something in the multi-part map.
-        Map<String, Object> multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
+        Map<String, Object> multiPartMap = null;
+        try {
+            multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
+        } catch (FileUploadException e) {
+            throw new RuntimeException(e);
+        }
         params.putAll(multiPartMap);
         if (req.getAttribute("multiPartMap") == null) {
             req.setAttribute("multiPartMap", multiPartMap);
@@ -200,27 +207,36 @@ public final class UtilHttp {
         return value.length == 1 ? value[0] : Arrays.asList(value);
     }
 
-    public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) {
+    public static JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> getServletFileUpload(HttpServletRequest request) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        long maxUploadSize = getMaxUploadSize(delegator);
+        int sizeThreshold = getSizeThreshold(delegator);
+        File tmpUploadRepository = getTmpUploadRepository(delegator);
+        DiskFileItemFactory factory = DiskFileItemFactory.builder()
+                .setBufferSizeMax(sizeThreshold)
+                .setPath(tmpUploadRepository.getPath())
+                .get();
+        JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = new JakartaServletFileUpload<>(factory);
+        upload.setSizeMax(maxUploadSize);
+        return upload;
+    }
+
+    public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) throws FileUploadException {
         Map<String, Object> multiPartMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
+        boolean isMultiPart = JakartaServletFileUpload.isMultipartContent(request);
         if (isMultiPart) {
-            long maxUploadSize = getMaxUploadSize(delegator);
-            int sizeThreshold = getSizeThreshold(delegator);
-            File tmpUploadRepository = getTmpUploadRepository(delegator);
-            String encoding = request.getCharacterEncoding();
-            // check for multipart content types which may have uploaded items
-
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
-            upload.setSizeMax(maxUploadSize);
             // create the progress listener and add it to the session
+            String encoding = request.getCharacterEncoding();
+            Charset charset = Charset.forName(encoding);
+            JakartaServletFileUpload upload = UtilHttp.getServletFileUpload(request);
             FileUploadProgressListener listener = new FileUploadProgressListener();
             upload.setProgressListener(listener);
             session.setAttribute("uploadProgressListener", listener);
 
             if (encoding != null) {
-                upload.setHeaderEncoding(encoding);
+                upload.setHeaderCharset(Charset.forName(encoding));
             }
 
             List<FileItem> uploadedItems = null;
@@ -254,9 +270,9 @@ public final class UtilHttp {
                         } else {
                             if (encoding != null) {
                                 try {
-                                    multiPartMap.put(fieldName, item.getString(encoding));
-                                } catch (java.io.UnsupportedEncodingException uee) {
-                                    Debug.logError(uee, "Unsupported Encoding, using deafault", MODULE);
+                                    multiPartMap.put(fieldName, item.getString(java.nio.charset.Charset.forName(encoding)));
+                                } catch (IOException e) {
+                                    Debug.logError(e, "Unsupported Encoding, using deafault", MODULE);
                                     multiPartMap.put(fieldName, item.getString());
                                 }
                             } else {

@@ -34,17 +34,17 @@ dependencies {
     implementation 'com.rometools:rome:2.1.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.21'
     implementation 'commons-cli:commons-cli:1.5.0' // with 1.6.0, 2 tests of OfbizStartupUnitTests don't pass
-    implementation 'commons-fileupload:commons-fileupload:1.5'
     implementation 'commons-net:commons-net:3.11.1'
     implementation 'commons-validator:commons-validator:1.9.0'
-    implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'javax.transaction:javax.transaction-api:1.3'
     implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
     implementation 'net.lingala.zip4j:zip4j:2.11.5'
+    implementation 'org.activiti:activiti-juel-jakarta:8.1.0'
     implementation 'org.apache.ant:ant-junit:1.10.15'
     implementation 'org.apache.commons:commons-collections4:4.4'
     implementation 'org.apache.commons:commons-csv:1.12.0'
     implementation 'org.apache.commons:commons-dbcp2:2.13.0'
+    implementation 'org.apache.commons:commons-fileupload2-jakarta:2.0.0-M1'
     implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
     implementation 'org.apache.commons:commons-text:1.12.0'
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5' // 4.0.0 does not compile
@@ -62,8 +62,8 @@ dependencies {
     implementation 'org.apache.tika:tika-parsers:2.9.2' // To be compatible with tika-parser-pdf-module below
     implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2' // > 2.9.2 does not compile, see OFBIZ-13155
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.4' // 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97' // Remember to change the version number (9 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.97'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:10.1.34' // Remember to change the version number (10 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-jasper:10.1.34'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
     implementation 'org.apache.xmlgraphics:batik-anim:1.18'
     implementation 'org.apache.xmlgraphics:batik-util:1.18'
@@ -93,7 +93,6 @@ dependencies {
     testImplementation 'com.pholser:junit-quickcheck-generators:1.0'
 
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
-    runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
     runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'

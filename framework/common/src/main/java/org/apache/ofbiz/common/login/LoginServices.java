@@ -31,8 +31,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.transaction.Transaction;
 
 import org.apache.ofbiz.base.crypto.HashCrypt;
@@ -224,7 +224,7 @@ public class LoginServices {
 
                         // check whether to sign in with Tomcat SSO
                         boolean useTomcatSSO = EntityUtilProperties.propertyValueEquals("security", "security.login.tomcat.sso", "true");
-                        HttpServletRequest request = (javax.servlet.http.HttpServletRequest) context.get("request");
+                        HttpServletRequest request = (jakarta.servlet.http.HttpServletRequest) context.get("request");
                         // when request is not supplied, we will treat that SSO is not required as
                         // in the usage of userLogin service in ICalWorker.java
                         useTomcatSSO = useTomcatSSO && (request != null);

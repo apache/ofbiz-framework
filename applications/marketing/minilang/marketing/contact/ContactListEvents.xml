@@ -28,7 +28,7 @@ under the License.
 
         <now-timestamp field="nowTimestamp"/>
         <call-class-method method-name="getParameterMap" class-name="org.apache.ofbiz.base.util.UtilHttp" ret-field="parameterMap">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
         </call-class-method>
         <call-class-method method-name="getMultiFormRowCount" class-name="org.apache.ofbiz.base.util.UtilHttp" ret-field="rowCount">
             <field field="parameterMap" type="java.util.Map"/>

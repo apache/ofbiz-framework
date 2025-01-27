@@ -21,7 +21,7 @@ package org.apache.ofbiz.security;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;

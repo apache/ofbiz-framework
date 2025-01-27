@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.website;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.base.start.Start;

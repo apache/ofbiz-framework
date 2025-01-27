@@ -20,8 +20,8 @@ package org.apache.ofbiz.order.shoppingcart;
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.entity.Delegator;
