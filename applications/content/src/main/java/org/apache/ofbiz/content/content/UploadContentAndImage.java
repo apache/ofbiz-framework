@@ -28,6 +28,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
@@ -75,8 +77,8 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-            JakartaServletFileUpload upload = UtilHttp.getServletFileUpload(request);
-            List<FileItem> lst = null;
+            JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+            List<FileItem<DiskFileItem>> lst = null;
             try {
                 lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
@@ -93,10 +95,10 @@ public class UploadContentAndImage {
             }
 
             Map<String, Object> passedParams = new HashMap<>();
-            FileItem fi = null;
-            FileItem imageFi = null;
+            FileItem<DiskFileItem> fi = null;
+            FileItem<DiskFileItem> imageFi = null;
             byte[] imageBytes = {};
-            for (FileItem fileItem : lst) {
+            for (FileItem<DiskFileItem> fileItem : lst) {
                 fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
@@ -338,8 +340,8 @@ public class UploadContentAndImage {
         try {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-            JakartaServletFileUpload upload = UtilHttp.getServletFileUpload(request);
-            List<FileItem> lst = null;
+            JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+            List<FileItem<DiskFileItem>> lst = null;
             try {
                 lst = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e4) {
@@ -355,11 +357,11 @@ public class UploadContentAndImage {
             }
 
             Map<String, Object> passedParams = new HashMap<>();
-            FileItem fi = null;
-            FileItem imageFi = null;
+            FileItem<DiskFileItem> fi = null;
+            FileItem<DiskFileItem> imageFi = null;
             byte[] imageBytes;
             passedParams.put("userLogin", userLogin);
-            for (FileItem fileItem : lst) {
+            for (FileItem<DiskFileItem> fileItem : lst) {
                 fi = fileItem;
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {

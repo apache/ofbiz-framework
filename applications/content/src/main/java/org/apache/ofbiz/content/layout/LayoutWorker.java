@@ -26,6 +26,8 @@ import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
@@ -59,8 +61,8 @@ public final class LayoutWorker {
         Map<String, String> formInput = new HashMap<>();
         results.put("formInput", formInput);
 
-        JakartaServletFileUpload upload = UtilHttp.getServletFileUpload(request);
-        List<FileItem> lst = null;
+        JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+        List<FileItem<DiskFileItem>> lst = null;
         try {
             lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e4) {
@@ -80,9 +82,9 @@ public final class LayoutWorker {
 
 
         // This code finds the idField and the upload FileItems
-        FileItem fi = null;
-        FileItem imageFi = null;
-        for (FileItem fileItem : lst) {
+        FileItem<DiskFileItem> fi = null;
+        FileItem<DiskFileItem> imageFi = null;
+        for (FileItem<DiskFileItem> fileItem : lst) {
             fi = fileItem;
             String fieldName = fi.getFieldName();
             String fieldStr = fi.getString();

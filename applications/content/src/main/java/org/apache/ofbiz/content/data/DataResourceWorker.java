@@ -48,6 +48,8 @@ import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
 import org.apache.commons.fileupload2.core.FileItem;
 import org.apache.commons.fileupload2.core.FileUploadException;
 import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
@@ -210,8 +212,8 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
      */
     public static String uploadAndStoreImage(HttpServletRequest request, String idField, String uploadField) {
 
-        JakartaServletFileUpload upload = UtilHttp.getServletFileUpload(request);
-        List<FileItem> lst = null;
+        JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+        List<FileItem<DiskFileItem>> lst = null;
         Locale locale = UtilHttp.getLocale(request);
 
         try {
@@ -229,15 +231,15 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         }
 
         // This code finds the idField and the upload FileItems
-        FileItem fi = null;
-        FileItem imageFi = null;
+        FileItem<DiskFileItem> fi = null;
+        FileItem<DiskFileItem> imageFi = null;
         String imageFileName = null;
         Map<String, Object> passedParams = new HashMap<>();
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
-        for (FileItem fileItem : lst) {
+        for (FileItem<DiskFileItem> fileItem : lst) {
             fi = fileItem;
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {

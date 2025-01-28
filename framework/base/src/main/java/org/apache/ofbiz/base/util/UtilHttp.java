@@ -230,7 +230,7 @@ public final class UtilHttp {
             // create the progress listener and add it to the session
             String encoding = request.getCharacterEncoding();
             Charset charset = Charset.forName(encoding);
-            JakartaServletFileUpload upload = UtilHttp.getServletFileUpload(request);
+            JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
             FileUploadProgressListener listener = new FileUploadProgressListener();
             upload.setProgressListener(listener);
             session.setAttribute("uploadProgressListener", listener);
@@ -239,7 +239,7 @@ public final class UtilHttp {
                 upload.setHeaderCharset(Charset.forName(encoding));
             }
 
-            List<FileItem> uploadedItems = null;
+            List<FileItem<DiskFileItem>> uploadedItems = null;
             try {
                 uploadedItems = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e) {
@@ -247,7 +247,7 @@ public final class UtilHttp {
             }
             if (uploadedItems != null) {
                 request.setAttribute("fileItems", uploadedItems);
-                for (FileItem item : uploadedItems) {
+                for (FileItem<DiskFileItem> item : uploadedItems) {
                     String fieldName = item.getFieldName();
                     //byte[] itemBytes = item.get();
                     /*
@@ -270,7 +270,7 @@ public final class UtilHttp {
                         } else {
                             if (encoding != null) {
                                 try {
-                                    multiPartMap.put(fieldName, item.getString(java.nio.charset.Charset.forName(encoding)));
+                                    multiPartMap.put(fieldName, item.getString(Charset.forName(encoding)));
                                 } catch (IOException e) {
                                     Debug.logError(e, "Unsupported Encoding, using deafault", MODULE);
                                     multiPartMap.put(fieldName, item.getString());
