@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.listener;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;

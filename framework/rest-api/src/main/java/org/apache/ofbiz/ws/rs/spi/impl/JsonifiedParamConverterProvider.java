@@ -23,7 +23,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.ParamConverter;
