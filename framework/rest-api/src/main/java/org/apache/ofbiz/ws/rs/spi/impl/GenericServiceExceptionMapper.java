@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;

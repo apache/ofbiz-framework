@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.resources;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 
