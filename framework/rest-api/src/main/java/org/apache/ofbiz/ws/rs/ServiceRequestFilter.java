@@ -21,8 +21,8 @@ package org.apache.ofbiz.ws.rs;
 import java.io.IOException;
 
 import javax.annotation.Priority;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.NotFoundException;
