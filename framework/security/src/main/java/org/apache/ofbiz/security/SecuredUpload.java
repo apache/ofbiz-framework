@@ -898,9 +898,18 @@ public class SecuredUpload {
         return computeDeniedWebShellTokensPattern(
                 StringUtil.split(UtilProperties.getPropertyValue("security", "deniedWebShellTokens").toLowerCase(), ","));
     }
+
+    /**
+     * Build Pattern from list of token, based on regexp that complies to
+     * 1 - any non word suffix : ^[a-zA-Z0-9_]
+     * 2 - any non word prefix : ^[a-zA-Z0-9_]
+     *   OR any prefix with '%' followed by 2 to 5 chars. (for percent-encoding char in query, ie. %21 for !)
+     * @param tokens to support detection rule
+     * @return built pattern
+     */
     public static Pattern computeDeniedWebShellTokensPattern(List<String> tokens) {
         return Pattern.compile(tokens.stream()
-                .map(token -> ".*(%.{2,5}|[^\\w])" + token + "[^\\w].*")
+                .map(token -> "(%.{2,5}|[^\\w])" + token + "[^\\w]")
                 .collect(Collectors.joining("|")));
     }
 
