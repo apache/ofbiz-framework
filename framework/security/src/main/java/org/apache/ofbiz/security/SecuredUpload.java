@@ -151,8 +151,8 @@ public class SecuredUpload {
     }
 
     public static boolean containsDeniedWebShellToken(List<String> contents, List<String> allowed, Pattern deniedWebShellTokens) {
-        return contents.stream().anyMatch(token -> deniedWebShellTokens.matcher(token.toLowerCase()).find()
-                && !isAllowed(token.toLowerCase(), allowed));
+        return contents.stream().anyMatch(content -> deniedWebShellTokens.matcher(content.toLowerCase()).find()
+                && !isAllowed(content.toLowerCase(), allowed));
     }
 
     public static boolean isValidFileName(String fileToCheck, Delegator delegator) throws IOException {
