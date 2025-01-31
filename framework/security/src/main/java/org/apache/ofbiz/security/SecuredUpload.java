@@ -857,20 +857,14 @@ public class SecuredUpload {
     }
 
     private static boolean isAllowed(String content, List<String> allowed) {
-        List<String> allowedContents;
+        List<String> allowedContents = new ArrayList<>(ALLOWEDWEBSHELLTOKENS);
         if (allowed != null) {
-            allowedContents = new ArrayList<>(allowed);
-            allowedContents.addAll(ALLOWEDWEBSHELLTOKENS);
-        } else {
-            allowedContents = ALLOWEDWEBSHELLTOKENS;
-        }
-        if (UtilValidate.isEmpty(allowedContents)) {
-            return false;
+            allowedContents.addAll(allowed);
         }
         for (String allowContent : allowedContents) {
-            if ((allowContent.startsWith("$SHA")
-                    && allowContent.equals(HashCrypt.cryptBytes("SHA", "OFBiz", content.toLowerCase().getBytes(StandardCharsets.UTF_8))))
-                    || content.trim().toLowerCase().contains(allowContent)) {
+            boolean allowedHashedTokenIdentified = allowContent.startsWith("$SHA")
+                    && allowContent.equals(HashCrypt.cryptBytes("SHA", "OFBiz", content.toLowerCase().getBytes(StandardCharsets.UTF_8)));
+            if (allowedHashedTokenIdentified || content.trim().toLowerCase().contains(allowContent)) {
                 return true;
             }
         }
