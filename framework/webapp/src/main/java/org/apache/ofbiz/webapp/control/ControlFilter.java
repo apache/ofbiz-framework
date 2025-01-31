@@ -90,8 +90,6 @@ public class ControlFilter extends HttpFilter {
     private int errorCode;
     /** The list of all path prefixes that are allowed. */
     private Set<String> allowedPaths;
-    private static final List<String> ALLOWEDTOKENS = getAllowedTokens();
-
 
     @Override
     public void init(FilterConfig conf) throws ServletException {
@@ -151,11 +149,6 @@ public class ControlFilter extends HttpFilter {
         resp.sendRedirect(redirectPathIsUrl ? redirectPath : (contextPath + redirectPath));
     }
 
-    private static List<String> getAllowedTokens() {
-        String allowedTokens = UtilProperties.getPropertyValue("security", "allowedTokens");
-        return UtilValidate.isNotEmpty(allowedTokens) ? StringUtil.split(allowedTokens, ",") : new ArrayList<>();
-    }
-
     /**
      * Makes allowed paths pass through while redirecting the others to a fix location.
      * Reject wrong URLs
@@ -202,8 +195,8 @@ public class ControlFilter extends HttpFilter {
             if (queryString != null) {
                 queryString = URLDecoder.decode(queryString, "UTF-8");
                 if (UtilValidate.isUrl(queryString)
-                        || !SecuredUpload.isValidQuery(queryString,
-                        StringUtil.split(req.getServletContext().getInitParameter("allowedQueryTokens"), ","))
+                        //TODO : Solr dependency in framework, how to avoid, through webapp def ?
+                        || !SecuredUpload.isValidQuery(queryString, List.of())
                                 && isSolrTest()) {
                     Debug.logError("For security reason this URL is not accepted", MODULE);
                     throw new RuntimeException("For security reason this URL is not accepted");

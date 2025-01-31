@@ -907,7 +907,7 @@ public class SecuredUpload {
                 .collect(Collectors.joining("|")));
     }
 
-    private static List<String> getAllowedTokens() {
+    public static List<String> getAllowedTokens() {
         return ALLOWEDWEBSHELLTOKENS;
     }
 
