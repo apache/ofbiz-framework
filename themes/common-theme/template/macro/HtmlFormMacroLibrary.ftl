@@ -616,6 +616,138 @@ under the License.
   </#if>
 </#macro>
 
+<#macro renderDateRangePicker className alert id name value formName event action locale
+        alwaysShowCalendars applyButtonClasses applyLabel autoApply buttonClasses cancelButtonClasses cancelLabel clearTitle
+        drops linkedCalendars maxSpan maxYear minYear opens rangeLastMonthLabel rangeLastWeekLabel rangeNextMonthLabel
+        rangeNextWeekLabel rangeThisMonthLabel rangeThisWeekLabel showDropdowns showIsoWeekNumbers showRanges showWeekNumbers
+        singleDatePicker timePicker timePicker24Hour timePickerIncrement timePickerSeconds
+        conditionGroup="" value2="" titleStyle="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
+  <span class="view-calendar drp <#if timePicker>time<#else>no-time</#if> <#if singleDatePicker>single<#else>range</#if> <#if timePickerSeconds>seconds<#else>no-seconds</#if>">
+    <#if !singleDatePicker>
+      <input id="${id}_fld0_op" type="hidden" value="greaterThan" <#if name?has_content> name="${name}_fld0_op"</#if>/>
+      <input id="${id}_fld0_value" type="hidden"
+        <#if name?has_content> name="${name?html}_fld0_value"</#if>
+        <#if value?has_content> value="${value}"</#if>
+        <#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
+      <input id="${id}_fld1_op" type="hidden" value="opLessThan" <#if name?has_content> name="${name}_fld1_op"</#if>/>
+      <input id="${id}_fld1_value" type="hidden"
+        <#if name?has_content> name="${name?html}_fld1_value"</#if>
+        <#if value2?has_content> value="${value2}"</#if>
+        <#if event?has_content && action?has_content> ${event}="${action}"</#if>/>
+      <input id="${id}" type="text" value="" <@renderClass className alert/><#if tabindex?has_content> tabindex="${tabindex}"</#if>/><#rt/>
+    <#else>
+      <input type="text" name="${name}_i18n" <@renderClass className alert /><#rt/>
+        <#if tabindex?has_content> tabindex="${tabindex}"</#if>
+        <#if title?has_content> title="${title}"</#if>
+        <#if value?has_content> value="${value}"</#if>
+        <#if id?has_content> id="${id}_i18n"</#if>/><#rt/>
+      <input type="hidden" name="${name}" <@renderClass className alert /><#rt/>
+        <#if event?has_content && action?has_content> ${event}="${action}"</#if>
+        <#if tabindex?has_content> tabindex="${tabindex}"</#if>
+        <#if value?has_content> value="${value}"</#if>
+        <#if id?has_content> id="${id}"</#if>/><#rt/>
+    </#if>
+    <button id="${id}_clear" class="clear-calendar" title="${clearTitle}">❌</button>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        moment.locale('${locale}');
+        // didn't find how to get rid of freemarker escaping ":"...
+        const u = (i) => i.replaceAll('&#x3a;', ':');
+        const timePicker = ${timePicker?c};
+        const timePickerSeconds = ${timePickerSeconds?c};
+        const singleDatePicker = ${singleDatePicker?c};
+        const outputFormat = 'YYYY-MM-DD' + ((timePicker || !singleDatePicker) ? ' HH:mm:ss' : '');
+        let displayFormat = 'DD/MM/YYYY' + (timePicker ? ' HH:mm' : '') + (timePicker && timePickerSeconds ? ':ss' : '');
+        const start = u('${value}');
+        const end = u('${value2}');
+        const visibleInput = singleDatePicker ? $('input[name="${name}_i18n"]') : $('#${id}');
+        const hiddenInputs = singleDatePicker ? $('[name="${name}"]') : $('#${id}_fld0_value, #${id}_fld1_value');
+
+        visibleInput.daterangepicker({
+          alwaysShowCalendars: ${alwaysShowCalendars?c},
+          <#if applyButtonClasses?has_content>applyButtonClasses: '${applyButtonClasses}',</#if>
+          autoUpdateInput: false,
+          autoApply: ${autoApply?c},
+          <#if buttonClasses?has_content>buttonClasses: '${buttonClasses}',</#if>
+          <#if cancelButtonClasses?has_content>cancelButtonClasses: '${cancelButtonClasses}',</#if>
+          <#if drops?has_content>drops: '${drops}',</#if>
+          endDate: end ? moment(end) : undefined,
+          linkedCalendars: ${linkedCalendars?c},
+          locale: {
+            <#if applyLabel?has_content>applyLabel: '${applyLabel}',</#if>
+            <#if cancelLabel?has_content>cancelLabel: '${cancelLabel}',</#if>
+            weekLabel: 'S'
+          },
+          <#if maxSpan?has_content>maxSpan: { days: ${maxSpan} },</#if>
+          <#if maxYear?has_content>maxYear: ${maxYear},</#if>
+          <#if minYear?has_content>minYear: ${minYear},</#if>
+          <#if opens?has_content>opens: '${opens}',</#if>
+          <#if showRanges && !singleDatePicker>
+            ranges: {
+              '${rangeThisWeekLabel}': [moment().startOf('week'), moment().endOf('week')],
+              '${rangeLastWeekLabel}': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+              '${rangeNextWeekLabel}': [moment().add(1, 'week').startOf('week'), moment().add(1, 'week').endOf('week')],
+              '${rangeThisMonthLabel}': [moment().startOf('month'), moment().endOf('month')],
+              '${rangeLastMonthLabel}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+              '${rangeNextMonthLabel}': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')],
+            },
+          </#if>
+          showCustomRangeLabel: false,
+          showDropdowns: ${showDropdowns?c},
+          showIsoWeekNumbers: ${showIsoWeekNumbers?c},
+          showWeekNumbers: ${showWeekNumbers?c},
+          singleDatePicker: ${singleDatePicker?c},
+          startDate: start ? moment(start) : undefined,
+          timePicker,
+          timePicker24Hour: ${timePicker24Hour?c},
+          <#if timePickerIncrement?has_content>timePickerIncrement: ${timePickerIncrement},</#if>
+          timePickerSeconds
+        });
+
+        updateInputs(moment(start), moment(end));
+        visibleInput.on('apply.daterangepicker', function (ev, picker) { updateInputs(picker.startDate, picker.endDate) });
+        $('#${id}_clear').on('click', function (e) {
+          e.preventDefault();
+          visibleInput.val('')
+          hiddenInputs.val('');
+        });
+
+        visibleInput.on('paste', function (e) {
+          e.preventDefault();
+          const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+          updateInputs(moment(text, displayFormat));
+        });
+
+        visibleInput.on('input', function (e) {
+          const text = e.target.value;
+          if (text.length === 10) {
+            updateInputs(moment(text, displayFormat));
+          }
+        });
+
+        function updateInputs(start, end) {
+          if (start.isValid()) {
+            if (singleDatePicker) {
+              visibleInput.val(start.format(displayFormat));
+              hiddenInputs.val(start.format(outputFormat)).trigger('change');
+            } else {
+              if (end.isValid()) {
+                visibleInput.val(start.format(displayFormat) + ' ➜ ' + end.format(displayFormat)).trigger('change');
+                $('#${id}_fld0_value').val(start.format(outputFormat)).trigger('change');
+                $('#${id}_fld1_value').val(end.format(outputFormat)).trigger('change');
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </span>
+</#macro>
+
+
 <#--
 @renderLookupField
 

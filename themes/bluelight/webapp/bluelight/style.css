@@ -908,24 +908,31 @@ in contained elements. */
 .align-bottom {
     vertical-align: bottom;;
 }
+
 .align-center {
     text-align: center;
 }
+
 .align-justify {
     text-align: justify;
 }
+
 .align-left {
     text-align: left;
 }
+
 .align-middle {
     vertical-align: bottom;;
 }
+
 .align-right {
     text-align: right;
 }
+
 .align-text {
     text-align: right;
 }
+
 .align-top {
     vertical-align: top;
 }
@@ -1314,7 +1321,7 @@ ul#preferences-menu li a.help-link {
 }
 
 .screenlet-title-bar ul .collapsed,
-.screenlet-title-bar ul .expanded{
+.screenlet-title-bar ul .expanded {
     /* IE fix */
     cursor: default;
 }
@@ -2072,7 +2079,6 @@ Webtools
     position: absolute;
 }
 
-}
 .wait-spinner div {
     padding-top: 4px;
 }
@@ -2655,9 +2661,8 @@ button.ui-button::-moz-focus-inner {
 .ui-dialog {
     position: absolute;
     top: 50%;
-    left:50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    padding;
     padding: .2em;
     width: 300px;
     overflow: hidden;
@@ -3921,15 +3926,44 @@ body .ui-tooltip {
 }
 
 /* Calendar Button and Image */
-.view-calendar button {
-    background: url(/bluelight/images/cal.gif) no-repeat !important;
-    display: inline-block;
-    border: none;
-    vertical-align: center;
-    margin-top: 3px;
-    margin-left: 6px;
-    width: 22px;
-    height: 22px;
+.view-calendar {
+    button.ui-datepicker-trigger {
+        background: url(/bluelight/images/cal.gif) no-repeat !important;
+        display: inline-block;
+        border: none;
+        vertical-align: center;
+        margin-top: 3px;
+        margin-left: 6px;
+        width: 22px;
+        height: 22px;
+    }
+
+    &.drp {
+        &.single.no-time input[type="text"] {
+            width: 60px;
+        }
+        &.single.time.no-seconds input[type="text"] {
+            width: 90px;
+        }
+        &.single.time.seconds input[type="text"] {
+            width: 110px;
+        }
+        &.range.no-time input[type="text"] {
+            width: 130px;
+        }
+        &.range.time.no-seconds input[type="text"] {
+            width: 200px;
+        }
+        &.range.time.seconds input[type="text"] {
+            width: 230px;
+        }
+
+        button.clear-calendar {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }
 
 /* css for timepicker */
@@ -4089,13 +4123,14 @@ html > /**/ body .jstree-default a {
 }
 
 /*The Custom css for SELECT 2*/
-.select2-container--default .select2-selection--multiple{
+.select2-container--default .select2-selection--multiple {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
     border-color: #848484 #c1c1c1 #e1e1e1;
     min-height: unset !important;
 }
+
 /* The custom CSS to show mouse pointer on links using featherlight plugin  */
 a[data-featherlight] {
     cursor: pointer;

@@ -1381,6 +1381,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     @Override
+    public void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField dateRangePickerField) {
+        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField));
+
+        final ModelFormField modelFormField = dateRangePickerField.getModelFormField();
+        this.appendTooltip(writer, context, modelFormField);
+    }
+
+    @Override
     public void renderLookupField(Appendable writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
         String lookupFieldFormName = lookupField.getFormName(context);

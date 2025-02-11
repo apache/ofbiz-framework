@@ -98,6 +98,14 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
     }
 
     @Override
+    public void visit(ModelFormField.DateRangePickerField dateRangePickerField) throws Exception {
+        visitModelField(dateRangePickerField.getModelFormField());
+        writer.append("<date-range-picker");
+        visitDateRangePickerFieldAttrs(dateRangePickerField);
+        writer.append("/></field>");
+    }
+
+    @Override
     public void visit(DisplayEntityField displayField) throws Exception {
         visitModelField(displayField.getModelFormField());
         writer.append("<display-entity");
@@ -372,6 +380,32 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("isTwelveHour", field.isTwelveHour());
         visitAttribute("mask", field.useMask() ? "Y" : "N");
         visitAttribute("step", field.getStep());
+    }
+
+    private void visitDateRangePickerFieldAttrs(ModelFormField.DateRangePickerField field) throws Exception {
+        visitAttribute("always-show-calendars", field.getAlwaysShowCalendars());
+        visitAttribute("apply-button-classes", field.getApplyButtonClasses());
+        visitAttribute("apply-label", field.getApplyLabel());
+        visitAttribute("auto-apply", field.getAutoApply());
+        visitAttribute("button-classes", field.getButtonClasses());
+        visitAttribute("cancel-button-classes", field.getCancelButtonClasses());
+        visitAttribute("cancel-label", field.getCancelLabel());
+        visitAttribute("clear-title", field.getClearTitle());
+        visitAttribute("default-value", field.getDefaultValue());
+        visitAttribute("drops", field.getDrops());
+        visitAttribute("linked-calendars", field.getLinkedCalendars());
+        visitAttribute("max-year", field.getMaxYear());
+        visitAttribute("min-year", field.getMinYear());
+        visitAttribute("opens", field.getOpens());
+        visitAttribute("show-dropdowns", field.getShowDropdowns());
+        visitAttribute("show-iso-week-numbers", field.getShowIsoWeekNumbers());
+        visitAttribute("show-ranges", field.getShowRanges());
+        visitAttribute("show-week-numbers", field.getShowWeekNumbers());
+        visitAttribute("single-date-picker", field.getSingleDatePicker());
+        visitAttribute("time-picker", field.getTimePicker());
+        visitAttribute("time-picker-24-hour", field.getTimePicker24Hour());
+        visitAttribute("time-picker-increment", field.getTimePickerIncrement());
+        visitAttribute("time-picker-seconds", field.getTimePickerSeconds());
     }
 
     private void visitFieldInfoWithOptions(FieldInfoWithOptions fieldInfo) throws Exception {

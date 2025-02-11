@@ -257,6 +257,21 @@ public class MacroFormRendererTest {
     }
 
     @Test
+    public void dateRangePickerFieldMacroRendered(@Mocked ModelFormField.DateRangePickerField dateRangePickerField) throws IOException {
+        new Expectations() {
+            {
+                renderableFtlFormElementsBuilder.dateRangePicker(withNotNull(), dateRangePickerField);
+                result = genericMacroCall;
+            }
+        };
+
+        genericTooltipRenderedExpectation(dateRangePickerField);
+        macroFormRenderer.renderDateRangePickerField(appendable, ImmutableMap.of(), dateRangePickerField);
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
+    }
+
+    @Test
     public void checkFieldMacroRendered(@Mocked ModelFormField.CheckField checkField) throws IOException {
         final List<ModelFormField.OptionValue> optionValues = ImmutableList.of(
                 new ModelFormField.OptionValue("KEY1", "DESC1"),

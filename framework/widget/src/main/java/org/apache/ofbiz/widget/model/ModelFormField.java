@@ -1446,6 +1446,481 @@ public final class ModelFormField {
     }
 
     /**
+     * Models the &lt;date-range-picker&gt; element.
+     *
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class DateRangePickerField extends FieldInfo {
+        private final Boolean alwaysShowCalendars;
+        private final FlexibleStringExpander applyButtonClasses;
+        private final FlexibleStringExpander applyLabel;
+        private final Boolean autoApply;
+        private final FlexibleStringExpander buttonClasses;
+        private final FlexibleStringExpander cancelButtonClasses;
+        private final FlexibleStringExpander cancelLabel;
+        private final FlexibleStringExpander clearTitle;
+        private final FlexibleStringExpander defaultValue;
+        private final String drops;
+        private final Boolean linkedCalendars;
+        private final Integer maxSpan;
+        private final Integer maxYear;
+        private final Integer minYear;
+        private final String opens;
+        private final Boolean showDropdowns;
+        private final Boolean showIsoWeekNumbers;
+        private final Boolean showRanges;
+        private final Boolean showWeekNumbers;
+        private final Boolean singleDatePicker;
+        private final Boolean timePicker;
+        private final Integer timePickerIncrement;
+        private final Boolean timePicker24Hour;
+        private final Boolean timePickerSeconds;
+
+        /**
+         * Gets alwaysShowCalendars
+         * @return alwaysShowCalendars
+         */
+        public Boolean getAlwaysShowCalendars() {
+            return alwaysShowCalendars;
+        }
+
+        /**
+         * Gets applyButtonClasses
+         * @return applyButtonClasses
+         */
+        public FlexibleStringExpander getApplyButtonClasses() {
+            return applyButtonClasses;
+        }
+
+        /**
+         * Gets applyButtonClasses
+         * @return applyButtonClasses
+         */
+        public String getApplyButtonClasses(Map<String, Object> context) {
+            if (this.applyButtonClasses != null) {
+                return this.applyButtonClasses.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets applyLabel
+         * @return applyLabel
+         */
+        public FlexibleStringExpander getApplyLabel() {
+            return applyLabel;
+        }
+
+        /**
+         * Gets applyLabel
+         * @return applyLabel
+         */
+        public String getApplyLabel(Map<String, Object> context) {
+            if (this.applyLabel != null) {
+                return this.applyLabel.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets autoApply
+         * @return autoApply
+         */
+        public Boolean getAutoApply() {
+            return autoApply;
+        }
+
+        /**
+         * Gets buttonClasses
+         * @return buttonClasses
+         */
+        public FlexibleStringExpander getButtonClasses() {
+            return buttonClasses;
+        }
+
+        /**
+         * Gets buttonClasses
+         * @return String buttonClasses
+         */
+        public String getButtonClasses(Map<String, Object> context) {
+            if (this.buttonClasses != null) {
+                return this.buttonClasses.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets cancelButtonClasses
+         * @return cancelButtonClasses
+         */
+        public FlexibleStringExpander getCancelButtonClasses() {
+            return cancelButtonClasses;
+        }
+
+        /**
+         * Gets cancelButtonClasses
+         * @return cancelButtonClasses
+         */
+        public String getCancelButtonClasses(Map<String, Object> context) {
+            if (this.cancelButtonClasses != null) {
+                return this.cancelButtonClasses.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets cancelLabel
+         * @return cancelLabel
+         */
+        public FlexibleStringExpander getCancelLabel() {
+            return cancelLabel;
+        }
+
+        /**
+         * Gets cancelLabel
+         * @return cancelLabel
+         */
+        public String getCancelLabel(Map<String, Object> context) {
+            if (this.cancelLabel != null) {
+                return this.cancelLabel.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets clearTitle
+         * @return clearTitle
+         */
+        public FlexibleStringExpander getClearTitle() {
+            return clearTitle;
+        }
+
+        /**
+         * Gets clearTitle
+         * @return clearTitle
+         */
+        public String getClearTitle(Map<String, Object> context) {
+            if (this.clearTitle != null) {
+                return this.clearTitle.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets defaultValue
+         * @return defaultValue
+         */
+        public FlexibleStringExpander getDefaultValue() {
+            return defaultValue;
+        }
+
+        /**
+         * Gets defaultValue
+         * @return defaultValue
+         */
+        public String getDefaultValue(Map<String, Object> context) {
+            if (this.defaultValue != null) {
+                return this.defaultValue.expandString(context);
+            }
+            return "";
+        }
+
+        /**
+         * Gets drops
+         * @return drops
+         */
+        public String getDrops() {
+            return drops;
+        }
+
+        /**
+         * Gets linkedCalendars
+         * @return linkedCalendars
+         */
+        public Boolean getLinkedCalendars() {
+            return linkedCalendars;
+        }
+
+        /**
+         * Gets maxSpan
+         * @return maxSpan
+         */
+        public Integer getMaxSpan() {
+            return maxSpan;
+        }
+
+        /**
+         * Gets maxYear
+         * @return maxYear
+         */
+        public Integer getMaxYear() {
+            return maxYear;
+        }
+
+        /**
+         * Gets minYear
+         * @return minYear
+         */
+        public Integer getMinYear() {
+            return minYear;
+        }
+
+        /**
+         * Gets opens
+         * @return opens
+         */
+        public String getOpens() {
+            return opens;
+        }
+
+        /**
+         * Gets showDropdowns
+         * @return showDropdowns
+         */
+        public Boolean getShowDropdowns() {
+            return showDropdowns;
+        }
+
+        /**
+         * Gets showRanges
+         * @return showRanges
+         */
+        public Boolean getShowRanges() {
+            return showRanges;
+        }
+
+        /**
+         * Gets showWeekNumbers
+         * @return showWeekNumbers
+         */
+        public Boolean getShowWeekNumbers() {
+            return showWeekNumbers;
+        }
+
+        /**
+         * Gets showIsoWeekNumbers
+         * @return showIsoWeekNumbers
+         */
+        public Boolean getShowIsoWeekNumbers() {
+            return showIsoWeekNumbers;
+        }
+
+        /**
+         * Gets singleDatePicker
+         * @return singleDatePicker
+         */
+        public Boolean getSingleDatePicker() {
+            return singleDatePicker;
+        }
+
+        /**
+         * Gets timePicker
+         * @return timePicker
+         */
+        public Boolean getTimePicker() {
+            return timePicker;
+        }
+
+        /**
+         * Gets timePicker24Hour
+         * @return timePicker24Hour
+         */
+        public Boolean getTimePicker24Hour() {
+            return timePicker24Hour;
+        }
+
+        /**
+         * Gets timePickerIncrement
+         * @return timePickerIncrement
+         */
+        public Integer getTimePickerIncrement() {
+            return timePickerIncrement;
+        }
+
+        /**
+         * Gets timePickerSeconds
+         * @return timePickerSeconds
+         */
+        public Boolean getTimePickerSeconds() {
+            return timePickerSeconds;
+        }
+
+        protected DateRangePickerField(DateRangePickerField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.alwaysShowCalendars = original.alwaysShowCalendars;
+            this.applyButtonClasses = original.applyButtonClasses;
+            this.applyLabel = original.applyLabel;
+            this.autoApply = original.autoApply;
+            this.buttonClasses = original.buttonClasses;
+            this.cancelButtonClasses = original.cancelButtonClasses;
+            this.cancelLabel = original.cancelLabel;
+            this.clearTitle = original.clearTitle;
+            this.defaultValue = original.defaultValue;
+            this.drops = original.drops;
+            this.linkedCalendars = original.linkedCalendars;
+            this.maxSpan = original.maxSpan;
+            this.maxYear = original.maxYear;
+            this.minYear = original.minYear;
+            this.opens = original.opens;
+            this.showDropdowns = original.showDropdowns;
+            this.showIsoWeekNumbers = original.showIsoWeekNumbers;
+            this.showRanges = original.showRanges;
+            this.showWeekNumbers = original.showWeekNumbers;
+            this.singleDatePicker = original.singleDatePicker;
+            this.timePicker = original.timePicker;
+            this.timePicker24Hour = original.timePicker24Hour;
+            this.timePickerIncrement = original.timePickerIncrement;
+            this.timePickerSeconds = original.timePickerSeconds;
+        }
+
+        public DateRangePickerField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.alwaysShowCalendars = !"false".equals(element.getAttribute("always-show-calendars"));
+            this.applyButtonClasses = FlexibleStringExpander.getInstance(element.getAttribute("apply-button-classes"));
+            this.applyLabel = FlexibleStringExpander.getInstance(element.getAttribute("apply-label"));
+            this.autoApply = !"false".equals(element.getAttribute("auto-apply"));
+            this.buttonClasses = FlexibleStringExpander.getInstance(element.getAttribute("button-classes"));
+            this.cancelButtonClasses = FlexibleStringExpander.getInstance(element.getAttribute("cancel-button-classes"));
+            this.cancelLabel = FlexibleStringExpander.getInstance(element.getAttribute("cancel-label"));
+            this.clearTitle = FlexibleStringExpander.getInstance(element.getAttribute("clear-title"));
+            this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+            this.drops = element.getAttribute("drops");
+            this.linkedCalendars = !"false".equals(element.getAttribute("linked-calendars"));
+
+            Integer maxSpan = null;
+            String maxSpanStr = element.getAttribute("max-span");
+            if (!maxSpanStr.isEmpty()) {
+                try {
+                    maxSpan = Integer.valueOf(maxSpanStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the max-span value of the text element: [" + maxSpanStr
+                            + "], setting to null; default of no maxYear will be used", MODULE);
+                }
+            }
+            this.maxSpan = maxSpan;
+
+            Integer maxYear = null;
+            String maxYearStr = element.getAttribute("max-year");
+            if (!maxYearStr.isEmpty()) {
+                try {
+                    maxYear = Integer.valueOf(maxYearStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the max-year value of the text element: [" + maxYearStr
+                            + "], setting to null; default of no maxYear will be used", MODULE);
+                }
+            }
+            this.maxYear = maxYear;
+
+            Integer minYear = null;
+            String minYearStr = element.getAttribute("min-year");
+            if (!minYearStr.isEmpty()) {
+                try {
+                    minYear = Integer.valueOf(minYearStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the min-year value of the text element: [" + minYearStr
+                            + "], setting to null; default of no minYear will be used", MODULE);
+                }
+            }
+            this.minYear = minYear;
+
+            this.opens = element.getAttribute("opens");
+            this.showDropdowns = !"false".equals(element.getAttribute("show-dropdowns"));
+            this.showIsoWeekNumbers = !"false".equals(element.getAttribute("show-iso-week-numbers"));
+            this.showRanges = !"false".equals(element.getAttribute("show-ranges"));
+            this.showWeekNumbers = !"false".equals(element.getAttribute("show-week-numbers"));
+            this.singleDatePicker = !"false".equals(element.getAttribute("single-date-picker"));
+            this.timePicker = !"false".equals(element.getAttribute("time-picker"));
+            this.timePicker24Hour = !"false".equals(element.getAttribute("time-picker-24-hour"));
+
+            Integer timePickerIncrement = null;
+            String timePickerIncrementStr = element.getAttribute("time-picker-increment");
+            if (!timePickerIncrementStr.isEmpty()) {
+                try {
+                    timePickerIncrement = Integer.valueOf(timePickerIncrementStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the time-picker-increment value of the text element: [" + timePickerIncrementStr
+                            + "], setting to null; default of no timePickerIncrement will be used", MODULE);
+                }
+            }
+            this.timePickerIncrement = timePickerIncrement;
+
+            this.timePickerSeconds = !"false".equals(element.getAttribute("time-picker-seconds"));
+        }
+
+        public DateRangePickerField(int fieldSource, Boolean timePicker) {
+            super(fieldSource, FieldInfo.DATE_RANGE_PICKER, null);
+            this.alwaysShowCalendars = true;
+            this.applyButtonClasses = FlexibleStringExpander.getInstance("");
+            this.applyLabel = FlexibleStringExpander.getInstance("");
+            this.autoApply = true;
+            this.buttonClasses = FlexibleStringExpander.getInstance("");
+            this.cancelButtonClasses = FlexibleStringExpander.getInstance("");
+            this.cancelLabel = FlexibleStringExpander.getInstance("");
+            this.clearTitle = FlexibleStringExpander.getInstance("");
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.drops = "down";
+            this.linkedCalendars = true;
+            this.maxSpan = null;
+            this.maxYear = null;
+            this.minYear = null;
+            this.opens = "center";
+            this.showDropdowns = true;
+            this.showIsoWeekNumbers = false;
+            this.showRanges = true;
+            this.showWeekNumbers = false;
+            this.singleDatePicker = false;
+            this.timePicker = timePicker;
+            this.timePicker24Hour = true;
+            this.timePickerIncrement = null;
+            this.timePickerSeconds = false;
+        }
+
+        public DateRangePickerField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DATE_RANGE_PICKER, modelFormField);
+            this.alwaysShowCalendars = true;
+            this.applyButtonClasses = FlexibleStringExpander.getInstance("");
+            this.applyLabel = FlexibleStringExpander.getInstance("");
+            this.autoApply = true;
+            this.buttonClasses = FlexibleStringExpander.getInstance("");
+            this.cancelButtonClasses = FlexibleStringExpander.getInstance("");
+            this.cancelLabel = FlexibleStringExpander.getInstance("");
+            this.clearTitle = FlexibleStringExpander.getInstance("");
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.drops = "down";
+            this.linkedCalendars = true;
+            this.maxSpan = null;
+            this.maxYear = null;
+            this.minYear = null;
+            this.opens = "center";
+            this.showDropdowns = true;
+            this.showIsoWeekNumbers = false;
+            this.showRanges = true;
+            this.showWeekNumbers = false;
+            this.singleDatePicker = false;
+            this.timePicker = false;
+            this.timePicker24Hour = true;
+            this.timePickerIncrement = null;
+            this.timePickerSeconds = false;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new DateRangePickerField(this, modelFormField);
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderDateRangePickerField(writer, context, this);
+        }
+    }
+
+    /**
      * Models the &lt;display-entity&gt; element.
      * @see <code>widget-form.xsd</code>
      */

@@ -42,6 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -484,5 +485,65 @@ public class RenderableFtlFormElementsBuilderTest {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
         assertThat(renderableFtl, MacroCallMatcher.hasName("renderFieldGroupClose"));
         assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("style", "GROUPSTYLE")));
+    }
+
+    @Test
+    public void dateRangePickerField(@Mocked final ModelFormField.DateRangePickerField dateRangePickerField) {
+        new Expectations() {
+            {
+                dateRangePickerField.getAlwaysShowCalendars(); result = true;
+                dateRangePickerField.getApplyButtonClasses(withNotNull()); result = "abc";
+                dateRangePickerField.getApplyLabel(withNotNull()); result = "al";
+                dateRangePickerField.getAutoApply(); result = false;
+                dateRangePickerField.getButtonClasses(withNotNull()); result = "bc";
+                dateRangePickerField.getCancelButtonClasses(withNotNull()); result = "cbc";
+                dateRangePickerField.getCancelLabel(withNotNull()); result = "cl";
+                dateRangePickerField.getClearTitle(withNotNull()); result = "ct";
+                dateRangePickerField.getDrops(); result = "down";
+                dateRangePickerField.getLinkedCalendars(); result = false;
+                dateRangePickerField.getMaxSpan(); result = 9;
+                dateRangePickerField.getMaxYear(); result = 2100;
+                dateRangePickerField.getMinYear(); result = 1900;
+                dateRangePickerField.getOpens(); result = "right";
+                dateRangePickerField.getShowDropdowns(); result = true;
+                dateRangePickerField.getShowIsoWeekNumbers(); result = true;
+                dateRangePickerField.getShowRanges(); result = true;
+                dateRangePickerField.getShowWeekNumbers(); result = true;
+                dateRangePickerField.getSingleDatePicker(); result = false;
+                dateRangePickerField.getTimePicker(); result = true;
+                dateRangePickerField.getTimePicker24Hour(); result = true;
+                dateRangePickerField.getTimePickerIncrement(); result = 5;
+                dateRangePickerField.getTimePickerSeconds(); result = true;
+            }
+        };
+
+        final Map<String, Object> context = new HashMap<>();
+        context.put("locale", new Locale("fr"));
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField);
+        assertThat(renderableFtl, MacroCallMatcher.hasName("renderDateRangePicker"));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("alwaysShowCalendars", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("applyButtonClasses", "abc")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("applyLabel", "al")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("autoApply", false)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("buttonClasses", "bc")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("cancelButtonClasses", "cbc")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("cancelLabel", "cl")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("clearTitle", "ct")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("drops", "down")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("linkedCalendars", false)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("maxSpan", "9")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("maxYear", "2100")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("minYear", "1900")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("opens", "right")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("showDropdowns", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("showIsoWeekNumbers", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("showRanges", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("showWeekNumbers", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("singleDatePicker", false)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("timePicker", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("timePicker24Hour", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndStringValue("timePickerIncrement", "5")));
+        assertThat(renderableFtl, MacroCallMatcher.hasParameters(MacroCallParameterMatcher.hasNameAndBooleanValue("timePickerSeconds", true)));
     }
 }

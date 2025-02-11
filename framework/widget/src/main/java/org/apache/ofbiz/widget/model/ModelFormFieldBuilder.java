@@ -44,6 +44,7 @@ import org.apache.ofbiz.widget.model.ModelFormField.CheckField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DateFindField;
 import org.apache.ofbiz.widget.model.ModelFormField.DateTimeField;
+import org.apache.ofbiz.widget.model.ModelFormField.DateRangePickerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayEntityField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.apache.ofbiz.widget.model.ModelFormField.DropDownField;
@@ -260,6 +261,8 @@ public class ModelFormFieldBuilder {
             this.fieldInfo = new DateFindField(childElement, null);
         } else if ("range-find".equals(this.fieldType)) {
             this.fieldInfo = new RangeFindField(childElement, null);
+        } else if ("date-range-picker".equals(this.fieldType)) {
+            this.fieldInfo = new DateRangePickerField(childElement, null);
         } else if ("lookup".equals(this.fieldType)) {
             this.fieldInfo = new LookupField(childElement, null);
         } else if ("include-menu".equals(this.fieldType)) {

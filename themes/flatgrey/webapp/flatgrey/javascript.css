@@ -624,7 +624,7 @@ button.ui-button::-moz-focus-inner {
 .ui-dialog {
     position: absolute;
     top: 50%;
-    left:50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     padding: .2em;
     width: 300px;
@@ -1887,15 +1887,43 @@ body .ui-tooltip {
 }
 
 /* Calendar Button and Image */
-.view-calendar button {
-    background: url(/images/cal.gif) no-repeat !important;
-    display: inline-block;
-    border: none;
-    vertical-align: middle;
-    /*wt;begin/end*/
-    margin: 2px 2px 2px 2px;
-    height: 18px;
-    width: 18px;
+.view-calendar {
+    button.ui-datepicker-trigger {
+        background: url(/images/cal.gif) no-repeat !important;
+        display: inline-block;
+        border: none;
+        vertical-align: middle;
+        margin: 2px 2px 2px 2px;
+        height: 18px;
+        width: 18px;
+    }
+
+    &.drp {
+        &.single.no-time input[type="text"] {
+            width: 80px;
+        }
+        &.single.time.no-seconds input[type="text"] {
+            width: 120px;
+        }
+        &.single.time.seconds input[type="text"] {
+            width: 140px;
+        }
+        &.range.no-time input[type="text"] {
+            width: 170px;
+        }
+        &.range.time.no-seconds input[type="text"] {
+            width: 240px;
+        }
+        &.range.time.seconds input[type="text"] {
+            width: 280px;
+        }
+
+        button.clear-calendar {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }
 
 /* css for timepicker */

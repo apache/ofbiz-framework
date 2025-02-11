@@ -983,6 +983,55 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+    <xs:element name="date-range-picker" substitutionGroup="AllFields">
+        <xs:annotation>
+            <xs:documentation>
+                A wrapper on top of https://www.daterangepicker.com/, see https://www.daterangepicker.com/#options for documentation.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="always-show-calendars" type="xs:boolean" default="true"/>
+            <xs:attribute name="apply-button-classes" type="xs:string"/>
+            <xs:attribute name="apply-label" type="xs:string"/>
+            <xs:attribute name="auto-apply" type="xs:boolean" default="true"/>
+            <xs:attribute name="button-classes" type="xs:string"/>
+            <xs:attribute name="cancel-button-classes" type="xs:string"/>
+            <xs:attribute name="cancel-label" type="xs:string"/>
+            <xs:attribute name="clear-title" type="xs:string"/>
+            <xs:attribute name="default-value" type="xs:string"/>
+            <xs:attribute name="drops" default="down">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="down"/>
+                        <xs:enumeration value="up"/>
+                        <xs:enumeration value="auto"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="linked-calendars" type="xs:boolean" default="true"/>
+            <xs:attribute name="max-span" type="xs:integer"/>
+            <xs:attribute name="max-year" type="xs:integer"/>
+            <xs:attribute name="min-year" type="xs:integer"/>
+            <xs:attribute name="opens" default="center">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                        <xs:enumeration value="center"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="show-dropdowns" type="xs:boolean" default="true"/>
+            <xs:attribute name="show-iso-week-numbers" type="xs:boolean" default="false"/>
+            <xs:attribute name="show-ranges" type="xs:boolean" default="true"/>
+            <xs:attribute name="show-week-numbers" type="xs:boolean" default="false"/>
+            <xs:attribute name="single-date-picker" type="xs:boolean"/>
+            <xs:attribute name="time-picker" type="xs:boolean" default="false"/>
+            <xs:attribute name="time-picker-24-hour" type="xs:boolean" default="true"/>
+            <xs:attribute name="time-picker-increment" type="xs:integer"/>
+            <xs:attribute name="time-picker-seconds" type="xs:boolean" default="false"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="display" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:sequence>

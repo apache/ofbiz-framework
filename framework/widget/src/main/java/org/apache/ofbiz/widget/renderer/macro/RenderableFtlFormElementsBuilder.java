@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -644,6 +645,109 @@ public final class RenderableFtlFormElementsBuilder {
 
         macroCallBuilder.stringParameter("value",
                         modelFormField.getEntry(context, dateFindField.getDefaultValue(context)))
+                .stringParameter("value2", modelFormField.getEntry(context));
+
+        if (context.containsKey("parameters")) {
+            final Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+            if (parameters.containsKey(name + "_fld0_value")) {
+                macroCallBuilder.stringParameter("value", (String) parameters.get(name + "_fld0_value"));
+            }
+            if (parameters.containsKey(name + "_fld1_value")) {
+                macroCallBuilder.stringParameter("value2", (String) parameters.get(name + "_fld1_value"));
+            }
+        }
+
+        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
+            macroCallBuilder.stringParameter("titleStyle", modelFormField.getTitleStyle());
+        }
+
+        return macroCallBuilder.build();
+    }
+
+    public RenderableFtl dateRangePicker(final Map<String, Object> context, final ModelFormField.DateRangePickerField dateRangePickerField) {
+        final ModelFormField modelFormField = dateRangePickerField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
+        final String name = modelFormField.getParameterName(context);
+        final Locale locale = (Locale) context.get("locale");
+        String className = UtilFormatOut.checkNull(dateRangePickerField.getModelFormField().getWidgetStyle());
+
+        String event = "";
+        String action = "";
+        if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
+            event = modelFormField.getEvent();
+            action = modelFormField.getAction(context);
+        }
+
+        final Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", MODULE);
+        }
+
+        final Function<String, String> getOpLabel = (label) -> UtilProperties.getMessage("conditionalUiLabels", label, locale);
+
+        String applyLabel = Optional.ofNullable(dateRangePickerField.getApplyLabel(context))
+                .filter(s -> !s.isEmpty())
+                .orElse(UtilProperties.getMessage("CommonUiLabels", "CommonApply", locale));
+        String cancelLabel = Optional.ofNullable(dateRangePickerField.getCancelLabel(context))
+                .filter(s -> !s.isEmpty())
+                .orElse(UtilProperties.getMessage("CommonUiLabels", "CommonCancel", locale));
+        String clearTitle = Optional.ofNullable(dateRangePickerField.getClearTitle(context))
+                .filter(s -> !s.isEmpty())
+                .orElse(UtilProperties.getMessage("CommonUiLabels", "CommonClear", locale));
+
+        final RenderableFtlMacroCallBuilder macroCallBuilder = RenderableFtlMacroCall.builder()
+                .name("renderDateRangePicker")
+                .stringParameter("name", name)
+                .stringParameter("id", modelFormField.getCurrentContainerId(context))
+                .stringParameter("className", className)
+                .stringParameter("formName", FormRenderer.getCurrentFormName(modelForm, context))
+                .stringParameter("event", event)
+                .stringParameter("action", action)
+                .stringParameter("locale", locale.toString())
+                .stringParameter("conditionGroup", modelFormField.getConditionGroup())
+                .stringParameter("tabindex", modelFormField.getTabindex())
+
+                .booleanParameter("alwaysShowCalendars", dateRangePickerField.getAlwaysShowCalendars())
+                .stringParameter("applyButtonClasses", dateRangePickerField.getApplyButtonClasses(context))
+                .stringParameter("applyLabel", applyLabel)
+                .booleanParameter("autoApply", dateRangePickerField.getAutoApply())
+                .stringParameter("buttonClasses", dateRangePickerField.getButtonClasses(context))
+                .stringParameter("cancelButtonClasses", dateRangePickerField.getCancelButtonClasses(context))
+                .stringParameter("cancelLabel", cancelLabel)
+                .stringParameter("clearTitle", clearTitle)
+                .stringParameter("drops", dateRangePickerField.getDrops())
+                .booleanParameter("linkedCalendars", dateRangePickerField.getLinkedCalendars())
+                .stringParameter("maxSpan", Optional.ofNullable(dateRangePickerField.getMaxSpan()).map(Objects::toString).orElse(""))
+                .stringParameter("maxYear", Optional.ofNullable(dateRangePickerField.getMaxYear()).map(Objects::toString).orElse(""))
+                .stringParameter("minYear", Optional.ofNullable(dateRangePickerField.getMinYear()).map(Objects::toString).orElse(""))
+                .stringParameter("opens", dateRangePickerField.getOpens())
+                .stringParameter("rangeThisWeekLabel", getOpLabel.apply("this_week"))
+                .stringParameter("rangeLastWeekLabel", getOpLabel.apply("last_week"))
+                .stringParameter("rangeNextWeekLabel", getOpLabel.apply("next_week"))
+                .stringParameter("rangeThisMonthLabel", getOpLabel.apply("this_month"))
+                .stringParameter("rangeLastMonthLabel", getOpLabel.apply("last_month"))
+                .stringParameter("rangeNextMonthLabel", getOpLabel.apply("next_month"))
+                .booleanParameter("showDropdowns", dateRangePickerField.getShowDropdowns())
+                .booleanParameter("showIsoWeekNumbers", dateRangePickerField.getShowIsoWeekNumbers())
+                .booleanParameter("showRanges", dateRangePickerField.getShowRanges())
+                .booleanParameter("showWeekNumbers", dateRangePickerField.getShowWeekNumbers())
+                .booleanParameter("singleDatePicker", dateRangePickerField.getSingleDatePicker())
+                .booleanParameter("timePicker", dateRangePickerField.getTimePicker())
+                .booleanParameter("timePicker24Hour", dateRangePickerField.getTimePicker24Hour())
+                .stringParameter("timePickerIncrement",
+                        Optional.ofNullable(dateRangePickerField.getTimePickerIncrement()).map(Objects::toString).orElse(""))
+                .booleanParameter("timePickerSeconds", dateRangePickerField.getTimePickerSeconds());
+
+        macroCallBuilder.stringParameter("alert", "false");
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            macroCallBuilder.stringParameter("className", modelFormField.getWidgetStyle());
+            if (modelFormField.shouldBeRed(context)) {
+                macroCallBuilder.stringParameter("alert", "true");
+            }
+        }
+
+        macroCallBuilder
+                .stringParameter("value", modelFormField.getEntry(context, dateRangePickerField.getDefaultValue(context)))
                 .stringParameter("value2", modelFormField.getEntry(context));
 
         if (context.containsKey("parameters")) {

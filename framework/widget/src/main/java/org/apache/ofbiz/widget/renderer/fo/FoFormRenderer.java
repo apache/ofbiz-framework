@@ -129,6 +129,14 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     @Override
+    public void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField dateRangePickerField)
+            throws IOException {
+        ModelFormField modelFormField = dateRangePickerField.getModelFormField();
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateRangePickerField.getDefaultValue(context)));
+        appendWhitespace(writer);
+    }
+
+    @Override
     public void renderDropDownField(Appendable writer, Map<String, Object> context, DropDownField dropDownField) throws IOException {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         String currentValue = modelFormField.getEntry(context);

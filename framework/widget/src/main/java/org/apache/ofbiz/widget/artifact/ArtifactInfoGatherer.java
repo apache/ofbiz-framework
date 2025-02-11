@@ -52,6 +52,7 @@ import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelFormField.CheckField;
 import org.apache.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DateFindField;
+import org.apache.ofbiz.widget.model.ModelFormField.DateRangePickerField;
 import org.apache.ofbiz.widget.model.ModelFormField.DateTimeField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayEntityField;
 import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
@@ -412,6 +413,10 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
         @Override
         public void visit(DateTimeField dateTimeField) {
+        }
+
+        @Override
+        public void visit(DateRangePickerField dateRangePickerField) {
         }
 
         @Override
