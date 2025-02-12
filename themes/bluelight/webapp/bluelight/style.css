@@ -1912,7 +1912,6 @@ render borders around empty <td> elements */
 }
 
 .nav-pager ul li span {
-    display: none;
     visibility: hidden;
     display: block;
     height: 16px;
