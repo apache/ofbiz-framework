@@ -58,10 +58,49 @@ under the License.
                 <option key="N" description="${uiLabelMap.CommonNo}" />
             </radio>
         </field>
+        <field name="oneDate">
+            <date-range-picker single-date-picker="true" time-picker-increment="3" min-year="2010" max-year="2030" max-span="9"/>
+        </field>
+        <field name="oneDateTime">
+            <date-range-picker single-date-picker="true" time-picker="true" time-picker-increment="3" linked-calendars="false" min-year="2010" max-year="2030" drops="up"/>
+        </field>
+        <field name="oneDateTimeSeconds">
+            <date-range-picker single-date-picker="true" time-picker="true" time-picker-seconds="true" linked-calendars="false" min-year="2010" max-year="2030" drops="up"/>
+        </field>
+        <field name="dateRange">
+            <date-range-picker single-date-picker="false" linked-calendars="false" min-year="2010" max-year="2030" show-week-numbers="true" drops="up"/>
+        </field>
+        <field name="dateTimeRange">
+            <date-range-picker single-date-picker="false" time-picker="true" max-span="6" clear-title="EMPTY THE INPUT PLEASE" drops="up"/>
+        </field>
+        <field name="dateTimeRangeSeconds">
+            <date-range-picker single-date-picker="false" time-picker="true" time-picker-seconds="true" time-picker-increment="30" linked-calendars="false" drops="up"/>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonCancel}" target="${demoTargetUrl}"/>
         </field>
+        <sort-order>
+            <sort-field name="name"/>
+            <sort-field name="description"/>
+            <sort-field name="default"/>
+            <sort-field name="quantity"/>
+            <sort-field name="amount"/>
+            <sort-field name="spelled"/>
+            <sort-field name="percentage"/>
+            <sort-field name="accounting"/>
+            <sort-field name="dropDown"/>
+            <sort-field name="checkBox"/>
+            <sort-field name="radioButton"/>
+            <field-group title="Date Range Picker">
+                <sort-field name="oneDate"/>
+                <sort-field name="oneDateTime"/>
+                <sort-field name="oneDateTimeSeconds"/>
+                <sort-field name="dateRange"/>
+                <sort-field name="dateTimeRange"/>
+                <sort-field name="dateTimeRangeSeconds"/>
+            </field-group>
+        </sort-order>
     </form>
 
     <form name="LayoutDemoList" extends="CommonBasicList" extends-resource="component://common/widget/CommonForms.xml"

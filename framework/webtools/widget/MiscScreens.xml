@@ -199,6 +199,7 @@ under the License.
                                                 <link text="${uiLabelMap.CommonDisabled}" style="disabled"/>
                                             </container>
                                             <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                            <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
