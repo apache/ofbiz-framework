@@ -1938,7 +1938,6 @@ render borders around empty <td> elements */
 .field-lookup a {
     background: url(/bluelight/images/application_view_list.png) no-repeat 0 0;
     display: inline-block;
-    /* margin: 3px 10px 0px 4px; */
     vertical-align: top;
     margin-top: 3px;
     width: 16px;

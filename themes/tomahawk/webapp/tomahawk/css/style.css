@@ -531,6 +531,7 @@ A IMG.imageborder {
 
 .content-messages p {
     margin: 0.5em 0 0.5em 0;
+    display: none;
 }
 
 .mediumSubmit, .largeSubmit, .loginButton {
@@ -3016,7 +3017,6 @@ button.ui-button::-moz-focus-inner {
     height: 20px;
 }
 
-/*.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }*/
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0;
 }
@@ -4485,10 +4485,6 @@ body .ui-tooltip {
     min-width: 350px;
     padding: 5px 5px 5px 50px;
     border: 1px solid #f0f0f0;
-}
-
-.content-messages p {
-    display: none;
 }
 
 /* From http://jqueryui.com/demos/autocomplete/maxheight.html */
