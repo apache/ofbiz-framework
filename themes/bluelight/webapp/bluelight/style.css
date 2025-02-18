@@ -41,6 +41,8 @@ body {
     line-height: 1.5em;
     color: black;
     background: white;
+    font-size: 62.5%;
+    position: relative;
 }
 
 /* reset line height and baseline colors*/
@@ -86,12 +88,6 @@ a:hover, a:active {
 
 body, textarea, input, select {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-body {
-    background: #B8DFFC;
-    font-size: 62.5%;
-    position: relative;
 }
 
 hr {
@@ -318,7 +314,6 @@ A.buttontext, .buttontextdisabled, .button-bar li.buttontext a {
     line-height: 1.8em;
     margin: 0.2em;
     padding: 0.1em 0.4em 0.1em 0.4em;
-    /*white-space: nowrap;*/
 }
 
 A.buttontext, .button-bar li.buttontext a {
@@ -542,7 +537,6 @@ A IMG.imageborder {
 
 .productsummary .smallimage {
     float: left;
-    /* position: absolute; top: 5px; left: 5px; */
     margin: 0 0.5em 0.5em 0;
 }
 
@@ -558,7 +552,7 @@ A IMG.imageborder {
     width: 13em;
 }
 
-.productsummary .productinfo { /* margin-left: 60px; */
+.productsummary .productinfo {
     text-align: left;
 }
 
@@ -863,6 +857,7 @@ in contained elements. */
 }
 
 .content-messages p {
+    display: none;
     margin: 0.5em 0 0.5em 0;
 }
 
@@ -906,7 +901,7 @@ in contained elements. */
 /* ===== Used to align elements ===== */
 /* ================================== */
 .align-bottom {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
 
 .align-center {
@@ -922,7 +917,7 @@ in contained elements. */
 }
 
 .align-middle {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
 
 .align-right {
@@ -1108,10 +1103,6 @@ ul#preferences-menu li a.help-link {
 /* ======================================================= */
 /* ===== Secondary Navigation (App Menu) Styles ========== */
 /* ======================================================= */
-#secondary-navigation {
-
-}
-
 #secondary-navigation a {
     padding: 0 1em 0 1em;
     border: 0.05em solid #000099;
@@ -1342,7 +1333,6 @@ ajax auto complete
 div.autocomplete {
     position: absolute;
     width: auto !important;
-    /* min-width:154px; */
     background-color: #f8f8f8;
     border: 1px solid #999999;
     margin: 0;
@@ -1365,7 +1355,6 @@ div.autocomplete ul li {
     float: none;
     margin: 0;
     padding: 2px;
-    /*height:32px;*/
     cursor: pointer;
 }
 
@@ -1391,14 +1380,6 @@ div.autocomplete ul li {
 /* ======================================================= */
 .basic-nav { /* indent menu - helpful for widgets */
     padding-left: 1em;
-}
-
-.basic-nav ul { /* placeholder */
-
-}
-
-.basic-nav ul li {
-
 }
 
 .basic-nav ul a {
@@ -2090,25 +2071,21 @@ Webtools
 }
 
 img.cssImgXLarge {
-    /*border: 1px black solid;*/
     max-width: 200px;
     max-height: 150px;
 }
 
 img.cssImgLarge {
-    /*border: 1px black solid;*/
     max-width: 100px;
     max-height: 75px;
 }
 
 img.cssImgStandard {
-    /*border: 1px black solid;*/
     max-width: 70px;
     max-height: 52px;
 }
 
 img.cssImgSmall {
-    /*border: 1px black solid;*/
     max-width: 50px;
     max-height: 37px;
 }
@@ -2175,29 +2152,8 @@ img.cssImgSmall {
     cursor: default !important;
 }
 
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon {
-    display: block;
-    text-indent: -99999px;
-    overflow: hidden;
-    background-repeat: no-repeat;
-}
-
 /* Misc visuals
 ----------------------------------*/
-
-/* Overlays */
-.ui-widget-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
 .ui-resizable {
     position: relative;
 }
@@ -2315,16 +2271,6 @@ img.cssImgSmall {
     border-top: 0;
     overflow: auto;
     zoom: 1;
-}
-
-.ui-autocomplete {
-    position: absolute;
-    cursor: default;
-}
-
-/* workarounds */
-* html .ui-autocomplete {
-    width: 1px;
 }
 
 /* without this, the menu expands to 100% in IE6 */
@@ -2688,7 +2634,6 @@ button.ui-button::-moz-focus-inner {
     height: 18px;
 }
 
-/*.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }*/
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0;
 }
@@ -3142,6 +3087,10 @@ body .ui-tooltip {
 
 /* states and images */
 .ui-icon {
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
     width: 16px;
     height: 16px;
     background-image: url(/bluelight/images/ui-icons_222222_256x240.png);
@@ -3907,6 +3856,11 @@ body .ui-tooltip {
 
 /* Overlays */
 .ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: #aaaaaa url(/bluelight/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
     opacity: .3;
     filter: Alpha(Opacity=30);
@@ -4076,10 +4030,6 @@ body .ui-tooltip {
     border: 1px solid #f0f0f0;
 }
 
-.content-messages p {
-    display: none;
-}
-
 /* From http://jqueryui.com/demos/autocomplete/maxheight.html */
 /* When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large */
 .ui-autocomplete {
@@ -4089,6 +4039,8 @@ body .ui-tooltip {
     overflow-x: hidden;
     /* add padding to account for vertical scrollbar */
     padding-right: 20px;
+    position: absolute;
+    cursor: default;
 }
 
 /* IE 6 doesn't support max-height
@@ -4096,6 +4048,7 @@ body .ui-tooltip {
  */
 * html .ui-autocomplete {
     height: 250px;
+    width: 1px;
 }
 
 /* The custom CSS for adjust the JsTree */

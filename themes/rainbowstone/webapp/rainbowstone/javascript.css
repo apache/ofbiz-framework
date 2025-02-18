@@ -43,7 +43,6 @@ ajax auto complete
 div.autocomplete {
     position: absolute;
     width: auto !important;
-    /* min-width:154px; */
     background-color: #f8f8f8;
     border: 1px solid #999999;
     margin: 0;
@@ -66,7 +65,6 @@ div.autocomplete ul li {
     float: none;
     margin: 0;
     padding: 2px;
-    /*height:32px;*/
     cursor: pointer;
 }
 
@@ -139,17 +137,6 @@ div.autocomplete ul li {
     cursor: default !important;
 }
 
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon {
-    display: block;
-    text-indent: -99999px;
-    overflow: hidden;
-    background-repeat: no-repeat;
-}
-
 /* Misc visuals
 ----------------------------------*/
 
@@ -160,6 +147,9 @@ div.autocomplete ul li {
     left: 0;
     width: 100%;
     height: 100%;
+    background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
+    opacity: .3;
+    filter: Alpha(Opacity=30);
 }
 
 .ui-resizable {
@@ -652,7 +642,6 @@ button.ui-button::-moz-focus-inner {
     height: 18px;
 }
 
-/*.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }*/
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0;
 }
@@ -1107,6 +1096,10 @@ body .ui-tooltip {
     width: 16px;
     height: 16px;
     background-image: url(images/ui-icons_469bdd_256x240.png);
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
 .ui-widget-content .ui-icon {
@@ -1865,13 +1858,6 @@ body .ui-tooltip {
     -webkit-border-bottom-right-radius: 5px;
     -khtml-border-bottom-right-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-
-/* Overlays */
-.ui-widget-overlay {
-    background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
 }
 
 .ui-widget-shadow {
