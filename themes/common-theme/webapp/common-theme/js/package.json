@@ -5,6 +5,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
+        "daterangepicker": "^3.1.0",
         "dompurify": "^3.2.4",
         "featherlight": "^1.7.14",
         "flot": "^4.2.6",
@@ -14,6 +15,8 @@
         "jquery-ui-dist": "^1.13.3",
         "jquery-validation": "^1.21.0",
         "jquery.browser": "^0.1.0",
+        "moment-timezone": "^0.5.47",
+        "moment-with-locales-es6": "^1.0.1",
         "trumbowyg": "^2.30.0",
         "uglify-js": "3.19.3"
     },
