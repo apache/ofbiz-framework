@@ -727,7 +727,7 @@ public final class ModelServiceReader implements Serializable {
             if (sxe.getException() != null) {
                 x = sxe.getException();
             }
-            x.printStackTrace();
+            Debug.logError(x, MODULE);
         } catch (ParserConfigurationException | IOException e) {
             // Parser with specified options can't be built
             Debug.logError(e, MODULE);

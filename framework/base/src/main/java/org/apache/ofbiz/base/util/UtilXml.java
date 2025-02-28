@@ -1261,7 +1261,7 @@ public final class UtilXml {
             String output = writer.getBuffer().toString();
             return output;
         } catch (TransformerException e) {
-            e.printStackTrace();
+            Debug.logError(e, MODULE);
         }
 
         return null;

@@ -4953,7 +4953,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             shipInfo.getFacilityId()).queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logError("Error :" + e.getMessage(), MODULE);
-                    e.printStackTrace();
                 }
 
                 String requirementMethodEnumId = storeRequirementMethodEnumId;

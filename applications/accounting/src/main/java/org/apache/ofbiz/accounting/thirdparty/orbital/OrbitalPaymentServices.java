@@ -482,7 +482,6 @@ public class OrbitalPaymentServices {
             tp = new TransactionProcessor();
         } catch (InitializationException iex) {
             Debug.logError("TransactionProcessor failed to initialize" + iex.getMessage(), MODULE);
-            iex.printStackTrace();
         }
     }
 
@@ -498,7 +497,6 @@ public class OrbitalPaymentServices {
             processCardResult.put("processCardResponse", response);
         } catch (TransactionException tex) {
             Debug.logError("TransactionProcessor failed to initialize" + tex.getMessage(), MODULE);
-            tex.printStackTrace();
         }
         processCardResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return processCardResult;

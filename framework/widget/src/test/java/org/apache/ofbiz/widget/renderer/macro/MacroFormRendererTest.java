@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.UtilCodec.SimpleEncoder;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -72,6 +73,8 @@ import mockit.Tested;
 import mockit.Verifications;
 
 public class MacroFormRendererTest {
+
+    public static final String MODULE = MacroFormRendererTest.class.getName();
 
     @Injectable
     private HttpServletRequest request;
@@ -302,7 +305,7 @@ public class MacroFormRendererTest {
         try {
             macroFormRenderer.renderCheckField(writer, context, checkField);
         } catch (IOException e) {
-            e.printStackTrace();
+            Debug.logError(e, MODULE);
         }
 
         assertAndGetMacroString("renderCheckField", ImmutableMap.of(
