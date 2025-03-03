@@ -404,4 +404,18 @@ public class JWTManager {
         }
         return result;
     }
+
+    public static String createRefreshToken(Delegator delegator, String userLoginId) {
+        int refreshTokenExpireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security",
+                "security.jwt.refreshToken.expireTime", "86400", delegator));
+        return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
+    }
+
+    public static Map<String, Object> validateRefreshToken(String refreshToken, String key) {
+        Map<String, Object> claims = validateToken(refreshToken, key);
+        if (!claims.containsKey("type") || !"refresh".equals(claims.get("type"))) {
+            return ServiceUtil.returnError("Invalid refresh token.");
+        }
+        return claims;
+    }
 }
