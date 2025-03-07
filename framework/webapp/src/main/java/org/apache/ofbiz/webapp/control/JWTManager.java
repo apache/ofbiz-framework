@@ -407,7 +407,7 @@ public class JWTManager {
 
     public static String createRefreshToken(Delegator delegator, String userLoginId) {
         int refreshTokenExpireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security",
-                "security.jwt.refreshToken.expireTime", "86400", delegator));
+                "security.jwt.refresh.token.expireTime", "86400", delegator));
         return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
     }
 
