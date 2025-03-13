@@ -65,7 +65,7 @@ import org.w3c.dom.Element;
  * design pattern. Mini-language XML files are parsed twice - first into a W3C DOM
  * tree, then the DOM tree is parsed into element model objects. Each XML element
  * has a model class, and each model class has its own factory.
- * </p>
+ *
  * <p>
  * Mini-language can be extended by:</p>
  * <ul>

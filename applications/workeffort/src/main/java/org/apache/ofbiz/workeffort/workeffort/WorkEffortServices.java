@@ -460,7 +460,7 @@ public class WorkEffortServices {
      * Get Work Efforts by period.
      * <p>
      * This method takes the following parameters:
-     * </p>
+     *
      * <ul>
      *   <li>start - TimeStamp (Period start date/time)</li>
      *   <li>numPeriods - Integer</li>
@@ -478,11 +478,11 @@ public class WorkEffortServices {
      * <b>periods</b> - one List element per period. It also returns a
      * <b>maxConcurrentEntries</b> Integer - which indicates the maximum number of
      * Work Efforts found in one period.
-     * </p>
+     *
      * <p>
      * Each <b>periods</b> list element is a Map containing the following
      * key/value pairs:
-     * </p>
+     *
      * <ul>
      *   <li>start - TimeStamp (Period start date/time)</li>
      *   <li>end - TimeStamp (Period end date/time)</li>

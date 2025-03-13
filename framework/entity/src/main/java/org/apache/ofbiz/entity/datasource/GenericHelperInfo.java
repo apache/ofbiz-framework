@@ -23,7 +23,7 @@ package org.apache.ofbiz.entity.datasource;
  * A container for data source connection information.
  * <p><b>Note that this class is not synchronized.</b>
  * If multiple threads access a <code>GenericHelperInfo</code> concurrently it must be synchronized externally.
- * </p>
+ *
  */
 public final class GenericHelperInfo {
     private final String entityGroupName;

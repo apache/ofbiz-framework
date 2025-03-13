@@ -404,7 +404,8 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     /**
      * Comparison operator for <code>Collection</code> types.
-     * @param <E>
+     * @param Comparable of type E
+     * @param Collection of Comparable of type E
      */
     public abstract static class CollectionEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, Collection<Comparable<E>>> {
         public CollectionEntityComparisonOperator(int id, String code) {
@@ -414,7 +415,7 @@ public abstract class EntityOperator<L, R> implements Serializable {
 
     /**
      * Comparison operator for <code>Comparable</code> types.
-     * @param <E>
+     * @param Comparable of type E
      */
     public abstract static class ComparableEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, E> {
         public ComparableEntityComparisonOperator(int id, String code) {

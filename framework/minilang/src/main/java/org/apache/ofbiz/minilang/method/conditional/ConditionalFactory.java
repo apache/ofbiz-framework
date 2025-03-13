@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  * An abstract factory class for creating &lt;if&gt; element sub-element implementations.
  * <p>Mini-language can be extended to support additional condition elements
  * by extending this class to provide custom conditional element implementations.
- * </p>
+ *
  */
 public abstract class ConditionalFactory<C extends Conditional> {
 

@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  * the service configuration file. Client code that depends on the <code>serviceengine.xml</code>
  * file can be notified when the file is reloaded by implementing <code>ServiceConfigListener</code>
  * and registering itself using the {@link #registerServiceConfigListener(ServiceConfigListener)}
- * method.<p>
+ * method.
  */
 public final class ServiceConfigUtil {
 

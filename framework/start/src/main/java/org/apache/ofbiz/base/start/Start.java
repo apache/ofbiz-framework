@@ -32,16 +32,16 @@ import org.apache.ofbiz.base.container.ContainerLoader;
  * <p>
  * This class implements a thread-safe state machine. The design is critical
  * for reliable starting and stopping of the server.
- * </p>
+ *
  * <p>
  * The machine's current state and state changes must be encapsulated in this
  * class. Client code may query the current state, but it may not change it.
- * </p>
+ *
  * <p>
  * This class uses a singleton pattern to guarantee that only one server instance
  * is running in the VM. Client code retrieves the instance by using the
  * {@code getInstance()} static method.
- * </p>
+ *
  */
 public final class Start {
 

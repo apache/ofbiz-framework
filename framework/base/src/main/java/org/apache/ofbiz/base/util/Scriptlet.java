@@ -25,7 +25,7 @@ import java.util.Map;
  * <p>A scriptlet is a small script that is commonly found in a scripting XML file.
  * The scriptlet is composed of two parts: the prefix - which is the script language
  * followed by a colon (":"), and the script. Example: <code>groovy:return foo.bar();</code>.
- * </p>
+ *
  */
 public final class Scriptlet {
 
