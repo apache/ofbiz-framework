@@ -73,9 +73,47 @@ public class AuthenticationResource extends OFBizResource {
         GenericValue userLogin = (GenericValue) httpRequest.getAttribute("userLogin");
         //TODO : Move this into an OFBiz service. All such implementations should be inside an OFBiz service.
         String jwtToken = JWTManager.createJwt(getDelegator(), UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
-        Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", jwtToken, "expires_in",
-                EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", getDelegator()), "token_type", "Bearer");
+        String refreshToken = JWTManager.createRefreshToken(getDelegator(), userLogin.getString("userLoginId"));
+
+        Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", jwtToken, "refresh_token", refreshToken,
+                "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", getDelegator()),
+                "token_type", "Bearer");
         return RestApiUtil.success("Token granted.", tokenPayload);
     }
 
+    /**
+     * Generates a new access token using a refresh token.
+     * <p>
+     * Subclasses overriding this method should ensure they call the parent implementation
+     * or handle JWT validation and token generation securely.
+     * </p>
+     *
+     * @param refreshToken The refresh token provided in the request header.
+     * @return A response containing the new access and refresh tokens.
+    ]*/
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/refresh-token")
+    @Operation(description = "Generates a new access token using a refresh token.")
+    public Response refreshToken(@HeaderParam("Refresh-Token") String refreshToken) {
+
+        httpRequest.setAttribute("delegator", getDelegator());
+        httpRequest.setAttribute("dispatcher", getDispatcher());
+        Map<String, Object> claims = JWTManager.validateRefreshToken(refreshToken, JWTManager.getJWTKey(getDelegator()));
+
+        // Fetch delegator, dispatcher, and userLogin
+        if (claims.containsKey("errorMessage")) {
+            System.out.println("Error with JWT token: ");
+        }
+
+        String userLoginId = (String) claims.get("userLoginId");
+
+        String newAccessToken = JWTManager.createJwt(getDelegator(), UtilMisc.toMap("userLoginId", userLoginId));
+        String newRefreshToken = JWTManager.createRefreshToken(getDelegator(), userLoginId);
+
+        Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", newAccessToken, "refresh_token", newRefreshToken, "expires_in",
+                EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", getDelegator()), "token_type", "Bearer");
+
+        return RestApiUtil.success("Token refreshed.", tokenPayload);
+    }
 }
