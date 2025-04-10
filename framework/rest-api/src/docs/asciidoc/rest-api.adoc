@@ -155,3 +155,54 @@ Response +
   }
 }
 ----
+
+== Refresh Token Mechanism
+
+The authentication system now supports a refresh token mechanism. This allows clients to obtain a new `access_token` using a previously issued `refresh_token`.
+
+=== Login API Enhancement
+
+Upon successful login, the response includes both `access_token` and `refresh_token`.
+
+.Response Example
+[source,json]
+----
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "dGhpc19pc19hX3JlZnJlc2hfdG9rZW4..."
+}
+----
+
+=== Get Access Token Using Refresh Token
+
+A new endpoint has been introduced to obtain a new `access_token` using a valid `refresh_token`.
+
+*URL:* `POST https://localhost:8443/rest/auth/refresh-token`
+
+==== Request
+
+The request should contain the `refresh_token` in the body.
+
+.Request Example
+[source,json]
+----
+{
+  "Refresh-Token": "dGhpc19pc19hX3JlZnJlc2hfdG9rZW4..."
+}
+----
+
+==== Response
+
+If the refresh token is valid, a new `access_token` is returned.
+
+.Response Example
+[source,json]
+----
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+----
+
+==== Errors
+
+- `401 Unauthorized`: If the provided refresh token is missing, expired, or invalid.
