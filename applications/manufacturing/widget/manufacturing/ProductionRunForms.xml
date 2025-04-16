@@ -788,7 +788,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <grid name="MandatoryWorkEfforts" list-name="mandatoryWorkEfforts"
+    <form name="MandatoryWorkEfforts" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title=" " widget-style="buttontext">
             <hyperlink description="${workEffortIdFrom}" target="ShowProductionRun" also-hidden="false" link-type="anchor">
@@ -825,8 +825,8 @@ under the License.
                 <parameter param-name="productionRunId"/>
             </hyperlink>
         </field>
-    </grid>
-    <grid name="DependentWorkEfforts"  list-name="dependentWorkEfforts"
+    </form>
+    <form name="DependentWorkEfforts"  list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdTo" title=" " widget-style="buttontext">
             <hyperlink description="${workEffortIdTo}" target="ShowProductionRun" also-hidden="false" link-type="anchor">
@@ -863,7 +863,7 @@ under the License.
                 <parameter param-name="productionRunId"/>
             </hyperlink>
         </field>
-    </grid>
+    </form>
     <grid name="ProductionRunTaskCosts" list-name="taskCosts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CostComponent" default-field-type="display"/>
