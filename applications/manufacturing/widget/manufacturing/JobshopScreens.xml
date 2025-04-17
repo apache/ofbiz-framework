@@ -227,7 +227,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ManufacturingMandatoryWorkEfforts}">
-                                    <include-form name="MandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="MandatoryWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -237,7 +237,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ManufacturingDependentWorkEfforts}">
-                                    <include-form name="DependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                    <include-grid name="DependentWorkEfforts" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
