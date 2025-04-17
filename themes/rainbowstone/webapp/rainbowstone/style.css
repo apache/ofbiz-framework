@@ -1928,15 +1928,3 @@ html > /**/ body .jstree-default a {
 a[data-featherlight] {
     cursor: pointer;
 }
-
-/*The custom css for Trumbowyg*/
-.trumbowyg-button-pane {
-    margin: 0 !important;
-}
-.trumbowyg-button-pane .trumbowyg-button-group {
-    display: inline-block; 
-    margin: 0 !important;
-}
-.trumbowyg-button-pane button {
-    color: #000;
-}

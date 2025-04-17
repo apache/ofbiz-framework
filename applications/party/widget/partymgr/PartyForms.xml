@@ -271,6 +271,11 @@ under the License.
         focus-field-name="groupName" header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyGroup==null" target="createPartyGroup"/>
         <auto-fields-service service-name="updatePartyGroup"/>
+        <field name="test">
+            <textarea visual-editor-enable="true" visual-editor-buttons="[
+                ['formatting'],['strong','em','del'],['link'],['unorderedList','orderedList'],
+                ['horizontalRule'],['removeformat'],['indent','outdent'],['fullscreen']]"/>
+        </field>
         <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>

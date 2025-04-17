@@ -147,34 +147,23 @@ function bindObservers(bind_element) {
         })
     });
     jQuery(bind_element).find(".visual-editor").each(function () {
-        var self = this;
-        var libraryFiles = ["/common/js/node_modules/trumbowyg/dist/trumbowyg.min.js",
-            "/common/js/node_modules/trumbowyg/dist/plugins/indent/trumbowyg.indent.min.js"];
-        importLibrary(libraryFiles, function () {
-            var element = jQuery(self);
-            var language = element.data('language');
-            var buttons = [['viewHTML'],
-                ['undo', 'redo'],
-                ['formatting'],
-                ['strong', 'em', 'del'],
-                ['superscript', 'subscript'],
-                ['link'],
-                ['insertImage'],
-                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                ['unorderedList', 'orderedList'],
-                ['horizontalRule'],
-                ['removeformat'],
-                ['indent', 'outdent'],
-                ['fullscreen']
-            ]
-            var opts = {
-                lang: language,
-                btns: buttons,
-                semantic: false,
-                tagsToRemove: ['script', 'link'],
-                svgPath: '/common/js/node_modules/trumbowyg/dist/ui/icons.svg'
-            }
-            element.trumbowyg(opts);
+        const element = $(this);
+        const lang = element.data('language');
+        const toolbarAttr = element.data('toolbar');
+        const providedBtns = toolbarAttr ? JSON.parse(toolbarAttr.replace(/'/g, '"')) : undefined;
+        const defaultBtns = [
+            ['undo', 'redo'], ['formatting'], ['strong', 'em', 'del'], ['superscript', 'subscript'], ['link'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'], ['unorderedList', 'orderedList'],
+            ['horizontalRule'], ['removeformat'], ['indent', 'outdent'], ['fullscreen']
+        ];
+        element.trumbowyg({
+            lang,
+            btns: providedBtns ?? defaultBtns,
+            semantic: false,
+            tagsToRemove: ['script', 'link'],
+            svgPath: '/common/js/node_modules/trumbowyg/dist/ui/icons.svg',
+            resetCss: true,
+            linkTargets: ['_blank']
         });
     });
     jQuery(bind_element).find(".ajaxAutoCompleter").each(function () {

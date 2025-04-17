@@ -62,8 +62,18 @@ body {
     background: @grey-lighter;
 }
 
-ul, li {
+ul li {
     list-style-type: none
+}
+
+/* restore list styles for Trumbowyg text editor */
+.trumbowyg-editor.trumbowyg-reset-css {
+    ul li {
+        list-style-type: disc;
+    }
+    ol li {
+        list-style-type: decimal;
+    }
 }
 
 br.clear, .clear {

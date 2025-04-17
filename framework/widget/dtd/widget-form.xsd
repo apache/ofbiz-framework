@@ -1581,13 +1581,18 @@ under the License.
             <xs:attribute name="visual-editor-enable"
                           type="xs:boolean" default="false">
                 <xs:annotation>
-                    <xs:documentation>This will enable the html editor on this text area from www.unverse.net (more info there), only one textarea can be used on one page</xs:documentation>
+                    <xs:documentation>
+                        This will enable the HTML editor on this text area from https://alex-d.github.io/Trumbowyg/
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="visual-editor-buttons">
                 <xs:annotation>
-                    <xs:documentation>In here you can specify which buttons you want to see and in which order separated by blanks. Available buttons are:formatblock fontname fontsize newline bold italic underline left center right number bullet indent outdent undo redo color hilite rule link image
-                        table clean html spellcheck |(separator) Default is that all buttons are shown</xs:documentation>
+                    <xs:documentation>
+                        Trumbowyg buttons configuration object, as a JSON.parse parsable string (2 dimensions string array).
+                        Ex: [['formatting'],['strong','em','del'],['link'],['unorderedList','orderedList'],['horizontalRule']]
+                        See https://alex-d.github.io/Trumbowyg/documentation/#button-pane
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="placeholder">

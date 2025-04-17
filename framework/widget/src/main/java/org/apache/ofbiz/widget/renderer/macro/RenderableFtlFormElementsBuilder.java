@@ -364,9 +364,7 @@ public final class RenderableFtlFormElementsBuilder {
 
         if (textareaField.getVisualEditorEnable()) {
             builder.booleanParameter("visualEditorEnable", true);
-
-            String buttons = textareaField.getVisualEditorButtons(context);
-            builder.stringParameter("buttons", UtilValidate.isEmpty(buttons) ? "maxi" : buttons);
+            builder.stringParameter("buttons", textareaField.getVisualEditorButtons(context));
         }
 
         if (textareaField.isReadOnly()) {

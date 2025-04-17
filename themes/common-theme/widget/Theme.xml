@@ -66,6 +66,8 @@ under the License.
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/moment/min/moment-with-locales.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/moment-timezone/builds/moment-timezone-with-data.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/daterangepicker/daterangepicker.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/trumbowyg/dist/trumbowyg.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/node_modules/trumbowyg/dist/plugins/indent/trumbowyg.indent.min.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
         <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>
@@ -79,6 +81,7 @@ under the License.
         <property name="VT_STYLESHEET['add']" value="/common/js/node_modules/jquery-ui-dist/jquery-ui.min.css"/>
         <property name="VT_STYLESHEET['add']" value="/common/css/info.css"/>
         <property name="VT_STYLESHEET['add']" value="/common/js/node_modules/daterangepicker/daterangepicker.css"/>
+        <property name="VT_STYLESHEET['add']" value="/common/js/node_modules/trumbowyg/dist/ui/trumbowyg.min.css"/>
     </theme-properties>
 
     <templates><!-- Freemarker template use by this theme to render widget model-->
