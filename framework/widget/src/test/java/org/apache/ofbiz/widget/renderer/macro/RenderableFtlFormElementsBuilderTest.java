@@ -441,6 +441,53 @@ public class RenderableFtlFormElementsBuilderTest {
     }
 
     @Test
+    public void textareaFieldVisualEditorEnabledNoButtons(@Mocked final ModelFormField.TextareaField textareaField) {
+        new Expectations() {
+            {
+                modelFormField.getDisabled(withNotNull());
+                result = true;
+
+                textareaField.getVisualEditorEnable();
+                result = true;
+
+                textareaField.getVisualEditorButtons(withNotNull());
+                result = "";
+            }
+        };
+
+        final HashMap<String, Object> context = new HashMap<>();
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textArea(context, textareaField);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField",
+                MacroCallParameterMatcher.hasNameAndBooleanValue("visualEditorEnable", true)));
+    }
+
+    @Test
+    public void textareaFieldVisualEditorEnabledButtons(@Mocked final ModelFormField.TextareaField textareaField) {
+        String editorConfiguration = "[['formatting'],['strong','em','del'],['link'],['unorderedList','orderedList'],['horizontalRule'],['removeformat'],['indent','outdent'],['fullscreen']]";
+
+        new Expectations() {
+            {
+                modelFormField.getDisabled(withNotNull());
+                result = true;
+
+                textareaField.getVisualEditorEnable();
+                result = true;
+
+                textareaField.getVisualEditorButtons(withNotNull());
+                result = editorConfiguration;
+            }
+        };
+
+        final HashMap<String, Object> context = new HashMap<>();
+
+        final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textArea(context, textareaField);
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField",
+                MacroCallParameterMatcher.hasNameAndBooleanValue("visualEditorEnable", true)));
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField", MacroCallParameterMatcher.hasNameAndStringValue("buttons", editorConfiguration)));
+    }
+
+    @Test
     public void fieldGroupOpenRendersCollapsibleAreaId(@Mocked final ModelForm.FieldGroup fieldGroup) {
         new Expectations() {
             {
