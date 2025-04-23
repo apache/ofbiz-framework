@@ -464,7 +464,8 @@ public class RenderableFtlFormElementsBuilderTest {
 
     @Test
     public void textareaFieldVisualEditorEnabledButtons(@Mocked final ModelFormField.TextareaField textareaField) {
-        String editorConfiguration = "[['formatting'],['strong','em','del'],['link'],['unorderedList','orderedList'],['horizontalRule'],['removeformat'],['indent','outdent'],['fullscreen']]";
+        String editorConfiguration = "[['formatting'],['strong','em','del'],['link'],['unorderedList','orderedList'],"
+                + "['horizontalRule'],['removeformat'],['indent','outdent'],['fullscreen']]";
 
         new Expectations() {
             {
@@ -484,7 +485,9 @@ public class RenderableFtlFormElementsBuilderTest {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.textArea(context, textareaField);
         assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField",
                 MacroCallParameterMatcher.hasNameAndBooleanValue("visualEditorEnable", true)));
-        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters("renderTextareaField", MacroCallParameterMatcher.hasNameAndStringValue("buttons", editorConfiguration)));
+        assertThat(renderableFtl, MacroCallMatcher.hasNameAndParameters(
+                "renderTextareaField",
+                MacroCallParameterMatcher.hasNameAndStringValue("buttons", editorConfiguration)));
     }
 
     @Test
