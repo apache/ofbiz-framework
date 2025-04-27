@@ -12,7 +12,7 @@ To facilitate this, added a new "action" attribute to service elements that help
 Once deployed, following URLs can be accessed
 
 * GET /rest/services
-* GET /rest/services/{serviceName}?inParams=<URLEncodedJSON> 
+* GET /rest/services/{serviceName}?inParams=<URLEncodedJSON>
 * POST /rest/services/{serviceName} (For this endpoint, the service in parameters must be part of Request Body)
 
 == Authentication
@@ -158,11 +158,35 @@ Response +
 
 == Refresh Token Mechanism
 
-The authentication system now supports a refresh token mechanism. This allows clients to obtain a new `access_token` using a previously issued `refresh_token`.
+The authentication system now supports a refresh token mechanism.
+This allows clients to obtain a new `access_token` using a previously issued `refresh_token`.
+This improves user experience by reducing frequent authentication prompts.
+It helps in maintaining seamless user sessions while minimising exposure of credentials,
+making authentication more efficient and secure.
+
+[CAUTION]
+====
+Of course it's not that simple on the security side. Because a `refresh_token` can be stolen!
+This is well explained by this https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/[auth0.com article].
+====
+
+
+To preserve security auth0 is using a https://auth0.com/docs/secure/tokens/refresh-tokens/refresh-token-rotation[rotation mechanism]  that sounds like a wise solution.
+This is not implement OOTB in OFBiz, so you might implement it or possibly use auth0 for that.
+
+The idea is to have short term refresh tokens replaced each time a refresh token is called. Here is an Auth0 article excerpt:
+[TIP]
+====
+With refresh token rotation enabled in the Auth0 Dashboard, every time an application exchanges a refresh token to get a new access token, a new refresh token is also returned. Therefore, you no longer have a long-lived refresh token that, if compromised, could provide illegitimate access to resources. As refresh tokens are continually exchanged and invalidated, the threat is reduced.
+
+====
+
+The complete process is explained simply but well https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/#Refresh-Token-Automatic-Reuse-Detection[here].
+A priori, this would be while calling AuthenticationResource::refreshToken. BTW this allows to store refresh tokens in local storage, which is quite safe.
+
 
 === Login API Enhancement
-
-Upon successful login, the response includes both `access_token` and `refresh_token`.
+This said, upon successful login, the response includes both `access_token` and `refresh_token`.
 
 .Response Example
 [source,json]
