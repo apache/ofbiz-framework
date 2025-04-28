@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.webtools.labelmanager
 
-import org.apache.ofbiz.webtools.labelmanager.LabelManagerFactory
-
 LabelManagerFactory factory = LabelManagerFactory.getInstance()
 factory.findMatchingLabels(null, parameters.sourceFileName, parameters.sourceKey, null, false)
 context.labels = factory.getLabels()

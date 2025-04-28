@@ -18,7 +18,6 @@
 */
 package org.apache.ofbiz.content.survey
 
-import org.apache.ofbiz.content.survey.SurveyWrapper
 import org.apache.ofbiz.base.util.UtilURL
 
 surveyResponseId = parameters.surveyResponseId

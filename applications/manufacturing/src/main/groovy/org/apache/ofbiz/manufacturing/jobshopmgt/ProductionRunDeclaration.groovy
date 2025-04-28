@@ -23,7 +23,6 @@ package org.apache.ofbiz.manufacturing.jobshopmgt
 
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId
 if (productionRunId) {

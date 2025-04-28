@@ -18,14 +18,14 @@
 */
 package org.apache.ofbiz.product.product.imagemanagement
 
-import java.sql.Timestamp
-
 import org.apache.ofbiz.base.util.ScriptUtil
 import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
+
+import java.sql.Timestamp
 
 /**
  * Method to upload multiple images for product
@@ -175,7 +175,7 @@ Map removeProductContentAndImageFile() {
     Map removeContent
     Map serviceResult = [:]
     List checkDefaultImage = from('ProductContent').where(productId: parameters.productId, contentId: parameters.contentId,
-        productContentTypeId: 'DEFAULT_IMAGE').queryList()
+            productContentTypeId: 'DEFAULT_IMAGE').queryList()
     if (checkDefaultImage) {
         String errorMessage = UtilProperties.getMessage('ProductErrorUiLabels', 'ImageManagementErrorRmoveDefaultImage', locale)
         logError("Cannot remove image contentId ${parameters.contentId}")
@@ -233,7 +233,7 @@ Map removeProductContentForImageManagement() {
     }
     GenericValue dataResource = from('DataResource').where(dataResourceId: dataResourceId).queryOne()
     Map removeImageFile = [productId: parameters.productId, contentId: parameters.contentId, objectInfo: dataResource.objectInfo,
-        dataResourceName: dataResource.dataResourceName]
+                           dataResourceName: dataResource.dataResourceName]
     serviceResult = run service: 'removeImageFileForImageManagement', with: removeImageFile
     if (!ServiceUtil.isSuccess(serviceResult)) {
         return error(serviceResult.errorMessage)
@@ -255,7 +255,9 @@ Map setImageDetail() {
     productContent.sequenceNum = parameters.sequenceNum
     productContent.store()
     if (parameters.sequenceNum) {
-        ScriptUtil.executeScript('component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/SortSequenceNum.groovy', null, context)
+        ScriptUtil.executeScript(
+                'component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/SortSequenceNum.groovy',
+                null, context)
         productContent.sequenceNum = parameters.sequenceNum
         productContent.store()
     }
@@ -293,7 +295,7 @@ Map updateStatusImageManagement() {
         }
     } else {
         GenericValue contentApproval = from('ContentApproval').where(partyId: userLogin.partyId, contentId: parameters.contentId,
-            roleTypeId: 'IMAGEAPPROVER').queryFirst()
+                roleTypeId: 'IMAGEAPPROVER').queryFirst()
         contentApproval.approvalStatusId = parameters.checkStatusId
         contentApproval.store()
     }
@@ -317,24 +319,24 @@ Map updateStatusImageManagement() {
                     content.store()
 
                     GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
-                        .queryFirst()
+                            .queryFirst()
                     productContent.purchaseFromDate = nowTimestamp
                     productContent.store()
                 } else {
                     Long countApprove = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER',
-                        approvalStatusId: 'IM_APPROVED').queryCount()
+                            approvalStatusId: 'IM_APPROVED').queryCount()
                     if (countApprove >= (Long) 2) {
                         GenericValue content = from('Content').where(parameters).queryOne()
                         content.statusId = 'IM_APPROVED'
                         content.store()
 
                         GenericValue productContent = from('ProductContent').where(contentId: parameters.contentId, productContentTypeId: 'IMAGE')
-                            .queryFirst()
+                                .queryFirst()
                         productContent.purchaseFromDate = nowTimestamp
                         productContent.store()
 
                         List checkApproveList = from('ContentApproval').where(contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER')
-                            .queryList()
+                                .queryList()
                         for (GenericValue checkApprove : checkApproveList) {
                             checkApprove.approvalStatusId = 'IM_APPROVED'
                             checkApprove.store()
@@ -398,7 +400,7 @@ Map createImageContentApproval() {
     List partyRoles = from('PartyRole').where(roleTypeId: 'IMAGEAPPROVER').queryList()
     for (GenericValue partyRole : partyRoles) {
         Map contentApproval = [partyId: partyRole.partyId, contentId: parameters.contentId, roleTypeId: 'IMAGEAPPROVER',
-            approvalDate: nowTimestamp, approvalStatusId: 'IM_PENDING']
+                               approvalDate: nowTimestamp, approvalStatusId: 'IM_PENDING']
         Map serviceResult = run service: 'createContentApproval', with: contentApproval
         if (!ServiceUtil.isSuccess(serviceResult)) {
             return error(serviceResult.errorMessage)
@@ -428,7 +430,7 @@ Map resizeImages() {
         // <field-map field-name="statusId" value="IM_APPROVED"/>
         for (GenericValue productContentAndInfo : productContentAndInfos) {
             Map resizeImageMap = [productId: productContentAndInfo.productId, dataResourceName: productContentAndInfo.drDataResourceName,
-                resizeWidth: parameters.size]
+                                  resizeWidth: parameters.size]
             serviceResult = run service: 'resizeImageOfProduct', with: resizeImageMap
             if (!ServiceUtil.isSuccess(serviceResult)) {
                 return error(serviceResult.errorMessage)
@@ -442,8 +444,10 @@ Map resizeImages() {
         List productContentAndInfos = from('ProductContentAndInfo').where(productId: parameters.productId, productContentTypeId: 'IMAGE').queryList()
         // <field-map field-name="statusId" value="IM_APPROVED"/>
         for (GenericValue productContentAndInfo : productContentAndInfos) {
-            Map createNewImageThumbnailMap = [productId: productContentAndInfo.productId, contentId: productContentAndInfo.contentId,
-                dataResourceName: productContentAndInfo.drDataResourceName, drObjectInfo: productContentAndInfo.drObjectInfo,
+            Map createNewImageThumbnailMap = [productId: productContentAndInfo.productId,
+                                              contentId: productContentAndInfo.contentId,
+                                              dataResourceName: productContentAndInfo.drDataResourceName,
+                                              drObjectInfo: productContentAndInfo.drObjectInfo,
                                               sizeWidth: parameters.size]
             serviceResult = run service: 'createNewImageThumbnail', with: createNewImageThumbnailMap
             if (!ServiceUtil.isSuccess(serviceResult)) {
@@ -462,7 +466,7 @@ Map removeImageBySize() {
     // <field-map field-name="statusId" value="IM_APPROVED"/>
     for (GenericValue productContentAndInfo : productContentAndInfos) {
         List contentAssocs = from('ContentAssoc').where(contentId: productContentAndInfo.contentId, contentAssocTypeId: 'IMAGE_THUMBNAIL',
-            mapKey: parameters.mapKey).queryList()
+                mapKey: parameters.mapKey).queryList()
         if (contentAssocs) {
             contentAssocs.each { GenericValue contentAssoc ->
                 contentAssoc.remove()

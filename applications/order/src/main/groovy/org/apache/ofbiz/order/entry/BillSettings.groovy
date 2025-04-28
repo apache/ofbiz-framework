@@ -18,13 +18,15 @@
 */
 package org.apache.ofbiz.order.entry
 
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.accounting.payment.BillingAccountWorker
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 
-cart = session.getAttribute('shoppingCart')
-orderPartyId = cart.getPartyId()
-currencyUomId = cart.getCurrency()
+ShoppingCart cart = session.getAttribute('shoppingCart')
+String orderPartyId = cart.getPartyId()
+String currencyUomId = cart.getCurrency()
 context.cart = cart
 context.paymentMethodType = request.getParameter('paymentMethodType')
 
@@ -33,20 +35,20 @@ request.removeAttribute('_EVENT_MESSAGE_')
 
 // If there's a paymentMethodId request attribute, the user has just created a new payment method,
 //  so put the new paymentMethodId in the context for the UI
-newPaymentMethodId = request.getAttribute('paymentMethodId')
+String newPaymentMethodId = request.getAttribute('paymentMethodId')
 if (newPaymentMethodId) {
     context.checkOutPaymentId = newPaymentMethodId
 }
 
+GenericValue orderParty = null
 if (orderPartyId && '_NA_' != orderPartyId) {
-    orderParty = from('Party').where('partyId', orderPartyId).queryOne()
-    orderPerson = orderParty.getRelatedOne('Person', false)
+    orderParty = from('Party').where('partyId', orderPartyId).cache().queryOne()
     context.orderParty = orderParty
-    context.orderPerson = orderPerson
     if (orderParty) {
+        context.orderPerson = orderParty.getRelatedOne('Person', true)
         context.paymentMethodList = EntityUtil.filterByDate(orderParty.getRelated('PaymentMethod', null, null, false), true)
 
-        billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, orderPartyId, delegator, dispatcher)
+        List billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, orderPartyId, delegator, dispatcher)
         if (billingAccountList) {
             context.selectedBillingAccountId = cart.getBillingAccountId()
             context.billingAccountList = billingAccountList
@@ -54,38 +56,33 @@ if (orderPartyId && '_NA_' != orderPartyId) {
     }
 }
 
-if (request.getParameter('useShipAddr') && cart.getShippingContactMechId()) {
-    shippingContactMech = cart.getShippingContactMechId()
-    postalAddress = from('PostalAddress').where('contactMechId', shippingContactMech).queryOne()
-    context.postalFields = postalAddress
-} else {
-    context.postalFields = UtilHttp.getParameterMap(request)
-}
+context.postalFields = request.getParameter('useShipAddr') && cart.getShippingContactMechId()
+        ? from('PostalAddress').where('contactMechId', cart.getShippingContactMechId()).queryOne()
+        : UtilHttp.getParameterMap(request)
 
 if (cart) {
     if (cart.getPaymentMethodIds()) {
-        checkOutPaymentId = cart.getPaymentMethodIds().get(0)
+        String checkOutPaymentId = cart.getPaymentMethodIds().first()
         context.checkOutPaymentId = checkOutPaymentId
         if (!orderParty) {
-            paymentMethod = from('PaymentMethod').where('paymentMethodId', checkOutPaymentId).queryOne()
+            GenericValue account = null
+            GenericValue paymentMethod = from('PaymentMethod').where(paymentMethodId: checkOutPaymentId).queryOne()
             if (paymentMethod?.paymentMethodTypeId == 'CREDIT_CARD') {
-                paymentMethodType = 'CC'
+                String paymentMethodType = 'CC'
                 account = paymentMethod.getRelatedOne('CreditCard', false)
                 context.creditCard = account
                 context.paymentMethodType = paymentMethodType
-            } else if (paymentMethod.paymentMethodTypeId == 'EFT_ACCOUNT') {
-                paymentMethodType = 'EFT'
+            } else if (paymentMethod?.paymentMethodTypeId == 'EFT_ACCOUNT') {
+                String paymentMethodType = 'EFT'
                 account = paymentMethod.getRelatedOne('EftAccount', false)
                 context.eftAccount = account
                 context.paymentMethodType = paymentMethodType
             }
             if (account) {
-                address = account.getRelatedOne('PostalAddress', false)
-                context.postalAddress = address
+                context.postalAddress = account.getRelatedOne('PostalAddress', false)
             }
         }
     } else if (cart.getPaymentMethodTypeIds()) {
-        checkOutPaymentId = cart.getPaymentMethodTypeIds().get(0)
-        context.checkOutPaymentId = checkOutPaymentId
+        context.checkOutPaymentId = cart.getPaymentMethodTypeIds().first()
     }
 }

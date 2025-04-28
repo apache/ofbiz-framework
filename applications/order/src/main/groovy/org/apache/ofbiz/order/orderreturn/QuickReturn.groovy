@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-package org.apache.ofbiz.order.orderReturn
+package org.apache.ofbiz.order.orderreturn
 
 import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.contact.ContactHelper

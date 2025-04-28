@@ -18,9 +18,7 @@
 */
 package org.apache.ofbiz.order.order
 
-import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.order.order.OrderListState
 
 orderHeaderList = context.orderHeaderList
 productStore = ProductStoreWorker.getProductStore(request)

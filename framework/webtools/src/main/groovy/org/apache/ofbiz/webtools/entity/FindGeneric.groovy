@@ -35,7 +35,7 @@ ModelEntity modelEntity = null
 
 // escape the security url encoding that break the sortField with the ftl rendering
 // no security issue here, nothing come from the request
-context.escapeUrlEncode = "true"
+context.escapeUrlEncode = 'true'
 
 try {
     modelEntity = delegator.getModelEntity(parameters.entityName)

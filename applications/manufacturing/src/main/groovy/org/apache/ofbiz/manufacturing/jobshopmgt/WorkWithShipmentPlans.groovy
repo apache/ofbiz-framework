@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.manufacturing.jobshopmgt
 
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
-
 // **************************************
 // ShipmentPlan list form
 // **************************************

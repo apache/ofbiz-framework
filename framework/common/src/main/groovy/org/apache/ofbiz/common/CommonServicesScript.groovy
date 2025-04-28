@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.common.CommonWorkers
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
@@ -351,9 +350,9 @@ Map createFuturePeriod() {
     applTypes = []
     grain = null
     intermediate = null
-    parties = from('PartyAcctgPreference').where('enableAccounting', 'Y').queryIterator()
-    while (party = parties.next()) {
-        parameters.organizationPartyId = party.partyId
+    List parties = from('PartyAcctgPreference').where('enableAccounting', 'Y').queryList()
+    parties.each {
+        parameters.organizationPartyId = it.partyId
         createCustomTimePeriod = from('SystemProperty')
                 .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.create').queryOne()
         if (createCustomTimePeriod.systemPropertyValue == 'Y') {
@@ -441,6 +440,5 @@ Map createFuturePeriod() {
             }
         }
     }
-    parties.close()
     return success()
 }

@@ -26,7 +26,6 @@ import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.contact.ContactHelper
 import org.apache.ofbiz.party.contact.ContactMechWorker
 import org.apache.ofbiz.product.catalog.CatalogWorker

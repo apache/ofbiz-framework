@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.order.order
 
-import org.apache.ofbiz.order.order.OrderContentWrapper
-
 orderHeader = context.orderHeader
 
 // can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen

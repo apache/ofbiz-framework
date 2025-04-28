@@ -20,7 +20,6 @@ package org.apache.ofbiz.order.order
 
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.order.order.OrderListState
 
 partyId = request.getParameter('partyId')
 facilityId = request.getParameter('facilityId')

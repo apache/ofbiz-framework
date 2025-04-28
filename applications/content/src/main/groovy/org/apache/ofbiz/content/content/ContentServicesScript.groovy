@@ -18,20 +18,16 @@
 */
 package org.apache.ofbiz.content.content
 
+import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilProperties
-
-import org.apache.ofbiz.content.content.ContentKeywordIndex
 import org.apache.ofbiz.common.UrlServletHelper
+import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityConditionBuilder
-import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityListIterator
 import org.apache.ofbiz.service.GenericServiceException
-
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.base.util.UtilDateTime
 
 Map createTextAndUploadedContent() {
     Map result = success()
@@ -128,12 +124,11 @@ Map createContentAlternativeUrl() {
     //create Content Alternative URLs.
     String contentCreated = 'N'
     defaultLocaleString = parameters.locale ?: 'en'
-    EntityListIterator contents
 
     EntityCondition entryExprs
     EntityCondition contentTypeExprs = EntityCondition.makeCondition(EntityOperator.OR,
-        'contentTypeId', 'DOCUMENT',
-        'contentTypeId', 'WEB_SITE_PUB_PT')
+            'contentTypeId', 'DOCUMENT',
+            'contentTypeId', 'WEB_SITE_PUB_PT')
     if (parameters.contentId) {
         entryExprs = new EntityConditionBuilder().AND(contentTypeExprs) {
             NOT_EQUAL(contentName: null)
@@ -145,84 +140,83 @@ Map createContentAlternativeUrl() {
         }
     }
 
-    contents = select('contentId', 'contentName', 'localeString')
+    select('contentId', 'contentName', 'localeString')
             .from('Content')
             .where(entryExprs)
-            .queryIterator()
-
-    GenericValue content
-    while (content = contents.next()) {
-        String localeString = content.localeString ?: defaultLocaleString
-        List contentAssocDataResources = select('contentIdStart', 'dataResourceId', 'localeString', 'drObjectInfo', 'caFromDate', 'caThruDate')
-                .from('ContentAssocDataResourceViewTo')
-                .where(caContentAssocTypeId: 'ALTERNATIVE_URL',
-                        contentIdStart: content.contentId,
-                        localeString: localeString.toString())
-                .filterByDate('caFromDate', 'caThruDate')
-                .queryList()
-        if (contentAssocDataResources) {
-            if (contentAssocDataResources
-                    && contentAssocDataResources[0].drObjectInfo
-                    && content.contentName) {
-                String uri = UrlServletHelper.invalidCharacter(content.contentName)
-                if (uri) {
-                    try {
-                        serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
-                                      objectInfo: "/${uri}'${content.contentId}-content"]
-                        if (ServiceUtil.isSuccess(serviceResult)) {
-                            contentIdTo = serviceResult.contentId
-                        }
-                    } catch (GenericServiceException e) {
-                        logError(e.getMessage())
-                    }
-                    contentCreated = 'Y'
-                }
-            }
-        } else {
-            if (content.contentName) {
-                String uri = UrlServletHelper.invalidCharacter(content.contentName)
-                if (uri) {
-                    try {
-                        Map serviceResult = run service: 'createDataResource', with: [dataResourceId: delegator.getNextSeqId('DataResource'),
-                                                                                      dataResourceTypeId: 'URL_RESOURCE',
-                                                                                      localeString: localeString.toString(),
-                                                                                      objectInfo: "${uri}-${content.contentId}-content",
-                                                                                      statusId: 'CTNT_IN_PROGRESS']
-                        if (ServiceUtil.isSuccess(serviceResult)) {
-                            dataResourceId = serviceResult.dataResourceId
-                        }
-                    } catch (GenericServiceException e) {
-                        logError(e.getMessage())
-                    }
-                    if (dataResourceId) {
-                        try {
-                            serviceResult = run service: 'createContent', with: [dataResourceId: dataResourceId,
-                                                                                 localeString: localeString.toString(),
-                                                                                 statusId: 'CTNT_IN_PROGRESS']
-                            if (ServiceUtil.isSuccess(serviceResult)) {
-                                contentIdTo = serviceResult.contentId
-                            }
-                        } catch (GenericServiceException e) {
-                            logError(e.getMessage())
-                        }
-                        if (contentIdTo) {
+            .queryList()
+            .each { content ->
+                String localeString = content.localeString ?: defaultLocaleString
+                List contentAssocDataResources = select('contentIdStart', 'dataResourceId',
+                        'localeString', 'drObjectInfo', 'caFromDate', 'caThruDate')
+                        .from('ContentAssocDataResourceViewTo')
+                        .where(caContentAssocTypeId: 'ALTERNATIVE_URL',
+                                contentIdStart: content.contentId,
+                                localeString: localeString.toString())
+                        .filterByDate('caFromDate', 'caThruDate')
+                        .queryList()
+                if (contentAssocDataResources) {
+                    if (contentAssocDataResources
+                            && contentAssocDataResources[0].drObjectInfo
+                            && content.contentName) {
+                        String uri = UrlServletHelper.invalidCharacter(content.contentName)
+                        if (uri) {
                             try {
-                                serviceResult = run service: 'createContentAssoc', with: [contentId: content.contentId,
-                                                                                          contentIdTo: contentIdTo,
-                                                                                          contentAssocTypeId: 'ALTERNATIVE_URL']
+                                serviceResult = run service: 'updateDataResource', with: [dataResourceId: contentAssocDataResources[0].dataResourceId,
+                                                                                          objectInfo: "/${uri}'${content.contentId}-content"]
                                 if (ServiceUtil.isSuccess(serviceResult)) {
                                     contentIdTo = serviceResult.contentId
                                 }
                             } catch (GenericServiceException e) {
                                 logError(e.getMessage())
                             }
+                            contentCreated = 'Y'
                         }
                     }
-                    contentCreated = 'Y'
+                } else {
+                    if (content.contentName) {
+                        String uri = UrlServletHelper.invalidCharacter(content.contentName)
+                        if (uri) {
+                            try {
+                                Map serviceResult = run service: 'createDataResource', with: [dataResourceId: delegator.getNextSeqId('DataResource'),
+                                                                                              dataResourceTypeId: 'URL_RESOURCE',
+                                                                                              localeString: localeString.toString(),
+                                                                                              objectInfo: "${uri}-${content.contentId}-content",
+                                                                                              statusId: 'CTNT_IN_PROGRESS']
+                                if (ServiceUtil.isSuccess(serviceResult)) {
+                                    dataResourceId = serviceResult.dataResourceId
+                                }
+                            } catch (GenericServiceException e) {
+                                logError(e.getMessage())
+                            }
+                            if (dataResourceId) {
+                                try {
+                                    serviceResult = run service: 'createContent', with: [dataResourceId: dataResourceId,
+                                                                                         localeString: localeString.toString(),
+                                                                                         statusId: 'CTNT_IN_PROGRESS']
+                                    if (ServiceUtil.isSuccess(serviceResult)) {
+                                        contentIdTo = serviceResult.contentId
+                                    }
+                                } catch (GenericServiceException e) {
+                                    logError(e.getMessage())
+                                }
+                                if (contentIdTo) {
+                                    try {
+                                        serviceResult = run service: 'createContentAssoc', with: [contentId: content.contentId,
+                                                                                                  contentIdTo: contentIdTo,
+                                                                                                  contentAssocTypeId: 'ALTERNATIVE_URL']
+                                        if (ServiceUtil.isSuccess(serviceResult)) {
+                                            contentIdTo = serviceResult.contentId
+                                        }
+                                    } catch (GenericServiceException e) {
+                                        logError(e.getMessage())
+                                    }
+                                }
+                            }
+                            contentCreated = 'Y'
+                        }
+                    }
                 }
             }
-        }
-    }
     return [*: success(),
             contentCreated: contentCreated]
 }
@@ -402,8 +396,9 @@ Map createDownloadContent() {
 
 Map updateDownloadContent() {
     if (parameters.fileDataResourceId) {
-        return runService('updateOtherDataResource', [dataResourceId: parameters.fileDataResourceId,
-                                                                  dataResourceContent: parameters.file])
+        return (run service: 'updateOtherDataResource', with:
+                [dataResourceId: parameters.fileDataResourceId,
+                 dataResourceContent: parameters.file])
     }
     return success()
 }
@@ -426,7 +421,7 @@ Map getDataResource() {
     return result
 }
 
-Map getContentAndDataResource () {
+Map getContentAndDataResource() {
     Map result = success()
     Map resultDataContent = [:]
     GenericValue content = from('Content').where('contentId', parameters.contentId).queryOne()
@@ -446,9 +441,10 @@ Map getContentAndDataResource () {
 
 /* create content from data resource
    This method will create a skeleton content record from a data resource */
+
 Map createContentFromDataResource() {
     GenericValue dataResource = from('DataResource').where(parameters).queryOne()
-    if (! dataResource) {
+    if (!dataResource) {
         return error(UtilProperties.getMessage('ContentUiLabels', 'ContentDataResourceNotFound',
                 [dataResourceId: parameters.dataResourceId], parameters.locale))
     }
@@ -459,6 +455,7 @@ Map createContentFromDataResource() {
     Map result = run service: 'createContent', with: parameters
     return result
 }
+
 Map deleteContentKeywords() {
     GenericValue content = from('Content').where(parameters).queryOne()
     if (content) {
@@ -598,14 +595,14 @@ Map createMissingContentAltUrls() {
                 }
     }
     long totalParse = contentCreatedList.size()
-    long contentsUpdated = contentCreatedList.stream().filter {it == 'Y'}.count()
+    long contentsUpdated = contentCreatedList.stream().filter { it == 'Y' }.count()
     return success([contentsUpdated: contentsUpdated, contentsNotUpdated: totalParse - contentsUpdated])
 }
 
 /**
  * recursive call to get all productCategoryId from children
- * @param parentProductCategoryId
- * @return
+ * @param parentProductCategoryId category id for resolve all children
+ * @return all children productCategoryId
  */
 List createMissingCategoryContentAltUrlInline(String parentProductCategoryId) {
     List productCategoryIds = []
@@ -622,8 +619,8 @@ List createMissingCategoryContentAltUrlInline(String parentProductCategoryId) {
 
 /**
  * call createContentAlternativeUrl on all subContent and return the result for analyse
- * @param contentId
- * @return
+ * @param contentId id to generate the alternative
+ * @return the created content Id
  */
 List createMissingContentAltUrlInline(String contentId) {
     List contentCreatedList = []
@@ -647,7 +644,6 @@ List createMissingContentAltUrlInline(String contentId) {
  * and calls the "createCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
  */
 Map createCommContentDataResource() {
-
     // let's take a guess at what the dataResourceTypeId should be if it is empty
     if (!parameters.dataResourceTypeId && parameters.drMimeTypeId) {
         parameters.dataResourceTypeId = parameters.drMimeTypeId.startsWith('text') ?
@@ -655,8 +651,8 @@ Map createCommContentDataResource() {
     }
     Map persistServiceResult = run service: 'persistContentAndAssoc', with: parameters
     Map serviceResult = run service: 'createCommEventContentAssoc', with: [contentId: persistServiceResult.contentId,
-                                                       communicationEventId: parameters.communicationEventId,
-                                                       sequenceNum: parameters.sequenceNum]
+                                                                           communicationEventId: parameters.communicationEventId,
+                                                                           sequenceNum: parameters.sequenceNum]
     return success([contentId: persistServiceResult.contentId,
                     dataResourceId: persistServiceResult.dataResourceId,
                     drDataResourceId: persistServiceResult.drDataResourceId,
@@ -671,7 +667,7 @@ Map createCommContentDataResource() {
 
 /**
  * Remove a Content Record, related resource(s) and assocs.
- * @return
+ * @return success
  */
 Map removeContentAndRelated() {
     GenericValue content = from('Content').where(parameters).queryOne()
@@ -684,11 +680,11 @@ Map removeContentAndRelated() {
         content.remove()
         GenericValue dataResource = content.getRelatedOne('DataResource', false)
         if (dataResource) {
-            dataResource.removeRelated("ElectronicText")
-            dataResource.removeRelated("ImageDataResource")
-            dataResource.removeRelated("OtherDataResource")
-            dataResource.removeRelated("VideoDataResource")
-            dataResource.removeRelated("DataResourceRole")
+            dataResource.removeRelated('ElectronicText')
+            dataResource.removeRelated('ImageDataResource')
+            dataResource.removeRelated('OtherDataResource')
+            dataResource.removeRelated('VideoDataResource')
+            dataResource.removeRelated('DataResourceRole')
             dataResource.remove()
         }
     }
@@ -697,7 +693,7 @@ Map removeContentAndRelated() {
 
 /**
  * copy a content, electronic text and assocs and set status in progress
- * @return
+ * @return new content Id generated by the copy
  */
 Map copyContentAndElectronicTextandAssoc() {
     Map getContentResult = run service: 'getContent', with: parameters
@@ -706,7 +702,7 @@ Map copyContentAndElectronicTextandAssoc() {
         Map getElectronicTextResult = run service: 'getElectronicText', with: content.getAllFields()
         Map dataResourceResult = run service: 'createDataResource', with: [dataResourceTypeId: 'ELECTRONIC_TEXT']
         run service: 'createElectronicText', with: [dataResourceId: dataResourceResult.dataResourceId,
-                                                    textData      : getElectronicTextResult.textData]
+                                                    textData: getElectronicTextResult.textData]
         content.dataResourceId = dataResourceResult.dataResourceId
     }
     Map contentResult = run service: 'createContent', with: [*: content.getAllFields(),
@@ -732,7 +728,7 @@ Map copyContentAndElectronicTextandAssoc() {
 /**
  * @deprecated use createContentAssoc instead
  * Associate Content
- * @return
+ * @return success
  */
 Map assocContent() {
     GenericValue currentContent = from('Content').where(contentId: parameters.contentIdTo).cache().queryOne()

@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.manufacturing.bom
 
-import org.apache.ofbiz.manufacturing.bom.BOMNode
-
 tree = request.getAttribute('tree')
 currencyUomId = parameters.currencyUomId
 facilityId = parameters.facilityId
@@ -36,7 +34,7 @@ if (tree) {
     productsData = []
     grandTotalCost = 0.0
     while (treeQtyIt) {
-        BOMNode node = (BOMNode)treeQtyIt.next()
+        BOMNode node = (BOMNode) treeQtyIt.next()
         unitCost = null
         totalCost = null
         qoh = null

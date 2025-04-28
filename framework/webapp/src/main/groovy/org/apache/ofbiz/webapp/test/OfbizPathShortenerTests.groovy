@@ -46,8 +46,8 @@ class OfbizPathShortenerTests extends OFBizTestCase {
                 'LL.eyJ1c2VyTG9naW5JZCI6Imx1Y2lsZS5wZWxsZXRpZXJAZWRsbi5vcmciLCJpc3MiOiJBcGFjaGVPRkJpeiIsImV4cCI6MTcyNTU' +
                 '0MjM0OSwiaWF0IjoxNzI1NTQwNTQLLL.Rycl_L-u4ZeWkx82pWWGu7gycfsHQxIxE8zu1nQ5oueGDBeOXALL-SJzMuvSARbpxCwF9A' +
                 'jl4rTxgoEYuRMoHg&JavaScriptEnabled=Y&And=Again'
-        String shortUriFirst = OfbizPathShortener.resolveShortenedPath(this.getDelegator(),longUri)
-        String shortUriSecond = OfbizPathShortener.resolveShortenedPath(this.getDelegator(),longUri)
+        String shortUriFirst = OfbizPathShortener.resolveShortenedPath(this.getDelegator(), longUri)
+        String shortUriSecond = OfbizPathShortener.resolveShortenedPath(this.getDelegator(), longUri)
         assert shortUriSecond == shortUriFirst
     }
 

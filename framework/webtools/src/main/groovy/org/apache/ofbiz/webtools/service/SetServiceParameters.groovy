@@ -97,7 +97,6 @@ if (serviceName) {
 }
 context.serviceParameters = serviceParameters
 
-
 private String prepareServiceParamFieldHtml(Delegator delegator, ModelParam modelParam, ModelForm form,
         Map context, MacroFormRenderer renderer, ModelService modelService) {
     Writer writer = new StringWriter()

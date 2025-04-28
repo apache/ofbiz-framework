@@ -52,7 +52,6 @@ Map findCustomTimePeriods() {
             OR {
                 EQUALS(organizationPartyId: null)
                 EQUALS(organizationPartyId: '_NA_')
-
             }
             LESS_THAN(fromDate: parameters.findDate)
             OR {

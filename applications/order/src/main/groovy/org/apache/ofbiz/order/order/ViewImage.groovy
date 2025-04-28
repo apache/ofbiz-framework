@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.order.order
 
-import org.apache.ofbiz.order.order.OrderContentWrapper
-
 orderId = request.getParameter('orderId')
 orderItemSeqId = request.getParameter('orderItemSeqId')
 orderContentTypeId = request.getParameter('orderContentTypeId')

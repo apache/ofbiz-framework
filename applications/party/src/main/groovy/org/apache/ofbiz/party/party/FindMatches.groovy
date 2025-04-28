@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.party.party
 
-import org.apache.ofbiz.party.party.PartyWorker
-
 match = parameters.match
 if (match) {
     context.match = match

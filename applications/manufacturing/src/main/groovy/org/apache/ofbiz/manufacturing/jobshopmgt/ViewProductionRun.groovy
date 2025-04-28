@@ -21,8 +21,6 @@ package org.apache.ofbiz.manufacturing.jobshopmgt
 // The only required parameter is "productionRunId".
 // The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
 
-import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
-
 productionRunId = parameters.productionRunId
 if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher)

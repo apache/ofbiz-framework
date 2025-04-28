@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.content.survey
 
-import org.apache.ofbiz.content.survey.SurveyWrapper
-
 if (!survey) {
     surveyResponseId = parameters.surveyResponseId
     if (surveyResponseId) {

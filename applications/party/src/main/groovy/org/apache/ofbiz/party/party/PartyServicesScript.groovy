@@ -29,7 +29,6 @@ import org.apache.ofbiz.base.util.StringUtil
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.party.party.PartyHelper
 
 /**
   * Save Party Name Change

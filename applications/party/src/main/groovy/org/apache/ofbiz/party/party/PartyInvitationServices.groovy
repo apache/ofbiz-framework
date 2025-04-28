@@ -18,8 +18,6 @@
 */
 package org.apache.ofbiz.party.party
 
-import org.apache.ofbiz.party.party.PartyHelper
-
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 

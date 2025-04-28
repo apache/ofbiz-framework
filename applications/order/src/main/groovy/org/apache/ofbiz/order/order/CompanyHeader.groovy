@@ -18,19 +18,18 @@
 */
 package org.apache.ofbiz.order.order
 
- // this script is used to get the company's logo header information for orders,
-// invoices, and returns.  It can either take order, invoice, returnHeader from
- // parameters or use orderId, invoiceId, or returnId to look them up.
- // if none of these parameters are available then fromPartyId is used or "ORGANIZATION_PARTY" from general.properties as fallback
-
 import org.apache.ofbiz.base.util.UtilHttp
 import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.order.order.OrderReadHelper
 import org.apache.ofbiz.party.content.PartyContentWrapper
 
 import java.sql.Timestamp
+
+// this script is used to get the company's logo header information for orders,
+// invoices, and returns.  It can either take order, invoice, returnHeader from
+// parameters or use orderId, invoiceId, or returnId to look them up.
+// if none of these parameters are available then fromPartyId is used or "ORGANIZATION_PARTY" from general.properties as fallback
 
 orderHeader = parameters.orderHeader
 orderId = parameters.orderId
@@ -60,7 +59,7 @@ if (!orderHeader && orderId) {
     orderHeader = shipment.getRelatedOne('PrimaryOrderHeader', false)
 }
 
-if (!invoice && invoiceId)    {
+if (!invoice && invoiceId) {
     invoice = from('Invoice').where('invoiceId', invoiceId).queryOne()
     try {
         UtilHttp.setContentDisposition(response, invoiceId + '.pdf')
@@ -98,7 +97,7 @@ if (orderHeader) {
                 partyId = productStore.payToPartyId
             }
         }
-    // purchase orders - use the BILL_TO_CUSTOMER of the order
+        // purchase orders - use the BILL_TO_CUSTOMER of the order
     } else if (orderHeader.orderTypeId == 'PURCHASE_ORDER') {
         GenericValue billToParty = orh.getBillToParty()
         if (billToParty) {
@@ -188,7 +187,7 @@ address = null
 if (addresses) {
     address = from('PostalAddress').where('contactMechId', addresses[0].contactMechId).queryOne()
 }
-if (address)    {
+if (address) {
     // get the country name and state/province abbreviation
     country = address.getRelatedOne('CountryGeo', true)
     if (country) {
@@ -232,9 +231,9 @@ if (emails) {
                       .queryList()
     if (selContacts) {
         i = selContacts.iterator()
-        while (i.hasNext())    {
+        while (i.hasNext()) {
             email = i.next().getRelatedOne('ContactMech', false)
-            if (email.contactMechTypeId == 'ELECTRONIC_ADDRESS')    {
+            if (email.contactMechTypeId == 'ELECTRONIC_ADDRESS') {
                 context.email = email
                 break
             }
@@ -257,7 +256,7 @@ if (websiteUrls) {
                       .queryList()
     if (selContacts) {
         Iterator i = selContacts.iterator()
-        while (i.hasNext())    {
+        while (i.hasNext()) {
             website = i.next().getRelatedOne('ContactMech', false)
             if (website.contactMechTypeId == 'WEB_ADDRESS') {
                 context.website = website
