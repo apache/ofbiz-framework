@@ -1437,7 +1437,7 @@ function getJSONuiLabels(requiredLabels, callback) {
 
     if (requiredLabels != null && requiredLabels != "") {
         jQuery.ajax({
-            url: "getUiLabels",
+            url: "/common-js/control/getUiLabels",
             type: "POST",
             async: false,
             data: { "requiredLabels": requiredLabelsStr, "widgetVerbose": false },
@@ -1547,7 +1547,7 @@ function submitPagination(obj, url) {
 function loadJWT() {
     var JwtToken = "";
     jQuery.ajax({
-        url: "loadJWT",
+        url: "/common-js/control/loadJWT",
         type: "POST",
         async: false,
         dataType: "text",

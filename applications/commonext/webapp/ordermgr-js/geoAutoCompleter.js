@@ -80,12 +80,8 @@ function setKeyAsParameter(event, ui) {
 //Generic function for fetching country's associated state list.
 function getAssociatedStateList(countryId, stateId, errorId, divId) {
     var countryGeoId = jQuery("#" + countryId).val();
-    var requestToSend = "getAssociatedStateList";
-    if (jQuery('#orderViewed').length) {
-        requestToSend = "/ordermgr/control/getAssociatedStateList"
-    }
     jQuery.ajax({
-        url: requestToSend,
+        url: '/common-js/control/getAssociatedStateList',
         type: "POST",
         data: {countryGeoId: countryGeoId},
         success: function(data) {

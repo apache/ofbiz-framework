@@ -21,7 +21,7 @@ under the License.
 if (sessionStorage.getItem("SetTimeZoneFromBrowser") === null || sessionStorage.getItem("SetTimeZoneFromBrowser") !== "done") {
     const timezone = moment.tz.guess();
     $.ajax({
-        url: "SetTimeZoneFromBrowser",
+        url: "/common-js/control/SetTimeZoneFromBrowser",
         type: "POST",
         async: false,
         data: "localeName=" + timezone,

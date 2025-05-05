@@ -168,7 +168,7 @@
                 <set field="asm_title" from-field="uiLabelMap.WebtoolsGeosSelect"/>
                 <!-- selectMultipleRelatedValues parameters -->
                 <set field="asm_relatedField" value="LinkGeos_geoId"/>
-                <set field="asm_requestName" value="getRelatedGeos"/>
+                <set field="asm_requestName" value="/common-js/control/getRelatedGeos"/>
                 <set field="asm_paramKey" value="geoId"/>
                 <set field="asm_type" value="geoAssocTypeId"/>
                 <set field="asm_typeField" value="LinkGeos_geoAssocTypeId"/>

@@ -97,7 +97,7 @@ function getUploadProgressStatus(event){
             tick: function(counter, timerId) {
                 var timerId = timerId;
                 jQuery.ajax({
-                    url: 'getFileUploadProgressStatus',
+                    url: '/common-js/control/getFileUploadProgressStatus',
                     dataType: 'json',
                     success: function(data) {
                         if (data._ERROR_MESSAGE_LIST_ != undefined) {

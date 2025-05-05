@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.control;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.math.BigInteger;
@@ -80,6 +82,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityConfigurationException;
 import org.apache.ofbiz.security.SecurityFactory;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -87,6 +90,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppCache;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.webapp.website.WebSiteProperties;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 
 /**
@@ -825,6 +829,9 @@ public final class LoginWorker {
         // Create a secured cookie with the correct userLoginId
         createSecuredLoginIdCookie(request, response);
 
+        // Create a secured cookie with a jwt contains the userLoginId
+        createSecuredLoginJwtCookie(request, response);
+
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
         autoLoginSet(request, response);
 
@@ -1000,6 +1007,38 @@ public final class LoginWorker {
         }
     }
 
+    /**
+     * Set to response a cookie that contains an identification jwt to share with some other webapp who authenticate with
+     * event securedUserLoginByJWTCookie
+     * @param request
+     * @param response
+     */
+    public static void createSecuredLoginJwtCookie(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        if (userLogin != null) {
+            try {
+                String cookieName = "securedLoginToken";
+                Cookie securedLoginTokenCookie = new Cookie(cookieName,
+                        SecurityUtil.generateJwtToAuthenticateUserLogin(
+                                delegator, userLogin.getString("userLoginId")));
+                String cookieDomain = "";
+                try {
+                    WebSiteProperties webSiteProperties = WebSiteProperties.from(request);
+                    cookieDomain = webSiteProperties != null
+                            ? webSiteProperties.getHttpsHost()
+                            : EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
+                } catch (GenericEntityException ignored) { }
+                securedLoginTokenCookie.setDomain(cookieDomain);
+                securedLoginTokenCookie.setPath("/");
+                securedLoginTokenCookie.setSecure(true);
+                securedLoginTokenCookie.setHttpOnly(true);
+                response.addCookie(securedLoginTokenCookie);
+            } catch (Exception ignored) { }
+        }
+    }
+
     protected static String getAutoLoginCookieName(HttpServletRequest request) {
         return UtilHttp.getApplicationName(request) + ".autoUserLoginId";
     }
@@ -1040,6 +1079,27 @@ public final class LoginWorker {
         }
         return securedUserLoginId;
     }
+    public static String getSecuredUserLoginByJWT(HttpServletRequest request) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            Optional<Cookie> securedCookie = Arrays.stream(cookies)
+                    .filter(cookie -> cookie.getName().equals("securedLoginToken"))
+                    .findFirst();
+            if (securedCookie.isPresent()) {
+                try {
+                    DecodedJWT jwt = JWT.decode(securedCookie.get().getValue());
+                    if (SecurityUtil.authenticateUserLoginByJWT(delegator,
+                            jwt.getClaim("userLoginId").asString(), jwt.getToken())) {
+                        return jwt.getClaim("userLoginId").asString();
+                    }
+                } catch (Exception failed) {
+                    Debug.logWarning(failed, MODULE);
+                }
+            }
+        }
+        return null;
+    }
 
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1049,6 +1109,14 @@ public final class LoginWorker {
             return "success";
         }
         return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
+    }
+
+    public static String securedUserLoginByJWTCookie(HttpServletRequest request, HttpServletResponse response) {
+        String userLoginId = getSecuredUserLoginByJWT(request);
+        if (userLoginId != null) {
+            return loginUserWithUserLoginId(request, response, userLoginId);
+        }
+        return "success";
     }
 
     private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
