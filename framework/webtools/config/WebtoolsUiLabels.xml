@@ -3191,8 +3191,8 @@
     </property>
     <property key="WebtoolsLabelManagerTemporarySearchTitle">
         <value xml:lang="de">Um zu beginnen, wählen Sie eine Datei aus; danach werden alle Optionen aktiviert. Sofern kein Button erscheint, setzen Sie den Cursor in ein Feld und validieren Sie mit 'Enter'.</value>
-        <value xml:lang="en">For the moment, to begin you need to choose one file, after all options are opened. Without button put the cursor in a field and validate.</value>
-        <value xml:lang="fr">Pour le moment, pour commencer vous devez choisir un fichier, ensuite tout est ouvert. Si aucun bouton n'apparaît, postionnez le curseur dans un champ et validez.</value>
+        <value xml:lang="en">For the moment, to begin you need to choose one file. After all options are opened. If no button is appearing, put the cursor in a field and validate.</value>
+        <value xml:lang="fr">Pour le moment, pour commencer vous devez choisir un fichier. Ensuite tout est ouvert. Si aucun bouton n'apparaît, positionnez le curseur dans un champ et validez.</value>
         <value xml:lang="ja">対象のファイルを選択するとすべてのオプションが表示されます、項目をクリックする必要はありません。</value>
         <value xml:lang="vi">Vào lúc này, để bắt đầu bạn còn chọn một tập tin, sau khi tất cả các Tùy chọn đã được mở. Không cần sử dụng Nút bạn hãy đặt Con trỏ ở Trường và Kiểm tra định dạng.</value>
         <value xml:lang="zh">现在，要开始的话，在打开全部选项之后，你需要选择一个文件。没有按钮的话，把鼠标放在数据项里来验证。</value>
