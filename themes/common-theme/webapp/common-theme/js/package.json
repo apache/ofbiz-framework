@@ -15,7 +15,7 @@
         "jquery-ui-dist": "^1.13.3",
         "jquery-validation": "^1.21.0",
         "jquery.browser": "^0.1.0",
-        "moment-timezone": "^0.5.48",
+        "moment-timezone": "^0.6.0",
         "moment-with-locales-es6": "^1.0.1",
         "trumbowyg": "^2.31.0",
         "uglify-js": "3.19.3"
