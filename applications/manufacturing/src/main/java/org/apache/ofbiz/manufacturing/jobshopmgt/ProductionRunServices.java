@@ -1869,7 +1869,7 @@ public class ProductionRunServices {
                     }
                 }
                 if (totalCost != null) {
-                    unitCost = totalCost.divide(quantity);
+                    unitCost = totalCost.divide(quantity, DECIMALS, ROUNDING);
                 } else {
                     unitCost = BigDecimal.ZERO;
                 }
