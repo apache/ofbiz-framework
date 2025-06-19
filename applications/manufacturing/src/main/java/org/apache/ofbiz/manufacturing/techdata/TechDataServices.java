@@ -214,18 +214,28 @@ public class TechDataServices {
         return techDataCalendar;
     }
 
-    /** Used to find the fisrt day in the TechDataCalendarWeek where capacity != 0, beginning at dayStart, dayStart included.
+    /** Used to find the first day in the TechDataCalendarWeek where capacity != 0, beginning at dayStart, dayStart included.
      * @param techDataCalendarWeek        The TechDataCalendarWeek cover
      * @param dayStart
      * @return a map with the  capacity (Double) available and moveDay (int): the number of day it's necessary to move to have capacity available
      */
-    public static Map<String, Object> dayStartCapacityAvailable(GenericValue techDataCalendarWeek, int dayStart) {
+    public static Map<String, Object> dayStartCapacityAvailable(
+            GenericValue techDataCalendar,
+            GenericValue techDataCalendarWeek,
+            Timestamp dateFrom) {
         Map<String, Object> result = new HashMap<>();
         int moveDay = 0;
         Double capacity = null;
         Time startTime = null;
-        while (capacity == null || capacity == 0) {
-            switch (dayStart) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateFrom);
+
+        while (true) {
+            Timestamp currentDate = new Timestamp(calendar.getTimeInMillis());
+
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            switch (dayOfWeek) {
             case Calendar.MONDAY:
                 capacity = techDataCalendarWeek.getDouble("mondayCapacity");
                 startTime = techDataCalendarWeek.getTime("mondayStartTime");
@@ -255,11 +265,21 @@ public class TechDataServices {
                 startTime = techDataCalendarWeek.getTime("sundayStartTime");
                 break;
             }
-            if (capacity == null || capacity == 0) {
-                moveDay += 1;
-                dayStart = (dayStart == 7) ? 1 : dayStart + 1;
+
+            // Check if exception capacity should override
+            Double exceptionCapacity = getExceptionCapacityForDate(techDataCalendar, currentDate);
+            if (exceptionCapacity != null) {
+                capacity = exceptionCapacity;
             }
+
+            if (capacity != null && capacity > 0) {
+                break;
+            }
+
+            moveDay += 1;
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
+
         result.put("capacity", capacity);
         result.put("startTime", startTime);
         result.put("moveDay", moveDay);
@@ -283,7 +303,7 @@ public class TechDataServices {
         // TODO read TechDataCalendarExcDay to manage execption day
         Calendar cDateTrav = Calendar.getInstance();
         cDateTrav.setTime(dateFrom);
-        Map<String, Object> position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
+        Map<String, Object> position = dayStartCapacityAvailable(techDataCalendar, techDataCalendarWeek, new Timestamp(cDateTrav.getTimeInMillis()));
         int moveDay = (Integer) position.get("moveDay");
         if (moveDay != 0) return 0;
         Time startTime = (Time) position.get("startTime");
@@ -315,7 +335,7 @@ public class TechDataServices {
         // TODO read TechDataCalendarExcDay to manage execption day
         Calendar cDateTrav = Calendar.getInstance();
         cDateTrav.setTime(dateFrom);
-        Map<String, Object> position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
+        Map<String, Object> position = dayStartCapacityAvailable(techDataCalendar, techDataCalendarWeek, new Timestamp(cDateTrav.getTimeInMillis()));
         Time startTime = (Time) position.get("startTime");
         int moveDay = (Integer) position.get("moveDay");
         dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayStart(dateFrom, moveDay);
@@ -326,7 +346,7 @@ public class TechDataServices {
         } else {
             dateTo = UtilDateTime.getNextDayStart(dateTo);
             cDateTrav.setTime(dateTo);
-            position = dayStartCapacityAvailable(techDataCalendarWeek, cDateTrav.get(Calendar.DAY_OF_WEEK));
+            position = dayStartCapacityAvailable(techDataCalendar, techDataCalendarWeek, new Timestamp(cDateTrav.getTimeInMillis()));
             startTime = (Time) position.get("startTime");
             moveDay = (Integer) position.get("moveDay");
             if (moveDay != 0) dateTo = UtilDateTime.getDayStart(dateTo, moveDay);
@@ -517,5 +537,49 @@ public class TechDataServices {
             } else amount -= previousCapacity;
         }
         return dateTo;
+    }
+
+    /**
+     * Retrieves the exception day capacity for a given date, if it exists.
+     * If no exception exists for the date, returns null.
+     * If exception day is found, its defined exceptionCapacity is returned.
+     *
+     * @param techDataCalendar the calendar entity
+     * @param date the timestamp to check (date portion only)
+     * @return Double exception capacity or null if not defined for this date
+     */
+    private static Double getExceptionCapacityForDate(GenericValue techDataCalendar, Timestamp date) {
+        try {
+            List<GenericValue> excDays = techDataCalendar.getRelated("TechDataCalendarExcDay", null, null, true);
+            if (excDays != null) {
+                Calendar checkCal = Calendar.getInstance();
+                checkCal.setTime(date);
+                checkCal.set(Calendar.HOUR_OF_DAY, 0);
+                checkCal.set(Calendar.MINUTE, 0);
+                checkCal.set(Calendar.SECOND, 0);
+                checkCal.set(Calendar.MILLISECOND, 0);
+                long checkMillis = checkCal.getTimeInMillis();
+
+                for (GenericValue excDay : excDays) {
+                    Timestamp excDate = excDay.getTimestamp("exceptionDateStartTime");
+                    if (excDate != null) {
+                        Calendar excCal = Calendar.getInstance();
+                        excCal.setTime(excDate);
+                        excCal.set(Calendar.HOUR_OF_DAY, 0);
+                        excCal.set(Calendar.MINUTE, 0);
+                        excCal.set(Calendar.SECOND, 0);
+                        excCal.set(Calendar.MILLISECOND, 0);
+                        long excMillis = excCal.getTimeInMillis();
+
+                        if (excMillis == checkMillis) {
+                            return excDay.getDouble("exceptionCapacity");
+                        }
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError("Error reading exception days: " + e.getMessage(), MODULE);
+        }
+        return null;
     }
 }
