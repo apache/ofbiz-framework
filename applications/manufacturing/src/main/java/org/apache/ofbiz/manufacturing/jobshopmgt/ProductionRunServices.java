@@ -2528,6 +2528,9 @@ public class ProductionRunServices {
         if (quantity == null) {
             quantity = requirement.getBigDecimal("quantity");
         }
+        if (quantity == null) {
+            quantity = BigDecimal.ONE;
+        }
         Map<String, Object> serviceContext = new HashMap<>();
         serviceContext.clear();
         serviceContext.put("productId", requirement.getString("productId"));
