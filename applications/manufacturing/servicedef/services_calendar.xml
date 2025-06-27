@@ -25,8 +25,8 @@ under the License.
 
     <!-- Routing services -->
     <service name="createCalendar" engine="entity-auto" default-entity-name="TechDataCalendar" invoke="create">
-        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <description>Create a calendar</description>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
