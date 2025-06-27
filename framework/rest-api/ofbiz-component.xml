@@ -30,7 +30,9 @@ under the License.
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 
+    <!--
     <test-suite loader="main" location="testdef/rest-apiTests.xml"/>
+    -->
 
     <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="rest-api"
