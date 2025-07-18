@@ -214,10 +214,14 @@ public class TechDataServices {
         return techDataCalendar;
     }
 
-    /** Used to find the first day in the TechDataCalendarWeek where capacity != 0, beginning at dayStart, dayStart included.
-     * @param techDataCalendarWeek        The TechDataCalendarWeek cover
-     * @param dayStart
-     * @return a map with the  capacity (Double) available and moveDay (int): the number of day it's necessary to move to have capacity available
+    /**
+     * Used to find the first day in the TechDataCalendarWeek where capacity != 0, beginning at the given dateFrom
+     * (included).
+     * @param techDataCalendar       The TechDataCalendar entity that contains exceptions
+     * @param techDataCalendarWeek   The TechDataCalendarWeek coverage data
+     * @param dateFrom               The starting date to begin checking availability
+     * @return a map with the capacity (Double) available, startTime (Time), and moveDay (int): the number of days to
+     * move forward to find availability
      */
     public static Map<String, Object> dayStartCapacityAvailable(
             GenericValue techDataCalendar,
