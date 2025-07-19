@@ -170,7 +170,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="deletePartyToWorkEffortAssignment" in-map-name="serviceCtx"/>
+        <call-service service-name="expireWorkEffortPartyAssignment" in-map-name="serviceCtx"/>
         <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment">
             <field-map field-name="partyId" value="TestParty"/>
             <field-map field-name="roleTypeId" value="ACCOUNTANT"/>

@@ -34,7 +34,7 @@
     <!-- Content services? -->
     <service name="getPublicForumMessage" engine="group" default-entity-name="Content" auth="true">
         <description>Get Content and resource information</description>
-        <deprecated use-instead="getContentAndDataResource" since="Release 22.01"/>
+        <deprecated use-instead="getContentAndDataResource" since="Release 24.09"/>
         <group>
             <invoke name="getContentAndDataResource"/>
         </group>
@@ -560,7 +560,7 @@
     </service>
 
     <service name="resequence" auth="true" engine="group">
-        <deprecated use-instead="resequenceContentAssocChildren" since="release22.01"/>
+        <deprecated use-instead="resequenceContentAssocChildren" since="Release 24.09"/>
         <group>
             <invoke name="resequenceContentAssocChildren"/>
         </group>

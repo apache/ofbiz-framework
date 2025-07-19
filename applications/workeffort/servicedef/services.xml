@@ -214,7 +214,7 @@ under the License.
     </service>
     <service name="deletePartyToWorkEffortAssignment" default-entity-name="WorkEffortPartyAssignment" engine="entity-auto" invoke="expire">
         <description>delete/set the thrudate on the WorkEffortPartyAssignment Entity to today</description>
-        <deprecated use-instead="expireWorkEffortPartyAssignment" since="UpComingBranch"/>
+        <deprecated use-instead="expireWorkEffortPartyAssignment" since="Release 24.09"/>
         <implements service="expireWorkEffortPartyAssignment"/>
     </service>
     <service name="unassignPartyFromWorkEffort" default-entity-name="WorkEffortPartyAssignment" engine="entity-auto" invoke="delete">

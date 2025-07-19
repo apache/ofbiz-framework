@@ -41,7 +41,7 @@ under the License.
         </sc:request-map>
         <sc:request-map uri="WorkEffortPartyAssigns/delete">
             <sc:security https="true" auth="true"/>
-            <sc:event type="service" invoke="deletePartyToWorkEffortAssignment"/>
+            <sc:event type="service" invoke="expireWorkEffortPartyAssignment"/>
             <sc:response name="success" type="request" value="json"/>
             <sc:response name="error" type="request" value="json"/>
         </sc:request-map>
@@ -109,7 +109,7 @@ under the License.
                     <wm:if-empty field="thruDate"/>
                 </wm:condition>
                 <wm:link target="WorkEffortPartyAssigns/delete" request-confirmation="true">
-                    <wm:auto-parameters-service service-name="deletePartyToWorkEffortAssignment"/>
+                    <wm:auto-parameters-service service-name="expireWorkEffortPartyAssignment"/>
                     <wm:set-callback area-target="WorkEffortPartyAssigns/List"/>
                 </wm:link>
             </wm:menu-item>

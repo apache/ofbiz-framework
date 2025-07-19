@@ -177,7 +177,7 @@
         auth="false" engine="java" invoke="checkContentPermission"
         location="org.apache.ofbiz.content.content.ContentPermissionServices">
         <description>Check for permission to perform operation on Content</description>
-        <deprecated use-instead="genericContentPermission" since="Release 22.01"/>
+        <deprecated use-instead="genericContentPermission" since="Release 24.09"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <!-- it was a mistake to pass in List objects because it makes it difficult to use
@@ -225,7 +225,7 @@
     <service name="checkAssocPermission" engine="java" transaction-timeout="7200" auth="true"
             location="org.apache.ofbiz.content.content.ContentPermissionServices" invoke="checkAssocPermission">
         <description>Check for permission to perform operation on Content</description>
-        <deprecated use-instead="genericContentPermission" since="Release 22.01"/>
+        <deprecated use-instead="genericContentPermission" since="Release 24.09"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
@@ -248,7 +248,7 @@
     <service name="assocContent" engine="groovy" default-entity-name="ContentAssoc"  auth="true"
             location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="assocContent">
         <description>Check for permission to perform operation on Content</description>
-        <deprecated use-instead="genericContentPermission" since="Release 22.01"/>
+        <deprecated use-instead="genericContentPermission" since="Release 24.09"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>

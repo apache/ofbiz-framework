@@ -289,7 +289,7 @@ under the License.
     <service name="lookupParty" engine="groovy"
         location="component://party/src/main/groovy/org/apache/ofbiz/party/party/LookupServices.groovy" invoke="lookupParty" auth="true">
         <description>Performs a lookup for parties</description>
-        <deprecated use-instead="performFindParty" since="Upcoming Branch">
+        <deprecated use-instead="performFindParty" since="Release 24.09">
             use performFindParty to realize your search, the service lookupParty is inconsistent
             and need to replace by appropriate service
         </deprecated>

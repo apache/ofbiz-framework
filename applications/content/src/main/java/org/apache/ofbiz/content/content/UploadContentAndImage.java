@@ -553,7 +553,7 @@ public class UploadContentAndImage {
             resequenceContext.put("contentIdTo", caContentIdTo);
             resequenceContext.put("userLogin", userLogin);
             try {
-                ftlResults = dispatcher.runSync("resequence", resequenceContext);
+                ftlResults = dispatcher.runSync("resequenceContentAssocChildren", resequenceContext);
                 if (ServiceUtil.isError(ftlResults)) {
                     String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);

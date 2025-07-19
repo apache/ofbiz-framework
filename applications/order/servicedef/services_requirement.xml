@@ -92,7 +92,7 @@ under the License.
 
     <service name="addRequirementTask" engine="entity-auto" invoke="create" default-entity-name="WorkRequirementFulfillment">
         <description>Associate an existing task w/ a requirement</description>
-        <deprecated use-instead="createWorkRequirementFulfillment" since="Upcoming Branch">
+        <deprecated use-instead="createWorkRequirementFulfillment" since="Release 24.09">
             Use createWorkRequirementFulfillment to create a workeffort requirement fulfillment, that is an entity-auto service
         </deprecated>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
