@@ -216,6 +216,10 @@ allprojects {
             // To test not released FreeMarker versions, see OFBIZ-12934 and sub-tasks for details
             url "https://repository.apache.org/content/repositories/snapshots/"
         } */
+        maven {
+            url "http://192.168.1.176:8181/repository/maven-releases/"
+            allowInsecureProtocol true
+        }
     }
 }
 
