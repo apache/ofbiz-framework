@@ -583,7 +583,14 @@ public class CatalinaContainer implements Container {
     private static StandardContext prepareContext(Host host, ContainerConfig.Configuration configuration,
             ComponentConfig.WebappInfo appInfo, Configuration.Property clusterProp) throws ContainerException {
 
-        StandardContext context = new StandardContext();
+        StandardContext initialContext;
+        try {
+            Class<?> standardContextClass = Class.forName("org.ofbiz.openfire.catalina.core.OpenfireStandardContext");
+            initialContext = (StandardContext) standardContextClass.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            initialContext = new StandardContext();
+        }
+        final StandardContext context = initialContext;
         context.setDefaultWebXml(System.getProperty("ofbiz.home") + "/framework/catalina/config/web.xml");
         Tomcat.initWebappDefaults(context);
 
