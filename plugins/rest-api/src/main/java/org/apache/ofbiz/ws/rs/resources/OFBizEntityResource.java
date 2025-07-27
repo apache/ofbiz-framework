@@ -9,58 +9,34 @@ import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.apache.ofbiz.ws.rs.security.Secured;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
-import jakarta.ws.rs.core.Response;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Arrays;
 import java.util.List;
+import java.util.HashMap;
+
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.HttpMethod;
-import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.Link;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import jakarta.ws.rs.ext.Provider;
 
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.ws.rs.ApiServiceRequest;
-import org.apache.ofbiz.ws.rs.ServiceRequestProcessor;
-import org.apache.ofbiz.ws.rs.annotation.ServiceRequestValidator;
-import org.apache.ofbiz.ws.rs.response.Success;
-import org.apache.ofbiz.ws.rs.security.Secured;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.WebApplicationException;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
 import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
 
 @Path("/entity")
 @Produces(MediaType.APPLICATION_JSON)
@@ -70,7 +46,16 @@ import org.apache.ofbiz.entity.condition.EntityOperator;
 public class OFBizEntityResource extends OFBizResource {
 
     private static final String MODULE = OFBizEntityResource.class.getName();
+    private static final Set<String> SKIP_QUERY_PARAMS = Set.of("pageSize", "pageIndex", "orderBy");
 
+    /**
+     * Get all entities or get filtered list
+     *
+     * @param entityName
+     * @param uriInfo
+     * @param request
+     * @return
+     */
     @GET
     @Path("/{entityName}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -80,7 +65,6 @@ public class OFBizEntityResource extends OFBizResource {
             @Context HttpServletRequest request) {
 
         try {
-            Set<String> SKIP_QUERY_PARAMS = Set.of("pageSize", "pageIndex", "orderBy");
 
             Map<String, String> filterParams = new HashMap<>();
 
@@ -96,36 +80,48 @@ public class OFBizEntityResource extends OFBizResource {
                     Object value;
 
                     /**
-                    | Query                                       | Meaning                      |
-                    | ------------------------------------------- | ---------------------------- |
-                    | `statusId=ACTIVE`                           | Equals                       |
-                    | `statusId=NEQ:CLOSED`                       | Not equal                    |
-                    | `statusId=IN:ACTIVE,DRAFT`                  | IN list                      |
-                    | `createdDate=BETWEEN:2024-01-01,2024-12-31` | Date range                   |
-                    | `amount=GT:1000&amount=LT:5000`             | Amount between 1000 and 5000 |
-                    | `orderBy=-createdDate`                      | Sort descending              |
-                    | 'glAccountTypeId=LIKE:CURRENT_A%'           | Like (uses SQL wild cards)   |
+                     | Query                                       | Meaning                      |
+                     | ------------------------------------------- | ---------------------------- |
+                     | `statusId=ACTIVE`                           | Equals                       |
+                     | `statusId=NEQ:CLOSED`                       | Not equal                    |
+                     | `statusId=IN:ACTIVE,DRAFT`                  | IN list                      |
+                     | `createdDate=BETWEEN:2024-01-01,2024-12-31` | Date range                   |
+                     | `amount=GT:1000&amount=LT:5000`             | Amount between 1000 and 5000 |
+                     | `orderBy=-createdDate`                      | Sort descending              |
+                     | 'glAccountTypeId=LIKE:CURRENT_A%'           | Like (uses SQL wild cards)   |
                      **/
 
                     if (parts.length == 2) {
                         value = parts[1];
                         switch (parts[0].toUpperCase()) {
-                            case "LIKE": operator = EntityComparisonOperator.LIKE; break;
-                            case "GT": operator = EntityComparisonOperator.GREATER_THAN; break;
-                            case "LT": operator = EntityComparisonOperator.LESS_THAN; break;
-                            case "GTE": operator = EntityComparisonOperator.GREATER_THAN_EQUAL_TO; break;
-                            case "LTE": operator = EntityComparisonOperator.LESS_THAN_EQUAL_TO; break;
-                            case "NEQ": operator = EntityComparisonOperator.NOT_EQUAL; break;
-                            case "IN":
-                                operator = EntityComparisonOperator.IN;
-                                value = Arrays.asList(parts[1].split(","));
-                                break;
-                            case "BETWEEN":
-                                operator = EntityComparisonOperator.BETWEEN;
-                                value = Arrays.asList(parts[1].split(",", 2));
-                                break;
-                            default:
-                                value = rawValue;
+                        case "LIKE":
+                            operator = EntityComparisonOperator.LIKE;
+                            break;
+                        case "GT":
+                            operator = EntityComparisonOperator.GREATER_THAN;
+                            break;
+                        case "LT":
+                            operator = EntityComparisonOperator.LESS_THAN;
+                            break;
+                        case "GTE":
+                            operator = EntityComparisonOperator.GREATER_THAN_EQUAL_TO;
+                            break;
+                        case "LTE":
+                            operator = EntityComparisonOperator.LESS_THAN_EQUAL_TO;
+                            break;
+                        case "NEQ":
+                            operator = EntityComparisonOperator.NOT_EQUAL;
+                            break;
+                        case "IN":
+                            operator = EntityComparisonOperator.IN;
+                            value = Arrays.asList(parts[1].split(","));
+                            break;
+                        case "BETWEEN":
+                            operator = EntityComparisonOperator.BETWEEN;
+                            value = Arrays.asList(parts[1].split(",", 2));
+                            break;
+                        default:
+                            value = rawValue;
                         }
                     } else {
                         value = rawValue;
@@ -202,6 +198,13 @@ public class OFBizEntityResource extends OFBizResource {
         }
     }
 
+    /**
+     * Get a single entity
+     *
+     * @param entityName
+     * @param pk
+     * @return
+     */
     @GET
     @Path("/{entityName}/{pk}")
     public Response getEntity(@PathParam("entityName") String entityName,
@@ -217,10 +220,18 @@ public class OFBizEntityResource extends OFBizResource {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Error fetching entity: " + e.getMessage()).build();
+                    .entity("Error fetching entity: "
+                            + e.getMessage()).build();
         }
     }
 
+    /**
+     * Get count of entities
+     *
+     * @param entityName
+     * @param uriInfo
+     * @return
+     */
     @GET
     @Path("/{entityName}/count")
     @Produces(MediaType.APPLICATION_JSON)
@@ -257,11 +268,18 @@ public class OFBizEntityResource extends OFBizResource {
             e.printStackTrace();
             return RestApiUtil.error(Response.Status.BAD_REQUEST.getStatusCode(),
                     "Bad Request",
-                    "Invalid request: " + e.getMessage());
+                    "Invalid request: "
+                            + e.getMessage());
         }
     }
 
-
+    /**
+     * Create an entity
+     *
+     * @param entityName
+     * @param payload
+     * @return
+     */
     @POST
     @Path("/{entityName}")
     public Response createEntity(@PathParam("entityName") String entityName,
@@ -273,10 +291,19 @@ public class OFBizEntityResource extends OFBizResource {
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Error creating entity: " + e.getMessage()).build();
+                    .entity("Error creating entity: "
+                            + e.getMessage()).build();
         }
     }
 
+    /**
+     * Update an entity
+     *
+     * @param entityName
+     * @param pk
+     * @param payload
+     * @return
+     */
     @PUT
     @Path("/{entityName}/{pk}")
     public Response updateEntity(@PathParam("entityName") String entityName,
@@ -300,6 +327,13 @@ public class OFBizEntityResource extends OFBizResource {
         }
     }
 
+    /**
+     * Delete an entity
+     *
+     * @param entityName
+     * @param pk
+     * @return
+     */
     @DELETE
     @Path("/{entityName}/{pk}")
     public Response deleteEntity(@PathParam("entityName") String entityName,

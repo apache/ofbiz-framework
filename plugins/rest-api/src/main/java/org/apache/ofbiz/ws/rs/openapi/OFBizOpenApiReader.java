@@ -217,8 +217,8 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         getOperation.addParametersItem(HEADER_ACCEPT_JSON);
 
         // Dynamic field filtering note
-        getOperation.setDescription(getOperation.getDescription() +
-                "\n\nFilter using any entity field as query parameter (e.g., ?glAccountTypeId=CURRENT_ASSET)");
+        getOperation.setDescription(getOperation.getDescription()
+                + "\n\nFilter using any entity field as query parameter (e.g., ?glAccountTypeId=CURRENT_ASSET)");
 
         ApiResponses getResponses = new ApiResponses();
         getResponses.addApiResponse("200", new ApiResponse().description("Successfully retrieved entities"));
