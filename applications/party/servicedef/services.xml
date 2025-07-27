@@ -53,7 +53,7 @@ under the License.
 
     <!-- Party services -->
     <service name="setPartyStatus" engine="java"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true" export="true" action="PUT">
         <description>Set the party status. Requires PARTYMGR_UPDATE or PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
             this service will fail. The result is the original statusId, so that ECA conditions can check if a status has actually changed.</description>
         <permission-service service-name="partyStatusPermissionCheck" main-action="UPDATE"/>
@@ -64,7 +64,7 @@ under the License.
     </service>
 
     <service name="createPerson" engine="java" default-entity-name="Person"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPerson" auth="false">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPerson" auth="false" export="true" action="POST">
         <description>Create a Person</description>
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
@@ -139,7 +139,7 @@ under the License.
         <attribute name="partyId" mode="OUT" type="String" optional="false"/>
     </service>
     <service name="updatePerson" engine="java" default-entity-name="Person"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true" export="true" action="PUT">
         <description>Update a Person</description>
 <!--        <required-permissions join-type="AND">
             <check-permission permission="update:party:${partyId}"/>
@@ -155,7 +155,7 @@ under the License.
         <override name="lastName" optional="false"/>
     </service>
     <service name="createPartyGroup" engine="java" default-entity-name="PartyGroup"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false" export="true" action="POST">
         <description>Create a PartyGroup</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -168,7 +168,7 @@ under the License.
         <override name="comments" allow-html="safe"/>
     </service>
     <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
-            location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true" export="true" action="PUT">
         <description>Update a PartyGroup</description>
         <permission-service service-name="partyGroupPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="true"/>
@@ -246,7 +246,7 @@ under the License.
         <attribute name="note" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="create" auth="true">
+    <service name="createRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a new role type</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -314,13 +314,13 @@ under the License.
     </service>
 
     <!-- Party Role services -->
-    <service name="createPartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="create" auth="true">
+    <service name="createPartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_CREATE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deletePartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deletePartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="DELETE"/>
@@ -372,7 +372,8 @@ under the License.
 
     <!-- Party Relationship services -->
     <service name="createPartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
-        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="createPartyRelationship" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="createPartyRelationship" auth="true"
+             export="true" action="POST">
         <description>
             Create a Relationship between two Parties;
             if partyIdFrom is not specified the partyId of the current userLogin will be used;
@@ -385,7 +386,8 @@ under the License.
         <override name="partyIdTo" optional="false"/>
     </service>
     <service name="updatePartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
-        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="updatePartyRelationship" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="updatePartyRelationship" auth="true"
+             export="true" action="PUT">
         <description>
             Update a Relationship between two Parties;
             if partyIdFrom is not specified the partyId of the current userLogin will be used;
@@ -400,7 +402,8 @@ under the License.
         <override name="roleTypeIdTo" optional="true"/>
     </service>
     <service name="deletePartyRelationship" default-entity-name="PartyRelationship" engine="groovy"
-        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="deletePartyRelationship" auth="true">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="deletePartyRelationship" auth="true"
+             export="true" action="DELETE">
         <description>
             Delete a Relationship between two Parties;
             if partyIdFrom is not specified the partyId of the current userLogin will be used;
@@ -413,7 +416,7 @@ under the License.
         <override name="roleTypeIdTo" optional="true"/>
     </service>
 
-    <service name="createPartyRelationshipAndRole" engine="group" auth="true">
+    <service name="createPartyRelationshipAndRole" engine="group" auth="true" export="true" action="POST">
         <description>Create party's roles and party's relationship</description>
         <group>
             <invoke name="ensurePartyRoleFrom"/>
@@ -422,7 +425,7 @@ under the License.
         </group>
     </service>
 
-    <service name="createPartyRelationshipType" engine="entity-auto" default-entity-name="PartyRelationshipType" invoke="create" auth="true">
+    <service name="createPartyRelationshipType" engine="entity-auto" default-entity-name="PartyRelationshipType" invoke="create" auth="true" export="true" action="POST">
         <description>Create a new Party Relationship type</description>
         <permission-service service-name="partyIdPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -431,7 +434,7 @@ under the License.
     </service>
 
     <service name="createUpdatePartyRelationshipAndRoles" engine="java" default-entity-name="PartyRelationship"
-        location="org.apache.ofbiz.party.party.PartyRelationshipServices" invoke="createUpdatePartyRelationshipAndRoles" auth="true">
+        location="org.apache.ofbiz.party.party.PartyRelationshipServices" invoke="createUpdatePartyRelationshipAndRoles" auth="true" export="true" action="POST">
         <description>
             Create or update both parties roles and parties relationship, partyRelationshipTypeId being mandatory.
             The relationship is considered from one side or another (partyId is checked internally against partyIdFrom)
@@ -1568,12 +1571,12 @@ under the License.
     </service>
 
     <!-- Party Role services -->
-    <service name="updateRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a RoleType Record</description>
         <auto-attributes mode="IN" include="pk"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteRoleType" default-entity-name="RoleType" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a RoleType Record</description>
         <auto-attributes mode="IN" include="pk"/>
     </service>

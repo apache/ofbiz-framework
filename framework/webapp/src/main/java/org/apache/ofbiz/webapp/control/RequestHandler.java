@@ -42,9 +42,9 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import javax.ws.rs.core.MultivaluedHashMap;
 
-import org.apache.cxf.jaxrs.model.URITemplate;
+import org.glassfish.jersey.uri.UriTemplate;
+
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.SSLUtil;
@@ -179,22 +179,39 @@ public final class RequestHandler {
      * @param request the HTTP request to match
      * @return a collection of request maps which might be empty but not {@code null}
      */
-    private static Collection<RequestMap> resolveTemplateURI(Map<String, List<RequestMap>> rMapMap,
-                                                             HttpServletRequest request) {
-        // Retrieve the request path without the leading '/' character.
-        String path = request.getPathInfo().substring(1);
-        MultivaluedHashMap<String, String> vars = new MultivaluedHashMap<>();
+    private static Collection<RequestMap> resolveTemplateURI(
+            Map<String, List<RequestMap>> rMapMap,
+            HttpServletRequest request) {
+
+        String path = request.getPathInfo();
+
+        if (path == null || path.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Normalize the path: remove leading slash ONLY if all templates are relative (i.e., no leading '/')
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+
         for (Map.Entry<String, List<RequestMap>> entry : rMapMap.entrySet()) {
-            URITemplate uriTemplate = URITemplate.createExactTemplate(entry.getKey());
-            // Check if current path the URI template exactly.
-            if (uriTemplate.match(path, vars) && vars.getFirst("FINAL_MATCH_GROUP").equals("/")) {
-                // Set attributes from template variables to be used in context.
-                uriTemplate.getVariables().forEach(var -> request.setAttribute(var, vars.getFirst(var)));
+            String templateUri = entry.getKey();
+
+            // IMPORTANT: Match exactly as defined in controller.xml
+            UriTemplate uriTemplate = new UriTemplate(templateUri);
+            Map<String, String> vars = new HashMap<>();
+
+            if (uriTemplate.match("/" + path, vars) || uriTemplate.match(path, vars)) {
+                for (Map.Entry<String, String> varEntry : vars.entrySet()) {
+                    request.setAttribute(varEntry.getKey(), varEntry.getValue());
+                }
                 return entry.getValue();
             }
         }
+
         return Collections.emptyList();
     }
+
 
     public static String getRequestUri(String path) {
         List<String> pathInfo = StringUtil.split(path, "/");

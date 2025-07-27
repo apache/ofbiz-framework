@@ -27,10 +27,8 @@ import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.jaxrs.model.URITemplate;
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -42,6 +40,7 @@ import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.control.RequestHandlerException;
 import org.apache.ofbiz.webapp.control.RequestHandlerExceptionAllowExternalRequests;
 import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
+import org.glassfish.jersey.uri.UriTemplate;
 
 public final class CsrfUtil {
 
@@ -243,7 +242,8 @@ public final class CsrfUtil {
     }
 
     static ConfigXMLReader.RequestMap findRequestMap(Map<String, ConfigXMLReader.RequestMap> requestMapMap,
-            String urlWithoutControlPath) {
+                                                     String urlWithoutControlPath) {
+
         String path = urlWithoutControlPath;
         if (urlWithoutControlPath.startsWith("/")) {
             path = urlWithoutControlPath.substring(1);
@@ -252,20 +252,23 @@ public final class CsrfUtil {
         if (charPos != -1) {
             path = path.substring(0, charPos);
         }
-        MultivaluedHashMap<String, String> vars = new MultivaluedHashMap<>();
+
         for (Map.Entry<String, ConfigXMLReader.RequestMap> entry : requestMapMap.entrySet()) {
-            URITemplate uriTemplate = URITemplate.createExactTemplate(entry.getKey());
-            // Check if current path the URI template exactly.
-            if (uriTemplate.match(path, vars) && vars.getFirst(URITemplate.FINAL_MATCH_GROUP).equals("/")) {
+            UriTemplate uriTemplate = new UriTemplate(entry.getKey());
+
+            Map<String, String> uriVariables = new HashMap<>();
+            if (uriTemplate.match("/" + path, uriVariables)) {
                 return entry.getValue();
             }
         }
-        // the path could be request uri with orderride
+
         if (path.contains("/")) {
             return requestMapMap.get(path.substring(0, path.indexOf("/")));
         }
+
         return null;
     }
+
 
     /**
      * generate csrf token for AJAX and add it as value to token cache

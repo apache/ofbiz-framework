@@ -27,7 +27,7 @@ under the License.
     <!-- ========= General Ledger Services ========= -->
 
     <!-- GlAccount & Related -->
-    <service name="createGlAccount" default-entity-name="GlAccount" engine="entity-auto" invoke="create" auth="true">
+    <service name="createGlAccount" default-entity-name="GlAccount" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -37,31 +37,31 @@ under the License.
         <override name="glResourceTypeId" optional="false"/>
         <override name="accountName" optional="false"/>
     </service>
-    <service name="updateGlAccount" default-entity-name="GlAccount" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlAccount" default-entity-name="GlAccount" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteGlAccount" default-entity-name="GlAccount" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteGlAccount" default-entity-name="GlAccount" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createGlAccountOrganization" default-entity-name="GlAccountOrganization" engine="entity-auto" invoke="create" auth="true">
+    <service name="createGlAccountOrganization" default-entity-name="GlAccountOrganization" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateGlAccountOrganization" default-entity-name="GlAccountOrganization" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlAccountOrganization" default-entity-name="GlAccountOrganization" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteGlAccountOrganization" default-entity-name="GlAccountOrganization" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteGlAccountOrganization" default-entity-name="GlAccountOrganization" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a GlAccount record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -69,7 +69,7 @@ under the License.
 
     <!-- GlJournal -->
     <service name="quickCreateAcctgTransAndEntries" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="quickCreateAcctgTransAndEntries" auth="true">
+            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="quickCreateAcctgTransAndEntries" auth="true" export="true" action="POST">
         <description>Creates an AcctgTrans and two offsetting AcctgTransEntry records</description>
         <auto-attributes mode="IN" entity-name="AcctgTrans" include="nonpk" optional="true"/>
         <auto-attributes mode="IN" entity-name="AcctgTransEntry" include="nonpk" optional="true">
@@ -83,7 +83,7 @@ under the License.
     </service>
 
     <service name="calculateGlJournalTrialBalance" default-entity-name="GlJournal" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="calculateGlJournalTrialBalance" auth="true">
+            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="calculateGlJournalTrialBalance" auth="true" export="true" action="GET">
         <description>Calculate Trial Balance for a GlJournal</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -92,11 +92,11 @@ under the License.
         <attribute name="debitCreditDifference" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="postGlJournal" default-entity-name="GlJournal" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="postGlJournal" auth="true">
+            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="postGlJournal" auth="true" export="true" action="POST">
         <description>Post a GlJournal</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="create" auth="true">
+    <service name="createGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a GlJournal record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -106,7 +106,7 @@ under the License.
         </auto-attributes>
         <override name="organizationPartyId" optional="false"/>
     </service>
-    <service name="updateGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a GlJournal record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -115,14 +115,14 @@ under the License.
             <exclude field-name="postedDate"/>
         </auto-attributes>
     </service>
-    <service name="deleteGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteGlJournal" default-entity-name="GlJournal" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a GlJournal record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- GlReconciliation & Related -->
-    <service name="createGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="create" auth="true">
+    <service name="createGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -133,7 +133,7 @@ under the License.
         <override name="glReconciliationName" optional="false"/>
         <override name="statusId" default-value="GLREC_CREATED"/>
     </service>
-    <service name="updateGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -142,41 +142,41 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
     </service>
-    <service name="deleteGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteGlReconciliation" default-entity-name="GlReconciliation" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateGlReconciliationLastModified" default-entity-name="GlReconciliation" engine="simple"
              location="component://accounting/minilang/ledger/GeneralLedgerServices.xml"
-             invoke="updateGlReconciliationLastModified" auth="true">
+             invoke="updateGlReconciliationLastModified" auth="true" export="true" action="PUT">
         <description>Update Gl Reconciliation Last Modified</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <!-- GlReconciliationEntry services -->
     <service name="createGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createGlReconciliationEntry" auth="true">
+            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createGlReconciliationEntry" auth="true" export="true" action="POST">
         <description>Add an Entry to a GlReconciliation</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="updateGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update an Entry to a GlReconciliation record</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteGlReconciliationEntry" default-entity-name="GlReconciliationEntry" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Remove an Entry from a GlReconciliation</description>
         <permission-service service-name="basicGeneralLedgerPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- AcctgTrans & Related services -->
     <service name="completeAcctgTransEntries" default-entity-name="AcctgTrans" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="completeAcctgTransEntries" auth="true">
+            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="completeAcctgTransEntries" auth="true" export="true" action="POST">
         <description>Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -194,26 +194,26 @@ under the License.
     </service>
     <!-- AcctgTrans services -->
     <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="groovy" auth="true"
-             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/GeneralLedgerServicesScript.groovy" invoke="createAcctgTrans" >
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/GeneralLedgerServicesScript.groovy" invoke="createAcctgTrans" export="true" action="POST">
         <description>Create a AcctgTrans record with isPosted set to "N"</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTrans"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
     </service>
-    <service name="updateAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a AcctgTrans record</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteAcctgTrans" default-entity-name="AcctgTrans" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a AcctgTrans record</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="checkAcctgTransPosted" default-entity-name="AcctgTrans" engine="simple"
-        location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="checkAcctgTransPosted" auth="true">
+        location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="checkAcctgTransPosted" auth="true" export="true" action="GET">
         <description>Check AcctgTrans posted</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -229,7 +229,7 @@ under the License.
         -->
     </service>
     <service name="createAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="createAcctgTransEntry" auth="true">
+            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="createAcctgTransEntry" auth="true" export="true" action="POST">
         <description>Add an Entry to a AcctgTrans.  Will use baseCurrencyUomId in PartyAcctgPreference if no currencyUomId is in parameters.</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTransEntry"/>
@@ -238,14 +238,14 @@ under the License.
         <override name="acctgTransEntrySeqId" mode="OUT"/>
     </service>
     <service name="updateAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="updateAcctgTransEntry" auth="true">
+            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="updateAcctgTransEntry" auth="true" export="true" action="PUT">
         <description>Update an Entry to a AcctgTrans record</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="deleteAcctgTransEntry" auth="true">
+            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="deleteAcctgTransEntry" auth="true" export="true" action="DELETE">
         <description>Remove an Entry from a AcctgTrans</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -253,7 +253,8 @@ under the License.
 
     <!-- ====== Services for posting business transactions (invoices, payments, inventory adjustments, etc.) to the General Ledger ======= -->
     <service name="createAcctgTransAndEntries" engine="simple"
-        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransAndEntries" default-entity-name="AcctgTrans">
+        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransAndEntries" default-entity-name="AcctgTrans"
+             export="true" action="POST">
         <description>
             Takes a list of AcctgTransEntry entries, verifies that the list of entries are valid (GL account and organizationParty exist),
             and then creates an AcctgTrans entry and stores all the AcctgTransEntries with the acctgTransId.  Note that this does not actually
@@ -267,7 +268,7 @@ under the License.
         <override name="acctgTransId" type="String" mode="OUT"/>
     </service>
     <service name="calculateAcctgTransTrialBalance" default-entity-name="AcctgTrans" engine="simple"
-            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="calculateAcctgTransTrialBalance" auth="true">
+            location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="calculateAcctgTransTrialBalance" auth="true" export="true" action="POST">
         <description>Calculate Trial Balance for a AcctgTrans</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -277,7 +278,7 @@ under the License.
     </service>
     <service name="postAcctgTrans" default-entity-name="AcctgTrans" engine="simple"
             location="component://accounting/minilang/ledger/AcctgTransServices.xml" invoke="postAcctgTrans" auth="true"
-            transaction-timeout="600">
+            transaction-timeout="600" export="true" action="POST">
         <description>Post a AcctgTrans and related entries.  This will make sure that the time period is not closed and that
          the sum of the debits and credits are equal.
         </description>
@@ -287,13 +288,13 @@ under the License.
     </service>
 
     <service name="closeFinancialTimePeriod" default-entity-name="CustomTimePeriod" engine="simple"
-        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="closeFinancialTimePeriod" auth="true">
+        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="closeFinancialTimePeriod" auth="true" export="true" action="POST">
         <description>Close a financial time period</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="computeGlAccountBalanceForTimePeriod" engine="simple"
-             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="computeGlAccountBalanceForTimePeriod" auth="true">
+             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="computeGlAccountBalanceForTimePeriod" auth="true" export="true" action="POST">
         <description>Compute the total debits, total credits, opening, ending balances of an account in a financial period</description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="customTimePeriodId" type="String" mode="IN" optional="false"/>
@@ -304,14 +305,14 @@ under the License.
         <attribute name="endingBalance" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="computeAndStoreGlAccountHistoryBalance" engine="simple"
-             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="computeAndStoreGlAccountHistoryBalance" auth="true">
+             location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="computeAndStoreGlAccountHistoryBalance" auth="true" export="true" action="POST">
         <description>Compute and store in a GlAccountHistory record the total debits, total credits, opening, ending balances of an account in a financial period</description>
         <auto-attributes entity-name="GlAccountHistory" include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Financial Reports -->
     <service name="prepareIncomeStatement" engine="simple"
-        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="prepareIncomeStatement" auth="true">
+        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="prepareIncomeStatement" auth="true" export="true" action="POST">
         <description>Prepare the data for the Income Statement</description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
@@ -323,7 +324,7 @@ under the License.
 
     <!-- Miscellaneous Ledger-related services -->
     <service name="getGlAccountFromAccountType" engine="simple"
-            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="getGlAccountFromAccountType" auth="true">
+            location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="getGlAccountFromAccountType" auth="true" export="true" action="GET">
         <description>Look up a GlAccountId first in ProductGlAccount by productId and productGlAccountTypeId, if not found,
             then in organizationPartyId and glAccountTypeId </description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
@@ -348,20 +349,20 @@ under the License.
     <!-- Services for the automatic creation of accounting transactions based on business transactions
          Typically, these services are triggered by SECAs -->
     <service name="createAcctgTransForSalesShipmentIssuance" engine="simple"  auth="true"
-        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForSalesShipmentIssuance">
+        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForSalesShipmentIssuance" export="true" action="POST">
         <description>Create an accounting transaction for a sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createAcctgTransForCanceledSalesShipmentIssuance" engine="simple"  auth="true"
-        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForCanceledSalesShipmentIssuance">
+        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForCanceledSalesShipmentIssuance" export="true" action="POST">
         <description>Create an accounting transaction for a canceled sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
         <attribute name="canceledQuantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createAcctgTransForInventoryItemCostChange" engine="simple" auth="true"
-        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForInventoryItemCostChange">
+        location="component://accounting/minilang/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForInventoryItemCostChange" export="true" action="POST">
         <description>Create accounting transaction when item cost is changed (D: INV_ADJ_VAL, C: INVENTORY_ACCOUNT)</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="false"/>
@@ -826,17 +827,17 @@ under the License.
 
 
     <!-- GlAccountType services -->
-    <service name="createGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="create" auth="true">
+    <service name="createGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="create" auth="true" export="true" action="POST">
         <description>Create a GlAccountType</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
     </service>
-    <service name="updateGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="update" auth="true" export="true" action="PUT">
         <description>Update a GlAccountType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteGlAccountType" default-entity-name="GlAccountType" engine="entity-auto" invoke="delete" auth="true" export="true" action="DELETE">
         <description>Delete a GlAccountType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>

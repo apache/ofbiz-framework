@@ -116,7 +116,7 @@ under the License.
         <property name="http-connector" value="connector">
             <!-- see https://tomcat.apache.org/tomcat-9.0-doc/config/http.html for reference -->
             <!--<property name="address" value=""/>-->
-            <property name="port" value="8080"/>
+            <property name="port" value="8081"/>
             <property name="protocol" value="HTTP/1.1"/>
             <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="http"/>
@@ -209,7 +209,7 @@ under the License.
         </property>
         <property name="http-connector" value="connector">
             <!--<property name="address" value=""/>-->
-            <property name="port" value="8080"/>
+            <property name="port" value="8081"/>
             <property name="protocol" value="HTTP/1.1"/>
             <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="http"/>

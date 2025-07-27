@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resources>
+    <uri>entity</uri>
+    <method>all</method>
+    <security>
+        <auth>true</auth>
+        <https>true</https>
+    </security>
+
+
+</resources>
