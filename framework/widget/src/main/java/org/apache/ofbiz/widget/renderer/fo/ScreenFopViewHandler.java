@@ -139,7 +139,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
                 ? ApacheFopWorker.getAllowEditContentDefault() : (String) context.get("allowEditContent"));
         boolean allowEditAnnotations = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowEditAnnotations"))
                 ? ApacheFopWorker.getAllowEditAnnotationsDefault() : (String) context.get("allowEditAnnotations"));
-        if (UtilValidate.isNotEmpty(userPassword) || UtilValidate.isNotEmpty(ownerPassword) || !allowPrint || !allowCopyContent || allowEditContent
+        if (UtilValidate.isNotEmpty(userPassword) || UtilValidate.isNotEmpty(ownerPassword) || !allowPrint || !allowCopyContent || !allowEditContent
                 || !allowEditAnnotations) {
             int encryptionLength = 128;
             try {
