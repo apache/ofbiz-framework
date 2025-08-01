@@ -25,7 +25,7 @@ under the License.
     <classpath type="dir" location="config"/>
 
     <!-- load the naming (JNDI) server -->
-    <container name="naming-container" loaders="main" class="org.apache.ofbiz.base.container.NamingServiceContainer">
+    <container name="naming-container" loaders="main,rmi" class="org.apache.ofbiz.base.container.NamingServiceContainer">
         <property name="host" value="0.0.0.0"/>
         <property name="port" value="1099"/>
     </container>
