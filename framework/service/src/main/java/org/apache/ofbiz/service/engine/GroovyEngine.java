@@ -45,7 +45,7 @@ import groovy.lang.Script;
 /**
  * Groovy Script Service Engine
  */
-public final class GroovyEngine extends GenericAsyncEngine {
+public class GroovyEngine extends GenericAsyncEngine {
 
     private static final String MODULE = GroovyEngine.class.getName();
     private static final Object[] EMPTY_ARGS = {};

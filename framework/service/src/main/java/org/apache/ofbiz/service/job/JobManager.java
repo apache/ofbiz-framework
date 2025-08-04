@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Assert;
 import org.apache.ofbiz.base.util.Debug;
@@ -57,6 +58,7 @@ import org.apache.ofbiz.service.calendar.RecurrenceInfo;
 import org.apache.ofbiz.service.calendar.RecurrenceInfoException;
 import org.apache.ofbiz.service.config.ServiceConfigUtil;
 import org.apache.ofbiz.service.config.model.RunFromPool;
+import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
 /**
  * Job manager. The job manager queues and manages jobs. Client code can queue a job to be run immediately
@@ -203,6 +205,7 @@ public final class JobManager {
                                 EntityCondition.makeCondition("runTime",
                                         EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()))),
                 EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("statusId", "SERVICE_PENDING"),
                 EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
                 EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
         // limit to just defined pools
@@ -243,7 +246,11 @@ public final class JobManager {
                     int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", INSTANCE_ID),
                             EntityCondition.makeCondition(updateExpression));
                     if (rowsUpdated == 1) {
-                        poll.add(new PersistedServiceJob(dctx, jobValue, null));
+                        JobTracker jobTracker = null;
+                        if (UtilValidate.isNotEmpty(jobValue.getString("jobTrackerId"))) {
+                            jobTracker = JobTrackerFactory.getJobTracker(getDispatcher(), jobValue.getString("jobTrackerId"));
+                        }
+                        poll.add(new PersistedServiceJob(dctx, jobValue, null, jobTracker));
                         if (poll.size() == limit) {
                             break;
                         }
@@ -391,6 +398,9 @@ public final class JobManager {
                     Debug.logWarning(e, MODULE);
                 }
             }
+
+            // If some jobs was followed by a job tracker, call it to recalculate the quantity
+            updateJobTrackersThatFollowCrashedJobs(crashed);
             if (Debug.infoOn()) {
                 Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", MODULE);
             }
@@ -400,6 +410,23 @@ public final class JobManager {
             }
         }
         crashedJobsReloaded = true;
+    }
+
+    private void updateJobTrackersThatFollowCrashedJobs(List<GenericValue> crashed) {
+        List<String> jobTrackerIds = crashed.stream()
+                .filter(job -> UtilValidate.isNotEmpty(job.getString("jobTrackerId")))
+                .map(job -> job.getString("jobTrackerId"))
+                .distinct()
+                .toList();
+        if (!jobTrackerIds.isEmpty()) {
+            jobTrackerIds.forEach(jobTrackerId -> {
+                try {
+                    JobTrackerFactory.getJobTracker(getDispatcher(), jobTrackerId).computeJobsTotalQty();
+                } catch (Exception e) {
+                    Debug.logWarning(e, "Failed to recalculate jobs quantity for the jobTracker " + jobTrackerId, MODULE);
+                }
+            });
+        }
     }
 
     /** Queues a Job to run now.

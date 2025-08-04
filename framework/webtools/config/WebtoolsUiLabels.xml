@@ -593,6 +593,14 @@
         <value xml:lang="zh">查找任务</value>
         <value xml:lang="zh-TW">尋找任務</value>
     </property>
+    <property key="PageTitleFindJobTracker">
+        <value xml:lang="en">Job tracker</value>
+        <value xml:lang="fr">Traceur de job</value>
+    </property>
+    <property key="PageTitleFindJobTrackerResults">
+        <value xml:lang="en">Job tracker results</value>
+        <value xml:lang="fr">Résultat du traceur de job</value>
+    </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>
         <value xml:lang="en">Cache Maintenance Page</value>
@@ -684,6 +692,10 @@
     <property key="PageTitleJobManagerLockList">
         <value xml:lang="en">Job manager locks list</value>
         <value xml:lang="fr">Blocage du gestionnaire de service</value>
+    </property>
+    <property key="PageTitleJobTrackerDetails">
+        <value xml:lang="en">Job tracker details</value>
+        <value xml:lang="fr">Détails du traceur de job</value>
     </property>
     <property key="PageTitleScheduleJob">
         <value xml:lang="de">Job anlegen</value>
@@ -2912,6 +2924,14 @@
     <property key="WebtoolsJobManagerLockEnable">
         <value xml:lang="en">Job manager locks enabled</value>
         <value xml:lang="fr">Blocages actifs sur le gestionnaire de service</value>
+    </property>
+    <property key="WebtoolsJobTrackerJobsEvolution">
+        <value xml:lang="en">Tracked jobs evolution</value>
+        <value xml:lang="fr">État des jobs suivis</value>
+    </property>
+    <property key="WebtoolsJobTrackerList">
+        <value xml:lang="en">Job Tracker List</value>
+        <value xml:lang="fr">Liste des traceurs de job</value>
     </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="de">Name der LHS-Map</value>

@@ -29,10 +29,12 @@ import java.time.format.SignStyle;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
@@ -89,8 +91,8 @@ public class PersistedServiceJob extends GenericServiceJob {
      * @param jobValue
      * @param req
      */
-    public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req) {
-        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req);
+    public PersistedServiceJob(DispatchContext dctx, GenericValue jobValue, GenericRequester req, JobTracker jobTracker) {
+        super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req, jobTracker);
         this.delegator = dctx.getDelegator();
         this.jobValue = jobValue;
         /*
@@ -397,15 +399,19 @@ public class PersistedServiceJob extends GenericServiceJob {
 
     @Override
     public void deQueue() throws InvalidJobException {
-        if (getCurrentState() != State.QUEUED) {
+        if (!List.of(State.QUEUED, State.ON_HOLD).contains(getCurrentState())) {
             throw new InvalidJobException("Illegal state change");
         }
-        setCurrentState(State.CREATED);
+        if (getCurrentState() == State.QUEUED) {
+            setCurrentState(State.CREATED);
+        }
         try {
             jobValue.refresh();
             jobValue.set("startDateTime", null);
             jobValue.set("runByInstanceId", null);
-            jobValue.set("statusId", "SERVICE_PENDING");
+            if (getCurrentState() == State.QUEUED) {
+                jobValue.set("statusId", "SERVICE_PENDING");
+            }
             jobValue.store();
         } catch (GenericEntityException e) {
             throw new InvalidJobException("Unable to dequeue job [" + getJobId() + "]", e);

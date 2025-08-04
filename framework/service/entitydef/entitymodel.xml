@@ -218,4 +218,55 @@ under the License.
         <prim-key field="serviceName"/>
     </entity>
 
+    <!-- ========================================================= -->
+    <!-- org.apache.ofbiz.service.tracker -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="JobTracker" package-name="org.apache.ofbiz.service.tracker" title="Job Tracker">
+        <field name="jobTrackerId" type="id-vlong"/>
+        <field name="serviceName" type="id-vlong"/>
+        <field name="runtimeDataId" type="id"/>
+        <field name="statusId" type="id"/>
+        <field name="jobsTotalQty" type="numeric"/>
+        <field name="persistResult" type="indicator"/>
+        <field name="runAsUser" type="id-vlong"/>
+        <field name="startDate" type="date-time"/>
+        <field name="completionDate" type="date-time"/>
+        <field name="cancelDate" type="date-time"/>
+        <field name="createdDate" type="date-time"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <field name="lastModifiedDate" type="date-time"/>
+        <field name="lastModifiedByUserLogin" type="id-vlong"/>
+        <prim-key field="jobTrackerId"/>
+        <relation type="one" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="many" rel-entity-name="JobSandbox">
+            <key-map field-name="jobTrackerId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="TrackedJobResult" package-name="org.apache.ofbiz.service.tracker" title="Tracked job result">
+        <field name="jobTrackerId" type="id-vlong"/>
+        <field name="jobTrackerResultSeqId" type="id"/>
+        <field name="resultMessage" type="description"/>
+        <field name="resultCode" type="description"/>
+        <prim-key field="jobTrackerId"/>
+        <prim-key field="jobTrackerResultSeqId"/>
+    </entity>
+
+    <extend-entity entity-name="JobSandbox">
+        <field name="jobTrackerId" type="id-vlong"/>
+        <relation type="one" rel-entity-name="JobTracker">
+            <key-map field-name="jobTrackerId"/>
+        </relation>
+    </extend-entity>
+
+    <view-entity entity-name="JobSandboxQtyByStatusAndJobTrackerView" package-name="org.apache.ofbiz.service.tracker">
+        <member-entity entity-alias="JS" entity-name="JobSandbox"/>
+        <alias name="jobTrackerId" entity-alias="JS" group-by="true"/>
+        <alias name="statusId" entity-alias="JS" group-by="true"/>
+        <alias name="quantity" entity-alias="JS" field="jobId" function="count-distinct"/>
+    </view-entity>
+
 </entitymodel>

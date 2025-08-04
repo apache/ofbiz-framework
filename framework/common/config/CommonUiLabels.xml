@@ -1641,6 +1641,10 @@
         <value xml:lang="zh-CN">取消所有</value>
         <value xml:lang="zh-TW">取消全部</value>
     </property>
+    <property key="CommonCancelDate">
+        <value xml:lang="en">Cancel Date</value>
+        <value xml:lang="fr">Date d'annulation</value>
+    </property>
     <property key="CommonCancelDone">
         <value xml:lang="ar">إلغاء/إتمام</value>
         <value xml:lang="cs">Storno/Dokončeno</value>
@@ -5555,6 +5559,7 @@
         <value xml:lang="en">Hold</value>
         <value xml:lang="es">Pausa</value>
         <value xml:lang="es-MX">Pausa</value>
+        <value xml:lang="fr">Pause</value>
         <value xml:lang="nl">In wacht</value>
     </property>
     <property key="CommonHome">
@@ -10269,6 +10274,10 @@
         <value xml:lang="zh-CN">重置</value>
         <value xml:lang="zh-TW">重設</value>
     </property>
+    <property key="CommonRestart">
+        <value xml:lang="en">Restart</value>
+        <value xml:lang="fr">Redémarrer</value>
+    </property>
     <property key="CommonResultLookup">
         <value xml:lang="ar">نتيجة البحث</value>
         <value xml:lang="cs">Výsledek vyhledávání</value>
@@ -12456,6 +12465,10 @@
         <value xml:lang="vi">Chi phí tới Giá</value>
         <value xml:lang="zh">成本价格差乘以</value>
         <value xml:lang="zh-TW">成本價格差乘以</value>
+    </property>
+    <property key="CommonTotalDone">
+        <value xml:lang="en">Total done</value>
+        <value xml:lang="fr">Total terminé</value>
     </property>
     <property key="CommonTotalPercProfit">
         <value xml:lang="ar">إجمالي نسبة الربح</value>

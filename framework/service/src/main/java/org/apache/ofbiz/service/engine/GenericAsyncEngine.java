@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.ofbiz.service.tracker.JobTracker;
 import org.apache.ofbiz.base.config.GenericConfigException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
@@ -42,6 +43,7 @@ import org.apache.ofbiz.service.job.Job;
 import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
 import org.apache.ofbiz.service.job.JobPriority;
+import org.apache.ofbiz.service.tracker.JobTrackerFactory;
 
 /**
  * Generic Asynchronous Engine
@@ -108,6 +110,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("maxRetry", (long) modelService.getMaxRetry());
                 jFields.put("runtimeDataId", dataId);
                 jFields.put("priority", JobPriority.NORMAL);
+                jFields.put("jobTrackerId", context.get("jobTrackerId"));
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);
                 }
@@ -128,7 +131,13 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
             if (jMgr != null) {
                 String name = Long.toString(System.currentTimeMillis());
                 String jobId = modelService.getName() + "." + name;
-                job = new GenericServiceJob(dctx, jobId, name, modelService.getName(), context, requester);
+                JobTracker jobTracker;
+                try {
+                    jobTracker = JobTrackerFactory.getJobTracker(dctx.getDispatcher(), (String) context.get("jobTrackerId"));
+                } catch (GenericEntityException e) {
+                    throw new RuntimeException(e);
+                }
+                job = new GenericServiceJob(dctx, jobId, name, modelService.getName(), context, requester, jobTracker);
                 try {
                     getDispatcher().getJobManager().runJob(job);
                 } catch (JobManagerException jse) {

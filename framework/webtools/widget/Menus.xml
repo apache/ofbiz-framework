@@ -108,6 +108,9 @@ under the License.
         <menu-item name="findJob" title="${uiLabelMap.WebtoolsJobList}">
             <link target="FindJob"/>
         </menu-item>
+        <menu-item name="jobTrackerList" title="${uiLabelMap.WebtoolsJobTrackerList}">
+            <link target="FindJobTracker"/>
+        </menu-item>
         <menu-item name="threadList" title="${uiLabelMap.WebtoolsThreadList}">
             <link target="threadList"/>
         </menu-item>
