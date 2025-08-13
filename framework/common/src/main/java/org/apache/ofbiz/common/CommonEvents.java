@@ -253,6 +253,8 @@ public class CommonEvents {
         // jsonStr.length is not reliable for unicode characters
         response.setContentLength(jsonStr.getBytes("UTF8").length);
 
+        // Set default security headers
+        UtilHttp.setResponseBrowserDefaultSecurityHeaders(response, null);
         // return the JSON String
         Writer out;
         try {
