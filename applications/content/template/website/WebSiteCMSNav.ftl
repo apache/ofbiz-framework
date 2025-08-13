@@ -16,9 +16,9 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
-<script type="application/javascript">
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/ui/js/jquery.cookie-1.4.0.js</@ofbizContentUrl>"></script>
+<script type="text/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script type="text/javascript">
     function modifyJstreeCookieToSelectNewPage() {
         // core.initally_load and ui.initially_select don't work with the cookies plugin,
         // so we have to modify the cookie to achieve the same.

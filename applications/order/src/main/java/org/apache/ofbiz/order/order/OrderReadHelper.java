@@ -229,6 +229,22 @@ public class OrderReadHelper {
     }
 
     /**
+     * Gets externalId.
+     * @return the external id
+     */
+    public String getExternalId() {
+        return orderHeader.getString("externalId");
+    }
+
+    /**
+     * Gets order priority
+     * @return the priority
+     */
+    public String getPriority() {
+        return orderHeader.getString("priority");
+    }
+
+    /**
      * Gets adjustments.
      * @return the adjustments
      */
@@ -397,6 +413,51 @@ public class OrderReadHelper {
             Debug.logError(e, MODULE);
             return null;
         }
+    }
+
+    /**
+     * Return notes links to this order
+     * @param internalNote
+     * @return order notes
+     */
+    public List<GenericValue> getOrderHeaderNotes(boolean internalNote) {
+        try {
+            return EntityQuery.use(orderHeader.getDelegator()).from("OrderHeaderNote")
+                    .where("orderId", getOrderId(),
+                            "internalNote", internalNote ? "Y" : "N")
+                    .queryList();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+        }
+        return null;
+    }
+
+    /**
+     * Return public notes links to this order
+     * @return order public notes
+     */
+    public List<GenericValue> getOrderHeaderNotes() {
+        return getOrderHeaderNotes(false);
+    }
+
+    /**
+     * Retrieve order item attributes link to this order, first on this cache object else
+     * call delegator to load the cache from OrderItemAttribute entity
+     *
+     * @return Order item attributes link to this order
+     */
+    public List<GenericValue> getOrderItemAttributes() {
+        if (orderHeader != null && orderItemAttributes == null) {
+            try {
+                orderItemAttributes = EntityQuery.use(orderHeader.getDelegator())
+                        .from("OrderItemAttribute")
+                        .where("orderId", getOrderId())
+                        .queryList();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, MODULE);
+            }
+        }
+        return orderItemAttributes;
     }
 
     /**

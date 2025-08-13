@@ -21,12 +21,18 @@ under the License.
 The Apache OFBiz Project
 
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=http://www.apache.org/licenses/LICENSE-2.0]
-image:https://img.shields.io/badge/Version-trunk-blue.svg[link=https://github.com/apache/ofbiz-framework]
-image:https://ci2.apache.org/badges/ofbizTrunkFramework.svg[link=https://ci2.apache.org/badges/ofbizTrunkFramework.svg]
+image:https://img.shields.io/badge/Version-trunk-red.svg[link=https://github.com/apache/ofbiz-framework]
+
 image:https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml/badge.svg?branch=trunk[link=https://github.com/apache/ofbiz-framework/actions/workflows/gradle.yaml]
-image:https://sonarcloud.io/api/project_badges/measure?project=apache_ofbiz-framework&metric=alert_status[link=https://sonarcloud.io/dashboard?id=apache_ofbiz-framework]
+// For the CodeQL badge to not get stuck on failing, you need to delete the last failing CodeQL workflow (AKA action)
+image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+// For the BuildBot badge to not get stuck on failure, ALL builds of all branches handled by https://svn.apache.org/repos/infra/infrastructure/buildbot2/projects/ofbiz.py need to pass
+image:https://ci2.apache.org/badges/ofbizTrunkFrameworkPlugins.svg[link=https://ci2.apache.org/#/builders?tags=%2BofbizTrunkFrameworkPlugins]
 image:https://qpkb254zxeu.montastic.io/badge[link=https://qpkb254zxeu.montastic.io]
-//image:https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml/badge.svg[link=https://github.com/apache/ofbiz-framework/actions/workflows/codeql-analysis.yml]
+
+image:https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml/badge.svg[https://github.com/apache/ofbiz-framework/actions/workflows/scorecard.yml]
+image:https://api.securityscorecards.dev/projects/github.com/apache/ofbiz-framework/badge[link=https://securityscorecards.dev/viewer/?uri=github.com/apache/ofbiz-framework]
+image:https://www.bestpractices.dev/projects/8708/badge[link=https://www.bestpractices.dev/projects/8708]
 
 
 If you are reading this file in AsciiDoc format you may want to see it at
@@ -46,32 +52,42 @@ http://ofbiz.apache.org/documentation.html[OFBiz documentation]
 
 http://www.apache.org/licenses/LICENSE-2.0[OFBiz License]
 
-____________________________________________________________________________________________________
-_Note_: If you want to use Eclipse, read the "Setup eclipse project for OFBiz"
+== Notes
+[NOTE]
+====
+If you want to use Eclipse, read the link:#setup-eclipse-project-for-ofbiz[Setup eclipse project for OFBiz]
 section to set it up.
-____________________________________________________________________________________________________
+====
 
-_____________________________________________________________________________________________________________________________________
-_Note_: If you want to use an external database like MySQL or PostgreSQL, read
-the "Setup an external database" section to set it up.
-_____________________________________________________________________________________________________________________________________
+[NOTE]
+====
+If you want to use an external database like MySQL or PostgreSQL, read
+the link:#setup-an-external-database-like-mysql-postgresql-etc[Setup an external database] section to set it up.
+====
 
-________________________________________________________________________________________________________________________________________
-_Note_: If you want to run OFBiz without an internet connection, read the
-"Running gradle tasks without an internet connection" section.
-________________________________________________________________________________________________________________________________________
+[NOTE]
+====
+If you want to run OFBiz without an internet connection, read the
+link:#running-gradle-tasks-without-an-internet-connection[Running gradle tasks without an internet connection] section.
+====
 
-__________________________________________________________________________________________________________________________________________
-_Note_: The directory structure and repositories have changed. For more
-information read the "Repository and directory structure" section.
-__________________________________________________________________________________________________________________________________________
+[NOTE]
+====
+The directory structure and repositories have changed. For more
+information read the link:#repository-and-directory-structure[Repository and directory structure] section.
+====
+[NOTE]
+====
+If you are in China you may encounter network issues or proxy settings. That's of course unrelated to OFBiz.
+====
+
 
 [[system-requirements]]
 == System requirements
 
 The only requirements to run OFBiz is
 
-* to have the Java Development Kit (JDK) version 11 installed on your system
+* to have the Java Development Kit (JDK) version 17 installed on your system
 (not just the JRE, but the full JDK) that you can download from the below link.
 Make sure of setting the $JAVA_HOME environment variable. +
 https://adoptopenjdk.net/[JDK download].
@@ -104,7 +120,7 @@ ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
 ____
 
-follow the advice there: https://s.apache.org/vdcv8. If you want more details see: https://s.apache.org/ac7no
+follow the advice there: https://s.apache.org/vdcv8. If you want more details see: https://s.apache.org/urnju
 
 * If you run into problems check the the execution policy of PowerShell. See https://s.apache.org/urnju for details.
 By setting the execution policy to "unrestricted", you'll be prompted to run the script once you run the init-gradle-wrapper command.
@@ -114,7 +130,6 @@ By setting the execution policy to "unrestricted", you'll be prompted to run the
 ====
 If you wonder where are stored the PowerShell Executables, here are the answers: https://s.apache.org/w5dye
 ====
-
 
 Unix-like OS: `./gradle/init-gradle-wrapper.sh`
 
@@ -133,6 +148,8 @@ MS Windows: `gradlew cleanAll loadAll`
 
 Unix-like OS: `./gradlew cleanAll loadAll`
 
+WARNING: This command deletes all previous data and resets it to the initial demo data.
+
 [[start-ofbiz]]
 === Start OFBiz:
 
@@ -144,6 +161,7 @@ ________________________________________________________________________________
 _Note_: Ignore the % progress indicator because this task does not end as long
 as OFBiz is running.
 ___________________________________________________________________________________________________
+
 
 [[visit-ofbiz-through-your-browser]]
 === Visit OFBiz through your browser:
@@ -161,6 +179,47 @@ You can log in with the user *admin* and password *ofbiz*.
 [NOTE]
 In case of problems visit our link:#further-reading[Further reading section].
 
+[[Docker]]
+== Docker
+If you want to set and use Docker, link:https://nightlies.apache.org/ofbiz/trunk/readme/html5/DOCKER.html[here is the documentation]
+
+[[production-setup]]
+== Production setup
+
+[NOTE]
+====
+Currently deployment configuration is tied to the source code. If you want to separate deployment configuration from production code we recommend using Docker, see link:#Docker[Docker] section above.
+====
+
+Following is a simple production setup. For more detailed information visit link:https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+Technical+Production+Setup+Guide[Apache OFBiz Technical Production Setup Guide].
+
+=== Package OFBiz
+
+MS Windows: `gradlew distZip`
+
+Unix-like OS: `./gradlew distTar`
+
+=== Copy to server
+
+Copy the archive from `build/distributions` directory to the server and unarchive them with `tar xf` or `unzip`.
+
+=== Run OFBiz
+
+From the unarchived directory you can run either `bin/ofbiz` shell script or `bin/ofbiz.bat` batch script.
+
+=== Install as a service
+
+MS Windows: you can use link:https://nssm.cc/usage[nssm]
+
+Unix-like OS: link:https://cwiki.apache.org/confluence/display/OFBIZ/How+to+run+OFBiz+as+a+Service[This article] might give you an idea, although it seems to be outdated. Either way, you can use the standard mechanism of your distribution, like for example creating an `/etc/systemd/system/ofbiz.service` file.
+
+=== Troubleshooting
+
+On Windows you might get the following error when trying to run the `ofbiz.bat` script:
+`The input line is too long. The syntax of the command is incorrect.`
+
+The current workaround is to clone the repository and run gradlew commands from the root folder instead.
+
 [[security]]
 == Security
 
@@ -176,7 +235,11 @@ You can find more information about security in OFBiz at
 https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
 
 [CAUTION]
+====
 In production never use the credentials contained in demo data. Not only the admin credentials, but all of them.
+
+Also we recommend to not use Windows Server in production because we are not supporting specific Windows related security issues.
+====
 
 [[build-system-syntax]]
 == Build system syntax
@@ -521,12 +584,12 @@ parameters are passed:
 
 // tag::testingtasks[]
 [[execute-all-unit-tests]]
-==== Execute all unit tests
+==== Execute all unit tests (no need access to the DB)
 
 `gradlew test`
 
 [[execute-all-integration-tests]]
-==== Execute all integration tests
+==== Execute all integration tests (need access to the DB)
 
 `gradlew testIntegration`
 
@@ -555,7 +618,7 @@ verbose:
 [[execute-an-integration-test-case]]
 ==== Execute an integration test case
 
-run a test case, in this example the component is "entity" and the case name is
+Run a test case, in this example the component is "entity" and the case name is
 "entity-tests"
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests --test case=entity-query-tests"`
@@ -563,7 +626,7 @@ run a test case, in this example the component is "entity" and the case name is
 [[execute-an-integration-test-case-in-debug-mode-with-verbose-log]]
 ==== Execute an integration test case in debug mode with verbose log
 
-listens on port *5005*
+Listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test loglevel=verbose" --debug-jvm`
 
@@ -575,9 +638,23 @@ listens on port *5005*
 [[execute-an-integration-test-suite-in-debug-mode]]
 ==== Execute an integration test suite in debug mode
 
-listens on port *5005*
+Listens on port *5005*
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests" --debug-jvm`
+
+[[execute-all-component-tests]]
+==== Execute all component tests
+
+`gradlew "ofbiz --test component=entity"`
+
+[[execute-all-component-tests-in-debug-mode]]
+==== Execute all component tests in debug mode
+
+Listens on port *5005*
+
+`gradlew "ofbiz --test component=entity" --debug-jvm`
+
+
 
 // end::testingtasks[]
 
@@ -692,30 +769,37 @@ If you need username and password to access the custom repository:
 [[pull-an-official-plugin-from-source-control]]
 === Pull an official plugin from source control
 
-Download an official plugin from source control (currently subversion) and place
-it in the plugins directory. In addition, this task also executes the "install"
-task if it is defined for the plugin being downloaded.
+Download an official plugin from source control and place it in the plugins directory.
+It's able to handle branches switches
 
-This task is mostly useful when working on the trunk branch as it pulls in the
-latest version of a plugin.
+[IMPORTANT]
+====
+You need to use the last Git version, at least a 2.26 version
+====
 
-`gradlew pullPluginSource -PpluginId=ecommerce`
+
+MS Windows: `pullPluginSource example` +
+Unix-like OS: `./pullPluginSource.sh example`
 
 [[pull-all-official-plugins-from-source-control]]
 === Pull all official plugins from source control
 
-Download all officially supported plugins from source control (currently
-git) and place them in /plugins.
-WARNING! This task deletes the /plugins directory and replaces it with the
-official plugins.
+Download all officially supported plugins from source control and place them in /plugins.
+It's able to handle branches switches
 
-`gradlew pullAllPluginsSource`
+[CAUTION]
+====
+ This task deletes the /plugins directory and replaces it with the official plugins.
+====
 
-This task makes it easy to download and develop officially supported plugins. It
-is mostly used by developers or individuals working on the trunk branch. We do
-not recommend using this task on releases of OFBiz, instead consider using the
-"pullPlugin" task to get the correct version of a plugin compatible with your
-release.
+[IMPORTANT]
+====
+You need to use the last Git version, at least a 2.26 version
+====
+
+MS Windows: `pullAllPluginsSource` +
+Unix-like OS: `./pullAllPluginsSource.sh`
+
 
 [[install-a-plugin]]
 === Install a plugin
@@ -792,6 +876,7 @@ $\{pluginId}"
 
 * https://cwiki.apache.org/confluence/display/OFBIZ/FAQ%2B-%2BTips%2B-%2BTricks%2B-%2BCookbook%2B-%2BHowTo#FAQ-Tips-Tricks-Cookbook-HowTo-Knownissues[Known
 issues]
+* https://cwiki.apache.org/confluence/display/OFBIZ/FAQ%2B-%2BTips%2B-%2BTricks%2B-%2BCookbook%2B-%2BHowTo[Tips and Tricks]
 
 [[repository-and-directory-structure]]
 === Repository and directory structure
@@ -809,9 +894,9 @@ as a replacement for both "special-purpose" and "hot-deploy".
 If you need to load the components in the plugins directory in a specific order
 place a component-load.xml file in the plugins directory listing the order.
 
-To check out a plugin from source control use the *pullPluginSource* Gradle
-task. To check out all plugins from source control use the
-*pullAllPluginsSource*. *Beware* this deletes a previously existing plugins
+To check out a plugin from source control use the Windows or Unix-like *pullPluginSource* script.
+To check out all plugins from source control use the
+*pullAllPluginsSource* script. *Beware* this deletes a previously existing plugins
 directory.
 
 [[running-gradle-tasks-without-an-internet-connection]]

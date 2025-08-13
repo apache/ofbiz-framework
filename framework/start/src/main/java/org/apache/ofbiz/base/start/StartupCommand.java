@@ -28,7 +28,7 @@ import java.util.Map;
  * A {@code StartupCommand} represents a processed command line argument passed
  * to OFBiz such that it is no longer a raw string but an instance of this class.
  * For example: {@code java -jar build/libs/ofbiz.jar --status} where status is a command.
- * </p>
+ *
  */
 public final class StartupCommand {
     private String name;

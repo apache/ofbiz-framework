@@ -25,7 +25,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -54,7 +54,7 @@ under the License.
                 <!-- <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>-->
-                <script location="component://order/groovyScripts/allocationplan/CreateAllocationPlan.groovy"/> 
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/allocationplan/CreateAllocationPlan.groovy"/> 
             </actions>
             <widgets>
                 <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecoratorLocation}">
@@ -79,7 +79,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://order/groovyScripts/allocationplan/ListAllocationPlan.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/allocationplan/ListAllocationPlan.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecoratorLocation}">
@@ -114,7 +114,7 @@ under the License.
                 <set field="headerItem" value="allocationPlan"/>
                 <set field="tabButtonItem" value="ViewAllocationPlan"/>
                 <set field="planId" from-field="parameters.planId"/>
-                <script location="component://order/groovyScripts/allocationplan/ViewAllocationPlan.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/allocationplan/ViewAllocationPlan.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecorator}">
@@ -149,7 +149,7 @@ under the License.
                 <set field="asm_multipleSelectForm" value="updateAllocationPlanItems"/>
                 <set field="asm_formSize" value="1000"/>
                 <set field="asm_sortable" value="false"/>
-                <script location="component://order/groovyScripts/allocationplan/ViewAllocationPlan.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/allocationplan/ViewAllocationPlan.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecorator}">

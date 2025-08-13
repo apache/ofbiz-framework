@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+
+        <sc:request-map uri="Accounting/Invoice/Role/Add"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Role/Add"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Roles"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Roles"/></sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Role/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createInvoiceRole"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/Role/Add" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml#EditInvoiceRole"/>
+        <sc:view-map name="Accounting/Invoice/Roles" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml#InvoiceRoles"/>
+
+    </sc:site-conf>
+
+    <ws:screens>
+
+        <ws:screen name="InvoiceRoles">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListInvoiceRoles"/>
+                    <ws:set field="tabButtonItem" value="invoiceRoles"/>
+                    <ws:set field="helpAnchor" value="_help_for_invoice_roles"/>
+                    <ws:set field="sortField" from-field="parameters.sortField" default-value="partyId"/>
+                    <ws:entity-and entity-name="InvoiceRole" list="invoiceRoles">
+                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                        <ws:order-by field-name="${sortField}" />
+                    </ws:entity-and>
+                </ws:actions>
+                <ws:widgets>
+                     <ws:section>
+                         <ws:condition>
+                              <ws:or>
+                                <ws:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                <ws:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                              </ws:or>
+                         </ws:condition>
+                         <ws:widgets>
+                             <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                                 <ws:decorator-section name="actions">
+                                     <ws:include-menu name="InvoiceRolesTabBar" location="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml"/>
+                                 </ws:decorator-section>
+                                 <ws:decorator-section name="single">
+                                     <ws:screenlet title="${uiLabelMap.CommonRole}">
+                                         <ws:include-grid name="ListInvoiceRoles" location="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml"/>
+                                     </ws:screenlet>
+                                 </ws:decorator-section>
+                             </ws:decorator-screen>
+                         </ws:widgets>
+                         <ws:fail-widgets>
+                             <ws:screenlet title="${uiLabelMap.CommonRoles}">
+                                 <ws:include-grid name="InvoiceRoles" location="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml"/>
+                             </ws:screenlet>
+                         </ws:fail-widgets>
+                     </ws:section>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="EditInvoiceRole">
+             <ws:section>
+                <ws:actions>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditInvoiceRole" location="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+             </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+    <wm:menus>
+
+        <wm:menu name="InvoiceRolesTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddInvoiceRole" title="${uiLabelMap.AccountingPartyRoleAdd}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Role/Add" link-type="layered-modal">
+                    <wm:parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Roles">
+                        <wm:parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+    </wm:menus>
+
+    <wf:forms>
+
+        <wf:form name="EditInvoiceRole" target="Accounting/Invoice/Role/create" type="single"
+            title="" header-row-style="header-row" default-table-style="basic-table">
+            <wf:auto-fields-entity entity-name="InvoiceRole"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="partyId"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field name="roleTypeId">
+                <wf:drop-down allow-empty="false">
+                    <wf:entity-options entity-name="RoleType">
+                        <wf:entity-order-by field-name="description"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="submitButton" widget-style="smallSubmit"><wf:submit button-type="button"/></wf:field>
+        </wf:form>
+
+        <wf:grid name="ListInvoiceRoles" paginate-target="Accounting/Invoice/Roles" list-name="invoiceRoles" use-row-submit="true"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="partyId" widget-style="buttontext">
+                <wf:hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                    <wf:parameter param-name="partyId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="name" entry-name="partyId">
+                <wf:display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+            </wf:field>
+            <wf:field name="roleTypeId">
+                <wf:display-entity also-hidden="false" entity-name="RoleType"/>
+            </wf:field>
+            <wf:field name="percentage"><wf:display/></wf:field>
+            <wf:field name="datetimePerformed"><wf:display/></wf:field>
+            <wf:field name="removeButton" widget-style="buttontext">
+               <wf:hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceRole">
+                    <wf:parameter param-name="invoiceId"/>
+                    <wf:parameter param-name="partyId"/>
+                    <wf:parameter param-name="roleTypeId"/>
+                    <wf:parameter param-name="viewIndex"/>
+                    <wf:parameter param-name="viewSize"/>
+                </wf:hyperlink>
+            </wf:field>
+        </wf:grid>
+
+        <wf:grid name="InvoiceRoles" paginate-target="Accounting/Invoice/Roles" list-name="invoiceRoles" 
+            use-row-submit="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="partyId" widget-style="buttontext">
+                <wf:hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                    <wf:parameter param-name="partyId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="name" entry-name="partyId">
+                <wf:display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+            </wf:field>
+            <wf:field name="roleTypeId">
+                <wf:display-entity also-hidden="false" entity-name="RoleType"/>
+            </wf:field>
+            <wf:field name="percentage"><wf:display/></wf:field>
+            <wf:field name="datetimePerformed"><wf:display/></wf:field>
+        </wf:grid>
+
+    </wf:forms>
+
+</compound-widgets>

@@ -78,7 +78,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="applyFeatureToProductFromTypeAndCode" engine="groovy"
-                location="component://product/groovyScripts/product/feature/ProductFeatureServices.groovy" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/feature/ProductFeatureServicesScript.groovy" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
         <description>Apply a ProductFeature to a Product</description>
         <permission-service service-name="checkProductRelatedPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false">
@@ -194,7 +194,7 @@ under the License.
     </service>
     <!-- ProductFeatureType Services -->
     <service name="createProductFeatureType" default-entity-name="ProductFeatureType" engine="groovy"
-                location="component://product/groovyScripts/product/feature/ProductFeatureServices.groovy" invoke="createProductFeatureType" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/feature/ProductFeatureServicesScript.groovy" invoke="createProductFeatureType" auth="true">
         <description>Create a ProductFeatureType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -213,7 +213,7 @@ under the License.
     </service>
     <!-- ProductFeatureApplAttr  -->
     <service name="createProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="groovy"
-                location="component://product/groovyScripts/product/feature/ProductFeatureServices.groovy" invoke="createProductFeatureApplAttr" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/feature/ProductFeatureServicesScript.groovy" invoke="createProductFeatureApplAttr" auth="true">
         <description>Create a ProductFeatureApplAttr</description>
         <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

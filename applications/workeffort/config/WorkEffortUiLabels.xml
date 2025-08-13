@@ -4870,13 +4870,13 @@
         <value xml:lang="zh-TW">狀態</value>
     </property>
     <property key="WorkEffortStatusChangeNotValid">
-        <value xml:lang="ar">إن تحويل الحالة من ${lookedUpValue.currentStatusId} الى ${parameters.currentStatusId} هو تحويل غير مسموح به</value>
-        <value xml:lang="en">The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change</value>
-        <value xml:lang="it">Il cambio di stato da ${lookedUpValue.currentStatusId} a ${parameters.currentStatusId} non è consentito</value>
-        <value xml:lang="ja">ステータス ${lookedUpValue.currentStatusId} から ${parameters.currentStatusId} へ変更は正しくありません。</value>
-        <value xml:lang="vi">Trạng thái thay đổi từ ${lookedUpValue.currentStatusId} đến ${parameters.currentStatusId} là không hợp lệ</value>
-        <value xml:lang="zh">从 ${lookedUpValue.currentStatusId} 到 ${parameters.currentStatusId} 不是一个有效的状态改变</value>
-        <value xml:lang="zh-TW">從 ${lookedUpValue.currentStatusId} 到 ${parameters.currentStatusId} 不是一個有效的狀態改變</value>
+        <value xml:lang="ar">إن تحويل الحالة من ${statusId} الى ${statusIdTo} هو تحويل غير مسموح به</value>
+        <value xml:lang="en">The status change from ${statusId} to ${statusIdTo} is not a valid change</value>
+        <value xml:lang="it">Il cambio di stato da ${statusId} a ${statusIdTo} non è consentito</value>
+        <value xml:lang="ja">ステータス ${statusId} から ${statusIdTo} へ変更は正しくありません。</value>
+        <value xml:lang="vi">Trạng thái thay đổi từ ${statusId} đến ${statusIdTo} là không hợp lệ</value>
+        <value xml:lang="zh">从 ${statusId} 到 ${statusIdTo} 不是一个有效的状态改变</value>
+        <value xml:lang="zh-TW">從 ${statusId} 到 ${statusIdTo} 不是一個有效的狀態改變</value>
     </property>
     <property key="WorkEffortStatusIdMissing">
         <value xml:lang="en">Current Status ID is missing.</value>

@@ -61,4 +61,137 @@ under the License.
         <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}"><link target="/marketing/control/FindContactLists" url-mode="inter-app"/></menu-item>
         <menu-item name="Reports" title="${uiLabelMap.MarketingReports}"><link target="/marketing/control/MarketingReport" url-mode="inter-app"/></menu-item>
     </menu>
+    <menu name="ContactListTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="ContactList" selected-menuitem-context-field-name="contactListTabButtonItem">
+        <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}">
+            <link target="EditContactList">
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ContactListParty" title="${uiLabelMap.PartyParties}">
+            <link target="FindContactListParties">
+                <parameter param-name="contactListId"/>
+                <parameter param-name="hideExpired" value="Y"/>
+            </link>
+        </menu-item>
+        <menu-item name="ContactListCommEvent" title="${uiLabelMap.PartyCommEvents}">
+            <link target="FindContactListCommEvents">
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ContactListImportParty" title="${uiLabelMap.MarketingContactListPartiesImport}">
+            <link target="FindImportContactListParties">
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
+        <menu-item name="WebSiteContactList" title="${uiLabelMap.MarketingWebSiteContactList}">
+            <link target="webSiteContactList">
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ContactListCommBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="Preview" title="Preview">
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="communicationEvent"/>
+                    </not>
+                </and>
+            </condition>
+            <link target="PreviewContactListCommEvent" target-window="_blank">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
+        <menu-item name="Publish" title="Publish">            
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="communicationEvent"/>
+                    </not>
+                    <if-compare field="communicationEvent.statusId" operator="equals" value="COM_PENDING"/>
+                </and>
+            </condition>
+            <link target="updateContactListCommEvent" link-type="hidden-form">                
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="contactListId"/>
+                <parameter param-name="statusId" value="COM_IN_PROGRESS"/>                
+            </link>
+        </menu-item>        
+    </menu>
+    <menu name="DataSourceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="DataSource" selected-menuitem-context-field-name="dataSourceTabButtonItem">
+        <menu-item name="DataSource" title="${uiLabelMap.DataSource}">
+            <link target="FindDataSource"/>
+        </menu-item>
+        <menu-item name="DataSourceType" title="${uiLabelMap.DataSourceType}">
+            <link target="FindDataSourceType"/>
+        </menu-item>
+    </menu>
+    <menu name="MarketingCampaignTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="MarketingCampaign" selected-menuitem-context-field-name="campaignTabButtonItem">
+        <menu-item name="MarketingCampaign" title="${uiLabelMap.MarketingCampaign}">
+            <link target="EditMarketingCampaign">
+                <parameter param-name="marketingCampaignId"/>
+            </link>
+        </menu-item>
+        <menu-item name="MarketingCampaignRole" title="${uiLabelMap.PartyRoles}">
+            <link target="ListMarketingCampaignRoles">
+                <parameter param-name="marketingCampaignId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="SegmentGroupTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="Segment" selected-menuitem-context-field-name="segmentTabButtonItem">
+        <menu-item name="SegmentGroup" title="${uiLabelMap.MarketingSegmentGroupSegmentGroup}">
+            <link target="viewSegmentGroup">
+                <parameter param-name="segmentGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="SegmentGroupClassification" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupClassification}">
+            <link target="listSegmentGroupClass">
+                <parameter param-name="segmentGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="SegmentGroupGeo" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupGeo}">
+            <link target="listSegmentGroupGeo">
+                <parameter param-name="segmentGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="SegmentGroupRole" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole}">
+            <link target="listSegmentGroupRole">
+                <parameter param-name="segmentGroupId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TrackingCodeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="TrackingCode" selected-menuitem-context-field-name="trackingCodeTabButtonItem">
+        <menu-item name="TrackingCode" title="${uiLabelMap.MarketingTrackingCode}">
+            <link target="FindTrackingCode"/>
+        </menu-item>
+        <menu-item name="TrackingCodeOrder" title="${uiLabelMap.MarketingTrackingCodeOrder}">
+        <condition>
+            <not>
+                <if-empty field="trackingCodeId"/>
+            </not>
+        </condition>
+            <link target="FindTrackingCodeOrders">
+                <parameter param-name="trackingCodeId"/>
+            </link>
+        </menu-item>
+        <menu-item name="TrackingCodeVisit" title="${uiLabelMap.MarketingTrackingCodeVisit}">
+        <condition>
+            <not>
+                <if-empty field="trackingCodeId"/>
+            </not>
+        </condition>
+            <link target="FindTrackingCodeVisits">
+                <parameter param-name="trackingCodeId"/>
+            </link>
+        </menu-item>
+        <menu-item name="TrackingCodeType" title="${uiLabelMap.MarketingTrackingCodeType}">
+            <link target="FindTrackingCodeType"/>
+        </menu-item>
+    </menu>
 </menus>

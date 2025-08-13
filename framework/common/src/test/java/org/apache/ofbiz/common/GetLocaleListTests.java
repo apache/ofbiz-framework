@@ -52,7 +52,7 @@ public class GetLocaleListTests {
     private List<Map<String, String>> runScript() throws Exception {
         Map<String, Object> gContext = new HashMap<>();
         gContext.put(ScriptUtil.PARAMETERS_KEY, params);
-        engine.run("framework/common/groovyScripts/GetLocaleList.groovy", GroovyUtil.getBinding(gContext));
+        engine.run("framework/common/src/main/groovy/org/apache/ofbiz/common/GetLocaleList.groovy", GroovyUtil.getBinding(gContext));
         return (List<Map<String, String>>) gContext.get("locales");
     }
 

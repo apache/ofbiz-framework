@@ -43,7 +43,6 @@ ajax auto complete
 div.autocomplete {
     position: absolute;
     width: auto !important;
-    /* min-width:154px; */
     background-color: #f8f8f8;
     border: 1px solid #999999;
     margin: 0;
@@ -66,7 +65,6 @@ div.autocomplete ul li {
     float: none;
     margin: 0;
     padding: 2px;
-    /*height:32px;*/
     cursor: pointer;
 }
 
@@ -139,17 +137,6 @@ div.autocomplete ul li {
     cursor: default !important;
 }
 
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon {
-    display: block;
-    text-indent: -99999px;
-    overflow: hidden;
-    background-repeat: no-repeat;
-}
-
 /* Misc visuals
 ----------------------------------*/
 
@@ -160,6 +147,9 @@ div.autocomplete ul li {
     left: 0;
     width: 100%;
     height: 100%;
+    background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
+    opacity: .3;
+    filter: Alpha(Opacity=30);
 }
 
 .ui-resizable {
@@ -623,9 +613,9 @@ button.ui-button::-moz-focus-inner {
 
 .ui-dialog {
     position: absolute;
-    top: 0;
-    left: 0;
-    padding;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: .2em;
     width: 300px;
     overflow: hidden;
@@ -652,7 +642,6 @@ button.ui-button::-moz-focus-inner {
     height: 18px;
 }
 
-/*.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }*/
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0;
 }
@@ -1107,6 +1096,10 @@ body .ui-tooltip {
     width: 16px;
     height: 16px;
     background-image: url(images/ui-icons_469bdd_256x240.png);
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
 .ui-widget-content .ui-icon {
@@ -1867,13 +1860,6 @@ body .ui-tooltip {
     border-bottom-right-radius: 5px;
 }
 
-/* Overlays */
-.ui-widget-overlay {
-    background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
-}
-
 .ui-widget-shadow {
     margin: -8px 0 0 -8px;
     padding: 8px;
@@ -1887,15 +1873,46 @@ body .ui-tooltip {
 }
 
 /* Calendar Button and Image */
-.view-calendar button {
-    background: url(/images/cal.gif) no-repeat !important;
-    display: inline-block;
-    border: none;
-    vertical-align: middle;
-    /*wt;begin/end*/
-    margin: 2px 2px 2px 2px;
-    height: 18px;
-    width: 18px;
+.view-calendar {
+    button.ui-datepicker-trigger {
+        background-repeat: no-repeat;
+        background-size: 16px 16px;
+        background-position: left center;
+        background-color: transparent;
+        cursor: pointer;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%233699ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+        display: inline-block;
+        border: none;
+        vertical-align: middle;
+        margin: 2px 2px 2px 2px;
+        height: 18px;
+        width: 18px;
+    }
+
+    &.drp {
+        &.single.no-time input[type="text"] {
+            width: 80px;
+        }
+        &.single.time.no-seconds input[type="text"] {
+            width: 110px;
+        }
+        &.single.time.seconds input[type="text"] {
+            width: 130px;
+        }
+        &.range.no-time input[type="text"] {
+            width: 160px;
+        }
+        &.range.time.no-seconds input[type="text"] {
+            width: 240px;
+        }
+        &.range.time.seconds input[type="text"] {
+            width: 280px;
+        }
+
+        button.clear-calendar {
+            background-color: transparent;
+        }
+    }
 }
 
 /* css for timepicker */

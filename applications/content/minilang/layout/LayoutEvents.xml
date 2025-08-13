@@ -136,7 +136,7 @@ under the License.
         <log level="info" message="contentId: ${contentId}"/>
         <log level="info" message="dataResourceId: ${dataResourceId}"/>
         <call-class-method class-name="org.apache.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <field field="subContent" type="org.apache.ofbiz.entity.GenericEntity"/>
         </call-class-method>
         -->
@@ -169,7 +169,7 @@ under the License.
         <log level="info" message="in createLayoutImage."/>
 
         <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker" method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <string value="imageData"/>
         </call-class-method>
 
@@ -229,7 +229,7 @@ under the License.
         <log level="info" message="contentId: ${contentId}"/>
         <log level="info" message="dataResourceId: ${dataResourceId}"/>
         <call-class-method class-name="org.apache.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <field field="subContent" type="org.apache.ofbiz.entity.GenericEntity"/>
         </call-class-method>
         -->
@@ -285,7 +285,7 @@ under the License.
         <log level="info" message="contentId: ${contentId}"/>
         <log level="info" message="dataResourceId: ${dataResourceId}"/>
         <call-class-method class-name="org.apache.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <field field="subContent" type="org.apache.ofbiz.entity.GenericEntity"/>
         </call-class-method>
         -->
@@ -316,7 +316,7 @@ under the License.
    <simple-method method-name="createGenericContent" short-description="Create Generic Content">
         <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker"
             method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <string value="dataResourceName"/>
         </call-class-method>
 

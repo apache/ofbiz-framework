@@ -81,7 +81,8 @@ public class XmlSerializer {
 
     /** Deserialize a Java object from an XML string. <p>This method should be used with caution.
      * If the XML string contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
-     * then it is possible to unintentionally corrupt the database.</p>
+     * then it is possible to unintentionally corrupt the database.
+     *
      * @param content the content
      * @param delegator the delegator
      * @return return a deserialized object from XML string
@@ -107,7 +108,8 @@ public class XmlSerializer {
     /** Deserialize a Java object from a DOM <code>Document</code>.
      * <p>This method should be used with caution. If the DOM <code>Document</code>
      * contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
-     * then it is possible to unintentionally corrupt the database.</p>
+     * then it is possible to unintentionally corrupt the database.
+     *
      * @param document the document
      * @param delegator the delegator
      * @return returns a deserialized object from a DOM document

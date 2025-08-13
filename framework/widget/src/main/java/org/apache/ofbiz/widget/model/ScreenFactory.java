@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
@@ -121,7 +121,7 @@ public class ScreenFactory {
                     long startTime = System.currentTimeMillis();
                     URL screenFileUrl = null;
                     screenFileUrl = FlexibleLocation.resolveLocation(resourceName);
-                    if (screenFileUrl == null) {
+                    if (screenFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(screenFileUrl.toString())) {
                         throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                     }
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);

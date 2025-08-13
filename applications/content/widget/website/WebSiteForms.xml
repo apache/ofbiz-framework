@@ -274,7 +274,7 @@ under the License.
     <form name="CreateWebSiteContactList" type="single" target="createWebSiteContactList" 
             default-map-name="webSite" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="fromDate" value="${groovy: import org.apache.ofbiz.base.util.UtilDateTime; return UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+            <set field="fromDate" value="${date:nowTimestamp()}" type="Timestamp"/>
         </actions>
         <field name="webSiteId"><display/></field>
         <field name="siteName"><display/></field>

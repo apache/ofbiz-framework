@@ -64,6 +64,14 @@ public class ReadOnlyHelperDAO implements GenericHelper {
         return null;
     }
 
+    /** Read only, no creation realize on the database
+     *@return null
+     */
+    @Override
+    public List<GenericValue> createAll(List<GenericValue> value) throws GenericEntityException {
+        return null;
+    }
+
     /** Find a Generic Entity by its Primary Key
      *@param primaryKey The primary key to find by.
      *@return The GenericValue corresponding to the primaryKey

@@ -68,7 +68,7 @@ public final class SSLUtil {
         SSLUtil.loadJsseProperties();
     }
 
-    private static class TrustAnyManager implements X509TrustManager {
+    private static final class TrustAnyManager implements X509TrustManager {
 
         @Override
         public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {

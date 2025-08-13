@@ -873,11 +873,19 @@ under the License.
     <xs:element name="check" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="group-options" />
                 <xs:element ref="entity-options" />
                 <xs:element ref="list-options" />
                 <xs:element ref="option" />
             </xs:choice>
-            <xs:attribute name="all-checked" type="xs:boolean"/>
+            <xs:attribute name="all-checked" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>
+                        None option is checked by default.
+                        You may check options by setting field names as in QuoteForms.xml#FindQuotes
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="container" substitutionGroup="AllFields">
@@ -973,6 +981,55 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="date-range-picker" substitutionGroup="AllFields">
+        <xs:annotation>
+            <xs:documentation>
+                A wrapper on top of https://www.daterangepicker.com/, see https://www.daterangepicker.com/#options for documentation.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="always-show-calendars" type="xs:boolean" default="true"/>
+            <xs:attribute name="apply-button-classes" type="xs:string"/>
+            <xs:attribute name="apply-label" type="xs:string"/>
+            <xs:attribute name="auto-apply" type="xs:boolean" default="true"/>
+            <xs:attribute name="button-classes" type="xs:string"/>
+            <xs:attribute name="cancel-button-classes" type="xs:string"/>
+            <xs:attribute name="cancel-label" type="xs:string"/>
+            <xs:attribute name="clear-title" type="xs:string"/>
+            <xs:attribute name="default-value" type="xs:string"/>
+            <xs:attribute name="drops" default="down">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="down"/>
+                        <xs:enumeration value="up"/>
+                        <xs:enumeration value="auto"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="linked-calendars" type="xs:boolean" default="true"/>
+            <xs:attribute name="max-span" type="xs:integer"/>
+            <xs:attribute name="max-year" type="xs:integer"/>
+            <xs:attribute name="min-year" type="xs:integer"/>
+            <xs:attribute name="opens" default="center">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                        <xs:enumeration value="center"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="show-dropdowns" type="xs:boolean" default="true"/>
+            <xs:attribute name="show-iso-week-numbers" type="xs:boolean" default="false"/>
+            <xs:attribute name="show-ranges" type="xs:boolean" default="true"/>
+            <xs:attribute name="show-week-numbers" type="xs:boolean" default="false"/>
+            <xs:attribute name="single-date-picker" type="xs:boolean"/>
+            <xs:attribute name="time-picker" type="xs:boolean" default="false"/>
+            <xs:attribute name="time-picker-24-hour" type="xs:boolean" default="true"/>
+            <xs:attribute name="time-picker-increment" type="xs:integer"/>
+            <xs:attribute name="time-picker-seconds" type="xs:boolean" default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="display" substitutionGroup="AllFields">
@@ -1093,6 +1150,7 @@ under the License.
             <xs:sequence>
                 <xs:element ref="auto-complete" minOccurs="0" maxOccurs="1" />
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="group-options" />
                     <xs:element ref="entity-options" />
                     <xs:element ref="list-options" />
                     <xs:element ref="option" />
@@ -1376,6 +1434,7 @@ under the License.
     <xs:element name="radio" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="group-options" />
                 <xs:element ref="entity-options" />
                 <xs:element ref="list-options" />
                 <xs:element ref="option" />
@@ -1448,6 +1507,14 @@ under the License.
                     <xs:documentation>The message displayed in confirmation box</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="propagate-callback" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>If you are on an edition process with different steps and you want to wait the end of the complete action before using the callback,
+                        use propagate-callback="true". The submit will understand that you want to continue your process and will not close the modal to refresh the screen.
+                        The callback action will be kept within the different steps
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="text" substitutionGroup="AllFields">
@@ -1479,6 +1546,25 @@ under the License.
                     <xs:documentation>Specifies a short hint that describes the expected value of an input field.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="type" default="text">
+                <xs:annotation>
+                    <xs:documentation>Controls the type attribute on the input element. Limited to a few types. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="text" />
+                        <xs:enumeration value="number" />
+                        <xs:enumeration value="email" />
+                        <xs:enumeration value="url" />
+                        <xs:enumeration value="tel" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="pattern" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Controls the pattern attribute of the input element. See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="textarea" substitutionGroup="AllFields">
@@ -1495,13 +1581,25 @@ under the License.
             <xs:attribute name="visual-editor-enable"
                           type="xs:boolean" default="false">
                 <xs:annotation>
-                    <xs:documentation>This will enable the html editor on this text area from www.unverse.net (more info there), only one textarea can be used on one page</xs:documentation>
+                    <xs:documentation>
+                        This will enable the HTML editor on this text area from https://alex-d.github.io/Trumbowyg/
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="visual-editor-buttons">
                 <xs:annotation>
-                    <xs:documentation>In here you can specify which buttons you want to see and in which order separated by blanks. Available buttons are:formatblock fontname fontsize newline bold italic underline left center right number bullet indent outdent undo redo color hilite rule link image
-                        table clean html spellcheck |(separator) Default is that all buttons are shown</xs:documentation>
+                    <xs:documentation>
+                        Trumbowyg buttons configuration object, as a JSON.parse parsable string (2 dimensions string array).
+                        Ex: [['formatting'],['strong','em','del'],['link'],['unorderedList','orderedList'],['horizontalRule']]
+                        See https://alex-d.github.io/Trumbowyg/documentation/#button-pane
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="placeholder">
+                <xs:annotation>
+                    <xs:documentation>
+                        Content of the HTML placeholder attribute (https://developer.mozilla.org/fr/docs/Web/HTML/Element/textarea#placeholder), text to be displayed to the user when textarea is empty. Similar to text input placeholder.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>
@@ -1647,6 +1745,26 @@ under the License.
     <xs:element name="entity-order-by">
         <xs:complexType>
             <xs:attribute type="xs:string" name="field-name" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="group-options">
+        <xs:annotation>
+            <xs:documentation>group the options </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="group-options" />
+                <xs:element ref="entity-options" />
+                <xs:element ref="list-options" />
+                <xs:element ref="option" />
+            </xs:choice>
+            <xs:attribute type="xs:string" name="id" />
+            <xs:attribute type="xs:string" name="widget-style" />
+            <xs:attribute type="xs:string" name="description" default="${description}">
+                <xs:annotation>
+                    <xs:documentation>Will be presented to the user with field values substituted using the ${} syntax.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="in-place-editor">

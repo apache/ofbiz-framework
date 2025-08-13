@@ -32,7 +32,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/>
@@ -41,10 +41,10 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="finAccountId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="FinAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="FinAccountTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <include-menu name="FinAccountMainTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                        <include-menu name="FinAccountMainTabBar" location="${parameters.mainMenuLocation}"/>
                                     </fail-widgets>
                                 </section>
                             </widgets>
@@ -59,9 +59,6 @@ under the License.
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </widgets>
                         </section>
-                        <container style="button-bar">
-                            <link target="EditFinAccount" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
-                        </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -88,7 +85,7 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
                                         <container style="button-bar">
-                                            <include-menu name="FinAccountSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                            <include-menu name="FinAccountSubTabBar" location="${parameters.mainMenuLocation}"/>
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
@@ -278,7 +275,7 @@ under the License.
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
-                <script location="component://accounting/groovyScripts/payment/DepositWithdrawPayments.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/DepositWithdrawPayments.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
@@ -461,7 +458,7 @@ under the License.
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
-                <script location="component://accounting/groovyScripts/ar/BatchPayments.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ar/BatchPayments.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
@@ -693,7 +690,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="FinAccountReconciliationsTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="FinAccountReconciliationsTabBar" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <if-empty field="glReconciliationId"/>
@@ -795,7 +792,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="FinAccountReconciliationsTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                        <include-menu name="FinAccountReconciliationsTabBar" location="${parameters.mainMenuLocation}"/>
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
                                 <include-form name="FindBankReconciliation" location="component://accounting/widget/FinAccountForms.xml"/>

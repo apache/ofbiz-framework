@@ -623,7 +623,7 @@ under the License.
     <form name="CreateWebSiteContactList" type="single" target="createWebSiteContactList" 
             default-map-name="contactList" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="fromDate" value="${groovy: import org.apache.ofbiz.base.util.UtilDateTime; return UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+            <set field="fromDate" value="${date:nowTimestamp()}" type="Timestamp"/>
         </actions>
         <field name="contactListId"><display/></field>
         <field name="contactListName"><display/></field>
@@ -665,4 +665,25 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <grid name="CommEvents" list-name="commEvents"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="contactListId" from-field="contactListId"/>
+            <entity-one entity-name="ContactList" value-field="contactList"/>
+            <set field="marketingCampaignId" from-field="contactList.marketingCampaignId"/>
+            <entity-one entity-name="MarketingCampaign" value-field="campaign"/>
+        </row-actions>
+        <field name="communicationEventId" title="${uiLabelMap.CommonEvent}">
+            <hyperlink description="${communicationEventId} - ${subject}" target="EditContactListCommEvent" also-hidden="false">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="contactListId"/>
+            </hyperlink>
+        </field>
+        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CommunicationEventType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="entryDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display type="date"/></field>
+        <field name="datetimeEnded" title="${uiLabelMap.CommonEndDate}"><display type="date"/></field>
+        <field name="contactListId"><display description="${contactListId} - ${contactList.contactListName}"/></field>
+    </grid>
 </forms>

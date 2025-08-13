@@ -130,6 +130,16 @@
         <value xml:lang="zh">缺少账户编号</value>
         <value xml:lang="zh-TW">沒有科目號碼</value>
     </property>
+    <property key="AccountingAccountsPayable">
+        <value xml:lang="en">Accounts Payable</value>
+        <value xml:lang="fr">Comptes créditeurs</value>
+        <value xml:lang="nl">Crediteuren</value>
+    </property>
+    <property key="AccountingAccountsReceivable">
+        <value xml:lang="en">Accounts Receivable</value>
+        <value xml:lang="fr">Comptes débiteurs</value>
+        <value xml:lang="nl">Debiteuren</value>
+    </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="ar">دليل العملية الحسابية</value>
         <value xml:lang="cs">ID transakčního účtu</value>
@@ -7840,7 +7850,7 @@
         <value xml:lang="en">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero   ${amountApplied?currency(${isoCode})} es requerio</value>
         <value xml:lang="es-CL">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">La facture [${invoiceId} Item [${invoiceItemSeqId} est payable en ${invoiceItemApplyAvailable?currency(${isoCode})} mais  ${amountApplied?currency(${isoCode})} est requis</value>
+        <value xml:lang="fr">La facture [${invoiceId} Item [${invoiceItemSeqId}] est payable avec ${invoiceItemApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est soumis</value>
         <value xml:lang="hi-IN">चालान [${invoiceId}] मद [${invoiceItemSeqId}] पर लागू करने के लिए ${invoiceItemApplyAvailable?currency(${isoCode})} उपलब्ध है, पर ${amountApplied?currency(${isoCode})} अनिवार्य है</value>
         <value xml:lang="it">Fattura [${invoiceId} Riga [${invoiceItemSeqId} ha ${invoiceItemApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesta</value>
         <value xml:lang="ja">請求書 [${invoiceId} アイテム [${invoiceItemSeqId} は通貨 ${invoiceItemApplyAvailable?currency(${isoCode})} を消込していますが、${amountApplied?currency(${isoCode})} がリクエストされています</value>
@@ -7911,6 +7921,10 @@
         <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票明细的币种[${itemCurrency}]不同</value>
         <value xml:lang="zh-TW">支付的幣種[${paymentCurrencyId}]與發票細項的幣種[${itemCurrency}]不同</value>
     </property>
+    <property key="AccountingInvoiceItemsEdit">
+        <value xml:lang="en">Edit invoice Items</value>
+        <value xml:lang="fr">Modifier les lignes de facturation</value>
+    </property>
     <property key="AccountingInvoiceItemSeqId">
         <value xml:lang="ar">رقم البند</value>
         <value xml:lang="de">Pos.Nr.</value>
@@ -7971,7 +7985,7 @@
         <value xml:lang="de">Rechnung [${invoiceId} hat ${invoiceApplyAvailable?currency(${isoCode})} zugewiesen aber  ${amountApplied?currency(${isoCode})} wird erwartet</value>
         <value xml:lang="en">Invoice [${invoiceId} has ${invoiceApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Factura[${invoiceId} tiene ${invoiceApplyAvailable?currency(${isoCode})} para aplicar pero  ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">La facture [${invoiceId} est payable en ${invoiceApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est requis</value>
+        <value xml:lang="fr">La facture [${invoiceId}] est payable avec ${invoiceApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est soumis</value>
         <value xml:lang="hi-IN">चालान [${invoiceId}] पर लागू करने के लिए ${invoiceApplyAvailable?currency(${isoCode})} उपलब्ध है, पर ${amountApplied?currency(${isoCode})} अनिवार्य है</value>
         <value xml:lang="it">Fattura [${invoiceId} ha ${invoiceApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesto</value>
         <value xml:lang="ja">請求書 [${invoiceId} は ${invoiceApplyAvailable?currency(${isoCode})} を消込していますが ${amountApplied?currency(${isoCode})} がリクエストされています</value>
@@ -8420,13 +8434,21 @@
         <value xml:lang="zh">状态变为'注消'</value>
         <value xml:lang="zh-TW">狀態變為'註銷'</value>
     </property>
+    <property key="AccountingInvoiceTermsAdd">
+        <value xml:lang="en">Add due date rule</value>
+        <value xml:lang="fr">Ajouter une échéance</value>
+    </property>
+    <property key="AccountingInvoiceTermsEdit">
+        <value xml:lang="en">Edit due date rules</value>
+        <value xml:lang="fr">Modifier les échéances</value>
+    </property>
     <property key="AccountingInvoiceTimeEntries">
         <value xml:lang="ar">قيود وقتية</value>
         <value xml:lang="cs">Časová evidence</value>
         <value xml:lang="de">Zeiteinträge</value>
         <value xml:lang="en">Time Entries</value>
         <value xml:lang="es">Entradas de Tiempo</value>
-        <value xml:lang="fr">Horaires d'écriture'</value>
+        <value xml:lang="fr">Horaires d'écriture</value>
         <value xml:lang="hi-IN">समय प्रतिविष्टियाँ</value>
         <value xml:lang="it">Righe Timbratura</value>
         <value xml:lang="ja">予定エントリ</value>
@@ -8478,17 +8500,17 @@
         <value xml:lang="zh-TW">發票[${invoiceId}]金額合計為0....無法應用...</value>
     </property>
     <property key="AccountingInvoiceUpdateOnlyWithInProcessStatus">
-        <value xml:lang="ar">يمكن تحديث الفاتورة فقط عندما تكون الحالة قيد الإنجاز... الحالة الحالية: ${lookedUpValue.statusId}</value>
-        <value xml:lang="de">Kann nur Rechnungen im Status "in Bearbeitung" aktualisieren... aktueller Status: ${lookedUpValue.statusId}</value>
-        <value xml:lang="en">Can only update Invoice, when status is in-process...current status: ${lookedUpValue.statusId}</value>
-        <value xml:lang="es">Sólo puede actualizar la factura, cuando el estado está 'En Proceso'. Estado actual: ${lookedUpValue.statusId}</value>
-        <value xml:lang="fr">Il n'est possible de mettre à jour une facture que si son statut est "en cours", actuellement il est ${lookedUpValue.statusId}</value>
-        <value xml:lang="it">La fattura può essere aggiornata solo quando lo stato è in-corso...stato attuale: ${lookedUpValue.statusId}</value>
-        <value xml:lang="ja">処理中の請求書のみ更新可能です...現在のステータス: ${lookedUpValue.statusId}</value>
-        <value xml:lang="pt">Só é possível atualizar fatura quando o estado é "em processo"... estado atual: ${lookedUpValue.statusId}</value>
-        <value xml:lang="vi">Chỉ có thể cập nhật Hóa đơn khi trạng thái là 'Đang xử lý'... trạng thái hiện tại là: ${lookedUpValue.statusId}</value>
-        <value xml:lang="zh">只有在状态为处理中（in-process）时才能更新发票（Invoice），当前状态：${lookedUpValue.statusId}</value>
-        <value xml:lang="zh-TW">只有在狀態為處理中(in-process)時才能更新發票(Invoice),目前狀態:${lookedUpValue.statusId}</value>
+        <value xml:lang="ar">يمكن تحديث الفاتورة فقط عندما تكون الحالة قيد الإنجاز... الحالة الحالية: ${statusId}</value>
+        <value xml:lang="de">Kann nur Rechnungen im Status "in Bearbeitung" aktualisieren... aktueller Status: ${statusId}</value>
+        <value xml:lang="en">Can only update Invoice, when status is in-process...current status: ${statusId}</value>
+        <value xml:lang="es">Sólo puede actualizar la factura, cuando el estado está 'En Proceso'. Estado actual: ${statusId}</value>
+        <value xml:lang="fr">Il n'est possible de mettre à jour une facture que si son statut est "en cours", actuellement il est ${statusId}</value>
+        <value xml:lang="it">La fattura può essere aggiornata solo quando lo stato è in-corso...stato attuale: ${statusId}</value>
+        <value xml:lang="ja">処理中の請求書のみ更新可能です...現在のステータス: ${statusId}</value>
+        <value xml:lang="pt">Só é possível atualizar fatura quando o estado é "em processo"... estado atual: ${statusId}</value>
+        <value xml:lang="vi">Chỉ có thể cập nhật Hóa đơn khi trạng thái là 'Đang xử lý'... trạng thái hiện tại là: ${statusId}</value>
+        <value xml:lang="zh">只有在状态为处理中（in-process）时才能更新发票（Invoice），当前状态：${statusId}</value>
+        <value xml:lang="zh-TW">只有在狀態為處理中(in-process)時才能更新發票(Invoice),目前狀態:${statusId}</value>
     </property>
     <property key="AccountingInvoices">
         <value xml:lang="ar">الفواتير</value>
@@ -8531,6 +8553,7 @@
         <value xml:lang="es">Facturas prontas de pago</value>
         <value xml:lang="fr">Factures à régler prochainement</value>
         <value xml:lang="ja">支払期日が近づいている請求</value>
+        <value xml:lang="nl">Binnenkort vervallen</value>
         <value xml:lang="pt">Faturas devidas em breve</value>
         <value xml:lang="vi">Xử lý hóa đơn sớm</value>
         <value xml:lang="zh">即将到期的发票</value>
@@ -11851,7 +11874,7 @@
         <value xml:lang="de">Zahlung [${paymentId}] hat  ${paymentApplyAvailable?currency(${isoCode})} zuzuweisen, aber ${amountApplied?currency(${isoCode})} wird gefordert</value>
         <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Pago [${paymentId}] tiene ${paymentApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
-        <value xml:lang="fr">Le paiement [${paymentId}] est en ${paymentApplyAvailable?currency(${isoCode})}mais la monnaie requise est ${amountApplied?currency(${isoCode})}</value>
+        <value xml:lang="fr">Le paiement [${paymentId}] est de ${paymentApplyAvailable?currency(${isoCode})} mais le paiment soumis est ${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="hi-IN">भुगतान [${paymentId}] पर लागू करने के लिए ${paymentApplyAvailable?currency(${isoCode})} उपलब्ध है, पर ${amountApplied?currency(${isoCode})} अनिवार्य है</value>
         <value xml:lang="it">Pagamento [${paymentId}] ha  ${paymentApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
         <value xml:lang="ja">支払 [${paymentId}] は ${paymentApplyAvailable?currency(${isoCode})} の消込をしていますが ${amountApplied?currency(${isoCode})} がリクエストされました</value>
@@ -17572,10 +17595,10 @@
     <property key="FormFieldTitle_amountToApply">
         <value xml:lang="ar">المبلغ المعلق</value>
         <value xml:lang="de">zuzuweisender Betrag</value>
-        <value xml:lang="en">Outstanding amount</value>
+        <value xml:lang="en">Amount to apply</value>
         <value xml:lang="es">Cantidad por aplicar</value>
         <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à enregistrer</value>
+        <value xml:lang="fr">Solde dû</value>
         <value xml:lang="hi-IN">बकाया राशि</value>
         <value xml:lang="it">Importo Da Applicare</value>
         <value xml:lang="ja">未払金額</value>
@@ -20155,6 +20178,11 @@
         <value xml:lang="zh">待结金额</value>
         <value xml:lang="zh-TW">待結金額</value>
     </property>
+    <property key="FormFieldTitle_outstanding">
+        <value xml:lang="en">Outstanding amount</value>
+        <value xml:lang="fr">Encours</value>
+        <value xml:lang="nl">Openstaand</value>
+    </property>
     <property key="FormFieldTitle_overrideGlAccountId">
         <value xml:lang="ar">دليل حساب GL التجاوز</value>
         <value xml:lang="de">Übersteuere Hauptbuchkonto ID</value>
@@ -20361,25 +20389,6 @@
         <value xml:lang="vi">Đã được Khớp lệnh rồi</value>
         <value xml:lang="zh">已应用</value>
         <value xml:lang="zh-TW">已應用</value>
-    </property>
-    <property key="FormFieldTitle_paymentApplyNow">
-        <value xml:lang="ar">مبلغ التطبيق</value>
-        <value xml:lang="de">zuzuweisender Betrag</value>
-        <value xml:lang="en">Amount to Apply</value>
-        <value xml:lang="es">Cantidad por aplicar</value>
-        <value xml:lang="es-CL">Cantidad a Aplicar</value>
-        <value xml:lang="fr">Montant à enregistrer</value>
-        <value xml:lang="hi-IN">लागू करने के लिए राशि</value>
-        <value xml:lang="it">Importo da Applicare</value>
-        <value xml:lang="ja">消込金額</value>
-        <value xml:lang="nl">Bedrag toe te wijzen</value>
-        <value xml:lang="pt">Quantia a aplicar</value>
-        <value xml:lang="ro">Valoare de Applicare</value>
-        <value xml:lang="ru">Сумма для применения</value>
-        <value xml:lang="th">จำนวนที่ประยุกต์ใช้</value>
-        <value xml:lang="vi">Giá trị để Khớp lệnh</value>
-        <value xml:lang="zh">应用的金额</value>
-        <value xml:lang="zh-TW">應用的金額</value>
     </property>
     <property key="FormFieldTitle_paymentGatewayResponseId">
         <value xml:lang="ar">دليل استجابة بوابة الدفعة</value>

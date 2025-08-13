@@ -33,16 +33,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                <include-menu name="AccountSubTabBar" location="${parameters.mainMenuLocation}"/>
                                 <section>
                                     <widgets>
                                         <container style="no-clear">
                                             <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                                 <decorator-section name="search-options">
-                                                    <include-menu name="AccountFindTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                                    <include-menu name="AccountFindTabBar" location="${parameters.mainMenuLocation}"/>
                                                     <include-form name="FindAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
                                                 </decorator-section>
                                                 <decorator-section name="search-results">

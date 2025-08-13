@@ -22,6 +22,6 @@
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="marketing-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.marketing.MarketingTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.marketing.marketing.test.MarketingTests"/>
     </test-case>
 </test-suite>

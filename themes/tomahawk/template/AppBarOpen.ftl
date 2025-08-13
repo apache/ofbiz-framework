@@ -51,7 +51,7 @@ under the License.
               </#if>
               <#assign thisApp = StringUtil.wrapString(thisApp)>
               <#assign thisURL = thisApp>
-              <#if thisApp != "/">
+              <#if thisApp != "/" && thisApp != "/rest">
                 <#assign thisURL = thisURL + "/control/main">
               </#if>
               <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
@@ -71,7 +71,7 @@ under the License.
               </#if>
               <#assign thisApp = StringUtil.wrapString(thisApp)>
               <#assign thisURL = thisApp>
-              <#if thisApp != "/">
+              <#if thisApp != "/" && thisApp != "/rest">
                 <#assign thisURL = thisURL + "/control/main">
               </#if>
               <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>

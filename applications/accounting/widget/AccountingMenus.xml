@@ -45,14 +45,13 @@ under the License.
         </menu-item>
         <menu-item name="billingaccount" title="${uiLabelMap.AccountingBillingMenu}"><link target="FindBillingAccount"/></menu-item>
         <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="FinAccountMain"/></menu-item>
-        <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
         <menu-item name="ListBudgets" title="${uiLabelMap.AccountingBudgets}"><link target="ListBudgets"/></menu-item>
         <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="globalGLSettings"/></menu-item>
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
-        <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="NewGLTransaction" title="${uiLabelMap.CommonCreate} ${uiLabelMap.GlTransaction}">
             <condition>
                 <or>
@@ -69,7 +68,11 @@ under the License.
                     <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
                 </or>
             </condition>
-            <link target="newInvoice"/>
+            <link target="Accounting/Invoice/New" link-type="layered-modal">
+                <set-callback area-target="viewInvoice" area-id="window">
+                    <parameter param-name="invoiceId" from-event-result="invoiceId"/>
+                </set-callback>
+            </link>
         </menu-item>
         <menu-item name="NewPayment" title="${uiLabelMap.CommonCreate} ${uiLabelMap.CommonPayment}">
             <condition>
@@ -78,6 +81,38 @@ under the License.
                 </or>
             </condition>
             <link target="newPayment"/>
+        </menu-item>
+        <menu-item name="NewPaymentGroup" title="${uiLabelMap.CommonCreate} ${uiLabelMap.AccountingNewPaymentGroup}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditPaymentGroup"/>
+        </menu-item>
+        <menu-item name="NewBillingAccount" title="${uiLabelMap.AccountingNewBillingAccount}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditBillingAccount"/>
+        </menu-item>
+        <menu-item name="NewAgreement" title="${uiLabelMap.CommonNew} ${uiLabelMap.AccountingAgreement}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditBillingAccount"/>
+        </menu-item>
+        <menu-item name="NewFinAccount" title="${uiLabelMap.CommonCreate} ${uiLabelMap.AccountingFinAccount}">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditFinAccount"/>
         </menu-item>
     </menu>
 
@@ -117,11 +152,11 @@ under the License.
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findInvoices"/>
         </menu-item>
-        <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
+        <menu-item name="viewInvoice" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
                 <not><if-empty field="invoice.invoiceId"/></not>
             </condition>
-            <link target="invoiceOverview">
+            <link target="viewInvoice">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
@@ -241,7 +276,7 @@ under the License.
             <link target="CommissionRun"/>
         </menu-item>
     </menu>
-    
+
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="editInvoice" title="${uiLabelMap.CommonEdit}">
             <condition>
@@ -257,8 +292,11 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="editInvoice">
+            <link target="Accounting/Invoice/Edit" link-type="layered-modal">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+                <set-callback area-target="viewInvoice" area-id="window">
+                    <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+                </set-callback>
             </link>
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">
@@ -703,17 +741,6 @@ under the License.
     </menu>
     <menu name="PaymentGroupSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
             menu-container-style="button-bar button-style-2">
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
-            <condition>
-                <and>
-                    <or>
-                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
-                    </or>
-                    <not><if-empty field="paymentGroup"/></not>
-                </and>
-            </condition>
-            <link target="EditPaymentGroup"/>
-        </menu-item>
         <menu-item name="EditPaymentGroup" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <and>
@@ -1033,6 +1060,11 @@ under the License.
     </menu>
     <menu name="EditGlAcctgTransSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="DuplicateAccountingTransaction">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
             <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
                 <parameter param-name="revert" value="N"/>
                 <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
@@ -1040,6 +1072,11 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="RevertAccountingTransaction">
+            <condition>
+                <or>
+                    <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </or>
+            </condition>
             <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
                 <parameter param-name="revert" value="Y"/>
                 <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
@@ -1345,8 +1382,9 @@ under the License.
         <menu-item name="CostCenters" title="${uiLabelMap.FormFieldTitle_costCenters}">
             <link target="CostCenters"/>
         </menu-item>
+        <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
     </menu>
-    
+
     <menu name="AgreementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="AgreementMain" title="${uiLabelMap.AccountingAgreement}">
             <link target="EditAgreement">
@@ -1519,7 +1557,7 @@ under the License.
             <link target="ManualTransaction"/>
         </menu-item>
     </menu>
-    
+
     <menu name="PaymentGatewayConfigTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="paymentGatewayConfigTab" title="${uiLabelMap.AccountingPaymentGatewayConfig}">
             <link target="FindPaymentGatewayConfig"/>
@@ -1528,12 +1566,12 @@ under the License.
             <link target="FindPaymentGatewayConfigTypes"/>
         </menu-item>
     </menu>
-    <menu name="GlAccountCategoryTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" 
+    <menu name="GlAccountCategoryTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="EditGlAccountCategory" title="${uiLabelMap.FormFieldTitle_glAccountCategory}">
             <link target="EditGlAccountCategory">
                 <parameter param-name="glAccountCategoryId"/>
-                <parameter param-name="glAccountCategoryTypeId"/>                
+                <parameter param-name="glAccountCategoryTypeId"/>
             </link>
         </menu-item>
         <menu-item name="EditGlAccountCategoryMember" title="${uiLabelMap.FormFieldTitle_glAccountCategoryMember}">
@@ -1630,7 +1668,7 @@ under the License.
                 <and>
                     <and>
                         <if-compare field="finAccount.statusId" operator="not-equals" value="FNACT_MANFROZEN"/>
-                        <if-compare field="finAccount.statusId" operator="not-equals" value="FNACT_CANCELLED"/>                        
+                        <if-compare field="finAccount.statusId" operator="not-equals" value="FNACT_CANCELLED"/>
                     </and>
                     <or>
                         <not><if-empty field="glReconciliationId"/></not>
@@ -1651,4 +1689,50 @@ under the License.
             <link target="AddCompany" link-type="auto"/>
         </menu-item>
      </menu>
+    <menu name="TaxAuthorityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditTaxAuthority">
+
+        <menu-item name="EditTaxAuthority" title="${uiLabelMap.AccountingTaxAuthority}">
+            <link target="EditTaxAuthority">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditTaxAuthorityCategories" title="${uiLabelMap.ProductCategories}">
+            <link target="EditTaxAuthorityCategories">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditTaxAuthorityAssocs" title="${uiLabelMap.CommonAssocs}">
+            <link target="EditTaxAuthorityAssocs">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditTaxAuthorityGlAccounts" title="${uiLabelMap.AccountingGlAccs}">
+            <link target="EditTaxAuthorityGlAccounts">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditTaxAuthorityRateProducts" title="${uiLabelMap.AccountingProductRates}">
+            <link target="EditTaxAuthorityRateProducts">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ListTaxAuthorityParties" title="${uiLabelMap.PartyParties}">
+            <link target="ListTaxAuthorityParties">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+        <menu-item name="FindTaxAuthorityReport" title="${uiLabelMap.CommonReport}">
+            <link target="FindTaxAuthorityReport">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>

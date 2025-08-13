@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -125,6 +125,14 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
+        appendWhitespace(writer);
+    }
+
+    @Override
+    public void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField dateRangePickerField)
+            throws IOException {
+        ModelFormField modelFormField = dateRangePickerField.getModelFormField();
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateRangePickerField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 

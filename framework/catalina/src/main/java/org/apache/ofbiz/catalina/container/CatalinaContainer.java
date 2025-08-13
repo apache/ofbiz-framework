@@ -77,6 +77,8 @@ import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.IntrospectionUtils;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
+import org.apache.tomcat.util.net.SSLHostConfig;
+import org.apache.tomcat.util.net.SSLHostConfigCertificate;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.xml.sax.SAXException;
 
@@ -84,7 +86,7 @@ import org.xml.sax.SAXException;
  * CatalinaContainer -  Tomcat
  *
  * For more information about the AccessLogValve pattern visit the
- * <a href="https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
+ * <a href="https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
  */
 public class CatalinaContainer implements Container {
 
@@ -403,6 +405,7 @@ public class CatalinaContainer implements Container {
                 accessLogValve.setPrefix(accessLogPrefix);
             }
             accessLogValve.setRotatable(ContainerConfig.getPropertyValue(engineConfig, "access-log-rotate", false));
+            accessLogValve.setMaxDays(Integer.valueOf(ContainerConfig.getPropertyValue(engineConfig, "access-log-maxDays", null)));
 
             engineValves.add(accessLogValve);
         }
@@ -431,7 +434,8 @@ public class CatalinaContainer implements Container {
         connectorProp.properties().values().stream()
                 .filter(prop -> {
                     String name = prop.name();
-                    return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name);
+                    String value = prop.value();
+                    return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name) && !"sslHostConfig".equals(value);
                 })
                 .forEach(prop -> {
                     String name = prop.name();
@@ -447,7 +451,77 @@ public class CatalinaContainer implements Container {
                         Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
                     }
                 });
+        prepareSslHostConfigs(connector, connectorProp).forEach(connector::addSslHostConfig);
         return connector;
+    }
+
+    private static List<SSLHostConfig> prepareSslHostConfigs(Connector connector, Configuration.Property connectorProp) {
+        return connectorProp.getPropertiesWithValue("sslHostConfig").stream()
+                .filter(sslHostConfigProp -> UtilValidate.isNotEmpty(sslHostConfigProp.properties()))
+                .map(sslHostConfigProp -> prepareSslHostConfig(connector, sslHostConfigProp))
+                .collect(Collectors.toList());
+    }
+
+    private static SSLHostConfig prepareSslHostConfig(Connector connector, Configuration.Property sslHostConfigProp) {
+        SSLHostConfig sslHostConfig = new SSLHostConfig();
+        sslHostConfigProp.properties().values().stream()
+                .filter(prop -> {
+                    String value = prop.value();
+                    return !"certificate".equals(value);
+                })
+                .forEach(prop -> {
+                    String name = prop.name();
+                    String value = prop.value();
+                    if (IntrospectionUtils.setProperty(sslHostConfig, name, value)) {
+                        if (name.indexOf("Pass") != -1) {
+                            // this property may be a password, do not include its value in the logs
+                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + ": set " + name, MODULE);
+                        } else {
+                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + ": set " + name + "=" + value, MODULE);
+                        }
+                    } else {
+                        Debug.logWarning("Tomcat " + connector + " " + sslHostConfig.getHostName() + ": ignored parameter " + name, MODULE);
+                    }
+                });
+        prepareSslHostConfigCerts(connector, sslHostConfig, sslHostConfigProp).forEach(sslHostConfig::addCertificate);
+        return sslHostConfig;
+    }
+
+    private static List<SSLHostConfigCertificate> prepareSslHostConfigCerts(Connector connector, SSLHostConfig sslHostConfig,
+                                                                            Configuration.Property sslHostConfigProp) {
+        return sslHostConfigProp.getPropertiesWithValue("certificate").stream()
+                .filter(certProp -> UtilValidate.isNotEmpty(certProp.properties()))
+                .map(certProp -> prepareSslHostConfigCert(connector, sslHostConfig, certProp))
+                .collect(Collectors.toList());
+    }
+
+    private static SSLHostConfigCertificate prepareSslHostConfigCert(Connector connector, SSLHostConfig sslHostConfig,
+                                                                     Configuration.Property certProp) {
+        String certificateType = ContainerConfig.getPropertyValue(certProp, "certificateType", SSLHostConfigCertificate.DEFAULT_TYPE.name());
+        SSLHostConfigCertificate sslHostConfigCert = new SSLHostConfigCertificate(sslHostConfig,
+                SSLHostConfigCertificate.Type.valueOf(certificateType));
+        certProp.properties().values().stream()
+                .filter(prop -> {
+                    String name = prop.name();
+                    return !"certificateType".equals(name);
+                })
+                .forEach(prop -> {
+                    String name = prop.name();
+                    String value = prop.value();
+                    if (IntrospectionUtils.setProperty(sslHostConfigCert, name, value)) {
+                        if (name.indexOf("Pass") != -1) {
+                            // this property may be a password, do not include its value in the logs
+                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + " certificate: set " + name, MODULE);
+                        } else {
+                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + " certificate: set " + name + "=" + value,
+                                    MODULE);
+                        }
+                    } else {
+                        Debug.logWarning("Tomcat " + connector + " " + sslHostConfig.getHostName() + " certificate: ignored parameter " + name,
+                                MODULE);
+                    }
+                });
+        return sslHostConfigCert;
     }
 
     private static void loadWebapps(Tomcat tomcat, Configuration configuration, Configuration.Property clusterProp) {

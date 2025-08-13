@@ -20,7 +20,7 @@ package org.apache.ofbiz.webapp.taglib;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -46,10 +46,14 @@ public class ContentUrlTag {
 
     public static void appendContentPrefix(HttpServletRequest request, Appendable urlBuffer) throws IOException {
         if (request == null) {
-            Debug.logWarning("Request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using "
-                    + "ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties (no "
-                    + "WebSite or security setting known)", MODULE);
+            Debug.logWarning("Request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using"
+                    + " ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties"
+                    + " or secure prefix if no.http is Y  (no WebSite or security setting known)", MODULE);
             String prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.standard");
+            String noHttp = UtilProperties.getPropertyValue("url", "no.http");
+            if (noHttp != null && "Y".equals(noHttp)) {
+                prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.secure");
+            }
             if (prefix != null) {
                 urlBuffer.append(prefix.trim());
             }

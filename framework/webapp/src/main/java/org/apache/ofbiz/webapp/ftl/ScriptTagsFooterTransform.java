@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 
@@ -55,7 +55,7 @@ public class ScriptTagsFooterTransform implements TemplateTransformModel {
                         if (scriptSrcSet != null) {
                             String srcList = "";
                             for (String scriptSrc : scriptSrcSet) {
-                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"application/javascript\"></script>\n");
+                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"text/javascript\"></script>\n");
                             }
                             out.write(srcList);
                         }

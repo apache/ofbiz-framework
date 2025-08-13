@@ -816,7 +816,7 @@ public class ContentManagementServices {
             }
             pkFields.put(fieldName, fieldValue);
         }
-        boolean doLink = (action != null && "Y".equalsIgnoreCase(action)) ? true : false;
+        boolean doLink = "Y".equalsIgnoreCase(action);
         if (Debug.infoOn()) {
             Debug.logInfo("in updateOrRemove, context:" + context, MODULE);
         }

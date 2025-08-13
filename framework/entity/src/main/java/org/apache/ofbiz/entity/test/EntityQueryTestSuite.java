@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.test;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -467,6 +468,43 @@ public class EntityQueryTestSuite extends EntityTestCase {
         } catch (GenericEntityException e) {
             TransactionUtil.rollback(transactionStarted, "Transaction is Rolled Back", e);
         }
+    }
+
+    /**
+     * testCache(): When cache() is activated, the result of a query is set to cache for a given condition.
+     * assert: Ensure that a request with a select or a date filter stored in cache is not retrieved by a query
+     * without select nor date filter having the same condition.
+     */
+    public void testCache() throws GenericEntityException {
+        Timestamp now = UtilDateTime.nowTimestamp();
+        Delegator delegator = getDelegator();
+
+        delegator.create("TestingType", "testingTypeId", "cacheWithSelect", "description", "cache with selection One");
+        delegator.create("TestingType", "testingTypeId", "cacheWithDate", "description", "cache with filterByDate One");
+
+        delegator.create("TestingNode", "testingNodeId", "testingCacheNode1");
+        delegator.create("TestingNode", "testingNodeId", "testingCacheNode2");
+
+        delegator.create("Testing", "testingId", "testingCache1", "testingTypeId", "cacheWithDate");
+
+        delegator.create("TestingNodeMember", "testingNodeId", "testingCacheNode1", "testingId", "testingCache1", "fromDate",
+                        now, "thruDate", UtilDateTime.getNextDayStart(now));
+        delegator.create("TestingNodeMember", "testingNodeId", "testingCacheNode2", "testingId", "testingCache1", "fromDate",
+                        now, "thruDate", now);
+
+        List<GenericValue> cachedResultWithFilterByDate = EntityQuery.use(delegator).from("TestingNodeMember").filterByDate()
+                .where("testingId", "testingCache1").cache().queryList();
+        assertEquals("testCache(): Number of records found match", 1, cachedResultWithFilterByDate.size());
+
+        List<GenericValue> cachedResultWithoutFilterByDate = EntityQuery.use(delegator).from("TestingNodeMember")
+                .where("testingId", "testingCache1").queryList();
+        assertEquals("testCache(): Number of records found match", 2, cachedResultWithoutFilterByDate.size());
+
+        GenericValue firstCachedResultWithSelect = EntityQuery.use(delegator).select("testingTypeId").from("TestingType").cache().queryFirst();
+        assertFalse(firstCachedResultWithSelect.containsKey("description"));
+
+        GenericValue secondCachedResultWithSelect = EntityQuery.use(delegator).from("TestingType").cache().queryFirst();
+        assertTrue(secondCachedResultWithSelect.containsKey("description"));
     }
 
     /**

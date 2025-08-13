@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -55,10 +55,12 @@ public class RenderSubContentTransform implements TemplateTransformModel {
      * @deprecated use FreeMarkerWorker.getArg()
      * <p>Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was
      * passed as an argument to the transform.
-     * Secondly, it looks to see if it is passed as a parameter in the template context object.</p>
+     * Secondly, it looks to see if it is passed as a parameter in the template context object.
+     *
      * <p>Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object
      * instead of the template context
-     * object.</p>
+     * object.
+     *
      */
     @Deprecated
     public static String getArg(Map<String, Object> args, String key, Environment env) {

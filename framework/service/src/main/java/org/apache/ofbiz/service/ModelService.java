@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.AbstractSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeSet;
@@ -1112,23 +1114,27 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /**
      * Validates a Map against the IN or OUT parameter information
-     * @param context the context
-     * @param mode Test either mode IN or mode OUT
-     * @param locale the actual locale to use
+     *
+     * @param dispatcher
+     * @param context    the context
+     * @param mode       Test either mode IN or mode OUT
+     * @param locale     the actual locale to use
      */
-    public void validate(Map<String, Object> context, String mode, Locale locale) throws ServiceValidationException {
-        validate(this.contextParamList, context, mode, locale);
+    public void validate(LocalDispatcher dispatcher, Map<String, Object> context, String mode, Locale locale) throws ServiceValidationException {
+        validate(dispatcher, this.contextParamList, context, mode, locale);
     }
 
     /**
      * Validates a Map against the IN or OUT parameter information for a given list of modelParam
      * this is used for recursive validation of map and list modelParam in service definition
+     *
+     * @param dispatcher     Dispatcher where come from the validation call
      * @param modelParamList List of paramList to validate
-     * @param context the context
-     * @param mode Test either mode IN or mode OUT
-     * @param locale the actual locale to use
+     * @param context        the context
+     * @param mode           Test either mode IN or mode OUT
+     * @param locale         the actual locale to use
      */
-    public void validate(List<ModelParam> modelParamList, Map<String, Object> context, String mode, Locale locale)
+    public void validate(LocalDispatcher dispatcher, List<ModelParam> modelParamList, Map<String, Object> context, String mode, Locale locale)
             throws ServiceValidationException {
         // do not validate results with errors
         if (mode.equals(OUT_PARAM) && resultServiceContainsError(context)) {
@@ -1160,8 +1166,8 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                     + optionalValues.size() + " / " + optionalInfo.size(), MODULE);
         }
         try {
-            validate(requiredInfo, requiredValues, true, this, mode, locale);
-            validate(optionalInfo, optionalValues, false, this, mode, locale);
+            validate(dispatcher, requiredInfo, requiredValues, true, this, mode, locale);
+            validate(dispatcher, optionalInfo, optionalValues, false, this, mode, locale);
         } catch (ServiceValidationException e) {
             Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e, MODULE);
             throw e;
@@ -1334,13 +1340,15 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /**
      * Check a Map against the IN parameter information, uses the validate() method for that
      * Always called with only IN_PARAM, so to be called before the service is called with the passed context
-     * @param context the passed context
-     * @param locale the actual locale to use
+     *
+     * @param dispatcher
+     * @param context    the passed context
+     * @param locale     the actual locale to use
      * @return boolean True is the service called with these IN_PARAM is valid
      */
-    public boolean isValid(Map<String, Object> context, Locale locale) {
+    public boolean isValid(LocalDispatcher dispatcher, Map<String, Object> context, Locale locale) {
         try {
-            validate(context, IN_PARAM, locale);
+            validate(dispatcher, context, IN_PARAM, locale);
         } catch (ServiceValidationException e) {
             return false;
         }
@@ -1349,12 +1357,15 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /**
      * Validates a map of name, object types to a map of name, objects
+     *
+     * @param dispatcher
      * @param modelParamMap The map of name, modelParam
-     * @param values The map to test its value types.
-     * @param reverse Test the maps in reverse.
+     * @param values        The map to test its value types.
+     * @param reverse       Test the maps in reverse.
      */
-    public void validate(Map<String, ModelParam> modelParamMap, Map<String, ?> values, boolean reverse, ModelService model,
-                         String mode, Locale locale) throws ServiceValidationException {
+    public void validate(LocalDispatcher dispatcher, Map<String, ModelParam> modelParamMap, Map<String, ?> values,
+                         boolean reverse, ModelService model, String mode, Locale locale)
+            throws ServiceValidationException {
         if (modelParamMap == null || values == null) {
             throw new ServiceValidationException("Cannot validate NULL maps", model);
         }
@@ -1399,7 +1410,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 for (ModelParam.ModelParamValidator val: param.getValidators()) {
                     if (UtilValidate.isNotEmpty(val.getMethodName())) {
                         try {
-                            if (!typeValidate(val, testObject)) {
+                            if (!typeValidate(dispatcher, val, testObject)) {
                                 String msg = val.getFailMessage(locale);
                                 if (msg == null) {
                                     msg = "The following parameter failed validation: [" + model.name + "." + key + "]";
@@ -1443,14 +1454,14 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             if (UtilValidate.isNotEmpty(childrenModelParams)
                     && UtilValidate.isNotEmpty(values.get(paramName))) {
                 if (modelParamMap.get(paramName).getType().endsWith("Map")) {
-                    validate(childrenModelParams,
-                            UtilGenerics.cast(values.get(paramName)),
-                            mode, locale);
+                    validate(dispatcher,
+                            childrenModelParams,
+                            UtilGenerics.cast(values.get(paramName)), mode, locale);
                 } else if (modelParamMap.get(paramName).getType().endsWith("List")) {
                     List<Map<String, Object>> subParameters = UtilGenerics.cast(values.get(paramName));
                     if (UtilValidate.isNotEmpty(subParameters)) {
                         for (Map<String, Object> paramMap : subParameters) {
-                            validate(childrenModelParams, paramMap, mode, locale);
+                            validate(dispatcher, childrenModelParams, paramMap, mode, locale);
                         }
                     }
                 }
@@ -1458,7 +1469,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         }
     }
 
-    public static boolean typeValidate(ModelParam.ModelParamValidator vali, Object testValue) throws GeneralException {
+    public static boolean typeValidate(LocalDispatcher dispatcher, ModelParam.ModelParamValidator vali, Object testValue) throws GeneralException {
         // find the validator class
         Class<?> validatorClass = null;
         try {
@@ -1471,45 +1482,28 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             throw new GeneralException("Unable to load validation class [" + vali.getClassName() + "]");
         }
 
-        boolean foundObjectParam = true;
-
-        Method validatorMethod = null;
-        try {
-            // try object type first
-            validatorMethod = validatorClass.getMethod(vali.getMethodName(), Object.class);
-        } catch (NoSuchMethodException e) {
-            foundObjectParam = false;
-            // next try string type
-            try {
-                validatorMethod = validatorClass.getMethod(vali.getMethodName(), String.class);
-            } catch (NoSuchMethodException e2) {
-                Debug.logWarning(e2, MODULE);
-            }
-        }
-
-        if (validatorMethod == null) {
+        Method validatorMethod;
+        List<Object> params = new LinkedList<>();
+        Optional<Method> validatorMethodOp = Arrays.stream(validatorClass.getDeclaredMethods())
+                .filter(method -> method.getName().equals(vali.getMethodName()))
+                .findFirst();
+        if (validatorMethodOp.isEmpty()) {
             throw new GeneralException("Unable to find validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName() + "]");
         }
-
-        Object param;
-        if (!foundObjectParam) {
-            // convert to string
-            String converted;
-            try {
-                converted = (String) ObjectType.simpleTypeOrObjectConvert(testValue, "String", null, null);
-            } catch (GeneralException e) {
-                throw new GeneralException("Unable to convert parameter to String");
+        validatorMethod = validatorMethodOp.get();
+        for (Class<?> paramType: validatorMethod.getParameterTypes()) {
+            switch (paramType.getName()) {
+            case "org.apache.ofbiz.entity.Delegator" -> params.add(dispatcher.getDelegator());
+            case "org.apache.ofbiz.service.LocalDispatcher" -> params.add(dispatcher);
+            case "java.lang.String" -> params.add(ObjectType.simpleTypeOrObjectConvert(testValue, "String", null, null));
+            default -> params.add(vali);
             }
-            param = converted;
-        } else {
-            // use plain object
-            param = testValue;
         }
 
         // run the validator
         Boolean resultBool;
         try {
-            resultBool = (Boolean) validatorMethod.invoke(null, param);
+            resultBool = (Boolean) validatorMethod.invoke(null, params.toArray());
         } catch (ClassCastException e) {
             throw new GeneralException("Validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName()
                     + "] did not return expected Boolean");

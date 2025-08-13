@@ -133,19 +133,33 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <grid name="UpdateProductStoreCatalog" list-name="productStoreCatalogList" target="updateProdCatalogStore"
+    <grid name="Stores" list-name="productStoreCatalogList" target="updateProdCatalogStore"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
-        <auto-fields-service service-name="updateProductStoreCatalog"/>
+        <auto-fields-entity entity-name="ProductStoreCatalog" default-field-type="display"/>
         <field name="prodCatalogId"><hidden/></field>
-        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
+        <field name="productStoreId" title="${uiLabelMap.ProductStore}">
             <display-entity entity-name="ProductStore" description="${storeName}" also-hidden="true" cache="true">
                 <sub-hyperlink link-style="buttontext" target="EditProductStore" description="${productStoreId}">
                     <parameter param-name="productStoreId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"><display type="date-time"/></field>
+    </grid>
+    <grid name="UpdateProductStoreCatalog" list-name="productStoreCatalogList" target="updateProdCatalogStore"
+        odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
+        <auto-fields-entity entity-name="ProductStoreCatalog" default-field-type="edit"/>
+        <field name="prodCatalogId"><hidden/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductStore}">
+            <display-entity entity-name="ProductStore" description="${storeName}" also-hidden="true" cache="true">
+                <sub-hyperlink link-style="buttontext" target="EditProductStore" description="${productStoreId}">
+                    <parameter param-name="productStoreId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThru}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProdCatalogStore" also-hidden="false">

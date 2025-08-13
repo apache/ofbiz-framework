@@ -6,13 +6,13 @@ your business.
 System requirements
 
 The only requirement to run OFBiz is to have the Java Development Kit (JDK)
-version 11 installed on your system (not just the JRE, but the full JDK) which
+version 17 installed on your system (not just the JRE, but the full JDK) which
 you can download from the below link. Make sure of setting the $JAVA_HOME
 environment variable.
 
 Warning: on Windows don't put OFBiz in a directory with space/s in the path.
 
-https://adoptopenjdk.net/[JDK download]
+for JDK download : https://adoptopenjdk.net/
 
 
 Quick start
@@ -64,11 +64,20 @@ as OFBiz is running.
 _______________________________________________________________________________
 
     Visit OFBiz through your browser:
-
     https://localhost:8443/webtools
+
+
+    If you are interested by the ecommerce plugins get to:
+    https://localhost:8443/ecomseo
+
+    Note that if you use one or several plugins all must be of the same version than the framework.
 
 Going further
 To complete your installation and use OFBiz please read README.adoc
 You may prefer to read this AsciiDoc file in HTML format.
 For that simply follow:
 https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html
+
+If you want directly the result you can go to:
+https://nightlies.apache.org/ofbiz/trunk/readme/html5/README.html
+

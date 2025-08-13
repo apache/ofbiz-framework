@@ -29,14 +29,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <widgets>
                                 <container style="leftclear">
                                     <label style="h1" text="${uiLabelMap.CommonPayment}: ${paymentId}"/>
                                 </container>
-                                <include-menu name="PaymentTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="PaymentTabBar" location="${parameters.mainMenuLocation}"/>
+                                <include-menu name="PaymentSubTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -176,8 +176,8 @@ under the License.
                 <set field="notAppliedAmountStr" type="String" value="${groovy:
                     import java.text.NumberFormat;
                     return(NumberFormat.getCurrencyInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)));}"/>
-                <script location="component://accounting/groovyScripts/payment/ListNotAppliedInvoices.groovy"/>
-                <script location="component://accounting/groovyScripts/payment/ListNotAppliedPayments.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/ListNotAppliedInvoices.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/ListNotAppliedPayments.groovy"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameViewTo">
                     <field-map field-name="partyId" from-field="payment.partyIdTo"/>
                 </entity-one>
@@ -480,7 +480,7 @@ under the License.
                 <set field="headerItem" value="transaction"/>
                 <set field="tabButtonItem" value="manualtransactiontab"/>
                 <set field="helpAnchor" value="_help_for_manual_transaction"/>
-                <script location="component://accounting/groovyScripts/payment/ManualTx.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/ManualTx.groovy"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
@@ -522,7 +522,7 @@ under the License.
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://accounting/groovyScripts/payment/PrintChecks.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PrintChecks.groovy"/>
                 <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
                     <condition-expr field-name="parentTypeId" value="PAYROL"/>
                 </entity-condition>
@@ -539,7 +539,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://accounting/groovyScripts/reports/InvoiceAcctgTransEntryParameters.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/reports/InvoiceAcctgTransEntryParameters.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -557,7 +557,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://accounting/groovyScripts/payment/FindInvoicesByDueDate.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/FindInvoicesByDueDate.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -589,7 +589,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <script location="component://accounting/groovyScripts/payment/FindInvoicesByDueDate.groovy"/>
+                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/FindInvoicesByDueDate.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

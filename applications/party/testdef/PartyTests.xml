@@ -27,6 +27,6 @@
 
     <test-group case-name="party-tests">
         <simple-method-test location="component://party/minilang/test/PartyTests.xml"/>
-        <junit-test-suite class-name="org.apache.ofbiz.party.PartyTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyTests"/>
     </test-group>
 </test-suite>

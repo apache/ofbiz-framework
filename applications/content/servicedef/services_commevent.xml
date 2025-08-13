@@ -35,8 +35,8 @@ under the License.
         Second, it must create a CommEventContentAssoc record.
             The fromData should be defaulted if not passed in.
     -->
-    <service name="createCommContentDataResource" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
+    <service name="createCommContentDataResource" engine="groovy"
+             location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="createCommContentDataResource">
         <description>Create CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false">
@@ -53,7 +53,7 @@ under the License.
     </service>
 
     <service name="updateCommContentDataResource" engine="groovy"
-                location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateCommContentDataResource" auth="true">
+                location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="updateCommContentDataResource" auth="true">
         <description>Update CommunicationEvent and Content</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <implements service="persistContentAndAssoc"/>

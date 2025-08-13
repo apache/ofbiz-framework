@@ -1,0 +1,70 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/*
+ * This plugin defines usage of the node-gradle plugin for OFBiz sub-projects.
+ *
+ * NPM Install (or ci) will be run as a dependency of the classes task. The output from NPM Install will be cleaned
+ * up as part of the parent project's cleanAll task.
+ *
+ * Sub projects should apply this plugin and then configure the node block with the path to the directory containing
+ * the package.json file. Example:
+ *
+ *  plugins {
+ *      id 'ofbiz-node-conventions'
+ *  }
+ *
+ *  node {
+ *      nodeProjectDir = file('webapp/common-theme/js')
+ *  }
+ */
+
+plugins {
+    id 'base'  // Provides the clean<TaskName> rule for the cleanNpmInstall task.
+    id 'com.github.node-gradle.node'
+}
+
+node {
+    download = true
+    version = "20.11.1"
+
+    // If environment variable CI is set, use 'npm ci' instead of 'npm install' to populate node_modules.
+    npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
+}
+
+// Pull NPM dependencies when the classes task is run.
+// Hooking into classes ensures that dependencies are available if OFBiz is
+// started via the Gradle Application Plugin's run task, or if a distribution
+// is being built (distTar, distZip, etc.).
+if (!project.rootProject.hasProperty('skipNpmInstall')) {
+    project.rootProject.tasks.getByName('classes').dependsOn npmInstall
+}
+
+// Task to clean up the output from npmInstall.
+task cleanNpm(group: 'Cleaning', description: 'Clean installed node modules') {
+    dependsOn cleanNpmInstall
+}
+
+// Hook into the root project's cleanAll task to clean up the output from the
+// npmInstall task.
+project.rootProject.tasks.whenTaskAdded { task ->
+    if (task.name == 'cleanAll') {
+        task.dependsOn cleanNpmInstall
+    }
+}

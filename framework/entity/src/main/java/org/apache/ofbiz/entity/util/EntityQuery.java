@@ -107,7 +107,7 @@ public class EntityQuery {
      * @param fields - Strings containing the field names to be selected
      * @return this EntityQuery object, to enable chaining
      */
-    public EntityQuery select(String...fields) {
+    public EntityQuery select(String... fields) {
         this.fieldsToSelect = UtilMisc.toSetArray(fields);
         return this;
     }
@@ -157,7 +157,7 @@ public class EntityQuery {
      * @param fields - A series of field names/values to be ANDed together as the where clause for the query
      * @return this EntityQuery object, to enable chaining
      */
-    public EntityQuery where(Object...fields) {
+    public EntityQuery where(Object... fields) {
         this.whereEntityCondition = EntityCondition.makeCondition(UtilMisc.toMap(fields));
         return this;
     }
@@ -167,7 +167,7 @@ public class EntityQuery {
      * @param entityCondition - A series of EntityConditions to be ANDed together as the where clause for the query
      * @return this EntityQuery object, to enable chaining
      */
-    public EntityQuery where(EntityCondition...entityCondition) {
+    public EntityQuery where(EntityCondition... entityCondition) {
         this.whereEntityCondition = EntityCondition.makeCondition(Arrays.asList(entityCondition));
         return this;
     }
@@ -209,7 +209,7 @@ public class EntityQuery {
      * @param fields - The fields of the named entity to order the resultset by
      * @return this EntityQuery object, to enable chaining
      */
-    public EntityQuery orderBy(String...fields) {
+    public EntityQuery orderBy(String... fields) {
         this.orderBy = Arrays.asList(fields);
         return this;
     }
@@ -473,7 +473,10 @@ public class EntityQuery {
             }
         }
         if (filterByDate && useCache) {
-            return EntityUtil.filterByCondition(result, this.makeDateCondition());
+            result = EntityUtil.filterByCondition(result, this.makeDateCondition());
+        }
+        if (UtilValidate.isNotEmpty(fieldsToSelect) && useCache) {
+            result = EntityUtil.getSelectedFieldValueListFromEntityList(delegator, result, fieldsToSelect);
         }
         return result;
     }

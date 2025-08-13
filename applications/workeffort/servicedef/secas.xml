@@ -29,6 +29,14 @@ under the License.
         <condition field-name="custRequestId" operator="is-empty"/><!-- otherwise link is made over the customer request -->
         <action service="makeCommunicationEventWorkEffort" mode="sync"/>
     </eca>
+    <eca service="createWorkEffort" event="commit">
+        <condition field-name="custRequestId" operator="is-not-empty"/>
+        <action service="assocAcceptedCustRequestToWorkEffort" mode="sync"/>
+    </eca>
+    <eca service="createWorkEffort" event="commit">
+        <condition field-name="requirementId" operator="is-not-empty"/>
+        <action service="createWorkRequirementFulfillment" mode="sync"/>
+    </eca>
 
     <eca service="updateWorkEffort" event="commit">
         <condition field-name="communicationEventId" operator="is-not-empty"/>

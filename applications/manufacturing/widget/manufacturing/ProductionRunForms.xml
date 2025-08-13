@@ -552,13 +552,13 @@ under the License.
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}">
             <display description="default ${drObjectInfo}"/>
         </field>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; (drDataResourceTypeId.contains(&quot;FILE&quot;) || drDataResourceTypeId.equals(&quot;IMAGE_OBJECT&quot;))}">
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" use-when="${drDataResourceTypeId?.contains('FILE') || drDataResourceTypeId == 'IMAGE_OBJECT'}">
             <hyperlink description="${drObjectInfo}" target="/content/control/ViewBinaryDataResource" target-type="content" target-window="productionRunContentWindow">
                 <parameter param-name="dataResourceId" from-field="drDataResourceId"/>
             </hyperlink>
         </field>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" entry-name="drDataResourceId" encode-output="true" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; drDataResourceTypeId.equals(&quot;ELECTRONIC_TEXT&quot;)}">
-            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" entry-name="drDataResourceId" encode-output="true" use-when="${drDataResourceTypeId == 'ELECTRONIC_TEXT'}">
+            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"/>
         </field>
         <field name="deleteLink" title=" " widget-style="smallSubmit">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductionRunContent" also-hidden="false">

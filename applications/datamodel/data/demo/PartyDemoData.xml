@@ -126,4 +126,15 @@ under the License.
     <!-- PartyClassification data -->
     <PartyClassificationGroup partyClassificationGroupId="EMEA" description="Europe and Middle East" partyClassificationTypeId="REGION"/>
     <PartyClassificationGroup partyClassificationGroupId="APAC" description="Asia and Pacific" partyClassificationTypeId="REGION"/>
+
+    <UserPreference userLoginId="auditor" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="BLUELIGHT"/>
+    <UserPreference userLoginId="FrenchCustomer" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="FLAT_GREY"/>
+    <UserPreference userLoginId="bizadmin" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="HELVETICUS_SAPHIR"/>
+    <UserPreference userLoginId="accountingadmin" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="HELVETICUS_RUBY"/>
+    <UserPreference userLoginId="DemoBuyer" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="HELVETICUS_EMERALD"/>
+    <UserPreference userLoginId="DemoSupplier" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_SAPHIR"/>
+    <UserPreference userLoginId="DemoCustomer" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_RUBY"/>
+    <UserPreference userLoginId="DemoEmployee" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_EMERALD"/>
+    <UserPreference userLoginId="productowner" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="RAINBOWSTONE_AMBER"/>
+    <UserPreference userLoginId="scrummaster" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefTypeId="VISUAL_THEME" userPrefValue="TOMAHAWK"/>
 </entity-engine-xml>

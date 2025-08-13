@@ -19,7 +19,7 @@ under the License.
 
 
 <!-- TODO : Need formatting -->
-<script type="application/javascript">
+<script type="text/javascript">
 function submitForm(form, mode, value) {
     if ("DN" == mode) {
         // done action; checkout

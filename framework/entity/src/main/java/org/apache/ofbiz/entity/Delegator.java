@@ -197,6 +197,39 @@ public interface Delegator {
      */
     GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
+    /**
+     * <p>Create the Entities from the List GenericValue instances to the persistent
+     * store.
+     *
+     * <p>This is different than the normal create method, because all creation
+     * will be done with one unique insert to go fast.
+     *
+     * <p>For this reason eca can't be raised, so it's useful for process
+     * with huge data to inject into database</p>
+     * @param values
+     *            List of GenericValue instances containing the entities to create
+     */
+    void createAllByBatchProcess(List<GenericValue> values) throws GenericEntityException;
+
+    /**
+     * <p>Create the Entities from the List GenericValue instances to the persistent
+     * store.
+     *
+     * <p>This is different than the normal create method, because all creation
+     * will be done with one unique insert to go fast.
+     *
+     * <p>For this reason eca can't be raised, so it's useful for process
+     * with huge data to inject on database.
+     *
+     * <p>As this is a huge process, we can specify whether we want to alert the ofbiz cluster
+     * if we need to clean their cache or just wait the normal expiration</p>
+     * @param values
+     *            List of GenericValue instances containing the entities to create
+     * @param distribute
+     *            set to true if we want to clean cache entity for ofbiz cluster
+     */
+    void createAllByBatchProcess(List<GenericValue> values, boolean distribute) throws GenericEntityException;
+
     Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException;
 
     Object encryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, Object fieldValue) throws EntityCryptoException;
@@ -729,16 +762,19 @@ public interface Delegator {
     void refreshSequencer();
 
     /**
-     * <p>Remove the Entities from the List from the persistent store.</p>
+     * <p>Remove the Entities from the List from the persistent store.
+     *
      * <p>The List contains GenericEntity objects, can be either GenericPK or
      * GenericValue. </p>
      * <p>If a certain entity contains a complete primary key, the entity in
      * the datasource corresponding to that primary key will be removed, this
-     * is like a removeByPrimary Key.</p>
+     * is like a removeByPrimary Key.
+     *
      * <p>On the other hand, if a certain entity is an incomplete or non
      * primary key, if will behave like the removeByAnd method. </p>
      * <p>These updates all happen in one transaction, so they will either
-     * all succeed or all fail, if the data source supports transactions.</p>
+     * all succeed or all fail, if the data source supports transactions.
+     *
      * @param dummyPKs
      *            Collection of GenericEntity instances containing the entities
      *            or by and fields to remove
@@ -842,15 +878,18 @@ public interface Delegator {
 
     /**
      * <p>Store the Entities from the List GenericValue instances to the persistent
-     * store.</p>
+     * store.
+     *
      * <p>This is different than the normal store method in that the
      * store method only does an update, while the storeAll method checks to see
      * if each entity exists, then either does an insert or an update as
-     * appropriate.</p>
+     * appropriate.
+     *
      * <p>These updates all happen in one transaction, so they
      * will either all succeed or all fail, if the data source supports
      * transactions. This is just like to othersToStore feature of the
-     * GenericEntity on a create or store.</p>
+     * GenericEntity on a create or store.
+     *
      * @param values
      *            List of GenericValue instances containing the entities to
      *            store
@@ -860,15 +899,18 @@ public interface Delegator {
 
     /**
      * <p>Store the Entities from the List GenericValue instances to the persistent
-     * store.</p>
+     * store.
+     *
      * <p>This is different than the normal store method in that the
      * store method only does an update, while the storeAll method checks to see
      * if each entity exists, then either does an insert or an update as
-     * appropriate.</p>
+     * appropriate.
+     *
      * <p>These updates all happen in one transaction, so they
      * will either all succeed or all fail, if the data source supports
      * transactions. This is just like to othersToStore feature of the
-     * GenericEntity on a create or store.</p>
+     * GenericEntity on a create or store.
+     *
      * @param storeOptions
      *            An instance of EntityStoreOptions that specifies advanced store
      *            options or null for default values.

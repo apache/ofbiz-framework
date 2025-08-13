@@ -27,7 +27,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="MrpTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                <include-menu name="MrpTabBar" location="${parameters.mainMenuLocation}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -61,7 +61,7 @@ under the License.
                 <set field="tabButtonItem" value="RunMrp"/>
                 <set field="helpAnchor" value="_run_mrp"/>
                 <set field="headerItem" value="mrp"/>
-                <set field="eventMessage" value="${groovy: org.apache.ofbiz.base.util.UtilProperties.getMessage('ManufacturingUiLabels', 'ManufacturingMrpRunScheduledSuccessfully', locale)}"/>
+                <set field="eventMessage" value="${groovy: label('ManufacturingUiLabels','ManufacturingMrpRunScheduledSuccessfully')}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
@@ -116,7 +116,7 @@ under the License.
                     <order-by field-name="-finishDateTime"/>
                     <limit-range start="0" size="5"/>
                 </entity-condition>
-                <script location="component://manufacturing/groovyScripts/mrp/FindInventoryEventPlan.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/mrp/FindInventoryEventPlan.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">

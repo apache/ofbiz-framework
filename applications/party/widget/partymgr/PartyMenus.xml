@@ -58,6 +58,16 @@
                 <parameter param-name="create_new" value="Y"/>
              </link>
          </menu-item>
+        <menu-item name="newPartyClassificationGroup" title="${uiLabelMap.PartyCreateNewPartyClassificationGroup}">
+            <condition>
+                <or>
+                    <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="EditPartyClassificationGroup">
+                <parameter param-name="create_new" value="Y"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="PartyShortcutAppBar" title="${uiLabelMap.PartyManager}">
         <menu-item name="find" title="${uiLabelMap.PartyParties}"><link target="/partymgr/control/findparty" url-mode="inter-app"/></menu-item>
@@ -410,7 +420,7 @@
     </menu>
     <menu name="MyCommSubTabBar" menu-container-style="button-bar button-style-2">
         <actions>
-            <script location="component://party/groovyScripts/communication/GetMyCommunicationEventRole.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/communication/GetMyCommunicationEventRole.groovy"/>
         </actions>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
@@ -685,6 +695,11 @@
 
     <menu name="CommSubTabBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}" widget-style="buttontext create">
+            <condition>
+                <or>
+                    <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                </or>
+            </condition>
             <link target="EditCommunicationEvent"/>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">

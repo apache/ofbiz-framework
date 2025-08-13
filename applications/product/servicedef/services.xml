@@ -38,7 +38,7 @@ under the License.
         <override name="longDescription" allow-html="safe"/>
     </service>
     <service name="createProduct" default-entity-name="Product" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProduct" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="createProduct" auth="true">
         <description>Create a Product</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
@@ -46,13 +46,13 @@ under the License.
         <override name="internalName" optional="false"/>
     </service>
     <service name="updateProduct" default-entity-name="Product" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProduct" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="updateProduct" auth="true">
         <description>Update a Product</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateProductQuickAdminName" default-entity-name="Product" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductQuickAdminName" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="updateProductQuickAdminName" auth="true">
         <description>Update a Product from Quick Admin</description>
         <implements service="interfaceProduct"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -64,7 +64,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="duplicateProduct" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="duplicateProduct" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="duplicateProduct" auth="true">
         <description>Duplicate a Product using a new productId</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="oldProductId" type="String" mode="IN" optional="false"/>
@@ -90,7 +90,7 @@ under the License.
         <attribute name="removeInventoryItems" type="String" mode="IN" optional="true"/>
     </service>
     <service name="copyToProductVariants" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="copyToProductVariants" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="copyToProductVariants" auth="true">
         <description>Copy Virtual Product's data to the Variant Products</description>
         <attribute name="virtualProductId" type="String" mode="IN" optional="false"/>
         <attribute name="removeBefore" type="String" mode="IN" optional="true"/>
@@ -152,39 +152,39 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteProductKeywords" engine="groovy"
-            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="deleteProductKeywords" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="deleteProductKeywords" auth="true">
         <description>Delete all the keywords of a product</description>
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="indexProductKeywords" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="indexProductKeywords" auth="false">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="indexProductKeywords" auth="false">
         <description>Index the Keywords for a Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="productInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="forceIndexProductKeywords" engine="groovy"
-            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="forceIndexProductKeywords" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="forceIndexProductKeywords" auth="true">
         <description>Induce all the keywords of a product, ignoring the flag in the Product.autoCreateKeywords flag</description>
         <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="discontinueProductSales" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="discontinueProductSales" auth="false">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="discontinueProductSales" auth="false">
         <description>Discontinue Product Sales</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="countProductView" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="countProductView" auth="false">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="countProductView" auth="false">
         <description>count Product View</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="weight" type="Long" mode="IN" optional="true"/>
     </service>
 
     <service name="createProductReview" engine="groovy"
-            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProductReview" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="createProductReview" auth="true">
         <description>Create a product review entity</description>
         <auto-attributes entity-name="ProductReview" mode="IN" include="nonpk" optional="true"/>
         <attribute name="productReviewId" type="String" mode="OUT" optional="false"/>
@@ -193,7 +193,7 @@ under the License.
         <override name="productRating" optional="false"/>
     </service>
     <service name="updateProductReview" engine="groovy" default-entity-name="ProductReview"
-            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductReview" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="updateProductReview" auth="true">
         <description>Updates a product review record</description>
         <required-permissions join-type="OR">
             <check-permission permission="CATALOG_UPDATE"/>
@@ -203,7 +203,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="setProductReviewStatus" engine="groovy"
-            location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="setProductReviewStatus" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="setProductReviewStatus" auth="true">
         <description>Updates a product review record</description>
         <required-permissions join-type="OR">
             <check-permission permission="CATALOG_UPDATE"/>
@@ -243,7 +243,7 @@ under the License.
 
     <!-- Product Price Services -->
     <service name="createProductPrice" default-entity-name="ProductPrice" engine="groovy"
-                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="createProductPrice" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/price/PriceServicesScript.groovy" invoke="createProductPrice" auth="true">
         <description>
             Create a Product Price.
 
@@ -270,7 +270,7 @@ under the License.
         <override name="price" optional="false"/>
     </service>
     <service name="updateProductPrice" default-entity-name="ProductPrice" engine="groovy"
-                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="updateProductPrice" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/price/PriceServicesScript.groovy" invoke="updateProductPrice" auth="true">
         <description>Update an ProductPrice</description>
         <permission-service service-name="checkProductRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -287,7 +287,7 @@ under the License.
         <override name="price" optional="false"/>
     </service>
     <service name="deleteProductPrice" default-entity-name="ProductPrice" engine="groovy"
-                location="component://product/groovyScripts/product/price/PriceServices.groovy" invoke="deleteProductPrice" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/price/PriceServicesScript.groovy" invoke="deleteProductPrice" auth="true">
         <description>Delete an ProductPrice</description>
         <permission-service service-name="checkProductRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -360,7 +360,7 @@ under the License.
 
     <!-- Product content services -->
     <service name="createProductContent" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="createProductContent" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createProductContent" auth="true">
         <description>Add Content To Product</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -368,7 +368,7 @@ under the License.
         <override name="fromDate" default-value="${date:nowTimestamp()}"/>
     </service>
     <service name="updateProductContent" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="updateProductContent" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="updateProductContent" auth="true">
         <description>Update Content To Product</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -379,7 +379,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createEmailContentForProduct" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="createEmailContentForProduct" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createEmailContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
@@ -396,7 +396,7 @@ under the License.
         </group>
     </service>
     <service name="createDownloadContentForProduct" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="createDownloadContentForProduct" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createDownloadContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" entity-name="Content" optional="true"/>
@@ -414,7 +414,7 @@ under the License.
     </service>
 
     <service name="createSimpleTextContentForProduct" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="createSimpleTextContentForProduct" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createSimpleTextContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -431,7 +431,7 @@ under the License.
     </service>
 
     <service name="createSimpleTextContentForAlternateLocale" engine="groovy" 
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="createSimpleTextContentForAlternateLocale">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="createSimpleTextContentForAlternateLocale">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="mainContentId" type="String" mode="IN" optional="false"/>
         <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
@@ -450,7 +450,7 @@ under the License.
     </service>
 
     <service name="uploadProductAdditionalViewImages" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="uploadProductAdditionalViewImages" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="uploadProductAdditionalViewImages" auth="true">
         <description>Upload Additional View Images For Product</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="productId" type="String" mode="INOUT" optional="false"/>
@@ -469,7 +469,7 @@ under the License.
     </service>
 
     <service name="updateContentSEOForProduct" engine="groovy"
-            location="component://product/groovyScripts/product/product/ProductContentServices.groovy" invoke="updateContentSEOForProduct" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductContentServicesScript.groovy" invoke="updateContentSEOForProduct" auth="true">
         <description>Update Product SEO</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
@@ -529,7 +529,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="getSupplierProductFeatures" engine="groovy" invoke="getSupplierProductFeatures"
-             location="component://product/groovyScripts/product/supplier/SupplierProductServices.groovy">
+             location="component://product/src/main/groovy/org/apache/ofbiz/product/product/supplier/SupplierProductServicesScript.groovy">
         <description>Finds a list of SupplierProductFeature entities based on the productFeatureId.
             If a partyId is given, only product feature information for that supplier party is returned.</description>
         <attribute name="productFeatureId" type="String" mode="IN"/>
@@ -666,14 +666,14 @@ under the License.
     <!-- Product Category Services -->
     <!-- ======================================== -->
     <service name="createProductCategory" default-entity-name="ProductCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="createProductCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="createProductCategory" auth="true">
         <description>Create an ProductCategory</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productCategoryTypeId" optional="false"/>
     </service>
     <service name="updateProductCategory" default-entity-name="ProductCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="updateProductCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="updateProductCategory" auth="true">
         <description>Update an ProductCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -681,7 +681,7 @@ under the License.
     </service>
 
     <service name="duplicateProductCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="duplicateProductCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="duplicateProductCategory" auth="true">
         <description>Duplicate a Product Category using from oldProductCategoryId to a new productCategoryId</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="oldProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -704,7 +704,7 @@ under the License.
     </service>
 
     <service name="addProductToCategories" default-entity-name="ProductCategoryMember" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductToCategories" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="addProductToCategories" auth="true">
         <description>Add Product To Multiple Categories</description>
         <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false">
@@ -728,14 +728,14 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeProductFromCategory" default-entity-name="ProductCategoryMember" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removeProductFromCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="removeProductFromCategory" auth="true">
         <description>Remove Product From Category</description>
         <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductInCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="createProductInCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="createProductInCategory" auth="true">
         <description></description>
         <auto-attributes entity-name="ProductCategory" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="Product" include="pk" mode="INOUT" optional="true"/>
@@ -748,7 +748,7 @@ under the License.
     </service>
 
     <service name="addPartyToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addPartyToCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="addPartyToCategory" auth="true">
         <description>Add Party To Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -758,7 +758,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updatePartyToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="updatePartyToCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="updatePartyToCategory" auth="true">
         <description>Update Party To Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -768,7 +768,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="removePartyFromCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removePartyFromCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="removePartyFromCategory" auth="true">
         <description>Remove Party From Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -777,7 +777,7 @@ under the License.
     </service>
 
     <service name="addPartyToProduct" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="addPartyToProduct" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="addPartyToProduct" auth="true">
         <description>Add Party To Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -788,7 +788,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updatePartyToProduct" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updatePartyToProduct" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="updatePartyToProduct" auth="true">
         <description>Update Party To Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -799,7 +799,7 @@ under the License.
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="removePartyFromProduct" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="removePartyFromProduct" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="removePartyFromProduct" auth="true">
         <description>Remove Party From Product</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -808,7 +808,7 @@ under the License.
     </service>
 
     <service name="safeAddProductCategoryToCategory" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductCategoryToCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="addProductCategoryToCategory" auth="true">
         <description>Safe Add ProductCategory To Category (requires fromDate)</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -818,7 +818,7 @@ under the License.
     </service>
 
     <service name="addProductCategoryToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductCategoryToCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="addProductCategoryToCategory" auth="true">
         <description>Add ProductCategory To Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -827,7 +827,7 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
     <service name="addProductCategoryToCategories" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductCategoryToCategories" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="addProductCategoryToCategories" auth="true">
         <description>Add ProductCategory To Categories</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="categories" type="Object" mode="IN" optional="false"/>
@@ -836,7 +836,7 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
     <service name="updateProductCategoryToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="updateProductCategoryToCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="updateProductCategoryToCategory" auth="true">
         <description>Update ProductCategory To Category</description>
         <attribute name="productCategoryId" type="String" mode="INOUT" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -845,7 +845,7 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
     <service name="removeProductCategoryFromCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removeProductCategoryFromCategory" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="removeProductCategoryFromCategory" auth="true">
         <description>Remove ProductCategory From Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -854,26 +854,26 @@ under the License.
 
     <!-- Product Category Attribute SErvices -->
     <service name="createProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy"
             invoke="createProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy"
             invoke="updateProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy"
             invoke="deleteProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Category Link Services -->
     <service name="createProductCategoryLink" default-entity-name="ProductCategoryLink" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy"
             invoke="createProductCategoryLink" auth="true">
         <description>Create a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="CREATE"/>
@@ -896,7 +896,7 @@ under the License.
     </service>
 
     <service name="duplicateCategoryEntities" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="duplicateCategoryEntities" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="duplicateCategoryEntities" auth="true">
         <description>Duplicates a named entity from one productCategoryId to another</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="productCategoryIdTo" type="String" mode="IN" optional="false"/>
@@ -907,7 +907,7 @@ under the License.
 
     <!-- Category content services -->
     <service name="createCategoryContent" default-entity-name="ProductCategoryContent" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createCategoryContent" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createCategoryContent" auth="true">
         <description>Add Content To Category</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -916,7 +916,7 @@ under the License.
         <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateCategoryContent" default-entity-name="ProductCategoryContent" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateCategoryContent" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateCategoryContent" auth="true">
         <description>Update Content To Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -928,7 +928,7 @@ under the License.
     </service>
 
     <service name="createSimpleTextContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createSimpleTextContentForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createSimpleTextContentForCategory" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
@@ -945,7 +945,7 @@ under the License.
     </service>
 
     <service name="updateContentSEOForCategory" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateContentSEOForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateContentSEOForCategory" auth="true">
         <description>Update SEO Content For Product Category</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
@@ -954,7 +954,7 @@ under the License.
     </service>
 
     <service name="createRelatedUrlContentForCategory" engine="groovy" default-entity-name="ProductCategoryContent"
-            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createRelatedUrlContentForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createRelatedUrlContentForCategory" auth="true">
         <description>Create Related URL Content For Product Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -966,7 +966,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateRelatedUrlContentForCategory" engine="groovy" default-entity-name="ProductCategoryContent"
-            location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateRelatedUrlContentForCategory" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateRelatedUrlContentForCategory" auth="true">
         <description>Update Related URL Content For Product Category</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -979,7 +979,7 @@ under the License.
     </service>
 
     <service name="createDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
-        location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="createDownloadContentForCategory" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="createDownloadContentForCategory" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -988,7 +988,7 @@ under the License.
         <override name="prodCatContentTypeId" optional="false"/>
     </service>
     <service name="updateDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="groovy"
-        location="component://product/groovyScripts/product/category/CategoryContentServices.groovy" invoke="updateDownloadContentForCategory" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryContentServicesScript.groovy" invoke="updateDownloadContentForCategory" auth="true">
         <implements service="uploadFileInterface"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1133,7 +1133,7 @@ under the License.
 
     <!-- Product Config Item content services -->
     <service name="createProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="groovy"
-                location="component://product/groovyScripts/product/config/ProductConfigItemContentServices.groovy" invoke="createProductConfigItemContent" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServicesScript.groovy" invoke="createProductConfigItemContent" auth="true">
         <description>Add Content To ProductConfigItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1142,7 +1142,7 @@ under the License.
         <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="groovy"
-                location="component://product/groovyScripts/product/config/ProductConfigItemContentServices.groovy" invoke="updateProductConfigItemContent" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServicesScript.groovy" invoke="updateProductConfigItemContent" auth="true">
         <description>Update Content To ProductConfigItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -1154,7 +1154,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="groovy"
-            location="component://product/groovyScripts/product/config/ProductConfigItemContentServices.groovy" invoke="createSimpleTextContentForProductConfigItem" auth="true">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/config/ProductConfigItemContentServicesScript.groovy" invoke="createSimpleTextContentForProductConfigItem" auth="true">
         <attribute name="configItemId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="contentId" type="String" mode="IN" optional="true"></attribute>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -1227,27 +1227,21 @@ under the License.
 
     <!-- Permission Services -->
     <service name="productGenericPermission" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="productGenericPermission">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="productGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="productCategoryGenericPermission" engine="groovy"
-        location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="productCategoryGenericPermission">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="productCategoryGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="productPriceGenericPermission" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="productPriceGenericPermission">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="productPriceGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="checkCategoryPermissionWithViewPurchaseAllow" engine="groovy"
-        location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="checkCategoryPermissionWithViewPurchaseAllow">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="checkCategoryPermissionWithViewPurchaseAllow">
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
-    </service>
-    <service name="checkProductRelatedPermission" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductRelatedPermissionCall">
-        <attribute name="callingMethodName" mode="IN" type="String"/>
-        <attribute name="checkAction" mode="IN" type="String"/>
-        <attribute name="productId" mode="IN" type="String"/>
     </service>
     <!-- Product Attribute Services -->
     <service name="createProductAttribute" default-entity-name="ProductAttribute" engine="entity-auto" invoke="create" auth="true">
@@ -1278,31 +1272,31 @@ under the License.
 
     <!-- ProductCategoryGlAccount Services -->
     <service name="createProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProductCategoryGlAccount" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="createProductCategoryGlAccount" auth="true">
         <description>Create a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="updateProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductCategoryGlAccount" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="updateProductCategoryGlAccount" auth="true">
         <description>Update a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
     <service name="deleteProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="groovy"
-                location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="deleteProductCategoryGlAccount" auth="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="deleteProductCategoryGlAccount" auth="true">
         <description>Delete a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="catalogPermissionCheck" engine="groovy"
-        location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="catalogPermissionCheck" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="catalogPermissionCheck" auth="true">
         <description>Catalog Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
 
     <service name="prodCatalogToPartyPermissionCheck" engine="groovy"
-            location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="prodCatalogToPartyPermissionCheck">
+            location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="prodCatalogToPartyPermissionCheck">
         <description>ProdCatalogToParty Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
@@ -1387,7 +1381,7 @@ under the License.
     </service>
 
     <service name="multipleUploadProductImages" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="uploadProductImages" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="uploadProductImages" auth="true">
         <description>Multiple upload Images For Product</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <attribute name="productId" type="String" mode="INOUT" optional="false"/>
@@ -1425,14 +1419,14 @@ under the License.
     </service>
 
     <service name="removeProductContentAndImageFile" default-entity-name="ProductContent" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeProductContentAndImageFile" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="removeProductContentAndImageFile" auth="true">
         <description>Remove Content From Product and File Image</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="removeProductContentForImageManagement" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeProductContentForImageManagement" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="removeProductContentForImageManagement" auth="true">
         <description>Delete Product Content Relationship Entity</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
@@ -1484,7 +1478,7 @@ under the License.
     </service>
 
     <service name="setImageDetail" engine="groovy" default-entity-name="ProductContent"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="setImageDetail" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="setImageDetail" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="sequenceNum" mode="IN" type="Integer" optional="true"/>
@@ -1493,29 +1487,29 @@ under the License.
     </service>
 
     <service name="updateStatusImageManagement" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="updateStatusImageManagement" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="updateStatusImageManagement" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="checkStatusId" mode="IN" type="String" optional="true"/>
     </service>
 
     <service name="addRejectedReasonImageManagement" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="addRejectedReasonImageManagement" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="addRejectedReasonImageManagement" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
 
     <service name="createImageContentApproval" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="createImageContentApproval" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="createImageContentApproval" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
     </service>
 
     <service name="removeImageContentApproval" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeImageContentApproval" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="removeImageContentApproval" auth="true">
         <attribute name="partyId" mode="IN" type="String" optional="false"/>
     </service>
 
     <service name="resizeImages" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="resizeImages" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="resizeImages" auth="true">
         <description>Resize Images.</description>
         <attribute name="resizeOption" mode="IN" type="String" optional="false"/>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
@@ -1541,7 +1535,7 @@ under the License.
     </service>
 
     <service name="removeImageBySize" engine="groovy"
-        location="component://product/groovyScripts/product/imagemanagement/ImageManagementServices.groovy" invoke="removeImageBySize" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/imagemanagement/ImageManagementServicesScript.groovy" invoke="removeImageBySize" auth="true">
         <description>Remove Image By Size.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="mapKey" mode="IN" type="String" optional="false"/>
@@ -1567,7 +1561,7 @@ under the License.
 
     <!-- Alternative URLs -->
     <service name="createMissingCategoryAndProductAltUrls" engine="groovy"
-                location="component://product/groovyScripts/product/catalog/CatalogServices.groovy" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="true">
+                location="component://product/src/main/groovy/org/apache/ofbiz/product/product/catalog/CatalogServices.groovy" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="true">
         <description>Create missing Category and Product Alternative URLs</description>
         <attribute name="prodCatalogId" mode="INOUT" type="String" optional="false"/>
         <attribute name="category" mode="IN" type="String" optional="true"/>
@@ -1600,47 +1594,47 @@ under the License.
 
     <!-- Product GroupOrder Services -->
     <service name="createProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createProductGroupOrder" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="createProductGroupOrder" auth="true">
         <description>Create ProductGroupOrder</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="updateProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="updateProductGroupOrder" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="updateProductGroupOrder" auth="true">
         <description>Update ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="deleteProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="deleteProductGroupOrder" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="deleteProductGroupOrder" auth="true">
         <description>Delete ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createJobForProductGroupOrder" default-entity-name="ProductGroupOrder" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="createJobForProductGroupOrder" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="createJobForProductGroupOrder" auth="true">
         <description>Create Job For ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="checkOrderItemForProductGroupOrder" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkOrderItemForProductGroupOrder" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="checkOrderItemForProductGroupOrder" auth="true">
         <description>Check OrderItem For ProductGroupOrder</description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
 
     <service name="cancleOrderItemGroupOrder" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="cancleOrderItemGroupOrder" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="cancleOrderItemGroupOrder" auth="true">
         <description>Cancle OrderItemGroupOrder</description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="checkProductGroupOrderExpired" engine="groovy"
-        location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductGroupOrderExpired" auth="true">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="checkProductGroupOrderExpired" auth="true">
         <description>Check ProductGroupOrder Expired</description>
         <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
     </service>
@@ -1834,7 +1828,7 @@ under the License.
     <!--Permission services -->
 
     <service name="checkProductRelatedPermission" engine="groovy"
-             location="component://product/groovyScripts/product/product/ProductServices.groovy" invoke="checkProductRelatedPermissionService">
+             location="component://product/src/main/groovy/org/apache/ofbiz/product/product/product/ProductServicesScript.groovy" invoke="checkProductRelatedPermissionService">
         <description>Check Product Related Permission, a service to centralize product security code</description>
         <implements service="permissionInterface"/>
         <attribute name="productId" mode="IN" type="String" optional="true"/>

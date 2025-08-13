@@ -158,25 +158,25 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service> -->
 
-    <service name="testGroovy" engine="groovy" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="">
+    <service name="testGroovy" engine="groovy" location="component://common/src/test/groovy/org/apache/ofbizcommon/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testGroovyMethod" engine="groovy" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="testMethod">
+    <service name="testGroovyMethod" engine="groovy" location="component://common/src/test/groovy/org/apache/ofbizcommon/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Groovy Script Service Method Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineGroovy" engine="script" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="">
+    <service name="testScriptEngineGroovy" engine="script" location="component://common/src/test/groovy/org/apache/ofbizcommon/GroovyServiceTest.groovy" invoke="">
         <description>Test Script Engine With Groovy Script</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="testMethod">
+    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/src/test/groovy/org/apache/ofbizcommon/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Script Engine With Groovy Script Method Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
@@ -213,13 +213,6 @@ under the License.
 
     <service name="testRoute" engine="route" location="" invoke="" auth="true">
         <description>Test the Route engine</description>
-    </service>
-
-    <service name="simpleMapListTest" engine="java" auth="false" export="true"
-            location="org.apache.ofbiz.common.CommonServices" invoke="simpleMapListTest">
-        <description>To test XML-RPC handling of Maps and Lists</description>
-        <attribute name="listOfStrings" type="List" mode="IN"/>
-        <attribute name="mapOfStrings" type="Map" mode="IN"/>
     </service>
 
     <service name="testJavaScript" engine="javascript" auth="false"

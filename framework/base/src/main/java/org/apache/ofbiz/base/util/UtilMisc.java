@@ -436,7 +436,7 @@ public final class UtilMisc {
      * @param obj Object to convert
      * @return Double
      */
-    private static Double toDoubleObject(Object obj) {
+    public static Double toDoubleObject(Object obj) {
         if (obj == null) {
             return null;
         }
@@ -510,7 +510,7 @@ public final class UtilMisc {
      * @param obj Object to convert
      * @return Long
      */
-    private static Long toLongObject(Object obj) {
+    public static Long toLongObject(Object obj) {
         if (obj == null) {
             return null;
         }
@@ -674,7 +674,7 @@ public final class UtilMisc {
     }
 
     // Private lazy-initializer class
-    private static class LocaleHolder {
+    private static final class LocaleHolder {
         private static final List<Locale> AVAIL_LOCALE_LIST = getAvailableLocaleList();
 
         private static List<Locale> getAvailableLocaleList() {

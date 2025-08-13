@@ -20,6 +20,9 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected" 
+        extends="MainActionMenu" extends-resource="component://party/widget/partymgr/PartyMenus.xml">
+    </menu>
     <menu name="SetupAppBar" title="${uiLabelMap.SetupApp}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" title="${uiLabelMap.SetupInitialSetup}">
             <link target="initialsetup"/>

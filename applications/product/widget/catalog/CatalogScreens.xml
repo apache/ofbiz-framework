@@ -96,8 +96,8 @@ under the License.
             <widgets>
             <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                 <decorator-section name="body">
-                    <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                    <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    <include-menu name="CatalogTabBar" location="${parameters.mainMenuLocation}"/>
+                    <include-menu name="CatalogSubTabBar" location="${parameters.mainMenuLocation}"/>
                     <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                     <screenlet title="${uiLabelMap.PageTitleEditProductCatalog}">
                         <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
@@ -176,12 +176,29 @@ under the License.
             <widgets>
                  <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductCatalogStores}">
-                            <include-grid name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleAddProductCatalogStores}">
-                            <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                        <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleAddProductCatalogStores}">
+                                    <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ProductStores}">
+                                    <include-grid name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ProductStores}">
+                                    <include-grid name="Stores" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -191,11 +208,12 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://product/widget/catalog/CatalogMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="CatalogShortcutAppBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="CatalogShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

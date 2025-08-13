@@ -32,7 +32,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->
                             <condition>
@@ -42,7 +42,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="MarketingCampaignTabBar" location="component://marketing/widget/MarketingCampaignMenus.xml"/>
+                                <include-menu name="MarketingCampaignTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -182,5 +182,22 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="Campaigns">
+        <section>
+            <actions>
+                <entity-condition entity-name="MarketingCampaign" list="campaigns">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="not-equals" value="MKTG_CAMP_COMPLETED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="MKTG_CAMP_CANCELLED"/>
+                    </condition-list>
+                    <order-by field-name="statusId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.MarketingCampaign}">
+                    <include-grid name="Campaigns" location="component://marketing/widget/MarketingCampaignForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

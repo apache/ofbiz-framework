@@ -484,7 +484,8 @@ public class PackingSession implements java.io.Serializable {
     }
 
     /**
-     * <p>Delivers all the packing lines grouped by package.</p>
+     * <p>Delivers all the packing lines grouped by package.
+     *
      * Output map:
      * <ul>
      * <li>packageMap - a Map of type {@code Map<Integer, List<PackingSessionLine>>}

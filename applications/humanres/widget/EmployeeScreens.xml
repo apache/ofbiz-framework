@@ -30,7 +30,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -101,8 +101,8 @@ under the License.
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
-                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
-                <script location="component://party/groovyScripts/party/GetUserLoginPrimaryEmail.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/ViewProfile.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
@@ -203,7 +203,6 @@ under the License.
                         <screenlet>
                             <include-grid name="ListEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                         </screenlet>
-                        <include-form name="ListEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                         <screenlet id="AddPartyQualPanel" title="${uiLabelMap.HumanResAddPartyQual}" collapsible="true">
                             <include-form name="AddEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                         </screenlet>
@@ -368,7 +367,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.HumanResMyLeaves}" navigation-form-name="ListEmplLeaves">
-                    <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                    <include-grid name="ListEmplLeaves" location="component://humanres/widget/forms/EmployeeForms.xml"/>
                 </screenlet>
             </widgets>
         </section>

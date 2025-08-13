@@ -23,6 +23,7 @@ under the License.
     <description>Portal ControlServlet Configuration File</description>
 
     <request-map uri="main">
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="showPortalPage"/>
     </request-map>
     <!-- Portlet show requests -->
@@ -45,7 +46,7 @@ under the License.
     </request-map>
     <request-map uri="setPortalPortletAttributes">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setPortalPortletAttributes" path="component://common/minilang/PortalPageMethods.xml"/>
+        <event type="groovy" invoke="setPortalPortletAttributes" path="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -57,7 +58,7 @@ under the License.
     <!-- Portal page update requests -->
     <request-map uri="ManagePortalPages">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="copyIfRequiredSystemPage" path="component://common/minilang/PortalPageMethods.xml"/>
+        <event type="groovy" invoke="copyIfRequiredSystemPage" path="component://common/src/main/groovy/org/apache/ofbiz/common/PortalPageMethods.groovy"/>
         <response name="success" type="view" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="NewPortalPage">
@@ -161,7 +162,7 @@ under the License.
     </request-map>
     <request-map uri="LookupPortalPage"><security https="true" auth="true"/><response name="success" type="view" value="LookupPortalPage"/></request-map>
     <!-- View Mappings -->
-    <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
+    <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage" auth="false"/>
     <view-map name="showPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortlet"/>
     <view-map name="showPortletMainDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletMainDecorator"/>
     <view-map name="showPortletSimpleDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletSimpleDecorator"/>
@@ -169,6 +170,6 @@ under the License.
     <view-map name="NewPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#NewPortalPage"/>
     <view-map name="addPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
     <view-map name="editPortalPortletAttributes" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPortletAttributes"/>
-    <view-map name="editPortalPageColumnWidth" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPageColumnWidth"/>
+    <view-map name="editPortalPageColumnWidth" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPageColumnWidth" auth="false"/>
     <view-map name="LookupPortalPage" type="screen" page="component://common/widget/LookupScreens.xml#LookupPortalPage"/>
 </site-conf>

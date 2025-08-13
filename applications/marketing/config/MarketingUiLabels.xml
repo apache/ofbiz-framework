@@ -3396,12 +3396,13 @@
         <value xml:lang="zh-TW">請輸入人員的姓或名,或機構名稱</value>
     </property>
     <property key="SfaForecasts">
-        <value xml:lang="de">Prognose</value>
-        <value xml:lang="en">Forecast</value>
+        <value xml:lang="de">Prognosen</value>
+        <value xml:lang="en">Forecasts</value>
         <value xml:lang="es">Previsión</value>
-        <value xml:lang="fr">Prévision</value>
+        <value xml:lang="fr">Prévisions</value>
         <value xml:lang="it">Previsioni</value>
         <value xml:lang="ja">予測</value>
+        <value xml:lang="nl">Prognoses</value>
         <value xml:lang="pt-BR">Previsão</value>
         <value xml:lang="vi">Dự báo</value>
         <value xml:lang="zh">预测</value>
@@ -3478,10 +3479,16 @@
         <value xml:lang="fr">Prospect</value>
         <value xml:lang="it">Lead</value>
         <value xml:lang="ja">リード</value>
+        <value xml:lang="nl">Lead</value>
         <value xml:lang="pt-BR">Lead</value>
         <value xml:lang="vi">Đầu mối</value>
         <value xml:lang="zh">线索</value>
         <value xml:lang="zh-TW">線索</value>
+    </property>
+    <property key="SfaNewLead">
+        <value xml:lang="en">New Lead</value>
+        <value xml:lang="fr">Nouveau prospect</value>
+        <value xml:lang="nl">Nieuwe lead</value>
     </property>
     <property key="SfaLeadCreatedSuccessfully">
         <value xml:lang="en">Lead created successfully</value>
@@ -3637,8 +3644,8 @@
         <value xml:lang="es">Nueva previsión de Ventas</value>
         <value xml:lang="fr">Nouvelle prévision de vente</value>
         <value xml:lang="it">Nuova Previsioni di vendita</value>
-    <!-- JLR : not quite sure of the translation here (done with the help of Yahoo's babelfish), please check -->
         <value xml:lang="ja">新規販売予測</value>
+        <value xml:lang="nl">Nieuwe prognose</value>
         <value xml:lang="pt-BR">Nova previsão de vendas</value>
         <value xml:lang="vi">Tạo mới Dự báo  bán hàng</value>
         <value xml:lang="zh">新的销售展望</value>
@@ -3693,6 +3700,7 @@
         <value xml:lang="de">Kommunikation zu Opportunity</value>
         <value xml:lang="en">Opportunity Communications</value>
         <value xml:lang="es">Comunicación de Oportunidades</value>
+        <value xml:lang="fr">Opportunités de communication</value>
         <value xml:lang="ja">機会通信</value>
         <value xml:lang="pt-BR">Comunicação de oportunidades</value>
         <value xml:lang="vi">Truyền thông</value>

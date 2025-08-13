@@ -119,7 +119,7 @@ under the License.
     </service>
     
     <service name="getAssociatedProductsList" engine="groovy" auth="false"
-        location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="getAssociatedProductsList">
+        location="component://product/src/main/groovy/org/apache/ofbiz/product/product/category/CategoryServicesScript.groovy" invoke="getAssociatedProductsList">
         <description>Set the product options for selected product category, mostly used by getDependentDropdownValues</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false">
             <type-validate>

@@ -54,7 +54,8 @@ public interface Metrics {
     /** Returns the metric threshold. The meaning of the threshold is
      * determined by client code.
      * <p>The idea is for client code to compare {@link #getServiceRate()} to
-     * the threshold and perform some action based on the comparison.</p>
+     * the threshold and perform some action based on the comparison.
+     *
      */
     double getThreshold();
 

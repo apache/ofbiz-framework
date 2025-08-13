@@ -26,7 +26,7 @@ under the License.
 
     <!-- Payment services -->
     <service name="createPayment" engine="groovy" default-entity-name="Payment"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPayment" auth="true">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPayment" auth="true">
         <description>Create a Payment.  If a paymentMethodId is supplied, paymentMethodTypeId is gotten from paymentMethod.  Otherwise, it must be supplied.  If no
         paymentMethodTypeId and no paymentMethodId is supplied, then an error will be returned. </description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -38,14 +38,14 @@ under the License.
     </service>
 
     <service name="updatePayment" engine="groovy" default-entity-name="Payment"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="updatePayment" auth="true">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="updatePayment" auth="true">
         <description>Update a Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="setPaymentStatus" engine="groovy" default-entity-name="Payment"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="setPaymentStatus" auth="true">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="setPaymentStatus" auth="true">
         <description>Change the status of a Payment</description>
         <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -60,14 +60,14 @@ under the License.
     </service>
 
     <service name="quickSendPayment" engine="groovy" default-entity-name="Payment"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="quickSendPayment">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="quickSendPayment">
         <description>Updates a Payment and then marks it as PMNT_SENT</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <service name="createPaymentApplication" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentApplication" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentApplication" auth="true">
         <description>Create a payment application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
         <attribute name="toPaymentId" type="String" mode="IN" optional="true"/>
@@ -100,8 +100,8 @@ under the License.
         <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
         <override name="paymentId" optional="false"/>
     </service>
-    <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="simple"
-        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="removePaymentApplication">
+    <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="groovy"
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="removePaymentApplication">
         <description>Delete a paymentApplication record.</description>
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -109,7 +109,7 @@ under the License.
     </service>
 
     <service name="createPaymentAndApplication" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplication" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentAndApplication" auth="true">
         <description>Create a payment and a payment application for the full amount</description>
         <auto-attributes entity-name="Payment" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Payment" include="pk" mode="INOUT" optional="true"/>
@@ -127,14 +127,14 @@ under the License.
     </service>
 
     <service name="getInvoicePaymentInfoList" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getInvoicePaymentInfoList" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="getInvoicePaymentInfoList" auth="true">
         <description>Create a list with information on payment due dates and amounts for the invoice; one of invoiceId or invoice must be provided.</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="getInvoicePaymentInfoListByDueDateOffset" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getInvoicePaymentInfoListByDueDateOffset" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="getInvoicePaymentInfoListByDueDateOffset" auth="true">
         <description>Create a list with information on payment due dates and amounts.</description>
         <attribute name="invoiceTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="daysOffset" type="Long" mode="IN" optional="false"/>
@@ -143,7 +143,7 @@ under the License.
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="voidPayment" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="voidPayment" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="voidPayment" auth="true">
         <description>Sets payment status to PMNT_VOID, removes all PaymentApplications, changes related invoice statuses to 
             INVOICE_READY if status is INVOICE_PAID, and reverses related AcctgTrans by calling copyAcctgTransAndEntries service</description>
         <permission-service service-name="acctgPaymentPermissionCheck" main-action="UPDATE"/>
@@ -152,19 +152,19 @@ under the License.
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getPaymentRunningTotal" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPaymentRunningTotal" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="getPaymentRunningTotal" auth="true">
         <description>calculate running total for payments</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="paymentRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="cancelPaymentBatch" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="cancelPaymentBatch" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="cancelPaymentBatch" auth="true">
         <description>cancel payment batch</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createPaymentAndPaymentGroupForInvoices" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentAndPaymentGroupForInvoices" auth="true">
         <description>Creates Payments, Payment Application and Payment Group for the same</description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="checkStartNumber" type="Long" mode="IN" optional="true"/>
@@ -174,7 +174,7 @@ under the License.
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createPaymentAndApplicationForParty" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentAndApplicationForParty" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentAndApplicationForParty" auth="true">
         <description>create Payment and PaymentApplications for multiple invoices for one party</description>
         <attribute name="organizationPartyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -188,7 +188,7 @@ under the License.
         <attribute name="amount" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="createPaymentGroupAndMember" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentGroupAndMember" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentGroupAndMember" auth="true">
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="paymentGroupTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -196,38 +196,38 @@ under the License.
         <attribute name="paymentGroupId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="cancelCheckRunPayments" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="cancelCheckRunPayments" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="cancelCheckRunPayments" auth="true">
         <description>Cancel all payments for payment group</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFinAccoutnTransFromPayment" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createFinAccoutnTransFromPayment" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createFinAccoutnTransFromPayment" auth="true">
         <auto-attributes entity-name="FinAccountTrans" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="FinAccountTrans" include="pk" mode="INOUT" optional="true"/>
         <attribute name="invoiceIds" type="List" mode="IN" optional="true"/>
     </service>
     <service name="getPayments" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPayments" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="getPayments" auth="true">
         <description>Get list of payment</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="true"/>
         <attribute name="payments" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="getPaymentGroupReconciliationId" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="getPaymentGroupReconciliationId" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="getPaymentGroupReconciliationId" auth="true">
         <description>Get ReconciliationId associated to paymentGroup</description>
         <attribute name="paymentGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="glReconciliationId" type="String" mode="OUT" optional="true"/>
     </service>
     
     <service name="checkAndCreateBatchForValidPayments" engine="groovy"
-            location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="checkAndCreateBatchForValidPayments" auth="true">
+            location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="checkAndCreateBatchForValidPayments" auth="true">
         <description>Check the valid(unbatched) payment and create batch for same</description>
         <implements service="createPaymentGroupAndMember"/>
     </service>
     
     <service name="massChangePaymentStatus" engine="groovy"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="massChangePaymentStatus" auth="true">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="massChangePaymentStatus" auth="true">
         <description>Set status of Payments in bulk.</description>
         <attribute name="paymentIds" type="List" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
@@ -235,7 +235,7 @@ under the License.
     </service>
 
     <service name="createPaymentFromOrder" engine="groovy"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentFromOrder" auth="true">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentFromOrder" auth="true">
         <description>Create Payment from Order when payment does exist yet and not disabled by accounting config</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
@@ -245,7 +245,7 @@ under the License.
     </service>
 
     <service name="createMatchingPaymentApplication" engine="groovy"
-        location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createMatchingPaymentApplication" auth="true">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createMatchingPaymentApplication" auth="true">
         <description>Create a payment application if either the invoice of payment could be found</description>
         <attribute name="paymentId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
@@ -253,7 +253,7 @@ under the License.
 
     <!-- Payment content services -->
     <service name="createPaymentContent" default-entity-name="PaymentContent" engine="groovy"
-             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="createPaymentContent" auth="true">
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="createPaymentContent" auth="true">
         <description>Add Content To Payment</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -261,7 +261,7 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updatePaymentContent" default-entity-name="PaymentContent" engine="groovy"
-             location="component://accounting/groovyScripts/payment/PaymentServices.groovy" invoke="updatePaymentContent" auth="true">
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/payment/PaymentServices.groovy" invoke="updatePaymentContent" auth="true">
         <description>Update Content To Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

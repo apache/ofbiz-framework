@@ -37,6 +37,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -513,9 +514,25 @@ public final class EntityUtil {
     }
 
     /**
+     * returns the values with the matching selected fields
+     * @param delegator
+     * @param values List of GenericValues
+     * @param selected  the lit of selected fields
+     * @return List of GenericValue's with only selected fields
+     */
+    public static List<GenericValue> getSelectedFieldValueListFromEntityList(Delegator delegator, List<GenericValue> values, Set<String> selected) {
+        if (values == null || UtilValidate.isEmpty(selected)) {
+            return values;
+        }
+        return values.stream()
+                .map(value -> delegator.makeValidValue(value.getEntityName(), value.getFields(selected))).collect(toList());
+    }
+
+    /**
      * Returns <code>true</code> if multi-tenant has been enabled.
      * <p>Multi-tenant features are enabled by setting the <code>multitenant</code>
-     * property in <code>general.properties</code> to "Y".</p>
+     * property in <code>general.properties</code> to "Y".
+     *
      */
     public static boolean isMultiTenantEnabled() {
         return "Y".equalsIgnoreCase(UtilProperties.getPropertyValue("general", "multitenant"));
@@ -557,7 +574,7 @@ public final class EntityUtil {
     }
 
     /**
-     * For a entityName return the primary keys path that identify it
+     * For a entityName return the primary keys url path that identify it
      * like entityName/pkValue1/pkValue2/../pkValueN
      * @param delegator
      * @param entityName
@@ -569,15 +586,18 @@ public final class EntityUtil {
     }
 
     /**
-     * For a entityName return the primary keys path that identify it
+     * For a entityName return the primary keys url path that identify it
      * like entityName/pkValue1/pkValue2/../pkValueN
      * @param gv
      * @return
      */
     public static String entityToPath(GenericValue gv) {
         StringBuilder path = new StringBuilder(gv.getEntityName());
-        for (String pkName : gv.getModelEntity().getPkFieldNames()) {
-            path.append("/").append(gv.getString(pkName));
+        List<String> pkFieldNames = gv.getModelEntity().getPkFieldNames();
+        if (pkFieldNames.stream().noneMatch(pkName -> gv.get(pkName) == null)) {
+            for (String pkName : pkFieldNames) {
+                path.append("/").append(UtilCodec.encodeUrl(gv.getString(pkName)));
+            }
         }
         return path.toString();
     }
@@ -604,7 +624,7 @@ public final class EntityUtil {
         }
         Map<String, Object> pkValuesMap = new HashMap<>();
         for (String pkName : modelEntity.getPkFieldNames()) {
-            pkValuesMap.put(pkName, pkValues.removeFirst());
+            pkValuesMap.put(pkName, UtilCodec.getDecoder("url").decode(pkValues.removeFirst()));
         }
         return pkValuesMap;
     }

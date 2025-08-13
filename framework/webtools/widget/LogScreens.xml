@@ -54,13 +54,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ServiceLog">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleServiceList"/>
                 <set field="tabButtonItem" value="serviceLog"/>
-                <script location="component://webtools/groovyScripts/service/Services.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/service/Services.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="log-decorator">
@@ -72,14 +72,14 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>  
+    </screen>
 
     <screen name="LogConfiguration">
          <section>
              <actions>
                  <set field="titleProperty" value="PageTitleLogConfiguration"/>
                  <set field="tabButtonItem" value="logConfiguration"/>
-                 <script location="component://webtools/groovyScripts/log/LogConfiguration.groovy"/>
+                 <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/log/LogConfiguration.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">
@@ -110,7 +110,7 @@ under the License.
                              </container>
                              <container style="button-bar">
                                  <label style="label">${uiLabelMap.WebtoolsLogFileName}:</label>
-                                 <label>${logFileName}</label>
+                                 <label>${parameters.logFileName}</label>
                              </container>
                              <platform-specific>
                                  <html><html-template location="component://webtools/template/log/LogContent.ftl"/></html>

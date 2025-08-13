@@ -22,12 +22,21 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 
+/** Abstract Cache class. This class create an EntityCache in function of a delegator and an id
+ * @param <K> the type parameter
+ * @param <V> the type parameter
+ */
 public abstract class AbstractCache<K, V> {
 
     private final String delegatorName;
     private final String id;
     private final String cacheNamePrefix;
 
+    /**
+     * Create an abstract cache for an entity in function of a delegator and an id
+     * @param delegatorName defines the delegator used by the cache
+     * @param id identifies the cache in function of a delegator
+     */
     protected AbstractCache(String delegatorName, String id) {
         this.delegatorName = delegatorName;
         this.id = id;

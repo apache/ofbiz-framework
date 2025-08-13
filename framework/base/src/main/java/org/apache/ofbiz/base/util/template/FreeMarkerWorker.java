@@ -33,8 +33,8 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Stream;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.location.FlexibleLocation;
@@ -73,7 +73,7 @@ public final class FreeMarkerWorker {
     /** The template used to retrieved Freemarker transforms from multiple component classpaths. */
     private static final String TRANSFORMS_PROPERTIES = "org/apache/ofbiz/%s/freemarkerTransforms.properties";
     private static final String MODULE = FreeMarkerWorker.class.getName();
-    public static final Version VERSION = Configuration.VERSION_2_3_32;
+    public static final Version VERSION = Configuration.VERSION_2_3_34;
 
     private FreeMarkerWorker() { }
 

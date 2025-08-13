@@ -27,13 +27,13 @@ under the License.
     </test-case>
 
     <test-case case-name="producttest">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductTest"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductTest"/>
     </test-case>
 
     <test-case case-name="product-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductTests"/>
     </test-case>
     <test-case case-name="testCreateProductFeatureType">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductFeatureTypeTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductFeatureTypeTests"/>
     </test-case>
 </test-suite>

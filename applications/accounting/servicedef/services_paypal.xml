@@ -36,8 +36,8 @@ under the License.
     </service>
     <service name="payPalCheckoutUpdate" engine="java" auth="false"
              location="org.apache.ofbiz.accounting.thirdparty.paypal.PayPalServices" invoke="payPalCheckoutUpdate">
-        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest"/>
-        <attribute name="response" mode="IN" type="javax.servlet.http.HttpServletResponse"/>
+        <attribute name="request" mode="IN" type="jakarta.servlet.http.HttpServletRequest"/>
+        <attribute name="response" mode="IN" type="jakarta.servlet.http.HttpServletResponse"/>
     </service>
     
     <service name="payPalProcessor" engine="java"

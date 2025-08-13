@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+
+        <sc:request-map uri="Accounting/Invoice/Application/Add"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Application/Add"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Application/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Application/Edit"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Applications"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Applications"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Applications/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Applications/Edit"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Applications/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Applications/List"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Applications/Payment"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Applications/Payment"/></sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Application/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updatePaymentApplicationDef"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Application/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updatePaymentApplicationDef"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/Application/delete">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="removePaymentApplication"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/Application/Add" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml#EditPayment"/>
+        <sc:view-map name="Accounting/Invoice/Application/Edit" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml#EditPayment"/>
+        <sc:view-map name="Accounting/Invoice/Applications" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml#InvoiceApplications"/>
+        <sc:view-map name="Accounting/Invoice/Applications/Edit" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml#EditInvoiceApplications"/>
+        <sc:view-map name="Accounting/Invoice/Applications/List" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml#InvoiceApplications"/>
+        <sc:view-map name="Accounting/Invoice/Applications/Payment" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml#PaymentApplications"/>
+
+    </sc:site-conf>
+
+    <ws:screens>
+
+        <ws:screen name="InvoiceApplications">
+            <ws:section>
+                <ws:condition>
+                      <ws:or>
+                          <ws:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                          <ws:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                      </ws:or>
+                </ws:condition>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleListEditInvoiceApplications"/>
+                    <ws:set field="tabButtonItem" value="editInvoiceApplications"/>
+                    <ws:set field="helpAnchor" value="_help_for_edit_invoice_applications"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="actions">
+                            <ws:include-menu name="InvoiceApplicationsTabBar" location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                        </ws:decorator-section>
+                        <ws:decorator-section name="single">
+                            <ws:include-screen name="EditInvoiceApplications"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+                <ws:fail-widgets>
+                    <ws:include-screen name="ViewInvoiceApplications"/>
+                </ws:fail-widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="EditInvoiceApplications">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                    <ws:set field="invoiceAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
+                    <ws:set field="notAppliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
+                    <ws:set field="appliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
+                    <ws:script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/CreateApplicationList.groovy"/>
+                    <ws:script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/ListNotAppliedPayments.groovy"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                             <ws:screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})}
+                                 ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}">
+                                 <ws:include-form name="EditInvoiceApplications" location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                             </ws:screenlet>
+
+                             <ws:section>
+                                 <ws:condition>
+                                     <ws:if-empty field="invoiceApplications"/>
+                                 </ws:condition>
+                                 <ws:widgets>
+                                     <ws:container>
+                                         <ws:label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></ws:label>
+                                     </ws:container>
+                                 </ws:widgets>
+                             </ws:section>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="EditPayment">
+             <ws:section>
+                <ws:actions>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one value-field="paymentApplication" entity-name="PaymentApplication"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditPayment" location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+             </ws:section>
+        </ws:screen>
+
+        <ws:screen name="PaymentApplications">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                    <ws:set field="notAppliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="list">
+                            <ws:section>
+                                <ws:condition>
+                                    <ws:if-compare field="notAppliedAmount" operator="greater" value="0"/>
+                                </ws:condition>
+                                <ws:actions>
+                                    <ws:script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/CreateApplicationList.groovy"/>
+                                    <ws:script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/ListNotAppliedPayments.groovy"/>
+                                </ws:actions>
+                                <ws:widgets>
+                                    <ws:section>
+                                        <ws:condition>
+                                            <ws:or>
+                                                <ws:not><ws:if-empty field="payments"/></ws:not>
+                                                <ws:not><ws:if-empty field="paymentsActualCurrency"/></ws:not>
+                                            </ws:or>
+                                        </ws:condition>
+                                        <ws:widgets>
+                                            <ws:screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}]
+                                                ${uiLabelMap.AccountingPaymentSentForm} [${invoice.partyId}]">
+                                                <ws:section>
+                                                    <ws:condition>
+                                                        <ws:not><ws:if-empty field="payments"/></ws:not>
+                                                    </ws:condition>
+                                                    <ws:widgets>
+                                                        <ws:include-grid name="ListPaymentsNotApplied"
+                                                            location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                                                    </ws:widgets>
+                                                </ws:section>
+                                                <ws:section>
+                                                    <ws:condition>
+                                                        <ws:not><ws:if-empty field="paymentsActualCurrency"/></ws:not>
+                                                    </ws:condition>
+                                                    <ws:widgets>
+                                                        <ws:include-grid name="ListPaymentsNotAppliedForeignCurrency"
+                                                            location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                                                    </ws:widgets>
+                                                </ws:section>
+                                            </ws:screenlet>
+                                        </ws:widgets>
+                                        <ws:fail-widgets>
+                                            <ws:container>
+                                                 <ws:label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></ws:label>
+                                            </ws:container>
+                                        </ws:fail-widgets>
+                                    </ws:section>
+                                </ws:widgets>
+                                <ws:fail-widgets>
+                                    <ws:container>
+                                        <ws:label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></ws:label>
+                                    </ws:container>
+                                </ws:fail-widgets>
+                            </ws:section>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="ViewInvoiceApplications">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                    <ws:script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/CreateApplicationList.groovy"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                         <ws:decorator-section name="single">
+                             <ws:screenlet
+                                 title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})}
+                                     ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
+                                     navigation-form-name="ListInvoiceApplications">
+                                 <ws:include-grid name="ListInvoiceApplications" location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                             </ws:screenlet>
+                         </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+    <wm:menus>
+
+        <wm:menu name="InvoiceApplicationsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AddInvoiceApplication" title="${uiLabelMap.AccountingAssignPaymentToInvoice}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Application/Add" link-type="layered-modal">
+                    <wm:parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Applications">
+                        <wm:parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="ApplyAvailablePayment" title="${uiLabelMap.AccountingListPaymentsNotYetApplied}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Applications/Payment" link-type="layered-modal">
+                    <wm:parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Applications">
+                        <wm:parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+        <wm:menu name="EditInvoiceApplicationsInLineBar"
+            extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="UpdateInvoiceApplication" title="${uiLabelMap.CommonUpdate}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Application/Edit" link-type="layered-modal" style="buttontext">
+                    <wm:parameter param-name="paymentApplicationId"/>
+                    <wm:parameter param-name="paymentId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Applications/Edit">
+                        <wm:parameter param-name="invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+            <wm:menu-item name="DeleteInvoiceApplication" title="${uiLabelMap.CommonRemove}">
+                <wm:condition>
+                    <wm:or>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                        <wm:if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                    </wm:or>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/Application/delete" request-confirmation="true" style="buttontext">
+                    <wm:parameter param-name="paymentApplicationId"/>
+                    <wm:set-callback area-target="Accounting/Invoice/Applications/Edit">
+                        <wm:parameter param-name="invoiceId"/>
+                    </wm:set-callback>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+    </wm:menus>
+
+    <wf:forms>
+
+        <wf:form name="EditPayment" target="Accounting/Invoice/Application/create" default-map-name="paymentApplication"
+            type="single" title="" header-row-style="header-row" default-table-style="basic-table"
+            extends="CommonBasicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="paymentApplicationId"><wf:hidden/></wf:field>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="paymentId"><wf:lookup target-form-name="LookupPayment"/></wf:field>
+            <wf:field name="amountToApply" use-when="paymentApplication == null"><wf:text size="10"/></wf:field>
+            <wf:field name="amountToApply" disabled="true" use-when="paymentApplication != null" entry-name="amountApplied"><wf:text size="10"/></wf:field>
+            <wf:field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;Y&quot;)"><wf:check/></wf:field>
+            <wf:field name="applyButton" widget-style="smallSubmit">
+                <wf:submit button-type="button"/>
+            </wf:field>
+        </wf:form>
+
+        <wf:grid name="ListInvoiceApplications" paginate-target="Accounting/Invoice/Applications"
+            list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            target="updatePaymentApplication" title="Apply payments to invoices" separate-columns="false"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+                <wf:field name="invoiceItemSeqId"><wf:display/></wf:field>
+                <wf:field name="productId"><wf:display/></wf:field>
+                <wf:field name="description" encode-output="false"><wf:display/></wf:field>
+                <wf:field name="total" widget-area-style="align-text"><wf:display type="currency" currency="${invoice.currencyUomId}"/></wf:field>
+                <wf:field name="invoiceId"><wf:hidden/></wf:field>
+                <wf:field name="paymentId" widget-style="linktext">
+                    <wf:hyperlink description="${paymentId}" target="paymentOverview">
+                        <wf:parameter param-name="paymentId"/>
+                    </wf:hyperlink>
+                </wf:field>
+                <wf:field name="billingAccountId"><wf:hidden/></wf:field>
+                <wf:field name="paymentApplicationId"><wf:hidden/></wf:field>
+                <wf:field name="amountApplied" widget-area-style="align-text"><wf:display type="currency" currency="${invoice.currencyUomId}"/></wf:field>
+        </wf:grid>
+
+        <wf:form name="EditInvoiceApplications" type="list" list-name="invoiceApplications" paginate-target="Accounting/Invoice/Applications/Edit"
+                odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+                extends="CommonDynamicList" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="invoiceItemSeqId"><wf:display/></wf:field>
+            <wf:field name="productId"><wf:display/></wf:field>
+            <wf:field name="description"><wf:display/></wf:field>
+            <wf:field name="amountApplied"><wf:display type="currency" currency="${invoice.currencyUomId}"/></wf:field>
+            <wf:field name="total"><wf:display type="currency" currency="${invoice.currencyUomId}"/></wf:field>
+            <wf:field name="menuActions" title=" ">
+                <wf:include-menu name="EditInvoiceApplicationsInLineBar" location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+            </wf:field>
+        </wf:form>
+
+        <wf:grid name="ListPaymentsNotApplied" target="Accounting/Invoice/Application/create"
+            list-name="payments" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field name="paymentId" widget-style="buttontext">
+                <wf:hyperlink description="[${paymentId}]" target="paymentOverview">
+                    <wf:parameter param-name="paymentId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="amount"><wf:display type="currency" currency="${currencyUomId}"/></wf:field>
+            <wf:field name="effectiveDate"><wf:display type="date"/></wf:field>
+            <wf:field name="amountApplied" parameter-name="dummy"><wf:display type="currency" currency="${currencyUomId}"/></wf:field>
+            <wf:field name="amountToApply" parameter-name="amountApplied"><wf:text size="10"/></wf:field>
+            <wf:field name="applyButton" widget-style="smallSubmit">
+                <wf:submit button-type="button"/>
+            </wf:field>
+        </wf:grid>
+
+        <wf:grid name="ListPaymentsNotAppliedForeignCurrency" extends="ListPaymentsNotApplied" list-name="paymentsActualCurrency"/>
+
+    </wf:forms>
+
+</compound-widgets>

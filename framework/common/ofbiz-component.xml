@@ -39,9 +39,12 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_CH.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_CN.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_CO.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_CR.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_DE.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_ES.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_FR.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_GT.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_HN.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_IE.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_IL.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_IN.xml"/>
@@ -49,9 +52,12 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_JP.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_MX.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_MY.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_NI.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_NL.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_NZ.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_PL.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_RO.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_SV.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_TH.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_UK.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GeoData_US.xml"/>

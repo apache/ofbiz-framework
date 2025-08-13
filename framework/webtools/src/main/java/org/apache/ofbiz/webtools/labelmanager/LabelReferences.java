@@ -203,7 +203,7 @@ public class LabelReferences {
     private void getLabelsFromGroovyFiles() throws IOException {
         for (Path rootFolder : this.rootFolders) {
             List<File> groovyFiles =
-                    FileUtil.findFiles("groovy", rootFolder.resolve("groovyScripts").toString(), null, null);
+                    FileUtil.findFiles("groovy", rootFolder.resolve("src/main/groovy").toString(), null, null);
             for (File file : groovyFiles) {
                 String inFile = FileUtil.readString("UTF-8", file);
                 findUiLabelMapInPattern(inFile, UILABEL_MAP, file.getPath());

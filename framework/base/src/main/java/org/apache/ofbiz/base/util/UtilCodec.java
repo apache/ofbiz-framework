@@ -391,6 +391,28 @@ public class UtilCodec {
     }
 
     /**
+     * Generic function to easily call url encoding with OFBiz rules
+     * @param queryString
+     * @return encoding url with OFBiz rule
+     */
+    public static String encodeUrl(String queryString) {
+        return getEncoder("url").encode(queryString);
+    }
+
+    /**
+     * Check if an escapeUrlEncode is present in the context, to escape url encoding in a specific case
+     * This is necessary if the url is sent to another encoding tool.
+     * @param queryString
+     * @param context
+     * @return encoding url with OFBiz rule
+     */
+    public static String encodeUrl(String queryString, Map<String, Object> context) {
+        return "true".equalsIgnoreCase((String) context.get("escapeUrlEncode"))
+                ? queryString
+                : encodeUrl(queryString);
+    }
+
+    /**
      * Uses a black-list approach for necessary characters for HTML.
      * Does not allow various characters (after canonicalization), including
      * "&lt;", "&gt;", "&amp;" and "%" (if not followed by a space).
@@ -540,7 +562,8 @@ public class UtilCodec {
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
             // Replaces possible quotes entities in value (due to HtmlSanitizer above) to avoid issue with
             // testCreateCustRequestItemNote and allow saving when using quotes in fields
-            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").equals(unescapeEcmaScriptAndHtml4)) {
+            // Maybe later we will figure out that some more HTML entities will need to be added to here, see OFBIZ-12691
+            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").replace("&#64;", "@").equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "

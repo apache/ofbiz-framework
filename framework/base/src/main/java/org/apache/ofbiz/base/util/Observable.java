@@ -89,7 +89,7 @@ public final class Observable {
      * <p>Each {@code Observer} has its {@code update} method called with two
      * arguments: this observable object and {@code null}. In other
      * words, this method is equivalent to:
-     * </p>
+     *
      * <blockquote>
      *   {@code notifyObservers(null)}
      * </blockquote>
@@ -101,7 +101,8 @@ public final class Observable {
     /**
      * Notify all of the observers.
      * <p>Each observer has its <code>update</code> method called with two
-     * arguments: this observable object and the <code>arg</code> argument.</p>
+     * arguments: this observable object and the <code>arg</code> argument.
+     *
      */
     public void notifyObservers(Object arg) {
         for (Observer observer : observers) {

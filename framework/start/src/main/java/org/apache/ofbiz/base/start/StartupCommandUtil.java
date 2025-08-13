@@ -45,7 +45,7 @@ import org.apache.commons.cli.ParseException;
  * <p>
  * Defines OFBiz startup options called through main e.g. --load-data or --help
  * in addition to utility methods for parsing and handling these options
- * </p>
+ *
  */
 public final class StartupCommandUtil {
 

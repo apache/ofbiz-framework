@@ -22,11 +22,12 @@ import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -136,6 +137,9 @@ public class VisitHandler {
                             Locale initialLocaleObj = (Locale) session.getAttribute("_CLIENT_LOCALE_");
                             String initialRequest = (String) session.getAttribute("_CLIENT_REQUEST_");
                             String initialReferrer = (String) session.getAttribute("_CLIENT_REFERER_");
+                            if (!UtilValidate.isUrlInString(initialReferrer)) {
+                                initialReferrer = "Not an URL";
+                            }
                             String initialUserAgent = (String) session.getAttribute("_CLIENT_USER_AGENT_");
 
                             String initialLocale = initialLocaleObj != null ? initialLocaleObj.toString() : "";
@@ -235,7 +239,9 @@ public class VisitHandler {
                             Cookie[] cookies = request.getCookies();
                             if (cookies != null) {
                                 if (Debug.verboseOn()) {
-                                    Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), MODULE);
+                                    Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies)
+                                            .map(cookie -> cookie.getName() + "=" + cookie.getValue())
+                                            .collect(Collectors.joining(", "))), MODULE);
                                 }
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(VISITOR_COOKIE_NAME)) {

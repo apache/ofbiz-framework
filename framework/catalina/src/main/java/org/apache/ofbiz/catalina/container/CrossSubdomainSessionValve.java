@@ -20,8 +20,8 @@ package org.apache.ofbiz.catalina.container;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
@@ -103,10 +103,6 @@ public class CrossSubdomainSessionValve extends ValveBase {
             }
             newCookie.setDomain(cookieDomain);
             newCookie.setMaxAge(cookie.getMaxAge());
-            newCookie.setVersion(cookie.getVersion());
-            if (cookie.getComment() != null) {
-                newCookie.setComment(cookie.getComment());
-            }
             newCookie.setSecure(cookie.getSecure());
             newCookie.setHttpOnly(cookie.isHttpOnly());
 

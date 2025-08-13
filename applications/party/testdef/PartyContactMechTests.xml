@@ -25,10 +25,10 @@
         <entity-xml action="load" entity-xml-url="component://party/testdef/data/PartyContactMechTestData.xml"/>
     </test-case>
     <test-case case-name="ContactMechWorker-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.party.ContactMechWorkerTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.ContactMechWorkerTests"/>
     </test-case>
     <test-case case-name="partyContactMech-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.party.PartyContactMechTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.party.party.test.PartyContactMechTests"/>
     </test-case>
 
 

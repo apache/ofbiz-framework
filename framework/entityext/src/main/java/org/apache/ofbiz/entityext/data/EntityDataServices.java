@@ -56,7 +56,7 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.cipher.AesCipherService;
 
 /**
  * Entity Data Import/Export Services
@@ -473,7 +473,7 @@ public class EntityDataServices {
                 if (oldKey != null) {
                     Debug.logInfo("Decrypting with old key: " + oldKey, MODULE);
                     try {
-                        keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getBytes();
+                        keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getClonedBytes();
                     } catch (Exception e) {
                         Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", MODULE);
                         try {

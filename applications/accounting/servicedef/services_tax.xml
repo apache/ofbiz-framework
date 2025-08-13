@@ -119,11 +119,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
-        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
+    <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete TaxAuthorityCategory</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 
     <!-- TaxAuthorityGlAccount -->
@@ -165,19 +164,19 @@ under the License.
     </service>
 
     <!-- PartyTaxAuthInfo -->
-    <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
+    <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="groovy" auth="true"
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/tax/TaxAuthorityServicesScript.groovy" invoke="createPartyTaxAuthInfo">
         <description>Create PartyTaxAuthInfo</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updatePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="updatePartyTaxAuthInfo">
+    <service name="updatePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="groovy" auth="true"
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/tax/TaxAuthorityServicesScript.groovy" invoke="updatePartyTaxAuthInfo">
         <description>Update PartyTaxAuthInfo</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deletePartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="entity-auto" invoke="delete" auth="true">
@@ -186,12 +185,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createCustomerTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
-        location="component://accounting/minilang/tax/TaxAuthorityServices.xml" invoke="createCustomerTaxAuthInfo">
+    <service name="createCustomerTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="groovy" auth="true"
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/tax/TaxAuthorityServicesScript.groovy" invoke="createCustomerTaxAuthInfo">
         <description>Create Customer PartyTaxAuthInfo</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="taxAuthPartyGeoIds" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="taxAuthPartyGeoIds" type="String" mode="IN"/>
         <attribute name="fromDate" type="String" mode="IN" optional="true"/>
     </service>
 

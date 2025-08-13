@@ -69,7 +69,7 @@ under the License.
                         <section>
                             <actions>
                                 <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
-                                <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
+                                <script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
                                 <include-screen name="ApPastDueInvoices"/>

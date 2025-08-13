@@ -95,8 +95,8 @@ under the License.
                                 </entity-and>-->
                                 
                                 <!--<entity-one entity-name="Product" value-field="product"/>-->
-                                <!--<script location="component://product/groovyScripts/catalog/imagemanagement/SeoLocales.groovy"/>-->
-                                <script location="component://product/groovyScripts/catalog/imagemanagement/ImageGallery.groovy"/>
+                                <!--<script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/SeoLocales.groovy"/>-->
+                                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/ImageGallery.groovy"/>
                             </actions>
                             <widgets>
                                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -154,7 +154,7 @@ under the License.
                 <set field="userTabButtonImage" value="ImageUpload"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <script location="component://product/groovyScripts/catalog/imagemanagement/ImageUpload.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/ImageUpload.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -736,7 +736,7 @@ under the License.
         <section>
             <actions>
                 <set field="userTabButtonImage" value="ImageRecentlyApproved"/>
-                <script location="component://product/groovyScripts/catalog/imagemanagement/ImageRecentlyApproved.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/ImageRecentlyApproved.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">

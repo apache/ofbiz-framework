@@ -65,7 +65,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.jdom.JDOMException;
+import org.jdom2.JDOMException;
 
 /**
  * Product Services
@@ -1084,7 +1084,8 @@ public class ProductServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    Files.delete(tempFile);
+                    File tempFileToDelete = new File(tempFile.toString());
+                    tempFileToDelete.deleteOnExit();
                     RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
                     out.write(imageData.array());
                     out.close();
@@ -1299,8 +1300,8 @@ public class ProductServices {
         String searchProductFirstContext = (String) context.get("searchProductFirst");
         String searchAllIdContext = (String) context.get("searchAllId");
 
-        boolean searchProductFirst = UtilValidate.isNotEmpty(searchProductFirstContext) && "N".equals(searchProductFirstContext) ? false : true;
-        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext) ? true : false;
+        boolean searchProductFirst = !UtilValidate.isNotEmpty(searchProductFirstContext) || !"N".equals(searchProductFirstContext);
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext);
 
         GenericValue product = null;
         List<GenericValue> productsFound = null;
@@ -1392,7 +1393,8 @@ public class ProductServices {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
-                Files.delete(tempFile);
+                File tempFileToDelete = new File(tempFile.toString());
+                tempFileToDelete.deleteOnExit();
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(imageData.array());
                 out.close();

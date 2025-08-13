@@ -141,7 +141,7 @@ function getServiceResult(){
     var data;
     jQuery.ajax({
         type: 'POST',
-        url: request,
+        url: '/common-js/control/' + request,
         data: prepareAjaxData(arguments),
         async: false,
         cache: false,

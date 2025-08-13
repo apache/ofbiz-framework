@@ -63,7 +63,7 @@
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="PersonUpdate" id="PartyPersonalInformationPanel">
-                                           <include-menu name="PersonUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                           <include-menu name="PersonUpdate" location="${parameters.profileMenuLocation}"/>
                                     <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
@@ -102,7 +102,7 @@
                                </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="GroupUpdate" id="PartyGroupInformationPanel">
-                                    <include-menu name="GroupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                    <include-menu name="GroupUpdate" location="${parameters.profileMenuLocation}"/>
                                     <include-form name="ViewPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     <section>
                                         <condition>
@@ -139,8 +139,8 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
-                <script location="component://party/groovyScripts/party/GetContactMechs.groovy"/>
-                <script location="component://party/groovyScripts/party/GetUserLoginPrimaryEmail.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetContactMechs.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -160,7 +160,7 @@
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PartyPartyIdentifications}" navigation-menu-name="NewPartyIdentification" id="PartyIdentificationPanel">
-                    <include-menu name="NewPartyIdentification" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                    <include-menu name="NewPartyIdentification" location="${parameters.profileMenuLocation}"/>
                     <include-form name="ListPartyIdentification" location="component://party/widget/partymgr/PartyForms.xml"/>
                 </screenlet>
             </widgets>
@@ -172,7 +172,7 @@
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/groovyScripts/party/GetPaymentMethods.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetPaymentMethods.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -227,7 +227,7 @@
     <screen name="Cart">
         <section>
             <actions>
-                <script location="component://party/groovyScripts/party/GetCurrentCart.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetCurrentCart.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -243,7 +243,7 @@
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://party/groovyScripts/party/GetLoyaltyPoints.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/GetLoyaltyPoints.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -493,7 +493,7 @@
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PartyShipperAccount}" navigation-menu-name="AddShipper">
-                    <include-menu name="AddShipper" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                    <include-menu name="AddShipper" location="${parameters.profileMenuLocation}"/>
                     <include-form name="ListCarrierAccounts" location="component://party/widget/partymgr/PartyForms.xml"/>
                 </screenlet>
             </widgets>
@@ -528,7 +528,7 @@
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PartyListRelatedContacts}" navigation-menu-name="AddRelAccountContacts">
-                            <include-menu name="AddRelAccountContacts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <include-menu name="AddRelAccountContacts" location="${parameters.profileMenuLocation}"/>
                             <section>
                                 <condition>
                                     <not><if-empty field="parameters.editPartyRel"/></not>
@@ -563,7 +563,7 @@
                     </condition>
                     <widgets>                        
                         <screenlet title="${uiLabelMap.PartyListRelatedAccounts}" navigation-menu-name="AddRelContactAccounts">  
-                            <include-menu name="AddRelContactAccounts" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <include-menu name="AddRelContactAccounts" location="${parameters.profileMenuLocation}"/>
                             <section>
                                 <condition>
                                     <not><if-empty field="parameters.editPartyRel"/></not>

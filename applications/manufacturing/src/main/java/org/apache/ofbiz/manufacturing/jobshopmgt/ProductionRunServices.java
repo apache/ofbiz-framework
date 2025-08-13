@@ -1869,7 +1869,7 @@ public class ProductionRunServices {
                     }
                 }
                 if (totalCost != null) {
-                    unitCost = totalCost.divide(quantity);
+                    unitCost = totalCost.divide(quantity, DECIMALS, ROUNDING);
                 } else {
                     unitCost = BigDecimal.ZERO;
                 }
@@ -2528,10 +2528,13 @@ public class ProductionRunServices {
         if (quantity == null) {
             quantity = requirement.getBigDecimal("quantity");
         }
+        if (quantity == null) {
+            quantity = BigDecimal.ONE;
+        }
         Map<String, Object> serviceContext = new HashMap<>();
         serviceContext.clear();
         serviceContext.put("productId", requirement.getString("productId"));
-        serviceContext.put("quantity", quantity);
+        serviceContext.put("pRQuantity", quantity);
         serviceContext.put("startDate", requirement.getTimestamp("requirementStartDate"));
         serviceContext.put("facilityId", requirement.getString("facilityId"));
         String workEffortName = null;
@@ -2547,7 +2550,7 @@ public class ProductionRunServices {
         serviceContext.put("userLogin", userLogin);
         Map<String, Object> serviceResult = null;
         try {
-            serviceResult = dispatcher.runSync("createProductionRunsForProductBom", serviceContext);
+            serviceResult = dispatcher.runSync("createProductionRun", serviceContext);
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ManufacturingProductionRunNotCreated", locale)
                         + ": " + ServiceUtil.getErrorMessage(serviceResult));

@@ -238,4 +238,28 @@
         <value xml:lang="zh">到今天为止</value>
         <value xml:lang="zh-TW">到今天為止</value>
     </property>
+    <property key="this_week">
+        <value xml:lang="en">This week</value>
+        <value xml:lang="fr">Cette semaine</value>
+    </property>
+    <property key="last_week">
+        <value xml:lang="en">Last week</value>
+        <value xml:lang="fr">La semaine dernière</value>
+    </property>
+    <property key="next_week">
+        <value xml:lang="en">Next week</value>
+        <value xml:lang="fr">La semaine prochaine</value>
+    </property>
+    <property key="this_month">
+        <value xml:lang="en">This month</value>
+        <value xml:lang="fr">Ce mois-ci</value>
+    </property>
+    <property key="last_month">
+        <value xml:lang="en">Last month</value>
+        <value xml:lang="fr">Le mois dernier</value>
+    </property>
+    <property key="next_month">
+        <value xml:lang="en">Next month</value>
+        <value xml:lang="fr">Le mois prochain</value>
+    </property>
 </resource>

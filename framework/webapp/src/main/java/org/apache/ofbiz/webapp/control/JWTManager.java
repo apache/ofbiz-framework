@@ -23,9 +23,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -403,5 +403,19 @@ public class JWTManager {
             Debug.logWarning("There was a problem with the JWT token, no single sign on user login possible.", MODULE);
         }
         return result;
+    }
+
+    public static String createRefreshToken(Delegator delegator, String userLoginId) {
+        int refreshTokenExpireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security",
+                "security.jwt.refresh.token.expireTime", "86400", delegator));
+        return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
+    }
+
+    public static Map<String, Object> validateRefreshToken(String refreshToken, String key) {
+        Map<String, Object> claims = validateToken(refreshToken, key);
+        if (!claims.containsKey("type") || !"refresh".equals(claims.get("type"))) {
+            return ServiceUtil.returnError("Invalid refresh token.");
+        }
+        return claims;
     }
 }

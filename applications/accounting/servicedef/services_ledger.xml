@@ -194,7 +194,7 @@ under the License.
     </service>
     <!-- AcctgTrans services -->
     <service name="createAcctgTrans" default-entity-name="AcctgTrans" engine="groovy" auth="true"
-             location="component://accounting/groovyScripts/ledger/GeneralLedgerServices.groovy" invoke="createAcctgTrans" >
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/ledger/GeneralLedgerServicesScript.groovy" invoke="createAcctgTrans" >
         <description>Create a AcctgTrans record with isPosted set to "N"</description>
         <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <implements service="interfaceAcctgTrans"/>
@@ -535,10 +535,10 @@ under the License.
     </service>
 
     <!-- CustomTimePeriod Services -->
-    <service name="findCustomTimePeriods" engine="simple"
-        location="component://accounting/minilang/period/PeriodServices.xml" invoke="findCustomTimePeriods" auth="true">
+    <service name="findCustomTimePeriods" engine="groovy" invoke="findCustomTimePeriods" auth="true"
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/period/GPeriodServices.groovy">
         <description>Find CustomTimePeriod records, returns both general ones and those for the organizationPartyId passed</description>
-        <attribute name="findDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="findDate" type="Timestamp" mode="IN"/>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="excludeNoOrganizationPeriods" type="String" mode="IN" optional="true"/>
         <attribute name="onlyIncludePeriodTypeIdList" type="List" mode="IN" optional="true"/>
@@ -557,8 +557,8 @@ under the License.
         <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="lastClosedTimePeriod" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
-    <service name="getPreviousTimePeriod" engine="simple" invoke="getPreviousTimePeriod"
-        location="component://accounting/minilang/period/PeriodServices.xml" auth="true">
+    <service name="getPreviousTimePeriod" engine="groovy" invoke="getPreviousTimePeriod" auth="true"
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/period/GPeriodServices.groovy">
         <description>Return previous year with respect to the given year and if none found then return null.</description>
         <attribute name="customTimePeriodId" mode="IN" type="String"/>
         <attribute name="previousTimePeriod" mode="OUT" type="Map" optional="true"/>

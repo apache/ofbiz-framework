@@ -130,7 +130,7 @@ under the License.
         <implements service="sendMailFromScreenInterface"/>
     </service>
     <service name="sendMailFromTemplateSetting" engine="groovy"
-        location="component://common/groovyScripts/email/EmailServices.groovy" invoke="sendMailFromTemplateSetting">
+        location="component://common/src/main/groovy/org/apache/ofbiz/common/email/EmailServicesScript.groovy" invoke="sendMailFromTemplateSetting">
         <description>Send Email From Email Template Setting Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="false"/>

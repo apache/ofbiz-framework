@@ -27,7 +27,7 @@ under the License.
     </test-case>
 
     <test-case case-name="productPrice-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductPriceTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductPriceTests"/>
     </test-case>
 
     <test-case case-name="loadCategoryTestData">
@@ -35,6 +35,6 @@ under the License.
     </test-case>
 
     <test-case case-name="category-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.CategoryTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.CategoryTests"/>
     </test-case>
 </test-suite>

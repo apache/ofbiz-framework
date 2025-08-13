@@ -27,6 +27,6 @@ under the License.
     </test-case>
 
     <test-case case-name="shoppingList-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.ShoppingListTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.ShoppingListTests"/>
     </test-case>
 </test-suite>

@@ -41,8 +41,9 @@ under the License.
                 <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
             </property>
             <property name="access-log-rotate" value="true"/>
-            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-prefix" value="access_log"/>
             <property name="access-log-dir" value="runtime/logs"/>
+            <property name="access-log-maxDays" value="30"/>
             <!-- uncomment for cluster support
             <property name="default-server-cluster" value="cluster">
                 <property name="rep-valve-filter">
@@ -76,16 +77,16 @@ under the License.
             <property name="xpoweredBy" value="false"/>
             <!-- AJP/13 connector attributes -->
             <!-- Despite OFBIZ-11407, allowedRequestAttributesPattern is commented out because of OFBIZ-12558
-                 OOTB the Tomcat default values are used as recommended by 
+                 OOTB the Tomcat default values are used as recommended by
                  https://tomcat.apache.org/tomcat-9.0-doc/config/ajp.html#Introduction
-                 This is in relation with 
+                 This is in relation with
                  https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.31
                  and
                  https://tomcat.apache.org/tomcat-9.0-doc/security-howto.html#Connectors
-                 
+
                  But OOTB secretRequired value must be false because secret value is empty
                  Else a notifying message appears in log saying that AJP is not available.
-                 
+
                  Long story short, with OOTB configuration only localhost works.
                  So if you want to use AJP you need to set the values depending on your configuration.
                  Using ".*" to allowedRequestAttributesPattern put you at risk.
@@ -123,7 +124,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <!-- commented out because the values match the Tomcat defaults:
             <property name="allowTrace" value="false"/>
             <property name="enableLookups" value="false"/>
@@ -154,20 +155,25 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <!-- SSL connector attributes -->
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
-            <property name="algorithm" value="SunX509"/>
-            <!-- the clientAuth to "want" in order to receive certs from the client;
-                note that this isn't set this way by default because with certain browsers
-                (like Safari) it breaks access via HTTPS, so until that problem is fixed
-                the default will be false
-            <property name="clientAuth" value="false"/>
-            -->
-            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
-            <property name="keystoreType" value="JKS"/>
-            <property name="keyAlias" value="ofbiz"/>
-            <property name="keyPass" value="changeit"/>
+            <property name="default" value="sslHostConfig">
+                <property name="keyManagerAlgorithm" value="SunX509"/>
+                <!-- the certificateVerification to "want" in order to receive certs from the client;
+                    note that this isn't set this way by default because with certain browsers
+                    (like Safari) it breaks access via HTTPS, so until that problem is fixed
+                    the default will be false
+                <property name="certificateVerification" value="false"/>
+                -->
+                <property name="default" value="certificate">
+                    <property name="certificateType" value="RSA"/>
+                    <property name="certificateKeystoreFile" value="framework/base/config/ofbizssl.jks"/>
+                    <property name="certificateKeystoreType" value="JKS"/>
+                    <property name="certificateKeyAlias" value="ofbiz"/>
+                    <property name="certificateKeyPassword" value="changeit"/>
+                </property>
+            </property>
         </property>
     </container>
     <container name="catalina-container-test" loaders="test" class="org.apache.ofbiz.catalina.container.CatalinaContainer">
@@ -186,8 +192,9 @@ under the License.
                 <property-value>%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i"</property-value>
             </property>
             <property name="access-log-rotate" value="true"/>
-            <property name="access-log-prefix" value="access_log."/>
+            <property name="access-log-prefix" value="access_log"/>
             <property name="access-log-dir" value="runtime/logs"/>
+            <property name="access-log-maxDays" value="30"/>
             <property name="enable-request-dump" value="false"/>
         </property>
         <property name="ajp-connector" value="connector">
@@ -210,7 +217,7 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
         </property>
         <property name="https-connector" value="connector">
             <!--<property name="address" value=""/>-->
@@ -223,12 +230,17 @@ under the License.
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,text/javascript,application/json"/>
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
-            <property name="algorithm" value="SunX509"/>
-            <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
-            <property name="keystorePass" value="changeit"/>
-            <property name="keystoreType" value="JKS"/>
+            <property name="default" value="sslHostConfig">
+                <property name="keyManagerAlgorithm" value="SunX509"/>
+                <property name="default" value="certificate">
+                    <property name="certificateType" value="RSA"/>
+                    <property name="certificateKeystoreFile" value="framework/base/config/ofbizssl.jks"/>
+                    <property name="certificateKeystorePassword" value="changeit"/>
+                    <property name="certificateKeystoreType" value="JKS"/>
+                </property>
+            </property>
         </property>
     </container>
     <!--

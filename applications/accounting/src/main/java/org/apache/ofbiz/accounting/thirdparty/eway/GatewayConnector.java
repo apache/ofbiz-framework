@@ -26,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilURL;
 
 /**
  * Handles connections to the eWay servers.
@@ -83,7 +84,7 @@ public class GatewayConnector {
         HttpURLConnection connection = null;
         try {
             // connect to the gateway
-            URL u = new URL(serverurl);
+            URL u = UtilURL.fromUrlString(serverurl);
             connection = (HttpURLConnection) (u.openConnection());
             connection.setDoOutput(true);
             connection.setDoInput(true);

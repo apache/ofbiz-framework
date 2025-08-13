@@ -28,7 +28,8 @@ public interface Converter<S, T> {
     /** Returns <code>true</code> if this object can convert
      * <code>sourceClass</code> to <code>targetClass</code>.
      * <p>Implementations can accomodate class hierarchy ranges
-     * by converting super classes or interfaces.</p>
+     * by converting super classes or interfaces.
+     *
      * @param sourceClass The source <code>Class</code>
      * @param targetClass The target <code>Class</code>
      * @return <code>true</code> if this object can convert

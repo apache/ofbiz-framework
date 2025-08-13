@@ -82,7 +82,7 @@
                 <set field="tabButtonItemTop" value="facility"/>
                 <set field="helpAnchor" value="_help_for_setup_edit_facility"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/groovyScripts/ofbizsetup/FindFacility.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/FindFacility.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -130,8 +130,8 @@
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <script location="component://commonext/groovyScripts/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
-                <script location="component://commonext/groovyScripts/ofbizsetup/FindFacility.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/FindFacility.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -179,7 +179,7 @@
                 <set field="helpAnchor" value="_help_for_setup_edit_website"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSite"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/groovyScripts/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/GetProductStoreAndWebSite.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -230,7 +230,7 @@
                 <set field="tabButtonItem" value="productcatalog"/>
                 <set field="helpAnchor" value="_help_for_setup_edit_first_catalog"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFirstProductDecorator">
@@ -265,7 +265,7 @@
                 <set field="labelTitleProperty" value="ProductCategory"/>
 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFirstProductDecorator">
@@ -301,7 +301,7 @@
                 <set field="labelTitleProperty" value="ProductProduct"/>
                 
                 <set field="partyId" from-field="parameters.partyId"/>           
-                <script location="component://commonext/groovyScripts/ofbizsetup/GetProdCatalog.groovy"/>
+                <script location="component://commonext/src/main/groovy/org/apache/ofbiz/commonext/ofbizsetup/GetProdCatalog.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFirstProductDecorator">
@@ -345,7 +345,7 @@
                                 </or>      
                             </condition>
                             <widgets>
-                                <include-menu name="FirstProductTabBar" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
+                                <include-menu name="FirstProductTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                         <decorator-section-include name="body"/>

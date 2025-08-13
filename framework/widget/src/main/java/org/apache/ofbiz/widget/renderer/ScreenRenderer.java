@@ -29,10 +29,10 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -49,6 +49,7 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.security.SecuredFreemarker;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -65,10 +66,10 @@ import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
-import freemarker.ext.jsp.TaglibFactory;
-import freemarker.ext.servlet.HttpRequestHashModel;
-import freemarker.ext.servlet.HttpSessionHashModel;
-import freemarker.ext.servlet.ServletContextHashModel;
+import freemarker.ext.jakarta.jsp.TaglibFactory;
+import freemarker.ext.jakarta.servlet.HttpRequestHashModel;
+import freemarker.ext.jakarta.servlet.HttpSessionHashModel;
+import freemarker.ext.jakarta.servlet.ServletContextHashModel;
 
 /**
  * Widget Library - Screen model class
@@ -219,12 +220,13 @@ public class ScreenRenderer {
      * @param response
      * @param servletContext
      */
-    public void populateContextForRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
-        populateContextForRequest(context, this, request, response, servletContext);
+    public void populateContextForRequest(HttpServletRequest request, HttpServletResponse response,
+                                          ServletContext servletContext, boolean secureParameters) {
+        populateContextForRequest(context, this, request, response, servletContext, secureParameters);
     }
 
     public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request,
-                                                 HttpServletResponse response, ServletContext servletContext) {
+                                                 HttpServletResponse response, ServletContext servletContext, boolean secureParameters) {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases,
@@ -232,6 +234,9 @@ public class ScreenRenderer {
         Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "security", "webSiteId",
                 "org.apache.catalina.jsp_classpath");
         Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
+        if (secureParameters) {
+            parameterMap = SecuredFreemarker.sanitizeParameterMap(parameterMap);
+        }
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -288,7 +293,7 @@ public class ScreenRenderer {
         context.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
         TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
         context.put("JspTaglibs", jspTaglibs);
-        context.put("requestParameters", UtilHttp.getParameterMap(request));
+        context.put("requestParameters", SecuredFreemarker.sanitizeParameterMap(UtilHttp.getParameterMap(request)));
 
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
         context.put("Application", ftlServletContext);

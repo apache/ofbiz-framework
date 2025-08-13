@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!-- This document serves as an example for Compound Screen Widget feature -->
+<compound-widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:sc="http://ofbiz.apache.org/Site-Conf"
+                  xmlns:wf="http://ofbiz.apache.org/Widget-Form"
+                  xmlns:wm="http://ofbiz.apache.org/Widget-Menu"
+                  xmlns:ws="http://ofbiz.apache.org/Widget-Screen"
+                  xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/compound-widgets.xsd">
+
+    <sc:site-conf>
+        <sc:request-map uri="Accounting/Invoice/Find"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Find"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/List"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/List"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/New"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/New"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/View"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/View"/></sc:request-map>
+        <sc:request-map uri="Accounting/Invoice/Edit"><sc:security https="true" auth="true"/><sc:response name="success" type="view" value="Accounting/Invoice/Edit"/></sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/create">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="createInvoice"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:request-map uri="Accounting/Invoice/update">
+            <sc:security https="true" auth="true"/>
+            <sc:event type="service" invoke="updateInvoice"/>
+            <sc:response name="success" type="request" value="json"/>
+            <sc:response name="error" type="request" value="json"/>
+        </sc:request-map>
+
+        <sc:view-map name="Accounting/Invoice/Find" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceCpd.xml#FindInvoices"/>
+        <sc:view-map name="Accounting/Invoice/List" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceCpd.xml#ListInvoices"/>
+        <sc:view-map name="Accounting/Invoice/New" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceCpd.xml#NewInvoice"/>
+        <sc:view-map name="Accounting/Invoice/View" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceCpd.xml#ViewInvoice"/>
+        <sc:view-map name="Accounting/Invoice/Edit" type="screen" page="component://accounting/widget/accounting/AccountingInvoiceCpd.xml#EditInvoice"/>
+    </sc:site-conf>
+
+    <ws:screens>
+
+         <ws:screen name="FindInvoices">
+            <ws:section>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                               <ws:decorator-section name="menu-bar">
+                                    <ws:include-menu name="FindInvoicesMenuBar" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="search-options">
+                                    <ws:platform-specific>
+                                        <ws:html><ws:html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></ws:html>
+                                    </ws:platform-specific>
+                                    <ws:include-form name="FindInvoices" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                                </ws:decorator-section>
+                                <ws:decorator-section name="search-results">
+                                    <ws:include-screen name="ListInvoices" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                                </ws:decorator-section>
+                            </ws:decorator-screen>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+        <ws:screen name="ListInvoices">
+            <ws:section>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="list">
+                            <ws:include-grid name="ListInvoices" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="NewInvoice">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="AccountingCreateNewInvoice"/>
+                    <ws:set field="helpAnchor" value="_help_for_new_invoice"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:screenlet title="${uiLabelMap.AccountingCreateNewSalesInvoice}">
+                                <ws:include-form name="NewSalesInvoice" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                            </ws:screenlet>
+                            <ws:screenlet title="${uiLabelMap.AccountingCreateNewPurchaseInvoice}">
+                                <ws:include-form name="NewPurchaseInvoice" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                            </ws:screenlet>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="ViewInvoice">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleInvoiceOverview"/>
+                    <ws:set field="tabButtonItem" value="viewInvoice"/>
+                    <ws:set field="helpAnchor" value="_help_for_invoice_overview"/>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:section>
+                                <ws:condition>
+                                    <ws:not><ws:if-empty field="invoice"/></ws:not>
+                                </ws:condition>
+                                <ws:actions>
+                                    <ws:entity-and entity-name="InvoiceRole" list="invoiceRoles">
+                                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <ws:order-by field-name="partyId"/>
+                                    </ws:entity-and>
+                                    <ws:entity-and entity-name="InvoiceStatus" list="invoiceStatus">
+                                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <ws:order-by field-name="statusDate"/>
+                                    </ws:entity-and>
+                                    <ws:entity-and entity-name="InvoiceTerm" list="invoiceTerms">
+                                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <ws:order-by field-name="invoiceTermId"/>
+                                    </ws:entity-and>
+                                    <ws:entity-and entity-name="TimeEntry" list="timeEntries">
+                                        <ws:field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <ws:order-by field-name="invoiceItemSeqId"/>
+                                    </ws:entity-and>
+                                    <ws:script location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/CreateApplicationList.groovy"/>
+                                    <ws:set field="parameters.statusId" from-field="invoice.statusId"/>
+                                    <ws:set field="invoiceAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice)}" type="BigDecimal"/>
+                                    <ws:set field="notAppliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
+                                    <ws:set field="appliedAmount" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
+                                    <ws:entity-condition entity-name="InvItemAndOrdItem" list="invItemAndOrdItems">
+                                        <ws:condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
+                                        <ws:order-by field-name="invoiceItemSeqId"/>
+                                    </ws:entity-condition>
+                                    <ws:entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
+                                        <ws:condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
+                                        <ws:order-by field-name="acctgTransId"/>
+                                        <ws:order-by field-name="acctgTransEntrySeqId"/>
+                                    </ws:entity-condition>
+                                </ws:actions>
+                                <ws:widgets>
+                                    <ws:screenlet title="${uiLabelMap.AccountingInvoiceHeader}">
+                                        <ws:include-form name="InvoiceHeader" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                                    </ws:screenlet>
+                                    <ws:container style="lefthalf">
+                                        <ws:screenlet title="${uiLabelMap.CommonStatus}" navigation-form-name="ListInvoiceStatus">
+                                            <ws:include-grid name="ListInvoiceStatus" location="component://accounting/widget/accounting/AccountingInvoiceStatusCpd.xml"/>
+                                        </ws:screenlet>
+                                        <ws:screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
+                                            navigation-form-name="ListInvoiceApplications">
+                                            <ws:include-grid name="ListInvoiceApplications" location="component://accounting/widget/accounting/AccountingInvoiceApplicationCpd.xml"/>
+                                        </ws:screenlet>
+                                    </ws:container>
+                                    <ws:container style="righthalf">
+                                        <ws:screenlet title="${uiLabelMap.AccountingInvoiceRoles}" navigation-form-name="InvoiceRoles">
+                                            <ws:include-grid name="InvoiceRoles" location="component://accounting/widget/accounting/AccountingInvoiceRoleCpd.xml"/>
+                                        </ws:screenlet>
+                                        <ws:screenlet title="${uiLabelMap.PartyTerms}">
+                                            <ws:section>
+                                                <ws:condition>
+                                                    <ws:if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                                                </ws:condition>
+                                                <ws:widgets>
+                                                    <ws:include-grid name="InvoiceTerms" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                                                </ws:widgets>
+                                                <ws:fail-widgets>
+                                                    <ws:include-grid name="ListInvoiceTerms" location="component://accounting/widget/accounting/AccountingInvoiceTermCpd.xml"/>
+                                                </ws:fail-widgets>
+                                            </ws:section>
+                                            <ws:include-grid name="ListInvoicePaymentInfo" location="component://accounting/widget/InvoiceForms.xml"/>
+                                        </ws:screenlet>
+                                    </ws:container>
+                                    <ws:container style="clear"/>
+                                    <ws:screenlet title="${uiLabelMap.AccountingInvoiceItems}" navigation-form-name="InvoiceItems">
+                                        <ws:include-grid name="ListInvoiceItems" location="component://accounting/widget/accounting/AccountingInvoiceItemCpd.xml"/>
+                                    </ws:screenlet>
+                                    <ws:section>
+                                        <ws:condition>
+                                            <ws:not><ws:if-empty field="timeEntries"/></ws:not>
+                                        </ws:condition>
+                                        <ws:widgets>
+                                            <ws:screenlet title="${uiLabelMap.AccountingInvoiceTimeEntries}" navigation-form-name="ListTimeEntries">
+                                                <ws:include-grid name="ViewInvoiceTimeEntries" location="component://accounting/widget/accounting/AccountingInvoiceTimeEntryCpd.xml"/>
+                                            </ws:screenlet>
+                                        </ws:widgets>
+                                    </ws:section>
+                                    <ws:screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
+                                        <ws:include-grid name="AcctgTransAndEntries" location="component://accounting/widget/InvoiceForms.xml"/>
+                                    </ws:screenlet>
+                                </ws:widgets>
+                                <ws:fail-widgets>
+                                    <ws:label text="${uiLabelMap.AccountingInvoiceDoesNotExists}"></ws:label>
+                                </ws:fail-widgets>
+                            </ws:section>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+        <ws:screen name="EditInvoice">
+            <ws:section>
+                <ws:actions>
+                    <ws:set field="titleProperty" value="PageTitleEditInvoice"/>
+                    <ws:set field="tabButtonItem" value="editInvoice"/>
+                    <ws:set field="helpAnchor" value="_help_for_edit_invoice_header"/>
+                    <ws:set field="invoiceId" from-field="parameters.invoiceId"/>
+                    <ws:entity-one entity-name="Invoice" value-field="invoice"/>
+                    <ws:entity-one entity-name="InvoiceType" value-field="invoiceType">
+                        <ws:field-map field-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
+                    </ws:entity-one>
+                </ws:actions>
+                <ws:widgets>
+                    <ws:decorator-screen name="CommonEmbeddedDecorator" location="component://accounting/widget/CommonScreens.xml">
+                        <ws:decorator-section name="single">
+                            <ws:include-form name="EditInvoice" location="component://accounting/widget/accounting/AccountingInvoiceCpd.xml"/>
+                        </ws:decorator-section>
+                    </ws:decorator-screen>
+                </ws:widgets>
+            </ws:section>
+        </ws:screen>
+
+    </ws:screens>
+
+    <wm:menus>
+
+        <wm:menu name="FindInvoicesMenuBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+            <wm:menu-item name="AccountingInvoiceCreate" title="${uiLabelMap.AccountingCreateNewInvoice}">
+                <wm:condition>
+                    <wm:if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                </wm:condition>
+                <wm:link target="Accounting/Invoice/New" link-type="layered-modal">
+                    <wm:set-callback area-target="Accounting/Invoice/Find"/>
+                </wm:link>
+            </wm:menu-item>
+        </wm:menu>
+
+    </wm:menus>
+
+    <wf:forms>
+
+        <wf:form name="FindInvoices" type="single" target="Accounting/Invoice/Find" title="Find and list invoices" default-map-name="parameters"
+            header-row-style="header-row" default-table-style="basic-table" extends="CommonDynamicSingle" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:field name="noConditionFind"><wf:hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></wf:field>
+            <wf:field name="invoiceId"><wf:text-find ignore-case="true"/></wf:field>
+            <wf:field name="description"><wf:text-find ignore-case="true"/></wf:field>
+            <wf:field position="1" name="invoiceTypeId">
+                <wf:drop-down allow-empty="true">
+                    <wf:entity-options entity-name="InvoiceType"/>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field name="statusId">
+                <wf:drop-down allow-multiple="true">
+                    <wf:entity-options entity-name="StatusItem" key-field-name="statusId">
+                        <wf:entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
+                        <wf:entity-order-by field-name="sequenceId"/>
+                    </wf:entity-options>
+                </wf:drop-down>
+            </wf:field>
+            <wf:field position="1" name="partyIdFrom"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field position="2" name="partyIdTo" parameter-name="partyId"><wf:lookup target-form-name="LookupPartyName"/></wf:field>
+            <wf:field name="billingAccountId"><wf:lookup target-form-name="LookupBillingAccount"/></wf:field>
+            <wf:field name="invoiceDate"><wf:date-find type="date"/></wf:field>
+            <wf:field name="referenceNumber"><wf:text-find/></wf:field>
+            <wf:field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><wf:submit button-type="button"/></wf:field>
+        </wf:form>
+
+        <wf:grid name="ListInvoices" list-name="listIt" separate-columns="true" default-entity-name="Invoice" paginate-target="Accounting/Invoice/List"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
+            extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
+            <wf:actions>
+                <wf:set field="parameters.sortField" from-field="parameters.sortField" default-value="-invoiceDate"/>
+                <wf:service service-name="performFind" result-map="result" result-map-list="listIt">
+                    <wf:field-map field-name="inputFields" from-field="parameters"/>
+                    <wf:field-map field-name="entityName" value="InvoiceAndType"/>
+                    <wf:field-map field-name="orderBy" from-field="parameters.sortField"/>
+                    <wf:field-map field-name="viewIndex" from-field="viewIndex"/>
+                    <wf:field-map field-name="viewSize" from-field="viewSize"/>
+                </wf:service>
+            </wf:actions>
+            <wf:row-actions>
+                <wf:service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
+                    <wf:field-map field-name="partyId" from-field="partyIdFrom"/>
+                    <wf:field-map field-name="compareDate" from-field="invoiceDate"/>
+                    <wf:field-map field-name="lastNameFirst" value="Y"/>
+                </wf:service>
+                <wf:service service-name="getPartyNameForDate" result-map="partyNameResultTo">
+                    <wf:field-map field-name="partyId" from-field="partyId"/>
+                    <wf:field-map field-name="compareDate" from-field="invoiceDate"/>
+                    <wf:field-map field-name="lastNameFirst" value="Y"/>
+                </wf:service>
+                <wf:set field="amountToApply" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)}"/>
+                <wf:set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)}"/>
+            </wf:row-actions>
+            <wf:field name="invoiceId" widget-style="buttontext" sort-field="true">
+                <wf:hyperlink description="${invoiceId}" target="viewInvoice">
+                    <wf:parameter param-name="invoiceId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="invoiceTypeId" sort-field="true"><wf:display-entity entity-name="InvoiceType"/></wf:field>
+            <wf:field name="invoiceDate" sort-field="true"><wf:display type="date"/></wf:field>
+            <wf:field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><wf:display-entity entity-name="StatusItem"/></wf:field>
+            <wf:field name="description" sort-field="true"><wf:display/></wf:field>
+            <wf:field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" sort-field="true">
+                <wf:hyperlink description="${partyNameResultFrom.fullName} [${partyIdFrom}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app">
+                    <wf:parameter param-name="partyId" from-field="partyIdFrom"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" parameter-name="partyId">
+                <wf:hyperlink description="${partyNameResultTo.fullName} [${partyId}]" target="/partymgr/control/PartyFinancialHistory" target-type="inter-app">
+                    <wf:parameter param-name="partyId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field name="total" widget-area-style="align-text"><wf:display type="currency" currency="${currencyUomId}"/></wf:field>
+            <wf:field name="amountToApply" widget-area-style="align-text"><wf:display type="currency" currency="${currencyUomId}"/></wf:field>
+        </wf:grid>
+
+        <wf:form name="NewSalesInvoice" extends="NewSalesInvoice" extends-resource="component://accounting/widget/InvoiceForms.xml">
+            <wf:alt-target target="Accounting/Invoice/create" use-when="invoice==null"/>
+        </wf:form>
+
+        <wf:form name="NewPurchaseInvoice" extends="NewPurchaseInvoice" extends-resource="component://accounting/widget/InvoiceForms.xml">
+            <wf:alt-target target="Accounting/Invoice/create" use-when="invoice==null"/>
+        </wf:form>
+
+        <wf:form name="InvoiceHeader" type="single" title="Invoice header information" default-map-name="invoice"
+            header-row-style="header-row" default-table-style="basic-table">
+            <wf:actions>
+                <wf:set field="total" value="${groovy:return(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(invoice));}"/>
+                <wf:service service-name="getPartyNameForDate" result-map="partyNameResultFrom">
+                    <wf:field-map field-name="partyId" from-field="invoice.partyIdFrom"/>
+                    <wf:field-map field-name="compareDate" from-field="invoice.invoiceDate"/>
+                    <wf:field-map field-name="lastNameFirst" value="Y"/>
+                </wf:service>
+                <wf:service service-name="getPartyNameForDate" result-map="partyNameResultTo">
+                    <wf:field-map field-name="partyId" from-field="invoice.partyId"/>
+                    <wf:field-map field-name="compareDate" from-field="invoice.invoiceDate"/>
+                    <wf:field-map field-name="lastNameFirst" value="Y"/>
+                </wf:service>
+            </wf:actions>
+            <wf:field name="invoiceId"><wf:hidden/></wf:field>
+            <wf:field position="1" name="invoiceTypeId"><wf:display-entity entity-name="InvoiceType"/></wf:field>
+            <wf:field name="statusId" title="${uiLabelMap.CommonStatus}" position="2"><wf:display-entity entity-name="StatusItem"/></wf:field>
+            <wf:field position="1" name="description"><wf:display/></wf:field>
+            <wf:field position="2" name="invoiceMessage"><wf:display/></wf:field>
+            <wf:field position="1" name="partyIdFrom">
+                <wf:hyperlink description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                    <wf:parameter param-name="partyId" from-field="invoice.partyIdFrom"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field position="2" name="partyIdTo" entry-name="partyId">
+                <wf:hyperlink description="${partyNameResultTo.fullName} [${invoice.partyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                    <wf:parameter param-name="partyId" from-field="invoice.partyId"/>
+                </wf:hyperlink>
+            </wf:field>
+            <wf:field position="1" name="roleTypeId"><wf:display/></wf:field>
+            <wf:field position="2" name="billingAccountId"><wf:display/></wf:field>
+            <wf:field position="1" name="invoiceDate"><wf:display description="${groovy:if(invoice.get(&quot;invoiceDate&quot;)!=null)return(invoice.getString(&quot;invoiceDate&quot;).substring(0,10));}"/></wf:field>
+            <wf:field position="2" name="dueDate"><wf:display description="${groovy:if(invoice.get(&quot;dueDate&quot;)!=null)return(invoice.getString(&quot;dueDate&quot;).substring(0,10));}"/></wf:field>
+            <wf:field position="1" name="total"><wf:display description="${total}" type="currency" currency="${invoice.currencyUomId}"/></wf:field>
+            <wf:field position="2" name="paidDate"><wf:display description="${groovy:if(invoice.get(&quot;paidDate&quot;)!=null)return(invoice.getString(&quot;paidDate&quot;).substring(0,10));}"/></wf:field>
+            <wf:field position="1" name="referenceNumber" title="${uiLabelMap.FormFieldTitle_referenceNum}"><wf:display/></wf:field>
+            <wf:field name="currencyUomId"><wf:hidden/></wf:field>
+        </wf:form>
+
+        <wf:form name="EditInvoice" extends="EditInvoice" extends-resource="component://accounting/widget/InvoiceForms.xml">
+            <wf:alt-target target="Accounting/Invoice/update" use-when="invoice!=null"/>
+            <wf:alt-target target="Accounting/Invoice/create" use-when="invoice==null" />
+            <wf:field position="1" name="description"><wf:textarea maxlength="100"/></wf:field>
+            <wf:field position="1" name="invoiceMessage"><wf:textarea maxlength="100"/></wf:field>
+        </wf:form>
+
+    </wf:forms>
+
+</compound-widgets>

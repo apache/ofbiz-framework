@@ -38,8 +38,8 @@ For having OFBiz ready to be setup, it's needed to load data from reader seed an
 
 . Open a new terminal.
 . Go to your ofbiz directory.
-. Clean out all built classes with : ./ant clean-all
-. start with a database clean and empty
+. Clean out all built classes with : gradlew cleanAll
+. Start with a database clean and empty. If you use Derby it's already done with previous command.
 . Load the seed data with gradlew "ofbiz --load-data readers=seed,seed-initial"
 . Create the admin user with login name MyUserName and default password with value "ofbiz":
   gradlew loadAdminUserLogin -PuserLoginId=MyUserName

@@ -54,7 +54,7 @@
                 <set field="headerItem" value="Geos"/>
                 <set field="tabButtonItem" value="GeoPoints"/>
                 <entity-one entity-name="GeoPoint" value-field="geoPoint"/>
-                <script location="component://webtools/groovyScripts/geo/GetGeoLocation.groovy"/>
+                <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/geo/GetGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -168,7 +168,7 @@
                 <set field="asm_title" from-field="uiLabelMap.WebtoolsGeosSelect"/>
                 <!-- selectMultipleRelatedValues parameters -->
                 <set field="asm_relatedField" value="LinkGeos_geoId"/>
-                <set field="asm_requestName" value="getRelatedGeos"/>
+                <set field="asm_requestName" value="/common-js/control/getRelatedGeos"/>
                 <set field="asm_paramKey" value="geoId"/>
                 <set field="asm_type" value="geoAssocTypeId"/>
                 <set field="asm_typeField" value="LinkGeos_geoAssocTypeId"/>

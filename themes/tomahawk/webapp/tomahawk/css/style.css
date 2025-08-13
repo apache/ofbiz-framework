@@ -40,7 +40,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
     line-height: 1.5em;
     color: black;
-    _background-image: url:(. . /images/ header_top_bg . gif);
     background-color: black;
     font-size: 62.5%;
     position: relative;
@@ -102,7 +101,8 @@ input[type="radio"], input[type="checkbox"] {
     vertical-align: middle;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="number"],
+input[type="email"], input[type="url"], input[type="tel"] {
     background-color: #fffcea;
     border: 0.1em solid #999999;
     font-size: 1.1em;
@@ -359,7 +359,6 @@ A.buttontext, .buttontextdisabled {
     line-height: 2.9em;
     margin-left: 0.0em;
     padding: 0.4em 0.6em 0.4em 0.6em;
-    /*white-space: nowrap;*/
 }
 
 A.buttontext {
@@ -532,6 +531,7 @@ A IMG.imageborder {
 
 .content-messages p {
     margin: 0.5em 0 0.5em 0;
+    display: none;
 }
 
 .mediumSubmit, .largeSubmit, .loginButton {
@@ -585,7 +585,6 @@ A IMG.imageborder {
 
 .productsummary .smallimage {
     float: left;
-    /* position: absolute; top: 5px; left: 5px; */
     margin: 0 0.5em 0.5em 0;
 }
 
@@ -601,7 +600,7 @@ A IMG.imageborder {
     width: 15em;
 }
 
-.productsummary .productinfo { /* margin-left: 60px; */
+.productsummary .productinfo {
     text-align: left;
 }
 
@@ -934,26 +933,33 @@ in contained elements. */
 /* ===== Used to align elements ===== */
 /* ================================== */
 .align-bottom {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
+
 .align-center {
     text-align: center;
 }
+
 .align-justify {
     text-align: justify;
 }
+
 .align-left {
     text-align: left;
 }
+
 .align-middle {
-    vertical-align: bottom;;
+    vertical-align: bottom;
 }
+
 .align-right {
     text-align: right;
 }
+
 .align-text {
     text-align: right;
 }
+
 .align-top {
     vertical-align: top;
 }
@@ -1411,7 +1417,6 @@ ajax auto complete
 div.autocomplete {
     position: absolute;
     width: auto !important;
-    /* min-width:154px; */
     background-color: #f8f8f8;
     border: 1px solid #999999;
     margin: 0;
@@ -1434,7 +1439,6 @@ div.autocomplete ul li {
     float: none;
     margin: 0;
     padding: 2px;
-    /*height:32px;*/
     cursor: pointer;
 }
 
@@ -1460,12 +1464,6 @@ div.autocomplete ul li {
 /* ======================================================= */
 .basic-nav { /* indent menu - helpful for widgets */
     padding-left: 1em;
-}
-
-.basic-nav ul { /* placeholder */
-}
-
-.basic-nav ul li {
 }
 
 .basic-nav ul a {
@@ -1635,7 +1633,7 @@ div.autocomplete ul li {
 
 .button-style-2 a.disabled:hover {
     background-image: url(../images/tab_normal1.png);
-    background-color: none;
+    background-color: transparent;
 }
 
 /* ===== In line bar ===== */
@@ -2193,7 +2191,6 @@ render borders around empty <td> elements */
 .field-lookup a {
     background: url(../images/fieldlookup.png) no-repeat 0 0;
     display: inline-block;
-    /* margin: 3px 10px 0px 4px; */
     vertical-align: top;
     margin-top: 3px;
     width: 35px;
@@ -2515,25 +2512,21 @@ Lookups
 }
 
 img.cssImgXLarge {
-    /*border: 1px black solid;*/
     max-width: 200px;
     max-height: 150px;
 }
 
 img.cssImgLarge {
-    /*border: 1px black solid;*/
     max-width: 100px;
     max-height: 75px;
 }
 
 img.cssImgStandard {
-    /*border: 1px black solid;*/
     max-width: 70px;
     max-height: 52px;
 }
 
 img.cssImgSmall {
-    /*border: 1px black solid;*/
     max-width: 50px;
     max-height: 37px;
 }
@@ -2602,17 +2595,6 @@ img.cssImgSmall {
     cursor: default !important;
 }
 
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon {
-    display: block;
-    text-indent: -99999px;
-    overflow: hidden;
-    background-repeat: no-repeat;
-}
-
 /* Misc visuals
 ----------------------------------*/
 
@@ -2623,6 +2605,9 @@ img.cssImgSmall {
     left: 0;
     width: 100%;
     height: 100%;
+    background: #aaaaaa url(../images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
+    opacity: .3;
+    filter: Alpha(Opacity=30);
 }
 
 .ui-accordion .ui-accordion-header {
@@ -2660,14 +2645,10 @@ img.cssImgSmall {
     zoom: 1;
 }
 
-.ui-autocomplete {
-    position: absolute;
-    cursor: default;
-}
-
 /* workarounds */
 * html .ui-autocomplete {
     width: 1px;
+    height: 250px;
 }
 
 /* without this, the menu expands to 100% in IE6 */
@@ -3002,8 +2983,9 @@ button.ui-button::-moz-focus-inner {
 
 .ui-dialog {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: .2em;
     width: 300px;
     overflow: hidden;
@@ -3035,7 +3017,6 @@ button.ui-button::-moz-focus-inner {
     height: 20px;
 }
 
-/*.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }*/
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0;
 }
@@ -3579,6 +3560,10 @@ body .ui-tooltip {
     width: 16px;
     height: 16px;
     background-image: url(../images/ui-icons_222222_256x240.png);
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
 .ui-widget-content .ui-icon {
@@ -4339,13 +4324,6 @@ body .ui-tooltip {
     border-bottom-right-radius: 4px;
 }
 
-/* Overlays */
-.ui-widget-overlay {
-    background: #aaaaaa url(../images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
-}
-
 .ui-widget-shadow {
     margin: -8px 0 0 -8px;
     padding: 8px;
@@ -4359,14 +4337,43 @@ body .ui-tooltip {
 }
 
 /* Calendar Button and Image */
-.view-calendar button {
-    background: url(../images/cal.png) no-repeat !important;
-    display: inline-block;
-    border: none !important;
-    vertical-align: top;
-    margin-top: 3px;
-    width: 22px;
-    height: 22px;
+.view-calendar {
+    button.ui-datepicker-trigger {
+        background: url(../images/cal.png) no-repeat !important;
+        display: inline-block;
+        border: none !important;
+        vertical-align: top;
+        margin-top: 3px;
+        width: 22px;
+        height: 22px;
+    }
+
+    &.drp {
+        &.single.no-time input[type="text"] {
+            width: 60px;
+        }
+        &.single.time.no-seconds input[type="text"] {
+            width: 90px;
+        }
+        &.single.time.seconds input[type="text"] {
+            width: 110px;
+        }
+        &.range.no-time input[type="text"] {
+            width: 140px;
+        }
+        &.range.time.no-seconds input[type="text"] {
+            width: 200px;
+        }
+        &.range.time.seconds input[type="text"] {
+            width: 230px;
+        }
+
+        button.clear-calendar {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }
 
 /* css for timepicker */
@@ -4480,10 +4487,6 @@ body .ui-tooltip {
     border: 1px solid #f0f0f0;
 }
 
-.content-messages p {
-    display: none;
-}
-
 /* From http://jqueryui.com/demos/autocomplete/maxheight.html */
 /* When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large */
 .ui-autocomplete {
@@ -4493,13 +4496,8 @@ body .ui-tooltip {
     overflow-x: hidden;
     /* add padding to account for vertical scrollbar */
     padding-right: 20px;
-}
-
-/* IE 6 doesn't support max-height
- * we use height instead, but this forces the menu to always be this tall
- */
-* html .ui-autocomplete {
-    height: 250px;
+    position: absolute;
+    cursor: default;
 }
 
 /* The custom CSS for adjust the JsTree */
@@ -4527,7 +4525,7 @@ html > /**/ body .jstree-default a {
 
 
 /*The Custom css for SELECT 2*/
-.select2-container--default .select2-selection--multiple{
+.select2-container--default .select2-selection--multiple {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
@@ -4536,8 +4534,9 @@ html > /**/ body .jstree-default a {
 }
 
 .button-bar > a.buttontext {
-    text-transform:none!important;
+    text-transform: none !important;
 }
+
 /* The custom CSS to show mouse pointer on links using featherlight plugin  */
 a[data-featherlight] {
     cursor: pointer;

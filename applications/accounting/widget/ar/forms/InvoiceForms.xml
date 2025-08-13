@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
    <!-- show list of upto 10 Invoices past due for longest duration -->
@@ -42,7 +42,7 @@ under the License.
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview">
+            <hyperlink description="${invoiceId}" target="viewInvoice">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
@@ -63,7 +63,7 @@ under the License.
         <field name="invoiceDate"><display/></field>
         <field name="dueDate"><display/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="outstanding" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="FindArInvoices" type="single" target="FindArInvoices" extends="FindInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml">
@@ -81,5 +81,5 @@ under the License.
             </drop-down>
         </field>
     </form>
-        
+
 </forms>

@@ -137,11 +137,11 @@ to the core applications in design and structure, but are not shipped with
 OFBiz by default. Thus to install a plugin a user must add it to the framework
 first.
 
-include::_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
+include::docs/asciidoc/_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
 
-include::../../README.adoc[tags=quickstart]
+include::README.adoc[tags=quickstart]
 
-include::../../applications/commonext/src/docs/asciidoc/ofbiz-setup.adoc[leveloffset=+1]
+include::applications/commonext/src/docs/asciidoc/ofbiz-setup.adoc[leveloffset=+1]
 
 = Core Business Applications
 
@@ -157,25 +157,25 @@ This section of the manual will describe each core business application
 starting with a high level overview of design and purpose down to the details
 of how to achieve common tasks.
 
-include::../../applications/party/src/docs/asciidoc/party.adoc[leveloffset=+1]
+include::applications/party/src/docs/asciidoc/party.adoc[leveloffset=+1]
 
-include::../../applications/product/src/docs/asciidoc/product.adoc[leveloffset=+1]
+include::applications/product/src/docs/asciidoc/product.adoc[leveloffset=+1]
 
-include::../../applications/product/src/docs/asciidoc/facility.adoc[leveloffset=+1]
+include::applications/product/src/docs/asciidoc/facility.adoc[leveloffset=+1]
 
-include::../../applications/order/src/docs/asciidoc/order.adoc[leveloffset=+1]
+include::applications/order/src/docs/asciidoc/order.adoc[leveloffset=+1]
 
-include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+1]
+include::applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+1]
 
-include::../../applications/content/src/docs/asciidoc/content.adoc[leveloffset=+1]
+include::applications/content/src/docs/asciidoc/content.adoc[leveloffset=+1]
 
-include::../../applications/manufacturing/src/docs/asciidoc/manufacturing.adoc[leveloffset=+1]
+include::applications/manufacturing/src/docs/asciidoc/manufacturing.adoc[leveloffset=+1]
 
-include::../../applications/marketing/src/docs/asciidoc/sfa.adoc[leveloffset=+1]
+include::applications/marketing/src/docs/asciidoc/sfa.adoc[leveloffset=+1]
 
-include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+1]
+include::applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+1]
 
-include::../../applications/marketing/src/docs/asciidoc/marketing.adoc[leveloffset=+1]
+include::applications/marketing/src/docs/asciidoc/marketing.adoc[leveloffset=+1]
 
 ////
 webtools help should be remove when global glossary exist, and contain a link to developer-manual#webtools
@@ -183,9 +183,9 @@ webtools help should be remove when global glossary exist, and contain a link to
 === Web tools
 The Webtools application is the UI-gateway to all the framework functions.
 
-include::../../framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
+include::framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
 // Plugins Business Applications
 
-include::../../plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+0]
+include::plugins/docs/asciidoc/plugins-user-manual.adoc[leveloffset=+0]
 
-include::_include/ofbiz-glossary.adoc[leveloffset=+1]
+include::docs/asciidoc/_include/ofbiz-glossary.adoc[leveloffset=+1]

@@ -24,44 +24,46 @@ under the License.
     <version>1.0</version>
 
     <!-- Routing services -->
-    <service name="createCalendar" engine="simple" default-entity-name="TechDataCalendar"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendar">
+    <service name="createCalendar" engine="entity-auto" default-entity-name="TechDataCalendar" invoke="create">
         <description>Create a calendar</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendar" engine="entity-auto" default-entity-name="TechDataCalendar" invoke="update">
         <description>Update a calendar</description>
         <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCalendar" engine="simple" default-entity-name="TechDataCalendar"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendar">
+    <service name="removeCalendar" engine="groovy" default-entity-name="TechDataCalendar"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/routing/RoutingServicesScript.groovy" invoke="removeCalendar">
         <description>Remove a calendar</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
     <!-- TechDataCalendarWeek services -->
-    <service name="createCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="createCalendarWeek">
+    <service name="createCalendarWeek" engine="entity-auto" default-entity-name="TechDataCalendarWeek" invoke="create">
         <description>Create a Calendar Week</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarWeek" engine="entity-auto" default-entity-name="TechDataCalendarWeek" invoke="update">
         <description>Update a Calendar Week</description>
         <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeCalendarWeek" engine="simple" default-entity-name="TechDataCalendarWeek"
-            location="component://manufacturing/minilang/techdata/RoutingSimpleServices.xml" invoke="removeCalendarWeek">
+    <service name="removeCalendarWeek" engine="groovy" default-entity-name="TechDataCalendarWeek"
+            location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/routing/RoutingServicesScript.groovy" invoke="removeCalendarWeek">
         <description>Remove a Calendar Week</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
     <!-- manufacturing permission service -->
-    <service name="manufacturingPermissionService" engine="simple"
-             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+    <service name="manufacturingPermissionService" engine="groovy"
+             location="component://common/src/main/groovy/org/apache/ofbiz/common/permission/CommonPermissionServices.groovy" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="MANUFACTURING"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -70,36 +72,36 @@ under the License.
     <service name="createCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="create">
         <description>Create a calendar ExceptionDay</description>
         <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="update">
         <description>Update a calendar ExceptionDay</description>
         <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarExceptionDay" engine="entity-auto" default-entity-name="TechDataCalendarExcDay" invoke="delete">
         <description>Delete a calendar ExceptionDay</description>
         <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
     <!-- TechDataCalendarExcWeek services -->
     <service name="createCalendarExceptionWeek" engine="entity-auto" default-entity-name="TechDataCalendarExcWeek" invoke="create">
         <description>Create a Calendar Exception Week</description>
         <permission-service service-name="manufacturingPermissionService" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateCalendarExceptionWeek" engine="entity-auto" default-entity-name="TechDataCalendarExcWeek" invoke="update">
         <description>Update a Calendar Exception Week</description>
         <permission-service service-name="manufacturingPermissionService" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCalendarExceptionWeek" engine="entity-auto" default-entity-name="TechDataCalendarExcWeek" invoke="delete">
         <description>Delete a Calendar Exception Week</description>
         <permission-service service-name="manufacturingPermissionService" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
     </service>
 </services>

@@ -68,7 +68,11 @@ under the License.
     </xs:attributeGroup>
 
     <xs:element name="junit-test-suite" substitutionGroup="TestCaseTypes">
-        <xs:annotation><xs:documentation>Used for JUnit test suites written as a Java class.</xs:documentation></xs:annotation>
+        <xs:annotation>
+            <xs:documentation>
+                Used for JUnit test suites written as a Java class. This is rather to be used in production.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.junit-test-suite"/>
         </xs:complexType>
@@ -77,30 +81,9 @@ under the License.
         <xs:attribute type="xs:string" name="class-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    At minimum should extend the junit.framework.TestCase class. If you want to use a GenericDelegator or 
+                    At minimum should extend the junit.framework.TestCase class. If you want to use a GenericDelegator or
                     LocalDispatcher you should extend the OFBizTestCase class and use the ones provided by it.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
-
-    <xs:element name="groovy-test-suite" substitutionGroup="TestCaseTypes">
-        <xs:annotation>
-            <xs:documentation>
-                Used for JUnit test suites written as a Groovy class. See http://groovy-lang.org/testing.html
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.groovy-test-suite"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.groovy-test-suite">
-        <xs:attribute type="xs:string" name="name"/>
-        <xs:attribute type="xs:string" name="location" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Give the location where is groovy file that contaions the test suite.
-                    You can use a flexible url location like component://mycomponent/groovyScripts/test/MySuiteTest.groovy
+                    This is rather to be used in production
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

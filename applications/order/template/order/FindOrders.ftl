@@ -405,7 +405,7 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
 </div>
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
-<script type="application/javascript">
+<script type="text/javascript">
 document.lookuporder.orderId.focus();
 </script>
 </#if>

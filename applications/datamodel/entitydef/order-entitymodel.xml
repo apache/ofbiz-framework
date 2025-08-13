@@ -549,6 +549,7 @@ under the License.
       <field name="unitListPrice" type="currency-precise"></field>
       <field name="unitAverageCost" type="currency-amount"></field>
       <field name="unitRecurringPrice" type="currency-amount"></field>
+      <field name="discountRate" type="fixed-point"></field>
       <field name="isModifiedPrice" type="indicator"></field>
       <field name="recurringFreqUomId" type="id"></field>
       <field name="itemDescription" type="description"></field>
@@ -1009,7 +1010,6 @@ under the License.
       <field name="currentPromisedDate" type="date-time"></field>
       <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
       <field name="sequenceId" type="numeric"></field>
-      <field name="oldPickStartDate" col-name="PICK_START_DATE" type="date-time"></field> <!-- this is no longer used and is here for migration or whatever if needed -->
       <prim-key field="orderId"/>
       <prim-key field="shipGroupSeqId"/>
       <prim-key field="orderItemSeqId"/>
@@ -2949,6 +2949,21 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHLIST_ITEM_PROD" rel-entity-name="Product">
         <key-map field-name="productId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ShoppingListItemAttribute"
+            package-name="org.apache.ofbiz.order.shoppinglist"
+            title="Shopping List Item Attribute Entity">
+      <field name="shoppingListId" type="id"></field>
+      <field name="shoppingListItemSeqId" type="id"></field>
+      <field name="attrName" type="id-long"></field>
+      <field name="attrValue" type="value"></field>
+      <prim-key field="shoppingListId"/>
+      <prim-key field="shoppingListItemSeqId"/>
+      <prim-key field="attrName"/>
+      <relation type="one" fk-name="SHLIST_ITEM_ATTR" rel-entity-name="ShoppingListItem">
+        <key-map field-name="shoppingListId"/>
+        <key-map field-name="shoppingListItemSeqId"/>
       </relation>
     </entity>
     <entity entity-name="ShoppingListItemSurvey"

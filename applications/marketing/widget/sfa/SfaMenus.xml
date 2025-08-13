@@ -31,7 +31,38 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
+    <menu name="MainActionMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="NewAccount" title="${uiLabelMap.CommonNew} ${uiLabelMap.PartyAccount}">
+            <condition>
+                <if-has-permission permission="SFA" action="CREATE"/>
+            </condition>
+            <link target="NewAccount"/>
+        </menu-item>
+        <menu-item name="NewContact" title="${uiLabelMap.CommonNew} ${uiLabelMap.SfaContact}">
+            <condition>
+                <if-has-permission permission="SFA" action="CREATE"/>
+            </condition>
+            <link target="NewContact"/>
+        </menu-item>
+        <menu-item name="NewLead" title="${uiLabelMap.SfaNewLead}">
+            <condition>
+                <if-has-permission permission="SFA" action="CREATE"/>
+            </condition>
+            <link target="NewLead"/>
+        </menu-item>
+        <menu-item name="NewOpportunity" title="${uiLabelMap.PartyCommEventCreateOpportunity}">
+            <condition>
+                <if-has-permission permission="SFA" action="CREATE"/>
+            </condition>
+            <link target="EditSalesOpportunity"/>
+        </menu-item>
+        <menu-item name="NewForeCast" title="${uiLabelMap.SfaNewSalesForecast}">
+            <condition>
+                <if-has-permission permission="SFA" action="CREATE"/>
+            </condition>
+            <link target="EditSalesForecast"/>
+        </menu-item>
+    </menu>
     <menu name="SfaShortcutAppBar" title="${uiLabelMap.SfaManager}">
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="/sfa/control/FindAccounts" url-mode="inter-app"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="/sfa/control/FindContacts" url-mode="inter-app"/></menu-item>
@@ -45,7 +76,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-
+    
     <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewSalesOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="ViewSalesOpportunity">

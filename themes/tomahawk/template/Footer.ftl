@@ -28,14 +28,14 @@ under the License.
        <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
     </li>
     <li class="opposed">${nowTimestamp?datetime?string.short} -
-  <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
+  <a href="<@ofbizUrl>ListTimezones</@ofbizUrl>">${timeZone.toZoneId().getDisplayName(Static["java.time.format.TextStyle"].FULL_STANDALONE, locale)}</a>
     </li>
   </ul>
 </div>
 
 <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
   <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>
-    <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+    <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
   </#list>
 </#if>
 

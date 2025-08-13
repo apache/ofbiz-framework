@@ -79,7 +79,7 @@ under the License.
             <property name="countEmpty" value="false"/>
         </module>
         <module name="ParameterNumber">
-            <property name="max" value="26"/>
+            <property name="max" value="27"/>
             <property name="tokens" value="METHOD_DEF"/>
             <property name="ignoreOverriddenMethods" value="true"/>
         </module>

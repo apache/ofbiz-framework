@@ -783,7 +783,7 @@
     </property>
     <property key="ContentConvertDocumentsTreeSuccessful">
         <value xml:lang="en">Convert Documents Tree Successful. Total : ${counterLine} rows</value>
-        <value xml:lang="en">Succès de la conversion de l'arbre de document. Total : ${counterLine} lignes</value>
+        <value xml:lang="fr">Succès de la conversion de l'arbre de document. Total : ${counterLine} lignes</value>
     </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
@@ -3241,7 +3241,7 @@
     </property>
     <property key="ContentWebSiteAddNewErrors">
         <value xml:lang="en">Web Site Add New Errors</value>
-        <value xml:lang="en">Nouvelles erreurs du site web</value>
+        <value xml:lang="fr">Nouvelles erreurs du site web</value>
     </property>
     <property key="ContentWebSiteAddNewMenus">
         <value xml:lang="da">Højreklik for at oprette ny menu</value>

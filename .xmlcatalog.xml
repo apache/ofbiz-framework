@@ -19,8 +19,8 @@
     under the License.
 -->
 
-<!-- This is the catalog of OFBiz XML schemas for Eclipse. Just import it and this will avoid Eclipse to go to the web for checking the xml files against their schema. 
-     More at https://cwiki.apache.org/confluence/display/OFBIZ/Eclipse+Tips#EclipseTips-xmlCatalog
+<!-- This is the catalog of OFBiz XML schemas for Eclipse. Just import it and this will avoid Eclipse to go to the web for checking the xml files against their schema.
+     More at https://s.apache.org/u2qsi
 -->
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <nextCatalog catalog="platform:/resource/ofbiz/framework/base/dtd/base-catalog.xml"/>

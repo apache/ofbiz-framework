@@ -21,7 +21,7 @@ package org.apache.ofbiz.common.status;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;

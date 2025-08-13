@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -53,7 +53,7 @@ import org.w3c.dom.Element;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
+import freemarker.ext.beans.GenericObjectModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -96,7 +96,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public static class StringHtmlWrapperForFtl extends StringModel {
+    public static class StringHtmlWrapperForFtl extends GenericObjectModel {
         public StringHtmlWrapperForFtl(String str, BeansWrapper wrapper) {
             super(str, wrapper);
         }
@@ -316,7 +316,7 @@ public class HtmlWidget extends ModelScreenWidget {
                         String type = script.attr("type");
                         String src = script.attr("src");
                         if (UtilValidate.isEmpty(src)) {
-                            if (UtilValidate.isEmpty(type) || "application/javascript".equals(type)) {
+                            if (UtilValidate.isEmpty(type) || "text/javascript".equals(type)) {
                                 scripts.append(script.data());
                                 script.remove();
                             }

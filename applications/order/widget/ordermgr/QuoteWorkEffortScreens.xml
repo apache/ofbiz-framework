@@ -40,7 +40,7 @@ under the License.
                                         <not><if-empty field="quote"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                                        <include-menu name="QuoteTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                                 <container>

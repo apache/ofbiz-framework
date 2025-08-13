@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
@@ -96,6 +96,32 @@ public final class ThemeFactory {
     }
 
     /**
+     * Helper method for getThemeXmlFiles
+     * @return
+     * @throws IOException
+     */
+    private static List<File> checkForWidgetFolder(String folderPath) throws IOException {
+        File folder = new File(folderPath);
+        List<File> xmlThemes = new ArrayList<File>();
+        if (folder.exists() && folder.isDirectory()) {
+            File[] subFolders = folder.listFiles(File::isDirectory);
+
+            if (subFolders != null) {
+                for (File subFolder : subFolders) {
+                    File widgetFolder = new File(subFolder, "widget");
+                    if (widgetFolder.exists() && widgetFolder.isDirectory()) {
+                        List<File> xmlPluginThemes = FileUtil.findXmlFiles(widgetFolder.getPath(), null, "theme", "widget-theme.xsd");
+                        if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
+                            xmlThemes.addAll(xmlPluginThemes);
+                        }
+                    }
+                }
+            }
+        }
+        return xmlThemes;
+    }
+
+    /**
      * Scan all Theme.xml definition
      * @return
      * @throws IOException
@@ -104,11 +130,10 @@ public final class ThemeFactory {
         String ofbizHome = System.getProperty("ofbiz.home");
         String themeFolderPath = ofbizHome + "/themes";
         String pluginsFolderPath = ofbizHome + "/plugins";
-        List<File> xmlThemes = FileUtil.findXmlFiles(themeFolderPath, null, "theme", "widget-theme.xsd");
-        List<File> xmlPluginThemes = FileUtil.findXmlFiles(pluginsFolderPath, null, "theme", "widget-theme.xsd");
-        if (UtilValidate.isNotEmpty(xmlPluginThemes)) {
-            xmlThemes.addAll(xmlPluginThemes);
-        }
+
+        List<File> xmlThemes = checkForWidgetFolder(themeFolderPath);
+        xmlThemes.addAll(checkForWidgetFolder(pluginsFolderPath));
+
         return xmlThemes;
     }
 
@@ -211,7 +236,9 @@ public final class ThemeFactory {
         String visualThemeId = null;
         if (request != null) {
             HttpSession session = request.getSession();
-            GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+            GenericValue userLogin = session != null
+                    ? (GenericValue) session.getAttribute("userLogin")
+                    : null;
             //search on request only if a userLogin is present on session (otherwise this implied that the user isn't identify so wait
             if (userLogin != null) {
                 VisualTheme visualTheme = (VisualTheme) session.getAttribute("visualTheme");
@@ -233,7 +260,7 @@ public final class ThemeFactory {
             }
 
             //resolve from webapp
-            if (visualThemeId == null) {
+            if (visualThemeId == null && session != null) {
                 ServletContext servletContext = request.getServletContext();
                 visualThemeId = servletContext.getInitParameter("visualThemeId");
             }

@@ -391,6 +391,10 @@
         <value xml:lang="zh">找到的补充方法未知</value>
         <value xml:lang="zh-TW">找到的補充方法未知</value>
     </property>
+    <property key="AccountingFixedAssetNotFound">
+        <value xml:lang="en">Fixed asset not found</value>
+        <value xml:lang="fr">Immobilisation non trouvée</value>
+    </property>
     <property key="AccountingGiftCardCannotBeCreated">
         <value xml:lang="ar">خطأ: لا يمكن خلق بطاقة الهدية (فشل توليد الدليل)</value>
         <value xml:lang="de">FEHLER: Kann Geschenkkarte nicht erstellen (Fehler bei Id Erstellung)</value>

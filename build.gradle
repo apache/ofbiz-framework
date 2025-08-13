@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
@@ -24,20 +23,21 @@ import org.asciidoctor.gradle.jvm.AsciidoctorTask
  * Project setup
  * ======================================================== */
 plugins {
-    id 'application'
+    id 'application' // plugins that are versioned as part of Gradle are using simple quotes to differentiate them
     id 'groovy'
     id 'eclipse'
     id 'checkstyle'
+    id 'codenarc'
     id 'maven-publish'
-    id 'at.bxm.svntools' version '3.1'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
-    id 'org.asciidoctor.jvm.pdf' version '3.3.2'
-    id 'org.owasp.dependencycheck' version '7.4.4' apply false
-    id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
-    id 'com.github.ben-manes.versions' version '0.42.0' apply false
-    id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
-    id "com.github.jakemarsden.git-hooks" version "0.0.2"
-    id "com.github.node-gradle.node" version "3.5.0"
+    id "org.asciidoctor.jvm.convert" version "latest.release"
+    id "org.asciidoctor.jvm.pdf" version "latest.release"
+    id "org.owasp.dependencycheck" version "latest.release" apply false
+    //id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
+    id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
+    id "com.github.ben-manes.versions" version "latest.release" apply false
+    id "com.github.ManifestClasspath" version "latest.release"
+    id "com.github.jakemarsden.git-hooks" version "latest.release"
+    id "com.github.node-gradle.node" version "latest.release" apply false
 }
 
 /* OWASP plugin
@@ -49,7 +49,7 @@ plugins {
  * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
  */
 if (project.hasProperty('enableOwasp')) {
-     apply plugin: 'org.owasp.dependencycheck'
+    apply plugin: 'org.owasp.dependencycheck'
 }
 
 /* DependencyUpdates plugin
@@ -68,11 +68,49 @@ if (project.hasProperty('enableOwasp')) {
  *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
  */
 if (project.hasProperty('enableDependencyUpdates')) {
-     apply plugin: 'com.github.ben-manes.versions'
-     apply plugin: 'se.patrikerdes.use-latest-versions'
+    apply plugin: 'com.github.ben-manes.versions'
+    apply plugin: 'se.patrikerdes.use-latest-versions'
 }
 
+/* Configuration and default values. By default not available as it breacks Gradle build even when useLatestVersionsCheck (see above) is used.
+useLatestVersions {
+   // A whitelist of dependencies to update, in the format of group:name
+   // Equal to command line: --update-dependency=[values]
+   updateWhitelist = []
+   // A blacklist of dependencies to update, in the format of group:name
+   // Equal to command line: --ignore-dependency=[values]
+   updateBlacklist = []
+   // When enabled, root project gradle.properties will also be populated with
+   // versions from subprojects in multi-project build
+   // Equal to command line: --update-root-properties
+   updateRootProperties = false
+   // By default plugin tries to find all relevant gradle files (e.g. *.gradle, gradle.properties etc).
+   // This can be slow in some cases when project has a lot of gradle files. For example when using conventions
+   // in buildSrc. With this option you can specify what files should plugin search and check. Plugin will ignore
+   // files that don't exist. Empty list means use default strategy. File paths are relative to project dir.
+   //
+   // Example:
+   // versionFiles = ["gradle.build", "gradle.properties"]
+   // Will check just $projectDir/gradle.build and $projectDir/gradle.properties
+   //
+   // Note:
+   // You always have to specify file that has dependencies in some common dependency format with artifact coordinates,
+   // e.g. compileOnly "group:module:version" or compileOnly("group:module:version") or val dependency = "group:module:version" etc.
+   // For example if you set just versionFiles = ["gradle.properties"] this won't work, since plugin
+   // won't be able to correlate variable with artifact coordinates.
+   //
+   // Equal to command line: --version-files=[values]
+   versionFiles = []
+   // List of root project files to update when updateRootProperties is enabled.
+   // `build.gradle` is not an acceptable entry here as it breaks other expected
+   // functionality. Version variables in `build.gradle` need to be moved into
+   // a separate file which can be listed here.
+   // Equal to command line: --root-version-files=[values]
+   //rootVersionFiles = ['gradle.properties']
+}*/
+
 apply from: 'common.gradle'
+apply from: 'dependencies.gradle'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
@@ -80,12 +118,12 @@ ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
 ext.pluginsDir = "${rootDir}/plugins"
 
 application {
-    mainClassName = 'org.apache.ofbiz.base.start.Start'
+    mainClass = 'org.apache.ofbiz.base.start.Start'
     applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
             ? jvmArgs.tokenize()
             : ['-Xms128M','-Xmx1024M',
             '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
-            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
+//            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
             '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
             ]
 }
@@ -105,32 +143,13 @@ javadoc {
         // versions declared in the 'dependencies' block.
         links(
             'https://docs.oracle.com/javase/17/docs/api',
-            'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-            'http://docs.groovy-lang.org/docs/groovy-3.0.13/html/api',
+            'https://tomcat.apache.org/tomcat-10.1-doc/servletapi/',
+            'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
-}
-
-node {
-    download = true
-    version = "16.13.1"
-    // npmVersion will be the one that comes default with node
-
-    // https://github.com/node-gradle/gradle-node-plugin/blob/2.2.4/README.md
-    // Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/themes/common-theme/webapp/common-theme/js")
-    // If you set a "CI" env var then ci only will be used:
-    // https://github.com/node-gradle/gradle-node-plugin/blob/master/docs/faq.md#how-do-i-use-npm-ci-instead-of-npm-install
-    npmInstallCommand = System.getenv("CI") ? 'ci' : 'install'
-}
-
-tasks.getByName("distTar") {
-    dependsOn "npmInstall"
-}
-
-tasks.getByName("distZip") {
-    dependsOn "npmInstall"
+    options as StandardJavadocDocletOptions
+    //options.addStringOption('Xmaxwarns', '0') // Setting to 0 means all warnings (default 100). We have currently (2025/03/16) 12167 warnings!
 }
 
 java {
@@ -142,12 +161,10 @@ java {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     if (!project.hasProperty('Xlint:none')) {
-    options.compilerArgs << "-Xlint:all"
-    // Exclude varargs warnings which are not silenced by @SafeVarargs.
-        options.compilerArgs << "-Xlint:-varargs"
+        options.compilerArgs << '-Xlint:all'
+        // Exclude varargs warnings which are not silenced by @SafeVarargs.
+        options.compilerArgs << '-Xlint:-varargs'
     }
-    // Executes on each compilation so that if dependencies are not downloaded yet or some new dependencies are added they get automatically downloaded
-    if (!project.hasProperty('skipNpmInstall')) finalizedBy 'npmInstall'
 }
 
 // Only used for release branches
@@ -162,18 +179,18 @@ def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
 defaultTasks 'jar', 'test'
 
 allprojects {
-    repositories{
+    repositories {
         mavenCentral()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
         maven {
             // org.restlet and org.restlet.ext.servlet
-            url "https://maven.restlet.talend.com"
+            url 'https://maven.restlet.talend.com'
         }
         maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url "https://packages.atlassian.com/maven-3rdparty/"
+            url 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
@@ -186,13 +203,19 @@ allprojects {
             }
         }
         maven {
-            url "https://clojars.org/repo"
+            url 'https://clojars.org/repo'
         }
         maven {
             // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
             url "https://repository.ow2.org/nexus/content/repositories/public/"
         }
-
+        maven {
+            url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
+        }
+        /* maven {
+            // To test not released FreeMarker versions, see OFBIZ-12934 and sub-tasks for details
+            url "https://repository.apache.org/content/repositories/snapshots/"
+        } */
     }
 }
 
@@ -217,91 +240,18 @@ configurations {
     }
 }
 
+configurations.all {
+    exclude group: 'log4j', module: 'log4j'
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    exclude group: 'xml-apis', module: 'xml-apis'
+    exclude group: 'jaxen', module: 'jaxen'
+    exclude group: 'javax.xml.stream', module: 'stax-api'
+    exclude group: 'org.apache.geronimo.specs', module: 'geronimo-stax-api_1.0_spec'
+    exclude group: 'org.apache.geronimo.specs', module: 'geronimo-jta_1.1_spec'
+    exclude group: 'javax.transaction', module: 'jta'
+}
+
 dependencies {
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
-    implementation 'com.google.zxing:core:3.5.1'
-    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.11.3'
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.57'
-    implementation 'com.ibm.icu:icu4j:72.1'
-    implementation ('com.lowagie:itext:2.1.7') { // Don't update due to license change in newer versions, see OFBIZ-10455
-        exclude  group: 'bouncycastle', module: 'bcmail-jdk14'
-        exclude  group: 'bouncycastle', module: 'bcprov-jdk14'
-        exclude  group: 'bouncycastle', module: 'bctsp-jdk14'
-    }
-    implementation 'com.sun.mail:javax.mail:1.6.2'
-    implementation 'com.rometools:rome:1.18.0'
-    implementation 'com.thoughtworks.xstream:xstream:1.4.19'
-    implementation 'commons-cli:commons-cli:1.5.0'
-    implementation 'commons-fileupload:commons-fileupload:1.5'
-    implementation 'commons-net:commons-net:3.8.0'
-    implementation 'commons-validator:commons-validator:1.7'
-    implementation 'de.odysseus.juel:juel-impl:2.2.7'
-    implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
-    implementation 'net.lingala.zip4j:zip4j:2.11.2'
-    implementation 'org.apache.ant:ant-junit:1.10.12'
-    implementation 'org.apache.commons:commons-collections4:4.4'
-    implementation 'org.apache.commons:commons-csv:1.9.0'
-    implementation 'org.apache.commons:commons-dbcp2:2.9.0'
-    implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component."
-    implementation 'org.apache.commons:commons-text:1.10.0'
-    implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5'
-    implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
-    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.13'
-    implementation 'org.apache.logging.log4j:log4j-api:2.19.0' // the API of log4j 2
-    implementation 'org.apache.logging.log4j:log4j-core:2.19.0' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
-    implementation 'org.apache.poi:poi:4.1.2' // poi-ooxml-schemas-5.0.0.pom'. Received status code 401 from server
-    implementation 'org.apache.pdfbox:pdfbox:2.0.27'
-    implementation 'org.apache.shiro:shiro-core:1.10.1'
-    implementation 'org.apache.sshd:sshd-core:2.9.1'
-    implementation 'org.apache.sshd:sshd-sftp:2.9.1'
-    implementation 'org.apache.tika:tika-core:2.5.0'
-    implementation 'org.apache.tika:tika-parsers:2.5.0'
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.5.0'
-    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.5.4'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.72' // Remember to change the version number (9 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.72'
-    implementation 'org.apache.axis2:axis2-kernel:1.8.2'
-    implementation 'batik:batik-svg-dom:1.6-1'
-    implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
-    implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
-    implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
-    implementation 'org.clojure:clojure:1.11.1'
-    implementation 'org.codehaus.groovy:groovy-all:3.0.13'
-    implementation 'org.freemarker:freemarker:2.3.32' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
-    implementation 'org.owasp.esapi:esapi:2.5.0.0'
-    implementation 'org.cyberneko:html:1.9.8'
-    implementation 'org.springframework:spring-test:5.3.23'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
-    implementation 'oro:oro:2.0.8'
-    implementation 'wsdl4j:wsdl4j:1.6.3'
-    implementation 'com.auth0:java-jwt:4.2.1'
-    implementation 'org.jdom:jdom:1.1.3' // don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
-    implementation 'com.google.re2j:re2j:1.7'
-    implementation 'xerces:xercesImpl:2.12.2'
-
-
-    testImplementation 'org.hamcrest:hamcrest-library:2.2' // Enable junit4 to not depend on hamcrest-1.3
-    testImplementation 'org.mockito:mockito-core:4.8.1'
-    testImplementation 'org.jmockit:jmockit:1.49'
-    testImplementation 'com.pholser:junit-quickcheck-generators:1.0'
-
-    runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
-    runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
-    runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
-    runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
-    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
-    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
-    runtimeOnly 'org.apache.derby:derby:10.14.2.0' // So far we did not update from 10.14.2.0 because of a runtime issue with 10.16.1.1: java.lang.ClassNotFoundException: org.apache.derby.jdbc.EmbeddedDriver
-    runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.19.0' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.19.0' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.19.0' // for external jars using slf4j: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.19.0' //???
-    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.19.0' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
-    runtimeOnly 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
-
     // Dependencies defined by the plugins
     subprojects.each { subProject ->
         implementation project(path: subProject.path, configuration: 'pluginLibsCompile')
@@ -310,7 +260,7 @@ dependencies {
     }
 
     junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.12'
+    junitReport 'org.apache.ant:ant-junit:1.10.15'
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
@@ -332,6 +282,7 @@ def excludedJavaSources = [
 ]
 
 sourceSets {
+    // This is for integration tests (DB access)
     main {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
@@ -346,37 +297,31 @@ sourceSets {
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
         }
     }
-
+    // This is for unit tests  (no DB access)
     test {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
         }
+        // Groovy tests often fail, because JUNIT does not have access to the ofbiz enviroment.
+        // If a groovy test is supposed to be tested this way, it can be added here.
         groovy {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
+            include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
+            include 'org/apache/ofbiz/test/TestServices.groovy'
+            include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.groovy'
+            include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
+            include 'org/apache/ofbiz/service/test/ServicePurgeTest.groovy'
+            include 'org.apache.ofbiz.base.test.SimpleTests.groovy'
         }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
         }
     }
-
-    groovyScripts {
-        groovy {
-            srcDirs += getDirectoryInActiveComponentsIfExists('groovyScripts')
-            compileClasspath += sourceSets.main.compileClasspath
-            compileClasspath += sourceSets.main.output
-        }
-    }
-}
-
-tasks.named('compileGroovyScriptsGroovy') {
-    // We don't want to build groovyScripts as they should be considered as standalone elements executed in
-    // isolation by ofbiz. Building them will result in numerous error due to duplicated classes.
-    enabled = false
 }
 
 jar.manifest.attributes(
     'Implementation-Title': project.name,
-    'Main-Class': application.mainClassName,
+    'Main-Class': application.mainClass,
     'Class-Path': getJarClasspath()
 )
 
@@ -388,11 +333,23 @@ checkstyle {
     // 'checkstyle' tool present in the framework and in the official
     // plugins.
     tasks.checkstyleMain.maxErrors = 0
+    // Increase memory for checkstyleMain required for Gradle 8+.
+    tasks.checkstyleMain.maxHeapSize = '1g'
     // Currently there are no errors so we can show new one when they appear
     showViolations = true
+    // Specify tool version so we can keep it up-to-date
+    toolVersion = '10.20.2'
 }
 gitHooks {
-    hooks = ['pre-push': 'checkstyleMain']
+    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
+}
+
+// Checks OFBiz Groovy coding conventions.
+codenarc {
+    setConfigFile(new File('config/codenarc/codenarc.groovy'))
+    setMaxPriority1Violations(0)
+    setMaxPriority2Violations(403)
+    setMaxPriority3Violations(3920)
 }
 
 // Eclipse plugin settings
@@ -401,29 +358,27 @@ eclipse.classpath.file.whenMerged { classpath ->
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def fileSep = System.getProperty("file.separator")
+    def fileSep = System.getProperty('file.separator')
 
     activeComponents().each { component ->
         def componentName = component.toString() - rootDir.toString() - fileSep
-        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", "/") : componentName
+        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", '/') : componentName
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
-            entry.kind == 'src' && !(entry.path ==~ 'framework/base/config' || entry.path ==~ 'framework/base/dtd') && (
+            entry.kind == 'src' && (
             entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
-            entry.path ==~ /(\/+themes)$/ ||
-            entry.path ==~ eclipseEntry + '/config' ||
-            entry.path ==~ eclipseEntry + '/dtd')
+            entry.path ==~ /(\/+themes)$/ )
         }
     }
 }
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
-    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+    jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
 /* ========================================================
@@ -538,11 +493,11 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) {
         doLast {
             def filterTokens = ['tenantId': tenantId,
-                'tenantName': project.hasProperty('tenantName')? tenantName : tenantId,
-                'domainName': project.hasProperty('domainName')? domainName : 'org.apache.ofbiz',
-                'db-IP': project.hasProperty('dbIp')? dbIp : '',
-                'db-User': project.hasProperty('dbUser')? dbUser : '',
-                'db-Password': project.hasProperty('dbPassword')? dbPassword : '']
+                'tenantName': project.hasProperty('tenantName') ? tenantName : tenantId,
+                'domainName': project.hasProperty('domainName') ? domainName : 'org.apache.ofbiz',
+                'db-IP': project.hasProperty('dbIp') ? dbIp : '',
+                'db-User': project.hasProperty('dbUser') ? dbUser : '',
+                'db-Password': project.hasProperty('dbPassword') ? dbPassword : '']
 
             generateFileFromTemplate(databaseTemplateFile, 'runtime/tmp',
                 filterTokens, 'tmpFilteredTenantData.xml')
@@ -598,8 +553,8 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    inProcess = JAVA_EXEC
-        forkOptions {
+    executionMode = JAVA_EXEC
+        jvm {
             jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
         }
     outputOptions {
@@ -647,9 +602,10 @@ task generateReadmeFiles(group: docsGroup, type: AsciidoctorTask) {
     doFirst { delete "${buildDir}/asciidoc/readme" }
     description 'Generate OFBiz README files'
     sourceDir "${rootDir}"
+    // CHANGELOG.adoc should be only present in the current stable version
     sources {
-        include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc'
-      }
+        include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'
+    }
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
@@ -666,9 +622,9 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     sourceDir "${rootDir}/docs/asciidoc"
     outputDir file("${buildDir}/asciidoc/ofbiz")
     doLast {
-      activeComponents().each { component ->
-          delete "${rootDir}/docs/asciidoc/images/${component.name}"
-      }
+        activeComponents().each { component ->
+            delete "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
     }
 }
 
@@ -689,10 +645,10 @@ task generatePluginDocumentation(group: docsGroup) {
                     outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                     doLast { println "Documentation generated for plugin ${component.name}" }
                 } else {
-                      println "No documentation found for plugin ${component.name}"
-                  }
-            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-            mustRunAfter deletePluginDocumentation
+                    println "No documentation found for plugin ${component.name}"
+                }
+                doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
             doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
@@ -758,18 +714,18 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         def gitFolder = rootProject.file('.git')
 
         if (!gitFolder.exists()) {
-          println ("Git is not used")
-          return
+            println ('Git is not used')
+            return
         }
 
         def branchOutput = new ByteArrayOutputStream()
-        exec{
+        exec {
             commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
             standardOutput = branchOutput
         }
         branch = branchOutput.toString()
         def revisionOutput = new ByteArrayOutputStream()
-        exec{
+        exec {
             commandLine 'git', 'rev-parse', 'HEAD'
             standardOutput = revisionOutput
         }
@@ -805,9 +761,9 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def pluginDir = "${pluginsDir}/${pluginId}"
 
         ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
-                'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+                'patches/production', 'src/main/groovy', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
-            mkdir pluginDir+'/'+it
+            mkdir pluginDir + '/' + it
         }
 
         [   [tempName:'ofbiz-component.xml', newName:'ofbiz-component.xml', location:''],
@@ -909,8 +865,8 @@ task pushPlugin(group: ofbizPlugin, description: 'push an existing plugin to loc
             publications {
                 ofbizPluginPublication(MavenPublication) {
                     artifactId pluginId
-                    groupId project.hasProperty('pluginGroup')? pluginGroup :'org.apache.ofbiz.plugin'
-                    version project.hasProperty('pluginVersion')? pluginVersion :'0.1.0-SNAPSHOT'
+                    groupId project.hasProperty('pluginGroup') ? pluginGroup : 'org.apache.ofbiz.plugin'
+                    version project.hasProperty('pluginVersion') ? pluginVersion : '0.1.0-SNAPSHOT'
 
                     artifact createPluginArchive
 
@@ -977,60 +933,6 @@ task pullPlugin(group: ofbizPlugin, description: 'Download and install a plugin 
     }
 }
 
-task pullPluginSource(group: ofbizPlugin, description: 'Download and install a plugin from source control') {
-
-    if (project.hasProperty('pluginId')) {
-        // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
-        task pullPluginFromSvn(type: SvnCheckout) {
-            def currentBranch = getCurrentGitBranch()
-            // Only used for release branches
-            if (currentBranch == "trunk") {
-                svnUrl = "https://github.com/apache/ofbiz-plugins/trunk/${pluginId}"
-            } else {
-                svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch + "/${pluginId}"
-            }
-            workspaceDir = "${pluginsDir}/${pluginId}"
-        }
-        dependsOn pullPluginFromSvn
-    }
-    doLast {
-        gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
-    }
-}
-
-task pullAllPluginsSource(group: ofbizPlugin,
-        description: 'Download and install all plugins from source control. Warning! deletes existing plugins') {
-
-    task deleteBeforePulling {
-        doLast { delete "${pluginsDir}" }
-    }
-    task pullPluginsFromSvn(type: SvnCheckout, dependsOn: deleteBeforePulling) {
-        // GitHub SVN feature https://docs.github.com/en/github/importing-your-projects-to-github/working-with-subversion-on-github/support-for-subversion-clients
-        def currentBranch = getCurrentGitBranch()
-        // Only used for release branches
-        if (currentBranch == "trunk") {
-            svnUrl = "https://github.com/apache/ofbiz-plugins/trunk"
-        } else {
-            svnUrl = "https://github.com/apache/ofbiz-plugins/branches/" + currentBranch
-        }
-        workspaceDir = "${pluginsDir}"
-    }
-    dependsOn pullPluginsFromSvn
-
-    task installAllPlugins {
-        subdirs(file("${pluginsDir}"))
-            .filter(this.isComponentEnabled)
-            .filter { taskExistsInproject(":plugins:${it.name}", 'install') }
-            .forEach({ plugin ->
-                dependsOn ":plugins:${plugin.name}:install"
-                doLast { println "installed plugin ${plugin.name}" }
-            })
-    }
-    doLast {
-        gradlewSubprocess(['installAllPlugins'])
-    }
-}
-
 // ========== Clean up tasks ==========
 task cleanCatalina(group: cleanupGroup, description: 'Clean Catalina data in runtime/catalina/work') {
     doLast { delete "${rootDir}/runtime/catalina/work" }
@@ -1074,11 +976,6 @@ task cleanFooterFiles(group: cleanupGroup, description: 'clean generated footer 
         delete gitFooterFile
     }
 }
-task cleanNpm(group: cleanupGroup, description: 'clean node modules') {
-    doLast {
-        delete "${project.projectDir}/themes/common-theme/webapp/common-theme/js/node_modules"
-    }
-}
 /*
  * Keep this task below all other clean tasks  The location of
  * declaration is important because it means that it will automatically
@@ -1114,7 +1011,7 @@ def createOfbizCommandTask(taskName, arguments) {
     task(type: JavaExec, dependsOn: classes, taskName) {
         jvmArgs(application.applicationDefaultJvmArgs)
         classpath = sourceSets.main.runtimeClasspath
-        main = application.mainClassName
+        mainClass = application.mainClass
         args arguments
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             finalizedBy(createTestReports)
@@ -1129,14 +1026,14 @@ def createOfbizBackgroundCommandTask(taskName) {
 
     task (taskName) {
         doLast {
-            spawnProcess([gradlew, "--no-daemon", serverCommand])
+            spawnProcess([gradlew, '--no-daemon', serverCommand])
         }
     }
 }
 
 def spawnProcess(command) {
     ProcessBuilder pb = new ProcessBuilder(command)
-    File consoleLog = file("${rootDir}/runtime/logs/console.log");
+    File consoleLog = file("${rootDir}/runtime/logs/console.log")
 
     pb.directory(file("${rootDir}"))
     pb.redirectErrorStream(true)
@@ -1152,7 +1049,7 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
 
 def deleteAllInDirWithExclusions(dirName, exclusions) {
     ant.delete (includeEmptyDirs: 'true', verbose: 'on') {
-        fileset(dir: dirName, includes: '**/*', erroronmissingdir: "false") {
+        fileset(dir: dirName, includes: '**/*', erroronmissingdir: 'false') {
             exclusions.each { exclusion ->
                 exclude name: exclusion
             }
@@ -1188,7 +1085,7 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 }
 
 def gradlewSubprocess(commandList) {
-    exec { commandLine(gradlew, "--no-daemon", *commandList) }
+    exec { commandLine(gradlew, '--no-daemon', *commandList) }
 }
 
 

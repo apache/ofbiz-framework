@@ -15790,7 +15790,7 @@
         <value xml:lang="hi-IN">वेब टूल्स</value>
         <value xml:lang="it">Strumenti web</value>
         <value xml:lang="ja">Webツール</value>
-        <value xml:lang="nl">FrameworkTools</value>
+        <value xml:lang="nl">Systeembeheer</value>
         <value xml:lang="pt">FerramentasWeb</value>
         <value xml:lang="pt-BR">WebTools</value>
         <value xml:lang="ro">Instrumente Web</value>
@@ -16138,6 +16138,11 @@
         <value xml:lang="zh">俄语</value>
         <value xml:lang="zh-TW">俄語</value>
     </property>
+   <property key="tr">
+      <value xml:lang="en">Turkish</value>
+      <value xml:lang="fr">Turk</value>
+      <value xml:lang="tr">Türkçe</value>
+   </property>
     <property key="zh">
         <value xml:lang="ar">صينية</value>
         <value xml:lang="cs">Čínština</value>

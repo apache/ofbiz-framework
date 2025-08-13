@@ -78,13 +78,14 @@ component-name-here/
 ├── config/              - Properties and translation labels (i18n)
 ├── data/                - XML data to load into the database
 ├── entitydef/           - Defined database entities
-├── groovyScripts/       - A collection of scripts written in Groovy
 ├── minilang/            - A collection of scripts written in minilang (deprecated)
 ├── ofbiz-component.xml  - The OFBiz main component configuration file
 ├── servicedef           - Defined services.
 ├── src/
     ├── docs/            - component documentation source
+    └── main/groovy/     - A collection of scripts written in Groovy
     └── main/java/       - java source code
+    └── test/groovy/     - A collection of scripts written in Groovy
     └── test/java/       - java unit-tests
 ├── testdef              - Defined integration-tests
 ├── webapp               - One or more Java webapps including the control servlet
@@ -190,11 +191,11 @@ Continuing the example, the FindInvoices screen contains many details including
 two forms. One form is for entering invoice search fields and the other form
 displays search results.
 
-include::_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
+include::docs/asciidoc/_include/OFBizDocumentationSystem.adoc[leveloffset=+2]
 
 == Web Framework
 
-include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
+include::framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 
 === Control Servlet
 
@@ -202,7 +203,7 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 
 ==== Views
 
-include::../../framework/entity/src/docs/asciidoc/entity-engine.adoc[leveloffset=+1]
+include::framework/entity/src/docs/asciidoc/entity-engine.adoc[leveloffset=+1]
 
 === Entities
 
@@ -216,13 +217,13 @@ include::../../framework/entity/src/docs/asciidoc/entity-engine.adoc[leveloffset
 
 === XML Data
 
-include::../../framework/datafile/src/docs/asciidoc/datafiles.adoc[leveloffset=+2]
+include::framework/datafile/src/docs/asciidoc/datafiles.adoc[leveloffset=+2]
 
 === Entity engine configuration
 
 === Supported databases
 
-include::../../applications/datamodel/DATAMODEL_CHANGES.adoc[leveloffset=+2]
+include::applications/datamodel/DATAMODEL_CHANGES.adoc[leveloffset=+2]
 
 == Service Engine
 A description of the service engine can be found at the
@@ -249,10 +250,11 @@ https://cwiki.apache.org/confluence/display/OFBIZ/Service+Engine+Guide[OFBiz wik
 === Tree Widget
 
 === Portal Widget
+See https://cwiki.apache.org/confluence/display/OFBIZ/Developing+Portlets
 
 === Platform Specific Code
 
-include::../../themes/docs/themes.adoc[leveloffset=+2]
+include::themes/docs/themes.adoc[leveloffset=+2]
 
 == Core APIs
 
@@ -273,13 +275,13 @@ include::../../themes/docs/themes.adoc[leveloffset=+2]
 === Web tools
 The Webtools application is the UI-gateway to all the framework functions.
 
-include::../../framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
+include::framework/webtools/src/docs/asciidoc/_include/webtools-main.adoc[leveloffset=+3]
 
-include::../../framework/minilang/src/docs/asciidoc/minilang-to-groovy-manual.adoc[leveloffset=+1]
+include::framework/minilang/src/docs/asciidoc/minilang-to-groovy-manual.adoc[leveloffset=+1]
 
 == Testing
 
-include::../../framework/testtools/src/docs/asciidoc/unit-tests.adoc[leveloffset=+2]
+include::framework/testtools/src/docs/asciidoc/unit-tests.adoc[leveloffset=+2]
 
 === Integration Tests
 
@@ -290,12 +292,12 @@ https://cwiki.apache.org/confluence/display/OFBIZ/Framework+Configuration+Guide[
  (some points are not up to date).
 
 
-include::../../framework/base/src/docs/asciidoc/email.adoc[leveloffset=+2]
+include::framework/base/src/docs/asciidoc/email.adoc[leveloffset=+2]
 
-include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
+include::framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices
 
 // Developers Plugins
 
-include::../../plugins/docs/asciidoc/plugins-developer-manual.adoc[leveloffset=+1]
+include::plugins/docs/asciidoc/plugins-developer-manual.adoc[leveloffset=+1]

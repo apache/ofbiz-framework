@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductFindFacilities"/>
                 <set field="headerItem" value="facility"/>
-                <script location="component://product/groovyScripts/facility/facility/FindFacility.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/FindFacility.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -42,7 +42,7 @@ under the License.
                                         <if-compare field="showScreen" value="one" operator="equals"/>
                                     </condition>
                                     <actions>
-                                        <script location="component://product/groovyScripts/facility/facility/EditFacility.groovy"/>
+                                        <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/EditFacility.groovy"/>
                                     </actions>
                                     <widgets>
                                         <section>
@@ -50,8 +50,8 @@ under the License.
                                                 <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="FacilityTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
-                                                <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                                <include-menu name="FacilityTabBar" location="${parameters.mainMenuLocation}"/>
+                                                <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                                 <section>
                                                     <condition>
                                                         <not><if-empty field="facilityId"/></not>
@@ -77,7 +77,7 @@ under the License.
                                         <if-compare field="showScreen" value="ten" operator="equals"/>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                         <label text="${uiLabelMap.FacilitySelection}" style="h1"/>
                                         <screenlet>
                                             <include-form name="FindFacility10" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -89,7 +89,7 @@ under the License.
                                         <if-compare field="showScreen" value="more" operator="equals"/>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityActionBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                        <include-menu name="FacilityActionBar" location="${parameters.mainMenuLocation}"/>
                                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                             <decorator-section name="search-options">
                                                 <include-form name="FindFacilityOptions" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -131,7 +131,7 @@ under the License.
                 <set field="titleProperty" value="ProductNewFacility"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacility"/>
-                <script location="component://product/groovyScripts/facility/facility/EditFacility.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/EditFacility.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -220,7 +220,7 @@ under the License.
                 <set field="tabButtonItem" value="FindFacilityTransfers"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
-                <script location="component://product/groovyScripts/facility/facility/FindFacilityTransfers.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/FindFacilityTransfers.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -271,7 +271,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="FindFacilityLocation"/>
-                <script location="component://product/groovyScripts/facility/facility/FindFacilityLocation.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/FindFacilityLocation.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleFindFacilityLocation"/>
@@ -294,7 +294,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="FindFacilityLocation"/>
-                <script location="component://product/groovyScripts/facility/facility/EditFacilityLocation.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/EditFacilityLocation.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleNewFacilityLocation"/>
@@ -378,7 +378,7 @@ under the License.
 
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <entity-condition entity-name="InventoryItemLabelType" list="labelTypes"/>
-                <script location="component://product/groovyScripts/facility/facility/FindInventoryItemsByLabels.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/FindInventoryItemsByLabels.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -424,7 +424,7 @@ under the License.
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="statusId" from-field="parameters.statusId"/>
-                <script location="component://product/groovyScripts/facility/facility/ViewFacilityInventoryByProduct.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/ViewFacilityInventoryByProduct.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleFindFacilityInventoryItems"/>
@@ -432,7 +432,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
                                 <include-form name="FindFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -474,7 +474,7 @@ under the License.
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
 
-                <script location="component://product/groovyScripts/facility/facility/CountFacilityInventoryByProduct.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/CountFacilityInventoryByProduct.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -518,7 +518,7 @@ under the License.
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
 
-                <script location="component://product/groovyScripts/facility/facility/CountFacilityInventoryByProduct.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/CountFacilityInventoryByProduct.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
@@ -602,12 +602,12 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-                <script location="component://product/groovyScripts/facility/inventory/InventoryItemTotals.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/InventoryItemTotals.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}">
                             <include-grid name="ListInventoryItemTotals" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -624,14 +624,14 @@ under the License.
                 <set field="tabButtonItem2" value="InventoryItemGrandTotalsTab"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-                <script location="component://product/groovyScripts/facility/inventory/InventoryItemTotals.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/InventoryItemTotals.groovy"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" from-field="uiLabelMap.PageTitleInventoryItemGrandTotals"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${title}">
                             <include-grid name="ListInventoryItemGrandTotals" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -653,7 +653,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-                <script location="component://product/groovyScripts/facility/inventory/InventoryItemTotals.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/InventoryItemTotals.groovy"/>
             </actions>
             <widgets>
                 <container>
@@ -678,12 +678,12 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
 
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-                <script location="component://product/groovyScripts/facility/inventory/InventoryAverageCosts.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/InventoryAverageCosts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="ViewFacilityInventoryByProductTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.ProductInventoryAverageCosts} ${uiLabelMap.CommonFor} ${facility.facilityName}">
                             <include-grid name="ListInventoryAverageCosts" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
@@ -759,7 +759,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ViewContactMechs"/>
-                <script location="component://product/groovyScripts/facility/facility/ViewContactMechs.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/ViewContactMechs.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -808,7 +808,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ViewContactMechs"/>
-                <script location="component://product/groovyScripts/facility/facility/EditContactMech.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/EditContactMech.groovy"/>
 
                 <set field="dependentForm" value="editcontactmechform"/>
                 <set field="paramKey" value="countryGeoId"/>
@@ -892,7 +892,7 @@ under the License.
                                 <not><if-empty field="inventoryItem"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                                <include-menu name="InventoryItemTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="h1">
                                     <label text="${uiLabelMap.PageTitleEditInventoryItem}"/>
                                 </container>
@@ -928,7 +928,7 @@ under the License.
                                 <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                             </condition>
                             <actions>
-                                <script location="component://product/groovyScripts/facility/inventory/PhysicalInventoryVariance.groovy"/>
+                                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/PhysicalInventoryVariance.groovy"/>
                             </actions>
                             <widgets>
                                 <screenlet id="physical-inventory-variances" title="${uiLabelMap.ProductPhysicalInventoryVariances}" initially-collapsed="true">
@@ -966,7 +966,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="InventoryItemTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]">
                             <include-grid name="ListInventoryItemDetail" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
@@ -999,7 +999,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="InventoryItemTabBar" location="${parameters.mainMenuLocation}"/>
                         <screenlet id="AddInventoryItemLabelPanel" title="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]" collapsible="true">
                             <include-form name="AddInventoryItemLabelAppl" location="component://product/widget/facility/InventoryForms.xml"/>
                         </screenlet>
@@ -1017,7 +1017,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindFacilityPhysicalInventory"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="PhysicalInventory"/>
-                <script location="component://product/groovyScripts/facility/inventory/FindFacilityPhysicalInventory.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/FindFacilityPhysicalInventory.groovy"/>
 
             </actions>
             <widgets>
@@ -1039,7 +1039,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="FindFacilityTransfers"/>
-                <script location="component://product/groovyScripts/facility/inventory/TransferInventoryItem.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/TransferInventoryItem.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -1094,7 +1094,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ReceiveInventory"/>
-                <script location="component://product/groovyScripts/facility/inventory/ReceiveInventory.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/inventory/ReceiveInventory.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -1120,7 +1120,7 @@ under the License.
                 <set field="tabButtonItem" value="ReceiveReturn"/>
                 <set field="helpAnchor" value="_receive_return"/>
 
-                <script location="component://product/groovyScripts/facility/returns/ReceiveReturn.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/returns/ReceiveReturn.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -1194,7 +1194,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="pickMoveInfoList" from-field="parameters.pickMoveInfoList"/>
-                <script location="component://order/groovyScripts/order/CompanyHeader.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/order/CompanyHeader.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -1202,7 +1202,7 @@ under the License.
                         <not><if-empty field="pickMoveInfoList"/></not>
                     </condition>
                     <actions>
-                        <script location="component://product/groovyScripts/facility/shipment/PrintPickSheets.groovy"/>
+                        <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/shipment/PrintPickSheets.groovy"/>
                     </actions>
                     <widgets>
                         <section>
@@ -1233,7 +1233,7 @@ under the License.
     <screen name="ReviewOrdersNotPickedOrPacked">
         <section>
             <actions>
-                <script location="component://product/groovyScripts/facility/shipment/ReviewOrdersNotPickedOrPacked.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/shipment/ReviewOrdersNotPickedOrPacked.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -1475,7 +1475,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFacilityLocationGeoLocation"/>
-                <script location="component://product/groovyScripts/facility/facility/FacilityLocationGeoLocation.groovy"/>
+                <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/facility/FacilityLocationGeoLocation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1579,10 +1579,13 @@ under the License.
     </screen>
     <screen name="ShortcutApp">
         <section>
+            <actions>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://product/widget/facility/FacilityMenus.xml"/>
+            </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="FacilityShortcutAppBar" location="component://product/widget/facility/FacilityMenus.xml"/>
+                        <include-menu name="FacilityShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -1,21 +1,24 @@
 {
-    "name": "ofbiz-framework",
-    "description": "ofbiz-framework NPM dependencies configuration",
+    "name": "ofbiz-common-theme",
+    "description": "ofbiz-framework common-theme NPM dependencies configuration",
     "repository": "https://github.com/apache/ofbiz-framework.git",
     "license": "Apache-2.0",
     "dependencies": {
         "@chinchilla-software/jquery-ui-timepicker-addon": "^1.6.3",
-        "dompurify": "^3.0.1",
+        "daterangepicker": "^3.1.0",
+        "dompurify": "^3.2.6",
         "featherlight": "^1.7.14",
-        "flot": "^4.2.3",
-        "inputmask": "^5.0.8",
-        "jquery": "^3.6.4",
-        "jquery-migrate": "^3.4.1",
-        "jquery-ui-dist": "^1.13.2",
-        "jquery-validation": "^1.19.5",
+        "flot": "^4.2.6",
+        "inputmask": "^5.0.9",
+        "jquery": "^3.7.1",
+        "jquery-migrate": "^3.5.2",
+        "jquery-ui-dist": "^1.13.3",
+        "jquery-validation": "^1.21.0",
         "jquery.browser": "^0.1.0",
-        "trumbowyg": "^2.27.3",
-        "uglify-js": "3.17.4"
+        "moment-timezone": "^0.6.0",
+        "moment-with-locales-es6": "^1.0.1",
+        "trumbowyg": "^2.31.0",
+        "uglify-js": "3.19.3"
     },
     "scripts": {
         "uglify": "uglifyjs node_modules/flot/dist/es5/jquery.flot.js -c -m -o node_modules/flot/dist/es5/jquery.flot.min.js"

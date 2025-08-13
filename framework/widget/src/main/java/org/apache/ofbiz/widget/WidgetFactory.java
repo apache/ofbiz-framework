@@ -117,7 +117,8 @@ public final class WidgetFactory {
      * Registers a screen sub-widget with the factory. If a tag name is already
      * registered, the new widget replaces the existing one.<p>The class supplied
      * to the method must have a public two-argument constructor that takes a
-     * <code>ModelScreen</code> instance and an <code>Element</code> instance.</p>
+     * <code>ModelScreen</code> instance and an <code>Element</code> instance.
+     *
      * @param tagName The XML element tag name for this widget
      * @param widgetClass The class that implements the widget element
      * @throws SecurityException

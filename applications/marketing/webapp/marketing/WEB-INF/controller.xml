@@ -406,7 +406,7 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://marketing/widget/CommonScreens.xml#main"/>
+    <view-map name="main" type="screen" page="component://marketing/widget/CommonScreens.xml#Main"/>
     <view-map name="MarketingReport" type="screen" page="component://marketing/widget/MarketingReportScreens.xml#MarketingReportList"/>
 
     <view-map name="FindDataSource"  type="screen" page="component://marketing/widget/DataSourceScreens.xml#ListDataSource"/>

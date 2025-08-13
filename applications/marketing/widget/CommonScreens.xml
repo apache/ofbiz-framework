@@ -38,7 +38,7 @@ under the License.
                 <set field="activeApp" value="marketing" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.MarketingManagerApplication" global="true"/>
                 <set field="applicationMenuName" value="MarketingAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://marketing/widget/MarketingMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_marketing"/>
             </actions>
             <widgets>
@@ -59,7 +59,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -68,7 +68,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="ContactListTabBar" location="component://marketing/widget/ContactListMenus.xml"/>
+                                <include-menu name="ContactListTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -98,20 +98,20 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="main">
+    <screen name="Main">
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
+                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="${parameters.localDispatcherName}_MAIN" global="true"/>
+                <script location="component://common/src/main/groovy/org/apache/ofbiz/common/GetParentPortalPageId.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.MarketingManagerApplication}">
-                            <container><label style="label" text="${uiLabelMap.MarketingManagerWelcome}"/></container>
-                        </screenlet>
+                        <include-portal-page id="${parameters.portalPageId}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,11 +122,12 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://marketing/widget/MarketingMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="MarketingShortcutAppBar" location="component://marketing/widget/MarketingMenus.xml"/>
+                        <include-menu name="MarketingShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

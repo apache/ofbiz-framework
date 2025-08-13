@@ -30,6 +30,6 @@ under the License.
         <simple-method-test location="component://order/minilang/test/CustRequestTests.xml"/>
     </test-case>
     <test-case case-name="test-cust-request-permission-check">
-        <junit-test-suite class-name="org.apache.ofbiz.order.TestCustRequestPermissionCheck"/>
+        <junit-test-suite class-name="org.apache.ofbiz.order.order.test.CustRequestPermissionCheckTests"/>
     </test-case>
 </test-suite>

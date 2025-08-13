@@ -27,7 +27,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="CalendarTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                <include-menu name="CalendarTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="button-bar">
                                     <link style="buttontext" target="EditCalendar" text="${uiLabelMap.ManufacturingNewCalendar}"/>
                                     <link style="buttontext" target="EditCalendarWeek" text="${uiLabelMap.ManufacturingNewCalendarWeek}"/>
@@ -49,7 +49,7 @@ under the License.
                 <set field="headerItem" value="calendar"/>
                 <set field="helpAnchor" value="_createmodify_calendar"/>
 
-                <script location="component://manufacturing/groovyScripts/routing/EditCalendar.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/routing/EditCalendar.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
@@ -147,7 +147,7 @@ under the License.
                 <set field="headerItem" value="calendar"/>
                 <set field="helpAnchor" value="_calendar_exception_week"/>
 
-                <script location="component://manufacturing/groovyScripts/routing/EditCalendarExceptionWeek.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/routing/EditCalendarExceptionWeek.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
@@ -173,7 +173,7 @@ under the License.
                 <set field="headerItem" value="calendar"/>
                 <set field="helpAnchor" value="_calendar_exception_day"/>
 
-                <script location="component://manufacturing/groovyScripts/routing/EditCalendarExceptionDay.groovy"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/routing/EditCalendarExceptionDay.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">

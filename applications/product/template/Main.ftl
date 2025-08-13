@@ -33,10 +33,6 @@ under the License.
             <input type="submit" value=" ${uiLabelMap.ProductEditCatalog}" class="smallSubmit" />
           </td>
         </tr>
-        <tr>
-          <td class="label"><label>${uiLabelMap.CommonOr}:</label></td>
-          <td><a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCatalog}</a></td>
-        </tr>
       </table>
     </form>
     <hr>
@@ -50,10 +46,6 @@ under the License.
           <@htmlTemplate.lookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" fieldFormName="LookupProductCategory" />
           <input type="submit" value="${uiLabelMap.ProductEditCategory}" class="smallSubmit" />
         </td>
-      </tr>
-      <tr>
-        <td class="label"><label>${uiLabelMap.CommonOr}:</label></td>
-        <td><a href="<@ofbizUrl>EditCategory</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCategory}</a></td>
       </tr>
     </table>
   </form>
@@ -87,7 +79,7 @@ under the License.
         <tr>
           <td class="label"><label>${uiLabelMap.CommonOr}:</label>
           </td>
-          <td> <a href="<@ofbizUrl>EditProduct</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a>
+          <td>
           <a href="<@ofbizUrl>CreateVirtualWithVariantsForm</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductQuickCreateVirtualFromVariants}</a></td>
         </tr>
         <tr>

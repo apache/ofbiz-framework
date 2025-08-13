@@ -1091,7 +1091,9 @@ public class DatabaseUtil {
             if (messages != null) messages.add(message);
         } finally {
             try {
-                tableSet.close();
+                if (tableSet != null) {
+                    tableSet.close();
+                }
             } catch (SQLException e) {
                 String message = "Unable to close ResultSet for table list, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, MODULE);

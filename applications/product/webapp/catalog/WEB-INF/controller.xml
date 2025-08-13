@@ -45,6 +45,7 @@ under the License.
         <response name="success" type="request" value="main"/>
     </request-map>
     <request-map uri="chain">
+        <security https="false" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
         <response name="error" type="view" value="error"/>
@@ -2107,7 +2108,7 @@ under the License.
     </request-map>
     <request-map uri="prepareCreateShipMeth">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/groovyScripts/catalog/PrepareCreateShipMeth.groovy"/>
+        <event type="groovy" path="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/PrepareCreateShipMeth.groovy"/>
         <response name="success" type="view" value="EditProductStoreShipSetup"/>
         <response name="error" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
@@ -2206,7 +2207,7 @@ under the License.
     <request-map uri="ListShipmentTimeEstimates"><security https="true" auth="true"/><response name="success" type="view" value="ListShipmentTimeEstimates"/></request-map>
     <request-map uri="prepareCreateShipmentTimeEstimate">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/groovyScripts/catalog/PrepareCreateShipmentTimeEstimate.groovy"/>
+        <event type="groovy" path="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/PrepareCreateShipmentTimeEstimate.groovy"/>
         <response name="success" type="view" value="ListShipmentTimeEstimates"/>
         <response name="error" type="view" value="ListShipmentTimeEstimates"/>
     </request-map>
@@ -2885,7 +2886,7 @@ under the License.
     </request-map>
     <request-map uri="checkAction">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/groovyScripts/catalog/imagemanagement/CheckAction.groovy"/>
+        <event type="groovy" path="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/CheckAction.groovy"/>
         <response name="frame" type="request" value="ImageFrames"/>
         <response name="crop" type="request" value="ImageCropping"/>
         <response name="rotate" type="request" value="ImageRotating"/>
@@ -2893,7 +2894,7 @@ under the License.
     </request-map>
     <request-map uri="checkRejected">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/groovyScripts/catalog/imagemanagement/CheckRejected.groovy"/>
+        <event type="groovy" path="component://product/src/main/groovy/org/apache/ofbiz/product/catalog/imagemanagement/CheckRejected.groovy"/>
         <response name="approved" type="view" value="ImageApprove"/>
         <response name="rejected" type="view" value="ListPeopleRejected"/>
     </request-map>

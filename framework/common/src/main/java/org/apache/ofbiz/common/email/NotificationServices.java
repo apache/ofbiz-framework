@@ -52,12 +52,12 @@ import freemarker.template.TemplateException;
  * <a href="http://freemarker.sourceforge.net/docs/dgui_quickstart_template.html">
  * Freemarker Template</a> mapping the required fields of the template to the
  * required attributes of the service.
- * </p>
+ *
  * <p>
  * This service definition should extend the <code>sendNotificationInterface</code>
  * or the <code>prepareNotificationInterface</code> service interface
  * and simply invoke the associated method defined in this class.
- * </p>
+ *
  * <pre>
  * {@code
  * <service name="sendPoPickupNotification" engine="java"
@@ -75,7 +75,7 @@ import freemarker.template.TemplateException;
  * invoked or let the <code>NotificationService</code> attempt to resolve it
  * as best it can, see {@link #setBaseUrl(Delegator, String, Map) setBaseUrl(Map)}
  * for details on how this is achieved.
- * </p>
+ *
  * The following example shows what a simple notification message template,
  * associated with the above service, might contain:
  * <blockquote>
@@ -88,7 +88,7 @@ import freemarker.template.TemplateException;
  * The template file must be found on the classpath at runtime and
  * match the "templateName" field passed to the service when it
  * is invoked.
- * </p>
+ *
  * <p>
  * For complex messages with a large number of dynamic fields, it may be wise
  * to implement a custom service that takes one or two parameters that can
@@ -96,7 +96,7 @@ import freemarker.template.TemplateException;
  * the {@link #prepareNotification(DispatchContext, Map) prepareNotification(DispatchContext, Map)}
  * or {@link #sendNotification(DispatchContext, Map) sendNotification(DispatchContext, Map)}
  * methods directly to generate or generate and send the notification respectively.
- * </p>
+ *
  */
 public class NotificationServices {
 
@@ -118,7 +118,7 @@ public class NotificationServices {
      * the sevice
      * @return A Map with the service response messages in it
      */
-    private static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
@@ -193,6 +193,8 @@ public class NotificationServices {
         if (templateData == null) {
             templateData = new LinkedHashMap<>();
         }
+        templateData.put("delegator", delegator);
+        templateData.put("dispatcher", ctx.getDispatcher());
 
         try {
             // ensure the baseURl is defined

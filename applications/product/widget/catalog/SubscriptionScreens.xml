@@ -31,7 +31,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
@@ -89,7 +89,7 @@ under the License.
                                         <not><if-empty field="subscription"/></not>
                                     </condition>
                                     <widgets>
-                                    <include-menu name="EditSubscription" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
+                                    <include-menu name="EditSubscription" location="${parameters.mainMenuLocation}"/>
                                         <container style="button-bar"><link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/></container>
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${subscription.description} [${subscriptionId}]</label></container>
                                     </widgets>
@@ -216,7 +216,7 @@ under the License.
                                         <not><if-empty field="subscriptionResource"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
+                                        <include-menu name="EditSubscriptionResource" location="${parameters.mainMenuLocation}"/>
                                         <container style="button-bar">
                                             <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
                                             <link target="FindSubscription" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext">

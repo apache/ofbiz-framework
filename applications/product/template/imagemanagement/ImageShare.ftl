@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign contentURL = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("url", "content.url.prefix.standard", delegator)>
-<script type="application/javascript">
+<script type="text/javascript">
 $(document).ready(function(){
     var form = document.ImageShare;
     var protocol = document.location.protocol;

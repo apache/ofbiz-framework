@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="LookupParty" type="single" target="findparty" focus-field-name="partyId">
@@ -137,16 +137,16 @@ under the License.
             <entity-and entity-name="UserLogin" list="logins" use-cache="true">
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-and>
-            <set field="userLoginSize" value="${groovy:logins.size()}" type="Integer"/>
+            <set field="userLoginSize" value="${util:size(logins)}" type="Integer"/>
             <service service-name="getPartyMainRole" result-map="mainRole">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="userLogin" from-field="userLogin"/>
             </service>
-            <entity-and entity-name="PartyClassification" list="partyClassifications" use-cache="true">
-                <field-map field-name="partyId" from-field="partyId"/>
-            </entity-and>
-            <set field="fieldId" value="partyClassificationGroupId"/>
-            <set field="partyClassificationGroupIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(partyClassifications, fieldId, true);}"/>
+            <entity-condition entity-name="PartyClassification" list="partyClassifications" use-cache="true">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+            </entity-condition>
+            <set field="partyClassificationGroupIds" value="${groovy: partyClassifications*.partyClassificationGroupId}"/>
+            <service service-name="getPartyNameForDate" result-map="partyName"/>
         </row-actions>
         <field name="partyId" sort-field="true" widget-style="buttontext">
             <hyperlink description="${partyId}" target="viewprofile">
@@ -163,7 +163,7 @@ under the License.
         <field name="mainRole" title="${uiLabelMap.PartyMainRole}"><display description="${mainRole.description}"/></field>
         <field name="createdDate" sort-field="true"><display type="date"/></field>
         <field name="lastModifiedDate" sort-field="true"><display type="date"/></field>
-        <field name="partyAction" title=" "><include-menu name="ListPartyAction" location="component://party/widget/partymgr/PartyMenus.xml"/></field>
+        <field name="partyAction" title=" "><include-menu name="ListPartyAction" location="${parameters.mainMenuLocation}"/></field>
         <sort-order>
              <last-field name="createdDate"/>
              <last-field name="lastModifiedDate"/>
@@ -302,8 +302,8 @@ under the License.
 
     <form name="EditPartyGroupForNewQuote" type="single" target="createPartyGroup" default-map-name="partyGroup" extends="EditPartyGroup"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="cancelLink"><hidden/></field> 
-        
+        <field name="cancelLink"><hidden/></field>
+
     </form>
 
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
@@ -1102,7 +1102,7 @@ under the License.
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" " also-hidden="true">
-                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
+                <sub-hyperlink target="/accounting/control/viewInvoice" description="[${invoiceId}]" target-type="inter-app">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
@@ -1123,35 +1123,38 @@ under the License.
         <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" use-when="actualCurrency==false"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" entry-name="pmActualCurrencyAmount" use-when="actualCurrency==true"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </grid>
-    
+
     <grid name="ListUnAppliedInvoices" list-name="ListUnAppliedInvoices"
         default-title-style="tableheadtext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
        >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
-            <script location="component://party/groovyScripts/party/UnAppliedInvoicesForParty.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/UnAppliedInvoicesForParty.groovy"/>
         </actions>
+        <row-actions>
+            <entity-one entity-name="InvoiceType" use-cache="true" value-field="invoiceType"/>
+        </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice">
-                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
+                <sub-hyperlink target="/accounting/control/viewInvoice" description="[${invoiceId}]" target-type="inter-app">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="invoiceParentTypeId">
-            <display-entity entity-name="InvoiceType" key-field-name="invoiceTypeId"/>
+        <field name="typeDescription" title="${uiLabelMap.CommonType}">
+            <display description="${invoiceType.description}"/>
         </field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
     </grid>
-    
+
     <grid name="ListUnAppliedPayments" list-name="paymentList"
         default-title-style="tableheadtext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
        >
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true" type="Boolean"/>
-            <script location="component://party/groovyScripts/party/UnAppliedPaymentsForParty.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/UnAppliedPaymentsForParty.groovy"/>
         </actions>
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
@@ -1162,7 +1165,7 @@ under the License.
             </display-entity>
         </field>
         <field name="effectiveDate"><display type="date"/></field>
-        <field name="paymentTypeId">
+       <field name="paymentTypeId">
             <display-entity entity-name="PaymentType"/>
         </field>
         <field name="paymentParentTypeId">
@@ -1171,13 +1174,13 @@ under the License.
         <field name="amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
     </grid>
-    
+
     <form name="PartyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
         default-title-style="tableheadtext">
         <actions>
             <set field="actualCurrency" from-field="actualCurrency" default-value="true"/>
             <set field="actualCurrencyUomId" from-field="actualCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
-            <script location="component://party/groovyScripts/party/PartyFinancialHistory.groovy"/>
+            <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyFinancialHistory.groovy"/>
         </actions>
         <field position="1" name="totalSalesInvoice"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field position="2" name="totalPurchaseInvoice"><display type="currency" currency="${actualCurrencyUomId}"/></field>
@@ -1188,7 +1191,7 @@ under the License.
         <field position="1" name="totalToBePaid" use-when="finanSummary.get(&quot;totalToBePaid&quot;)!=null" title="${uiLabelMap.PartyToBeReceivedFrom} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field position="1" name="totalToBeReceived" use-when="finanSummary.get(&quot;totalToBeReceived&quot;)!=null" title="${uiLabelMap.PartyToBePaidTo} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
-    
+
     <grid name="ViewPartyRoles" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -1202,7 +1205,7 @@ under the License.
             </hyperlink>
         </field>
     </grid>
-    
+
     <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId">
@@ -1249,7 +1252,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
+
     <grid name="ListPreference" target="removePreference" list-name="enumTypeChildAndEnums"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
         <row-actions>
@@ -1267,21 +1270,21 @@ under the License.
         <field name="userPrefValue" title="${uiLabelMap.CommonValue}"><display/></field>
         <field name="submit" title="${uiLabelMap.CommonRemove}" use-when="userPrefValue!=null"><submit/></field>
     </grid>
-    
+
     <grid name="PartyBillingAccount" list-name="billingAccounts" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><display/></field>
         <field name="accountLimit"><display type="currency"/></field>
         <field name="accountBalance"><display type="currency"/></field>
         <field name="description"><display/></field>
     </grid>
-    
+
     <grid name="PartyReturns" list-name="returnList" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId"><display/></field>
         <field name="toPartyId"><display/></field>
     </grid>
-    
+
     <form name="PartySalesOpportunities" type="list" list-name="salesOpportunities" default-table-style="basic-table hover-bar">
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
             <hyperlink description="${opportunityName} [${salesOpportunityId}]" target="ViewSalesOpportunity">
@@ -1313,7 +1316,7 @@ under the License.
         </field>
         <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit /></field>
     </form>
-    
+
     <form name="EditPartyIdentification" type="single" list-name="partyIdents"
                  default-table-style="basic-table" target="createPartyIdentification" focus-field-name="idValue">
         <alt-target use-when="partyIdentification !=null" target="updatePartyIdentification"/>
@@ -1324,7 +1327,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyIdentificationTypeId" use-when="partyIdentification != null"> 
+        <field name="partyIdentificationTypeId" use-when="partyIdentification != null">
             <display-entity entity-name="PartyIdentificationType"/>
         </field>
         <field name="partyId"><hidden /></field>
@@ -1332,7 +1335,7 @@ under the License.
         <field name="submit" title="${uiLabelMap.CommonCreate}" use-when="partyIdentification == null"><submit /></field>
         <field name="submit" title="${uiLabelMap.CommonUpdate}" use-when="partyIdentification != null"><submit /></field>
     </form>
-    
+
     <form name="EditProductStoreRole" type="single" extends="EditProductStoreRole" extends-resource="component://product/widget/catalog/StoreForms.xml">
         <field name="partyId"><hidden/></field>
         <field name="productStoreId" use-when="productStoreRole==null" title="${uiLabelMap.ProductStoreId}" required-field="true">
@@ -1354,7 +1357,7 @@ under the License.
             </drop-down>
         </field>
     </form>
-    
+
     <grid name="ListProductStoreRole" list-name="listIt" paginate-target="FindProductStoreRoles" default-entity-name="ProductStoreRole" separate-columns="true"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -1438,12 +1441,10 @@ under the License.
         <field name="postalCode" title="postalCode"><display/></field>
         <field name="countryGeoId" title="countryGeoId"><display/></field>
     </grid>
-    
+
     <form name="ImportParty" type="upload" target="uploadParty" title="" >
         <field name="uploadedFile" title="${uiLabelMap.ContentFile}"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit button-type="button"/></field>
     </form>
-    
 
-    
 </forms>

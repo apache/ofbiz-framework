@@ -25,7 +25,7 @@ under the License.
 
     <!-- Order Return Services -->
     <service name="quickReturnOrder" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="quickReturnFromOrder">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="quickReturnFromOrder">
         <description>Quick Return Order</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="returnReasonId" type="String" mode="IN" optional="true"/>
@@ -35,14 +35,14 @@ under the License.
         <attribute name="returnId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createReturnHeader" default-entity-name="ReturnHeader" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="createReturnHeader">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="createReturnHeader">
         <description>Create a new ReturnHeader</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="returnHeaderTypeId" optional="false"/>
     </service>
     <service name="updateReturnHeader" default-entity-name="ReturnHeader" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="updateReturnHeader">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="updateReturnHeader">
         <description>Update a ReturnHeader</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -56,7 +56,7 @@ under the License.
     </service>
 
     <service name="createReturnItem" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="createReturnItem">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="createReturnItem">
         <description>Create a new ReturnItem in the RETURN_REQUESTED status, based on returnableQuantity and returnablePrice from the
                      getReturnableQuantity service.  This can be called by the customer to request a return for himself or by a user with
                      ORDERMGR_CREATE, but, if the former, the returnPrice will be overriden by the returnablePrice from getReturnableQuantity.</description>
@@ -72,7 +72,7 @@ under the License.
         <override name="returnQuantity" optional="false"/>
     </service>
     <service name="updateReturnItem" engine="groovy" default-entity-name="ReturnItem"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="updateReturnItem">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="updateReturnItem">
         <description>Update a ReturnItem and related adjustments</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -80,14 +80,14 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateReturnItemsStatus" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="updateReturnItemsStatus">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="updateReturnItemsStatus">
         <description>Update ReturnItem(s) Status</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeReturnItem" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="removeReturnItem">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="removeReturnItem">
         <description>Remove a ReturnItem and related adjustments</description>
         <permission-service service-name="returnPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
@@ -104,14 +104,14 @@ under the License.
         <attribute name="returnItemResponseId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="cancelReturnItems" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="cancelReturnItems">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="cancelReturnItems">
         <description>Cancel ReturnItems and set their status to "RETURN_CANCELLED"</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="cancelReplacementOrderItems" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="cancelReplacementOrderItems">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="cancelReplacementOrderItems">
         <description>Cancel the associated OrderItems of the replacement order, if any.</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="ReturnItem" include="pk" mode="IN" optional="false"/>
@@ -142,7 +142,7 @@ under the License.
         <permission-service service-name="returnPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createReturnAndItemOrAdjustment" engine="groovy" location="component://order/groovyScripts/order/OrderReturnServices.groovy"
+    <service name="createReturnAndItemOrAdjustment" engine="groovy" location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy"
                  invoke="createReturnAndItemOrAdjustment">
         <description>If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in</description>
         <auto-attributes mode="IN" include="nonpk" entity-name="ReturnHeader" optional="true"/>
@@ -239,37 +239,37 @@ under the License.
         <attribute name="returnTypeId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processWaitReplacementReturn" engine="groovy" auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processWaitReplacementReservedReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processWaitReplacementReservedReturn">
         <description>Process the replacements in a wait return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processWaitReplacementReservedReturn" engine="groovy" auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processWaitReplacementReservedReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processWaitReplacementReservedReturn">
         <description>Process the replacements in a wait reserved return when the return is accepted and then received</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processCrossShipReplacementReturn" engine="groovy" auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processCrossShipReplacementReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processCrossShipReplacementReturn">
         <description>Process the replacements in a cross-ship return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processRepairReplacementReturn" engine="groovy" auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processRepairReplacementReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processRepairReplacementReturn">
         <description>Process the replacements in a repair return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processReplaceImmediatelyReturn" engine="groovy" auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processReplaceImmediatelyReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processReplaceImmediatelyReturn">
         <description>Process the replacements in a Immediate Return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processRefundOnlyReturn" engine="groovy"  auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processRefundOnlyReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processRefundOnlyReturn">
         <description>Process the Refund in a return</description>    
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="processRefundImmediatelyReturn" engine="groovy"  auth="true"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="processRefundImmediatelyReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="processRefundImmediatelyReturn">
         <description>Process the Immediate Refund in a return</description>    
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
@@ -286,7 +286,7 @@ under the License.
 
     <!-- other return services -->
     <service name="updateReturnStatusFromReceipt" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="updateReturnStatusFromReceipt">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="updateReturnStatusFromReceipt">
         <description>Update return/item status when items have been received</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
@@ -332,27 +332,27 @@ under the License.
     </service>
 
     <service name="getStatusItemsForReturn" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="getStatusItemsForReturn">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="getStatusItemsForReturn">
         <description>Get the return status associated with customer/vendor return</description>
         <attribute name="returnHeaderTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="statusItems" type="List" mode="OUT" optional="false"/>
     </service>
 
     <service name="createExchangeOrderAssoc" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="createExchangeOrderAssoc">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="createExchangeOrderAssoc">
         <description>Associate exchange order with original order in OrderItemAssoc entity</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="originOrderId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="addProductsBackToCategory" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="addProductsBackToCategory">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="addProductsBackToCategory">
         <description>Add product(s) back to category if it has no active category</description>
         <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createReturnStatus" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="createReturnStatus">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="createReturnStatus">
         <description>Create Return Status</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnItemSeqId" type="String" mode="IN" optional="true"/>
@@ -365,7 +365,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateReturnContactMech" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="updateReturnContactMech" auth="true" default-entity-name="ReturnContactMech">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="updateReturnContactMech" auth="true" default-entity-name="ReturnContactMech">
         <description>Update Return Contact Mech</description>
         <permission-service service-name="returnPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -378,7 +378,7 @@ under the License.
 
     <!-- Item Return Service -->
     <service name="createReturnItemForRental" engine="groovy"
-            location="component://order/groovyScripts/order/OrderReturnServices.groovy" invoke="createReturnItemForRental">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/order/OrderReturnServicesScript.groovy" invoke="createReturnItemForRental">
         <description>Create the return item for rental (which items has product type is ASSET_USAGE_OUT_IN)</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="returnId" type="String" mode="OUT" optional="false"/>

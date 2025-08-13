@@ -33,17 +33,21 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                <include-menu name="ContactSubTabBar" location="${parameters.mainMenuLocation}"/>
                                 <container style="no-clear">
                                     <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                         <decorator-section name="search-options">
-                                            <include-menu name="ContactFindTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                            <include-menu name="ContactFindTabBar" location="${parameters.mainMenuLocation}"/>
                                             <include-form name="FindContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                                         </decorator-section>
                                         <decorator-section name="search-results">
@@ -99,7 +103,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleCreateContact"/>
                 <set field="headerItem" value="Contacts"/>
                 <set field="tabButtonItem" value="MergeContacts"/>
-                <script location="component://marketing/groovyScripts/sfa/MergeContacts.groovy"/>
+                <script location="component://marketing/src/main/groovy/org/apache/ofbiz/marketing/sfa/MergeContacts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactDecorator" location="${parameters.mainDecoratorLocation}">

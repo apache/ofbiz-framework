@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="updateRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="updateRateAmount">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="updateRateAmount">
         <description>Create/update Rate Amount</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="all" mode="IN" optional="true"/>
@@ -37,7 +37,7 @@ under the License.
         <override name="partyId" default-value="_NA_"/>
     </service>
     <service name="expireRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="expireRateAmount">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="expireRateAmount">
         <description>expire Rate Amount</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -49,7 +49,7 @@ under the License.
         <override name="partyId" default-value="_NA_"/>
     </service>
     <service name="deleteRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="deleteRateAmount">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="deleteRateAmount">
         <deprecated use-instead="expireRateAmount" since="Release 18.12"/>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -57,7 +57,7 @@ under the License.
         <override name="fromDate" optional="false"/>
     </service>
     <service name="getRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRateAmount">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="getRateAmount">
         <description>Get Rate Amount</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -69,7 +69,7 @@ under the License.
         <override name="rateTypeId" optional="false"/>
     </service>
     <service name="getRatesAmountsFromWorkEffortId" default-entity-name="RateAmount" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRatesAmountsFromWorkEffortId">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="getRatesAmountsFromWorkEffortId">
         <description>Get all Rates Amounts for a given workEffortId</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -79,7 +79,7 @@ under the License.
         <override name="workEffortId" optional="false"/>
     </service>
     <service name="getRatesAmountsFromPartyId" default-entity-name="RateAmount" engine="groovy" auth="true"
-             location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRatesAmountsFromPartyId">
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="getRatesAmountsFromPartyId">
         <description>Get all Rates Amounts for a given partyId</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -89,7 +89,7 @@ under the License.
         <override name="partyId" optional="false"/>
     </service>
     <service name="getRatesAmountsFromEmplPositionTypeId" default-entity-name="RateAmount" engine="groovy" auth="true"
-             location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="getRatesAmountsFromEmplPositionTypeId">
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="getRatesAmountsFromEmplPositionTypeId">
         <description>Get all Rates Amounts for a given emplPositionTypeId</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -99,7 +99,7 @@ under the License.
         <override name="emplPositionTypeId" optional="false"/>
     </service>
     <service name="filterRateAmountList" default-entity-name="RateAmount" engine="groovy" auth="true"
-             location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="filterRateAmountList">
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="filterRateAmountList">
         <description>Get the most specific non-empty Rate Amount list from a list of Rate Amount, given the input parameters :
         workEffortId, partyId, emplPositionTypeId and rateTypeId</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
@@ -110,7 +110,7 @@ under the License.
 
     <!-- PartyRate Services -->
     <service name="updatePartyRate" default-entity-name="PartyRate" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="updatePartyRate">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="updatePartyRate">
         <description>Creates PartyRate</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -122,14 +122,14 @@ under the License.
         <override name="fromDate" optional="true"/>
     </service>
     <service name="deletePartyRate" default-entity-name="PartyRate" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="deletePartyRate">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="deletePartyRate">
         <description>Deletes PartyRate</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="rateAmountFromDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="expirePartyRate" default-entity-name="PartyRate" engine="groovy" auth="true"
-        location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="expirePartyRate">
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/rate/RateServices.groovy" invoke="expirePartyRate">
         <description>Expire PartyRate and expire related rateAmount</description>
         <permission-service service-name="acctgBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

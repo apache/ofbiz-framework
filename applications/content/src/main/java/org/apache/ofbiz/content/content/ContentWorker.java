@@ -411,7 +411,33 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         }
     }
 
+    public static List<GenericValue> findAlternateLocaleContents(Delegator delegator, GenericValue view) {
+        return findAlternateLocaleContents(delegator, view, true);
+    }
+
+    public static List<GenericValue> findAlternateLocaleContents(Delegator delegator, GenericValue view,
+            boolean useCache) {
+        List<GenericValue> alternateViews = null;
+        try {
+            alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId",
+                    "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), useCache);
+
+            alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate",
+                    "caThruDate", true);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error finding alternate locale content: " + e, MODULE);
+            alternateViews = UtilMisc.toList(view);
+        }
+
+        return alternateViews;
+    }
+
     public static GenericValue findAlternateLocaleContent(Delegator delegator, GenericValue view, Locale locale) {
+        return findAlternateLocaleContent(delegator, view, locale, true);
+    }
+
+    public static GenericValue findAlternateLocaleContent(Delegator delegator, GenericValue view, Locale locale,
+            boolean useCache) {
         GenericValue contentAssocDataResourceViewFrom = null;
         if (locale == null) {
             return view;
@@ -420,16 +446,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         String localeStr = locale.toString();
         boolean isTwoLetterLocale = localeStr.length() == 2;
 
-        List<GenericValue> alternateViews = null;
-        try {
-            alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"),
-                    UtilMisc.toList("-caFromDate"), true);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Error finding alternate locale content: " + e.toString(), MODULE);
-            return view;
-        }
-
-        alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
+        List<GenericValue> alternateViews = findAlternateLocaleContents(delegator, view, useCache);
         // also check the given view for a matching locale
         alternateViews.add(0, view);
 
@@ -445,25 +462,25 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             if (isTwoLetterLocale) {
                 if (currentLocaleLength == 2) {
                     // if the currentLocaleString is only a two letter code and the current one is a two and it matches, we are done
-                    if (localeStr.equals(currentLocaleString)) {
+                    if (localeStr.equalsIgnoreCase(currentLocaleString)) {
                         contentAssocDataResourceViewFrom = thisView;
                         break;
                     }
                 } else if (currentLocaleLength == 5) {
                     // if the currentLocaleString is only a two letter code and the current one is a five, match up but keep going
-                    if (localeStr.equals(currentLocaleString.substring(0, 2))) {
+                    if (localeStr.equalsIgnoreCase(currentLocaleString.substring(0, 2))) {
                         contentAssocDataResourceViewFrom = thisView;
                     }
                 }
             } else {
                 if (currentLocaleLength == 2) {
                     // if the currentLocaleString is a five letter code and the current one is a two and it matches, keep going
-                    if (localeStr.substring(0, 2).equals(currentLocaleString)) {
+                    if (localeStr.substring(0, 2).equalsIgnoreCase(currentLocaleString)) {
                         contentAssocDataResourceViewFrom = thisView;
                     }
                 } else if (currentLocaleLength == 5) {
                     // if the currentLocaleString is a five letter code and the current one is a five, if it matches we are done
-                    if (localeStr.equals(currentLocaleString)) {
+                    if (localeStr.equalsIgnoreCase(currentLocaleString)) {
                         contentAssocDataResourceViewFrom = thisView;
                         break;
                     }

@@ -22,16 +22,14 @@ under the License.
  */
 var uiLabelJsonObject = null;
 jQuery(document).ready(function() {
-    var labelObject = {
-            "CommonUiLabels" : ["CommonUpload", "CommonSave", "CommonCompleted"]
-          };
+    var labelObject = ["CommonUpload", "CommonSave", "CommonCompleted", "PartyNoContent"];
     getJSONuiLabels(labelObject, function(result){
-    	uiLabelJsonObjects = result.responseJSON;
+        uiLabelJsonObjects = result.responseJSON;
     });
     jQuery("#progress_bar").progressbar({value: 0});
 });
 
-function uploadPartyContent(event){
+function uploadPartyContent(event) {
     jQuery("#progress_bar").progressbar("option", "value", 0);
     var targetFrame = jQuery('#target_upload');
     var infodiv = jQuery('#content-messages');
@@ -49,16 +47,22 @@ function uploadPartyContent(event){
     }
 }
 
-function uploadCompleted(){
+function uploadCompleted() {
     var iframePartyContentList = jQuery("#target_upload").contents().find("#partyContentList").html();
 
     // update partyContentList - copy the Data from the iFrame partyContentList
     // to the page partyContentList
     jQuery("#partyContentList").html(iframePartyContentList);
 
-    jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[2]);
+    // Explanation in case of rejected file
+    jQuery('#progressBarSavingMsg').html("If you don't see your file in Party Content list above, it has been rejected for security reason. Check the log.");
+
+    // Remove explanation in case of rejected file
+    setTimeout(() => { jQuery('#progressBarSavingMsg').hide(); }, 7000);
+
     // reset progressbar
     jQuery("#progress_bar").progressbar("option", "value", 0);
+
 
     // remove iFrame
     jQuery("#target_upload").remove();
@@ -85,7 +89,7 @@ function checkIframeStatus() {
 
 function getUploadProgressStatus(event){
     importLibrary(["/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"], function(){
-        jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUiLabels[0] + "...</span>");
+        jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUpload + "...</span>");
         var i=0;
         jQuery.fjTimer({
             interval: 1000,
@@ -93,7 +97,7 @@ function getUploadProgressStatus(event){
             tick: function(counter, timerId) {
                 var timerId = timerId;
                 jQuery.ajax({
-                    url: 'getFileUploadProgressStatus',
+                    url: '/common-js/control/getFileUploadProgressStatus',
                     dataType: 'json',
                     success: function(data) {
                         if (data._ERROR_MESSAGE_LIST_ != undefined) {
@@ -105,9 +109,9 @@ function getUploadProgressStatus(event){
                          } else {
                             var readPercent = data.readPercent;
                             jQuery("#progress_bar").progressbar("option", "value", readPercent);
-                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[0] + "... (" + readPercent + "%)");
+                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUpload + "... (" + readPercent + "%)");
                             if(readPercent > 99){
-                                jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[1] + "...");
+                                jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonSave + "...");
                                 // stop the fjTimer
                                 timerId.stop();
                                 // call the upload complete method to do final stuff

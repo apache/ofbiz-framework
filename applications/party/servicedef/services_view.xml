@@ -170,7 +170,7 @@ under the License.
     </service>
     
     <service name="getPartiesByRelationship" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPartiesByRelationship">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="getPartiesByRelationship">
         <description>Gets all parties related to partyIdFrom through the PartyRelationship entity</description>
         <auto-attributes mode="IN" include="all" optional="true" entity-name="PartyRelationship"/>
         <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
@@ -178,7 +178,7 @@ under the License.
     </service>
 
     <service name="getParentOrganizations" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getParentOrganizations">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="getParentOrganizations">
         <description>
             Gets Parent Organizations for an Organization Party.
             This uses the PartyRelationship table with partyRelationshipTypeId="GROUP_ROLLUP".
@@ -201,7 +201,7 @@ under the License.
     </service>
 
     <service name="getChildRoleTypes" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getChildRoleTypes">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="getChildRoleTypes">
         <description>
             Get Child RoleTypes.
             The childRoleTypeIdList coming out will contain the original roleTypeId.
@@ -220,7 +220,7 @@ under the License.
 
     <!-- PostalAddressBoundary -->
     <service name="getPostalAddressBoundary" engine="groovy"
-            location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getPostalAddressBoundary">
+            location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="getPostalAddressBoundary">
         <description>Get all Postal Address Boundaries</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="VIEW"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false">
@@ -232,7 +232,7 @@ under the License.
     </service>
     
     <service name="getRelatedParties" engine="groovy"
-        location="component://party/groovyScripts/party/PartyServices.groovy" invoke="getRelatedParties">
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="getRelatedParties">
         <description>
             Get Parties Related to a Party
             - The relatedPartyIdList coming out will include the original partyIdFrom

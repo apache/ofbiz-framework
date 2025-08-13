@@ -77,7 +77,8 @@ public class PackingServices {
     }
 
     /**
-     * <p>Create or update package lines.</p>
+     * <p>Create or update package lines.
+     *
      * Context parameters:
      * <ul>
      * <li>selInfo - selected rows</li>

@@ -81,7 +81,8 @@ public final class TemporalExpressionWorker {
 
     /** Create a <code>TemporalExpression</code> instance from a TemporalExpression
      * GenericValue.<p>This method makes recursive calls, so care must be taken to
-     * avoid endless loops.</p>
+     * avoid endless loops.
+     *
      * @param delegator
      * @param exprValue
      * @return A <code>TemporalExpression</code> instance based on <code>exprValue</code>

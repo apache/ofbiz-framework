@@ -274,27 +274,6 @@
         <value xml:lang="zh">调用子服务时出错，它应该返回一个错误，而不是抛出一个意外，因此发生了错误：${errorString}</value>
         <value xml:lang="zh-TW">呼叫子服務時出錯,它應該回傳一個錯誤,而不是拋出一個異常外,因此發生了錯誤:${errorString}</value>
     </property>
-    <property key="ServiceTestXmlRpcCalculationOK">
-        <value xml:lang="en">adding integer 125 to 365 yields </value>
-        <value xml:lang="it">aggiungere intero 125 a 365 yields </value>
-        <value xml:lang="ja">整数 125 ～ 365 の加算が生じます </value>
-        <value xml:lang="zh">把整数125加到365，生成</value>
-        <value xml:lang="zh-TW">把整數125加到365,產生</value>
-    </property>
-    <property key="ServiceTestXmlRpcCalculationKO">
-        <value xml:lang="en">calcul is wrong ! Why ?</value>
-        <value xml:lang="it">calcolo è errato ! Perchè ?</value>
-        <value xml:lang="ja">計算に誤りがあります!なぜ?</value>
-        <value xml:lang="zh">计算错误！为什么？</value>
-        <value xml:lang="zh-TW">計算錯誤！為什麼？</value>
-    </property>
-    <property key="ServiceTestXmlRpcMissingParameters">
-        <value xml:lang="en">missing parameters</value>
-        <value xml:lang="it">parametri mancanti</value>
-        <value xml:lang="ja">パラメータが正しくありません</value>
-        <value xml:lang="zh">缺少参数</value>
-        <value xml:lang="zh-TW">缺少參數</value>
-    </property>
     <property key="ServiceValueFound">
         <value xml:lang="en">Value found (with ids ${pkFields}), cannot create a new one</value>
         <value xml:lang="fr">La valeur a été trouvée (avec les réfs. ${pkFields}), une nouvelle ne peut donc pas être créée</value>

@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -68,7 +68,8 @@ public final class WebDavUtil {
      * intended to be used as parameters for the <code>userLogin</code> service. <p>The method
      * checks for the request parameters <code>USERNAME</code> and <code>PASSWORD</code>. If
      * those aren't found, then the request is checked for the HTTP Authorization header.
-     * Currently, only Basic authorization is supported.</p>
+     * Currently, only Basic authorization is supported.
+     *
      * @param request The WebDAV request
      * @return A <code>Map</code> containing <code>login.username</code> and
      * <code>login.password</code> elements.

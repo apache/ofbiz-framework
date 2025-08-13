@@ -18,25 +18,25 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.layout;
 
-import java.io.File;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -61,16 +61,8 @@ public final class LayoutWorker {
         Map<String, String> formInput = new HashMap<>();
         results.put("formInput", formInput);
 
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-
-        long maxUploadSize = UtilHttp.getMaxUploadSize(delegator);
-        int sizeThreshold = UtilHttp.getSizeThreshold(delegator);
-        File tmpUploadRepository = UtilHttp.getTmpUploadRepository(delegator);
-
-        ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
-        upload.setSizeMax(maxUploadSize);
-
-        List<FileItem> lst = null;
+        JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+        List<FileItem<DiskFileItem>> lst = null;
         try {
             lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e4) {
@@ -90,9 +82,9 @@ public final class LayoutWorker {
 
 
         // This code finds the idField and the upload FileItems
-        FileItem fi = null;
-        FileItem imageFi = null;
-        for (FileItem fileItem : lst) {
+        FileItem<DiskFileItem> fi = null;
+        FileItem<DiskFileItem> imageFi = null;
+        for (FileItem<DiskFileItem> fileItem : lst) {
             fi = fileItem;
             String fieldName = fi.getFieldName();
             String fieldStr = fi.getString();

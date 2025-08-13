@@ -106,12 +106,21 @@ public class EntityConditionBuilder extends BuilderSupport {
 
     @Override
     protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg) {
-        Map<String, Object> fieldValueMap = UtilGenerics.cast(mapArg);
+        Map<Object, Object> fieldValueMap = UtilGenerics.cast(mapArg);
         String operatorName = ((String) methodName).toLowerCase(Locale.getDefault());
         EntityComparisonOperator<String, Object> operator = EntityOperator.lookupComparison(operatorName);
         List<EntityCondition> conditionList = new LinkedList<>();
-        for (Map.Entry<String, Object> entry : fieldValueMap.entrySet()) {
-            conditionList.add(EntityCondition.makeCondition(entry.getKey(), operator, entry.getValue()));
+        for (Map.Entry<Object, Object> entry : fieldValueMap.entrySet()) {
+            Object key = entry.getKey();
+            EntityConditionValue lhs;
+            if (key instanceof String) {
+                lhs = EntityFieldValue.makeFieldValue((String) key);
+            } else if (key instanceof EntityConditionValue) {
+                lhs = (EntityConditionValue) key;
+            } else {
+                throw new IllegalArgumentException("Unsupported key type: " + key.getClass().getName());
+            }
+            conditionList.add(EntityCondition.makeCondition(lhs, operator, entry.getValue()));
         }
         if (conditionList.size() == 1) {
             return new ConditionHolder(conditionList.get(0));

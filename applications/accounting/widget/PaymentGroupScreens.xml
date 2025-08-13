@@ -34,17 +34,12 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditPaymentGroup" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindPaymentGroup" location="component://accounting/widget/PaymentGroupForms.xml"/>
                                     </decorator-section>

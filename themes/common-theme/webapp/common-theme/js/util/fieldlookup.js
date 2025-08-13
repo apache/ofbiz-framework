@@ -36,7 +36,7 @@ function getViewNameWithSeparator(view_name) {
 }
 
 function lookup_error(str_message) {
-    var CommonErrorMessage2 = getJSONuiLabel("CommonUiLabels", "CommonErrorMessage2");
+    var CommonErrorMessage2 = getJSONuiLabel("CommonErrorMessage2");
     showErrorAlert(CommonErrorMessage2, str_message);
 }
 
@@ -304,7 +304,7 @@ var Lookup = function(options) {
         var queryArgs = "presentation=" + options.presentation;
         if (typeof options.args == "object" && jQuery.isArray(options.args)) {
             for ( var i = 0; i < options.args.length; i++) {
-                queryArgs += "&parm" + i + "=" + jQuery(DOMPurify.sanitize(options.args[i])).val();
+                queryArgs += "&parm" + i + "=" + DOMPurify.sanitize(jQuery(options.args[i]).val());
             }
         }
 

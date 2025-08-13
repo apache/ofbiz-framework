@@ -61,11 +61,6 @@ under the License.
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'} @and ${paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED'} @and ${groovy:org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
-            <hyperlink description="${uiLabelMap.CommonCancel}" target="cancelCheckRunPayments" also-hidden="false">
-                <parameter param-name="paymentGroupId"/>
-            </hyperlink>
-        </field>
     </form>
     
     <form name="EditPaymentGroup" type="single" target="updatePaymentGroup" title="" default-map-name="paymentGroup">

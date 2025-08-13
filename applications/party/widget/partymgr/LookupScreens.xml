@@ -46,7 +46,7 @@ under the License.
                 <set field="displayFields" value="[firstName, lastName, groupName]"/>
                 
                 <!-- optional: additional entity condition (named andCondition) added to search query -->
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -153,7 +153,7 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="PartyAndPerson"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -179,7 +179,7 @@ under the License.
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="parameters.roleTypeId" value="CONTACT"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
                 <set field="conditionFields.roleTypeId" value="CONTACT" />
             </actions>
             <widgets>
@@ -235,7 +235,7 @@ under the License.
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="searchFields" value="[userLoginId, partyId, firstName, lastName]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -264,7 +264,7 @@ under the License.
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="searchFields" value="[userLoginId, partyId, firstName, lastName, groupName]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -288,7 +288,7 @@ under the License.
                 <set field="title" from-field="uiLabelMap.PartyLookupPartyGroup"/>
                 <set field="entityName" value="PartyAndGroup"/>
                 <set field="searchFields" value="[partyId, groupName, comments]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -388,7 +388,7 @@ under the License.
                 <set field="title" from-field="uiLabelMap.PartyLookupContactMech"/>
                 <set field="entityName" value="PartyAndContactMech"/>
                 <set field="searchFields" value="[contactMechId, partyId, contactMechTypeId, infoString, paToName]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
@@ -417,7 +417,7 @@ under the License.
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                 <set field="searchFields" value="[partyId, groupName, partyGroupComments]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
                 <set field="conditionFields.roleTypeId" value="INTERNAL_ORGANIZATIO" />
             </actions>
             <widgets>
@@ -444,7 +444,7 @@ under the License.
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="roleTypeId" value="GOV_AGENCY"/>
                 <set field="searchFields" value="[partyId, groupName, partyGroupComments]"/>
-                <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
+                <script location="component://party/src/main/groovy/org/apache/ofbiz/party/party/StatusCondition.groovy"/>
                 <set field="conditionFields.roleTypeId" value="GOV_AGENCY" />
             </actions>
             <widgets>

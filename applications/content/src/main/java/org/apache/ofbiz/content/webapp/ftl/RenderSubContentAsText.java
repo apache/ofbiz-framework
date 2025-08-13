@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -75,7 +75,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         if (Debug.infoOn()) {
             Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId, MODULE);
         }
-        final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
+        final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId);
         if (Debug.infoOn()) {
             Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode, MODULE);
         }

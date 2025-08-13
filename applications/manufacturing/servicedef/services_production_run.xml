@@ -39,7 +39,7 @@ under the License.
         <attribute name="estimatedCompletionDate" type="java.sql.Timestamp" mode="OUT" optional="true"/>
     </service>
     <service name="createProductionRunPartyAssign" engine="groovy"
-             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="createProductionRunPartyAssign" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="createProductionRunPartyAssign" auth="false">
         <description>
             Associate a party to the production run
         </description>
@@ -51,7 +51,7 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="createProductionRunAssoc" engine="groovy"
-             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="createProductionRunAssoc" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="createProductionRunAssoc" auth="false">
         <description>
             Associate the production run to another production run
         </description>
@@ -194,7 +194,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="issueProductionRunTask" engine="groovy"
-             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="issueProductionRunTask" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueProductionRunTask" auth="false">
         <description>
             Issues the Inventory for a Production Run Task.
             Note that this skips the normal inventory reservation process.
@@ -205,7 +205,7 @@ under the License.
         <attribute name="failIfItemsAreNotOnHand" type="String" mode="IN" optional="true"/>
     </service>
     <service name="issueProductionRunTaskComponent" engine="groovy"
-             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="issueProductionRunTaskComponent" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueProductionRunTaskComponent" auth="false">
         <description>
             Issues the Inventory for a Production Run Task Component. For more info see the issueProductionRunTask service.
             If fromDate is passed, then the WorkEffortGoodStandard record with pk composed of (workEffortId|productId|fromDate)
@@ -232,7 +232,7 @@ under the License.
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
     <service name="issueInventoryItemToWorkEffort" engine="groovy"
-             location="component://manufacturing/groovyScripts/jobshopmgt/ProductionRunServices.groovy" invoke="issueInventoryItemToWorkEffort" auth="false">
+             location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/ProductionRunServicesScript.groovy" invoke="issueInventoryItemToWorkEffort" auth="false">
         <description>
             Issue one InventoryItem (or part of it) to a WorkEffort.
             Note that this skips the normal inventory reservation process.

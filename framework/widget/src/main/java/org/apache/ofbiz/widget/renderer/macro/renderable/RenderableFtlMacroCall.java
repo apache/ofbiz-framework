@@ -81,6 +81,10 @@ public final class RenderableFtlMacroCall implements RenderableFtl {
             return parameter(parameterName, parameterValue);
         }
 
+        public RenderableFtlMacroCallBuilder objectParameter(final String parameterName, final Object parameterValue) {
+            return parameter(parameterName, parameterValue);
+        }
+
         public RenderableFtlMacroCall build() {
             return new RenderableFtlMacroCall(name, parameters);
         }

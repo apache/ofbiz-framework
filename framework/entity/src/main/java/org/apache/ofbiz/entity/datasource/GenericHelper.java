@@ -53,6 +53,13 @@ public interface GenericHelper {
      */
     GenericValue create(GenericValue value) throws GenericEntityException;
 
+    /**
+     * Insert a given list of GenericValue to the database
+     * @param values
+     * @return The list of GenericValue created
+     */
+    List<GenericValue> createAll(List<GenericValue> values) throws GenericEntityException;
+
     /** Find a Generic Entity by its Primary Key
      *@param primaryKey The primary key to find by.
      *@return The GenericValue corresponding to the primaryKey

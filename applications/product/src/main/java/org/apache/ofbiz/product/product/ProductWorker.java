@@ -888,9 +888,36 @@ public final class ProductWorker {
             }
         }
 
+        // If the weight isn't define and the product is a marketing package,
+        // we calculate the weight by of all product present on the package
+        if (weight == null && EntityTypeUtil.hasParentType(delegator, "ProductType",
+                "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_PICK")) {
+            try {
+                List<GenericValue> productAssocs = EntityQuery.use(delegator).from("ProductAndAssocTo")
+                        .where("productId", product.get("productId"),
+                                "productAssocTypeId", "PRODUCT_COMPONENT")
+                        .filterByDate()
+                        .cache()
+                        .queryList();
+                if (UtilValidate.isNotEmpty(productAssocs)) {
+                    weight = BigDecimal.ZERO;
+                    for (GenericValue productAssoc : productAssocs) {
+                        BigDecimal assocWeight = getProductWeight(productAssoc, desiredUomId, delegator, dispatcher);
+                        if (assocWeight != null) {
+                            weight = weight.add(assocWeight.multiply((BigDecimal) productAssoc.getOrDefault("quantity", BigDecimal.ONE)));
+                        }
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "failed to resolve product association to calculate the weight", MODULE);
+                return null;
+            }
+        }
+
         if (weight == null) {
             return null;
         }
+
         // attempt a conversion if necessary
         if (desiredUomId != null && product.get("weightUomId") != null && !desiredUomId.equals(product.get("weightUomId"))) {
             Map<String, Object> result = new HashMap<>();
@@ -901,13 +928,14 @@ public final class ProductWorker {
                 Debug.logError(e, MODULE);
             }
 
-            if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
+            if (ServiceUtil.isSuccess(result) && result.get("convertedValue") != null) {
                 weight = (BigDecimal) result.get("convertedValue");
             } else {
                 Debug.logError("Unsupported conversion from [" + weightUomId + "] to [" + desiredUomId + "]", MODULE);
                 return null;
             }
         }
+        Debug.logWarning(" WEIGHT FOUND FOR " + product.get("productId") + " is " + weight + " " + desiredUomId, MODULE);
         return weight;
     }
 

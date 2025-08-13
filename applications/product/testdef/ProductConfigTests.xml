@@ -27,6 +27,6 @@
         <entity-xml action="load" entity-xml-url="component://product/testdef/data/ProductConfigTestData.xml"/>
     </test-case>
     <test-case case-name="productConfigtests">
-        <junit-test-suite class-name="org.apache.ofbiz.product.ProductConfigTests"/>
+        <junit-test-suite class-name="org.apache.ofbiz.product.product.test.ProductConfigTests"/>
     </test-case>
 </test-suite>

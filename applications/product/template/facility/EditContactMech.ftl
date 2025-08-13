@@ -221,7 +221,7 @@ under the License.
     <tr>
       <td class="label">${uiLabelMap.PartyEmailAddress}</td>
       <td>
-          <input type="text" class="required" size="60" maxlength="255" name="emailAddress" value="${(mechMap.contactMech.infoString)?default(request.getParameter('emailAddress')!)}" />
+          <input type="email" class="required" size="60" maxlength="255" name="emailAddress" value="${(mechMap.contactMech.infoString)?default(request.getParameter('emailAddress')!)}" />
       *</td>
     </tr>
   <#else>

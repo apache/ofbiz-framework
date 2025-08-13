@@ -24,10 +24,10 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -294,7 +294,7 @@ public final class CmsEvents {
                 if (statusCode == HttpServletResponse.SC_OK || hasErrorPage) {
                     // create the template map
                     MapStack<String> templateMap = MapStack.create();
-                    ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
+                    ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext, true);
                     templateMap.put("statusCode", statusCode);
 
                     // make the link prefix

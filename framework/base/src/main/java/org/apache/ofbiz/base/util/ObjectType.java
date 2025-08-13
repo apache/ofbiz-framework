@@ -330,6 +330,11 @@ public class ObjectType {
         }
 
         if (converter != null) {
+            // numeric types : replace everything that's not in [:IsAlnum:] or [:IsPunct:] classes by an empty string
+            if (obj instanceof String && Number.class.isAssignableFrom((targetClass))) {
+                obj = ((String) obj).replaceAll("[^\\p{IsAlnum}\\p{IsPunct}]", "");
+            }
+
             if (converter instanceof LocalizedConverter) {
                 LocalizedConverter<Object, Object> localizedConverter = UtilGenerics.cast(converter);
                 if (timeZone == null) {
@@ -345,6 +350,7 @@ public class ObjectType {
                     throw new GeneralException(e.getMessage(), e);
                 }
             }
+
             try {
                 return converter.convert(obj);
             } catch (ConversionException e) {
@@ -422,6 +428,27 @@ public class ObjectType {
         if ("contains".equals(operator) && value1 instanceof Collection<?>) {
             Collection<?> col1 = (Collection<?>) value1;
             return col1.contains(convertedValue2) ? Boolean.TRUE : Boolean.FALSE;
+        }
+        if (List.of("in", "not-in").contains(operator)) {
+            Boolean isPresent = null;
+            if (value2 instanceof Collection<?>) {
+                isPresent = ((Collection<?>) value2).contains(value1);
+            }
+            if (value2 instanceof String str2) {
+                String delim = str2.contains("|") ? "|"
+                            : str2.contains(",") ? ","
+                            : null;
+
+                isPresent = (delim != null)
+                        ? StringUtil.split(str2, delim).contains(String.valueOf(value1))
+                        : str2.contains(String.valueOf(value1));
+            }
+            if (isPresent != null) {
+                return "not-in".equals(operator) != isPresent;
+            }
+            messages.add("ERROR: Could not analyze the given list with operator "
+                    + operator + " the right element need to be a list or string with | or ,");
+            return Boolean.FALSE;
         }
 
         Object convertedValue1 = null;

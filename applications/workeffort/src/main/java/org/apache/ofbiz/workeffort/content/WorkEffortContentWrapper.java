@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -54,7 +54,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public class WorkEffortContentWrapper implements ContentWrapper {
 
     private static final String MODULE = WorkEffortContentWrapper.class.getName();
-    public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> WORK_EFFORT_CONTENT_CACHE = UtilCache.createUtilCache("workeffort.content.rendered", true);
 
@@ -288,8 +287,10 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
 
             Writer outWriter = new StringWriter();
-            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher,
-                    outWriter, false);
+            // Use cache == true to have entity-cache managed content from cache while (not managed) rendered cache above
+            // may be configured with short expire time
+            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId,
+                    delegator, dispatcher, outWriter, true);
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
                 outString = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName) : "";

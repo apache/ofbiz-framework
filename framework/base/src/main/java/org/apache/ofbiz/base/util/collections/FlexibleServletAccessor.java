@@ -22,8 +22,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -183,20 +183,15 @@ public class FlexibleServletAccessor<T> implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof FlexibleServletAccessor<?>) {
+        if (!(obj instanceof FlexibleServletAccessor<?>)) {
+            return false;
+        } else {
             FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
-            if (this.name == null) {
+            if (name == null) {
                 return flexibleServletAccessor.name == null;
             }
-            return this.name.equals(flexibleServletAccessor.name);
+            return name.equals(flexibleServletAccessor.name);
         }
-        if (this.name == null) {
-            return obj == null;
-        }
-        if (!(obj instanceof String)) {
-            return false;
-        }
-        return this.name.equals(obj);
     }
 
     /** To be used for a string representation of the accessor, returns the original name.

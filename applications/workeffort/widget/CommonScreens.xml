@@ -42,7 +42,7 @@ under the License.
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="workeffort" global="true"/>
                 <set field="applicationMenuName" value="WorkEffortAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://workeffort/widget/WorkEffortMenus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_core_business_applications"/>
                 <set field="applicationTitle" from-field="uiLabelMap.WorkEffortManagerApplication" global="true"/>
             </actions>
@@ -70,7 +70,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -79,7 +79,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                                <include-menu name="WorkEffortTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -131,7 +131,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -142,7 +142,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="timesheetId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="TimesheetTabBar" location="component://workeffort/widget/TimesheetMenus.xml"/>
+                                        <include-menu name="TimesheetTabBar" location="${parameters.timesheetMenuLocation}"/>
                                         <container style="button-bar">
                                             <link  text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext create"/>
                                         </container>
@@ -169,7 +169,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -177,7 +177,7 @@ under the License.
                                 <if-has-permission permission="WORKEFFORTMGR" action="_VIEW" />
                             </condition>
                             <actions>
-                                <script location="component://workeffort/groovyScripts/workeffort/calendar/Days.groovy" />
+                                <script location="component://workeffort/src/main/groovy/org/apache/ofbiz/workeffort/workeffort/calendar/Days.groovy" />
                             </actions>
                             <widgets>
                                 <screenlet id="calendarOptions" name="calendarOptionsScreenlet" collapsible="true" title="${uiLabelMap.WorkEffortCalendarFindEntries}">
@@ -221,7 +221,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="MainActionMenu" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <platform-specific>
@@ -238,11 +238,12 @@ under the License.
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="mainMenuLocation" from-field="parameters.mainMenuLocation" default-value="component://workeffort/widget/WorkEffortMenus.xml"/>
             </actions>
             <widgets>
                 <decorator-screen name="ShortcutDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-menu name="WorkEffortShortcutAppBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                        <include-menu name="WorkEffortShortcutAppBar" location="${mainMenuLocation}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

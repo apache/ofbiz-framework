@@ -57,7 +57,8 @@ public final class UtilObject {
      * that the returned value is length of the byte stream after the object has
      * been serialized. The returned value does not represent the amount of memory
      * the object uses. There is no accurate way to determine the size of an
-     * object in memory.</p>
+     * object in memory.
+     *
      * @param obj
      * @return the number of bytes in the serialized object
      * @throws IOException

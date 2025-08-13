@@ -212,12 +212,15 @@ public final class ApacheFopWorker {
         return fop;
     }
 
-    /** Returns a temporary File instance. The temporary file name starts with
-     * <a href="#tempFilePrefix">tempFilePrefix</a> and ends with ".xml".
-     * Calling methods are responsible for deleting the temporary file.<p>
-     * FOP performs transforms in memory, so if there is any chance FO output
-     * will be more than a few pages, it would be best to keep FO input in a temporary
-     * file.</p>
+    /**
+     * Returns a temporary File instance. The temporary file name starts with
+     * <a href="#tempFilePrefix">tempFilePrefix</a> and ends with ".xml". Calling
+     * methods are responsible for deleting the temporary file.
+     *
+     * FOP performs transforms in memory, so if there is any chance FO output will
+     * be more than a few pages, it would be best to keep FO input in a temporary
+     * file.
+     *
      * @return File instance
      */
     public static File createTempFoXmlFile() throws IOException {
@@ -226,12 +229,15 @@ public final class ApacheFopWorker {
         return tempXmlFile;
     }
 
-    /** Returns a temporary File instance. The temporary file name starts with
-     * <a href="#tempFilePrefix">tempFilePrefix</a> and ends with ".res".
-     * Calling methods are responsible for deleting the temporary file.<p>
-     * FOP performs transforms in memory, so if there is any chance FO output
-     * will be more than a few pages, it would be best to keep FO output in a temporary
-     * file.</p>
+    /**
+     * Returns a temporary File instance. The temporary file name starts with
+     * <a href="#tempFilePrefix">tempFilePrefix</a> and ends with ".res". Calling
+     * methods are responsible for deleting the temporary file.
+     *
+     * FOP performs transforms in memory, so if there is any chance FO output will
+     * be more than a few pages, it would be best to keep FO output in a temporary
+     * file.
+     *
      * @return File instance
      */
     public static File createTempResultFile() throws IOException {

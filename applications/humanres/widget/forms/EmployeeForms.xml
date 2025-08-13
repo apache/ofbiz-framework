@@ -63,7 +63,7 @@
         <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}" required-field="true"><text size="15" maxlength="15"/></field>
         <field name="extension" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
         <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
-        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
+        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60" type="email"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddEmployeeSkills" type="single" target="createEmployeeSkill" default-map-name="partySkill">
@@ -239,7 +239,7 @@
     </form>
     <grid name="PayrollHistoryList" list-name="payroll" extends="ListInvoices" extends-resource="component://accounting/widget/InvoiceForms.xml" paginate-target="PayrollHistory">
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="/accounting/control/invoiceOverview" target-type="inter-app">
+            <hyperlink description="${invoiceId}" target="/accounting/control/viewInvoice" target-type="inter-app">
                 <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>

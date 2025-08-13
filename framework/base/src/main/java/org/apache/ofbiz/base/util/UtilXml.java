@@ -87,6 +87,7 @@ public final class UtilXml {
     private static final String MODULE = UtilXml.class.getName();
     private static final XStream X_STREAM = createXStream();
     private UtilXml() { }
+    private static final List<String> HOSTHEADERSALLOWED = UtilMisc.getHostHeadersAllowed();
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
@@ -395,9 +396,13 @@ public final class UtilXml {
 
     public static Document readXmlDocument(URL url, boolean validate, boolean withPosition)
             throws SAXException, ParserConfigurationException, java.io.IOException {
-        if (url == null) {
-            Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", MODULE);
-            return null;
+
+        // url.getHost().isEmpty() when reading an XML file
+        if (!HOSTHEADERSALLOWED.contains(url.getHost()) && !url.getHost().isEmpty()) {
+            Debug.logWarning("Domain " + url.getHost() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.", MODULE);
+            throw new IOException("Domain " + url.getHost() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.");
         }
         InputStream is = url.openStream();
         Document document = readXmlDocument(is, validate, url.toString(), withPosition);

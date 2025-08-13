@@ -105,8 +105,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="IncomeStatementExpenses" list-name="expenseAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -116,8 +116,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="IncomeStatementIncome" list-name="incomeAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -127,8 +127,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <form name="ComparativeIncomeStatementParameters" type="single" target="ComparativeIncomeStatement" header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
@@ -183,9 +183,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeIncomeStatementRevenuesPdf" extends="ComparativeIncomeStatementRevenues">
         <field name="accountCode"><display/></field>
@@ -198,9 +198,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeIncomeStatementExpensesPdf" extends="ComparativeIncomeStatementExpenses">
         <field name="accountCode"><display/></field>
@@ -213,9 +213,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeIncomeStatementIncomePdf" extends="ComparativeIncomeStatementIncome">
         <field name="accountCode"><display/></field>
@@ -242,8 +242,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="BalanceSheetLiabilities" list-name="liabilityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -253,8 +253,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="BalanceSheetEquities" list-name="equityAccountBalanceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -264,16 +264,16 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="BalanceTotals" list-name="balanceTotalList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="totalName" value="${groovy: uiLabelMap.get(totalName)}"/>
         </row-actions>
-        <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge"><display description="${totalName}"/></field>
-        <field name="balance" title="_" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge listtitlestyle"><display description="${totalName}"/></field>
+        <field name="balance" title="_" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <form name="ComparativeBalanceSheetParameters" type="single" target="ComparativeBalanceSheet"
         header-row-style="header-row" default-table-style="basic-table">
@@ -326,9 +326,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeBalanceSheetAssetsPdf" extends="ComparativeBalanceSheetAssets">
         <field name="accountCode"><display/></field>
@@ -341,9 +341,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeBalanceSheetLiabilitiesPdf" extends="ComparativeBalanceSheetLiabilities">
         <field name="accountCode"><display/></field>
@@ -356,9 +356,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeBalanceSheetEquitiesPdf" extends="ComparativeBalanceSheetEquities">
         <field name="accountCode"><display/></field>
@@ -368,9 +368,9 @@ under the License.
         <row-actions>
             <set field="totalName" value="${groovy: uiLabelMap.get(totalName)}"/>
         </row-actions>
-        <field name="totalName" title-area-style="tableheadwide"><display description="${totalName}"/></field>
-        <field name="balance1" title="Period1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" title="Period2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalName" title-area-style="tableheadwide listtitlestyle"><display description="${totalName}"/></field>
+        <field name="balance1" title="Period1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" title="Period2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
 
     <form name="SelectAcctReportPeriod" type="single" title="Select period for report">
@@ -412,13 +412,13 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="openingD" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="openingC" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="D" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="C" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="closingD" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="closingC" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="openingD" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="openingC" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="D" title="${uiLabelMap.AccountingDebitFlag}" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C" title="${uiLabelMap.AccountingCreditFlag}" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="closingD" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="closingC" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="PostedTransactionTotalListPdf" extends="PostedTransactionTotalList">
         <field name="accountCode"><display/></field>
@@ -551,9 +551,9 @@ under the License.
             <set field="quantityUom" from-field="uom.abbreviation" default-value="${uom.uomId}"/>
         </row-actions>
         <field name="productId"><display/></field>
-        <field name="unitCost" widget-style="tabletextright"><display currency="${currencyUomId}" type="currency"/></field>
-        <field name="accountingQuantitySum" widget-style="tabletextright"><display description="${accountingQuantitySum} ${quantityUom}"/></field>
-        <field name="value" widget-style="tabletextright"><display description="${accountingQuantitySum * unitCost}" currency="${currencyUomId}" type="currency"/></field>
+        <field name="unitCost" widget-area-style="tabletextright"><display currency="${currencyUomId}" type="currency"/></field>
+        <field name="accountingQuantitySum" widget-area-style="tabletextright"><display description="${accountingQuantitySum} ${quantityUom}"/></field>
+        <field name="value" widget-area-style="tabletextright"><display description="${accountingQuantitySum * unitCost}" currency="${currencyUomId}" type="currency"/></field>
     </grid>
 
     <form name="TrialBalanceFinancialTimePeriodSelection" type="single" header-row-style="header-row" target="TrialBalance" default-table-style="basic-table">
@@ -580,10 +580,10 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
-        <field name="openingBalance" title="${uiLabelMap.AccountingOpeningBalance}" widget-style="tabletextright"><display description="${openingBalance}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="postedDebits" title="${uiLabelMap.AccountingDebitFlag}" widget-style="tabletextright"><display description="${postedDebits}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="postedCredits" title="${uiLabelMap.AccountingCreditFlag}" widget-style="tabletextright"><display description="${postedCredits}" type="currency" currency="${currencyUomId}"/></field>
-        <field name="endingBalance" title="${uiLabelMap.AccountingEndingBalance}" widget-style="tabletextright"><display description="${endingBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="openingBalance" title="${uiLabelMap.AccountingOpeningBalance}" widget-area-style="tabletextright"><display description="${openingBalance}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="postedDebits" title="${uiLabelMap.AccountingDebitFlag}" widget-area-style="tabletextright"><display description="${postedDebits}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="postedCredits" title="${uiLabelMap.AccountingCreditFlag}" widget-area-style="tabletextright"><display description="${postedCredits}" type="currency" currency="${currencyUomId}"/></field>
+        <field name="endingBalance" title="${uiLabelMap.AccountingEndingBalance}" widget-area-style="tabletextright"><display description="${endingBalance}" type="currency" currency="${currencyUomId}"/></field>
     </grid>
 
     <form name="CashFlowStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
@@ -613,8 +613,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="CashFlowStatementOpeningCashBalancePdf" extends="CashFlowStatementOpeningCashBalance">
         <field name="accountCode"><display/></field>
@@ -627,10 +627,10 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="D" widget-style="tabletextright" title="${uiLabelMap.AccountingTotalDebit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="C" widget-style="tabletextright" title="${uiLabelMap.AccountingTotalCredit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="D" widget-area-style="tabletextright" title="${uiLabelMap.AccountingTotalDebit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C" widget-area-style="tabletextright" title="${uiLabelMap.AccountingTotalCredit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="CashFlowStatementPeriodCashBalancePdf" extends="CashFlowStatementPeriodCashBalance">
         <field name="accountCode"><display/></field>
@@ -643,8 +643,8 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="CashFlowStatementClosingCashBalancePdf" extends="CashFlowStatementClosingCashBalance">
         <field name="accountCode"><display/></field>
@@ -654,8 +654,8 @@ under the License.
         <row-actions>
             <set field="totalName" value="${groovy: uiLabelMap.get(totalName)}"/>
         </row-actions>
-        <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge"><display description="${totalName}"/></field>
-        <field name="balance" title="_" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalName" title="${uiLabelMap.CommonTotal}" title-area-style="tableheadhuge listtitlestyle"><display description="${totalName}"/></field>
+        <field name="balance" title="_" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <form name="FindCashFlowTotals" type="single" target="TransactionTotals" title="Find list of cash flow totals"
         header-row-style="header-row" default-table-style="basic-table">
@@ -701,9 +701,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeCashFlowStatementOpeningCashBalancePdf" extends="ComparativeCashFlowStatementOpeningCashBalance">
         <field name="accountCode"><display/></field>
@@ -716,13 +716,13 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="D1" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod1Debit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="C1" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod1Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="D2" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Debit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="C2" widget-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="D1" widget-area-style="tabletextright" title="${uiLabelMap.AccountingPeriod1Debit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C1" widget-area-style="tabletextright" title="${uiLabelMap.AccountingPeriod1Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="D2" widget-area-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Debit_Receipts}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="C2" widget-area-style="tabletextright" title="${uiLabelMap.AccountingPeriod2Credit_Disbursement}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeCashFlowStatementPeriodCashBalancePdf" extends="ComparativeCashFlowStatementPeriodCashBalance">
         <field name="accountCode"><display/></field>
@@ -735,9 +735,9 @@ under the License.
                 <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
-        <field name="accountName" title-area-style="tableheadwide"><display description="${accountName}"/></field>
-        <field name="balance1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="accountName" title-area-style="tableheadwide listtitlestyle"><display description="${accountName}"/></field>
+        <field name="balance1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <grid name="ComparativeCashFlowStatementClosingCashBalancePdf" extends="ComparativeCashFlowStatementClosingCashBalance">
         <field name="accountCode"><display/></field>
@@ -747,9 +747,9 @@ under the License.
         <row-actions>
             <set field="totalName" value="${groovy: uiLabelMap.get(totalName)}"/>
         </row-actions>
-        <field name="totalName" title-area-style="tableheadwide"><display description="${totalName}"/></field>
-        <field name="balance1" title="Period1" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="balance2" title="Period2" widget-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalName" title-area-style="tableheadwide listtitlestyle"><display description="${totalName}"/></field>
+        <field name="balance1" title="Period1" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="balance2" title="Period2" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
     </grid>
     <!-- This is required to render the date range in the PDF: the two columns layout is not supported -->
     <form name="ComparativeCashFlowStatementParametersOneColumn" type="single" target="" header-row-style="header-row" default-table-style="basic-table">

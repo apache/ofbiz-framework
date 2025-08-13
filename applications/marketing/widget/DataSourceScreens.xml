@@ -32,14 +32,14 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->
                             <condition>
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="DataSourceTabBar" location="component://marketing/widget/DataSourceMenus.xml"/>
+                                <include-menu name="DataSourceTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>

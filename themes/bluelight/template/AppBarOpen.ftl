@@ -48,20 +48,13 @@ under the License.
               <#assign thisApp = StringUtil.wrapString(thisApp)>
               <#assign thisURL = thisApp>
               <#assign thisAppShortcutScreen = display.getAppShortcutScreen()!>
-              <#if thisApp != "/">
+              <#if thisApp != "/" && thisApp != "/rest">
                 <#assign thisURL = thisURL + "/control/main">
               </#if>
               <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
                 <!-- do not display this component-->
               <#else>
-                  <li <#if selected>class="selected"</#if>>
-                      <a href="${thisURL + externalKeyParam}" <#if uiLabelMap??> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
-                      <#if thisAppShortcutScreen?has_content>
-                          <ul class="shortcut">
-                              ${screens.render(thisAppShortcutScreen)!}
-                          </ul>
-                      </#if>
-                  </li>
+                <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap??> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
               </#if>
             </#list>
            </ul></li>
@@ -75,7 +68,7 @@ under the License.
               </#if>
               <#assign thisApp = StringUtil.wrapString(thisApp)>
               <#assign thisURL = thisApp>
-              <#if thisApp != "/">
+              <#if thisApp != "/" && thisApp != "/rest">
                 <#assign thisURL = thisURL + "/control/main">
               </#if>
               <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>

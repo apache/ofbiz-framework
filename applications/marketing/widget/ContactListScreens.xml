@@ -35,7 +35,7 @@ under the License.
            <widgets>
                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://marketing/widget/MarketingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                     </decorator-section>
                    <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -254,7 +254,7 @@ under the License.
                 <entity-one entity-name="StatusItem" value-field="status"/>                
 
                 <!-- get the contact list owner's marketing email -->
-                <script location="component://marketing/groovyScripts/marketing/contact/GetContactListMarketingEmail.groovy"/>
+                <script location="component://marketing/src/main/groovy/org/apache/ofbiz/marketing/marketing/contact/GetContactListMarketingEmail.groovy"/>
                 <set field="contactMechIdFrom" from-field="marketingEmail.contactMechId"/>
                 <set field="partyIdFrom" from-field="contactList.ownerPartyId"/>
             </actions>
@@ -262,7 +262,7 @@ under the License.
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditContactList}">
-                            <include-menu name="ContactListCommBar" location="component://marketing/widget/ContactListMenus.xml"/>
+                            <include-menu name="ContactListCommBar" location="${parameters.mainMenuLocation}"/>
                             <container style="button-bar">
                                 <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent" style="buttontext create">
                                     <parameter param-name="contactListId"/>
@@ -493,6 +493,22 @@ under the License.
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommEvents">
+        <section>
+            <actions>
+                <entity-condition entity-name="CommunicationEvent" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contactListId" operator="not-equals" from-field="null"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyListCommunicationEvents}">
+                    <include-grid name="CommEvents" location="component://marketing/widget/ContactListForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

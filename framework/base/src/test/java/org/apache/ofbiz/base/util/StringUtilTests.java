@@ -18,6 +18,9 @@
  */
 package org.apache.ofbiz.base.util;
 
+import com.ibm.icu.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -81,6 +84,33 @@ public class StringUtilTests {
                 StringUtil.strToMap(" 1 = one | 2 = two "));
         assertEquals("double-trim", UtilMisc.toMap("2", "two", "1", "one"),
                 StringUtil.strToMap(" 1 = one | 2 = two ", true));
+    }
+
+    @Test
+    public void testMapToStr() {
+        // Test Null
+        assertNull("null-string", StringUtil.mapToStr(null));
+        assertNull("empty", StringUtil.mapToStr(Map.of()));
+
+        // Test simple case
+        assertEquals("single", "1=one", StringUtil.mapToStr(Map.of("1", "one")));
+        LinkedHashMap<String, String> doubleMap = new LinkedHashMap<>();
+        doubleMap.put("1", "one");
+        doubleMap.put("2", "two");
+        assertEquals("double", "1=one|2=two", StringUtil.mapToStr(doubleMap));
+
+        // Test with object case
+        LinkedHashMap<Object, Object> doubleObjectMap = new LinkedHashMap<>();
+        doubleObjectMap.put(Integer.valueOf(1), Long.valueOf(1));
+        doubleObjectMap.put(Integer.valueOf(2), BigDecimal.ONE);
+        assertEquals("double with number classe", "1=1|2=1", StringUtil.mapToStr(doubleObjectMap));
+
+        // Test with special char
+        assertEquals("single with =", "1=%3Done", StringUtil.mapToStr(Map.of("1", "=one")));
+        LinkedHashMap<String, String> doublePipeMap = new LinkedHashMap<>();
+        doublePipeMap.put("1", "|one");
+        doublePipeMap.put("2|", "two");
+        assertEquals("double with pipe", "1=%7Cone|2%7C=two", StringUtil.mapToStr(doublePipeMap));
     }
 
     @Test
@@ -218,5 +248,35 @@ public class StringUtilTests {
         assertEquals("all converions", "one && two || three > four >= five < six <= seven",
                 StringUtil.convertOperatorSubstitutions(
                         "one @and two @or three @gt four @gteq five @lt six @lteq seven"));
+    }
+
+    @Test
+    public void testTruncateString() {
+        assertEquals("no truncate", "this is a truncated long string",
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 40));
+        assertEquals("no truncate to short", "this",
+                StringUtil.truncateEncodedStringToLength("this", 5));
+        assertEquals("normal", "this is a t…ing",
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 15));
+        assertEquals("normal short", "this …",
+                StringUtil.truncateEncodedStringToLength("this is a truncated long string", 5));
+        assertEquals("with parenthesis", "this ( are … ok",
+                StringUtil.truncateEncodedStringToLength("this ( are managed correctly ) ok", 15));
+        assertEquals("with parenthesis at end", "this ( are …d )",
+                StringUtil.truncateEncodedStringToLength("this ( are managed correctly, with the end )", 15));
+        assertEquals("with parenthesis and semicolon ignored", "this ( are …d )",
+                StringUtil.truncateEncodedStringToLength("this ( are a semicolon far ; managed correctly, with the end )", 15));
+        assertEquals("with parenthesis and semicolon closer", "this ( are;…d )",
+                StringUtil.truncateEncodedStringToLength("this ( are; a semicolon closer managed correctly, with the end )", 15));
+        assertEquals("with parenthesis and é managed", "this ( are&eacut;…end",
+                StringUtil.truncateEncodedStringToLength("this ( are&eacut; managed correctly, with the ) end", 15));
+        assertEquals("with parenthesis and é é managed", "this ( a&eacut;e&eacut;…end",
+                StringUtil.truncateEncodedStringToLength("this ( a&eacut;e&eacut; managed correctly, with the ) end", 15));
+        assertEquals("with parenthesis and é closer", "this ( are …n&eacut;d",
+                StringUtil.truncateEncodedStringToLength("this ( are & closer managed correctly, with th&e ) en&eacut;d", 15));
+        assertEquals("with parenthesis and é é closer", "this ( are …&eacut;&eacut;d",
+                StringUtil.truncateEncodedStringToLength("this ( are & closer managed correctly, with th&e )en&eacut;&eacut;d", 15));
+        assertEquals("with parenthesis and # # closer", "this ( are …&#235;&#235;d",
+                StringUtil.truncateEncodedStringToLength("this ( are & closer managed correctly, with th&e )en&#235;&#235;d", 15));
     }
 }

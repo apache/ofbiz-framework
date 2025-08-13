@@ -39,7 +39,7 @@
                     then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <set field="activeApp" value="ofbizsetup" global="true"/>
                 <set field="applicationMenuName" value="SetupAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://commonext/widget/ofbizsetup/Menus.xml" global="true"/>
+                <set field="applicationMenuLocation" value="${parameters.mainMenuLocation}" global="true"/>
                 <set field="applicationTitle" from-field="uiLabelMap.SetupApp" global="true"/>
                 <set field="helpAnchor" from-field="helpAnchor" default-value="_the_ofbiz_setup_application_overview"/>
             </actions>
@@ -78,7 +78,7 @@
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="SetupSubTabBar" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
+                                <include-menu name="SetupSubTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                         <section>

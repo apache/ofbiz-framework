@@ -29,7 +29,8 @@ public interface WidgetLoader {
     /**
      * Registers screen widgets with the widget factory.<p>Implementations register
      * screen widget classes by calling the <code>WidgetFactory registerXxxx</code>
-     * methods.</p>
+     * methods.
+     *
      */
     void loadWidgets();
 

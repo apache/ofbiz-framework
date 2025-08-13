@@ -28,6 +28,9 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
                     </decorator-section>                    
@@ -37,7 +40,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="salesForecastId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="SalesForecastTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                        <include-menu name="SalesForecastTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                             </widgets>
@@ -59,6 +62,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://marketing/widget/sfa/CommonScreens.xml"/>
                     </decorator-section>                    

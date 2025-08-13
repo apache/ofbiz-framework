@@ -28,8 +28,8 @@ under the License.
         "head2":"font-weight=\"bold\"",
         "head3":"font-weight=\"bold\" font-style=\"italic\"",
         "h1":"font-size=\"12\" font-weight=\"bold\"",
-        "h2":"font-weight=\"bold\"",
-        "h3":"font-weight=\"bold\" font-style=\"italic\"",
+        "h2":"font-size=\"10\" font-weight=\"bold\" padding-top=\"10pt\" padding-bottom=\"4pt\"",
+        "h3":"font-weight=\"bold\" font-style=\"italic\" padding-top=\"10pt\" padding-bottom=\"4pt\"",
         "error":"color=\"red\""}/>
     <#list style?split(' ') as styleItem>
         <#local foStyle = foStyles[styleItem]?default("")/>

@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.control;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.math.BigInteger;
@@ -36,13 +38,13 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
 
 import org.apache.http.HttpStatus;
@@ -80,6 +82,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.security.SecurityConfigurationException;
 import org.apache.ofbiz.security.SecurityFactory;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
@@ -87,6 +90,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppCache;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.webapp.website.WebSiteProperties;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 
 /**
@@ -333,13 +337,13 @@ public final class LoginWorker {
             password = request.getParameter("PASSWORD");
             token = request.getParameter("TOKEN");
             // check session attributes
-            if (username == null) username = (String) session.getAttribute("USERNAME");
-            if (password == null) password = (String) session.getAttribute("PASSWORD");
-            if (token == null) token = (String) session.getAttribute("TOKEN");
+            if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
+            if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
+            if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
-            if (username == null
-                    || (password == null && token == null)
+            if (UtilValidate.isEmpty(username)
+                    || (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token))
                     || "error".equals(login(request, response))) {
 
                 // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria
@@ -417,9 +421,9 @@ public final class LoginWorker {
             }
         }
 
-        if (username == null) username = (String) session.getAttribute("USERNAME");
-        if (password == null) password = (String) session.getAttribute("PASSWORD");
-        if (token == null) token = (String) session.getAttribute("TOKEN");
+        if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
+        if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
+        if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute;
         // this way a preprocessor can play with these a bit...
@@ -593,12 +597,10 @@ public final class LoginWorker {
             }
 
             // check on JavaScriptEnabled
-            String javaScriptEnabled = "N";
-            if ("Y".equals(request.getParameter("JavaScriptEnabled"))) {
-                javaScriptEnabled = "Y";
-            }
+            String javaScriptEnabled = "N".equals(request.getParameter("JavaScriptEnabled"))
+                    ? "N" : "Y";
             try {
-                result = dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId",
+                dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId",
                         "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error setting user preference", MODULE);
@@ -610,7 +612,7 @@ public final class LoginWorker {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return requirePasswordChange ? "requirePasswordChange" : "error";
+            return "error";
         }
     }
 
@@ -697,10 +699,8 @@ public final class LoginWorker {
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
 
             // check on JavaScriptEnabled
-            String javaScriptEnabled = "N";
-            if ("Y".equals(request.getParameter("JavaScriptEnabled"))) {
-                javaScriptEnabled = "Y";
-            }
+            String javaScriptEnabled = "N".equals(request.getParameter("JavaScriptEnabled"))
+                    ? "N" : "Y";
             try {
                 dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled",
                         "userPrefGroupTypeId", "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
@@ -825,6 +825,9 @@ public final class LoginWorker {
         // Create a secured cookie with the correct userLoginId
         createSecuredLoginIdCookie(request, response);
 
+        // Create a secured cookie with a jwt contains the userLoginId
+        createSecuredLoginJwtCookie(request, response);
+
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
         autoLoginSet(request, response);
 
@@ -844,7 +847,7 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error getting user preference", MODULE);
         }
-        session.setAttribute("javaScriptEnabled", "Y".equals(javaScriptEnabled));
+        session.setAttribute("javaScriptEnabled", !"N".equals(javaScriptEnabled));
 
         //init theme from user preference, clean the current visualTheme value in session and restart the resolution
         UtilHttp.setVisualTheme(session, null);
@@ -1000,6 +1003,38 @@ public final class LoginWorker {
         }
     }
 
+    /**
+     * Set to response a cookie that contains an identification jwt to share with some other webapp who authenticate with
+     * event securedUserLoginByJWTCookie
+     * @param request
+     * @param response
+     */
+    public static void createSecuredLoginJwtCookie(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        if (userLogin != null) {
+            try {
+                String cookieName = "securedLoginToken";
+                Cookie securedLoginTokenCookie = new Cookie(cookieName,
+                        SecurityUtil.generateJwtToAuthenticateUserLogin(
+                                delegator, userLogin.getString("userLoginId")));
+                String cookieDomain = "";
+                try {
+                    WebSiteProperties webSiteProperties = WebSiteProperties.from(request);
+                    cookieDomain = webSiteProperties != null
+                            ? webSiteProperties.getHttpsHost()
+                            : EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
+                } catch (GenericEntityException ignored) { }
+                securedLoginTokenCookie.setDomain(cookieDomain);
+                securedLoginTokenCookie.setPath("/");
+                securedLoginTokenCookie.setSecure(true);
+                securedLoginTokenCookie.setHttpOnly(true);
+                response.addCookie(securedLoginTokenCookie);
+            } catch (Exception ignored) { }
+        }
+    }
+
     protected static String getAutoLoginCookieName(HttpServletRequest request) {
         return UtilHttp.getApplicationName(request) + ".autoUserLoginId";
     }
@@ -1040,6 +1075,27 @@ public final class LoginWorker {
         }
         return securedUserLoginId;
     }
+    public static String getSecuredUserLoginByJWT(HttpServletRequest request) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            Optional<Cookie> securedCookie = Arrays.stream(cookies)
+                    .filter(cookie -> cookie.getName().equals("securedLoginToken"))
+                    .findFirst();
+            if (securedCookie.isPresent()) {
+                try {
+                    DecodedJWT jwt = JWT.decode(securedCookie.get().getValue());
+                    if (SecurityUtil.authenticateUserLoginByJWT(delegator,
+                            jwt.getClaim("userLoginId").asString(), jwt.getToken())) {
+                        return jwt.getClaim("userLoginId").asString();
+                    }
+                } catch (Exception failed) {
+                    Debug.logWarning(failed, MODULE);
+                }
+            }
+        }
+        return null;
+    }
 
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1049,6 +1105,14 @@ public final class LoginWorker {
             return "success";
         }
         return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
+    }
+
+    public static String securedUserLoginByJWTCookie(HttpServletRequest request, HttpServletResponse response) {
+        String userLoginId = getSecuredUserLoginByJWT(request);
+        if (userLoginId != null) {
+            return loginUserWithUserLoginId(request, response, userLoginId);
+        }
+        return "success";
     }
 
     private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
@@ -1228,7 +1292,7 @@ public final class LoginWorker {
             //Debug.logInfo("CN Pattern: " + cnPattern, MODULE);
 
             if (currentUserLogin == null) {
-                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("jakarta.servlet.request.X509Certificate"); // 2.2 spec
                 if (clientCerts == null) {
                     clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
                 }

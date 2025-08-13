@@ -42,16 +42,18 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.core.FileUploadException;
+import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
@@ -66,6 +68,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.MapStack;
@@ -107,6 +110,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
 
     private static final String MODULE = DataResourceWorker.class.getName();
     private static final String ERR_RESOURCE = "ContentErrorUiLabels";
+    private static final String PROPERTY_RESOURCE = "content";
 
     /**
      * Traverses the DataCategory parent/child structure and put it in categoryNode. Returns non-null error string if there is an error.
@@ -207,12 +211,13 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
      * "idField" value and the binary data to be in a field id's by uploadField.
      */
     public static String uploadAndStoreImage(HttpServletRequest request, String idField, String uploadField) {
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
-        List<FileItem> lst = null;
+
+        JakartaServletFileUpload<DiskFileItem, DiskFileItemFactory> upload = UtilHttp.getServletFileUpload(request);
+        List<FileItem<DiskFileItem>> lst = null;
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            lst = UtilGenerics.cast(fu.parseRequest(request));
+            lst = UtilGenerics.cast(upload.parseRequest(request));
         } catch (FileUploadException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
@@ -226,15 +231,15 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         }
 
         // This code finds the idField and the upload FileItems
-        FileItem fi = null;
-        FileItem imageFi = null;
+        FileItem<DiskFileItem> fi = null;
+        FileItem<DiskFileItem> imageFi = null;
         String imageFileName = null;
         Map<String, Object> passedParams = new HashMap<>();
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
-        for (FileItem fileItem : lst) {
+        for (FileItem<DiskFileItem> fileItem : lst) {
             fi = fileItem;
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {
@@ -377,34 +382,62 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         return b;
     }
 
+    /**
+     * Gets the MIME-Type from a given data resource, using the default value set in properties as fallback.
+     * @param dataResource
+     * @return MIME-Type
+     */
     public static String getMimeType(GenericValue dataResource) {
+        String defaultMimeType = EntityUtilProperties.getPropertyValue(PROPERTY_RESOURCE, "defaultMimeType", "application/octet-stream",
+                dataResource.getDelegator());
+        return getMimeType(dataResource, defaultMimeType);
+    }
+
+    /**
+     * Gets the MIME-Type from a given data resource.
+     * @param dataResource
+     * @param defaultMimeTypeId
+     * @return MIME-Type
+     */
+    public static String getMimeType(GenericValue dataResource, String defaultMimeTypeId) {
         String mimeTypeId = null;
         if (dataResource != null) {
             mimeTypeId = (String) dataResource.get("mimeTypeId");
             if (UtilValidate.isEmpty(mimeTypeId)) {
                 String fileName = (String) dataResource.get("objectInfo");
-                if (fileName != null && fileName.indexOf('.') > -1) {
-                    String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
-                    if (UtilValidate.isNotEmpty(fileExtension)) {
-                        GenericValue ext = null;
-                        try {
-                            ext = dataResource.getDelegator().findOne("FileExtension",
-                                    UtilMisc.toMap("fileExtensionId", fileExtension), false);
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, MODULE);
-                        }
-                        if (ext != null) {
-                            mimeTypeId = ext.getString("mimeTypeId");
-                        }
-                    }
-                }
+                mimeTypeId = getMimeType(dataResource.getDelegator(), fileName, defaultMimeTypeId);
+            }
+        }
+        return mimeTypeId;
+    }
 
-                // check one last time
-                if (UtilValidate.isEmpty(mimeTypeId)) {
-                    // use a default mime type
-                    mimeTypeId = "application/octet-stream";
+    /**
+     * Gets the MIME-Type from a given filename.
+     * @param delegator
+     * @param fileName
+     * @param defaultMimeTypeId
+     * @return MIME-Type
+     */
+    public static String getMimeType(Delegator delegator, String fileName, String defaultMimeTypeId) {
+        String mimeTypeId = null;
+
+        if (UtilValidate.isNotEmpty(fileName) && fileName.indexOf('.') > -1) {
+            String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+            if (UtilValidate.isNotEmpty(fileExtension)) {
+                GenericValue ext = null;
+                try {
+                    ext = delegator.findOne("FileExtension", true, "fileExtensionId", fileExtension);
+                    if (ext != null) {
+                        mimeTypeId = ext.getString("mimeTypeId");
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, MODULE);
                 }
             }
+        }
+        // check one last time, if we have to return a default mime type
+        if (UtilValidate.isEmpty(mimeTypeId) && UtilValidate.isNotEmpty(defaultMimeTypeId)) {
+            mimeTypeId = defaultMimeTypeId;
         }
         return mimeTypeId;
     }
@@ -696,7 +729,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     // if use web analytics.
                     if (UtilValidate.isNotEmpty(webAnalytics)) {
                         StringBuffer newTemplateText = new StringBuffer(templateText);
-                        String webAnalyticsCode = "<script type=\"application/javascript\">";
+                        String webAnalyticsCode = "<script type=\"text/javascript\">";
                         for (GenericValue webAnalytic : webAnalytics) {
                             StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
                             webAnalyticsCode += wrapString.toString();
@@ -916,7 +949,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                     sep = "/";
                 }
                 String fixedUrlStr = prefix + sep + url.toString();
-                URL fixedUrl = new URL(fixedUrlStr);
+                URL fixedUrl = UtilURL.fromUrlString(fixedUrlStr);
                 text = (String) fixedUrl.getContent();
             }
             out.append(text);
@@ -1140,14 +1173,14 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
         } else if ("URL_RESOURCE".equals(dataResourceTypeId)) {
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
-                URL url = new URL(objectInfo);
+                URL url = UtilURL.fromUrlString(objectInfo);
                 if (url.getHost() == null) { // is relative
                     String newUrl = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
                     if (!newUrl.endsWith("/")) {
                         newUrl = newUrl + "/";
                     }
                     newUrl = newUrl + url.toString();
-                    url = new URL(newUrl);
+                    url = UtilURL.fromUrlString(newUrl);
                 }
 
                 URLConnection con = url.openConnection();

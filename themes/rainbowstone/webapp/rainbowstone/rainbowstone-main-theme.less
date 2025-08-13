@@ -1339,7 +1339,9 @@ a.user-pref-btn {
   padding: 0.4em;
 }
 
-.screenlet-body div {
+/* this rule is way too broad, targets all divs in screenlets (which is a lot of divs :) */
+/* just excluding Trumbowyg elements to avoid a visual glitch */
+.screenlet-body div:not([class^="trumbowyg"]) {
   margin: 0.8em 0.1em
 }
 

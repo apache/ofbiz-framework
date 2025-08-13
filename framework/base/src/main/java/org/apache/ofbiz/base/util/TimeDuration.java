@@ -349,7 +349,8 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
      * returns a zero <code>TimeDuration</code>.<p>This is a convenience method
      * intended to be used with entity engine fields. Some duration fields are
      * stored as a <code>Long</code>, while others are stored as a
-     * <code>Double</code>. This method will decode both types.</p>
+     * <code>Double</code>. This method will decode both types.
+     *
      * @param number A <code>Number</code> instance, can be <code>null</code>
      * @return A <code>TimeDuration</code> instance
      */

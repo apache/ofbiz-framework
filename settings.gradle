@@ -17,11 +17,42 @@
  * under the License.
  */
 
+plugins {
+    id 'com.gradle.develocity' version '3.18.2'
+    id 'com.gradle.common-custom-user-data-gradle-plugin' version '2.0.2'
+}
+
+def isCI = System.getenv('GITHUB_ACTIONS') != null
+
+develocity {
+    server = "https://develocity.apache.org"
+    projectId = "ofbiz"
+    buildScan {
+        uploadInBackground = !isCI
+        publishing.onlyIf { it.isAuthenticated() }
+        obfuscation {
+            // This obfuscates the IP addresses of the build machine in the build scan.
+            // Alternatively, the build scan will provide the hostname for troubleshooting host-specific issues.
+            ipAddresses { addresses -> addresses.collect { address -> "0.0.0.0"} }
+        }
+    }
+}
+
+buildCache {
+    local {
+        enabled = !isCI
+    }
+
+    remote(develocity.buildCache) {
+        enabled = false
+    }
+}
+
 apply from: 'common.gradle'
 rootProject.name = 'ofbiz'
 
-def fileSep = System.getProperty("file.separator")
-def isWindows = System.getProperty('os.name').toLowerCase().contains("windows")
+def fileSep = System.getProperty('file.separator')
+def isWindows = System.getProperty('os.name').toLowerCase().contains('windows')
 
 activeComponents().each { File component ->
     def subProject = (component.toString() - rootDir)

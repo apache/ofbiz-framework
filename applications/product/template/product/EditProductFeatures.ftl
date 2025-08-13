@@ -133,8 +133,8 @@ under the License.
       <select name='productFeatureApplTypeId' size="1">
   <#list productFeatureApplTypes as productFeatureApplType>
         <option value='${(productFeatureApplType.productFeatureApplTypeId)!}'
-    <#if (productFeatureApplType.productFeatureApplTypeId?? && product?? && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected="selected"</#if>
-    <#if (productFeatureApplType.productFeatureApplTypeId?? && product?? && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId! =="STANDARD_FEATURE")>selected="selected"</#if>
+    <#if (productFeatureApplType.productFeatureApplTypeId?? && product?? && product.isVirtual?? && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected="selected"</#if>
+    <#if (productFeatureApplType.productFeatureApplTypeId?? && product?? && product.isVirtual?? && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId! =="STANDARD_FEATURE")>selected="selected"</#if>
             >${(productFeatureApplType.get("description",locale))!} </option>
   </#list>
       </select>

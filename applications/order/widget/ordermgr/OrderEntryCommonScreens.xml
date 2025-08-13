@@ -22,12 +22,12 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
-                <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                      <decorator-section name="pre-body">
-                         <include-menu name="MainActionMenu" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                         <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                      </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
@@ -50,7 +50,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
-                <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
+                <script location="component://order/src/main/groovy/org/apache/ofbiz/order/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

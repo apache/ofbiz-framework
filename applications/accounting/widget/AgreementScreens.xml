@@ -34,7 +34,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu location="component://accounting/widget/AccountingMenus.xml" name="MainActionMenu"/>
+                        <include-menu name="MainActionMenu" location="${parameters.mainMenuLocation}"/>
                         <section>
                             <condition>
                                 <and>
@@ -44,7 +44,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <label style="h1">${uiLabelMap.AccountingAgreement}: ${agreementId}</label>
-                                <include-menu name="AgreementTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu name="AgreementTabBar" location="${parameters.mainMenuLocation}"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -64,12 +64,9 @@ under the License.
                                                 <not><if-empty field="agreementItem"/></not>
                                             </condition>
                                             <widgets>
-                                                <include-menu name="AgreementItemTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                                <include-menu name="AgreementItemTabBar" location="${parameters.mainMenuLocation}"/>
                                             </widgets>
                                         </section>
-                                        <container style="button-bar">
-                                            <link target="EditAgreement" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
-                                        </container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -100,11 +97,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditAgreement" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindAgreements" location="component://accounting/widget/AgreementForms.xml"/>
                                     </decorator-section>
@@ -881,21 +873,39 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindAgreementRoles"/>
                 <set field="tabButtonItem" value="AgreementRoles"/>
                 <set field="helpAnchor" value="_help_for_edit_agreements_roles"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+                <entity-condition entity-name="AgreementRole" list="agreementRoles">
+                    <order-by field-name="partyId"/>
+                    <order-by field-name="roleTypeId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="add-agreement-roles"  title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
-                            <section>
-                                <widgets>
+                        <section>
+                            <condition>
+                                <and>
+                                    <or>
+                                        <if-has-permission permission="ACCOUNTING" action="_CREATE"/>
+                                        <if-has-permission permission="ACCOUNTING" action="_UPDATE"/>
+                                    </or>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet id="add-agreement-roles" title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
                                     <include-form name="AddAgreementRole" location="component://accounting/widget/AgreementForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                                <screenlet id="AgreementRoles" title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet id="AgreementRoles" title="${uiLabelMap.CommonRoles}">
+                                    <include-grid name="AgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

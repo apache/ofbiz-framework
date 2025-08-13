@@ -63,7 +63,7 @@ public class BooleanConverters implements ConverterLoader {
 
         @Override
         public Boolean convert(Integer obj) throws ConversionException {
-            return obj == 0 ? false : true;
+            return obj != 0;
         }
     }
 

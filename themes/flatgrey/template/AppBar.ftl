@@ -38,7 +38,7 @@ under the License.
         <#assign servletPath = Static["org.apache.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
         <#if servletPath?has_content>
             <#assign thisURL = StringUtil.wrapString(servletPath)>
-            <#if thisApp != "/">
+            <#if thisApp != "/" && thisApp != "/rest">
               <#assign thisURL = thisURL + "main">
             </#if>
             <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
@@ -66,7 +66,7 @@ under the License.
         </#if>
           <#assign servletPath = Static["org.apache.ofbiz.webapp.WebAppUtil"].getControlServletPath(display)>
           <#assign thisURL = StringUtil.wrapString(servletPath)>
-          <#if thisApp != "/">
+          <#if thisApp != "/" && thisApp != "/rest">
             <#assign thisURL = thisURL + "main">
           </#if>
         <#if appCount % 4 == 0>

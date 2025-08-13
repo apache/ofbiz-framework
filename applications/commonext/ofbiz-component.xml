@@ -40,7 +40,14 @@ under the License.
         location="webapp/ofbizsetup"
         base-permission="OFBTOOLS,SETUP"
         mount-point="/ofbizsetup"/>
-    
+
+    <webapp name="common-js"
+        title="common-js"
+        server="default-server"
+        location="webapp/common-js"
+        mount-point="/common-js"
+        app-bar-display="false"/>
+
     <webapp name="ordermgr-js"
         title="ordermgr-js"
         server="default-server"

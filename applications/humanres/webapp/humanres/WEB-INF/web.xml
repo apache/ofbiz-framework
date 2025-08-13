@@ -38,6 +38,26 @@ under the License.
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://humanres/widget/CommonScreens.xml</param-value>
     </context-param>
+    <context-param>
+        <description>The location of the menus file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>mainMenuLocation</param-name>
+        <param-value>component://humanres/widget/HumanresMenus.xml</param-value>
+    </context-param>
+    <context-param>
+        <description>The location of the calendar menus file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>calendarMenuLocation</param-name>
+        <param-value>component://workeffort/widget/WorkEffortMenus.xml</param-value>
+    </context-param>
+    <context-param>
+        <description>The location of the communications menus file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>communicationMenuLocation</param-name>
+        <param-value>component://party/widget/partymgr/PartyMenus.xml</param-value>
+    </context-param>
+    <context-param>
+        <description>The location of the profile screen menus file to be used in this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>profileMenuLocation</param-name>
+        <param-value>component://party/widget/partymgr/PartyMenus.xml</param-value>
+    </context-param>
 
     <filter>
         <display-name>ControlFilter</display-name>

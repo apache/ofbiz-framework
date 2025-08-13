@@ -55,7 +55,7 @@ public class Continue extends MethodOperation {
         public String getMessage() {
             StringBuilder sb = new StringBuilder(super.getMessage());
             SimpleMethod method = getSimpleMethod();
-            sb.append(" Method = ").append(method.getMethodName()).append(", File = ").append(method.getFromLocation());
+            sb.append(", File#Method = ").append(method.getFileName()).append("#").append(method.getMethodName());
             sb.append(", Element = <continue>, Line ").append(getLineNumber());
             return sb.toString();
         }

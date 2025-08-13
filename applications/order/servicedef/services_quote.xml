@@ -26,7 +26,7 @@ under the License.
 
     <!-- Quote -->
     <service name="getNextQuoteId" engine="groovy"
-        location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="getNextQuoteId">
+        location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="getNextQuoteId">
         <description>Get the Next Quote ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="createQuote"/>
         <attribute name="partyId" type="String" mode="IN"/>
@@ -34,26 +34,26 @@ under the License.
     </service>
 
     <service name="quoteSequenceEnforced" engine="groovy"
-        location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="quoteSequenceEnforced">
+        location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="quoteSequenceEnforced">
         <implements service="getNextQuoteId" optional="true"/>
         <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="quoteId" type="Long" mode="OUT"/>
     </service>
 
     <service name="createQuote" default-entity-name="Quote" engine="groovy"
-             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuote" auth="true">
+             location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuote" auth="true">
         <description>Create an Quote</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="true"/>
     </service>
     <service name="updateQuote" default-entity-name="Quote" engine="groovy"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="updateQuote" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="updateQuote" auth="true">
         <description>Update a Quote</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="copyQuote" default-entity-name="Quote" engine="groovy"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="copyQuote" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="copyQuote" auth="true">
         <description>Copy a Quote</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <attribute name="copyQuoteRoles" type="String" mode="IN" optional="true"/>
@@ -64,7 +64,7 @@ under the License.
         <attribute name="copyQuoteTerms" type="String" mode="IN" optional="true"/>
     </service>
     <service name="checkUpdateQuoteStatus" default-entity-name="Quote" engine="groovy"
-             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="checkUpdateQuoteStatus" auth="true">
+             location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="checkUpdateQuoteStatus" auth="true">
         <description>Set the Quote status to ordered.</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -104,25 +104,25 @@ under the License.
     </service>
     <!-- QuoteItem  -->
     <service name="createQuoteItem" default-entity-name="QuoteItem" engine="groovy"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteItem" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteItem" auth="true">
         <description>Create a QuoteItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteItem" default-entity-name="QuoteItem" engine="groovy"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="updateQuoteItem" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="updateQuoteItem" auth="true">
         <description>Update a QuoteItem</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeQuoteItem" default-entity-name="QuoteItem" engine="groovy"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="removeQuoteItem" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="removeQuoteItem" auth="true">
         <description>Remove a QuoteItem</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="copyQuoteItem" default-entity-name="QuoteItem" engine="groovy"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="copyQuoteItem" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="copyQuoteItem" auth="true">
         <description>Copy a QuoteItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -204,26 +204,26 @@ under the License.
     </service>
     <!-- Specialized Quote services -->
     <service name="createQuoteAndQuoteItemForRequest" engine="groovy" default-entity-name="QuoteItem"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteAndQuoteItemForRequest" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteAndQuoteItemForRequest" auth="true">
         <description>Create a new Quote and Quote Item for a CustRequest</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="true"/>
         <override name="custRequestId" optional="false"/>
     </service>
     <service name="autoUpdateQuotePrice" engine="groovy" default-entity-name="QuoteItem"
-                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="autoUpdateQuotePrice" auth="true">
+                location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="autoUpdateQuotePrice" auth="true">
         <description>Update the QuoteItem price with the passed value (if present) or automatically from the averageCost</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="manualQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="defaultQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="autoCreateQuoteAdjustments" engine="groovy" auth="true"
-            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="autoCreateQuoteAdjustments">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="autoCreateQuoteAdjustments">
         <description>Remove all existing quote adjustments, recalc them and persist in QuoteAdjustment.</description>
         <attribute name="quoteId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createQuoteAdjustment" default-entity-name="QuoteAdjustment" engine="groovy" auth="true"
-            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteAdjustment">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteAdjustment">
         <description>Creates a new quote adjustment record</description>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
@@ -269,7 +269,7 @@ under the License.
         <auto-attributes mode="IN" include="pk"/>
     </service>
     <service name="ensureWorkEffortAndCreateQuoteWorkEffort" default-entity-name="WorkEffort" engine="groovy"
-             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="ensureWorkEffortAndCreateQuoteWorkEffort" auth="true">
+             location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="ensureWorkEffortAndCreateQuoteWorkEffort" auth="true">
         <description>Creates a new QuoteWorkEffort record and WorkEffort if needed</description>
         <required-permissions join-type="AND">
             <check-permission permission="ORDERMGR" action="_CREATE"/>
@@ -280,21 +280,21 @@ under the License.
         <attribute name="quoteId" type="String" mode="IN"/>
     </service>
     <service name="createQuoteFromCart" engine="groovy" auth="true"
-            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteFromCart">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteFromCart">
         <description>Creates a new quote from a shopping cart</description>
         <attribute name="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createQuoteFromShoppingList" engine="groovy" auth="true"
-            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteFromShoppingList">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteFromShoppingList">
         <description>Creates a new quote from a shopping list</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createQuoteFromCustRequest" engine="groovy" auth="true"
-            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteFromCustRequest">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteFromCustRequest">
         <description>Creates a new quote from a customer request</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="quoteTypeId" type="String" mode="IN" optional="true"/>
@@ -328,7 +328,7 @@ under the License.
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createQuoteNote" engine="groovy"
-            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteNote" auth="true">
+            location="component://order/src/main/groovy/org/apache/ofbiz/order/quote/QuoteServicesScript.groovy" invoke="createQuoteNote" auth="true">
         <description>Create a note item and associate with a quote</description>
         <attribute name="quoteId" type="String" mode="IN"/>
         <attribute name="noteInfo" type="String" mode="IN" allow-html="safe">

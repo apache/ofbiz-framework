@@ -50,7 +50,7 @@
     </service>
 
     <service name="createTextAndUploadedContent" engine="groovy" auth="true"
-            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createTextAndUploadedContent">
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="createTextAndUploadedContent">
         <description>Creates text content and optional uploaded sub-content</description>
         <implements service="createTextContent"/>
         <implements service="uploadFileInterface" optional="true"/>
@@ -67,7 +67,7 @@
     </service>
 
     <service name="createContentFromDataResource" engine="groovy"
-             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="createContentFromDataResource">
+             location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="createContentFromDataResource">
         <description>Creates content record from data resource and allows all content fields to be set</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="createContent" optional="true"/>
@@ -81,7 +81,7 @@
     </service>
 
     <service name="attachUploadToDataResource" engine="groovy" transaction-timeout="300"
-             location="component://content/groovyScripts/data/DataServices.groovy" invoke="attachUploadToDataResource">
+             location="component://content/src/main/groovy/org/apache/ofbiz/content/data/DataServicesScript.groovy" invoke="attachUploadToDataResource">
         <description>Accepts uploaded content and attaches to an existing data resource</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
@@ -116,8 +116,8 @@
         </group>
     </service>
 
-    <service name="copyContentAndElectronicTextandAssoc" default-entity-name="Content" engine="simple"
-        location="component://content/minilang/content/ContentServices.xml" invoke="copyContentAndElectronicTextandAssoc" auth="true" >
+    <service name="copyContentAndElectronicTextandAssoc" default-entity-name="Content" engine="groovy" auth="true"
+                location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="copyContentAndElectronicTextandAssoc">
         <description>Copy a Content, e;ectronic text and assocs</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
@@ -161,8 +161,8 @@
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
 
-    <service name="removeContentAndRelated" default-entity-name="Content" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="removeContentAndRelated" auth="true">
+    <service name="removeContentAndRelated" default-entity-name="Content" engine="groovy" auth="true"
+                location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="removeContentAndRelated">
         <description>Remove Content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -172,12 +172,12 @@
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
 
-    <!-- TODO: old permission service; being replaced with genericContentPermission -->
     <service name="checkContentPermission"
         transaction-timeout="7200"
         auth="false" engine="java" invoke="checkContentPermission"
         location="org.apache.ofbiz.content.content.ContentPermissionServices">
         <description>Check for permission to perform operation on Content</description>
+        <deprecated use-instead="genericContentPermission" since="Release 24.09"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <!-- it was a mistake to pass in List objects because it makes it difficult to use
@@ -222,10 +222,10 @@
     </service>
 
     <!--Content Assoc services.-->
-    <!-- TODO: old permission service; being replaced with genericContentPermission -->
     <service name="checkAssocPermission" engine="java" transaction-timeout="7200" auth="true"
             location="org.apache.ofbiz.content.content.ContentPermissionServices" invoke="checkAssocPermission">
         <description>Check for permission to perform operation on Content</description>
+        <deprecated use-instead="genericContentPermission" since="Release 24.09"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
@@ -245,9 +245,10 @@
         <attribute mode="OUT" name="permissionRecorder" optional="true" type="org.apache.ofbiz.content.content.PermissionRecorder"/>
     </service>
 
-    <service name="assocContent" engine="simple" default-entity-name="ContentAssoc"  auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="assocContent">
+    <service name="assocContent" engine="groovy" default-entity-name="ContentAssoc"  auth="true"
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="assocContent">
         <description>Check for permission to perform operation on Content</description>
+        <deprecated use-instead="genericContentPermission" since="Release 24.09"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
@@ -292,7 +293,7 @@
 
     <!-- content status services -->
     <service name="setContentStatus" engine="groovy" auth="true"
-            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="setContentStatus">
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="setContentStatus">
         <description>Set the Content Status</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">
@@ -323,7 +324,7 @@
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deactivateAllContentRoles" engine="groovy" default-entity-name="ContentRole" auth="true"
-             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="deactivateAllContentRoles">
+             location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="deactivateAllContentRoles">
         <description>Deactivate all ContentRoles</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <attribute mode="IN" name="contentId" optional="false" type="String">
@@ -349,8 +350,8 @@
     </service>
 
     <!-- Alternative URLs services -->
-    <service name="createMissingContentAltUrls" engine="simple"
-                location="component://content/minilang/content/ContentServices.xml" invoke="createMissingContentAltUrls" auth="true" use-transaction="false">
+    <service name="createMissingContentAltUrls" engine="groovy" auth="true" use-transaction="false"
+                location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="createMissingContentAltUrls">
         <description>Create missing Content Alternative URLs</description>
         <attribute name="prodCatalogId" mode="IN" type="String" optional="true"/>
         <attribute name="webSiteId" mode="IN" type="String" optional="true"/>
@@ -409,14 +410,13 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="delete">
+    <service name="removeContentPurpose" engine="entity-auto" default-entity-name="ContentPurpose" auth="true" invoke="delete">
         <description>Remove ContentPurpose</description>
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="updateSingleContentPurpose" engine="groovy" default-entity-name="ContentPurpose" auth="true"
-            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="updateSingleContentPurpose">
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="updateSingleContentPurpose">
         <description>Removes content purposes and creates a new one</description>
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -474,14 +474,13 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword"
-            location="component://content/minilang/content/ContentServices.xml" invoke="delete" auth="true">
+    <service name="deleteContentKeyword" engine="entity-auto" default-entity-name="ContentKeyword" invoke="delete" auth="true">
         <description>Delete a ContentKeyword</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteContentKeywords" engine="groovy"
-            location="component://content/groovyScripts/content/ContentServices.groovy" invoke="deleteContentKeywords" auth="true">
+            location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="deleteContentKeywords" auth="true">
         <description>Delete all the keywords of a content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">
@@ -491,7 +490,7 @@
         </attribute>
     </service>
     <service name="indexContentKeywords" engine="groovy"
-                location="component://content/groovyScripts/content/ContentServices.groovy" invoke="indexContentKeywords" auth="false">
+                location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="indexContentKeywords" auth="false">
         <description>Index the Keywords for a Content</description>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -501,7 +500,7 @@
         <attribute name="contentInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="forceIndexContentKeywords" engine="groovy"
-             location="component://content/groovyScripts/content/ContentServices.groovy" invoke="forceIndexContentKeywords" auth="true">
+             location="component://content/src/main/groovy/org/apache/ofbiz/content/content/ContentServicesScript.groovy" invoke="forceIndexContentKeywords" auth="true">
         <description>Induce all the keywords of a content, ignoring the flag in the Content.</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">

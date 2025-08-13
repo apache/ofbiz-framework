@@ -69,7 +69,12 @@ under the License.
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyInitialReferer}</td>
-          <td><a href="${visit.initialReferrer!}" >${visit.initialReferrer!}</a></td>
+          <#assign isUrl = Static["org.apache.ofbiz.base.util.UtilValidate"].isUrlInString(visit.initialReferrer)>
+          <#if isUrl>
+              <td><a href="${visit.initialReferrer!}" >${visit.initialReferrer!}</a></td>
+          <#else>
+              <td>${visit.initialReferrer!}</td>
+          </#if>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyInitialUserAgent}</td>

@@ -20,8 +20,11 @@ package org.apache.ofbiz.base.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -30,11 +33,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.ofbiz.base.lang.IsEmpty;
 
 /**
  * Misc String Utility Functions
@@ -45,6 +51,7 @@ public final class StringUtil {
     public static final StringUtil INSTANCE = new StringUtil();
     private static final String MODULE = StringUtil.class.getName();
     private static final Map<String, Pattern> SUBSTITUTION_PATTERN_MAP = createSubstitutionPatternMap();
+    private static final Pattern SPECIAL_CHAR = Pattern.compile("\\&[\\#\\S&&[^\\&]]+\\;");
 
     private static Map<String, Pattern> createSubstitutionPatternMap() {
         Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<>();  // Preserve insertion order
@@ -136,13 +143,27 @@ public final class StringUtil {
     }
 
     /**
+     * Splits a String on a String Separator into a List of Strings.
+     * @param str the String to split
+     * @param separator the String Separator to split the str String
+     * @return a list of Strings or null if one of the parameters is null
+     */
+    public static List<String> splitWithStringSeparator(String str, String separator) {
+        if (str == null || separator == null) {
+            return null;
+        }
+
+        return Arrays.asList(str.split(separator));
+    }
+
+    /**
      * Creates a Map from an encoded name/value pair string
      * @param str The string to decode and format
      * @param delim the delimiter character(s) to join on (null will split on whitespace)
      * @param trim Trim whitespace off fields
      * @return a Map of name/value pairs
      */
-    private static Map<String, String> strToMap(String str, String delim, boolean trim) {
+    public static Map<String, String> strToMap(String str, String delim, boolean trim) {
         return strToMap(str, delim, trim, null);
 
     }
@@ -156,7 +177,7 @@ public final class StringUtil {
      *        and want to replace "=" to avoid clashes with parameters values in a not encoded URL, default to "="
      * @return a Map of name/value pairs
      */
-    private static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
+    public static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
         if (UtilValidate.isEmpty(str)) {
             return null;
         }
@@ -209,6 +230,30 @@ public final class StringUtil {
      */
     public static Map<String, String> strToMap(String str) {
         return strToMap(str, "|", false);
+    }
+
+    /**
+     * Creates an encoded String from a Map of name/value pairs
+     * @param mapToConvert The Map of name/value pairs
+     * @return String The encoded String like key1=value1|key2=value2, null if map is empty
+     */
+    public static String mapToStr(Map<? extends Object, ? extends Object> mapToConvert) {
+        if (UtilValidate.isEmpty(mapToConvert)) {
+            return null;
+        }
+        return mapToConvert.entrySet().stream().map(entry -> {
+            String key = String.valueOf(entry.getKey());
+            String value = String.valueOf(entry.getValue());
+
+            try {
+                return new StringBuilder(URLEncoder.encode(key, "UTF-8"))
+                        .append("=")
+                        .append(URLEncoder.encode(value, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                Debug.logError(e, MODULE);
+            }
+            return "";
+        }).collect(Collectors.joining("|"));
     }
 
     /**
@@ -407,20 +452,118 @@ public final class StringUtil {
     }
 
     /**
-     * A super-lightweight object to wrap a String object. Mainly used with FTL templates
-     * to avoid the general HTML auto-encoding that is now done through the Screen Widget.
+     * For a content if the size large thant the textLength given, truncate it with to textSize and replace
+     * removed characters by '…'
+     * minimum size for truncate is 5
+     * each 5 steps length the truncate add a character at the end
+     * @param content
+     * @param textLength
+     * @return truncate string prepare for correct displaying.
      */
-    public static class StringWrapper {
+    public static String truncateEncodedStringToLength(String content, Integer textLength) {
+        if (UtilValidate.isEmpty(content)
+                || content.length() < textLength) {
+            return content;
+        }
+        int keepEndingChar = Double.valueOf(textLength / 5).intValue();
+        int start = textLength <= 5 ? textLength : textLength - 1 - keepEndingChar;
+        int end = content.length() - keepEndingChar;
+        if (SPECIAL_CHAR.matcher(content).find()) {
+            start = getTruncateStartLimit(content, start);
+            end = getTruncateEndLimit(content, keepEndingChar);
+            if (end <= start) {
+                return content;
+            }
+        }
+        return String.format("%s…%s",
+                content.substring(0, start),
+                textLength <= 5 ? "" : content.substring(end));
+    }
+
+    /**
+     * Find the end of potential special char to scrap correctly with a special char present on the start scrap limit
+     * @param content
+     * @param startTruncateIndex
+     * @return index on content to start the truncate
+     */
+    private static int getTruncateStartLimit(String content, int startTruncateIndex) {
+        if (startTruncateIndex < 0) {
+            return 0;
+        }
+        // convert any special char as one char
+        // we need to count each special char and the encoded char corresponding to
+        Matcher matcher = SPECIAL_CHAR.matcher(content);
+        int nbSpeCharFound = 0;
+        int nbCharToEscape = 0;
+        for (MatchResult matchResult : matcher.results()
+                .sorted(Comparator.comparingInt(MatchResult::end))
+                .toList()) {
+            if (matchResult.start() < startTruncateIndex + nbCharToEscape - nbSpeCharFound) {
+                nbCharToEscape += matchResult.end() - matchResult.start();
+                // we control that the special char isn't cut, if it's the case, return the end
+                if (matchResult.end() >= startTruncateIndex + nbCharToEscape - nbSpeCharFound) {
+                    return matchResult.end();
+                }
+                nbSpeCharFound++;
+            }
+        }
+        return startTruncateIndex + nbCharToEscape - nbSpeCharFound;
+    }
+
+    /**
+     * Find the start of potential special char to truncate correctly with a special char present on the limit
+     * @param content
+     * @param keepEndingChar
+     * @return index on content to stop the truncate
+     */
+    private static int getTruncateEndLimit(String content, int keepEndingChar) {
+        if (content.length() <= 5) {
+            return content.length();
+        }
+        // convert any special char as one char
+        // we need to count each special char and the encoded char corresponding to
+        Matcher matcher = SPECIAL_CHAR.matcher(content);
+        int endCursor = content.length();
+        int nbSpeCharFound = 0;
+        int nbCharToEscape = 0;
+        for (MatchResult matchResult : matcher.results()
+                .sorted(Comparator.comparingInt(MatchResult::end))
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+                    Collections.reverse(list);
+                    return list;
+                }))) {
+            if (matchResult.end() > endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar) {
+                nbCharToEscape += matchResult.end() - matchResult.start();
+                // we control that the special char isn't cut, if it's the case, return the start
+                if (matchResult.start() <= endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar) {
+                    return matchResult.start();
+                }
+                nbSpeCharFound++;
+            }
+        }
+        return endCursor - nbCharToEscape + nbSpeCharFound - keepEndingChar;
+    }
+
+    /**
+     * A super-lightweight object to wrap a String object. Mainly used with FTL
+     * templates to avoid the general HTML auto-encoding that is now done through
+     * the Screen Widget.
+     */
+    public static class StringWrapper implements IsEmpty {
         public static final StringWrapper EMPTY_STRING_WRAPPER = new StringWrapper("");
 
         private String theString;
-        protected StringWrapper() { }
+
+        protected StringWrapper() {
+        }
+
         public StringWrapper(String theString) {
             this.theString = theString;
         }
 
         /**
          * Fairly simple method used for the plus (+) base concatenation in Groovy.
+         *
          * @param value
          * @return the wrapped string, plus the value
          */
@@ -434,6 +577,14 @@ public final class StringUtil {
         @Override
         public String toString() {
             return this.theString;
+        }
+
+        /**
+         * @return true, if wrapped string is null or empty; false otherwise
+         */
+        @Override
+        public boolean isEmpty() {
+            return (theString == null || theString.isEmpty());
         }
     }
 }

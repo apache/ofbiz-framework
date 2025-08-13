@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="SV-AH" geoCode="SV-AH" geoId="SV-AH" geoName="Ahuachapán" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-CA" geoCode="SV-CA" geoId="SV-CA" geoName="Cabañas" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-CH" geoCode="SV-CH" geoId="SV-CH" geoName="Chalatenango" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-CU" geoCode="SV-CU" geoId="SV-CU" geoName="Cuscatlán" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-LI" geoCode="SV-LI" geoId="SV-LI" geoName="La Libertad" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-PA" geoCode="SV-PA" geoId="SV-PA" geoName="La Paz" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-UN" geoCode="SV-UN" geoId="SV-UN" geoName="La Unión" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-MO" geoCode="SV-MO" geoId="SV-MO" geoName="Morazán" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-SM" geoCode="SV-SM" geoId="SV-SM" geoName="San Miguel" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-SS" geoCode="SV-SS" geoId="SV-SS" geoName="San Salvador" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-SV" geoCode="SV-SV" geoId="SV-SV" geoName="San Vicente" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-SA" geoCode="SV-SA" geoId="SV-SA" geoName="Santa Ana" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-SO" geoCode="SV-SO" geoId="SV-SO" geoName="Sonsonate" geoTypeId="STATE"/>
+    <Geo abbreviation="SV-US" geoCode="SV-US" geoId="SV-US" geoName="Usulután" geoTypeId="STATE"/>
+
+    <!-- Associations -->
+    <GeoAssoc geoId="SLV" geoIdTo="SV-AH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-CA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-CH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-CU" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-LI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-PA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-UN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-MO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-SM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-SS" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-SV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-SA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-SO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="SLV" geoIdTo="SV-US" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
