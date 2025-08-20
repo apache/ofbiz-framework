@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs;
 
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.ClientErrorException;
+import jakarta.ws.rs.core.Response;
 
 /**
  *

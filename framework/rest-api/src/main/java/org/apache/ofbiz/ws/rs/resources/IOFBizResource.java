@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.resources;
 
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.ext.Provider;
 
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;

@@ -19,11 +19,11 @@
 package org.apache.ofbiz.ws.rs.spi.impl;
 
 import jakarta.servlet.http.HttpServletRequest;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.Provider;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.ofbiz.base.util.Debug;
@@ -44,7 +44,7 @@ import org.codehaus.groovy.runtime.InvokerInvocationException;
  *
  */
 @Provider
-public class GenericServiceExceptionMapper extends AbstractExceptionMapper implements javax.ws.rs.ext.ExceptionMapper<GenericServiceException> {
+public class GenericServiceExceptionMapper extends AbstractExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<GenericServiceException> {
 
     /**
      * Module Name Used for debugging

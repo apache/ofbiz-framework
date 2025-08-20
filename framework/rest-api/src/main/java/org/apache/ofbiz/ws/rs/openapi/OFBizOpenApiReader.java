@@ -24,9 +24,9 @@ import java.util.Map;
 import java.util.Set;
 
 import jakarta.servlet.ServletContext;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -75,9 +75,9 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
     private OpenAPI openApi;
     private DispatchContext context;
     private static final Parameter HEADER_CONTENT_TYPE_JSON = new HeaderParameter().name(HttpHeaders.CONTENT_TYPE)
-            .schema(new StringSchema()).example(javax.ws.rs.core.MediaType.APPLICATION_JSON).required(true);
+            .schema(new StringSchema()).example(jakarta.ws.rs.core.MediaType.APPLICATION_JSON).required(true);
     private static final Parameter HEADER_ACCEPT_JSON = new HeaderParameter().name(HttpHeaders.ACCEPT)
-            .schema(new StringSchema()).example(javax.ws.rs.core.MediaType.APPLICATION_JSON).required(true);
+            .schema(new StringSchema()).example(jakarta.ws.rs.core.MediaType.APPLICATION_JSON).required(true);
 
     @Override
     public void setConfiguration(OpenAPIConfiguration openApiConfiguration) {
@@ -138,13 +138,13 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                                 .description("Operation Input Parameters in JSON").name("input");
                         Schema<?> refSchema = new Schema<>();
                         refSchema.$ref("#/components/schemas/" + "api.request." + service.getName());
-                        serviceInParam.content(new Content().addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON,
+                        serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
                                 new MediaType().schema(refSchema)));
                         operation.addParametersItem(serviceInParam);
                     } else if (verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
                         RequestBody request = new RequestBody()
                                 .description("Request Body for operation " + op.getDescription())
-                                .content(new Content().addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON,
+                                .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
                                         new MediaType().schema(new Schema<>()
                                                 .$ref("#/components/schemas/" + "api.request." + service.getName()))));
                         operation.setRequestBody(request);
@@ -198,14 +198,14 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                                 .description("Service In Parameters in JSON").name("inParams");
                         Schema<?> refSchema = new Schema<>();
                         refSchema.$ref("#/components/schemas/" + "api.request." + service.getName());
-                        serviceInParam.content(new Content().addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON,
+                        serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
                                 new MediaType().schema(refSchema)));
                         operation.addParametersItem(serviceInParam);
                     }
                     operation.addParametersItem(HEADER_ACCEPT_JSON);
                 } else if (action.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
                     RequestBody request = new RequestBody().description("Request Body for service " + service.getName())
-                            .content(new Content().addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON,
+                            .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
                                     new MediaType().schema(new Schema<>().$ref("#/components/schemas/" + "api.request." + service.getName()))));
                     operation.setRequestBody(request);
                     operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);

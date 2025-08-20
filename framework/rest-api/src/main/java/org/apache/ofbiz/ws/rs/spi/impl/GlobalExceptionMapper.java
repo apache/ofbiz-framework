@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.Provider;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.spi.AbstractExceptionMapper;
 
 @Provider
-public class GlobalExceptionMapper extends AbstractExceptionMapper implements javax.ws.rs.ext.ExceptionMapper<Throwable> {
+public class GlobalExceptionMapper extends AbstractExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<Throwable> {
 
     /**
      * Module Name Used for debugging
