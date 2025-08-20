@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import jakarta.servlet.http.HttpServletRequest;
-import javax.ws.rs.HttpMethod;
+import jakarta.ws.rs.HttpMethod;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;

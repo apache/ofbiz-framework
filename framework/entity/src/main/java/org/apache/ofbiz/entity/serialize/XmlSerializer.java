@@ -44,7 +44,7 @@ import java.util.TreeSet;
 import java.util.Vector;
 import java.util.WeakHashMap;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
