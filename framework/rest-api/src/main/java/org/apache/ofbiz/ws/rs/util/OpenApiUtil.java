@@ -23,8 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -210,7 +210,7 @@ public final class OpenApiUtil {
                  + AuthenticationScheme.BEARER.getScheme() + " realm=\"" + AuthenticationScheme.REALM + "\""))
                 .description("Unauthorized: Access is denied due to invalid or absent Authorization header.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.unauthorized.noheader"))
                                 .example(unauthorizedNoHeaderExample)));
@@ -218,7 +218,7 @@ public final class OpenApiUtil {
         final ApiResponse unauthorizedInvalidToken = new ApiResponse()
                 .description("Unauthorized: Access is denied due to invalid or absent Authorization header.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.unauthorized.invalidtoken"))
                                 .example(unauthorizedInvalidTokenExample)));
@@ -229,14 +229,14 @@ public final class OpenApiUtil {
                 + AuthenticationScheme.BEARER.getScheme() + " realm=\"" + AuthenticationScheme.REALM + "\""))
                 .description("Forbidden: Insufficient rights to perform this API call.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>().$ref("#/components/schemas/" + "api.response.forbidden"))
                                 .example(forbiddenExample)));
 
         final ApiResponse badRequest = new ApiResponse()
                 .description("Bad Request: Due to malformed request syntax or invalid request message framing or incorrect request parameters.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.service.badrequest"))
                                 .example(badRequestExample)));
@@ -244,7 +244,7 @@ public final class OpenApiUtil {
         final ApiResponse unprocessableEntity = new ApiResponse()
                 .description("Unprocessable Entity: Error indicating semantical errors. Request is syntactically correct though.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.service.unprocessableentity"))
                                 .example(unprocessableEntExample)));
@@ -252,7 +252,7 @@ public final class OpenApiUtil {
         final ApiResponse methodNotAllowed = new ApiResponse()
                 .description("Method Not Allowed: Service called with HTTP method other than the declared one.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>()
                                         .$ref("#/components/schemas/" + "api.response.service.methodnotallowed"))
                                 .example(methodNotAllowedExample)));
@@ -397,7 +397,7 @@ public final class OpenApiUtil {
         final ApiResponse success = new ApiResponse()
                 .description("Success response for the API call.")
                 .content(new Content()
-                        .addMediaType(javax.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
+                        .addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON, new MediaType()
                                 .schema(new Schema<>().$ref("#/components/schemas/" + "api.response." + service.getName() + ".success"))));
         return success;
     }

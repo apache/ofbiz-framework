@@ -31,26 +31,24 @@ under the License.
         <param-name>entityDelegatorName</param-name><param-value>default</param-value>
     </context-param>
     <filter>
-		<filter-name>Jersey REST Filter</filter-name>
-		<filter-class>org.glassfish.jersey.servlet.ServletContainer
-		</filter-class>
-		<init-param>
-			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>org.apache.ofbiz.ws.rs.core.OFBizApiConfig
-			</param-value>
-		</init-param>
-		<init-param>
-			<param-name>jersey.config.servlet.filter.staticContentRegex</param-name>
-			<param-value>/swagger/.*</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>Jersey REST Filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<listener>
-		<listener-class>
-			org.apache.ofbiz.ws.rs.listener.ApiContextListener
-		</listener-class>
-	</listener>
+        <filter-name>Jersey REST Filter</filter-name>
+        <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
+        <init-param>
+            <param-name>jakarta.ws.rs.Application</param-name>
+            <param-value>org.apache.ofbiz.ws.rs.core.OFBizApiConfig</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jersey.config.servlet.filter.staticContentRegex</param-name>
+            <param-value>/swagger/.*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Jersey REST Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>
+            org.apache.ofbiz.ws.rs.listener.ApiContextListener
+        </listener-class>
+    </listener>
 </web-app>

@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
-import javax.ws.rs.core.Link;
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.core.Link;
+import jakarta.ws.rs.ext.ContextResolver;
+import jakarta.ws.rs.ext.Provider;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
