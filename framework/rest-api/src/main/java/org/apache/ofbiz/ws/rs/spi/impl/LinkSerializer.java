@@ -21,13 +21,13 @@ package org.apache.ofbiz.ws.rs.spi.impl;
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import javax.ws.rs.core.Link;
+import jakarta.ws.rs.core.Link;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class LinkSerializer extends JsonSerializer<javax.ws.rs.core.Link> {
+public class LinkSerializer extends JsonSerializer<jakarta.ws.rs.core.Link> {
     static final String HREF_PROPERTY = "href";
 
 

@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs;
 
-import javax.ws.rs.NotFoundException;
+import jakarta.ws.rs.NotFoundException;
 
 public class ServiceNotFoundException extends NotFoundException {
 

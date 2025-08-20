@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.core;
 
-import javax.ws.rs.core.Response.Status.Family;
-import javax.ws.rs.core.Response.StatusType;
+import jakarta.ws.rs.core.Response.Status.Family;
+import jakarta.ws.rs.core.Response.StatusType;
 
 public final class ResponseStatus {
 
