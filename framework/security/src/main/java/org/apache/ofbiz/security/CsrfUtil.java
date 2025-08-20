@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import javax.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.jaxrs.model.URITemplate;
