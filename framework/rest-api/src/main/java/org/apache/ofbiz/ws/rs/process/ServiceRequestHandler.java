@@ -38,6 +38,7 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.ws.rs.util.ErrorUtil;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
+import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
 
 public final class ServiceRequestHandler extends RestRequestHandler {
 
@@ -55,7 +56,7 @@ public final class ServiceRequestHandler extends RestRequestHandler {
      */
     @Override
     protected Response execute(ContainerRequestContext ctx, Map<String, Object> arguments) {
-        ctx.setProperty("requestForService", service);
+        ServiceNameContextHolder.set(service);
         LocalDispatcher dispatcher = (LocalDispatcher) getServletContext().getAttribute("dispatcher");
         Map<String, Object> serviceContext = null;
         try {
