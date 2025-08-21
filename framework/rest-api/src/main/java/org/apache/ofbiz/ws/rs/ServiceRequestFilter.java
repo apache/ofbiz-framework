@@ -104,7 +104,7 @@ public class ServiceRequestFilter implements ContainerRequestFilter {
             }
             // If everything looks good, set the 'requestForService' property in the
             // context. Indicates which service this request is for.
-            requestContext.setProperty("requestForService", service);
+            ServiceNameContextHolder.set(service);
         }
     }
 

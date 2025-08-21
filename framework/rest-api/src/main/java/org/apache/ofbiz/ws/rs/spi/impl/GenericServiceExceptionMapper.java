@@ -37,6 +37,7 @@ import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.spi.AbstractExceptionMapper;
 import org.apache.ofbiz.ws.rs.util.ErrorUtil;
 import org.codehaus.groovy.runtime.InvokerInvocationException;
+import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
 
 /**
  *
@@ -72,7 +73,7 @@ public class GenericServiceExceptionMapper extends AbstractExceptionMapper imple
         } else if (actualCause instanceof InvokerInvocationException) {
             actualCause = actualCause.getCause();
         }
-        String service = (String) crc.getProperty("requestForService");
+        String service = ServiceNameContextHolder.get();
         if (actualCause instanceof ServiceValidationException) {
             ServiceValidationException validationException = (ServiceValidationException) actualCause;
             Error error = new Error().type(actualCause.getClass().getSimpleName())
