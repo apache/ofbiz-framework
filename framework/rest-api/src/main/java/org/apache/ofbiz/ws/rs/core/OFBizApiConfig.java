@@ -47,6 +47,7 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.ResourceMethod;
+import org.apache.ofbiz.ws.rs.filters.ServiceContextCleanupFilter;
 
 public class OFBizApiConfig extends ResourceConfig {
     private static final String MODULE = OFBizApiConfig.class.getName();
@@ -61,6 +62,7 @@ public class OFBizApiConfig extends ResourceConfig {
         register(JacksonFeature.class);
         register(ServiceRequestFilter.class);
         register(MultiPartFeature.class);
+        register(ServiceContextCleanupFilter.class);
         //property(ServerProperties.TRACING, "ALL");
         if (Debug.verboseOn()) {
             register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME), Level.INFO,
