@@ -81,6 +81,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private static final String RESOURCE = "OrderUiLabels";
     private static final String RES_ERROR = "OrderErrorUiLabels";
     private transient Delegator delegator = null;
+    private LocalDispatcher dispatcher = null;
     /**
      * the actual or variant product
      */
@@ -181,6 +182,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public ShoppingCartItem(ShoppingCartItem item) {
         this.delegator = item.getDelegator();
+        this.dispatcher = item.dispatcher;
         try {
             this.product = item.getProduct();
         } catch (IllegalStateException e) {
@@ -267,7 +269,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     @Deprecated
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
                                String prodCatalogId, Locale locale, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup) {
-        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, locale, itemType, itemGroup, null);
+        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, locale, itemType, itemGroup,
+                ShoppingCart.getDispatcher(product.getDelegator()));
     }
 
     /**
@@ -277,7 +280,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
                                String prodCatalogId, Locale locale,
                                String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher) {
-        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null);
+        this(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, null, locale, itemType, itemGroup, null, dispatcher);
         String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", this.locale, dispatcher, "html");
         // if the productName is null or empty, see if there is an associated virtual product and get the productName of that product
         if (UtilValidate.isEmpty(productName)) {
@@ -293,14 +296,27 @@ public class ShoppingCartItem implements java.io.Serializable {
             this.itemDescription = productName;
         }
     }
-
     /**
      * Creates new ShoppingCartItem object.
      */
     protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
                                String prodCatalogId, ProductConfigWrapper configWrapper, Locale locale, String itemType,
                                ShoppingCart.ShoppingCartItemGroup itemGroup, GenericValue parentProduct) {
+        this(product, additionalProductFeatureAndAppls, attributes,
+                               prodCatalogId, configWrapper, locale, itemType,
+                               itemGroup, parentProduct, ShoppingCart.getDispatcher(product.getDelegator()));
+    }
+
+    /**
+     * Creates new ShoppingCartItem object.
+     */
+    protected ShoppingCartItem(GenericValue product, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
+                               String prodCatalogId, ProductConfigWrapper configWrapper, Locale locale, String itemType,
+                               ShoppingCart.ShoppingCartItemGroup itemGroup, GenericValue parentProduct, LocalDispatcher dispatcher) {
         this.product = product;
+        this.delegator = product.getDelegator();
+        this.dispatcher = dispatcher;
+        this.delegatorName = product.getDelegator().getDelegatorName();
         this.productId = product.getString("productId");
         this.parentProduct = parentProduct;
         if (parentProduct != null) {
@@ -327,8 +343,6 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.itemGroup = itemGroup;
         this.prodCatalogId = prodCatalogId;
         this.attributes = (attributes == null ? new HashMap<>() : attributes);
-        this.delegator = product.getDelegator();
-        this.delegatorName = product.getDelegator().getDelegatorName();
         this.addAllProductFeatureAndAppls(additionalProductFeatureAndAppls);
         this.locale = locale;
         if (UtilValidate.isNotEmpty(configWrapper)) {
@@ -344,7 +358,17 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     protected ShoppingCartItem(Delegator delegator, String itemTypeId, String description, String categoryId, BigDecimal basePrice,
                                Map<String, Object> attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
-        this.delegator = delegator;
+        this(ShoppingCart.getDispatcher(delegator), itemTypeId, description, categoryId, basePrice,
+                               attributes, prodCatalogId, locale, itemGroup);
+    }
+
+    /**
+     * Creates new ShopingCartItem object.
+     */
+    protected ShoppingCartItem(LocalDispatcher dispatcher, String itemTypeId, String description, String categoryId, BigDecimal basePrice,
+                               Map<String, Object> attributes, String prodCatalogId, Locale locale, ShoppingCart.ShoppingCartItemGroup itemGroup) {
+        this.delegator = dispatcher.getDelegator();
+        this.dispatcher = dispatcher;
         this.itemType = itemTypeId;
         this.itemGroup = itemGroup;
         this.itemDescription = description;
@@ -403,7 +427,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             throw new ItemNotFoundException(excMsg);
         }
         ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
-                cart.getLocale(), itemType, itemGroup, null);
+                cart.getLocale(), itemType, itemGroup, null, dispatcher);
 
         // check to see if product is virtual
         if ("Y".equals(product.getString("isVirtual"))) {
@@ -680,7 +704,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes,
                 prodCatalogId, configWrapper,
-                cart.getLocale(), itemType, itemGroup, parentProduct);
+                cart.getLocale(), itemType, itemGroup, parentProduct, dispatcher);
 
         selectedAmount = selectedAmount == null ? BigDecimal.ZERO : selectedAmount;
         unitPrice = unitPrice == null ? BigDecimal.ZERO : unitPrice;
@@ -899,7 +923,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             throws CartItemModifyException {
 
         Delegator delegator = cart.getDelegator();
-        ShoppingCartItem newItem = new ShoppingCartItem(delegator, itemType, itemDescription, productCategoryId, basePrice, attributes,
+        ShoppingCartItem newItem = new ShoppingCartItem(dispatcher, itemType, itemDescription, productCategoryId, basePrice, attributes,
                 prodCatalogId, cart.getLocale(), itemGroup);
 
         // add to cart before setting quantity so that we can get order total, etc
@@ -2203,25 +2227,13 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Returns the item's unit weight
      */
     public BigDecimal getWeight() {
+        BigDecimal weight = null;
         GenericValue product = getProduct();
         if (product != null) {
-            BigDecimal weight = product.getBigDecimal("productWeight");
-
-            // if the weight is null, see if there is an associated virtual product and get the weight of that product
-            if (weight == null) {
-                GenericValue parentProduct = this.getParentProduct();
-                if (parentProduct != null) {
-                    weight = parentProduct.getBigDecimal("productWeight");
-                }
-            }
-
-            if (weight == null) {
-                return BigDecimal.ZERO;
-            }
-            return weight;
+            weight = ProductWorker.getProductWeight(product, "WT_kg", delegator, dispatcher);
         }
         // non-product items have 0 weight
-        return BigDecimal.ZERO;
+        return weight != null ? weight : BigDecimal.ZERO;
     }
 
     /**

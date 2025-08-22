@@ -42,7 +42,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import javax.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import org.apache.cxf.jaxrs.model.URITemplate;
 import org.apache.ofbiz.base.location.FlexibleLocation;

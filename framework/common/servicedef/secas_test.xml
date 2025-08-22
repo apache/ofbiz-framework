@@ -24,6 +24,10 @@ under the License.
         <condition field-name="message" operator="equals" value="auto"/>
         <set field-name="message" value="set message to auto message"/>
     </eca>
+    <eca service="ping" event="invoke">
+        <condition field-name="message" operator="in" value="present,in"/>
+        <set field-name="message" value="set message to condition in message"/>
+    </eca>
     <eca service="testCommit" event="global-commit">
         <action service="testScv" mode="sync"/>
     </eca>

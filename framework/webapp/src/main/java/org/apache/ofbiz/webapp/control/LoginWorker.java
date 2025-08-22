@@ -597,12 +597,10 @@ public final class LoginWorker {
             }
 
             // check on JavaScriptEnabled
-            String javaScriptEnabled = "N";
-            if ("Y".equals(request.getParameter("JavaScriptEnabled"))) {
-                javaScriptEnabled = "Y";
-            }
+            String javaScriptEnabled = "N".equals(request.getParameter("JavaScriptEnabled"))
+                    ? "N" : "Y";
             try {
-                result = dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId",
+                dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId",
                         "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error setting user preference", MODULE);
@@ -701,10 +699,8 @@ public final class LoginWorker {
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
 
             // check on JavaScriptEnabled
-            String javaScriptEnabled = "N";
-            if ("Y".equals(request.getParameter("JavaScriptEnabled"))) {
-                javaScriptEnabled = "Y";
-            }
+            String javaScriptEnabled = "N".equals(request.getParameter("JavaScriptEnabled"))
+                    ? "N" : "Y";
             try {
                 dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled",
                         "userPrefGroupTypeId", "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
@@ -851,7 +847,7 @@ public final class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error getting user preference", MODULE);
         }
-        session.setAttribute("javaScriptEnabled", "Y".equals(javaScriptEnabled));
+        session.setAttribute("javaScriptEnabled", !"N".equals(javaScriptEnabled));
 
         //init theme from user preference, clean the current visualTheme value in session and restart the resolution
         UtilHttp.setVisualTheme(session, null);

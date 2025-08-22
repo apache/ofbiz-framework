@@ -154,6 +154,8 @@ under the License.
                     <xs:enumeration value="is-empty"/>
                     <xs:enumeration value="is-not-empty"/>
                     <xs:enumeration value="contains"/>
+                    <xs:enumeration value="in"/>
+                    <xs:enumeration value="not-in"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

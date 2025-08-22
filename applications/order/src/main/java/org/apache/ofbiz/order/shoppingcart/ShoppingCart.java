@@ -76,6 +76,7 @@ import org.apache.ofbiz.product.product.ProductWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -166,6 +167,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private Timestamp cartCreatedTs = UtilDateTime.nowTimestamp();
 
     private transient Delegator delegator = null;
+    private LocalDispatcher dispatcher = null;
     private String delegatorName = null;
 
     private String productStoreId = null;
@@ -205,6 +207,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Creates a new cloned ShoppingCart Object. */
     public ShoppingCart(ShoppingCart cart) {
         this.delegator = cart.getDelegator();
+        this.dispatcher = cart.getDispatcher();
         this.delegatorName = delegator.getDelegatorName();
         this.productStoreId = cart.getProductStoreId();
         this.doPromotions = cart.getDoPromotions();
@@ -264,10 +267,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Creates new empty ShoppingCart object. */
-    public ShoppingCart(Delegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom,
+    public ShoppingCart(LocalDispatcher dispatcher, String productStoreId, String webSiteId, Locale locale, String currencyUom,
                         String billToCustomerPartyId, String billFromVendorPartyId) {
 
-        this.delegator = delegator;
+        this.dispatcher = dispatcher;
+        this.delegator = dispatcher.getDelegator();
         this.delegatorName = delegator.getDelegatorName();
         this.productStoreId = productStoreId;
         this.webSiteId = webSiteId;
@@ -298,6 +302,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
     }
+    public ShoppingCart(Delegator delegator, String productStoreId, String webSiteId, Locale locale, String currencyUom,
+                        String billToCustomerPartyId, String billFromVendorPartyId) {
+        this(getDispatcher(delegator), productStoreId, webSiteId, locale, currencyUom,
+                billToCustomerPartyId, billFromVendorPartyId);
+    }
 
 
     /** Creates new empty ShoppingCart object. */
@@ -316,6 +325,19 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         return delegator;
+    }
+
+    /** get dispatcher */
+    public LocalDispatcher getDispatcher() {
+        return dispatcher != null
+                ? dispatcher
+                : getDispatcher(this.delegator);
+    }
+    public static LocalDispatcher getDispatcher(Delegator delegator) {
+        return ServiceContainer.getLocalDispatcher("ShoppingCart",
+                    delegator != null
+                            ? delegator
+                            : DelegatorFactory.getDelegator("default"));
     }
 
     /** get product store */

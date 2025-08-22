@@ -1639,7 +1639,7 @@ public final class UtilHttp {
     public static boolean isJavaScriptEnabled(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Boolean javaScriptEnabled = (Boolean) session.getAttribute("javaScriptEnabled");
-        return javaScriptEnabled != null ? javaScriptEnabled : false;
+        return javaScriptEnabled != null ? javaScriptEnabled : true;
     }
 
     /**

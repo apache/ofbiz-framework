@@ -472,96 +472,31 @@ public final class ModelServiceReader implements Serializable {
         }
 
         // Add the default optional parameters
-        ModelParam def;
+        service.addParam(createInternalParam(ModelService.RESPONSE_MESSAGE, "String", ModelService.OUT_PARAM));
+        service.addParam(createInternalParam(ModelService.ERROR_MESSAGE, "String", ModelService.OUT_PARAM));
+        service.addParam(createInternalParam(ModelService.ERROR_MESSAGE_LIST, "java.util.List", ModelService.OUT_PARAM));
+        service.addParam(createInternalParam(ModelService.SUCCESS_MESSAGE, "String", ModelService.OUT_PARAM));
+        service.addParam(createInternalParam(ModelService.SUCCESS_MESSAGE_LIST, "java.util.List", ModelService.OUT_PARAM));
+        service.addParam(createInternalParam("userLogin", "org.apache.ofbiz.entity.GenericValue", ModelService.IN_OUT_PARAM));
+        service.addParam(createInternalParam("login.username", "String", ModelService.IN_PARAM));
+        service.addParam(createInternalParam("login.password", "String", ModelService.IN_PARAM));
+        service.addParam(createInternalParam("locale", "java.util.Locale", ModelService.IN_OUT_PARAM));
+        service.addParam(createInternalParam("timeZone", "java.util.TimeZone", ModelService.IN_OUT_PARAM));
+        service.addParam(createInternalParam("visualTheme", "org.apache.ofbiz.widget.renderer.VisualTheme", ModelService.IN_OUT_PARAM));
+    }
 
-        // responseMessage
-        def = new ModelParam();
-        def.setName(ModelService.RESPONSE_MESSAGE);
-        def.setType("String");
-        def.setMode(ModelService.OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // errorMessage
-        def = new ModelParam();
-        def.setName(ModelService.ERROR_MESSAGE);
-        def.setType("String");
-        def.setMode(ModelService.OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // errorMessageList
-        def = new ModelParam();
-        def.setName(ModelService.ERROR_MESSAGE_LIST);
-        def.setType("java.util.List");
-        def.setMode(ModelService.OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // successMessage
-        def = new ModelParam();
-        def.setName(ModelService.SUCCESS_MESSAGE);
-        def.setType("String");
-        def.setMode(ModelService.OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // successMessageList
-        def = new ModelParam();
-        def.setName(ModelService.SUCCESS_MESSAGE_LIST);
-        def.setType("java.util.List");
-        def.setMode(ModelService.OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // userLogin
-        def = new ModelParam();
-        def.setName("userLogin");
-        def.setType("org.apache.ofbiz.entity.GenericValue");
-        def.setMode(ModelService.IN_OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // login.username
-        def = new ModelParam();
-        def.setName("login.username");
-        def.setType("String");
-        def.setMode(ModelService.IN_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // login.password
-        def = new ModelParam();
-        def.setName("login.password");
-        def.setType("String");
-        def.setMode(ModelService.IN_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // Locale
-        def = new ModelParam();
-        def.setName("locale");
-        def.setType("java.util.Locale");
-        def.setMode(ModelService.IN_OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // timeZone
-        def = new ModelParam();
-        def.setName("timeZone");
-        def.setType("java.util.TimeZone");
-        def.setMode(ModelService.IN_OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
-        // visualTheme
-        def = new ModelParam();
-        def.setName("visualTheme");
-        def.setType("org.apache.ofbiz.widget.renderer.VisualTheme");
-        def.setMode(ModelService.IN_OUT_PARAM);
-        def.setOptional(true);
-        def.setInternal(true);
-        service.addParam(def);
+    static ModelParam createInternalParam(String name, String type, String mode) {
+        return createDefaultParam(name, type, mode, true, true);
+    }
+
+    static ModelParam createDefaultParam(String name, String type, String mode, boolean optional, boolean internal) {
+        ModelParam param = new ModelParam();
+        param.setName(name);
+        param.setType(type);
+        param.setMode(mode);
+        param.setOptional(optional);
+        param.setInternal(internal);
+        return param;
     }
 
     private static ModelParam createAttrDef(Element attribute, ModelParam parentParam, ModelService service) {
