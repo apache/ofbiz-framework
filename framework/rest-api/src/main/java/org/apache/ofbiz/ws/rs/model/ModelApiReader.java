@@ -46,9 +46,11 @@ public final class ModelApiReader {
         }
         docElement.normalize();
         ModelApi api = new ModelApi();
+
         api.setDisplayName(UtilXml.checkEmpty(docElement.getAttribute("displayName")).intern());
         api.setName(UtilXml.checkEmpty(docElement.getAttribute("name")).intern());
         api.setDescription(UtilXml.checkEmpty(docElement.getAttribute("description")).intern());
+        api.setPath(UtilXml.checkEmpty(docElement.getAttribute("path")).intern());
         api.setPublish(Boolean.parseBoolean(UtilXml.checkEmpty(docElement.getAttribute("publish")).intern()));
         for (Element resourceEle : UtilXml.childElementList(docElement, "resource")) {
             createModelResource(resourceEle, api);
