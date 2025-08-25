@@ -97,9 +97,9 @@ public class OFBizApiConfig extends ResourceConfig {
                         }
                         String path = api.getPath();
                         if (MICRO_APIS.containsKey(path)) {
-                            Debug.logWarning("Duplicate REST API definition detected for path: " + path +
-                                    " at location " +  apiSchemaF +
-                                    ". Overriding existing entry from component: " + cName, MODULE);
+                            Debug.logWarning("Duplicate REST API definition detected for path: " + path
+                                    + " at location " + apiSchemaF
+                                    + ". Overriding existing entry from component: " + cName, MODULE);
                         } else {
                             Debug.logInfo("Processing REST API path: " + path + " from component " + cName, MODULE);
                         }
