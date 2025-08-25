@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.openapi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,11 +110,14 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
             }
             List<ModelResource> resources = v.getResources();
             resources.forEach(modelResource -> {
+                List<String> segments = new ArrayList<>();
+                segments.add(v.getPath());
                 Tag resourceTab = new Tag().name(modelResource.getDisplayName()).description(modelResource.getDescription());
                 openApi.addTagsItem(resourceTab);
-                String basePath = modelResource.getPath();
+                segments.add(modelResource.getPath());
                 for (ModelOperation op : modelResource.getOperations()) {
-                    String uri = basePath + op.getPath();
+                    segments.add(op.getPath());
+                    String uri = buildNestedUrl(segments);
                     boolean pathExists = false;
                     PathItem pathItemObject = paths.get(uri);
                     if (UtilValidate.isEmpty(pathItemObject)) {
@@ -166,13 +170,28 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                     addServiceOperationApiResponses(service, operation);
                     setPathItemOperation(pathItemObject, verb.toUpperCase(), operation);
                     if (!pathExists) {
-                        paths.addPathItem(basePath + op.getPath(), pathItemObject);
+                        paths.addPathItem(uri, pathItemObject);
                     }
                 }
             });
         });
     }
 
+    public static String buildNestedUrl(List<String> segments) {
+        StringBuilder pathBuilder = new StringBuilder();
+        for (String segment : segments) {
+            if (segment == null || segment.trim().isEmpty()) {
+                continue;
+            }
+
+            // Trim leading/trailing slashes
+            segment = segment.replaceAll("^/+", "").replaceAll("/+$", "");
+            if (!segment.isEmpty()) {
+                pathBuilder.append("/").append(segment);
+            }
+        }
+        return pathBuilder.toString();
+    }
     private void addExportableServices() {
         Set<String> serviceNames = context.getAllServiceNames();
         for (String serviceName : serviceNames) {
