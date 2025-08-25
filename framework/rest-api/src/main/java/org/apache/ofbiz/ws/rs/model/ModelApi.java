@@ -85,7 +85,7 @@ public class ModelApi {
     /**
      * Sets the value of the path property.
      *
-     * @param value allowed object is {@link String }
+     * @param path allowed object is {@link String }
      *
      */
     public void setPath(String path) {
