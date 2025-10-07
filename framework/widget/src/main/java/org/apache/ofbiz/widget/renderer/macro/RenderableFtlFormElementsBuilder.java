@@ -255,6 +255,13 @@ public final class RenderableFtlFormElementsBuilder {
         if (UtilValidate.isEmpty(type)) {
             type = "text";
         }
+        String step = "";
+        if (type.equals("number")) {
+            step = textField.getStep();
+            if (UtilValidate.isEmpty(step)) {
+                step = "any";
+            }
+        }
         String pattern = "";
         if (List.of("text", "email", "url", "tel").contains(type)) {
             pattern = textField.getPattern();
@@ -308,6 +315,7 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("name", name)
                 .stringParameter("className", String.join(" ", classes))
                 .stringParameter("type", type)
+                .stringParameter("step", step)
                 .stringParameter("pattern", pattern)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)

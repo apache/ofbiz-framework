@@ -43,7 +43,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField type pattern name className alert value="" textSize="" maxlength="" id="" event="" action=""
+<#macro renderTextField type step pattern name className alert value="" textSize="" maxlength="" id="" event="" action=""
         disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" required=false
         placeholder="" delegatorName="default">
   <input type="${type}" name="${name?default("")?html}"<#t/>
@@ -69,6 +69,7 @@ under the License.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if required?has_content && required> required</#if>
     <#if pattern?has_content> pattern="${pattern}"</#if>
+    <#if step?has_content> step="${step}"</#if>
   /><#t/>
 </#macro>
 

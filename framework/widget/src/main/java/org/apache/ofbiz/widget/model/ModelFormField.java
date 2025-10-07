@@ -5918,6 +5918,7 @@ public final class ModelFormField {
         private final SubHyperlink subHyperlink;
         private final String type;
         private final String pattern;
+        private final String step;
 
         public TextField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -5925,6 +5926,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
             this.mask = element.getAttribute("mask");
             this.type = element.getAttribute("type");
+            this.step = element.getAttribute("step");
             this.pattern = element.getAttribute("pattern");
             Integer maxlength = null;
             String maxlengthStr = element.getAttribute("maxlength");
@@ -5964,6 +5966,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
             this.type = "";
+            this.step = "";
             this.pattern = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -5978,6 +5981,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
             this.type = type;
+            this.step = "";
             this.pattern = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -5992,6 +5996,7 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
             this.type = "";
+            this.step = "";
             this.pattern = "";
             this.maxlength = null;
             this.placeholder = FlexibleStringExpander.getInstance("");
@@ -6014,6 +6019,7 @@ public final class ModelFormField {
             this.defaultValue = original.defaultValue;
             this.mask = original.mask;
             this.type = original.type;
+            this.step = original.step;
             this.pattern = original.pattern;
             this.placeholder = original.placeholder;
             this.size = original.size;
@@ -6133,6 +6139,14 @@ public final class ModelFormField {
          */
         public String getType() {
             return this.type;
+        }
+
+        /**
+         * Gets step.
+         * @return the step
+         */
+        public String getStep() {
+            return this.step;
         }
 
         /**
