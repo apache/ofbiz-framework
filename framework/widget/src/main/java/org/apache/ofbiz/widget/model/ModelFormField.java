@@ -366,7 +366,7 @@ public final class ModelFormField {
             if (retVal != null) {
                 // format string based on the user's locale and time zone
                 if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
-                    NumberFormat nf = NumberFormat.getInstance(locale);
+                    NumberFormat nf = NumberFormat.getInstance(Locale.getDefault());
                     nf.setMaximumFractionDigits(10);
                     return nf.format(retVal);
                 } else if (retVal instanceof java.sql.Date) {
