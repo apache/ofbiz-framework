@@ -58,16 +58,38 @@ public final class ModelApiReader {
         return api;
     }
 
-    private static void createModelResource(Element resourceEle, ModelApi modelApi) {
-        ModelResource resource = new ModelResource().name(UtilXml.checkEmpty(resourceEle.getAttribute("name")).intern())
+    private static void createModelResource(Element resourceEle, ModelApi api) {
+        ModelResource resource = buildResource(resourceEle);
+        createOperations(resourceEle, resource);
+
+        // recursive children
+        for (Element nestedResourceEle : UtilXml.childElementList(resourceEle, "resource")) {
+            createModelResource(nestedResourceEle, resource);
+        }
+
+        Debug.logInfo(resource.toString(), MODULE);
+        api.addResource(resource);
+    }
+
+    private static void createModelResource(Element resourceEle, ModelResource parentResource) {
+        ModelResource resource = buildResource(resourceEle);
+        createOperations(resourceEle, resource);
+
+        for (Element nestedResourceEle : UtilXml.childElementList(resourceEle, "resource")) {
+            createModelResource(nestedResourceEle, resource);
+        }
+
+        Debug.logInfo(resource.toString(), MODULE);
+        parentResource.addSubResource(resource);
+    }
+    private static ModelResource buildResource(Element resourceEle) {
+        return new ModelResource()
+                .name(UtilXml.checkEmpty(resourceEle.getAttribute("name")).intern())
                 .description(UtilXml.checkEmpty(resourceEle.getAttribute("description")).intern())
                 .displayName(UtilXml.checkEmpty(resourceEle.getAttribute("displayName")).intern())
                 .path(UtilXml.checkEmpty(resourceEle.getAttribute("path")).intern())
                 .publish(Boolean.parseBoolean(UtilXml.checkEmpty(resourceEle.getAttribute("publish")).intern()))
                 .auth(Boolean.parseBoolean(UtilXml.checkEmpty(resourceEle.getAttribute("auth")).intern()));
-        createOperations(resourceEle, resource);
-        Debug.logInfo(resource.toString(), MODULE);
-        modelApi.addResource(resource);
     }
 
     private static void createOperations(Element resourceEle, ModelResource resource) {

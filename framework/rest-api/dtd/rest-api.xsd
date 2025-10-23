@@ -34,6 +34,7 @@ under the License.
     <xs:element name="resource">
         <xs:complexType>
             <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="resource"/> <!-- allow nesting -->
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="operation"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>

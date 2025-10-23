@@ -117,46 +117,65 @@ public class OFBizApiConfig extends ResourceConfig {
             Debug.logInfo("No API definitions to process", MODULE);
             return;
         }
-        MICRO_APIS.forEach((k, v) -> {
-            Debug.logInfo("Registring Resource Definitions from API - " + k, MODULE);
-            List<ModelResource> resources = v.getResources();
-            String entryPath = v.getPath();
-            resources.forEach(modelResource -> {
-                if (modelResource.isPublish()) {
-                    String path = entryPath + "/" + modelResource.getPath() + "/";
-                    Resource.Builder resourceBuilder = Resource.builder(path)
-                            .name(modelResource.getName());
-                    for (ModelOperation op : modelResource.getOperations()) {
-                        String verb = op.getVerb().toUpperCase();
-                        boolean isOtherThanGet = verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH);
-                        if (UtilValidate.isEmpty(op.getPath())) { // Add the method to the parent resource
-                            ResourceMethod.Builder methodBuilder = resourceBuilder.addMethod(verb);
-                            methodBuilder.produces(MediaType.APPLICATION_JSON);
-                            if (isOtherThanGet) {
-                                methodBuilder.consumes(MediaType.APPLICATION_JSON);
-                            }
-                            if (op.isAuth()) {
-                                methodBuilder.nameBindings(Secured.class);
-                            }
-                            String serviceName = op.getService();
-                            methodBuilder.handledBy(new ServiceRequestHandler(serviceName));
-                        } else {
-                            Resource.Builder childResourceBuilder = resourceBuilder.addChildResource(op.getPath());
-                            ResourceMethod.Builder childResourceMethodBuilder = childResourceBuilder.addMethod(verb);
-                            childResourceMethodBuilder.produces(MediaType.APPLICATION_JSON);
-                            if (isOtherThanGet) {
-                                childResourceMethodBuilder.consumes(MediaType.APPLICATION_JSON);
-                            }
-                            if (op.isAuth()) {
-                                childResourceMethodBuilder.nameBindings(Secured.class);
-                            }
-                            String serviceName = op.getService();
-                            childResourceMethodBuilder.handledBy(new ServiceRequestHandler(serviceName));
-                        }
-                    }
-                    registerResources(resourceBuilder.build());
-                }
-            });
+
+        MICRO_APIS.forEach((apiPath, modelApi) -> {
+            Debug.logInfo("Registering Resource Definitions from API - " + apiPath, MODULE);
+            for (ModelResource resource : modelApi.getResources()) {
+                String resourcePath = buildCleanPath(apiPath, resource.getPath());
+                registerModelResource(resource, resourcePath);
+            }
         });
+    }
+    private void registerModelResource(ModelResource modelResource, String basePath) {
+        if (!modelResource.isPublish()) return;
+
+        Resource.Builder resourceBuilder = Resource.builder("/" + basePath)
+                .name(modelResource.getName());
+
+        for (ModelOperation op : modelResource.getOperations()) {
+            String verb = op.getVerb().toUpperCase();
+            boolean isOtherThanGet = verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH);
+            String opPath = op.getPath();
+
+            ResourceMethod.Builder methodBuilder;
+            if (UtilValidate.isEmpty(opPath)) {
+                methodBuilder = resourceBuilder.addMethod(verb);
+            } else {
+                Resource.Builder childBuilder = resourceBuilder.addChildResource(opPath);
+                methodBuilder = childBuilder.addMethod(verb);
+            }
+
+            methodBuilder.produces(MediaType.APPLICATION_JSON);
+            if (isOtherThanGet) {
+                methodBuilder.consumes(MediaType.APPLICATION_JSON);
+            }
+            if (op.isAuth()) {
+                methodBuilder.nameBindings(Secured.class);
+            }
+            methodBuilder.handledBy(new ServiceRequestHandler(op.getService()));
+        }
+
+        // Register the current resource
+        registerResources(resourceBuilder.build());
+
+        // Recursively process nested sub-resources
+        if (UtilValidate.isNotEmpty(modelResource.getSubResources())) {
+            for (ModelResource sub : modelResource.getSubResources()) {
+                String subPath = buildCleanPath(basePath, sub.getPath());
+                registerModelResource(sub, subPath);
+            }
+        }
+    }
+    private String buildCleanPath(String... parts) {
+        StringBuilder pathBuilder = new StringBuilder();
+        for (String part : parts) {
+            if (part == null || part.trim().isEmpty()) continue;
+            part = part.replaceAll("^/+", "").replaceAll("/+$", ""); // trim slashes
+            if (!part.isEmpty()) {
+                if (pathBuilder.length() > 0) pathBuilder.append('/');
+                pathBuilder.append(part);
+            }
+        }
+        return pathBuilder.toString();
     }
 }
