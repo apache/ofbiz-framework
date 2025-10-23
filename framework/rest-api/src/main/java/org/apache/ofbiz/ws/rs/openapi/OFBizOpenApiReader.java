@@ -104,77 +104,100 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
         Map<String, ModelApi> apis = OFBizApiConfig.getModelApis();
         SecurityRequirement security = new SecurityRequirement();
         security.addList("jwtToken");
-        apis.forEach((k, v) -> {
-            if (!v.isPublish()) {
-                return;
+
+        apis.forEach((k, api) -> {
+            if (!api.isPublish()) return;
+
+            List<String> baseSegments = new ArrayList<>();
+            baseSegments.add(api.getPath());
+
+            for (ModelResource resource : api.getResources()) {
+                processResourceRecursive(resource, baseSegments, security);
             }
-            List<ModelResource> resources = v.getResources();
-            resources.forEach(modelResource -> {
-                List<String> segments = new ArrayList<>();
-                segments.add(v.getPath());
-                Tag resourceTab = new Tag().name(modelResource.getDisplayName()).description(modelResource.getDescription());
-                openApi.addTagsItem(resourceTab);
-                segments.add(modelResource.getPath());
-                for (ModelOperation op : modelResource.getOperations()) {
-                    segments.add(op.getPath());
-                    String uri = buildNestedUrl(segments);
-                    boolean pathExists = false;
-                    PathItem pathItemObject = paths.get(uri);
-                    if (UtilValidate.isEmpty(pathItemObject)) {
-                        pathItemObject = new PathItem();
-                    } else {
-                        pathExists = true;
-                    }
-                    String serviceName = op.getService();
-                    final Operation operation = new Operation().summary(op.getDescription())
-                            .description(op.getDescription()).addTagsItem(modelResource.getDisplayName())
-                            .operationId(serviceName).deprecated(false).addSecurityItem(security);
-                    String verb = op.getVerb().toUpperCase();
-                    ModelService service = null;
-                    try {
-                        service = context.getModelService(serviceName);
-                    } catch (GenericServiceException e) {
-                        Debug.logError("Service '" + serviceName + "' not found while trying to map REST resource " + uri + "; ignoring. ", MODULE);
-                        continue;
-                    }
-                    if (verb.equalsIgnoreCase(HttpMethod.GET)) {
-                        final QueryParameter serviceInParam = (QueryParameter) new QueryParameter().required(true)
-                                .description("Operation Input Parameters in JSON").name("input");
-                        Schema<?> refSchema = new Schema<>();
-                        refSchema.$ref("#/components/schemas/" + "api.request." + service.getName());
-                        serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                                new MediaType().schema(refSchema)));
-                        operation.addParametersItem(serviceInParam);
-                    } else if (verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
-                        RequestBody request = new RequestBody()
-                                .description("Request Body for operation " + op.getDescription())
-                                .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
-                                        new MediaType().schema(new Schema<>()
-                                                .$ref("#/components/schemas/" + "api.request." + service.getName()))));
-                        operation.setRequestBody(request);
-                        operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
-                    }
-                    List<String> pathParams = RestApiUtil.getPathParameters(uri);
-                    for (String pathParam : pathParams) {
-                        ModelParam mdParam = service.getInModelParamList().stream()
-                                .filter(param -> (!param.getInternal() && pathParam.equals(param.getName())))
-                                .findFirst().orElse(null);
-                        final PathParameter pathParameter = (PathParameter) new PathParameter().required(true)
-                                .description(mdParam != null ? mdParam.getShortDisplayDescription() : "")
-                                .name(pathParam)
-                                .schema(OpenApiUtil.getAttributeSchema(service, mdParam));
-                        operation.addParametersItem(pathParameter);
-                    }
-                    addServiceOutSchema(service);
-                    addServiceInSchema(service);
-                    addServiceOperationApiResponses(service, operation);
-                    setPathItemOperation(pathItemObject, verb.toUpperCase(), operation);
-                    if (!pathExists) {
-                        paths.addPathItem(uri, pathItemObject);
-                    }
-                }
-            });
         });
+    }
+    private void processResourceRecursive(ModelResource resource, List<String> parentSegments, SecurityRequirement security) {
+        List<String> currentSegments = new ArrayList<>(parentSegments);
+        currentSegments.add(resource.getPath());
+
+        Tag resourceTag = new Tag().name(resource.getDisplayName()).description(resource.getDescription());
+        openApi.addTagsItem(resourceTag);
+
+        for (ModelOperation op : resource.getOperations()) {
+            List<String> fullPathSegments = new ArrayList<>(currentSegments);
+            fullPathSegments.add(op.getPath());
+            String uri = buildNestedUrl(fullPathSegments);
+
+            PathItem pathItemObject = paths.get(uri);
+            boolean pathExists = pathItemObject != null;
+            if (!pathExists) {
+                pathItemObject = new PathItem();
+            }
+
+            String serviceName = op.getService();
+            ModelService service;
+            try {
+                service = context.getModelService(serviceName);
+            } catch (GenericServiceException e) {
+                Debug.logError("Service '" + serviceName + "' not found while trying to map REST resource " + uri + "; ignoring. ", MODULE);
+                continue;
+            }
+
+            Operation operation = new Operation()
+                    .summary(op.getDescription())
+                    .description(op.getDescription())
+                    .addTagsItem(resource.getDisplayName())
+                    .operationId(serviceName)
+                    .deprecated(false)
+                    .addSecurityItem(security);
+
+            String verb = op.getVerb().toUpperCase();
+            if (verb.equalsIgnoreCase(HttpMethod.GET)) {
+                QueryParameter serviceInParam = (QueryParameter) new QueryParameter().required(true)
+                        .description("Operation Input Parameters in JSON").name("input");
+
+                Schema<?> refSchema = new Schema<>().$ref("#/components/schemas/api.request." + service.getName());
+                serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
+                        new MediaType().schema(refSchema)));
+                operation.addParametersItem(serviceInParam);
+            } else if (verb.matches(HttpMethod.POST + "|" + HttpMethod.PUT + "|" + HttpMethod.PATCH)) {
+                RequestBody request = new RequestBody()
+                        .description("Request Body for operation " + op.getDescription())
+                        .content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
+                                new MediaType().schema(new Schema<>().$ref("#/components/schemas/api.request." + service.getName()))));
+                operation.setRequestBody(request);
+                operation.addParametersItem(HEADER_CONTENT_TYPE_JSON);
+            }
+
+            List<String> pathParams = RestApiUtil.getPathParameters(uri);
+            for (String pathParam : pathParams) {
+                ModelParam mdParam = service.getInModelParamList().stream()
+                        .filter(param -> (!param.getInternal() && pathParam.equals(param.getName())))
+                        .findFirst().orElse(null);
+                PathParameter pathParameter = new PathParameter();
+                pathParameter.setRequired(true);
+                pathParameter.setName(pathParam);
+                pathParameter.setDescription(mdParam != null ? mdParam.getShortDisplayDescription() : "");
+                pathParameter.setSchema(OpenApiUtil.getAttributeSchema(service, mdParam));
+                operation.addParametersItem(pathParameter);
+            }
+
+            addServiceOutSchema(service);
+            addServiceInSchema(service);
+            addServiceOperationApiResponses(service, operation);
+            setPathItemOperation(pathItemObject, verb.toUpperCase(), operation);
+
+            if (!pathExists) {
+                paths.addPathItem(uri, pathItemObject);
+            }
+        }
+
+        //Recursively process nested resources
+        if (resource.getSubResources() != null) {
+            for (ModelResource sub : resource.getSubResources()) {
+                processResourceRecursive(sub, currentSegments, security);
+            }
+        }
     }
 
     public static String buildNestedUrl(List<String> segments) {
@@ -212,9 +235,11 @@ public final class OFBizOpenApiReader extends Reader implements OpenApiReader {
                 if (service.getAction().equalsIgnoreCase(HttpMethod.GET)) {
                     boolean inParamsEmpty = UtilValidate.isEmpty(service.getInParamNamesMap());
                     if (!inParamsEmpty) {
-                        final QueryParameter serviceInParam = (QueryParameter) new QueryParameter()
-                                .required(!inParamsEmpty)
-                                .description("Service In Parameters in JSON").name("inParams");
+                        QueryParameter serviceInParam = new QueryParameter();
+                        serviceInParam.setRequired(true);
+                        serviceInParam.setDescription("Operation Input Parameters in JSON");
+                        serviceInParam.setName("input");
+
                         Schema<?> refSchema = new Schema<>();
                         refSchema.$ref("#/components/schemas/" + "api.request." + service.getName());
                         serviceInParam.content(new Content().addMediaType(jakarta.ws.rs.core.MediaType.APPLICATION_JSON,
