@@ -21,13 +21,11 @@ package org.apache.ofbiz.ws.rs.core;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import jakarta.ws.rs.HttpMethod;
-//import org.glassfish.jersey.server.ServerProperties;
 import jakarta.ws.rs.core.MediaType;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
