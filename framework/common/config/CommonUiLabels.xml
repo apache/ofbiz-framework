@@ -10270,6 +10270,12 @@
         <value xml:lang="zh-CN">重置</value>
         <value xml:lang="zh-TW">重設</value>
     </property>
+    <property key="CommonReserve">
+        <value xml:lang="en">Reserve</value>
+    </property>
+    <property key="CommonReservedQty">
+        <value xml:lang="en">Reserved Qty</value>
+    </property>
     <property key="CommonResultLookup">
         <value xml:lang="ar">نتيجة البحث</value>
         <value xml:lang="cs">Výsledek vyhledávání</value>

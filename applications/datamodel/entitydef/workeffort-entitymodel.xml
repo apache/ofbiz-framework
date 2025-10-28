@@ -890,4 +890,48 @@ under the License.
         <key-map field-name="surveyId" rel-field-name="productStoreSurveyId"/>
       </relation>
     </entity>
+
+    <entity entity-name="WorkEffortInvRes"
+            package-name="org.apache.ofbiz.workeffort.workeffort"
+            title="Inventory Reservation for WorkEffort">
+      <field name="workEffortId" type="id"/>
+      <field name="inventoryItemId" type="id"/>
+      <field name="wegsProductId" type="id"/>
+      <field name="reserveOrderEnumId" type="id"/>
+      <field name="quantity" type="fixed-point"/>
+      <field name="quantityNotAvailable" type="fixed-point"/>
+      <field name="reservedDatetime" type="date-time"/>
+      <field name="createdDatetime" type="date-time"/>
+      <field name="promisedDatetime" type="date-time"/>
+      <field name="currentPromisedDate" type="date-time"/>
+      <field name="sequenceId" type="id"/>
+      <prim-key field="workEffortId"/>
+      <prim-key field="inventoryItemId"/>
+      <prim-key field="wegsProductId"/>
+      <relation type="one" fk-name="WEIR_WE" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="WEIR_INV" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+      <relation type="one" fk-name="WEIR_WEGS_PROD" rel-entity-name="Product">
+        <key-map field-name="wegsProductId" rel-field-name="productId"/>
+      </relation>
+    </entity>
+  <view-entity entity-name="WorkEffortInvResAndItem"
+               package-name="org.apache.ofbiz.workeffort.workeffort"
+               title="Inventory Item and Inventory Reservation For Work Effort">
+    <description>Inventory Item and Inventory Reservation For Work Effort</description>
+    <member-entity entity-alias="WEIR" entity-name="WorkEffortInvRes"/>
+    <member-entity entity-alias="II" entity-name="InventoryItem"/>
+    <alias-all entity-alias="II"/>
+    <alias entity-alias="WEIR" name="workEffortId"/>
+    <alias entity-alias="WEIR" name="inventoryItemId"/>
+    <alias entity-alias="WEIR" name="quantity"/>
+    <alias entity-alias="WEIR" name="quantityNotAvailable"/>
+    <alias entity-alias="WEIR" name="wegsProductId"/>
+    <view-link entity-alias="WEIR" rel-entity-alias="II">
+      <key-map field-name="inventoryItemId"/>
+    </view-link>
+  </view-entity>
 </entitymodel>

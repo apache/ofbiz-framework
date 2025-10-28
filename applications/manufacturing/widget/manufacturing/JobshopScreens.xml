@@ -143,9 +143,12 @@ under the License.
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
                             <include-grid name="ViewListProductionRunRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.ManufacturingMaterials}">
-                            <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                        </screenlet>
+<!--                        <screenlet title="${uiLabelMap.ManufacturingMaterials}">-->
+<!--                            <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>-->
+<!--                        </screenlet>-->
+                        <platform-specific>
+                            <html><html-template location="component://manufacturing/template/jobshopmgt/ListProductionRunComponents.ftl"/></html>
+                        </platform-specific>
                         <screenlet title="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}">
                             <include-grid name="ListProductionRunTaskFixedAssets" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
@@ -248,13 +251,16 @@ under the License.
                             <include-grid name="ListProductionRunDeclRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
-                            <condition>
-                                <if-compare field="canDeclareAndProduce" operator="equals" value="N"/>
-                            </condition>
+<!--                            <condition>-->
+<!--                                <if-compare field="canDeclareAndProduce" operator="equals" value="N"/>-->
+<!--                            </condition>-->
                             <widgets>
-                                <screenlet title="${uiLabelMap.ManufacturingMaterials}">
-                                    <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
-                                </screenlet>
+<!--                                <screenlet title="${uiLabelMap.ManufacturingMaterials}">-->
+<!--                                    <include-grid name="ListProductionRunComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>-->
+<!--                                </screenlet>-->
+                                <platform-specific>
+                                    <html><html-template location="component://manufacturing/template/jobshopmgt/ListProductionRunComponents.ftl"/></html>
+                                </platform-specific>
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ManufacturingProductionRunDeclaration}">
@@ -775,6 +781,28 @@ under the License.
                                 <link text="${uiLabelMap.ManufacturingPackageLabelsReport}" style="buttontext" target="ShipmentLabel.pdf" target-window="_BLANK">
                                     <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
                                 </link>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SetInventoryItem">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ManufacturingCreateProductionRun"/>
+                <set field="headerItem" value="jobshop"/>
+                <script location="component://manufacturing/src/main/groovy/org/apache/ofbiz/manufacturing/jobshopmgt/SetInventoryItem.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonManufacturingDecorator" location="${parameters.commonManufacturingDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://manufacturing/template/jobshopmgt/SetInventoryItem.ftl"/></html>
+                                </platform-specific>
                             </widgets>
                         </section>
                     </decorator-section>
