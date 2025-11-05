@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.base.util.cache;
 
-import static org.apache.ofbiz.base.test.GenericTestCaseBase.useAllMemory;
+import static org.apache.ofbiz.base.util.cache.UtilCacheTestTools.createListener;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
@@ -34,425 +34,277 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilObject;
+import org.apache.ofbiz.base.util.cache.UtilCacheTestTools.Listener;
 import org.junit.Test;
 
 @SuppressWarnings("serial")
 public class UtilCacheTests implements Serializable {
-    abstract static class Change {
-        private int count = 1;
 
-        public int getCount() {
-            return count;
-        }
-
-        public void incCount() {
-            count += 1;
-        }
-    }
-
-    protected static final class Removal<V> extends Change {
-        private final V oldValue;
-
-        protected Removal(V oldValue) {
-            this.oldValue = oldValue;
-        }
-
-        @Override
-        public int hashCode() {
-            return UtilObject.doHashCode(oldValue);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o instanceof Removal<?>) {
-                Removal<?> other = (Removal<?>) o;
-                return Objects.equals(oldValue, other.oldValue);
-            }
-            return false;
-        }
-    }
-
-    protected static final class Addition<V> extends Change {
-        private final V newValue;
-
-        protected Addition(V newValue) {
-            this.newValue = newValue;
-        }
-
-        @Override
-        public int hashCode() {
-            return UtilObject.doHashCode(newValue);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o instanceof Addition<?>) {
-                Addition<?> other = (Addition<?>) o;
-                return Objects.equals(newValue, other.newValue);
-            }
-            return false;
-        }
-    }
-
-    protected static final class Update<V> extends Change {
-        private final V newValue;
-        private final V oldValue;
-
-        protected Update(V newValue, V oldValue) {
-            this.newValue = newValue;
-            this.oldValue = oldValue;
-        }
-
-        @Override
-        public int hashCode() {
-            return UtilObject.doHashCode(newValue) ^ UtilObject.doHashCode(oldValue);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o instanceof Update<?>) {
-                Update<?> other = (Update<?>) o;
-                if (!Objects.equals(newValue, other.newValue)) {
-                    return false;
-                }
-                return Objects.equals(oldValue, other.oldValue);
-            }
-            return false;
-        }
-    }
-
-    private static final class Listener<K, V> implements CacheListener<K, V> {
-        private Map<K, Set<Change>> changeMap = new HashMap<>();
-
-        private void add(K key, Change change) {
-            Set<Change> changeSet = changeMap.get(key);
-            if (changeSet == null) {
-                changeSet = new HashSet<>();
-                changeMap.put(key, changeSet);
-            }
-            for (Change checkChange: changeSet) {
-                if (checkChange.equals(change)) {
-                    checkChange.incCount();
-                    return;
-                }
-            }
-            changeSet.add(change);
-        }
-
-        @Override
-        public synchronized void noteKeyRemoval(UtilCache<K, V> cache, K key, V oldValue) {
-            add(key, new Removal<>(oldValue));
-        }
-
-        @Override
-        public synchronized void noteKeyAddition(UtilCache<K, V> cache, K key, V newValue) {
-            add(key, new Addition<>(newValue));
-        }
-
-        @Override
-        public synchronized void noteKeyUpdate(UtilCache<K, V> cache, K key, V newValue, V oldValue) {
-            add(key, new Update<>(newValue, oldValue));
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof Listener)) {
-                return false;
-            }
-            Listener<?, ?> other = (Listener<?, ?>) o;
-            return changeMap.equals(other.changeMap);
-        }
-
-        @Override
-        public int hashCode() {
-            return super.hashCode();
-        }
-    }
-
-    private static <K, V> Listener<K, V> createListener(UtilCache<K, V> cache) {
-        Listener<K, V> listener = new Listener<>();
-        cache.addListener(listener);
-        return listener;
-    }
-
-    private <K, V> UtilCache<K, V> createUtilCache(int sizeLimit, int maxInMemory, long ttl, boolean useSoftReference) {
-        return UtilCache.createUtilCache(getClass().getName(), sizeLimit, maxInMemory, ttl, useSoftReference);
-    }
-
-    private static <K, V> void assertUtilCacheSettings(UtilCache<K, V> cache, Integer sizeLimit, Integer maxInMemory,
-            Long expireTime, Boolean useSoftReference) {
-        if (sizeLimit != null) {
-            assertEquals(cache.getName() + ":sizeLimit", sizeLimit.intValue(), cache.getSizeLimit());
-        }
-        if (maxInMemory != null) {
-            assertEquals(cache.getName() + ":maxInMemory", maxInMemory.intValue(), cache.getMaxInMemory());
-        }
-        if (expireTime != null) {
-            assertEquals(cache.getName() + ":expireTime", expireTime.longValue(), cache.getExpireTime());
-        }
-        if (useSoftReference != null) {
-            assertEquals(cache.getName() + ":useSoftReference", useSoftReference.booleanValue(),
-                    cache.getUseSoftReference());
-        }
-        assertEquals("initial empty", true, cache.isEmpty());
-        assertEquals("empty keys", Collections.emptySet(), cache.getCacheLineKeys());
-        assertEquals("empty values", Collections.emptyList(), cache.values());
-        assertSame("find cache", cache, UtilCache.findCache(cache.getName()));
-        assertNotSame("new cache", cache, UtilCache.createUtilCache());
+    private <K, V> UtilCache<K, V> createUtilCache(int sizeLimit, int maxInMemory, long expireIn, boolean useSoftReference) {
+        return UtilCache.createUtilCache(getClass().getName(), sizeLimit, maxInMemory, expireIn, useSoftReference);
     }
 
     @Test
     public void testCreateUtilCache() {
         String name = getClass().getName();
-        assertUtilCacheSettings(UtilCache.createUtilCache(), null, null, null, null);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name), null, null, null, null);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE);
-        assertUtilCacheSettings(UtilCache.createUtilCache(5, 15000), 5, null, 15000L, null);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, 6, 16000), 6, null, 16000L, null);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, 8, 18000, true), 8, null, 18000L, Boolean.TRUE);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, 9, 5, 19000, false), 9, 5, 19000L, Boolean.FALSE);
-        assertUtilCacheSettings(UtilCache.createUtilCache(name, 10, 6, 20000, false), 10, 6, 20000L, Boolean.FALSE);
-        assertUtilCacheSettings(
-                UtilCache.createUtilCache(name, 11, 7, 21000, false, "a", "b"), 11, 7, 21000L, Boolean.FALSE);
-        assertUtilCacheSettings(
-                UtilCache.createUtilCache(name, 12, 8, 22000, false, "c", "d"), 12, 8, 22000L, Boolean.FALSE);
-    }
-
-    public static <K, V> void assertKey(String label, UtilCache<K, V> cache, K key, V value, V other, int size,
-            Map<K, V> map) {
-        assertNull(label + ":get-empty", cache.get(key));
-        assertFalse(label + ":containsKey-empty", cache.containsKey(key));
-        V oldValue = cache.put(key, other);
-        assertTrue(label + ":containsKey-class", cache.containsKey(key));
-        assertEquals(label + ":get-class", other, cache.get(key));
-        assertNull(label + ":oldValue-class", oldValue);
-        assertEquals(label + ":size-class", size, cache.size());
-        oldValue = cache.put(key, value);
-        assertTrue(label + ":containsKey-value", cache.containsKey(key));
-        assertEquals(label + ":get-value", value, cache.get(key));
-        assertEquals(label + ":oldValue-value", other, oldValue);
-        assertEquals(label + ":size-value", size, cache.size());
-        map.put(key, value);
-        assertEquals(label + ":map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertThat(label + ":map-values", cache.values(), containsInAnyOrder(map.values().toArray()));
-    }
-
-    private static <K, V> void assertHasSingleKey(UtilCache<K, V> cache, K key, V value) {
-        assertFalse("is-empty", cache.isEmpty());
-        assertEquals("size", 1, cache.size());
-        assertTrue("found", cache.containsKey(key));
-        assertTrue("validKey", UtilCache.validKey(cache.getName(), key));
-        assertFalse("validKey", UtilCache.validKey(":::" + cache.getName(), key));
-        assertEquals("get", value, cache.get(key));
-        assertEquals("keys", new HashSet<>(UtilMisc.toList(key)), cache.getCacheLineKeys());
-        assertEquals("values", UtilMisc.toList(value), cache.values());
-    }
-
-    private static <K, V> void assertNoSingleKey(UtilCache<K, V> cache, K key) {
-        assertFalse("not-found", cache.containsKey(key));
-        assertFalse("validKey", UtilCache.validKey(cache.getName(), key));
-        assertNull("no-get", cache.get(key));
-        assertNull("remove", cache.remove(key));
-        assertTrue("is-empty", cache.isEmpty());
-        assertEquals("size", 0, cache.size());
-        assertEquals("keys", Collections.emptySet(), cache.getCacheLineKeys());
-        assertEquals("values", Collections.emptyList(), cache.values());
-    }
-
-    private static void basicTest(UtilCache<String, String> cache) throws Exception {
-        Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<>();
-        for (int i = 0; i < 2; i++) {
-            assertTrue("UtilCacheTable.keySet", UtilCache.getUtilCacheTableKeySet().contains(cache.getName()));
-            assertSame("UtilCache.findCache", cache, UtilCache.findCache(cache.getName()));
-            assertSame("UtilCache.getOrCreateUtilCache", cache, UtilCache.getOrCreateUtilCache(cache.getName(),
-                    cache.getSizeLimit(), cache.getMaxInMemory(), cache.getExpireTime(), cache.getUseSoftReference()));
-
-            assertNoSingleKey(cache, "one");
-            long origByteSize = cache.getSizeInBytes();
-
-            wantedListener.noteKeyAddition(cache, null, "null");
-            assertNull("put", cache.put(null, "null"));
-            assertHasSingleKey(cache, null, "null");
-            long nullByteSize = cache.getSizeInBytes();
-            assertThat(nullByteSize, greaterThan(origByteSize));
-
-            wantedListener.noteKeyRemoval(cache, null, "null");
-            assertEquals("remove", "null", cache.remove(null));
-            assertNoSingleKey(cache, null);
-
-            wantedListener.noteKeyAddition(cache, "one", "uno");
-            assertNull("put", cache.put("one", "uno"));
-            assertHasSingleKey(cache, "one", "uno");
-            long unoByteSize = cache.getSizeInBytes();
-            assertThat(unoByteSize, greaterThan(origByteSize));
-
-            wantedListener.noteKeyUpdate(cache, "one", "single", "uno");
-            assertEquals("replace", "uno", cache.put("one", "single"));
-            assertHasSingleKey(cache, "one", "single");
-            long singleByteSize = cache.getSizeInBytes();
-            assertThat(singleByteSize, greaterThan(origByteSize));
-            assertThat(singleByteSize, greaterThan(unoByteSize));
-
-            wantedListener.noteKeyRemoval(cache, "one", "single");
-            assertEquals("remove", "single", cache.remove("one"));
-            assertNoSingleKey(cache, "one");
-            assertEquals("byteSize", origByteSize, cache.getSizeInBytes());
-
-            wantedListener.noteKeyAddition(cache, "one", "uno");
-            assertNull("put", cache.put("one", "uno"));
-            assertHasSingleKey(cache, "one", "uno");
-
-            wantedListener.noteKeyUpdate(cache, "one", "only", "uno");
-            assertEquals("replace", "uno", cache.put("one", "only"));
-            assertHasSingleKey(cache, "one", "only");
-
-            wantedListener.noteKeyRemoval(cache, "one", "only");
-            cache.erase();
-            assertNoSingleKey(cache, "one");
-            assertEquals("byteSize", origByteSize, cache.getSizeInBytes());
-
-            cache.setExpireTime(100);
-            wantedListener.noteKeyAddition(cache, "one", "uno");
-            assertNull("put", cache.put("one", "uno"));
-            assertHasSingleKey(cache, "one", "uno");
-
-            wantedListener.noteKeyRemoval(cache, "one", "uno");
-            Thread.sleep(200);
-            assertNoSingleKey(cache, "one");
-        }
-
-        assertEquals("get-miss", 10, cache.getMissCountNotFound());
-        assertEquals("get-miss-total", 10, cache.getMissCountTotal());
-        assertEquals("get-hit", 12, cache.getHitCount());
-        assertEquals("remove-hit", 6, cache.getRemoveHitCount());
-        assertEquals("remove-miss", 10, cache.getRemoveMissCount());
-        cache.removeListener(gotListener);
-        assertEquals("listener", wantedListener, gotListener);
-        UtilCache.clearCache(cache.getName());
-        UtilCache.clearCache(":::" + cache.getName());
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(), null, null, null, null);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name), null, null, null, null);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(5, 15000), 5, null, 15000L, null);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 6, 16000), 6, null, 16000L, null);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 8, 18000, true), 8, null, 18000L, Boolean.TRUE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 9, 5, 19000, false), 9, 5, 19000L, Boolean.FALSE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 10, 6, 20000, false), 10, 6, 20000L, Boolean.FALSE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 11, 7, 21000, false, "a", "b"), 11, 7, 21000L, Boolean.FALSE);
+        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 12, 8, 22000, false, "c", "d"), 12, 8, 22000L, Boolean.FALSE);
     }
 
     @Test
     public void testSimple() throws Exception {
-        UtilCache<String, String> cache = createUtilCache(5, 0, 0, false);
-        basicTest(cache);
+        UtilCache<String, String> myCache = createUtilCache(5, 0, 0, false);
+        String myCacheName = myCache.getName();
+        Listener<String, String> myCacheListener = createListener(myCache);
+        Listener<String, String> controlListener = new Listener<>();
+
+        for (int i = 0; i < 2; i++) {
+            assertTrue("UtilCacheTable.keySet", UtilCache.getUtilCacheTableKeySet().contains(myCacheName));
+            assertSame("UtilCache.findCache", myCache, UtilCache.findCache(myCacheName));
+            assertSame("UtilCache.getOrCreateUtilCache", myCache, UtilCache.getOrCreateUtilCache(myCacheName,
+                    myCache.getSizeLimit(), myCache.getMaxInMemory(), myCache.getExpireTime(), myCache.getUseSoftReference()));
+
+            doKeyNotInCacheTest(myCache, "one");
+            long origByteSize = myCache.getSizeInBytes();
+
+            controlListener.noteKeyAddition(myCache, null, "null");
+            assertNull("put", myCache.put(null, "null"));
+            doKeyInCacheTest(myCache, null, "null");
+            long nullByteSize = myCache.getSizeInBytes();
+            assertThat(nullByteSize, greaterThan(origByteSize));
+
+            controlListener.noteKeyRemoval(myCache, null, "null");
+            assertEquals("remove", "null", myCache.remove(null));
+            doKeyNotInCacheTest(myCache, null);
+
+            controlListener.noteKeyAddition(myCache, "one", "uno");
+            assertNull("put", myCache.put("one", "uno"));
+            doKeyInCacheTest(myCache, "one", "uno");
+            long unoByteSize = myCache.getSizeInBytes();
+            assertThat(unoByteSize, greaterThan(origByteSize));
+
+            controlListener.noteKeyUpdate(myCache, "one", "single", "uno");
+            assertEquals("replace", "uno", myCache.put("one", "single"));
+            doKeyInCacheTest(myCache, "one", "single");
+            long singleByteSize = myCache.getSizeInBytes();
+            assertThat(singleByteSize, greaterThan(origByteSize));
+            assertThat(singleByteSize, greaterThan(unoByteSize));
+
+            controlListener.noteKeyRemoval(myCache, "one", "single");
+            assertEquals("remove", "single", myCache.remove("one"));
+            doKeyNotInCacheTest(myCache, "one");
+            assertEquals("byteSize", origByteSize, myCache.getSizeInBytes());
+
+            controlListener.noteKeyAddition(myCache, "one", "uno");
+            assertNull("put", myCache.put("one", "uno"));
+            doKeyInCacheTest(myCache, "one", "uno");
+
+            controlListener.noteKeyUpdate(myCache, "one", "only", "uno");
+            assertEquals("replace", "uno", myCache.put("one", "only"));
+            doKeyInCacheTest(myCache, "one", "only");
+
+            controlListener.noteKeyRemoval(myCache, "one", "only");
+            myCache.erase();
+            doKeyNotInCacheTest(myCache, "one");
+            assertEquals("byteSize", origByteSize, myCache.getSizeInBytes());
+
+            myCache.setExpireTime(100);
+            controlListener.noteKeyAddition(myCache, "one", "uno");
+            assertNull("put", myCache.put("one", "uno"));
+            doKeyInCacheTest(myCache, "one", "uno");
+
+            controlListener.noteKeyRemoval(myCache, "one", "uno");
+            Thread.sleep(200);
+            doKeyNotInCacheTest(myCache, "one");
+        }
+        assertEquals("get-miss", 10, myCache.getMissCountNotFound());
+        assertEquals("get-miss-total", 10, myCache.getMissCountTotal());
+        assertEquals("get-hit", 12, myCache.getHitCount());
+        assertEquals("remove-hit", 6, myCache.getRemoveHitCount());
+        assertEquals("remove-miss", 10, myCache.getRemoveMissCount());
+        myCache.removeListener(myCacheListener);
+        assertEquals("listener", controlListener, myCacheListener);
+        UtilCache.clearCache(myCacheName);
+        UtilCache.clearCache(":::" + myCacheName);
     }
 
     @Test
-    public void testPutIfAbsent() throws Exception {
-        UtilCache<String, String> cache = createUtilCache(5, 5, 2000, false);
-        Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<>();
-        wantedListener.noteKeyAddition(cache, "two", "dos");
-        assertNull("putIfAbsent", cache.putIfAbsent("two", "dos"));
-        assertHasSingleKey(cache, "two", "dos");
-        assertEquals("putIfAbsent", "dos", cache.putIfAbsent("two", "double"));
-        assertHasSingleKey(cache, "two", "dos");
-        cache.removeListener(gotListener);
-        assertEquals("listener", wantedListener, gotListener);
+    public void testPutIfAbsent() {
+        UtilCache<String, String> myCache = createUtilCache(5, 5, 2000, false);
+        Listener<String, String> myCacheListener = createListener(myCache);
+        Listener<String, String> controlListener = new Listener<>();
+
+        controlListener.noteKeyAddition(myCache, "two", "dos");
+        assertNull("putIfAbsent", myCache.putIfAbsent("two", "dos"));
+        doKeyInCacheTest(myCache, "two", "dos");
+        assertEquals("putIfAbsent", "dos", myCache.putIfAbsent("two", "double"));
+        doKeyInCacheTest(myCache, "two", "dos");
+        myCache.removeListener(myCacheListener);
+        assertEquals("listener", controlListener, myCacheListener);
     }
 
     @Test
-    public void testPutIfAbsentAndGet() throws Exception {
-        UtilCache<String, String> cache = createUtilCache(5, 5, 2000, false);
-        Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<>();
-        wantedListener.noteKeyAddition(cache, "key", "value");
-        wantedListener.noteKeyAddition(cache, "anotherKey", "anotherValue");
-        assertNull("no-get", cache.get("key"));
-        assertEquals("putIfAbsentAndGet", "value", cache.putIfAbsentAndGet("key", "value"));
-        assertHasSingleKey(cache, "key", "value");
-        assertEquals("putIfAbsentAndGet", "value", cache.putIfAbsentAndGet("key", "newValue"));
-        assertHasSingleKey(cache, "key", "value");
-        String anotherValueAddedToCache = new String("anotherValue");
-        String anotherValueNotAddedToCache = new String("anotherValue");
-        assertEquals(anotherValueAddedToCache, anotherValueNotAddedToCache);
-        assertNotSame(anotherValueAddedToCache, anotherValueNotAddedToCache);
-        String cachedValue = cache.putIfAbsentAndGet("anotherKey", anotherValueAddedToCache);
-        assertSame(cachedValue, anotherValueAddedToCache);
-        cachedValue = cache.putIfAbsentAndGet("anotherKey", anotherValueNotAddedToCache);
-        assertNotSame(cachedValue, anotherValueNotAddedToCache);
-        assertSame(cachedValue, anotherValueAddedToCache);
-        cache.removeListener(gotListener);
-        assertEquals("listener", wantedListener, gotListener);
+    public void testPutIfAbsentAndGet() {
+        UtilCache<String, String> myCache = createUtilCache(5, 5, 2000, false);
+        Listener<String, String> myCacheListener = createListener(myCache);
+        Listener<String, String> controlListener = new Listener<>();
+        controlListener.noteKeyAddition(myCache, "key", "value");
+        controlListener.noteKeyAddition(myCache, "anotherKey", "anotherValue");
+        assertNull("no-get", myCache.get("key"));
+        assertEquals("putIfAbsentAndGet", "value", myCache.putIfAbsentAndGet("key", "value"));
+        doKeyInCacheTest(myCache, "key", "value");
+        assertEquals("putIfAbsentAndGet", "value", myCache.putIfAbsentAndGet("key", "newValue"));
+        doKeyInCacheTest(myCache, "key", "value");
+        String someValue = new String("anotherValue");
+        String someOtherValue = new String("anotherValue");
+        assertEquals(someValue, someOtherValue);
+        assertNotSame(someValue, someOtherValue);
+        String cachedValue = myCache.putIfAbsentAndGet("anotherKey", someValue);
+        assertSame(cachedValue, someValue);
+        cachedValue = myCache.putIfAbsentAndGet("anotherKey", someOtherValue);
+        assertNotSame(cachedValue, someOtherValue);
+        assertSame(cachedValue, someValue);
+        myCache.removeListener(myCacheListener);
+        assertEquals("listener", controlListener, myCacheListener);
     }
 
     @Test
-    public void testChangeMemSize() throws Exception {
+    public void testChangeMemSize() {
         int size = 5;
-        long ttl = 2000;
-        UtilCache<String, Serializable> cache = createUtilCache(size, size, ttl, false);
-        Map<String, Serializable> map = new HashMap<>();
-        assertKeyLoop(size, cache, map);
-        cache.setMaxInMemory(2);
-        assertEquals("cache.size", 2, cache.size());
-        map.keySet().retainAll(cache.getCacheLineKeys());
-        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertThat("map-values", cache.values(), containsInAnyOrder(map.values().toArray()));
-        cache.setMaxInMemory(0);
-        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertThat("map-values", cache.values(), containsInAnyOrder(map.values().toArray()));
+        long expireIn = 2000;
+        UtilCache<String, Serializable> myCache = createUtilCache(size, size, expireIn, false);
+        Map<String, Serializable> controlMap = new HashMap<>();
+        doAllKeysTest(size, myCache, controlMap);
+        myCache.setMaxInMemory(2);
+        assertEquals("cache.size", 2, myCache.size());
+        controlMap.keySet().retainAll(myCache.getCacheLineKeys());
+        assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
+        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        myCache.setMaxInMemory(0);
+        assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
+        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
         for (int i = size * 2; i < size * 3; i++) {
             String s = Integer.toString(i);
-            assertKey(s, cache, s, new String(s), new String(":" + s), i - size * 2 + 3, map);
+            doSingleKeyTest(s, myCache, i - size * 2 + 3, controlMap);
         }
-        cache.setMaxInMemory(0);
-        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertThat("map-values", cache.values(), containsInAnyOrder(map.values().toArray()));
-        cache.setMaxInMemory(size);
+        myCache.setMaxInMemory(0);
+        assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
+        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        myCache.setMaxInMemory(size);
         for (int i = 0; i < size * 2; i++) {
-            map.remove(Integer.toString(i));
+            controlMap.remove(Integer.toString(i));
         }
         // Can't compare the contents of these collections, as setting LRU after not
         // having one, means the items that get evicted are essentially random.
-        assertEquals("map-keys", map.keySet().size(), cache.getCacheLineKeys().size());
-        assertEquals("map-values", map.values().size(), cache.values().size());
-    }
-
-    private static void expireTest(UtilCache<String, Serializable> cache, int size, long ttl) throws Exception {
-        Map<String, Serializable> map = new HashMap<>();
-        assertKeyLoop(size, cache, map);
-        Thread.sleep(ttl + 500);
-        map.clear();
-        for (int i = 0; i < size; i++) {
-            String s = Integer.toString(i);
-            assertNull("no-key(" + s + ")", cache.get(s));
-        }
-        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertThat("map-values", cache.values(), containsInAnyOrder(map.values().toArray()));
-        assertKeyLoop(size, cache, map);
-        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertThat("map-values", cache.values(), containsInAnyOrder(map.values().toArray()));
-    }
-
-    private static void assertKeyLoop(int size, UtilCache<String, Serializable> cache, Map<String, Serializable> map) {
-        for (int i = 0; i < size; i++) {
-            String s = Integer.toString(i);
-            assertKey(s, cache, s, new String(s), new String(":" + s), i + 1, map);
-        }
+        assertEquals("map-keys", controlMap.size(), myCache.getCacheLineKeys().size());
+        assertEquals("map-values", controlMap.size(), myCache.values().size());
     }
 
     @Test
     public void testExpire() throws Exception {
-        UtilCache<String, Serializable> cache = createUtilCache(5, 5, 2000, false);
-        expireTest(cache, 5, 2000);
-        long start = System.currentTimeMillis();
-        useAllMemory();
-        long end = System.currentTimeMillis();
-        long ttl = end - start + 1000;
-        cache = createUtilCache(1, 1, ttl, true);
-        expireTest(cache, 1, ttl);
-        assertFalse("not empty", cache.isEmpty());
-        useAllMemory();
-        assertNull("not-key(0)", cache.get("0"));
-        assertTrue("empty", cache.isEmpty());
+        int size = 5;
+        long expireIn = 2000;
+        UtilCache<String, Serializable> myCache = createUtilCache(size, 5, expireIn, false);
+        Map<String, Serializable> controlMap = new HashMap<>();
+        doAllKeysTest(size, myCache, controlMap);
+        Thread.sleep(expireIn + 500);
+        controlMap.clear();
+        for (int i = 0; i < size; i++) {
+            String s = Integer.toString(i);
+            assertNull("no-key(" + s + ")", myCache.get(s));
+        }
+        assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
+        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        doAllKeysTest(5, myCache, controlMap);
+        assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
+        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
     }
+
+    static <K, V> void doUtilCacheSettingsTest(UtilCache<K, V> myCache, Integer sizeLimit, Integer maxInMemory,
+                                               Long expireTime, Boolean useSoftReference) {
+        if (sizeLimit != null) {
+            assertEquals(myCache.getName() + ":sizeLimit", sizeLimit.intValue(), myCache.getSizeLimit());
+        }
+        if (maxInMemory != null) {
+            assertEquals(myCache.getName() + ":maxInMemory", maxInMemory.intValue(), myCache.getMaxInMemory());
+        }
+        if (expireTime != null) {
+            assertEquals(myCache.getName() + ":expireTime", expireTime.longValue(), myCache.getExpireTime());
+        }
+        if (useSoftReference != null) {
+            assertEquals(myCache.getName() + ":useSoftReference", useSoftReference,
+                    myCache.getUseSoftReference());
+        }
+        assertTrue("initial empty", myCache.isEmpty());
+        assertEquals("empty keys", Collections.emptySet(), myCache.getCacheLineKeys());
+        assertEquals("empty values", Collections.emptyList(), myCache.values());
+        assertSame("find cache", myCache, UtilCache.findCache(myCache.getName()));
+        assertNotSame("new cache", myCache, UtilCache.createUtilCache());
+    }
+
+    public static void doSingleKeyTest(String val, UtilCache<String, Serializable> myCache, int size,
+                                       Map<String, Serializable> controlMap) {
+        String label = val;
+        String myKey = val;
+        String myValue = val;
+        String temp = ":" + val;
+
+        assertNull(label + ":get-empty", myCache.get(myKey));
+        assertFalse(label + ":containsKey-empty", myCache.containsKey(myKey));
+        Serializable oldValue = myCache.put(myKey, temp);
+        assertTrue(label + ":containsKey-class", myCache.containsKey(myKey));
+        assertEquals(label + ":get-class", temp, myCache.get(myKey));
+        assertNull(label + ":oldValue-class", oldValue);
+        assertEquals(label + ":size-class", size, myCache.size());
+        oldValue = myCache.put(myKey, myValue);
+        assertTrue(label + ":containsKey-value", myCache.containsKey(myKey));
+        assertEquals(label + ":get-value", myValue, myCache.get(myKey));
+        assertEquals(label + ":oldValue-value", temp, oldValue);
+        assertEquals(label + ":size-value", size, myCache.size());
+        controlMap.put(myKey, myValue);
+        assertEquals(label + ":map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
+        assertThat(label + ":map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+    }
+
+    static <K, V> void doKeyInCacheTest(UtilCache<K, V> myCache, K myKey, V myValue) {
+        assertFalse("is-empty", myCache.isEmpty());
+        assertEquals("size", 1, myCache.size());
+        assertTrue("found", myCache.containsKey(myKey));
+        assertTrue("validKey", UtilCache.validKey(myCache.getName(), myKey));
+        assertFalse("validKey", UtilCache.validKey(":::" + myCache.getName(), myKey));
+        assertEquals("get", myValue, myCache.get(myKey));
+        assertEquals("keys", new HashSet<>(UtilMisc.toList(myKey)), myCache.getCacheLineKeys());
+        assertEquals("values", UtilMisc.toList(myValue), myCache.values());
+    }
+
+    static <K, V> void doKeyNotInCacheTest(UtilCache<K, V> myCache, K myKey) {
+        assertFalse("not-found", myCache.containsKey(myKey));
+        assertFalse("validKey", UtilCache.validKey(myCache.getName(), myKey));
+        assertNull("no-get", myCache.get(myKey));
+        assertNull("remove", myCache.remove(myKey));
+        assertTrue("is-empty", myCache.isEmpty());
+        assertEquals("size", 0, myCache.size());
+        assertEquals("keys", Collections.emptySet(), myCache.getCacheLineKeys());
+        assertEquals("values", Collections.emptyList(), myCache.values());
+    }
+
+    static void doAllKeysTest(int size, UtilCache<String, Serializable> cache, Map<String, Serializable> map) {
+        for (int i = 0; i < size; i++) {
+            String s = Integer.toString(i);
+            doSingleKeyTest(s, cache, i + 1, map);
+        }
+    }
+
 }
