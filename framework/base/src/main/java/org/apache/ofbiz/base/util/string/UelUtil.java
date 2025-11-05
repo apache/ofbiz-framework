@@ -227,7 +227,7 @@ public final class UelUtil {
 
         @SuppressWarnings("unchecked")
         @Override
-        public  <T> T getValue(ELContext context) {
+        public <T> T getValue(ELContext context) {
             return (T) this.object;
         }
 
@@ -295,7 +295,7 @@ public final class UelUtil {
         }
         @SuppressWarnings("unchecked")
         @Override
-        public  <T> T getValue(ELContext context) {
+        public <T> T getValue(ELContext context) {
             return (T) this.elContext.variables.get(this.varName);
         }
         @Override
