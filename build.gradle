@@ -136,13 +136,13 @@ javadoc {
     title="OFBiz " + getCurrentGitBranch() + " API"
     failOnError = true
     options {
-        source '17'
+        source '21'
         encoding 'UTF-8'
         charSet 'UTF-8'
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/javase/17/docs/api',
+            'https://docs.oracle.com/javase/21/docs/api',
             'https://tomcat.apache.org/tomcat-10.1-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
@@ -153,8 +153,8 @@ javadoc {
 }
 
 java {
-    sourceCompatibility(JavaVersion.VERSION_17)
-    targetCompatibility(JavaVersion.VERSION_17)
+    sourceCompatibility(JavaVersion.VERSION_21)
+    targetCompatibility(JavaVersion.VERSION_21)
 }
 
 // Java compile options, syntax gradlew -PXlint:none build
@@ -164,6 +164,7 @@ tasks.withType(JavaCompile) {
         options.compilerArgs << '-Xlint:all'
         // Exclude varargs warnings which are not silenced by @SafeVarargs.
         options.compilerArgs << '-Xlint:-varargs'
+        options.compilerArgs << '-Xlint:-this-escape'
     }
 }
 

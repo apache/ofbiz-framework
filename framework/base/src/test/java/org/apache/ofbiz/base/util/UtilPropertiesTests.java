@@ -35,7 +35,7 @@ public class UtilPropertiesTests {
 
     private static final String COUNTRY = "AU";
     private static final String LANGUAGE = "en";
-    private final Locale locale = new Locale(LANGUAGE, COUNTRY);
+    private final Locale locale = Locale.of(LANGUAGE, COUNTRY);
 
     /**
      * Old style xml:lang attribute value was of form en_AU. Test this

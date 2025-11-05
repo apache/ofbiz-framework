@@ -191,13 +191,13 @@ public final class Config {
         Locale locale = null;
         switch (locales.length) {
         case 1:
-            locale = new Locale(locales[0]);
+            locale = Locale.of(locales[0]);
             break;
         case 2:
-            locale = new Locale(locales[0], locales[1]);
+            locale = Locale.of(locales[0], locales[1]);
             break;
         case 3:
-            locale = new Locale(locales[0], locales[1], locales[2]);
+            locale = Locale.of(locales[0], locales[1], locales[2]);
             break;
         default:
             throw new IllegalArgumentException("The combination of properties, ofbiz.locale.default and defaultLocale is invalid. "

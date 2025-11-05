@@ -37,7 +37,7 @@ if (context.delivProductId && (parameters.partyId || parameters.contentLocale)) 
 
     Locale contentLocale = null
     if (parameters.contentLocale) {
-        contentLocale = new Locale(parameters.contentLocale)
+        contentLocale = Locale.of(parameters.contentLocale)
     }
     delivProductContentsForLocaleAndUser = []
     delivProductContents.each { delivProductContent ->

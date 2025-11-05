@@ -569,7 +569,7 @@ public final class UtilMisc {
             String language = localeString.substring(0, 2);
             String country = localeString.substring(3, 5);
             String extension = localeString.substring(6);
-            locale = new Locale(language, country, extension);
+            locale = Locale.of(language, country, extension);
         } else {
             Debug.logWarning("Do not know what to do with the localeString [" + localeString + "], should be length 2, 5, or greater than 6, "
                     + "returning null", MODULE);

@@ -407,7 +407,7 @@ public class WebToolsServices {
 
         List<Object> errorMessages = new LinkedList<>();
         List<String> infoMessages = new LinkedList<>();
-        int totalRowsChanged = 0;
+        long totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
             for (URL dataUrl : urlList) {
@@ -418,7 +418,7 @@ public class WebToolsServices {
 
             for (URL dataUrl : urlList) {
                 try {
-                    int rowsChanged = 0;
+                    long rowsChanged = 0;
                     if (checkDataOnly) {
                         try {
                             errorMessages.add("Checking data in [" + dataUrl.toExternalForm() + "]");

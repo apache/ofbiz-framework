@@ -423,13 +423,13 @@ public class EntityDataLoadContainer implements Container {
         List<URL> urlList = prepareDataUrls(delegator, baseDelegator, allComponents, helperInfo, loadDataProps);
         List<String> infoMessages = new ArrayList<>();
         List<Object> errorMessages = new ArrayList<>();
-        int totalRowsChanged = 0;
+        long totalRowsChanged = 0;
 
         logDataLoadingPlan(urlList, delegator.getDelegatorName());
 
         for (URL dataUrl: urlList) {
             try {
-                int rowsChanged = EntityDataLoader.loadData(dataUrl, helperInfo.getHelperBaseName(),
+                long rowsChanged = EntityDataLoader.loadData(dataUrl, helperInfo.getHelperBaseName(),
                         delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts, continueOnFail);
                 totalRowsChanged += rowsChanged;
                 infoMessages.add(createDataLoadMessage(dataUrl, rowsChanged, totalRowsChanged));
@@ -570,7 +570,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static String createDataLoadMessage(URL dataUrl, int rowsChanged, int totalRowsChanged) {
+    private static String createDataLoadMessage(URL dataUrl, long rowsChanged, long totalRowsChanged) {
         NumberFormat formatter = NumberFormat.getIntegerInstance();
         formatter.setMinimumIntegerDigits(5);
         formatter.setGroupingUsed(false);
@@ -580,7 +580,7 @@ public class EntityDataLoadContainer implements Container {
     }
 
     private static void logDataLoadingResults(List<String> infoMessages,
-            List<Object> errorMessages, int totalRowsChanged) {
+            List<Object> errorMessages, long totalRowsChanged) {
 
         if (UtilValidate.isNotEmpty(infoMessages)) {
             Debug.logImportant("=-=-=-=-=-=-= Here is a summary of the data load:", MODULE);

@@ -53,6 +53,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
     }
 
     @Override
+    @SuppressWarnings("lossy-conversions")
     public int countTestCases() {
         int testCaseCount = 0;
         try {

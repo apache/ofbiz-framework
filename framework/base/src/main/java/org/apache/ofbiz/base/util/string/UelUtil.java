@@ -25,6 +25,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.collections.LocalizedMap;
+
 import jakarta.el.ArrayELResolver;
 import jakarta.el.BeanELResolver;
 import jakarta.el.CompositeELResolver;
@@ -39,12 +45,6 @@ import jakarta.el.PropertyNotWritableException;
 import jakarta.el.ResourceBundleELResolver;
 import jakarta.el.ValueExpression;
 import jakarta.el.VariableMapper;
-
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.collections.LocalizedMap;
 
 /** Implements the Unified Expression Language (JSR-245). */
 public final class UelUtil {
@@ -225,9 +225,10 @@ public final class UelUtil {
             return this.getExpectedType();
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Object getValue(ELContext context) {
-            return this.object;
+        public  <T> T getValue(ELContext context) {
+            return (T) this.object;
         }
 
         @Override
@@ -292,9 +293,10 @@ public final class UelUtil {
         public int hashCode() {
             return this.varName.hashCode();
         }
+        @SuppressWarnings("unchecked")
         @Override
-        public Object getValue(ELContext context) {
-            return this.elContext.variables.get(this.varName);
+        public  <T> T getValue(ELContext context) {
+            return (T) this.elContext.variables.get(this.varName);
         }
         @Override
         public String getExpressionString() {

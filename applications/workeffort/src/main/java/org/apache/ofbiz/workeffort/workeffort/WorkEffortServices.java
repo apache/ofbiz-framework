@@ -953,7 +953,7 @@ public class WorkEffortServices {
                 }
                 continue;
             }
-            Locale locale = reminder.getString("localeId") == null ? Locale.getDefault() : new Locale(reminder.getString("localeId"));
+            Locale locale = reminder.getString("localeId") == null ? Locale.getDefault() : Locale.of(reminder.getString("localeId"));
             TimeZone timeZone = reminder.getString("timeZoneId") == null ? TimeZone.getDefault()
                     : TimeZone.getTimeZone(reminder.getString("timeZoneId"));
             Map<String, Object> parameters = UtilMisc.toMap("locale", locale, "timeZone", timeZone, "workEffortId", reminder.get("workEffortId"));

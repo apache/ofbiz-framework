@@ -37,9 +37,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -61,6 +58,10 @@ import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.model.ScriptLinkHelper;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Common Services
@@ -438,7 +439,7 @@ public class CommonEvents {
                     String cmd = (String) FlexibleStringExpander.getInstance(cmdTemplate).expand(sourceMap);
                     // run command
                     Debug.logInfo("Run command: " + cmd, MODULE);
-                    Process process = Runtime.getRuntime().exec(cmd);
+                    Process process = Runtime.getRuntime().exec(new String[]{cmd});
                     // print result
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String line = "";
