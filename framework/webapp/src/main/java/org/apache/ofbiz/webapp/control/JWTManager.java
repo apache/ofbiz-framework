@@ -130,7 +130,7 @@ public class JWTManager {
      * @param delegator the delegator
      * @return the JWT secret key
      */
-    public static String getJWTKey(Delegator delegator) {
+    private static String getJWTKey(Delegator delegator) {
         return getJWTKey(delegator, null);
     }
 
@@ -140,7 +140,7 @@ public class JWTManager {
      * @return the JWT secret key
      */
 
-    public static String getJWTKey(Delegator delegator, String salt) {
+    private static String getJWTKey(Delegator delegator, String salt) {
         String key = UtilProperties.getPropertyValue("security", "security.token.key");
         if (key.length() < 64) { // The key must be 512 bits (ie 64 chars)  as we use HMAC512 to create the token, cf. OFBIZ-12724
             throw new SecurityException("The JWT secret key is too short. It must be at least 512 bites.");
@@ -234,7 +234,7 @@ public class JWTManager {
      * @param key the server side key to verify the signature
      * @return Map of the claims contained in the token or an error
      */
-    public static Map<String, Object> validateToken(String jwtToken, String key) {
+    private static Map<String, Object> validateToken(String jwtToken, String key) {
         Map<String, Object> result = new HashMap<>();
         if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
             String msg = "JWT token or key can not be empty.";
@@ -270,6 +270,10 @@ public class JWTManager {
      */
     public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
         return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));
+    }
+
+    public static Map<String, Object> validateToken(Delegator delegator, String jwtToken) {
+        return validateToken(delegator, jwtToken, null);
     }
 
     /**
@@ -411,8 +415,8 @@ public class JWTManager {
         return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
     }
 
-    public static Map<String, Object> validateRefreshToken(String refreshToken, String key) {
-        Map<String, Object> claims = validateToken(refreshToken, key);
+    public static Map<String, Object> validateRefreshToken(Delegator delegator, String refreshToken) {
+        Map<String, Object> claims = validateToken(refreshToken, JWTManager.getJWTKey(delegator));
         if (!claims.containsKey("type") || !"refresh".equals(claims.get("type"))) {
             return ServiceUtil.returnError("Invalid refresh token.");
         }

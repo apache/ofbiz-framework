@@ -2519,7 +2519,7 @@ public abstract class ModelForm extends ModelWidget {
             String jwtToken = WidgetWorker.getJwtCallback(context);
             if (UtilValidate.isEmpty(jwtToken)) return null;
 
-            Map<String, Object> claims = JWTManager.validateToken(jwtToken, JWTManager.getJWTKey(delegator));
+            Map<String, Object> claims = JWTManager.validateToken(delegator, jwtToken);
             if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
                 // Something unexpected happened here
                 Debug.logWarning("There was a problem with the JWT token, signature not valid.", MODULE);
