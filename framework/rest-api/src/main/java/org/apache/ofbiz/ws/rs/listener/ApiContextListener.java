@@ -24,24 +24,25 @@ import jakarta.servlet.ServletContextListener;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.WebAppUtil;
+import org.apache.ofbiz.service.ServiceContainer;
 
 public class ApiContextListener implements ServletContextListener {
 
     public static final String MODULE = ApiContextListener.class.getName();
+    // TODO: remove after the refactoring of OFBizOpenApiReader
     private static ServletContext servletContext = null;
 
     /**
      */
     public void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
-        Delegator delegator = WebAppUtil.getDelegator(servletContext);
-        LocalDispatcher dispatcher = WebAppUtil.getDispatcher(servletContext);
+        Delegator delegator = DelegatorFactory.getDelegator(servletContext.getInitParameter("entityDelegatorName"));
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(servletContext.getInitParameter("localDispatcherName"), delegator);
         Debug.logInfo("Api Jersey Context initialized, delegator " + delegator + ", dispatcher", MODULE);
         servletContext.setAttribute("delegator", delegator);
         servletContext.setAttribute("dispatcher", dispatcher);
-        servletContext.setAttribute("security", WebAppUtil.getSecurity(servletContext));
     }
 
     /**
@@ -51,10 +52,10 @@ public class ApiContextListener implements ServletContextListener {
         Debug.logInfo("Api Jersey Context destroyed, removing delegator and dispatcher ", MODULE);
         context.removeAttribute("delegator");
         context.removeAttribute("dispatcher");
-        context.removeAttribute("security");
         context = null;
     }
 
+    // TODO: remove after the refactoring of OFBizOpenApiReader
     public static ServletContext getApplicationCntx() {
         return servletContext;
     }

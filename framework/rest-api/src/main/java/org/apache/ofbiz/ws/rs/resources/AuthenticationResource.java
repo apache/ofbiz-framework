@@ -20,6 +20,7 @@ package org.apache.ofbiz.ws.rs.resources;
 
 import java.util.Map;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.HeaderParam;
@@ -30,13 +31,13 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.Provider;
 
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.JWTManager;
-import org.apache.ofbiz.ws.rs.security.AuthToken;
+import org.apache.ofbiz.ws.rs.annotation.AuthToken;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,9 +48,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @Path("/auth")
-@Provider
 @Tag(name = "Authentication Token Generating Resource", description = "Intended to provide generation of authentication tokens.")
-public class AuthenticationResource extends OFBizResource {
+public class AuthenticationResource {
+
+    @Context
+    private ServletContext servletContext;
 
     @Context
     private HttpServletRequest httpRequest;
@@ -68,15 +71,17 @@ public class AuthenticationResource extends OFBizResource {
     public Response getAuthToken(@Parameter(in = ParameterIn.HEADER, name = "Authorization",
             description = "Authorization header using Basic Authentication", example = HttpHeaders.AUTHORIZATION + ": Basic YWRtaW46b2ZiaXo=")
             @HeaderParam(HttpHeaders.AUTHORIZATION) String creds) {
-        httpRequest.setAttribute("delegator", getDelegator());
-        httpRequest.setAttribute("dispatcher", getDispatcher());
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        httpRequest.setAttribute("delegator", delegator);
+        httpRequest.setAttribute("dispatcher", servletContext.getAttribute("dispatcher"));
         GenericValue userLogin = (GenericValue) httpRequest.getAttribute("userLogin");
         //TODO : Move this into an OFBiz service. All such implementations should be inside an OFBiz service.
-        String jwtToken = JWTManager.createJwt(getDelegator(), UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
-        String refreshToken = JWTManager.createRefreshToken(getDelegator(), userLogin.getString("userLoginId"));
+        String jwtToken = JWTManager.createJwt(delegator,
+                UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
+        String refreshToken = JWTManager.createRefreshToken(delegator, userLogin.getString("userLoginId"));
 
         Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", jwtToken, "refresh_token", refreshToken,
-                "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", getDelegator()),
+                "expires_in", EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator),
                 "token_type", "Bearer");
         return RestApiUtil.success("Token granted.", tokenPayload);
     }
@@ -97,9 +102,10 @@ public class AuthenticationResource extends OFBizResource {
     @Operation(description = "Generates a new access token using a refresh token.")
     public Response refreshToken(@HeaderParam("Refresh-Token") String refreshToken) {
 
-        httpRequest.setAttribute("delegator", getDelegator());
-        httpRequest.setAttribute("dispatcher", getDispatcher());
-        Map<String, Object> claims = JWTManager.validateRefreshToken(refreshToken, JWTManager.getJWTKey(getDelegator()));
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        httpRequest.setAttribute("delegator", delegator);
+        httpRequest.setAttribute("dispatcher", delegator);
+        Map<String, Object> claims = JWTManager.validateRefreshToken(refreshToken, JWTManager.getJWTKey(delegator));
 
         // Fetch delegator, dispatcher, and userLogin
         if (claims.containsKey("errorMessage")) {
@@ -108,11 +114,11 @@ public class AuthenticationResource extends OFBizResource {
 
         String userLoginId = (String) claims.get("userLoginId");
 
-        String newAccessToken = JWTManager.createJwt(getDelegator(), UtilMisc.toMap("userLoginId", userLoginId));
-        String newRefreshToken = JWTManager.createRefreshToken(getDelegator(), userLoginId);
+        String newAccessToken = JWTManager.createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId));
+        String newRefreshToken = JWTManager.createRefreshToken(delegator, userLoginId);
 
         Map<String, Object> tokenPayload = UtilMisc.toMap("access_token", newAccessToken, "refresh_token", newRefreshToken, "expires_in",
-                EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", getDelegator()), "token_type", "Bearer");
+                EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator), "token_type", "Bearer");
 
         return RestApiUtil.success("Token refreshed.", tokenPayload);
     }

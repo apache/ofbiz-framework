@@ -34,8 +34,7 @@ import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ServiceValidationException;
 import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
-import org.apache.ofbiz.ws.rs.spi.AbstractExceptionMapper;
-import org.apache.ofbiz.ws.rs.util.ErrorUtil;
+import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.codehaus.groovy.runtime.InvokerInvocationException;
 import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
 
@@ -45,7 +44,7 @@ import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
  *
  */
 @Provider
-public class GenericServiceExceptionMapper extends AbstractExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<GenericServiceException> {
+public class GenericServiceExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<GenericServiceException> {
 
     /**
      * Module Name Used for debugging
@@ -79,7 +78,7 @@ public class GenericServiceExceptionMapper extends AbstractExceptionMapper imple
             Error error = new Error().type(actualCause.getClass().getSimpleName())
                     .code(Response.Status.BAD_REQUEST.getStatusCode())
                     .description(Response.Status.BAD_REQUEST.getReasonPhrase())
-                    .message(ErrorUtil.getErrorMessage(service, "GenericServiceValidationErrorMessage", request.getLocale()))
+                    .message(RestApiUtil.getErrorMessage(service, "GenericServiceValidationErrorMessage", request.getLocale()))
                     .errorDesc((validationException.getMessage()))
                     .additionalErrors(validationException.getMessageList());
             builder = Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(error);
@@ -88,7 +87,7 @@ public class GenericServiceExceptionMapper extends AbstractExceptionMapper imple
             Error error = new Error().type(actualCause.getClass().getSimpleName())
                     .code(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
                     .description(Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                    .message(ErrorUtil.getErrorMessage(service, "NoSuchEntityDefaultMessage", request.getLocale()))
+                    .message(RestApiUtil.getErrorMessage(service, "NoSuchEntityDefaultMessage", request.getLocale()))
                     .errorDesc(ExceptionUtils.getRootCauseMessage(gse));
             builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON)
                     .entity(error);
@@ -96,7 +95,7 @@ public class GenericServiceExceptionMapper extends AbstractExceptionMapper imple
             Error error = new Error().type(actualCause.getClass().getSimpleName())
                     .code(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
                     .description(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getReasonPhrase())
-                    .message(ErrorUtil.getErrorMessage(service, "GenericServiceExecutionGenericEntityOperationErrorMessage",
+                    .message(RestApiUtil.getErrorMessage(service, "GenericServiceExecutionGenericEntityOperationErrorMessage",
                             request.getLocale()))
                     .errorDesc(ExceptionUtils.getRootCauseMessage(gse));
             builder = Response.status(ResponseStatus.Custom.UNPROCESSABLE_ENTITY).type(MediaType.APPLICATION_JSON)
@@ -105,7 +104,7 @@ public class GenericServiceExceptionMapper extends AbstractExceptionMapper imple
             Error error = new Error().type(actualCause.getClass().getSimpleName())
                     .code(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode())
                     .description(Response.Status.INTERNAL_SERVER_ERROR.getReasonPhrase())
-                    .message(ErrorUtil.getErrorMessage(service, "GenericServiceExecutionGenericExceptionErrorMessage",
+                    .message(RestApiUtil.getErrorMessage(service, "GenericServiceExecutionGenericExceptionErrorMessage",
                             request.getLocale()))
                     .errorDesc(ExceptionUtils.getRootCauseMessage(gse));
             builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON)

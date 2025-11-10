@@ -48,6 +48,7 @@ public class JsonifiedParamConverterProvider implements ParamConverterProvider {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+    // TODO: check thread safety and performance
     private static ObjectMapper getMapper() {
         return MAPPER;
     }

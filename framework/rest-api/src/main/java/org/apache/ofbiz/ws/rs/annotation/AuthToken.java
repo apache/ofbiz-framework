@@ -16,29 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.ws.rs.resources;
+package org.apache.ofbiz.ws.rs.annotation;
 
-import jakarta.ws.rs.ext.Provider;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import jakarta.ws.rs.NameBinding;
 
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.ws.rs.listener.ApiContextListener;
 
-/**
- * Resource Interface
- */
-@Provider
-public interface IOFBizResource {
-
-    default Delegator getDelegator() {
-        Delegator delegator = WebAppUtil.getDelegator(ApiContextListener.getApplicationCntx());
-        return delegator;
-    }
-
-    default LocalDispatcher getDispatcher() {
-        LocalDispatcher dispatcher = WebAppUtil.getDispatcher(ApiContextListener.getApplicationCntx());
-        return dispatcher;
-    }
+@NameBinding
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+public @interface AuthToken {
 
 }
