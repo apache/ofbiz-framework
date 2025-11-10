@@ -40,8 +40,8 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.ws.rs.annotation.AuthToken;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
-import org.apache.ofbiz.ws.rs.security.AuthToken;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 

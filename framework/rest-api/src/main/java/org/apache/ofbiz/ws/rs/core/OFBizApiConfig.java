@@ -38,7 +38,7 @@ import org.apache.ofbiz.ws.rs.model.ModelApiReader;
 import org.apache.ofbiz.ws.rs.model.ModelOperation;
 import org.apache.ofbiz.ws.rs.model.ModelResource;
 import org.apache.ofbiz.ws.rs.process.ServiceRequestHandler;
-import org.apache.ofbiz.ws.rs.security.Secured;
+import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
