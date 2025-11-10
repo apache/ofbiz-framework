@@ -105,7 +105,7 @@ public class AuthenticationResource {
         Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
         httpRequest.setAttribute("delegator", delegator);
         httpRequest.setAttribute("dispatcher", delegator);
-        Map<String, Object> claims = JWTManager.validateRefreshToken(refreshToken, JWTManager.getJWTKey(delegator));
+        Map<String, Object> claims = JWTManager.validateRefreshToken(delegator, refreshToken);
 
         // Fetch delegator, dispatcher, and userLogin
         if (claims.containsKey("errorMessage")) {

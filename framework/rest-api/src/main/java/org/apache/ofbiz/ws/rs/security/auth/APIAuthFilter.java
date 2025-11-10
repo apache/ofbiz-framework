@@ -98,7 +98,7 @@ public class APIAuthFilter implements ContainerRequestFilter {
             return;
         }
         String jwtToken = JWTManager.getHeaderAuthBearerToken(httpRequest);
-        Map<String, Object> claims = JWTManager.validateToken(jwtToken, JWTManager.getJWTKey(delegator));
+        Map<String, Object> claims = JWTManager.validateToken(delegator, jwtToken);
         if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
             abortWithUnauthorized(requestContext, true, "Unauthorized: " + (String) claims.get(ModelService.ERROR_MESSAGE));
         } else {
