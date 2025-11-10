@@ -36,7 +36,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.ws.rs.util.ErrorUtil;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 import org.apache.ofbiz.ws.rs.ServiceNameContextHolder;
 
@@ -91,7 +90,7 @@ public final class ServiceRequestHandler extends RestRequestHandler {
             }
             return RestApiUtil.success((String) result.get(ModelService.SUCCESS_MESSAGE), responseData);
         } else {
-            return ErrorUtil.buildErrorFromServiceResult(service, result, getHttpRequest().getLocale());
+            return RestApiUtil.buildErrorFromServiceResult(service, result, getHttpRequest().getLocale());
         }
     }
 

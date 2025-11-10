@@ -26,8 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HttpMethod;
@@ -43,7 +45,6 @@ import jakarta.ws.rs.core.Link;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import jakarta.ws.rs.ext.Provider;
 
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -54,17 +55,19 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.ws.rs.ApiServiceRequest;
 import org.apache.ofbiz.ws.rs.ServiceRequestProcessor;
+import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.annotation.ServiceRequestValidator;
 import org.apache.ofbiz.ws.rs.response.Success;
-import org.apache.ofbiz.ws.rs.security.Secured;
 
 @Secured
 @Path(OFBizServiceResource.BASE_PATH)
-@Provider
 @ServiceRequestValidator
-public class OFBizServiceResource extends OFBizResource {
+public class OFBizServiceResource {
 
     public static final String BASE_PATH = "/services";
+
+    @Context
+    private ServletContext servletContext;
 
     @Context
     private UriInfo uriInfo;
@@ -79,7 +82,7 @@ public class OFBizServiceResource extends OFBizResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response serviceList() throws GenericServiceException {
-        LocalDispatcher dispatcher = getDispatcher();
+        LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
         DispatchContext context = dispatcher.getDispatchContext();
         Set<String> serviceNames = context.getAllServiceNames();
         List<Map<String, Object>> serviceList = new ArrayList<>();
@@ -115,7 +118,7 @@ public class OFBizServiceResource extends OFBizResource {
             @PathParam(value = "serviceName") String serviceName) throws IOException, GenericServiceException {
         ServiceRequestProcessor processor = new ServiceRequestProcessor();
         return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.GET, "requestMap",
-                serviceRequest.getInParams(), "dispatcher", getDispatcher(), "request", httpRequest));
+                serviceRequest.getInParams(), "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
     }
 
     /**
@@ -128,6 +131,7 @@ public class OFBizServiceResource extends OFBizResource {
      */
     @POST
     @Path("/{serviceName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response doPost(HashMap<String, Object> serviceInParams,
             @PathParam(value = "serviceName") String serviceName)
@@ -137,7 +141,7 @@ public class OFBizServiceResource extends OFBizResource {
         }
         ServiceRequestProcessor processor = new ServiceRequestProcessor();
         return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.POST, "requestMap",
-                serviceInParams, "dispatcher", getDispatcher(), "request", httpRequest));
+                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
     }
 
     /**
@@ -150,6 +154,7 @@ public class OFBizServiceResource extends OFBizResource {
      */
     @PUT
     @Path("/{serviceName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response doPut(HashMap<String, Object> serviceInParams, @PathParam(value = "serviceName") String serviceName)
             throws IOException, GenericEntityException, GenericServiceException {
@@ -158,7 +163,7 @@ public class OFBizServiceResource extends OFBizResource {
         }
         ServiceRequestProcessor processor = new ServiceRequestProcessor();
         return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.PUT, "requestMap",
-                serviceInParams, "dispatcher", getDispatcher(), "request", httpRequest));
+                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
     }
 
     /**
@@ -171,6 +176,7 @@ public class OFBizServiceResource extends OFBizResource {
      */
     @PATCH
     @Path("/{serviceName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response doPatch(HashMap<String, Object> serviceInParams,
             @PathParam(value = "serviceName") String serviceName)
@@ -180,7 +186,7 @@ public class OFBizServiceResource extends OFBizResource {
         }
         ServiceRequestProcessor processor = new ServiceRequestProcessor();
         return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.PATCH, "requestMap",
-                serviceInParams, "dispatcher", getDispatcher(), "request", httpRequest));
+                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
     }
 
     /**
@@ -193,6 +199,7 @@ public class OFBizServiceResource extends OFBizResource {
      */
     @DELETE
     @Path("/{serviceName}")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response doDelete(HashMap<String, Object> serviceInParams,
             @PathParam(value = "serviceName") String serviceName)
@@ -202,6 +209,6 @@ public class OFBizServiceResource extends OFBizResource {
         }
         ServiceRequestProcessor processor = new ServiceRequestProcessor();
         return processor.process(UtilMisc.toMap("serviceName", serviceName, "httpVerb", HttpMethod.DELETE, "requestMap",
-                serviceInParams, "dispatcher", getDispatcher(), "request", httpRequest));
+                serviceInParams, "dispatcher", servletContext.getAttribute("dispatcher"), "request", httpRequest));
     }
 }

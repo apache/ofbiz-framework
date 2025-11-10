@@ -41,12 +41,12 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.control.JWTManager;
+import org.apache.ofbiz.ws.rs.annotation.Secured;
 import org.apache.ofbiz.ws.rs.common.AuthenticationScheme;
 import org.apache.ofbiz.ws.rs.resources.OFBizServiceResource;
-import org.apache.ofbiz.ws.rs.security.Secured;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 /**
@@ -81,7 +81,7 @@ public class APIAuthFilter implements ContainerRequestFilter {
             if (UtilValidate.isNotEmpty(service)) {
                 ModelService mdService = null;
                 try {
-                    mdService = WebAppUtil.getDispatcher(servletContext).getDispatchContext().getModelService(service);
+                    mdService = ((LocalDispatcher) servletContext.getAttribute("dispatcher")).getDispatchContext().getModelService(service);
                 } catch (GenericServiceException e) {
                     Debug.logError(e.getMessage(), MODULE);
                 }

@@ -34,7 +34,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.ws.rs.util.ErrorUtil;
 import org.apache.ofbiz.ws.rs.util.RestApiUtil;
 
 public class ServiceRequestProcessor {
@@ -65,8 +64,8 @@ public class ServiceRequestProcessor {
         Map<String, Object> serviceContext = dispatchContext.makeValidContext(serviceName, ModelService.IN_PARAM, requestMap);
         serviceContext.put("userLogin", userLogin);
         Map<String, Object> result = dispatcher.runSync(serviceName, serviceContext);
-        Map<String, Object> responseData = new LinkedHashMap<>();
         if (ServiceUtil.isSuccess(result)) {
+            Map<String, Object> responseData = new LinkedHashMap<>();
             Set<String> outParams = service.getOutParamNames();
             for (String outParamName : outParams) {
                 ModelParam outParam = service.getParam(outParamName);
@@ -79,7 +78,7 @@ public class ServiceRequestProcessor {
             }
             return RestApiUtil.success((String) result.get(ModelService.SUCCESS_MESSAGE), responseData);
         } else {
-            return ErrorUtil.buildErrorFromServiceResult(serviceName, result, request.getLocale());
+            return RestApiUtil.buildErrorFromServiceResult(serviceName, result, request.getLocale());
         }
     }
 }

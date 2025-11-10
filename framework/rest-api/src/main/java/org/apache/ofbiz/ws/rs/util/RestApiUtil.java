@@ -20,7 +20,9 @@ package org.apache.ofbiz.ws.rs.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import jakarta.ws.rs.core.MediaType;
@@ -28,11 +30,16 @@ import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.ws.rs.core.ResponseStatus;
 import org.apache.ofbiz.ws.rs.response.Error;
 import org.apache.ofbiz.ws.rs.response.Success;
 
 public final class RestApiUtil {
+
+    private static final String DEFAULT_MSG_UI_LABEL_RESOURCE = "ApiUiLabels";
 
     private RestApiUtil() {
 
@@ -40,7 +47,7 @@ public final class RestApiUtil {
 
     public static Response success(String message, Object data) {
         Success success = new Success(Response.Status.OK.getStatusCode(), Response.Status.OK.getReasonPhrase(), message, data);
-        return Response.status(Response.Status.OK.getStatusCode()).type(MediaType.APPLICATION_JSON).entity(success).build();
+        return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(success).build();
     }
 
     public static Response error(int statusCode, String reasonPhrase, String message) {
@@ -48,10 +55,6 @@ public final class RestApiUtil {
         return Response.status(statusCode).type(MediaType.APPLICATION_JSON).entity(error).build();
     }
 
-    /**
-     * @param message
-     * @return
-     */
     public static ResponseBuilder errorBuilder(int statusCode, String reasonPhrase, String message) {
         Error error = new Error(statusCode, reasonPhrase, message);
         return Response.status(statusCode).type(MediaType.APPLICATION_JSON).entity(error);
@@ -88,5 +91,35 @@ public final class RestApiUtil {
             }
         }
         return pathParams;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Response buildErrorFromServiceResult(String service, Map<String, Object> result, Locale locale) {
+        String errorMessage = null;
+        List<String> additionalErrorMessages = new LinkedList<>();
+        if (!UtilValidate.isEmpty(result.get(ModelService.ERROR_MESSAGE))) {
+            errorMessage = result.get(ModelService.ERROR_MESSAGE).toString();
+        }
+        if (!UtilValidate.isEmpty(result.get(ModelService.ERROR_MESSAGE_LIST))) {
+            List<String> errorMessageList = (List<String>) result.get(ModelService.ERROR_MESSAGE_LIST);
+            if (UtilValidate.isEmpty(errorMessage)) {
+                errorMessage = errorMessageList.get(0);
+                errorMessageList.remove(0);
+            }
+            for (int i = 0; i < errorMessageList.size(); i++) {
+                additionalErrorMessages.add(errorMessageList.get(i));
+            }
+        }
+        Error error = new Error().type("ServiceError").code(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getStatusCode())
+                .description(ResponseStatus.Custom.UNPROCESSABLE_ENTITY.getReasonPhrase())
+                .message(getErrorMessage(service, "GenericServiceErrorMessage", locale)).errorDesc(errorMessage);
+        return Response.status(ResponseStatus.Custom.UNPROCESSABLE_ENTITY).type(MediaType.APPLICATION_JSON)
+                .entity(error).build();
+    }
+
+    public static String getErrorMessage(String serviceName, String errorKey, Locale locale) {
+        String error = UtilProperties.getMessage(DEFAULT_MSG_UI_LABEL_RESOURCE, errorKey, locale);
+        error = error.replace("${service}", serviceName);
+        return error;
     }
 }

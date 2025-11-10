@@ -18,15 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.ws.rs.spi.impl;
 
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.ws.rs.response.Error;
-import org.apache.ofbiz.ws.rs.spi.AbstractExceptionMapper;
 
 @Provider
-public class GlobalExceptionMapper extends AbstractExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<Throwable> {
+public class GlobalExceptionMapper implements jakarta.ws.rs.ext.ExceptionMapper<Throwable> {
 
     /**
      * Module Name Used for debugging
@@ -44,9 +45,12 @@ public class GlobalExceptionMapper extends AbstractExceptionMapper implements ja
         if (Debug.verboseOn()) {
             throwable.printStackTrace();
         }
-        Response.StatusType type = getStatusType(throwable);
+        Response.StatusType type = (throwable instanceof WebApplicationException
+                    ? ((WebApplicationException) throwable).getResponse().getStatusInfo()
+                    : Response.Status.INTERNAL_SERVER_ERROR);
+
         Error error = new Error(type.getStatusCode(), type.getReasonPhrase(), throwable.getMessage());
-        return errorResponse(type.getStatusCode(), error);
+        return Response.status(type.getStatusCode()).entity(error).type(MediaType.APPLICATION_JSON).build();
     }
 
 }
