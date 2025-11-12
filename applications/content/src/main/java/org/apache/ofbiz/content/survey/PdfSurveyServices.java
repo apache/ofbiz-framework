@@ -88,7 +88,7 @@ public class PdfSurveyServices {
             PdfReader pdfReader = new PdfReader(byteBuffer.array());
             PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
             AcroFields acroFields = pdfStamper.getAcroFields();
-            Map<String, Object> acroFieldMap = UtilGenerics.cast(acroFields.getFields());
+            Map<String, Object> acroFieldMap = UtilGenerics.cast(acroFields.getAllFields());
 
             String contentId = (String) context.get("contentId");
             GenericValue survey = null;
@@ -107,6 +107,7 @@ public class PdfSurveyServices {
                     UtilMisc.<String, Object>toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId
                             + "]", "userLogin", userLogin));
             if (ServiceUtil.isError(createCategoryResultMap)) {
+                pdfStamper.close();
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createCategoryResultMap));
             }
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
@@ -234,15 +235,15 @@ public class PdfSurveyServices {
             String surveyId = (String) context.get("surveyId");
             surveyResponseId = (String) context.get("surveyResponseId");
             if (UtilValidate.isNotEmpty(surveyResponseId)) {
-                GenericValue surveyResponse = EntityQuery.use(delegator).from("SurveyResponse").where("surveyResponseId",
-                        surveyResponseId).queryOne();
+                GenericValue surveyResponse = EntityQuery.use(delegator).from("SurveyResponse")
+                        .where("surveyResponseId", surveyResponseId).queryOne();
                 if (surveyResponse != null) {
                     surveyId = surveyResponse.getString("surveyId");
                 }
             } else {
                 surveyResponseId = delegator.getNextSeqId("SurveyResponse");
-                GenericValue surveyResponse = delegator.makeValue("SurveyResponse", UtilMisc.toMap("surveyResponseId",
-                        surveyResponseId, "surveyId", surveyId, "partyId", partyId));
+                GenericValue surveyResponse = delegator.makeValue("SurveyResponse",
+                        UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyId", surveyId, "partyId", partyId));
                 surveyResponse.set("responseDate", UtilDateTime.nowTimestamp());
                 surveyResponse.set("lastModifiedDate", UtilDateTime.nowTimestamp());
                 surveyResponse.create();
@@ -253,24 +254,23 @@ public class PdfSurveyServices {
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r, os);
             AcroFields fs = s.getAcroFields();
-            Map<String, Object> hm = UtilGenerics.cast(fs.getFields());
+            Map<String, Object> hm = UtilGenerics.cast(fs.getAllFields());
             s.setFormFlattening(true);
             for (String fieldName : hm.keySet()) {
-                //AcroFields.Item item = fs.getFieldItem(fieldName);
+                // AcroFields.Item item = fs.getFieldItem(fieldName);
                 String value = fs.getField(fieldName);
                 GenericValue surveyQuestionAndAppl = EntityQuery.use(delegator).from("SurveyQuestionAndAppl")
-                        .where("surveyId", surveyId,
-                                "externalFieldRef", fieldName)
-                        .queryFirst();
+                        .where("surveyId", surveyId, "externalFieldRef", fieldName).queryFirst();
                 if (surveyQuestionAndAppl == null) {
-                    Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName, MODULE);
+                    Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName,
+                            MODULE);
                     continue;
                 }
 
                 String surveyQuestionId = (String) surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String) surveyQuestionAndAppl.get("surveyQuestionTypeId");
-                GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId",
-                        surveyResponseId, "surveyQuestionId", surveyQuestionId));
+                GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer",
+                        UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));
                 if (surveyQuestionTypeId == null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
                     surveyResponseAnswer.set("textResponse", value);
                 }
@@ -290,17 +290,17 @@ public class PdfSurveyServices {
     }
 
     /**
+     * @throws GeneralException if getInputByteBuffer fails
      */
-    public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException {
         Map<String, Object> acroFieldMap = new HashMap<>();
-        try {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            Delegator delegator = dctx.getDelegator();
-            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
-            PdfReader r = new PdfReader(byteBuffer.array());
-            PdfStamper s = new PdfStamper(r, os);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        Delegator delegator = dctx.getDelegator();
+        ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+        try (PdfReader r = new PdfReader(byteBuffer.array());
+                PdfStamper s = new PdfStamper(r, os)) {
             AcroFields fs = s.getAcroFields();
-            Map<String, Object> map = UtilGenerics.cast(fs.getFields());
+            Map<String, Object> map = UtilGenerics.cast(fs.getAllFields());
             s.setFormFlattening(true);
 
             for (String fieldName : map.keySet()) {
@@ -308,7 +308,7 @@ public class PdfSurveyServices {
                 acroFieldMap.put(fieldName, parmValue);
             }
 
-        } catch (DocumentException | GeneralException | IOException e) {
+        } catch (DocumentException | IOException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -330,7 +330,7 @@ public class PdfSurveyServices {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfStamper s = new PdfStamper(r, baos);
             AcroFields fs = s.getAcroFields();
-            Map<String, Object> map = UtilGenerics.cast(fs.getFields());
+            Map<String, Object> map = UtilGenerics.cast(fs.getAllFields());
             s.setFormFlattening(true);
 
             for (String fieldName : map.keySet()) {
