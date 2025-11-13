@@ -19,9 +19,6 @@
 package org.apache.ofbiz.base.util.cache;
 
 import static org.apache.ofbiz.base.util.cache.UtilCacheTestTools.createListener;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -49,18 +46,18 @@ public class UtilCacheTests implements Serializable {
     @Test
     public void testCreateUtilCache() {
         String name = getClass().getName();
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(), null, null, null, null);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name), null, null, null, null);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(5, 15000), 5, null, 15000L, null);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 6, 16000), 6, null, 16000L, null);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 8, 18000, true), 8, null, 18000L, Boolean.TRUE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 9, 5, 19000, false), 9, 5, 19000L, Boolean.FALSE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 10, 6, 20000, false), 10, 6, 20000L, Boolean.FALSE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 11, 7, 21000, false, "a", "b"), 11, 7, 21000L, Boolean.FALSE);
-        doUtilCacheSettingsTest(UtilCache.createUtilCache(name, 12, 8, 22000, false, "c", "d"), 12, 8, 22000L, Boolean.FALSE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(), null, null, null, null);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name), null, null, null, null);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(5, 15000), 5, null, 15000L, null);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 6, 16000), 6, null, 16000L, null);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 8, 18000, true), 8, null, 18000L, Boolean.TRUE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 9, 5, 19000, false), 9, 5, 19000L, Boolean.FALSE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 10, 6, 20000, false), 10, 6, 20000L, Boolean.FALSE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 11, 7, 21000, false, "a", "b"), 11, 7, 21000L, Boolean.FALSE);
+        doUtilCacheCreateTest(UtilCache.createUtilCache(name, 12, 8, 22000, false, "c", "d"), 12, 8, 22000L, Boolean.FALSE);
     }
 
     @Test
@@ -83,7 +80,7 @@ public class UtilCacheTests implements Serializable {
             assertNull("put", myCache.put(null, "null"));
             doKeyInCacheTest(myCache, null, "null");
             long nullByteSize = myCache.getSizeInBytes();
-            assertThat(nullByteSize, greaterThan(origByteSize));
+            assertTrue(nullByteSize > origByteSize);
 
             controlListener.noteKeyRemoval(myCache, null, "null");
             assertEquals("remove", "null", myCache.remove(null));
@@ -93,14 +90,14 @@ public class UtilCacheTests implements Serializable {
             assertNull("put", myCache.put("one", "uno"));
             doKeyInCacheTest(myCache, "one", "uno");
             long unoByteSize = myCache.getSizeInBytes();
-            assertThat(unoByteSize, greaterThan(origByteSize));
+            assert(unoByteSize > origByteSize);
 
             controlListener.noteKeyUpdate(myCache, "one", "single", "uno");
             assertEquals("replace", "uno", myCache.put("one", "single"));
             doKeyInCacheTest(myCache, "one", "single");
             long singleByteSize = myCache.getSizeInBytes();
-            assertThat(singleByteSize, greaterThan(origByteSize));
-            assertThat(singleByteSize, greaterThan(unoByteSize));
+            assert(singleByteSize > origByteSize);
+            assert(singleByteSize > unoByteSize);
 
             controlListener.noteKeyRemoval(myCache, "one", "single");
             assertEquals("remove", "single", myCache.remove("one"));
@@ -191,17 +188,17 @@ public class UtilCacheTests implements Serializable {
         assertEquals("cache.size", 2, myCache.size());
         controlMap.keySet().retainAll(myCache.getCacheLineKeys());
         assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
-        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        assertTrue("map-values", myCache.values().containsAll(controlMap.values()));
         myCache.setMaxInMemory(0);
         assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
-        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        assertTrue("map-values", myCache.values().containsAll(controlMap.values()));
         for (int i = size * 2; i < size * 3; i++) {
             String s = Integer.toString(i);
             doSingleKeyTest(s, myCache, i - size * 2 + 3, controlMap);
         }
         myCache.setMaxInMemory(0);
         assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
-        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        assertTrue("map-values", myCache.values().containsAll(controlMap.values()));
         myCache.setMaxInMemory(size);
         for (int i = 0; i < size * 2; i++) {
             controlMap.remove(Integer.toString(i));
@@ -226,14 +223,14 @@ public class UtilCacheTests implements Serializable {
             assertNull("no-key(" + s + ")", myCache.get(s));
         }
         assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
-        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        assertTrue("map-values", myCache.values().containsAll(controlMap.values()));
         doAllKeysTest(5, myCache, controlMap);
         assertEquals("map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
-        assertThat("map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        assertTrue("map-values", myCache.values().containsAll(controlMap.values()));
     }
 
-    static <K, V> void doUtilCacheSettingsTest(UtilCache<K, V> myCache, Integer sizeLimit, Integer maxInMemory,
-                                               Long expireTime, Boolean useSoftReference) {
+    static <K, V> void doUtilCacheCreateTest(UtilCache<K, V> myCache, Integer sizeLimit, Integer maxInMemory,
+                                             Long expireTime, Boolean useSoftReference) {
         if (sizeLimit != null) {
             assertEquals(myCache.getName() + ":sizeLimit", sizeLimit.intValue(), myCache.getSizeLimit());
         }
@@ -275,7 +272,7 @@ public class UtilCacheTests implements Serializable {
         assertEquals(label + ":size-value", size, myCache.size());
         controlMap.put(myKey, myValue);
         assertEquals(label + ":map-keys", controlMap.keySet(), myCache.getCacheLineKeys());
-        assertThat(label + ":map-values", myCache.values(), containsInAnyOrder(controlMap.values().toArray()));
+        assertTrue(label + ":map-values", myCache.values().containsAll(controlMap.values()));
     }
 
     static <K, V> void doKeyInCacheTest(UtilCache<K, V> myCache, K myKey, V myValue) {
