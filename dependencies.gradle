@@ -70,7 +70,6 @@ dependencies {
     implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
     implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
     implementation 'org.owasp.esapi:esapi:2.6.0.0'
-    implementation 'org.cyberneko:html:1.9.8'
     implementation 'org.springframework:spring-test:6.1.16'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
     implementation 'oro:oro:2.0.8'

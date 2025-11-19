@@ -36,6 +36,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import jakarta.el.FunctionMapper;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -49,7 +52,6 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
-import org.cyberneko.html.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -365,14 +367,14 @@ public class UelFunctions {
         try {
             URL url = FlexibleLocation.resolveLocation(str);
             if (url != null) {
-                DOMParser parser = new DOMParser();
-                parser.setFeature("http://xml.org/sax/features/namespaces", false);
-                parser.parse(url.toExternalForm());
-                document = parser.getDocument();
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                document = builder.parse(url.openStream());
+                document.getDocumentElement().normalize();
             } else {
                 Debug.logError("Unable to locate HTML document " + str, MODULE);
             }
-        } catch (IOException | SAXException e) {
+        } catch (IOException | ParserConfigurationException | SAXException e) {
             Debug.logError(e, "Error while reading HTML document " + str, MODULE);
         }
         return document;

@@ -206,10 +206,6 @@ allprojects {
             url 'https://clojars.org/repo'
         }
         maven {
-            // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
-            url "https://repository.ow2.org/nexus/content/repositories/public/"
-        }
-        maven {
             url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
         }
         /* maven {
