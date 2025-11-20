@@ -18,6 +18,7 @@
  */
 package org.apache.ofbiz.widget.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +28,14 @@ import org.apache.ofbiz.base.conversion.JSONConverters;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.webapp.control.JWTManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 public class ModelFormTest {
     private HashMap<String, Object> context;
@@ -40,6 +44,11 @@ public class ModelFormTest {
     @Before
     public void setUp() throws GenericEntityException {
         delegator = Mockito.mock(Delegator.class);
+        GenericValue genericValue = Mockito.mock(GenericValue.class);
+        List<GenericValue> list = new ArrayList<>();
+        list.add(genericValue);
+        when(delegator.findList(any(), any(), any(), any(), any(), any(), Mockito.anyBoolean()))
+                .thenReturn(list);
         context = new HashMap<>();
         context.put("delegator", delegator);
     }
