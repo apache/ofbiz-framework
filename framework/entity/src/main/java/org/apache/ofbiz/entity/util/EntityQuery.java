@@ -74,7 +74,7 @@ public class EntityQuery {
     private Integer limit;
 
     /** Construct an EntityQuery object for use against the specified Delegator
-     * @param delegator The delegator instance to use for the query
+     * @param queryable The delegator instance to use for the query
      */
     public static EntityQuery use(Queryable queryable) {
         return new EntityQuery(queryable.getDelegator());
