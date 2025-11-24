@@ -37,7 +37,7 @@ import org.apache.ofbiz.base.util.cache.UtilCacheTestTools.Listener;
 import org.junit.Test;
 
 @SuppressWarnings("serial")
-public class UtilCacheTests implements Serializable {
+public class UtilCacheTests {
 
     private <K, V> UtilCache<K, V> createUtilCache(int sizeLimit, int maxInMemory, long expireIn, boolean useSoftReference) {
         return UtilCache.createUtilCache(getClass().getName(), sizeLimit, maxInMemory, expireIn, useSoftReference);
