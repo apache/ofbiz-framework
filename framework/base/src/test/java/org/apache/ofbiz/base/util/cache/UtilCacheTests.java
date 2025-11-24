@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -61,7 +62,7 @@ public class UtilCacheTests {
     }
 
     @Test
-    public void testSimple() throws Exception {
+    public void testSimple() {
         UtilCache<String, String> myCache = createUtilCache(5, 0, 0, false);
         String myCacheName = myCache.getName();
         Listener<String, String> myCacheListener = createListener(myCache);
@@ -90,14 +91,14 @@ public class UtilCacheTests {
             assertNull("put", myCache.put("one", "uno"));
             doKeyInCacheTest(myCache, "one", "uno");
             long unoByteSize = myCache.getSizeInBytes();
-            assert(unoByteSize > origByteSize);
+            assert (unoByteSize > origByteSize);
 
             controlListener.noteKeyUpdate(myCache, "one", "single", "uno");
             assertEquals("replace", "uno", myCache.put("one", "single"));
             doKeyInCacheTest(myCache, "one", "single");
             long singleByteSize = myCache.getSizeInBytes();
-            assert(singleByteSize > origByteSize);
-            assert(singleByteSize > unoByteSize);
+            assert (singleByteSize > origByteSize);
+            assert (singleByteSize > unoByteSize);
 
             controlListener.noteKeyRemoval(myCache, "one", "single");
             assertEquals("remove", "single", myCache.remove("one"));
@@ -123,7 +124,11 @@ public class UtilCacheTests {
             doKeyInCacheTest(myCache, "one", "uno");
 
             controlListener.noteKeyRemoval(myCache, "one", "uno");
-            Thread.sleep(200);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                fail("Failed to pause process during tests execution");
+            }
             doKeyNotInCacheTest(myCache, "one");
         }
         assertEquals("get-miss", 10, myCache.getMissCountNotFound());
