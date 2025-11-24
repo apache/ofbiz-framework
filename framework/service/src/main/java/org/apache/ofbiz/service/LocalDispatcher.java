@@ -20,7 +20,7 @@ package org.apache.ofbiz.service;
 
 import java.util.Map;
 
-import org.apache.ofbiz.entity.util.Queryable;
+import org.apache.ofbiz.entity.util.DelegatorProvider;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.jms.JmsListenerFactory;
 import org.apache.ofbiz.service.job.JobManager;
@@ -32,7 +32,7 @@ import org.apache.ofbiz.service.job.JobManager;
  * by calling the {@link org.apache.ofbiz.service.ServiceDispatcher#getLocalDispatcher(String, Delegator)}
  * factory method.</p>
  */
-public interface LocalDispatcher extends Queryable {
+public interface LocalDispatcher extends DelegatorProvider {
 
     /**
      * Initialize a dispatch context for this dispatch after the creation is ok
