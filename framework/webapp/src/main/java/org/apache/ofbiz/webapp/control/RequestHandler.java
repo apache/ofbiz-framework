@@ -635,6 +635,7 @@ public final class RequestHandler {
             for (int i = 0; i < loginUris.length; i++) {
                 if (requestUri.equals(loginUris[i])) {
                     removePreviousRequest = false;
+                    break;
                 }
             }
             if (removePreviousRequest) {

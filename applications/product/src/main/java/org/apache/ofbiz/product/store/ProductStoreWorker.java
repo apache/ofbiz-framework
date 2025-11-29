@@ -293,6 +293,7 @@ public final class ProductStoreWorker {
                         for (BigDecimal size: itemSizes) {
                             if (size.compareTo(minSize) < 0) {
                                 allMatch = false;
+                                break;
                             }
                         }
                     }
@@ -308,6 +309,7 @@ public final class ProductStoreWorker {
                         for (BigDecimal size: itemSizes) {
                             if (size.compareTo(maxSize) > 0) {
                                 allMatch = false;
+                                break;
                             }
                         }
                     }

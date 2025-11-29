@@ -577,6 +577,7 @@ public final class ModelReader implements Serializable {
                 for (String packageFilter : packageFilterSet) {
                     if (packageName.contains(packageFilter)) {
                         foundMatch = true;
+                        break;
                     }
                 }
                 if (!foundMatch) {
