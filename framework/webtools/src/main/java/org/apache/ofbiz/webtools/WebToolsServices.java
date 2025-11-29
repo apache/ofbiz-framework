@@ -653,7 +653,6 @@ public class WebToolsServices {
         ModelReader reader = delegator.getModelReader();
         Map<String, TreeSet<String>> entitiesByPackage = new HashMap<>();
         Set<String> packageNames = new TreeSet<>();
-        Set<String> tableNames = new TreeSet<>();
 
         //put the entityNames TreeSets in a HashMap by packageName
         try {
@@ -661,10 +660,6 @@ public class WebToolsServices {
             resultMap.put("numberOfEntities", ec.size());
             for (String eName : ec) {
                 ModelEntity ent = reader.getModelEntity(eName);
-                //make sure the table name is in the list of all table names, if not null
-                if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
-                    tableNames.add(ent.getPlainTableName());
-                }
                 TreeSet<String> entities = entitiesByPackage.get(ent.getPackageName());
                 if (entities == null) {
                     entities = new TreeSet<>();

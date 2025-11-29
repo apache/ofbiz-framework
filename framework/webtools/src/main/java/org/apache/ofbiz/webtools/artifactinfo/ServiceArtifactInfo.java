@@ -413,8 +413,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         Debug.logInfo("Writing Service Call Graph EO Model for service [" + this.modelService.getName() + "] to [" + eomodeldFullPath + "]", MODULE);
 
         Set<String> allDiagramEntitiesWithPrefixes = new HashSet<>();
-        List<ServiceArtifactInfo> allServiceList = new LinkedList<>();
-        List<ServiceEcaArtifactInfo> allServiceEcaList = new LinkedList<>();
 
         // make sure that any prefix that might have been set on this is cleared
         this.setDisplayPrefix("");
@@ -429,7 +427,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             for (ServiceArtifactInfo callingService : callingServiceSet) {
                 callingService.setDisplayPrefix("Calling_");
                 allDiagramEntitiesWithPrefixes.add(callingService.getDisplayPrefixedName());
-                allServiceList.add(callingService);
             }
         }
 
@@ -440,7 +437,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             for (ServiceArtifactInfo calledService : calledServiceSet) {
                 calledService.setDisplayPrefix("Called_");
                 allDiagramEntitiesWithPrefixes.add(calledService.getDisplayPrefixedName());
-                allServiceList.add(calledService);
             }
 
             Map<String, Integer> displaySuffixNumByEcaName = new HashMap<>();
@@ -461,7 +457,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                     callingServiceEca.setDisplaySuffixNum(displaySuffix);
 
                     allDiagramEntitiesWithPrefixes.add(callingServiceEca.getDisplayPrefixedName());
-                    allServiceEcaList.add(callingServiceEca);
                 }
             }
 
@@ -481,7 +476,6 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                     calledServiceEca.setDisplaySuffixNum(displaySuffix);
 
                     allDiagramEntitiesWithPrefixes.add(calledServiceEca.getDisplayPrefixedName());
-                    allServiceEcaList.add(calledServiceEca);
                 }
 
                 // write index.eomodeld file

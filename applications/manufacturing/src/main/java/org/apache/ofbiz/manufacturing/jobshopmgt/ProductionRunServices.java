@@ -3627,11 +3627,6 @@ public class ProductionRunServices {
                 dateMap.put("remainingQty", remainingQty);
             }
 
-            // backorders
-            List<EntityCondition> backordersCondList = new LinkedList<>();
-            backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
-            backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
-
             List<GenericValue> backorders = EntityQuery.use(delegator).from("OrderItemAndShipGrpInvResAndItem")
                     .where(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null),
                             EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO))

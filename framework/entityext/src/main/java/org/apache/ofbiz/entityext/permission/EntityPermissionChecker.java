@@ -338,7 +338,6 @@ public class EntityPermissionChecker {
         // Note that "quickCheck" id come first in the list
         // Check with no roles or purposes on the chance that the permission fields contain _NA_ s.
         Map<String, List<String>> purposes = new HashMap<>();
-        Map<String, List<String>> roles = new HashMap<>();
         //List purposeList = null;
         //List roleList = null;
         for (Object id : entityIdList) {
@@ -424,7 +423,6 @@ public class EntityPermissionChecker {
             if (passed) {
                 break;
             }
-            roles.put(entityId, roleList);
         }
 
         if (passed) {

@@ -118,7 +118,6 @@ public class ContentSearch {
     public static class ContentSearchContext {
         private int index = 1;
         private List<EntityCondition> entityConditionList = new LinkedList<>();
-        private List<String> orderByList = new LinkedList<>();
         private Set<String> fieldsToSelect = UtilMisc.toSet("contentId");
         private DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         private boolean contentIdGroupBy = false;
@@ -916,7 +915,6 @@ public class ContentSearch {
         public void setSortOrder(ContentSearchContext contentSearchContext) {
             if (contentSearchContext.includedKeywordSearch) {
                 // we have to check this in order to be sure that there is a totalRelevancy to sort by...
-                contentSearchContext.orderByList.add("-totalRelevancy");
                 contentSearchContext.fieldsToSelect.add("totalRelevancy");
             }
         }
@@ -957,11 +955,6 @@ public class ContentSearch {
         public void setSortOrder(ContentSearchContext contentSearchContext) {
             if (contentSearchContext.getDelegator().getModelEntity("Content").isField(fieldName)) {
                 contentSearchContext.dynamicViewEntity.addAlias("CNT", fieldName);
-            }
-            if (ascending) {
-                contentSearchContext.orderByList.add("+" + fieldName);
-            } else {
-                contentSearchContext.orderByList.add("-" + fieldName);
             }
             contentSearchContext.fieldsToSelect.add(fieldName);
         }
