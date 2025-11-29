@@ -168,7 +168,6 @@ public class ProductSearch {
         private String visitId = null;
         private Integer totalResults = null;
 
-        private Set<String> includeCategoryIds = new HashSet<>();
         private Set<String> excludeCategoryIds = new HashSet<>();
         private Set<String> alwaysIncludeCategoryIds = new HashSet<>();
 
@@ -449,7 +448,7 @@ public class ProductSearch {
          * Finish category and feature constraints.
          */
         public void finishCategoryAndFeatureConstraints() {
-            if (includeCategoryIds.isEmpty() && excludeCategoryIds.isEmpty() && alwaysIncludeCategoryIds.isEmpty()
+            if (excludeCategoryIds.isEmpty() && alwaysIncludeCategoryIds.isEmpty()
                     && includeCategoryIdOrSetAndList.isEmpty() && alwaysIncludeCategoryIdOrSetAndList.isEmpty()
                     && includeFeatureIds.isEmpty() && excludeFeatureIds.isEmpty() && alwaysIncludeFeatureIds.isEmpty()
                     && includeFeatureIdOrSetAndList.isEmpty() && alwaysIncludeFeatureIdOrSetAndList.isEmpty()
@@ -469,24 +468,6 @@ public class ProductSearch {
 
             EntityCondition topCond = null;
 
-            if (!includeCategoryIds.isEmpty()) {
-                for (String includeCategoryId: includeCategoryIds) {
-                    String categoryPrefix = "pcm" + this.index;
-                    String entityAlias = "PCM" + this.index;
-                    this.index++;
-
-                    this.dynamicViewEntity.addMemberEntity(entityAlias, "ProductCategoryMember");
-                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ProductCategoryId", "productCategoryId", null, null, null, null);
-                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "FromDate", "fromDate", null, null, null, null);
-                    this.dynamicViewEntity.addAlias(entityAlias, categoryPrefix + "ThruDate", "thruDate", null, null, null, null);
-                    this.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    incExcCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(categoryPrefix + "ThruDate",
-                            EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(categoryPrefix + "ThruDate",
-                            EntityOperator.GREATER_THAN, this.nowTimestamp)));
-                    incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "FromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
-                    incExcCondList.add(EntityCondition.makeCondition(categoryPrefix + "ProductCategoryId", EntityOperator.EQUALS, includeCategoryId));
-                }
-            }
             if (!includeFeatureIds.isEmpty()) {
                 for (String includeFeatureId: includeFeatureIds) {
                     String featurePrefix = "pfa" + this.index;
