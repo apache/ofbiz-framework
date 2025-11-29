@@ -1042,7 +1042,7 @@ public final class RequestHandler {
      * @param requestResponse
      */
     private void setUserMessageResponseToRequest(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
-        final String fieldMessageName = requestResponse.getName() == "error"
+        final String fieldMessageName = "error".equals(requestResponse.getName())
                 ? "_ERROR_MESSAGE_"
                 : "_EVENT_MESSAGE_";
         final String customMessageField = "_CUSTOM" + fieldMessageName;

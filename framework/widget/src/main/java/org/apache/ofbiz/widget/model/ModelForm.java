@@ -2323,7 +2323,7 @@ public abstract class ModelForm extends ModelWidget {
                 } else {
                     Node formElement = autoFormParamsElement;
                     while (formElement != null
-                            && formElement.getLocalName() != "form") {
+                            &&  !"form".equals(formElement.getLocalName())) {
                         formElement = formElement.getParentNode();
                     }
                     if (formElement != null && formElement.getLocalName() != null) {
