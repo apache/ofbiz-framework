@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class UtilCacheTestTools {
+public class UtilCacheTestToolsJava {
 
     static <K, V> Listener<K, V> createListener(UtilCache<K, V> cache) {
         Listener<K, V> listener = new Listener<>();
@@ -90,7 +90,7 @@ public class UtilCacheTestTools {
         }
     }
 
-    static final class Listener<K, V> implements CacheListener<K, V> {
+    public static final class Listener<K, V> implements CacheListener<K, V> {
         private final Map<K, Set<Change>> changeMap = new HashMap<>();
 
         private void add(K key, Change change) {

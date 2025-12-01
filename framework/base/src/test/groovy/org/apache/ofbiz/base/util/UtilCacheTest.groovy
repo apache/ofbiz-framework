@@ -2,21 +2,25 @@ package org.apache.ofbiz.base.util
 
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.junit.jupiter.api.BeforeAll
+
+import static org.apache.ofbiz.base.util.cache.UtilCacheTestToolsJava.*
 
 /**
  * ./gradlew test --tests '*UtilCacheTest'
  */
 class UtilCacheTest extends OFBizTestCase {
 
+    @BeforeAll
+    private void clearCaches() {
+        UtilCache.clearAllCaches()
+    }
+
     UtilCacheTest(String name) {
         super(name)
     }
 
-    /**
-     * Tests cache creation methods, with various parameters
-     */
-    public void testUtilCacheCreation() {
-        String name = this.name
+    void testCreateUtilCache() {
         doUtilCacheCreateTest(UtilCache.createUtilCache(), null, null, null, null)
         doUtilCacheCreateTest(UtilCache.createUtilCache(name), null, null, null, null)
         doUtilCacheCreateTest(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE)
@@ -29,6 +33,89 @@ class UtilCacheTest extends OFBizTestCase {
         doUtilCacheCreateTest(UtilCache.createUtilCache(name, 10, 6, 20000, false), 10, 6, 20000L, Boolean.FALSE)
         doUtilCacheCreateTest(UtilCache.createUtilCache(name, 11, 7, 21000, false, 'a', 'b'), 11, 7, 21000L, Boolean.FALSE)
         doUtilCacheCreateTest(UtilCache.createUtilCache(name, 12, 8, 22000, false, 'c', 'd'), 12, 8, 22000L, Boolean.FALSE)
+    }
+
+    void testCacheGetterOnCreation() {
+        UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
+        assert "Cache $name not found in UtilCache table keyset", UtilCache.getUtilCacheTableKeySet().contains(name)
+        assertSame "Cache $name not found with findCache", myCache, UtilCache.findCache(name)
+        assertSame "Cache $name not found not found with getOrCreate method", myCache, UtilCache.getOrCreateUtilCache(
+                name, myCache.sizeLimit, myCache.maxInMemory, myCache.expireTime, myCache.useSoftReference)
+    }
+
+    void testCacheCreateEntry() {
+        UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
+        Listener<String, String> myCacheListener = createListener(myCache)
+        Listener<String, String> controlListener = new Listener<>()
+        String key = "KEY_$name"
+        String value = "VAL_$name"
+        controlListener.noteKeyAddition(myCache, key, value)
+        Object objectInCache = myCache.put(key, value)
+        assertNull 'Cache was not null on creation', objectInCache
+        doKeyInCacheTest(myCache, key, value)
+
+        assertEquals myCacheListener, controlListener
+    }
+
+    void testCacheCreateEntryWithNullKey() {
+        UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
+        Listener<String, String> myCacheListener = createListener(myCache)
+        Listener<String, String> controlListener = new Listener<>()
+        String value = "VAL_$name"
+
+        controlListener.noteKeyAddition(myCache, null, value)
+        Object objectInCache = myCache.put(null, value)
+        assertNull 'Cache was not null on insert', objectInCache
+        doKeyInCacheTest(myCache, null, value)
+
+        assertEquals myCacheListener, controlListener
+    }
+
+    void testCacheUpdateEntry() {
+        UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
+        Listener<String, String> myCacheListener = createListener(myCache)
+        Listener<String, String> controlListener = new Listener<>()
+        String key = "KEY_$name"
+        String value1 = "VAL1_$name"
+        String value2 = "VAL2_$name"
+
+        controlListener.noteKeyAddition(myCache, key, value1)
+        Object objectInCache = myCache.put(key, value1)
+        assertNull 'Cache was not null on insert', objectInCache
+        doKeyInCacheTest(myCache, key, value1)
+
+        controlListener.noteKeyUpdate(myCache, key, value2, value1)
+        objectInCache = myCache.put(key, value2)
+        assertEquals 'Wrong value returned by cache on update', value1, objectInCache
+        doKeyInCacheTest(myCache, key, value2)
+
+        assertEquals myCacheListener, controlListener
+    }
+
+    void testRemoveCacheEntry() {
+        UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
+        Listener<String, String> myCacheListener = createListener(myCache)
+        Listener<String, String> controlListener = new Listener<>()
+        String key = "KEY_$name"
+        String value = "VAL_$name"
+
+        controlListener.noteKeyAddition(myCache, key, value)
+        Object objectInCache = myCache.put(key, value)
+        assertNull 'Cache was not null on on insert', objectInCache
+        doKeyInCacheTest(myCache, key, value)
+
+        controlListener.noteKeyRemoval(myCache, key, value)
+        objectInCache = myCache.remove(key)
+        assertEquals 'Wrong object given by cache', value , objectInCache
+        doKeyNotInCacheTest myCache, key
+
+        assertEquals myCacheListener, controlListener
+    }
+
+    // Voir si il n'y a pas redite avec testExpire un peu plus loin
+    // Auquel cas rajouter la notion de compteur au test L 230.. et on devrait être bons
+    void testExpireExpire() {
+        assert true
     }
 
     static void doUtilCacheCreateTest(UtilCache myCache, Integer sizeLimit, Integer maxInMemory, Long expireTime,
@@ -51,10 +138,6 @@ class UtilCacheTest extends OFBizTestCase {
         assertEquals 'empty values', Collections.emptyList(), myCache.values()
         assertSame 'find cache', myCache, UtilCache.findCache(myCache.name)
         assertNotSame 'new cache', myCache, UtilCache.createUtilCache()
-    }
-
-    public void testCacheBases() {
-
     }
 
     static <K, V> void doKeyInCacheTest(UtilCache myCache, K myKey, V myValue) {

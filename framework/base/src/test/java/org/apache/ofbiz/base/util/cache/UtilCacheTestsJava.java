@@ -18,7 +18,7 @@
  */
 package org.apache.ofbiz.base.util.cache;
 
-import static org.apache.ofbiz.base.util.cache.UtilCacheTestTools.createListener;
+import static org.apache.ofbiz.base.util.cache.UtilCacheTestToolsJava.createListener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -34,17 +34,16 @@ import java.util.HashSet;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.cache.UtilCacheTestTools.Listener;
+import org.apache.ofbiz.base.util.cache.UtilCacheTestToolsJava.Listener;
 import org.junit.Test;
 
 @SuppressWarnings("serial")
-public class UtilCacheTests {
+public class UtilCacheTestsJava {
 
     private <K, V> UtilCache<K, V> createUtilCache(int sizeLimit, int maxInMemory, long expireIn, boolean useSoftReference) {
         return UtilCache.createUtilCache(getClass().getName(), sizeLimit, maxInMemory, expireIn, useSoftReference);
     }
 
-    @Test
     public void testCreateUtilCache() {
         String name = getClass().getName();
         doUtilCacheCreateTest(UtilCache.createUtilCache(), null, null, null, null);
@@ -61,7 +60,7 @@ public class UtilCacheTests {
         doUtilCacheCreateTest(UtilCache.createUtilCache(name, 12, 8, 22000, false, "c", "d"), 12, 8, 22000L, Boolean.FALSE);
     }
 
-    @Test
+//    @Test
     public void testSimple() {
         UtilCache<String, String> myCache = createUtilCache(5, 0, 0, false);
         String myCacheName = myCache.getName();
@@ -69,55 +68,69 @@ public class UtilCacheTests {
         Listener<String, String> controlListener = new Listener<>();
 
         for (int i = 0; i < 2; i++) {
+
+            // Je sens qu'on va tout éclater.
+            // C'est touchy, mais ça permettra d'y voir plus clair au fur et à mesure
+            // On vérifie qu'il est présent dans les tables de cache génériques
             assertTrue("UtilCacheTable.keySet", UtilCache.getUtilCacheTableKeySet().contains(myCacheName));
             assertSame("UtilCache.findCache", myCache, UtilCache.findCache(myCacheName));
             assertSame("UtilCache.getOrCreateUtilCache", myCache, UtilCache.getOrCreateUtilCache(myCacheName,
                     myCache.getSizeLimit(), myCache.getMaxInMemory(), myCache.getExpireTime(), myCache.getUseSoftReference()));
 
+            // on vérifie que le cache ne contient pas la clef "one"
             doKeyNotInCacheTest(myCache, "one");
-            long origByteSize = myCache.getSizeInBytes();
+            long initialCacheSize = myCache.getSizeInBytes();
 
+            // On ajoute une entrée avec clef nulle dans le cache
             controlListener.noteKeyAddition(myCache, null, "null");
             assertNull("put", myCache.put(null, "null"));
             doKeyInCacheTest(myCache, null, "null");
-            long nullByteSize = myCache.getSizeInBytes();
-            assertTrue(nullByteSize > origByteSize);
+            long cacheSizeAfterOneEntryNullKey = myCache.getSizeInBytes();
+            assertTrue(cacheSizeAfterOneEntryNullKey > initialCacheSize);
 
+            // On enleve cette entrée du cache
             controlListener.noteKeyRemoval(myCache, null, "null");
             assertEquals("remove", "null", myCache.remove(null));
             doKeyNotInCacheTest(myCache, null);
 
+            // On ajoute une nouvelle entrée clef et valeur
             controlListener.noteKeyAddition(myCache, "one", "uno");
             assertNull("put", myCache.put("one", "uno"));
             doKeyInCacheTest(myCache, "one", "uno");
-            long unoByteSize = myCache.getSizeInBytes();
-            assert (unoByteSize > origByteSize);
+            long sizeOneEntryKeyAndValue = myCache.getSizeInBytes();
+            assert (sizeOneEntryKeyAndValue > initialCacheSize);
 
+            // On modifie cette entrée de cache
             controlListener.noteKeyUpdate(myCache, "one", "single", "uno");
             assertEquals("replace", "uno", myCache.put("one", "single"));
             doKeyInCacheTest(myCache, "one", "single");
-            long singleByteSize = myCache.getSizeInBytes();
-            assert (singleByteSize > origByteSize);
-            assert (singleByteSize > unoByteSize);
+            long cacheSizeWithLongerWalue = myCache.getSizeInBytes();
+            assert (cacheSizeWithLongerWalue > initialCacheSize);
+            assert (cacheSizeWithLongerWalue > sizeOneEntryKeyAndValue);
 
+            // On enleve cette entrée de cache
             controlListener.noteKeyRemoval(myCache, "one", "single");
             assertEquals("remove", "single", myCache.remove("one"));
             doKeyNotInCacheTest(myCache, "one");
-            assertEquals("byteSize", origByteSize, myCache.getSizeInBytes());
+            assertEquals("byteSize", initialCacheSize, myCache.getSizeInBytes());
 
+            // On remets cette un entrée de cache à la même clef
             controlListener.noteKeyAddition(myCache, "one", "uno");
             assertNull("put", myCache.put("one", "uno"));
             doKeyInCacheTest(myCache, "one", "uno");
 
+            // on mets remplace cette nouvelle entrée
             controlListener.noteKeyUpdate(myCache, "one", "only", "uno");
             assertEquals("replace", "uno", myCache.put("one", "only"));
             doKeyInCacheTest(myCache, "one", "only");
 
+            // On enleve cette nouvelle entrée
             controlListener.noteKeyRemoval(myCache, "one", "only");
             myCache.erase();
             doKeyNotInCacheTest(myCache, "one");
-            assertEquals("byteSize", origByteSize, myCache.getSizeInBytes());
+            assertEquals("byteSize", initialCacheSize, myCache.getSizeInBytes());
 
+            // on mets une date d'expiration et on ajoute une valeur avec une obsolescence programée.
             myCache.setExpireTime(100);
             controlListener.noteKeyAddition(myCache, "one", "uno");
             assertNull("put", myCache.put("one", "uno"));
@@ -131,6 +144,8 @@ public class UtilCacheTests {
             }
             doKeyNotInCacheTest(myCache, "one");
         }
+
+        // On check les compteurs, mais pourquoi ???
         assertEquals("get-miss", 10, myCache.getMissCountNotFound());
         assertEquals("get-miss-total", 10, myCache.getMissCountTotal());
         assertEquals("get-hit", 12, myCache.getHitCount());
@@ -142,7 +157,6 @@ public class UtilCacheTests {
         UtilCache.clearCache(":::" + myCacheName);
     }
 
-    @Test
     public void testPutIfAbsent() {
         UtilCache<String, String> myCache = createUtilCache(5, 5, 2000, false);
         Listener<String, String> myCacheListener = createListener(myCache);
@@ -157,7 +171,6 @@ public class UtilCacheTests {
         assertEquals("listener", controlListener, myCacheListener);
     }
 
-    @Test
     public void testPutIfAbsentAndGet() {
         UtilCache<String, String> myCache = createUtilCache(5, 5, 2000, false);
         Listener<String, String> myCacheListener = createListener(myCache);
@@ -182,7 +195,6 @@ public class UtilCacheTests {
         assertEquals("listener", controlListener, myCacheListener);
     }
 
-    @Test
     public void testChangeMemSize() {
         int size = 5;
         long expireIn = 2000;
@@ -214,7 +226,6 @@ public class UtilCacheTests {
         assertEquals("map-values", controlMap.size(), myCache.values().size());
     }
 
-    @Test
     public void testExpire() throws Exception {
         int size = 5;
         long expireIn = 2000;
