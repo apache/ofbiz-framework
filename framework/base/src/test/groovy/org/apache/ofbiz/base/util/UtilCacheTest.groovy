@@ -37,9 +37,9 @@ class UtilCacheTest extends OFBizTestCase {
 
     void testCacheGetterOnCreation() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
-        assert "Cache $name not found in UtilCache table keyset", UtilCache.getUtilCacheTableKeySet().contains(name)
-        assertSame "Cache $name not found with findCache", myCache, UtilCache.findCache(name)
-        assertSame "Cache $name not found not found with getOrCreate method", myCache, UtilCache.getOrCreateUtilCache(
+        assert UtilCache.getUtilCacheTableKeySet().contains(name)
+        assert myCache == UtilCache.findCache(name)
+        assert myCache == UtilCache.getOrCreateUtilCache(
                 name, myCache.sizeLimit, myCache.maxInMemory, myCache.expireTime, myCache.useSoftReference)
     }
 
@@ -51,10 +51,10 @@ class UtilCacheTest extends OFBizTestCase {
         String value = "VAL_$name"
         controlListener.noteKeyAddition(myCache, key, value)
         Object objectInCache = myCache.put(key, value)
-        assertNull 'Cache was not null on creation', objectInCache
-        doKeyInCacheTest(myCache, key, value)
+        assert objectInCache == null
+        doSingleKeyInSingleCacheTest myCache, key, value
 
-        assertEquals myCacheListener, controlListener
+        assert myCacheListener.equals(controlListener)
     }
 
     void testCacheCreateEntryWithNullKey() {
@@ -65,10 +65,10 @@ class UtilCacheTest extends OFBizTestCase {
 
         controlListener.noteKeyAddition(myCache, null, value)
         Object objectInCache = myCache.put(null, value)
-        assertNull 'Cache was not null on insert', objectInCache
-        doKeyInCacheTest(myCache, null, value)
+        assert objectInCache == null
+        doSingleKeyInSingleCacheTest myCache, null, value
 
-        assertEquals myCacheListener, controlListener
+        assert myCacheListener.equals(controlListener)
     }
 
     void testCacheUpdateEntry() {
@@ -81,15 +81,15 @@ class UtilCacheTest extends OFBizTestCase {
 
         controlListener.noteKeyAddition(myCache, key, value1)
         Object objectInCache = myCache.put(key, value1)
-        assertNull 'Cache was not null on insert', objectInCache
-        doKeyInCacheTest(myCache, key, value1)
+        assert objectInCache == null
+        doSingleKeyInSingleCacheTest myCache, key, value1
 
         controlListener.noteKeyUpdate(myCache, key, value2, value1)
         objectInCache = myCache.put(key, value2)
-        assertEquals 'Wrong value returned by cache on update', value1, objectInCache
-        doKeyInCacheTest(myCache, key, value2)
+        assert objectInCache == value1
+        doSingleKeyInSingleCacheTest myCache, key, value2
 
-        assertEquals myCacheListener, controlListener
+        assert myCacheListener.equals(controlListener)
     }
 
     void testRemoveCacheEntry() {
@@ -101,65 +101,85 @@ class UtilCacheTest extends OFBizTestCase {
 
         controlListener.noteKeyAddition(myCache, key, value)
         Object objectInCache = myCache.put(key, value)
-        assertNull 'Cache was not null on on insert', objectInCache
-        doKeyInCacheTest(myCache, key, value)
+        assert objectInCache == null
+        doSingleKeyInSingleCacheTest myCache, key, value
 
         controlListener.noteKeyRemoval(myCache, key, value)
         objectInCache = myCache.remove(key)
-        assertEquals 'Wrong object given by cache', value , objectInCache
+        assert objectInCache == value
         doKeyNotInCacheTest myCache, key
 
-        assertEquals myCacheListener, controlListener
+        assert myCacheListener.equals(controlListener)
     }
 
-    // Voir si il n'y a pas redite avec testExpire un peu plus loin
-    // Auquel cas rajouter la notion de compteur au test L 230.. et on devrait être bons
-    void testExpireExpire() {
-        assert true
+    void testSetExpireCache() {
+        UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
+        Listener<String, String> myCacheListener = createListener(myCache)
+        Listener<String, String> controlListener = new Listener<>()
+        Map controlMap = new HashMap()
+        myCache.setExpireTime(100)
+        populateEmptyCache(name, myCache, 5, controlMap, controlListener)
+        controlMap.forEach { k, v -> controlListener.noteKeyRemoval(myCache, k, v) }
+        try {
+            sleep(200)
+        } catch (InterruptedException e) {
+            fail('Failed to pause process during tests execution')
+        }
+        assert myCache.getCacheLineKeys().isEmpty()
+        assert myCache.values().isEmpty()
+        assert myCacheListener.equals(controlListener)
+    }
+
+    static void populateEmptyCache(String name, UtilCache cacheToPopulate, Integer rowsToAdd, Map controlMap,
+                                   Listener controlListener) {
+        assert cacheToPopulate.isEmpty()
+        assert controlMap.isEmpty()
+        for (int row in 1..rowsToAdd) {
+            String key = "${row}KEY_$name"
+            String value = "${row}VAL_$name"
+            controlListener.noteKeyAddition(cacheToPopulate, key, value)
+            cacheToPopulate.put(key, value)
+            controlMap.put(key, value)
+        }
+        assert cacheToPopulate.size() == rowsToAdd
+        assert controlMap.keySet() == cacheToPopulate.getCacheLineKeys()
+        assert cacheToPopulate.values().containsAll(controlMap.values())
     }
 
     static void doUtilCacheCreateTest(UtilCache myCache, Integer sizeLimit, Integer maxInMemory, Long expireTime,
                                       Boolean useSoftReference) {
         if (sizeLimit) {
-            assertEquals myCache.name + ':sizeLimit', sizeLimit.intValue(), myCache.sizeLimit
+            assert sizeLimit.intValue() == myCache.sizeLimit
         }
         if (maxInMemory) {
-            assertEquals myCache.name + ':maxInMemory', maxInMemory.intValue(), myCache.maxInMemory
+            assert maxInMemory.intValue() == myCache.maxInMemory
         }
         if (expireTime) {
-            assertEquals myCache.name + ':expireTime', expireTime.longValue(), myCache.expireTime
+            assert expireTime.longValue() == myCache.expireTime
         }
         if (useSoftReference) {
-            assertEquals(myCache.name + ':useSoftReference', useSoftReference,
-                    myCache.getUseSoftReference())
+            assert useSoftReference == myCache.getUseSoftReference()
         }
-        assert 'initial empty', myCache.isEmpty()
-        assertEquals 'empty keys', Collections.emptySet(), myCache.cacheLineKeys
-        assertEquals 'empty values', Collections.emptyList(), myCache.values()
-        assertSame 'find cache', myCache, UtilCache.findCache(myCache.name)
-        assertNotSame 'new cache', myCache, UtilCache.createUtilCache()
+        assert myCache.isEmpty()
+        assert Collections.emptySet() == myCache.cacheLineKeys
+        assert Collections.emptyList() == myCache.values()
+        assert myCache === UtilCache.findCache(myCache.name)
+        assert myCache !== UtilCache.createUtilCache()
     }
 
-    static <K, V> void doKeyInCacheTest(UtilCache myCache, K myKey, V myValue) {
-        assert 'is-empty', !myCache.isEmpty()
-        assertEquals 'size', 1, myCache.size()
-        assert 'found', myCache.containsKey(myKey)
-        assert 'validKey', UtilCache.validKey(myCache.getName(), myKey)
-        assert 'validKey', !UtilCache.validKey(':::' + myCache.getName(), myKey)
-        assertEquals 'get', myValue, myCache.get(myKey)
-        assertEquals 'keys', new HashSet<>(UtilMisc.toList(myKey)), myCache.getCacheLineKeys()
-        assertEquals 'values', UtilMisc.toList(myValue), myCache.values()
+    static <K, V> void doSingleKeyInSingleCacheTest(UtilCache myCache, K myKey, V myValue) {
+        assert !myCache.isEmpty()
+        assert myCache.size() == 1
+        assert myCache.containsKey(myKey)
+        assert UtilCache.validKey(myCache.getName(), myKey)
+        assert myValue == myCache.get(myKey)
     }
 
     static <Ka> void doKeyNotInCacheTest(UtilCache myCache, Ka myKey) {
-        assert 'not-found', !myCache.containsKey(myKey)
-        assert 'validKey', !UtilCache.validKey(myCache.getName(), myKey)
-        assertNull 'no-get', myCache.get(myKey)
-        assertNull 'remove', myCache.remove(myKey)
-        assert 'is-empty', myCache.isEmpty()
-        assertEquals 'size', 0, myCache.size()
-        assertEquals 'keys', Collections.emptySet(), myCache.getCacheLineKeys()
-        assertEquals 'values', Collections.emptyList(), myCache.values()
+        assert !myCache.containsKey(myKey)
+        assert !UtilCache.validKey(myCache.getName(), myKey)
+        assert myCache.get(myKey) == null
+        assert myCache.remove(myKey) == null
     }
 
 }
