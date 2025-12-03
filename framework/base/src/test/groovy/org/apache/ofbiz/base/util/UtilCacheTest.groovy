@@ -45,8 +45,8 @@ class UtilCacheTest extends OFBizTestCase {
 
     void testCacheCreateEntry() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
-        Listener<String, String> myCacheListener = createListener(myCache)
-        Listener<String, String> controlListener = new Listener<>()
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
         String key = "KEY_$name"
         String value = "VAL_$name"
 
@@ -59,8 +59,8 @@ class UtilCacheTest extends OFBizTestCase {
 
     void testCacheCreateEntryWithNullKey() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
-        Listener<String, String> myCacheListener = createListener(myCache)
-        Listener<String, String> controlListener = new Listener<>()
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
         String value = "VAL_$name"
 
         controlListener.noteKeyAddition(myCache, null, value)
@@ -72,8 +72,8 @@ class UtilCacheTest extends OFBizTestCase {
 
     void testCacheUpdateEntry() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
-        Listener<String, String> myCacheListener = createListener(myCache)
-        Listener<String, String> controlListener = new Listener<>()
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
         String key = "KEY_$name"
         String value1 = "VAL1_$name"
         String value2 = "VAL2_$name"
@@ -92,8 +92,8 @@ class UtilCacheTest extends OFBizTestCase {
 
     void testRemoveCacheEntry() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
-        Listener<String, String> myCacheListener = createListener(myCache)
-        Listener<String, String> controlListener = new Listener<>()
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
         String key = "KEY_$name"
         String value = "VAL_$name"
 
@@ -111,8 +111,8 @@ class UtilCacheTest extends OFBizTestCase {
 
     void testSetExpireCache() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
-        Listener<String, String> myCacheListener = createListener(myCache)
-        Listener<String, String> controlListener = new Listener<>()
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
         Map controlMap = new HashMap()
         myCache.setExpireTime(100)
         populateEmptyCache(name, myCache, 5, controlMap, controlListener)
@@ -130,7 +130,7 @@ class UtilCacheTest extends OFBizTestCase {
     void testChangeMemorySize() {
         int size = 5
         UtilCache<String, Serializable> myCache = UtilCache.createUtilCache(name, size, size, 0, false)
-        Map controlMap = new HashMap<>()
+        Map controlMap = new HashMap()
         populateEmptyCache(name, myCache, 5, controlMap)
 
         myCache.setMaxInMemory(2)
@@ -146,6 +146,25 @@ class UtilCacheTest extends OFBizTestCase {
         myCache.setMaxInMemory(size)
         assert controlMap.keySet() == myCache.getCacheLineKeys()
         assert myCache.values().containsAll(controlMap.values())
+    }
+
+    public void testPutIfAbsent() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 1, 1, 0, false)
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
+        String key = "KEY_$name"
+        String value1 = "VAL1_$name"
+        String value2 = "VAL2_$name"
+
+        controlListener.noteKeyAddition(myCache, key, value1)
+        Object oldObject = myCache.putIfAbsent(key, value1)
+        assert oldObject == null
+        doSingleKeyInSingleCacheTest(myCache, key, value1)
+
+        oldObject = myCache.putIfAbsent(key, value2)
+        assert oldObject == value1
+        doSingleKeyInSingleCacheTest(myCache, key, value1)
+        assert myCacheListener.equals(controlListener)
     }
 
     static void populateEmptyCache(String name, UtilCache cacheToPopulate, Integer rowsToAdd, Map controlMap,
