@@ -49,11 +49,11 @@ class UtilCacheTest extends OFBizTestCase {
         Listener<String, String> controlListener = new Listener<>()
         String key = "KEY_$name"
         String value = "VAL_$name"
+
         controlListener.noteKeyAddition(myCache, key, value)
         Object objectInCache = myCache.put(key, value)
         assert objectInCache == null
         doSingleKeyInSingleCacheTest myCache, key, value
-
         assert myCacheListener.equals(controlListener)
     }
 
@@ -67,7 +67,6 @@ class UtilCacheTest extends OFBizTestCase {
         Object objectInCache = myCache.put(null, value)
         assert objectInCache == null
         doSingleKeyInSingleCacheTest myCache, null, value
-
         assert myCacheListener.equals(controlListener)
     }
 
@@ -88,7 +87,6 @@ class UtilCacheTest extends OFBizTestCase {
         objectInCache = myCache.put(key, value2)
         assert objectInCache == value1
         doSingleKeyInSingleCacheTest myCache, key, value2
-
         assert myCacheListener.equals(controlListener)
     }
 
@@ -108,7 +106,6 @@ class UtilCacheTest extends OFBizTestCase {
         objectInCache = myCache.remove(key)
         assert objectInCache == value
         doKeyNotInCacheTest myCache, key
-
         assert myCacheListener.equals(controlListener)
     }
 
@@ -130,14 +127,37 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener.equals(controlListener)
     }
 
+    void testChangeMemorySize() {
+        int size = 5
+        UtilCache<String, Serializable> myCache = UtilCache.createUtilCache(name, size, size, 0, false)
+        Map controlMap = new HashMap<>()
+        populateEmptyCache(name, myCache, 5, controlMap)
+
+        myCache.setMaxInMemory(2)
+        assert 2 == myCache.size()
+        controlMap.keySet().retainAll(myCache.getCacheLineKeys())
+        assert controlMap.keySet() == myCache.getCacheLineKeys()
+        assert myCache.values().containsAll(controlMap.values())
+
+        myCache.setMaxInMemory(0)
+        assert controlMap.keySet() == myCache.getCacheLineKeys()
+        assert myCache.values().containsAll(controlMap.values())
+
+        myCache.setMaxInMemory(size)
+        assert controlMap.keySet() == myCache.getCacheLineKeys()
+        assert myCache.values().containsAll(controlMap.values())
+    }
+
     static void populateEmptyCache(String name, UtilCache cacheToPopulate, Integer rowsToAdd, Map controlMap,
-                                   Listener controlListener) {
+                                   Listener controlListener = null) {
         assert cacheToPopulate.isEmpty()
         assert controlMap.isEmpty()
         for (int row in 1..rowsToAdd) {
             String key = "${row}KEY_$name"
             String value = "${row}VAL_$name"
-            controlListener.noteKeyAddition(cacheToPopulate, key, value)
+            if (controlListener) {
+                controlListener.noteKeyAddition(cacheToPopulate, key, value)
+            }
             cacheToPopulate.put(key, value)
             controlMap.put(key, value)
         }
