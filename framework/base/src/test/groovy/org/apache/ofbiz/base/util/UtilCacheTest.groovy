@@ -181,13 +181,13 @@ class UtilCacheTest extends OFBizTestCase {
         assert inCache == value1
         doSingleKeyInSingleCacheTest myCache, key1, value1
 
-        inCache = myCache.putIfAbsentAndGet(key1, "newValue")
+        inCache = myCache.putIfAbsentAndGet(key1, 'newValue')
         assert inCache == value1
         doSingleKeyInSingleCacheTest myCache, key1, value1
 
         String key2 = "KEY2_$name"
-        String value2 = new String("anotherValue")
-        String value2Bis = new String("anotherValue")
+        String value2 = new String('anotherValue')
+        String value2Bis = new String('anotherValue')
         assert value2 == value2Bis
         assert value2 !== value2Bis
 
