@@ -167,6 +167,40 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener.equals(controlListener)
     }
 
+    public void testPutIfAbsentAndGet() {
+        UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 1, 1, 0, false)
+        Listener myCacheListener = createListener(myCache)
+        Listener controlListener = new Listener()
+        String key1 = "KEY1_$name"
+        String value1 = "VAL1_$name"
+
+        Object inCache = myCache.get(key1)
+        assert inCache == null
+        controlListener.noteKeyAddition(myCache, key1, value1)
+        inCache = myCache.putIfAbsentAndGet(key1, value1)
+        assert inCache == value1
+        doSingleKeyInSingleCacheTest myCache, key1, value1
+
+        inCache = myCache.putIfAbsentAndGet(key1, "newValue")
+        assert inCache == value1
+        doSingleKeyInSingleCacheTest myCache, key1, value1
+
+        String key2 = "KEY2_$name"
+        String value2 = new String("anotherValue")
+        String value2Bis = new String("anotherValue")
+        assert value2 == value2Bis
+        assert value2 !== value2Bis
+
+        controlListener.noteKeyAddition(myCache, key2, value2)
+        inCache = myCache.putIfAbsentAndGet(key2, value2)
+        assert inCache === value2
+        inCache = myCache.putIfAbsentAndGet(key2, value2Bis)
+        assert inCache !== value2Bis
+        assert inCache === value2
+        doSingleKeyInSingleCacheTest myCache, key2, value2
+        assert controlListener == myCacheListener
+    }
+
     static void populateEmptyCache(String name, UtilCache cacheToPopulate, Integer rowsToAdd, Map controlMap,
                                    Listener controlListener = null) {
         assert cacheToPopulate.isEmpty()
