@@ -17,6 +17,11 @@ class UtilCacheTest extends OFBizTestCase {
         super(name)
     }
 
+    @BeforeAll
+    static void clearCaches() { // codenarc-disable UnusedPrivateMethod
+        UtilCache.clearAllCaches()
+    }
+
     static void populateEmptyCache(String name, UtilCache cacheToPopulate, Integer rowsToAdd, Map controlMap,
                                    Listener controlListener = null) {
         assert cacheToPopulate.isEmpty()
@@ -252,11 +257,6 @@ class UtilCacheTest extends OFBizTestCase {
         assert inCache === value2
         doSingleKeyInSingleCacheTest myCache, key2, value2
         assert controlListener == myCacheListener
-    }
-
-    @BeforeAll
-    private void clearCaches() { // codenarc-disable UnusedPrivateMethod
-        UtilCache.clearAllCaches()
     }
 
 }
