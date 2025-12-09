@@ -28,7 +28,6 @@ shipmentId = request.getParameter('shipmentId')
 orderId = request.getParameter('purchaseOrderId')
 shipGroupSeqId = request.getParameter('shipGroupSeqId')
 context.shipmentId = shipmentId
-context.shipGroupSeqId = shipGroupSeqId
 
 // Retrieve the map resident in session which stores order item quantities to receive
 itemQuantitiesToReceive = session.getAttribute('purchaseOrderItemQuantitiesToReceive')
@@ -63,6 +62,7 @@ context.now = UtilDateTime.nowTimestamp()
 
 orderId = orderId ?: shipment.primaryOrderId
 shipGroupSeqId = shipGroupSeqId ?: shipment.primaryShipGroupSeqId
+context.shipGroupSeqId = shipGroupSeqId
 context.orderId = orderId
 
 if (!orderId) {

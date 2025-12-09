@@ -106,6 +106,7 @@ under the License.
                 <input type="hidden" name="facilityId" value="${facilityId}"/>
                 <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
                 <input type="hidden" name="shipmentId" value="${shipmentId}" />
+                <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId}" />
                 <input type="hidden" name="_useRowSubmit" value="Y"/>
                 <table cellspacing="0" class="basic-table">
                     <tr class="header-row">
