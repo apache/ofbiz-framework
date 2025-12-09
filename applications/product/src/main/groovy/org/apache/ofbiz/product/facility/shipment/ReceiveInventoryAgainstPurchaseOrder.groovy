@@ -117,13 +117,15 @@ orderItems.each { orderItemAndShipGroupAssoc ->
 
     // Get the item's ordered quantity
     totalOrdered = 0
-    ordered = orderItem.getDouble('quantity')
+    ordered = orderItemAndShipGroupAssoc.getDouble('quantity')
     if (ordered) {
         totalOrdered += ordered.doubleValue()
+        orderItemData.ordered = ordered
     }
-    cancelled = orderItem.getDouble('cancelQuantity')
+    cancelled = orderItemAndShipGroupAssoc.getDouble('cancelQuantity')
     if (cancelled) {
         totalOrdered -= cancelled.doubleValue()
+        orderItemData.cancelled = cancelled
     }
 
     // Get the item quantity received from all shipments via the ShipmentReceipt entity

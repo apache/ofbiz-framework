@@ -148,15 +148,15 @@ under the License.
                                     </#if>
                                 </div>
                             </td>
-                            <td>${orderItem.quantity}</td>
-                            <td>${orderItem.cancelQuantity?default(0)}</td>
+                            <td>${orderItemData.ordered}</td>
+                            <td>${orderItemData.cancelled?default(0)}</td>
                             <td>
                                 <div ${(backOrderedQuantity &gt; 0)?string(" errorMessage","")}">
                                     ${backOrderedQuantity}
                                 </div>
                             </td>
                             <td>${totalQuantityReceived}</td>
-                            <td>${orderItem.quantity - orderItem.cancelQuantity?default(0) - totalQuantityReceived}</td>
+                            <td>${orderItemData.ordered - orderItemData.cancelled?default(0) - totalQuantityReceived}</td>
                             <td>
                                 <div>
                                     <#if fulfilledReservations?has_content>
