@@ -11,7 +11,7 @@
         "flot": "^4.2.6",
         "inputmask": "^5.0.9",
         "jquery": "^3.7.1",
-        "jquery-migrate": "^3.5.2",
+        "jquery-migrate": "^3.6.0",
         "jquery-ui-dist": "^1.13.3",
         "jquery-validation": "^1.21.0",
         "jquery.browser": "^0.1.0",
