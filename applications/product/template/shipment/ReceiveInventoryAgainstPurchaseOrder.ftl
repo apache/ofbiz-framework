@@ -72,27 +72,16 @@ under the License.
     </#if>
 </#if>
 
-<form name="ReceiveInventoryAgainstPurchaseOrder" action="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder</@ofbizUrl>">
-  <input type="hidden" name="clearAll" value="Y"/>
   <table class="basic-table" cellspacing="0">
     <tr>
-      <td class="label">${uiLabelMap.ProductShipmentId}</td>
-      <td><input type="text" size="20" name="shipmentId" value="${shipmentId!}"/></td>
-    </tr>
-    <tr>
       <td class="label">${uiLabelMap.ProductOrderId}</td>
-      <td><@htmlTemplate.lookupField value="${orderId!}" formName="ReceiveInventoryAgainstPurchaseOrder" name="purchaseOrderId" id="purchaseOrderId" fieldFormName="LookupOrderHeaderAndShipInfo"/></td>
+      <td>${orderId!}</td>
     </tr>
     <tr>
       <td class="label">${uiLabelMap.ProductOrderShipGroupId}</td>
-      <td><input type="text" size="20" name="shipGroupSeqId" value="${shipGroupSeqId!}"/></td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td><input type="submit" value="${uiLabelMap.CommonSelect}" class="smallSubmit"/></td>
+      <td>${shipGroupSeqId!}</td>
     </tr>
   </table>
-</form>
 
 <#if shipment??>
     <#if isPurchaseShipment>
