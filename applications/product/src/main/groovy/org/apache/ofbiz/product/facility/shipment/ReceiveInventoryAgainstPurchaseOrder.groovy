@@ -134,7 +134,9 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     fulfilledReservations = [] as ArrayList
     if (receipts) {
         receipts.each { rec ->
-            orderShipment = from('OrderShipment').where('orderId', orderId, 'orderItemSeqId', orderItem.orderItemSeqId, 'shipGroupSeqId', shipGroupSeqId, 'shipmentId', rec.shipmentId, 'shipmentItemSeqId', rec.shipmentItemSeqId).queryOne()
+            orderShipment = from('OrderShipment')
+                .where('orderId', orderId, 'orderItemSeqId', orderItem.orderItemSeqId, 'shipGroupSeqId', shipGroupSeqId,
+                       'shipmentId', rec.shipmentId, 'shipmentItemSeqId', rec.shipmentItemSeqId).queryOne()
             if (orderShipment) {
                 accepted = rec.getDouble('quantityAccepted')
                 rejected = rec.getDouble('quantityRejected')
