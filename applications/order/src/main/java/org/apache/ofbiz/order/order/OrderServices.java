@@ -2163,6 +2163,12 @@ public class OrderServices {
 
         if (orderItemShipGroupAssocs != null) {
             for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
+                BigDecimal aisgaCancelQuantity = orderItemShipGroupAssoc.getBigDecimal("cancelQuantity");
+                if (aisgaCancelQuantity == null) {
+                    aisgaCancelQuantity = BigDecimal.ZERO;
+                }
+                BigDecimal availableQuantity = orderItemShipGroupAssoc.getBigDecimal("quantity").subtract(aisgaCancelQuantity);
+
                 GenericValue orderItem = null;
                 String itemStatus = "ITEM_CANCELLED";
                 try {
@@ -2175,12 +2181,6 @@ public class OrderServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
                 }
-
-                BigDecimal aisgaCancelQuantity = orderItemShipGroupAssoc.getBigDecimal("cancelQuantity");
-                if (aisgaCancelQuantity == null) {
-                    aisgaCancelQuantity = BigDecimal.ZERO;
-                }
-                BigDecimal availableQuantity = orderItemShipGroupAssoc.getBigDecimal("quantity").subtract(aisgaCancelQuantity);
 
                 BigDecimal itemCancelQuantity = orderItem.getBigDecimal("cancelQuantity");
                 if (itemCancelQuantity == null) {
