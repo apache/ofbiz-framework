@@ -2228,6 +2228,37 @@ public class OrderServices {
                 itemCancelQuantity = itemQuantitiesMap.get(orderItem.getString("orderItemSeqId")).get(1);
                 thisCancelQty = itemQuantitiesMap.get(orderItem.getString("orderItemSeqId")).get(2);
 
+                fields.put("orderItemSeqId", orderItemShipGroupAssoc.getString("orderItemSeqId"));
+                fields.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
+                BigDecimal totReceivedQuantity = BigDecimal.ZERO;
+                try {
+                    List<GenericValue> orderShipments = EntityQuery.use(delegator).from("OrderShipment").where(fields).queryList();
+                    Map<String, String> shipmentReceiptCondition = UtilMisc.<String, String>toMap("orderId", orderId);
+                    shipmentReceiptCondition.put("orderItemSeqId", orderItemShipGroupAssoc.getString("orderItemSeqId"));
+                    for (GenericValue orderShipment : orderShipments) {
+                        shipmentReceiptCondition.put("shipmentId", orderShipment.getString("shipmentId"));
+                        shipmentReceiptCondition.put("shipmentItemSeqId", orderShipment.getString("shipmentItemSeqId"));
+                        List<GenericValue> shipmentReceipts = EntityQuery.use(delegator)
+                                                                         .from("ShipmentReceipt")
+                                                                         .where(shipmentReceiptCondition).queryList();
+                        for (GenericValue shipmentReceipt : shipmentReceipts) {
+                            BigDecimal quantityAccepted = shipmentReceipt.getBigDecimal("quantityAccepted");
+                            if (quantityAccepted != null) {
+                                totReceivedQuantity = totReceivedQuantity.add(quantityAccepted);
+                            }
+                            BigDecimal quantityRejected = shipmentReceipt.getBigDecimal("quantityRejected");
+                            if (quantityRejected != null) {
+                                totReceivedQuantity = totReceivedQuantity.add(quantityRejected);
+                            }
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, MODULE);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
+                            "OrderErrorCannotGetShipmentReceipts", UtilMisc.toMap("itemMsgInfo", itemMsgInfo), locale));
+                }
+                availableQuantity = availableQuantity.subtract(totReceivedQuantity);
+
                 if (availableQuantity.compareTo(thisCancelQty) >= 0) {
                     if (availableQuantity.compareTo(BigDecimal.ZERO) == 0) {
                         continue;  //OrderItemShipGroupAssoc already cancelled
