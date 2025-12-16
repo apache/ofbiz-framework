@@ -20,6 +20,7 @@ package org.apache.ofbiz.widget.renderer.macro.renderable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Class for composing multiple RenderableFtl objects in a sequence.
@@ -32,8 +33,8 @@ public final class RenderableFtlSequence implements RenderableFtl {
     }
 
     @Override
-    public void accept(final RenderableFtlVisitor visitor) {
-        renderableFtls.forEach(renderableFtl -> renderableFtl.accept(visitor));
+    public void accept(final RenderableFtlVisitor visitor, Locale locale) {
+        renderableFtls.forEach(renderableFtl -> renderableFtl.accept(visitor, locale));
     }
 
     public static RenderableFtlSequenceBuilder builder() {

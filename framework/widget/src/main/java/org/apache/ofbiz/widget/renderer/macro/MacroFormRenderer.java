@@ -144,7 +144,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void writeFtlElement(final Appendable writer, final RenderableFtl renderableFtl) {
-        ftlWriter.processFtl(writer, renderableFtl);
+        ftlWriter.processFtl(writer, null, renderableFtl);
+    }
+
+    public void writeFtlElement(final Appendable writer, Locale locale, final RenderableFtl renderableFtl) {
+        ftlWriter.processFtl(writer, locale, renderableFtl);
     }
 
     private void executeMacro(Appendable writer, String macro) {
@@ -260,7 +264,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) {
-        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateTime(context, dateTimeField));
+        writeFtlElement(writer, (Locale) context.get("locale"), renderableFtlFormElementsBuilder.dateTime(context, dateTimeField));
 
         final ModelFormField modelFormField = dateTimeField.getModelFormField();
         this.addAsterisks(writer, context, modelFormField);
@@ -1374,7 +1378,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) {
-        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateFind(context, dateFindField));
+        writeFtlElement(writer, (Locale) context.get("locale"), renderableFtlFormElementsBuilder.dateFind(context, dateFindField));
 
         final ModelFormField modelFormField = dateFindField.getModelFormField();
         this.appendTooltip(writer, context, modelFormField);
@@ -1382,7 +1386,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     @Override
     public void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField dateRangePickerField) {
-        writeFtlElement(writer, renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField));
+        writeFtlElement(writer, (Locale) context.get("locale"), renderableFtlFormElementsBuilder.dateRangePicker(context, dateRangePickerField));
 
         final ModelFormField modelFormField = dateRangePickerField.getModelFormField();
         this.appendTooltip(writer, context, modelFormField);
@@ -2000,13 +2004,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
     @Override
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupOpen(context, fieldGroup);
-        ftlWriter.processFtl(writer, renderableFtl);
+        ftlWriter.processFtl(writer, (Locale) context.get("locale"), renderableFtl);
     }
 
     @Override
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
         final RenderableFtl renderableFtl = renderableFtlFormElementsBuilder.fieldGroupClose(context, fieldGroup);
-        ftlWriter.processFtl(writer, renderableFtl);
+        ftlWriter.processFtl(writer, (Locale) context.get("locale"), renderableFtl);
     }
 
     @Override
