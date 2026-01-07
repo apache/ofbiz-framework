@@ -5,11 +5,9 @@ import static org.apache.ofbiz.base.util.tool.UtilCacheTestTools.createListener
 import org.apache.ofbiz.base.util.cache.UtilCache
 import org.apache.ofbiz.base.util.tool.UtilCacheTestTools.Listener
 import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.junit.Test
 import org.junit.jupiter.api.BeforeAll
 
-/**
- * ./gradlew test --tests '*UtilCacheTest'
- */
 // codenarc-disable JUnitLostTest
 class UtilCacheTest extends OFBizTestCase {
 
@@ -77,6 +75,7 @@ class UtilCacheTest extends OFBizTestCase {
     }
 
     // codenarc-disable JUnitTestMethodWithoutAssert
+    @Test
     void testCreateUtilCache() {
         doUtilCacheCreateTest(UtilCache.createUtilCache(), null, null, null, null)
         doUtilCacheCreateTest(UtilCache.createUtilCache(name), null, null, null, null)
@@ -93,6 +92,7 @@ class UtilCacheTest extends OFBizTestCase {
     }
     // codenarc-enable JUnitTestMethodWithoutAssert
 
+    @Test
     void testCacheGetterOnCreation() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         assert UtilCache.getUtilCacheTableKeySet().contains(name)
@@ -101,6 +101,7 @@ class UtilCacheTest extends OFBizTestCase {
                 name, myCache.sizeLimit, myCache.maxInMemory, myCache.expireTime, myCache.useSoftReference)
     }
 
+    @Test
     void testCacheCreateEntry() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         Listener myCacheListener = createListener(myCache)
@@ -115,6 +116,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener == controlListener
     }
 
+    @Test
     void testCacheCreateEntryWithNullKey() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         Listener myCacheListener = createListener(myCache)
@@ -128,6 +130,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener == controlListener
     }
 
+    @Test
     void testCacheUpdateEntry() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         Listener myCacheListener = createListener(myCache)
@@ -148,6 +151,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener == controlListener
     }
 
+    @Test
     void testRemoveCacheEntry() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         Listener myCacheListener = createListener(myCache)
@@ -167,6 +171,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener == controlListener
     }
 
+    @Test
     void testSetExpireCache() {
         UtilCache myCache = UtilCache.createUtilCache(name, 5, 0, 0, false)
         Listener myCacheListener = createListener(myCache)
@@ -185,6 +190,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener == controlListener
     }
 
+    @Test
     void testChangeMemorySize() {
         int size = 5
         UtilCache<String, Serializable> myCache = UtilCache.createUtilCache(name, size, size, 0, false)
@@ -206,6 +212,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCache.values().containsAll(controlMap.values())
     }
 
+    @Test
     void testPutIfAbsent() {
         UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 1, 1, 0, false)
         Listener myCacheListener = createListener(myCache)
@@ -225,6 +232,7 @@ class UtilCacheTest extends OFBizTestCase {
         assert myCacheListener == controlListener
     }
 
+    @Test
     void testPutIfAbsentAndGet() {
         UtilCache<String, String> myCache = UtilCache.createUtilCache(name, 1, 1, 0, false)
         Listener myCacheListener = createListener(myCache)
