@@ -801,6 +801,7 @@ under the License.
                  </#if>
                <#else>
                  <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
+                 <#if "ORDER_APPROVED" == orderHeader.statusId>
                  <#if facilities?has_content>
                      <div>
                       <form name="createShipment2_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
@@ -834,6 +835,7 @@ under the License.
                           <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED" />
                           <input type="hidden" name="externalLoginKey" value="${externalLoginKey}" />
                       </form>
+                 </#if>
                  </#if>
                </#if>
               </td>
