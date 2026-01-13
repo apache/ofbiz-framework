@@ -289,8 +289,10 @@ public final class ModelFormField {
     }
 
     public String getEntry(Map<String, ? extends Object> context, String defaultValue) {
-        Boolean useRequestParameters = (Boolean) context.getOrDefault("useRequestParameters", UtilGenerics.cast(Boolean.TRUE))
-                && (Boolean) context.getOrDefault("useRequestParameters." + modelForm.getName(), UtilGenerics.cast(Boolean.TRUE));
+        Boolean isError = (Boolean) context.get("isError");
+        Boolean useRequestParametersGlobal = (Boolean) context.get("useRequestParameters");
+        Boolean useRequestParametersSpecific = (Boolean) context.get("useRequestParameters." + modelForm.getName());
+        Boolean useRequestParameters = useRequestParametersSpecific != null ? useRequestParametersSpecific : useRequestParametersGlobal;
 
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
@@ -305,7 +307,8 @@ public final class ModelFormField {
 
         String returnValue;
 
-        if (useRequestParameters) {
+        if ((Boolean.TRUE.equals(isError) && !Boolean.FALSE.equals(useRequestParameters))
+                || (Boolean.TRUE.equals(useRequestParameters))) {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
             String parameterName = this.getParameterName(context);
             if (parameters != null && parameters.get(parameterName) != null) {
