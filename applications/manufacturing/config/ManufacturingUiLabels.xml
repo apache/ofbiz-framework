@@ -5558,6 +5558,20 @@
         <value xml:lang="zh">工人</value>
         <value xml:lang="zh-TW">工作者</value>
     </property>
+    <property key="PageTitleAddCalendarExceptionDay">
+        <value xml:lang="de">Kalender-Ausnahmetag hinzufügen</value>
+        <value xml:lang="en">Add Calendar Exception Day</value>
+        <value xml:lang="es">Añadir día de excepción del calendario</value>
+        <value xml:lang="fr">Ajouter un jour d’exception au calendrier</value>
+        <value xml:lang="it">Aggiungi Giorno di Eccezione del Calendario</value>
+        <value xml:lang="ja">カレンダ除外日を追加</value>
+        <value xml:lang="nl">Uitzonderingsdag toevoegen</value>
+        <value xml:lang="pt-BR">Adicionar dia de exceção ao calendário</value>
+        <value xml:lang="th">เพิ่มวันยกเว้นในปฏิทิน</value>
+        <value xml:lang="vi">Thêm ngày ngoại lệ trong lịch</value>
+        <value xml:lang="zh">添加日历例外日</value>
+        <value xml:lang="zh-TW">增加日曆例外日</value>
+    </property>
     <property key="PageTitleAddCalendarExceptionWeek">
         <value xml:lang="de">Kalender-Ausnahme-Woche hinzufügen</value>
         <value xml:lang="en">Add Calendar Exception Week</value>
