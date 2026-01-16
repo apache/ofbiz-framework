@@ -302,9 +302,6 @@ sourceSets {
         // If a groovy test is supposed to be tested this way, it can be added here.
         groovy {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
-            include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
-            include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.groovy'
-            include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
         }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
@@ -371,6 +368,7 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
+    useJUnit()
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
