@@ -54,6 +54,8 @@ context.isPurchaseShipment = isPurchaseShipment
 if (!isPurchaseShipment) {
     return
 }
+isShipmentReceived = shipment.statusId == 'PURCH_SHIP_RECEIVED'
+context.isShipmentReceived = isShipmentReceived
 
 facility = shipment.getRelatedOne('DestinationFacility', false)
 context.facility = facility
