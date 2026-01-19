@@ -127,7 +127,7 @@ under the License.
                         <#assign backOrderedQuantity = orderItemData.backOrderedQuantity?default(0)>
                         <#assign fulfilledReservations = orderItemData.fulfilledReservations>
                         <tr id="orderItemData_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                            <td>${(product.internalName)!} [${orderItem.productId?default("N/A")}]</div></td>
+                            <td>${(product.internalName)!} [${orderItem.productId?default("N/A")}]</td>
                             <td>
                                 <div>
                                     <#assign upcaLookup = Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productId", product.productId, "goodIdentificationTypeId", "UPCA")/>
@@ -140,7 +140,7 @@ under the License.
                             <td>${orderItemData.ordered}</td>
                             <td>${orderItemData.cancelled?default(0)}</td>
                             <td>
-                                <div ${(backOrderedQuantity &gt; 0)?string(" errorMessage","")}">
+                                <div class="${(backOrderedQuantity &gt; 0)?string("errorMessage","")}">
                                     ${backOrderedQuantity}
                                 </div>
                             </td>
