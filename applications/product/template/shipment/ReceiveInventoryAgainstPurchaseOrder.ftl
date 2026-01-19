@@ -203,14 +203,14 @@ under the License.
                     </#list>
                     <#if itemsAvailableToReceive>
                         <#if !isShipmentReceived>
-                        <tr>
-                            <td colspan="11" align="right">
-                                <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&amp;purchaseOrderId=${orderId}&amp;clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
-                            </td>
-                            <td align="right">
-                                <a class="smallSubmit" href="javascript:populateQuantities(${rowCount - 1});document.selectAllForm.submit();">${uiLabelMap.ProductReceiveItem}</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="11" align="right">
+                                    <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&amp;purchaseOrderId=${orderId}&amp;clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
+                                </td>
+                                <td align="right">
+                                    <a class="smallSubmit" href="javascript:populateQuantities(${rowCount - 1});document.selectAllForm.submit();">${uiLabelMap.ProductReceiveItem}</a>
+                                </td>
+                            </tr>
                         </#if>
                         <tr>
                             <td colspan="12" align="right">
