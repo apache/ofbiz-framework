@@ -167,6 +167,9 @@ tasks.withType(JavaCompile) {
     }
 }
 
+// Enables Zip larger than 4 GB and more than 65535 entries
+tasks.withType(Zip) { zip64 = true }
+
 // Only used for release branches
 def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
