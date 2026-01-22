@@ -102,7 +102,7 @@ function bindObservers(bind_element) {
     // Adding observer for checkboxes for select all action.
     jQuery(bind_element).on("click", "[type=checkbox]", function () {
         var action_checkbox = jQuery(this),
-            parent_action = action_checkbox.is(".selectAll") ? action_checkbox : action_checkbox.getForm().getFormFields().filter(".selectAll");
+            parent_action = action_checkbox.is(".selectAll") ? action_checkbox : getFormFields(getForm(action_checkbox)).filter(".selectAll");
         if (parent_action.length !== 0) {
             addSelectAllObserver(action_checkbox);
         }
@@ -236,7 +236,7 @@ function bindObservers(bind_element) {
     });
     jQuery(bind_element).find("[data-lookup-presentation]").each(function () {
         var element = jQuery(this);
-        var form = element._form();
+        var form = getForm(this);
         var formName = form.attr("name");
         if (!formName) {
             console.log("Developer: For lookups to work you must provide a form name!");
@@ -452,7 +452,7 @@ function initDateTimePicker(self) {
 
 // addSelectAllObserver: This function will add observers to checkboxes which belongs to select all functionality.
 function addSelectAllObserver(action_checkbox) {
-    var form_fields = jQuery(action_checkbox).getForm().getFormFields(),
+    var form_fields = getFormFields(getForm(action_checkbox));
         all_child = form_fields.filter(":checkbox:not(:disabled):not(.selectAll)"),
         select_child = all_child.filter(".selectAllChild").size() > 0 ? all_child.filter(".selectAllChild") : all_child,
         parent_checkbox = form_fields.filter(".selectAll"),
@@ -485,23 +485,23 @@ function addSelectAllObserver(action_checkbox) {
 }
 
 // getFormFields: This utility function return all form fields (inside and outside form)
-jQuery.fn.getFormFields = function () {
-    var id = jQuery(this).attr("id");
+function getFormFields(element) {
+    const id = jQuery(element).attr('id');
     if (id === undefined) {
-        return jQuery(this).find(":input");
+        return jQuery(element).find(':input');
     } else {
-        return jQuery.merge(jQuery(this).find(":input"), jQuery(":input[form=" + id + "]"));
+        return jQuery.merge(jQuery(element).find(':input'), jQuery(':input[form=' + id + ']'));
     }
 }
 
 // getForm: This utility function return form of the field.
-jQuery.fn.getForm = function () {
-    var form_id = jQuery(this).attr("form");
+function getForm(element) {
+    const formId = jQuery(element).attr('form');
     // Get closest form if no form id specified else get the form using id.
-    if (form_id === undefined) {
-        return jQuery(this).closest("form");
+    if (formId === undefined) {
+        return jQuery(element).closest('form');
     } else {
-        return jQuery("#" + form_id);
+        return jQuery('#' + formId);
     }
 }
 
