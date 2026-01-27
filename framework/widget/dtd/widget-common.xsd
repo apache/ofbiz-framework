@@ -335,6 +335,7 @@ under the License.
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="condition-expr" />
+                <xs:element ref="condition-date" />
                 <xs:element ref="condition-list" />
                 <xs:element ref="condition-object" />
             </xs:choice>
@@ -352,6 +353,7 @@ under the License.
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="condition-expr" />
+                <xs:element ref="condition-date" />
                 <xs:element ref="condition-list" />
                 <xs:element ref="condition-object" />
             </xs:choice>
@@ -397,6 +399,35 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="condition-date">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="date-field" />
+            </xs:choice>
+            <xs:attribute type="xs:string" name="from-field">
+                <xs:annotation>
+                    <xs:documentation>
+                        field in context that contains the date to use for filter
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ignore-if-null" type="xs:boolean" default="false"/>
+            <xs:attribute name="ignore-if-empty" type="xs:boolean" default="false"/>
+            <xs:attribute name="ignore" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>
+                        Ignore the condition if flag is true.
+                        Defaults to false.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="date-field">
+        <xs:complexType>
+            <xs:attribute name="field-name" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="condition-object">

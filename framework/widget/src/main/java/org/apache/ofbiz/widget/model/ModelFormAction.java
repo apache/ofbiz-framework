@@ -49,10 +49,13 @@ public abstract class ModelFormAction {
         List<ModelAction> actions = new ArrayList<>(actionElementList.size());
         for (Element actionElement : UtilXml.childElementList(parentElement)) {
             String nodeName = actionElement.getLocalName();
-            if ("service".equals(nodeName)) {
+            switch (nodeName) {
+            case "service":
                 actions.add(new Service(modelForm, actionElement));
-            } else if ("entity-and".equals(nodeName) || "entity-condition".equals(nodeName)
-                    || "get-related".equals(nodeName)) {
+                break;
+            case "entity-and":
+            case "entity-condition":
+            case "get-related":
                 if (!actionElement.hasAttribute("list")) {
                     String listName = modelForm.getListName();
                     if (UtilValidate.isEmpty(listName)) {
@@ -61,9 +64,11 @@ public abstract class ModelFormAction {
                     actionElement.setAttribute("list", listName);
                 }
                 actions.add(AbstractModelAction.newInstance(modelForm, actionElement));
-            } else if ("call-parent-actions".equals(nodeName)) {
+                break;
+            case "call-parent-actions":
                 actions.add(new CallParentActions(modelForm, actionElement));
-            } else {
+                break;
+            default:
                 actions.add(AbstractModelAction.newInstance(modelForm, actionElement));
             }
         }
