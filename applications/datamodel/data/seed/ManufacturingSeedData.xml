@@ -52,4 +52,8 @@ under the License.
     <Enumeration description="Predecessor" enumCode="PREDECESSOR" enumId="WF_PREDECESSOR" enumTypeId="WORKFLOW" sequenceId="1"/>
     <Enumeration description="Successor" enumCode="SUCCESSOR" enumId="WF_SUCCESSOR" enumTypeId="WORKFLOW" sequenceId="2"/>
 
+    <!-- Rate Type for Labor Cost Data -->
+    <RateType rateTypeId="FLC" description="Fully Loaded Cost (price for WorkEffort)"/>
+
+
 </entity-engine-xml>
