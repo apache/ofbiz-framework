@@ -81,7 +81,7 @@ public final class WebSiteProperties {
         Assert.notNull("request", request);
         WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
         if (webSiteProps == null) {
-            Boolean addPortoffset = true;
+            Boolean addPortoffset = false;
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (delegator != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
@@ -94,6 +94,7 @@ public final class WebSiteProperties {
             }
             if (webSiteProps == null) {
                 webSiteProps = new WebSiteProperties(delegator);
+                addPortoffset = true;
             }
             if (webSiteProps.getHttpPort().isEmpty() && !request.isSecure()) {
                 webSiteProps = webSiteProps.updateHttpPort(String.valueOf(request.getServerPort()));
@@ -103,7 +104,6 @@ public final class WebSiteProperties {
             }
             if (webSiteProps.getHttpsPort().isEmpty() && request.isSecure()) {
                 webSiteProps = webSiteProps.updateHttpsPort(String.valueOf(request.getServerPort()));
-                addPortoffset = false; // We take the port from the request, don't add the portOffset
             }
             if (webSiteProps.getHttpsHost().isEmpty()) {
                 webSiteProps = webSiteProps.updateHttpsHost(request.getServerName());
