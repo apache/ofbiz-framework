@@ -75,7 +75,7 @@ under the License.
   <table class="basic-table" cellspacing="0">
     <tr>
       <td class="label">${uiLabelMap.ProductOrderId}</td>
-      <td>${orderId!}</td>
+      <td><#if orderId??><a href="<@ofbizUrl controlPath="/ordermgr/control">orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</a></#if></td>
     </tr>
     <tr>
       <td class="label">${uiLabelMap.ProductOrderShipGroupId}</td>
