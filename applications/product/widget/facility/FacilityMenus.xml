@@ -399,6 +399,20 @@ under the License.
                 <parameter param-name="shipmentId"/>
             </link>
         </menu-item>
+        <menu-item name="ReceiveInventoryAgainstPurchaseOrder" title="${uiLabelMap.ProductReceiveInventoryAgainstPO}">
+            <condition>
+                <and>
+                    <not><if-empty field="facility"/></not>
+                    <not><if-empty field="shipment"/></not>
+                    <not><if-empty field="shipment.primaryOrderId"/></not>
+                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT" />
+                </and>
+            </condition>
+            <link target="ReceiveInventoryAgainstPurchaseOrder">
+                <parameter param-name="shipmentId"/>
+                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="ShipmentActionBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductReceiveInventory}">
@@ -414,26 +428,6 @@ under the License.
                 <parameter param-name="facilityId" from-field="facility.facilityId"/>
                 <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
                 <parameter param-name="initialSelected" value="Y"/>
-            </link>
-        </menu-item>
-        <menu-item name="ReceiveInventoryAgainstPurchaseOrder" title="${uiLabelMap.ProductReceiveInventoryAgainstPO}">
-            <condition>
-                <and>
-                    <not><if-empty field="facility"/></not>
-                    <not><if-empty field="shipment"/></not>
-                    <not><if-empty field="shipment.primaryOrderId"/></not>
-                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT" />
-                </and>
-            </condition>
-            <link target="ReceiveInventoryAgainstPurchaseOrder">
-                <parameter param-name="shipmentId"/>
-                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ReceiveInventoryAgainstPurchaseOrder" title="${uiLabelMap.ProductReceiveInventoryAgainstPO}">
-            <link target="ReceiveInventoryAgainstPurchaseOrder">
-                <parameter param-name="shipmentId"/>
-                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
             </link>
         </menu-item>
         <menu-item name="CreateShipmentNote" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNote}">
