@@ -670,15 +670,11 @@ function ajaxUpdateArea(areaId, target, targetParams) {
 
 function updateArea(areaId, data) {
     // If the area is indicate as embedded why replace the area instead inject into
-    var bindObserversArea = "#" + areaId
     if (/^embedded/.test(areaId)) {
         jQuery("#" + areaId).replaceWith(data);
-        const newContentId = $(data).filter('.embeddedScreen').attr('id');
-        bindObserversArea = "#" + newContentId;
     } else {
         jQuery("#" + areaId).html(data);
     }
-    bindObservers(bindObserversArea);
 }
 
 /** Update multiple areas (HTML container elements).
@@ -851,6 +847,12 @@ function ajaxSubmitFormUpdateAreas(formName, areaCsvString, close) {
                 areaId = $form[0].target
             }
             updateArea(areaId, data)
+            var bindObserversArea = "#" + areaId
+            if (/^embedded/.test(areaId)) {
+                const newContentId = $(data).filter('.embeddedScreen').attr('id');
+                bindObserversArea = "#" + newContentId;
+            }
+            bindObservers(bindObserversArea);
         } else {
             if (containsErrorMessages(data)) {
                 displayErrorMessages(data)
