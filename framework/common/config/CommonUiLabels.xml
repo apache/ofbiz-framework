@@ -13729,6 +13729,15 @@
         <value xml:lang="zh-CN">邮编</value>
         <value xml:lang="zh-TW">郵遞區號</value>
     </property>
+    <property key="CommonTypeToFilter">
+        <value xml:lang="ar">تصفية</value>
+        <value xml:lang="de">filtern</value>
+        <value xml:lang="en">filter</value>
+        <value xml:lang="es">filtrar</value>
+        <value xml:lang="es-CL">filtrar</value>
+        <value xml:lang="es-MX">filtrar</value>
+        <value xml:lang="fr">filtrer</value>
+    </property>
     <property key="Content">
         <value xml:lang="ar">المحتوى</value>
         <value xml:lang="cs">Obsah</value>
