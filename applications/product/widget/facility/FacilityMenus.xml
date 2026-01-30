@@ -414,31 +414,4 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    <menu name="ShipmentActionBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductReceiveInventory}">
-            <condition>
-                <and>
-                    <not><if-empty field="facility"/></not>
-                    <not><if-empty field="shipment"/></not>
-                    <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT" />
-                </and>
-            </condition>
-            <link target="ReceiveInventory">
-                <parameter param-name="shipmentId"/>
-                <parameter param-name="facilityId" from-field="facility.facilityId"/>
-                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
-                <parameter param-name="initialSelected" value="Y"/>
-            </link>
-        </menu-item>
-        <menu-item name="CreateShipmentNote" title="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNote}">
-            <link target="CreateShipmentNote">
-                <parameter param-name="shipmentId"/>
-            </link>
-        </menu-item>
-        <menu-item name="CreateManifest" title="${uiLabelMap.ProductGenerateShipmentManifestReport}">
-            <link target="ShipmentManifest.pdf" target-window="_BLANK">
-                <parameter param-name="shipmentId"/>
-            </link>
-        </menu-item>
-    </menu>
 </menus>
