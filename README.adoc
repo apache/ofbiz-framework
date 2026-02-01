@@ -114,7 +114,7 @@ the command line at the OFBiz top level directory (folder).
 MS Windows: `init-gradle-wrapper`
 [IMPORTANT]
 ====
-* If you cross the error
+* If you encounter an error 
 [quote]
 ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
