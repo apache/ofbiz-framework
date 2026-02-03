@@ -573,14 +573,8 @@ public final class ModelReader implements Serializable {
 
             if (UtilValidate.isNotEmpty(packageFilterSet)) {
                 // does it match any of these?
-                boolean foundMatch = false;
-                for (String packageFilter : packageFilterSet) {
-                    if (packageName.contains(packageFilter)) {
-                        foundMatch = true;
-                    }
-                }
-                if (!foundMatch) {
-                    // Debug.logInfo("Not including entity " + entityName + " becuase it is not in
+                if (packageFilterSet.stream().noneMatch(packageName::contains)) {
+                    // Debug.logInfo("Not including entity " + entityName + " because it is not in
                     // the package set: " + packageFilterSet, MODULE);
                     continue;
                 }

@@ -32,7 +32,7 @@ under the License.
 <#if calendarExceptionDay?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PageTitleEditCalendarExceptionWeek}</h3>
+    <h3>${uiLabelMap.PageTitleEditCalendarExceptionDay}</h3>
   </div>
   <div class="screenlet-body">
     ${setRequestAttribute("calendarExceptionDay", calendarExceptionDay!)}
@@ -42,7 +42,7 @@ under the License.
 </#if>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PageTitleAddCalendarExceptionWeek}</h3>
+    <h3>${uiLabelMap.PageTitleAddCalendarExceptionDay}</h3>
   </div>
   <div class="screenlet-body">
     ${setRequestAttribute("techDataCalendar", techDataCalendar!)}

@@ -83,9 +83,9 @@ component-name-here/
 ├── servicedef           - Defined services.
 ├── src/
     ├── docs/            - component documentation source
-    └── main/groovy/     - A collection of scripts written in Groovy
+    └── main/groovy/     - A collection of scripts written in Groovy for integration tests (needs DB access or simply creation of delegator or dispatcher that ultimately needs use of dispatcherFactory)
     └── main/java/       - java source code
-    └── test/groovy/     - A collection of scripts written in Groovy
+    └── test/groovy/     - A collection of scripts written in Groovy for unit-tests  (no DB access need, or simply creation of delegator or dispatcher that ultimately needs use of dispatcherFactory)
     └── test/java/       - java unit-tests
 ├── testdef              - Defined integration-tests
 ├── webapp               - One or more Java webapps including the control servlet

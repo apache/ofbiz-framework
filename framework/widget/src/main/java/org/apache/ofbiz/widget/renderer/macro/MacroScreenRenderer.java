@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,6 +40,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -271,8 +271,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String targetWindow = link.getTargetWindow(context);
         String target = link.getTarget(context);
 
-        String uniqueItemName = link.getModelScreen().getName() + "_LF_"
-                + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
+        String uniqueItemName = UtilRandom.getUnique(link.getModelScreen().getName() + "_", true);
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         String actionUrl = "";

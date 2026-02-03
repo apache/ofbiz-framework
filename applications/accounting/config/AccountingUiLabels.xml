@@ -7998,6 +7998,10 @@
         <value xml:lang="zh">发票[${invoiceId}有${invoiceApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="zh-TW">發票[${invoiceId}有${invoiceApplyAvailable?currency(${isoCode})}要應用,但是請求的是${amountApplied?currency(${isoCode})}</value>
     </property>
+    <property key="AccountingInvoiceNoteAdded">
+        <value xml:lang="en">Invoice note added</value>
+        <value xml:lang="fr">Note de facture ajoutée</value>
+    </property>
     <property key="AccountingInvoiceNotEnough">
         <value xml:lang="ar">المبلغ المطلوب ${tooMuch?currency(${isoCode})} هو كثير جدا لهذه الفاتورة [${invoiceId}]</value>
         <value xml:lang="cs">Požadovaná částka ${tooMuch?currency(${isoCode})} je příliš vysoká pro fakturu [${invoiceId}]</value>

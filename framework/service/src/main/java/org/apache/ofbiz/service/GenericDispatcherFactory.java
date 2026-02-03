@@ -20,7 +20,6 @@ package org.apache.ofbiz.service;
 
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 
@@ -44,6 +43,7 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
         // ServiceDispatcher with name "dispatcherName"
         if (dispatcher == null) {
             dispatcher = new GenericDispatcher(name, delegator);
+            dispatcher.initDispatchContext();
         }
         return dispatcher;
     }
@@ -51,24 +51,8 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
     // The default LocalDispatcher implementation.
     private static final class GenericDispatcher extends GenericAbstractDispatcher {
         private GenericDispatcher(String name, Delegator delegator) {
-            ClassLoader loader;
-            try {
-                loader = Thread.currentThread().getContextClassLoader();
-            } catch (SecurityException e) {
-                loader = this.getClass().getClassLoader();
-            }
             this.setName(name);
             this.setDispatcher(ServiceDispatcher.getInstance(delegator));
-            /*
-             * FIXME: "this" reference escape. DispatchContext constructor uses
-             * this object before it is fully constructed.
-             */
-            DispatchContext ctx = new DispatchContext(name, loader, this);
-            this.getDispatcher().register(ctx);
-            this.setCtx(ctx);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("[GenericDispatcher] : Created Dispatcher for: " + name, MODULE);
-            }
         }
 
         @Override

@@ -170,8 +170,9 @@ public class ControlFilter extends HttpFilter {
         String context = req.getContextPath();
         HttpSession session = req.getSession();
         boolean isEntityImport = req.getRequestURI().equals("/webtools/control/entityImport");
+        boolean isProgramExport = req.getRequestURI().equals("/webtools/control/ProgramExport");
 
-        if (!(isControlFilterTests() || isEntityImport)) {
+        if (!(isControlFilterTests() || isEntityImport || isProgramExport)) {
             // Prevents stream exploitation
             UrlServletHelper.setRequestAttributes(req, null, req.getServletContext());
             Map<String, Object> parameters = UtilHttp.getParameterMap(req);

@@ -35,8 +35,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import jakarta.servlet.ServletContext;
-
 import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.metrics.Metrics;
@@ -57,6 +55,8 @@ import org.apache.ofbiz.base.util.collections.MultivaluedMapContextAdapter;
 import org.apache.ofbiz.security.CsrfUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.servlet.ServletContext;
 
 /**
  * ConfigXMLReader.java - Reads and parses the XML site config files.
@@ -404,7 +404,8 @@ public final class ConfigXMLReader {
         }
 
         /**
-         * XXX: Keep it for backward compatibility until moving everything to 鈥榞etRequestMapMultiMap鈥�.  @return the request map map
+         * XXX: Keep it for backward compatibility until moving everything to getRequestMapMultiMap.
+         *   @return the request map
          */
         public Map<String, RequestMap> getRequestMapMap() {
             return new MultivaluedMapContextAdapter<>(getRequestMapMultiMap());

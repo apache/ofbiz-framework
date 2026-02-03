@@ -63,7 +63,7 @@ public class TokenFilter implements Filter {
         String token = JWTManager.getHeaderAuthBearerToken(httpRequest);
 
         if (UtilValidate.isNotEmpty(token)) {
-            Map<String, Object> result = JWTManager.validateToken(token, JWTManager.getJWTKey(delegator));
+            Map<String, Object> result = JWTManager.validateToken(delegator, token);
             String userLoginId = (String) result.get("userLoginId");
             if (UtilValidate.isNotEmpty(result.get(ModelService.ERROR_MESSAGE))) {
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

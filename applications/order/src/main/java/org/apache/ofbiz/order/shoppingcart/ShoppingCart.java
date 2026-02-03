@@ -942,16 +942,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Ensure item total quantity */
-    public void ensureItemsQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity)
-            throws CartItemModifyException {
-        for (ShoppingCartItem item : cartItems) {
-            if (item.getQuantity() != quantity) {
-                item.setQuantity(quantity, dispatcher, this);
-            }
-        }
-    }
-
-    /** Ensure item total quantity */
     public BigDecimal ensureItemsTotalQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity)
             throws CartItemModifyException {
         BigDecimal quantityRemoved = BigDecimal.ZERO;

@@ -611,16 +611,20 @@ Map createPaymentFromOrder() {
     GenericValue orderHeader = from('OrderHeader').where(parameters).queryOne()
     if (orderHeader) {
         if (orderHeader.orderTypeId == 'PURCHASE_ORDER') {
-            String purchaseAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.purchaseorder.autocreate', 'Y')
+            String purchaseAutoCreate = EntityUtilProperties.getPropertyValue('accounting',
+                    'accounting.payment.purchaseorder.autocreate', 'Y', delegator)
             if (purchaseAutoCreate != 'Y') {
-                return error('payment not created from approved order because config' +
-                        ' (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
+                logInfo('payment not created from approved order because config' +
+                        '(accounting.payment.purchaseorder.autocreate) is not set to Y (accounting.properties)')
+                return success()
             }
         } else if (orderHeader.orderTypeId == 'SALES_ORDER') {
-            String salesAutoCreate = UtilProperties.getPropertyValue('accounting', 'accounting.payment.salesorder.autocreate', 'Y')
+            String salesAutoCreate = EntityUtilProperties.getPropertyValue('accounting',
+                    'accounting.payment.salesorder.autocreate', 'Y', delegator)
             if (salesAutoCreate != 'Y') {
-                return error('payment not created from approved order because config' +
+                logInfo('payment not created from approved order because config' +
                         ' (accounting.payment.salesorder.autocreate) is not set to Y (accounting.properties)')
+                return success()
             }
         }
 

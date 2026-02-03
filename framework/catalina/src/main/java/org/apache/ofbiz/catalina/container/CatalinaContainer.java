@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -260,7 +261,7 @@ public class CatalinaContainer implements Container {
         }
 
         virtualHosts.stream()
-            .filter(virtualHost -> virtualHost != hostName).forEach(virtualHost -> host.addAlias(virtualHost));
+            .filter(virtualHost -> !Objects.equals(virtualHost, hostName)).forEach(virtualHost -> host.addAlias(virtualHost));
 
         return host;
     }

@@ -192,6 +192,11 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
+        <menu-item name="ViewMaritalStatus" title="${uiLabelMap.PartyMaritalStatus}">
+            <link target="EditMaritalStatus">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2">
         <menu-item name="createNew" title="${uiLabelMap.AccountingBillingAccount}" >

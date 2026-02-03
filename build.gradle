@@ -167,6 +167,9 @@ tasks.withType(JavaCompile) {
     }
 }
 
+// Enables Zip larger than 4 GB and more than 65535 entries
+tasks.withType(Zip) { zip64 = true }
+
 // Only used for release branches
 def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
@@ -204,10 +207,6 @@ allprojects {
         }
         maven {
             url 'https://clojars.org/repo'
-        }
-        maven {
-            // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
-            url "https://repository.ow2.org/nexus/content/repositories/public/"
         }
         maven {
             url "https://artifacts.alfresco.com/nexus/content/repositories/public/"
@@ -282,7 +281,7 @@ def excludedJavaSources = [
 ]
 
 sourceSets {
-    // This is for integration tests (DB access)
+    // This is for integration tests (needs DB access or simply creation of delegator or dispatcher that ultimately needs use of dispatcherFactory)
     main {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
@@ -297,21 +296,15 @@ sourceSets {
             srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
         }
     }
-    // This is for unit tests  (no DB access)
+    // This is for unit tests  (no DB access need, or simply creation of delegator or dispatcher that ultimately needs use of dispatcherFactory)
     test {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
         }
-        // Groovy tests often fail, because JUNIT does not have access to the ofbiz enviroment.
+        // Groovy tests often fail, because JUNIT does not have access to the ofbiz environment.
         // If a groovy test is supposed to be tested this way, it can be added here.
         groovy {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
-            include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
-            include 'org/apache/ofbiz/test/TestServices.groovy'
-            include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.groovy'
-            include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
-            include 'org/apache/ofbiz/service/test/ServicePurgeTest.groovy'
-            include 'org.apache.ofbiz.base.test.SimpleTests.groovy'
         }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
@@ -378,6 +371,7 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
+    useJUnit()
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 

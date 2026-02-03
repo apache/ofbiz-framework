@@ -20,7 +20,6 @@ package org.apache.ofbiz.product.store;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -241,10 +240,7 @@ public final class ProductStoreWorker {
 
     public static List<GenericValue> getAvailableStoreShippingMethods(Delegator delegator, String productStoreId, GenericValue shippingAddress,
             List<BigDecimal> itemSizes, Map<String, BigDecimal> featureIdMap, BigDecimal weight, BigDecimal orderTotal) {
-        if (featureIdMap == null) {
-            featureIdMap = new HashMap<>();
-        }
-        List<GenericValue> shippingMethods = null;
+        List<GenericValue> shippingMethods;
         try {
             shippingMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId",
                     productStoreId).orderBy("sequenceNumber").cache(true).queryList();
@@ -287,31 +283,13 @@ public final class ProductStoreWorker {
                 BigDecimal minSize = method.getBigDecimal("minSize");
                 BigDecimal maxSize = method.getBigDecimal("maxSize");
                 if (minSize != null && minSize.compareTo(BigDecimal.ZERO) > 0) {
-                    boolean allMatch = false;
-                    if (itemSizes != null) {
-                        allMatch = true;
-                        for (BigDecimal size: itemSizes) {
-                            if (size.compareTo(minSize) < 0) {
-                                allMatch = false;
-                            }
-                        }
-                    }
-                    if (!allMatch) {
+                    if (itemSizes == null || itemSizes.stream().anyMatch(size -> size.compareTo(minSize) < 0)) {
                         returnShippingMethods.remove(method);
                         continue;
                     }
                 }
                 if (maxSize != null && maxSize.compareTo(BigDecimal.ZERO) > 0) {
-                    boolean allMatch = false;
-                    if (itemSizes != null) {
-                        allMatch = true;
-                        for (BigDecimal size: itemSizes) {
-                            if (size.compareTo(maxSize) > 0) {
-                                allMatch = false;
-                            }
-                        }
-                    }
-                    if (!allMatch) {
+                    if (itemSizes == null || itemSizes.stream().anyMatch(size -> size.compareTo(maxSize) > 0)) {
                         returnShippingMethods.remove(method);
                         continue;
                     }
@@ -394,18 +372,12 @@ public final class ProductStoreWorker {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + includeFeatures, MODULE);
                     }
-                    if (includedFeatures != null) {
-                        boolean foundOne = false;
-                        for (GenericValue appl: includedFeatures) {
-                            if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
-                                foundOne = true;
-                                break;
-                            }
-                        }
-                        if (!foundOne) {
-                            returnShippingMethods.remove(method);
-                            continue;
-                        }
+                    if (includedFeatures != null
+                            && (featureIdMap == null
+                                || includedFeatures.stream().noneMatch(
+                                    appl -> featureIdMap.containsKey(appl.getString("productFeatureId"))))) {
+                        returnShippingMethods.remove(method);
+                        continue;
                     }
                 }
                 if (UtilValidate.isNotEmpty(excludeFeatures)) {
@@ -416,13 +388,9 @@ public final class ProductStoreWorker {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, MODULE);
                     }
-                    if (excludedFeatures != null) {
-                        for (GenericValue appl: excludedFeatures) {
-                            if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
-                                returnShippingMethods.remove(method);
-                                continue;
-                            }
-                        }
+                    if (excludedFeatures != null && featureIdMap != null
+                            && excludedFeatures.stream().anyMatch(appl -> featureIdMap.containsKey(appl.getString("productFeatureId")))) {
+                        returnShippingMethods.remove(method);
                     }
                 }
             }

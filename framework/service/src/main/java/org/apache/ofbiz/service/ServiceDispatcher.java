@@ -188,7 +188,7 @@ public final class ServiceDispatcher {
      * Registers the loader with this ServiceDispatcher
      * @param context the context of the local dispatcher
      */
-    public void register(DispatchContext context) {
+    public synchronized void register(DispatchContext context) {
         Debug.logInfo("Registering dispatcher: " + context.getName(), MODULE);
         this.localContext.put(context.getName(), context);
     }
@@ -196,7 +196,7 @@ public final class ServiceDispatcher {
      * De-Registers the loader with this ServiceDispatcher
      * @param local the LocalDispatcher to de-register
      */
-    public void deregister(LocalDispatcher local) {
+    public synchronized void deregister(LocalDispatcher local) {
         Debug.logInfo("De-Registering dispatcher: " + local.getName(), MODULE);
         localContext.remove(local.getName());
         if (localContext.isEmpty()) {
@@ -277,7 +277,7 @@ public final class ServiceDispatcher {
         Map<String, List<ServiceEcaRule>> eventMap = null;
         Map<String, Object> ecaContext = null;
         RunningService rs = null;
-        DispatchContext ctx = localContext.get(localName);
+        DispatchContext ctx = getLocalContext(localName);
         GenericEngine engine = null;
         Transaction parentTransaction = null;
         boolean isFailure = false;
@@ -696,7 +696,7 @@ public final class ServiceDispatcher {
         Locale locale = checkLocale(context);
 
         // setup the engine and context
-        DispatchContext ctx = localContext.get(localName);
+        DispatchContext ctx = this.getLocalContext(localName);
         GenericEngine engine = this.getGenericEngine(service.getEngineName());
 
         // for isolated transactions

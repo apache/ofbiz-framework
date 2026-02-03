@@ -100,7 +100,6 @@ under the License.
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
                                             <include-menu location="${parameters.mainMenuLocation}" name="ShipmentTabBar"/>
-                                            <include-menu location="${parameters.mainMenuLocation}" name="ShipmentActionBar"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -124,24 +123,14 @@ under the License.
                                     </widgets>
                                 </section>
                                 <section>
-                                    <condition>
-                                        <and>
-                                            <not><if-empty field="shipment"/></not>
-                                            <not><if-empty field="facility"/></not>
-                                            <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
-                                            <not><if-empty field="shipment.primaryOrderId"/></not>
-                                        </and>
-                                    </condition>
                                     <widgets>
                                         <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductReceiveInventoryAgainstPO}" target="ReceiveInventoryAgainstPurchaseOrder">
-                                                <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
-                                                <parameter param-name="purchaseOrderId" from-field="shipment.primaryOrderId"/>
+                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf" target-window="_BLANK">
+                                                <parameter param-name="shipmentId"/>
                                             </link>
                                         </container>
                                     </widgets>
                                 </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -564,7 +553,7 @@ under the License.
                 <property-map resource="ProductEntityLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ProductReceiveInventoryAgainstPurchaseOrder"/>
                 <set field="headerItem" value="shipment"/>
-                <set field="tabButtonItem" value="ProductReceiveInventoryAgainstPO"/>
+                <set field="tabButtonItem" value="ReceiveInventoryAgainstPurchaseOrder"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://product/src/main/groovy/org/apache/ofbiz/product/facility/shipment/ReceiveInventoryAgainstPurchaseOrder.groovy"/>
             </actions>

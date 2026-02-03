@@ -337,7 +337,7 @@ under the License.
     </request-map>
 
     <request-map uri="openSourceFile">
-        <security https="false" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="openSourceFile"/>
         <response name="success" type="none" />
         <response name="error" type="none" />

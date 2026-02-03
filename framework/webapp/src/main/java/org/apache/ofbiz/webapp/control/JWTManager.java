@@ -18,10 +18,15 @@
  */
 package org.apache.ofbiz.webapp.control;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.interfaces.RSAPublicKey;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,6 +52,9 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
+import com.auth0.jwk.Jwk;
+import com.auth0.jwk.JwkProvider;
+import com.auth0.jwk.JwkProviderBuilder;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
@@ -62,6 +70,29 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JWTManager {
     private static final String MODULE = JWTManager.class.getName();
 
+    // Static map of thread-safe JwkProvider instances for each delegator.
+    private static volatile Map<String, JwkProvider> jwkProviders = new ConcurrentHashMap<>();
+    /**
+     * Returns a shared, thread-safe JwkProvider instance for the delegator.
+     */
+    private static JwkProvider getJwkProvider(Delegator delegator) throws IllegalStateException, MalformedURLException {
+        JwkProvider localRef = jwkProviders.get(delegator.getDelegatorName());
+        if (localRef == null) {
+            synchronized (JWTManager.class) {
+                localRef = jwkProviders.get(delegator.getDelegatorName());
+                if (localRef == null) {
+                    String issuer = EntityUtilProperties.getPropertyValue("security", "security.token.issuer", "", delegator);
+                    String jwksUrl = issuer + "/protocol/openid-connect/certs";
+                    localRef = new JwkProviderBuilder(new URL(jwksUrl))
+                            .cached(10, 24, TimeUnit.HOURS)   // cache up to 10 keys for 24h
+                            .rateLimited(10, 1, TimeUnit.MINUTES) // prevent frequent fetches
+                            .build();
+                    jwkProviders.put(delegator.getDelegatorName(), localRef);
+                }
+            }
+        }
+        return localRef;
+    }
     /**
      * OFBiz controller preprocessor event.
      * The method is designed to be used in a chain of controller preprocessor event: it always returns "success"
@@ -94,7 +125,7 @@ public class JWTManager {
             return "success";
         }
 
-        Map<String, Object> claims = validateJwtToken(jwtToken, getJWTKey(delegator));
+        Map<String, Object> claims = validateJwtToken(delegator, jwtToken);
         if (claims.containsKey(ModelService.ERROR_MESSAGE)) {
             // The JWT is wrong somehow, stop the process, details are in log
             return "success";
@@ -130,17 +161,7 @@ public class JWTManager {
      * @param delegator the delegator
      * @return the JWT secret key
      */
-    public static String getJWTKey(Delegator delegator) {
-        return getJWTKey(delegator, null);
-    }
-
-    /**
-     * Get the JWT secret key from database or security.properties.
-     * @param delegator the delegator
-     * @return the JWT secret key
-     */
-
-    public static String getJWTKey(Delegator delegator, String salt) {
+    private static String getJWTKey(Delegator delegator, String salt) {
         String key = UtilProperties.getPropertyValue("security", "security.token.key");
         if (key.length() < 64) { // The key must be 512 bits (ie 64 chars)  as we use HMAC512 to create the token, cf. OFBIZ-12724
             throw new SecurityException("The JWT secret key is too short. It must be at least 512 bites.");
@@ -151,7 +172,7 @@ public class JWTManager {
         return key;
     }
 
-     /**
+    /**
      * Get the authentication token based for user
      * This takes OOTB username/password and if user is authenticated it will generate the JWT token using a secret key.
      * @param request the http request in which the authentication token is searched and stored
@@ -226,26 +247,75 @@ public class JWTManager {
         return headerAuthValue.replaceFirst(bearerPrefix, "").trim();
     }
 
-    /** Validates the provided token using the secret key.
-     * If the token is valid it will get the conteined claims and return them.
-     * If token validation failed it will return an error.
-     * Public for API access from third party code.
-     * @param jwtToken the JWT token
-     * @param key the server side key to verify the signature
-     * @return Map of the claims contained in the token or an error
+    /**
+     * Validates a JSON Web Token (JWT) and extracts its claims.
+     *
+     * This method supports two validation modes:
+     *   External authentication server (JWK-based): if an issuer is configured
+     *     in the "security.token.issuer" property, the token is verified using a JWK provider and
+     *     the issuer's public key used to sign the token.
+     *   Local HMAC verification: If no issuer is configured, the token is verified
+     *     locally using an HMAC key derived from the secret key configured
+     *     in the "security.token.key" (and optionally a salt).
+     *
+     * If the token is successfully verified, the contained claims are returned as a map.
+     * Otherwise, an error map is returned containing the failure message.
+     *
+     * @param delegator the delegator used to retrieve security properties and keys from a database
+     * @param jwtToken  the JWT string to validate
+     * @param keySalt   an optional salt used when building the local HMAC key (can be null or empty)
+     * @return a map containing:
+     *   the token claims if validation succeeds
+     *   an error entry if validation fails
      */
-    public static Map<String, Object> validateToken(String jwtToken, String key) {
-        Map<String, Object> result = new HashMap<>();
-        if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
+    public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
+        JWTVerifier verifier = null;
+        // Retrieve configured issuer (if present, assume external JWK-based validation)
+        String issuer = EntityUtilProperties.getPropertyValue("security", "security.token.issuer", "", delegator);
+        if (UtilValidate.isNotEmpty(issuer)) {
+            String audience = EntityUtilProperties.getPropertyValue("security", "security.token.audience", "", delegator);
+            try {
+                // Decode the token to extract the Key ID (kid)
+                DecodedJWT decodedJWT = JWT.decode(jwtToken);
+                String kid = decodedJWT.getKeyId();
+
+                // Fetch the corresponding JWK (JSON Web Key) for this Key ID
+                JwkProvider provider = getJwkProvider(delegator);
+                Jwk jwk = provider.get(kid);
+
+                // Build the RSA256 Algorithm using the JWK’s public key
+                Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
+
+                // Create a JWT verifier: include expected issuer and audience for safety
+                verifier = JWT.require(algorithm)
+                        .withIssuer(issuer)
+                        .withAudience(audience)
+                        .build();
+            } catch (Exception e) {
+                String msg = "JWT token: unable to build a token verifier for tokens issued by " + issuer;
+                Debug.logError(msg, MODULE);
+                return ServiceUtil.returnError(msg);
+            }
+        } else {
+            // Fallback: validate using local secret key
+            String key = getJWTKey(delegator, keySalt);
+            if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
+                String msg = "JWT token or key can not be empty.";
+                Debug.logError(msg, MODULE);
+                return ServiceUtil.returnError(msg);
+            }
+            verifier = JWT.require(Algorithm.HMAC512(key))
+                    .withIssuer("ApacheOFBiz")
+                    .build();
+        }
+        if (UtilValidate.isEmpty(verifier)) {
             String msg = "JWT token or key can not be empty.";
             Debug.logError(msg, MODULE);
             return ServiceUtil.returnError(msg);
         }
         try {
-            JWTVerifier verifToken = JWT.require(Algorithm.HMAC512(key))
-                    .withIssuer("ApacheOFBiz")
-                    .build();
-            DecodedJWT jwt = verifToken.verify(jwtToken);
+            Map<String, Object> result = new HashMap<>();
+            DecodedJWT jwt = verifier.verify(jwtToken);
             Map<String, Claim> claims = jwt.getClaims();
             //OK, we can trust this JWT
             for (Map.Entry<String, Claim> entry : claims.entrySet()) {
@@ -260,16 +330,23 @@ public class JWTManager {
     }
 
     /**
-     * Validates the provided token using a salt to recreate the key from the secret
-     * If the token is valid it will get the contained claims and return them.
-     * If token validation failed it will return an error.
-     * @param delegator
-     * @param jwtToken
-     * @param keySalt
-     * @return Map of the claims contained in the token or an error
+     * Validates a JSON Web Token (JWT) and extracts its claims using the default validation process.
+     *
+     * This method is a convenience overload that calls validateToken(Delegator, String, String)
+     * without providing a key salt. The validation will use either an external authentication
+     * server (if configured) or the locally stored secret key.
+     *
+     * If the token is successfully verified, the contained claims are returned as a map.
+     * If validation fails, an error map is returned containing details about the failure.
+     *
+     * @param delegator the delegator used to retrieve security properties and keys from the database
+     * @param jwtToken  the JWT string to validate
+     * @return a map containing the token claims if validation succeeds,
+     *         or an error entry if validation fails
+     * @see #validateToken(Delegator, String, String)
      */
-    public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
-        return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));
+    public static Map<String, Object> validateToken(Delegator delegator, String jwtToken) {
+        return validateToken(delegator, jwtToken, null);
     }
 
     /**
@@ -396,8 +473,8 @@ public class JWTManager {
      * @param key the secret key to decrypt the token
      * @return Map of name, value pairs composing the result
      */
-    private static Map<String, Object> validateJwtToken(String jwtToken, String key) {
-        Map<String, Object> result = validateToken(jwtToken, key);
+    private static Map<String, Object> validateJwtToken(Delegator delegator, String jwtToken) {
+        Map<String, Object> result = validateToken(delegator, jwtToken);
         if (result.containsKey(ModelService.ERROR_MESSAGE)) {
             // Something unexpected happened here
             Debug.logWarning("There was a problem with the JWT token, no single sign on user login possible.", MODULE);
@@ -411,8 +488,8 @@ public class JWTManager {
         return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
     }
 
-    public static Map<String, Object> validateRefreshToken(String refreshToken, String key) {
-        Map<String, Object> claims = validateToken(refreshToken, key);
+    public static Map<String, Object> validateRefreshToken(Delegator delegator, String refreshToken) {
+        Map<String, Object> claims = validateToken(delegator, refreshToken);
         if (!claims.containsKey("type") || !"refresh".equals(claims.get("type"))) {
             return ServiceUtil.returnError("Invalid refresh token.");
         }

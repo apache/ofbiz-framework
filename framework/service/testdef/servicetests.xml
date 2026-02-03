@@ -75,4 +75,7 @@ under the License.
     <test-case case-name="service-permission-tests">
         <junit-test-suite class-name="org.apache.ofbiz.service.test.ServicePermissionTests"/>
     </test-case>
+    <test-case case-name="service-purge-test">
+        <junit-test-suite class-name="org.apache.ofbiz.service.test.ServicePurgeTest"/>
+    </test-case>    
 </test-suite>

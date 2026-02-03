@@ -84,7 +84,10 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBufferedFile;
 import org.apache.pdfbox.pdmodel.PDDocument;
+//import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
 import org.apache.tika.Tika;
@@ -590,6 +593,9 @@ public class SecuredUpload {
                     } else if (inflater.needsDictionary()) { // Dictionary to be loaded
                         inflater.setDictionary(result);
                         inflater.getAdler();
+                    } else { // nothing to inflate, avoid endless loop
+                        inflater.end();
+                        return true;
                     }
                 }
             }
@@ -687,7 +693,8 @@ public class SecuredUpload {
             }
             // OK no JS code, pass to check 2: detect if the document has any embedded files
             PDEmbeddedFilesNameTreeNode efTree = null;
-            try (PDDocument pdDocument = PDDocument.load(file)) {
+            try (PDDocument pdDocument = Loader.loadPDF(new RandomAccessReadBufferedFile(fileName))) {
+                    //PDDocument.load(file)) {
                 PDDocumentNameDictionary names = new PDDocumentNameDictionary(pdDocument.getDocumentCatalog());
                 efTree = names.getEmbeddedFiles();
             }

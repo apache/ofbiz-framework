@@ -308,6 +308,7 @@ Map issueOrderItemToShipmentAndReceiveAgainstPO() {
     }
     if (shipmentItem) {
         Map inputMap = parameters
+        shipmentItemSeqId = shipmentItem.shipmentItemSeqId
         inputMap.orderItem = orderItem
         Map serviceResult = run service: 'getTotalIssuedQuantityForOrderItem', with: inputMap
         BigDecimal totalIssuedQuantity = serviceResult.totalIssuedQuantity
@@ -324,8 +325,6 @@ Map issueOrderItemToShipmentAndReceiveAgainstPO() {
             BigDecimal quantityToAdd = receivedQuantity - totalIssuedQuantity
             shipmentItem.quantity += quantityToAdd
             shipmentItem.store()
-            shipmentItemSeqId = shipmentItem.shipmentItemSeqId
-
             orderShipment.quantity = orderShipment.quantity + quantityToAdd
             orderShipment.store()
         }
@@ -334,6 +333,7 @@ Map issueOrderItemToShipmentAndReceiveAgainstPO() {
         Map serviceResult = run service: 'createShipmentItem', with: shipmentItemCreate
         Map shipmentItemLookupPk = [shipmentItemSeqId: serviceResult.shipmentItemSeqId, shipmentId: parameters.shipmentId]
         shipmentItem = from('ShipmentItem').where(shipmentItemLookupPk).queryOne()
+        shipmentItemSeqId = shipmentItem.shipmentItemSeqId
 
         // Create OrderShipment for this ShipmentItem
         Map orderShipmentCreate = [quantity: parameters.quantity,

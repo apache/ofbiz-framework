@@ -35,6 +35,11 @@ import org.apache.ofbiz.service.job.JobManager;
 public interface LocalDispatcher {
 
     /**
+     * Initialize a dispatch context for this dispatch after the creation is ok
+     */
+    void initDispatchContext();
+
+    /**
      * Disables running of Service Engine Condition Actions (SECAs).  Intended to be turned off temporarily.
      */
     void disableEcas();

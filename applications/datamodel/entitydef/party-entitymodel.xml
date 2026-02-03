@@ -35,6 +35,7 @@ under the License.
   <!--  - org.apache.ofbiz.party.contact -->
   <!--  - org.apache.ofbiz.party.need -->
   <!--  - org.apache.ofbiz.party.party -->
+  <!--  - org.apache.ofbiz.party.person -->
   <!-- ========================================================= -->
 
 
@@ -2818,7 +2819,10 @@ under the License.
       <field name="height" type="floating-point"></field>
       <field name="weight" type="floating-point"></field>
       <field name="mothersMaidenName" type="long-varchar" encrypt="true"></field>
-      <field name="maritalStatusEnumId" type="id"/>
+      <field name="oldMaritalStatusEnumId" type="id" col-name="marital_satus_enum_id">
+        <description>DEPRECATED use maritalStatusTypeId instead</description>
+      </field>
+      <field name="maritalStatusTypeId" type="id"/>
       <field name="socialSecurityNumber" type="long-varchar" encrypt="true"></field>
       <field name="passportNumber" type="long-varchar" encrypt="true"></field>
       <field name="passportExpireDate" type="date"></field>
@@ -2841,8 +2845,8 @@ under the License.
       <relation type="one" fk-name="PERSON_RESS_ENUM" title="ResidenceStatus" rel-entity-name="Enumeration">
         <key-map field-name="residenceStatusEnumId" rel-field-name="enumId"/>
       </relation>
-      <relation type="one" fk-name="PERSON_MARITAL" title="MaritalStatus" rel-entity-name="Enumeration">
-        <key-map field-name="maritalStatusEnumId" rel-field-name="enumId"/>
+      <relation type="one" fk-name="PERSON_MAR_TYPE" rel-entity-name="MaritalStatusType">
+        <key-map field-name="maritalStatusTypeId"/>
       </relation>
       <index name="FIRST_NAME_IDX">
         <index-field name="firstName"/>
@@ -3076,5 +3080,41 @@ under the License.
             <key-map field-name="partyClassificationTypeId"/>
         </view-link>
     </view-entity>
-    
+
+  <!-- ========================================================= -->
+  <!-- org.apache.ofbiz.party.person -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="MaritalStatus"
+            package-name="org.apache.ofbiz.party.person"
+            title="Person Marital Status">
+        <description>Marital Status.</description>
+        <field name="partyId" type="id"/>
+        <field name="maritalStatusTypeId" type="id"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <prim-key field="partyId"/>
+        <prim-key field="maritalStatusTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="MARITAL_PTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="MARITAL_TYPE" rel-entity-name="MaritalStatusType">
+            <key-map field-name="maritalStatusTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="MaritalStatusType"
+            package-name="org.apache.ofbiz.party.person"
+            default-resource-name="PartyEntityLabels"
+            title="Person Marital Status Type">
+        <description>Marital Status Type.</description>
+        <field name="maritalStatusTypeId" type="id"/>
+        <field name="parentTypeId" type="id"/>
+        <field name="hasTable" type="indicator"/>
+        <field name="description" type="description"/>
+        <prim-key field="maritalStatusTypeId"/>
+        <relation type="one" fk-name="MARITAL_TYPE_PAR" title="Parent" rel-entity-name="MaritalStatusType">
+            <key-map field-name="parentTypeId" rel-field-name="maritalStatusTypeId"/>
+        </relation>
+    </entity>
 </entitymodel>

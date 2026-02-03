@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -631,13 +632,7 @@ public final class RequestHandler {
             }
         } else if (requestUri != null) {
             String[] loginUris = EntityUtilProperties.getPropertyValue("security", "login.uris", delegator).split(",");
-            boolean removePreviousRequest = true;
-            for (int i = 0; i < loginUris.length; i++) {
-                if (requestUri.equals(loginUris[i])) {
-                    removePreviousRequest = false;
-                }
-            }
-            if (removePreviousRequest) {
+            if (Arrays.asList(loginUris).contains(requestUri)) {
                 // Remove previous request attribute on navigation to non-authenticated request
                 request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
             }
@@ -1042,7 +1037,7 @@ public final class RequestHandler {
      * @param requestResponse
      */
     private void setUserMessageResponseToRequest(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
-        final String fieldMessageName = requestResponse.getName() == "error"
+        final String fieldMessageName = "error".equals(requestResponse.getName())
                 ? "_ERROR_MESSAGE_"
                 : "_EVENT_MESSAGE_";
         final String customMessageField = "_CUSTOM" + fieldMessageName;

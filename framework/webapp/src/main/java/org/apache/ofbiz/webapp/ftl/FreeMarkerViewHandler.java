@@ -86,7 +86,7 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
 
         // add the request parameters -- this now uses a Map from UtilHttp
         Map<String, Object> requestParameters = UtilHttp.getParameterMap(request);
-        if (viewMap.isSecureContext()) {
+        if (viewMap != null && viewMap.isSecureContext()) {
             requestParameters = SecuredFreemarker.sanitizeParameterMap(requestParameters);
         }
         root.put("requestParameters", requestParameters);

@@ -290,7 +290,9 @@ public final class ModelFormField {
 
     public String getEntry(Map<String, ? extends Object> context, String defaultValue) {
         Boolean isError = (Boolean) context.get("isError");
-        Boolean useRequestParameters = (Boolean) context.get("useRequestParameters");
+        Boolean useRequestParametersGlobal = (Boolean) context.get("useRequestParameters");
+        Boolean useRequestParametersSpecific = (Boolean) context.get("useRequestParameters." + modelForm.getName());
+        Boolean useRequestParameters = useRequestParametersSpecific != null ? useRequestParametersSpecific : useRequestParametersGlobal;
 
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
@@ -305,8 +307,6 @@ public final class ModelFormField {
 
         String returnValue;
 
-        // if useRequestParameters is TRUE then parameters will always be used, if FALSE then parameters will never be used
-        // if isError is TRUE and useRequestParameters is not FALSE (ie is null or TRUE) then parameters will be used
         if ((Boolean.TRUE.equals(isError) && !Boolean.FALSE.equals(useRequestParameters))
                 || (Boolean.TRUE.equals(useRequestParameters))) {
             Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
@@ -2252,12 +2252,9 @@ public final class ModelFormField {
          * @return the description
          */
         public String getDescription(Map<String, Object> context) {
-            String retVal = null;
-            if (UtilValidate.isNotEmpty(this.description)) {
-                retVal = this.description.expandString(context);
-            } else {
-                retVal = getModelFormField().getEntry(context);
-            }
+            String retVal = UtilValidate.isNotEmpty(this.description)
+                    ? this.description.expandString(context)
+                    : getModelFormField().getEntry(context);
 
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);

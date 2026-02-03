@@ -609,6 +609,15 @@ verbose:
 Run a test case, in this example the component is "entity" and the case name is
 "entity-tests"
 
+[WARNING]
+====
+If the test fail and you see in the log that the test lacks data in the DB,
+verify that a *TestData.xml is not required in the *Test.xml where the test case is defined.
+In this case you can't use the test case, you need to use the test suite
+
+====
+
+
 `gradlew "ofbiz --test component=entity --test suitename=entitytests --test case=entity-query-tests"`
 
 [[execute-an-integration-test-case-in-debug-mode-with-verbose-log]]

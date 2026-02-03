@@ -266,7 +266,7 @@ public class FormRenderer {
 
         // if this is a list form, don't use Request Parameters
         if (modelForm instanceof ModelGrid) {
-            context.put("useRequestParameters", Boolean.FALSE);
+            context.put("useRequestParameters." + modelForm.getName(), Boolean.FALSE);
         }
 
         // find the highest position number to get the max positions used
