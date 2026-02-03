@@ -900,17 +900,6 @@ under the License.
         <override name="facilityId" optional="false"/>
     </service>
 
-    <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="groovy" transaction-timeout="600"
-            location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/ShipmentReceiptServices.groovy" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
-        <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
-        <required-permissions join-type="AND">
-            <permission-service service-name="checkCanChangeShipmentStatusPacked" main-action="CREATE"/>
-            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        </required-permissions>
-        <implements service="issueOrderItemToShipment"/>
-        <implements service="receiveInventoryProduct"/>
-    </service>
-
     <service name="quickReceiveReturn" engine="groovy"
             location="component://product/src/main/groovy/org/apache/ofbiz/product/shipment/ShipmentReceiptServices.groovy" invoke="quickReceiveReturn" auth="true">
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
