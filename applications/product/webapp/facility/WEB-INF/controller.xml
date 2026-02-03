@@ -1197,7 +1197,13 @@ under the License.
     </request-map>
     <request-map uri="issueOrderItemToShipmentAndReceiveAgainstPO">
         <security https="true" auth="true"/>
-        <event type="service-multi" path="" invoke="issueOrderItemToShipmentAndReceiveAgainstPO"/>
+        <event type="service-multi" path="" invoke="issueOrderItemToShipment"/>
+        <response name="success" type="request" value="receiveInventoryProductsFromShipment"/>
+        <response name="error" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
+    </request-map>
+    <request-map uri="receiveInventoryProductsFromShipment">
+        <security https="true" auth="true"/>
+        <event type="service-multi" path="" invoke="receiveInventoryProduct"/>
         <response name="success" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
         <response name="error" type="view" value="ReceiveInventoryAgainstPurchaseOrder"/>
     </request-map>
