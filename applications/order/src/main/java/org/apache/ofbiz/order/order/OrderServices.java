@@ -5490,6 +5490,9 @@ public class OrderServices {
                     if (!UtilValidate.isEmpty(shipmentReceipt.get("quantityAccepted"))) {
                         receivedQuantity = receivedQuantity.add(shipmentReceipt.getBigDecimal("quantityAccepted"));
                     }
+                    if (!UtilValidate.isEmpty(shipmentReceipt.get("quantityRejected"))) {
+                        receivedQuantity = receivedQuantity.add(shipmentReceipt.getBigDecimal("quantityRejected"));
+                    }
                 }
 
                 BigDecimal quantityToCancel = orderItemQuantity.subtract(orderItemCancelQuantity).subtract(receivedQuantity);
