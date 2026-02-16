@@ -51,7 +51,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField><!--hyper--></#macro>
 
-<#macro renderTextField type pattern name className alert value="" textSize="" maxlength="" id="" event="" action=""
+<#macro renderTextField type pattern name className alert min max value="" textSize="" maxlength="" id="" event="" action=""
 disabled=false clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" required=false
 placeholder="" delegatorName="default"><@makeBlock className value /></#macro>
 
