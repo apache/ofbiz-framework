@@ -93,6 +93,8 @@ RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | s
 COPY --chmod=555 docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
 
 COPY --chmod=444 docker/disable-component.xslt .
+
+RUN mkdir templates
 COPY --chmod=444 docker/templates templates
 
 EXPOSE 8443
