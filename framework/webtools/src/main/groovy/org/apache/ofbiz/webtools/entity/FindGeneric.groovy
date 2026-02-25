@@ -19,6 +19,8 @@
 package org.apache.ofbiz.webtools.entity
 
 import org.apache.ofbiz.base.util.UtilXml
+import org.apache.ofbiz.entity.util.EntityQuery
+
 import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelFieldType
@@ -96,25 +98,52 @@ if (modelEntity) {
     dynamicAutoEntitySearchFormRenderer.render(writer, context)
     context.dynamicAutoEntitySearchForm = writer
 
-    //prepare the result list from performFind
+    // Prepare the data retrieval using EntityQuery with limit and offset for better performance
+    int viewIndex = [parameters.VIEW_INDEX_1, parameters.VIEW_INDEX, parameters.viewIndex].find { String val -> val?.isInteger() }?.toInteger() ?: 0
+    int viewSize = [parameters.VIEW_SIZE_1, parameters.VIEW_SIZE, parameters.viewSize].find { String val -> val?.isInteger() }?.toInteger() ?: 20
+
+    Map prepareFindResult = dispatcher.runSync('prepareFind', [
+            entityName     : entityName,
+            inputFields    : parameters,
+            orderBy        : parameters.sortField,
+            noConditionFind: parameters.noConditionFind ?: 'Y'
+    ])
+
+    if (prepareFindResult.entityConditionList || parameters.noConditionFind == 'Y') {
+        EntityQuery query = EntityQuery.use(delegator)
+                .from(entityName)
+                .limit(viewSize)
+                .offset(viewIndex * viewSize)
+                .cursorScrollInsensitive()
+
+        if (prepareFindResult.entityConditionList) {
+            query.where(prepareFindResult.entityConditionList)
+        }
+
+        if (prepareFindResult.orderByList) {
+            query.orderBy(prepareFindResult.orderByList)
+        }
+
+        if (fieldsToSelect) {
+            query.select(fieldsToSelect as Set)
+        }
+
+        if (parameters.distinct == 'Y') {
+            query.distinct()
+        }
+
+        context.listIt = query.queryIterator()
+        context.listSize = context.listIt.getResultsSizeAfterPartialList()
+    }
+
+    //prepare the result list
     String dynamicAutoEntityFieldListForm = """<?xml version="1.0" encoding="UTF-8"?>
         <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns="http://ofbiz.apache.org/Widget-Form"
             xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
             <form name="ListGeneric" type="list" target="entity/find/${entityName}" list-name="listIt" paginate-target="entity/find/${entityName}"
+              override-list-size="${context.listSize ?: 0}"
               odd-row-style="alternate-row" default-table-style="basic-table light-grid hover-bar" header-row-style="header-row-2">
-            <actions>
-                <service service-name="performFind">
-                    <field-map field-name="inputFields" from-field="parameters"/>
-                    <field-map field-name="entityName" value="${entityName}"/>"""
-    if (fieldsToSelect) {
-        dynamicAutoEntityFieldListForm += """
-                    <field-map field-name="fieldList" value="${fieldsToSelect}"/>"""
-    }
-    dynamicAutoEntityFieldListForm += """
-                    <field-map field-name="orderBy" from-field="parameters.sortField"/>
-                </service>
-            </actions>
             <auto-fields-entity entity-name="${entityName}" default-field-type="display" include-internal="true"/>
             <field name="_method"><hidden value="POST"/></field>
             <field name="entityName"><hidden value="${entityName}"/></field>"""
