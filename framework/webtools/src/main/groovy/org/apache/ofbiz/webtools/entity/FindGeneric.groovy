@@ -20,7 +20,6 @@ package org.apache.ofbiz.webtools.entity
 
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.entity.util.EntityQuery
-
 import org.apache.ofbiz.entity.GenericEntityException
 import org.apache.ofbiz.entity.model.ModelEntity
 import org.apache.ofbiz.entity.model.ModelFieldType
@@ -103,9 +102,9 @@ if (modelEntity) {
     int viewSize = [parameters.VIEW_SIZE_1, parameters.VIEW_SIZE, parameters.viewSize].find { String val -> val?.isInteger() }?.toInteger() ?: 20
 
     Map prepareFindResult = dispatcher.runSync('prepareFind', [
-            entityName     : entityName,
-            inputFields    : parameters,
-            orderBy        : parameters.sortField,
+            entityName: entityName,
+            inputFields: parameters,
+            orderBy: parameters.sortField,
             noConditionFind: parameters.noConditionFind ?: 'Y'
     ])
 
