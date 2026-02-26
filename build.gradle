@@ -389,7 +389,7 @@ def sysadminGroup = 'System Administration'
 // ========== OFBiz Server tasks ==========
 
 task loadAll(group: ofbizServer) {
-    dependsOn 'ofbiz --load-data'
+    dependsOn 'generateSecretKeys', 'ofbiz --load-data'
     description 'Load default data; meant for OFBiz development, testing, and demo purposes'
 }
 
@@ -742,6 +742,33 @@ task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-rev
         gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
         gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
         gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    }
+}
+
+task generateSecretKeys(group: sysadminGroup,
+        description: 'Generate cryptographically secure 512-bit (64-char) secret keys for JWT token signing and password encryption, and write them to security.properties') {
+    doLast {
+        def propertiesFile = file('framework/security/config/security.properties')
+
+        def generateAndWriteKey = { String propertyName ->
+            def keyBytes = new byte[48] // 48 bytes * 4/3 = 64 Base64 chars (no padding needed)
+            new java.security.SecureRandom().nextBytes(keyBytes)
+            def key = java.util.Base64.getEncoder().encodeToString(keyBytes)
+            def content = propertiesFile.text
+            def escapedName = propertyName.replace('.', '\\.')
+            if (content =~ /(?m)^#?${escapedName}=.*$/) {
+                content = content.replaceAll(/(?m)^#?${escapedName}=.*$/, "${propertyName}=${key}")
+            } else {
+                content += "\n${propertyName}=${key}\n"
+            }
+            propertiesFile.text = content
+        }
+
+        generateAndWriteKey('login.secret_key_string')
+        generateAndWriteKey('security.token.key')
+
+        println "New secret keys have been generated and written to framework/security/config/security.properties"
+        println "Keep these keys secret and do not commit them to version control."
     }
 }
 
