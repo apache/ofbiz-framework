@@ -371,9 +371,12 @@ eclipse.classpath.file.whenMerged { classpath ->
 tasks.eclipse.dependsOn(cleanEclipse)
 
 test {
+    dependsOn 'generateSecretKeys'
     useJUnit()
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
+
+processResources.mustRunAfter 'generateSecretKeys'
 
 /* ========================================================
  * Tasks
