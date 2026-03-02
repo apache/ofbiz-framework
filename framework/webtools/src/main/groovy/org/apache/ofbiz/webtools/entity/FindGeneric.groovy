@@ -121,6 +121,8 @@ if (modelEntity) {
 
         if (prepareFindResult.orderByList) {
             query.orderBy(prepareFindResult.orderByList)
+        } else {
+            query.orderBy(modelEntity.getPkFieldNames())
         }
 
         if (fieldsToSelect) {
