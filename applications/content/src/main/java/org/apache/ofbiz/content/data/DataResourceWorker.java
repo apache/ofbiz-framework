@@ -488,6 +488,35 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (prefix + sep + objectInfo));
             }
+            try {
+                String canonicalHome = new File(prefix).getCanonicalPath();
+                String canonicalFilePath = file.getCanonicalPath();
+                if (!canonicalFilePath.startsWith(canonicalHome + File.separator)) {
+                    throw new GeneralException("Access to file denied: path resolves outside of the OFBiz home directory");
+                }
+                String allowedPathsStr = UtilProperties.getPropertyValue("security",
+                        "content.data.ofbiz.file.allowed.paths", "applications/,themes/,plugins/,runtime/");
+                if (UtilValidate.isNotEmpty(allowedPathsStr)) {
+                    boolean inAllowedPath = false;
+                    for (String relPath : allowedPathsStr.split(",")) {
+                        relPath = relPath.trim().replaceAll("^/+", "");
+                        if (UtilValidate.isEmpty(relPath)) {
+                            continue;
+                        }
+                        String canonicalAllowedDir = new File(canonicalHome, relPath).getCanonicalPath();
+                        if (canonicalFilePath.startsWith(canonicalAllowedDir + File.separator)
+                                || canonicalFilePath.equals(canonicalAllowedDir)) {
+                            inAllowedPath = true;
+                            break;
+                        }
+                    }
+                    if (!inAllowedPath) {
+                        throw new GeneralException("Access to file denied: path is not within an allowed directory");
+                    }
+                }
+            } catch (IOException e) {
+                throw new GeneralException("Unable to validate file path: " + e.getMessage());
+            }
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) || "CONTEXT_FILE_BIN".equals(dataResourceTypeId)) {
             if (UtilValidate.isEmpty(contextRoot)) {
                 throw new GeneralException("Cannot find CONTEXT_FILE with an empty context root!");
@@ -500,6 +529,15 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             file = FileUtil.getFile(contextRoot + sep + objectInfo);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (contextRoot + sep + objectInfo));
+            }
+            try {
+                String canonicalAllowed = new File(contextRoot).getCanonicalPath();
+                String canonicalFile = file.getCanonicalPath();
+                if (!canonicalFile.startsWith(canonicalAllowed + File.separator)) {
+                    throw new GeneralException("Access to file denied: path resolves outside of the allowed directory");
+                }
+            } catch (IOException e) {
+                throw new GeneralException("Unable to validate file path: " + e.getMessage());
             }
         }
 
