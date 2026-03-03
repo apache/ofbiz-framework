@@ -640,7 +640,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             } catch (IOException e) {
                 Debug.logError("================== Not saved for security reason ==================", MODULE);
                 return false;
-            }            
+            }
         }
         return true;
     }
