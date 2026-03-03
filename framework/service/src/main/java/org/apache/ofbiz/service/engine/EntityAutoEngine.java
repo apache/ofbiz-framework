@@ -625,6 +625,13 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         // TODO maybe more parameters will be needed in future...
         String parameter = (String) parameters.get("webappPath");
         if (parameter != null) {
+            // Use an allow-list path validator instead of the token deny-list:
+            // only ASCII letters, digits and / . - _ are accepted, and path-traversal
+            // sequences (..) and null bytes are always rejected regardless of encoding.
+            if (!SecuredUpload.isValidWebAppPath(parameter)) {
+                Debug.logError("================== Not saved for security reason ==================", MODULE);
+                return false;
+            }
             try {
                 if (!SecuredUpload.isValidText(parameter, Collections.emptyList())) {
                     Debug.logError("================== Not saved for security reason ==================", MODULE);
@@ -633,7 +640,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             } catch (IOException e) {
                 Debug.logError("================== Not saved for security reason ==================", MODULE);
                 return false;
-            }
+            }            
         }
         return true;
     }
