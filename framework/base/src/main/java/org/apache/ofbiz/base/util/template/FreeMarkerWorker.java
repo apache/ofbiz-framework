@@ -82,10 +82,26 @@ public final class FreeMarkerWorker {
     private static final UtilCache<String, Template> CACHED_TEMPLATES =
             UtilCache.createUtilCache("template.ftl.general", 0, 0, false);
     private static final BeansWrapper DEFAULT_OFBIZ_WRAPPER = new BeansWrapperBuilder(VERSION).build();
+    private static final TemplateHashModel DEFAULT_RESTRICTED_STATIC_MODELS =
+            RestrictedStaticModels.fromConfig(DEFAULT_OFBIZ_WRAPPER.getStaticModels(), "freemarker-whitelist");
     private static final Configuration DEFAULT_OFBIZ_CONFIG = makeConfiguration(DEFAULT_OFBIZ_WRAPPER);
 
     public static BeansWrapper getDefaultOfbizWrapper() {
         return DEFAULT_OFBIZ_WRAPPER;
+    }
+
+    /**
+     * Returns the whitelist-restricted {@link TemplateHashModel} that backs the
+     * {@code Static} shared variable in every FreeMarker template.
+     *
+     * <p>Use this instead of {@code getDefaultOfbizWrapper().getStaticModels()} whenever
+     * you need to expose the {@code Static} variable to a custom FreeMarker context, so
+     * that the same whitelist restrictions apply uniformly.
+     *
+     * @return the {@link RestrictedStaticModels} instance for the default OFBiz wrapper
+     */
+    public static TemplateHashModel getRestrictedStaticModels() {
+        return DEFAULT_RESTRICTED_STATIC_MODELS;
     }
 
     public static Configuration newConfiguration() {
@@ -96,10 +112,10 @@ public final class FreeMarkerWorker {
         Configuration newConfig = newConfiguration();
 
         newConfig.setObjectWrapper(wrapper);
-        TemplateHashModel staticModels = wrapper.getStaticModels();
-        newConfig.setSharedVariable("Static", staticModels);
+        TemplateHashModel rawStaticModels = wrapper.getStaticModels();
+        newConfig.setSharedVariable("Static", RestrictedStaticModels.fromConfig(rawStaticModels, "freemarker-whitelist"));
         try {
-            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
+            newConfig.setSharedVariable("EntityQuery", rawStaticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
         } catch (TemplateModelException e) {
             Debug.logError(e, MODULE);
         }

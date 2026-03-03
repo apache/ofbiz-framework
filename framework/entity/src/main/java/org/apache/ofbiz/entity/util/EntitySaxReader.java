@@ -67,7 +67,6 @@ import freemarker.ext.dom.NodeModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateHashModel;
 
 /**
  * SAX XML Parser Content Handler for Entity Engine XML files
@@ -389,8 +388,7 @@ public class EntitySaxReader extends DefaultHandler {
                     NodeModel nodeModel = NodeModel.wrap(this.rootNodeForTemplate);
 
                     Map<String, Object> context = new HashMap<>();
-                    TemplateHashModel staticModels = FreeMarkerWorker.getDefaultOfbizWrapper().getStaticModels();
-                    context.put("Static", staticModels);
+                    context.put("Static", FreeMarkerWorker.getRestrictedStaticModels());
 
                     context.put("doc", nodeModel);
                     template.process(context, outWriter);
