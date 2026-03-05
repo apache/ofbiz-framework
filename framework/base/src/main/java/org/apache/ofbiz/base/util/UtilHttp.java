@@ -172,9 +172,6 @@ public final class UtilHttp {
             throw new RuntimeException(e);
         }
         params.putAll(multiPartMap);
-        if (req.getAttribute("multiPartMap") == null) {
-            req.setAttribute("multiPartMap", multiPartMap);
-        }
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", MODULE);
         }
@@ -222,8 +219,23 @@ public final class UtilHttp {
         return upload;
     }
 
+    /**
+     * Lazy getter for parameters of requests with multipart encoding.
+     * <p>
+     * Sets the multipart data as request attribute "multiPartMap" when called the first time but will refer to that request attribute
+     * for subsequent times.
+     *
+     * @param request
+     * @return
+     */
     public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) throws FileUploadException {
-        Map<String, Object> multiPartMap = new HashMap<>();
+        Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"), String.class, Object.class);
+
+        if (multiPartMap != null) {
+            return multiPartMap;
+        }
+        multiPartMap = new HashMap<>();
+
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         boolean isMultiPart = JakartaServletFileUpload.isMultipartContent(request);
@@ -304,7 +316,7 @@ public final class UtilHttp {
                 }
             }
         }
-
+        request.setAttribute("multiPartMap", multiPartMap);
         return multiPartMap;
     }
 
