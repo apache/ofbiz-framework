@@ -21,14 +21,6 @@ package org.apache.ofbiz.common;
 import java.io.IOException;
 import java.util.List;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -41,6 +33,14 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 public final class UrlServletHelper {
 
     private static final String MODULE = UrlServletHelper.class.getName();
@@ -50,6 +50,9 @@ public final class UrlServletHelper {
     public static void setRequestAttributes(ServletRequest request, Delegator delegator, ServletContext servletContext) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         // check if multi tenant is enabled
+        if (delegator == null) {
+            delegator = WebAppUtil.getDelegator(servletContext);
+        }
         boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
         if (useMultitenant) {
             // get tenant delegator by domain name

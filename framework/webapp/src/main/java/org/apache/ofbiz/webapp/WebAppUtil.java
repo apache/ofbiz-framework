@@ -170,20 +170,23 @@ public final class WebAppUtil {
      * or anywhere else, just returns it */
     public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
         if (delegator == null) {
-            Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", MODULE);
+            Debug.logError("[ContextFilter.init] ERROR: delegator not defined on "
+                    + servletContext.getContextPath(), MODULE);
             return null;
         }
         // get the unique name of this dispatcher
         String dispatcherName = servletContext.getInitParameter("localDispatcherName");
 
         if (dispatcherName == null) {
-            Debug.logError("No localDispatcherName specified in the web.xml file", MODULE);
+            Debug.logError("[ContextFilter.init] No localDispatcherName specified in the web.xml file on "
+                    + servletContext.getContextPath(), MODULE);
             dispatcherName = delegator.getDelegatorName();
         }
 
         LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
         if (dispatcher == null) {
-            Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", MODULE);
+            Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized on "
+                    + servletContext.getContextPath(), MODULE);
         }
 
         return dispatcher;

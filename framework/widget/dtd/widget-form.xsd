@@ -1560,6 +1560,11 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:attribute name="step" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Controls the "step" attribute of the input element. Ignored if the "type" attribute of the field is not "number". See https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="pattern" type="xs:string">
                 <xs:annotation>
                     <xs:documentation>Controls the pattern attribute of the input element. See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern</xs:documentation>

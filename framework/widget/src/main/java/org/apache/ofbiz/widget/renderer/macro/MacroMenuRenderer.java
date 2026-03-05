@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +35,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
@@ -220,20 +220,9 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         String linkWidth = link.getWidth();
         if (UtilValidate.isNotEmpty(linkWidth)) parameters.put("width", linkWidth);
 
-        StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
-        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String>addToBigDecimalInMap(context,
-                "menuUniqueItemIndex", BigDecimal.ONE));
-        if (menuItem.getModelMenu().getExtraIndex(context) != null) {
-            uniqueItemName.append("_").append(menuItem.getModelMenu().getExtraIndex(context));
-        }
-        if (context.containsKey("itemIndex")) {
-            if (context.containsKey("parentItemIndex")) {
-                uniqueItemName.append(context.get("parentItemIndex")).append("_").append(context.get("itemIndex"));
-            } else {
-                uniqueItemName.append("_").append(context.get("itemIndex"));
-            }
-        }
-        parameters.put("uniqueItemName", uniqueItemName.toString());
+        String uniqueItemName = UtilRandom.getUnique(menuItem.getModelMenu().getName()
+                + "_" + menuItem.getName() + "_", true);
+        parameters.put("uniqueItemName", uniqueItemName);
 
         String linkType = "";
         if (UtilValidate.isNotEmpty(target)) {
@@ -279,7 +268,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             targetParameters.append("]");
 
         }
-        if (targetParameters.length() == 0) {
+        if (targetParameters.isEmpty()) {
             targetParameters.append("\"\"");
         }
         parameters.put("linkUrl", MacroCommonRenderer.getLinkUrl(link.getLink(), linkType, context));

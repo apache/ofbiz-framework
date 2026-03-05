@@ -771,6 +771,24 @@
         <value xml:lang="zh">婚姻状况</value>
         <value xml:lang="zh-TW">婚姻狀況</value>
     </property>
+    <property key="FormFieldTitle_maritalStatusTypeId">
+        <value xml:lang="ar">الحالة الإجتماعية</value>
+        <value xml:lang="de">Zivilstand</value>
+        <value xml:lang="en">Marital Status</value>
+        <value xml:lang="es">Estado civil</value>
+        <value xml:lang="fr">Statut marital</value>
+        <value xml:lang="hi-IN">वैवाहिक स्थिति</value>
+        <value xml:lang="it">Stato Civile</value>
+        <value xml:lang="ja">婚姻状況</value>
+        <value xml:lang="nl">Burgerlijke status</value>
+        <value xml:lang="pt-BR">Estado civil</value>
+        <value xml:lang="ro">Stat Civil</value>
+        <value xml:lang="ru">Семейное состояние</value>
+        <value xml:lang="th">สถานภาพ</value>
+        <value xml:lang="vi">Trạng thái hôn nhân</value>
+        <value xml:lang="zh">婚姻状况</value>
+        <value xml:lang="zh-TW">婚姻狀況</value>
+    </property>
     <property key="FormFieldTitle_marketingCampaignId">
         <value xml:lang="ar">دليل حملة التسويق</value>
         <value xml:lang="de">Marketingkampagne ID</value>
@@ -2732,6 +2750,10 @@
         <value xml:lang="zh">登录用户列表</value>
         <value xml:lang="zh-TW">登入使用者清單</value>
     </property>
+    <property key="PageTitleListMaritalStatus">
+        <value xml:lang="en">List Marital Status</value>
+        <value xml:lang="fr">Liste des situations familiale</value>
+    </property>
     <property key="PageTitleListPartyIdentifications">
         <value xml:lang="ar">سرد أرقام الهويات</value>
         <value xml:lang="de">Liste der Identifikationsnummern</value>
@@ -3224,6 +3246,14 @@
         <value xml:lang="vi">Thêm địa chỉ</value>
         <value xml:lang="zh">新地址</value>
         <value xml:lang="zh-TW">新的位址</value>
+    </property>
+    <property key="PartyAddNewMaritalStatus">
+        <value xml:lang="en">New Marital Status</value>
+        <value xml:lang="fr">Ajouter une situation familiale</value>
+    </property>
+    <property key="PartyAddNewMaritalStatusType">
+        <value xml:lang="en">New Marital Status Type</value>
+        <value xml:lang="fr">Ajouter un type de situation familiale</value>
     </property>
     <property key="PartyAddNewPersonalInformation">
         <value xml:lang="ar">أضافة معلومات شخصية جديدة</value>

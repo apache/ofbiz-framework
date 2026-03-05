@@ -78,7 +78,7 @@ USER ofbiz
 WORKDIR /ofbiz
 
 # Extract the OFBiz tar distribution created by the builder stage.
-RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz.tar,target=/mnt/ofbiz.tar \
+RUN --mount=type=bind,from=builder,source=/builder/build/distributions/ofbiz-unspecified.tar,target=/mnt/ofbiz.tar \
     ["tar", "--extract", "--strip-components=1", "--file=/mnt/ofbiz.tar"]
 
 # Create directories for OFBiz volume mountpoints.
@@ -93,6 +93,8 @@ RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | s
 COPY --chmod=555 docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
 
 COPY --chmod=444 docker/disable-component.xslt .
+
+RUN mkdir templates
 COPY --chmod=444 docker/templates templates
 
 EXPOSE 8443

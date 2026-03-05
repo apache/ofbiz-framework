@@ -28,6 +28,8 @@ import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 
+import java.text.SimpleDateFormat
+
 Map createPartyAcctgPreference() {
     //check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole
     partyRole = select().from('PartyRole').where([partyId: parameters.partyId, roleTypeId: 'INTERNAL_ORGANIZATIO']).queryOne()
@@ -169,4 +171,101 @@ Map getFXConversion() {
     }
     result.put('conversionRate', conversionRate)
     return result
+}
+
+Map createFuturePeriod() {
+    applTypes = []
+    grain = null
+    intermediate = null
+    List parties = from('PartyAcctgPreference').where('enableAccounting', 'Y').queryList()
+    parties.each {
+        parameters.organizationPartyId = it.partyId
+        createCustomTimePeriod = from('SystemProperty')
+                .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.create').queryOne()
+        if (createCustomTimePeriod.systemPropertyValue == 'Y') {
+            // get list of CustomTypePeriod types
+            applTypes = from('SystemProperty')
+                    .where('systemResourceId', 'general', 'systemPropertyId', 'CustomTimePeriod.applType').queryOne()
+            List types = Arrays.asList(applTypes.systemPropertyValue.split('\\s*,\\s*'))
+            types.each { periodTypeId ->
+                Calendar periodCal = Calendar.getInstance()
+                systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.intermediate'
+                applTypeInter = from('SystemProperty')
+                        .where('systemResourceId', 'general', 'systemPropertyId', systemPropertyId).queryOne()
+                if (applTypeInter) {
+                    intermediate = applTypeInter.systemPropertyValue
+                }
+                // get grain for application type
+                systemPropertyId = 'CustomTimePeriod.' + periodTypeId + '.grain'
+                applTypeGrain = from('SystemProperty')
+                        .where('systemResourceId', 'general', 'systemPropertyId', systemPropertyId).queryOne()
+                if (applTypeGrain) {
+                    grain = applTypeGrain.systemPropertyValue
+                    if (grain == 'MONTH') {
+                        periodCal.add(Calendar.MONTH, 1)
+                        monthName = new SimpleDateFormat('MMM', locale).format(periodCal.getTime())
+                        year = periodCal.get(Calendar.YEAR)
+                        month = (periodCal.get(Calendar.MONTH) + 1).toString()
+                        if (month.length() == 1) {
+                            month = '0' + month
+                        }
+                        periodCal.set(Calendar.DATE, 1)
+                        periodStart = new java.sql.Date(periodCal.getTimeInMillis())
+                        periodStartDate = periodStart.toString() + ' 00:00:00.000'
+                        lastPeriodDay =  periodCal.getActualMaximum(Calendar.DAY_OF_MONTH)
+                        periodCal.set(Calendar.DATE, lastPeriodDay)
+                        periodEnd = new java.sql.Date(periodCal.getTimeInMillis())
+                        periodEndDate = periodEnd.toString() + ' 23:59:59.999'
+                        parameters.isClosed = 'N'
+                        // check whether the period for the year exists
+                        yearStartDate = Timestamp.valueOf(year + '-01-01 00:00:00.000')
+                        yearEndDate = Timestamp.valueOf(year + '-12-31 23:59:59.999')
+                        yearPeriodType = periodTypeId + '_YEAR'
+                        existingYear = from('CustomTimePeriod')
+                                .where('fromDate', yearStartDate, 'thruDate', yearEndDate, 'organizationPartyId', parameters.organizationPartyId,
+                                        'periodTypeId', yearPeriodType).queryFirst()
+                        if (existingYear) {
+                            parameters.parentPeriodId = existingYear.customTimePeriodId
+                        } else {
+                            parameters.fromDate = yearStartDate
+                            parameters.thruDate = yearEndDate
+                            parameters.periodTypeId = yearPeriodType
+                            parameters.periodNum = year + '00'
+                            parameters.periodName = year.toString()
+                            // persist the future period
+                            inMap = dispatcher.getDispatchContext().makeValidContext('createCustomTimePeriod', ModelService.IN_PARAM, parameters)
+                            serviceResult = run service: 'createCustomTimePeriod', with: inMap
+                            if (ServiceUtil.isSuccess(serviceResult)) {
+                                parameters.parentPeriodId = serviceResult.customTimePeriodId
+                            } else {
+                                return error(serviceResult.errorMessage)
+                            }
+                        }
+                        // check whether the future period exists
+                        parameters.customTimePeriodId = year + month
+                        parameters.periodNum = year + month
+                        parameters.periodName = (year + '-' + monthName).toUpperCase()
+                        fromDate = Timestamp.valueOf(periodStartDate)
+                        thruDate = Timestamp.valueOf(periodEndDate)
+                        parameters.periodTypeId = periodTypeId + '_' + grain
+                        existingPeriod = from('CustomTimePeriod')
+                                .where('fromDate', fromDate, 'thruDate', thruDate, 'organizationPartyId', parameters.organizationPartyId,
+                                        'periodTypeId', parameters.periodTypeId).queryFirst()
+                        if (!existingPeriod) {
+                            parameters.fromDate = periodStartDate
+                            parameters.thruDate = periodEndDate
+                            // persist the future period
+                            inMap = dispatcher.getDispatchContext().makeValidContext('createCustomTimePeriod', ModelService.IN_PARAM, parameters)
+                            serviceResult = run service: 'createCustomTimePeriod', with: inMap
+                            if (!ServiceUtil.isSuccess(serviceResult)) {
+                                return error(serviceResult.errorMessage)
+                            }
+                        }
+                        parameters.parentPeriodId = ''
+                    }
+                }
+            }
+        }
+    }
+    return success()
 }

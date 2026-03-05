@@ -97,10 +97,12 @@ if [ ! -r "$GRADLE_WRAPPER_OFBIZ_PATH/$GRADLE_WRAPPER_JAR" ]; then
     echo " === Control downloaded files ==="
     if [ -n "$(whereIsBinary shasum)" ]; then
         echo "$SHASUM_GRADLE_WRAPPER_FILES" | shasum -c -;
+        echo " Warning: shasum not found, the downloaded files could not be verified"
         exit 0;
+        else
+        exit 1;
+        fi
     fi
-
-    echo " Warning: shasum not found, the downloaded files could not be verified"
     exit 1;
 fi
-echo " Nothing to be done"
+echo " Nothing more to be done"

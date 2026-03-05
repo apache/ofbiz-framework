@@ -149,4 +149,8 @@ under the License.
         <attribute type="Timestamp" mode="IN" name="asOfTimestamp" optional="true"/>
         <attribute type="BigDecimal" mode="OUT" name="conversionRate" optional="false"/>
     </service>
+    <service name="createFuturePeriod" engine="groovy"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/admin/AcctgAdminServices.groovy" invoke="createFuturePeriod" auth="true">
+        <description>Create a future CustomTimePeriod</description>
+    </service>
 </services>

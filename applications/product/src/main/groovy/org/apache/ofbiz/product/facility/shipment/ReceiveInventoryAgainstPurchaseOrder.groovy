@@ -28,7 +28,6 @@ shipmentId = request.getParameter('shipmentId')
 orderId = request.getParameter('purchaseOrderId')
 shipGroupSeqId = request.getParameter('shipGroupSeqId')
 context.shipmentId = shipmentId
-context.shipGroupSeqId = shipGroupSeqId
 
 // Retrieve the map resident in session which stores order item quantities to receive
 itemQuantitiesToReceive = session.getAttribute('purchaseOrderItemQuantitiesToReceive')
@@ -55,6 +54,8 @@ context.isPurchaseShipment = isPurchaseShipment
 if (!isPurchaseShipment) {
     return
 }
+isShipmentReceived = shipment.statusId == 'PURCH_SHIP_RECEIVED'
+context.isShipmentReceived = isShipmentReceived
 
 facility = shipment.getRelatedOne('DestinationFacility', false)
 context.facility = facility
@@ -63,6 +64,7 @@ context.now = UtilDateTime.nowTimestamp()
 
 orderId = orderId ?: shipment.primaryOrderId
 shipGroupSeqId = shipGroupSeqId ?: shipment.primaryShipGroupSeqId
+context.shipGroupSeqId = shipGroupSeqId
 context.orderId = orderId
 
 if (!orderId) {
@@ -117,13 +119,15 @@ orderItems.each { orderItemAndShipGroupAssoc ->
 
     // Get the item's ordered quantity
     totalOrdered = 0
-    ordered = orderItem.getDouble('quantity')
+    ordered = orderItemAndShipGroupAssoc.getDouble('quantity')
     if (ordered) {
         totalOrdered += ordered.doubleValue()
+        orderItemData.ordered = ordered
     }
-    cancelled = orderItem.getDouble('cancelQuantity')
+    cancelled = orderItemAndShipGroupAssoc.getDouble('cancelQuantity')
     if (cancelled) {
         totalOrdered -= cancelled.doubleValue()
+        orderItemData.cancelled = cancelled
     }
 
     // Get the item quantity received from all shipments via the ShipmentReceipt entity
@@ -132,13 +136,18 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     fulfilledReservations = [] as ArrayList
     if (receipts) {
         receipts.each { rec ->
-            accepted = rec.getDouble('quantityAccepted')
-            rejected = rec.getDouble('quantityRejected')
-            if (accepted) {
-                totalReceived += accepted.doubleValue()
-            }
-            if (rejected) {
-                totalReceived += rejected.doubleValue()
+            orderShipment = from('OrderShipment')
+                .where('orderId', orderId, 'orderItemSeqId', orderItem.orderItemSeqId, 'shipGroupSeqId', shipGroupSeqId,
+                       'shipmentId', rec.shipmentId, 'shipmentItemSeqId', rec.shipmentItemSeqId).queryOne()
+            if (orderShipment) {
+                accepted = rec.getDouble('quantityAccepted')
+                rejected = rec.getDouble('quantityRejected')
+                if (accepted) {
+                    totalReceived += accepted.doubleValue()
+                }
+                if (rejected) {
+                    totalReceived += rejected.doubleValue()
+                }
             }
             // Get the reservations related to this receipt
             oisgirs = from('OrderItemShipGrpInvRes').where('inventoryItemId', rec.inventoryItemId).queryList()

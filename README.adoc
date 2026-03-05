@@ -95,7 +95,7 @@ https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know 
 
 [WARNING]
 ==================
-On Windows don't put OFBiz in a directory with space/s in the path.
+On Windows, do not install OFBiz in a directory whose path contains spaces.
 ==================
 
 * If on Windows, a Powershell version >= 7.1.3 installed that you can download from the below link. +
@@ -114,7 +114,7 @@ the command line at the OFBiz top level directory (folder).
 MS Windows: `init-gradle-wrapper`
 [IMPORTANT]
 ====
-* If you cross the error
+* If you encounter an error 
 [quote]
 ____
 "Powershell is not recognized as an internal or external command, operable program or batch file"
@@ -223,23 +223,11 @@ The current workaround is to clone the repository and run gradlew commands from 
 [[security]]
 == Security
 
-* If you find a pre-auth security issue, please report it to: security @ ofbiz.apache.org.
-Once proper mitigations to the security issues are complete the OFBiz team will
-disclose this information to the public mailing list.
-* If you find a post-auth security issue, please https://s.apache.org/dsj2p[create a bug in our issue tracker (Jira)] .
-
-* If you want to use AJP on a non localhost OFBiz instance, you need to set the value of allowedRequestAttributesPattern
-in framework/catalina/ofbiz-component.xml
-
-You can find more information about security in OFBiz at
-https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure[Keeping OFBiz secure]
 
 [CAUTION]
-====
-In production never use the credentials contained in demo data. Not only the admin credentials, but all of them.
+You can find more information about security in OFBiz at
+https://ofbiz.apache.org/security.html[the site security page]
 
-Also we recommend to not use Windows Server in production because we are not supporting specific Windows related security issues.
-====
 
 [[build-system-syntax]]
 == Build system syntax
@@ -620,6 +608,15 @@ verbose:
 
 Run a test case, in this example the component is "entity" and the case name is
 "entity-tests"
+
+[WARNING]
+====
+If the test fail and you see in the log that the test lacks data in the DB,
+verify that a *TestData.xml is not required in the *Test.xml where the test case is defined.
+In this case you can't use the test case, you need to use the test suite
+
+====
+
 
 `gradlew "ofbiz --test component=entity --test suitename=entitytests --test case=entity-query-tests"`
 

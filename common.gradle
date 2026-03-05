@@ -19,8 +19,6 @@
 import java.util.stream.Stream
 import java.util.stream.Collectors
 
-mkdir "${rootDir}/plugins"
-
 // The ‘file’ argument can be either a string or a file.
 Stream<Node> xmlChildren(file) {
     new XmlParser().parse(file).children().stream()
@@ -46,7 +44,10 @@ List<File> activeComponents() {
             if (loader.exists()) {
                 xmlChildren(loader).map { file dir + '/' + it.@'component-location' }
             } else {
-                subdirs file(dir)
+                File componentDir = file(dir)
+                if (componentDir.exists()) {
+                    subdirs componentDir
+                }
             }
         })
         .filter(this.&isComponentEnabled)

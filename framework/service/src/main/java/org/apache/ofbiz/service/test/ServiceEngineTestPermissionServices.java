@@ -19,13 +19,11 @@
 package org.apache.ofbiz.service.test;
 
 import java.util.Map;
+
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
 public class ServiceEngineTestPermissionServices {
-
-    private static final String MODULE = ServiceEngineTestPermissionServices.class.getName();
-    private static final String RESOURCE = "ServiceErrorUiLabels";
 
     public static Map<String, Object> genericTestService(DispatchContext dctx, Map<String, ? extends Object> context) {
         return ServiceUtil.returnSuccess();

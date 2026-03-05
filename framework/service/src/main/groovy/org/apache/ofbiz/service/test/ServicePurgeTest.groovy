@@ -22,11 +22,15 @@ import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.util.EntityQuery
 import org.apache.ofbiz.service.config.ServiceConfigUtil
-import org.apache.ofbiz.testtools.GroovyScriptAssert
-
-class ServicePurgeTest extends GroovyScriptAssert {
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 // ./gradlew "ofbiz --test component=service --test suitename=servicetests --test case=service-purge-test"
+
+class ServicePurgeTest  extends OFBizTestCase {
+
+    ServicePurgeTest(String name) {
+        super(name)
+    }
 
     void testRuntimeDataIsCleanedAfterServicePurge() {
         GenericValue sysUserLogin = delegator.findOne('UserLogin', true, 'userLoginId', 'system')

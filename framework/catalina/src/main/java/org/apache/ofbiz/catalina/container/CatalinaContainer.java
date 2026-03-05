@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -59,6 +60,7 @@ import org.apache.catalina.tribes.transport.ReplicationTransmitter;
 import org.apache.catalina.tribes.transport.nio.NioReceiver;
 import org.apache.catalina.util.ServerInfo;
 import org.apache.catalina.valves.AccessLogValve;
+import org.apache.catalina.valves.ErrorReportValve;
 import org.apache.catalina.webresources.StandardRoot;
 import org.apache.coyote.http2.Http2Protocol;
 import org.apache.ofbiz.base.component.ComponentConfig;
@@ -121,7 +123,11 @@ public class CatalinaContainer implements Container {
             ((StandardHost) host).addValve(new SingleSignOn());
             // CHECKSTYLE_ON: ALMOST_ALL
         }
-
+        ErrorReportValve errorReportValve = new ErrorReportValve();
+        errorReportValve.setShowServerInfo(false);
+        // CHECKSTYLE_OFF: ALMOST_ALL
+        ((StandardHost) host).addValve(errorReportValve);
+        // CHECKSTYLE_ON: ALMOST_ALL
         // clustering, valves and connectors setup
         Configuration.Property clusterProps = prepareTomcatClustering(host, engineConfig);
         prepareTomcatEngineValves(engineConfig).forEach(valve -> ((StandardEngine) engine).addValve(valve));
@@ -255,7 +261,7 @@ public class CatalinaContainer implements Container {
         }
 
         virtualHosts.stream()
-            .filter(virtualHost -> virtualHost != hostName).forEach(virtualHost -> host.addAlias(virtualHost));
+            .filter(virtualHost -> !Objects.equals(virtualHost, hostName)).forEach(virtualHost -> host.addAlias(virtualHost));
 
         return host;
     }

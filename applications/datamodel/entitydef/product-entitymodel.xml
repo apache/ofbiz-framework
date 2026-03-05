@@ -2976,14 +2976,27 @@ under the License.
                  title="Product and ProductAssoc View">
       <member-entity entity-alias="PD" entity-name="Product"/>
       <member-entity entity-alias="PDA" entity-name="ProductAssoc"/>
-      <alias name="productId" entity-alias="PD" field="productId"/>
-      <alias name="internalName" entity-alias="PD"  field="internalName"/>
-      <alias name="productIdTo" entity-alias="PDA" field="productIdTo"/>
-      <alias name="productAssocTypeId" entity-alias="PDA" field="productAssocTypeId"/>
-      <alias name="quantity" entity-alias="PDA" field="quantity"/>
-      <alias name="fromDate" entity-alias="PDA" field="fromDate"/>
+      <alias name="productId" entity-alias="PD"/>
+      <alias name="internalName" entity-alias="PD"/>
+      <alias name="productIdTo" entity-alias="PDA"/>
+      <alias name="productAssocTypeId" entity-alias="PDA"/>
+      <alias name="quantity" entity-alias="PDA"/>
+      <alias name="fromDate" entity-alias="PDA"/>
       <view-link entity-alias="PD" rel-entity-alias="PDA">
         <key-map field-name="productId"/>
+      </view-link>
+    </view-entity>
+    <view-entity entity-name="ProductAndAssocTo"
+                 package-name="org.apache.ofbiz.product.product"
+                 title="Product and ProductAssoc View by child (to) orientation">
+      <member-entity entity-alias="PD" entity-name="Product"/>
+      <member-entity entity-alias="PDA" entity-name="ProductAssoc"/>
+      <alias-all entity-alias="PD">
+          <exclude field="productId"/>
+      </alias-all>
+      <alias-all entity-alias="PDA"/>
+      <view-link entity-alias="PD" rel-entity-alias="PDA">
+        <key-map field-name="productId" rel-field-name="productIdTo"/>
       </view-link>
     </view-entity>
     <entity entity-name="ProductAssocType"

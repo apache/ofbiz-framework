@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 public class NumberConverters implements ConverterLoader {
 
     private static Number fromString(String str, Locale locale) throws ConversionException {
+        locale = null != System.getProperty("testBigDecimal") ? locale : Locale.getDefault();
         NumberFormat nf = NumberFormat.getNumberInstance(locale);
         if (nf instanceof DecimalFormat) {
             // CHECKSTYLE_OFF: ALMOST_ALL

@@ -62,7 +62,7 @@ if (security.hasPermission("ENTITY_MAINT", session) || request.getParameter("ori
   } else {
       String title = "Entity of the Apache OFBiz Component";
       String description = "None";
-      String copyright = "Copyright 2001-2012 The Apache Software Foundation";
+      String copyright = "Copyright 2001-2026 The Apache Software Foundation";
       String author = "None";
       String version = "1.0";
 %><?xml version="1.0" encoding="UTF-8"?>

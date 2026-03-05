@@ -18,18 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.service
 
-
-import org.apache.ofbiz.entity.DelegatorFactory
-import org.junit.Before
-
 import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.eq
 
 import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.base.util.UtilURL;
+import org.apache.ofbiz.base.util.UtilURL
 import org.apache.ofbiz.base.util.UtilXml
 import org.apache.ofbiz.base.util.cache.UtilCache
+import org.apache.ofbiz.entity.DelegatorFactory
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -47,10 +45,10 @@ class ModelServiceTest {
 
     @Before
     void initialize() {
-        System.setProperty("ofbiz.home", System.getProperty("user.dir"))
-        System.setProperty("derby.system.home", "./runtime/data/derby")
-        dispatcher = Mockito.mock(LocalDispatcher.class)
-        Mockito.when(dispatcher.getDelegator()).thenReturn(DelegatorFactory.getDelegator("default"))
+        System.setProperty('ofbiz.home', System.getProperty('user.dir'))
+        System.setProperty('derby.system.home', './runtime/data/derby')
+        dispatcher = Mockito.mock(LocalDispatcher)
+        Mockito.when(dispatcher.getDelegator()).thenReturn(DelegatorFactory.getDelegator('default'))
     }
 
     @BeforeEach
@@ -328,8 +326,8 @@ class ModelServiceTest {
            </service>'''
         createModelService(serviceXml)
                 .validate(dispatcher, [header: [[headerParam: 'line1', otherParam: 'Good'],
-                                    [headerParam: 'line2', otherParam: 'Good',
-                                     unwanted: 'Bad']]],
+                                                [headerParam: 'line2', otherParam: 'Good',
+                                                 unwanted: 'Bad']]],
                         'IN', Locale.default)
     }
 
@@ -414,12 +412,6 @@ class ModelServiceTest {
         assert sanitizedContext.someList[0].quantity instanceof BigDecimal
     }
 
-    private static ModelService createModelService(String serviceXml) {
-        Element serviceElement = UtilXml.readXmlDocument(serviceXml, false).getDocumentElement()
-        return new ModelServiceReader(true, UtilURL.fromUrlString('http://ofbiz.apache.org'), null, null)
-                .createModelService(serviceElement, 'TEST')
-    }
-
     @Test
     void callValidatorCreationWithDelegator() {
         String serviceXml = '''<service name="testParam" engine="java"
@@ -433,6 +425,13 @@ class ModelServiceTest {
         ModelService fo = createModelService(serviceXml)
         ModelParam.ModelParamValidator validator = fo.getParam('fileNameToTest').getValidators().first()
         assert validator
-        assert ModelService.typeValidate(dispatcher, validator, "myFileName")
+        assert ModelService.typeValidate(dispatcher, validator, 'myFileName')
     }
+
+    private static ModelService createModelService(String serviceXml) {
+        Element serviceElement = UtilXml.readXmlDocument(serviceXml, false).getDocumentElement()
+        return new ModelServiceReader(true, UtilURL.fromUrlString('http://ofbiz.apache.org'), null, null)
+                .createModelService(serviceElement, 'TEST')
+    }
+
 }

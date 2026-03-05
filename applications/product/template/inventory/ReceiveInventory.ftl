@@ -42,10 +42,6 @@ under the License.
               <td></td>
             </tr>
             <#list receivedItems as item>
-              <form name="cancelReceivedItemsForm_${item_index}" method="post" action="<@ofbizUrl>cancelReceivedItems</@ofbizUrl>">
-                <input type="hidden" name="receiptId" value ="${(item.receiptId)!}"/>
-                <input type="hidden" name="purchaseOrderId" value ="${(item.orderId)!}"/>
-                <input type="hidden" name="facilityId" value ="${facilityId!}"/>
                 <tr>
                   <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${item.shipmentId!}</@ofbizUrl>" class="buttontext">${item.shipmentId!} ${item.shipmentItemSeqId!}</a></td>
                   <td>${item.receiptId}</td>
@@ -59,11 +55,16 @@ under the License.
                   <td>${item.quantityAccepted?string.number}</td>
                   <td>
                     <#if (item.quantityAccepted?int > 0 || item.quantityRejected?int > 0)>
+                      <form name="cancelReceivedItemsForm_${item_index}" method="post" action="<@ofbizUrl>cancelReceivedItems</@ofbizUrl>">
+                        <input type="hidden" name="receiptId" value ="${(item.receiptId)!}"/>
+                        <input type="hidden" name="purchaseOrderId" value ="${(item.orderId)!}"/>
+                        <input type="hidden" name="facilityId" value ="${facilityId!}"/>
                       <a href="javascript:document.cancelReceivedItemsForm_${item_index}.submit();" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                      </form>
                     </#if>
                   </td>
                 </tr>
-              </form>
+
             </#list>
             <tr><td colspan="10"><hr /></td></tr>
           </table>
@@ -198,8 +199,8 @@ under the License.
                   <input type="text" name="datetimeReceived" size="24" value="${nowTimestamp}" />
                 </td>
               </tr>
-              
-              
+
+
               <tr>
                 <td width="14%">&nbsp;</td>
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.lotId}</td>

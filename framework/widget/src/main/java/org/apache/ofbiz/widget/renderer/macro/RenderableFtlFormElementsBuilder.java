@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -48,6 +47,7 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilRandom;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.webapp.control.RequestHandler;
@@ -255,6 +255,13 @@ public final class RenderableFtlFormElementsBuilder {
         if (UtilValidate.isEmpty(type)) {
             type = "text";
         }
+        String step = "";
+        if (type.equals("number")) {
+            step = textField.getStep();
+            if (UtilValidate.isEmpty(step)) {
+                step = "any";
+            }
+        }
         String pattern = "";
         if (List.of("text", "email", "url", "tel").contains(type)) {
             pattern = textField.getPattern();
@@ -308,6 +315,7 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("name", name)
                 .stringParameter("className", String.join(" ", classes))
                 .stringParameter("type", type)
+                .stringParameter("step", step)
                 .stringParameter("pattern", pattern)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)
@@ -840,7 +848,7 @@ public final class RenderableFtlFormElementsBuilder {
 
         } else {
             if ("layered-modal".equals(realLinkType)) {
-                String uniqueItemName = "Modal_".concat(UUID.randomUUID().toString().replace("-", "_"));
+                String uniqueItemName = UtilRandom.getUnique("Modal_", true);
                 String width = (String) request.getAttribute("width");
                 if (UtilValidate.isEmpty(width)) {
                     width = String.valueOf(modelTheme.getLinkDefaultLayeredModalWidth());

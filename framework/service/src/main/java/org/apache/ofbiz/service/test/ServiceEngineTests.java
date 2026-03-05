@@ -48,6 +48,19 @@ public class ServiceEngineTests extends OFBizTestCase {
     }
 
     /**
+     * Test a seca with condition in
+     * @throws Exception the exception
+     */
+    public void testConditionSecaInInvocation() throws Exception {
+        Map<String, Object> result = getDispatcher().runSync("ping", UtilMisc.toMap("message", "present"));
+        assertEquals("set message to condition in message", result.get("message"));
+        result = getDispatcher().runSync("ping", UtilMisc.toMap("message", "in"));
+        assertEquals("set message to condition in message", result.get("message"));
+        result = getDispatcher().runSync("ping", UtilMisc.toMap("message", "other"));
+        assertEquals("other", result.get("message"));
+    }
+
+    /**
      * Test a basic clojure invocation
      * @throws Exception the exception
      */

@@ -505,6 +505,7 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         String outpath = (String) context.get("outpath"); // mandatory
         Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Timestamp thruDate = (Timestamp) context.get("thruDate");
         Integer txTimeout = (Integer) context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = 7200;
@@ -536,8 +537,13 @@ public class WebToolsServices {
                         continue;
                     }
                     List<EntityCondition> conds = new LinkedList<>();
-                    if (UtilValidate.isNotEmpty(fromDate)) {
-                        conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                    if (!me.getNoAutoStamp()) {
+                        if (UtilValidate.isNotEmpty(fromDate)) {
+                            conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                        }
+                        if (UtilValidate.isNotEmpty(thruDate)) {
+                            conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+                        }
                     }
                     EntityQuery eq = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames());
 

@@ -185,7 +185,7 @@ public class GatewayResponse {
         Node rootnode = doc.getDocumentElement();
         String root = rootnode.getNodeName();
 
-        if ("ewayResponse" != root) {
+        if (!"ewayResponse".equals(root)) {
             throw new Exception("Bad root element in response: " + root);
         }
 
@@ -195,7 +195,7 @@ public class GatewayResponse {
         for (int i = 0; i < length; i++) {
             Node node = list.item(i);
             String name = node.getNodeName();
-            if ("ewayResponse" == name) {
+            if ("ewayResponse".equals(name)) {
                 continue;
             }
             Text textnode = (Text) node.getFirstChild();

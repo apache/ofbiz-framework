@@ -537,6 +537,15 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT"/>
     </service>
+    <service name="addInvoiceNote" engine="groovy" auth="true"
+             location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/InvoiceServicesScript.groovy"
+             invoke="addInvoiceNote">
+        <description>add a Note and associate it to an invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN"/>
+        <attribute name="noteInfo" type="String" mode="IN" allow-html="safe"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
+        <attribute name="noteId" type="String" mode="OUT"/>
+    </service>
     <service name="deleteInvoiceNote" default-entity-name="InvoiceNote" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a InvoiceNote</description>
         <auto-attributes include="pk" mode="IN"/>

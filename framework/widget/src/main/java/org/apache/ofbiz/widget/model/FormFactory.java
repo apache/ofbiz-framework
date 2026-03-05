@@ -146,13 +146,21 @@ public class FormFactory {
             rootElement = UtilXml.firstChildElement(rootElement, "forms");
         }
         Element formElement = UtilXml.firstChildElement(rootElement, "form", "name", formName);
+        if (formElement == null) {
+            // look for grid definition
+            formElement = UtilXml.firstChildElement(rootElement, "grid", "name", formName);
+        }
+        if (formElement == null) {
+            throw new IllegalArgumentException("Could not find form with name [" + formName + "] in class resource [" + formLocation + "]");
+        }
         return createModelForm(formElement, entityModelReader, visualTheme, dispatchContext, formLocation, formName);
     }
 
     public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, VisualTheme visualTheme,
                                             DispatchContext dispatchContext, String formLocation, String formName) {
         String formType = formElement.getAttribute("type");
-        if (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType)) {
+        if ("form".equals(UtilXml.getTagNameIgnorePrefix(formElement))
+                && (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType))) {
             return new ModelSingleForm(formElement, formLocation, entityModelReader, visualTheme, dispatchContext);
         }
         return new ModelGrid(formElement, formLocation, entityModelReader, visualTheme, dispatchContext);

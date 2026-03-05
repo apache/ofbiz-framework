@@ -87,6 +87,7 @@ public class ImageManagementServices {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isNotEmpty(uploadFileName)) {
+            Debug.logInfo("================== This is about file: " + uploadFileName + " ==================", MODULE);
             String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
                     "image.management.path", delegator), context);
             String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog",
@@ -180,9 +181,7 @@ public class ImageManagementServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR,
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
-            }
-            // Scale Image in different sizes
-            if (UtilValidate.isNotEmpty(imageResize)) {
+            } else { // Scale Image in different sizes
                 fileToCheck = imageServerPath + "/" + productId + "/" + imageName;
                 File fileOriginal = new File(fileToCheck);
                 fileOriginal = checkExistsImage(fileOriginal);

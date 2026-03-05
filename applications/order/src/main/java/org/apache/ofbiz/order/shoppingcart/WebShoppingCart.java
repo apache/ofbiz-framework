@@ -24,9 +24,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
+import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
@@ -42,7 +42,7 @@ public class WebShoppingCart extends ShoppingCart {
         // for purchase orders, bill to customer partyId must be set - otherwise, no way to know who we're purchasing for.
         // supplierPartyId is furnished by order manager for PO entry.
         // TODO: refactor constructor and the getCartObject method which calls them to multiple constructors for different types of orders
-        super((Delegator) request.getAttribute("delegator"), ProductStoreWorker.getProductStoreId(request),
+        super((LocalDispatcher) request.getAttribute("dispatcher"), ProductStoreWorker.getProductStoreId(request),
                 WebSiteWorker.getWebSiteId(request), (locale != null ? locale : ProductStoreWorker.getStoreLocale(request)), (currencyUom != null
                         ? currencyUom : ProductStoreWorker.getStoreCurrencyUomId(request)), request.getParameter("billToCustomerPartyId"), (
                         request.getParameter("supplierPartyId") != null ? request.getParameter("supplierPartyId")

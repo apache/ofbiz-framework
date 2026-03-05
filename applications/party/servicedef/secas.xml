@@ -23,6 +23,10 @@ under the License.
     <eca service="createPerson" event="commit">
         <action service="ensureNaPartyRole" mode="sync"/>
     </eca>
+    <eca service="createPerson" event="commit">
+        <condition field-name="maritalStatusTypeId" operator="is-not-empty"/>
+        <action service="createMaritalStatus" mode="sync"/>
+    </eca>
     <eca service="createProductStoreRole" event="invoke">
         <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
     </eca>
@@ -35,6 +39,10 @@ under the License.
 
     <eca service="updatePerson" event="invoke">
         <action service="savePartyNameChange" mode="sync"/>
+    </eca>
+    <eca service="updatePerson" event="invoke">
+        <condition field-name="maritalStatusTypeId" operator="is-not-empty"/>
+        <action service="saveMaritalStatusChange" mode="sync"/>
     </eca>
     <eca service="updatePartyGroup" event="invoke">
         <action service="savePartyNameChange" mode="sync"/>

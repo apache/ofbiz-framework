@@ -122,6 +122,6 @@ public final class UtilObject {
                 return instance;
             }
         }
-        throw new ClassNotFoundException(factoryInterface.getClass().getName());
+        throw new ClassNotFoundException(factoryInterface.getName());
     }
 }
