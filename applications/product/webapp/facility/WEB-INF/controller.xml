@@ -1159,7 +1159,7 @@ under the License.
     </request-map>
     <!-- note: this is an insecure version of above for purposes of rendering via fop, which cannot access over https -->
     <request-map uri="viewShipmentLabel">
-        <security https="false" auth="false"/>
+        <security https="false" auth="true"/>
         <event type="java" path="org.apache.ofbiz.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
