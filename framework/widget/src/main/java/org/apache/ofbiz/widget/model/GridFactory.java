@@ -30,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
@@ -57,6 +58,9 @@ public class GridFactory {
                                                               VisualTheme visualTheme, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         URL gridFileUrl = FlexibleLocation.resolveLocation(resourceName);
+        if (gridFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(gridFileUrl.toString())) {
+            throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
+        }
         Document gridFileDoc = UtilXml.readXmlDocument(gridFileUrl, true, true);
         return readGridDocument(gridFileDoc, entityModelReader, visualTheme, dispatchContext, resourceName);
     }
@@ -70,6 +74,9 @@ public class GridFactory {
         ModelGrid modelGrid = GRID_LOCATION_CACHE.get(cacheKey);
         if (modelGrid == null) {
             URL gridFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            if (gridFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(gridFileUrl.toString())) {
+                throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
+            }
             Document gridFileDoc = UtilXml.readXmlDocument(gridFileUrl, true, true);
             if (gridFileDoc == null) {
                 throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
