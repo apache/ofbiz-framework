@@ -880,6 +880,10 @@
         <value xml:lang="zh">异步</value>
         <value xml:lang="zh-TW">非同步</value>
     </property>
+    <property key="WebtoolsAvailableUelMethods">
+        <value xml:lang="en">Available UEL Methods</value>
+        <value xml:lang="fr">Fonctions UEL disponibles</value>
+    </property>
     <property key="WebtoolsBackToCacheMaintenance">
         <value xml:lang="de">Zurück zur Cache-Wartung</value>
         <value xml:lang="en">Back to Cache Maintenance</value>
@@ -5687,6 +5691,22 @@
         <value xml:lang="vi">TỔNG</value>
         <value xml:lang="zh">全部</value>
         <value xml:lang="zh-TW">全部</value>
+    </property>
+    <property key="WebtoolsUelKeyString">
+        <value xml:lang="en">Uel string key</value>
+        <value xml:lang="fr">Clef de l'Uel</value>
+    </property>
+    <property key="WebtoolsUelMethodClass">
+        <value xml:lang="en">Uel Method class</value>
+        <value xml:lang="fr">Methode appelée par l'Uel</value>
+    </property>
+    <property key="WebtoolsUelMethodParams">
+        <value xml:lang="en">Uel method params</value>
+        <value xml:lang="fr">Paramètres de la methode Uel</value>
+    </property>
+    <property key="WebtoolsUelDescription">
+        <value xml:lang="en">Uel description</value>
+        <value xml:lang="fr">Description de l'Uel</value>
     </property>
     <property key="WebtoolsUnCheckAll">
         <value xml:lang="de">Keine auswählen</value>
