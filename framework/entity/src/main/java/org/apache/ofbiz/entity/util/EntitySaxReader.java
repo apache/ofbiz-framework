@@ -388,7 +388,7 @@ public class EntitySaxReader extends DefaultHandler {
                     NodeModel nodeModel = NodeModel.wrap(this.rootNodeForTemplate);
 
                     Map<String, Object> context = new HashMap<>();
-                    context.put("Static", FreeMarkerWorker.getRestrictedStaticModels());
+                    context.put("Static", FreeMarkerWorker.getStaticModels());
 
                     context.put("doc", nodeModel);
                     template.process(context, outWriter);
