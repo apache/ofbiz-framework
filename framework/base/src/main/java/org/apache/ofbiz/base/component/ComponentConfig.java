@@ -136,6 +136,16 @@ public final class ComponentConfig {
      * Provides the list of all the keystore information available in components.
      * @return a list of keystore information
      */
+    public static List<UelMapping> getAllUelMappings() {
+        return components()
+                .flatMap(cc -> cc.getUelMappings().stream())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Provides the list of all the keystore information available in components.
+     * @return a list of keystore information
+     */
     public static List<KeystoreInfo> getAllKeystoreInfos() {
         return components()
                 .flatMap(cc -> cc.getKeystoreInfos().stream())
@@ -270,6 +280,7 @@ public final class ComponentConfig {
     private final List<TestSuiteInfo> testSuiteInfos;
     private final List<KeystoreInfo> keystoreInfos;
     private final List<WebappInfo> webappInfos;
+    private final List<UelMapping> uelMappings;
     private final List<ContainerConfig.Configuration> configurations;
 
     /**
@@ -293,6 +304,7 @@ public final class ComponentConfig {
         this.keystoreInfos = b.keystoreInfos;
         this.webappInfos = b.webappInfos;
         this.configurations = b.configurations;
+        this.uelMappings = b.uelMappings;
     }
 
     /**
@@ -311,6 +323,7 @@ public final class ComponentConfig {
         private List<TestSuiteInfo> testSuiteInfos;
         private List<KeystoreInfo> keystoreInfos;
         private List<WebappInfo> webappInfos;
+        private List<UelMapping> uelMappings;
         private List<ContainerConfig.Configuration> configurations;
 
         public Builder globalName(String name) {
@@ -373,6 +386,11 @@ public final class ComponentConfig {
             return this;
         }
 
+        public Builder uelMappings(List<UelMapping> uelMappings) {
+            this.uelMappings = uelMappings;
+            return this;
+        }
+
         public Builder configurations(List<ContainerConfig.Configuration> configurations) {
             this.configurations = configurations;
             return this;
@@ -422,6 +440,7 @@ public final class ComponentConfig {
         testSuiteInfos = collectElements(componentElement, "test-suite", TestSuiteInfo::new);
         keystoreInfos = collectElements(componentElement, "keystore", KeystoreInfo::new);
         webappInfos = collectElements(componentElement, "webapp", WebappInfo::new);
+        uelMappings = collectElements(componentElement, "uel-mapping", UelMapping::new);
         resourceLoaderInfos = UtilXml.childElementList(componentElement, "resource-loader").stream()
                 .map(ResourceLoaderInfo::new)
                 .collect(Collectors.collectingAndThen(
@@ -521,6 +540,10 @@ public final class ComponentConfig {
 
     private List<KeystoreInfo> getKeystoreInfos() {
         return this.keystoreInfos;
+    }
+
+    private List<UelMapping> getUelMappings() {
+        return this.uelMappings;
     }
 
     public Map<String, ResourceLoaderInfo> getResourceLoaderInfos() {
@@ -759,6 +782,25 @@ public final class ComponentConfig {
             super(componentConfig, element);
             this.type = element.getAttribute("type");
             this.readerName = element.getAttribute("reader-name");
+        }
+    }
+
+    /**
+     * An object that models a component's uel methods mapping
+     * @see <code>ofbiz-component.xsd</code>
+     */
+    public static final class UelMapping extends ResourceInfo {
+        private final String name;
+        private final String className;
+
+        private UelMapping(ComponentConfig componentConfig, Element element) {
+            super(componentConfig, element);
+            this.name = element.getAttribute("name");
+            this.className = element.getAttribute("class-name");
+        }
+
+        public String getClassName() {
+            return this.className;
         }
     }
 

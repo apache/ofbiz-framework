@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +32,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -55,6 +57,9 @@ import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+
+import static org.apache.ofbiz.base.component.ComponentConfig.getAllUelMappings;
+import static org.apache.ofbiz.base.component.ComponentConfig.UelMapping;
 
 /**
  * Implements Unified Expression Language functions.
@@ -199,6 +204,8 @@ public class UelFunctions {
 
     protected static final Functions FUNCTION_MAPPER = new Functions();
     public static final String MODULE = UelFunctions.class.getName();
+
+    public UelFunctions() { }
 
     /**
      * Returns a <code>FunctionMapper</code> instance.
@@ -469,110 +476,10 @@ public class UelFunctions {
     }
 
     protected static class Functions extends FunctionMapper {
-        private final Map<String, Method> functionMap = new HashMap<>();
+        private Map<String, Method> functionMap = new HashMap<>();
 
         public Functions() {
-            try {
-                this.functionMap.put("date:second", UtilDateTime.class.getMethod("getSecond", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:minute", UtilDateTime.class.getMethod("getMinute", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:hour", UtilDateTime.class.getMethod("getHour", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dayOfMonth", UtilDateTime.class.getMethod("getDayOfMonth", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dayOfWeek", UtilDateTime.class.getMethod("getDayOfWeek", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dayOfYear", UtilDateTime.class.getMethod("getDayOfYear", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:week", UtilDateTime.class.getMethod("getWeek", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:month", UtilDateTime.class.getMethod("getMonth", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:year", UtilDateTime.class.getMethod("getYear", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dayStart", UtilDateTime.class.getMethod("getDayStart", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dayEnd", UtilDateTime.class.getMethod("getDayEnd", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:weekStart", UtilDateTime.class.getMethod("getWeekStart", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:weekEnd", UtilDateTime.class.getMethod("getWeekEnd", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:monthStart", UtilDateTime.class.getMethod("getMonthStart", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:monthEnd", UtilDateTime.class.getMethod("getMonthEnd", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:yearStart", UtilDateTime.class.getMethod("getYearStart", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:yearEnd", UtilDateTime.class.getMethod("getYearEnd", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dateStr", UelFunctions.class.getMethod("dateString", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:localizedDateStr", UelFunctions.class.getMethod("localizedDateString", Timestamp.class, TimeZone.class,
-                        Locale.class));
-                this.functionMap.put("date:localizedDateTimeStr", UelFunctions.class.getMethod("localizedDateTimeString", Timestamp.class,
-                        TimeZone.class, Locale.class));
-                this.functionMap.put("date:timeStr", UelFunctions.class.getMethod("timeString", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:nowTimestamp", UtilDateTime.class.getMethod("nowTimestamp"));
-                this.functionMap.put("math:absDouble", Math.class.getMethod("abs", double.class));
-                this.functionMap.put("math:absFloat", Math.class.getMethod("abs", float.class));
-                this.functionMap.put("math:absInt", Math.class.getMethod("abs", int.class));
-                this.functionMap.put("math:absLong", Math.class.getMethod("abs", long.class));
-                this.functionMap.put("math:acos", Math.class.getMethod("abs", double.class));
-                this.functionMap.put("math:asin", Math.class.getMethod("asin", double.class));
-                this.functionMap.put("math:atan", Math.class.getMethod("atan", double.class));
-                this.functionMap.put("math:atan2", Math.class.getMethod("max", double.class, double.class));
-                this.functionMap.put("math:cbrt", Math.class.getMethod("cbrt", double.class));
-                this.functionMap.put("math:ceil", Math.class.getMethod("ceil", double.class));
-                this.functionMap.put("math:cos", Math.class.getMethod("cos", double.class));
-                this.functionMap.put("math:cosh", Math.class.getMethod("cosh", double.class));
-                this.functionMap.put("math:exp", Math.class.getMethod("exp", double.class));
-                this.functionMap.put("math:expm1", Math.class.getMethod("expm1", double.class));
-                this.functionMap.put("math:floor", Math.class.getMethod("floor", double.class));
-                this.functionMap.put("math:hypot", Math.class.getMethod("hypot", double.class, double.class));
-                this.functionMap.put("math:IEEEremainder", Math.class.getMethod("IEEEremainder", double.class, double.class));
-                this.functionMap.put("math:log", Math.class.getMethod("log", double.class));
-                this.functionMap.put("math:log10", Math.class.getMethod("log10", double.class));
-                this.functionMap.put("math:log1p", Math.class.getMethod("log1p", double.class));
-                this.functionMap.put("math:maxDouble", Math.class.getMethod("max", double.class, double.class));
-                this.functionMap.put("math:maxFloat", Math.class.getMethod("max", float.class, float.class));
-                this.functionMap.put("math:maxInt", Math.class.getMethod("max", int.class, int.class));
-                this.functionMap.put("math:maxLong", Math.class.getMethod("max", long.class, long.class));
-                this.functionMap.put("math:minDouble", Math.class.getMethod("min", double.class, double.class));
-                this.functionMap.put("math:minFloat", Math.class.getMethod("min", float.class, float.class));
-                this.functionMap.put("math:minInt", Math.class.getMethod("min", int.class, int.class));
-                this.functionMap.put("math:minLong", Math.class.getMethod("min", long.class, long.class));
-                this.functionMap.put("math:pow", Math.class.getMethod("pow", double.class, double.class));
-                this.functionMap.put("math:random", Math.class.getMethod("random"));
-                this.functionMap.put("math:rint", Math.class.getMethod("rint", double.class));
-                this.functionMap.put("math:roundDouble", Math.class.getMethod("round", double.class));
-                this.functionMap.put("math:roundFloat", Math.class.getMethod("round", float.class));
-                this.functionMap.put("math:signumDouble", Math.class.getMethod("signum", double.class));
-                this.functionMap.put("math:signumFloat", Math.class.getMethod("signum", float.class));
-                this.functionMap.put("math:sin", Math.class.getMethod("sin", double.class));
-                this.functionMap.put("math:sinh", Math.class.getMethod("sinh", double.class));
-                this.functionMap.put("math:sqrt", Math.class.getMethod("sqrt", double.class));
-                this.functionMap.put("math:tan", Math.class.getMethod("tan", double.class));
-                this.functionMap.put("math:tanh", Math.class.getMethod("tanh", double.class));
-                this.functionMap.put("math:toDegrees", Math.class.getMethod("toDegrees", double.class));
-                this.functionMap.put("math:toRadians", Math.class.getMethod("toRadians", double.class));
-                this.functionMap.put("math:ulpDouble", Math.class.getMethod("ulp", double.class));
-                this.functionMap.put("math:ulpFloat", Math.class.getMethod("ulp", float.class));
-                this.functionMap.put("str:endsWith", UelFunctions.class.getMethod("endsWith", String.class, String.class));
-                this.functionMap.put("str:indexOf", UelFunctions.class.getMethod("indexOf", String.class, String.class));
-                this.functionMap.put("str:lastIndexOf", UelFunctions.class.getMethod("lastIndexOf", String.class, String.class));
-                this.functionMap.put("str:length", UelFunctions.class.getMethod("length", String.class));
-                this.functionMap.put("str:replace", UelFunctions.class.getMethod("replace", String.class, String.class, String.class));
-                this.functionMap.put("str:replaceAll", UelFunctions.class.getMethod("replaceAll", String.class, String.class, String.class));
-                this.functionMap.put("str:replaceFirst", UelFunctions.class.getMethod("replaceFirst", String.class, String.class, String.class));
-                this.functionMap.put("str:startsWith", UelFunctions.class.getMethod("startsWith", String.class, String.class));
-                this.functionMap.put("str:endstring", UelFunctions.class.getMethod("endString", String.class, int.class));
-                this.functionMap.put("str:substring", UelFunctions.class.getMethod("subString", String.class, int.class, int.class));
-                this.functionMap.put("str:toString", UelFunctions.class.getMethod("toString", Object.class));
-                this.functionMap.put("str:toLowerCase", UelFunctions.class.getMethod("toLowerCase", String.class));
-                this.functionMap.put("str:toUpperCase", UelFunctions.class.getMethod("toUpperCase", String.class));
-                this.functionMap.put("str:trim", UelFunctions.class.getMethod("trim", String.class));
-                this.functionMap.put("sys:getenv", UelFunctions.class.getMethod("sysGetEnv", String.class));
-                this.functionMap.put("sys:getProperty", UelFunctions.class.getMethod("sysGetProp", String.class));
-                this.functionMap.put("util:size", UelFunctions.class.getMethod("getSize", Object.class));
-                this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
-                this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
-                this.functionMap.put("util:label", UelFunctions.class.getMethod("label", String.class, String.class, Locale.class));
-                this.functionMap.put("screen:id", UelFunctions.class.getMethod("resolveCurrentScreenId", ScreenRenderer.ScreenStack.class));
-                this.functionMap.put("dom:readHtmlDocument", UelFunctions.class.getMethod("readHtmlDocument", String.class));
-                this.functionMap.put("dom:readXmlDocument", UelFunctions.class.getMethod("readXmlDocument", String.class));
-                this.functionMap.put("dom:toHtmlString", UelFunctions.class.getMethod("toHtmlString", Node.class, String.class, boolean.class,
-                        int.class));
-                this.functionMap.put("dom:toXmlString", UelFunctions.class.getMethod("toXmlString", Node.class, String.class, boolean.class,
-                        boolean.class, int.class));
-                this.functionMap.put("dom:writeXmlDocument", UelFunctions.class.getMethod("writeXmlDocument", String.class, Node.class,
-                        String.class, boolean.class, boolean.class, int.class));
-            } catch (NoSuchMethodException | NullPointerException | SecurityException e) {
-                Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
-            }
+            this.functionMap = loadUelFromComponents();
             if (Debug.verboseOn()) {
                 Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", MODULE);
             }
@@ -581,6 +488,27 @@ public class UelFunctions {
         @Override
         public Method resolveFunction(String prefix, String localName) {
             return functionMap.get(prefix + ":" + localName);
+        }
+
+        private Map<String, Method> loadUelFromComponents() {
+            List<UelMapping> uelsMappingConfs = getAllUelMappings();
+            Map<String, Method> uelMappings = new HashMap<>();
+
+            uelsMappingConfs.stream().forEach(uelMapping -> {
+                        String className = uelMapping.getClassName();
+                        UelMappingInterface mapping = null;
+                        Class<?> lClass;
+                        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                        try {
+                            lClass = classLoader.loadClass(className);
+                            mapping = (UelMappingInterface) lClass.getDeclaredConstructor().newInstance();
+                        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException
+                                 | IllegalAccessException | NoSuchMethodException e) {
+                            Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
+                        }
+                        uelMappings.putAll(mapping.getMapping());
+                    });
+            return uelMappings;
         }
     }
 }
