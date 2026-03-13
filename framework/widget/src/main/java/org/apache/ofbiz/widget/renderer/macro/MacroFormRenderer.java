@@ -2357,7 +2357,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             StringBuilder targetParameters = new StringBuilder();
             if (UtilValidate.isNotEmpty(parameterMap) || UtilValidate.isNotEmpty(uniqueItemName)) {
                 try {
-                    Map<String, Object> params = new java.util.HashMap<>();
+                    Map<String, Object> params = new java.util.TreeMap<>();
                     if (UtilValidate.isNotEmpty(parameterMap)) {
                         params.putAll(parameterMap);
                     }
