@@ -115,10 +115,10 @@ public final class FreeMarkerWorker {
         Configuration newConfig = newConfiguration();
 
         newConfig.setObjectWrapper(wrapper);
-        TemplateHashModel staticModels = getConfiguredStaticModel(wrapper);
-        newConfig.setSharedVariable("Static", staticModels);
+        newConfig.setSharedVariable("Static", getConfiguredStaticModel(wrapper));
+        TemplateHashModel rawStaticModels = wrapper.getStaticModels();
         try {
-            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
+            newConfig.setSharedVariable("EntityQuery", rawStaticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
         } catch (TemplateModelException e) {
             Debug.logError(e, MODULE);
         }
