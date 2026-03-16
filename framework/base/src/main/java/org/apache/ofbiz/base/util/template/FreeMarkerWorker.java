@@ -82,8 +82,8 @@ public final class FreeMarkerWorker {
     private static final UtilCache<String, Template> CACHED_TEMPLATES =
             UtilCache.createUtilCache("template.ftl.general", 0, 0, false);
     private static final BeansWrapper DEFAULT_OFBIZ_WRAPPER = new BeansWrapperBuilder(VERSION).build();
-    private static final TemplateHashModel DEFAULT_RESTRICTED_STATIC_MODELS =
-            RestrictedStaticModels.fromConfig(DEFAULT_OFBIZ_WRAPPER.getStaticModels(), "freemarker-whitelist");
+    private static final TemplateHashModel DEFAULT_STATIC_MODELS =
+            getConfiguredStaticModel(getDefaultOfbizWrapper());
     private static final Configuration DEFAULT_OFBIZ_CONFIG = makeConfiguration(DEFAULT_OFBIZ_WRAPPER);
 
     public static BeansWrapper getDefaultOfbizWrapper() {
@@ -91,17 +91,20 @@ public final class FreeMarkerWorker {
     }
 
     /**
-     * Returns the whitelist-restricted {@link TemplateHashModel} that backs the
+     * Returns the configured {@link TemplateHashModel} that backs the
      * {@code Static} shared variable in every FreeMarker template.
      *
-     * <p>Use this instead of {@code getDefaultOfbizWrapper().getStaticModels()} whenever
-     * you need to expose the {@code Static} variable to a custom FreeMarker context, so
-     * that the same whitelist restrictions apply uniformly.
+     * <p>By default, the whitelist-restricted {@link RestrictedStaticModels} are returned.
+     * If you wish to override this behaviour, set {@code freemarker.use-restricted-static-models}
+     * in security.properties to {@code false}.
      *
-     * @return the {@link RestrictedStaticModels} instance for the default OFBiz wrapper
+     * <p>Use this whenever you need to expose the {@code Static} variable to a custom
+     * FreeMarker context, so that the same whitelist restrictions apply uniformly.
+     *
+     * @return the configured {@link TemplateHashModel} instance for the default OFBiz wrapper
      */
-    public static TemplateHashModel getRestrictedStaticModels() {
-        return DEFAULT_RESTRICTED_STATIC_MODELS;
+    public static TemplateHashModel getStaticModels() {
+        return DEFAULT_STATIC_MODELS;
     }
 
     public static Configuration newConfiguration() {
@@ -112,8 +115,8 @@ public final class FreeMarkerWorker {
         Configuration newConfig = newConfiguration();
 
         newConfig.setObjectWrapper(wrapper);
+        newConfig.setSharedVariable("Static", getConfiguredStaticModel(wrapper));
         TemplateHashModel rawStaticModels = wrapper.getStaticModels();
-        newConfig.setSharedVariable("Static", RestrictedStaticModels.fromConfig(rawStaticModels, "freemarker-whitelist"));
         try {
             newConfig.setSharedVariable("EntityQuery", rawStaticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
         } catch (TemplateModelException e) {
@@ -167,6 +170,28 @@ public final class FreeMarkerWorker {
             }
         });
         return newConfig;
+    }
+
+    /**
+     * Return an unrestricted or a whitelist-restricted {@link TemplateHashModel}
+     * depending on the value of {@code freemarker.use-restricted-static-models} in
+     * security.properties.
+     *
+     * <p>If the wrapper is {@code null}, then the default OFBiz {@code BeansWrapper} is used.
+     *
+     * @param wrapper The current {@link BeansWrapper}
+     * @return the configured {@link RestrictedStaticModels} or
+     * {@link freemarker.ext.beans.StaticModels.StaticModels StaticModels}
+     */
+    private static TemplateHashModel getConfiguredStaticModel(BeansWrapper wrapper) {
+        TemplateHashModel staticModels = getDefaultOfbizWrapper().getStaticModels();
+        if (wrapper != null) {
+            staticModels = wrapper.getStaticModels();
+        }
+        if (UtilProperties.getPropertyAsBoolean("security", "freemarker.use-restricted-static-models", true)) {
+            staticModels = RestrictedStaticModels.fromConfig(staticModels, "freemarker-whitelist");
+        }
+        return staticModels;
     }
 
     /**
