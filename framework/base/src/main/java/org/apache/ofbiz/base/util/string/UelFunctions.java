@@ -495,19 +495,19 @@ public class UelFunctions {
             Map<String, Method> uelMappings = new HashMap<>();
 
             uelsMappingConfs.stream().forEach(uelMapping -> {
-                        String className = uelMapping.getClassName();
-                        UelMappingInterface mapping = null;
-                        Class<?> lClass;
-                        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                        try {
-                            lClass = classLoader.loadClass(className);
-                            mapping = (UelMappingInterface) lClass.getDeclaredConstructor().newInstance();
-                        } catch (ClassNotFoundException | InvocationTargetException | InstantiationException
-                                 | IllegalAccessException | NoSuchMethodException e) {
-                            Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
-                        }
-                        uelMappings.putAll(mapping.getMapping());
-                    });
+                String className = uelMapping.getClassName();
+                UelMappingInterface mapping = null;
+                Class<?> lClass;
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                try {
+                    lClass = classLoader.loadClass(className);
+                    mapping = (UelMappingInterface) lClass.getDeclaredConstructor().newInstance();
+                } catch (ClassNotFoundException | InvocationTargetException | InstantiationException
+                         | IllegalAccessException | NoSuchMethodException e) {
+                    Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
+                }
+                uelMappings.putAll(mapping.getMapping());
+            });
             return uelMappings;
         }
     }
