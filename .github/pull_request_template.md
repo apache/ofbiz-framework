@@ -1,11 +1,13 @@
-Improved:
-Implemented:
-Documented:
-Completed:
-Reverted:
-Fixed:
-(OFBIZ-)
+## Pull Request Template
+### Title
+[Implemented | Improved | Fixed | Completed| Documented | Reverted]: [Jira title | Free text] [(OFBIZ-xxxx)]
 
-Explanation
+### Description
+[More detailed explanation of what has been done and what the fix achieves,
+side effects etc.]
 
-Thanks:
+[Thanks:] [xxxx for ... and yyyy for]
+
+## For more information
+
+https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+commit+message+template
