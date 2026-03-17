@@ -635,6 +635,7 @@ under the License.
     <request-map uri="WebtoolsLayoutDemoCsv"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoCsv"/></request-map>
     <request-map uri="WebtoolsLayoutDemoXls"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXls"/></request-map>
 
+    <request-map uri="AvailableUelList"><security https="true" auth="true"/><response name="success" type="view" value="AvailableUelList"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -743,5 +744,6 @@ under the License.
     <view-map name="WebtoolsLayoutDemoCsv" type="screencsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv"/>
     <view-map name="WebtoolsLayoutDemoXls" type="screenxls" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.ms-excel"/>
 
+    <view-map name="AvailableUelList" type="screen" page="component://webtools/widget/MiscScreens.xml#AvailableUelList"/>
     <!-- end of view mappings -->
 </site-conf>

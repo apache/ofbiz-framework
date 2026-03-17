@@ -47,6 +47,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
@@ -58,8 +60,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import static org.apache.ofbiz.base.component.ComponentConfig.getAllUelMappings;
-import static org.apache.ofbiz.base.component.ComponentConfig.UelMapping;
+import static org.apache.ofbiz.base.component.ComponentConfig.getAllUelMappingInfo;
 
 /**
  * Implements Unified Expression Language functions.
@@ -491,11 +492,11 @@ public class UelFunctions {
         }
 
         private Map<String, Method> loadUelFromComponents() {
-            List<UelMapping> uelsMappingConfs = getAllUelMappings();
+            List<ComponentConfig.UelMappingInfo> uelsMappingInfo = getAllUelMappingInfo();
             Map<String, Method> uelMappings = new HashMap<>();
 
-            uelsMappingConfs.stream().forEach(uelMapping -> {
-                String className = uelMapping.getClassName();
+            uelsMappingInfo.stream().forEach(uelMappingInfo -> {
+                String className = uelMappingInfo.getClassName();
                 UelMappingInterface mapping = null;
                 Class<?> lClass;
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -509,6 +510,10 @@ public class UelFunctions {
                 uelMappings.putAll(mapping.getMapping());
             });
             return uelMappings;
+        }
+
+        public Map<String, Method> getFunctionMap() {
+            return this.functionMap;
         }
     }
 }
