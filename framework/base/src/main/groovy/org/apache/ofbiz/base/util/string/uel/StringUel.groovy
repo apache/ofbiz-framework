@@ -18,33 +18,35 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string.uel
 
+
 import org.apache.ofbiz.base.util.string.UelFunctions
-import org.apache.ofbiz.base.util.string.UelMappingInterface
+import org.apache.ofbiz.base.util.string.IUelMappingLibrary
+import org.apache.ofbiz.base.util.string.UelMapping
 
 import java.lang.reflect.Method
 
 /**
  * Class for importing the String Uel
  */
-class StringUel implements UelMappingInterface {
+class StringUel implements IUelMappingLibrary {
 
     @Override
-    Map<String, Method> getMapping() {
+    List<UelMapping> getUelMappingList() {
         return [
-                'str:endsWith': UelFunctions.getMethod('endsWith', String, String),
-                'str:indexOf': UelFunctions.getMethod('indexOf', String, String),
-                'str:lastIndexOf': UelFunctions.getMethod('lastIndexOf', String, String),
-                'str:length': UelFunctions.getMethod('length', String),
-                'str:replace': UelFunctions.getMethod('replace', String, String, String),
-                'str:replaceAll': UelFunctions.getMethod('replaceAll', String, String, String),
-                'str:replaceFirst': UelFunctions.getMethod('replaceFirst', String, String, String),
-                'str:startsWith': UelFunctions.getMethod('startsWith', String, String),
-                'str:endstring': UelFunctions.getMethod('endString', String, int),
-                'str:substring': UelFunctions.getMethod('subString', String, int, int),
-                'str:toString': UelFunctions.getMethod('toString', Object),
-                'str:toLowerCase': UelFunctions.getMethod('toLowerCase', String),
-                'str:toUpperCase': UelFunctions.getMethod('toUpperCase', String),
-                'str:trim': UelFunctions.getMethod('trim', String),
+                new UelMapping('str:endsWith', UelFunctions.getMethod('endsWith', String, String)),
+                new UelMapping('str:indexOf', UelFunctions.getMethod('indexOf', String, String)),
+                new UelMapping('str:lastIndexOf', UelFunctions.getMethod('lastIndexOf', String, String)),
+                new UelMapping('str:length', UelFunctions.getMethod('length', String)),
+                new UelMapping('str:replace', UelFunctions.getMethod('replace', String, String, String)),
+                new UelMapping('str:replaceAll', UelFunctions.getMethod('replaceAll', String, String, String)),
+                new UelMapping('str:replaceFirst', UelFunctions.getMethod('replaceFirst', String, String, String)),
+                new UelMapping('str:startsWith', UelFunctions.getMethod('startsWith', String, String)),
+                new UelMapping('str:endstring', UelFunctions.getMethod('endString', String, int)),
+                new UelMapping('str:substring', UelFunctions.getMethod('subString', String, int, int)),
+                new UelMapping('str:toString', UelFunctions.getMethod('toString', Object)),
+                new UelMapping('str:toLowerCase', UelFunctions.getMethod('toLowerCase', String)),
+                new UelMapping('str:toUpperCase', UelFunctions.getMethod('toUpperCase', String)),
+                new UelMapping('str:trim', UelFunctions.getMethod('trim', String)),
         ]
     }
 

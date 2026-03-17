@@ -18,15 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string;
 
-import java.lang.reflect.Method;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Interface used for loading the Uel methods.
  * Just extend it and add an element to an ofbiz-component to add custom methods.
  */
-public interface UelMappingInterface {
+public interface IUelMappingLibrary {
 
-    Map<String, Method> getMapping();
+    List<UelMapping> getUelMappingList();
 
 }

@@ -20,26 +20,22 @@ package org.apache.ofbiz.webtools.util.uel
 
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.string.UelFunctions
+import org.apache.ofbiz.base.util.string.UelMapping
 
 import java.lang.reflect.Method
 
 List uelList = []
-Map<String, Method> uelMap = UelFunctions.getFunctionMapper().getFunctionMap()
-uelMap.each { String key, Method method ->
+Set<UelMapping> uelMap = UelFunctions.getFunctionMapper().getUelFunctions()
+uelMap.each { mapping ->
     uelList << [
-            uelKeyString: key,
-            uelMethodClass: method.getDeclaringClass(),
-            uelMethodParams: method.getParameterTypes().collect { Class paramClass -> paramClass.getName()}.join(', '),
-//            uelDescription: method.getJava
+            uelKeyString: mapping.key,
+            uelMethodClass: mapping.method.getDeclaringClass(),
+            uelMethodParams: mapping.method.getParameterTypes()
+                    .collect { Class paramClass -> paramClass.getName() }
+                    .join(', '),
+            uelDescription: mapping.description ?: 'Uel has no description'
     ]
 }
 
-
-sortField = parameters.sortField
-if (sortField) {
-    context.uelList = UtilMisc.sortMaps(uelList, UtilMisc.toList(sortField))
-} else {
-    context.uelList = uelList
-}
-
+context.uelList = (parameters.sortField) ? UtilMisc.sortMaps(uelList, [parameters.sortField]) : uelList
 

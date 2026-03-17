@@ -31,10 +31,13 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.TimeZone;
 
 import jakarta.el.FunctionMapper;
@@ -212,15 +215,8 @@ public class UelFunctions {
      * Returns a <code>FunctionMapper</code> instance.
      * @return <code>FunctionMapper</code> instance
      */
-    public static FunctionMapper getFunctionMapper() {
+    public static Functions getFunctionMapper() {
         return FUNCTION_MAPPER;
-    }
-
-    /**
-     * Add a function to OFBiz's built-in UEL functions.
-     */
-    public static synchronized void setFunction(String prefix, String localName, Method method) {
-        FUNCTION_MAPPER.functionMap.put(prefix + ":" + localName, method);
     }
 
     public static String dateString(Timestamp stamp, TimeZone timeZone, Locale locale) {
@@ -477,43 +473,50 @@ public class UelFunctions {
     }
 
     protected static class Functions extends FunctionMapper {
-        private Map<String, Method> functionMap = new HashMap<>();
+        private Set<UelMapping> functionList = new HashSet<>();
 
         public Functions() {
-            this.functionMap = loadUelFromComponents();
+            this.functionList = loadUelFromComponents();
             if (Debug.verboseOn()) {
-                Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", MODULE);
+                Debug.logVerbose("UelFunctions.Functions loaded " + this.functionList.size() + " functions", MODULE);
             }
         }
         /** resolve function */
         @Override
         public Method resolveFunction(String prefix, String localName) {
-            return functionMap.get(prefix + ":" + localName);
+            Optional<UelMapping> uelCandidate = functionList.stream()
+                    .filter( uelMapping -> Objects.equals(uelMapping.getKey(), prefix + ":" + localName))
+                    .findFirst();
+            return uelCandidate.map(UelMapping::getMethod).orElse(null);
         }
 
-        private Map<String, Method> loadUelFromComponents() {
+        private Set<UelMapping> loadUelFromComponents() {
             List<ComponentConfig.UelMappingInfo> uelsMappingInfo = getAllUelMappingInfo();
-            Map<String, Method> uelMappings = new HashMap<>();
+            Set<UelMapping> uelMappings = new HashSet<>();
 
             uelsMappingInfo.stream().forEach(uelMappingInfo -> {
                 String className = uelMappingInfo.getClassName();
-                UelMappingInterface mapping = null;
+                IUelMappingLibrary mapping = null;
                 Class<?> lClass;
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 try {
                     lClass = classLoader.loadClass(className);
-                    mapping = (UelMappingInterface) lClass.getDeclaredConstructor().newInstance();
+                    mapping = (IUelMappingLibrary) lClass.getDeclaredConstructor().newInstance();
                 } catch (ClassNotFoundException | InvocationTargetException | InstantiationException
                          | IllegalAccessException | NoSuchMethodException e) {
                     Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
                 }
-                uelMappings.putAll(mapping.getMapping());
+                if(mapping == null) {
+                    return;
+                }
+                uelMappings.addAll(mapping.getUelMappingList());
             });
             return uelMappings;
         }
 
-        public Map<String, Method> getFunctionMap() {
-            return this.functionMap;
+        public Set<UelMapping> getUelFunctions() {
+            return this.functionList;
         }
     }
+
 }

@@ -20,7 +20,8 @@ package org.apache.ofbiz.base.util.string.uel
 
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.string.UelFunctions
-import org.apache.ofbiz.base.util.string.UelMappingInterface
+import org.apache.ofbiz.base.util.string.IUelMappingLibrary
+import org.apache.ofbiz.base.util.string.UelMapping
 
 import java.lang.reflect.Method
 import java.sql.Timestamp
@@ -28,33 +29,33 @@ import java.sql.Timestamp
 /**
  * Class for importing the Date Uel
  */
-class DateUel implements UelMappingInterface {
+class DateUel implements IUelMappingLibrary {
 
     @Override
-    Map<String, Method> getMapping() {
+    List<UelMapping> getUelMappingList() {
         return [
-                'date:second': UtilDateTime.getMethod('getSecond', Timestamp, TimeZone, Locale),
-                'date:minute': UtilDateTime.getMethod('getMinute', Timestamp, TimeZone, Locale),
-                'date:hour': UtilDateTime.getMethod('getHour', Timestamp, TimeZone, Locale),
-                'date:dayOfMonth': UtilDateTime.getMethod('getDayOfMonth', Timestamp, TimeZone, Locale),
-                'date:dayOfWeek': UtilDateTime.getMethod('getDayOfWeek', Timestamp, TimeZone, Locale),
-                'date:dayOfYear': UtilDateTime.getMethod('getDayOfYear', Timestamp, TimeZone, Locale),
-                'date:week': UtilDateTime.getMethod('getWeek', Timestamp, TimeZone, Locale),
-                'date:month': UtilDateTime.getMethod('getMonth', Timestamp, TimeZone, Locale),
-                'date:year': UtilDateTime.getMethod('getYear', Timestamp, TimeZone, Locale),
-                'date:dayStart': UtilDateTime.getMethod('getDayStart', Timestamp, TimeZone, Locale),
-                'date:dayEnd': UtilDateTime.getMethod('getDayEnd', Timestamp, TimeZone, Locale),
-                'date:weekStart': UtilDateTime.getMethod('getWeekStart', Timestamp, TimeZone, Locale),
-                'date:weekEnd': UtilDateTime.getMethod('getWeekEnd', Timestamp, TimeZone, Locale),
-                'date:monthStart': UtilDateTime.getMethod('getMonthStart', Timestamp, TimeZone, Locale),
-                'date:monthEnd': UtilDateTime.getMethod('getMonthEnd', Timestamp, TimeZone, Locale),
-                'date:yearStart': UtilDateTime.getMethod('getYearStart', Timestamp, TimeZone, Locale),
-                'date:yearEnd': UtilDateTime.getMethod('getYearEnd', Timestamp, TimeZone, Locale),
-                'date:dateStr': UelFunctions.getMethod('dateString', Timestamp, TimeZone, Locale),
-                'date:localizedDateStr': UelFunctions.getMethod('localizedDateString', Timestamp, TimeZone, Locale),
-                'date:localizedDateTimeStr': UelFunctions.getMethod('localizedDateTimeString', Timestamp, TimeZone, Locale),
-                'date:timeStr': UelFunctions.getMethod('timeString', Timestamp, TimeZone, Locale),
-                'date:nowTimestamp': UtilDateTime.getMethod('nowTimestamp')
+                new UelMapping('date:second', UtilDateTime.getMethod('getSecond', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:minute', UtilDateTime.getMethod('getMinute', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:hour', UtilDateTime.getMethod('getHour', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:dayOfMonth', UtilDateTime.getMethod('getDayOfMonth', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:dayOfWeek', UtilDateTime.getMethod('getDayOfWeek', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:dayOfYear', UtilDateTime.getMethod('getDayOfYear', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:week', UtilDateTime.getMethod('getWeek', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:month', UtilDateTime.getMethod('getMonth', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:year', UtilDateTime.getMethod('getYear', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:dayStart', UtilDateTime.getMethod('getDayStart', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:dayEnd', UtilDateTime.getMethod('getDayEnd', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:weekStart', UtilDateTime.getMethod('getWeekStart', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:weekEnd', UtilDateTime.getMethod('getWeekEnd', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:monthStart', UtilDateTime.getMethod('getMonthStart', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:monthEnd', UtilDateTime.getMethod('getMonthEnd', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:yearStart', UtilDateTime.getMethod('getYearStart', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:yearEnd', UtilDateTime.getMethod('getYearEnd', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:dateStr', UelFunctions.getMethod('dateString', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:localizedDateStr', UelFunctions.getMethod('localizedDateString', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:localizedDateTimeStr', UelFunctions.getMethod('localizedDateTimeString', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:timeStr', UelFunctions.getMethod('timeString', Timestamp, TimeZone, Locale)),
+                new UelMapping('date:nowTimestamp', UtilDateTime.getMethod('nowTimestamp'))
         ]
     }
 

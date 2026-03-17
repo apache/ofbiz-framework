@@ -19,7 +19,8 @@
 package org.apache.ofbiz.base.util.string.uel
 
 import org.apache.ofbiz.base.util.string.UelFunctions
-import org.apache.ofbiz.base.util.string.UelMappingInterface
+import org.apache.ofbiz.base.util.string.IUelMappingLibrary
+import org.apache.ofbiz.base.util.string.UelMapping
 import org.apache.ofbiz.widget.renderer.ScreenRenderer
 import org.w3c.dom.Node
 
@@ -28,23 +29,23 @@ import java.lang.reflect.Method
 /**
  * Class for importing the various system, util, and dom Uel
  */
-class MiscUel implements UelMappingInterface {
+class MiscUel implements IUelMappingLibrary {
 
     @Override
-    Map<String, Method> getMapping() {
+    List<UelMapping> getUelMappingList() {
         return [
-                'sys:getenv': UelFunctions.getMethod('sysGetEnv', String),
-                'sys:getProperty': UelFunctions.getMethod('sysGetProp', String),
-                'util:size': UelFunctions.getMethod('getSize', Object),
-                'util:defaultLocale': Locale.getMethod('getDefault'),
-                'util:defaultTimeZone': TimeZone.getMethod('getDefault'),
-                'util:label': UelFunctions.getMethod('label', String, String, Locale),
-                'screen:id': UelFunctions.getMethod('resolveCurrentScreenId', ScreenRenderer.ScreenStack),
-                'dom:readHtmlDocument': UelFunctions.getMethod('readHtmlDocument', String),
-                'dom:readXmlDocument': UelFunctions.getMethod('readXmlDocument', String),
-                'dom:toHtmlString': UelFunctions.getMethod('toHtmlString', Node, String, boolean, int),
-                'dom:toXmlString': UelFunctions.getMethod('toXmlString', Node, String, boolean, boolean, int),
-                'dom:writeXmlDocument': UelFunctions.getMethod('writeXmlDocument', String, Node, String, boolean, boolean, int),
+                new UelMapping('sys:getenv', UelFunctions.getMethod('sysGetEnv', String)),
+                new UelMapping('sys:getProperty', UelFunctions.getMethod('sysGetProp', String)),
+                new UelMapping('util:size', UelFunctions.getMethod('getSize', Object)),
+                new UelMapping('util:defaultLocale', Locale.getMethod('getDefault')),
+                new UelMapping('util:defaultTimeZone', TimeZone.getMethod('getDefault')),
+                new UelMapping('util:label', UelFunctions.getMethod('label', String, String, Locale)),
+                new UelMapping('screen:id', UelFunctions.getMethod('resolveCurrentScreenId', ScreenRenderer.ScreenStack)),
+                new UelMapping('dom:readHtmlDocument', UelFunctions.getMethod('readHtmlDocument', String)),
+                new UelMapping('dom:readXmlDocument', UelFunctions.getMethod('readXmlDocument', String)),
+                new UelMapping('dom:toHtmlString', UelFunctions.getMethod('toHtmlString', Node, String, boolean, int)),
+                new UelMapping('dom:toXmlString', UelFunctions.getMethod('toXmlString', Node, String, boolean, boolean, int)),
+                new UelMapping('dom:writeXmlDocument', UelFunctions.getMethod('writeXmlDocument', String, Node, String, boolean, boolean, int)),
         ]
     }
 
