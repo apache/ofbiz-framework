@@ -18,11 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string.uel
 
-
 import org.apache.ofbiz.base.util.string.IUelMappingLibrary
 import org.apache.ofbiz.base.util.string.UelMapping
-
-import java.lang.reflect.Method
 
 /**
  * Class for importing the Math Uel
@@ -32,7 +29,8 @@ class MathUel implements IUelMappingLibrary {
     @Override
     List<UelMapping> getUelMappingList() {
         return [
-                new UelMapping('math:absDouble', Math.getMethod('abs', double)),
+                new UelMapping('math:absDouble', Math.getMethod('abs', double),
+                        'Returns the absolute value of a double value'),
                 new UelMapping('math:absFloat', Math.getMethod('abs', float)),
                 new UelMapping('math:absInt', Math.getMethod('abs', int)),
                 new UelMapping('math:absLong', Math.getMethod('abs', long)),

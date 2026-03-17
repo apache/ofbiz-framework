@@ -19,11 +19,10 @@
 package org.apache.ofbiz.base.util.string.uel
 
 import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.string.UelFunctions
 import org.apache.ofbiz.base.util.string.IUelMappingLibrary
+import org.apache.ofbiz.base.util.string.UelFunctions
 import org.apache.ofbiz.base.util.string.UelMapping
 
-import java.lang.reflect.Method
 import java.sql.Timestamp
 
 /**

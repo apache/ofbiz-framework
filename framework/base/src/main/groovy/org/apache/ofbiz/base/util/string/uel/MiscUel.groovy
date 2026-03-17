@@ -18,13 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.string.uel
 
-import org.apache.ofbiz.base.util.string.UelFunctions
 import org.apache.ofbiz.base.util.string.IUelMappingLibrary
+import org.apache.ofbiz.base.util.string.UelFunctions
 import org.apache.ofbiz.base.util.string.UelMapping
 import org.apache.ofbiz.widget.renderer.ScreenRenderer
 import org.w3c.dom.Node
-
-import java.lang.reflect.Method
 
 /**
  * Class for importing the various system, util, and dom Uel

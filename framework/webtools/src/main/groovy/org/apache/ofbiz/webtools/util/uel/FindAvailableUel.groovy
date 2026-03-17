@@ -22,17 +22,13 @@ import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.string.UelFunctions
 import org.apache.ofbiz.base.util.string.UelMapping
 
-import java.lang.reflect.Method
-
 List uelList = []
 Set<UelMapping> uelMap = UelFunctions.getFunctionMapper().getUelFunctions()
 uelMap.each { mapping ->
     uelList << [
             uelKeyString: mapping.key,
             uelMethodClass: mapping.method.getDeclaringClass(),
-            uelMethodParams: mapping.method.getParameterTypes()
-                    .collect { Class paramClass -> paramClass.getName() }
-                    .join(', '),
+            uelMethodParams: mapping.method.getParameterTypes()*.getName().join(', '),
             uelDescription: mapping.description ?: 'Uel has no description'
     ]
 }

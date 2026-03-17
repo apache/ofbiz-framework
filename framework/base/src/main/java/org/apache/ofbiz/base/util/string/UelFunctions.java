@@ -472,7 +472,7 @@ public class UelFunctions {
         return null;
     }
 
-    protected static class Functions extends FunctionMapper {
+    protected static final class Functions extends FunctionMapper {
         private Set<UelMapping> functionList = new HashSet<>();
 
         public Functions() {
@@ -485,7 +485,7 @@ public class UelFunctions {
         @Override
         public Method resolveFunction(String prefix, String localName) {
             Optional<UelMapping> uelCandidate = functionList.stream()
-                    .filter( uelMapping -> Objects.equals(uelMapping.getKey(), prefix + ":" + localName))
+                    .filter(uelMapping -> Objects.equals(uelMapping.getKey(), prefix + ":" + localName))
                     .findFirst();
             return uelCandidate.map(UelMapping::getMethod).orElse(null);
         }
@@ -494,7 +494,7 @@ public class UelFunctions {
             List<ComponentConfig.UelMappingInfo> uelsMappingInfo = getAllUelMappingInfo();
             Set<UelMapping> uelMappings = new HashSet<>();
 
-            uelsMappingInfo.stream().forEach(uelMappingInfo -> {
+            uelsMappingInfo.forEach(uelMappingInfo -> {
                 String className = uelMappingInfo.getClassName();
                 IUelMappingLibrary mapping = null;
                 Class<?> lClass;
@@ -506,7 +506,7 @@ public class UelFunctions {
                          | IllegalAccessException | NoSuchMethodException e) {
                     Debug.logError(e, "Error while initializing UelFunctions.Functions instance", MODULE);
                 }
-                if(mapping == null) {
+                if (mapping == null) {
                     return;
                 }
                 uelMappings.addAll(mapping.getUelMappingList());
