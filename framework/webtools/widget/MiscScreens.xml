@@ -243,8 +243,6 @@ under the License.
     <screen name="AvailableUelList">
         <section>
             <actions>
-<!--                <set field="headerItem" value="cache"/>-->
-<!--                <set field="titleProperty" value="PageTitleFindUtilCache"/>-->
                 <script location="component://webtools/src/main/groovy/org/apache/ofbiz/webtools/util/uel/FindAvailableUel.groovy"/>
             </actions>
             <widgets>
