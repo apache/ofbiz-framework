@@ -570,7 +570,7 @@ public class SecuredUpload {
         boolean safeState = false;
 
         if ((file != null) && file.exists() && file.canRead() && file.canWrite()) {
-            try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE)) {
+            try {
                 // Get the image format
                 String formatName;
                 ImageInputStream iis = ImageIO.createImageInputStream(file);
@@ -621,29 +621,33 @@ public class SecuredUpload {
                 bg.drawImage(initialSizedImage, 0, 0, null);
                 bg.dispose();
 
-                if (!fallbackOnApacheCommonsImaging) {
-                    ImageIO.write(sanitizedImage, formatName, fos);
-                } else {
-                    ImageParser<?> imageParser;
-                    // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
-                    // the image format. See reference link in the class header
-                    switch (formatName) {
-                    case "TIFF":
-                        imageParser = new TiffImageParser();
-                        break;
-                    case "GIF":
-                        imageParser = new GifImageParser();
-                        break;
-                    case "PNG":
-                        imageParser = new PngImageParser();
-                        break;
-                    // case "JPEG":
-                    // imageParser = new JpegImageParser(); // Does not provide imageParser.writeImage used below
-                    // break;
-                    default:
-                        throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
+                // Open the output stream only after the sanitized image is ready, so that
+                // TRUNCATE_EXISTING does not wipe the file before it has been read.
+                try (OutputStream fos = Files.newOutputStream(file.toPath(), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+                    if (!fallbackOnApacheCommonsImaging) {
+                        ImageIO.write(sanitizedImage, formatName, fos);
+                    } else {
+                        ImageParser<?> imageParser;
+                        // Handle only formats for which Apache Commons Imaging can successfully write (YES in Write column of the reference link)
+                        // the image format. See reference link in the class header
+                        switch (formatName) {
+                        case "TIFF":
+                            imageParser = new TiffImageParser();
+                            break;
+                        case "GIF":
+                            imageParser = new GifImageParser();
+                            break;
+                        case "PNG":
+                            imageParser = new PngImageParser();
+                            break;
+                        // case "JPEG":
+                        // imageParser = new JpegImageParser(); // Does not provide imageParser.writeImage used below
+                        // break;
+                        default:
+                            throw new IOException("Format of the original image " + fileName + " is not supported for write operation !");
+                        }
+                        imageParser.writeImage(sanitizedImage, fos, null);
                     }
-                    imageParser.writeImage(sanitizedImage, fos, null);
                 }
                 // Set state flag
                 safeState = true;
