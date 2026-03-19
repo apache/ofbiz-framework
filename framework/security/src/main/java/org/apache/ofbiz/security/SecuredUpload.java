@@ -823,6 +823,7 @@ public class SecuredUpload {
      * @param fileName
      * @return true if it's a PDF file
      */
+    @SuppressWarnings("try")
     private static boolean isPdfFile(String fileName) {
         File file = new File(fileName);
         try {
