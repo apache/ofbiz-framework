@@ -69,4 +69,10 @@ under the License.
             <template-file widget="form" location="component://helveticus/template/macro/HtmlFormMacroLibrary.ftl"/>
         </template>
     </templates>
+
+    <common-screens>
+        <generic-screen default-location="component://helveticus/widget/CommonScreens.xml">
+            <screen name="ListLocales" location="component://helveticus/widget/LookupScreens.xml"/>
+        </generic-screen>
+    </common-screens>
 </theme>

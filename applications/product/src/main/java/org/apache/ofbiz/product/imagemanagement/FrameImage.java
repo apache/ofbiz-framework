@@ -29,10 +29,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Locale;
@@ -318,18 +318,20 @@ public class FrameImage {
                 request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
                 return "error";
             }
-            Path tmpFile = Files.createTempFile(null, null);
+            String origName = imageName;
+            int dotIdx = origName.lastIndexOf('.');
+            String fileExt = dotIdx >= 0 ? origName.substring(dotIdx) : null;
+            Path tmpFile = Files.createTempFile(null, fileExt);
             Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
             // Check if a webshell is not uploaded
             if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tmpFile.toString(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                new File(tmpFile.toString()).deleteOnExit();
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 return "error";
             }
-            Files.delete(tmpFile);
-            RandomAccessFile out = new RandomAccessFile(file, "rw");
-            out.write(imageData.array());
-            out.close();
+            Files.copy(tmpFile, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            new File(tmpFile.toString()).deleteOnExit();
 
             //create dataResource
             Map<String, Object> dataResourceCtx = new HashMap<>();

@@ -36,6 +36,7 @@ under the License.
                 </td>
                 <td>
                     <input type="text" size="25" name="outpath" value="${outpath!}" />
+                    ${uiLabelMap.WebtoolsDefaultsToOfbizRootDirectory}
                 </td>
             </tr>
             <tr>
@@ -44,6 +45,14 @@ under the License.
                 </td>
                 <td>
                     <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label>${uiLabelMap.CommonThruDate}</label>
+                </td>
+                <td>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="thruDate" isDateType=true shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                 </td>
             </tr>
             <tr>

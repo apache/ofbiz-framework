@@ -977,7 +977,7 @@ public class MacroFormRendererTest {
                 .put("description", description)
                 .put("linkUrl", "Encoded%20Target")
                 .put("id", id)
-                .put("targetParameters", "{'k1':'v1','k2':'v2'}")
+                .put("targetParameters", "{\\\"k1\\\":\\\"v1\\\",\\\"k2\\\":\\\"v2\\\",\\\"presentation\\\":\\\"layer\\\"}")
                 .put("width", width)
                 .put("confirmation", confirmation)
                 .put("targetWindow", targetWindow)

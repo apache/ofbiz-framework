@@ -85,9 +85,13 @@ public class DataEvents {
         String permissionService = EntityUtilProperties.getPropertyValue("content", "stream.permission.service",
                 "genericContentPermission", delegator);
 
-        // For OFBIZ-11840, checks if a webshell is not uploaded
-        // It's counterintuitive to return success but it makes sense if you thing about it.
-        // It simply returns a blank screen.
+        // For OFBIZ-11840, validate contentId using a strict allow-list instead of a
+        // deny-list: entity keys must match [a-zA-Z0-9_:\-]{1,255}.  An allow-list
+        // cannot be bypassed by encoding tricks or token splitting.
+        if (!SecuredUpload.isValidEntityKey(contentId)) {
+            Debug.logError("contentId parameter has invalid format, rejected for security reason", MODULE);
+            return "success";
+        }
         try {
             if (!SecuredUpload.isValidText(contentId, Collections.emptyList())) {
                 Debug.logError("================== Not saved for security reason ==================", MODULE);

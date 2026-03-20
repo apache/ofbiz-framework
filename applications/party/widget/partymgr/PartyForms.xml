@@ -196,6 +196,7 @@ under the License.
         focus-field-name="salutation" header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="personInfo==null" target="createPerson"/>
         <auto-fields-service service-name="updatePerson"/>
+        <field name="oldMaritalStatusEnumId"><ignored/></field>
         <field use-when="personInfo!=null" name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field use-when="personInfo==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="personInfo==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
@@ -207,12 +208,9 @@ under the License.
                 <option key="F" description="${uiLabelMap.CommonFemale}"/>
             </drop-down>
         </field>
-        <field name="maritalStatusEnumId">
+        <field name="maritalStatusTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
-                    <entity-constraint name="enumTypeId" value="MARITAL_STATUS"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
+                <entity-options entity-name="MaritalStatusType"/>
             </drop-down>
         </field>
         <field name="employmentStatusEnumId">
@@ -1397,6 +1395,59 @@ under the License.
             </hyperlink>
         </field>
     </grid>
+
+    <grid name="ListPartyMaritalStatus" list-name="listIt" target="updateMaritalStatus">
+        <actions>
+            <entity-and entity-name="MaritalStatus">
+                <field-map field-name="partyId" from-field="partyId"/>
+            </entity-and>
+        </actions>
+        <field name="partyId"><hidden/></field>
+        <field name="maritalStatusTypeId">
+            <display-entity entity-name="MaritalStatusType"/>
+        </field>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="delete" title=" ">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteMaritalStatus">
+                <parameter param-name="partyId"/>
+                <parameter param-name="maritalStatusTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton"><submit/></field>
+    </grid>
+
+    <form name="EditPartyMaritalStatus" type="single" target="createMaritalStatus"
+          default-table-style="basic-table" focus-field-name="maritalStatusTypeId">
+        <field name="partyId"><hidden/></field>
+        <field name="maritalStatusTypeId" title="${uiLabelMap.FormFieldTitle_maritalStatus}" required-field="true">
+            <drop-down>
+                <entity-options entity-name="MaritalStatusType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" required-field="true"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="submit" title="${uiLabelMap.CommonCreate}" use-when="partyIdentityDoc == null"><submit /></field>
+    </form>
+
+    <form name="AddMaritalStatusType" type="single" target="createMaritalStatusType"
+          header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createMaritalStatusType"/>
+        <field name="partyId"><hidden/></field>
+        <field name="hasTable"><hidden/></field>
+        <field name="maritalStatusTypeId" title="${uiLabelMap.FormFieldTitle_maritalStatus}" required-field="true"><text/></field>
+        <field name="parentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="MaritalStatusType" key-field-name="maritalStatusTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
 
     <form name="ExportParty" type="single" target="ExportPartyCsv.csv" title="" >
         <field name="partyId" tooltip="blank for all"><lookup target-form-name="LookupPartyName"/></field>

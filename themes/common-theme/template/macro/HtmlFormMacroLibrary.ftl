@@ -999,17 +999,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 </#macro>
 <#macro makeHyperlinkString hiddenFormName imgSrc imgTitle title alternate linkUrl description text="" linkStyle="" event="" action="" targetParameters="" targetWindow="" confirmation="" uniqueItemName="" height="" width="" id="">
     <#if uniqueItemName?has_content>
-        <#local params = "{&quot;presentation&quot;: &quot;layer&quot;">
-        <#if targetParameters?has_content && !targetParameters?is_hash>
-          <#local parameterMap = targetParameters?eval>
-          <#local parameterKeys = parameterMap?keys>
-          <#list parameterKeys as key>
-            <#local params += ",&quot;${key}&quot;: &quot;${parameterMap[key]}&quot;">
-          </#list>
-        </#if>
-        <#local params += "}">
         <a href="javascript:void(0);" id="${uniqueItemName}_link"
-           data-dialog-params="${params}"
+           data-dialog-params="${targetParameters?html}"
            data-dialog-width="${width}"
            data-dialog-height="${height}"
            data-dialog-url="${linkUrl}"

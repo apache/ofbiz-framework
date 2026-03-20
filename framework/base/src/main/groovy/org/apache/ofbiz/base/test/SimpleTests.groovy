@@ -18,12 +18,17 @@
 */
 package org.apache.ofbiz.base.test
 
-import org.apache.ofbiz.testtools.GroovyScriptAssert
+import org.apache.ofbiz.service.testtools.OFBizTestCase
 
 /**
  * Class validating groovy scripts test engine.
  */
-class SimpleTests extends GroovyScriptAssert {
+
+class SimpleTests extends OFBizTestCase {
+
+    SimpleTests(String name) {
+        super(name)
+    }
 
     void testTrue() {
         assert 1 + 1 == 2
@@ -38,7 +43,7 @@ class SimpleTests extends GroovyScriptAssert {
     }
 
     void testSecurity() {
-        assert security
+        assert dispatcher.security
     }
 
 }

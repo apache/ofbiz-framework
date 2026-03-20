@@ -1323,6 +1323,47 @@ under the License.
         </section>
     </screen>
 
+    <!-- Marital Status Screen -->
+    <screen name="ListPartyMaritalStatus">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListMaritalStatus"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="ViewMaritalStatus"/>
+                <set field="labelTitleProperty" value="MaritalStatus"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="Party" value-field="party" use-cache="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyMaritalStatus}">
+                            <include-grid name="ListPartyMaritalStatus" location="component://party/widget/partymgr/PartyForms.xml"/>
+                        </screenlet>
+                        <container style="lefthalf">
+                            <section>
+                                <condition>
+                                    <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+                                </condition>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.PartyAddNewMaritalStatusType}">
+                                        <include-form name="AddMaritalStatusType" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </container>
+                        <container style="righthalf">
+                            <screenlet title="${uiLabelMap.PartyAddNewMaritalStatus}">
+                                <include-form name="EditPartyMaritalStatus" location="component://party/widget/partymgr/PartyForms.xml"/>
+                            </screenlet>
+                        </container>
+                        <container style="clear"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ViewProductStoreRoles">
         <section>
             <actions>

@@ -52,7 +52,7 @@ COPY APACHE2_HEADER build.gradle common.gradle gradle.properties NOTICE settings
 # Build OFBiz while mounting a gradle cache
 RUN --mount=type=cache,id=gradle-cache,sharing=locked,target=/root/.gradle \
     --mount=type=tmpfs,target=runtime/tmp \
-    ["./gradlew", "--console", "plain", "distTar"]
+    ["./gradlew", "--console", "plain", "generateSecretKeys", "distTar"]
 
 ###################################################################################
 
@@ -93,6 +93,8 @@ RUN echo '${uiLabelMap.CommonJavaVersion}:' "$(java --version | grep Runtime | s
 COPY --chmod=555 docker/docker-entrypoint.sh docker/send_ofbiz_stop_signal.sh .
 
 COPY --chmod=444 docker/disable-component.xslt .
+
+RUN mkdir templates
 COPY --chmod=444 docker/templates templates
 
 EXPOSE 8443

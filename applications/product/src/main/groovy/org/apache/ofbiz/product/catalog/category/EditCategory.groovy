@@ -74,6 +74,12 @@ if (fileType) {
         contentType = '--' + contentType
     }
 
+    // Guard against path traversal: the resolved save directory must remain inside imageServerPath
+    if (!java.nio.file.Paths.get(imageServerPath + '/' + filePathPrefix).normalize()
+            .startsWith(java.nio.file.Paths.get(imageServerPath).normalize())) {
+        logError('Path traversal attempt detected in category image upload')
+        return error(UtilProperties.getMessage('SecurityUiLabels', 'SupportedImageFormats', locale))
+    }
     defaultFileName = filenameToUse + '_temp'
     uploadObject = new HttpRequestFileUpload()
     uploadObject.setOverrideFilename(defaultFileName)

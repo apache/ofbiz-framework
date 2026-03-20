@@ -29,6 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
@@ -55,6 +56,9 @@ public class FormFactory {
                                                 VisualTheme visualTheme, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);
+        if (formFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(formFileUrl.toString())) {
+            throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
+        }
         Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
         return readFormDocument(formFileDoc, entityModelReader, visualTheme, dispatchContext, resourceName);
     }
@@ -68,6 +72,9 @@ public class FormFactory {
         ModelForm modelForm = FORM_LOCATION_CACHE.get(cacheKey);
         if (modelForm == null) {
             URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            if (formFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(formFileUrl.toString())) {
+                throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
+            }
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             if (formFileDoc == null) {
                 throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
@@ -159,7 +166,8 @@ public class FormFactory {
     public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, VisualTheme visualTheme,
                                             DispatchContext dispatchContext, String formLocation, String formName) {
         String formType = formElement.getAttribute("type");
-        if ("form".equals(formElement.getTagName()) && (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType))) {
+        if ("form".equals(UtilXml.getTagNameIgnorePrefix(formElement))
+                && (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType))) {
             return new ModelSingleForm(formElement, formLocation, entityModelReader, visualTheme, dispatchContext);
         }
         return new ModelGrid(formElement, formLocation, entityModelReader, visualTheme, dispatchContext);

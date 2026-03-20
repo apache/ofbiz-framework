@@ -23,13 +23,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.RandomAccessFile;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -291,21 +291,20 @@ public class DataServices {
             }
         } else if (binData != null) {
             try {
-                Path tempFile = Files.createTempFile(null, null);
+                String origName = file.getName();
+                int dotIdx = origName.lastIndexOf('.');
+                String fileExt = dotIdx >= 0 ? origName.substring(dotIdx) : null;
+                Path tempFile = Files.createTempFile(null, fileExt);
                 Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
-                // Check if a webshell is not uploaded
-                // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
                 if (!SecuredUpload.isValidFile(tempFile.toString(), "All", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                    new File(tempFile.toString()).deleteOnExit();
                     return ServiceUtil.returnError(errorMessage);
                 }
-                File tempFileToDelete = new File(tempFile.toString());
-                tempFileToDelete.deleteOnExit();
-                RandomAccessFile out = new RandomAccessFile(file, "rw");
-                out.write(binData.array());
-                out.close();
+                Files.copy(tempFile, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                new File(tempFile.toString()).deleteOnExit();
 
-            } catch (FileNotFoundException | ImageReadException e) {
+            } catch (ImageReadException e) {
                 Debug.logError(e, MODULE);
                 return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
                         UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
@@ -501,21 +500,19 @@ public class DataServices {
                 }
             } else if (binData != null) {
                 try {
-                    // Check if a webshell is not uploaded
-                    // TODO I believe the call below to SecuredUpload::isValidFile is now useless because of the same in createFileNoPerm
-                    Path tempFile = Files.createTempFile(null, null);
+                    String origName = file.getName();
+                    int dotIdx = origName.lastIndexOf('.');
+                    String fileExt = dotIdx >= 0 ? origName.substring(dotIdx) : null;
+                    Path tempFile = Files.createTempFile(null, fileExt);
                     Files.write(tempFile, binData.array(), StandardOpenOption.APPEND);
                     if (!SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
+                        new File(tempFile.toString()).deleteOnExit();
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    File tempFileToDelete = new File(tempFile.toString());
-                    tempFileToDelete.deleteOnExit();
-                    RandomAccessFile out = new RandomAccessFile(file, "rw");
-                    out.setLength(binData.array().length);
-                    out.write(binData.array());
-                    out.close();
-                } catch (FileNotFoundException | ImageReadException e) {
+                    Files.copy(tempFile, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    new File(tempFile.toString()).deleteOnExit();
+                } catch (ImageReadException e) {
                     Debug.logError(e, MODULE);
                     return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "ContentUnableToOpenFileForWriting",
                             UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));

@@ -106,26 +106,51 @@ public class SecuredFreemarker {
     }
 
     /**
-     * Analyse each entry contains on params. If a freemarker template is detected, sanatize it to escape any exploit
+     * Analyzes each entry in the parameter map and sanitizes any FreeMarker interpolation expressions to prevent
+     * server-side template injection. Handles both single-value (String) and multi-value (List&lt;String&gt;) parameters,
+     * since submitting the same parameter name multiple times causes OFBiz to store it as a List, which would
+     * otherwise bypass a String-only check.
      * @param params
      * @return Map with all values sanitized
      */
     public static Map<String, Object> sanitizeParameterMap(Map<String, Object> params) {
         List<Map.Entry<String, Object>> unsafeEntries = params.entrySet().stream()
-                .filter(entry -> entry.getValue() instanceof String
-                        && containsFreemarkerInterpolation((String) entry.getValue()))
+                .filter(entry -> isUnsafeValue(entry.getValue()))
                 .toList();
         if (!unsafeEntries.isEmpty()) {
             Map<String, Object> paramsSanitize = new HashMap<>(params);
-            unsafeEntries.forEach(entry -> {
-                String sanitazedValue = (String) entry.getValue();
-                for (String interpolation : FTL_INTERPOLATION) {
-                    sanitazedValue = sanitazedValue.replace(interpolation, "##");
-                }
-                paramsSanitize.put(entry.getKey(), sanitazedValue);
-            });
+            unsafeEntries.forEach(entry -> paramsSanitize.put(entry.getKey(), sanitizeValue(entry.getValue())));
             return paramsSanitize;
         }
         return params;
+    }
+
+    private static boolean isUnsafeValue(Object value) {
+        if (value instanceof String s) {
+            return containsFreemarkerInterpolation(s);
+        }
+        if (value instanceof List<?> list) {
+            return list.stream().anyMatch(item -> item instanceof String s && containsFreemarkerInterpolation(s));
+        }
+        return false;
+    }
+
+    private static Object sanitizeValue(Object value) {
+        if (value instanceof String s) {
+            return sanitizeString(s);
+        }
+        if (value instanceof List<?> list) {
+            return list.stream()
+                    .map(item -> item instanceof String s ? sanitizeString(s) : item)
+                    .toList();
+        }
+        return value;
+    }
+
+    private static String sanitizeString(String value) {
+        for (String interpolation : FTL_INTERPOLATION) {
+            value = value.replace(interpolation, "##");
+        }
+        return value;
     }
 }

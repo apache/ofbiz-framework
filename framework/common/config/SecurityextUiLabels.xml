@@ -111,18 +111,18 @@
     </property>
     <property key="loginevents.following_error_occurred_during_login">
         <value xml:lang="de">${errorMessage}</value>
-        <value xml:lang="en">following error occurred during login: ${errorMessage}</value>
-        <value xml:lang="es">Error al conectar: ${errorMessage}</value>
+        <value xml:lang="en">${errorMessage}</value>
+        <value xml:lang="es">${errorMessage}</value>
         <value xml:lang="fr">${errorMessage}</value>
         <value xml:lang="it">${errorMessage}</value>
-        <value xml:lang="ja">ログイン時にエラーが発生しました: ${errorMessage}</value>
-        <value xml:lang="nl">De volgende fout kwam voor tijdens het inloggen: ${errorMessage}</value>
-        <value xml:lang="pt-BR"> ${errorMessage}</value>
-        <value xml:lang="ro">A aparut urmatoarea eroare in timpul logarii: ${errorMessage}</value>
-        <value xml:lang="ru">Во время регистрации в системе произошла следующая ошибка: ${errorMessage}</value>
-        <value xml:lang="th">ผิดพลาดตามสิ่งที่เกิดขึ้นระหว่างการลอกอินเข้าสู่ระบบ: ${errorMessage}</value>
-        <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
-        <value xml:lang="zh-TW">登入時發生錯誤: ${errorMessage}.</value>
+        <value xml:lang="ja">${errorMessage}</value>
+        <value xml:lang="nl">${errorMessage}</value>
+        <value xml:lang="pt-BR">${errorMessage}</value>
+        <value xml:lang="ro">${errorMessage}</value>
+        <value xml:lang="ru">${errorMessage}</value>
+        <value xml:lang="th">${errorMessage}</value>
+        <value xml:lang="zh">${errorMessage}</value>
+        <value xml:lang="zh-TW">${errorMessage}</value>
     </property>
     <property key="loginevents.impersonate_yourself">
         <value xml:lang="en">You can't impersonate yourself ... What are you trying to do ?</value>

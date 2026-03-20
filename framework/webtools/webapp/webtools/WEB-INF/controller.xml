@@ -87,6 +87,8 @@ under the License.
 
     <!-- Begin Utility Requests -->
     <!-- The 2 services below have been commented out for security reason, see OFBIZ-12212  -->
+    <!-- If you feel it's ok with you (e.g. totally secured Internet access, or rather
+         no access at all which is safer!) you may uncomment and use. -->
     <!-- <request-map uri="httpService">
         <event type="java" path="org.apache.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
         <response name="success" type="none"/>

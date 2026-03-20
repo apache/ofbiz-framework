@@ -24,7 +24,10 @@ under the License.
 
     <!-- event handlers -->
     <handler name="java" type="request" class="org.apache.ofbiz.webapp.event.JavaEventHandler"/>
-    <!-- <handler name="soap" type="request" class="org.apache.ofbiz.webapp.event.SOAPEventHandler"/> -->
+    <!-- The service below have been commented out for security reason, see OFBIZ-12212  -->
+    <!-- If you feel it's ok with you (e.g. totally secured Internet access, or rather
+         no access at all which is safer!) you may uncomment and use. -->
+     <!-- <handler name="soap" type="request" class="org.apache.ofbiz.webapp.event.SOAPEventHandler"/> -->
     <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.apache.ofbiz.webapp.event.SimpleEventHandler"/>

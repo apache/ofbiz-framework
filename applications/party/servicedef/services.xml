@@ -1622,4 +1622,57 @@ under the License.
         <description>Delete a CommunicationEventPrpTyp</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- Marital Status and Type services -->
+    <service name="createMaritalStatus" engine="entity-auto" default-entity-name="MaritalStatus" invoke="create" auth="true">
+        <description>create Party MaritalStatus entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateMaritalStatus" engine="entity-auto" default-entity-name="MaritalStatus" invoke="update" auth="true">
+        <description>update Party MaritalStatus entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>
+    <service name="expireMaritalStatus" engine="entity-auto" default-entity-name="MaritalStatus" invoke="expire" auth="true">
+        <description>expire Party MaritalStatus entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="deleteMaritalStatus" engine="entity-auto" default-entity-name="MaritalStatus" invoke="delete" auth="true">
+        <description>delete Party MaritalStatus entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="saveMaritalStatusChange" engine="groovy" auth="true"
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="saveMaritalStatusChange">
+        <description>Save Marital Status Change</description>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="maritalStatusTypeId" type="String" mode="IN"/>
+    </service>
+    <service name="migratePersonMaritalStatusType" engine="groovy" auth="true"
+        location="component://party/src/main/groovy/org/apache/ofbiz/party/party/PartyServicesScript.groovy" invoke="migratePersonMaritalStatusType">
+        <description>For each person move value present on oldMaritalStatusEnumId to maritalStatusTypeId</description>
+    </service>
+
+    <service name="createMaritalStatusType" engine="entity-auto" default-entity-name="MaritalStatusType" invoke="create">
+        <description>create MaritalStatusType entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>
+    <service name="updateMaritalStatusType" engine="entity-auto" default-entity-name="MaritalStatusType" invoke="update">
+        <description>update MaritalStatusType entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes mode="IN" optional="true" include="nonpk"/>
+    </service>
+    <service name="deleteMaritalStatusType" engine="entity-auto" default-entity-name="MaritalStatusType" invoke="delete">
+        <description>delete MaritalStatusType entity</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
 </services>

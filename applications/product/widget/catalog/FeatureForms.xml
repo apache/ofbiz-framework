@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProductFeature" type="single" target="updateProductFeature" title="" default-map-name="productFeature"
         header-row-style="header-row" default-table-style="basic-table">
@@ -48,7 +48,7 @@
             </drop-down>
         </field>
         <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" target="/EditFeatureCategoryFeatures" target-type="intra-app" also-hidden="false">
+            <hyperlink description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" target="EditFeatureCategoryFeatures" target-type="intra-app" also-hidden="false">
                 <parameter param-name="productFeatureCategoryId" from-field="productFeature.productFeatureCategoryId"/>
             </hyperlink>
         </field>

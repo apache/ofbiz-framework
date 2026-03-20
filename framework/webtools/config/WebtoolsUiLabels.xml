@@ -1594,6 +1594,9 @@
         <value xml:lang="zh">缺省实体名称</value>
         <value xml:lang="zh-TW">預設資料實體名稱</value>
     </property>
+    <property key="WebtoolsDefaultsToOfbizRootDirectory">
+        <value xml:lang="en">Defaults to OFBiz root directory</value>
+    </property>
     <property key="WebtoolsDefinitionLocation">
         <value xml:lang="en">Definition Location</value>
         <value xml:lang="fr">Emplacement de la définition</value>

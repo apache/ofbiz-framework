@@ -1350,6 +1350,32 @@ under the License.
         <response name="error" type="view" value="ViewProductStoreRoles"/>
     </request-map>
 
+    <request-map uri="createMaritalStatus">
+        <security/>
+        <event type="service" invoke="createMaritalStatus"/>
+        <response name="success" type="view" value="ViewMaritalStatus"/>
+        <response name="error" type="view" value="ViewMaritalStatus"/>
+    </request-map>
+    <request-map uri="deleteMaritalStatus">
+        <security/>
+        <event type="service" path="" invoke="deleteMaritalStatus"/>
+        <response name="success" type="view" value="ViewMaritalStatus"/>
+        <response name="error" type="view" value="ViewMaritalStatus"/>
+    </request-map>
+    <request-map uri="updateMaritalStatus">
+        <security/>
+        <event type="service" invoke="updateMaritalStatus"/>
+        <response name="success" type="view" value="ViewMaritalStatus"/>
+        <response name="error" type="view" value="ViewMaritalStatus"/>
+    </request-map>
+    <request-map uri="createMaritalStatusType">
+        <security/>
+        <event type="service" path="" invoke="createMaritalStatusType"/>
+        <response name="success" type="view" value="ViewMaritalStatus"/>
+        <response name="error" type="view" value="ViewMaritalStatus"/>
+    </request-map>
+    <request-map uri="EditMaritalStatus"><security/><response name="success" type="view" value="ViewMaritalStatus"/></request-map>
+
     <!--  external communication event; mark as read using 1px image request -->
     <request-map uri="ceimages" track-serverhit="false" track-visit="false">
         <security https="false" auth="true"/>
@@ -1548,6 +1574,8 @@ under the License.
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
 
     <view-map name="ViewProductStoreRoles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ViewProductStoreRoles"/>
+
+    <view-map name="ViewMaritalStatus" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ListPartyMaritalStatus"/>
 
     <!-- Billing Account-->
     <view-map name="EditBillingAccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#EditBillingAccount"/>

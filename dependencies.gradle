@@ -50,22 +50,23 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.24.2' // the API of log4j 2
     implementation 'org.apache.logging.log4j:log4j-core:2.24.2' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     implementation 'org.apache.poi:poi:5.3.0'
-    implementation 'org.apache.pdfbox:pdfbox:2.0.33' // 3.0.1 does not compile
+    implementation 'org.apache.pdfbox:pdfbox:3.0.5'
+    implementation 'org.apache.pdfbox:pdfbox-io:3.0.5'
     implementation 'org.apache.shiro:shiro-core:1.13.0' // Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with the given algorithm: argon2" with 2.0.2 in integration tests
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.2'
     implementation 'org.apache.sshd:sshd-core:2.14.0'
     implementation 'org.apache.sshd:sshd-sftp:2.14.0'
-    implementation 'org.apache.tika:tika-core:2.9.2'     // To be compatible with tika-parser-pdf-module below
-    implementation 'org.apache.tika:tika-parsers:2.9.2' // To be compatible with tika-parser-pdf-module below
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2' // > 2.9.2 does not compile, see OFBIZ-13155
+    implementation 'org.apache.tika:tika-core:3.2.3'
+    implementation 'org.apache.tika:tika-parsers:3.2.3'
+    implementation 'org.apache.tika:tika-parser-pdf-module:3.2.3'
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.1.3'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:10.1.47' // Remember to change the version number (10 now) in javadoc block if needed.
-    implementation 'org.apache.tomcat:tomcat-jasper:10.1.47'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:10.1.52' // Remember to change the version number (10 now) in javadoc block if needed.
+    implementation 'org.apache.tomcat:tomcat-jasper:10.1.52'
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
     implementation 'org.apache.xmlgraphics:batik-anim:1.18'
     implementation 'org.apache.xmlgraphics:batik-util:1.18'
     implementation 'org.apache.xmlgraphics:batik-bridge:1.18'
-    implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
+    implementation 'org.apache.xmlgraphics:fop:2.11' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
     implementation 'org.clojure:clojure:1.12.0'
     implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
     implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
@@ -92,6 +93,7 @@ dependencies {
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
+    runtimeOnly 'org.apache.avalon.framework:avalon-framework-impl:4.3.1'
     runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
     runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
     runtimeOnly 'org.apache.derby:derby:10.16.1.1' // 10.17.x.x requires Java 21

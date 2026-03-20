@@ -19,6 +19,7 @@
 package org.apache.ofbiz.party.party
 
 import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.condition.EntityJoinOperator
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.util.EntityUtil
@@ -960,4 +961,40 @@ Map getChildRoleTypesInline (List roleTypeIdListName) {
 
     resultMap.childRoleTypeIdList = newRoleTypeIdList
     return resultMap
+}
+
+/**
+  * Save Marital Status Change
+  */
+Map saveMaritalStatusChange() {
+    GenericValue person = from('Person').where(parameters).queryOne()
+    if (person && person.maritalStatusTypeId != parameters.maritalStatusTypeId) {
+        Timestamp now = UtilDateTime.nowTimestamp()
+        run service: 'createMaritalStatus', with: [*: parameters,
+                                                   fromDate: now]
+        if (person.maritalStatusTypeId) {
+            delegator.storeByCondition('MaritalStatus', [thruDate: now],
+                    new EntityConditionBuilder().AND {
+                        EQUALS(partyId: person.partyId)
+                        EQUALS(maritalStatusTypeId: person.maritalStatusTypeId)
+                        EQUALS(thruDate: null)
+                    })
+        }
+    }
+    return success()
+}
+
+/**
+  * Migrate MaritalStatus from Enum to MaritalStatusType
+  */
+Map migratePersonMaritalStatusType() {
+    from('Person')
+            .where(new EntityConditionBuilder().NOT_EQUAL(oldMaritalStatusEnumId: null))
+            .queryList()
+            .each {
+                it.maritalStatusTypeId = it.oldMaritalStatusEnumId
+                it.oldMaritalStatusEnumId = null
+                it.store()
+            }
+    return success()
 }

@@ -1073,6 +1073,17 @@ public final class LoginWorker {
                 }
             }
         }
+
+        // Verify the plain-text cookie against the mathematically secure JWT token
+        if (UtilValidate.isNotEmpty(securedUserLoginId)) {
+            String jwtUserLoginId = getSecuredUserLoginByJWT(request);
+            if (UtilValidate.isEmpty(jwtUserLoginId) || !securedUserLoginId.equals(jwtUserLoginId)) {
+                Debug.logWarning("Cookie securedLoginId [" + securedUserLoginId
+                        + "] does not match or is missing a valid securedLoginToken JWT.", MODULE);
+                return null;
+            }
+        }
+
         return securedUserLoginId;
     }
     public static String getSecuredUserLoginByJWT(HttpServletRequest request) {
