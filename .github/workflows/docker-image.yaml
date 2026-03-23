@@ -108,7 +108,7 @@ jobs:
       # Build and push a container image of the OFBiz Framework preloaded with demo data
       - name: Determine metadata (tags, labels) for Docker demo-preload build
         id: demometa
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -133,7 +133,7 @@ jobs:
         run: ./pullAllPluginsSource.sh
       - name: Determine metadata (tags, labels) for Docker framework with plugins build
         id: pluginsmeta
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
