@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer.macro.renderable;
 
+import java.util.Locale;
+
 /**
  * Represents an FTL element such as an FTL string or macro call.
  */
 public interface RenderableFtl {
-    void accept(RenderableFtlVisitor visitor);
+    void accept(RenderableFtlVisitor visitor, Locale locale);
 }

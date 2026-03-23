@@ -34,8 +34,3 @@ updates:
     directory: /
     schedule:
       interval: daily
-
-  - package-ecosystem: npm
-    directory: /themes/common-theme/webapp/common-theme/js
-    schedule:
-      interval: daily

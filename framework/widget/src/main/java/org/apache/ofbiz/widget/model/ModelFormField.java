@@ -5916,6 +5916,8 @@ public final class ModelFormField {
         private final String type;
         private final String pattern;
         private final String step;
+        private final String min;
+        private final String max;
 
         public TextField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -5923,8 +5925,10 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
             this.mask = element.getAttribute("mask");
             this.type = element.getAttribute("type");
-            this.step = element.getAttribute("step");
             this.pattern = element.getAttribute("pattern");
+            this.step = element.getAttribute("step");
+            this.min = element.getAttribute("min");
+            this.max = element.getAttribute("max");
             Integer maxlength = null;
             String maxlengthStr = element.getAttribute("maxlength");
             if (!maxlengthStr.isEmpty()) {
@@ -5963,8 +5967,10 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
             this.type = "";
-            this.step = "";
             this.pattern = "";
+            this.step = "";
+            this.min = "";
+            this.max = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
@@ -5978,8 +5984,10 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
             this.type = type;
-            this.step = "";
             this.pattern = "";
+            this.step = "";
+            this.min = "";
+            this.max = "";
             this.maxlength = maxlength;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
@@ -5993,8 +6001,10 @@ public final class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.mask = "";
             this.type = "";
-            this.step = "";
             this.pattern = "";
+            this.step = "";
+            this.min = "";
+            this.max = "";
             this.maxlength = null;
             this.placeholder = FlexibleStringExpander.getInstance("");
             this.readonly = false;
@@ -6016,8 +6026,10 @@ public final class ModelFormField {
             this.defaultValue = original.defaultValue;
             this.mask = original.mask;
             this.type = original.type;
-            this.step = original.step;
             this.pattern = original.pattern;
+            this.step = original.step;
+            this.min = original.min;
+            this.max = original.max;
             this.placeholder = original.placeholder;
             this.size = original.size;
             this.maxlength = original.maxlength;
@@ -6139,6 +6151,14 @@ public final class ModelFormField {
         }
 
         /**
+         * Gets pattern.
+         * @return the pattern
+         */
+        public String getPattern() {
+            return this.pattern;
+        }
+
+        /**
          * Gets step.
          * @return the step
          */
@@ -6147,11 +6167,19 @@ public final class ModelFormField {
         }
 
         /**
-         * Gets pattern.
-         * @return the pattern
+         * Gets min.
+         * @return the min
          */
-        public String getPattern() {
-            return this.pattern;
+        public String getMin() {
+            return this.min;
+        }
+
+        /**
+         * Gets max.
+         * @return the max
+         */
+        public String getMax() {
+            return this.max;
         }
     }
 

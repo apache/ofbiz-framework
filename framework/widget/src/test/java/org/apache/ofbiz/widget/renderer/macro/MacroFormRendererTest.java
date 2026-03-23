@@ -217,7 +217,7 @@ public class MacroFormRendererTest {
 
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, renderableFtlAsterisk);
+                ftlWriter.processFtl(appendable, null, renderableFtlAsterisk);
             }
         };
     }
@@ -1036,7 +1036,7 @@ public class MacroFormRendererTest {
     private void genericSingleMacroRenderedVerification() {
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, genericMacroCall);
+                ftlWriter.processFtl(appendable, null, genericMacroCall);
             }
         };
     }
@@ -1056,7 +1056,7 @@ public class MacroFormRendererTest {
     private void genericTooltipRenderedVerification() {
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, genericTooltipMacroCall);
+                ftlWriter.processFtl(appendable, null, genericTooltipMacroCall);
             }
         };
     }
@@ -1064,7 +1064,7 @@ public class MacroFormRendererTest {
     private void genericSubHyperlinkRenderedVerification() {
         new Verifications() {
             {
-                ftlWriter.processFtl(appendable, genericHyperlinkMacroCall);
+                ftlWriter.processFtl(appendable, null, genericHyperlinkMacroCall);
             }
         };
     }
