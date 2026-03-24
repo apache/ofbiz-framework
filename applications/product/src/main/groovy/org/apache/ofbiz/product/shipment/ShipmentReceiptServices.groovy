@@ -74,6 +74,14 @@ Map receiveInventoryProduct () {
      * - DEJ20070822: something to consider for the future:
      *  maybe instead of this funny looping maybe for serialized items we should only allow a quantity of 1, ie return an error if it is not 1
      */
+
+    // Return an error if both quantityAccepted and quantityRejected are zero or less than zero
+    BigDecimal quantityRejected = parameters.quantityRejected ?: BigDecimal.ZERO
+    if ((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
+        || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)) {
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductNoItemsToReceive',  parameters.locale))
+    }
+
     Map result = success()
     List successMessageList = []
     String currentInventoryItemId
@@ -85,8 +93,10 @@ Map receiveInventoryProduct () {
             return error(UtilProperties.getMessage('ProductUiLabels', 'FacilityReceiveInventoryProduct', errorLog,  parameters.locale))
             // before getting going, see if there are any validation issues so far
         }
-        loops = parameters.quantityAccepted
-        parameters.quantityAccepted = BigDecimal.ONE
+        if (parameters.quantityAccepted > BigDecimal.ZERO) {
+            loops = parameters.quantityAccepted
+            parameters.quantityAccepted = BigDecimal.ONE
+        }
     }
     parameters.quantityOnHandDiff = parameters.quantityAccepted
     parameters.availableToPromiseDiff = parameters.quantityAccepted
@@ -135,12 +145,14 @@ Map receiveInventoryProduct () {
             run service: 'updateInventoryItem', with: parameters
             currentInventoryItemId = parameters.currentInventoryItemId
         } else {
-            Map serviceResult = run service: 'createInventoryItem', with: parameters
-            currentInventoryItemId = serviceResult.inventoryItemId
+            if (parameters.quantityAccepted > BigDecimal.ZERO) {
+                Map serviceResult = run service: 'createInventoryItem', with: parameters
+                currentInventoryItemId = serviceResult.inventoryItemId
+            }
         }
 
         // do this only for non-serialized inventory
-        if (parameters.inventoryItemTypeId != 'SERIALIZED_INV_ITEM') {
+        if (parameters.inventoryItemTypeId != 'SERIALIZED_INV_ITEM' && parameters.quantityAccepted > BigDecimal.ZERO) {
             serviceInMap = [:]
             serviceInMap = parameters
             serviceInMap.inventoryItemId = currentInventoryItemId
@@ -153,7 +165,7 @@ Map receiveInventoryProduct () {
         run service: 'createShipmentReceipt', with: serviceInMap
 
         //update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains
-        if (parameters.inventoryItemTypeId == 'SERIALIZED_INV_ITEM' && !parameters.returnId) {
+        if (parameters.inventoryItemTypeId == 'SERIALIZED_INV_ITEM' && !parameters.returnId && parameters.quantityAccepted > BigDecimal.ZERO) {
             // Retrieve the new inventoryItem
             GenericValue inventoryItem = from('InventoryItem').where(inventoryItemId: currentInventoryItemId).queryOne()
 
@@ -165,13 +177,18 @@ Map receiveInventoryProduct () {
                 run service: 'updateInventoryItem', with: serviceInMap
             }
         }
-        serviceInMap = [:]
-        serviceInMap = parameters
-        serviceInMap.inventoryItemId = currentInventoryItemId
-        run service: 'balanceInventoryItems', with: serviceInMap
+        if (parameters.quantityAccepted > BigDecimal.ZERO) {
+            serviceInMap = [:]
+            serviceInMap = parameters
+            serviceInMap.inventoryItemId = currentInventoryItemId
+            run service: 'balanceInventoryItems', with: serviceInMap
 
-        successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId}"
-                .concat(" in inventory item ${currentInventoryItemId}.") as String
+            successMessageList << "Received ${parameters.quantityAccepted} of ${parameters.productId}"
+                    .concat(" in inventory item ${currentInventoryItemId}.") as String
+        }
+
+        //the following ensures that, for serialized items, the rejected quantity is accounted for only once
+        parameters.quantityRejected = BigDecimal.ZERO
     }
     // return the last inventory item received
     result.inventoryItemId = currentInventoryItemId
