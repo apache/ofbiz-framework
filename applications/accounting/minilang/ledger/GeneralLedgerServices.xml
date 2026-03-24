@@ -1224,6 +1224,9 @@ under the License.
         <call-simple-method method-name="getGlArithmeticSettingsInline"/>
 
         <entity-one entity-name="ShipmentReceipt" value-field="shipmentReceipt"/>
+        <if-compare field="shipmentReceipt.quantityAccepted" operator="less-equals" value="0">
+            <return/>
+        </if-compare>
         <get-related-one value-field="shipmentReceipt" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <get-related-one value-field="shipmentReceipt" relation-name="Shipment" to-value-field="shipment"/>
         <if-not-empty field="shipmentReceipt.returnId">

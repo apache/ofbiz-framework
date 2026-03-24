@@ -158,8 +158,11 @@ under the License.
         <action service="updateOrderStatusFromReceipt" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="createShipmentReceipt" event="commit">
-        <condition field-name="shipmentId" operator="is-not-empty"/>
+        <condition field-name="inventoryItemId" operator="is-not-empty"/>
         <action service="checkDecomposeInventoryItem" mode="sync"/>
+    </eca>
+    <eca service="createShipmentReceipt" event="commit">
+        <condition field-name="shipmentId" operator="is-not-empty"/>
         <action service="updatePurchaseShipmentFromReceipt" mode="sync"/>
     </eca>
 

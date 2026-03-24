@@ -864,6 +864,7 @@ under the License.
 	     </type-validate>
         </attribute>
         <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
+        <override name="inventoryItemId" optional="true"/>
     </service>
     <service name="updatePurchaseShipmentFromReceipt" engine="java"
       location="org.apache.ofbiz.shipment.shipment.ShipmentServices" invoke="updatePurchaseShipmentFromReceipt" auth="true">
