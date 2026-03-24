@@ -9,7 +9,7 @@
         "featherlight": "^1.7.14",
         "flot": "^4.2.6",
         "inputmask": "^5.0.10",
-        "jquery": "^3.7.1",
+        "jquery": "^4.0.0",
         "jquery-migrate": "^3.5.2",
         "jquery-ui-dist": "^1.13.3",
         "jquery-validation": "^1.21.0",
