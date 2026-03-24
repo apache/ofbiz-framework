@@ -20,8 +20,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "themes/common-theme/webapp/common-theme/js" # Location of package manifests
+  - package-ecosystem: "npm"
+    directory: "themes/common-theme/webapp/common-theme/js"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "themes/common-theme/webapp/common-theme/js"
+    target-branch: "release24.09"
     schedule:
       interval: "daily"
 
@@ -30,7 +36,19 @@ updates:
     schedule:
       interval: daily
 
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: "release24.09"
+    schedule:
+      interval: daily
+
   - package-ecosystem: docker
     directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /
+    target-branch: "release24.09"
     schedule:
       interval: daily
