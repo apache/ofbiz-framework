@@ -40,7 +40,7 @@ name: Build and push docker images
 
 on:
   push:
-    branches: [ release24.09 ]
+    branches: [ trunk, release* ]
     tags:
       - '**'
 
@@ -53,17 +53,12 @@ jobs:
     name: Build and push OFBiz docker container images
     runs-on: ubuntu-latest
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
       - name: Check out OFBiz sources
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Log in to the Container registry
         if: ${{ !env.ACT && vars.DO_DOCKER_PUSH == 'true' }}
-        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -73,7 +68,7 @@ jobs:
       # Build and push a container image of the OFBiz Framework without any data loaded.
       - name: Determine metadata (tags, labels) for Docker runtime build
         id: runtimemeta
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -101,7 +96,7 @@ jobs:
 
 
       - name: Build and push runtime docker image
-        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
+        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
         with:
           context: .
           target: runtime
@@ -113,7 +108,7 @@ jobs:
       # Build and push a container image of the OFBiz Framework preloaded with demo data
       - name: Determine metadata (tags, labels) for Docker demo-preload build
         id: demometa
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -121,7 +116,7 @@ jobs:
             type=ref,event=branch,suffix=-preloaddemo-snapshot,priority=650
 
       - name: Build and push demo docker image
-        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
+        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
         with:
           context: .
           target: demo
@@ -138,7 +133,7 @@ jobs:
         run: ./pullAllPluginsSource.sh
       - name: Determine metadata (tags, labels) for Docker framework with plugins build
         id: pluginsmeta
-        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 # v5.5.1
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
           images: ghcr.io/apache/ofbiz
           tags: |
@@ -146,7 +141,7 @@ jobs:
             type=ref,event=branch,suffix=-plugins-snapshot,priority=650
 
       - name: Build and push framework with plugins docker image
-        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
+        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
         with:
           context: .
           target: runtime
