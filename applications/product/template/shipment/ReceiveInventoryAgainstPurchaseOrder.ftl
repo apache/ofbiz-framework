@@ -24,8 +24,13 @@ under the License.
         for (var x = 0; x <= rowCount; x++) {
           var quantityAcceptedInput = document.getElementById('quantityAccepted_o_' + x);
           var quantityInput = document.getElementById('quantity_o_' + x);
+          var rowSubmit = document.getElementById('_rowSubmit_o_' + x);
           if (quantityAcceptedInput != null && quantityInput != null) {
             quantityInput.value = quantityAcceptedInput.value;
+            if (quantityAcceptedInput.value == 0) {
+                rowSubmit.checked = false;
+                rowSubmit.value = "N";
+            }
           }
         }
       }
@@ -193,7 +198,7 @@ under the License.
                                     <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&amp;purchaseOrderId=${orderId}&amp;productId=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
                                 </td>
                                 <td align="right">
-                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
+                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" id="_rowSubmit_o_${rowCount}" value="Y" onclick="highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
                                 </td>
                                 <#assign rowCount = rowCount + 1>
                             </#if>
