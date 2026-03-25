@@ -687,11 +687,16 @@ task generateSecretKeys(group: sysadminGroup,
         def propertiesFile = file('framework/security/config/security.properties')
 
         def generateAndWriteKey = { String propertyName ->
+            def content = propertiesFile.text
+            def escapedName = propertyName.replace('.', '\\.')
+            // Only generate a key if the property is missing or commented out
+            if (content =~ /(?m)^${escapedName}=.+$/) {
+                println "Secret key '${propertyName}' is already set, skipping."
+                return
+            }
             def keyBytes = new byte[48] // 48 bytes * 4/3 = 64 Base64 chars (no padding needed)
             new java.security.SecureRandom().nextBytes(keyBytes)
             def key = java.util.Base64.getEncoder().encodeToString(keyBytes)
-            def content = propertiesFile.text
-            def escapedName = propertyName.replace('.', '\\.')
             if (content =~ /(?m)^#?${escapedName}=.*$/) {
                 content = content.replaceAll(/(?m)^#?${escapedName}=.*$/, "${propertyName}=${key}")
             } else {
@@ -703,8 +708,7 @@ task generateSecretKeys(group: sysadminGroup,
         generateAndWriteKey('login.secret_key_string')
         generateAndWriteKey('security.token.key')
 
-        println "New secret keys have been generated and written to framework/security/config/security.properties"
-        println "Keep these keys secret and do not commit them to version control."
+        println "Secret key generation complete. Keep any new keys secret and do not commit them to version control."
     }
 }
 
