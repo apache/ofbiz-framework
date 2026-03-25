@@ -2484,7 +2484,6 @@ public class ProductionRunServices {
             }
         }
 
-        
         // Make TimeEntry records for the labor cost
         try {
             if (UtilValidate.isNotEmpty(addTaskTime) && addTaskTime.compareTo(BigDecimal.ZERO) > 0) {
