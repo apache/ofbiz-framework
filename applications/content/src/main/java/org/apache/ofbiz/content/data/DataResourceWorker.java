@@ -1155,6 +1155,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
             URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
 
             if (url.getHost() != null) { // is absolute
+                checkUrlResourceAllowed(url);
                 int c;
                 try (InputStream in = url.openStream(); StringWriter sw = new StringWriter()) {
                     while ((c = in.read()) != -1) {
