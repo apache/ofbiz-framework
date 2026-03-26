@@ -2491,7 +2491,7 @@ public class ProductionRunServices {
                         "rateTypeId", "FLC",
                         "partyId", partyId,
                         "userLogin", userLogin);
-                serviceContext.put("hours", addTaskTime.divide(new BigDecimal(3600000), 2, ROUNDING).doubleValue());
+                serviceContext.put("hours", addTaskTime.divide(new BigDecimal(3600000), 6, ROUNDING).doubleValue());
                 serviceContext.put("comments", "Task time added via Declaration");
                 Map<String, Object> serviceResult = dispatcher.runSync("createTimeEntry", serviceContext);
                 if (ServiceUtil.isError(serviceResult)) {
