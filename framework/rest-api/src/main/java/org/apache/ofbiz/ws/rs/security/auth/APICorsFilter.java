@@ -19,6 +19,7 @@
 package org.apache.ofbiz.ws.rs.security.auth;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.annotation.Priority;
@@ -43,42 +44,38 @@ import org.apache.ofbiz.base.util.UtilValidate;
 @Priority(Priorities.HEADER_DECORATOR)
 public class APICorsFilter implements ContainerResponseFilter {
 
-    // check security.properties file for 'host-headers-allowed'
-    private static final List<String> ALLOWED_HOST_HEADERS = UtilMisc.getHostHeadersAllowed();
+    // check security.properties file for 'cors.origins.allowed'
+    private static final List<String> ALLOWED_CORS_ORIGINS = UtilMisc.getCorsOriginsAllowed();
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
             throws IOException {
         MultivaluedMap<String, Object> responseHeaders = responseContext.getHeaders();
 
-        if (UtilValidate.isNotEmpty(ALLOWED_HOST_HEADERS)) {
-            // the list is quite short, hence return the single entry without further checks
-            if (ALLOWED_HOST_HEADERS.size() < 2) {
-                responseHeaders.add(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN, ALLOWED_HOST_HEADERS.get(0));
-            } else {
-                // get the request origin from request context and localize it in the list
-                String origin = requestContext.getHeaderString(CorsFilter.REQUEST_HEADER_ORIGIN);
-                // return the origin in case it's part of the allowed hosts list
-                if (UtilValidate.isNotEmpty(origin) && ALLOWED_HOST_HEADERS.contains(origin)) {
-                    responseHeaders.add(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN, origin);
-                } else {
-                    // pick up the first one from the allowed hosts list in case the request origin is not listed there
-                    responseHeaders.add(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN, ALLOWED_HOST_HEADERS.get(0));
-                }
+        if (UtilValidate.isNotEmpty(ALLOWED_CORS_ORIGINS)) {
+            String origin = requestContext.getHeaderString(CorsFilter.REQUEST_HEADER_ORIGIN);
+            if (UtilValidate.isNotEmpty(origin) && ALLOWED_CORS_ORIGINS.contains(origin)) {
+                responseHeaders.add(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN, origin);
+                // Vary: Origin is required when the response varies by origin, so that
+                // caches do not serve a response for one origin to a different origin.
+                responseHeaders.add("Vary", "Origin");
             }
+            // Requests from unlisted origins receive no Access-Control-Allow-Origin header,
+            // which causes the browser to block the response.
         }
 
         // credentials support is enabled per default
         responseHeaders.add(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS, true);
 
         // publish supported request header field names
-        responseHeaders.addAll(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_HEADERS, HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION);
+        responseHeaders.addAll(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_HEADERS,
+                Arrays.asList(HttpHeaders.CONTENT_TYPE, HttpHeaders.AUTHORIZATION));
 
         // inform about all the supported methods. Itemize these due to the lack of support for the wildcard (*)
         // in few browsers, e.g. in 'Safari' resp. 'FF for Android'
         responseHeaders.addAll(CorsFilter.RESPONSE_HEADER_ACCESS_CONTROL_ALLOW_METHODS,
-                HttpMethod.GET, HttpMethod.PATCH,
-                HttpMethod.PUT, HttpMethod.POST,
-                HttpMethod.DELETE, HttpMethod.OPTIONS);
+                Arrays.asList(HttpMethod.GET, HttpMethod.PATCH,
+                        HttpMethod.PUT, HttpMethod.POST,
+                        HttpMethod.DELETE, HttpMethod.OPTIONS));
     }
 }
