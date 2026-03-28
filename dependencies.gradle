@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine:3.2.3'
     implementation 'com.google.zxing:core:3.5.4'
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.2' // 0.12.1 does not compile
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.2'
     implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20220608.1'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.55'
     implementation 'com.ibm.icu:icu4j:74.2'
@@ -33,7 +33,7 @@ dependencies {
     implementation 'com.sun.mail:javax.mail:1.6.2'
     implementation 'com.rometools:rome:2.1.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.21'
-    implementation 'commons-cli:commons-cli:1.11.0' // with 1.6.0, 2 tests of OfbizStartupUnitTests don't pass
+    implementation 'commons-cli:commons-cli:1.11.0'
     implementation 'commons-fileupload:commons-fileupload:1.6.0'
     implementation 'commons-net:commons-net:3.13.0'
     implementation 'commons-validator:commons-validator:1.10.1'
@@ -44,8 +44,8 @@ dependencies {
     implementation 'org.apache.ant:ant-junit:1.10.15'
     implementation 'org.apache.commons:commons-collections4:4.5.0'
     implementation 'org.apache.commons:commons-csv:1.14.1'
-    implementation 'org.apache.commons:commons-dbcp2:2.14.0'// 2.11.0 does not compile.
-    implementation 'org.apache.commons:commons-imaging:1.0.0-alpha6' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
+    implementation 'org.apache.commons:commons-dbcp2:2.14.0'
+    implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
     implementation 'org.apache.commons:commons-text:1.15.0'
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5' // 4.0.0 does not compile
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
@@ -68,7 +68,8 @@ dependencies {
     implementation 'org.apache.xmlgraphics:batik-anim:1.19'
     implementation 'org.apache.xmlgraphics:batik-util:1.19'
     implementation 'org.apache.xmlgraphics:batik-bridge:1.19'
-    implementation 'org.apache.xmlgraphics:fop:2.11' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
+    implementation 'org.apache.xmlgraphics:fop:2.10'
+    // NOTE: fop 2.11+ pulls fontbox 3.x which conflicts with pdfbox 2.x used elsewhere; stay on 2.10 (last version using fontbox 2.x)
     implementation 'org.clojure:clojure:1.12.4'
     implementation 'org.codehaus.groovy:groovy-all:3.0.25'
     implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
@@ -82,7 +83,7 @@ dependencies {
     implementation 'org.jdom:jdom:1.1.3' // don't upgrade above 1.1.3, makes a lot of not obvious and useless complications, see last commits of OFBIZ-12092 for more
     implementation 'com.google.re2j:re2j:1.8'
     implementation 'xerces:xercesImpl:2.12.2'
-    implementation('org.mustangproject:library:2.22.0') { // 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
+    implementation('org.mustangproject:library:2.8.0') { // 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
       exclude group: 'pull-parser', module: 'pull-parser'
       exclude group: 'xpp3', module: 'xpp3'
     }
@@ -96,9 +97,10 @@ dependencies {
     runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
+    runtimeOnly 'org.apache.avalon.framework:avalon-framework-api:4.3.1' // required by barcode4j SPI scanning in xmlgraphics-commons 2.10+
     runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
     runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
-    runtimeOnly 'org.apache.derby:derby:10.17.1.0' // 10.17.1.0 does not compile
+    runtimeOnly 'org.apache.derby:derby:10.14.2.0' // 10.17.1.0 does not compile
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
     runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.25.3' // for external jars using the old log4j1.2: routes logging to log4j 2
     runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.25.3' // for external jars using the java.util.logging: routes logging to log4j 2
