@@ -23144,6 +23144,19 @@
         <value xml:lang="zh">没有要接收的明细</value>
         <value xml:lang="zh-TW">沒有要接收的細項</value>
     </property>
+    <property key="ProductNoItemsToAcceptOrReject">
+        <value xml:lang="de">Nichts zu verarbeiten: Sowohl akzeptierte als auch abgelehnte Mengen sind null</value>
+        <value xml:lang="en">Nothing to process: both accepted and rejected quantities are zero</value>
+        <value xml:lang="es">Nada que procesar: tanto las cantidades aceptadas como las rechazadas son cero</value>
+        <value xml:lang="fr">Rien à traiter : les quantités acceptées et rejetées sont nulles</value>
+        <value xml:lang="it">Niente da processare: le quantità accettate e rifiutate sono entrambe zero</value>
+        <value xml:lang="ja">処理するものがありません: 受入数量と拒否数量はいずれも0です</value>
+        <value xml:lang="ro">Nimic de procesat: atât cantitățile acceptate, cât și cele respinse sunt zero</value>
+        <value xml:lang="ru">Обрабатывать нечего: и принятое, и отклонённое количество равно нулю</value>
+        <value xml:lang="th">ไม่มีข้อมูลให้ประมวลผล: จำนวนที่ยอมรับและจำนวนที่ปฏิเสธเป็นศูนย์ทั้งคู่</value>
+        <value xml:lang="zh">无可处理：接受数量和拒绝数量均为零</value>
+        <value xml:lang="zh-TW">無可處理項目：接受與拒絕的數量皆為零</value>
+    </property>
     <property key="ProductNoKeywordsFound">
         <value xml:lang="de">Keine Schlüsselwörter gefunden</value>
         <value xml:lang="en">No Keywords Found</value>

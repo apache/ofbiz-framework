@@ -79,7 +79,7 @@ Map receiveInventoryProduct () {
     BigDecimal quantityRejected = parameters.quantityRejected ?: BigDecimal.ZERO
     if ((quantityRejected == BigDecimal.ZERO && parameters.quantityAccepted == BigDecimal.ZERO)
         || (quantityRejected  < BigDecimal.ZERO || parameters.quantityAccepted < BigDecimal.ZERO)) {
-        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductNoItemsToReceive',  parameters.locale))
+        return error(UtilProperties.getMessage('ProductUiLabels', 'ProductNoItemsToAcceptOrReject',  parameters.locale))
     }
 
     Map result = success()
