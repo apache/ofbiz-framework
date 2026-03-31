@@ -92,7 +92,7 @@ javadoc {
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-            'https://docs.oracle.com/javase/17/docs/api',
+            'https://docs.oracle.com/en/java/javase/17/docs/api/',
             'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
             'http://docs.groovy-lang.org/docs/groovy-3.0.25/html/api',
             'https://commons.apache.org/proper/commons-cli/apidocs'
