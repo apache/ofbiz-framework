@@ -110,7 +110,6 @@ public class EmailServices {
         }
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
-        subject = FlexibleStringExpander.expandString(subject, context);
 
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
@@ -128,7 +127,6 @@ public class EmailServices {
             results.put("returnId", returnId);
         }
         if (UtilValidate.isNotEmpty(body)) {
-            body = FlexibleStringExpander.expandString(body, context);
             results.put("body", body);
         }
         if (UtilValidate.isNotEmpty(bodyParts)) {
