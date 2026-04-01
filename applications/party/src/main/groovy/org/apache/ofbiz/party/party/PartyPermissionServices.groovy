@@ -259,9 +259,9 @@ Map cancelPartyInvitationPermissionCheck() {
  */
 Map partyCommunicationEventPermissionCheck() {
     Map result = success()
-    if (parameters.communicationEventTypeId == 'EMAIL_COMMUNICATION' && parameters.mainAction == 'CREATE') {
+    if (parameters.communicationEventTypeId == 'EMAIL_COMMUNICATION') {
         parameters.altPermission = 'PARTYMGR_CME-EMAIL'
-    } else if (parameters.communicationEventTypeId == 'COMMENT_NOTE' && parameters.mainAction == 'CREATE') {
+    } else if (parameters.communicationEventTypeId == 'COMMENT_NOTE') {
         parameters.altPermission = 'PARTYMGR_CME-NOTE'
     } else if (parameters.partyIdFrom != userLogin.partyId
             && parameters.partyIdTo != userLogin.partyId
