@@ -22,13 +22,13 @@ GRADLE_OFBIZ_PATH="$OFBIZ_HOME/gradle"
 GRADLE_WRAPPER_OFBIZ_PATH="$GRADLE_OFBIZ_PATH/wrapper"
 
 # version and uri to download the wrapper
-RELEASE="7.6.0"
+RELEASE="7.6.6"
 GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
 
 # checksum to verify the downloaded file
-SHASUM_GRADLE_WRAPPER_FILES="d99b3fab4e678237951d90da6814fc9eb17b97ca  gradle/wrapper/gradle-wrapper.jar
-18dac96b55dcedc3e8049f9ef03d1242c5da20fe  gradle/wrapper/gradle-wrapper.properties
-67bc176bca816684cf5218570a931f57d5f2b423  gradlew"
+SHASUM_GRADLE_WRAPPER_FILES="079675260ae4ff9d6bc0179c7ca1d1422af2a57c  gradle/wrapper/gradle-wrapper.jar
+0a9b8cbdba96dd4aa7fe228b71571ebffec84c0e  gradle/wrapper/gradle-wrapper.properties
+c7e1720ffa7b09af8060e92cfd08867347728442  gradlew"
 
 GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
 GRADLE_WRAPPER_PROPERTIES="gradle-wrapper.properties"
@@ -97,9 +97,9 @@ if [ ! -r "$GRADLE_WRAPPER_OFBIZ_PATH/$GRADLE_WRAPPER_JAR" ]; then
     echo " === Control downloaded files ==="
     if [ -n "$(whereIsBinary shasum)" ]; then
         echo "$SHASUM_GRADLE_WRAPPER_FILES" | shasum -c -;
-        echo " Warning: shasum not found, the downloaded files could not be verified"
         exit 0;
         else
+        echo " Warning: shasum not found, the downloaded files could not be verified"
         exit 1;
         fi
     fi
