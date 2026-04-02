@@ -1,5 +1,6 @@
 bin/
 build/
+gradle/wrapper/gradle-wrapper.jar
 applications/*/build
 framework/*/build
 /plugins/

@@ -18,9 +18,4 @@ rem specific language governing permissions and limitations
 rem under the License.
 rem #####################################################################
 
-if exist "%~dp0gradle\wrapper\gradle-wrapper.jar" (
-    echo The Gradle Wrapper has already been downloaded.
-    exit /b
-)
-
-pwsh -command "  Start-Process pwsh -Verb RunAs \""-Command `\""cd '%cd%'; & 'gradle\init-gradle-wrapper.ps1';`\""\""   "
+pwsh -command "  Start-Process pwsh -Verb RunAs \""-Command `\""cd '%cd%'; & 'gradle\init-gradle-wrapper.ps1' %*;`\""\""   "
