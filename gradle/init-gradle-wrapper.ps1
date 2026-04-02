@@ -17,17 +17,17 @@
 
 md -force gradle/wrapper
 
-# download raw format from https://github.com/gradle/gradle/tree/v7.6.0/gradle/wrapper
+# download raw format from https://github.com/gradle/gradle/tree/v8.14.4/gradle/wrapper
 If ($ExecutionContext.SessionState.LanguageMode -eq "ConstrainedLanguage") {
     Set-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -name "__PSLockdownPolicy" -Value 8
-    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v7.6.0/gradle/wrapper/gradle-wrapper.jar
+    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.14.4/gradle/wrapper/gradle-wrapper.jar
     Set-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment' -name "__PSLockdownPolicy" -Value 4
 } else {
-    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v7.6.0/gradle/wrapper/gradle-wrapper.jar
+    Invoke-WebRequest -outf gradle\wrapper\gradle-wrapper.jar https://github.com/gradle/gradle/raw/v8.14.4/gradle/wrapper/gradle-wrapper.jar
 }
 
 # https://docs.gradle.org/current/userguide/gradle_wrapper.html#wrapper_checksum_verification
-$expected = Invoke-RestMethod -Uri https://services.gradle.org/distributions/gradle-7.6-wrapper.jar.sha256
+$expected = Invoke-RestMethod -Uri https://services.gradle.org/distributions/gradle-8.14.4-wrapper.jar.sha256
 $actual = (Get-FileHash gradle\wrapper\gradle-wrapper.jar -Algorithm SHA256).Hash.ToLower()
 @{$true = 'OK: Checksum match'; $false = "ERROR: Checksum mismatch!`nExpected: $expected`nActual:   $actual"}[$actual -eq $expected]
 
