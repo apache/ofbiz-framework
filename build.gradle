@@ -375,7 +375,6 @@ test {
     jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
 }
 
-processResources.mustRunAfter 'generateSecretKeys'
 
 /* ========================================================
  * Tasks
