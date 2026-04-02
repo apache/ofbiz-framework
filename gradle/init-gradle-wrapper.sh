@@ -16,93 +16,162 @@
 # specific language governing permissions and limitations
 # under the License.
 
-# Variable for location
+# Paths
 OFBIZ_HOME="$(pwd)"
-GRADLE_OFBIZ_PATH="$OFBIZ_HOME/gradle"
-GRADLE_WRAPPER_OFBIZ_PATH="$GRADLE_OFBIZ_PATH/wrapper"
-
-# version and uri to download the wrapper
-RELEASE="8.14.4"
-GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/"
-
-# checksum to verify the downloaded file
-SHASUM_GRADLE_WRAPPER_FILES="544d80232399265b2e8e152220cf016c5ce33c7d  gradle/wrapper/gradle-wrapper.jar
-0028d540fd75d2ef6caa87e2c43d247f30b991ce  gradle/wrapper/gradle-wrapper.properties
-15c2aff9e646f042e1f5f4aa39cf92b232083866  gradlew"
-
-GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
-GRADLE_WRAPPER_PROPERTIES="gradle-wrapper.properties"
-GRADLE_WRAPPER_FILES="$GRADLE_WRAPPER_JAR $GRADLE_WRAPPER_PROPERTIES"
-GRADLE_WRAPPER_SCRIPT="gradlew"
+GRADLE_WRAPPER_OFBIZ_PATH="$OFBIZ_HOME/gradle/wrapper"
+GRADLE_WRAPPER_PROPERTIES="$GRADLE_WRAPPER_OFBIZ_PATH/gradle-wrapper.properties"
+GRADLE_WRAPPER_JAR="$GRADLE_WRAPPER_OFBIZ_PATH/gradle-wrapper.jar"
 
 whereIsBinary() {
     whereis $1 | grep /
 }
 
-# Perform the download using curl or wget
+# Perform the download using curl or wget, output to stdout
+downloadToStdout() {
+    if [ -n "$(whereIsBinary curl)" ]; then
+        curl -L -s "$1"
+    elif [ -n "$(whereIsBinary wget)" ]; then
+        wget -q -O - "$1"
+    fi
+}
+
+# Download a file to a given destination path
 downloadFile() {
-   if [ -n "$(whereIsBinary curl)" ]; then
-       GET_CMD="curl -L -o $GRADLE_WRAPPER_OFBIZ_PATH/$1 -s -w %{http_code} $2/$1";
-       if [ "$($GET_CMD)" = "200" ]; then
-           return 0;
-       fi
-   elif [ -n "$(whereIsBinary wget)" ]; then
-       if [[ `wget -q -S -O $GRADLE_WRAPPER_OFBIZ_PATH/$1 $2/$1 2>&1 > /dev/null | grep 'HTTP/1.1 200 OK'` ]]; then
-           return 0;
-       fi
-   fi
-   return 1
+    if [ -n "$(whereIsBinary curl)" ]; then
+        HTTP_CODE=$(curl -L -o "$2" -s -w '%{http_code}' "$1")
+        [ "$HTTP_CODE" = "200" ]
+    elif [ -n "$(whereIsBinary wget)" ]; then
+        wget -q -O "$2" "$1" 2>&1 | grep -q 'HTTP/1.1 200 OK'
+        [ $? -eq 0 ]
+    else
+        return 1
+    fi
 }
 
-# Download the file from the main URI
-resolveFile() {
-   downloadFile $1 $GRADLE_WRAPPER_URI;
+# Compute SHA256 of a file
+computeSha256() {
+    if [ -n "$(whereIsBinary sha256sum)" ]; then
+        sha256sum "$1" | cut -d' ' -f1
+    elif [ -n "$(whereIsBinary shasum)" ]; then
+        shasum -a 256 "$1" | cut -d' ' -f1
+    fi
 }
 
-echo " === Prepare operation ===";
+UPGRADE=false
+
+for arg in "$@"; do
+    case "$arg" in
+        --help)
+            echo "Usage: sh gradle/init-gradle-wrapper.sh [--help] [--upgrade]"
+            echo ""
+            echo "Downloads and verifies gradle-wrapper.jar for Apache OFBiz."
+            echo "The jar is not committed to the repository; run this script"
+            echo "before using ./gradlew for the first time."
+            echo ""
+            echo "Options:"
+            echo "  --help     Show this message and exit."
+            echo "  --upgrade  After downloading/verifying the jar, run"
+            echo "             './gradlew wrapper' to regenerate gradlew and"
+            echo "             gradlew.bat to match the new Gradle version."
+            echo ""
+            echo "Workflow for Gradle version upgrades (e.g. from a Dependabot PR):"
+            echo "  1. sh gradle/init-gradle-wrapper.sh --upgrade"
+            echo "  2. Commit any changes to gradlew and gradlew.bat"
+            exit 0
+            ;;
+        --upgrade)
+            UPGRADE=true
+            ;;
+        *)
+            echo "Unknown option: $arg"
+            echo "Run 'sh gradle/init-gradle-wrapper.sh --help' for usage."
+            exit 1
+            ;;
+    esac
+done
+
 # Verify that the script is executed from the right location
-if [ ! -d "$GRADLE_OFBIZ_PATH" ]; then
-    echo "Location seems to be incorrect, please run 'sh gradle/init-gradle-wrapper.sh' from the Apache OFBiz home";
-    exit 1;
-fi
-if [ ! -d "$GRADLE_WRAPPER_OFBIZ_PATH" ]; then
-    mkdir $GRADLE_WRAPPER_OFBIZ_PATH;
+if [ ! -f "$GRADLE_WRAPPER_PROPERTIES" ]; then
+    echo "gradle/wrapper/gradle-wrapper.properties not found."
+    echo "Please run 'sh gradle/init-gradle-wrapper.sh' from the Apache OFBiz home."
+    exit 1
 fi
 
-# check if we have on binary to download missing wrapper
-if [ -z "$(whereIsBinary curl)" ] && [ -z "$(whereIsBinary wget)" ]; then
-   echo "curl or wget not found, please install one of them or install yourself gradle (for more information see README.md or https://gradle.org/install)";
-   exit 1
+# Parse the Gradle version from gradle-wrapper.properties
+RELEASE=$(grep "^distributionUrl=" "$GRADLE_WRAPPER_PROPERTIES" | sed 's/.*gradle-\([0-9.]*\)-.*/\1/')
+if [ -z "$RELEASE" ]; then
+    echo "Could not determine Gradle version from $GRADLE_WRAPPER_PROPERTIES"
+    exit 1
 fi
+echo "Gradle version: $RELEASE"
 
-if [ ! -r "$GRADLE_WRAPPER_OFBIZ_PATH/$GRADLE_WRAPPER_JAR" ]; then
-    echo "$GRADLE_WRAPPER_OFBIZ_PATH/$GRADLE_WRAPPER_JAR not found, we download it"
+GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/raw/v$RELEASE/gradle/wrapper/gradle-wrapper.jar"
+GRADLE_WRAPPER_SHA256_URI="https://services.gradle.org/distributions/gradle-$RELEASE-wrapper.jar.sha256"
 
-    for fileToDownload in $GRADLE_WRAPPER_FILES; do
-         echo " === Download $fileToDownload ===";
-         resolveFile $fileToDownload
-    done
-    if [ ! $? -eq 0 ]; then
-        rm -f $GRADLE_WRAPPER_OFBIZ_PATH/*
-        echo "\nDownload files $GRADLE_WRAPPER_FILES from $GRADLE_WRAPPER_URI failed.\nPlease check the logs, fix the problem and run the script again."
+# If gradle-wrapper.jar already exists, verify its checksum before deciding to skip or re-download
+if [ -r "$GRADLE_WRAPPER_JAR" ]; then
+    echo "gradle-wrapper.jar found, verifying checksum..."
+    EXPECTED_SHA256=$(downloadToStdout "$GRADLE_WRAPPER_SHA256_URI")
+    if [ -z "$EXPECTED_SHA256" ]; then
+        echo "Warning: could not reach checksum service, skipping verification"
+        exit 0
     fi
-
-    if [ ! -r "$GRADLE_WRAPPER_SCRIPT" ]; then
-         echo " === Download script wrapper ==="
-         resolveFile $GRADLE_WRAPPER_SCRIPT
-         mv "$GRADLE_WRAPPER_OFBIZ_PATH/$GRADLE_WRAPPER_SCRIPT" .
-         chmod u+x $GRADLE_WRAPPER_SCRIPT
+    ACTUAL_SHA256=$(computeSha256 "$GRADLE_WRAPPER_JAR")
+    if [ -z "$ACTUAL_SHA256" ]; then
+        echo "Warning: sha256sum or shasum not found, cannot verify existing gradle-wrapper.jar"
+        exit 0
     fi
-
-    echo " === Control downloaded files ==="
-    if [ -n "$(whereIsBinary shasum)" ]; then
-        echo "$SHASUM_GRADLE_WRAPPER_FILES" | shasum -c -;
-        exit 0;
-        else
-        echo " Warning: shasum not found, the downloaded files could not be verified"
-        exit 1;
+    if [ "$ACTUAL_SHA256" = "$EXPECTED_SHA256" ]; then
+        echo "Checksum OK."
+        if [ "$UPGRADE" = true ]; then
+            echo "Running './gradlew wrapper' to regenerate gradlew and gradlew.bat..."
+            ./gradlew wrapper
         fi
+        exit 0
+    else
+        echo "Checksum mismatch, re-downloading..."
+        rm -f "$GRADLE_WRAPPER_JAR"
     fi
-    exit 1;
 fi
-echo " Nothing more to be done"
+
+# Ensure curl or wget is available
+if [ -z "$(whereIsBinary curl)" ] && [ -z "$(whereIsBinary wget)" ]; then
+    echo "curl or wget not found, please install one of them or install yourself gradle (for more information see README.md or https://gradle.org/install)"
+    exit 1
+fi
+
+echo "Downloading gradle-wrapper.jar..."
+if ! downloadFile "$GRADLE_WRAPPER_URI" "$GRADLE_WRAPPER_JAR"; then
+    rm -f "$GRADLE_WRAPPER_JAR"
+    echo "Download of gradle-wrapper.jar from $GRADLE_WRAPPER_URI failed."
+    echo "Please check the logs, fix the problem and run the script again."
+    exit 1
+fi
+
+echo "Verifying checksum..."
+EXPECTED_SHA256=$(downloadToStdout "$GRADLE_WRAPPER_SHA256_URI")
+if [ -z "$EXPECTED_SHA256" ]; then
+    rm -f "$GRADLE_WRAPPER_JAR"
+    echo "Error: could not fetch checksum from $GRADLE_WRAPPER_SHA256_URI"
+    exit 1
+fi
+
+ACTUAL_SHA256=$(computeSha256 "$GRADLE_WRAPPER_JAR")
+if [ -z "$ACTUAL_SHA256" ]; then
+    echo "Warning: sha256sum or shasum not found, the downloaded file could not be verified"
+    exit 0
+fi
+
+if [ "$ACTUAL_SHA256" = "$EXPECTED_SHA256" ]; then
+    echo "Checksum OK."
+    if [ "$UPGRADE" = true ]; then
+        echo "Running './gradlew wrapper' to regenerate gradlew and gradlew.bat..."
+        ./gradlew wrapper
+    fi
+else
+    rm -f "$GRADLE_WRAPPER_JAR"
+    echo "Error: checksum mismatch"
+    echo "Expected: $EXPECTED_SHA256"
+    echo "Actual:   $ACTUAL_SHA256"
+    exit 1
+fi
