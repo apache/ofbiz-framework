@@ -48,7 +48,10 @@ jobs:
         cache: 'gradle'
 
     - name: Grant execute permission for gradlew and pullAllPluginsSource.sh
-      run: chmod +x gradlew pullAllPluginsSource.sh
+      run: chmod +x gradlew gradle/init-gradle-wrapper.sh pullAllPluginsSource.sh
+
+    - name: Initialize Gradle wrapper
+      run: ./gradle/init-gradle-wrapper.sh
 
     - name: Load all plugins
       run: ./pullAllPluginsSource.sh
