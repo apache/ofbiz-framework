@@ -28,9 +28,9 @@ RUN apt-get update \
 WORKDIR /builder
 
 # Add and run the gradle wrapper to trigger a download if needed.
+COPY gradle/wrapper/gradle-wrapper.properties gradle/wrapper/
 COPY --chmod=755 gradle/init-gradle-wrapper.sh gradle/
 COPY --chmod=755 gradlew .
-RUN ["sed", "-i", "s/shasum/sha1sum/g", "gradle/init-gradle-wrapper.sh"]
 RUN ["gradle/init-gradle-wrapper.sh"]
 
 # Run gradlew to trigger downloading of the gradle distribution (if needed)
