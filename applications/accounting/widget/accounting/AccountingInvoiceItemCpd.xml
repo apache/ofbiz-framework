@@ -390,7 +390,7 @@ under the License.
             paginate-target="Accounting/Invoice/Items/List" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
             extends="CommonDynamicGrid" extends-resource="component://common/widget/CommonForms.xml">
             <wf:row-actions>
-                <wf:set field="quantity" value="${groovy: quantity ?: 1}" type="BigDecimal"/>
+                <wf:set field="quantity" value="${groovy: (quantity != null) ? quantity : 1}" type="BigDecimal"/>
                 <wf:set field="total" value="${groovy: quantity * amount ?: 0}" type="BigDecimal"/>
             </wf:row-actions>
             <wf:auto-fields-entity entity-name="InvoiceItem" default-field-type="display"/>
