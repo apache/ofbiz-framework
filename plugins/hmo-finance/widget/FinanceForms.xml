@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form"
+        xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <!-- ================================================================ -->
+    <!--  Premium Invoice Grid                                            -->
+    <!-- ================================================================ -->
+    <grid name="PremiumInvoiceGrid" list-name="premiumInvoiceList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="premiumInvoiceId" title="${uiLabelMap.HmoPremiumInvoiceId}">
+            <hyperlink description="${premiumInvoiceId}" target="viewPremiumInvoice">
+                <parameter param-name="premiumInvoiceId"/>
+            </hyperlink>
+        </field>
+        <field name="sponsorPartyId"        title="${uiLabelMap.HmoSponsorPartyId}"><display/></field>
+        <field name="billingPeriodFromDate" title="${uiLabelMap.HmoBillingPeriodFrom}"><display type="date"/></field>
+        <field name="billingPeriodThruDate" title="${uiLabelMap.HmoBillingPeriodThru}"><display type="date"/></field>
+        <field name="enrolleeCount"         title="${uiLabelMap.HmoEnrolleeCount}"><display/></field>
+        <field name="totalAmount"           title="${uiLabelMap.HmoTotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="statusId"              title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Create Premium Invoice Form                                     -->
+    <!-- ================================================================ -->
+    <form name="CreatePremiumInvoiceForm" type="single" target="createPremiumInvoice">
+        <field name="sponsorPolicyId" title="${uiLabelMap.HmoSponsorPolicy}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="HmoSponsorPolicy" description="${sponsorPolicyId} - ${description}" key-field-name="sponsorPolicyId">
+                    <entity-order-by field-name="fromDate"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="billingPeriodFromDate" title="${uiLabelMap.HmoBillingPeriodFrom}">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="billingPeriodThruDate" title="${uiLabelMap.HmoBillingPeriodThru}">
+            <date-time type="timestamp"/>
+        </field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoNewPremiumInvoice}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Premium Invoice Detail Form (read-only)                         -->
+    <!-- ================================================================ -->
+    <form name="PremiumInvoiceDetailForm" type="single" map-name="premiumInvoice">
+        <field name="premiumInvoiceId"       title="${uiLabelMap.HmoPremiumInvoiceId}"><display/></field>
+        <field name="sponsorPolicyId"        title="${uiLabelMap.HmoSponsorPolicy}"><display/></field>
+        <field name="sponsorPartyId"         title="${uiLabelMap.HmoSponsorPartyId}"><display/></field>
+        <field name="billingPeriodFromDate"  title="${uiLabelMap.HmoBillingPeriodFrom}"><display type="date"/></field>
+        <field name="billingPeriodThruDate"  title="${uiLabelMap.HmoBillingPeriodThru}"><display type="date"/></field>
+        <field name="invoiceDate"            title="${uiLabelMap.HmoInvoiceDate}"><display type="date"/></field>
+        <field name="dueDate"                title="${uiLabelMap.HmoDueDate}"><display type="date"/></field>
+        <field name="enrolleeCount"          title="${uiLabelMap.HmoEnrolleeCount}"><display/></field>
+        <field name="premiumAmount"          title="${uiLabelMap.HmoPremium}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalAmount"            title="${uiLabelMap.HmoTotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="paidAmount"             title="${uiLabelMap.HmoPaidAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="currencyUomId"          title="${uiLabelMap.HmoCurrency}"><display/></field>
+        <field name="statusId"               title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Mark Invoice Paid Form                                          -->
+    <!-- ================================================================ -->
+    <form name="MarkInvoicePaidForm" type="single" target="markPremiumInvoicePaid">
+        <field name="premiumInvoiceId"><hidden/></field>
+        <field name="paidAmount"  title="${uiLabelMap.HmoPaidAmount}"><text size="20"/></field>
+        <field name="paymentDate" title="${uiLabelMap.HmoInvoiceDate}"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoMarkPaid}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Claim Payment Grid                                              -->
+    <!-- ================================================================ -->
+    <grid name="ClaimPaymentGrid" list-name="claimPaymentList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="claimPaymentId"  title="${uiLabelMap.HmoClaimPaymentId}">
+            <hyperlink description="${claimPaymentId}" target="claimPaymentList">
+                <parameter param-name="claimPaymentId"/>
+            </hyperlink>
+        </field>
+        <field name="providerPartyId" title="${uiLabelMap.HmoProviderPartyId}"><display/></field>
+        <field name="paymentDate"     title="${uiLabelMap.HmoPaymentDate}"><display type="date"/></field>
+        <field name="totalAmount"     title="${uiLabelMap.HmoTotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="statusId"        title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Create Claim Payment Form                                       -->
+    <!-- ================================================================ -->
+    <form name="CreateClaimPaymentForm" type="single" target="createClaimPayment">
+        <field name="providerPartyId" title="${uiLabelMap.HmoProviderPartyId}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="claimIds" title="${uiLabelMap.HmoClaimIds}">
+            <textarea rows="4" cols="60"/>
+        </field>
+        <field name="paymentMethod" title="${uiLabelMap.HmoPaymentMethod}">
+            <drop-down allow-empty="false">
+                <option key="BANK_TRANSFER" description="Bank Transfer"/>
+                <option key="CHEQUE"        description="Cheque"/>
+                <option key="MOBILE_MONEY"  description="Mobile Money"/>
+            </drop-down>
+        </field>
+        <field name="referenceNumber" title="${uiLabelMap.HmoReferenceNumber}"><text size="40"/></field>
+        <field name="paymentDate"     title="${uiLabelMap.HmoPaymentDate}"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoNewClaimPayment}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Capitation Grid                                                 -->
+    <!-- ================================================================ -->
+    <grid name="CapitationGrid" list-name="capitationList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="capitationScheduleId"      title="${uiLabelMap.HmoCapitationScheduleId}">
+            <hyperlink description="${capitationScheduleId}" target="editCapitation">
+                <parameter param-name="capitationScheduleId"/>
+            </hyperlink>
+        </field>
+        <field name="providerPartyId"           title="${uiLabelMap.HmoProviderPartyId}"><display/></field>
+        <field name="planTierEnumId"            title="${uiLabelMap.HmoPlanTier}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="capitationAmountPerMember" title="${uiLabelMap.HmoCapitationPerMember}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="fromDate"                  title="${uiLabelMap.HmoEffectiveFrom}"><display type="date"/></field>
+        <field name="thruDate"                  title="${uiLabelMap.HmoEffectiveTo}"><display type="date"/></field>
+    </grid>
+
+    <!-- ================================================================ -->
+    <!--  Create Capitation Schedule Form                                 -->
+    <!-- ================================================================ -->
+    <form name="CreateCapitationForm" type="single" target="createCapitationSchedule">
+        <field name="providerPartyId" title="${uiLabelMap.HmoProviderPartyId}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="planTierEnumId" title="${uiLabelMap.HmoPlanTier}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="HMO_PLAN_TIER"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="capitationAmountPerMember" title="${uiLabelMap.HmoCapitationPerMember}"><text size="20"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.HmoCurrency}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Uom" description="${abbreviation} - ${description}" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"    title="${uiLabelMap.HmoEffectiveFrom}"><date-time type="timestamp"/></field>
+        <field name="description" title="${uiLabelMap.HmoDescription}"><text size="60"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoNewCapitation}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Edit Capitation Schedule Form                                   -->
+    <!-- ================================================================ -->
+    <form name="EditCapitationForm" type="single" target="updateCapitationSchedule" map-name="capitationSchedule">
+        <field name="capitationScheduleId"><hidden/></field>
+        <field name="capitationAmountPerMember" title="${uiLabelMap.HmoCapitationPerMember}"><text size="20"/></field>
+        <field name="thruDate"    title="${uiLabelMap.HmoEffectiveTo}"><date-time type="timestamp"/></field>
+        <field name="description" title="${uiLabelMap.HmoDescription}"><text size="60"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoEditCapitation}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Report Filter Form                                              -->
+    <!-- ================================================================ -->
+    <form name="ReportFilterForm" type="single" target="financialReport">
+        <field name="reportFromDate" title="${uiLabelMap.HmoReportFromDate}"><date-time type="timestamp"/></field>
+        <field name="reportThruDate" title="${uiLabelMap.HmoReportThruDate}"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="">
+            <submit button-type="button" text="${uiLabelMap.HmoFinancialReport}"/>
+        </field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Report Summary Form (read-only)                                 -->
+    <!-- ================================================================ -->
+    <form name="ReportSummaryForm" type="single">
+        <field name="totalPremiumCollected" title="${uiLabelMap.HmoTotalPremiumCollected}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalClaimsPaid"       title="${uiLabelMap.HmoTotalClaimsPaid}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="totalCapitationPaid"   title="${uiLabelMap.HmoTotalCapitationPaid}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="netSurplus"            title="${uiLabelMap.HmoNetSurplus}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="currencyUomId"         title="${uiLabelMap.HmoCurrency}"><display/></field>
+    </form>
+
+    <!-- ================================================================ -->
+    <!--  Claim Payment Report Grid                                       -->
+    <!-- ================================================================ -->
+    <grid name="ClaimPaymentReportGrid" list-name="claimPaymentList" type="list"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="claimPaymentId"  title="${uiLabelMap.HmoClaimPaymentId}"><display/></field>
+        <field name="providerPartyId" title="${uiLabelMap.HmoProviderPartyId}"><display/></field>
+        <field name="paymentDate"     title="${uiLabelMap.HmoPaymentDate}"><display type="date"/></field>
+        <field name="totalAmount"     title="${uiLabelMap.HmoTotalAmount}"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="statusId"        title="${uiLabelMap.HmoStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </grid>
+
+</forms>

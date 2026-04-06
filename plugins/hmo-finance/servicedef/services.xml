@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-finance Service Definitions
+
+    Premium invoicing:
+        createPremiumInvoice, markPremiumInvoicePaid
+    Claim payments:
+        createClaimPayment
+    Capitation:
+        createCapitationSchedule, updateCapitationSchedule
+    Reporting:
+        generateHmoFinancialReport
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>HMO Finance Services</description>
+    <vendor>HMO</vendor>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  Premium Invoice                                                 -->
+    <!-- ================================================================ -->
+
+    <service name="createPremiumInvoice" engine="groovy" auth="true"
+            location="component://hmo-finance/src/main/groovy/org/apache/ofbiz/hmo/finance/FinanceServices.groovy"
+            invoke="createPremiumInvoice">
+        <description>Create a premium invoice for a sponsor policy period.
+            Counts active enrollments and calculates total amount.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <attribute name="sponsorPolicyId"       mode="IN" type="String"    optional="false"/>
+        <attribute name="billingPeriodFromDate"  mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="billingPeriodThruDate"  mode="IN" type="Timestamp" optional="false"/>
+        <!-- Outputs -->
+        <attribute name="premiumInvoiceId"  mode="OUT" type="String"/>
+        <attribute name="totalAmount"       mode="OUT" type="BigDecimal"/>
+    </service>
+
+    <service name="markPremiumInvoicePaid" engine="groovy" auth="true"
+            location="component://hmo-finance/src/main/groovy/org/apache/ofbiz/hmo/finance/FinanceServices.groovy"
+            invoke="markPremiumInvoicePaid">
+        <description>Transition a premium invoice from PENDING to PAID status
+            and record the amount received.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <attribute name="premiumInvoiceId" mode="IN" type="String"    optional="false"/>
+        <attribute name="paidAmount"       mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="paymentDate"      mode="IN" type="Timestamp" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Claim Payments                                                  -->
+    <!-- ================================================================ -->
+
+    <service name="createClaimPayment" engine="groovy" auth="true"
+            location="component://hmo-finance/src/main/groovy/org/apache/ofbiz/hmo/finance/FinanceServices.groovy"
+            invoke="createClaimPayment">
+        <description>Create a claim payment batch for a provider covering
+            one or more approved claims. Updates each claim to PAID status.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <attribute name="providerPartyId"  mode="IN" type="String"    optional="false"/>
+        <attribute name="claimIds"         mode="IN" type="java.util.List" optional="false"/>
+        <attribute name="paymentMethod"    mode="IN" type="String"    optional="false"/>
+        <attribute name="referenceNumber"  mode="IN" type="String"    optional="true"/>
+        <attribute name="paymentDate"      mode="IN" type="Timestamp" optional="true"/>
+        <!-- Outputs -->
+        <attribute name="claimPaymentId" mode="OUT" type="String"/>
+        <attribute name="totalAmount"    mode="OUT" type="BigDecimal"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Capitation Schedule                                             -->
+    <!-- ================================================================ -->
+
+    <service name="createCapitationSchedule" default-entity-name="HmoCapitationSchedule"
+            engine="entity-auto" invoke="create" auth="true">
+        <description>Create a capitation schedule for a primary-care provider.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="providerPartyId"           optional="false"/>
+        <override name="planTierEnumId"            optional="false"/>
+        <override name="capitationAmountPerMember" optional="false"/>
+        <override name="currencyUomId"             optional="false"/>
+        <override name="fromDate"                  optional="false"/>
+    </service>
+
+    <service name="updateCapitationSchedule" default-entity-name="HmoCapitationSchedule"
+            engine="entity-auto" invoke="update" auth="true">
+        <description>Update an existing capitation schedule (e.g., close with thruDate
+            or adjust the per-member rate).</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+
+    <!-- ================================================================ -->
+    <!--  Financial Reporting                                             -->
+    <!-- ================================================================ -->
+
+    <service name="generateHmoFinancialReport" engine="groovy" auth="true"
+            location="component://hmo-finance/src/main/groovy/org/apache/ofbiz/hmo/finance/FinanceServices.groovy"
+            invoke="generateHmoFinancialReport">
+        <description>Generate a financial summary for the given period:
+            total premiums collected, total claims paid, total capitation paid,
+            and net surplus.</description>
+        <permission-service service-name="hmoPermissionCheck" main-action="VIEW"/>
+        <attribute name="reportFromDate"  mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="reportThruDate"  mode="IN" type="Timestamp" optional="false"/>
+        <!-- Outputs -->
+        <attribute name="totalPremiumCollected" mode="OUT" type="BigDecimal"/>
+        <attribute name="totalClaimsPaid"       mode="OUT" type="BigDecimal"/>
+        <attribute name="totalCapitationPaid"   mode="OUT" type="BigDecimal"/>
+        <attribute name="netSurplus"            mode="OUT" type="BigDecimal"/>
+        <attribute name="currencyUomId"         mode="OUT" type="String"/>
+        <attribute name="claimPaymentList"      mode="OUT" type="java.util.List"/>
+    </service>
+
+</services>

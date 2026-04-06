@@ -13,6 +13,8 @@ framework/*/build
 !/plugins/hmo-sponsor/**
 !/plugins/hmo-hr
 !/plugins/hmo-hr/**
+!/plugins/hmo-finance
+!/plugins/hmo-finance/**
 runtime/git-rebase/*
 runtime/SvnInfo.ftl
 runtime/GitInfo.ftl

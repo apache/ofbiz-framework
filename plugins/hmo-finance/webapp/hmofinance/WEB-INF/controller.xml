@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf"
+        xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>HMO Finance &amp; Accounting Controller</description>
+
+    <request-map uri="view">
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="main"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Premium Invoice management                                       -->
+    <!-- ================================================================ -->
+
+    <request-map uri="premiumInvoiceList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="premiumInvoiceList"/>
+    </request-map>
+
+    <request-map uri="newPremiumInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newPremiumInvoice"/>
+    </request-map>
+
+    <request-map uri="createPremiumInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPremiumInvoice"/>
+        <response name="success" type="view" value="premiumInvoiceList"/>
+        <response name="error"   type="view" value="newPremiumInvoice"/>
+    </request-map>
+
+    <request-map uri="viewPremiumInvoice">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewPremiumInvoice"/>
+    </request-map>
+
+    <request-map uri="markPremiumInvoicePaid">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="markPremiumInvoicePaid"/>
+        <response name="success" type="view" value="premiumInvoiceList"/>
+        <response name="error"   type="view" value="viewPremiumInvoice"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Claim Payment management                                         -->
+    <!-- ================================================================ -->
+
+    <request-map uri="claimPaymentList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="claimPaymentList"/>
+    </request-map>
+
+    <request-map uri="newClaimPayment">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newClaimPayment"/>
+    </request-map>
+
+    <request-map uri="createClaimPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createClaimPayment"/>
+        <response name="success" type="view" value="claimPaymentList"/>
+        <response name="error"   type="view" value="newClaimPayment"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Capitation Schedule management                                   -->
+    <!-- ================================================================ -->
+
+    <request-map uri="capitationList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="capitationList"/>
+    </request-map>
+
+    <request-map uri="newCapitation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newCapitation"/>
+    </request-map>
+
+    <request-map uri="createCapitationSchedule">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCapitationSchedule"/>
+        <response name="success" type="view" value="capitationList"/>
+        <response name="error"   type="view" value="newCapitation"/>
+    </request-map>
+
+    <request-map uri="editCapitation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editCapitation"/>
+    </request-map>
+
+    <request-map uri="updateCapitationSchedule">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCapitationSchedule"/>
+        <response name="success" type="view" value="capitationList"/>
+        <response name="error"   type="view" value="editCapitation"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  Financial Report                                                 -->
+    <!-- ================================================================ -->
+
+    <request-map uri="financialReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="financialReport"/>
+    </request-map>
+
+    <!-- ================================================================ -->
+    <!--  View Mappings                                                    -->
+    <!-- ================================================================ -->
+
+    <view-map name="main"               type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#FinanceDashboard"/>
+    <view-map name="premiumInvoiceList" type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#PremiumInvoiceList"/>
+    <view-map name="newPremiumInvoice"  type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#NewPremiumInvoice"/>
+    <view-map name="viewPremiumInvoice" type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#ViewPremiumInvoice"/>
+    <view-map name="claimPaymentList"   type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#ClaimPaymentList"/>
+    <view-map name="newClaimPayment"    type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#NewClaimPayment"/>
+    <view-map name="capitationList"     type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#CapitationList"/>
+    <view-map name="newCapitation"      type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#NewCapitation"/>
+    <view-map name="editCapitation"     type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#EditCapitation"/>
+    <view-map name="financialReport"    type="screen" page="component://hmo-finance/widget/FinanceScreens.xml#FinancialReport"/>
+
+</site-conf>

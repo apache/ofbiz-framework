@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+
+    <property key="HmoFinanceAppTitle">
+        <value xml:lang="en">HMO Finance &amp; Accounting</value>
+    </property>
+    <property key="HmoFinanceDashboard">
+        <value xml:lang="en">Finance Dashboard</value>
+    </property>
+    <property key="HmoPendingInvoices">
+        <value xml:lang="en">Pending Invoices</value>
+    </property>
+    <property key="HmoPendingPayments">
+        <value xml:lang="en">Pending Payments</value>
+    </property>
+    <property key="HmoMonthlyRevenue">
+        <value xml:lang="en">Monthly Revenue</value>
+    </property>
+    <property key="HmoPremiumInvoiceList">
+        <value xml:lang="en">Premium Invoices</value>
+    </property>
+    <property key="HmoNewPremiumInvoice">
+        <value xml:lang="en">New Premium Invoice</value>
+    </property>
+    <property key="HmoViewPremiumInvoice">
+        <value xml:lang="en">View Premium Invoice</value>
+    </property>
+    <property key="HmoMarkPaid">
+        <value xml:lang="en">Mark Invoice Paid</value>
+    </property>
+    <property key="HmoClaimPaymentList">
+        <value xml:lang="en">Claim Payments</value>
+    </property>
+    <property key="HmoNewClaimPayment">
+        <value xml:lang="en">New Claim Payment</value>
+    </property>
+    <property key="HmoCapitationList">
+        <value xml:lang="en">Capitation Schedules</value>
+    </property>
+    <property key="HmoNewCapitation">
+        <value xml:lang="en">New Capitation Schedule</value>
+    </property>
+    <property key="HmoEditCapitation">
+        <value xml:lang="en">Edit Capitation Schedule</value>
+    </property>
+    <property key="HmoFinancialReport">
+        <value xml:lang="en">Financial Report</value>
+    </property>
+    <property key="HmoPremiumInvoiceId">
+        <value xml:lang="en">Invoice ID</value>
+    </property>
+    <property key="HmoBillingPeriodFrom">
+        <value xml:lang="en">Billing Period From</value>
+    </property>
+    <property key="HmoBillingPeriodThru">
+        <value xml:lang="en">Billing Period Thru</value>
+    </property>
+    <property key="HmoInvoiceDate">
+        <value xml:lang="en">Invoice Date</value>
+    </property>
+    <property key="HmoDueDate">
+        <value xml:lang="en">Due Date</value>
+    </property>
+    <property key="HmoEnrolleeCount">
+        <value xml:lang="en">Enrollee Count</value>
+    </property>
+    <property key="HmoTotalAmount">
+        <value xml:lang="en">Total Amount</value>
+    </property>
+    <property key="HmoPaidAmount">
+        <value xml:lang="en">Paid Amount</value>
+    </property>
+    <property key="HmoPaymentMethod">
+        <value xml:lang="en">Payment Method</value>
+    </property>
+    <property key="HmoReferenceNumber">
+        <value xml:lang="en">Reference Number</value>
+    </property>
+    <property key="HmoCapitationScheduleId">
+        <value xml:lang="en">Capitation Schedule ID</value>
+    </property>
+    <property key="HmoCapitationPerMember">
+        <value xml:lang="en">Capitation Amount Per Member</value>
+    </property>
+    <property key="HmoTotalPremiumCollected">
+        <value xml:lang="en">Total Premium Collected</value>
+    </property>
+    <property key="HmoTotalClaimsPaid">
+        <value xml:lang="en">Total Claims Paid</value>
+    </property>
+    <property key="HmoTotalCapitationPaid">
+        <value xml:lang="en">Total Capitation Paid</value>
+    </property>
+    <property key="HmoNetSurplus">
+        <value xml:lang="en">Net Surplus</value>
+    </property>
+    <property key="HmoReportFromDate">
+        <value xml:lang="en">Report From Date</value>
+    </property>
+    <property key="HmoReportThruDate">
+        <value xml:lang="en">Report Thru Date</value>
+    </property>
+    <property key="HmoActions">
+        <value xml:lang="en">Actions</value>
+    </property>
+
+    <!-- Shared field labels -->
+    <property key="HmoDashboard">
+        <value xml:lang="en">Dashboard</value>
+    </property>
+    <property key="HmoStatus">
+        <value xml:lang="en">Status</value>
+    </property>
+    <property key="HmoCurrency">
+        <value xml:lang="en">Currency</value>
+    </property>
+    <property key="HmoSponsorPolicy">
+        <value xml:lang="en">Sponsor Policy</value>
+    </property>
+    <property key="HmoSponsorPartyId">
+        <value xml:lang="en">Sponsor</value>
+    </property>
+    <property key="HmoProviderPartyId">
+        <value xml:lang="en">Provider</value>
+    </property>
+    <property key="HmoClaimPaymentId">
+        <value xml:lang="en">Payment ID</value>
+    </property>
+    <property key="HmoPaymentDate">
+        <value xml:lang="en">Payment Date</value>
+    </property>
+    <property key="HmoClaimIds">
+        <value xml:lang="en">Claim IDs (comma-separated)</value>
+    </property>
+    <property key="HmoPlanTier">
+        <value xml:lang="en">Plan Tier</value>
+    </property>
+    <property key="HmoPremium">
+        <value xml:lang="en">Premium Amount</value>
+    </property>
+    <property key="HmoEffectiveFrom">
+        <value xml:lang="en">Effective From</value>
+    </property>
+    <property key="HmoEffectiveTo">
+        <value xml:lang="en">Effective To</value>
+    </property>
+    <property key="HmoDescription">
+        <value xml:lang="en">Description</value>
+    </property>
+    <property key="HmoNoPermission">
+        <value xml:lang="en">You do not have permission to view this page.</value>
+    </property>
+
+</resource>

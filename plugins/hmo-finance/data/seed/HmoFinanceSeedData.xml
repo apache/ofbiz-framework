@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    hmo-finance Seed Data
+
+    Provides:
+      - SecurityPermissions: HMO_FINANCE_VIEW, HMO_FINANCE_MGMT
+      - SecurityGroup: HMO_FINANCE_GRP (HMO Finance Officer)
+      - StatusType + StatusItems for HMO_INVOICE_STATUS
+      - StatusValidChange rules for invoice status machine
+      - StatusType + StatusItems for HMO_PAYMENT_STATUS
+      - StatusValidChange rules for payment status machine
+-->
+<entity-engine-xml>
+
+    <!-- ============================================================ -->
+    <!--  Security Permissions                                        -->
+    <!-- ============================================================ -->
+
+    <SecurityPermission permissionId="HMO_FINANCE_VIEW"
+        description="HMO Finance view permission"/>
+    <SecurityPermission permissionId="HMO_FINANCE_MGMT"
+        description="HMO Finance management permission"/>
+
+    <!-- ============================================================ -->
+    <!--  Security Group: HMO Finance Officer                        -->
+    <!-- ============================================================ -->
+
+    <SecurityGroup groupId="HMO_FINANCE_GRP" description="HMO Finance Officer"/>
+
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="HMO_VIEW"/>
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="HMO_FINANCE_VIEW"/>
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="HMO_FINANCE_MGMT"/>
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="HMO_CLAIM_VIEW"/>
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="HMO_CLAIM_APPROVE"/>
+    <SecurityGroupPermission groupId="HMO_FINANCE_GRP" permissionId="HMO_REPORT_VIEW"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO Premium Invoice Status                                 -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_INVOICE_STATUS" description="HMO Premium Invoice Status"/>
+
+    <StatusItem statusId="HMO_INV_DRAFT"     statusTypeId="HMO_INVOICE_STATUS" sequenceId="01" description="Draft"/>
+    <StatusItem statusId="HMO_INV_PENDING"   statusTypeId="HMO_INVOICE_STATUS" sequenceId="02" description="Pending Payment"/>
+    <StatusItem statusId="HMO_INV_PAID"      statusTypeId="HMO_INVOICE_STATUS" sequenceId="03" description="Paid"/>
+    <StatusItem statusId="HMO_INV_OVERDUE"   statusTypeId="HMO_INVOICE_STATUS" sequenceId="04" description="Overdue"/>
+    <StatusItem statusId="HMO_INV_CANCELLED" statusTypeId="HMO_INVOICE_STATUS" sequenceId="05" description="Cancelled"/>
+
+    <!-- Valid status transitions for invoice -->
+    <StatusValidChange statusId="HMO_INV_DRAFT"    statusIdTo="HMO_INV_PENDING"   transitionName="Submit for Payment"/>
+    <StatusValidChange statusId="HMO_INV_PENDING"  statusIdTo="HMO_INV_PAID"      transitionName="Mark Paid"/>
+    <StatusValidChange statusId="HMO_INV_PENDING"  statusIdTo="HMO_INV_OVERDUE"   transitionName="Mark Overdue"/>
+    <StatusValidChange statusId="HMO_INV_OVERDUE"  statusIdTo="HMO_INV_PAID"      transitionName="Mark Paid (Late)"/>
+    <StatusValidChange statusId="HMO_INV_PENDING"  statusIdTo="HMO_INV_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="HMO_INV_DRAFT"    statusIdTo="HMO_INV_CANCELLED" transitionName="Cancel Draft"/>
+
+    <!-- ============================================================ -->
+    <!--  HMO Claim Payment Status                                   -->
+    <!-- ============================================================ -->
+
+    <StatusType statusTypeId="HMO_PAYMENT_STATUS" description="HMO Claim Payment Status"/>
+
+    <StatusItem statusId="HMO_PAY_PENDING"   statusTypeId="HMO_PAYMENT_STATUS" sequenceId="01" description="Pending"/>
+    <StatusItem statusId="HMO_PAY_PROCESSED" statusTypeId="HMO_PAYMENT_STATUS" sequenceId="02" description="Processed"/>
+    <StatusItem statusId="HMO_PAY_FAILED"    statusTypeId="HMO_PAYMENT_STATUS" sequenceId="03" description="Failed"/>
+
+    <!-- Valid status transitions for claim payment -->
+    <StatusValidChange statusId="HMO_PAY_PENDING"   statusIdTo="HMO_PAY_PROCESSED" transitionName="Mark Processed"/>
+    <StatusValidChange statusId="HMO_PAY_PENDING"   statusIdTo="HMO_PAY_FAILED"    transitionName="Mark Failed"/>
+    <StatusValidChange statusId="HMO_PAY_FAILED"    statusIdTo="HMO_PAY_PENDING"   transitionName="Retry Payment"/>
+
+</entity-engine-xml>

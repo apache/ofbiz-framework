@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>HMO Finance Entity Model</title>
+    <description>Entity definitions for the HMO Finance plugin: premium invoices,
+        claim payment batches, capitation schedules.</description>
+    <version>1.0</version>
+
+    <!-- ================================================================ -->
+    <!--  HmoPremiumInvoice                                               -->
+    <!--  Monthly or annual premium invoice sent to a corporate sponsor.  -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoPremiumInvoice"
+            package-name="org.apache.ofbiz.hmo.finance"
+            title="HMO Premium Invoice">
+        <field name="premiumInvoiceId"       type="id"/>
+        <field name="sponsorPolicyId"        type="id">
+            <description>FK to HmoSponsorPolicy (defined in hmo-sponsor)</description>
+        </field>
+        <field name="sponsorPartyId"         type="id">
+            <description>The billed sponsor party</description>
+        </field>
+        <field name="billingPeriodFromDate"  type="date-time"/>
+        <field name="billingPeriodThruDate"  type="date-time"/>
+        <field name="invoiceDate"            type="date-time"/>
+        <field name="dueDate"               type="date-time"/>
+        <field name="enrolleeCount"         type="numeric-long"/>
+        <field name="premiumAmount"         type="currency-amount">
+            <description>Per-enrollee premium amount</description>
+        </field>
+        <field name="totalAmount"           type="currency-amount">
+            <description>premiumAmount x enrolleeCount</description>
+        </field>
+        <field name="paidAmount"            type="currency-amount" optional="true"/>
+        <field name="currencyUomId"         type="id-vlong"/>
+        <field name="statusId"             type="id">
+            <description>HMO_INVOICE_STATUS state machine</description>
+        </field>
+        <field name="ofbizInvoiceId"        type="id" optional="true">
+            <description>Links to OFBiz core Invoice entity if integrated</description>
+        </field>
+
+        <prim-key field="premiumInvoiceId"/>
+
+        <relation type="one" fk-name="PRIMINV_SPONPOL" rel-entity-name="HmoSponsorPolicy">
+            <key-map field-name="sponsorPolicyId"/>
+        </relation>
+        <relation type="one" fk-name="PRIMINV_PARTY" rel-entity-name="Party">
+            <key-map field-name="sponsorPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PRIMINV_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="PRIMINV_INV" rel-entity-name="Invoice" title="OfbizInvoice">
+            <key-map field-name="ofbizInvoiceId" rel-field-name="invoiceId"/>
+        </relation>
+        <relation type="one" fk-name="PRIMINV_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoClaimPayment                                                 -->
+    <!--  A payment batch disbursed to a provider covering one or more    -->
+    <!--  approved claims.                                                -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoClaimPayment"
+            package-name="org.apache.ofbiz.hmo.finance"
+            title="HMO Claim Payment">
+        <field name="claimPaymentId"   type="id"/>
+        <field name="providerPartyId"  type="id">
+            <description>The provider party receiving the payment</description>
+        </field>
+        <field name="paymentDate"      type="date-time"/>
+        <field name="paymentMethod"    type="short-varchar">
+            <description>BANK_TRANSFER, CHEQUE, MOBILE_MONEY</description>
+        </field>
+        <field name="totalAmount"      type="currency-amount"/>
+        <field name="currencyUomId"    type="id-vlong"/>
+        <field name="referenceNumber"  type="id-long" optional="true">
+            <description>Bank reference or cheque number</description>
+        </field>
+        <field name="statusId"        type="id">
+            <description>HMO_PAYMENT_STATUS state machine</description>
+        </field>
+        <field name="notes"           type="very-long" optional="true"/>
+
+        <prim-key field="claimPaymentId"/>
+
+        <relation type="one" fk-name="CLMPAY_PARTY" rel-entity-name="Party">
+            <key-map field-name="providerPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="CLMPAY_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="CLMPAY_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="many" fk-name="CLMPAY_ITEMS" rel-entity-name="HmoClaimPaymentItem">
+            <key-map field-name="claimPaymentId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoClaimPaymentItem                                             -->
+    <!--  Line-level record linking a claim to a payment batch.           -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoClaimPaymentItem"
+            package-name="org.apache.ofbiz.hmo.finance"
+            title="HMO Claim Payment Item">
+        <field name="claimPaymentId"  type="id"/>
+        <field name="claimId"         type="id">
+            <description>FK to HmoClaim (defined in hmo-provider)</description>
+        </field>
+        <field name="allocatedAmount" type="currency-amount"/>
+
+        <prim-key field="claimPaymentId"/>
+        <prim-key field="claimId"/>
+
+        <relation type="one" fk-name="CLMPAYITM_PAY" rel-entity-name="HmoClaimPayment">
+            <key-map field-name="claimPaymentId"/>
+        </relation>
+        <relation type="one" fk-name="CLMPAYITM_CLM" rel-entity-name="HmoClaim">
+            <key-map field-name="claimId"/>
+        </relation>
+    </entity>
+
+    <!-- ================================================================ -->
+    <!--  HmoCapitationSchedule                                           -->
+    <!--  Fixed monthly capitation fee paid to a primary-care provider.   -->
+    <!-- ================================================================ -->
+
+    <entity entity-name="HmoCapitationSchedule"
+            package-name="org.apache.ofbiz.hmo.finance"
+            title="HMO Capitation Schedule">
+        <field name="capitationScheduleId"      type="id"/>
+        <field name="providerPartyId"           type="id">
+            <description>The primary-care provider receiving capitation payments</description>
+        </field>
+        <field name="planTierEnumId"            type="id">
+            <description>HMO_PLAN_TIER enumeration (Bronze/Silver/Gold/Platinum)</description>
+        </field>
+        <field name="capitationAmountPerMember" type="currency-amount"/>
+        <field name="currencyUomId"            type="id-vlong"/>
+        <field name="fromDate"                 type="date-time"/>
+        <field name="thruDate"                 type="date-time" optional="true"/>
+        <field name="description"              type="description" optional="true"/>
+
+        <prim-key field="capitationScheduleId"/>
+
+        <relation type="one" fk-name="CAPSCHED_PARTY" rel-entity-name="Party">
+            <key-map field-name="providerPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="CAPSCHED_TIER" rel-entity-name="Enumeration">
+            <key-map field-name="planTierEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="CAPSCHED_CURR" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
+
+</entitymodel>
