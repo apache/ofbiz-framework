@@ -544,7 +544,7 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
     /**
      * Checks that the given file is within the provided context root directory.
      */
-    private static void checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
+    static void checkContextFileBoundary(File file, String contextRoot) throws GeneralException {
         try {
             String canonicalAllowed = new File(contextRoot).getCanonicalPath();
             String canonicalFilePath = file.getCanonicalPath();
@@ -1285,10 +1285,10 @@ public class DataResourceWorker implements org.apache.ofbiz.widget.content.DataR
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
+            checkContextFileBoundary(file, rootDir);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + file.getAbsolutePath());
             }
-            checkContextFileBoundary(file, rootDir);
             try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 if (Debug.infoOn()) {
                     String enc = in.getEncoding();
