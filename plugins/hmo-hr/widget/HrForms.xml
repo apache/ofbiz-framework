@@ -197,7 +197,7 @@ under the License.
     <!-- ================================================================ -->
     <grid name="GradeLevelGrid" list-name="gradeLevelList" type="list"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="gradeLevelId" title="${uiLabelMap.HmoStaffPositionId}">
+        <field name="gradeLevelId" title="${uiLabelMap.HmoGradeLevel}">
             <hyperlink description="${gradeLevelId}" target="editGradeLevel">
                 <parameter param-name="gradeLevelId"/>
             </hyperlink>
